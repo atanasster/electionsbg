@@ -4,42 +4,66 @@
     "declarantName": "МАРИЕЛА НИКОЛАЕВА КИРОВА",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12460",
-    "controlHash": "D9C5112A",
-    "sourceUrl": "https://register.cacbg.bg/2025/A699A220-D236-4875-8634-EA7F5FC6F406215629.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "10",
-        "companyName": "\"ФЕМИЛИ КЕЪР\" ООД",
-        "registeredOffice": "Бургас",
-        "valueEur": 5.112918811962185,
-        "holderName": "МАРИЕЛА НИКОЛАЕВА КИРОВА",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11769",
+    "controlHash": "F62EA3B1",
+    "sourceUrl": "https://register.cacbg.bg/2026/A699A220-D236-4875-8634-EA7F5FC6F406236748.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15925.719515499813,
+        "amountEurDeclarant": 1372.8187010118465,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1068.0887398189004,
+        "amountEurDeclarant": 7055.827960507815,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "НИСАН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "НИСАН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "ХОНДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

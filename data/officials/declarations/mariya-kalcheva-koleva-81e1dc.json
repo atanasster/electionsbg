@@ -5,6 +5,62 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13600",
+    "controlHash": "AAFEE029",
+    "sourceUrl": "https://register.cacbg.bg/2026/857F6D52-25ED-4543-B76C-D8CA48CAFFCB239146.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31485.86533594433,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи придобити от пенсиониране",
+        "amountEurDeclarant": 21953.339502922034,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 10729.460126902644,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46232,
+        "valueEur": 23638.046251463573,
+        "holderName": "Мария Калчева Колева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-kalcheva-koleva-81e1dc",
+    "declarantName": "Мария Калчева Колева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

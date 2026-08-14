@@ -4,29 +4,47 @@
     "declarantName": "Симеон Георгиев Георгиев",
     "institution": "Девня",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-10",
-    "entryNumber": "Г499",
-    "controlHash": "84308CC7",
-    "sourceUrl": "https://register.cacbg.bg/2025/B442B75A-4644-4DF6-87F4-9227523668F4202548.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1879",
+    "controlHash": "096D9B2D",
+    "sourceUrl": "https://register.cacbg.bg/2026/B442B75A-4644-4DF6-87F4-9227523668F4225847.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13486.857242193852,
-        "amountEurSpouse": 14181.702908739513
+        "amountEurDeclarant": 12857.456936441306,
+        "amountEurSpouse": 13785.451700812442
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 546.5710209987576,
-        "amountEurSpouse": 795.570167141316
+        "amountEurDeclarant": 323.64776079720633,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108259,
+        "valueEur": 55351.94776642142,
+        "holderName": "Симеон Георгиев Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "остатък от Таблица №2"
+      },
       {
         "category": "debt",
         "description": "кредит",
@@ -38,14 +56,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15358,
-        "valueEur": 7852.420711411523,
+        "amount": 3789,
+        "valueEur": 1937.2849378524718,
         "holderName": "Симеон Георгиев Георгиев",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "5.20%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 150000.2556459406,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Дачия Спринг",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

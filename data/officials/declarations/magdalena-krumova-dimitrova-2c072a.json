@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2403",
+    "controlHash": "37187E11",
+    "sourceUrl": "https://register.cacbg.bg/2026/7FED9FA9-4FA3-41FE-98F3-6034CD0DA3D5226451.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20505.360895374342,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35220,
+        "valueEur": 18007.700055730817,
+        "holderName": "Магдалена Крумова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43825,
+        "valueEur": 22407.366693424276,
+        "holderName": "Магдалена Крумова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "5,52%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "magdalena-krumova-dimitrova-2c072a",
+    "declarantName": "Магдалена Крумова Димитрова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г12359",
+    "controlHash": "22472B20",
+    "sourceUrl": "https://register.cacbg.bg/2026/5ED54A72-B856-4832-81BD-E17ACE021208237571.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17283.71075195697,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14776.84665845191,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Антон Тодоров Ковачев",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32139,
+        "valueEur": 16432.409769765265,
+        "holderName": "Антон Тодоров Ковачев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anton-todorov-kovachev-cb360d",
+    "declarantName": "Антон Тодоров Ковачев",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

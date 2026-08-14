@@ -4,20 +4,20 @@
     "declarantName": "Атанас Цветанов Атанасов",
     "institution": "Червен бряг",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13229",
-    "controlHash": "755AF8E2",
-    "sourceUrl": "https://register.cacbg.bg/2025/929F2C79-B233-4FCF-87DD-C4FD382CF2A0216428.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г14305",
+    "controlHash": "2DA38F79",
+    "sourceUrl": "https://register.cacbg.bg/2026/929F2C79-B233-4FCF-87DD-C4FD382CF2A0240051.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25490.45673703747,
-        "amountEurSpouse": 4691.614301856501
+        "amountEurDeclarant": 27847.001017470844,
+        "amountEurSpouse": 5792.425722071959
       }
     ],
     "assets": [
@@ -32,30 +32,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 97000,
-        "valueEur": 49595.31247603319,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
         "holderName": "Атанас Цветанов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "debt",
-        "description": "Ипотечен кредит-2,8%",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 84000,
-        "valueEur": 42948.518020482355,
-        "holderName": "Атанас Цветанов Атанасов",
-        "isSpouse": false,
-        "legalBasis": "заем",
-        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -68,14 +50,51 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 64500,
-        "valueEur": 32978.32633715609,
+        "amount": 55564,
+        "valueEur": 28409.422086786682,
         "holderName": "Атанас Цветанов Атанасов",
         "isSpouse": false,
-        "legalBasis": "заем-4,99",
+        "legalBasis": "заем-4,99%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с. Реселец",
+        "municipality": "Червен бряг",
+        "areaSqm": 28000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 109,
+        "builtAreaSqm": 109,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 109,
+        "builtAreaSqm": 109,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -5,6 +5,56 @@
     "institution": "РЗИ",
     "positionTitle": "Заместник-директор на РЗИ",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2302",
+    "controlHash": "856DFDBF",
+    "sourceUrl": "https://register.cacbg.bg/2026/442A4D4A-8A82-4FF4-902B-F2DE32A4FB34226334.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45891.51408864779,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 153.38756435886555,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизингови задължения за придобиване на превозно средство",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37827,
+        "valueEur": 19340.637990009356,
+        "holderName": "Искра Генчева Генева",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг, лихвен процент - 3,97",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iskra-gencheva-geneva-bdf421",
+    "declarantName": "Искра Генчева Генева",
+    "institution": "РЗИ",
+    "positionTitle": "Заместник-директор на РЗИ",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

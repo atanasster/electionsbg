@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7902",
+    "controlHash": "AE858A06",
+    "sourceUrl": "https://register.cacbg.bg/2026/B39ACCD3-A841-4D0F-9715-3920DE6AA984232363.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37988.986772879034,
+        "amountEurSpouse": 12443.821804553565
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1342.1411881400736,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11760,
+        "valueEur": 11759.713267513025,
+        "holderName": "Елена Георгиева Кисьова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 52152,
+        "valueEur": 52151.77188201428,
+        "holderName": "Елена Георгиева Кисьова",
+        "isSpouse": false,
+        "legalBasis": "Ипотека- лихвен процент 2.55",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-georgieva-kisova-f7fade",
+    "declarantName": "Елена Георгиева Кисьова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

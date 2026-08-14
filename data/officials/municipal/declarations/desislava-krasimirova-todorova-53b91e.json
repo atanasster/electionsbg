@@ -4,41 +4,29 @@
     "declarantName": "Десислава Красимирова Тодорова",
     "institution": "Видин",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8146",
-    "controlHash": "F8E65155",
-    "sourceUrl": "https://register.cacbg.bg/2025/84120332-D06E-48CF-B62E-E67A0A2FDAA1211159.xml",
+    "filedAt": null,
+    "entryNumber": "Г2613",
+    "controlHash": "0DE87B2A",
+    "sourceUrl": "https://register.cacbg.bg/2026/84120332-D06E-48CF-B62E-E67A0A2FDAA1226680.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 41551.15730917309,
+        "amountEurDeclarant": 47081.290296191386,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7362.603089225547,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 35013,
-        "valueEur": 17901.8626363232,
-        "holderName": "Десислава Красимирова Тодорова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "Ипотечен кредит",
@@ -50,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 243227,
-        "valueEur": 124359.99038771263,
+        "amount": 149895,
+        "valueEur": 76640.09653190717,
         "holderName": "Десислава Красимирова Тодорова",
         "isSpouse": false,
-        "legalBasis": "Договор за ипотечен кредит, 2.74%",
+        "legalBasis": "2.86",
         "fundsOrigin": null
       }
     ],

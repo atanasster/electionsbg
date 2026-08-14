@@ -5,6 +5,105 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12321",
+    "controlHash": "34281158",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8823546-06BF-4A17-83C9-C3DD315A01B4237524.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11394.650864338926,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 408.01092119458235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 23,
+        "builtAreaSqm": 23,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 12600,
+        "valueEur": 6442.277703072353,
+        "holderName": "Йозкан Гюрджанов Басриев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8593,
+        "valueEur": 8592.771355383647,
+        "holderName": "Йозкан Гюрджанов Басриев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6437,
+        "valueEur": 6437.164784260391,
+        "holderName": "Сибел Джемилова Басриева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Трактор",
+        "detail": "Болгар ТК82",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "iozkan-gyurdzhanov-basriev-cfe707",
+    "declarantName": "ЙОЗКАН ГЮРДЖАНОВ БАСРИЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

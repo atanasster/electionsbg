@@ -4,32 +4,32 @@
     "declarantName": "Милена Вълчева Желева-Керанова",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8037",
-    "controlHash": "22027781",
-    "sourceUrl": "https://register.cacbg.bg/2025/6AE04EED-2BB1-4465-BA08-F7B2EB692895211046.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6770",
+    "controlHash": "877869AA",
+    "sourceUrl": "https://register.cacbg.bg/2026/6AE04EED-2BB1-4465-BA08-F7B2EB692895231116.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3932.3458582801163,
-        "amountEurSpouse": 3932.3458582801163
+        "amountEurDeclarant": 3948.707198478395,
+        "amountEurSpouse": 3948.707198478395
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12457.626685345864,
+        "amountEurDeclarant": 14844.337186769812,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 9714.54574272815,
-        "amountEurSpouse": 9714.54574272815
+        "amountEurDeclarant": 7285.909307046113,
+        "amountEurSpouse": 7285.909307046113
       }
     ],
     "assets": [
@@ -98,11 +98,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 210776,
-        "valueEur": 107768.05755101415,
+        "amount": 200717,
+        "valueEur": 102624.97251806139,
         "holderName": "Милена Вълчева Желева-Керанова",
         "isSpouse": false,
-        "legalBasis": "ипотека",
+        "legalBasis": "ипотека, 2,99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1999,
+        "valueEur": 1022.0724705112408,
+        "holderName": "Стефан Георгиев Керанов",
+        "isSpouse": true,
+        "legalBasis": "кредит, 15,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20088,
+        "valueEur": 10270.831309469637,
+        "holderName": "Стефан Георгиев Керанов",
+        "isSpouse": true,
+        "legalBasis": "кредит, 5,22%",
         "fundsOrigin": null
       }
     ],

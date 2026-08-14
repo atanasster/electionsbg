@@ -4,13 +4,13 @@
     "declarantName": "Михал Руменов Сотиров",
     "institution": "Район Лозенец",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г674",
-    "controlHash": "542758D1",
-    "sourceUrl": "https://register.cacbg.bg/2025/5E2FA46C-6382-4E79-9A9F-72D6619CB1A9202839.xml",
+    "filedAt": "2025-04-21",
+    "entryNumber": "Г4607",
+    "controlHash": "CDA6F664",
+    "sourceUrl": "https://register.cacbg.bg/2026/5E2FA46C-6382-4E79-9A9F-72D6619CB1A9228820.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,20 +29,26 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35009.177689267475,
+        "amountEurDeclarant": 46404.85113736879,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4888.972967998241,
+        "amountEurDeclarant": 5606.826769197732,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 184.06507723063865
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 9744.200671837532
+        "amountEurSpouse": 9192.005440145616
       }
     ],
     "assets": [
@@ -65,22 +71,22 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 23234,
-        "valueEur": 11879.35556771294,
-        "holderName": "Емануела Емилова Симеонова",
-        "isSpouse": true,
+        "currency": "EUR",
+        "amount": 8500,
+        "valueEur": 8501.76140053072,
+        "holderName": "Михал Руменов Сотиров",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на дружествени дялове"
+        "fundsOrigin": "дарения от роднина по права линия"
       },
       {
         "category": "bank",
@@ -93,12 +99,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2772,
-        "valueEur": 1417.3010946759177,
+        "amount": 16536,
+        "valueEur": 8454.72254746067,
+        "holderName": "Михал Руменов Сотиров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33216,
+        "valueEur": 16983.071125813593,
         "holderName": "Емануела Емилова Симеонова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Продажба на дружествени дялове"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
@@ -111,11 +135,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 47541,
-        "valueEur": 24307.327323949423,
+        "amount": 37783,
+        "valueEur": 19318.14114723672,
         "holderName": "Михал Руменов Сотиров",
         "isSpouse": false,
-        "legalBasis": "Лизинг - 4.59%",
+        "legalBasis": "Лизинг -4.59%",
         "fundsOrigin": null
       },
       {
@@ -129,27 +153,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 9488,
-        "valueEur": 9487.53214747703,
+        "amount": 16095,
+        "valueEur": 16094.957128175762,
         "holderName": "Михал Руменов Сотиров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек Автомобил",
-        "detail": "Мазда",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 11248.421386316806,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

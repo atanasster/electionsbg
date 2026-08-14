@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13702",
+    "controlHash": "80F32D3C",
+    "sourceUrl": "https://register.cacbg.bg/2026/9E0023C7-AC9A-448E-899E-E6E0BF7E7F0C239289.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23768.936973049804,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47498,
+        "valueEur": 24285.341773057986,
+        "holderName": "Йорданка Димитрова Червенкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordanka-dimitrova-chervenkova-8168d2",
+    "declarantName": "Йорданка Димитрова Червенкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2024,
     "fiscalYear": null,
     "declarationType": "Other",

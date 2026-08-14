@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10580",
+    "controlHash": "951A3066",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A39DA15-049C-43EF-A539-ECFADCF6574C235343.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37681.70035228011,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Росен Милчов Цветанов",
+        "isSpouse": false,
+        "legalBasis": "портебителски кредит,4.35%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rosen-milchov-tsvetanov-d22991",
+    "declarantName": "Росен Милчов Цветанов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

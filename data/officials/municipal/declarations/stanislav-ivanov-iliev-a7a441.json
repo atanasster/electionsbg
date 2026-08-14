@@ -4,36 +4,54 @@
     "declarantName": "Станислав Иванов Илиев",
     "institution": "Район Възраждане",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9123",
-    "controlHash": "4E111474",
-    "sourceUrl": "https://register.cacbg.bg/2025/BD0FDA82-E244-439B-AEAB-737BDB79A5DB212155.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г7441",
+    "controlHash": "53E81FA9",
+    "sourceUrl": "https://register.cacbg.bg/2026/BD0FDA82-E244-439B-AEAB-737BDB79A5DB231853.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 49018.575234043856,
+        "amountEurDeclarant": 65924.95257767802,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Ситроен Ц3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Мариела Йорданова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 86495,
-        "valueEur": 44224.19126406692,
+        "currency": "EUR",
+        "amount": 48957,
+        "valueEur": 48956.70891641912,
         "holderName": "Станислав Иванов Илиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -54,7 +72,7 @@
         "valueEur": 23008.13465382983,
         "holderName": "Мариела Йорданова Илиева",
         "isSpouse": true,
-        "legalBasis": "Договпр за кредит",
+        "legalBasis": "Договор за потребителски кредит с лихвен процент 5,05%",
         "fundsOrigin": null
       },
       {
@@ -72,21 +90,21 @@
         "valueEur": 1022.5837623924369,
         "holderName": "Станислав Иванов Илиев",
         "isSpouse": false,
-        "legalBasis": "Договпр за кредит",
+        "legalBasis": "Договор за кредитна карта с лихвен процент 18,9%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
+        "description": "Лек автомобил",
+        "detail": "Опел Корса",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 10225.83762392437,
+        "valueEur": 5112.918811962185,
         "legalBasis": "възмездно"
       }
     ]

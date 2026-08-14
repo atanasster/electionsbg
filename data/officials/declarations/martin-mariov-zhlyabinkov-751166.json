@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "martin-mariov-zhlyabinkov-751166",
+    "declarantName": "Мартин Мариов Жлябинков",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г4456",
+    "controlHash": "E9816956",
+    "sourceUrl": "https://register.cacbg.bg/2026/84D8AFD9-2ED3-4571-8174-384C0A80D63C228656.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41991.890910764225,
+        "amountEurSpouse": 15013.063507564564
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2300.8134653829834,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11873,
+        "valueEur": 6070.568505442702,
+        "holderName": "Мартин Мариов Жлябинков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит- кредитопълучател Мартин Жлябинков, съдлъжник - Ивет Петрова",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 141424,
+        "valueEur": 72308.94300629401,
+        "holderName": "Мартин Мариов Жлябинков",
+        "isSpouse": false,
+        "legalBasis": "договор за ипотека, лихвен процент 2,23",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Мартин Мариов Жлябинков",
+        "isSpouse": false,
+        "legalBasis": "договор за кредитна карта, лихвен процент 18,9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

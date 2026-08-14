@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2193",
+    "controlHash": "A49C379C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E0B47ED3-B9F1-44BD-A60E-8984D286C5E8226196.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22869.574554025658,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8406.661110628225
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Шкорпиловци",
+        "municipality": "Долни чифлик",
+        "areaSqm": 111,
+        "builtAreaSqm": 111,
+        "acquiredYear": 2025,
+        "share": "1/18",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Мария Николова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Мария Николова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "1,83 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-nikolova-kostadinova-dcbee6",
+    "declarantName": "Мария Николова Костадинова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

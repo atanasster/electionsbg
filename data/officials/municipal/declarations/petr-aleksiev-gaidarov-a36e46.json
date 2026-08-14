@@ -4,44 +4,38 @@
     "declarantName": "ПЕТЪР АЛЕКСИЕВ ГАЙДАРОВ",
     "institution": "Горна Оряховица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8985",
-    "controlHash": "CF3359C2",
-    "sourceUrl": "https://register.cacbg.bg/2025/F92F24D9-1639-410D-A9B7-3519E7FAD2DE212014.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г5882",
+    "controlHash": "7CAE4E9C",
+    "sourceUrl": "https://register.cacbg.bg/2026/F92F24D9-1639-410D-A9B7-3519E7FAD2DE230157.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8247.138043695004,
-        "amountEurSpouse": 9464.012720942004
+        "amountEurDeclarant": 6963.795421892496,
+        "amountEurSpouse": 10691.113235812929
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7895.369229432006,
+        "amountEurDeclarant": 7430.604909424644,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "обезщетение за безработица",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 919.8140942719971
-      },
-      {
-        "parent": null,
-        "category": "пенсия",
-        "amountEurDeclarant": 5036.225029782752,
+        "category": "Пенсия",
+        "amountEurDeclarant": 7356.467586651192,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,16 +44,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18237,
-        "valueEur": 9324.430037375436,
+        "amount": 19956,
+        "valueEur": 10203.340781151735,
         "holderName": "Петър Алексиев Гайдаров",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "договор и 6,99% лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,11 +62,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46224,
-        "valueEur": 23633.955916414005,
+        "amount": 42098,
+        "valueEur": 21524.365614598406,
         "holderName": "Стилияна Георгиева Гайдарова",
         "isSpouse": true,
-        "legalBasis": "кредит",
+        "legalBasis": "договор и 3,5% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29653,
+        "valueEur": 15161.338153111466,
+        "holderName": "Стилияна Георгиева Гайдарова",
+        "isSpouse": true,
+        "legalBasis": "договор и 5,4% лихва",
         "fundsOrigin": null
       }
     ],

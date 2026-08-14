@@ -5,6 +5,105 @@
     "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-17",
+    "entryNumber": "Г330",
+    "controlHash": "5A9AA28B",
+    "sourceUrl": "https://register.cacbg.bg/2026/9DFE36BE-EC10-481F-8952-DF6703FC396F223507.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45000.84363160397,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 20856.107125874947,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 52267,
+        "valueEur": 26723.692754482752,
+        "holderName": "Антон Пенков Славов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 105740,
+        "valueEur": 105739.76265830875,
+        "holderName": "Антон Пенков Славов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 215183,
+        "valueEur": 215182.8124121217,
+        "holderName": "Антон Пенков Славов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гарация по ДУК",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "anton-penkov-slavov-58caa3",
+    "declarantName": "Антон Пенков Славов",
+    "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г4013",
+    "controlHash": "FD9CEC9D",
+    "sourceUrl": "https://register.cacbg.bg/2026/C489C0DD-CE2E-4DED-97AD-747C3768150F228197.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21720.190405096557,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 10079.096854021054,
+        "holderName": "Дора Кирилова Карагьозова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dora-kirilova-karagozova-7e666a",
+    "declarantName": "Дора Кирилова Карагьозова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

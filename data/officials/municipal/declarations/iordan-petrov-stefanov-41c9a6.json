@@ -4,13 +4,13 @@
     "declarantName": "Йордан Петров Стефанов",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8308",
-    "controlHash": "1E654CA7",
-    "sourceUrl": "https://register.cacbg.bg/2025/B712DDD1-31EE-433F-A126-326C6728780A211324.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12714",
+    "controlHash": "AA366026",
+    "sourceUrl": "https://register.cacbg.bg/2026/B712DDD1-31EE-433F-A126-326C6728780A238035.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -22,7 +22,7 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4514.196019081413,
+        "amountEurDeclarant": 5624.210693158403,
         "amountEurSpouse": null
       }
     ],
@@ -38,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33972,
-        "valueEur": 17369.607787997935,
+        "amount": 29146,
+        "valueEur": 14902.113169344984,
         "holderName": "Йордан Петров Стефанов",
         "isSpouse": false,
-        "legalBasis": "Ипотечен кредит, 2,86%",
+        "legalBasis": "2,84",
         "fundsOrigin": null
       },
       {
@@ -56,39 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7838,
-        "valueEur": 4007.5057648159604,
+        "amount": 6071,
+        "valueEur": 3104.0530107422423,
         "holderName": "Йордан Петров Стефанов",
         "isSpouse": false,
-        "legalBasis": "Стоков кредит",
+        "legalBasis": "12",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1278.2297029905462,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Митсубиши",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

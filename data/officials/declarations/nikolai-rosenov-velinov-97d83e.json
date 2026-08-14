@@ -5,6 +5,56 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5745",
+    "controlHash": "787341A8",
+    "sourceUrl": "https://register.cacbg.bg/2026/E74860D7-0326-4A66-ABB6-355DAF98513D230009.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14143.867309530991,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 1403.4962138836197,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20560,
+        "valueEur": 10512.161077394252,
+        "holderName": "Николай Росенов Велинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-rosenov-velinov-97d83e",
+    "declarantName": "Николай Росенов Велинов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

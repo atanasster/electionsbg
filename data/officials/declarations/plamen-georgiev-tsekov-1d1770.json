@@ -5,6 +5,104 @@
     "institution": "МБАЛ \"Д-р Стойчо Христов\" ЕООД, гр. Севлиево",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3300",
+    "controlHash": "640202A5",
+    "sourceUrl": "https://register.cacbg.bg/2026/F6523A41-7ADF-47E7-80F2-76EA8ABF86C2227423.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 84408.15408292132,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 21312.690775783172,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 46902.33813777271
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5561.321791771268,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 81807,
+        "valueEur": 81806.70099139496,
+        "holderName": "Пламен Георгиев Цеков",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 122710,
+        "valueEur": 122710.05148709244,
+        "holderName": "Полина Славчева Цекова",
+        "isSpouse": true,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7400,
+        "valueEur": 7399.92739655287,
+        "holderName": "Пламен Георгиев Цеков",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "plamen-georgiev-tsekov-1d1770",
+    "declarantName": "Пламен Георгиев Цеков",
+    "institution": "МБАЛ \"Д-р Стойчо Христов\" ЕООД, гр. Севлиево",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

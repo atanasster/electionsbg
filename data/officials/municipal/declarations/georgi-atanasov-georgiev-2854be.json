@@ -4,23 +4,42 @@
     "declarantName": "ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ",
     "institution": "Кричим",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3874",
-    "controlHash": "92CF98DC",
-    "sourceUrl": "https://register.cacbg.bg/2025/F5F7AA80-E2FF-4316-AED8-9AE1752C30AD206693.xml",
+    "filedAt": "2026-03-27",
+    "entryNumber": "Г634",
+    "controlHash": "4611752D",
+    "sourceUrl": "https://register.cacbg.bg/2026/F5F7AA80-E2FF-4316-AED8-9AE1752C30AD224110.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3626.0820214435817,
+        "amountEurDeclarant": 5076.617088397254,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ГАРАЖ",
+        "detail": null,
+        "location": "КРИЧИМ",
+        "municipality": "КРИЧИМ",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1530,
+        "valueEur": 782.2765782302143,
+        "holderName": "ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

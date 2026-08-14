@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7333",
+    "controlHash": "3BF8135E",
+    "sourceUrl": "https://register.cacbg.bg/2026/C44C9F9F-6D92-431C-9CD3-4CD15FD79E1C231740.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18609.490599898763,
+        "amountEurSpouse": 5417.6487731551315
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26358,
+        "valueEur": 13476.631404569927,
+        "holderName": "Даринка Енчева Янева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26100,
+        "valueEur": 26099.916659423365,
+        "holderName": "Красимир Стоянов Янев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "darinka-encheva-yaneva-bb4c9e",
+    "declarantName": "Даринка Енчева Янева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

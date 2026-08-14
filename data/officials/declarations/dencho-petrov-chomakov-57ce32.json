@@ -5,6 +5,74 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г1628",
+    "controlHash": "A37FDC5D",
+    "sourceUrl": "https://register.cacbg.bg/2026/969A3FD6-8BF2-4244-ACCC-1D9AE17F21A6225547.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33098.479929237204,
+        "amountEurSpouse": 11823.624752662552
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 13773.180695663734,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20402,
+        "valueEur": 10431.37696016525,
+        "holderName": "ДЕНЧО ПЕТРОВ ЧОМАКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4100,
+        "valueEur": 2096.296712904496,
+        "holderName": "ГАЛИНА КОЙЧЕВА ЧОМАКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dencho-petrov-chomakov-57ce32",
+    "declarantName": "ДЕНЧО ПЕТРОВ ЧОМАКОВ",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

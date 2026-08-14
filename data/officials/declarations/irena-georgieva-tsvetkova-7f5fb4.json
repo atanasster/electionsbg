@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6471",
+    "controlHash": "09D1B33A",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E562A25-86D9-4027-97BE-F7138EC60CD7230795.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23866.082430477087,
+        "amountEurSpouse": 7431.116201305839
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30320,
+        "valueEur": 15502.369837869344,
+        "holderName": "Ирена Георгиева Цветкова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 179280,
+        "valueEur": 91664.40846085805,
+        "holderName": "Ирена Георгиева Цветкова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "irena-georgieva-tsvetkova-7f5fb4",
+    "declarantName": "Ирена Георгиева Цветкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

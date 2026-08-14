@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4308",
+    "controlHash": "FC5958EA",
+    "sourceUrl": "https://register.cacbg.bg/2026/0A4D3675-7026-4650-A5D4-FCA50753611F228505.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24101.276695827346,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Даниела Йорданова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22941,
+        "valueEur": 11729.547046522448,
+        "holderName": "Даниела Йорданова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-iordanova-vasileva-8dc327",
+    "declarantName": "Даниела Йорданова Василева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

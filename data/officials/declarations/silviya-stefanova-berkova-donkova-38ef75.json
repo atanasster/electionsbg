@@ -5,6 +5,159 @@
     "institution": "ДА за метрологичен и технически надзор",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г6697",
+    "controlHash": "1073EB6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/154289D1-AD23-4D6F-9341-1078BD089EA9231040.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35756.68641957634,
+        "amountEurSpouse": 28472.31098817382
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 457.09494178941935
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110185,
+        "valueEur": 56336.69592960533,
+        "holderName": "Силвия Стефанова Беркова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24692,
+        "valueEur": 12624.819130497028,
+        "holderName": "Сава Димитров Донков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10327,
+        "valueEur": 10327.584708282417,
+        "holderName": "Сава Димитров Донков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "и покупко-продажба на недвижим имот"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9918.72,
+        "valueEur": 5071.361007858556,
+        "holderName": "Силвия Стефанова Беркова-Донкова",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит лихва-3,3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "с. Марково",
+        "municipality": "Родопи",
+        "areaSqm": 5920,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 39999.89774162376,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "silviya-stefanova-berkova-donkova-38ef75",
+    "declarantName": "Силвия Стефанова Беркова-Донкова",
+    "institution": "ДА за метрологичен и технически надзор",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

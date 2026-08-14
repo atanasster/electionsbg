@@ -5,6 +5,98 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7558",
+    "controlHash": "A464FE57",
+    "sourceUrl": "https://register.cacbg.bg/2026/43DEC65B-003E-4027-AD85-B1BAB26CDBC9231974.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20733.908366269054,
+        "amountEurSpouse": 99701.9168332626
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15850.048317082774
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11504.067326914916
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariela-krasimirova-hitrova-1664c6",
+    "declarantName": "Мариела Красимирова Хитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

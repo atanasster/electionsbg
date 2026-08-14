@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6118",
+    "controlHash": "6223D593",
+    "sourceUrl": "https://register.cacbg.bg/2026/2569C6A7-BBE6-442F-8F0A-F127FBC5B3FD230418.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5330.217861470578,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит ипотека",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14696,
+        "valueEur": 14696.573833104105,
+        "holderName": "Калина Любенова Дуранкева",
+        "isSpouse": false,
+        "legalBasis": "3",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "личен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18079,
+        "valueEur": 18079.280919098284,
+        "holderName": "Калина Любенова Дуранкева",
+        "isSpouse": false,
+        "legalBasis": "5,52",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kalina-lyubenova-durankeva-dc711c",
+    "declarantName": "Калина Любенова Дуранкева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

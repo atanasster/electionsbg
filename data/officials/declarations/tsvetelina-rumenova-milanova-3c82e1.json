@@ -5,6 +5,81 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г5995",
+    "controlHash": "1AC3270C",
+    "sourceUrl": "https://register.cacbg.bg/2026/8920D69E-33A1-49B6-AD34-22E5DD8C28B8230284.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25275.71414693506,
+        "amountEurSpouse": 13106.456082583865
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 145444,
+        "valueEur": 74364.3363687028,
+        "holderName": "Цветелина Руменова Миланова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот и заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Финансов лизинг на МПС марка Нисан Кашкай",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49526,
+        "valueEur": 25322.24170812392,
+        "holderName": "Цветелина Руменова Миланова",
+        "isSpouse": false,
+        "legalBasis": "договор № 0091974/А/23.09.2025 г.  и 3,9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Вила с вилно място",
+        "detail": null,
+        "location": "с.Пещера",
+        "municipality": "Земен",
+        "areaSqm": 580,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 61999.76480573465,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tsvetelina-rumenova-milanova-3c82e1",
+    "declarantName": "Цветелина Руменова Миланова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

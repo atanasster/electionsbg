@@ -4,23 +4,71 @@
     "declarantName": "Валентина Василева Караганова",
     "institution": "Дупница",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6564",
-    "controlHash": "036FBF86",
-    "sourceUrl": "https://register.cacbg.bg/2025/2489DB46-6447-4FB2-9B46-75CE97B61B04209525.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6035",
+    "controlHash": "DE8BB782",
+    "sourceUrl": "https://register.cacbg.bg/2026/2489DB46-6447-4FB2-9B46-75CE97B61B04230328.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21748.822750443545,
+        "amountEurDeclarant": 28343.97672599357,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от наследяване - дял",
+        "amountEurDeclarant": 9066.738929252542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от продажба на лек автомобил",
+        "amountEurDeclarant": 954.0706503121437,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Дупница, жк.\"П.К.Яворов\" бл 5",
+        "municipality": "Дупница",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Валентина Василева Караганова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Валентина Василева Караганова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
       {
         "category": "bank",
         "description": null,
@@ -33,11 +81,11 @@
         "share": null,
         "currency": "GBP",
         "amount": 37327,
-        "valueEur": 43704.207420890365,
+        "valueEur": 42750.13677057822,
         "holderName": "Валентина Василева Караганова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "Наследяване"
       },
       {
         "category": "bank",
@@ -50,14 +98,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 32237,
+        "valueEur": 16482.516374122497,
+        "holderName": "Валентина Василева Караганова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6215,
+        "valueEur": 3177.679041634498,
         "holderName": "Валентина Василева Караганова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "СААБ 9-3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "договор"
+      }
+    ]
   }
 ]

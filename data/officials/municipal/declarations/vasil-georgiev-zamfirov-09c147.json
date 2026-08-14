@@ -4,40 +4,46 @@
     "declarantName": "Васил Георгиев Замфиров",
     "institution": "Вършец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12120",
-    "controlHash": "9B47E842",
-    "sourceUrl": "https://register.cacbg.bg/2025/683C761E-4C56-4276-9C0A-AD79BB60EBE2215277.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10233",
+    "controlHash": "36B80F83",
+    "sourceUrl": "https://register.cacbg.bg/2026/683C761E-4C56-4276-9C0A-AD79BB60EBE2234957.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4476.871711754089,
-        "amountEurSpouse": 3909.849015507483
+        "amountEurDeclarant": 6469.887464656948,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5694.257680882285
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОРД МОНДЕО",
+        "category": "debt",
+        "description": "заем потребителски кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
-        "holderName": "ВАСИЛ ГЕОРГИЕВ ЗАМФИРОВ",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Васил Георгиев Замфиров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "13,06 %",
+        "fundsOrigin": null
       }
     ],
     "events": []

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12995",
+    "controlHash": "E87E758D",
+    "sourceUrl": "https://register.cacbg.bg/2026/38EC7D05-F823-46F7-8DF4-FF776242D49C238379.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21874.08926133662,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7013,
+        "valueEur": 7012.879442487333,
+        "holderName": "Мария Димитрова Вачкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "работна заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-dimitrova-vachkova-48fb3c",
+    "declarantName": "Мария Димитрова Вачкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,56 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г3002",
+    "controlHash": "74B9C357",
+    "sourceUrl": "https://register.cacbg.bg/2026/E00FCC3F-E01A-4717-AFED-099F409F5675227098.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10427.797916996877,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 11993.884949100893,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 92569,
+        "valueEur": 47329.77815045275,
+        "holderName": "Ваня Дякова Атанасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vanya-dyakova-atanasova-ef4854",
+    "declarantName": "Ваня Дякова Атанасова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

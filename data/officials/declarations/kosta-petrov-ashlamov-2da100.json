@@ -5,6 +5,50 @@
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9227",
+    "controlHash": "FBD66ACD",
+    "sourceUrl": "https://register.cacbg.bg/2026/7242938C-F558-4788-9101-C31BE568D121233819.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32968.10049953217,
+        "amountEurSpouse": 15486.008497671066
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг на автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28705,
+        "valueEur": 14676.633449737452,
+        "holderName": "Коста Петров Ашламов",
+        "isSpouse": false,
+        "legalBasis": "Договор 0088693/А/25.04.2025г.  При КЛП плюс лихвена надбавка от 4,18%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kosta-petrov-ashlamov-2da100",
+    "declarantName": "Коста Петров Ашламов",
+    "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

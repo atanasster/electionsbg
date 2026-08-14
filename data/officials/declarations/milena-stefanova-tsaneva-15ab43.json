@@ -5,6 +5,63 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1561",
+    "controlHash": "BCBC55F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/E6C624B6-ACB4-44F8-90ED-F36083ADD758225476.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18774.637877525143,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода Фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Милена Стефанова Цанева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Виноград",
+        "municipality": "Стражица",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "milena-stefanova-tsaneva-15ab43",
+    "declarantName": "Милена Стефанова Цанева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

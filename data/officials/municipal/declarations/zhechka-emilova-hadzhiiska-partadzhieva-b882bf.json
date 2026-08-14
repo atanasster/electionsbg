@@ -4,29 +4,48 @@
     "declarantName": "Жечка Емилова Хаджийска-Партаджиева",
     "institution": "Златоград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11040",
-    "controlHash": "4E0F9644",
-    "sourceUrl": "https://register.cacbg.bg/2025/B65241B3-DB17-430B-B2B3-0553C80992B0214162.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8400",
+    "controlHash": "BB33146B",
+    "sourceUrl": "https://register.cacbg.bg/2026/B65241B3-DB17-430B-B2B3-0553C80992B0232906.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7292.556101501665,
+        "amountEurDeclarant": 8160.7297157728435,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8118.803781514754,
+        "amountEurDeclarant": 9556.55655143852,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9856,
+        "valueEur": 9856.6848857007,
+        "holderName": "Жечка Емилова Хаджийска-Партаджиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,66 +4,66 @@
     "declarantName": "Стефан Бяндов Хазърбасанов",
     "institution": "Карнобат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8728",
-    "controlHash": "F09B276B",
-    "sourceUrl": "https://register.cacbg.bg/2025/3F6EF52F-E742-4F18-81A3-3AFEF713EBD1211753.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "100",
-        "companyName": "Бяндов 2022 ЕООД",
-        "registeredOffice": "Карнобат",
-        "valueEur": 51.12918811962185,
-        "holderName": "Стефан Бяндов Хазърбасанов",
-        "legalBasis": "други",
-        "fundsOrigin": "спестяване"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "100",
-        "companyName": "ЕТ Стефан Бяндов",
-        "registeredOffice": "Карнобат",
-        "valueEur": 51.12918811962185,
-        "holderName": "Стефан Бяндов Хазърбасанов",
-        "legalBasis": "други",
-        "fundsOrigin": "спестяване"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "50",
-        "companyName": "Мираж ООД",
-        "registeredOffice": "Карнобат",
-        "valueEur": 1278.2297029905462,
-        "holderName": "Стефан Бяндов Хазърбасанов",
-        "legalBasis": "други",
-        "fundsOrigin": "спестяване"
-      }
-    ],
+    "filedAt": "2026-09-05",
+    "entryNumber": "Г6244",
+    "controlHash": "114A0F72",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F6EF52F-E742-4F18-81A3-3AFEF713EBD1230545.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 5159.957665032237,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5541.892700285812,
+        "amountEurDeclarant": 6607.936272579927,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32467,
+        "valueEur": 16600.113506797625,
+        "holderName": "Стефан Бяндов Хазърбасанов",
+        "isSpouse": false,
+        "legalBasis": "Кредит 5,29",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Стефан Бяндов Хазърбасанов",
+        "isSpouse": false,
+        "legalBasis": "Кредит 13%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

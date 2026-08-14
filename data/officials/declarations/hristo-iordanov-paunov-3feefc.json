@@ -5,6 +5,74 @@
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г4961",
+    "controlHash": "27B70573",
+    "sourceUrl": "https://register.cacbg.bg/2026/A66533E8-6FCF-44D9-9387-721E9153459C229192.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 54619.26650066724,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1220.4537204153735,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32955,
+        "valueEur": 16849.623944821382,
+        "holderName": "Христо Йорданов Паунов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизингово задължение за придобиване на превозно средство",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42525,
+        "valueEur": 21742.68724786919,
+        "holderName": "Христо Йорданов Паунов",
+        "isSpouse": false,
+        "legalBasis": "договор за финансов лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-iordanov-paunov-3feefc",
+    "declarantName": "Христо Йорданов Паунов",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

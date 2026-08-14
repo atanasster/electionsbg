@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11811",
+    "controlHash": "CC4ED1C3",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EBF881D-57F2-4491-A0A3-80AA1C227560236794.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14307.992003394978,
+        "amountEurSpouse": 23270.938680764688
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Роман",
+        "municipality": "Роман",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "acquiredYear": 2001,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3200,
+        "valueEur": 1636.1340198278992,
+        "holderName": "Роза Георгиева Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10225,
+        "valueEur": 10225.83762392437,
+        "holderName": "Роза Георгиева Димитрова",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "roza-georgieva-dimitrova-6e4ac9",
+    "declarantName": "Роза Георгиева Димитрова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

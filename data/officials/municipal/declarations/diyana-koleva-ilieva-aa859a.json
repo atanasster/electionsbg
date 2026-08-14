@@ -4,53 +4,23 @@
     "declarantName": "ДИЯНА КОЛЕВА ИЛИЕВА",
     "institution": "Тервел",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2322",
-    "controlHash": "5D9C87A0",
-    "sourceUrl": "https://register.cacbg.bg/2025/38543387-830F-4663-9E9C-C3F4603DDF40204943.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3516",
+    "controlHash": "2CFF55B9",
+    "sourceUrl": "https://register.cacbg.bg/2026/38543387-830F-4663-9E9C-C3F4603DDF40227651.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 37479.22876732641,
-        "amountEurSpouse": 19016.99022921215
-      },
-      {
-        "parent": null,
-        "category": "Продажба на собствен апартамент от 40 кв.м. в гр.Варна, кв.Младост, бл.148, вх.1, ап.44",
-        "amountEurDeclarant": 66979.23643670462,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Рента земеделски земи",
-        "amountEurDeclarant": 1022.5837623924369,
-        "amountEurSpouse": 920.3253861531933
+        "amountEurDeclarant": 40303.09382717312,
+        "amountEurSpouse": 22058.15433856726
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр.Пловдив, р-н Южен",
-        "municipality": "Пловдив",
-        "areaSqm": 65,
-        "builtAreaSqm": 65,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 156466,
-        "valueEur": 79999.79548324752,
-        "holderName": "Дияна Колева Илиева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
       {
         "category": "bank",
         "description": null,
@@ -62,16 +32,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 119000,
-        "valueEur": 60843.73386235,
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
         "holderName": "Дияна Колева Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "Ипотечен кредит",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,14 +50,44 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 217969,
-        "valueEur": 111445.78005245855,
+        "amount": 149744,
+        "valueEur": 76562.89145784655,
         "holderName": "Дияна Колева Илиева",
         "isSpouse": false,
-        "legalBasis": "ипотечен кредит- 2,55 %",
+        "legalBasis": "ипотечен кредит,ДЛП 2,67%",
         "fundsOrigin": null
       }
     ],
     "events": []
+  },
+  {
+    "slug": "diyana-koleva-ilieva-aa859a",
+    "declarantName": "ДИЯНА КОЛЕВА ИЛИЕВА",
+    "institution": "Тервел",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-07-07",
+    "entryNumber": "Г13139",
+    "controlHash": "71C1CDDD",
+    "sourceUrl": "https://register.cacbg.bg/2026/38543387-830F-4663-9E9C-C3F4603DDF40238554.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
+        "description": "Ипотечен кредит",
+        "detail": "ДИЯНА КОЛЕВА ИЛИЕВА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 57512.15596447544,
+        "legalBasis": "Продажба на собствено жилище"
+      }
+    ]
   }
 ]

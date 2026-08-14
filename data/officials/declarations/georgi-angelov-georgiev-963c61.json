@@ -5,6 +5,111 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5545",
+    "controlHash": "53AAF437",
+    "sourceUrl": "https://register.cacbg.bg/2026/9FABCDF1-0D88-481E-9C65-2422D07BA9AD229808.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41982.68765690269,
+        "amountEurSpouse": 1363.6154471503148
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12129.888589499087,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7981.26626547297,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 15859.251570944305,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12520,
+        "valueEur": 6401.374352576656,
+        "holderName": "Георги Ангелов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101934,
+        "valueEur": 52118.026617855336,
+        "holderName": "Маргарита Петрова Георгиева",
+        "isSpouse": true,
+        "legalBasis": "лизинг /3,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 90000.15338756437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 90000.15338756437,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "georgi-angelov-georgiev-963c61",
+    "declarantName": "Георги Ангелов Георгиев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

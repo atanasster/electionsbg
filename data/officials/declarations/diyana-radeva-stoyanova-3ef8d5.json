@@ -1,6 +1,80 @@
 [
   {
     "slug": "diyana-radeva-stoyanova-3ef8d5",
+    "declarantName": "ДИЯНА РАДЕВА СТОЯНОВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-17",
+    "entryNumber": "Г338",
+    "controlHash": "79F1237F",
+    "sourceUrl": "https://register.cacbg.bg/2026/274DEFE5-B90D-414F-9D60-F1DFD8FCE675223529.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21546.351165489843,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 228.54747089470968,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 414.146423768937,
+        "amountEurSpouse": 414.146423768937
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38184,
+        "valueEur": 19523.169191596407,
+        "holderName": "ДИЯНА РАДЕВА СТОЯНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ПО ТАБЛИЦА 12 - РЪЧНО"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23001,
+        "valueEur": 11760.22455939422,
+        "holderName": "ДОБРИН ГЕОРГИЕВ СТОЯНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ПО ТАБЛИЦА 12 - РЪЧНО"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diyana-radeva-stoyanova-3ef8d5",
     "declarantName": "ДИЯНА  РАДЕВА  СТОЯНОВА",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",

@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г6391",
+    "controlHash": "B60FBAAE",
+    "sourceUrl": "https://register.cacbg.bg/2026/EF066E58-C702-449C-A850-0E91942F2524230710.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17086.863377696427,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48873,
+        "valueEur": 24988.368109702787,
+        "holderName": "Пенка Иванова Вълчанова",
+        "isSpouse": false,
+        "legalBasis": "Договор, 4,19 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Стоков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1559,
+        "valueEur": 797.1040427849047,
+        "holderName": "Пенка Иванова Вълчанова",
+        "isSpouse": false,
+        "legalBasis": "Договор, 0 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "penka-ivanova-vlchanova-8e6566",
+    "declarantName": "Пенка Иванова Вълчанова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

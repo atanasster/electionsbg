@@ -4,25 +4,25 @@
     "declarantName": "Нихат Ахмед Мехмед",
     "institution": "Самуил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-23",
-    "entryNumber": "Г14309",
-    "controlHash": "691680F7",
-    "sourceUrl": "https://register.cacbg.bg/2025/F19C2E08-22FE-46B7-88F2-7C2705D48C9B217595.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13880",
+    "controlHash": "6EAFCC70",
+    "sourceUrl": "https://register.cacbg.bg/2026/F19C2E08-22FE-46B7-88F2-7C2705D48C9B239532.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9820.894454016965,
+        "amountEurDeclarant": 6127.833196136678,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от Пенсия за Временна нетрудоспособност",
-        "amountEurDeclarant": 2895.4459232141853,
+        "category": "Доходи от пенсия за Временна нетрудоспособност",
+        "amountEurDeclarant": 3157.7386582678455,
         "amountEurSpouse": null
       }
     ],
@@ -47,7 +47,7 @@
       },
       {
         "category": "real_estate",
-        "description": "складови помещения",
+        "description": "Складови помещения",
         "detail": null,
         "location": "с.Пчелина",
         "municipality": "Самуил",
@@ -82,24 +82,6 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "с.Пчелина",
-        "municipality": "Самуил",
-        "areaSqm": 0.76,
-        "builtAreaSqm": null,
-        "acquiredYear": 1989,
-        "share": "СИО",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Нихат Ахмед Мехмед",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "vehicle",
         "description": "Товарен автомобил",
         "detail": "Рено Трафик",
@@ -110,8 +92,8 @@
         "acquiredYear": 2018,
         "share": "СИО",
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 300,
+        "valueEur": 153.38756435886555,
         "holderName": "Севие Сали Адил",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -148,7 +130,7 @@
         "currency": "BGN",
         "amount": 20000,
         "valueEur": 10225.83762392437,
-        "holderName": "Нихат  Ахмед Мехмед",
+        "holderName": "Нихат Ахмед Мехмед",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -156,15 +138,15 @@
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хонда SR V",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.Пчелина",
+        "municipality": "Самуил",
+        "areaSqm": 0.76,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 2097.8305885480845,
+        "valueEur": 1022.5837623924369,
         "legalBasis": "възмездно"
       }
     ]

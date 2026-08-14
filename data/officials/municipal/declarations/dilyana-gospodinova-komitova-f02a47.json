@@ -4,38 +4,32 @@
     "declarantName": "ДИЛЯНА ГОСПОДИНОВА КОМИТОВА",
     "institution": "Харманли",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-26",
-    "entryNumber": "Г3777",
-    "controlHash": "0D30DE0B",
-    "sourceUrl": "https://register.cacbg.bg/2025/59ACFA3A-92B0-44F1-9BEA-87626E90F6B2206592.xml",
+    "filedAt": "2026-04-25",
+    "entryNumber": "Г3403",
+    "controlHash": "BDB46CD4",
+    "sourceUrl": "https://register.cacbg.bg/2026/59ACFA3A-92B0-44F1-9BEA-87626E90F6B2227534.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6813.986900702003,
+        "amountEurDeclarant": 7741.98166507314,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "от разпределени девиденти",
+        "amountEurDeclarant": 3374.526415895042,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "от пенсия",
-        "amountEurDeclarant": 2937.8831493534713,
-        "amountEurSpouse": 6922.892071396798
-      },
-      {
-        "parent": null,
-        "category": "от дивиденти",
-        "amountEurDeclarant": 2684.282376280147,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ЗХУ чл.70",
-        "amountEurDeclarant": 224.96842772633613,
-        "amountEurSpouse": null
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2351.431361621409
       }
     ],
     "assets": [
@@ -50,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
         "holderName": "ДИЛЯНА ГОСПОДИНОВА КОМИТОВА",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,8 +62,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6504,
-        "valueEur": 3325.442395300205,
+        "amount": 243,
+        "valueEur": 124.24392713068109,
+        "holderName": "ДИЛЯНА ГОСПОДИНОВА КОМИТОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "CHF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "CHF",
+        "amount": 26067,
+        "valueEur": 28049.983894305744,
         "holderName": "ДИЛЯНА ГОСПОДИНОВА КОМИТОВА",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,12 +98,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1844,
-        "valueEur": 942.822228925827,
-        "holderName": "ДИЛЯНА ГОСПОДИНОВА КОМИТОВА",
-        "isSpouse": false,
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "ИВАН ГОЧЕВ КОМИТОВ",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4599,
+        "valueEur": 2351.431361621409,
+        "holderName": "ИВАН ГОЧЕВ КОМИТОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

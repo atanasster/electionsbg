@@ -1,32 +1,82 @@
 [
   {
     "slug": "antanin-danailov-atanasov-7210cb",
-    "declarantName": "Антанин Данаилов Атанасов",
+    "declarantName": "Антанин Данаилов Атаносов",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3701",
-    "controlHash": "41B5C4F2",
-    "sourceUrl": "https://register.cacbg.bg/2025/60E3BE8F-A483-48FE-8E4E-AAFF4215C51C206501.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10584",
+    "controlHash": "EB8D6BDA",
+    "sourceUrl": "https://register.cacbg.bg/2026/60E3BE8F-A483-48FE-8E4E-AAFF4215C51C235347.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6006.145728411979,
+        "amountEurDeclarant": 7472.530843682734,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5481.048966423462,
+        "amountEurDeclarant": 6396.261433764694,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Антанин Данаилов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17720,
+        "valueEur": 9060.092134796992,
+        "holderName": "Антанин Данаилов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "Заем -4,6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

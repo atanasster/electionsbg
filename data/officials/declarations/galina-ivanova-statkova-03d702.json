@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5906",
+    "controlHash": "19D913F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/2D1EE048-F13F-4D6A-BDEA-DBEF7A710B10230184.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28803.116835307774,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 337.4526415895042,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 12800,
+        "valueEur": 6544.536079311597,
+        "holderName": "Галина Иванова Статкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-ivanova-statkova-03d702",
+    "declarantName": "ГАЛИНА ИВАНОВА СТАТКОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

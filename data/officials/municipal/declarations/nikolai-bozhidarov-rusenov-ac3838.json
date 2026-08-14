@@ -1,32 +1,69 @@
 [
   {
     "slug": "nikolai-bozhidarov-rusenov-ac3838",
-    "declarantName": "НИКОЛАЙ БОЖИДАРОВ РУСЕНОВ",
+    "declarantName": "Николай Божидаров Русенов",
     "institution": "Опан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5574",
-    "controlHash": "8E712E13",
-    "sourceUrl": "https://register.cacbg.bg/2025/099B845D-5BFD-47E8-BEF7-98CDA9A4025E208505.xml",
+    "filedAt": null,
+    "entryNumber": "Г4869",
+    "controlHash": "A941AA86",
+    "sourceUrl": "https://register.cacbg.bg/2026/099B845D-5BFD-47E8-BEF7-98CDA9A4025E229100.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2149.9823604300987,
-        "amountEurSpouse": 9260.518552225909
+        "amountEurDeclarant": 2644.9129014280384,
+        "amountEurSpouse": 11553.151347509753
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14312.593630325744,
+        "amountEurDeclarant": 13466.405566946003,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Николай Божидаров Русенов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Николай Божидаров Русенов",
+        "isSpouse": false,
+        "legalBasis": "договор с л.. 4,95%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

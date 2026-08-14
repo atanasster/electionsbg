@@ -1,6 +1,87 @@
 [
   {
     "slug": "anna-antonova-adamova-al-yusef-01b850",
+    "declarantName": "АННА АНТОНОВА АДАМОВА-АЛ-ЮСЕФ",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г13602",
+    "controlHash": "EB348DAE",
+    "sourceUrl": "https://register.cacbg.bg/2026/166EA4D3-5275-4ECA-9A3E-7AAD0F884323239151.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24436.684169892065,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ ПО ИНВАЛИДНОСТ",
+        "amountEurDeclarant": 6135.502574354622,
+        "amountEurSpouse": 3067.751287177311
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Етаж от къща",
+        "detail": null,
+        "location": "Лъки",
+        "municipality": "ЛЪКИ",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Анна Антонова Адамова-Ал-Юсеф",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "Доброволна делба"
+      },
+      {
+        "category": "real_estate",
+        "description": "Етаж от къща",
+        "detail": null,
+        "location": "Лъки",
+        "municipality": "Лъки",
+        "areaSqm": 146,
+        "builtAreaSqm": 146,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Анна Антонова Адамова-Ал-Юсеф",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "Доброволна делба"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил - бракуван",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "0"
+      }
+    ]
+  },
+  {
+    "slug": "anna-antonova-adamova-al-yusef-01b850",
     "declarantName": "АННА АНТОНОВА АДАМОВА АЛ-ЮСЕФ",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

@@ -1,6 +1,135 @@
 [
   {
     "slug": "tsvetana-plamenova-chervenyakova-ilieva-ae386b",
+    "declarantName": "Цветана Пламенова Червенякова-Илиева",
+    "institution": "Комисия за защита на личните данни",
+    "positionTitle": "Член",
+    "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4661",
+    "controlHash": "9500B040",
+    "sourceUrl": "https://register.cacbg.bg/2026/B395C244-018F-4741-9E1D-23D2B3649881228879.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "100 дяла",
+        "companyName": "„ЛЕГАМАКС КОНСУЛТИНГ“ ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Петър Радославов Илиев",
+        "legalBasis": "при учредяване и покупко-продажба",
+        "fundsOrigin": "дивиденти,възнаграждения,вр. на ДПВ,спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "100 дяла",
+        "companyName": "“ЛЕГАМАКС АКАУНТИНГ” ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Петър Радославов Илиев",
+        "legalBasis": "при учредяване и покупко-продажба",
+        "fundsOrigin": "дивиденти,възнаграждения,вр. на ДПВ,спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48558.41254096726,
+        "amountEurSpouse": 31422.976434557197
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 334.3848903023269
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15498,
+        "valueEur": 7924.001574778994,
+        "holderName": "Цветана Пламенова Червенякова-Илиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8920,
+        "valueEur": 4560.723580270269,
+        "holderName": "Петър Радославов Илиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти,възнаграждения,спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "Задължение по договор за жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 510251,
+        "valueEur": 260887.19367225168,
+        "holderName": "Петър Радославов Илиев",
+        "isSpouse": true,
+        "legalBasis": "договор за жилищен кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Задължение на ипотекарен длъжник по договор за жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 510521,
+        "valueEur": 261025.24248017467,
+        "holderName": "Цветана Пламенова Червенякова-Илиева",
+        "isSpouse": false,
+        "legalBasis": "ипотекарен длъжник по договор за жилищен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsvetana-plamenova-chervenyakova-ilieva-ae386b",
     "declarantName": "Цветана Пламенова Чврвенякова-Илиева",
     "institution": "Комисия за защита на личните данни",
     "positionTitle": "Член",

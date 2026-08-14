@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2962",
+    "controlHash": "5AA8D1EE",
+    "sourceUrl": "https://register.cacbg.bg/2026/EF864775-45A4-4E37-82F8-138A438CEFCD227057.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21901.699022921217,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16600,
+        "valueEur": 8487.445227857226,
+        "holderName": "Милена Георгиева Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2700,
+        "valueEur": 2699.1098408348375,
+        "holderName": "Милена Георгиева Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milena-georgieva-stefanova-053c85",
+    "declarantName": "Милена Георгиева Стефанова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

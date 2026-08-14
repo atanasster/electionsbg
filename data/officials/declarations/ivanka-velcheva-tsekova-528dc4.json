@@ -5,6 +5,87 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г3185",
+    "controlHash": "5F417F4A",
+    "sourceUrl": "https://register.cacbg.bg/2026/1AE18DD0-0698-497C-9F22-C2165103F045227304.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27890.46082737252,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": 5443.213367214942,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Иванка Велчева Цекова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Договор за финансов лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13070,
+        "valueEur": 13073.733402187307,
+        "holderName": "Иванка Велчева Цекова",
+        "isSpouse": false,
+        "legalBasis": "3.9% променлив л. %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
+      }
+    ]
+  },
+  {
+    "slug": "ivanka-velcheva-tsekova-528dc4",
+    "declarantName": "Иванка Велчева Цекова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

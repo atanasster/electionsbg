@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7470",
+    "controlHash": "9614AFF3",
+    "sourceUrl": "https://register.cacbg.bg/2026/36FDE017-6EE6-48CE-B819-D1A3802EB12C231882.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22666.08038530956,
+        "amountEurSpouse": 13938.83926517131
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5215.177188201428,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 1918.3671382482119,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Илиян Иванов Карагьозов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия и наем"
+      },
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Илиян Иванов Карагьозов",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Илиян Иванов Карагьозов",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliyan-ivanov-karagozov-0c301f",
+    "declarantName": "Илиян Иванов Карагьозов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

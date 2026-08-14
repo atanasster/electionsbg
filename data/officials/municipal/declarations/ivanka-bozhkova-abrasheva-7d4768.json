@@ -4,89 +4,59 @@
     "declarantName": "Иванка Божкова Абрашева",
     "institution": "Калояново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14012",
-    "controlHash": "503511CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/909AAFFF-C703-4C7F-94A3-1CDD0560E02E217274.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5333",
+    "controlHash": "606C99A4",
+    "sourceUrl": "https://register.cacbg.bg/2026/909AAFFF-C703-4C7F-94A3-1CDD0560E02E229585.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "Дялово учстие",
-        "shareSize": "20%",
-        "companyName": "Зеленчуците на Тракия ООД",
+        "itemType": "Дялово участие",
+        "shareSize": "100",
+        "companyName": "Робсън 80 ЕООД",
         "registeredOffice": "Калояново",
         "valueEur": 51.12918811962185,
         "holderName": "Роберт Петров Бакърджийски",
         "legalBasis": "други",
-        "fundsOrigin": "стопанска дейност"
+        "fundsOrigin": "земеделска дейност"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13617.236671898887,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4197.195052739758,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 519.9838431765542,
+        "amountEurDeclarant": 14493.07966438801,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 107247.0511240752
+        "amountEurSpouse": 125343.20467525296
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "Товарен автомобил",
-        "detail": "Mercedes",
+        "detail": "Мерцедес Спринтер",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 19166,
-        "valueEur": 9799.420195006724,
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
         "holderName": "Роберт Петров Бакърджийски",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "стопанска дейност"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
-        "holderName": "Роберт Петров Бакърджийски",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "селскостопанска дейност"
+        "fundsOrigin": "земеделска дейност"
       },
       {
         "category": "debt",
@@ -99,11 +69,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 41313,
-        "valueEur": 21123.001487859376,
+        "amount": 136635,
+        "valueEur": 69860.36618724531,
         "holderName": "Роберт Петров Бакърджийски",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "Договор, 4,25 %",
         "fundsOrigin": null
       },
       {
@@ -117,11 +87,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 151028,
-        "valueEur": 77219.39023330249,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Роберт Петров Бакърджийски",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "Договор",
         "fundsOrigin": null
       },
       {
@@ -135,11 +105,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 42908,
+        "valueEur": 21938.512038367342,
         "holderName": "Иванка Божкова Абрашева",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "Договор",
         "fundsOrigin": null
       }
     ],

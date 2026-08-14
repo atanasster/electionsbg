@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12909",
+    "controlHash": "1ECB73B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/DD43AEF6-F9F4-4374-85D0-0BC41B2178ED238261.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24287.898232463966,
+        "amountEurSpouse": 17030.62127076484
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18438,
+        "valueEur": 9427.199705495876,
+        "holderName": "Цанко Христов Гърбев",
+        "isSpouse": false,
+        "legalBasis": "6,33 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsanko-hristov-grbev-0518e7",
+    "declarantName": "Цанко Христов Гърбев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

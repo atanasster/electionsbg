@@ -4,32 +4,26 @@
     "declarantName": "Иса Салихов Делиимамов",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12864",
-    "controlHash": "23CA195B",
-    "sourceUrl": "https://register.cacbg.bg/2025/A5A730A0-0024-4C26-B48A-53F063649AE5216042.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г7435",
+    "controlHash": "9364443F",
+    "sourceUrl": "https://register.cacbg.bg/2026/A5A730A0-0024-4C26-B48A-53F063649AE5231845.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23008.13465382983,
-        "amountEurSpouse": 13083.95923981123
+        "amountEurDeclarant": 25786.494736250082,
+        "amountEurSpouse": 12806.83904020288
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4884.371341067475,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Нои-Пенсия",
-        "amountEurDeclarant": 5879.856633756513,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 7659.152380319353,
+        "amountEurSpouse": 79.76153346661009
       }
     ],
     "assets": [
@@ -95,7 +89,7 @@
         "municipality": "Баните",
         "areaSqm": 624,
         "builtAreaSqm": 624,
-        "acquiredYear": 2008,
+        "acquiredYear": null,
         "share": "1/1",
         "currency": "BGN",
         "amount": 0,
@@ -118,8 +112,8 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Иса Салихов Делимамов",
-        "isSpouse": true,
+        "holderName": "Иса Салихов Делиимамов",
+        "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       },
@@ -142,7 +136,7 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -152,8 +146,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 78233,
+        "valueEur": 39999.89774162376,
         "holderName": "Иса Салихов Делиимамов",
         "isSpouse": false,
         "legalBasis": null,

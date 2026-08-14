@@ -1,32 +1,100 @@
 [
   {
     "slug": "ivan-georgiev-tornov-3ca2c4",
-    "declarantName": "Иван Георгиев Торньов",
+    "declarantName": "ИВАН ГЕОРГИЕВ ТОРНЬОВ",
     "institution": "Медковец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г12980",
-    "controlHash": "E91DE183",
-    "sourceUrl": "https://register.cacbg.bg/2025/000E8776-15E5-4746-A561-1ED9234038C1216166.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12634",
+    "controlHash": "6CE0D6E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/000E8776-15E5-4746-A561-1ED9234038C1237952.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2862.211950936431,
-        "amountEurSpouse": 14159.206065966879
+        "amountEurDeclarant": 3639.3756103546834,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7511.3890266536455,
+        "amountEurDeclarant": 8712.413655583563,
+        "amountEurSpouse": 15145.999396675581
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 15338.756435886555,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Земя",
+        "detail": null,
+        "location": "Медковец",
+        "municipality": "Медковец",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стефанка Валентинова Торньова",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "земя",
+        "detail": null,
+        "location": "Медковец",
+        "municipality": "Медковец",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стефанка Валентинова Торньова",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -4,64 +4,76 @@
     "declarantName": "Юлия Илиева Тонкова",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6942",
-    "controlHash": "1A82D9FD",
-    "sourceUrl": "https://register.cacbg.bg/2025/993146C4-2A8D-47F1-B8AB-78B859C5B97F209929.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3797",
+    "controlHash": "1D83E182",
+    "sourceUrl": "https://register.cacbg.bg/2026/993146C4-2A8D-47F1-B8AB-78B859C5B97F227959.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6030.687738709397,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 9898.099528077593,
+        "amountEurSpouse": 10588.34356769249
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 44993.685545267224,
+        "amountEurDeclarant": 65445.360793115964,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1414.7446352699365,
+        "amountEurDeclarant": 1639.2017711150766,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 39573.99160458731,
-        "amountEurSpouse": 3067.751287177311
-      },
-      {
-        "parent": null,
-        "category": "пенсия за трудов стаж и възраст",
-        "amountEurDeclarant": 7580.413430615135,
-        "amountEurSpouse": 10190.047192240634
+        "amountEurDeclarant": 7413.732277345168,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "currency": "EUR",
+        "amount": 56561,
+        "valueEur": 56561.153065450475,
         "holderName": "Юлия Илиева Тонкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "пенсия, рента, труд.възнаграждение, дивидент"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг на автомобил",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25251,
+        "valueEur": 25251.172136637644,
+        "holderName": "Юлия Илиева Тонкова",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг, 5.4%",
+        "fundsOrigin": null
       }
     ],
     "events": []

@@ -5,6 +5,111 @@
     "institution": "МБАЛ \"Свети Иван Рилски-2003\" ООД, гр.Дупница",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7526",
+    "controlHash": "44D769BA",
+    "sourceUrl": "https://register.cacbg.bg/2026/21CB38FC-0F6A-485B-B84E-E0E2A5914FA3231940.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 85553.44789680085,
+        "amountEurSpouse": 9971.214267088653
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 78460.80692084691,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1568.132199628802,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 423.34967763046893
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 552.195231691916
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТ",
+        "amountEurDeclarant": 185961.97010987662,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44241,
+        "valueEur": 22620.0641160019,
+        "holderName": "Ени Милчов Лефтеров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5738,
+        "valueEur": 2933.7928143039017,
+        "holderName": "Веселина Йорданова Лефтерова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 88,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 97999.82616076039,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "eni-milchov-lefterov-8cfe51",
+    "declarantName": "Ени Милчов Лефтеров",
+    "institution": "МБАЛ \"Свети Иван Рилски-2003\" ООД, гр.Дупница",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1389",
+    "controlHash": "051E783D",
+    "sourceUrl": "https://register.cacbg.bg/2026/61C49ABE-B087-46EA-A102-4869D7681DF6225234.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20178.134091408763,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9400,
+        "valueEur": 4806.143683244454,
+        "holderName": "Стефан Дочев Дочев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Стефан Дочев Дочев",
+        "isSpouse": false,
+        "legalBasis": "6.5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefan-dochev-dochev-3bd813",
+    "declarantName": "Стефан Дочев Дочев",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

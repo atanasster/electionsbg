@@ -4,25 +4,25 @@
     "declarantName": "Илияна Петрова Арабска",
     "institution": "Хисаря",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5063",
-    "controlHash": "BDF97C6C",
-    "sourceUrl": "https://register.cacbg.bg/2025/84A87293-6FE6-427C-9F57-7BB1F6136439207950.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13821",
+    "controlHash": "62A065A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/84A87293-6FE6-427C-9F57-7BB1F6136439239430.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13353.921353082835,
-        "amountEurSpouse": 14040.586349529356
+        "amountEurDeclarant": 15000.281210534658,
+        "amountEurSpouse": 17989.804839888948
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 504.13379485947144,
+        "amountEurDeclarant": 5655.399497911373,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "гр.Хисаря,местност Ясаците",
+        "location": "гр.Хисаря, м.Ясаците",
         "municipality": "Хисаря",
         "areaSqm": 57,
         "builtAreaSqm": 57,
@@ -49,7 +49,7 @@
         "category": "real_estate",
         "description": "къща",
         "detail": null,
-        "location": "гр.Хисаря, ул.Бойчо Огнянов 3",
+        "location": "гр.Хисаря,ул.Бойчо Огнянов 3",
         "municipality": "Хисаря",
         "areaSqm": 99,
         "builtAreaSqm": 99,
@@ -65,9 +65,9 @@
       },
       {
         "category": "real_estate",
-        "description": "къща",
+        "description": "апартамент",
         "detail": null,
-        "location": "гр.Хисаря, ул.\"Цар Асен\" 11",
+        "location": "гр.Хисаря, ул.Цар Асен 11",
         "municipality": "Хисаря",
         "areaSqm": 79,
         "builtAreaSqm": 79,
@@ -84,7 +84,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "фолксваген туаран",
+        "detail": "Фолксваген Туаран",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -102,7 +102,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "сузуки",
+        "detail": "Сузуки",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -118,19 +118,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "СТИПЕНДИЯ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 71.58086336747058,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

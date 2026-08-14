@@ -4,37 +4,31 @@
     "declarantName": "Сезгин Мюмюн Бекир",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-04",
-    "entryNumber": "Г5229",
-    "controlHash": "5267DE40",
-    "sourceUrl": "https://register.cacbg.bg/2025/746CA856-DF5F-405E-9C10-7379AB37A9B1208140.xml",
+    "filedAt": null,
+    "entryNumber": "Г1597",
+    "controlHash": "A45A9C16",
+    "sourceUrl": "https://register.cacbg.bg/2026/746CA856-DF5F-405E-9C10-7379AB37A9B1225514.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8828.988204496301,
-        "amountEurSpouse": 16954.438780466604
+        "amountEurDeclarant": 10502.446531651523,
+        "amountEurSpouse": 18210.682932565713
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16010.593967778386,
+        "amountEurDeclarant": 19957.255998731995,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 9579.053394211154,
-        "amountEurSpouse": 152.36498059647312
-      },
-      {
-        "parent": null,
-        "category": "Доходи от доброволно здравно осигуряване и от застраховки „Живот“ по чл. 38, ал. 8 от ЗДДФЛ",
-        "amountEurDeclarant": 4850.114785027328,
+        "amountEurDeclarant": 6143.171952572565,
         "amountEurSpouse": null
       }
     ],
@@ -50,10 +44,28 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "amount": 1435,
+        "valueEur": 733.7038495165735,
         "holderName": "Сезгин Мюмюн Бекир",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 400,
+        "valueEur": 204.5167524784874,
+        "holderName": "Невин Алиосман Бекир",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -68,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60787,
-        "valueEur": 31079.899582274535,
+        "amount": 107897,
+        "valueEur": 55166.860105428386,
         "holderName": "Сезгин Мюмюн Бекир",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и хонорари"
+        "fundsOrigin": "заплати и доходи от друга стопанска дейност"
       },
       {
         "category": "bank",
@@ -86,43 +98,37 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3808,
-        "valueEur": 1946.9994835952,
+        "amount": 12386,
+        "valueEur": 6332.861240496362,
         "holderName": "Невин Алиосман Бекир",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "Кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 12748,
-        "valueEur": 6517.948901489393,
-        "holderName": "Невин Алиосман Бекир",
-        "isSpouse": true,
-        "legalBasis": "договор за кредит с 4,35 % годишна лихва",
-        "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "third_party_expense",
-        "description": "Възстановяване на пътни разходи",
+        "description": "Командировъчни за участие в Общо събрание",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 308.30900436131975,
+        "valueEur": 178.95215841867648,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Покриване на пътни разходи за участие в заседания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 666.2133211986727,
         "legalBasis": null
       }
     ]

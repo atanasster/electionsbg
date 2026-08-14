@@ -4,85 +4,66 @@
     "declarantName": "ПЕНКО АТАНАСОВ БОНЧЕВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12480",
-    "controlHash": "0264380F",
-    "sourceUrl": "https://register.cacbg.bg/2025/A4436C5F-8AA3-4F05-AC1E-F6482E14C0DA215649.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13711",
+    "controlHash": "12F9C188",
+    "sourceUrl": "https://register.cacbg.bg/2026/A4436C5F-8AA3-4F05-AC1E-F6482E14C0DA239302.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3006.3962614337647,
+        "amountEurDeclarant": 3129.1063129208574,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7626.429699922795,
+        "amountEurDeclarant": 6942.832454763451,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "МИКРОБУС",
-        "detail": "ФОРД ТРАНЗИТ",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ 120 Д",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
         "holderName": "ПЕНКО АТАНАСОВ БОНЧЕВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 7158.086336747059,
+        "holderName": "ПЕНКО АТАНАСОВ БОНЧЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ЛАДА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "БРАКУВАН"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ОПЕЛ АСТРА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "БРАКУВАН"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "МИКРОБУС",
-        "detail": "ФОРД ТРАНЗИТ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "БРАКУВАН"
-      }
-    ]
+    "events": []
   }
 ]

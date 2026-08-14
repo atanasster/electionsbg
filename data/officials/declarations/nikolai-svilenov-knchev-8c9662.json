@@ -5,6 +5,74 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4350",
+    "controlHash": "D92A9402",
+    "sourceUrl": "https://register.cacbg.bg/2026/377E73E0-C764-4018-B0C7-4A601406C82A228548.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17509.190471564503,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Николай Свиленов Кънчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19200,
+        "valueEur": 9816.804118967395,
+        "holderName": "Николай Свиленов Кънчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-svilenov-knchev-8c9662",
+    "declarantName": "Николай Свиленов Кънчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

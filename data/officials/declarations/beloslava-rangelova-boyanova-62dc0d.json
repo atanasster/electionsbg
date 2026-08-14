@@ -5,6 +5,86 @@
     "institution": "СБАЛББ – Габрово ЕООД, гр.Габрово",
     "positionTitle": "Контрольор",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г1150",
+    "controlHash": "6D6F4B31",
+    "sourceUrl": "https://register.cacbg.bg/2026/140F6EED-1378-41D1-91BB-27C3ED807E4E224874.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23876.819559982207,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 28318.923423814955,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1472.5206178451092,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19133,
+        "valueEur": 9782.547562927248,
+        "holderName": "Белослава Рангелова Боянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19097,
+        "valueEur": 9764.141055204185,
+        "holderName": "Белослава Рангелова Боянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "beloslava-rangelova-boyanova-62dc0d",
+    "declarantName": "Белослава Рангелова Боянова",
+    "institution": "СБАЛББ – Габрово ЕООД, гр.Габрово",
+    "positionTitle": "Контрольор",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

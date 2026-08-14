@@ -4,65 +4,35 @@
     "declarantName": "Слав Александров Тодоров",
     "institution": "Гълъбово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-26",
-    "entryNumber": "Г1159",
-    "controlHash": "B8E8FD2F",
-    "sourceUrl": "https://register.cacbg.bg/2025/18A34712-B123-4E2C-B964-D3170F164A16203527.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4891",
+    "controlHash": "43561860",
+    "sourceUrl": "https://register.cacbg.bg/2026/18A34712-B123-4E2C-B964-D3170F164A16229122.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 502.5999192158828,
-        "amountEurSpouse": 1726.63268279963
+        "amountEurDeclarant": 94.0777061401042,
+        "amountEurSpouse": 1137.6244356615862
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7544.111707050204,
+        "amountEurDeclarant": 8379.051349043628,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от разпределен дивидент за 2022 и 2023 г.",
+        "amountEurDeclarant": 9944.115797385253,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Астра",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Денка Георгиева Тодорова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
-        "holderName": "Денка Георгиева Тодорова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "потребителски кредит",
@@ -74,39 +44,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 18412,
+        "valueEur": 9413.906116584774,
         "holderName": "Слав Александров Тодоров",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "потр.кредит с дог.лихв.% - 6,69 %",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "продажба"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,38 +4,56 @@
     "declarantName": "Георги Максимов Георгиев",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2318",
-    "controlHash": "8FA32CA1",
-    "sourceUrl": "https://register.cacbg.bg/2025/9E178FCF-E3C7-4A89-9541-9B20F4C0B284204937.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14306",
+    "controlHash": "864F3274",
+    "sourceUrl": "https://register.cacbg.bg/2026/9E178FCF-E3C7-4A89-9541-9B20F4C0B284240052.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6875.34192644555,
+        "amountEurDeclarant": 7050.2037498146565,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6042.44745197691,
+        "amountEurDeclarant": 10460.520597393433,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 4635.883486806113,
+        "amountEurDeclarant": 9326.475204900222,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 45,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 122000,
+        "valueEur": 62377.60950593866,
+        "holderName": "Георги Максимов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "Ипотечен кредит - лих.% 5,4",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,16 +62,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12500,
-        "valueEur": 6391.148514952731,
+        "amount": 122000,
+        "valueEur": 62377.60950593866,
         "holderName": "Георги Максимов Георгиев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "заем-4,349%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит- 6,15%",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,16 +80,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36115,
-        "valueEur": 18465.30628940143,
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
         "holderName": "Георги Максимов Георгиев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит-6,16%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидален длъжник-3,5%",
+        "description": "Солидарен длъжник-3,5%",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,44 +98,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46575,
-        "valueEur": 23813.419366713875,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Георги Максимов Георгиев",
         "isSpouse": false,
-        "legalBasis": "сол.длъжник",
+        "legalBasis": "сол.длъжник-3.5%",
         "fundsOrigin": null
       }
     ],
     "events": []
-  },
-  {
-    "slug": "georgi-maksimov-georgiev-832cf2",
-    "declarantName": "Георги Максимов Георгиев",
-    "institution": "Червен бряг",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2411",
-    "controlHash": "69D6E847",
-    "sourceUrl": "https://register.cacbg.bg/2025/9E178FCF-E3C7-4A89-9541-9B20F4C0B284205052.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
-      {
-        "kind": "early_repayment",
-        "description": "Ипотечен кредит - лих.% 5,4 към Дбанк",
-        "detail": "Георги Максимов Георгиев",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 6391.148514952731,
-        "legalBasis": "заплати, наем"
-      }
-    ]
   }
 ]

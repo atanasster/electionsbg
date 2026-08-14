@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4228",
+    "controlHash": "64B33FE6",
+    "sourceUrl": "https://register.cacbg.bg/2026/33EE6E82-8584-41D7-A0DB-D78E775F188C228425.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29454.502691951755,
+        "amountEurSpouse": 15310.635382420764
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Черничи",
+        "municipality": "Симитли",
+        "areaSqm": 512,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Димитрина Стоянова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69232,
+        "valueEur": 35397.7595189766,
+        "holderName": "Радослав Миленов Иванов",
+        "isSpouse": true,
+        "legalBasis": "съдлъжник",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitrina-stoyanova-ivanova-ba7609",
+    "declarantName": "Димитрина Стоянова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

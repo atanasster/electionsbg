@@ -4,23 +4,60 @@
     "declarantName": "Нико Радев Върбанов",
     "institution": "Тервел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3794",
-    "controlHash": "4EF5FEAC",
-    "sourceUrl": "https://register.cacbg.bg/2025/C06FF632-32FB-48B8-AA09-BC45A552885A206609.xml",
+    "filedAt": null,
+    "entryNumber": "Г2084",
+    "controlHash": "527A6B08",
+    "sourceUrl": "https://register.cacbg.bg/2026/C06FF632-32FB-48B8-AA09-BC45A552885A226067.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6355.869375150192,
+        "amountEurDeclarant": 6237.760950593865,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ДАЙХАТСУ ФЕРОЗА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 1991,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Нико Радев Върбанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Нико Радев Върбанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

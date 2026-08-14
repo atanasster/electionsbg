@@ -4,29 +4,84 @@
     "declarantName": "Гергана Василева Гатова-Златкова",
     "institution": "Район \"Централен\" - Пловдив",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г15228",
-    "controlHash": "2DD0F4DB",
-    "sourceUrl": "https://register.cacbg.bg/2025/9566D545-5EA5-4A82-8F28-7188AE12047D218942.xml",
-    "ownershipStakes": [],
+    "entryNumber": "Г10117",
+    "controlHash": "14F7F3E4",
+    "sourceUrl": "https://register.cacbg.bg/2026/9566D545-5EA5-4A82-8F28-7188AE12047D234808.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Христо Николаев Златков",
+        "shareSize": "100%",
+        "companyName": "Велани 8687 ЕООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 0.5112918811962185,
+        "holderName": "Христо Николаев Златков",
+        "legalBasis": "други",
+        "fundsOrigin": "дивиденти"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15778.467453715302,
+        "amountEurDeclarant": 17390.57075512698,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 799.6605021908857,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Дивиденти",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 22897.69560749145
+        "amountEurSpouse": 29353.266899474904
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5800,
+        "valueEur": 2965.4929109380673,
+        "holderName": "Христо Николаев Златков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4945,
+        "valueEur": 2528.3383525153004,
+        "holderName": "Гергана Василева Гатова-Златкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "кредит"
+      },
       {
         "category": "debt",
         "description": "Потребителски кредит",
@@ -38,11 +93,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37194,
-        "valueEur": 19016.99022921215,
+        "amount": 68920,
+        "valueEur": 35238.23645204338,
         "holderName": "Гергана Василева Гатова-Златкова",
         "isSpouse": false,
-        "legalBasis": "договор за кредит, л.п.6",
+        "legalBasis": "договор за кредит л.п. 4.59",
         "fundsOrigin": null
       },
       {
@@ -56,16 +111,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 96753,
-        "valueEur": 49469.02338137773,
+        "amount": 94414,
+        "valueEur": 48273.11167125977,
         "holderName": "Гергана Василева Гатова-Златкова",
         "isSpouse": false,
-        "legalBasis": "договор за кредит, л.п.2.69",
+        "legalBasis": "договор за кредит л.п. 2.69",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредитни карти",
+        "description": "Кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,11 +129,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
         "holderName": "Гергана Василева Гатова-Златкова",
         "isSpouse": false,
-        "legalBasis": "договор за кредит, л.п.18,9",
+        "legalBasis": "договор за кредит л.п. 18,9",
         "fundsOrigin": null
       },
       {
@@ -92,38 +147,55 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37972,
-        "valueEur": 19414.775312782807,
+        "amount": 33747,
+        "valueEur": 17254.567114728787,
         "holderName": "Христо Николаев Златков",
         "isSpouse": true,
-        "legalBasis": "договор за кредит, л.п. 5.39",
+        "legalBasis": "договор за кредит л.п. 5.39",
         "fundsOrigin": null
       }
     ],
+    "events": []
+  },
+  {
+    "slug": "gergana-vasileva-gatova-zlatkova-aac2e9",
+    "declarantName": "Гергана Василева Гатова-Златкова",
+    "institution": "Район \"Централен\" - Пловдив",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г14352",
+    "controlHash": "ECE56D99",
+    "sourceUrl": "https://register.cacbg.bg/2026/9566D545-5EA5-4A82-8F28-7188AE12047D240110.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес ЦЛЦ",
+        "kind": "early_repayment",
+        "description": "Кредит към В България",
+        "detail": "Гергана Василева Гатова-Златкова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
+        "currency": "EUR",
+        "valueEur": 17142.08290086562,
+        "legalBasis": "Наследствени средства от Васил Гатов"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес ЦЛЦ",
+        "kind": "early_repayment",
+        "description": "Кредит към В България",
+        "detail": "Христо Никлаев Златков",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
+        "currency": "EUR",
+        "valueEur": 8345.306084884678,
+        "legalBasis": "Дивидент"
       }
     ]
   }

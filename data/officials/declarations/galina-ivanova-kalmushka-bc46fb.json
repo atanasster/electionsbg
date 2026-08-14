@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2135",
+    "controlHash": "06504467",
+    "sourceUrl": "https://register.cacbg.bg/2026/2014A675-AB8D-4888-AD3B-878AF4F302F7226130.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24927.524375840436,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39000,
+        "valueEur": 19940.38336665252,
+        "holderName": "Галина Иванова Калмушка",
+        "isSpouse": false,
+        "legalBasis": "договор , 4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-ivanova-kalmushka-bc46fb",
+    "declarantName": "Галина Иванова Калмушка",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

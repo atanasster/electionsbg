@@ -4,25 +4,25 @@
     "declarantName": "РУМЕН ИЛИЕВ ГУНИНСКИ",
     "institution": "Правец",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10327",
-    "controlHash": "8A9854F7",
-    "sourceUrl": "https://register.cacbg.bg/2025/7A6393E0-2DBE-4CDF-A265-3E83D78C8AD6213406.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6199",
+    "controlHash": "58A882EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A6393E0-2DBE-4CDF-A265-3E83D78C8AD6230500.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 43415.3275080145,
-        "amountEurSpouse": 129206.0148376904
+        "amountEurDeclarant": 55078.91790186264,
+        "amountEurSpouse": 81619.05687099595
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 18444.343322272387,
+        "amountEurDeclarant": 13584.513991502328,
         "amountEurSpouse": 15119.923510734574
       }
     ],
@@ -38,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Румен Илиев Гунински",
         "isSpouse": false,
         "legalBasis": null,
@@ -57,7 +57,7 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 99917.17071524622,
+        "valueEur": 131787.0162539689,
         "holderName": "Румен Илиев Гунински",
         "isSpouse": false,
         "legalBasis": null,
@@ -75,7 +75,7 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 108841.7705015262,
+        "valueEur": 137030.82578751733,
         "holderName": "Румен Илиев Гунински",
         "isSpouse": false,
         "legalBasis": null,
@@ -93,11 +93,11 @@
         "share": null,
         "currency": "EUR",
         "amount": null,
-        "valueEur": 82025.02262466574,
+        "valueEur": 82025.53391654693,
         "holderName": "Румен Илиев Гунински",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "стара прдажба имот"
+        "fundsOrigin": "стара продажба имот"
       },
       {
         "category": "bank",
@@ -111,11 +111,11 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 20502.804435968363,
+        "valueEur": 3810.658390555416,
         "holderName": "Петя Радулова Радулова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -129,25 +129,7 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 86919.61980335714,
-        "holderName": "Петя Радулова Радулова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "наем стари години"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": null,
-        "valueEur": 59381.43908212882,
+        "valueEur": 137757.37155069713,
         "holderName": "Петя Радулова Радулова",
         "isSpouse": true,
         "legalBasis": null,
@@ -165,15 +147,33 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 1827.8684752764811,
+        "valueEur": 21688.49030846239,
         "holderName": "Петя Радулова Радулова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и премии"
+        "fundsOrigin": "наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 88006.11505089911,
+        "holderName": "Петя Радулова Радулова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наем стари години"
       },
       {
         "category": "debt",
-        "description": "кредитна карта с лимит-14,5%",
+        "description": "кредитна карта с лимит - 14,5%",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -191,7 +191,7 @@
       },
       {
         "category": "debt",
-        "description": "ипотека апартамент -10%",
+        "description": "ипотека апартамент - 10%",
         "detail": "EUR",
         "location": null,
         "municipality": null,
@@ -200,25 +200,25 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 11970,
-        "valueEur": 11969.85423068467,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петя Радулова Радулова",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - заличен 24.7.2025",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "third_party_expense",
-        "description": "Участие в пленарни сесии",
+        "description": "Участие в пленарни сесии -билети",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "EUR",
-        "valueEur": 19518.567564665642,
+        "valueEur": 17330.74960502702,
         "legalBasis": null
       },
       {
@@ -230,7 +230,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "EUR",
-        "valueEur": 2194.4647540941696,
+        "valueEur": 14208.801378442911,
         "legalBasis": null
       }
     ]

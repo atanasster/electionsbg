@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "nikolai-stefanov-stefanov-65a30a",
+    "declarantName": "Николай Стефанов Стефанов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3904",
+    "controlHash": "26556B42",
+    "sourceUrl": "https://register.cacbg.bg/2026/889C808E-43C3-493C-A3E0-8DCA8B2AE356228080.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13739.94672338598,
+        "amountEurSpouse": 7450.545292791296
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8890.854522121042,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4544.873531953186,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1656.585695075748,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10080,
+        "valueEur": 5153.822162457883,
+        "holderName": "Гинка Жорова Стефанова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, продажба МПС"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2809,
+        "valueEur": 1436.2188942801777,
+        "holderName": "Николай Стефанов Стефанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, продажба МПС"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13868,
+        "valueEur": 13868.792277447426,
+        "holderName": "Николай Стефанов Стефанов",
+        "isSpouse": false,
+        "legalBasis": "4.24",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Рав 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

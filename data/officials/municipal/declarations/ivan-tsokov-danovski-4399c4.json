@@ -4,21 +4,21 @@
     "declarantName": "Иван Цоков Дановски",
     "institution": "Кнежа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9562",
-    "controlHash": "88DCB4AE",
-    "sourceUrl": "https://register.cacbg.bg/2025/B766FBBB-DAA0-4480-973A-CE3534EBD2D9212607.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9686",
+    "controlHash": "3562C0B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/B766FBBB-DAA0-4480-973A-CE3534EBD2D9234330.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "дялово участие",
-        "shareSize": "14,29 %",
-        "companyName": "плевенско мляко 2020",
-        "registeredOffice": "плевен",
+        "shareSize": "14.29 %",
+        "companyName": "Плевенско мляко 2020",
+        "registeredOffice": "Плевен",
         "valueEur": 51.12918811962185,
         "holderName": "Иван Цоков Дановски",
         "legalBasis": "други",
@@ -29,49 +29,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2704.2227596467997,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 2724.163143013452,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 10474.836770066928,
+        "amountEurDeclarant": 13031.296176048021,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "субсидия от СЕПП 2024",
-        "amountEurDeclarant": 136861.58817484137,
+        "category": "субсидия от СЕПП 2025",
+        "amountEurDeclarant": 88859.97249249679,
         "amountEurSpouse": null
       }
     ],
@@ -80,41 +50,23 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "БРЕНИЦА",
-        "municipality": "КНЕЖА",
-        "areaSqm": 681,
-        "builtAreaSqm": 200,
-        "acquiredYear": 2023,
-        "share": "1/6",
+        "location": "Бреница",
+        "municipality": "Кнежа",
+        "areaSqm": 1747,
+        "builtAreaSqm": 143,
+        "acquiredYear": 2025,
+        "share": "5/6",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ИВАН ЦОКОВ ДАНОВСКИ",
+        "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "НАСЛЕДСТВО",
-        "fundsOrigin": "НАСЛЕДЯВАНЕ"
-      },
-      {
-        "category": "real_estate",
-        "description": "ПРАВО НА ПРОКАРВАНЕ",
-        "detail": null,
-        "location": "БРЕНИЦА",
-        "municipality": "КНЕЖА",
-        "areaSqm": 630,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 1472,
-        "valueEur": 752.6216491208336,
-        "holderName": "ИВАН ЦОКОВ ДАНОВСКИ",
-        "isSpouse": false,
-        "legalBasis": "ЗАПОВЕД",
-        "fundsOrigin": "ЗАПЛАТА"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "debt",
-        "description": "паричен заем -4,1% лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -127,12 +79,12 @@
         "valueEur": 25564.594059810923,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.1 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем -4,1% лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -145,7 +97,7 @@
         "valueEur": 25564.594059810923,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.1 % лихва",
         "fundsOrigin": null
       },
       {
@@ -168,7 +120,7 @@
       },
       {
         "category": "debt",
-        "description": "паричен заем - 8% лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -181,12 +133,12 @@
         "valueEur": 13293.58891110168,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 8 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,5 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -199,12 +151,12 @@
         "valueEur": 10737.129505120589,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.5 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,4 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -217,12 +169,12 @@
         "valueEur": 76693.78217943278,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кридит - 4.4 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,2 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -235,12 +187,12 @@
         "valueEur": 43459.80990167857,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.2 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,5 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -253,12 +205,12 @@
         "valueEur": 44482.39366407101,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.5 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,4 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -271,12 +223,12 @@
         "valueEur": 5930.985821876135,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.4 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,5 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -289,12 +241,12 @@
         "valueEur": 76693.78217943278,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.5 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,4 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -307,7 +259,7 @@
         "valueEur": 31751.225822285167,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.4 % лихва",
         "fundsOrigin": null
       },
       {
@@ -330,7 +282,7 @@
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,2 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -343,12 +295,12 @@
         "valueEur": 31700.096634165548,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.2 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,5 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -361,12 +313,12 @@
         "valueEur": 25564.594059810923,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.5 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,5 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -379,7 +331,7 @@
         "valueEur": 7158.086336747059,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.5 % лихва",
         "fundsOrigin": null
       },
       {
@@ -402,7 +354,7 @@
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,4 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -415,12 +367,12 @@
         "valueEur": 5112.918811962185,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит - 4.4 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "паричен заем - 4,6 % лихва",
+        "description": "паричен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -433,7 +385,7 @@
         "valueEur": 4601.626930765967,
         "holderName": "Иван Цоков Дановски",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кедит - 4.6 % лихва",
         "fundsOrigin": null
       }
     ],

@@ -4,46 +4,64 @@
     "declarantName": "ГЕОРГИ ЦВЕТАНОВ ГЕОРГИЕВ",
     "institution": "Ценово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5155",
-    "controlHash": "87306ABD",
-    "sourceUrl": "https://register.cacbg.bg/2025/949F936C-FB86-47BD-A508-2B3D6FD29FCE208059.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14373",
+    "controlHash": "A3A5A9B1",
+    "sourceUrl": "https://register.cacbg.bg/2026/949F936C-FB86-47BD-A508-2B3D6FD29FCE240134.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4156.29170224406,
-        "amountEurSpouse": 5159.4463731510405
+        "amountEurDeclarant": 2766.600369152738,
+        "amountEurSpouse": 6140.615493166584
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 16063.768323422793,
+        "amountEurDeclarant": 291440.4626168941,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ПЕЖО 307",
+        "category": "debt",
+        "description": "ИПОТЕКА",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
+        "amount": 108311,
+        "valueEur": 55378.53494424362,
         "holderName": "ГЕОРГИ ЦВЕТАНОВ ГЕОРГИЕВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "ДОГОВ ЗА БАНКОВ КРЕДИТ С ИПОТЕКА 2.45%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕКА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108311,
+        "valueEur": 55378.53494424362,
+        "holderName": "МАРИЯНА ПЕТРОВА ГЕОРГИЕВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВ ЗА БАНКОВ КРЕДИТ С ИПОТЕКА 2.45%",
+        "fundsOrigin": null
       }
     ],
     "events": []

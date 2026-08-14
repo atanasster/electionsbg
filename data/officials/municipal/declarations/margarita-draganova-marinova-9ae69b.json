@@ -4,25 +4,31 @@
     "declarantName": "МАРГАРИТА ДРАГАНОВА МАРИНОВА",
     "institution": "Две Могили",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г3066",
-    "controlHash": "C0181089",
-    "sourceUrl": "https://register.cacbg.bg/2025/84C4F13A-29B3-4EF6-9360-38A16F105E80205783.xml",
+    "filedAt": "2026-03-19",
+    "entryNumber": "Г505",
+    "controlHash": "31A131DE",
+    "sourceUrl": "https://register.cacbg.bg/2026/84C4F13A-29B3-4EF6-9360-38A16F105E80223869.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5686.588302664342,
-        "amountEurSpouse": 15085.666954694427
+        "amountEurDeclarant": 5329.706569589382,
+        "amountEurSpouse": 24378.908187316894
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16427.296850953302,
+        "amountEurDeclarant": 16416.04842956699,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОТПУСКА ПО БОЛЕСТ",
+        "amountEurDeclarant": 4243.722613928613,
         "amountEurSpouse": null
       }
     ],
@@ -30,18 +36,36 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 16700,
-        "valueEur": 8538.57441597685,
+        "currency": "EUR",
+        "amount": 12759,
+        "valueEur": 12758.26631148924,
         "holderName": "МАРГАРИТА ДРАГАНОВА МАРИНОВА",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9327,
+        "valueEur": 9326.986496781417,
+        "holderName": "ГЕОРГИ НЕКОВ МАРИНОВ",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

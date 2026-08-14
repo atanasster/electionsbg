@@ -4,78 +4,52 @@
     "declarantName": "Ирена Методиева Димова",
     "institution": "Лом",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-12",
-    "entryNumber": "Г15012",
-    "controlHash": "CC2BAA30",
-    "sourceUrl": "https://register.cacbg.bg/2025/B35EBE66-F3B1-43C5-B050-E6952A399D44218583.xml",
-    "ownershipStakes": [
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "250",
-        "companyName": "ФО МАКС Д ЕООД",
-        "registeredOffice": "Монтана",
-        "valueEur": 1278.2297029905462,
-        "holderName": null,
-        "transfereeName": "Димчо Иванов Димов",
-        "legalBasis": "възмездно",
-        "fundsOrigin": null
-      }
-    ],
+    "filedAt": null,
+    "entryNumber": "Г12523",
+    "controlHash": "8E6112BA",
+    "sourceUrl": "https://register.cacbg.bg/2026/B35EBE66-F3B1-43C5-B050-E6952A399D44237826.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4304.566347790964,
-        "amountEurSpouse": 10449.783467888314
+        "amountEurDeclarant": 22668.636844715544,
+        "amountEurSpouse": 30197.921087211056
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 29551.13685749784,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "по чл.11от ПОДНС",
-        "amountEurDeclarant": 11171.727604137373,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "продажба на наследствен апартамент",
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 17895.215841867648
+        "amountEurSpouse": 8436.316039737605
       },
       {
         "parent": null,
-        "category": "продажба на дялове",
+        "category": "продажба на собствени коли посочени в на стр.4",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1278.2297029905462
+        "amountEurSpouse": 4806.143683244454
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "ФИАТ",
+        "detail": "ДОБЛО",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 53000,
-        "valueEur": 27098.46970339958,
-        "holderName": "Ирена Методиева Диимова",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
+        "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "спестявания и заплати"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "cash",
@@ -88,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17000,
-        "valueEur": 8691.961980335715,
-        "holderName": "Димчо Иванов Димов",
-        "isSpouse": true,
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Ирена Методиева Димова",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -106,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1142,
-        "valueEur": 583.8953283260815,
+        "amount": 20861,
+        "valueEur": 10666.059933634315,
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата и спестявания"
       },
       {
         "category": "bank",
@@ -124,16 +98,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5812,
-        "valueEur": 2971.628413512422,
+        "amount": 20141,
+        "valueEur": 10297.929779173037,
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата и продажба на МПС"
       },
       {
         "category": "debt",
-        "description": "кредитна карта -лимит",
+        "description": "Кредитна карта -лимит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -146,12 +120,12 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор-15,6%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредитна карта -лимит",
+        "description": "Кредитна карта -лимит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -164,12 +138,12 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Ирена Методиева Димова",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор-9%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредитна карта -лимит",
+        "description": "Кредитна карта -лимит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -182,30 +156,12 @@
         "valueEur": 1022.5837623924369,
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор-18%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ФЛ за МПС",
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 5340,
-        "valueEur": 5339.932407213306,
-        "holderName": "Ирена Методиева Димова",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "ипотечен кредит ЛП 2,47%",
+        "description": "Лизинг -МПС Toyota",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -214,11 +170,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 538924,
-        "valueEur": 275547.46578179084,
+        "amount": 19559,
+        "valueEur": 10000.357904316837,
+        "holderName": "Димчо Иванов Димов",
+        "isSpouse": true,
+        "legalBasis": "договор-10.68%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 526413,
+        "valueEur": 269150.693056145,
         "holderName": "Иван Димчев Димов",
         "isSpouse": true,
-        "legalBasis": "договор-солидарен длъжник Ирена Димова",
+        "legalBasis": "договор-солидарен длъжник Ирена Методиева Димова -2,47%",
         "fundsOrigin": null
       },
       {
@@ -232,12 +206,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 1162,
-        "valueEur": 1118.706636057326,
-        "holderName": "Ирена Методиева Димова",
-        "isSpouse": false,
+        "amount": 1545,
+        "valueEur": null,
+        "holderName": "Ирена Мтодиева Димова",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "от минали години заплати и спестявания"
       },
       {
         "category": "investment",
@@ -255,20 +229,44 @@
         "holderName": "Димчо Иванов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спест.и дивиденти"
+        "fundsOrigin": "дивиденти и спестявания от минали години"
       }
     ],
     "events": [
       {
-        "kind": "disposal_property",
-        "description": "апартамент с мазе",
-        "detail": null,
-        "location": "Сливен",
-        "municipality": "Сливен",
-        "areaSqm": 59,
-        "builtAreaSqm": 59,
+        "kind": "disposal_vehicle",
+        "description": "ХОНДА",
+        "detail": "CRV",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 17895.215841867648,
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "КИА",
+        "detail": "СПОРТИДЖ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ХОНДА",
+        "detail": "Civik",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8436.316039737605,
         "legalBasis": "възмездно"
       }
     ]

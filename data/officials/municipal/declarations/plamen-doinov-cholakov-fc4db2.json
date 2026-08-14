@@ -4,29 +4,48 @@
     "declarantName": "Пламен Дойнов Чолаков",
     "institution": "Айтос",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г9930",
-    "controlHash": "1E3A497A",
-    "sourceUrl": "https://register.cacbg.bg/2025/BEA6C744-09F2-4C9B-B477-71264B668634212998.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4497",
+    "controlHash": "FABFF91C",
+    "sourceUrl": "https://register.cacbg.bg/2026/BEA6C744-09F2-4C9B-B477-71264B668634228697.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6602.823353767965,
+        "amountEurDeclarant": 8523.235659540962,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9485.998271833441,
-        "amountEurSpouse": 1061.4419453633495
+        "amountEurDeclarant": 13253.708144368376,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Пламен Дойнов Чолаков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "европейски фондове"
+      }
+    ],
     "events": []
   }
 ]

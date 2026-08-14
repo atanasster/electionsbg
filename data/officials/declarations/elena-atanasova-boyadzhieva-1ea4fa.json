@@ -5,6 +5,80 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7310",
+    "controlHash": "B852247D",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7CE0DF5-4DA6-4CDE-A29A-D32AE71C2BE7231717.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35666.18775660461,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17770.46062285577,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 4478.916879278874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр Пловдив улТракия",
+        "municipality": "Пловдив",
+        "areaSqm": 71,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 97000,
+        "valueEur": 49595.31247603319,
+        "holderName": "Елена  Атанасова Бояджиева",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплати,спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66545,
+        "valueEur": 34023.918234202356,
+        "holderName": "Елена Атанасова Бояджиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-atanasova-boyadzhieva-1ea4fa",
+    "declarantName": "Елена Атанасова Бояджиева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

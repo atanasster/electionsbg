@@ -4,20 +4,39 @@
     "declarantName": "Ангел Ценов Ангелов",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14743",
-    "controlHash": "81666F8F",
-    "sourceUrl": "https://register.cacbg.bg/2025/75F5BCCF-49D6-4896-9222-7826F84ABE8B218188.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9920",
+    "controlHash": "29D11C2C",
+    "sourceUrl": "https://register.cacbg.bg/2026/75F5BCCF-49D6-4896-9222-7826F84ABE8B234596.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Ани 25 ЕООД",
+        "shareSize": "100%",
+        "companyName": "Ани 25 ЕООД",
+        "registeredOffice": "Бяла Слатина",
+        "valueEur": null,
+        "holderName": "Ангел Ценов Ангелов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 57707.4694630924,
-        "amountEurSpouse": 17217.754099282658
+        "amountEurDeclarant": 52172.73484914333,
+        "amountEurSpouse": 22296.927647085893
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 44870.97549378013,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -131,8 +150,26 @@
       },
       {
         "category": "vehicle",
-        "description": "каварна",
-        "detail": "Принцесс",
+        "description": "мотор",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5900,
+        "valueEur": 3016.622099057689,
+        "holderName": "Ангел Ценов Ангелов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "каравана",
+        "detail": "Принцес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -149,6 +186,24 @@
       },
       {
         "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22800,
+        "valueEur": 11657.454891273781,
+        "holderName": "Ангел Ценов Ангелов",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 5,26%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
         "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
@@ -162,25 +217,7 @@
         "valueEur": 69286.69669654315,
         "holderName": "Наталия Ценова Ангелова",
         "isSpouse": true,
-        "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Ангел Ценов Ангелов",
-        "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "ипотечен кредит 3,8%",
         "fundsOrigin": null
       }
     ],

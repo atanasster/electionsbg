@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11949",
+    "controlHash": "CE1E4E84",
+    "sourceUrl": "https://register.cacbg.bg/2026/16955198-83B1-4524-9292-F44B14BCC7FE237014.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14687.370579242572,
+        "amountEurSpouse": 19502.20622446736
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3701.241927979426,
+        "amountEurSpouse": 3868.434373130589
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Макреш",
+        "municipality": "Макреш",
+        "areaSqm": 1310,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Татяна Стефанова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-stefanova-todorova-179590",
+    "declarantName": "Татяна Стефанова Тодорова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

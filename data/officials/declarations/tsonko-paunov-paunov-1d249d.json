@@ -5,6 +5,74 @@
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9944",
+    "controlHash": "0AC1CCE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/EE1D00F7-BE09-4E1B-96E0-E27109CFFB8A234620.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 52645.16854736864,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22529.565453030173,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1754.7537362654218
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 447.8916879278874,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 552.195231691916,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Цонко Паунов Паунов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsonko-paunov-paunov-1d249d",
+    "declarantName": "Цонко Паунов Паунов",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

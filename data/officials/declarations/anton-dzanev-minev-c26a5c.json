@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1411",
+    "controlHash": "EAC4227A",
+    "sourceUrl": "https://register.cacbg.bg/2026/0EAA9284-656E-42B8-AA7F-A43DA7DAFE34225270.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36189.23935106835,
+        "amountEurSpouse": 21220.658237167852
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "шкода фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8214,
+        "valueEur": 4199.751512145739,
+        "holderName": "Антон Дзанев Минев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 117090,
+        "valueEur": 59867.16636926522,
+        "holderName": "Антон Дзанев Минев, Янка Панова Минева",
+        "isSpouse": true,
+        "legalBasis": "2.75",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anton-dzanev-minev-c26a5c",
+    "declarantName": "Антон Дзанев Минев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

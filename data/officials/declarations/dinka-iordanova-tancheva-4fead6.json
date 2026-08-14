@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1799",
+    "controlHash": "10107C0A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B0CBFB0B-F4C9-40DB-A119-D17FA95E8A5A225760.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32761.538579528897,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит за жилище",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43824,
+        "valueEur": 22406.85540154308,
+        "holderName": "Динка Йорданова Танчева",
+        "isSpouse": false,
+        "legalBasis": "договор - 3,10 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dinka-iordanova-tancheva-4fead6",
+    "declarantName": "Динка Йорданова Танчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

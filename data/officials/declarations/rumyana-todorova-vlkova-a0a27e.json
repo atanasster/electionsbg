@@ -5,6 +5,50 @@
     "institution": "МБАЛ \"Уни Хоспитал\" ООД, гр. Панагюрище",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10173",
+    "controlHash": "5AA2988C",
+    "sourceUrl": "https://register.cacbg.bg/2026/2865F413-97BD-4C35-94FF-18FB0DAEC838234867.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 76754.62591329512,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Панагюрище",
+        "municipality": "Панагюрище",
+        "areaSqm": 579,
+        "builtAreaSqm": 86,
+        "acquiredYear": 2017,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Румяна Тодорова Вълкова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-todorova-vlkova-a0a27e",
+    "declarantName": "Румяна Тодорова Вълкова",
+    "institution": "МБАЛ \"Уни Хоспитал\" ООД, гр. Панагюрище",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

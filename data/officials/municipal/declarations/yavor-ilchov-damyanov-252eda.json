@@ -1,45 +1,32 @@
 [
   {
     "slug": "yavor-ilchov-damyanov-252eda",
-    "declarantName": "ЯВОР ИЛЧОВ ДАМЯНОВ",
+    "declarantName": "Явор Илчов Дамянов",
     "institution": "Сапарева баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г3018",
-    "controlHash": "5D18E2B7",
-    "sourceUrl": "https://register.cacbg.bg/2025/806B206F-5B0A-4896-94A9-532F81F341A6205733.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13626",
+    "controlHash": "62ADF3D3",
+    "sourceUrl": "https://register.cacbg.bg/2026/806B206F-5B0A-4896-94A9-532F81F341A6239196.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10744.798883338532,
+        "amountEurDeclarant": 5219.267523250998,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8200.610482506148,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Товарен автомобил",
-        "detail": "форт рейнджър",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "Явор Илчов Дамянов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестени"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

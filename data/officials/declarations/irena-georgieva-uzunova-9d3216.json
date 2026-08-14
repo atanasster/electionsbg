@@ -5,6 +5,68 @@
     "institution": "МБАЛ - Хасково АД",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4219",
+    "controlHash": "B17601FA",
+    "sourceUrl": "https://register.cacbg.bg/2026/3FAAD805-CE20-4F10-90B0-783100F702DF228416.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42950.56318800714,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16694,
+        "valueEur": 8535.506664689672,
+        "holderName": "ИРЕНА ГЕОРГИЕВА УЗУНОВА",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ - 6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9598,
+        "valueEur": 4907.379475721305,
+        "holderName": "ИРЕНА ГЕОРГИЕВА УЗУНОВА",
+        "isSpouse": false,
+        "legalBasis": "I cart - 17%год.,1.33%мес.",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "irena-georgieva-uzunova-9d3216",
+    "declarantName": "ИРЕНА ГЕОРГИЕВА УЗУНОВА",
+    "institution": "МБАЛ - Хасково АД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

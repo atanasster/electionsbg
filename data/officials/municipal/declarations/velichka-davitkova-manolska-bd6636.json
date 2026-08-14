@@ -1,77 +1,41 @@
 [
   {
     "slug": "velichka-davitkova-manolska-bd6636",
-    "declarantName": "Величка Давиткова Манолска",
+    "declarantName": "величка давиткова манолска",
     "institution": "Струмяни",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6536",
-    "controlHash": "E7624FEF",
-    "sourceUrl": "https://register.cacbg.bg/2025/3E3FF0F2-6A51-4FF8-851C-EDF775122538209497.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14743",
+    "controlHash": "19DE2A9D",
+    "sourceUrl": "https://register.cacbg.bg/2026/3E3FF0F2-6A51-4FF8-851C-EDF775122538240867.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5344.022742262876,
+        "amountEurDeclarant": 8633.674705879346,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14282.938701216364,
+        "amountEurDeclarant": 10322.983081351651,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Земеделски производител",
-        "amountEurDeclarant": 72735.36043521165,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 51703.8801940864,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент с гараж",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 198,
-        "builtAreaSqm": 119,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 576420,
-        "valueEur": 294718.86615912424,
-        "holderName": "Величка Давиткова Манолска",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Туран",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Величка Давиткова Манолска",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "Креди",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,14 +44,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 573136,
-        "valueEur": 293039.78362127586,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Величка Давиткова Манолска",
         "isSpouse": false,
-        "legalBasis": "Покупко-продажба",
+        "legalBasis": "5.60",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Величка Давиткова Манолска",
+        "isSpouse": false,
+        "legalBasis": "31.47",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Величка Давиткова Манолска",
+        "isSpouse": false,
+        "legalBasis": "31.47",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди ку 8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

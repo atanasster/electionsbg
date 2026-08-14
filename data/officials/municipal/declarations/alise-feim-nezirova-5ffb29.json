@@ -4,48 +4,91 @@
     "declarantName": "АЛИСЕ ФЕИМ НЕЗИРОВА",
     "institution": "Кубрат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4854",
-    "controlHash": "BA8A9F90",
-    "sourceUrl": "https://register.cacbg.bg/2025/262158F4-0887-48E8-A3F6-EC8F556EF1E2207732.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10364",
+    "controlHash": "1217E385",
+    "sourceUrl": "https://register.cacbg.bg/2026/262158F4-0887-48E8-A3F6-EC8F556EF1E2235100.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6024.552236135042,
+        "amountEurDeclarant": 7423.958114969092,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19500.161056942576,
+        "amountEurDeclarant": 17690.69908938916,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "КРЕДИТ",
-        "detail": "BGN",
+        "description": "ЛИЧЕН ЗАЕМ",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "currency": "EUR",
+        "amount": 7175,
+        "valueEur": 7173.425093182946,
         "holderName": "АЛИСЕ ФЕИМ НЕЗИРОВА",
         "isSpouse": false,
-        "legalBasis": "7,15%  лихв.процент",
+        "legalBasis": "7,21",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "СТОКОВ КРЕДИН",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 865,
+        "valueEur": 864.0832792216092,
+        "holderName": "АЛИСЕ ФЕИМ НЕЗИРОВА",
+        "isSpouse": false,
+        "legalBasis": "0",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "СЕВАР",
+        "municipality": "КУБРАТ",
+        "areaSqm": 60150,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3617.390059463246,
+        "legalBasis": "ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕКА КОЛА",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "БРАКУВАНА"
+      }
+    ]
   }
 ]

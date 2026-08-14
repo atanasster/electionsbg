@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1579",
+    "controlHash": "8C15FE9F",
+    "sourceUrl": "https://register.cacbg.bg/2026/A556B059-E7B0-4900-BD2A-0F0968B24C9B225494.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21153.679000731147,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47685,
+        "valueEur": 24380.95335484168,
+        "holderName": "Ени Любенова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26280,
+        "valueEur": 13436.750637836622,
+        "holderName": "Ени Любенова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "банков кредит; 4.4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "eni-lyubenova-stoyanova-7c096d",
+    "declarantName": "Ени Любенова Стоянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

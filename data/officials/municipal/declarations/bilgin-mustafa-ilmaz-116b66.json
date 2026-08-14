@@ -1,28 +1,34 @@
 [
   {
     "slug": "bilgin-mustafa-ilmaz-116b66",
-    "declarantName": "Билгин  Мустафа Йълмаз",
+    "declarantName": "БИЛГИН МУСТАФА ЙЪЛМАЗ",
     "institution": "Стамболово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3791",
-    "controlHash": "612FD6D5",
-    "sourceUrl": "https://register.cacbg.bg/2025/D7DBE84E-B12A-4DB8-A081-D45807B391FD206606.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13304",
+    "controlHash": "39CB3EC7",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7DBE84E-B12A-4DB8-A081-D45807B391FD238804.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11836.407049692458,
-        "amountEurSpouse": 6598.2217268372
+        "amountEurDeclarant": 5360.895374342351,
+        "amountEurSpouse": 7358.512754175977
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5114.96397948697,
+        "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 8622.937576374225,
+        "amountEurDeclarant": 9671.085932826472,
         "amountEurSpouse": null
       }
     ],
@@ -43,7 +49,7 @@
         "holderName": "Билгин Мустафа Йълмаз и Хатче Мустафа Йълмаз",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -56,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 91057,
-        "valueEur": 46556.70482608407,
+        "amount": 126274,
+        "valueEur": 64562.87100617129,
         "holderName": "Билгин Мустафа Йълмаз",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, субсидии и земед. Продукция"
+        "fundsOrigin": "заплата и субсидии"
       }
     ],
     "events": []

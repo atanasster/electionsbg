@@ -4,29 +4,66 @@
     "declarantName": "Денислав Георгиев Славов",
     "institution": "Раднево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г8770",
-    "controlHash": "1264A430",
-    "sourceUrl": "https://register.cacbg.bg/2025/F4C46508-07FE-4906-86E4-81F93A4A4461211795.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10548",
+    "controlHash": "654A27C3",
+    "sourceUrl": "https://register.cacbg.bg/2026/F4C46508-07FE-4906-86E4-81F93A4A4461235309.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5941.211659500059,
+        "amountEurDeclarant": 7033.331117735182,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14849.450105581773,
+        "amountEurDeclarant": 15872.545159855406,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Денислав Георгиев Славов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35500,
+        "valueEur": 18150.861782465756,
+        "holderName": "Денислав Георгиев Славов",
+        "isSpouse": false,
+        "legalBasis": "3.99",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

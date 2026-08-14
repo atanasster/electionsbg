@@ -5,6 +5,63 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г5756",
+    "controlHash": "503A5492",
+    "sourceUrl": "https://register.cacbg.bg/2026/75599D54-E3F7-4521-8718-64184FE9486C230021.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29489.270539873098,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 107105,
+        "valueEur": 54761.91693552098,
+        "holderName": "ЦВЕТОЗАР ИВАНОВ НЕШЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген голф 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tsvetozar-ivanov-neshev-c65b31",
+    "declarantName": "ЦВЕТОЗАР ИВАНОВ НЕШЕВ",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

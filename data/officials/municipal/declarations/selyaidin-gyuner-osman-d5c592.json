@@ -1,94 +1,87 @@
 [
   {
     "slug": "selyaidin-gyuner-osman-d5c592",
-    "declarantName": "Селяйдин Гюнер Оман",
+    "declarantName": "Селяйдин Гюнер Осман",
     "institution": "Сливо поле",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-21",
-    "entryNumber": "Г3896",
-    "controlHash": "4915FD6D",
-    "sourceUrl": "https://register.cacbg.bg/2025/F8C8D200-BE5D-48B2-96F2-EDF8689E4384206715.xml",
+    "filedAt": null,
+    "entryNumber": "Г13204",
+    "controlHash": "CBF52515",
+    "sourceUrl": "https://register.cacbg.bg/2026/F8C8D200-BE5D-48B2-96F2-EDF8689E4384238704.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6011.769939105137,
-        "amountEurSpouse": 5764.304668606167
+        "amountEurDeclarant": 6988.337432189915,
+        "amountEurSpouse": 5581.773467019118
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13315.574461993117,
+        "amountEurDeclarant": 13725.630550712485,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "парцел",
+        "description": "къща с двор",
         "detail": null,
-        "location": "Сливо поле",
+        "location": "гр.Сливо поле",
         "municipality": "Сливо поле",
-        "areaSqm": 940,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
+        "areaSqm": 1012,
+        "builtAreaSqm": 121,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 3560,
-        "valueEur": 1820.1990970585377,
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
         "holderName": "Селяйдин Гюнер Осман",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Сливо поле",
-        "municipality": "Сливо поле",
-        "areaSqm": 1170,
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "ФОЛКСВАГЕН ПАСАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2023,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 4440,
-        "valueEur": 2270.1359525112102,
+        "amount": 500,
+        "valueEur": 255.64594059810923,
         "holderName": "Селяйдин Гюнер Осман",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63599,
+        "valueEur": 32517.6523521983,
+        "holderName": "Селяйдин Гюнер Осман",
+        "isSpouse": false,
+        "legalBasis": "Потр. Кредит - 6,72 лих.%",
+        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "Сливо поле",
-        "municipality": "Сливо поле",
-        "areaSqm": 940,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1820.1990970585377,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "Сливо поле",
-        "municipality": "Сливо поле",
-        "areaSqm": 1170,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2270.1359525112102,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

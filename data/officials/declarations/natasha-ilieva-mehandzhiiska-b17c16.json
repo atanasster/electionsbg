@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-13",
+    "entryNumber": "Г479",
+    "controlHash": "7900EEE4",
+    "sourceUrl": "https://register.cacbg.bg/2026/D03181D2-2D44-4B47-907F-1C21574E6BC0223818.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23637.02366770118,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "м. Абланица",
+        "municipality": "Велинград",
+        "areaSqm": 30,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "0",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Наташа Илиева Механджийска",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Наташа Илиева Механджийска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "natasha-ilieva-mehandzhiiska-b17c16",
+    "declarantName": "Наташа Илиева Механджийска",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

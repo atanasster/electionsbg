@@ -4,19 +4,19 @@
     "declarantName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
     "institution": "Костинброд",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-16",
-    "entryNumber": "Г15068",
-    "controlHash": "47E3C35B",
-    "sourceUrl": "https://register.cacbg.bg/2025/E4E79235-F963-4675-B8A4-A78761C89E51218659.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9844",
+    "controlHash": "36539CA8",
+    "sourceUrl": "https://register.cacbg.bg/2026/E4E79235-F963-4675-B8A4-A78761C89E51234511.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31478.195957726388,
+        "amountEurDeclarant": 34242.239867473145,
         "amountEurSpouse": null
       },
       {
@@ -29,45 +29,105 @@
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6068.523337917917
+        "amountEurSpouse": 6043.981327620499
       },
       {
         "parent": null,
         "category": "ДИВИДЕНТ",
-        "amountEurDeclarant": 23045.458961157157,
-        "amountEurSpouse": 12916.766794660067
+        "amountEurDeclarant": 19033.351569410428,
+        "amountEurSpouse": 48438.25894888615
       },
       {
         "parent": null,
-        "category": "ДОХДИ ОТ РЕНТА, АРЕНДА",
-        "amountEurDeclarant": 843.6316039737605,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ПЕНСИЯ",
+        "category": "РЕНТА",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2877.5507073723174
+        "amountEurSpouse": 1265.4474059606407
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЗЩЕТЕНИЕ",
+        "amountEurDeclarant": 11350.67976255605,
+        "amountEurSpouse": 11350.67976255605
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3157.7386582678455
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "РЕМАРКЕ ЗА ЛЕК АВТОМОБИЛ",
-        "detail": "ФЕНДТ ТГ2",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 559,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 57785,
+        "valueEur": 29545.001354923486,
+        "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 559,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 57785,
+        "valueEur": 29545.001354923486,
         "holderName": "ВИОЛЕТА ГЕОРГИЕВА ТЕНЕВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
+        "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 538,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 538,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ВИОЛЕТА ГЕОРГИЕВА ТЕНЕВА",
+        "isSpouse": true,
+        "legalBasis": "замяна",
+        "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ"
       },
       {
         "category": "bank",
@@ -80,8 +140,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34721,
-        "valueEur": 17752.565407013903,
+        "amount": 26635,
+        "valueEur": 13618.25925566128,
         "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,8 +158,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4774,
-        "valueEur": 2440.907440830747,
+        "amount": 206,
+        "valueEur": 105.326127526421,
         "holderName": "ВИОЛЕТА ГЕОРГИЕВА ТЕНЕВА",
         "isSpouse": true,
         "legalBasis": null,
@@ -116,8 +176,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6637,
-        "valueEur": 3393.444215499302,
+        "amount": 1274,
+        "valueEur": 651.3858566439824,
         "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
         "isSpouse": false,
         "legalBasis": "ДОГОВОР, 4,2%",
@@ -144,16 +204,52 @@
     ],
     "events": [
       {
-        "kind": "third_party_expense",
-        "description": "КОМАНДИРОВЪЧНИ ПАРИ",
+        "kind": "disposal_property",
+        "description": "парцел",
         "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 559,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "КОСТИНБРОД",
+        "municipality": "Костинброд",
+        "areaSqm": 559,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "РЕМАРКЕ ЗА ЛЕК АВТОМОБИЛ",
+        "detail": "ФЕНДТ ТГ2",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 465.27561188855884,
-        "legalBasis": null
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "РЕМАРКЕ ЗА ЛЕК АВТОМОБИЛ",
+        "detail": "ФЕНДТ ТГ2",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
       },
       {
         "kind": "third_party_expense",
@@ -164,7 +260,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 10.22583762392437,
+        "valueEur": 823.1799287259117,
         "legalBasis": null
       }
     ]

@@ -4,43 +4,91 @@
     "declarantName": "Валери Иванов Василев",
     "institution": "Видин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3059",
-    "controlHash": "26C5E244",
-    "sourceUrl": "https://register.cacbg.bg/2025/FD622402-06E1-4534-9F78-1756231367D9205776.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3139",
+    "controlHash": "0F5BCECE",
+    "sourceUrl": "https://register.cacbg.bg/2026/FD622402-06E1-4534-9F78-1756231367D9227252.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6058.297500293993,
-        "amountEurSpouse": 540.435518424403
+        "amountEurDeclarant": 6021.995776729062,
+        "amountEurSpouse": 1410.1430083391706
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 76607.37385151061,
+        "amountEurDeclarant": 90329.93665093592,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 766.9378217943278,
-        "amountEurSpouse": 884.534954469458
-      },
-      {
-        "parent": null,
-        "category": "Ваучери за храна",
-        "amountEurDeclarant": 1073.7129505120588,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 36803.300900385,
+        "amountEurSpouse": 204.5167524784874
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Volkswagen Passat 8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Валери Иванов Василев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Volkswagen Passat 8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Бистра Кирилова Василева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Kia EV6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 17700,
+        "valueEur": 9049.866297173066,
+        "holderName": "Валери Иванов Василев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -50,15 +98,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 71709,
-        "valueEur": 36664.22950869963,
+        "amount": 51709,
+        "valueEur": 26438.39188477526,
         "holderName": "Валери Иванов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -73,7 +121,25 @@
         "holderName": "Валери Иванов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25702,
+        "valueEur": 13141.223930505208,
+        "holderName": "Бистра Кирилова Василева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -86,12 +152,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17732,
-        "valueEur": 9066.227637371347,
+        "amount": 120117,
+        "valueEur": 61414.84689364618,
         "holderName": "Валери Иванов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -104,37 +170,43 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 141089,
-        "valueEur": 72137.66022609327,
+        "amount": 53804,
+        "valueEur": 27509.54837588134,
         "holderName": "Валери Иванов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22853,
+        "valueEur": 11684.553360977181,
+        "holderName": "Бистра Кирилова Василева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": [
       {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Видин",
-        "municipality": "Видин",
-        "areaSqm": 450,
-        "builtAreaSqm": 118,
-        "currency": "BGN",
-        "valueEur": 46016.26930765966,
-        "legalBasis": "възмездно"
-      },
-      {
         "kind": "disposal_vehicle",
         "description": "Лек автомобил",
-        "detail": "Фолксваген Пасат",
+        "detail": "Volkswagen Passat 7",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 613.5502574354622,
+        "valueEur": 1533.8756435886555,
         "legalBasis": "възмездно"
       }
     ]

@@ -4,35 +4,54 @@
     "declarantName": "Зиля Мустафа Читак",
     "institution": "Руен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13994",
-    "controlHash": "8E5CDD22",
-    "sourceUrl": "https://register.cacbg.bg/2025/6B4BFB49-A8AC-4642-A3AE-E78F292F41E1217256.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12294",
+    "controlHash": "A7ED0E6F",
+    "sourceUrl": "https://register.cacbg.bg/2026/6B4BFB49-A8AC-4642-A3AE-E78F292F41E1237492.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4651.222243241999,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5495.876430978153,
+        "amountEurSpouse": 4081.131795708216
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16800.028632345347,
+        "amountEurDeclarant": 17448.34673770215,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "доходо от пенсии",
+        "category": "доходи от пенсии",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7125.874948231697
+        "amountEurSpouse": 7060.429587438581
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай, 2012",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Мустафа Мустафа Читак, Зиля Мустафа Читак",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

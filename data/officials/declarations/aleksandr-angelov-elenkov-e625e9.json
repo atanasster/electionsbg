@@ -5,6 +5,74 @@
     "institution": "Държавна агенция \"Национална сигурност\"",
     "positionTitle": "Директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-17",
+    "entryNumber": "Г339",
+    "controlHash": "6D58D957",
+    "sourceUrl": "https://register.cacbg.bg/2026/C262E239-C4DF-469F-9E43-8469056D584B223531.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 66977.19126917984,
+        "amountEurSpouse": 11259.669807703123
+      },
+      {
+        "parent": null,
+        "category": "Годишен необлагаем доход от ДАНС",
+        "amountEurDeclarant": 5930.985821876135,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18467,
+        "valueEur": 9442.027170050567,
+        "holderName": "Александър Ангелов Еленков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "личен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25834,
+        "valueEur": 13208.714458823108,
+        "holderName": "Александър Ангелов Еленков",
+        "isSpouse": false,
+        "legalBasis": "5,86%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aleksandr-angelov-elenkov-e625e9",
+    "declarantName": "Александър Ангелов Еленков",
+    "institution": "Държавна агенция \"Национална сигурност\"",
+    "positionTitle": "Директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

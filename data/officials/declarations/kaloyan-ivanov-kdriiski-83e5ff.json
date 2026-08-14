@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "kaloyan-ivanov-kdriiski-83e5ff",
+    "declarantName": "КАЛОЯН ИВАНОВ КЪДРИЙСКИ",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10036",
+    "controlHash": "00597113",
+    "sourceUrl": "https://register.cacbg.bg/2026/82CC0A7D-107A-4913-9583-567061C33A82234722.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6947.434081694217,
+        "amountEurSpouse": 17464.70807790043
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 26446.5725548744,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 16887.970835911095,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 300000,
+        "valueEur": 153387.56435886555,
+        "holderName": "КАЛОЯН ИВАНОВ КЪДРИЙСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ОТ ДИВИДЕНТИ"
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16000,
+        "valueEur": 15999.856838273265,
+        "holderName": "КАЛОЯН ИВАНОВ КЪДРИЙСКИ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "КАЛОЯН ИВАНОВ КЪДРИЙСКИ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12039",
+    "controlHash": "20353FBC",
+    "sourceUrl": "https://register.cacbg.bg/2026/EC3675C5-6F8F-4155-9D15-71B3B9630F63237140.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17026.530935715273,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5318,
+        "valueEur": 2719.05022420149,
+        "holderName": "ГЕРГАНА САШЕВА МИТЕВА-ДУМОВА",
+        "isSpouse": false,
+        "legalBasis": "ДСК - 20.20%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5858,
+        "valueEur": 2995.147840047448,
+        "holderName": "ГЕРГАНА САШЕВА МИТЕВА-ДУМОВА",
+        "isSpouse": false,
+        "legalBasis": "ДСК - 20.20%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-sasheva-miteva-dumova-4ec7ff",
+    "declarantName": "ГЕРГАНА САШЕВА МИТЕВА-ДУМОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

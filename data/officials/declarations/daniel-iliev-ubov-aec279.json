@@ -5,6 +5,81 @@
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Директор на дирекция",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4195",
+    "controlHash": "B5A0DA7D",
+    "sourceUrl": "https://register.cacbg.bg/2026/CEA9B984-2F69-4888-AE34-913294AF49A4228392.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 80289.69797988578,
+        "amountEurSpouse": 31106.998051977935
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 210799,
+        "valueEur": 107779.81726428166,
+        "holderName": "Даниел Илиев Убов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56967,
+        "valueEur": 29126.76459610498,
+        "holderName": "Ива Стоянова Убова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "daniel-iliev-ubov-aec279",
+    "declarantName": "Даниел Илиев Убов",
+    "institution": "Членовете на управителните и контролните органи на НЕК",
+    "positionTitle": "Директор на дирекция",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

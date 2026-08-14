@@ -4,61 +4,49 @@
     "declarantName": "Милко Генов Сарафов",
     "institution": "Брезово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2272",
-    "controlHash": "28A3C263",
-    "sourceUrl": "https://register.cacbg.bg/2025/8A197B2F-2E65-46DE-94D4-97E29A0985F8204885.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9982",
+    "controlHash": "13056152",
+    "sourceUrl": "https://register.cacbg.bg/2026/8A197B2F-2E65-46DE-94D4-97E29A0985F8234659.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5130.302735922856,
-        "amountEurSpouse": 54519.56458383398
+        "amountEurDeclarant": 5681.47538385238,
+        "amountEurSpouse": 69627.72838130103
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 27542.782348159093,
+        "amountEurDeclarant": 18185.118338505905,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 10931.931711856347
+        "amountEurDeclarant": 61.35502574354622,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "от рента",
-        "amountEurDeclarant": 357.90431683735295,
+        "category": "обезщетение при пенсиониране",
+        "amountEurDeclarant": 46629.819565095124,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "от пенсия",
+        "amountEurDeclarant": 7792.08826943037,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Шкода Фабия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 6400,
-        "valueEur": 3272.2680396557985,
-        "holderName": "Тодорка Атанасова Глушкова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -68,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 61944,
-        "valueEur": 31671.46428881856,
+        "amount": 11961,
+        "valueEur": 6115.562190987969,
         "holderName": "Милко Генов Сарафов",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,15 +74,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 215300,
-        "valueEur": 110081.14202154583,
-        "holderName": "Тодорка Атанасова Глушкова",
-        "isSpouse": true,
+        "amount": 163205,
+        "valueEur": 83445.39147062883,
+        "holderName": "Милко Генов Сарафов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, учебници"
+        "fundsOrigin": "заплата, пенсия"
       },
       {
-        "category": "investment",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -104,12 +92,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4200,
-        "valueEur": 2147.4259010241176,
+        "amount": 127129,
+        "valueEur": 65000.02556459406,
         "holderName": "Тодорка Атанасова Глушкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 166245,
+        "valueEur": 84999.71878946535,
+        "holderName": "Тодорка Атанасова Глушкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, авторска дейност"
       }
     ],
     "events": []

@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "galya-petrova-lyubenova-56c46d",
+    "declarantName": "Галя Петрова Любенова",
+    "institution": "Левски",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г10519",
+    "controlHash": "505EA36E",
+    "sourceUrl": "https://register.cacbg.bg/2026/8F703C47-F610-42E7-8EC7-BD23DBA755C5235278.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Няма",
+        "shareSize": "45,45%",
+        "companyName": "България Север ООД",
+        "registeredOffice": "София",
+        "valueEur": 127.82297029905462,
+        "holderName": "Галя Петрова Любенова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2431.7041869692152,
+        "amountEurSpouse": 7527.239074970728
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18643.747155938912,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Левски",
+        "municipality": "Левски",
+        "areaSqm": 0,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2011,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 150,
+        "valueEur": 76.69378217943277,
+        "holderName": "Румен Павлов Любенов",
+        "isSpouse": true,
+        "legalBasis": "Договор за наем",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Галя Петрова Любенова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10117,
+        "valueEur": 10116.932453229576,
+        "holderName": "Галя Петрова Любенова",
+        "isSpouse": false,
+        "legalBasis": "Кредит, 12%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

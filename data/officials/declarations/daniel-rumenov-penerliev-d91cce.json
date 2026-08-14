@@ -5,6 +5,68 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г13968",
+    "controlHash": "B37D997E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D8F11D24-369D-448C-B656-CC455EDB5E9F239629.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21261.56158766355,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. Белмекен 15",
+        "municipality": "Шумен",
+        "areaSqm": 108,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Даниел Руменов Пенерлиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване/спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68949,
+        "valueEur": 35253.06391659807,
+        "holderName": "Даниел Руменов Пенерлиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniel-rumenov-penerliev-d91cce",
+    "declarantName": "Даниел Руменов Пенерлиев",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

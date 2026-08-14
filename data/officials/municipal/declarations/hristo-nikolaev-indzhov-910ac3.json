@@ -4,15 +4,22 @@
     "declarantName": "Христо Николаев Инджов",
     "institution": "Казанлък",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г10424",
-    "controlHash": "ADDB6080",
-    "sourceUrl": "https://register.cacbg.bg/2025/AFE38F8D-AEEC-40B7-9685-415C5FA5213A213507.xml",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8570",
+    "controlHash": "D697994B",
+    "sourceUrl": "https://register.cacbg.bg/2026/AFE38F8D-AEEC-40B7-9685-415C5FA5213A233086.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34925.32582075129,
+        "amountEurSpouse": 4513.17343531902
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -29,7 +36,7 @@
         "valueEur": 0,
         "holderName": "Христо Николаев Инджов",
         "isSpouse": false,
-        "legalBasis": "дарение",
+        "legalBasis": "Дарение",
         "fundsOrigin": "дарения"
       },
       {
@@ -48,6 +55,24 @@
         "holderName": "Христо Николаев Инджов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18033,
+        "valueEur": 9220.126493611408,
+        "holderName": "Христо Николаев Инджов",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],

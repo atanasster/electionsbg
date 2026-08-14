@@ -4,100 +4,71 @@
     "declarantName": "Асен Емилов Белев",
     "institution": "Неделино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-03-19",
-    "entryNumber": "В410",
-    "controlHash": "C27147D5",
-    "sourceUrl": "https://register.cacbg.bg/2025/9CA77F31-5864-4790-84F0-194B7F916EDE202809.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г4153",
+    "controlHash": "2AD10603",
+    "sourceUrl": "https://register.cacbg.bg/2026/9CA77F31-5864-4790-84F0-194B7F916EDE228349.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
-        "companyName": "Ивасим Трейд",
+        "companyName": "Ивасим Трейд ЕООД",
         "registeredOffice": "с. Диманово",
         "valueEur": 51.12918811962185,
         "holderName": "Асен Емилов Белев",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7634.610370021935,
+        "amountEurSpouse": 11369.59756216031
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 17796.02521691558,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2104.9886748848317,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 7960.814590225122,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "гр. Златоград",
-        "municipality": "Златоград",
-        "areaSqm": 495,
-        "builtAreaSqm": null,
-        "acquiredYear": 2008,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 6847,
-        "valueEur": 3500.815510550508,
-        "holderName": "Асен Емилов Белев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "гр. Златоград",
-        "municipality": "Златоград",
-        "areaSqm": 8795,
-        "builtAreaSqm": 970,
-        "acquiredYear": 2018,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 8813,
-        "valueEur": 4506.015348982273,
-        "holderName": "Асен Емилов Белев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "пежо 307",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2015,
+        "location": "Република Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 800,
+        "builtAreaSqm": 277,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Аен Емилов Белев",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "vehicle",
-        "description": "бус",
-        "detail": "пежо Боксер",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2011,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 117498,
+        "valueEur": 60075.77345679328,
         "holderName": "Асен Емилов Белев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "семейни спестявания"
       },
       {
         "category": "cash",
@@ -115,7 +86,7 @@
         "holderName": "Асен Емилов Белев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -128,31 +99,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39500,
-        "valueEur": 20196.029307250632,
+        "amount": 32598,
+        "valueEur": 16667.09274323433,
         "holderName": "Асен Емилов Белев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25755,
+        "valueEur": 13168.322400208608,
+        "holderName": "Марина Петкова Белева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "asen-emilov-belev-dbda30",
-    "declarantName": "Асен Емилов Белев",
-    "institution": "Неделино",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-19",
-    "entryNumber": "В411",
-    "controlHash": "416DF392",
-    "sourceUrl": "https://register.cacbg.bg/2025/9CA77F31-5864-4790-84F0-194B7F916EDE202810.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

@@ -4,38 +4,38 @@
     "declarantName": "Мустафа Хабиб Сали",
     "institution": "Крумовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7493",
-    "controlHash": "105A784A",
-    "sourceUrl": "https://register.cacbg.bg/2025/8CFD082C-368C-47BF-84C2-68DC3B45A0A3210488.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7668",
+    "controlHash": "F24F0B6C",
+    "sourceUrl": "https://register.cacbg.bg/2026/8CFD082C-368C-47BF-84C2-68DC3B45A0A3232092.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3814.2374337237898,
+        "amountEurDeclarant": 4965.155458296478,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8972.149931231243,
+        "amountEurDeclarant": 9920.596370850228,
         "amountEurSpouse": null
       },
       {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2607.588594100714
+        "amountEurSpouse": 2868.8587453919818
       },
       {
         "parent": null,
         "category": "Субсидия  от ДФ Земеделие",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4226.849981849138
+        "amountEurSpouse": 4141.46423768937
       }
     ],
     "assets": [
@@ -50,12 +50,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
         "holderName": "Мустафа Хабиб Сали",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "Спестявания и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Хатче Юсеин Сали",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Спестявания и доходи от стопанска дейност"
       }
     ],
     "events": []

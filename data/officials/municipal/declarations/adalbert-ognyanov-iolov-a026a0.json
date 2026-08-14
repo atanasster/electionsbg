@@ -4,29 +4,48 @@
     "declarantName": "Адалберт Огнянов Йолов",
     "institution": "Георги Дамяново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11919",
-    "controlHash": "0016A8BE",
-    "sourceUrl": "https://register.cacbg.bg/2025/6050541E-8545-4122-9991-739C1B2CF768215073.xml",
+    "filedAt": null,
+    "entryNumber": "Г6076",
+    "controlHash": "4459B842",
+    "sourceUrl": "https://register.cacbg.bg/2026/6050541E-8545-4122-9991-739C1B2CF768230374.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6029.665154947004,
+        "amountEurDeclarant": 1914.7880950798383,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2480.276915682856,
+        "amountEurDeclarant": 5187.567426616833,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1370,
+        "valueEur": 700.4698772388193,
+        "holderName": "Адалберт Огнянав Йолов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

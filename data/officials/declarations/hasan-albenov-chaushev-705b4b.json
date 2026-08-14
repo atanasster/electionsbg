@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "hasan-albenov-chaushev-705b4b",
+    "declarantName": "Хасан Албенов Чаушев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-01-12",
+    "entryNumber": "Ф6",
+    "controlHash": "65CBDA19",
+    "sourceUrl": "https://register.cacbg.bg/2026/838A7B12-EB73-413A-A723-562AE1A68AF0222648.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Теплен",
+        "municipality": "Хаджидимово",
+        "areaSqm": 288,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2013,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1043,
+        "valueEur": 533.2774320876559,
+        "holderName": "Хасан Албенов Чаушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3890,
+        "valueEur": 1988.92541785329,
+        "holderName": "Хасан Албенов Чаушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hasan-albenov-chaushev-705b4b",
+    "declarantName": "Хасан Албенов Чаушев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-01-29",
+    "entryNumber": "Г52",
+    "controlHash": "4EF6A275",
+    "sourceUrl": "https://register.cacbg.bg/2026/838A7B12-EB73-413A-A723-562AE1A68AF0222766.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17201.392759084378,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Теплен",
+        "municipality": "Хаджидимово",
+        "areaSqm": 288,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2013,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2050,
+        "valueEur": 1048.148356452248,
+        "holderName": "Хасан Албенов Чаушев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Хасан Албенов Чаушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

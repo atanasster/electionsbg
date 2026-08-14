@@ -5,6 +5,80 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3271",
+    "controlHash": "5623F92D",
+    "sourceUrl": "https://register.cacbg.bg/2026/B93824EC-6AFB-4014-8F6A-B88A4372BF09227394.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24286.875648701574,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 11957.071933654766,
+        "amountEurSpouse": 11401.808950675671
+      },
+      {
+        "parent": null,
+        "category": "Доходи от друга стопанска дейност",
+        "amountEurDeclarant": 226.5023033699248,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 167427,
+        "valueEur": 85604.06579303928,
+        "holderName": "Димо Динев Неделчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 113479,
+        "valueEur": 58020.89138626568,
+        "holderName": "Веселина Вълчева Неделчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimo-dinev-nedelchev-d97657",
+    "declarantName": "Димо Динев Неделчев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

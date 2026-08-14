@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1774",
+    "controlHash": "7E259D6C",
+    "sourceUrl": "https://register.cacbg.bg/2026/A5987B92-E384-4860-97D2-6D0CBD223B38225730.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11796.014991077956,
+        "amountEurSpouse": 2045.1675247848739
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С.ОРЕШ",
+        "municipality": "СВИЩОВ",
+        "areaSqm": 1143,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2000,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "МИЛКА СТЕФАНОВА РАСИМОВА",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "МИЛКА СТЕФАНОВА РАСИМОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milka-stefanova-rasimova-7c5088",
+    "declarantName": "МИЛКА СТЕФАНОВА РАСИМОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,19 +4,19 @@
     "declarantName": "МАРИЯ ГЕОРГИЕВА СТОЯНЧЕВА",
     "institution": "Радомир",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13281",
-    "controlHash": "E8F1A83F",
-    "sourceUrl": "https://register.cacbg.bg/2025/E10663D4-6954-446C-A763-13E342218BD4216484.xml",
+    "filedAt": null,
+    "entryNumber": "Г12276",
+    "controlHash": "C0C0D297",
+    "sourceUrl": "https://register.cacbg.bg/2026/E10663D4-6954-446C-A763-13E342218BD4237466.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11663.07910196694,
+        "amountEurDeclarant": 18960.23683039937,
         "amountEurSpouse": null
       },
       {
@@ -26,7 +26,26 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6989,
+        "valueEur": 6989.871307833503,
+        "holderName": "МАРИЯ ГЕОРГИЕВА СТОЧНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "toshka-petkova-ruseva-39c980",
+    "declarantName": "Тошка Петкова Русева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7142",
+    "controlHash": "B4694156",
+    "sourceUrl": "https://register.cacbg.bg/2026/04DDE9A1-4D1D-4884-A30B-D36E4B32EA4C231534.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13743.525766554352,
+        "amountEurSpouse": 8341.727041716305
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2450,
+        "valueEur": 1252.6651089307352,
+        "holderName": "Тошка Петкова Русева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1347,
+        "valueEur": 688.7101639713063,
+        "holderName": "Ивайло Славчев Русев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36380,
+        "valueEur": 18600.79863791843,
+        "holderName": "Тошка Петкова Русева",
+        "isSpouse": false,
+        "legalBasis": "5,07",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

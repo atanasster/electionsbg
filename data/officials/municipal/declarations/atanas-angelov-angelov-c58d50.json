@@ -4,32 +4,32 @@
     "declarantName": "АТАНАС АНГЕЛОВ АНГЕЛОВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12350",
-    "controlHash": "324861DB",
-    "sourceUrl": "https://register.cacbg.bg/2025/BF0DC44F-2DD5-4AE9-9BE8-E9C716F2038D215514.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13732",
+    "controlHash": "29E6CB76",
+    "sourceUrl": "https://register.cacbg.bg/2026/BF0DC44F-2DD5-4AE9-9BE8-E9C716F2038D239325.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3006.3962614337647,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 3129.1063129208574,
+        "amountEurSpouse": 2755.863239647618
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8283.951059141133,
+        "amountEurDeclarant": 9897.588236196398,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,11 +38,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 47000,
-        "valueEur": 24030.71841622227,
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
         "holderName": "АТАНАС АНГЕЛОВ АНГЕЛОВ",
         "isSpouse": false,
-        "legalBasis": "8%",
+        "legalBasis": "КРЕДИТ - 9 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "СТОКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 400,
+        "valueEur": 204.5167524784874,
+        "holderName": "АТАНАС АНГЕЛОВ АНГЕЛОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ - 0 %",
         "fundsOrigin": null
       }
     ],

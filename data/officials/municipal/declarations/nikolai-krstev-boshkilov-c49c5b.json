@@ -4,20 +4,33 @@
     "declarantName": "НИКОЛАЙ КРЪСТЕВ БОШКИЛОВ",
     "institution": "Благоевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г12053",
-    "controlHash": "1AB3FEC0",
-    "sourceUrl": "https://register.cacbg.bg/2025/390B908E-D4BF-4277-84F3-A0C4771D8DD6215208.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7775",
+    "controlHash": "38C0AD38",
+    "sourceUrl": "https://register.cacbg.bg/2026/390B908E-D4BF-4277-84F3-A0C4771D8DD6232211.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "3/4 от 4900",
+        "companyName": "\"ВИНИ - БОШКИЛОВ\" ООД",
+        "registeredOffice": "Благоевград",
+        "valueEur": 1878.997663396103,
+        "holderName": "Николай Кръстев Бошкилов",
+        "legalBasis": "покупко-продажба и наследство",
+        "fundsOrigin": "заплата и наследство"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5207.5078099834855,
-        "amountEurSpouse": 18258.23307751696
+        "amountEurDeclarant": 9933.889959761329,
+        "amountEurSpouse": 19131.519610600102
       },
       {
         "parent": null,
@@ -26,7 +39,26 @@
         "amountEurSpouse": 921.859261796782
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Николай Кръстев Бошкилов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и спестявания"
+      }
+    ],
     "events": []
   }
 ]

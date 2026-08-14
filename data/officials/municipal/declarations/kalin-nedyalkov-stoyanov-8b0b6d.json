@@ -4,19 +4,19 @@
     "declarantName": "Калин Недялков Стоянов",
     "institution": "Царево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8675",
-    "controlHash": "9343C09A",
-    "sourceUrl": "https://register.cacbg.bg/2025/3504FBA3-76DC-41FE-84FF-BDFE0C8F3230211699.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10722",
+    "controlHash": "53DDE041",
+    "sourceUrl": "https://register.cacbg.bg/2026/3504FBA3-76DC-41FE-84FF-BDFE0C8F3230235511.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "100",
+        "shareSize": "100%",
         "companyName": "Стоянов-КН ЕООД",
         "registeredOffice": "Царево",
         "valueEur": 5.112918811962185,
@@ -28,7 +28,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "50",
+        "shareSize": "50%",
         "companyName": "КНН 86 ООД",
         "registeredOffice": "Царево",
         "valueEur": 869.1961980335715,
@@ -40,7 +40,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "50",
+        "shareSize": "50%",
         "companyName": "КНН ИНС ООД",
         "registeredOffice": "Царево",
         "valueEur": 7669.378217943277,
@@ -52,7 +52,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "33",
+        "shareSize": "33%",
         "companyName": "ВАЯ 5 ООД",
         "registeredOffice": "Царево",
         "valueEur": 16.87263207947521,
@@ -64,7 +64,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "10",
+        "shareSize": "10%",
         "companyName": "Калисто 2020 ЕООД",
         "registeredOffice": "Царево",
         "valueEur": 511.29188119621847,
@@ -76,7 +76,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дружествени дялове",
-        "shareSize": "100",
+        "shareSize": "100%",
         "companyName": "Силен старт ЕООД",
         "registeredOffice": "Царево",
         "valueEur": 5112.918811962185,
@@ -85,7 +85,20 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3221.1388515361764,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 80472.22918147282,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -100,8 +113,8 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Калин Недялков Стоянов",
-        "isSpouse": false,
+        "holderName": "Клаин Недялков Стоянов",
+        "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
@@ -134,8 +147,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 200000,
-        "valueEur": 102258.37623924369,
+        "amount": 1387449,
+        "valueEur": 709391.4092738122,
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": null,
@@ -157,12 +170,12 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       },
       {
         "category": "security",
-        "description": "Агрия груп холдинг АД",
-        "detail": "Агрия груп холдинг АД",
+        "description": "Агрия Груп Холдинг АД",
+        "detail": "Агрия Груп Холдинг АД",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -175,7 +188,7 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       },
       {
         "category": "security",
@@ -193,7 +206,7 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       },
       {
         "category": "security",
@@ -211,12 +224,12 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       },
       {
         "category": "security",
         "description": "Инфинити капитал АД",
-        "detail": "Инфинити капитал АД",
+        "detail": "Инфинити Капитал АД",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -229,7 +242,7 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       },
       {
         "category": "security",
@@ -247,7 +260,7 @@
         "holderName": "Калин Недялков Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "Дивиденти"
       }
     ],
     "events": []

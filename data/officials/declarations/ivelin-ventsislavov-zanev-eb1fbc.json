@@ -5,6 +5,56 @@
     "institution": "ИА \"Проучване и подържане на р. Дунав\"",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г1917",
+    "controlHash": "664110BA",
+    "sourceUrl": "https://register.cacbg.bg/2026/65C6F479-98FE-40F3-8FC5-330D176E54AE225887.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46651.805115986564,
+        "amountEurSpouse": 1419.3462622007025
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1431.1059754682155,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 43495,
+        "valueEur": 43495.08904148111,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ/ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА СИО",
+        "isSpouse": true,
+        "legalBasis": "ИПОТЕКА 2.9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivelin-ventsislavov-zanev-eb1fbc",
+    "declarantName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+    "institution": "ИА \"Проучване и подържане на р. Дунав\"",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

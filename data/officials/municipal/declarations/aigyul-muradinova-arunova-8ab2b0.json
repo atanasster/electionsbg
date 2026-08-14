@@ -4,29 +4,72 @@
     "declarantName": "АЙГЮЛ МУРАДИНОВА АРУНОВА",
     "institution": "Две Могили",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2292",
-    "controlHash": "7590498D",
-    "sourceUrl": "https://register.cacbg.bg/2025/CF15689E-CA98-46EA-9034-F791FC89E05C204910.xml",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г1493",
+    "controlHash": "BFBE63C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/CF15689E-CA98-46EA-9034-F791FC89E05C225391.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7308.917441699943,
-        "amountEurSpouse": 4786.714591758998
+        "amountEurDeclarant": 6925.44853080278,
+        "amountEurSpouse": 7073.723176349683
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4860.340622651253,
+        "amountEurDeclarant": 6829.836949019086,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДАНЪЧНО ОБЛЕКЧЕНИЕ ЗА ДЕЦА ДО 18 ГОДИНИ",
+        "amountEurDeclarant": 613.5502574354622,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6443,
+        "valueEur": 6442.277703072353,
+        "holderName": "АЙГЮЛ МУРАДИНОВА АРУНОВА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ - 7,43%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "СТОКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1977,
+        "valueEur": 1010.8240491249239,
+        "holderName": "АЙГЮЛ МУРАДИНОВА АРУНОВА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ - 4,5 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

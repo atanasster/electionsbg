@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-19",
+    "entryNumber": "Г804",
+    "controlHash": "F83DD70A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B10F3509-7DA3-496E-B287-40FEE449AECC224370.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25302.81261663846,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 645.2503540696277,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Мая Петрова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-petrova-petrova-cc9a97",
+    "declarantName": "Мая Петрова Петрова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г4218",
+    "controlHash": "AC8A3BDB",
+    "sourceUrl": "https://register.cacbg.bg/2026/6FB6A233-2615-4D97-9976-F7F02239B5E7228415.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15314.214425589136,
+        "amountEurSpouse": 17992.361299294927
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12949,
+        "valueEur": 6620.718569609833,
+        "holderName": "Аделина Георгиева Харалампиева",
+        "isSpouse": false,
+        "legalBasis": "5,18",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "adelina-georgieva-haralampieva-88e6cc",
+    "declarantName": "Аделина Георгиева Харалампиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3377",
+    "controlHash": "C08799B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/32A6D8BD-5CDC-452E-854E-946E0E6DC783227508.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27153.177934687574,
+        "amountEurSpouse": 21475.28159400357
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски паричен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 126018,
+        "valueEur": 64431.980284585065,
+        "holderName": "Анна Костадинова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски паричен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 114889,
+        "valueEur": 58741.812938752344,
+        "holderName": "Милен Димитров Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anna-kostadinova-ivanova-11df92",
+    "declarantName": "Анна Костадинова Иванова",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

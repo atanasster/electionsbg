@@ -1,6 +1,87 @@
 [
   {
     "slug": "plamen-kostov-tsankov-e3f2fc",
+    "declarantName": "Пламен Костов Цаенков",
+    "institution": "Областни отдели \"Автомобилна администрация\"",
+    "positionTitle": "Началник",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6917",
+    "controlHash": "522C94D9",
+    "sourceUrl": "https://register.cacbg.bg/2026/08EB8436-6683-468A-A119-5219D540C444231286.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "вдовишка пенсия",
+        "amountEurDeclarant": 2786.540752519391,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": 818.0670099139496,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксвакен Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 34000,
+        "valueEur": 17383.92396067143,
+        "holderName": "Пламен Костов Цанков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14000,
+        "valueEur": 13804.8807922979,
+        "holderName": "Пламен Костов Цанков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Вектра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "plamen-kostov-tsankov-e3f2fc",
     "declarantName": "Пламен Костов Цанков",
     "institution": "Областни отдели \"Автомобилна администрация\"",
     "positionTitle": "Началник",

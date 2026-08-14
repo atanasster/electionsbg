@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9768",
+    "controlHash": "EA56977C",
+    "sourceUrl": "https://register.cacbg.bg/2026/63773D9C-81B5-4357-9EDD-0F2BC3752D50234419.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13825.332467545748,
+        "amountEurSpouse": 7674.4911367552395
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 151810,
+        "valueEur": 77619.22048439793,
+        "holderName": "АСИБЕ ФЕВЗИ ХЮСЕИНОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР-2.4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25822,
+        "valueEur": 13202.578956248753,
+        "holderName": "ШЕНОЛ САЛИМОВ ХЮСЕИНОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР-5.1%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "shenol-salimov-hyuseinov-32d56f",
+    "declarantName": "ШЕНОЛ САЛИМОВ ХЮСЕИНОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

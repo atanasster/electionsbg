@@ -5,6 +5,98 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г2550",
+    "controlHash": "30E499F5",
+    "sourceUrl": "https://register.cacbg.bg/2026/8337CB2E-8119-44A9-A65D-A7D94AEEFD8B226609.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14756.394983204062,
+        "amountEurSpouse": 14512.508755873465
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 400.8528348578353,
+        "amountEurSpouse": 337.4526415895042
+      },
+      {
+        "parent": null,
+        "category": "Доходи на непълнолетно дете (данъчна основа)",
+        "amountEurDeclarant": 1954.6688618131434,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15736,
+        "valueEur": 8045.6890425036945,
+        "holderName": "Пенко Атанасов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55910,
+        "valueEur": 28586.329077680577,
+        "holderName": "Биляна Иванова Вълкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7077,
+        "valueEur": 3618.4126432256385,
+        "holderName": "Михаела Пенкова Атанасова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "penko-atanasov-atanasov-59d1c9",
+    "declarantName": "Пенко Атанасов Атанасов",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

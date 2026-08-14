@@ -4,72 +4,78 @@
     "declarantName": "ИВО АЛЕКСАНДРОВ ДЖОЙКОВ",
     "institution": "Район Възраждане",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9130",
-    "controlHash": "8F1F2ABF",
-    "sourceUrl": "https://register.cacbg.bg/2025/2DC7A52B-1A0C-4B52-B336-AF8B9B5ED44C212162.xml",
+    "filedAt": "2026-06-11",
+    "entryNumber": "Г11438",
+    "controlHash": "1DAA2683",
+    "sourceUrl": "https://register.cacbg.bg/2026/2DC7A52B-1A0C-4B52-B336-AF8B9B5ED44C236353.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3298.8552174780016,
+        "amountEurDeclarant": 25859.098183379945,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5118.031730774147,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 337.4526415895042,
+        "category": "Продажба на лек автомобил Рено Туинго I- 2003 г.",
+        "amountEurDeclarant": 399.83025109544286,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес CLK -1999 г.",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 4890,
+        "valueEur": 2500.2172990495083,
         "holderName": "Иво Александров Джойков",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 17122,
-        "valueEur": 8754.339589841653,
-        "holderName": "Иво Александров Джойков",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
+    "events": []
+  },
+  {
+    "slug": "ivo-aleksandrov-dzhoikov-79c604",
+    "declarantName": "ИВО АЛЕКСАНДРОВ ДЖОЙКОВ",
+    "institution": "Район Възраждане",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11489",
+    "controlHash": "4A14C884",
+    "sourceUrl": "https://register.cacbg.bg/2026/2DC7A52B-1A0C-4B52-B336-AF8B9B5ED44C236412.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "НАСЛЕДЯВАНЕ на половината от всички 100 дяла от капитала на дружеството, които съгласно вписаното в Търговския регистър са на стойност 5000 лв., съгласно Закона за въвеждането на еврото в Република България са на стойност 2556,46 евро.",
+        "companyName": "\"АТЕЛИЕ А2Д\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
     "events": []
   }
 ]

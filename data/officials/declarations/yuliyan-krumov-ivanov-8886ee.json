@@ -5,6 +5,81 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г2858",
+    "controlHash": "F8205495",
+    "sourceUrl": "https://register.cacbg.bg/2026/54BB920F-8842-4C88-A8CA-3F02C768230F226951.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21557.088294994963,
+        "amountEurSpouse": 21415.460443903612
+      },
+      {
+        "parent": null,
+        "category": "Компенсационни суми, които са освободени от облагане на основание чл. 24, ал. 2 ,т. 7 от ЗДДФЛ; парични средства, освободени от облагане на основание чл. 24, ал. 2, т. 16 и 17 от ЗДДФЛ, когато не са предоставени в натура; средства за пътуване и престой, които са освободени от облагане на основание чл. 24, ал. 5 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 148.27464554690337
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ЮЛИЯН КРУМОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "yuliyan-krumov-ivanov-8886ee",
+    "declarantName": "ЮЛИЯН КРУМОВ ИВАНОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

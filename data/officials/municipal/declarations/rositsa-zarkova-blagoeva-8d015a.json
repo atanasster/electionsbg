@@ -4,13 +4,13 @@
     "declarantName": "Росица Заркова Благоева",
     "institution": "Монтана",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2005-05-12",
-    "entryNumber": "Г13126",
-    "controlHash": "45DFD63D",
-    "sourceUrl": "https://register.cacbg.bg/2025/7537C4D0-363C-407C-9E13-08AD9E01DE9C216319.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9313",
+    "controlHash": "01834DA2",
+    "sourceUrl": "https://register.cacbg.bg/2026/7537C4D0-363C-407C-9E13-08AD9E01DE9C233917.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -53,13 +53,13 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4653.778702647981,
+        "amountEurDeclarant": 6653.441250006391,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18397.81576108353,
+        "amountEurDeclarant": 18624.829356334652,
         "amountEurSpouse": 0
       },
       {
@@ -71,7 +71,7 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 227.52488713231722,
         "amountEurSpouse": 0
       },
       {
@@ -95,6 +95,24 @@
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Hyundai",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Вячеслав Пламенов Благоев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
         "description": "кредит",
         "detail": "BGN",
@@ -105,11 +123,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30453,
-        "valueEur": 15570.371658068441,
+        "amount": 27487,
+        "valueEur": 14053.879938440457,
         "holderName": "Росица Заркова Благоева",
         "isSpouse": false,
-        "legalBasis": "кредит за закупуване на парцел",
+        "legalBasis": "потребителски кредит, 4.61%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24383,
+        "valueEur": 12466.829939207395,
+        "holderName": "Росица Заркова Благоева",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит, 5.35%",
         "fundsOrigin": null
       },
       {
@@ -123,8 +159,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 8945,
-        "valueEur": 8945.051461527843,
+        "amount": 9716,
+        "valueEur": 9715.568326490544,
         "holderName": "Росица Заркова Благоева",
         "isSpouse": false,
         "legalBasis": null,
@@ -141,8 +177,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 7096,
-        "valueEur": 7096.220019122316,
+        "amount": 8114,
+        "valueEur": 8113.6908627027915,
         "holderName": "Вячеслав Пламенов Благоев",
         "isSpouse": true,
         "legalBasis": null,

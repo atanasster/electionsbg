@@ -4,26 +4,26 @@
     "declarantName": "Бюлент Халибрям Ахмед",
     "institution": "Джебел",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7816",
-    "controlHash": "94135A8F",
-    "sourceUrl": "https://register.cacbg.bg/2025/DF1D8633-825E-4E9F-83B6-BCD352643198210820.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г5663",
+    "controlHash": "891A0FE1",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF1D8633-825E-4E9F-83B6-BCD352643198229927.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32172.530332390852,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 35523.53732175087,
+        "amountEurSpouse": 1263.9135303170522
       },
       {
         "parent": null,
-        "category": "Майчинство",
+        "category": "Обезщетение за отглеждане на дете до 2 г",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6026.597403659827
+        "amountEurSpouse": 3768.7324562973263
       }
     ],
     "assets": [
@@ -38,44 +38,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39858,
-        "valueEur": 20379.071800718877,
+        "amount": 48337,
+        "valueEur": 24714.315661381614,
         "holderName": "Бюлент Халибрям Ахмед",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "byulent-halibryam-ahmed-f9d4be",
-    "declarantName": "БЮЛЕНТ ХАЛИБРЯМ АХМЕД",
-    "institution": "Джебел",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-13",
-    "entryNumber": "Г7933",
-    "controlHash": "1B1A7F9F",
-    "sourceUrl": "https://register.cacbg.bg/2025/DF1D8633-825E-4E9F-83B6-BCD352643198210938.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
-        "companyName": "СДРУЖЕНИЕ ФУТБОЛЕН КЛУБ- ДЖЕБЕЛ 2025",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

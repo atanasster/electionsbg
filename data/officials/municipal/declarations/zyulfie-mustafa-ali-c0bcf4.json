@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "zyulfie-mustafa-ali-c0bcf4",
+    "declarantName": "Зюлфие Мустафа Али",
+    "institution": "Стамболово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13298",
+    "controlHash": "18F7E3C5",
+    "sourceUrl": "https://register.cacbg.bg/2026/E87E3BBE-0F1B-4D28-B5C7-52AF02E37E6B238798.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24730.677001579894,
+        "amountEurSpouse": 18988.86917574636
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 2674.0565386562225,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУБСИДИИ",
+        "amountEurDeclarant": 2337.6264808291107,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Кола",
+        "detail": "Фолксваген тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "Шенол Юсеин Али",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72827,
+        "valueEur": 37235.853831877,
+        "holderName": "Зюлфие Мустафа Али",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  }
+]

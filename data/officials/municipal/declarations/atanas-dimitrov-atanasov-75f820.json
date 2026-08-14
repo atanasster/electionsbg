@@ -4,79 +4,29 @@
     "declarantName": "Атанас Димитров Атанасов",
     "institution": "Девня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г9597",
-    "controlHash": "168D7E89",
-    "sourceUrl": "https://register.cacbg.bg/2025/6A50CC51-DA74-40A0-86D4-ABAE1DB54FCA212644.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "лек автомобил",
-        "shareSize": "1/2",
-        "companyName": "Строй-Инвест 2006 ООД",
-        "registeredOffice": "с.Ветрино",
-        "valueEur": 11759.713267513025,
-        "holderName": "Атанас Димитров Атанасов",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "лек автомобил",
-        "shareSize": "1/2",
-        "companyName": "Строй-Инвест 2006 ООД",
-        "registeredOffice": "с.Ветрино",
-        "valueEur": 11759.713267513025,
-        "holderName": "Златка Тодорова Атанасва",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      }
-    ],
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7890",
+    "controlHash": "4C3E62D6",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A50CC51-DA74-40A0-86D4-ABAE1DB54FCA232351.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4584.754298686491,
+        "amountEurDeclarant": 4902.266556909343,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5507.124852364469,
+        "amountEurDeclarant": 6387.0581799031615,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

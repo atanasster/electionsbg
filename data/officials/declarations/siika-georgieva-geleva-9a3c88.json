@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3783",
+    "controlHash": "419A3600",
+    "sourceUrl": "https://register.cacbg.bg/2026/8C736C98-DBE2-4F04-87AB-C45BDFBCB3E6227943.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21159.8145033055,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59643,
+        "valueEur": 30494.98167018606,
+        "holderName": "Сийка Георгиева Гелева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4055,
+        "valueEur": 2073.288578250666,
+        "holderName": "Сийка Георгиева Гелева",
+        "isSpouse": false,
+        "legalBasis": "покупка наавтомобил-5,30 лихвен %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "siika-georgieva-geleva-9a3c88",
+    "declarantName": "Сийка Георгиева Гелева",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

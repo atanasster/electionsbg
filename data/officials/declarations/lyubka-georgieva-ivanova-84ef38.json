@@ -5,6 +5,98 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г5838",
+    "controlHash": "7F0FF04C",
+    "sourceUrl": "https://register.cacbg.bg/2026/10E6EE96-02C0-46D8-AF90-094BB15207B7230110.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36372.793136417786,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 48061.43683244454
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
+        "holderName": "Любка Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Любка Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": "ипотека - лихвен процент -2.48%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12400,
+        "valueEur": 6340.0193268331095,
+        "holderName": "Иван Жеков Иванов",
+        "isSpouse": true,
+        "legalBasis": "M48\nпотребителски кредит - 5% лихвен процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubka-georgieva-ivanova-84ef38",
+    "declarantName": "Любка Георгиева Иванова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,9 +1,9 @@
 {
   "obshtina": "PVN10",
   "registryName": "Долна Митрополия",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "tsetso-hristov-andreiski-4805dd",
@@ -47,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "petr-valentinov-petrov-53527a",
@@ -56,7 +59,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -73,7 +77,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "valentina-iordanova-velkova-352e99",
@@ -82,7 +87,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -99,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
@@ -116,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
@@ -127,13 +135,32 @@
       }
     },
     {
+      "slug": "deivid-petrov-ivanov-2acf87",
+      "name": "Дейвид Петров Иванов",
+      "normalizedName": "ДЕЙВИД ПЕТРОВ ИВАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Долна Митрополия",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
+        "partyCanonicalId": "gerb",
+        "listPos": 110,
+        "prefVotes": 88,
+        "isElected": false
+      }
+    },
+    {
       "slug": "zlati-ivanov-todorov-4cd1d0",
       "name": "Злати Иванов Тодоров",
       "normalizedName": "ЗЛАТИ ИВАНОВ ТОДОРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -150,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
@@ -161,30 +189,14 @@
       }
     },
     {
-      "slug": "kiril-ivanov-furnigov-87deb6",
-      "name": "Кирил Иванов Фурнигов",
-      "normalizedName": "КИРИЛ ИВАНОВ ФУРНИГОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
-        "partyCanonicalId": "gerb",
-        "listPos": 106,
-        "prefVotes": 20,
-        "isElected": true
-      }
-    },
-    {
       "slug": "martin-nikolaev-asparuhov-0079e3",
       "name": "Мартин Николаев Аспарухов",
       "normalizedName": "МАРТИН НИКОЛАЕВ АСПАРУХОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -201,7 +213,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -218,7 +231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -235,7 +249,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -252,7 +267,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -269,7 +285,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -286,7 +303,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -303,7 +321,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК „ГЕРБ (БЗНС, ВМРО - Българско национално движение, СДС)“",
@@ -320,7 +339,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -337,7 +357,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долна Митрополия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",

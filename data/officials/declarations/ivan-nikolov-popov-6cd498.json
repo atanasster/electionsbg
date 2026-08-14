@@ -5,6 +5,74 @@
     "institution": "ИА ОПНОИР",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5579",
+    "controlHash": "22BDDCFF",
+    "sourceUrl": "https://register.cacbg.bg/2026/BDE39C9B-1690-4048-827A-7B9937334514229843.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 75815.89401941886
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 349.72364673821346
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66700,
+        "valueEur": 34103.168475787774,
+        "holderName": "Иван Николов Попов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33758,
+        "valueEur": 17260.191325421943,
+        "holderName": "Иван Николов Попов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-nikolov-popov-6cd498",
+    "declarantName": "Иван Николов Попов",
+    "institution": "ИА ОПНОИР",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

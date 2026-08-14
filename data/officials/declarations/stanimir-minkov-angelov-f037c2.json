@@ -5,6 +5,81 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10787",
+    "controlHash": "262A6043",
+    "sourceUrl": "https://register.cacbg.bg/2026/A66EA087-F351-46D0-ACD3-85D72C9F3F07235582.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14085.580035074623,
+        "amountEurSpouse": 12649.361140794446
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21631,
+        "valueEur": 11059.754682155402,
+        "holderName": "СТАНИМИР МИНКОВ АНГЕЛОВ",
+        "isSpouse": false,
+        "legalBasis": "Договор, ДЛП 5.56%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49083,
+        "valueEur": 25095.739404753993,
+        "holderName": "МИГЛЕНА АТАНАСОВА АНГЕЛОВА",
+        "isSpouse": true,
+        "legalBasis": "Договр, ДЛП 5.26%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА ЛАНД КРУИЗЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "stanimir-minkov-angelov-f037c2",
+    "declarantName": "СТАНИМИР МИНКОВ АНГЕЛОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

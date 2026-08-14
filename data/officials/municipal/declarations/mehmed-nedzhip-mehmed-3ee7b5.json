@@ -4,97 +4,54 @@
     "declarantName": "Мехмед Неджип Мехмед",
     "institution": "Якоруда",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-11",
-    "entryNumber": "Г17",
-    "controlHash": "EAD02BEF",
-    "sourceUrl": "https://register.cacbg.bg/2025/45F685C7-36C6-40D4-87F4-2B7EBD6B5091201520.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1255",
+    "controlHash": "711D2BAC",
+    "sourceUrl": "https://register.cacbg.bg/2026/45F685C7-36C6-40D4-87F4-2B7EBD6B5091225048.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3583.1335034230992,
-        "amountEurSpouse": 12042.96896969573
+        "amountEurDeclarant": 2733.366396874984,
+        "amountEurSpouse": 24503.66340632877
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8489.490395382012,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 9470.659515397556,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 5000.4345980990165,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "м. Трещеник",
-        "municipality": "Якоруда",
-        "areaSqm": 12325,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1/12",
-        "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
-        "holderName": "Мехмед Неджип Мехмед",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "мотоциклет",
-        "detail": "Симсон 50",
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 204.5167524784874,
-        "legalBasis": "възмездно"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7000,
+        "valueEur": 7000.097145457427,
+        "holderName": "Хатидже Мехмед Мехмед",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

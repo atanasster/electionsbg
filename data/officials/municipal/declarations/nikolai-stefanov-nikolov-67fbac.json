@@ -4,25 +4,25 @@
     "declarantName": "Николай Стефанов Николов",
     "institution": "Харманли",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-04",
-    "entryNumber": "Г8891",
-    "controlHash": "88A28589",
-    "sourceUrl": "https://register.cacbg.bg/2025/8C8610AB-BCE4-4670-BB54-65FE990B0B24211918.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13241",
+    "controlHash": "53DFEC5B",
+    "sourceUrl": "https://register.cacbg.bg/2026/8C8610AB-BCE4-4670-BB54-65FE990B0B24238741.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6761.323836938794,
-        "amountEurSpouse": 10033.591876594592
+        "amountEurDeclarant": 8979.30801756799,
+        "amountEurSpouse": 17152.820030370738
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22337.83099758159,
+        "amountEurDeclarant": 19777.792548432124,
         "amountEurSpouse": null
       }
     ],
@@ -43,7 +43,7 @@
         "holderName": "Николай Стефанов Николов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "безвъзмездно"
       },
       {
         "category": "real_estate",
@@ -65,7 +65,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Автомобил",
+        "description": "Лек Автомобил",
         "detail": "VW Sharan",
         "location": null,
         "municipality": null,
@@ -83,26 +83,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Мотор",
-        "detail": "Piggio",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2017,
-        "share": "СИО 1/2",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Николай Стефанов Николов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Автомобил",
-        "detail": "VW Tiguan",
+        "description": "Лек Автомобил",
+        "detail": "VW Тигуан",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -112,14 +94,14 @@
         "currency": "BGN",
         "amount": 7716,
         "valueEur": 3945.128155310022,
-        "holderName": "Николай Стефанов Николов",
-        "isSpouse": false,
+        "holderName": "Михаела Чанкова Николова",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "Потребителски Заем",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -128,25 +110,25 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 43400,
+        "valueEur": 22190.06764391588,
         "holderName": "Николай Стефанов Николов",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "4,65%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "VW Пасат",
+        "description": "Мотоциклет",
+        "detail": "Piaggio",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 1758.3327794337954,
+        "valueEur": 255.64594059810923,
         "legalBasis": "възмездно"
       }
     ]

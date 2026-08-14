@@ -4,90 +4,85 @@
     "declarantName": "Радостин Янков Генчев",
     "institution": "Своге",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9877",
-    "controlHash": "4AF6E338",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E636A42-17BD-4E96-83F9-A8860ED84387212938.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13576",
+    "controlHash": "240FA910",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E636A42-17BD-4E96-83F9-A8860ED84387239120.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5304.653267410767,
-        "amountEurSpouse": 15588.26687391031
+        "amountEurDeclarant": 4948.794118098199,
+        "amountEurSpouse": 14054.90252220285
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12639.13530317052,
+        "amountEurDeclarant": 11483.615651667067,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 224968.42772633614,
+        "amountEurDeclarant": 286323.45346988237,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "с. Свидня",
-        "municipality": "Своге",
-        "areaSqm": 60,
-        "builtAreaSqm": 30,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 6400,
-        "valueEur": 3272.2680396557985,
-        "holderName": "Даяна Емилова Генчева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "МПС",
-        "detail": "Ауди",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 24500,
+        "valueEur": 12526.651089307354,
         "holderName": "Даяна Емилова Генчева",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "vehicle",
-        "description": "МПС",
-        "detail": "BMW",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9780,
-        "valueEur": 5000.4345980990165,
-        "holderName": "Даяна Емилова Генчева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "amount": 88661,
+        "valueEur": 45331.64947873793,
+        "holderName": "Радостин Янков Генчев",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

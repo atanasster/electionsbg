@@ -1,26 +1,86 @@
 [
   {
     "slug": "hristo-iliev-kaloyanov-644f99",
-    "declarantName": "Христо Илиев Калоянов",
+    "declarantName": "ХРИСТО ИЛИЕВ КАЛОЯНОВ",
     "institution": "Панагюрище",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г13270",
-    "controlHash": "86D2F2A1",
-    "sourceUrl": "https://register.cacbg.bg/2025/2A7F098E-2C37-4ACE-A9E3-C4150C710A3C216473.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10546",
+    "controlHash": "AC7838C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/2A7F098E-2C37-4ACE-A9E3-C4150C710A3C235307.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 46719.80693618566,
-        "amountEurSpouse": 9203.253861531934
+        "amountEurDeclarant": 57211.51633833206,
+        "amountEurSpouse": 11759.713267513025
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89700,
+        "valueEur": 45862.8817433008,
+        "holderName": "ХРИСТО ИЛИЕВ КАЛОЯНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -32,14 +92,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70000,
-        "valueEur": 35790.431683735296,
-        "holderName": "Христо Илиев Калоянов",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "ХРИСТО ИЛИЕВ КАЛОЯНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ХРИСТО ИЛИЕВ КАЛОЯНОВ",
+        "isSpouse": false,
+        "legalBasis": "5,00%",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16105.694257680883,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

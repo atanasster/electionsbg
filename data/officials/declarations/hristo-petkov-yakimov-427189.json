@@ -1,6 +1,98 @@
 [
   {
     "slug": "hristo-petkov-yakimov-427189",
+    "declarantName": "Христо Петков Яклимов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5169",
+    "controlHash": "051A05FC",
+    "sourceUrl": "https://register.cacbg.bg/2026/8D472869-62EC-49F4-A9C4-D3D7389BE59A229418.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 9139.342376382405,
+        "amountEurSpouse": 5862.984001677038
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7311.473901105925
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 67,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 91800,
+        "valueEur": 46936.594693812855,
+        "holderName": "Христо Петков Якимов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 67,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 91800,
+        "valueEur": 46936.594693812855,
+        "holderName": "Виржиния Първанова Якимова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Христо Петков Якимов",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-petkov-yakimov-427189",
     "declarantName": "Христо Петков Якимов",
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",

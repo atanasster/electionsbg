@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1382",
+    "controlHash": "CEE6A308",
+    "sourceUrl": "https://register.cacbg.bg/2026/ED477F99-107E-478B-B657-6ACFDBE61009225222.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24242.9045469187,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 1999,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 169155,
+        "valueEur": 86487.57816374634,
+        "holderName": "Катя Димитрова Низамова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Крайници",
+        "municipality": "Дупница",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Катя Димитрова Низамова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "katya-dimitrova-nizamova-51d0cc",
+    "declarantName": "Катя Димитрова Низамова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

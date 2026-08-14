@@ -5,6 +5,74 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г10115",
+    "controlHash": "D577E278",
+    "sourceUrl": "https://register.cacbg.bg/2026/C1909085-8226-495F-85D3-B4A42D88FB3C234806.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48093.6482209599,
+        "amountEurSpouse": 13879.529406952548
+      },
+      {
+        "parent": null,
+        "category": "Инвалидна пенсия",
+        "amountEurDeclarant": 12024.05117009147,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15639,
+        "valueEur": 15638.884770148736,
+        "holderName": "Раделина Димитрова Христова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31978,
+        "valueEur": 31978.750709417487,
+        "holderName": "Стоян Борисов Христов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и банков кредит"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyan-borisov-hristov-90b45c",
+    "declarantName": "Стоян Борисов Христов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

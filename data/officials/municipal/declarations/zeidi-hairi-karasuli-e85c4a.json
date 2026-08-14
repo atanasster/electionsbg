@@ -4,29 +4,66 @@
     "declarantName": "Зейди Хайри Карасули",
     "institution": "Мадан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6350",
-    "controlHash": "D6F492DE",
-    "sourceUrl": "https://register.cacbg.bg/2025/48B8FF09-DBBB-4BB4-A180-1BB2BFB6CE50209306.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г7136",
+    "controlHash": "C39770CB",
+    "sourceUrl": "https://register.cacbg.bg/2026/48B8FF09-DBBB-4BB4-A180-1BB2BFB6CE50231528.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2203.1567160745053,
-        "amountEurSpouse": 7233.246243282903
+        "amountEurDeclarant": 2793.1875469749416,
+        "amountEurSpouse": 8948.11921281502
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2205.2018835992903,
+        "category": "пенсия",
+        "amountEurDeclarant": 16616.986138877102,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34000,
+        "valueEur": 17383.92396067143,
+        "holderName": "Зейди Хайри Карасули",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11203,
+        "valueEur": 5728.002945041236,
+        "holderName": "Зейди Хайри Карасули",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

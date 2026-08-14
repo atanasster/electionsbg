@@ -4,29 +4,54 @@
     "declarantName": "КРАСИМИР ЗДРАВКОВ КОСЕВ",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г6110",
-    "controlHash": "462D58E7",
-    "sourceUrl": "https://register.cacbg.bg/2025/2C853A79-2524-4D88-B9E5-61EC04561C03209061.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г10863",
+    "controlHash": "EFF6859E",
+    "sourceUrl": "https://register.cacbg.bg/2026/2C853A79-2524-4D88-B9E5-61EC04561C03235673.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1012.3579247685126,
+        "amountEurDeclarant": 1840.6507723063867,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16639.482981649733,
+        "amountEurDeclarant": 13719.495048138131,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5107.805893150223,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "КРАСИМИР ЗДРАВКОВ КОСЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

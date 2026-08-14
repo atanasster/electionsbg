@@ -5,6 +5,99 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3721",
+    "controlHash": "D3461591",
+    "sourceUrl": "https://register.cacbg.bg/2026/C952812C-714A-4DAE-8994-6F7695CAAEF4227874.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35432.52736689794,
+        "amountEurSpouse": 12790.988991885797
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1342.1411881400736,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13000,
+        "valueEur": 13000,
+        "holderName": "Евгени Тодоров Евтимов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35000,
+        "valueEur": 35000,
+        "holderName": "Теодора Александрова Евтимова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 120,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 122,
+        "builtAreaSqm": 200,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "teodora-aleksandrova-evtimova-2449d3",
+    "declarantName": "Теодора Александрова Евтимова",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,29 +4,84 @@
     "declarantName": "Виктор Лучиянов Митраков",
     "institution": "Балчик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13095",
-    "controlHash": "14BE582D",
-    "sourceUrl": "https://register.cacbg.bg/2025/3395ED31-A9DE-4D77-917E-2FDC0C6544DA216288.xml",
-    "ownershipStakes": [
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11221",
+    "controlHash": "7A1FCF6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/3395ED31-A9DE-4D77-917E-2FDC0C6544DA236085.xml",
+    "ownershipStakes": [],
+    "income": [
       {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дял",
-        "shareSize": "50",
-        "companyName": "ДРИНКДЕЙ ООД",
-        "registeredOffice": "Балчик",
-        "valueEur": 25.564594059810926,
-        "holderName": "Виктор Лучиянов Митраков",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40904.373079459874,
+        "amountEurSpouse": 7391.746726453731
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 368130.1544612773,
+        "amountEurSpouse": null
       }
     ],
-    "income": [],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Виктор Лучиянов Митраков",
+        "isSpouse": false,
+        "legalBasis": "кредит 3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9500,
+        "valueEur": 9499.80315262574,
+        "holderName": "Виктор Лучиянов Митраков",
+        "isSpouse": false,
+        "legalBasis": "кредит БЕЗЛИХВЕН",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Виктор Лучиянов Митраков",
+        "isSpouse": false,
+        "legalBasis": "4.2% кредит",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

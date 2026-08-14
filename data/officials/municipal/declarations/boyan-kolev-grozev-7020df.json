@@ -4,25 +4,31 @@
     "declarantName": "Боян Колев Грозев",
     "institution": "Трявна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8956",
-    "controlHash": "FAC28972",
-    "sourceUrl": "https://register.cacbg.bg/2025/1CE0EB18-0058-4004-A66E-9FA07B75047C211985.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г10768",
+    "controlHash": "E009C9BD",
+    "sourceUrl": "https://register.cacbg.bg/2026/1CE0EB18-0058-4004-A66E-9FA07B75047C235562.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6041.936160095714,
+        "amountEurDeclarant": 5347.6017854312495,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5417.137481273935,
+        "amountEurDeclarant": 7132.521742687248,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 644.2277703072353,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +37,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр. Трявна",
+        "location": "Трявна",
         "municipality": "Трявна",
         "areaSqm": 49,
         "builtAreaSqm": 49,
@@ -49,9 +55,9 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр. Трявна",
+        "location": "Трявна",
         "municipality": "Трявна",
-        "areaSqm": 95,
+        "areaSqm": 98,
         "builtAreaSqm": 98,
         "acquiredYear": 2021,
         "share": "1/2",
@@ -70,7 +76,7 @@
         "location": "Дървари",
         "municipality": "Трявна",
         "areaSqm": 2,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 2,
         "acquiredYear": 2021,
         "share": "1/12",
         "currency": null,
@@ -118,6 +124,24 @@
         "fundsOrigin": "безвъзмездно"
       },
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Volkswagen",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Боян Колев Грозев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
         "category": "investment",
         "description": null,
         "detail": "BGN",
@@ -128,12 +152,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12303,
-        "valueEur": 6290.424014357076,
+        "amount": 14535,
+        "valueEur": 7431.627493187036,
         "holderName": "Боян Колев Грозев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗДПО"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

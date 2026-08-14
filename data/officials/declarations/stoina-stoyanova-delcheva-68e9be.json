@@ -5,6 +5,80 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г4018",
+    "controlHash": "75EF272C",
+    "sourceUrl": "https://register.cacbg.bg/2026/D573CCBD-21C3-4475-BAE7-2C5040CAB3F3228202.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29694.809876113977,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3975.8056681817948,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 13876.46165566537,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 45960,
+        "valueEur": 23498.9748597782,
+        "holderName": "Стойна Стоянова Делчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата, наем, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58226,
+        "valueEur": 29770.481074531017,
+        "holderName": "Стойна Стоянова Делчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата, наем, пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoina-stoyanova-delcheva-68e9be",
+    "declarantName": "Стойна Стоянова Делчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,78 +4,54 @@
     "declarantName": "Климент Павлов Пенчев",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-26",
-    "entryNumber": "Г4107",
-    "controlHash": "661E2C61",
-    "sourceUrl": "https://register.cacbg.bg/2025/0355F839-1680-4325-9D9B-064F8C307F19206939.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3023",
+    "controlHash": "38947020",
+    "sourceUrl": "https://register.cacbg.bg/2026/0355F839-1680-4325-9D9B-064F8C307F19227119.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8445.00800171794,
-        "amountEurSpouse": 5193.191637309991
+        "amountEurDeclarant": 8632.140830235756,
+        "amountEurSpouse": 5779.643425042053
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7846.796500718365,
+        "amountEurDeclarant": 7935.249996165311,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 11964.230019991513,
+        "amountEurDeclarant": 15737.564103219605,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доход от дейност, облагана с патентен данък",
-        "amountEurDeclarant": 10258.049012439731,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Стипендия за успех на ненавършило пълнолетие дете",
-        "amountEurDeclarant": 79.25024158541386,
+        "category": "Доход от дейност облагана с патентен данък",
+        "amountEurDeclarant": 10064.780681347562,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шкода",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 58842,
-        "valueEur": 30085.436873347888,
-        "holderName": "Климент Павлов Пенчев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Потребителски кредит, спестявания"
-      },
-      {
-        "category": "cash",
+        "category": "bank",
         "description": null,
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 5500,
-        "valueEur": 5499.966766027722,
+        "currency": "BGN",
+        "amount": 34189,
+        "valueEur": 17480.558126217515,
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -92,30 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2188,
-        "valueEur": 1118.706636057326,
-        "holderName": "Климент Павлов Пенчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "Спестявания"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 14879,
-        "valueEur": 7607.511900318535,
+        "amount": 14536,
+        "valueEur": 7432.138785068232,
         "holderName": "Пламена Димитрова Маркова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Продажба МПС, спестявания"
+        "fundsOrigin": "Продажба на МПС и спестявания"
       },
       {
         "category": "bank",
@@ -128,12 +86,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 83,
-        "valueEur": 42.43722613928613,
+        "amount": 1,
+        "valueEur": 0.5112918811962185,
         "holderName": "Павлин Климентов Пенчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Стипендия"
+        "fundsOrigin": "Спестявания"
       },
       {
         "category": "debt",
@@ -146,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 76739,
-        "valueEur": 39236.02767111661,
+        "amount": 73953,
+        "valueEur": 37811.56849010395,
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
-        "legalBasis": "Договор, лихвен % - 3,02",
+        "legalBasis": "Договор, лихвен % 3,10",
         "fundsOrigin": null
       },
       {
@@ -164,27 +122,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27647,
-        "valueEur": 14135.686639431853,
+        "amount": 20519,
+        "valueEur": 10491.198110265208,
         "holderName": "Климент Павлов Пенчев",
         "isSpouse": false,
-        "legalBasis": "Договор, лихвен % - 4,33",
+        "legalBasis": "Договор, лихвен % 4,41",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шкода",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

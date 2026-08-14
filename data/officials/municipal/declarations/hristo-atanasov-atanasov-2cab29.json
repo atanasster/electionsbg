@@ -4,75 +4,38 @@
     "declarantName": "Христо Атанасов Атанасов",
     "institution": "Аксаково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-09",
-    "entryNumber": "Г7448",
-    "controlHash": "7ACBC753",
-    "sourceUrl": "https://register.cacbg.bg/2025/642A6767-D7A9-4D3E-BEF6-DB8542C834AF210443.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "100%",
-        "companyName": "Alfa Bitumina Beteiligung GMBH",
-        "registeredOffice": "Виена Австрия",
-        "valueEur": 35006.1099379803,
-        "holderName": "Христо Атанасов Атанасов",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4502",
+    "controlHash": "0813014A",
+    "sourceUrl": "https://register.cacbg.bg/2026/642A6767-D7A9-4D3E-BEF6-DB8542C834AF228702.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6072.613672967487,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 7414.243569226364,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 569106.2106624809,
-        "amountEurSpouse": 9089.235772025177
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 516795.42700541456,
+        "amountEurSpouse": 7573.255344278388
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 330.29455525275716
+        "amountEurDeclarant": 674.9052831790084,
+        "amountEurSpouse": 11.248421386316807
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "category": "Доходи от дивиденти от източник в чужбина",
+        "amountEurDeclarant": 1897027.8602946063,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -87,8 +50,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Христо Атанасов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25000,
+        "valueEur": 24999.616531089105,
         "holderName": "Христо Атанасов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
@@ -97,37 +78,37 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 290000,
-        "valueEur": 148274.64554690337,
+        "currency": "EUR",
+        "amount": 137941,
+        "valueEur": 137941.4366279278,
         "holderName": "Христо Атанасов Атанасов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "Потребителски кредит - 5,91% лихва",
-        "detail": "BGN",
+        "category": "receivable",
+        "description": "Паричен заем",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 14209,
-        "valueEur": 7264.946339917068,
+        "currency": "EUR",
+        "amount": 548871,
+        "valueEur": 548870.8118803782,
         "holderName": "Христо Атанасов Атанасов",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "Договор за заем - 4%",
         "fundsOrigin": null
       }
     ],

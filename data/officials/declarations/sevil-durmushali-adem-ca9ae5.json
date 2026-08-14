@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г11554",
+    "controlHash": "B21BCEBF",
+    "sourceUrl": "https://register.cacbg.bg/2026/4CA26C3F-BB72-425C-89EF-C4EE43143AC6236489.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18626.874523859435,
+        "amountEurSpouse": 18116.093934544413
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "БУРГАС",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 116086,
+        "valueEur": 59353.82932054422,
+        "holderName": "Севил Дурмушали Адем",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Сини рид",
+        "municipality": "Руен",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "acquiredYear": 2008,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1017,
+        "valueEur": 519.9838431765542,
+        "holderName": "Ахмед Халил Адем",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sevil-durmushali-adem-ca9ae5",
+    "declarantName": "Севил Дурмушали Адем",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

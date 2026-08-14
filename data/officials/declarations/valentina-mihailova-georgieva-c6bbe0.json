@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г6933",
+    "controlHash": "4FBF40C8",
+    "sourceUrl": "https://register.cacbg.bg/2026/16DBA5BF-BD80-45A9-BB69-E11B225C3CCE231307.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40392.058614501264,
+        "amountEurSpouse": 6646.79445555084
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Валентина Михайлова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупкана жилище, 2.8%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valentina-mihailova-georgieva-c6bbe0",
+    "declarantName": "Валентина Михайлова Георгиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

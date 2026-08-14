@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6742",
+    "controlHash": "80AEE94A",
+    "sourceUrl": "https://register.cacbg.bg/2026/45A98520-EF29-42A3-821B-87A3E925B733231087.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2376.4846638000236,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения за болничен",
+        "amountEurDeclarant": 12624.30783861583,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29339,
+        "valueEur": 15000.792502415854,
+        "holderName": "Георги Стоев Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-stoev-georgiev-99308e",
+    "declarantName": "Георги Стоев Георгиев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

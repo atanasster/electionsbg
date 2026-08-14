@@ -1,6 +1,50 @@
 [
   {
     "slug": "ferdi-behchet-nazif-49c934",
+    "declarantName": "ФЕРДИ БЕХЧЕТ НАЗИФ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4703",
+    "controlHash": "CD2313B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/5B3A3E4D-6364-4C70-ADB1-27C52F0EEB33228924.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10428.309208878072,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38037,
+        "valueEur": 19448.00928506056,
+        "holderName": "Ферди Бехчет Назиф",
+        "isSpouse": false,
+        "legalBasis": "договор с 8,76% лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ferdi-behchet-nazif-49c934",
     "declarantName": "Ферди Бехчет Назиф",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

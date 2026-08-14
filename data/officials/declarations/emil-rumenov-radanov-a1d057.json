@@ -5,6 +5,80 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8288",
+    "controlHash": "4013BB76",
+    "sourceUrl": "https://register.cacbg.bg/2026/6C09ED9F-8680-4892-ABCA-08AEFE6C9D27232781.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5127.746276516875,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13748.638685366315,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента от земеделски земи",
+        "amountEurDeclarant": 797.6153346661008,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 105793,
+        "valueEur": 54091.10198739154,
+        "holderName": "Емил Руменов Раданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2415,
+        "valueEur": 1234.7698930888675,
+        "holderName": "Емил Руменов Раданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emil-rumenov-radanov-a1d057",
+    "declarantName": "Емил Руменов Раданов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

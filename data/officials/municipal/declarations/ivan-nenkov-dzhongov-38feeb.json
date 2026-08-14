@@ -1,28 +1,28 @@
 [
   {
     "slug": "ivan-nenkov-dzhongov-38feeb",
-    "declarantName": "Иван Ненков Джонгож",
+    "declarantName": "Иван  Ненков Джонгов",
     "institution": "Пирдоп",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12074",
-    "controlHash": "AAAF374A",
-    "sourceUrl": "https://register.cacbg.bg/2025/17B1C866-3D8C-4702-8B84-61D6CF4B681E215231.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11215",
+    "controlHash": "1D3DC025",
+    "sourceUrl": "https://register.cacbg.bg/2026/17B1C866-3D8C-4702-8B84-61D6CF4B681E236076.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4471.2475010609305,
+        "amountEurDeclarant": 6440.743827428764,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 306.7751287177311,
+        "amountEurDeclarant": 204.5167524784874,
         "amountEurSpouse": null
       }
     ],
@@ -38,12 +38,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 42529,
-        "valueEur": 21744.732415393977,
+        "amount": 47200,
+        "valueEur": 24132.97679246151,
         "holderName": "Иван Ненков Джонгов",
-        "isSpouse": true,
-        "legalBasis": "заем, 6.8%",
+        "isSpouse": false,
+        "legalBasis": "заем, 4,44%",
         "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20421,
+        "valueEur": 10441.091505907978,
+        "holderName": "Иван Ненков Джонгов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
       }
     ],
     "events": []

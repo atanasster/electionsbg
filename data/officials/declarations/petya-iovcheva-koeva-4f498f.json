@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г5914",
+    "controlHash": "4D16CF91",
+    "sourceUrl": "https://register.cacbg.bg/2026/8DA873D8-E5D5-4D17-B8F6-7E8BC124DFEC230192.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20374.47017378811,
+        "amountEurSpouse": 13787.496868337228
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16799,
+        "valueEur": 8589.192312215275,
+        "holderName": "Петя Йовчева Коева",
+        "isSpouse": false,
+        "legalBasis": "банков кредит4,1 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18102,
+        "valueEur": 9255.405633413948,
+        "holderName": "Йонко Енчев Коеа",
+        "isSpouse": true,
+        "legalBasis": "банков кредит4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-iovcheva-koeva-4f498f",
+    "declarantName": "Петя Йовчева Коева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

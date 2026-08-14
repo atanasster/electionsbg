@@ -1,6 +1,50 @@
 [
   {
     "slug": "mihail-manolov-mihailov-a0df23",
+    "declarantName": "МИХАИЛ МАНОЛОВ МИХАЙЛОВ",
+    "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7752",
+    "controlHash": "DB3717B8",
+    "sourceUrl": "https://register.cacbg.bg/2026/9840DF96-91BD-4786-9427-AEAEB17C7F50232186.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33886.38071816057,
+        "amountEurSpouse": 22389.982769463604
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26363,
+        "valueEur": 13479.187863975909,
+        "holderName": "Михаил Манолов Михайлов",
+        "isSpouse": false,
+        "legalBasis": "4,8",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mihail-manolov-mihailov-a0df23",
     "declarantName": "Михаил Манолов Михайлов",
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор",

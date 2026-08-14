@@ -1,1 +1,277 @@
-[{"mpId":4992,"declarantName":"Биляна Георгиева Иванова","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-05-08","entryNumber":"Г12529","controlHash":"53D7C1C8","sourceUrl":"https://register.cacbg.bg/2025/770C49E9-0DC1-4C32-A6CE-9597C893BC2A215698.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":5996.43118266925,"amountEurSpouse":17148.72969532117},{"parent":null,"category":"Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност","amountEurDeclarant":8363.712592607742,"amountEurSpouse":null},{"parent":null,"category":"Годишна данъчна основа за доходи от друга стопанска дейност","amountEurDeclarant":174.86182336910673,"amountEurSpouse":null}],"assets":[{"category":"vehicle","description":"Лек автомобил","detail":"Volkswagen","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":2024,"share":"1/1","currency":"BGN","amount":1000,"valueEur":511.29188119621847,"holderName":"Биляна Георгиева Иванова и Иван Тодоров Иванов","isSpouse":true,"legalBasis":"покупко-продажба","fundsOrigin":"заплата"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":18625,"valueEur":9522.81128727957,"holderName":"Биляна Георгиева Иванова","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"}],"events":[]}]
+[
+  {
+    "mpId": 4992,
+    "declarantName": "Биляна Георгиева Иванова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-03-19",
+    "entryNumber": "Ф226",
+    "controlHash": "D99474CA",
+    "sourceUrl": "https://register.cacbg.bg/2026/770C49E9-0DC1-4C32-A6CE-9597C893BC2A223995.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 431,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2026,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 79572,
+        "valueEur": 40684.5175705455,
+        "holderName": "Иван Тодоров Иванов, Биляна Георгиева Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Червена Вода",
+        "municipality": "Русе",
+        "areaSqm": 471,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3860,
+        "valueEur": 1973.5866614174033,
+        "holderName": "Биляна Георгиева Иванова, Иван Тодоров Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 307,
+        "valueEur": 156.96660752723906,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Volkswagen",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 511,
+        "valueEur": 261.27015129126767,
+        "holderName": "Биляна Георгиева Иванова, Иван Тодоров Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13858,
+        "valueEur": 7085.482889617196,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 4992,
+    "declarantName": "Биляна Георгиева Иванова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-19",
+    "entryNumber": "Г560",
+    "controlHash": "55181CBD",
+    "sourceUrl": "https://register.cacbg.bg/2026/770C49E9-0DC1-4C32-A6CE-9597C893BC2A223994.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 61423.027563745316,
+        "amountEurSpouse": 16440.590439864405
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13206.669291298324,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 354.83656555017564,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансовите правила по бюджета на Народното събрание (приложение към ПОДНС)",
+        "amountEurDeclarant": 30305.29238226226,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11400,
+        "valueEur": 5828.7274456368905,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 4992,
+    "declarantName": "Биляна Георгиева Иванова",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г12529",
+    "controlHash": "53D7C1C8",
+    "sourceUrl": "https://register.cacbg.bg/2025/770C49E9-0DC1-4C32-A6CE-9597C893BC2A215698.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5996.43118266925,
+        "amountEurSpouse": 17148.72969532117
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8363.712592607742,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 174.86182336910673,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Volkswagen",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Биляна Георгиева Иванова и Иван Тодоров Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18625,
+        "valueEur": 9522.81128727957,
+        "holderName": "Биляна Георгиева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

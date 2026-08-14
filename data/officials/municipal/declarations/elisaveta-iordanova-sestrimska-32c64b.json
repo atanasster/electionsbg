@@ -4,29 +4,72 @@
     "declarantName": "Елисавета Йорданова Сестримска",
     "institution": "Долна баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г3068",
-    "controlHash": "6AD1483E",
-    "sourceUrl": "https://register.cacbg.bg/2025/9273AD9C-2384-49E6-99B8-876E2A1B699B205785.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1718",
+    "controlHash": "20FB37E4",
+    "sourceUrl": "https://register.cacbg.bg/2026/9273AD9C-2384-49E6-99B8-876E2A1B699B225664.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2005.798049932765,
-        "amountEurSpouse": 19620.825940904884
+        "amountEurDeclarant": 1653.0066519073744,
+        "amountEurSpouse": 30175.93553631962
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14145.40118517458,
+        "amountEurDeclarant": 16474.84699590455,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи по чл. 24, ал. 2, точка 15 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 690.244039614895
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15678,
+        "valueEur": 8016.034113394314,
+        "holderName": "Светослав Иванов Сестримски",
+        "isSpouse": true,
+        "legalBasis": "Лихвен % 3.89",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39571,
+        "valueEur": 20232.331030815563,
+        "holderName": "Светослав Иванов Сестримски",
+        "isSpouse": true,
+        "legalBasis": "Лихвен % 6.12",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

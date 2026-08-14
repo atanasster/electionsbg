@@ -5,6 +5,68 @@
     "institution": "ИА по околната среда",
     "positionTitle": "Заместник-председател",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7358",
+    "controlHash": "D2D80809",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC7949D0-BB5B-41DE-A3D9-B0301FC30FCF231767.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42336.50163869048,
+        "amountEurSpouse": 29025.01751174693
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15630,
+        "valueEur": 7991.492103096895,
+        "holderName": "Даниел Димитров Инджиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Росалина Христова Инджиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rosalina-hristova-indzhieva-b203e3",
+    "declarantName": "Росалина Христова Инджиева",
+    "institution": "ИА по околната среда",
+    "positionTitle": "Заместник-председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

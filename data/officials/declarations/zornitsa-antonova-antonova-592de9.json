@@ -5,6 +5,50 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13545",
+    "controlHash": "66A2F787",
+    "sourceUrl": "https://register.cacbg.bg/2026/1490E315-B337-4893-A91E-CB27F63F13A2239079.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20162.795334972878,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Зорница Антонова Антонова",
+        "isSpouse": false,
+        "legalBasis": "3,59%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zornitsa-antonova-antonova-592de9",
+    "declarantName": "Зорница Антонова Антонова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

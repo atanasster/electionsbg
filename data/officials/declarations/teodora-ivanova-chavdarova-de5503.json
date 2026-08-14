@@ -5,6 +5,68 @@
     "institution": "ИА \"Сертификационен одит на средствата от европейските земеделски фондове\"",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3607",
+    "controlHash": "BF8AAB90",
+    "sourceUrl": "https://register.cacbg.bg/2026/FCD6E42E-D242-4FFF-A843-653E693FBD8C227746.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 60848.84678116196,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 83,
+        "builtAreaSqm": 97,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 219053,
+        "valueEur": 112000.02045167524,
+        "holderName": "Теодора Иванова Чавдарова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 172138,
+        "valueEur": 88012.76184535466,
+        "holderName": "Теодора Иванова Чавдарова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-ivanova-chavdarova-de5503",
+    "declarantName": "Теодора Иванова Чавдарова",
+    "institution": "ИА \"Сертификационен одит на средствата от европейските земеделски фондове\"",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

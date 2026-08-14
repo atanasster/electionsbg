@@ -4,47 +4,29 @@
     "declarantName": "Николай Атанасов Стаматов",
     "institution": "Марица",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7663",
-    "controlHash": "DB960427",
-    "sourceUrl": "https://register.cacbg.bg/2025/CFA09558-8BA1-4CF7-9A90-5FD443D2B8A5210662.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11588",
+    "controlHash": "5A9D41C5",
+    "sourceUrl": "https://register.cacbg.bg/2026/CFA09558-8BA1-4CF7-9A90-5FD443D2B8A5236524.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25736.89942377405,
-        "amountEurSpouse": 10789.281277002603
+        "amountEurDeclarant": 28774.484489960785,
+        "amountEurSpouse": 15857.206403419521
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 958.6722772429097,
+        "amountEurDeclarant": 306.7751287177311,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай i30",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
-        "holderName": "Христина Петрова Стаматова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -64,19 +46,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди А4",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4090.3350495697478,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

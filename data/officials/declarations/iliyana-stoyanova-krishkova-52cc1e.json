@@ -5,6 +5,98 @@
     "institution": "Селскостопанска академия",
     "positionTitle": "Директор",
     "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4161",
+    "controlHash": "1FC50601",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0517318-F3E8-4282-9912-E6749A39FB51228357.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31663.794910600616,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 46.01626930765966,
+        "amountEurSpouse": 2262.977866174463
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1352.878317645194,
+        "amountEurSpouse": 3232.387272922493
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 82.42,
+        "builtAreaSqm": 82.42,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Ефриян Йорданов Кришков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 22486,
+        "valueEur": 22496.842772633612,
+        "holderName": "Илияна Стоянова Кришкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 30012.833426218025,
+        "holderName": "Илияна Стоянова Кришкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliyana-stoyanova-krishkova-52cc1e",
+    "declarantName": "Илияна Стоянова Кришкова",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

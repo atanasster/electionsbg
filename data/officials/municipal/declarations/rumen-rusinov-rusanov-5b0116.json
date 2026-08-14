@@ -4,61 +4,29 @@
     "declarantName": "Румен Русинов Русанов",
     "institution": "Неделино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14249",
-    "controlHash": "69B0BBC6",
-    "sourceUrl": "https://register.cacbg.bg/2025/E403EAC2-F70C-4381-BAF9-22785C3F9972217530.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г9393",
+    "controlHash": "09EDDEED",
+    "sourceUrl": "https://register.cacbg.bg/2026/E403EAC2-F70C-4381-BAF9-22785C3F9972234011.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5024.976608396435,
+        "amountEurDeclarant": 8540.108291620438,
         "amountEurSpouse": 3681.3015446127733
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4662.981956509512,
+        "amountEurDeclarant": 4908.4020594836975,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "магазин",
-        "detail": null,
-        "location": "гр.Неделино",
-        "municipality": "Неделино",
-        "areaSqm": 80,
-        "builtAreaSqm": 120,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 23700,
-        "valueEur": 12117.617584350379,
-        "holderName": "Румен Русинов Русанов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "магазин",
-        "detail": null,
-        "location": "гр.Неделино",
-        "municipality": "Неделино",
-        "areaSqm": 80,
-        "builtAreaSqm": 120,
-        "currency": "BGN",
-        "valueEur": 13191.330534862436,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

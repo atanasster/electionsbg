@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "georgi-paskov-paskov-eb2cd5",
+    "declarantName": "Георги Пасков Пасков",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14909",
+    "controlHash": "00CCDC90",
+    "sourceUrl": "https://register.cacbg.bg/2026/EBF6E9FF-72A3-405C-BFE5-DA73715D3924241318.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21474.259010241178,
+        "amountEurSpouse": 10225.83762392437
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Георги Пасков Пасков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 249000,
+        "valueEur": 127311.6784178584,
+        "holderName": "Георги Пасков ПАСКОВ",
+        "isSpouse": false,
+        "legalBasis": "HL196203, 2,38%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

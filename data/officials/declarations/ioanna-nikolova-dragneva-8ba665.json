@@ -71,5 +71,109 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "ioanna-nikolova-dragneva-8ba665",
+    "declarantName": "Йоанна Николова Драгнева",
+    "institution": "ИА за българите в чужбина",
+    "positionTitle": "Заместник-изпълнителен директор",
+    "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2016-04-28",
+    "entryNumber": "Г3626",
+    "controlHash": "15DE373F",
+    "sourceUrl": "https://register.cacbg.bg/2026/0AF75ED2-A79D-4F83-8F1E-B4A7CF1DA603227770.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23935.106834438575,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1800.7700055730816,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "бул.Дондуков",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2008,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53000,
+        "valueEur": 27098.46970339958,
+        "holderName": "Йоанна Николова Драгнева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "бул.Дондуков",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 98,
+        "builtAreaSqm": 98,
+        "acquiredYear": 2016,
+        "share": "2,318",
+        "currency": "BGN",
+        "amount": 234000,
+        "valueEur": 119642.30019991513,
+        "holderName": "Йоанна Николова Драгнева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
   }
 ]

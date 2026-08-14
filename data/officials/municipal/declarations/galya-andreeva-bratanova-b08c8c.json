@@ -4,31 +4,25 @@
     "declarantName": "Галя Андреева Братанова",
     "institution": "Харманли",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г13727",
-    "controlHash": "F2B54874",
-    "sourceUrl": "https://register.cacbg.bg/2025/5B557840-5CAA-459D-AD11-37567AA667AE216977.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14187",
+    "controlHash": "B88FB802",
+    "sourceUrl": "https://register.cacbg.bg/2026/5B557840-5CAA-459D-AD11-37567AA667AE239914.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17642.12636067552,
-        "amountEurSpouse": 7056.850544270207
+        "amountEurDeclarant": 20497.6915171564,
+        "amountEurSpouse": 7137.63466149921
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7903.038607649949,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 5624.210693158403,
+        "amountEurDeclarant": 8723.66207696988,
         "amountEurSpouse": null
       }
     ],
@@ -60,7 +54,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2016,
-        "share": "1/1",
+        "share": "СИО 1/2",
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
@@ -80,16 +74,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 7559,
+        "valueEur": 3864.8553299622154,
         "holderName": "Галя Андреева Братанова",
         "isSpouse": false,
-        "legalBasis": "Закон за потребителски кредит",
+        "legalBasis": "5.64%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски паричен кредит",
+        "description": "Кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -98,39 +92,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
-        "holderName": "Кирил Колев Братанов",
-        "isSpouse": true,
-        "legalBasis": "Закон за потребителски кредит",
+        "amount": 1680,
+        "valueEur": 858.970360409647,
+        "holderName": "Галя Андреева Братанова",
+        "isSpouse": false,
+        "legalBasis": "18.9%",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Бисер",
-        "municipality": "Харманли",
-        "areaSqm": 1000,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4090.3350495697478,
-        "legalBasis": "възмездно"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Голф",
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
+        "amount": 2790,
+        "valueEur": 1426.5043485374497,
+        "holderName": "Галя Андреева Братанова",
+        "isSpouse": false,
+        "legalBasis": "18.9%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

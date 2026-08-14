@@ -5,6 +5,56 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-07-22",
+    "entryNumber": "Г14628",
+    "controlHash": "B3EC2046",
+    "sourceUrl": "https://register.cacbg.bg/2026/54E9908F-C060-4AD7-B91F-B535904E86C1240578.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10223.792456399586,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 40903.35049569748
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "АНЕЛИЯ СИМЕОНОВА ГЕРЕНСКА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aneliya-simeonova-gerenska-6b014a",
+    "declarantName": "АНЕЛИЯ СИМЕОНОВА ГЕРЕНСКА",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

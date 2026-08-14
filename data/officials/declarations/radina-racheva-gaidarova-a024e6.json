@@ -5,6 +5,62 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7907",
+    "controlHash": "30ABFC5D",
+    "sourceUrl": "https://register.cacbg.bg/2026/250C7603-6BF1-4DF6-8A1A-15D9C770945D232368.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21207.875940137947,
+        "amountEurSpouse": 25539.029465751115
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 327.22680396557985,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 71.58086336747058
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14000,
+        "valueEur": 14000,
+        "holderName": "Радина Рачева Гайдаров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radina-racheva-gaidarova-a024e6",
+    "declarantName": "Радина Рачева Гайдарова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

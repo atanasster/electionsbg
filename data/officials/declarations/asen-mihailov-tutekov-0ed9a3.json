@@ -5,6 +5,104 @@
     "institution": "Държавна агенция \"Разузнаване\"",
     "positionTitle": "Заместник-председател",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г5578",
+    "controlHash": "03E19A00",
+    "sourceUrl": "https://register.cacbg.bg/2026/066AB5E0-F4EA-4F18-B992-40968EF0C0AD229842.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 108786.55097835702,
+        "amountEurSpouse": 8376.494889637648
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 766.9378217943278,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наследство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1418.32367843831
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3734.987192138376
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 295091,
+        "valueEur": 150877.6325140733,
+        "holderName": "Асен Михайлов Тутеков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56726,
+        "valueEur": 29003.54325273669,
+        "holderName": "Ана Хриснова Тутекова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8000,
+        "valueEur": 7999.6727731960345,
+        "holderName": "Ана Хриснова Тутекова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "командировъчни"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "asen-mihailov-tutekov-0ed9a3",
+    "declarantName": "Асен Михайлов Тутеков",
+    "institution": "Държавна агенция \"Разузнаване\"",
+    "positionTitle": "Заместник-председател",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

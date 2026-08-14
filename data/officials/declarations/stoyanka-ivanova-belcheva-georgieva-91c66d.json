@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14215",
+    "controlHash": "43FB24F9",
+    "sourceUrl": "https://register.cacbg.bg/2026/83EA2A0C-DC00-4620-B93D-A78DF1BB8F8E239947.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21824.493948860585,
+        "amountEurSpouse": 526.1193457509088
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4391.997259475517
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27716,
+        "valueEur": 14170.965779234391,
+        "holderName": "Стоянка Иванова Белчева-Георгиева",
+        "isSpouse": false,
+        "legalBasis": "кредит-5,4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyanka-ivanova-belcheva-georgieva-91c66d",
+    "declarantName": "Стоянка Иванова Белчева-Георгиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

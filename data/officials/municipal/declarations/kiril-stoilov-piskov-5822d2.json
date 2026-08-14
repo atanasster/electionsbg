@@ -4,49 +4,31 @@
     "declarantName": "Кирил Стоилов Писков",
     "institution": "Струмяни",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13151",
-    "controlHash": "7CC1F5A8",
-    "sourceUrl": "https://register.cacbg.bg/2025/06A069E3-C58C-44CB-8466-6509589DC324216344.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г12905",
+    "controlHash": "E67D27DD",
+    "sourceUrl": "https://register.cacbg.bg/2026/06A069E3-C58C-44CB-8466-6509589DC324238257.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5343.511450381679,
-        "amountEurSpouse": 7869.293343490999
+        "amountEurDeclarant": 7443.898498335745,
+        "amountEurSpouse": 8933.29174826033
       },
       {
-        "parent": null,
-        "category": "земеделски производител",
-        "amountEurDeclarant": 34328.13690351411,
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 9707.387656391404,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Кирил Стоилов Писков",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -56,14 +38,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 88000,
-        "valueEur": 44993.685545267224,
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
         "holderName": "Кирил Стоилов Писков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "Земеделска дейност"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Драката",
+        "municipality": "Струмяни",
+        "areaSqm": 1066,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5.112918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

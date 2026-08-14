@@ -5,6 +5,50 @@
     "institution": "ГДИН",
     "positionTitle": "Началник на затвор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2251",
+    "controlHash": "8953BD35",
+    "sourceUrl": "https://register.cacbg.bg/2026/B394E450-9536-4D4F-8292-317848D10740226271.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39276.931021612305,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Пламен Хинков Хинков",
+        "isSpouse": false,
+        "legalBasis": "лизинг / 3,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "plamen-hinkov-hinkov-d43180",
+    "declarantName": "Пламен Хинков Хинков",
+    "institution": "ГДИН",
+    "positionTitle": "Началник на затвор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

@@ -4,25 +4,25 @@
     "declarantName": "Ахмед Мюмюн Мюдюр",
     "institution": "Ардино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7763",
-    "controlHash": "AD898867",
-    "sourceUrl": "https://register.cacbg.bg/2025/45DE2C17-F546-42A4-B86C-BCB6BAA84E02210765.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3310",
+    "controlHash": "4683EF38",
+    "sourceUrl": "https://register.cacbg.bg/2026/45DE2C17-F546-42A4-B86C-BCB6BAA84E02227435.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2442.4413164743355,
-        "amountEurSpouse": 5153.310870576686
+        "amountEurDeclarant": 3020.2011422260625,
+        "amountEurSpouse": 6754.677042483242
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8194.98627181299,
+        "amountEurDeclarant": 6714.284983868742,
         "amountEurSpouse": null
       }
     ],
@@ -80,6 +80,42 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Пловдив, район Южен, местност \"БАШ ПАРА-ОСТРОМИЛА\"",
+        "municipality": "Пловдив",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Ахмед Мюмюн Мюдюр",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Бял извор, ул. Първа 747",
+        "municipality": "Ардино",
+        "areaSqm": 528,
+        "builtAreaSqm": 241,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Ахмед Мюмюн Мюдюр",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -174,24 +210,6 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Мазда",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2020,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 13600,
-        "valueEur": 6953.569584268572,
-        "holderName": "Ахмед Мюмюн Мюдюр",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
         "detail": "Рено",
         "location": null,
         "municipality": null,
@@ -236,29 +254,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 47065,
-        "valueEur": 24063.952388500024,
+        "amount": 37308,
+        "valueEur": 19075.27750366852,
         "holderName": "Ахмед Мюмюн Мюдюр",
         "isSpouse": false,
         "legalBasis": "Договор за заем, 3,64%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Договор за лизинг",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 24599,
-        "valueEur": 12577.26898554578,
-        "holderName": "Ахмед Мюмюн Мюдюр",
-        "isSpouse": false,
-        "legalBasis": "Договор за лизинг, 3,72%",
         "fundsOrigin": null
       },
       {
@@ -272,14 +272,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 117500,
-        "valueEur": 60076.79604055567,
+        "amount": 109081,
+        "valueEur": 55772.22969276471,
         "holderName": "Ахмед Мюмюн Мюдюр",
         "isSpouse": false,
         "legalBasis": "Договор за заем, 2,74%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

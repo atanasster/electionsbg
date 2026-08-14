@@ -1,0 +1,126 @@
+[
+  {
+    "slug": "bozhanka-traicheva-damyanova-e58330",
+    "declarantName": "Божанка Трайчева Дамянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12075",
+    "controlHash": "0C930CFA",
+    "sourceUrl": "https://register.cacbg.bg/2026/17E3BF64-9BB1-4AE0-ABE7-1A13DB06DB91237180.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Собствен капитал",
+        "shareSize": "33,33%",
+        "companyName": "Музика Хумана ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 10.22583762392437,
+        "holderName": "Божанка Трайчева Дамянова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7043.045663477909,
+        "amountEurSpouse": 49769.151715639906
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3772,
+        "valueEur": 1928.592975872136,
+        "holderName": "Божанка Трайчева Дамянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит - потребителски",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29300,
+        "valueEur": 14980.852119049201,
+        "holderName": "Юрий Борисов Дамянов",
+        "isSpouse": true,
+        "legalBasis": "Дог. Кредит 4,9 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2975,
+        "valueEur": 1521.09334655875,
+        "holderName": "Юрий Борисов Дамянов",
+        "isSpouse": true,
+        "legalBasis": "Договор ОВ 2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13500,
+        "valueEur": 6902.44039614895,
+        "holderName": "Юрий Борисов Дамянов - застраховка живот",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификационен семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 398.8076673330504,
+        "legalBasis": null
+      }
+    ]
+  }
+]

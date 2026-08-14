@@ -1,6 +1,128 @@
 [
   {
     "slug": "rumyana-evtimova-ivanova-1d3da2",
+    "declarantName": "Румяна Евтимова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13266",
+    "controlHash": "11B09FDB",
+    "sourceUrl": "https://register.cacbg.bg/2026/A079AF35-1ADC-4003-A339-9A429922FFC5238766.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34079.13775737155,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 184.06507723063865
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1595.7419612133979
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 20451.67524784874
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2000,
+        "valueEur": 2000.1738392396067,
+        "holderName": "Минко Евгениев Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии,дивиденти,наем ,рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 172557,
+        "valueEur": 88226.99314357588,
+        "holderName": "Румяна Евтимова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, граждански договор"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36566,
+        "valueEur": 18695.898927820926,
+        "holderName": "Минко Евгениев Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия,дивиденти,наем,рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18000,
+        "valueEur": 18000.03067751287,
+        "holderName": "Минко Евгениев Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии,дивиденти,наем,рента"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-evtimova-ivanova-1d3da2",
     "declarantName": "Румяна  Евтимова Иванова",
     "institution": "Училища",
     "positionTitle": "Директор",

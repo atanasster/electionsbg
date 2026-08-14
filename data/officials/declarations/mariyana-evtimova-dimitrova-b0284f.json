@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6640",
+    "controlHash": "ADB59897",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A1A8150-7C45-4355-AF33-5E2F86CF1A5D230978.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20667.440421713545,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 14708.333546371618,
+        "amountEurSpouse": 6901.417812386557
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "mariyana-evtimova-dimitrova-b0284f",
+    "declarantName": "Марияна Евтимова Димитрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

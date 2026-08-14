@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г2118",
+    "controlHash": "4DA622D6",
+    "sourceUrl": "https://register.cacbg.bg/2026/3C5B4B27-463C-4FD0-9138-1179B36F0DF8226107.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28495.830414708846,
+        "amountEurSpouse": 6607.936272579927
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента за земеделска земя",
+        "amountEurDeclarant": 1927.5703921097438,
+        "amountEurSpouse": 1212.7843421974303
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 7929.6257854721525,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67910,
+        "valueEur": 34721.831652035195,
+        "holderName": "Нелия Тодорова Йочева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, ДТВ, песия, рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13852,
+        "valueEur": 7082.415138330019,
+        "holderName": "Янко Стефанов Йочев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, рента"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17486,
+        "valueEur": 8940.449834597077,
+        "holderName": "Нелия Тодорова Йочева",
+        "isSpouse": false,
+        "legalBasis": "покупка на жилище-лихвен процент 4.99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neliya-todorova-iocheva-62ea78",
+    "declarantName": "Нелия Тодорова Йочева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

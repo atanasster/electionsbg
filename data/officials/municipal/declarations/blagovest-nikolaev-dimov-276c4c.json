@@ -4,50 +4,38 @@
     "declarantName": "Благовест Николаев Димов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-07",
-    "entryNumber": "Г320",
-    "controlHash": "B28ACDE0",
-    "sourceUrl": "https://register.cacbg.bg/2025/2F9B10A8-60BE-4A2B-B033-77A2BE803168202206.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3328",
+    "controlHash": "9C4151E1",
+    "sourceUrl": "https://register.cacbg.bg/2026/2F9B10A8-60BE-4A2B-B033-77A2BE803168227453.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14200.620708343773,
+        "amountEurDeclarant": 18773.615293762752,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3816.282601248575,
+        "amountEurDeclarant": 5462.131166819202,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 1073.7129505120588,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Ауди Q5",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 7400,
-        "valueEur": 3783.5599208520166,
-        "holderName": "Благовест Николаев Димов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,55 +44,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
         "holderName": "Благовест Николаев Димов",
         "isSpouse": false,
-        "legalBasis": "покупка и ремонт на автомобил",
+        "legalBasis": "7.44%",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "blagovest-nikolaev-dimov-276c4c",
-    "declarantName": "Благовест Николаев Димов",
-    "institution": "Добрич",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-07",
-    "entryNumber": "Г323",
-    "controlHash": "92FF46CD",
-    "sourceUrl": "https://register.cacbg.bg/2025/2F9B10A8-60BE-4A2B-B033-77A2BE803168202209.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": [
       {
-        "kind": "early_repayment",
-        "description": "потребителски кредит към 5000",
-        "detail": "Благовест Николаев Димов",
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди Ку5",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "заплата"
-      },
-      {
-        "kind": "early_repayment",
-        "description": "потребителски кредит към 7500",
-        "detail": "Благовест Николаев Димов",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3834.6891089716387,
-        "legalBasis": "заплата"
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   }

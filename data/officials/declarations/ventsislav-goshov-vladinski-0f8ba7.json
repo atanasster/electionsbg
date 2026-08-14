@@ -5,6 +5,68 @@
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10228",
+    "controlHash": "47D1D3F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/A6D64B01-2E73-478F-9A16-0C564EDC33F9234952.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 60046.629819565096,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65810,
+        "valueEur": 33648.11870152314,
+        "holderName": "д-р Венцислав Гошов Владински",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39128,
+        "valueEur": 20005.828727445638,
+        "holderName": "д-р Венцислав Гошов Владински",
+        "isSpouse": false,
+        "legalBasis": "Договор - ГЛП 4.69 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislav-goshov-vladinski-0f8ba7",
+    "declarantName": "д-р Венцислав Гошов Владински",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

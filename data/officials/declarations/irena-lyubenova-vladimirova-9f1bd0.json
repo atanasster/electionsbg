@@ -168,5 +168,81 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "irena-lyubenova-vladimirova-9f1bd0",
+    "declarantName": "Ирена Любенова Владимирова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9794",
+    "controlHash": "7F635C2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/792A6452-8C71-4156-BE39-A286A6AFD553234453.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дялове в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "НИЯ МИ - 16 ЕООД",
+        "registeredOffice": "гр.Видин",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Милен Венелинов Сиянов",
+        "legalBasis": "Продажба",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11367.552394635526,
+        "amountEurSpouse": 23411.032656212454
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1980,
+        "valueEur": 1012.3579247685126,
+        "holderName": "Ирена Любенова Владимирова",
+        "isSpouse": false,
+        "legalBasis": "Покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Ирена Любенова Владимирова",
+        "isSpouse": false,
+        "legalBasis": "Ипотека, 3,4 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

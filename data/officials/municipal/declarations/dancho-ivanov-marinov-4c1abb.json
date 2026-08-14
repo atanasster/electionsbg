@@ -4,25 +4,38 @@
     "declarantName": "ДАНЧО ИВАНОВ МАРИНОВ",
     "institution": "Тетевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г8421",
-    "controlHash": "B66DA404",
-    "sourceUrl": "https://register.cacbg.bg/2025/4E7F28FC-084F-46EC-9786-2C6E13A1A81F211441.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г14251",
+    "controlHash": "9FF238E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/4E7F28FC-084F-46EC-9786-2C6E13A1A81F239995.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "търговия от всякакъв вид дейност",
+        "shareSize": "100",
+        "companyName": "ЕТ \"Глори-МД- Петя Любчева\"",
+        "registeredOffice": "Тетевен",
+        "valueEur": 51.12918811962185,
+        "holderName": "Петя Любчева Алипиева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7815.0964040842,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 8908.238446081714,
+        "amountEurSpouse": 6626.342780302992
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2862.211950936431,
+        "amountEurDeclarant": 3313.171390151496,
         "amountEurSpouse": null
       },
       {
@@ -30,68 +43,44 @@
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": 636.558392089292,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 511.29188119621847,
-        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "офис на траурна агенция",
-        "detail": null,
-        "location": "Тетевен",
-        "municipality": "Тетевен",
-        "areaSqm": 89,
-        "builtAreaSqm": 178,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Данчо Иванов Маринов",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Тетевен",
-        "municipality": "Тетевен",
-        "areaSqm": 386,
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
         "holderName": "Данчо Иванов Маринов",
         "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
-        "category": "real_estate",
-        "description": "етаж от къща",
-        "detail": null,
-        "location": "Тетевен",
-        "municipality": "Тетевен",
-        "areaSqm": 54,
-        "builtAreaSqm": 54,
-        "acquiredYear": 2024,
-        "share": "1/6",
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Ланд Ровър Дискавъри 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 4150,
+        "valueEur": 2121.8613069643066,
         "holderName": "Данчо Иванов Маринов",
         "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -104,11 +93,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 29000,
-        "valueEur": 14827.464554690336,
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
         "holderName": "Данчо Иванов Маринов",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит - 3.2 %",
         "fundsOrigin": null
       },
       {
@@ -122,27 +111,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 49000,
-        "valueEur": 25053.302178614707,
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
         "holderName": "Петя Любчева Алипиева",
         "isSpouse": true,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит - 5.5 %",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Ауди А6 Олроут",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

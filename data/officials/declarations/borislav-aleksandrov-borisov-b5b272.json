@@ -5,6 +5,56 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3446",
+    "controlHash": "7D3DBBE0",
+    "sourceUrl": "https://register.cacbg.bg/2026/CBC9C1FE-F133-4DA7-B39D-98DE42F5BBDD227579.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42255.20622958028,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 42727.12863592439,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 208",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Борислав Александров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "borislav-aleksandrov-borisov-b5b272",
+    "declarantName": "Борислав Александров Борисов",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,54 +4,30 @@
     "declarantName": "Андрей Митков Андреев",
     "institution": "Кула",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4856",
-    "controlHash": "A2299926",
-    "sourceUrl": "https://register.cacbg.bg/2025/66C0338E-3AE1-4052-948E-6E2C94AD6770207734.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7715",
+    "controlHash": "8C4A30A5",
+    "sourceUrl": "https://register.cacbg.bg/2026/66C0338E-3AE1-4052-948E-6E2C94AD6770232145.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3873.547291942551,
-        "amountEurSpouse": 11948.891263555626
+        "amountEurDeclarant": 5693.235097119893,
+        "amountEurSpouse": 15337.733852124162
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4268.264624226032,
+        "amountEurDeclarant": 6391.148514952731,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 701.4924610012117
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща",
-        "detail": null,
-        "location": "с. Гомотарци",
-        "municipality": "Видин",
-        "areaSqm": 79,
-        "builtAreaSqm": 158,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 9800,
-        "valueEur": 5010.660435722941,
-        "holderName": "Андрей Митков Андреев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
         "description": "Потребителски кредит",
         "detail": "BGN",
@@ -62,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19000,
-        "valueEur": 9714.54574272815,
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
         "holderName": "Андрей Митков Андреев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "4,9%",
         "fundsOrigin": null
       },
       {
@@ -80,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34000,
-        "valueEur": 17383.92396067143,
-        "holderName": "Йонка Тодорова Андреев",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Йонка Тодорова Андреева",
         "isSpouse": true,
-        "legalBasis": "кредит",
+        "legalBasis": "4,7%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Опел Мерима",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1175.9713267513025,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

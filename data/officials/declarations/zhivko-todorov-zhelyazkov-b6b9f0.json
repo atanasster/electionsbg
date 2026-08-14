@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2461",
+    "controlHash": "582CC2F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/853F3C34-B55F-4C7A-9BD7-0CFA246BD866226510.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28134.858346584315,
+        "amountEurSpouse": 9988.598191049325
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 34.25655604014664,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента за стопанската 2024-2025 г.",
+        "amountEurDeclarant": 573.6694907021572,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31057,
+        "valueEur": 15879.191954310958,
+        "holderName": "Живко Тодоров Желязков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11229,
+        "valueEur": 5741.296533952337,
+        "holderName": "Живко Тодоров Желязков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27112,
+        "valueEur": 13862.145482991875,
+        "holderName": "Живко Тодоров Желязков (пенсионен фонд)",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zhivko-todorov-zhelyazkov-b6b9f0",
+    "declarantName": "Живко Тодоров Желязков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

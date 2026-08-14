@@ -1,67 +1,55 @@
 [
   {
     "slug": "violeta-stefanova-hristodulova-403b6f",
-    "declarantName": "ВИОЛЕТА СТЕФАНОВА ХРИСТОДУЛОВА",
+    "declarantName": "Виолета Стефанова Христодулова",
     "institution": "Марица",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6527",
-    "controlHash": "DD38AAA2",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D0355D3-94A1-4F66-A6C4-4AE84E278828209488.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10812",
+    "controlHash": "7E1AA87F",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D0355D3-94A1-4F66-A6C4-4AE84E278828235607.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 38979.87043863731,
-        "amountEurSpouse": 19249.62803515643
+        "amountEurDeclarant": 47723.98419085504,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от продажба на движимо имущество оксвободено от облажане на основание чл.13. ал.1 тл 2 от ЗДДФЛ",
-        "amountEurDeclarant": 337.4526415895042,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от продажба на движимо имущество освободено от облагане на основание чл.13, ал.2, т.1 от ЗДДФЛ",
+        "amountEurDeclarant": 851.3009821917038,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес МЛ 500",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 4500,
-        "valueEur": 2300.8134653829834,
-        "holderName": "Константин Боров Христодулов",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес МЛ 500",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 4500,
-        "valueEur": 2300.8134653829834,
+        "amount": 13417,
+        "valueEur": 6860.003170009663,
         "holderName": "Виолета Стефанова Христодулова",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": "заем, заплата"
       },
       {
         "category": "bank",
@@ -74,39 +62,68 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16720,
-        "valueEur": 8548.800253600773,
+        "amount": 42117,
+        "valueEur": 21534.080160341135,
+        "holderName": "Виолета Стефанова Христодулова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заем, заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Виолета Стефанова Христодулова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребитлски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39177,
+        "valueEur": 20030.882029624252,
+        "holderName": "Виолета Стефанова Христодулова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит, 4,2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14750,
+        "valueEur": 7541.555247644223,
         "holderName": "Виолета Стефанова Христодулова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес Е 200",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес Е 200",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

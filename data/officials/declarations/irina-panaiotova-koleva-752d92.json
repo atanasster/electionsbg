@@ -5,6 +5,63 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2078",
+    "controlHash": "4C5C950A",
+    "sourceUrl": "https://register.cacbg.bg/2026/CDF85AD1-E9F4-46EB-9297-C887E8979DDC226061.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16210.509093326107,
+        "amountEurSpouse": 15311.14667430196
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41000,
+        "valueEur": 40995.3830343128,
+        "holderName": "Ирина Панайотова Колева",
+        "isSpouse": false,
+        "legalBasis": "ипотека на къща, 2.83%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул.\" Пресиян\" № 10",
+        "municipality": "Пловдив",
+        "areaSqm": 131,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 65000.02556459406,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "irina-panaiotova-koleva-752d92",
+    "declarantName": "Ирина Панайотова Колева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

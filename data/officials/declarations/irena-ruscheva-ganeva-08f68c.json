@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г11383",
+    "controlHash": "F0D57B53",
+    "sourceUrl": "https://register.cacbg.bg/2026/10DFFDA6-8D4B-4785-8DB3-9D0146738F40236287.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27870.52044400587,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Варна, ул. Даме Груев 17, ет.1",
+        "municipality": "Варна",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "acquiredYear": 2025,
+        "share": "2.535 % от общите части на сградата",
+        "currency": "BGN",
+        "amount": 37741,
+        "valueEur": 19296.666888226482,
+        "holderName": "Ирена Русчева Ганева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Ирена Русчева Ганева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "irena-ruscheva-ganeva-08f68c",
+    "declarantName": "Ирена Русчева Ганева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

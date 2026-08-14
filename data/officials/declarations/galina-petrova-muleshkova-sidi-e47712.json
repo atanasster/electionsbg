@@ -1,6 +1,110 @@
 [
   {
     "slug": "galina-petrova-muleshkova-sidi-e47712",
+    "declarantName": "ГАЛИНА ПЕТРОВА МУЛЕШКОВА СИДИ",
+    "institution": "МБАЛ \"Св. Мина\", гр. Пловдив",
+    "positionTitle": "Контрольор",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4737",
+    "controlHash": "C633CDE5",
+    "sourceUrl": "https://register.cacbg.bg/2026/AD84B4B2-DE8F-4504-8105-81252B70E6CD228959.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7483.77926506905,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 26615.298875669152,
+        "amountEurSpouse": 15993.72133569891
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 190.20057980499328,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 171.79407208192941,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "receivable",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ГАЛИНА ПЕТРОВА МУЛЕШКОВА СИДИ",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26300,
+        "valueEur": 13446.976475460546,
+        "holderName": "ГАЛИНА ПЕТРОВА МУЛЕШКОВА СИДИ",
+        "isSpouse": false,
+        "legalBasis": "3.30%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "АКЦИИ",
+        "detail": "АЛИАНЦ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "7",
+        "currency": "BGN",
+        "amount": 4771,
+        "valueEur": 2439.3735651871584,
+        "holderName": "ГАЛИНА ПЕТРОВА МУЛЕШКОВА СИДИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-petrova-muleshkova-sidi-e47712",
     "declarantName": "Галина Петрова Мулешкова-Сиди",
     "institution": "МБАЛ \"Св. Мина\", гр. Пловдив",
     "positionTitle": "Контрольор",

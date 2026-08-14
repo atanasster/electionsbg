@@ -4,15 +4,34 @@
     "declarantName": "МАРИЕТА ИВАНОВА ПЕТРОВА",
     "institution": "Две Могили",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-04-23",
-    "entryNumber": "В723",
-    "controlHash": "011F963E",
-    "sourceUrl": "https://register.cacbg.bg/2025/7B12E463-B7EE-471C-919A-A930A1DAE892205761.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2000",
+    "controlHash": "3A6A5C93",
+    "sourceUrl": "https://register.cacbg.bg/2026/7B12E463-B7EE-471C-919A-A930A1DAE892225976.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32414.371392196663,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6607.936272579927
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 153.38756435886555,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -29,44 +48,44 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
-        "description": "апартамент- предварителен договор",
+        "description": "апартамент в груб строеж",
         "detail": null,
         "location": "Русе",
         "municipality": "Русе",
-        "areaSqm": 82,
-        "builtAreaSqm": 55,
-        "acquiredYear": 2024,
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 125672,
+        "valueEur": 64255.07329369117,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
-        "description": "апартамент-предварителен договор",
+        "description": "апартамент груб строеж",
         "detail": null,
         "location": "Русе",
         "municipality": "Русе",
-        "areaSqm": 82,
-        "builtAreaSqm": 55,
-        "acquiredYear": 2024,
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 125672,
+        "valueEur": 64255.07329369117,
         "holderName": "Венцислав Кирилов Георгиев",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -83,8 +102,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -101,12 +120,12 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
-        "description": "лозя",
+        "description": "лозе",
         "detail": null,
         "location": "Две могили",
         "municipality": "Две могили",
@@ -119,8 +138,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -137,8 +156,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -155,8 +174,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -173,8 +192,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -191,8 +210,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -209,8 +228,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -227,8 +246,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -245,8 +264,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -263,8 +282,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -272,7 +291,7 @@
         "detail": null,
         "location": "Чилнов",
         "municipality": "Две могили",
-        "areaSqm": 3,
+        "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2024,
         "share": "1/4",
@@ -281,26 +300,8 @@
         "valueEur": 0,
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "Широково",
-        "municipality": "Две могили",
-        "areaSqm": 5,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Мариета Иванова Петрова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "vehicle",
@@ -317,8 +318,8 @@
         "valueEur": 3579.0431683735296,
         "holderName": "Венцислав Кирилов Георгиев",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -335,8 +336,8 @@
         "valueEur": 153.38756435886555,
         "holderName": "Венцислав Кирилов Георгиев",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -354,7 +355,7 @@
         "holderName": "Мариета Иванова Петрова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -372,11 +373,11 @@
         "holderName": "Венцислав Кирилов Георгиев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "investment",
-        "description": null,
+        "category": "debt",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -385,73 +386,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17000,
-        "valueEur": 8691.961980335715,
-        "holderName": "Мариета Иванова Петова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "investment",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Венцислав Кирилов Георгиев",
-        "isSpouse": true,
-        "legalBasis": null,
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Мариета Иванова Петрова",
+        "isSpouse": false,
+        "legalBasis": "заем 4,4%",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "marieta-ivanova-petrova-6aa81c",
-    "declarantName": "Мариета Иванова Петрова",
-    "institution": "Две Могили",
-    "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-18",
-    "entryNumber": "В724",
-    "controlHash": "8FB6062A",
-    "sourceUrl": "https://register.cacbg.bg/2025/7B12E463-B7EE-471C-919A-A930A1DAE892205762.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": [
       {
-        "kind": "related_person",
-        "description": "Петя Иванова Лашева",
-        "detail": "търговия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Широково",
+        "municipality": "Две могили",
+        "areaSqm": 5,
         "builtAreaSqm": null,
-        "currency": null,
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "related_person",
-        "description": "Венцислав Петков Лашев",
-        "detail": "търговия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": null,
-        "valueEur": null,
-        "legalBasis": null
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

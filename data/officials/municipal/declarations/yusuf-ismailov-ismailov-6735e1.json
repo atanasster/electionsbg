@@ -4,29 +4,47 @@
     "declarantName": "Юсуф Исмаилов Исмаилов",
     "institution": "Антоново",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-11",
-    "entryNumber": "Г444",
-    "controlHash": "0FFF858C",
-    "sourceUrl": "https://register.cacbg.bg/2025/C0A06FF5-A0F8-42A6-A500-FC417DD2C345202471.xml",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г1190",
+    "controlHash": "E752B108",
+    "sourceUrl": "https://register.cacbg.bg/2026/C0A06FF5-A0F8-42A6-A500-FC417DD2C345224952.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30784.372874943117,
-        "amountEurSpouse": 12687.708031884162
+        "amountEurDeclarant": 37336.067040591464,
+        "amountEurSpouse": 10236.57475342949
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 281.72182653911636
+        "category": "Доходи на непълнолетно дете:",
+        "amountEurDeclarant": 720.921552486668,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Трескавец",
+        "municipality": "Антоново",
+        "areaSqm": 1338,
+        "builtAreaSqm": 243,
+        "acquiredYear": 2025,
+        "share": "3/4",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Юсуф Исмаилов Исмаилов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
       {
         "category": "debt",
         "description": "потребителски кредит",
@@ -38,16 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11681,
-        "valueEur": 5972.400464253028,
+        "amount": 9244,
+        "valueEur": 4726.382149777844,
         "holderName": "Юсуф Исмаилов Исмаилов",
         "isSpouse": false,
-        "legalBasis": "Договор за кредитр с 4.92 % лихв.",
+        "legalBasis": "Договор за кредитр с 5.04 % лихв.",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит",
+        "description": "жилищен ипотечен  кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,11 +74,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 90000,
-        "valueEur": 46016.26930765966,
+        "amount": 77941,
+        "valueEur": 39850.600512314464,
         "holderName": "Юсуф Исмаилов Исмаилов",
         "isSpouse": false,
-        "legalBasis": "Договор за кредитр с 2.7 % лихв.",
+        "legalBasis": "Договор за кредитр с 2.9 % лихв.",
         "fundsOrigin": null
       }
     ],

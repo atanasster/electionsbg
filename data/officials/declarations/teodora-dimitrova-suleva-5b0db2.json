@@ -1,6 +1,128 @@
 [
   {
     "slug": "teodora-dimitrova-suleva-5b0db2",
+    "declarantName": "Теодора Димитрова Сулева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3331",
+    "controlHash": "3A639D74",
+    "sourceUrl": "https://register.cacbg.bg/2026/A5AC19B8-6B0A-48E6-A1CD-90CA3746EBC9227456.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36703.087691670546,
+        "amountEurSpouse": 10970.278602946064
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 330,
+        "builtAreaSqm": 348,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Веселин Здравков Сулев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 86000,
+        "valueEur": 43971.10178287479,
+        "holderName": "Теодора Димитрова Сулева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10426,
+        "valueEur": 10125.624415209912,
+        "holderName": "Теодора Димитрова Сулева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-dimitrova-suleva-5b0db2",
     "declarantName": "ТЕОДОРА ДИМИТРОВА СУЛЕВА",
     "institution": "Училища",
     "positionTitle": "Директор",

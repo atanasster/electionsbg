@@ -4,31 +4,44 @@
     "declarantName": "Юсеин Ибрахим Хабиб",
     "institution": "Крумовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11766",
-    "controlHash": "803D7F04",
-    "sourceUrl": "https://register.cacbg.bg/2025/A6C92F27-1AC5-40B8-8A92-CDD593F90B58214918.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9679",
+    "controlHash": "39DBBEF8",
+    "sourceUrl": "https://register.cacbg.bg/2026/A6C92F27-1AC5-40B8-8A92-CDD593F90B58234322.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "10",
+        "companyName": "\"ДЕЛУКС ГРУП 08\"ЕООД",
+        "registeredOffice": "Крумовград",
+        "valueEur": 5.112918811962185,
+        "holderName": "Юсеин Ибрахим Хабиб",
+        "legalBasis": "учредителен акт",
+        "fundsOrigin": "спестявания"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3656.2482424341583,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5054.12024562462,
+        "amountEurSpouse": 14389.798704386372
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2549.3013196443453,
+        "amountEurDeclarant": 2862.211950936431,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,12 +51,66 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "amount": 3286,
+        "valueEur": 1680.105121610774,
         "holderName": "Юсеин Ибрахим Хабиб",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7653,
+        "valueEur": 7669.378217943277,
+        "holderName": "Юсеин Ибрахим Хабиб",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33270,
+        "valueEur": 17010.68088739819,
+        "holderName": "Гюлсюм Сами Хабиб",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4592,
+        "valueEur": 4601.626930765967,
+        "holderName": "Гюлсюм Сами Хабиб",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и заплата"
       }
     ],
     "events": []

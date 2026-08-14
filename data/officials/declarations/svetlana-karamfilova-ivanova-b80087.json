@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г14070",
+    "controlHash": "1592929A",
+    "sourceUrl": "https://register.cacbg.bg/2026/5DB87D9D-DBD2-47B0-8C71-6523052B6F7C239763.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23722.813332447095,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на автомобил",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7674.44,
+        "valueEur": 7674.44000756712,
+        "holderName": "Светлана Карамфилова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svetlana-karamfilova-ivanova-b80087",
+    "declarantName": "Светлана Карамфилова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

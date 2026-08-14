@@ -4,46 +4,40 @@
     "declarantName": "Илиян Любчов Панчев",
     "institution": "Сандански",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-04-25",
-    "entryNumber": "В788",
-    "controlHash": "7C0F8123",
-    "sourceUrl": "https://register.cacbg.bg/2025/825F00E1-B1A3-40B6-939A-85962DC02EC1207088.xml",
-    "ownershipStakes": [
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г13919",
+    "controlHash": "DA633EAA",
+    "sourceUrl": "https://register.cacbg.bg/2026/825F00E1-B1A3-40B6-939A-85962DC02EC1239575.xml",
+    "ownershipStakes": [],
+    "income": [
       {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "съдружник",
-        "shareSize": "50",
-        "companyName": "Домейн Сандански ООД",
-        "registeredOffice": "Сандански",
-        "valueEur": 25.564594059810926,
-        "holderName": "Светлана Георгиева Дончева Панчева",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14332.534013692397,
+        "amountEurSpouse": 5734.13844761559
       },
       {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "едноличен собственик, управител",
-        "shareSize": "100",
-        "companyName": "Изи Пропъртис ЕООД",
-        "registeredOffice": "Сандански",
-        "valueEur": 51.12918811962185,
-        "holderName": "Светлана Георгиева Дончева Панчева",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1724.587515274845
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти и ликвидационни дялове по чл.38, ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 16199.771963820987
       }
     ],
-    "income": [],
     "assets": [
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Сандански",
+        "location": "град Сандански",
         "municipality": "Сандански",
         "areaSqm": 48,
         "builtAreaSqm": null,
@@ -54,8 +48,44 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Светлана Георгиева Дончева Панчева",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Лозеница",
+        "municipality": "Сандански",
+        "areaSqm": 482,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Светлана Георгиева Дончева Панчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Лозеница",
+        "municipality": "Сандански",
+        "areaSqm": 505,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Светлана Георгиева Дончева Панчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -72,8 +102,8 @@
         "valueEur": null,
         "holderName": "Илиян Любчов Панчев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -90,8 +120,8 @@
         "valueEur": null,
         "holderName": "Илиян Любчов Панчев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -106,10 +136,10 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "Светлана Георгиева Дончева Панчева",
+        "holderName": "Светлана георгиева Дончева Панчева",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -126,8 +156,8 @@
         "valueEur": 255.64594059810923,
         "holderName": "Илиян Любчов Панчев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -142,10 +172,28 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "Светлана Георгиева Дончева Панчева",
+        "holderName": "Светлана Геовргиева Дончева Панчева",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Светлана Геовргиева Дончева Панчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -158,67 +206,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 22000,
-        "valueEur": 21999.867064110887,
+        "amount": 19000,
+        "valueEur": 4967.200625821262,
         "holderName": "Светлана Георгиева Дончева Панчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "дарения"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "currency": "EUR",
+        "amount": 5665,
+        "valueEur": 5665.114043654101,
         "holderName": "Светлана Георгиева Дончева Панчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
         "description": "потребителски кредит",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 21540,
-        "valueEur": 11013.227120966547,
+        "currency": "EUR",
+        "amount": 9500,
+        "valueEur": 9499.80315262574,
         "holderName": "Светлана Георгиева Дончева Панчева",
         "isSpouse": true,
         "legalBasis": "Банков кредит 5,11%",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "iliyan-lyubchov-panchev-dd4ed9",
-    "declarantName": "Илиян Любчов Панчев",
-    "institution": "Сандански",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-31",
-    "entryNumber": "В789",
-    "controlHash": "DA66ECDE",
-    "sourceUrl": "https://register.cacbg.bg/2025/825F00E1-B1A3-40B6-939A-85962DC02EC1207089.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

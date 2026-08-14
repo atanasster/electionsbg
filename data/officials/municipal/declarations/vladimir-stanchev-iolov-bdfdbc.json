@@ -4,13 +4,13 @@
     "declarantName": "Владимир Станчев Йолов",
     "institution": "Шумен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г14589",
-    "controlHash": "44F482D7",
-    "sourceUrl": "https://register.cacbg.bg/2025/B41D717C-5FE9-4F6F-9F8A-FC0B60DD9581217932.xml",
+    "entryNumber": "Г14004",
+    "controlHash": "4CCA02EE",
+    "sourceUrl": "https://register.cacbg.bg/2026/B41D717C-5FE9-4F6F-9F8A-FC0B60DD9581239677.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -22,7 +22,7 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Яница Венциславова Ненска",
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
@@ -34,7 +34,7 @@
         "valueEur": 51.12918811962185,
         "holderName": "Яница Венциславова Ненска",
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
@@ -46,45 +46,33 @@
         "valueEur": 25.564594059810926,
         "holderName": "Яница Венциславова Ненска",
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "5000",
-        "companyName": "СД-ИНДЪСТРИ",
+        "companyName": "СД-ИНДЪСТРИ ООД",
         "registeredOffice": "Шумен",
         "valueEur": 2556.4594059810925,
         "holderName": "Владимир",
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22293.859895798716,
-        "amountEurSpouse": 17051.07294601269
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 117.59713267513025,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 24179.50435365037,
+        "amountEurSpouse": 19279.794256147008
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4217.13543610641
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 3106.0981782670274,
-        "amountEurSpouse": null
+        "amountEurSpouse": 3739.0775271879456
       }
     ],
     "assets": [
@@ -221,7 +209,7 @@
         "location": "Банско",
         "municipality": "Банско",
         "areaSqm": 78,
-        "builtAreaSqm": 78,
+        "builtAreaSqm": 87,
         "acquiredYear": 2021,
         "share": "1",
         "currency": "BGN",
@@ -266,7 +254,7 @@
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
@@ -320,25 +308,25 @@
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
-        "holderName": "Владимир Станчев Йолов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "amount": 14562,
+        "valueEur": 7445.4323739793335,
+        "holderName": "Яница Венциславова Нейнска",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -353,6 +341,24 @@
         "currency": "BGN",
         "amount": 50000,
         "valueEur": 25564.594059810923,
+        "holderName": "Владимир Станчев Йолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": null,
@@ -369,12 +375,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2336,
-        "valueEur": 1194.3778344743664,
+        "amount": 10859,
+        "valueEur": 5552.118537909737,
         "holderName": "Владимир Станчев Йолов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -387,12 +393,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14932,
-        "valueEur": 7634.610370021935,
+        "amount": 13852,
+        "valueEur": 7082.415138330019,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -405,12 +411,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "GBP",
-        "amount": 9697,
-        "valueEur": 11452.938138795294,
+        "amount": 10898,
+        "valueEur": 12508.755873465485,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "receivable",
@@ -423,8 +429,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 227225,
-        "valueEur": 116178.29770481074,
+        "amount": 260918,
+        "valueEur": 133405.25505795493,
         "holderName": "Владимир Станчев Йолов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
@@ -459,8 +465,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 32600,
-        "valueEur": 32599.97034507089,
+        "amount": 29839,
+        "valueEur": 29838.99418661131,
         "holderName": "Владимир Станчев Йолов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
@@ -477,8 +483,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37500,
-        "valueEur": 19173.445544858194,
+        "amount": 18720,
+        "valueEur": 9571.38401599321,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
@@ -495,8 +501,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 18140,
-        "valueEur": 18140.124652960636,
+        "amount": 17028,
+        "valueEur": 17027.553519477664,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
@@ -513,8 +519,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 27100,
-        "valueEur": 27100.00357904317,
+        "amount": 20987,
+        "valueEur": 20986.99784746118,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
@@ -531,8 +537,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 63650,
-        "valueEur": 32543.728238139305,
+        "amount": 59027,
+        "valueEur": 30180.025871369187,
         "holderName": "Владимир Станчев Йолов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
@@ -549,8 +555,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 106200,
-        "valueEur": 54299.197783038406,
+        "amount": 102863,
+        "valueEur": 52593.01677548662,
         "holderName": "Владимир Станчев Йолов",
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
@@ -567,47 +573,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 106200,
-        "valueEur": 54299.197783038406,
+        "amount": 102863,
+        "valueEur": 52593.01677548662,
         "holderName": "Яница Венциславова Нейнска",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 140700,
-        "valueEur": 71938.76768430794,
-        "holderName": "Владимир Станчев Йолов",
-        "isSpouse": false,
-        "legalBasis": "заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 140700,
-        "valueEur": 71938.76768430794,
-        "holderName": "Яница Венциславова Нейнска",
-        "isSpouse": true,
-        "legalBasis": "заем",
         "fundsOrigin": null
       }
     ],

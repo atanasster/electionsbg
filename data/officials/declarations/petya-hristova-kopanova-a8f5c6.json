@@ -5,6 +5,56 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4115",
+    "controlHash": "31CA21AB",
+    "sourceUrl": "https://register.cacbg.bg/2026/0EEA2A8A-D122-4DC2-BFDC-10B74BE477F2228311.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26899.577161614252,
+        "amountEurSpouse": 10947.78176017343
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 161.05694257680884,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11193,
+        "valueEur": 11192.69057126642,
+        "holderName": "Петя Христова Копанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-hristova-kopanova-a8f5c6",
+    "declarantName": "Петя Христова Копанова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

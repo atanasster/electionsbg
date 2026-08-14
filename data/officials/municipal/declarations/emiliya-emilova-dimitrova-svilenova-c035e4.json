@@ -4,97 +4,66 @@
     "declarantName": "Емилия Емилова Димитрова-Свиленова",
     "institution": "Брезник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4815",
-    "controlHash": "C0B19665",
-    "sourceUrl": "https://register.cacbg.bg/2025/4BB23125-C512-4112-8001-2D1F5901038D207692.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г8345",
+    "controlHash": "02E71238",
+    "sourceUrl": "https://register.cacbg.bg/2026/4BB23125-C512-4112-8001-2D1F5901038D232844.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5672.272129990848,
-        "amountEurSpouse": 18098.71001058374
+        "amountEurDeclarant": 6561.920003272268,
+        "amountEurSpouse": 33613.3508536018
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19967.993128237118,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 423.34967763046893,
+        "amountEurDeclarant": 22351.12458649269,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ",
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 23000,
-        "valueEur": 11759.713267513025,
-        "holderName": "Емилия Емилова Димитрова-Свиленова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 23000,
-        "valueEur": 11759.713267513025,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14051,
+        "valueEur": 14051.323479034476,
         "holderName": "Светлин Симеонов Свиленов",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Порше кайен",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
+        "legalBasis": "кредит 4.75% лихва",
+        "fundsOrigin": null
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Порше кайен",
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5624,
+        "valueEur": 5624.210693158403,
+        "holderName": "Емилия Емилова Димитрова-Свиленова",
+        "isSpouse": false,
+        "legalBasis": "кредит 4.69% лихва",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

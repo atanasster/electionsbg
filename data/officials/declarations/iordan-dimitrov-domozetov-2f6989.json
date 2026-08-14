@@ -5,6 +5,74 @@
     "institution": "Областни дирекции \"Земеделие\" - МЗХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11496",
+    "controlHash": "E2F760CF",
+    "sourceUrl": "https://register.cacbg.bg/2026/3AE5D16C-832E-441F-87D7-D50FDBFF386C236420.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31749.180654760385,
+        "amountEurSpouse": 23150.27379680238
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 26367.322313288987
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Зорница Валериева Домозетова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Лизингов договор",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21326,
+        "valueEur": 10903.810658390556,
+        "holderName": "Йордан Димитров Домозетов",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг на автомобил 3% годишна лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-dimitrov-domozetov-2f6989",
+    "declarantName": "Йордан Димитров Домозетов",
+    "institution": "Областни дирекции \"Земеделие\" - МЗХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

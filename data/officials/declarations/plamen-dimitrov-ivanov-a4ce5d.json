@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "plamen-dimitrov-ivanov-a4ce5d",
+    "declarantName": "Пламен Димитров Иванов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14956",
+    "controlHash": "9539E6F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5120677-09F8-4D49-A784-CB4BE8BC9BB8241405.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29696.855043638763,
+        "amountEurSpouse": 22528.031577386584
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 53394.72244520229,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Пламен Димитров Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22150,
+        "valueEur": 11325.115168496239,
+        "holderName": "Пламен Димитров Иванов",
+        "isSpouse": false,
+        "legalBasis": "4,75",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

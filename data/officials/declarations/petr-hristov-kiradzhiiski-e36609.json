@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2006-05-12",
+    "entryNumber": "Г6617",
+    "controlHash": "9CCB1288",
+    "sourceUrl": "https://register.cacbg.bg/2026/206745BA-FA18-4B23-BC41-D754CFA6398C230954.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11445.780052458547,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12782,
+        "valueEur": 12782.297029905461,
+        "holderName": "Петър Кираджийски",
+        "isSpouse": true,
+        "legalBasis": "5.55",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-hristov-kiradzhiiski-e36609",
+    "declarantName": "Петър Христов Кираджийски",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

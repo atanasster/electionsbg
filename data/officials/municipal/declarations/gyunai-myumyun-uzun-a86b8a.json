@@ -4,29 +4,84 @@
     "declarantName": "Гюнай Мюмюн Узун",
     "institution": "Балчик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13093",
-    "controlHash": "6F726EA1",
-    "sourceUrl": "https://register.cacbg.bg/2025/0021D5CF-03E0-4128-9440-60E8D0DB824F216286.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10762",
+    "controlHash": "25F5AB08",
+    "sourceUrl": "https://register.cacbg.bg/2026/0021D5CF-03E0-4128-9440-60E8D0DB824F235556.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7857.5336302234855,
-        "amountEurSpouse": 5685.565718901949
+        "amountEurDeclarant": 7924.001574778994,
+        "amountEurSpouse": 6394.727558121104
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 17282.688168194578,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17448.34673770215,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 68,
+        "valueEur": 34.767847921342856,
+        "holderName": "Гюнай Мюмюн Узун",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45620,
+        "valueEur": 23325.135620171488,
+        "holderName": "Гюнай Мюмюн узун",
+        "isSpouse": false,
+        "legalBasis": "5.7% кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68,
+        "valueEur": 34.767847921342856,
+        "holderName": "Гюнай Мюмюн узун",
+        "isSpouse": false,
+        "legalBasis": "5.70 лизинг",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

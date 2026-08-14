@@ -4,13 +4,13 @@
     "declarantName": "ЦЕЦКА ДИМИТРОВА ПЕТКОВА",
     "institution": "Тетевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8428",
-    "controlHash": "D35057F2",
-    "sourceUrl": "https://register.cacbg.bg/2025/39D98DD5-75FF-43AE-B31A-3374B24032DC211448.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г9931",
+    "controlHash": "8312E856",
+    "sourceUrl": "https://register.cacbg.bg/2026/39D98DD5-75FF-43AE-B31A-3374B24032DC234607.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,13 +29,13 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7669.889509824474,
+        "amountEurDeclarant": 7583.992473783509,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 636.558392089292,
+        "amountEurDeclarant": 1147.8502732855104,
         "amountEurSpouse": null
       }
     ],
@@ -51,14 +51,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20900,
-        "valueEur": 10686.000317000966,
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
         "holderName": "Огнян Димитров Петков",
         "isSpouse": true,
-        "legalBasis": "ипотека",
+        "legalBasis": "ипотека - 10.15 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "СУЗУКИ ВИТАРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "свалени от отчет"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ДЖИП ГРАНД ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "свалени от отчет"
+      }
+    ]
   }
 ]

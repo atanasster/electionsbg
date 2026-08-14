@@ -4,26 +4,62 @@
     "declarantName": "Златка Жечева Маринова",
     "institution": "Кричим",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12694",
-    "controlHash": "C70468D0",
-    "sourceUrl": "https://register.cacbg.bg/2025/EDC204C2-1C52-4FA3-ACC2-4BB8F37D453A215869.xml",
+    "filedAt": null,
+    "entryNumber": "Г3255",
+    "controlHash": "18FBFA48",
+    "sourceUrl": "https://register.cacbg.bg/2026/EDC204C2-1C52-4FA3-ACC2-4BB8F37D453A227378.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17148.72969532117,
-        "amountEurSpouse": 2622.4160586554044
+        "amountEurDeclarant": 21964.58792430835,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1473.5432016075017
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1863.6589069602164
+      },
+      {
+        "parent": null,
+        "category": "доходи от дивиденти по чл. 38 ал. 1 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11220.300332851015
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Борис Георгиев Маринов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
         "category": "debt",
-        "description": "Ипотечен кредит",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,11 +68,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 98640,
-        "valueEur": 50433.83116119499,
+        "amount": 94765,
+        "valueEur": 48452.57512155965,
         "holderName": "Златка Жечева Маринова",
         "isSpouse": false,
-        "legalBasis": "кредит 2,7%",
+        "legalBasis": "кредит 2/7 % лихва",
         "fundsOrigin": null
       }
     ],

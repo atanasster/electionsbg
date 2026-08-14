@@ -4,38 +4,32 @@
     "declarantName": "Мариян Стефанов Драшков",
     "institution": "Иваново",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11084",
-    "controlHash": "918A1620",
-    "sourceUrl": "https://register.cacbg.bg/2025/4265B8B8-24D4-459A-8D7F-ABA497D01886214209.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11363",
+    "controlHash": "71501BAB",
+    "sourceUrl": "https://register.cacbg.bg/2026/4265B8B8-24D4-459A-8D7F-ABA497D01886236259.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14811.614506373253,
-        "amountEurSpouse": 15477.31653569073
+        "amountEurDeclarant": 17091.976296508386,
+        "amountEurSpouse": 18355.378534944244
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 960.2061528864983,
+        "amountEurSpouse": 148.78593742809957
       },
       {
         "parent": null,
         "category": "Дивидент",
-        "amountEurDeclarant": 13293.58891110168,
+        "amountEurDeclarant": 18406.507723063867,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Дивидент от потребителна кооперация",
-        "amountEurDeclarant": 143.6730186161374,
-        "amountEurSpouse": 143.6730186161374
-      },
-      {
-        "parent": null,
-        "category": "Рента",
-        "amountEurDeclarant": 1227.6118067521206,
-        "amountEurSpouse": 148.78593742809957
       }
     ],
     "assets": [
@@ -50,12 +44,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Мариян Стефанов Драшков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и рента"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Мариана Христева Драшкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -68,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20665,
-        "valueEur": 10565.846724919855,
+        "amount": 27488,
+        "valueEur": 14054.391230321653,
         "holderName": "Мариян Стефанов Драшков",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,75 +98,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8089,
-        "valueEur": 4135.840026996211,
+        "amount": 11662,
+        "valueEur": 5962.6859185103,
         "holderName": "Мариана Христева Драшкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "С.Пиргово",
-        "municipality": "Иваново",
-        "areaSqm": 5,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "С.Пиргово",
-        "municipality": "Иваново",
-        "areaSqm": 1,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "С.Пиргово",
-        "municipality": "Иваново",
-        "areaSqm": 1,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "С.Пиргово",
-        "municipality": "Иваново",
-        "areaSqm": 14,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "С.Пиргово",
-        "municipality": "Иваново",
-        "areaSqm": 1,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

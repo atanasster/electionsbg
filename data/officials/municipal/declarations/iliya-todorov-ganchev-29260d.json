@@ -4,53 +4,29 @@
     "declarantName": "Илия Тодоров Ганчев",
     "institution": "Първомай",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4704",
-    "controlHash": "23C252B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/F044204F-E507-40DF-9648-8118A4FA3E84207580.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2764",
+    "controlHash": "AF186DF0",
+    "sourceUrl": "https://register.cacbg.bg/2026/F044204F-E507-40DF-9648-8118A4FA3E84226847.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": null,
-        "category": "Доходи като общински съветник",
-        "amountEurDeclarant": 6378.366217922826,
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8163.286175178824,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи придобити от пенсия",
-        "amountEurDeclarant": 6391.148514952731,
-        "amountEurSpouse": 3579.0431683735296
-      },
-      {
-        "parent": null,
-        "category": "Доходи от рента",
-        "amountEurDeclarant": 3138.309566782389,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7006.743939912978,
+        "amountEurSpouse": 3715.0468087717236
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Първомай",
-        "municipality": "Първомай",
-        "areaSqm": 550,
-        "builtAreaSqm": 150,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Илия Тодоров Ганчев",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "няма"
-      },
       {
         "category": "bank",
         "description": null,
@@ -62,14 +38,111 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 21000,
+        "valueEur": 15338.756435886555,
         "holderName": "Илия Тодоров Ганчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Илия Тодоров Ганчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Илия Тодоров Ганчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Първомай",
+        "municipality": "Първомай",
+        "areaSqm": 28,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 36030.73886789752,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Първомай",
+        "municipality": "Първомай",
+        "areaSqm": 29,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40003.98807667333,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Дълбок извор",
+        "municipality": "Първомай",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Дълбок извор",
+        "municipality": "Първомай",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3548.3656555017565,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Дълбок извор",
+        "municipality": "Първомай",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

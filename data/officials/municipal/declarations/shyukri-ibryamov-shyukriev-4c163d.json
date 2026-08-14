@@ -1,22 +1,22 @@
 [
   {
     "slug": "shyukri-ibryamov-shyukriev-4c163d",
-    "declarantName": "ШУКРИ ИБРЯМОВ ШУКРИЕВ",
+    "declarantName": "Шюкри Ибрямов Шюкриев",
     "institution": "Котел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7482",
-    "controlHash": "733AF115",
-    "sourceUrl": "https://register.cacbg.bg/2025/A250EDEF-9F95-43E2-B81A-2ACDC4989099210477.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9174",
+    "controlHash": "C2BF7B3B",
+    "sourceUrl": "https://register.cacbg.bg/2026/A250EDEF-9F95-43E2-B81A-2ACDC4989099233759.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5893.150222667614,
+        "amountEurDeclarant": 5725.957777516451,
         "amountEurSpouse": null
       },
       {
@@ -26,7 +26,26 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Спринтер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
+        "holderName": "Шюкри Ибрямов Шюкриев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

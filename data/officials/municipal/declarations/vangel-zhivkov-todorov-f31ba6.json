@@ -4,26 +4,75 @@
     "declarantName": "ВАНГЕЛ ЖИВКОВ ТОДОРОВ",
     "institution": "Благоевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6107",
-    "controlHash": "E2EA0276",
-    "sourceUrl": "https://register.cacbg.bg/2025/043163B6-1520-4BE3-A340-F377A9A7323D209058.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г8763",
+    "controlHash": "D491E0EC",
+    "sourceUrl": "https://register.cacbg.bg/2026/043163B6-1520-4BE3-A340-F377A9A7323D233296.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50%",
+        "companyName": "\"БВ Инвестмънт Груп\" ООД",
+        "registeredOffice": "Благоевград",
+        "valueEur": 127.82297029905462,
+        "holderName": "Вангел Живков Тодоров",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7038.444036547144,
+        "amountEurDeclarant": 9133.718165689246,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4300,
+        "valueEur": 2198.5550891437397,
+        "holderName": "Вангел Живков Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2040,
+        "valueEur": 1043.0354376402856,
+        "holderName": "Вангел Живков Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Банков кредит - ипотечен",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,16 +81,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23503,
-        "valueEur": 12016.893083754723,
+        "amount": 20307,
+        "valueEur": 10382.80423145161,
         "holderName": "Вангел Живков Тодоров",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит с лихвен процент 4,06",
+        "legalBasis": "Договор за банков кредит - 4,06%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Банков кредит - потребителски",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,14 +99,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23762,
-        "valueEur": 12149.317680984544,
+        "amount": 20483,
+        "valueEur": 10472.791602542144,
         "holderName": "Вангел Живков Тодоров",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит с лихвен процент 5,67",
+        "legalBasis": "Договор за банков кредит - 5.67%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

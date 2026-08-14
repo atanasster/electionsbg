@@ -1,6 +1,74 @@
 [
   {
     "slug": "silviya-georgieva-tilkova-456557",
+    "declarantName": "Силвия Георгиева Тилкова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г1281",
+    "controlHash": "496071D5",
+    "sourceUrl": "https://register.cacbg.bg/2026/B11CFDBC-0950-4BFB-A8A7-B6B95EC6342E225093.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22520.873491049835,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 678.9956182285781,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Сталево",
+        "municipality": "Димитровград",
+        "areaSqm": 63,
+        "builtAreaSqm": 810,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Силвия Георгиева Тилкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди Q5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Силвия Георгиева Тилкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "silviya-georgieva-tilkova-456557",
     "declarantName": "СИЛВИЯ ГЕОРГИЕВА ТИЛКОВА",
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",

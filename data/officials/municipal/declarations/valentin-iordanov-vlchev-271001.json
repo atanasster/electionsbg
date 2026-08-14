@@ -1,50 +1,32 @@
 [
   {
     "slug": "valentin-iordanov-vlchev-271001",
-    "declarantName": "Валентин Йорданов Вълчев",
+    "declarantName": "Валентин Йорданов Вълччев",
     "institution": "Ямбол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-05",
-    "entryNumber": "Г14860",
-    "controlHash": "017D62A0",
-    "sourceUrl": "https://register.cacbg.bg/2025/23D8B5F5-96A9-472E-B59F-B22D093F14CC218352.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3825",
+    "controlHash": "09CAA314",
+    "sourceUrl": "https://register.cacbg.bg/2026/23D8B5F5-96A9-472E-B59F-B22D093F14CC227993.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7318.120695561475,
+        "amountEurDeclarant": 8708.323320533993,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 47049.59019955722,
-        "amountEurSpouse": 21747.800166681154
+        "amountEurDeclarant": 44743.66381536228,
+        "amountEurSpouse": 14196.019081413006
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "КИА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 75000,
-        "valueEur": 38346.89108971639,
-        "holderName": "Валентин Йорданов Вълчев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
       {
         "category": "bank",
         "description": null,
@@ -59,7 +41,7 @@
         "amount": 50000,
         "valueEur": 25564.594059810923,
         "holderName": "Валентин Йорданов Вълчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -74,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Даниела Йорданова Недялкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -92,27 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75000,
-        "valueEur": 38346.89108971639,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
         "holderName": "Валентин Йорданов Вълчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": "3.60%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "КИА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 18662.153663661975,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

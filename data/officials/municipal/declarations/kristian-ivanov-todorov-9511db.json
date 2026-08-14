@@ -4,23 +4,60 @@
     "declarantName": "Кристиан Иванов Тодоров",
     "institution": "Белово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6872",
-    "controlHash": "A7B81309",
-    "sourceUrl": "https://register.cacbg.bg/2025/F55E1B63-757C-45FD-80E1-BE0F0765C68B209855.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9426",
+    "controlHash": "50EE3284",
+    "sourceUrl": "https://register.cacbg.bg/2026/F55E1B63-757C-45FD-80E1-BE0F0765C68B234046.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13044.589764959122,
+        "amountEurDeclarant": 27644.52943251714,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2700,
+        "valueEur": 1380.48807922979,
+        "holderName": "Кристиян Иванов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "11.09 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19800,
+        "valueEur": 10123.579247685126,
+        "holderName": "Кристиян Иванов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "4,39%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

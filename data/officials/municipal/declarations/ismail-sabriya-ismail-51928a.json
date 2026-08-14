@@ -4,66 +4,61 @@
     "declarantName": "ИСМАИЛ САБРИЯ ИСМАИЛ",
     "institution": "Лозница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10482",
-    "controlHash": "492C847B",
-    "sourceUrl": "https://register.cacbg.bg/2025/2EABA613-FCF6-4500-9B42-F5638ECD3E93213570.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8794",
+    "controlHash": "7C4BEE87",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EABA613-FCF6-4500-9B42-F5638ECD3E93233331.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5522.974900681552,
+        "amountEurDeclarant": 6135.502574354622,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3067.751287177311,
+        "amountEurDeclarant": 4601.626930765967,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "апартамент",
+        "description": "АПАРТАМЕНТ",
         "detail": null,
-        "location": "Варна",
-        "municipality": "Варна",
+        "location": "ВАРНА",
+        "municipality": "ВАРНА",
         "areaSqm": 0,
         "builtAreaSqm": 50,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
         "amount": 600,
         "valueEur": 306.7751287177311,
-        "holderName": "Исмаил Сабрия Исмаил",
+        "holderName": "ИСМАИЛ САБРИЯ ИСМАИЛ",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": "заплата"
-      },
+      }
+    ],
+    "events": [
       {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "Рено Меган",
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "РЕНО МЕГАН",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Исмаил Сабрия Исмаил",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

@@ -1,6 +1,99 @@
 [
   {
     "slug": "kuncho-dimitrov-gaidov-d2a632",
+    "declarantName": "КУНЧО ДИМИТРОВ ГАЙДОВ",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11774",
+    "controlHash": "62DF270E",
+    "sourceUrl": "https://register.cacbg.bg/2026/409056E2-8835-4D0E-A1BB-5DE494ADD232236754.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33648.11870152314,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Кунчо Димитров Гайдов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 93545,
+        "valueEur": 93544.93999989775,
+        "holderName": "Кунчо Димитров Гайдов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 68440,
+        "valueEur": 68439.99734128221,
+        "holderName": "Кунчо Димитров Гайдзов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Банево",
+        "municipality": "Бургас",
+        "areaSqm": 44996,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5416.6261893927385,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "kuncho-dimitrov-gaidov-d2a632",
     "declarantName": "Кунчо Димитров Гайдов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",

@@ -4,19 +4,19 @@
     "declarantName": "Мирослав Георгиев Козарев",
     "institution": "Ямбол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5458",
-    "controlHash": "0E91E379",
-    "sourceUrl": "https://register.cacbg.bg/2025/297B5D55-C9C0-459F-9B2B-37A6D1547571208386.xml",
+    "filedAt": "2026-05-02",
+    "entryNumber": "Г13507",
+    "controlHash": "3A389818",
+    "sourceUrl": "https://register.cacbg.bg/2026/297B5D55-C9C0-459F-9B2B-37A6D1547571239031.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18085.927713553836,
+        "amountEurDeclarant": 18688.740841484178,
         "amountEurSpouse": null
       }
     ],
@@ -24,16 +24,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 15943,
-        "valueEur": 8151.526461911311,
+        "currency": "EUR",
+        "amount": 15141,
+        "valueEur": 15140.886477863618,
         "holderName": "Мирослав Георгиев Козарев",
         "isSpouse": false,
         "legalBasis": null,
@@ -42,22 +42,35 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 1729,
-        "valueEur": 884.0236625882618,
+        "currency": "EUR",
+        "amount": 594,
+        "valueEur": 594.6324578312021,
         "holderName": "Мирослав Георгиев Козарев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

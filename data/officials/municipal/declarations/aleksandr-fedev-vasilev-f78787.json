@@ -4,25 +4,25 @@
     "declarantName": "Александър Федев Василев",
     "institution": "Доспат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-15",
-    "entryNumber": "Г15094",
-    "controlHash": "F0C334CB",
-    "sourceUrl": "https://register.cacbg.bg/2025/66E7215D-310B-419D-AE29-C7400AE51398218701.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7239",
+    "controlHash": "4ACF6DB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/66E7215D-310B-419D-AE29-C7400AE51398231643.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19777.281256550927,
-        "amountEurSpouse": 12271.005148709244
+        "amountEurDeclarant": 14280.382241810383,
+        "amountEurSpouse": 6330.304781090381
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 23417.168158786808,
+        "amountEurDeclarant": 0,
         "amountEurSpouse": 0
       }
     ],
@@ -182,12 +182,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13421,
-        "valueEur": 6862.048337534448,
+        "amount": 10475,
+        "valueEur": 5355.782455530389,
         "holderName": "Александър Федев Василев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      },
+      {
+        "category": "receivable",
+        "description": "Капиталова вноска",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500000,
+        "valueEur": 255645.94059810924,
+        "holderName": "Александър Федев Василев",
+        "isSpouse": false,
+        "legalBasis": "Учредителен акт",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -236,11 +254,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 300000,
-        "valueEur": 153387.56435886555,
+        "amount": 500000,
+        "valueEur": 255645.94059810924,
         "holderName": "Универсал Бет ЕООД",
         "isSpouse": true,
-        "legalBasis": "Дог.заем-4,8% лихва",
+        "legalBasis": "Дог.заем-4.8% лихва",
         "fundsOrigin": null
       },
       {

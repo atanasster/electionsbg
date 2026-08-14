@@ -5,6 +5,63 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г6223",
+    "controlHash": "49E7E814",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D2DCACD-E69B-40A4-AFB0-D7BA387AB89D230524.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28259.102273714994,
+        "amountEurSpouse": 5411.00197869958
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50503,
+        "valueEur": 25821.773876052623,
+        "holderName": "Надка Стефчова Доковска",
+        "isSpouse": false,
+        "legalBasis": "2,98",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода Фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 286.32345346988234,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "nadka-stefchova-dokovska-7e7755",
+    "declarantName": "Надка Стефчова Доковска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

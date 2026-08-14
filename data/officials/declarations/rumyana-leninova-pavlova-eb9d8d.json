@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3636",
+    "controlHash": "526A51F5",
+    "sourceUrl": "https://register.cacbg.bg/2026/BACB5F4B-FDA2-45FC-8B23-9F28B1406AA7227782.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24877.417771483208,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 36493,
+        "valueEur": 36384.04155780411,
+        "holderName": "Румяна Ленинова Павлова",
+        "isSpouse": false,
+        "legalBasis": "Договор, 5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13050,
+        "valueEur": 13010.844500800173,
+        "holderName": "Румяна Ленинова Павлова",
+        "isSpouse": false,
+        "legalBasis": "Договор, 7%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-leninova-pavlova-eb9d8d",
+    "declarantName": "Румяна Ленинова Павлова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

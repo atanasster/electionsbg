@@ -5,6 +5,104 @@
     "institution": "Държавна агенция \"Национална сигурност\"",
     "positionTitle": "Директор на дирекция",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г11689",
+    "controlHash": "1946C3E5",
+    "sourceUrl": "https://register.cacbg.bg/2026/460E0D15-AC6B-4514-B6FB-756CDD1D2AE6236651.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 56311.13133554552,
+        "amountEurSpouse": 14920.519677068049
+      },
+      {
+        "parent": null,
+        "category": "Необлагаем доход от ДАНС",
+        "amountEurDeclarant": 5470.823128799538,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от пенсия, поради общо заболяване",
+        "amountEurDeclarant": 14200.620708343773,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход по чл. 70 от ЗХУ",
+        "amountEurDeclarant": 274.05244832117313,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15500,
+        "valueEur": 15533.047350741117,
+        "holderName": "Георги Русев Ангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Георги Русев Ангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11752,
+        "valueEur": 6008.702187817959,
+        "holderName": "Георги Русев Ангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-rusev-angelov-649ae5",
+    "declarantName": "Георги Русев Ангелов",
+    "institution": "Държавна агенция \"Национална сигурност\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

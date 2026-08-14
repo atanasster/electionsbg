@@ -5,6 +5,74 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г6022",
+    "controlHash": "E427587F",
+    "sourceUrl": "https://register.cacbg.bg/2026/80B6A919-520E-4BEE-8CB1-AF8AB0215AA3230314.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17073.058496904127,
+        "amountEurSpouse": 12609.991665942336
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 44836.718937739985
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 10456.94155422506,
+        "holderName": "Галя Йорданова Пеева",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 5,2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит за оборотни средства",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 26141.842593681456,
+        "holderName": "Здравко Георгиев Пеев ЕТ Здравко Георгиев - 2000",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит 5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galya-iordanova-peeva-804631",
+    "declarantName": "Галя Йорданова Пеева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

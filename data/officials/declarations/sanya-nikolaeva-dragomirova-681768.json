@@ -1,6 +1,56 @@
 [
   {
     "slug": "sanya-nikolaeva-dragomirova-681768",
+    "declarantName": "Саня Николаева Драгомирова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11352",
+    "controlHash": "F3782E39",
+    "sourceUrl": "https://register.cacbg.bg/2026/95B94BEF-DEAD-42F8-8976-17E714B760D5236246.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14914.384174493693,
+        "amountEurSpouse": 27807.12025073754
+      },
+      {
+        "parent": null,
+        "category": "Допълнително осигуряване",
+        "amountEurDeclarant": 550.6613560483273,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Дани Георгиев Шаров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sanya-nikolaeva-dragomirova-681768",
     "declarantName": "САНЯ НИКОЛАЕВА ДРАГОМИРОВА",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

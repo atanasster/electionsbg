@@ -4,38 +4,38 @@
     "declarantName": "Вълка Иванова Илинчева",
     "institution": "Съединение",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3166",
-    "controlHash": "EE6F2D93",
-    "sourceUrl": "https://register.cacbg.bg/2025/DEB7A382-2724-41F8-98F3-A717598DA34C205896.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12901",
+    "controlHash": "773B670C",
+    "sourceUrl": "https://register.cacbg.bg/2026/DEB7A382-2724-41F8-98F3-A717598DA34C238253.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12434.107258810838,
+        "amountEurDeclarant": 13109.012541989845,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7334.482035759755,
+        "amountEurDeclarant": 8242.536416764238,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Пожизнена пенсия",
+        "category": "Пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3558.5914931256807
+        "amountEurSpouse": 3865.366621843412
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,14 +44,81 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "amount": 9065,
+        "valueEur": 4630.2592761129545,
         "holderName": "Вълка Иванова Илинчева",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 7.76%",
+        "legalBasis": "Лихвен процент 5.51%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Вълка Иванова Илинчева",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТНА КАРТА  11.6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11200,
+        "valueEur": 5726.469069397647,
+        "holderName": "Кръстю Георгиев Илинчев",
+        "isSpouse": true,
+        "legalBasis": "заем - 13%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Вълка Иванова Илинчева",
+        "isSpouse": false,
+        "legalBasis": "Лихвен процент - 10.12%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Крайслер ПТ Круизер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

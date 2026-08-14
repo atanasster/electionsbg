@@ -4,23 +4,48 @@
     "declarantName": "Тихомир Йотов Мирчев",
     "institution": "Угърчин",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г11064",
-    "controlHash": "14AA5180",
-    "sourceUrl": "https://register.cacbg.bg/2025/105314D1-5A52-4A3B-A0A8-F07981136543214188.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9711",
+    "controlHash": "E775920F",
+    "sourceUrl": "https://register.cacbg.bg/2026/105314D1-5A52-4A3B-A0A8-F07981136543234357.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20367.82337933256,
-        "amountEurSpouse": 9823.962205304142
+        "amountEurDeclarant": 29529.151306606404,
+        "amountEurSpouse": 15237.009351528508
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 4753.991911362439,
+        "amountEurSpouse": 3244.6582780712024
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19550,
+        "valueEur": 9995.756277386072,
+        "holderName": "Тихомир Йотов Мирчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

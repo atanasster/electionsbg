@@ -5,6 +5,98 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14507",
+    "controlHash": "F44C51CC",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF5EDA02-BAC2-492D-ADFB-1CE7EA08CCCE240333.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36343.6494991896,
+        "amountEurSpouse": 1408.609132695582
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 90473.09837767086,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 997.019168332626,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 189658,
+        "valueEur": 96970.5956039124,
+        "holderName": "Венцислав Тодоров Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 112977,
+        "valueEur": 57764.222861905175,
+        "holderName": "Цветелина Иванова Тодорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "security",
+        "description": "акции",
+        "detail": "различни",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "102",
+        "currency": "BGN",
+        "amount": 10387,
+        "valueEur": 5310.788769985122,
+        "holderName": "Цветелина Иванова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislav-todorov-todorov-c290fa",
+    "declarantName": "Венцислав Тодоров Тодоров",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Надзорен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

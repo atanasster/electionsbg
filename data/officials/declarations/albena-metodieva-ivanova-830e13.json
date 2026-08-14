@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6799",
+    "controlHash": "C87B176C",
+    "sourceUrl": "https://register.cacbg.bg/2026/2A1963B7-1646-45F8-A628-A2D8D3D68218231150.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23212.65140630832,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "\"ДАЧИЯ САНДЕРО\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 13242,
+        "valueEur": 6770.527090800325,
+        "holderName": "Албена Методиева Иванова",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "съдлъжник",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 58359,
+        "valueEur": 58359.87790349877,
+        "holderName": "Албена Методиева Иванова",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит, 5.6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "albena-metodieva-ivanova-830e13",
+    "declarantName": "Албена Методиева Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

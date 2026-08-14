@@ -5,6 +5,74 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г7550",
+    "controlHash": "DB135913",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CE9EE62-3723-48F4-98D9-825B0F4968BE231965.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20456.276874779505,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 678.484326347382,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОРД ПУМА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46238,
+        "valueEur": 23641.11400275075,
+        "holderName": "ГЕРГАНА СТЕФАНОВА КАМБЕРСКА",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33350,
+        "valueEur": 17051.584237893887,
+        "holderName": "ГЕРГАНА СТЕФАНОВА КАМБЕРСКА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ 4.4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-stefanova-kamberska-50014a",
+    "declarantName": "ГЕРГАНА СТЕФАНОВА КАМБЕРСКА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

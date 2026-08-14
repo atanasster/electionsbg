@@ -5,6 +5,68 @@
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-06-18",
+    "entryNumber": "Ф890",
+    "controlHash": "44DD4332",
+    "sourceUrl": "https://register.cacbg.bg/2026/A902310E-3F05-4C7F-8FFE-E7401D7A3A22239793.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "angel-georgiev-chorbov-bb7811",
+    "declarantName": "Ангел Георгиев Чорбов",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4367",
+    "controlHash": "52B62C86",
+    "sourceUrl": "https://register.cacbg.bg/2026/A902310E-3F05-4C7F-8FFE-E7401D7A3A22228565.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34055.61833083652,
+        "amountEurSpouse": 5388.505135926946
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9048,
+        "valueEur": 9407.77061401042,
+        "holderName": "Ангел Георгиев Чорбов",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит4.4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "angel-georgiev-chorbov-bb7811",
+    "declarantName": "Ангел Георгиев Чорбов",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

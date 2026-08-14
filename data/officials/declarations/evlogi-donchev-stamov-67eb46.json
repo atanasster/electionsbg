@@ -5,6 +5,104 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г771",
+    "controlHash": "789E5EBF",
+    "sourceUrl": "https://register.cacbg.bg/2026/F4121D29-AA7A-4FEF-8A0D-555B7D1D1508224327.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31762.474243671484,
+        "amountEurSpouse": 5590.465428999453
+      },
+      {
+        "parent": null,
+        "category": "Лична пенсия",
+        "amountEurDeclarant": 15929.298558668186,
+        "amountEurSpouse": 4488.120133140406
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 460.16269307659667
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за временна неработоспособност",
+        "amountEurDeclarant": 1626.419474085171,
+        "amountEurSpouse": 502.0886273346866
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Евлоги Дончев Стамов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, лична пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Албена Михайлова Стамова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, лична пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Божидара Евлогиева Стамова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "стипендия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "evlogi-donchev-stamov-67eb46",
+    "declarantName": "Евлоги Дончев Стамов",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

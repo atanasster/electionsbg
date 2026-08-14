@@ -4,82 +4,58 @@
     "declarantName": "БОРИСЛАВ ГЕНЧЕВ ГЕНЧЕВ",
     "institution": "Горна Оряховица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г12619",
-    "controlHash": "4DF3176A",
-    "sourceUrl": "https://register.cacbg.bg/2025/D4BD751E-AFE0-4FFA-BE80-C6EBB4E6F551215790.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4395",
+    "controlHash": "0CCE4070",
+    "sourceUrl": "https://register.cacbg.bg/2026/D4BD751E-AFE0-4FFA-BE80-C6EBB4E6F551228593.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7839.127122500422,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7730.733243686824,
+        "amountEurSpouse": 59981.18445877198
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 96097.30907082926,
-        "amountEurSpouse": 62162.866915836246
+        "amountEurDeclarant": 95700.0352791398,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 10616.46462115828,
-        "amountEurSpouse": 3959.9556198647124
+        "amountEurDeclarant": 7464.3501735835935,
+        "amountEurSpouse": 1983.8124990413278
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 409.0335049569748,
-        "amountEurSpouse": 119.64230019991513
-      },
-      {
-        "parent": null,
-        "category": "други необлагаеми",
-        "amountEurDeclarant": 490.84020594836977,
-        "amountEurSpouse": 10.737129505120588
+        "amountEurDeclarant": 383.4689108971639,
+        "amountEurSpouse": 128.84555406144705
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "рено рафале",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 144300,
-        "valueEur": 73779.41845661432,
+        "amount": 79900,
+        "valueEur": 40852.221307577856,
         "holderName": "Борислав Генчев Генчев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "хонорари и заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 5350,
-        "valueEur": 5361.406666223547,
-        "holderName": "Борислав Генчев Генчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "хонорари и заплата"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и хонорари"
       },
       {
         "category": "bank",
@@ -93,11 +69,11 @@
         "share": null,
         "currency": "USD",
         "amount": 3000,
-        "valueEur": 2638.2661069724873,
+        "valueEur": 2564.640076080232,
         "holderName": "Борислав Генчев Генчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "хонорари и заплата"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -110,14 +86,81 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 62000,
-        "valueEur": 31700.096634165548,
+        "amount": 282583,
+        "valueEur": 144482.39366407102,
+        "holderName": "Борислав Генчев Генчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5356,
+        "valueEur": 5355.782455530389,
+        "holderName": "Борислав Генчев Генчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80880,
+        "valueEur": 41353.28735115015,
         "holderName": "Мариана Мицова Генчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "хонорари и заплата"
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41385,
+        "valueEur": 41384.98744778432,
+        "holderName": "Мариана Мицова Генчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "рено колеос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
+    ]
   }
 ]

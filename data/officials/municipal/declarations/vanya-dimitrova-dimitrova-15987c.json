@@ -1,34 +1,34 @@
 [
   {
     "slug": "vanya-dimitrova-dimitrova-15987c",
-    "declarantName": "Ваня Димитрова Димитрова",
+    "declarantName": "ВАНЯ ДИМИТРОВА ДИМИТРОВА",
     "institution": "Карнобат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3855",
-    "controlHash": "FD8346B9",
-    "sourceUrl": "https://register.cacbg.bg/2025/4286FA39-6823-4548-9955-F38CB06D4DD0206672.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г10981",
+    "controlHash": "265DC72A",
+    "sourceUrl": "https://register.cacbg.bg/2026/4286FA39-6823-4548-9955-F38CB06D4DD0235807.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5228.982068993727,
+        "amountEurDeclarant": 5521.95231691916,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 29609.42413195421,
+        "amountEurDeclarant": 31207.21126069239,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9967,
-        "valueEur": 5096.04617988271,
+        "amount": 47492,
+        "valueEur": 24282.27402177081,
         "holderName": "Ваня Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
+        "category": "debt",
+        "description": "Финансов лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14357,
-        "valueEur": 7340.617538334109,
+        "amount": 13772,
+        "valueEur": 7041.511787834321,
         "holderName": "Ваня Димитрова Димитрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "Договор за финансов лизинг - 3,89%",
+        "fundsOrigin": null
       },
       {
         "category": "investment",
@@ -74,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13869,
-        "valueEur": 7091.107100310354,
+        "amount": 15664,
+        "valueEur": 8008.876027057567,
         "holderName": "Ваня Димитрова Димитрова",
         "isSpouse": false,
         "legalBasis": null,

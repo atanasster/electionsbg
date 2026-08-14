@@ -1,13 +1,13 @@
 {
   "obshtina": "LOV18",
   "registryName": "Ловеч",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 1,
+    "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 29,
     "chief_architect": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",
@@ -32,13 +33,24 @@
       }
     },
     {
+      "slug": "bistra-minkova-cholakova-133e88",
+      "name": "Бистра Минкова Чолакова",
+      "normalizedName": "БИСТРА МИНКОВА ЧОЛАКОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Ловеч",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "tsvetelin-tsonev-vinchev-37093d",
       "name": "Цветелин Цонев Винчев",
       "normalizedName": "ЦВЕТЕЛИН ЦОНЕВ ВИНЧЕВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "stefan-tiholov-tiholov-b89fbb",
@@ -47,7 +59,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",
@@ -64,7 +77,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aldin-dochev-nachkov-001388",
@@ -73,7 +87,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -90,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -107,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -124,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -143,7 +161,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",
@@ -160,7 +179,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -177,7 +197,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -194,7 +215,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -211,7 +233,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -228,7 +251,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -245,7 +269,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -262,7 +287,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -279,7 +305,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -296,7 +323,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -313,7 +341,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -330,7 +359,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -347,7 +377,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -364,7 +395,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",
@@ -381,7 +413,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -400,7 +433,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -417,7 +451,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",
@@ -434,7 +469,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -451,7 +487,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -468,7 +505,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -485,7 +523,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -502,7 +541,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ГЕРБ /СДС/",
@@ -519,7 +559,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -536,7 +577,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -553,7 +595,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ловеч",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД (ПП БЪЛГАРСКИ ВЪЗХОД)",

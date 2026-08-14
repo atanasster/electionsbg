@@ -4,25 +4,25 @@
     "declarantName": "Наталия Иванова Стефанова-Арнаудова",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г10817",
-    "controlHash": "906D6D39",
-    "sourceUrl": "https://register.cacbg.bg/2025/FE3ACD72-3256-4519-BB18-A6F3469DF618213924.xml",
+    "filedAt": null,
+    "entryNumber": "Г11318",
+    "controlHash": "D726FEB9",
+    "sourceUrl": "https://register.cacbg.bg/2026/FE3ACD72-3256-4519-BB18-A6F3469DF618236207.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6326.214446040812,
+        "amountEurDeclarant": 6451.992248815081,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 24356.922636425457,
+        "amountEurDeclarant": 22078.09472193391,
         "amountEurSpouse": null
       },
       {
@@ -33,48 +33,12 @@
       },
       {
         "parent": null,
-        "category": "ПЕНСИИИ",
-        "amountEurDeclarant": 9476.283726090713,
-        "amountEurSpouse": 9388.85281440616
+        "category": "ПЕНСИИ",
+        "amountEurDeclarant": 10725.369791853076,
+        "amountEurSpouse": 10727.41495937786
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ТОЙОТА КОРОЛА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 57338,
-        "valueEur": 29316.453884028775,
-        "holderName": "НАТАЛИЯ ИВАНОВА СТЕФАНОВА-АРНАУДОВА",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ТОЙОТА КОРОЛА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 57338,
-        "valueEur": 29316.453884028775,
-        "holderName": "МИХАИЛ ЙОРДАНОВ АРНАУДОВ",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -86,30 +50,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
         "holderName": "Наталия Иванова Стефанова-Арнаудова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
-        "holderName": "НАТАЛИА ИВАНОВА СТЕФАНОВА-АРАНАУДОВА",
-        "isSpouse": true,
-        "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
       }
     ],
     "events": []

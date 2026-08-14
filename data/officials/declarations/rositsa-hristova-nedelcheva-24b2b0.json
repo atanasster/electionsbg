@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г12232",
+    "controlHash": "48D23266",
+    "sourceUrl": "https://register.cacbg.bg/2026/39D2F66D-80B5-4656-A01B-AC767A3C66DE237415.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21096.41431003717,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": 1288.4555406144707,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "жилищен ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11331,
+        "valueEur": 11331.250671070595,
+        "holderName": "Росица Христова Неделчева",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит-6,02%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rositsa-hristova-nedelcheva-24b2b0",
+    "declarantName": "Росица Христова Неделчева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,178 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5923",
+    "controlHash": "5B1938BC",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5A7062F-50C3-4A95-B3FB-95C121BC94AF230202.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "няма",
+        "shareSize": "100",
+        "companyName": "\"БоРоИк\" ЕООД",
+        "registeredOffice": "Банско",
+        "valueEur": 1.022583762392437,
+        "holderName": "Тодор Михаилов Тренчев",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "няма",
+        "shareSize": "100",
+        "companyName": "\"Тис 2019\" ЕООД",
+        "registeredOffice": "Банско",
+        "valueEur": 10.22583762392437,
+        "holderName": "Тодор Михаилов Тренчев",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "няма",
+        "shareSize": "100",
+        "companyName": "\"Би Джи Ти Груп\" ЕООД",
+        "registeredOffice": "Банско",
+        "valueEur": 1.5338756435886554,
+        "holderName": "Тодор Михаилов Тренчев",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "няма",
+        "shareSize": "100",
+        "companyName": "\"Тренчев 2018\" ЕООД",
+        "registeredOffice": "Банско",
+        "valueEur": 1.022583762392437,
+        "holderName": "Тодор Михаилов Тренчев",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14168.920611709607,
+        "amountEurSpouse": 4223.782230561961
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 2866.813577867197,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 655.4761916935521,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Тодор Михаилов Тренчев",
+        "isSpouse": false,
+        "legalBasis": "Заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68835,
+        "valueEur": 35194.776642141696,
+        "holderName": "Тодор Михаилов Тренчев",
+        "isSpouse": false,
+        "legalBasis": "Договор/4.38%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20001,
+        "valueEur": 10226.348915805565,
+        "holderName": "Тодор Михаилов Тренчев",
+        "isSpouse": false,
+        "legalBasis": "Договор, 3.93%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Тодор Михаилов Тренчев",
+        "isSpouse": false,
+        "legalBasis": "Договор, 4.47%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "todor-mihailov-trenchev-12271c",
+    "declarantName": "Тодор Михаилов Тренчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

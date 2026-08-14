@@ -1,6 +1,68 @@
 [
   {
     "slug": "tatyana-mitkova-srebrinova-dd94b2",
+    "declarantName": "ТАТЯНА МИТКОВА СРЕБРИНОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7129",
+    "controlHash": "3451F8D0",
+    "sourceUrl": "https://register.cacbg.bg/2026/D8483F24-B5E6-47DB-B0DC-3E8A9EB45E83231520.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22596.544689466875,
+        "amountEurSpouse": 4172.1417505611425
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Татяна Миткова Сребринова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Сребрин Георгиев Сребринов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-mitkova-srebrinova-dd94b2",
     "declarantName": "Татяна Миткова Сребринова",
     "institution": "Училища",
     "positionTitle": "Директор",

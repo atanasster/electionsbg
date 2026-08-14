@@ -5,6 +5,68 @@
     "institution": "СБПЛР - Бухово ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-16",
+    "entryNumber": "Г272",
+    "controlHash": "D6EF75F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5378355-3AAC-40EA-B080-00F696B42F2D223357.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39540.24634042836,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Дора Димитрова Велева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 196546,
+        "valueEur": 100492.37408159196,
+        "holderName": "Дора Димитрова Велева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dora-dimitrova-veleva-a99d65",
+    "declarantName": "Дора Димитрова Велева",
+    "institution": "СБПЛР - Бухово ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,23 +4,66 @@
     "declarantName": "Тамер Дилявер Хасан",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12748",
-    "controlHash": "6DD8FDA4",
-    "sourceUrl": "https://register.cacbg.bg/2025/969191C7-6AFC-4788-AF77-569BE3C311F5215923.xml",
+    "filedAt": "2026-05-21",
+    "entryNumber": "Г12052",
+    "controlHash": "9C8F2F9B",
+    "sourceUrl": "https://register.cacbg.bg/2026/969191C7-6AFC-4788-AF77-569BE3C311F5237153.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5624.210693158403,
+        "amountEurDeclarant": 7212.794568035054,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти и ликвидационни дялове по чл.38, ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": 188053.15390396916,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31671,
+        "valueEur": 16193.125169365436,
+        "holderName": "Тамер Дилявер Хасан",
+        "isSpouse": false,
+        "legalBasis": "договор - 4,69%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Стик кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Тамер Дилявер Хасан",
+        "isSpouse": false,
+        "legalBasis": "договор - 3%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

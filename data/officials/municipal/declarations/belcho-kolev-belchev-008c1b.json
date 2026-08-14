@@ -4,52 +4,64 @@
     "declarantName": "БЕЛЧО КОЛЕВ БЕЛЧЕВ",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г1980",
-    "controlHash": "1FDA7AC1",
-    "sourceUrl": "https://register.cacbg.bg/2025/87393B82-3414-4505-8AD0-8F64DAFE67ED204561.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12469",
+    "controlHash": "2FC9FCAD",
+    "sourceUrl": "https://register.cacbg.bg/2026/87393B82-3414-4505-8AD0-8F64DAFE67ED237757.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7444.921082098137,
-        "amountEurSpouse": 5328.172693945793
+        "amountEurDeclarant": 9021.23395182608,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 29455.525275714146,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 5828.7274456368905,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 40744.33872064546,
+        "amountEurSpouse": 7133.544326449641
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "acquiredYear": 2025,
+        "share": "1 /6",
+        "currency": "BGN",
+        "amount": 6500,
+        "valueEur": 3323.39722777542,
+        "holderName": "Белчо Колев Белчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСВАГЕН ID4",
+        "description": "ремарке- колесар",
+        "detail": "Нептун ТР1",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 49000,
-        "valueEur": 25053.302178614707,
-        "holderName": "БЕЛЧО КОЛЕВ БЕЛЧЕВ",
+        "amount": 1380,
+        "valueEur": 705.5827960507816,
+        "holderName": "белчо Колев Белчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "КРЕДИТ"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "cash",
@@ -62,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Белчо Колев Белчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -80,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3197,
-        "valueEur": 1634.6001441843105,
+        "amount": 4988,
+        "valueEur": 2550.323903406738,
         "holderName": "Белчо Колев Белчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -98,12 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 6331,
+        "valueEur": 3236.988899853259,
         "holderName": "Белчо Колев Белчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заемана длъжност"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -116,63 +128,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4568,
-        "valueEur": 2335.581313304326,
+        "amount": 11879,
+        "valueEur": 6073.636256729879,
         "holderName": "Белчо Колев Белчев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
+        "description": "заем",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 38725,
-        "valueEur": 19799.77809932356,
+        "currency": "EUR",
+        "amount": 16051,
+        "valueEur": 16050.47473451169,
         "holderName": "Белчо Колев Белчев",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "Договор за кредит 4%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
+        "description": "заем",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 18704,
-        "valueEur": 9563.203345894071,
-        "holderName": "Теменуга Ангелова Колева",
+        "currency": "EUR",
+        "amount": 8355,
+        "valueEur": 8355.020630627407,
+        "holderName": "Теменужка Ангелова Колева",
         "isSpouse": true,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "Договор за кредит 4%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ЛАНЧИЯ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "бракуван"
-      }
-    ]
+    "events": []
   }
 ]

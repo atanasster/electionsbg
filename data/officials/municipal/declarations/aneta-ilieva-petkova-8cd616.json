@@ -4,29 +4,48 @@
     "declarantName": "Анета Илиева Петкова",
     "institution": "Брусарци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г4566",
-    "controlHash": "9D8D4B83",
-    "sourceUrl": "https://register.cacbg.bg/2025/FF924C50-B951-4430-90AA-DCF8652F3137207425.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10945",
+    "controlHash": "009E7BB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/FF924C50-B951-4430-90AA-DCF8652F3137235764.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
         "amountEurDeclarant": 2644.9129014280384,
-        "amountEurSpouse": 11459.584933250844
+        "amountEurSpouse": 13964.403859231119
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7011.345566843745,
+        "amountEurDeclarant": 7842.706165668796,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Брусарци",
+        "municipality": "Брусарци",
+        "areaSqm": 1460,
+        "builtAreaSqm": 124,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Цветослав Атанасов Енев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

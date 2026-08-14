@@ -5,6 +5,56 @@
     "institution": "МБАЛ - Луковит ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10824",
+    "controlHash": "6AE609ED",
+    "sourceUrl": "https://register.cacbg.bg/2026/0C99D699-780A-470D-921D-0ECBAB38105F235623.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 52249.428631322764,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 13516.512171303231,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55521,
+        "valueEur": 28387.436535895245,
+        "holderName": "Галина Любенова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-lyubenova-stoyanova-dcd62c",
+    "declarantName": "ГАЛИНА ЛЮБЕНОВА СТОЯНОВА",
+    "institution": "МБАЛ - Луковит ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

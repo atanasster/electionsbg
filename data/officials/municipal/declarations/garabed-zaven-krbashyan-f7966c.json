@@ -4,62 +4,74 @@
     "declarantName": "ГАРАБЕД ЗАВЕН КЪРБАШЯН",
     "institution": "Нови пазар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12173",
-    "controlHash": "BA3D2B41",
-    "sourceUrl": "https://register.cacbg.bg/2025/9742D519-2AB1-4593-94DB-B528558E4225215332.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г10404",
+    "controlHash": "8A11D0A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/9742D519-2AB1-4593-94DB-B528558E4225235154.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5086.842926021178,
-        "amountEurSpouse": 13728.187010118467
+        "amountEurDeclarant": 6150.841330790508,
+        "amountEurSpouse": 15059.59106875342
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6303.206311386982
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 5368.564752560294,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Тойота CRV",
+        "detail": "TOYOTA Corolla Gross",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 79085,
+        "valueEur": 40435.51842440294,
         "holderName": "Гарабед Завен Кърбашян",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Тойота Аурис",
+        "detail": "TOYOTA Corolla Gross",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 79085,
+        "valueEur": 40435.51842440294,
         "holderName": "Марина Кърбашян",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "debt",
-        "description": "Кредит",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,14 +80,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 6500,
+        "valueEur": 3323.39722777542,
         "holderName": "Гарабед Завен Кърбашян",
         "isSpouse": false,
-        "legalBasis": "Банков кредит -5,5%",
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг за лек автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79085,
+        "valueEur": 40435.51842440294,
+        "holderName": "Гарабед Завен Кърбашян",
+        "isSpouse": false,
+        "legalBasis": "лизинг -3,5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Гарабед Завен Кърбашян",
+        "isSpouse": false,
+        "legalBasis": "Банков кредит - 15,5%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

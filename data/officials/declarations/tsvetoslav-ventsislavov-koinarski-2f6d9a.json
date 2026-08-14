@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "tsvetoslav-ventsislavov-koinarski-2f6d9a",
+    "declarantName": "Цветослав Венциславов Койнарски",
+    "institution": "Тракийски университет - Стара Загора",
+    "positionTitle": "Заместник-ректор",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4965",
+    "controlHash": "EBF85CE7",
+    "sourceUrl": "https://register.cacbg.bg/2026/4D328595-159D-466A-8518-64C873639CEA229196.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62496.74051425738,
+        "amountEurSpouse": 13525.715425164764
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 145.71818614092226,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 46500,
+        "valueEur": 23775.072475624158,
+        "holderName": "Цветослав Вециславов Койнарски",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69000,
+        "valueEur": 35279.13980253907,
+        "holderName": "Цветослав Венциславов Койнарски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

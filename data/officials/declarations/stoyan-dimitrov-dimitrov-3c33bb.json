@@ -5,6 +5,104 @@
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г14842",
+    "controlHash": "E866235A",
+    "sourceUrl": "https://register.cacbg.bg/2026/BF921D91-4A64-41F7-8455-F38BE9CED122241155.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33003.8909312159,
+        "amountEurSpouse": 21560.15604628214
+      },
+      {
+        "parent": null,
+        "category": "пенсия  НОИ",
+        "amountEurDeclarant": 14858.142067562108,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "парични награди, получени на основание и по реда на нормативен акт - освободени от облагане на основание чл. 24, ал. 2, т. 15 от ЗДДФЛ",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения и помощи по част първа от КСО, освободени от облагане на осн. чл. 24, ал. 2, т. 14 от ЗДДФЛ",
+        "amountEurDeclarant": 193.7796229733668,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22545,
+        "valueEur": 11527.075461568746,
+        "holderName": "СТОЯН ДИМИТРОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и доходи по т. II.2 на Табл. № 12"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1388,
+        "valueEur": 709.6731311003513,
+        "holderName": "СТОЯН ДИМИТРОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": "договор кредит, 3,54%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта, лимит 3000 лв.",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 127,
+        "valueEur": 64.93406891191975,
+        "holderName": "СТОЯН ДИМИТРОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": "договор кредит, 18,9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyan-dimitrov-dimitrov-3c33bb",
+    "declarantName": "СТОЯН ДИМИТРОВ ДИМИТРОВ",
+    "institution": "Инспекторати",
+    "positionTitle": "Ръководител",
+    "category": "inspectorate",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

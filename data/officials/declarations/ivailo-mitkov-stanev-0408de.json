@@ -5,6 +5,68 @@
     "institution": "Комисия за защита на личните данни",
     "positionTitle": "Член",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2093",
+    "controlHash": "9E2FBAA3",
+    "sourceUrl": "https://register.cacbg.bg/2026/11143F7C-A829-4C5C-B0F6-012FB46160C7226076.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62561.163291288096,
+        "amountEurSpouse": 41764.36602363191
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26600,
+        "valueEur": 13600.364039819411,
+        "holderName": "Ивайло Митков Станев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78400,
+        "valueEur": 40085.283485783526,
+        "holderName": "Ивайло Митком Станев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivailo-mitkov-stanev-0408de",
+    "declarantName": "Ивайло Митков Станев",
+    "institution": "Комисия за защита на личните данни",
+    "positionTitle": "Член",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

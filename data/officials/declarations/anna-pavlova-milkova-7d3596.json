@@ -5,6 +5,82 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6137",
+    "controlHash": "5CEFFCDE",
+    "sourceUrl": "https://register.cacbg.bg/2026/E20223A8-2056-4FC3-9D4D-1A1877B078DA230438.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "1/3",
+        "companyName": "П.А.М.52 ЕООД",
+        "registeredOffice": "Варна",
+        "valueEur": 851.8122740729,
+        "holderName": "Анна Павлова Милкова",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "1/3",
+        "companyName": "П.А.М.52 ЕООД",
+        "registeredOffice": "Варна",
+        "valueEur": 0,
+        "holderName": null,
+        "transfereeName": "Анна Павлова Милкова",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15906.801715895554,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 158.50048317082772,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Анна Павлова Милкова",
+        "isSpouse": false,
+        "legalBasis": "6,46",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anna-pavlova-milkova-7d3596",
+    "declarantName": "Анна Павлова Милкова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

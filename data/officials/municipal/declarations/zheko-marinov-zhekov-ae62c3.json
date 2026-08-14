@@ -4,53 +4,90 @@
     "declarantName": "Жеко Маринов Жеков",
     "institution": "Долни Чифлик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г12231",
-    "controlHash": "1B3576CE",
-    "sourceUrl": "https://register.cacbg.bg/2025/428642D7-78AF-428D-A803-820F916DC8BD215391.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2878",
+    "controlHash": "00D27211",
+    "sourceUrl": "https://register.cacbg.bg/2026/428642D7-78AF-428D-A803-820F916DC8BD226971.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5946.8358701932175,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 6415.690525250149,
+        "amountEurSpouse": 21259.00512825757
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 2531.917395683674,
+        "amountEurDeclarant": 2571.798162416979,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "специален автомобил",
+        "detail": "СИТРОЕН ДЖЪМПЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 28013,
+        "valueEur": 14322.819467949668,
+        "holderName": "Жеко Маринов Жеков",
+        "isSpouse": false,
+        "legalBasis": "покупко - продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "специален автомобил",
+        "detail": "СИТРОЕН ДЖЪМПЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 28013,
+        "valueEur": 14322.819467949668,
+        "holderName": "Станка Божкова Жекова",
+        "isSpouse": true,
+        "legalBasis": "покупко - продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": [
       {
-        "kind": "guarantee",
-        "description": "Дарение от родители",
-        "detail": null,
+        "kind": "disposal_vehicle",
+        "description": "туристическо ремарки",
+        "detail": "Компас Райли",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
         "valueEur": 4857.272871364075,
-        "legalBasis": null
+        "legalBasis": "възмездно"
       },
       {
-        "kind": "guarantee",
-        "description": "Дарение от родители",
-        "detail": null,
+        "kind": "disposal_vehicle",
+        "description": "туристическо ремарки",
+        "detail": "Компас Райли",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": null
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   }

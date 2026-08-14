@@ -5,6 +5,81 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г14805",
+    "controlHash": "6BB136D0",
+    "sourceUrl": "https://register.cacbg.bg/2026/EA57E998-A646-42D8-A878-A5133F9FE08B241091.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28630.30017946345,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61664,
+        "valueEur": 31528.302562083616,
+        "holderName": "Георги Вълчев Денев",
+        "isSpouse": false,
+        "legalBasis": "договор 5.10%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 795,
+        "valueEur": 792.5024158541387,
+        "holderName": "Георги Вълчев Денев",
+        "isSpouse": false,
+        "legalBasis": "договор 18.9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "georgi-vlchev-denev-ca31d9",
+    "declarantName": "Георги Вълчев Денев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,80 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6776",
+    "controlHash": "D1680B89",
+    "sourceUrl": "https://register.cacbg.bg/2026/83BDDFCC-C66B-4E3E-A406-41B51FB5C0BC231124.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38150.043715455846,
+        "amountEurSpouse": 5418.671356917524
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1729.7004340868073,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1029.2305568479878
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 137118,
+        "valueEur": 70107.32016586309,
+        "holderName": "Стефка Генова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, извътр. правоотн."
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31610,
+        "valueEur": 31609.597971193816,
+        "holderName": "Стефка Генова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefka-genova-ivanova-8a6f0e",
+    "declarantName": "Стефка Генова Иванова",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,81 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3382",
+    "controlHash": "E46C619B",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D7D327C-7EA4-4ADE-9034-CDDCB24118CC227513.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34920.724193820526,
+        "amountEurSpouse": 13424.479632687913
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32345,
+        "valueEur": 16537.735897291688,
+        "holderName": "Чавдар Бисеров Кичуков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4893,
+        "valueEur": 2501.7511746930973,
+        "holderName": "Чавдар Бисеров Кичуков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Рав 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1594.7193774510054,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "chavdar-biserov-kichukov-283228",
+    "declarantName": "Чавдар Бисеров Кичуков",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

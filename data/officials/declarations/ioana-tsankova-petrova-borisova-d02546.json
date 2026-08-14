@@ -1,6 +1,74 @@
 [
   {
     "slug": "ioana-tsankova-petrova-borisova-d02546",
+    "declarantName": "Йоана Цанкова Петрова-Борисова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г14819",
+    "controlHash": "BFD3CB5E",
+    "sourceUrl": "https://register.cacbg.bg/2026/7467142B-118A-481D-8D3E-F1DA479F12BF241118.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15932.366309955365,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6626.342780302992,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 50315.21144475747,
+        "holderName": "Йоана Цанкова Петрова-Борисова",
+        "isSpouse": false,
+        "legalBasis": "Договор - 3,04 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 8862.733468655251,
+        "holderName": "Йоана Цанкова Петрова-Борисова",
+        "isSpouse": false,
+        "legalBasis": "Договор - 6,30%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ioana-tsankova-petrova-borisova-d02546",
     "declarantName": "Йоана Цанкова  Петрова - Борисова",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

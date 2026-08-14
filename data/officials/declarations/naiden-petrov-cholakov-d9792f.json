@@ -5,6 +5,74 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11786",
+    "controlHash": "8504568E",
+    "sourceUrl": "https://register.cacbg.bg/2026/16C0FA5C-2110-4279-8BBD-245C7491B42D236767.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24801.23528118497,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Абланица",
+        "municipality": "Ловеч",
+        "areaSqm": 1473,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Найден Петров Чолаков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Найден Петров Чолаков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "naiden-petrov-cholakov-d9792f",
+    "declarantName": "Найден Петров Чолаков",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митническо бюро",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

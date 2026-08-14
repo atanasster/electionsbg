@@ -4,25 +4,25 @@
     "declarantName": "Венцислав Стоянов Филчев",
     "institution": "Петрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4203",
-    "controlHash": "A101CD3F",
-    "sourceUrl": "https://register.cacbg.bg/2025/4CC3E9A3-9633-4842-AF9B-D42067BAD872207042.xml",
+    "filedAt": null,
+    "entryNumber": "Г2062",
+    "controlHash": "608269B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/4CC3E9A3-9633-4842-AF9B-D42067BAD872226045.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5874.232423063354,
-        "amountEurSpouse": 13233.767761001724
+        "amountEurDeclarant": 8203.16694191213,
+        "amountEurSpouse": 17203.437926609164
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12671.346691685883,
+        "amountEurDeclarant": 16332.196561050807,
         "amountEurSpouse": null
       }
     ],
@@ -38,12 +38,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21000,
-        "valueEur": 10737.129505120589,
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
         "holderName": "Венцислав Стоянов Филчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Веселина Пламенова Филчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ],
     "events": []

@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "petr-petrov-vanev-b48735",
+    "declarantName": "ПЕТЪР ПЕТРОВ ВАНЕВ",
+    "institution": "ОД МВР Разград",
+    "positionTitle": "Директор",
+    "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-03-25",
+    "entryNumber": "В2263",
+    "controlHash": "C723BCE1",
+    "sourceUrl": "https://register.cacbg.bg/2026/A146A507-30B8-4C4B-BD31-D383E94E3703240929.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ОУ \"ИВАН ВАЗОВ\" ГР.РУСЕ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "petr-petrov-vanev-b48735",
+    "declarantName": "ПЕТЪР ПЕТРОВ ВАНЕВ",
+    "institution": "ОД МВР Разград",
+    "positionTitle": "Директор",
+    "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Entry",
+    "filedAt": "2026-03-25",
+    "entryNumber": "В2262",
+    "controlHash": "9598FD09",
+    "sourceUrl": "https://register.cacbg.bg/2026/A146A507-30B8-4C4B-BD31-D383E94E3703240928.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХОНДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2208,
+        "valueEur": 1128.9324736812505,
+        "holderName": "ХРИСТИНА СТЕФАНОВА ВАНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25566,
+        "valueEur": 25566,
+        "holderName": "ПЕТЪР ВАНЕВ ПЕТРОВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

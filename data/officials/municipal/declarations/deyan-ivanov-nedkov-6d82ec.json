@@ -4,13 +4,13 @@
     "declarantName": "ДЕЯН ИВАНОВ НЕДКОВ",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8521",
-    "controlHash": "B5FE99C5",
-    "sourceUrl": "https://register.cacbg.bg/2025/342E4EEE-B8EC-4A97-8875-F55144E02E87211543.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г5484",
+    "controlHash": "A9728851",
+    "sourceUrl": "https://register.cacbg.bg/2026/342E4EEE-B8EC-4A97-8875-F55144E02E87229745.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,14 +29,20 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11453.44943067649,
-        "amountEurSpouse": 6090.508888809355
+        "amountEurDeclarant": 9036.06141638077,
+        "amountEurSpouse": 4893.574594929008
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7557.916587842502,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 36456.64500493397
+        "amountEurSpouse": 50326.459866143785
       }
     ],
     "assets": [
@@ -85,7 +91,7 @@
         "areaSqm": 49,
         "builtAreaSqm": 49,
         "acquiredYear": 2023,
-        "share": "1/1",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 9780,
         "valueEur": 5000.4345980990165,

@@ -5,6 +5,111 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9053",
+    "controlHash": "D87B98AB",
+    "sourceUrl": "https://register.cacbg.bg/2026/38820BD3-6958-46F8-B1C6-2EE45B38C4C4233611.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31016.499389006203,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4539.760613141224
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2781.939125588625,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3313.171390151496
+      },
+      {
+        "parent": null,
+        "category": "доходи от дивиденти и ликвидационни дялове по чл.38 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5381.858341471396
+      },
+      {
+        "parent": null,
+        "category": "обезщетения и помощи по част I от КСО",
+        "amountEurDeclarant": 155.94402376484663,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 10415.526911848166,
+        "holderName": "Даниела Емилова Симеонова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 442.77876911592523,
+        "holderName": "Даниела Емилова Симеонова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Българи",
+        "municipality": "Царево",
+        "areaSqm": 670,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "daniela-emilova-simeonova-c13f08",
+    "declarantName": "Даниела Емилова Симеонова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,19 +4,19 @@
     "declarantName": "Валентин Николчов Петков",
     "institution": "Перник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г3139",
-    "controlHash": "176BA267",
-    "sourceUrl": "https://register.cacbg.bg/2025/48C1FB4D-C8E0-434F-ADEA-96EF82D5A3C8205861.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г3084",
+    "controlHash": "CAD5707A",
+    "sourceUrl": "https://register.cacbg.bg/2026/48C1FB4D-C8E0-434F-ADEA-96EF82D5A3C8227181.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6265.370712178461,
+        "amountEurDeclarant": 6779.730344661857,
         "amountEurSpouse": null
       },
       {
@@ -156,7 +156,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "ХОНДА ЦР-В",
+        "detail": "Хонда ЦР–В",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -182,12 +182,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11631,
-        "valueEur": 5946.8358701932175,
+        "amount": 4865,
+        "valueEur": 2487.435002019603,
         "holderName": "Валентин Николчов Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -200,12 +200,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4022,
-        "valueEur": 2056.4159461711906,
+        "amount": 20499,
+        "valueEur": 10480.972272641282,
         "holderName": "Валентин Николчов Петков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "пенсия"
       },
       {
         "category": "cash",
@@ -236,8 +236,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13154,
-        "valueEur": 6725.533405255058,
+        "amount": 19493,
+        "valueEur": 9966.612640157888,
         "holderName": "Иванка Стайкова Петкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -254,8 +254,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19086,
-        "valueEur": 9758.516844511027,
+        "amount": 29700,
+        "valueEur": 15185.36887152769,
         "holderName": "Иванка Стайкова Петкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -272,8 +272,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 669,
-        "valueEur": 668.7697806046538,
+        "amount": 5244,
+        "valueEur": 5243.809533548417,
         "holderName": "Иванка Стайкова Петкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -309,7 +309,7 @@
         "share": null,
         "currency": "USD",
         "amount": 6171,
-        "valueEur": 5431.964945828625,
+        "valueEur": 5266.30637632105,
         "holderName": "Иванка Стайкова Петкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -334,31 +334,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "СААБ 9-3",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 332.339722777542,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "СААБ 9-3",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 332.339722777542,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

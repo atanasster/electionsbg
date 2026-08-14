@@ -4,38 +4,50 @@
     "declarantName": "Зорница Николаева Михайлова",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10469",
-    "controlHash": "9F59352F",
-    "sourceUrl": "https://register.cacbg.bg/2025/6829CBA4-DF31-4460-9B28-203FAB288DDC213556.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5703",
+    "controlHash": "2C5B0267",
+    "sourceUrl": "https://register.cacbg.bg/2026/6829CBA4-DF31-4460-9B28-203FAB288DDC229967.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12552.215683367163,
+        "amountEurDeclarant": 15850.048317082774,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 34445.22274430804
+        "amountEurSpouse": 34298.48197440473
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 12883.021530501117,
+        "amountEurDeclarant": 15250.30294043961,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 3.0677512871773107,
-        "amountEurSpouse": null
+        "category": "доходи от дивиденти и ликв.дялове по чл.38 ал.1 от ЗДДФЛ от източници в страната- от \"АГРО НОМЕР ЕДНО\"ООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 243679.66541059295
+      },
+      {
+        "parent": null,
+        "category": "доходи от дивиденти и ликв.дялове по чл.38 ал.1 от ЗДДФЛ от източници в страната- от \"А ПЛЮС М\"ООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 54197.45069868035
+      },
+      {
+        "parent": null,
+        "category": "доходи от прехвърляне на недвижимо имущество",
+        "amountEurDeclarant": 49313.07935761288,
+        "amountEurSpouse": 49313.07935761288
       }
     ],
     "assets": [
@@ -50,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25299,
-        "valueEur": 12935.173302383131,
+        "amount": 54030,
+        "valueEur": 27625.100341031684,
         "holderName": "Зорница Николаева Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплати, хонорари, ренти"
       },
       {
         "category": "bank",
@@ -68,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1243,
-        "valueEur": 635.5358083268995,
+        "amount": 1110,
+        "valueEur": 567.5339881278026,
         "holderName": "Зорница Николаева Михайлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "хонорари"
       },
       {
         "category": "bank",
@@ -86,12 +98,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 225,
-        "valueEur": 115.04067326914917,
+        "amount": 125,
+        "valueEur": 63.91148514952731,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетения"
+        "fundsOrigin": "обезщетения от НОИ"
       },
       {
         "category": "bank",
@@ -104,12 +116,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19,
-        "valueEur": 9.714545742728152,
+        "amount": 474327,
+        "valueEur": 242519.5441321587,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "обезщетения"
+        "fundsOrigin": "заплати,ренти, дивиденти, продажни цени"
       },
       {
         "category": "bank",
@@ -122,12 +134,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32221,
-        "valueEur": 16474.335704023357,
+        "amount": 1025,
+        "valueEur": 524.074178226124,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ренти"
+        "fundsOrigin": "дивиденти, заплати"
       },
       {
         "category": "bank",
@@ -140,34 +152,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 158,
-        "valueEur": 80.78411722900252,
+        "amount": 74,
+        "valueEur": 37.835599208520165,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ренти"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 197730,
-        "valueEur": 101097.74366892828,
-        "holderName": "Михаил Иванов Михайлов",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплати, дарения, дивиденти"
+        "fundsOrigin": "дивиденти, заплати"
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -180,12 +174,12 @@
         "valueEur": 149808.52119049203,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -198,12 +192,12 @@
         "valueEur": 306775.1287177311,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -212,16 +206,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 154090,
-        "valueEur": 78784.96597352531,
+        "amount": 104050,
+        "valueEur": 53199.92023846653,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -234,12 +228,12 @@
         "valueEur": 149808.52119049203,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -252,12 +246,12 @@
         "valueEur": 115040.67326914916,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -270,12 +264,12 @@
         "valueEur": 127822.97029905462,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Солидарен длъжник по кредит",
+        "description": "солидарен длъжник по договор за кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -284,29 +278,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор - ОЛП на БНБ +0.1%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "солидарен длъжник по кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 6047,
-        "valueEur": 3091.782005593533,
-        "holderName": "Михаил Иванов Михайлов",
-        "isSpouse": true,
-        "legalBasis": "договор-19,2%",
+        "legalBasis": "договор-ОЛП на БНБ+0,1%",
         "fundsOrigin": null
       },
       {
@@ -320,11 +296,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7750,
-        "valueEur": 3962.5120792706934,
+        "amount": 4976,
+        "valueEur": 2544.188400832383,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор -19.2%",
+        "legalBasis": "договор-19.2%",
         "fundsOrigin": null
       },
       {
@@ -338,11 +314,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 41381,
-        "valueEur": 21157.76933578072,
+        "amount": 15421,
+        "valueEur": 7884.6320999268855,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор-ОДИ+3.56%",
+        "legalBasis": "договор-ОДИ+3,56%",
         "fundsOrigin": null
       },
       {
@@ -360,7 +336,7 @@
         "valueEur": 108727.24112013825,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -378,7 +354,7 @@
         "valueEur": 143375.4467412812,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -396,7 +372,7 @@
         "valueEur": 7822.765782302143,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -414,7 +390,7 @@
         "valueEur": 112535.3430512877,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -432,7 +408,7 @@
         "valueEur": 9714.54574272815,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -450,7 +426,7 @@
         "valueEur": 43459.80990167857,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -464,11 +440,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6727,
-        "valueEur": 3439.4604848069616,
+        "amount": 10676,
+        "valueEur": 5458.552123650828,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -482,11 +458,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3349,
-        "valueEur": 1712.3165101261357,
+        "amount": 4940,
+        "valueEur": 2525.7818931093193,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
         "fundsOrigin": null
       },
       {
@@ -500,11 +476,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Михаил Иванов Михайлов",
         "isSpouse": true,
-        "legalBasis": "договор за заем- +3%",
+        "legalBasis": "договор-3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Михаил Иванов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "договор-16.20%",
         "fundsOrigin": null
       },
       {
@@ -528,28 +522,148 @@
     ],
     "events": [
       {
-        "kind": "guarantee",
-        "description": "ипотека",
+        "kind": "disposal_property",
+        "description": "нива",
         "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5013,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 204516.75247848738,
-        "legalBasis": null
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
       },
       {
-        "kind": "guarantee",
-        "description": "ипотека",
+        "kind": "disposal_property",
+        "description": "нива",
         "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5013,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 204516.75247848738,
-        "legalBasis": null
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Горун",
+        "municipality": "Шабла",
+        "areaSqm": 5000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 13641,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13251.66297684359,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 13641,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13251.66297684359,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 11638,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11305.686077010783,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 11638,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11305.686077010783,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 13641,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13251.66297684359,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Камен бряг",
+        "municipality": "Каварна",
+        "areaSqm": 13641,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13251.66297684359,
+        "legalBasis": "възмездно"
       }
     ]
   }

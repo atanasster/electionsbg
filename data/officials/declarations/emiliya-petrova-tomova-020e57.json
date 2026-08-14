@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6382",
+    "controlHash": "FEB8E572",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5011387-060D-40F3-8559-5032E459DFAD230698.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15901.177505202395,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "БУРГАС",
+        "municipality": "БУРГАС",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2020,
+        "share": "57",
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Емилия Петрова Томова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emiliya-petrova-tomova-020e57",
+    "declarantName": "Емилия Петрова Томова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

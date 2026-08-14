@@ -5,6 +5,68 @@
     "institution": "Лесотехнически университет - София",
     "positionTitle": "Ректор",
     "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2312",
+    "controlHash": "F054BF87",
+    "sourceUrl": "https://register.cacbg.bg/2026/19144E6E-E024-4839-8A88-1E95461AFEBF226352.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 66602.41432026301,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Христо Данчев Михайлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Христо Данчев Михайлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-danchev-mihailov-9ba342",
+    "declarantName": "Христо Данчев Михайлов",
+    "institution": "Лесотехнически университет - София",
+    "positionTitle": "Ректор",
+    "category": "academic",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,110 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г5667",
+    "controlHash": "66A7C437",
+    "sourceUrl": "https://register.cacbg.bg/2026/30D0C3AB-3934-4DC2-94CE-8C6CF576152C229931.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43988.996998716655,
+        "amountEurSpouse": 18220.39747830844
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 27540.737180634307,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1062.9758210069383,
+        "amountEurSpouse": 1062.9758210069383
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11686.08723662077
+      },
+      {
+        "parent": null,
+        "category": "левова равностойност за храна",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5266.30637632105
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2025,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 107570,
+        "valueEur": 54999.66766027722,
+        "holderName": "Йордан Недев Йорданов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2025,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 107570,
+        "valueEur": 54999.66766027722,
+        "holderName": "Елисавета Стефанова йорданова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Йордан Недев Йорданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-nedev-iordanov-b04ce0",
+    "declarantName": "Йордан Недев Йорданов",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

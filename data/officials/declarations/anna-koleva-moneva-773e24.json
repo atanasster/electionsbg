@@ -1,6 +1,86 @@
 [
   {
     "slug": "anna-koleva-moneva-773e24",
+    "declarantName": "Анна Колева Монева -Трифонова",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г7433",
+    "controlHash": "3852E077",
+    "sourceUrl": "https://register.cacbg.bg/2026/56A694F9-C7BA-4BF2-BFFE-4A91EE09B18E231842.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24266.935265334923,
+        "amountEurSpouse": 7644.324915764662
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49839,
+        "valueEur": 25482.27606693833,
+        "holderName": "Анна Колева Монева-Трифонова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 160021,
+        "valueEur": 81817.43812090009,
+        "holderName": "Тихомир Илиев Трифонов",
+        "isSpouse": true,
+        "legalBasis": "договор MG2418813248 - 2,48%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12022,
+        "valueEur": 6146.750995740938,
+        "holderName": "Анна Колева Монева-Трифонова",
+        "isSpouse": false,
+        "legalBasis": "договор LD2418854214 - 5,21%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anna-koleva-moneva-773e24",
     "declarantName": "Анна Колева Монева",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",

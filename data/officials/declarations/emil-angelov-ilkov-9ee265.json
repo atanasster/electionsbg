@@ -5,6 +5,56 @@
     "institution": "Държавна агенция \"Национална сигурност\"",
     "positionTitle": "Директор на дирекция",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2656",
+    "controlHash": "DB71F6A1",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F8D29CB-58A8-4896-A5D5-3CA98015A866226729.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 56010.491709402144,
+        "amountEurSpouse": 18271.015374546867
+      },
+      {
+        "parent": null,
+        "category": "Необлагаем годишен доход",
+        "amountEurDeclarant": 5470.823128799538,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Емил Ангелов Илков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emil-angelov-ilkov-9ee265",
+    "declarantName": "Емил Ангелов Илков",
+    "institution": "Държавна агенция \"Национална сигурност\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

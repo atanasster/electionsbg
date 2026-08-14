@@ -4,23 +4,60 @@
     "declarantName": "Исмет Юсеин Саид",
     "institution": "Сунгурларе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4342",
-    "controlHash": "CA47E194",
-    "sourceUrl": "https://register.cacbg.bg/2025/946F1AF7-F5D0-4671-BAB2-7DFCB62652EB207189.xml",
+    "filedAt": "2026-07-10",
+    "entryNumber": "Г14375",
+    "controlHash": "369AB8DB",
+    "sourceUrl": "https://register.cacbg.bg/2026/946F1AF7-F5D0-4671-BAB2-7DFCB62652EB240136.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6643.726704263663,
-        "amountEurSpouse": 6755.188334364439
+        "amountEurDeclarant": 7082.415138330019,
+        "amountEurSpouse": 3795.31963411953
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "дворно място",
+        "detail": null,
+        "location": "с. Манолич",
+        "municipality": "Сунгурларе",
+        "areaSqm": 543,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 5860,
+        "valueEur": 2996.1704238098405,
+        "holderName": "Исмет Юсеин Саид",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен берлинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 1498,
+        "valueEur": 765.9152380319352,
+        "holderName": "Исмет Юсеин Саид",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

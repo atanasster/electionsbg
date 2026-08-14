@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8369",
+    "controlHash": "9A37C7A5",
+    "sourceUrl": "https://register.cacbg.bg/2026/F9090E65-99EB-4221-8266-9A8D69E478BD232871.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22194.669270846647,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 84,
+        "builtAreaSqm": 92,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10700,
+        "valueEur": 5470.823128799538,
+        "holderName": "Калина Николаева Нушева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63601,
+        "valueEur": 32518.67493596069,
+        "holderName": "Калина Николаева Нушева",
+        "isSpouse": false,
+        "legalBasis": "Покупка на имот- 3.91%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kalina-nikolaeva-nusheva-cbd3f9",
+    "declarantName": "КАЛИНА НИКОЛАЕВА НУШЕВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

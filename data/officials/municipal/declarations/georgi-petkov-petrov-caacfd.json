@@ -1,26 +1,39 @@
 [
   {
     "slug": "georgi-petkov-petrov-caacfd",
-    "declarantName": "Георги Петков Петров",
+    "declarantName": "ГЕОРГИ ПЕТКОВ ПЕТРОВ",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г2658",
-    "controlHash": "7CB014E4",
-    "sourceUrl": "https://register.cacbg.bg/2025/6D13C262-C1DB-458B-BB64-1D31AE181573205342.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10950",
+    "controlHash": "C3F6096F",
+    "sourceUrl": "https://register.cacbg.bg/2026/6D13C262-C1DB-458B-BB64-1D31AE181573235773.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6984.2470971403445,
+        "amountEurDeclarant": 7090.595808429158,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "до Франция, на гости",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 300.12833426218026,
+        "legalBasis": null
+      }
+    ]
   }
 ]

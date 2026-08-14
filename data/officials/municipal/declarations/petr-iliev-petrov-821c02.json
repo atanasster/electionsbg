@@ -4,13 +4,13 @@
     "declarantName": "Петър Илиев Петров",
     "institution": "Габрово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13039",
-    "controlHash": "8061DEA8",
-    "sourceUrl": "https://register.cacbg.bg/2025/BAF993B3-F45A-4F5A-A4DF-A113720ED874216229.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5785",
+    "controlHash": "D7049899",
+    "sourceUrl": "https://register.cacbg.bg/2026/BAF993B3-F45A-4F5A-A4DF-A113720ED874230054.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,14 +29,26 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7420.890363681915,
-        "amountEurSpouse": 2276.782746966761
+        "amountEurDeclarant": 7945.475833789235,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5771.974046824111,
+        "amountEurDeclarant": 6313.432149010906,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 650.3632728815899,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за майчинство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7298.180312194822
       }
     ],
     "assets": [
@@ -114,7 +126,7 @@
       },
       {
         "category": "real_estate",
-        "description": "парцел",
+        "description": "складови помещения",
         "detail": null,
         "location": "Кметовци",
         "municipality": "Габрово",
@@ -139,7 +151,7 @@
         "areaSqm": 1095,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
-        "share": "33,33%",
+        "share": "33.33%",
         "currency": "BGN",
         "amount": 1000,
         "valueEur": 511.29188119621847,
@@ -156,7 +168,7 @@
         "municipality": "Габрово",
         "areaSqm": 380,
         "builtAreaSqm": null,
-        "acquiredYear": 2023,
+        "acquiredYear": 2022,
         "share": "100%",
         "currency": "BGN",
         "amount": 0,
@@ -165,24 +177,6 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Съботковци",
-        "municipality": "Габрово",
-        "areaSqm": 642,
-        "builtAreaSqm": 52,
-        "acquiredYear": 2022,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Петър Илиев Петров",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -199,15 +193,15 @@
         "valueEur": 127.82297029905462,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "други",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "стърница",
-        "municipality": "баните",
+        "location": "Стърница",
+        "municipality": "Габрово",
         "areaSqm": 7155,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
@@ -218,14 +212,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "манастир",
-        "municipality": "лъки",
+        "location": "Манастир",
+        "municipality": "Габрово",
         "areaSqm": 7950,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
@@ -236,32 +230,32 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "джурково",
-        "municipality": "лъки",
+        "location": "Джурково",
+        "municipality": "Габрово",
         "areaSqm": 6496,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
-        "share": "0,14%",
+        "share": "0.14%",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "манастир",
-        "municipality": "лъки",
+        "location": "Манастир",
+        "municipality": "Габрово",
         "areaSqm": 8073,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
@@ -272,14 +266,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "лъкавица",
-        "municipality": "лъки",
+        "location": "Лъкавица",
+        "municipality": "Габрово",
         "areaSqm": 6879,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
@@ -290,14 +284,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "манастир",
-        "municipality": "лъки",
+        "location": "Манастир",
+        "municipality": "Габрово",
         "areaSqm": 11817,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
@@ -308,50 +302,50 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "завещание",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "габрово",
-        "municipality": "габрово",
+        "location": "Габрово",
+        "municipality": "Габрово",
         "areaSqm": 3,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
-        "share": "0.33%",
+        "share": "33.33%",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "гръблевци",
-        "municipality": "габрово",
+        "location": "Гръблевци",
+        "municipality": "Габрово",
         "areaSqm": 4,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
-        "share": "0.33%",
+        "share": "33.33%",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -361,15 +355,15 @@
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 17,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -380,14 +374,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 6,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -398,14 +392,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 17,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -416,14 +410,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 16,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -434,14 +428,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 7,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -452,14 +446,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 12,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -470,14 +464,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
@@ -488,14 +482,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 12,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -506,14 +500,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "лесичарка",
-        "municipality": "габрово",
+        "location": "Лесичарка",
+        "municipality": "Габрово",
         "areaSqm": 5,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -524,14 +518,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 7,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -542,14 +536,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 13,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -559,15 +553,15 @@
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 29,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -577,15 +571,15 @@
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 16,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -595,15 +589,15 @@
         "valueEur": 0,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 9,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
@@ -614,14 +608,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 18,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
@@ -632,14 +626,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 5,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
@@ -650,14 +644,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 9,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
@@ -668,14 +662,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 18,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
@@ -686,14 +680,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 29,
         "builtAreaSqm": null,
         "acquiredYear": 2019,
@@ -704,14 +698,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2018,
@@ -722,14 +716,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 39,
         "builtAreaSqm": null,
         "acquiredYear": 2018,
@@ -740,14 +734,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "трайни насъждения",
+        "description": "трайни насаждения",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2019,
@@ -758,14 +752,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "трайни насъждения",
+        "description": "трайни насаждения",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2017,
@@ -776,14 +770,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 3,
         "builtAreaSqm": null,
         "acquiredYear": 2017,
@@ -794,14 +788,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "трайни насъждения",
+        "description": "трайни насаждения",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 6,
         "builtAreaSqm": null,
         "acquiredYear": 2013,
@@ -812,14 +806,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 17,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
@@ -830,14 +824,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 8,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
@@ -848,14 +842,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 12,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
@@ -866,14 +860,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "копчелийте",
-        "municipality": "габрово",
+        "location": "Копчелиите",
+        "municipality": "Габрово",
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
@@ -884,14 +878,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "копчелийте",
-        "municipality": "габрово",
+        "location": "Копчелиите",
+        "municipality": "Габрово",
         "areaSqm": 13,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
@@ -902,14 +896,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "ливади",
+        "description": "ливада",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 110,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
@@ -920,14 +914,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "копчелийте",
-        "municipality": "габрово",
+        "location": "Копчелиите",
+        "municipality": "Габрово",
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
@@ -938,14 +932,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "кметовци",
-        "municipality": "габрово",
+        "location": "Кметовци",
+        "municipality": "Габрово",
         "areaSqm": 71,
         "builtAreaSqm": null,
         "acquiredYear": 2013,
@@ -956,14 +950,14 @@
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "запалта"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "копчелийте",
-        "municipality": "габрово",
+        "location": "Копчелиите",
+        "municipality": "Габрово",
         "areaSqm": 14,
         "builtAreaSqm": null,
         "acquiredYear": 2024,
@@ -977,27 +971,27 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Митсубиши",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "ливада",
+        "detail": null,
+        "location": "Копчелиите",
+        "municipality": "Габрово",
+        "areaSqm": 10,
         "builtAreaSqm": null,
-        "acquiredYear": 2016,
+        "acquiredYear": 2025,
         "share": "100%",
         "currency": "BGN",
-        "amount": 900,
-        "valueEur": 460.16269307659667,
+        "amount": 500,
+        "valueEur": 255.64594059810923,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "замяна",
-        "fundsOrigin": "няма"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "ремарке за животни",
-        "detail": "Вако",
+        "detail": "ВАКО",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -1013,6 +1007,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "vehicle",
+        "description": "лек автомобил (бракуван)",
+        "detail": "Митсубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 900,
+        "valueEur": 460.16269307659667,
+        "holderName": "Петър Илиев Петров",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -1023,8 +1035,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1169,
-        "valueEur": 597.7002091183795,
+        "amount": 4824,
+        "valueEur": 2466.472034890558,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
         "legalBasis": null,
@@ -1041,14 +1053,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39941,
-        "valueEur": 20421.509026858163,
+        "amount": 40480,
+        "valueEur": 20697.095350822925,
         "holderName": "Петър Илиев Петров",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит- 4,44%ГЛП",
         "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "сребърни инвесиционни монети",
+        "detail": "2024/2025",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 13916,
+        "valueEur": 7115.137818726576,
+        "holderName": "Петър Илиев Петров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Съботковци",
+        "municipality": "Габрово",
+        "areaSqm": 642,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 9044.24208647991,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

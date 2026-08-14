@@ -1,0 +1,127 @@
+[
+  {
+    "slug": "tanya-markova-srebreva-474af1",
+    "declarantName": "Таня Маркова Сребрева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5568",
+    "controlHash": "7659131C",
+    "sourceUrl": "https://register.cacbg.bg/2026/CEB350A3-A3F6-4634-959B-1658CC938B15229832.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "200",
+        "companyName": "ВиеС Прогрес",
+        "registeredOffice": "Първомай",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Таня Маркова Сребрева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "5000",
+        "companyName": "Ситимикс",
+        "registeredOffice": "Първомай",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Таня Маркова Сребрева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20922.06377854926,
+        "amountEurSpouse": 23053.1283393751
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7285.909307046113,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7192.854184668402,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2259.9101148872855
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30801,
+        "valueEur": 15748.301232724725,
+        "holderName": "Таня Маркова Сребрева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80405,
+        "valueEur": 41110.42370758195,
+        "holderName": "Таня Маркова Сребрева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2522,
+        "valueEur": 1289.478124376863,
+        "holderName": "Сребрин Кинев Сребрев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

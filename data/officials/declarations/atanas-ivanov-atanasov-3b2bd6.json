@@ -5,6 +5,87 @@
     "institution": "Здравноосигурителна каса",
     "positionTitle": "Директор на районна здравноосигурителна каса",
     "category": "social_fund",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-08-03",
+    "entryNumber": "Ф1108",
+    "controlHash": "9EDADF9E",
+    "sourceUrl": "https://register.cacbg.bg/2026/56561F52-7B32-4051-BAE6-A2999B311270241389.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7189,
+        "valueEur": 3675.6773339196147,
+        "holderName": "Атанас Иванов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanas-ivanov-atanasov-3b2bd6",
+    "declarantName": "Атанас Иванов Атанасов",
+    "institution": "Здравноосигурителна каса",
+    "positionTitle": "Директор на районна здравноосигурителна каса",
+    "category": "social_fund",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10432",
+    "controlHash": "C8A0BF22",
+    "sourceUrl": "https://register.cacbg.bg/2026/56561F52-7B32-4051-BAE6-A2999B311270235182.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29977.04299453429,
+        "amountEurSpouse": 18348.220448607495
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50008,
+        "valueEur": 25568.684394860495,
+        "holderName": "Атанас Иванов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanas-ivanov-atanasov-3b2bd6",
+    "declarantName": "Атанас Иванов Атанасов",
+    "institution": "Здравноосигурителна каса",
+    "positionTitle": "Директор на районна здравноосигурителна каса",
+    "category": "social_fund",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

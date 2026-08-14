@@ -5,6 +5,68 @@
     "institution": "РУО",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г1689",
+    "controlHash": "875DA674",
+    "sourceUrl": "https://register.cacbg.bg/2026/E088AE9E-CCB7-4D95-8C0E-F3E8698EE088225631.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31740.488692780047,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Милена Златева Йолдова-Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "солидарен длъжник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35900,
+        "valueEur": 18355.378534944244,
+        "holderName": "Злати Георгиев Йолдов",
+        "isSpouse": true,
+        "legalBasis": "4,9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milena-zlateva-ioldova-stoyanova-ed5805",
+    "declarantName": "Милена Златева Йолдова-Стоянова",
+    "institution": "РУО",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

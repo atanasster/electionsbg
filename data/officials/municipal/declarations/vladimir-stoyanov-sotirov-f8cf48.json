@@ -4,29 +4,67 @@
     "declarantName": "Владимир Стоянов Сотиров",
     "institution": "Костенец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6835",
-    "controlHash": "585DE12D",
-    "sourceUrl": "https://register.cacbg.bg/2025/D338FA9D-4B6D-4CA6-8077-C8F5D48A2B33209815.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9181",
+    "controlHash": "29FE1A1F",
+    "sourceUrl": "https://register.cacbg.bg/2026/D338FA9D-4B6D-4CA6-8077-C8F5D48A2B33233767.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5587.397677712275,
-        "amountEurSpouse": 9166.440846085805
+        "amountEurDeclarant": 6213.218940296447,
+        "amountEurSpouse": 10975.902813639223
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5455.484372363651,
+        "amountEurDeclarant": 5080.707423446823,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия НОИ",
+        "amountEurDeclarant": 10604.193616009572,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 34100,
+        "valueEur": 17435.053148791052,
+        "holderName": "Владимир Стоянов Сотиров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

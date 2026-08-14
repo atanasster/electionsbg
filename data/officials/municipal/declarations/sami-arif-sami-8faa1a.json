@@ -4,26 +4,68 @@
     "declarantName": "САМИ АРИФ САМИ",
     "institution": "Самуил",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г5694",
-    "controlHash": "572706EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/4FCAEF42-7109-4CC3-AFD4-A7EBAD00B248208635.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13870",
+    "controlHash": "3431BC35",
+    "sourceUrl": "https://register.cacbg.bg/2026/4FCAEF42-7109-4CC3-AFD4-A7EBAD00B248239522.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24588.537858607342,
-        "amountEurSpouse": 12177.438734450336
+        "amountEurDeclarant": 23746.440130277173,
+        "amountEurSpouse": 10955.96243027257
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1071.1564911060777,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "КЪЩА С ДВОР",
+        "detail": null,
+        "location": "С.САМУИЛ",
+        "municipality": "Самуил",
+        "areaSqm": 771,
+        "builtAreaSqm": 217,
+        "acquiredYear": 2025,
+        "share": "4/6",
+        "currency": "BGN",
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "САМИ АРИФ САМИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С.САМУИЛ",
+        "municipality": "Самуил",
+        "areaSqm": 771,
+        "builtAreaSqm": 217,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "САМИ АРИФ САМИ",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
+      },
+      {
         "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,11 +74,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
         "holderName": "Сами Ариф Сами",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА КРЕДИТ - 4,44% ГЛП",
+        "legalBasis": "договор 4.44% ГЛП",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Селямие Аляйдинова Сами",
+        "isSpouse": true,
+        "legalBasis": "договор 4.44% ГЛП",
         "fundsOrigin": null
       },
       {
@@ -50,14 +110,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15217,
-        "valueEur": 7780.328556162856,
+        "amount": 19112,
+        "valueEur": 9771.810433422128,
         "holderName": "Сами Ариф Сами",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "РАЗГРАД",
+        "municipality": "Разград",
+        "areaSqm": 1430,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

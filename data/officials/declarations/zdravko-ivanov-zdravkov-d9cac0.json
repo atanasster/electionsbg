@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "zdravko-ivanov-zdravkov-d9cac0",
+    "declarantName": "Здравко Иванов Здравков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г4020",
+    "controlHash": "802D534B",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A12BF91-C892-4838-A8E9-53C48E4E2798228204.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22156.322379756934,
+        "amountEurSpouse": 20042.641742891763
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Десислава Бориславова Здравкова",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Долно Камарци",
+        "municipality": "Елин Пелин",
+        "areaSqm": 700,
+        "builtAreaSqm": 700,
+        "acquiredYear": 2020,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 1450,
+        "valueEur": 741.3732277345168,
+        "holderName": "Здравко Иванов Здравков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Здравко Иванов Здравков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  }
+]

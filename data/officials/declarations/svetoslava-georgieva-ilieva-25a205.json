@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "svetoslava-georgieva-ilieva-25a205",
+    "declarantName": "Светослава Георгиева Илиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14875",
+    "controlHash": "118E9835",
+    "sourceUrl": "https://register.cacbg.bg/2026/C4802568-CF00-477C-9FCE-BDF8CC3417B7241256.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7524.682615564748,
+        "amountEurSpouse": 3967.6249980826556
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1905.07354933711,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64900,
+        "valueEur": 33182.84308963458,
+        "holderName": "Светослава Георгиева Илиева",
+        "isSpouse": false,
+        "legalBasis": "4.5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Светослава Георгиева Илиева",
+        "isSpouse": false,
+        "legalBasis": "5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,29 +4,60 @@
     "declarantName": "Евелина Руменова Лозанова",
     "institution": "Годеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4983",
-    "controlHash": "732BF3DB",
-    "sourceUrl": "https://register.cacbg.bg/2025/50281F57-6AC0-4046-B188-5DED489F5B79207867.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10215",
+    "controlHash": "EB1FFDBC",
+    "sourceUrl": "https://register.cacbg.bg/2026/50281F57-6AC0-4046-B188-5DED489F5B79234932.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 15359.208111134403
-      },
-      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12472.454149900554,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 14054.391230321653,
+        "amountEurSpouse": 17818.01076780702
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12132,
+        "valueEur": 6202.993102672523,
+        "holderName": "Евелина Руменова Лозанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31034,
+        "valueEur": 15867.432241043445,
+        "holderName": "Сашко Тодоров Станков",
+        "isSpouse": true,
+        "legalBasis": "2.8 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

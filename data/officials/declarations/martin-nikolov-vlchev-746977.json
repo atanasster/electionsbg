@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7922",
+    "controlHash": "33484C7B",
+    "sourceUrl": "https://register.cacbg.bg/2026/19A42D26-529A-4604-979D-A48D0BCAC46A232384.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37608.585613269046,
+        "amountEurSpouse": 17050.561654131496
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14385.708369336804,
+        "amountEurSpouse": 1022.5837623924369
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "martin-nikolov-vlchev-746977",
+    "declarantName": "Мартин Николов Вълчев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13541",
+    "controlHash": "36035282",
+    "sourceUrl": "https://register.cacbg.bg/2026/E0707456-20EB-4D86-95B8-9E50CF398A8B239073.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26004.305077639674,
+        "amountEurSpouse": 7981.26626547297
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45080,
+        "valueEur": 23049.038004325528,
+        "holderName": "Кристина Тончева Куличева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4800,
+        "valueEur": 4806.143683244454,
+        "holderName": "Кристина Тончева Куличева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kristina-toncheva-kulicheva-55ff3e",
+    "declarantName": "Кристина Тончева Куличева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

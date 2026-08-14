@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5893",
+    "controlHash": "1AB247F2",
+    "sourceUrl": "https://register.cacbg.bg/2026/8DD470F7-0C30-4DCA-A92C-F61FB2C4A294230171.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24424.413164743357,
+        "amountEurSpouse": 14381.618034287234
+      },
+      {
+        "parent": null,
+        "category": "Средства за представително облекло",
+        "amountEurDeclarant": 270.9846970339958,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения за временна неработоспособност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 521.5177188201428
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16868,
+        "valueEur": 8624.471452017813,
+        "holderName": "Жана Борисова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Жана Борисова Петрова",
+        "isSpouse": false,
+        "legalBasis": "0.32",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zhana-borisova-petrova-49526c",
+    "declarantName": "Жана Борисова Петрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

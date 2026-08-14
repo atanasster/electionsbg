@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г8551",
+    "controlHash": "C9D920DD",
+    "sourceUrl": "https://register.cacbg.bg/2026/698118A1-0EE6-4F6B-BFF5-E4F9A1DFB12A233066.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18492.916050986027,
+        "amountEurSpouse": 3187.393587377226
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 46,
+        "builtAreaSqm": 94,
+        "currency": "BGN",
+        "valueEur": 11336.977140139992,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 48,
+        "builtAreaSqm": 94,
+        "currency": "BGN",
+        "valueEur": 11336.977140139992,
+        "legalBasis": "дарение"
+      }
+    ]
+  },
+  {
+    "slug": "desislava-angelova-petrova-nikolova-3747ce",
+    "declarantName": "Десислава Ангелова Петрова-Николова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

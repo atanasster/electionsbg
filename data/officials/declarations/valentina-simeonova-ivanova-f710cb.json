@@ -5,6 +5,81 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1504",
+    "controlHash": "53C7BF45",
+    "sourceUrl": "https://register.cacbg.bg/2026/1FE8E95D-B069-4702-9FF1-08F83CE3AFED225408.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22732.037037983875,
+        "amountEurSpouse": 21463.521880736054
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Валентина Симеонова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 409.0335049569748,
+        "holderName": "Валентина Симеонова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "град Милацио Италия - Проект \" Еразъм+\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "valentina-simeonova-ivanova-f710cb",
+    "declarantName": "Валентина Симеонова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

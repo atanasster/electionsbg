@@ -4,23 +4,78 @@
     "declarantName": "Слав Ангелов Илиев",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г5479",
-    "controlHash": "1B0AABF7",
-    "sourceUrl": "https://register.cacbg.bg/2025/DF17D048-1901-4DB6-BC34-984AE1A9F55D208407.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10521",
+    "controlHash": "5471D4BE",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF17D048-1901-4DB6-BC34-984AE1A9F55D235280.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12782.297029905461,
-        "amountEurSpouse": 7925.024158541387
+        "amountEurDeclarant": 13856.00998041752,
+        "amountEurSpouse": 8691.961980335715
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Нова Загора",
+        "municipality": "Нова Загора",
+        "areaSqm": 198,
+        "builtAreaSqm": 176,
+        "acquiredYear": 2020,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Магда Сашева Илиева",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 300,
+        "valueEur": 153.38756435886555,
+        "holderName": "Слав Ангелов Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10700,
+        "valueEur": 5470.823128799538,
+        "holderName": "Магда Сашева Илиева",
+        "isSpouse": true,
+        "legalBasis": "5.39",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

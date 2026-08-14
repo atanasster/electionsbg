@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ivanka-iordanova-mihova-dd4716",
+    "declarantName": "Иванка Йорданова Михова",
+    "institution": "Нова Загора",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-25",
+    "entryNumber": "Г1088",
+    "controlHash": "3D10D64A",
+    "sourceUrl": "https://register.cacbg.bg/2026/03B05C90-C63B-4DD0-85BA-9F33E0F704EC224786.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36115.61332017609,
+        "amountEurSpouse": 3370.9473727266686
+      },
+      {
+        "parent": null,
+        "category": "пенсия за осигурителен стаж и възраст",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8494.092022312778
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 168200,
+        "valueEur": 85999.29441720396,
+        "holderName": "Иванка Йорданова Михова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата, спестявания"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 168200,
+        "valueEur": 85999.29441720396,
+        "holderName": "Мишо Кънев Михов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата, спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55304,
+        "valueEur": 28276.486197675666,
+        "holderName": "Иванка Йорданова Михова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16466,
+        "valueEur": 8418.932115776934,
+        "holderName": "Мишо Кънев Михов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

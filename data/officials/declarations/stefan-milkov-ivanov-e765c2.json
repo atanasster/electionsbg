@@ -5,6 +5,74 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф184",
+    "controlHash": "EECC9EEB",
+    "sourceUrl": "https://register.cacbg.bg/2026/8852110B-D3E5-4198-9057-196F9430A3F4223760.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "stefan-milkov-ivanov-e765c2",
+    "declarantName": "Стефан Милков Иванов",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г5717",
+    "controlHash": "0566B0D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/8852110B-D3E5-4198-9057-196F9430A3F4229981.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9763.118471441792,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1048.659648333444,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "каравана",
+        "detail": "Хоби",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7823,
+        "valueEur": 3999.8363865980173,
+        "holderName": "Стефан Милков Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefan-milkov-ivanov-e765c2",
+    "declarantName": "СТЕФАН МИЛКОВ ИВАНОВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

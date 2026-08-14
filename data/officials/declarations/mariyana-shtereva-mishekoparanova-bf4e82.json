@@ -5,6 +5,93 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10868",
+    "controlHash": "098DA0E8",
+    "sourceUrl": "https://register.cacbg.bg/2026/9470024F-25E8-49A9-BCDC-3400318E1212235678.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9195.073191432793,
+        "amountEurSpouse": 5057.187996911797
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "Пловдив",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
+        "holderName": "МАРИЯНА ЩЕРЕВА МИШЕКОПАРАНОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "Пловдив",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
+        "holderName": "ВАСИЛ ПЕЕВ МШЕКОПАРАНОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "ЛЕТОВИЩЕ ВАСИЛ ПЕТЛЕШКОВ",
+        "municipality": "Брацигово",
+        "areaSqm": 59,
+        "builtAreaSqm": 177,
+        "currency": "BGN",
+        "valueEur": 19999.693224871284,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "ЛЕТОВИЩЕ ВАСИЛ ПЕТЛЕШКОВ",
+        "municipality": "Брацигово",
+        "areaSqm": 59,
+        "builtAreaSqm": 177,
+        "currency": "BGN",
+        "valueEur": 19999.693224871284,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "mariyana-shtereva-mishekoparanova-bf4e82",
+    "declarantName": "Марияна Щерева Мишекопаранова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

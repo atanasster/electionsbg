@@ -1,44 +1,62 @@
 [
   {
     "slug": "svetoslav-simeonov-todorov-709cb0",
-    "declarantName": "Светостослав Симеонов Тодоров",
+    "declarantName": "Светослав Симеонов Тодоров",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г8865",
-    "controlHash": "93C9F8FB",
-    "sourceUrl": "https://register.cacbg.bg/2025/FE166832-4F56-47F3-8A93-F97E540F7029211892.xml",
+    "entryNumber": "Г9274",
+    "controlHash": "F41381E2",
+    "sourceUrl": "https://register.cacbg.bg/2026/FE166832-4F56-47F3-8A93-F97E540F7029233878.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6188.165638117833,
+        "amountEurDeclarant": 8227.197660328351,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 904.4753378361105,
+        "amountEurDeclarant": 1345.208939427251,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "пенсия",
-        "amountEurDeclarant": 2877.5507073723174,
+        "category": "инвалидна пенсия",
+        "amountEurDeclarant": 3264.087369556659,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "арента зземеделска земя",
-        "amountEurDeclarant": 1496.5513362613315,
+        "category": "арента земеделска земя",
+        "amountEurDeclarant": 1475.5883691322865,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автонобил",
+        "detail": "Пежо-308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5300,
+        "valueEur": 2709.846970339958,
+        "holderName": "Светослав Симеонов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -53,7 +71,7 @@
         "amount": 46500,
         "valueEur": 23775.072475624158,
         "holderName": "Светослав Симеонов Тодоров",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       },
@@ -68,10 +86,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11161,
-        "valueEur": 5706.528686030994,
-        "holderName": "Iсветослав Симеонов Тодоров",
-        "isSpouse": true,
+        "amount": 20107,
+        "valueEur": 10280.545855212365,
+        "holderName": "Светослав Симеонов Тодоров",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

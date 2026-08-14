@@ -5,6 +5,62 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г3574",
+    "controlHash": "3A86AD45",
+    "sourceUrl": "https://register.cacbg.bg/2026/182E989A-969A-4998-8518-7FD8DDD52D1E227711.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27609.7615845958,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14094.271997054959,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1501.6642550732938,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 367500,
+        "valueEur": 187899.7663396103,
+        "holderName": "НИКОЛАЙ ХРИСТОВ ХИНКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-hristov-hinkov-7836eb",
+    "declarantName": "НИКОЛАЙ ХРИСТОВ ХИНКОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

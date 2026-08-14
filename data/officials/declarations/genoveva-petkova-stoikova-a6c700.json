@@ -1,6 +1,86 @@
 [
   {
     "slug": "genoveva-petkova-stoikova-a6c700",
+    "declarantName": "Геновева  Петкова Стойкова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-23",
+    "entryNumber": "Г636",
+    "controlHash": "22AC670C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E4B57979-F15C-4787-90C4-D1C4898BD083224112.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23651.85113225587,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.  Славщица",
+        "municipality": "Угърчин",
+        "areaSqm": 90,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Геновева Петкова Стойкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Геновева Петкова Стойкова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Геновева Петкова Стойкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "genoveva-petkova-stoikova-a6c700",
     "declarantName": "Геновева Петкова Стойкова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

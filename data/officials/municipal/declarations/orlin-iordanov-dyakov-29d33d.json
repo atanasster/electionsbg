@@ -4,26 +4,26 @@
     "declarantName": "Орлин Йорданов Дяков",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2702",
-    "controlHash": "5CE06626",
-    "sourceUrl": "https://register.cacbg.bg/2025/8B3D6057-5BCC-405C-9E7E-F52DEA1BB643205392.xml",
+    "filedAt": null,
+    "entryNumber": "Г1967",
+    "controlHash": "2FFED737",
+    "sourceUrl": "https://register.cacbg.bg/2026/8B3D6057-5BCC-405C-9E7E-F52DEA1BB643225940.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12681.06123742861,
-        "amountEurSpouse": 15178.722077072138
+        "amountEurDeclarant": 13904.071417249965,
+        "amountEurSpouse": 15358.18552737201
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 48547.16411958094,
-        "amountEurSpouse": 214.74259010241175
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 41630.4075507585,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -47,6 +47,24 @@
       },
       {
         "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Орлин Йорданов Дяков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
         "description": "нива",
         "detail": null,
         "location": "Пороище",
@@ -65,14 +83,14 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Дачия",
+        "description": "лек автомобил",
+        "detail": "Дачия Дъстър",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2024,
-        "share": null,
+        "share": "100",
         "currency": "BGN",
         "amount": 45000,
         "valueEur": 23008.13465382983,
@@ -82,7 +100,7 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -92,12 +110,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75000,
-        "valueEur": 38346.89108971639,
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
         "holderName": "Орлин Йорданов Дяков",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Орлин Йорданов Дяков",
+        "isSpouse": false,
+        "legalBasis": "кредит- 4.5%",
+        "fundsOrigin": null
       }
     ],
     "events": []

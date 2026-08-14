@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г727",
+    "controlHash": "0A09CD06",
+    "sourceUrl": "https://register.cacbg.bg/2026/F428B876-3BB1-455D-B963-495FB0EE2098224247.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32671.551208438363,
+        "amountEurSpouse": 14999.258626772265
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 39624,
+        "valueEur": 39624.09820894454,
+        "holderName": "Валенти Йорданов Пенчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 23104,
+        "valueEur": 19687.80517734159,
+        "holderName": "Валенти Йорданов Пенчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valentin-iordanov-penchev-31b89f",
+    "declarantName": "Валентин Йорданов Пенчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

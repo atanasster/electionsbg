@@ -4,29 +4,66 @@
     "declarantName": "Мариана Георгиева Николаева",
     "institution": "Дългопол",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г1993",
-    "controlHash": "FEC60226",
-    "sourceUrl": "https://register.cacbg.bg/2025/8002C7FC-EFBD-4644-B5CA-0EBE22EFB365204574.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1777",
+    "controlHash": "6681BCBC",
+    "sourceUrl": "https://register.cacbg.bg/2026/8002C7FC-EFBD-4644-B5CA-0EBE22EFB365225734.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28676.827740652305,
+        "amountEurDeclarant": 24209.670574640946,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6581.86038663892,
+        "amountEurDeclarant": 4795.4065537393335,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Мариана Георгиева Николаева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Мариана Георгиева Николаева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,26 +4,57 @@
     "declarantName": "Валентин Чанев Рачев",
     "institution": "Царево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2734",
-    "controlHash": "D2A450BC",
-    "sourceUrl": "https://register.cacbg.bg/2025/43EF0807-2163-455B-9964-7AB20821DB91205426.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10719",
+    "controlHash": "EFFE5D4C",
+    "sourceUrl": "https://register.cacbg.bg/2026/43EF0807-2163-455B-9964-7AB20821DB91235508.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "ИЯ-СТИЛ ЕООД",
+        "registeredOffice": "Ахтопол",
+        "valueEur": 51.12918811962185,
+        "holderName": "Валентин Чанев Рачев",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "Киви-3 ЕООД",
+        "registeredOffice": "Ахтопол",
+        "valueEur": 51.12918811962185,
+        "holderName": "Красимира Василева Рачева",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3374.526415895042
+        "amountEurSpouse": 6682.584887234576
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "2 етажа от къща с двор",
+        "description": "2 етажа от къша с двор",
         "detail": null,
         "location": "Ахтопол",
         "municipality": "Царево",
@@ -76,8 +107,26 @@
         "fundsOrigin": "наследяване"
       },
       {
+        "category": "real_estate",
+        "description": "част от къща",
+        "detail": null,
+        "location": "Ахтопол",
+        "municipality": "Царево",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Красимира Василева Рачева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "кредит"
+      },
+      {
         "category": "vehicle",
-        "description": "автомобил",
+        "description": "лек автомобил",
         "detail": "Дачиа Логан",
         "location": null,
         "municipality": null,
@@ -95,7 +144,7 @@
       },
       {
         "category": "vehicle",
-        "description": "автомобил",
+        "description": "лек автомобил",
         "detail": "Пежо 208",
         "location": null,
         "municipality": null,
@@ -113,7 +162,7 @@
       },
       {
         "category": "vehicle",
-        "description": "автомобил",
+        "description": "лек автомобил",
         "detail": "Пежо 208",
         "location": null,
         "municipality": null,
@@ -130,8 +179,8 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "кредит - лихв. 5,65 %",
+        "category": "cash",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -140,11 +189,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22500,
-        "valueEur": 11504.067326914916,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Валентин Чанев Рачев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5800,
+        "valueEur": 2965.4929109380673,
         "holderName": "Красимира Василева Рачева",
         "isSpouse": true,
-        "legalBasis": "потребителски",
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40500,
+        "valueEur": 20707.321188446847,
+        "holderName": "Красимира Василева Рачева",
+        "isSpouse": true,
+        "legalBasis": "Потребителски кредит - 6,330%",
         "fundsOrigin": null
       }
     ],

@@ -4,29 +4,61 @@
     "declarantName": "Петър Колев Ламбев",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г11823",
-    "controlHash": "54E9DEB5",
-    "sourceUrl": "https://register.cacbg.bg/2025/571E59CB-6568-4858-A320-D3DF8B504488214975.xml",
+    "entryNumber": "Г11437",
+    "controlHash": "7B636396",
+    "sourceUrl": "https://register.cacbg.bg/2026/571E59CB-6568-4858-A320-D3DF8B504488236352.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1511.3788008160218,
+        "amountEurDeclarant": 2674.567830537419,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12318.555293660493,
+        "amountEurDeclarant": 12626.353006140616,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "debt",
+        "description": "1/2 Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 139853,
+        "valueEur": 71505.70346093475,
+        "holderName": "Петър Колев Ламбев",
+        "isSpouse": false,
+        "legalBasis": "Законна ипотека,  ГЛП 2,56%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Борово",
+        "municipality": "Борово",
+        "areaSqm": 1005,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Дарение"
+      }
+    ]
   }
 ]

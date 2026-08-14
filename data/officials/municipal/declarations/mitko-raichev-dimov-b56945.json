@@ -4,29 +4,84 @@
     "declarantName": "Митко Райчев Димов",
     "institution": "Трекляно",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г11437",
-    "controlHash": "A5183783",
-    "sourceUrl": "https://register.cacbg.bg/2025/9E5F33C0-1FA2-49A0-8895-4D8C2555A0EC214574.xml",
+    "filedAt": null,
+    "entryNumber": "Г12096",
+    "controlHash": "21DAF5AD",
+    "sourceUrl": "https://register.cacbg.bg/2026/9E5F33C0-1FA2-49A0-8895-4D8C2555A0EC237208.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6007.679604055567,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6948.45666545661,
+        "amountEurSpouse": 11013.227120966547
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 92032.53861531932,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 93055.12237771177,
+        "amountEurSpouse": 37447.01737881104
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "трактор-колесен",
+        "detail": "ДОИЦ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
+        "holderName": "Людмила Спасова Димова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 119840,
+        "valueEur": 61273.219042554825,
+        "holderName": "Митко Райчев Димов",
+        "isSpouse": false,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29810,
+        "valueEur": 15241.610978459274,
+        "holderName": "Людмила Спасова Димова",
+        "isSpouse": true,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

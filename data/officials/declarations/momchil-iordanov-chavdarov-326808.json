@@ -5,6 +5,50 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5331",
+    "controlHash": "DDD67507",
+    "sourceUrl": "https://register.cacbg.bg/2026/B73BF43F-EA7A-4D5A-BB65-58EDEAD3F696229583.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23727.522330672913,
+        "amountEurSpouse": 14944.55039548427
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Момчил Йорданов Чавдаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "momchil-iordanov-chavdarov-326808",
+    "declarantName": "Момчил Йорданов Чавдаров",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

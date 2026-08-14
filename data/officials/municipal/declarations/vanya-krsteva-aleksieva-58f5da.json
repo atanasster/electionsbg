@@ -4,91 +4,35 @@
     "declarantName": "Ваня Кръстева Алексиева",
     "institution": "Благоевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г9545",
-    "controlHash": "D518C6B2",
-    "sourceUrl": "https://register.cacbg.bg/2025/D5873B79-D7CA-4E30-A4D3-8324554A5156212590.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14449",
+    "controlHash": "7CF5075B",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5873B79-D7CA-4E30-A4D3-8324554A5156240229.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4729.449901065021,
+        "amountEurDeclarant": 9714.034450846955,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8547.77766983838,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Дарение",
-        "amountEurDeclarant": 5112.918811962185,
+        "amountEurDeclarant": 1475.0770772510903,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Обезщетение за безработица",
-        "amountEurDeclarant": 2850.9635295501143,
+        "amountEurDeclarant": 5702.438350981425,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 7103,
-        "valueEur": 3631.70623213674,
-        "holderName": "Ваня Кръстева Алексиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 4300,
-        "valueEur": 4294.851802048235,
-        "holderName": "Ваня Кръстева Алексиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Рено",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 398.8076673330504,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

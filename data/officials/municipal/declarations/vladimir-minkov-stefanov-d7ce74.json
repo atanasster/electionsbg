@@ -4,48 +4,78 @@
     "declarantName": "Владимир Минков Стефанов",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7013",
-    "controlHash": "C1EDF3CE",
-    "sourceUrl": "https://register.cacbg.bg/2025/A55994E1-E7F6-4D63-A7C1-47E03AF06339210000.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13270",
+    "controlHash": "DC3CD41D",
+    "sourceUrl": "https://register.cacbg.bg/2026/A55994E1-E7F6-4D63-A7C1-47E03AF06339238770.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26929.74338260483,
-        "amountEurSpouse": 10972.835062352045
+        "amountEurDeclarant": 24756.7528875209,
+        "amountEurSpouse": 14637.263974885343
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Ярис",
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Мерцедес-Бенц",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
+        "amount": 16500,
+        "valueEur": 8436.316039737605,
+        "holderName": "Мирела Иванова Карева-Стефанова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
-        "kind": "third_party_expense",
-        "description": "Англия - Лондон",
-        "detail": null,
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": null
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5100,
+        "valueEur": 5112.918811962185,
+        "holderName": "Владимир Минков Стефанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10225,
+        "valueEur": 10225.83762392437,
+        "holderName": "Владимир Минков Стефанов",
+        "isSpouse": false,
+        "legalBasis": "3",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

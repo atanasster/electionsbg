@@ -4,25 +4,25 @@
     "declarantName": "Лилия Кирилова Христова",
     "institution": "Район \"Аспарухово\" - Варна",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2125",
-    "controlHash": "D2D55C87",
-    "sourceUrl": "https://register.cacbg.bg/2025/6A79AD98-FDD9-4282-8E25-CF168EBC3C88204724.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2560",
+    "controlHash": "D2BE38DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A79AD98-FDD9-4282-8E25-CF168EBC3C88226620.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 36497.548355429666,
+        "amountEurDeclarant": 27245.72176518409,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 207.58450376566472,
+        "amountEurDeclarant": 2671.5000792502415,
         "amountEurSpouse": null
       },
       {
@@ -30,9 +30,52 @@
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": 3067.751287177311,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 5183.988383448459,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5750,
+        "valueEur": 2939.9283168782563,
+        "holderName": "Лилия Кирилова Христова",
+        "isSpouse": false,
+        "legalBasis": "заем. 0%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 93237,
+        "valueEur": 47671.321127091825,
+        "holderName": "Лилия Кирилова Христова",
+        "isSpouse": false,
+        "legalBasis": "ипотека, 2.4%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

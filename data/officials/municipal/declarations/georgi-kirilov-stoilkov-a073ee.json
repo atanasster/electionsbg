@@ -4,23 +4,42 @@
     "declarantName": "Георги Кирилов Стоилков",
     "institution": "Петрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10698",
-    "controlHash": "9AA2D333",
-    "sourceUrl": "https://register.cacbg.bg/2025/8CAFCE51-C1F6-4976-BC86-4B5970832F6E213802.xml",
+    "filedAt": "2026-06-25",
+    "entryNumber": "Г13557",
+    "controlHash": "5876E622",
+    "sourceUrl": "https://register.cacbg.bg/2026/8CAFCE51-C1F6-4976-BC86-4B5970832F6E239101.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6813.475608820808,
+        "amountEurDeclarant": 7726.131616756057,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 650.8745647627861,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Рав 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

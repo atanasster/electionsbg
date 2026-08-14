@@ -5,6 +5,62 @@
     "institution": "Селскостопанска академия",
     "positionTitle": "Директор",
     "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6210",
+    "controlHash": "DCA5F81E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D985FA31-91D1-413B-A685-86F505B5F285230511.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24524.11508157662,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1585.0048317082774,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6258.212625841715
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76200,
+        "valueEur": 38960.44134715185,
+        "holderName": "РОСИЦА МИНЧЕВА ТОДОРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rositsa-mincheva-todorova-f47295",
+    "declarantName": "РОСИЦА МИНЧЕВА ТОДОРОВА",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

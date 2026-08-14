@@ -4,36 +4,42 @@
     "declarantName": "Петър Борисов Петров",
     "institution": "Кресна",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13429",
-    "controlHash": "59AFEE9C",
-    "sourceUrl": "https://register.cacbg.bg/2025/108BFE7F-D7FF-4097-B3BA-B7F546B1F0BC216641.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8244",
+    "controlHash": "A4E9BD4C",
+    "sourceUrl": "https://register.cacbg.bg/2026/108BFE7F-D7FF-4097-B3BA-B7F546B1F0BC232734.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26966.04510616976,
-        "amountEurSpouse": 7520.592280515178
+        "amountEurDeclarant": 28915.601049170942,
+        "amountEurSpouse": 9220.126493611408
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1533.8756435886555,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 15721,
-        "valueEur": 8038.019664285751,
+        "currency": "EUR",
+        "amount": 16848,
+        "valueEur": 16848.601361058987,
         "holderName": "Петър Борисов Петров",
         "isSpouse": false,
         "legalBasis": null,
@@ -42,35 +48,40 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 27472,
-        "valueEur": 14046.210560222515,
+        "currency": "EUR",
+        "amount": 22385,
+        "valueEur": 22384.86985065164,
         "holderName": "Бойка Димитрова Петрова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес А140",
+        "category": "receivable",
+        "description": "Депозит/Обезпечение по договор",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16617,
+        "valueEur": 16616.986138877102,
+        "holderName": "Петър Борисов Петров",
+        "isSpouse": false,
+        "legalBasis": "Обезпечение по договор",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

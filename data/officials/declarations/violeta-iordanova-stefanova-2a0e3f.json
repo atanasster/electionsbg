@@ -5,6 +5,56 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7547",
+    "controlHash": "629622AD",
+    "sourceUrl": "https://register.cacbg.bg/2026/97924AD4-D44C-45C6-8323-7FE678BCB2C8231962.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25336.046588916215,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8134.653829831836
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "ВИОЛЕТА ЙОРДАНОВА СТЕФАНОВА",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "violeta-iordanova-stefanova-2a0e3f",
+    "declarantName": "ВИОЛЕТА ЙОРДАНОВА СТЕФАНОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,67 +4,48 @@
     "declarantName": "СЕХЕР МАХМУД ЮСУФ",
     "institution": "Венец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4528",
-    "controlHash": "77A07F9C",
-    "sourceUrl": "https://register.cacbg.bg/2025/B4CED37E-D689-466E-985C-07454BFB945E207386.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8201",
+    "controlHash": "A4CC057F",
+    "sourceUrl": "https://register.cacbg.bg/2026/B4CED37E-D689-466E-985C-07454BFB945E232688.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2290.0763358778627,
+        "amountEurDeclarant": 2534.473855089655,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12745.99530634053,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 342.56556040146637,
+        "amountEurDeclarant": 14052.857354678064,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "НИСАН",
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 18584,
+        "valueEur": 9501.848320150524,
         "holderName": "СЕХЕР МАХМУД ЮСУФ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "КР. ДОГОВОР-6,22%",
+        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ПЕЖО",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,31 +4,31 @@
     "declarantName": "Мария Цонева Цонева",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6180",
-    "controlHash": "61C893B6",
-    "sourceUrl": "https://register.cacbg.bg/2025/2C93C70B-7251-47AB-967B-E560A4398A3E209131.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7719",
+    "controlHash": "32BEC43B",
+    "sourceUrl": "https://register.cacbg.bg/2026/2C93C70B-7251-47AB-967B-E560A4398A3E232150.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7444.921082098137,
+        "amountEurDeclarant": 9021.23395182608,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22080.139889458696,
+        "amountEurDeclarant": 23846.142047110436,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3936.9474852108824,
+        "amountEurDeclarant": 5700.904475337836,
         "amountEurSpouse": null
       }
     ],
@@ -80,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 6395,
-        "valueEur": 6396.261433764694,
+        "amount": 5542,
+        "valueEur": 5541.892700285812,
         "holderName": "Мария Цонева Цонева",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит - 4.3 % лихва",
         "fundsOrigin": null
       },
       {
@@ -98,11 +98,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 52600,
-        "valueEur": 26893.95295092109,
+        "amount": 42020,
+        "valueEur": 21484.4848478651,
         "holderName": "Мария Цонева Цонева",
         "isSpouse": false,
-        "legalBasis": "заем",
+        "legalBasis": "заем - 4.8 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит -кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 972,
+        "valueEur": 496.97570852272435,
+        "holderName": "Мария Цонева Цонева",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта-16.9% лихва",
         "fundsOrigin": null
       }
     ],

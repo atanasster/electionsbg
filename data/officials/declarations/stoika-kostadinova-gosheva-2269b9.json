@@ -1,6 +1,63 @@
 [
   {
     "slug": "stoika-kostadinova-gosheva-2269b9",
+    "declarantName": "Стойка Костадинова Гошева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12558",
+    "controlHash": "129D59B9",
+    "sourceUrl": "https://register.cacbg.bg/2026/07355F71-301D-4A6D-83C0-E3310DB3042B237867.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23014.270156404185,
+        "amountEurSpouse": 6387.0581799031615
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "финансов лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29029,
+        "valueEur": 14842.292019245027,
+        "holderName": "Стойка Костадинова Гошева",
+        "isSpouse": false,
+        "legalBasis": "лизингов договор № 101293 -4.99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ШКОДА ЙЕТИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2161.742073697612,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "stoika-kostadinova-gosheva-2269b9",
     "declarantName": "Стойка  Костадинова Гошева",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

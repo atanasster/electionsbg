@@ -4,74 +4,50 @@
     "declarantName": "Десислава Цвяткова Стоянова",
     "institution": "Аксаково",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9554",
-    "controlHash": "DB9C7265",
-    "sourceUrl": "https://register.cacbg.bg/2025/FB9B77EA-769A-4F35-910F-BDB374E4B11E212599.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г6699",
+    "controlHash": "427A710B",
+    "sourceUrl": "https://register.cacbg.bg/2026/FB9B77EA-769A-4F35-910F-BDB374E4B11E231042.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 27988.628868562195,
-        "amountEurSpouse": 15626.613765000026
+        "amountEurDeclarant": 26363.23197823942,
+        "amountEurSpouse": 19467.949668427216
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6253.610998910948
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurSpouse": 7597.28606269461
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1406.0526732896008,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 1518.536887152769,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 16912.512846208516,
+        "amountEurSpouse": 22763.73713461804
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "category": "Рента",
+        "amountEurDeclarant": 2181.6824570642643,
+        "amountEurSpouse": 598.2115009995756
       },
       {
         "parent": null,
-        "category": "Други /рента/",
-        "amountEurDeclarant": 2339.6716483538958,
-        "amountEurSpouse": 782.2765782302143
-      },
-      {
-        "parent": null,
-        "category": "продажба на криптовалута",
-        "amountEurDeclarant": 5746.409452764299,
-        "amountEurSpouse": 0
+        "category": "продажба автомобил",
+        "amountEurDeclarant": 390.1157053527147,
+        "amountEurSpouse": 390.1157053527147
       }
     ],
     "assets": [
@@ -86,15 +62,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 105000,
+        "valueEur": 53685.647525602944,
         "holderName": "Десислава Цвяткова Стоянова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата/наем/рента/продажба криптовалута"
+        "fundsOrigin": "заплата/наем/рента/продажби земи/остатък от минали години"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -104,32 +80,87 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6676,
-        "valueEur": 3413.3845988659546,
-        "holderName": "Десислава Цвяткова Стоянова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата/наем/рента/продажба криптовалута"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 7662,
-        "valueEur": 3917.518393725426,
+        "amount": 49000,
+        "valueEur": 25053.302178614707,
         "holderName": "Атанас Стоянов Стоянов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата/рента/възнагражд като общ.съветник"
+        "fundsOrigin": "заплати/рента/продажби земи"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11762,
+        "valueEur": 6013.8151066299215,
+        "holderName": "Десислава Цвяткова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата/наем/рента/продажба земи/остатък от минали години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8013,
+        "valueEur": 4096.981844025298,
+        "holderName": "Атанас Стоянов Стоянов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати/рента/проджба земи"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Земя",
+        "detail": null,
+        "location": "гр. Аксаково",
+        "municipality": "Аксаково",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2800.856925192885,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Земя",
+        "detail": null,
+        "location": "с. Николаевка",
+        "municipality": "Суворово",
+        "areaSqm": 12001,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14111.65592101563,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Земя",
+        "detail": null,
+        "location": "гр. Аксаково",
+        "municipality": "Аксаково",
+        "areaSqm": 699,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 22763.73713461804,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

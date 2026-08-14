@@ -5,6 +5,147 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5091",
+    "controlHash": "2F8D6BC8",
+    "sourceUrl": "https://register.cacbg.bg/2026/609BA4D3-C981-45DF-906C-7A3E9DFA1088229333.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32862.263080124554,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 12501.086495247542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 274.56374020236933
+      },
+      {
+        "parent": null,
+        "category": "ПОБ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7434.183952593017
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Кия Сеед",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3550,
+        "valueEur": 1815.0861782465756,
+        "holderName": "Пламен Здравков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 6450,
+        "valueEur": 3297.832633715609,
+        "holderName": "Пламен Здравков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9736,
+        "valueEur": 4977.937755326383,
+        "holderName": "Пламен Здравков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 114068,
+        "valueEur": 58322.04230429025,
+        "holderName": "Пламен здравков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Кия Сеед",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1815.0861782465756,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "plamen-zdravkov-georgiev-ac59c1",
+    "declarantName": "Пламен Здравков Георгиев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,25 +4,43 @@
     "declarantName": "СВЕТЛА ВУШЕВА КОЛЕВА",
     "institution": "Белослав",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13866",
-    "controlHash": "715874B8",
-    "sourceUrl": "https://register.cacbg.bg/2025/A039DCFD-8EF6-40FE-AE5C-E9AFCAE434DF217124.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3997",
+    "controlHash": "CC0EBB56",
+    "sourceUrl": "https://register.cacbg.bg/2026/A039DCFD-8EF6-40FE-AE5C-E9AFCAE434DF228179.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 38924.13962358692,
-        "amountEurSpouse": 9533.54841678469
+        "amountEurDeclarant": 38082.04189525675,
+        "amountEurSpouse": 9852.59455065113
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "БЕЛОСЛАВ",
+        "municipality": "БЕЛОСЛАВ",
+        "areaSqm": 137,
+        "builtAreaSqm": 79,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "ИВАН СТОЙЧЕВ КОЛЕВ",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -32,15 +50,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17646,
-        "valueEur": 9022.25653558847,
+        "amount": 25788,
+        "valueEur": 13185.195032288082,
         "holderName": "СВЕТЛА ВУШЕВА КОЛЕВА",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -50,14 +68,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10010,
-        "valueEur": 5118.031730774147,
+        "amount": 44361,
+        "valueEur": 22681.41914174545,
         "holderName": "ИВАН СТОЙЧЕВ КОЛЕВ",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работна среща в Мюнхен Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 429.4851802048235,
+        "legalBasis": null
+      }
+    ]
   }
 ]

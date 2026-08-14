@@ -4,29 +4,53 @@
     "declarantName": "Сюлейман Исмаилов Лешков",
     "institution": "Попово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г14094",
-    "controlHash": "6B0C1330",
-    "sourceUrl": "https://register.cacbg.bg/2025/BB0344CC-1B2E-4ACB-97AA-384FB0E58FFD217358.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12045",
+    "controlHash": "D78236FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/BB0344CC-1B2E-4ACB-97AA-384FB0E58FFD237146.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4594.46884442922,
-        "amountEurSpouse": 9427.710997377073
+        "amountEurDeclarant": 3989.610548974093,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8060.005215177188,
+        "amountEurDeclarant": 14915.406758256086,
         "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2869.3700372731782
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Сюлейман Исмаилов Лешков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "потребителски кредит",
@@ -42,7 +66,7 @@
         "valueEur": 7792.08826943037,
         "holderName": "Сюлейман Исмаилов Лешков",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "Договор за кредит 4.72% л.пр.",
         "fundsOrigin": null
       }
     ],

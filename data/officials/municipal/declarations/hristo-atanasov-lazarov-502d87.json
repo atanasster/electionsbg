@@ -4,44 +4,31 @@
     "declarantName": "ХРИСТО АТАНАСОВ ЛАЗАРОВ",
     "institution": "Белово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-10",
-    "entryNumber": "Г14933",
-    "controlHash": "5BDC0CE6",
-    "sourceUrl": "https://register.cacbg.bg/2025/515FA0BB-29CE-4827-9104-2F6478FC8EEF218471.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "ДРУЖЕСТВЕН ДЯЛ",
-        "shareSize": "500",
-        "companyName": "ЕЙЧ ЕЛ ЕС ТРЕЙД ЕООД",
-        "registeredOffice": "София (столица)",
-        "valueEur": 255.64594059810923,
-        "holderName": "ЛОРА ОЛЕГОВА ЛАЗАРОВА",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5395",
+    "controlHash": "3D618F77",
+    "sourceUrl": "https://register.cacbg.bg/2026/515FA0BB-29CE-4827-9104-2F6478FC8EEF229651.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 734.7264332789659,
+        "amountEurDeclarant": 1364.638030912707,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 72562.54377936733,
-        "amountEurSpouse": 68697.17715752391
+        "amountEurDeclarant": 122958.0280494726,
+        "amountEurSpouse": 113662.74164932535
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -51,9 +38,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 62920,
-        "valueEur": 32170.485164866066,
-        "holderName": "ЛОРА ОЛЕГОВА ЛАЗАРОВА",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Христо Атанасов Лазаов",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -69,48 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70939,
-        "valueEur": 36270.53476017855,
-        "holderName": "ХРИСТО АТАНАСОВ ЛАЗАРОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "debt",
-        "description": "КРЕДИРТНА КАРТА",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "ХРИСТО АТАНАСОВ ЛАЗЗАРОВ",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Лора Олегова Лазарова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "ОВЪРДРАФТ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "ХРИСТО АТАНАСОВ ЛАЗЗАРОВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

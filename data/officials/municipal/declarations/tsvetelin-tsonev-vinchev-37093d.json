@@ -4,20 +4,20 @@
     "declarantName": "Цветелин Цонев Винчев",
     "institution": "Ловеч",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г2784",
-    "controlHash": "4F57A31B",
-    "sourceUrl": "https://register.cacbg.bg/2025/9717909F-637B-4D74-B0B8-8BADC8AE3F6E205486.xml",
+    "entryNumber": "Г10389",
+    "controlHash": "43A6173F",
+    "sourceUrl": "https://register.cacbg.bg/2026/9717909F-637B-4D74-B0B8-8BADC8AE3F6E235133.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28505.033668570377,
-        "amountEurSpouse": 8927.156245685976
+        "amountEurDeclarant": 28213.086004407338,
+        "amountEurSpouse": 3249.7711968831645
       }
     ],
     "assets": [
@@ -130,8 +130,26 @@
         "fundsOrigin": "заеми"
       },
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Цветелин Цонев Винчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит рефинансиране",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -140,11 +158,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
         "holderName": "Цветелин Цонев Винчев",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит 5,45%",
+        "legalBasis": "потребителски кредит 4,95%",
         "fundsOrigin": null
       }
     ],

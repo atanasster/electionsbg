@@ -4,32 +4,20 @@
     "declarantName": "Стефан Иванов Димов",
     "institution": "Добричка",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г1763",
-    "controlHash": "DEE779AD",
-    "sourceUrl": "https://register.cacbg.bg/2025/3A1D37BA-87C7-4BB3-9BD6-0698062D34F9204297.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г2937",
+    "controlHash": "5D286AB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/3A1D37BA-87C7-4BB3-9BD6-0698062D34F9227032.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "дялов капитал",
-        "shareSize": "30%",
-        "companyName": "Диана Газ и оил ООД",
-        "registeredOffice": "Добрич",
-        "valueEur": 3067.751287177311,
-        "holderName": "Стефан Иванов Димов",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялов капитал",
         "shareSize": "100%",
-        "companyName": "Неди Перфект ЕООД",
+        "companyName": "Неди Перфект ООД",
         "registeredOffice": "Добрич",
         "valueEur": 1.022583762392437,
         "holderName": "Стефан Иванов Димов",
@@ -53,7 +41,7 @@
         "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "100%",
-        "companyName": "Блу енерджи газ - Пазарджик ЕООД",
+        "companyName": "Блу Енерджи Газ-Пазарджик ЕООД",
         "registeredOffice": "Добрич",
         "valueEur": 102.2583762392437,
         "holderName": "Стефан Иванов Димов",
@@ -61,13 +49,26 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6249.009371980183,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дходи от дивиденти",
+        "amountEurDeclarant": 56242.106931584036,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "с.Плачи дол",
+        "location": "Плачи дол",
         "municipality": "Добричка",
         "areaSqm": 1770,
         "builtAreaSqm": 92,
@@ -85,7 +86,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "г.Хасково",
+        "location": "гр.Хасково",
         "municipality": "Хасково",
         "areaSqm": 50,
         "builtAreaSqm": 50,
@@ -146,34 +147,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 76000,
-        "valueEur": 38858.1829709126,
-        "holderName": "Блу Енедджи газ - Пазарджик ЕООД",
-        "isSpouse": true,
-        "legalBasis": "заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "receivable",
-        "description": "превод към фирма",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
         "amount": 100000,
         "valueEur": 51129.188119621846,
-        "holderName": "Неди Перфект ЕООД",
+        "holderName": "\"Неди Перфект\" ЕООД",
         "isSpouse": true,
         "legalBasis": "заем",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -186,12 +169,12 @@
         "valueEur": 86919.61980335714,
         "holderName": "Стефан Иванов Димов",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "Банков кредит",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -204,7 +187,7 @@
         "valueEur": 25564.594059810923,
         "holderName": "Стефан Иванов Димов",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
     ],

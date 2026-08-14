@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "irena-dimitrova-atanasova-f2088e",
+    "declarantName": "Ирена Димитрова Атанасова",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-18",
+    "entryNumber": "Г2786",
+    "controlHash": "91BC2F99",
+    "sourceUrl": "https://register.cacbg.bg/2026/8268FA01-7535-42D9-9DFB-89DE30FE01D2226870.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 70366.03385774838,
+        "amountEurSpouse": 58760.21944647541
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2161.2307818164154,
+        "amountEurSpouse": 2223.097099441158
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 288905,
+        "valueEur": 147714.7809369935,
+        "holderName": "Ирена Димитрова Атанасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48740,
+        "valueEur": 48740.43245067311,
+        "holderName": "Ирена Димитрова Атанасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73717,
+        "valueEur": 37690.90360614164,
+        "holderName": "Иван Илиев Атанасов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

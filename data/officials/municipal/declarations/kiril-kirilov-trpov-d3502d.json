@@ -4,29 +4,48 @@
     "declarantName": "Кирил Кирилов Търпов",
     "institution": "Свиленград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г10495",
-    "controlHash": "BFC13225",
-    "sourceUrl": "https://register.cacbg.bg/2025/8CAE1E77-0DE5-42D7-A84E-15CEDF663740213583.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7827",
+    "controlHash": "7A241BB5",
+    "sourceUrl": "https://register.cacbg.bg/2026/8CAE1E77-0DE5-42D7-A84E-15CEDF663740232273.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5024.976608396435,
+        "amountEurDeclarant": 6433.074449210821,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7596.263478932218,
+        "amountEurDeclarant": 6868.439486049401,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Субару Легаци 2.0 И",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "цял",
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "КИРИЛ Кирилов Търпов",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "Собствени"
+      }
+    ],
     "events": []
   }
 ]

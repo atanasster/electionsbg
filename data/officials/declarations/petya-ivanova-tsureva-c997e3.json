@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "petya-ivanova-tsureva-c997e3",
+    "declarantName": "Петя Иванова Цурева",
+    "institution": "Агенция по геодезия, картография и фотограметрия",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г6245",
+    "controlHash": "23CDB17A",
+    "sourceUrl": "https://register.cacbg.bg/2026/98FF1A24-65E0-4271-A073-64EB10065F67230546.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15641.441229554715,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13845.784142793596,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14000,
+        "valueEur": 13999.68299903366,
+        "holderName": "Петя Иванова Цурева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11473,
+        "valueEur": 11473.389814043143,
+        "holderName": "Петя Иванова Цурева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен договор",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26458,
+        "valueEur": 26458.84356002311,
+        "holderName": "Петя Иванова Цурева",
+        "isSpouse": false,
+        "legalBasis": "3",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "акции/ETF",
+        "detail": "SPDR SP500 INVESKO Nasdaq Nvidia Mastercard Stride Microsoft",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "964",
+        "currency": "BGN",
+        "amount": 24221,
+        "valueEur": 12384.000654453608,
+        "holderName": "Петя Иванова Цурева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

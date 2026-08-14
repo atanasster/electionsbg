@@ -5,6 +5,98 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8441",
+    "controlHash": "0B215BE8",
+    "sourceUrl": "https://register.cacbg.bg/2026/3979138D-FBFA-4F1D-BEE8-252427237A10232948.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36592.13735345096,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 884.534954469458,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 28785,
+        "valueEur": 28784.710327584708,
+        "holderName": "Михаела Атанасова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "вземане от продажба движимост",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7670,
+        "valueEur": 7669.378217943277,
+        "holderName": "Михаела Атанасова Иванова",
+        "isSpouse": false,
+        "legalBasis": "договор за покупко-продажба",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2600,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Михаела Атанасова Иванова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mihaela-atanasova-ivanova-63b790",
+    "declarantName": "Михаела Атанасова Иванова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

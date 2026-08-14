@@ -4,38 +4,74 @@
     "declarantName": "Кристиян Красенов Костадинов",
     "institution": "Тутракан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5257",
-    "controlHash": "C385754B",
-    "sourceUrl": "https://register.cacbg.bg/2025/442A8267-DD9C-48D4-80DD-8FE201A63344208171.xml",
+    "filedAt": null,
+    "entryNumber": "Г4421",
+    "controlHash": "F13257F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/442A8267-DD9C-48D4-80DD-8FE201A63344228621.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8403.08206745985,
+        "amountEurDeclarant": 9234.442666284902,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3703.2870955042104,
+        "amountEurDeclarant": 11606.32570315416,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 14899.556709939003,
+        "amountEurDeclarant": 12514.380084158644,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Русе ул. проф. Васил Арнаудов\" №2",
+        "municipality": "Русе",
+        "areaSqm": 79,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 156466,
+        "valueEur": 79999.79548324752,
+        "holderName": "Кристиян Красенов Костадинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Дачиа сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Кристиян Красенов Костадинов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "лизингов кредит",
+        "description": "лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,27 +80,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25852,
-        "valueEur": 13217.91771268464,
+        "amount": 20580,
+        "valueEur": 10522.386915018176,
         "holderName": "Кристиян Красенов Костадинов",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР + 3,7%",
+        "legalBasis": "3,7",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "VW PASSAT",
+        "category": "debt",
+        "description": "жилищен кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
+        "amount": 144389,
+        "valueEur": 73824.92343404079,
+        "holderName": "Кристиян Красенов Костадинов",
+        "isSpouse": false,
+        "legalBasis": "4,4",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

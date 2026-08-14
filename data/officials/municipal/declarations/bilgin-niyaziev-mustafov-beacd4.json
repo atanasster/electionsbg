@@ -4,47 +4,59 @@
     "declarantName": "Билгин Ниязиев Мустафов",
     "institution": "Омуртаг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г3881",
-    "controlHash": "A94F4CAE",
-    "sourceUrl": "https://register.cacbg.bg/2025/49C66C80-6EA1-4AE8-AFCF-7E673D17086C206700.xml",
+    "filedAt": "2026-04-25",
+    "entryNumber": "Г5688",
+    "controlHash": "BDBD9D28",
+    "sourceUrl": "https://register.cacbg.bg/2026/49C66C80-6EA1-4AE8-AFCF-7E673D17086C229952.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11187.06636057326,
+        "amountEurDeclarant": 6528.174739113318,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5515.305522463609,
+        "amountEurDeclarant": 6810.919149414826,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Парични обезщетения за безработица",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 1139.669603186371
       },
       {
         "parent": null,
         "category": "Помощи/добавки",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 482.148243968034
+        "amountEurSpouse": 578.2711176329232
       },
       {
         "parent": null,
         "category": "Пенсии и добавки",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3554.501158076111
+        "amountEurSpouse": 3657.270826196551
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Билгин Ниязиев Мустафов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -56,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
         "holderName": "Билгин Ниязиев Мустафов",
         "isSpouse": false,
         "legalBasis": null,
@@ -79,7 +91,7 @@
         "holderName": "Мелиха Исмаилова Мустафова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -92,8 +104,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11254,
-        "valueEur": 5754.078830982243,
+        "amount": 7577,
+        "valueEur": 3874.0585838237475,
         "holderName": "Билгин Ниязиев Мустафов",
         "isSpouse": false,
         "legalBasis": null,
@@ -110,14 +122,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2220,
-        "valueEur": 1135.0679762556051,
+        "amount": 4789,
+        "valueEur": 2448.57681904869,
         "holderName": "Мелиха Исмаилова Мустафова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Веренци",
+        "municipality": "Омуртаг",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

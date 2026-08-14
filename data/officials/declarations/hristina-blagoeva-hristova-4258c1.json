@@ -5,6 +5,62 @@
     "institution": "СБАЛОБ \"Зрение\"ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4730",
+    "controlHash": "81424F48",
+    "sourceUrl": "https://register.cacbg.bg/2026/D72E134C-9CDD-46A9-BC6B-DD6D05FE367C228952.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40803.64857886422,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 126909.80299923818,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 56.753398812780254,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48370,
+        "valueEur": 48369.74583680586,
+        "holderName": "Христина Благоева Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristina-blagoeva-hristova-4258c1",
+    "declarantName": "Христина Благоева Христова",
+    "institution": "СБАЛОБ \"Зрение\"ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

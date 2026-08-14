@@ -4,29 +4,66 @@
     "declarantName": "ВЕСЕЛИН НИКОЛОВ КРУМОВ",
     "institution": "Брезник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7801",
-    "controlHash": "882BE6EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/DC5FA830-F938-488B-9889-1B67D7A0A159210805.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10524",
+    "controlHash": "00246244",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC5FA830-F938-488B-9889-1B67D7A0A159235283.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5672.272129990848,
-        "amountEurSpouse": 12054.728682963243
+        "amountEurDeclarant": 6561.920003272268,
+        "amountEurSpouse": 13689.328827147554
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1207.671423385468,
+        "amountEurDeclarant": 4551.009034527541,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25112,
+        "valueEur": 12839.561720599439,
+        "holderName": "Станка Иванова Крумова",
+        "isSpouse": true,
+        "legalBasis": "4,59",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 987,
+        "valueEur": 504.64508674066764,
+        "holderName": "Станка Иванова Крумова",
+        "isSpouse": true,
+        "legalBasis": "18,90",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

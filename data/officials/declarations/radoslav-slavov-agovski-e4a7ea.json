@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10571",
+    "controlHash": "41E2D00B",
+    "sourceUrl": "https://register.cacbg.bg/2026/A65B8F75-F224-48E4-8C36-93BF994BFF57235334.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28909.97683847778,
+        "amountEurSpouse": 6293.491765644253
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15773,
+        "valueEur": 8064.606842107954,
+        "holderName": "Мария Симеонова Власева",
+        "isSpouse": true,
+        "legalBasis": "6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radoslav-slavov-agovski-e4a7ea",
+    "declarantName": "Радослав Славов Аговски",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

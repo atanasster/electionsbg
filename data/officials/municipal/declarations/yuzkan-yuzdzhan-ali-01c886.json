@@ -4,29 +4,66 @@
     "declarantName": "Юзкан Юзджан Али",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12731",
-    "controlHash": "712830E3",
-    "sourceUrl": "https://register.cacbg.bg/2025/756EF3BE-E22D-4EDD-9A44-27AAF2ADE3F1215906.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8860",
+    "controlHash": "5275507E",
+    "sourceUrl": "https://register.cacbg.bg/2026/756EF3BE-E22D-4EDD-9A44-27AAF2ADE3F1233405.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10639.47275581211,
-        "amountEurSpouse": 6447.390621884315
+        "amountEurDeclarant": 6696.389768026874,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8239.468665477061,
+        "amountEurDeclarant": 9701.25215381705,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 660,
+        "valueEur": 337.4526415895042,
+        "holderName": "Юзкан Юзджан Али",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 117665,
+        "valueEur": 60161.15920095305,
+        "holderName": "Юзлем Бехчед Али",
+        "isSpouse": true,
+        "legalBasis": "Договор при лихва 2.63%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -1,50 +1,62 @@
 [
   {
     "slug": "ruzhdi-hasan-ahmed-f7687a",
-    "declarantName": "Ружди Хасан Ахмед",
+    "declarantName": "Ружди  Хасан Ахмед",
     "institution": "Айтос",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6651",
-    "controlHash": "2CD61FAB",
-    "sourceUrl": "https://register.cacbg.bg/2025/69258F3A-932C-41D8-B618-20C9C0C4AEA4209613.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4777",
+    "controlHash": "0ABBC437",
+    "sourceUrl": "https://register.cacbg.bg/2026/69258F3A-932C-41D8-B618-20C9C0C4AEA4229002.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7168.3121743709835,
-        "amountEurSpouse": 5726.469069397647
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 409.0335049569748,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 9014.075865489333,
+        "amountEurSpouse": 6386.035596140769
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 2745.637402023693,
-        "amountEurSpouse": 71.58086336747058
+        "amountEurDeclarant": 10208.453699963698,
+        "amountEurSpouse": 33.74526415895042
+      },
+      {
+        "parent": null,
+        "category": "дивиденти от Вайспласт ООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9714.54574272815
       }
     ],
     "assets": [],
     "events": [
       {
-        "kind": "third_party_expense",
-        "description": "такса",
-        "detail": null,
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес Е220 Блутек",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 715.8086336747059,
-        "legalBasis": null
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес Е220 Блутек",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
       }
     ]
   }

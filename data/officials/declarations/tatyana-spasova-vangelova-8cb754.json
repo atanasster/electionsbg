@@ -5,6 +5,110 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г10807",
+    "controlHash": "B733C419",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD3BA4B9-4317-4F7A-BF72-10450B41F436235602.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27497.27737073263,
+        "amountEurSpouse": 11657.454891273781
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6007.679604055567,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3681.3015446127733
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13498.105663580169
+      },
+      {
+        "parent": null,
+        "category": "наследени средства намерени кеш, след смърт на родител",
+        "amountEurDeclarant": 34533.164947873796,
+        "amountEurSpouse": 40217.70808301335
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ателие",
+        "detail": null,
+        "location": "ул.Александровска 134",
+        "municipality": "Бургас",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 179860,
+        "valueEur": 91960.95775195186,
+        "holderName": "Татяна Спасова Вангелова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "ателие",
+        "detail": null,
+        "location": "ул.Александровска 134",
+        "municipality": "Бургас",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 179860,
+        "valueEur": 91960.95775195186,
+        "holderName": "Веселин Спасов Вангелов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72400,
+        "valueEur": 37017.53219860622,
+        "holderName": "Татяна Спасова Вангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-spasova-vangelova-8cb754",
+    "declarantName": "Татяна Спасова Вангелова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

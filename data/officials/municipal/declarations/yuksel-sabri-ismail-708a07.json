@@ -4,25 +4,38 @@
     "declarantName": "Юксел Сабри Исмаил",
     "institution": "Ардино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2431",
-    "controlHash": "39672B8E",
-    "sourceUrl": "https://register.cacbg.bg/2025/FCAF8017-D8EF-4E7C-BF84-E698C0F28BC3205077.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6826",
+    "controlHash": "40ABB8C3",
+    "sourceUrl": "https://register.cacbg.bg/2026/FCAF8017-D8EF-4E7C-BF84-E698C0F28BC3231181.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "50 %",
+        "companyName": "\"ИЛ-ЕФ\"",
+        "registeredOffice": "с.Опълченско",
+        "valueEur": 25.564594059810926,
+        "holderName": "Гюлбюз Реджеб Исмаил",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2365.236242413707,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 3535.5833584718507,
+        "amountEurSpouse": 1999.1512554772144
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6768.993215156736,
+        "amountEurDeclarant": 9475.261142328322,
         "amountEurSpouse": null
       }
     ],

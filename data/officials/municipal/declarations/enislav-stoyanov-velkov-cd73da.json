@@ -4,29 +4,48 @@
     "declarantName": "ЕНИСЛАВ СТОЯНОВ ВЕЛКОВ",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г10973",
-    "controlHash": "0B957C3C",
-    "sourceUrl": "https://register.cacbg.bg/2025/D29E75E3-E0C4-4856-A427-DEDFFFBBF8A4214092.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г14582",
+    "controlHash": "3E01E862",
+    "sourceUrl": "https://register.cacbg.bg/2026/D29E75E3-E0C4-4856-A427-DEDFFFBBF8A4240508.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4906.868183840109,
+        "amountEurDeclarant": 5731.581988209609,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5691.189929595108,
+        "amountEurDeclarant": 4329.619649969578,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8445,
+        "valueEur": 8445.00800171794,
+        "holderName": "ЕНИСЛАВ СТОЯНОВ ВЕЛКОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

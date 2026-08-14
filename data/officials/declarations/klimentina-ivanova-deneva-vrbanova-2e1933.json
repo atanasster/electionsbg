@@ -1,6 +1,80 @@
 [
   {
     "slug": "klimentina-ivanova-deneva-vrbanova-2e1933",
+    "declarantName": "Климентина Иванова Иванова Денева-Върбанова",
+    "institution": "Министерство на околната среда и водите",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3440",
+    "controlHash": "76E7466A",
+    "sourceUrl": "https://register.cacbg.bg/2026/CDCA62FF-ACB5-4E96-9B5A-CBC119BA425A227573.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 60293.07250630167,
+        "amountEurSpouse": 23769.9595568122
+      },
+      {
+        "parent": null,
+        "category": "обезщетение при пенсиониране",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 27208.39745785677
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 14522.223301616194,
+        "amountEurSpouse": 13542.076765363043
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15339,
+        "valueEur": 15338.756435886555,
+        "holderName": "Климентина Иванова Денева-Върбанова",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит, 4,4% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 77400,
+        "valueEur": 39573.99160458731,
+        "holderName": "Владимир Васьов Върбанов",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит,4% лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "klimentina-ivanova-deneva-vrbanova-2e1933",
     "declarantName": "Климентина Иванова Денева-Върбанова",
     "institution": "Министерство на околната среда и водите",
     "positionTitle": "Главен секретар",

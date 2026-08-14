@@ -4,26 +4,26 @@
     "declarantName": "СЛАВЧО СТОЕВ АТАНАСОВ",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-27",
-    "entryNumber": "Г13769",
-    "controlHash": "FD3F7222",
-    "sourceUrl": "https://register.cacbg.bg/2025/29EA00EC-FE8C-4695-9759-88BF74C3F27A217021.xml",
+    "filedAt": null,
+    "entryNumber": "Г3089",
+    "controlHash": "6FAD33FC",
+    "sourceUrl": "https://register.cacbg.bg/2026/29EA00EC-FE8C-4695-9759-88BF74C3F27A227186.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12491.371949504814,
-        "amountEurSpouse": 16079.107079858679
+        "amountEurDeclarant": 16293.338378079894,
+        "amountEurSpouse": 18245.962072368253
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 556.796858622682
+        "amountEurSpouse": 1270.0490328914068
       },
       {
         "parent": null,
@@ -62,27 +62,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "CHF",
-        "amount": 5000,
-        "valueEur": 5317.435564440672,
+        "amount": 15000,
+        "valueEur": 16343.444982437124,
         "holderName": "ЕЛЕНА СИВКОВА АТАНАСОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "наследяване"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "магазин",
-        "detail": null,
-        "location": "ГР. ПЛОВДИВ",
-        "municipality": "Пловдив",
-        "areaSqm": 32,
-        "builtAreaSqm": 32,
-        "currency": "BGN",
-        "valueEur": 20451.67524784874,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -5,6 +5,87 @@
     "institution": "ДПБ - Раднево",
     "positionTitle": "Директор",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11871",
+    "controlHash": "DCC73C18",
+    "sourceUrl": "https://register.cacbg.bg/2026/B43549CC-AA25-4A59-84B0-AACF1442D1B5236888.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47642.68878174484,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6398.817893170674,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 247452,
+        "valueEur": 126520.19858576666,
+        "holderName": "Владимир Нейчев Трънов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46911,
+        "valueEur": 23985.213438795807,
+        "holderName": "Златка Тодорова Трънова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1619.2613877484239,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "vladimir-neichev-trnov-939512",
+    "declarantName": "Владимир Нейчев Трънов",
+    "institution": "ДПБ - Раднево",
+    "positionTitle": "Директор",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

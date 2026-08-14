@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "plamen-dimitrov-krstev-45df5e",
+    "declarantName": "Пламен Димитров Кръстев",
+    "institution": "Висше военновъздушно училище \"Георги Бенковски\"",
+    "positionTitle": "Заместник-началник",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3836",
+    "controlHash": "AF4DBD3C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E40A2B3D-D3C7-48EB-B141-7E009CBF4709228004.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Куга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 75600,
+        "valueEur": 38653.66621843412,
+        "holderName": "Пламен Димитров Кръстев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Пламен Димитров Кръстев",
+        "isSpouse": false,
+        "legalBasis": "кредит 4,4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6200,
+        "valueEur": 6200.436643266542,
+        "holderName": "Пламен Димитров Кръстев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Гранд Ц макс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

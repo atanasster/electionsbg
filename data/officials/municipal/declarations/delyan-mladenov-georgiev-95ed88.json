@@ -4,36 +4,42 @@
     "declarantName": "Делян Младенов Георгиев",
     "institution": "Район Изгрев",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9137",
-    "controlHash": "E776B5BE",
-    "sourceUrl": "https://register.cacbg.bg/2025/43F9E840-2D6A-4486-9811-EBE8E9DCDB3D212169.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7483",
+    "controlHash": "FB15E966",
+    "sourceUrl": "https://register.cacbg.bg/2026/43F9E840-2D6A-4486-9811-EBE8E9DCDB3D231895.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 43815.275356242615,
+        "amountEurDeclarant": 57969.368503397534,
         "amountEurSpouse": 1022.5837623924369
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "third_party_expense",
-        "description": "Командировка, Хавана, Куба",
-        "detail": null,
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 638.0002351942653,
-        "legalBasis": null
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Делян Младенов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "8",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

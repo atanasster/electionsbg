@@ -1,94 +1,51 @@
 [
   {
     "slug": "metodeya-metodieva-hristova-dimitrova-4e4355",
-    "declarantName": "Методея Методиева Христова - Димитрова",
+    "declarantName": "Методея Методиева Христова-Димитрова",
     "institution": "Радомир",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14628",
-    "controlHash": "C91CBEC1",
-    "sourceUrl": "https://register.cacbg.bg/2025/FC99FAF9-4499-4053-8B44-71F9DCA1E83E217992.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12629",
+    "controlHash": "98861500",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC99FAF9-4499-4053-8B44-71F9DCA1E83E237947.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4820.459855917948,
+        "amountEurDeclarant": 5881.901801281298,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2843.805443213367,
-        "amountEurSpouse": 14111.65592101563
+        "amountEurDeclarant": 9203.253861531934,
+        "amountEurSpouse": 15338.756435886555
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Фолцваген пасат 3",
+        "detail": "Фолцваген",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2012,
-        "share": "1/2",
+        "acquiredYear": 2025,
+        "share": "50%",
         "currency": "BGN",
-        "amount": 2200,
-        "valueEur": 1124.8421386316807,
-        "holderName": "Методея Методиева Христова-Димитрова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолцваген пасат 3",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2012,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 2200,
-        "valueEur": 1124.8421386316807,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Мирослав Йорданов Димитров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Пежо 204",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1073.7129505120588,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Пежо 204",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1073.7129505120588,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -5,6 +5,87 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-02-13",
+    "entryNumber": "Ф46",
+    "controlHash": "3558BE81",
+    "sourceUrl": "https://register.cacbg.bg/2026/54A443A9-33C7-49DB-91C6-CAA9B473E6C3222991.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Дворно място с къща",
+        "detail": null,
+        "location": "гр.Ямбол ул.Черно море 12",
+        "municipality": "Ямбол",
+        "areaSqm": 100,
+        "builtAreaSqm": 500,
+        "acquiredYear": 1993,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1905,
+        "valueEur": 974.0110336787963,
+        "holderName": "Елена Пенева Дойчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-peneva-doicheva-dc04a1",
+    "declarantName": "ЕЛЕНА ПЕНЕВА ДОЙЧЕВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14622",
+    "controlHash": "2A6D4B8E",
+    "sourceUrl": "https://register.cacbg.bg/2026/54A443A9-33C7-49DB-91C6-CAA9B473E6C3240562.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22230.459702530385,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Дворно място с къща",
+        "detail": null,
+        "location": "Ямбол,ул.\"Черно море\"12",
+        "municipality": "Ямбол",
+        "areaSqm": 100,
+        "builtAreaSqm": 500,
+        "acquiredYear": 1993,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3727,
+        "valueEur": 1905.5848412183063,
+        "holderName": "Елена Пенева Дойчева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-peneva-doicheva-dc04a1",
+    "declarantName": "ЕЛЕНА ПЕНЕВА ДОЙЧЕВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

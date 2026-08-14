@@ -1,15 +1,15 @@
 {
   "obshtina": "VID09",
   "registryName": "Видин",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 5,
+    "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 32,
+    "councillor": 33,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -40,7 +41,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -57,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -74,24 +77,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "naiden-ivanov-ionov-20d42d",
-      "name": "Найден Иванов Йонов",
-      "normalizedName": "НАЙДЕН ИВАНОВ ЙОНОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Видин",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "БСП ЗА БЪЛГАРИЯ",
-        "partyCanonicalId": "bsp",
-        "listPos": 101,
-        "prefVotes": 107,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "rumen-iliev-lilov-fb57c3",
@@ -100,7 +87,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "genadi-petkov-velkov-cc0ac5",
@@ -109,7 +97,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -126,7 +115,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "albena-iordanova-panova-cb3592",
@@ -135,7 +125,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -152,7 +143,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -163,13 +155,32 @@
       }
     },
     {
+      "slug": "boyanka-velkova-ivanova-391ca5",
+      "name": "Боянка Велкова Иванова",
+      "normalizedName": "БОЯНКА ВЕЛКОВА ИВАНОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Видин",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 108,
+        "prefVotes": 76,
+        "isElected": false
+      }
+    },
+    {
       "slug": "valeri-georgiev-dimitrov-0df854",
       "name": "Валери Георгиев Димитров",
       "normalizedName": "ВАЛЕРИ ГЕОРГИЕВ ДИМИТРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -188,7 +199,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -205,7 +217,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "valeri-ivanov-sirakov-90b3ad",
@@ -214,7 +227,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -233,7 +247,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -250,7 +265,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -267,7 +283,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ (БЪЛГАРСКИ ГЛАСЪ, ДПС, Българска Социалдемокрация – Евролевица)",
@@ -284,7 +301,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -301,7 +319,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЛЕВИЦАТА!(ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ, МИР, БЪЛГАРСКИ СОЦИАЛДЕМОКРАТИ, БЪЛГАРСКИ ВЪЗХОД)",
@@ -318,7 +337,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -335,7 +355,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -352,7 +373,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -369,7 +391,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -386,7 +409,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -403,7 +427,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ (БЪЛГАРСКИ ГЛАСЪ, ДПС, Българска Социалдемокрация – Евролевица)",
@@ -420,7 +445,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -437,7 +463,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ (БЪЛГАРСКИ ГЛАСЪ, ДПС, Българска Социалдемокрация – Евролевица)",
@@ -454,7 +481,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -471,7 +499,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -488,7 +517,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
@@ -505,7 +535,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -522,7 +553,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
@@ -539,7 +571,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -556,7 +589,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -573,7 +607,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ (БЪЛГАРСКИ ГЛАСЪ, ДПС, Българска Социалдемокрация – Евролевица)",
@@ -590,7 +625,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС(НДСВ, НОВОТО ВРЕМЕ)",
@@ -607,7 +643,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -624,7 +661,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -641,7 +679,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ (БЪЛГАРСКИ ГЛАСЪ, ДПС, Българска Социалдемокрация – Евролевица)",
@@ -658,7 +697,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Видин",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

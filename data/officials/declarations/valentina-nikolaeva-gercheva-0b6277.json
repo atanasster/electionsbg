@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1307",
+    "controlHash": "988DE387",
+    "sourceUrl": "https://register.cacbg.bg/2026/3BB2445A-4E29-4CBE-96AC-E094435DAF7D225123.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25988.45502932259,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ремарке",
+        "detail": "Пажент Маджестик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1620,
+        "valueEur": 828.292847537874,
+        "holderName": "Валентина Николаева Герчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7769,
+        "valueEur": 7769.5914266577365,
+        "holderName": "Валентина Николаева Герчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valentina-nikolaeva-gercheva-0b6277",
+    "declarantName": "Валентина Николаева Герчева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

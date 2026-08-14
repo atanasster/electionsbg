@@ -5,6 +5,74 @@
     "institution": "РДНСК",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7764",
+    "controlHash": "0780CA7C",
+    "sourceUrl": "https://register.cacbg.bg/2026/8055938C-F3BE-476E-BFA8-02FA86A6A64F232200.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24030.71841622227,
+        "amountEurSpouse": 24030.71841622227
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4601.626930765967,
+        "amountEurSpouse": 2045.1675247848739
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Кирил Николов Москов и Анна Евгениева Господинова-Москова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Анна Евгениева Господинова-Москова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kiril-nikolov-moskov-e22dd6",
+    "declarantName": "КИРИЛ НИКОЛОВ МОСКОВ",
+    "institution": "РДНСК",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

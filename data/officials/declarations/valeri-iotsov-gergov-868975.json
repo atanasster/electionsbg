@@ -5,6 +5,68 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2015",
+    "controlHash": "C0DB1930",
+    "sourceUrl": "https://register.cacbg.bg/2026/36EA1F4C-27EA-499C-ACF5-65B0C2FFF137225991.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26177.121733483993,
+        "amountEurSpouse": 7264.946339917068
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46410,
+        "valueEur": 23729.0562063165,
+        "holderName": "Валери Йоцов Гергов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19758,
+        "valueEur": 10102.104988674884,
+        "holderName": "Наталия Благоева Гергова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valeri-iotsov-gergov-868975",
+    "declarantName": "Валери Йоцов Гергов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

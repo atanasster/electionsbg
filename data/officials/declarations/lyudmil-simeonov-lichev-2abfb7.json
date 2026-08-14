@@ -5,6 +5,86 @@
     "institution": "МБАЛ \"проф. д-р Асен Шопов\" ЕООД, гр. Златоград",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6272",
+    "controlHash": "FF7E9D4A",
+    "sourceUrl": "https://register.cacbg.bg/2026/41BEA8A7-22B7-46C5-B404-1124C8747EBF230575.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 116281.06737293118,
+        "amountEurSpouse": 18825.25577376357
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 44686.910416549494,
+        "amountEurSpouse": 301.6622099057689
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения и помощи по ч.40, ал.5 от КСО",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 87.94220356574958
+      },
+      {
+        "parent": null,
+        "category": "Компенсационни суми, които са освободени от облагане по чл.24, ал.2, т.7 от ЗДФФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 434.59809901678574
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 66951,
+        "valueEur": 66951.62667512003,
+        "holderName": "Людмил Симеонов Личев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14490,
+        "valueEur": 7408.619358533206,
+        "holderName": "Людмил Симеонов Личев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyudmil-simeonov-lichev-2abfb7",
+    "declarantName": "Людмил Симеонов Личев",
+    "institution": "МБАЛ \"проф. д-р Асен Шопов\" ЕООД, гр. Златоград",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

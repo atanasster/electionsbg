@@ -4,55 +4,31 @@
     "declarantName": "Къймет Юсуф Исмаил",
     "institution": "Венец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3897",
-    "controlHash": "22A913B5",
-    "sourceUrl": "https://register.cacbg.bg/2025/6B6EF18A-C787-40B9-A5AD-20B2603D8E45206716.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8026",
+    "controlHash": "BEFD17D0",
+    "sourceUrl": "https://register.cacbg.bg/2026/6B6EF18A-C787-40B9-A5AD-20B2603D8E45232500.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13320.176088923885,
+        "amountEurDeclarant": 8670.999013206669,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5636.992990188309,
+        "amountEurDeclarant": 16614.940971352316,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 69.0244039614895,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от събиране на диворастящи гъби, облагаеми с алтернативен данък по чл. 41а от ЗДДФЛ",
-        "amountEurDeclarant": 2947.5976950961995,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от дивиденти и ликвидационни дялове по чл. 38, ал. 1 от ЗДДФЛ",
-        "amountEurDeclarant": 77.71636594182522,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Обезщетения и помощи по част първа от Кодекса за социално осигуряване, включително изплатените на\nоснование чл. 40, ал. 5 от същия кодекс, освободени от облагане на основание чл. 24, ал. 2, т. 14 от ЗДДФЛ",
-        "amountEurDeclarant": 49.08402059483697,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от лихви по влогове, освободени от облагане на основание чл. 13, ал. 1, т. 8 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
+        "category": "Доходи от събиране на диворастящи гъби, облагаеми с автернативен данък по чл. 41а от ЗДДФЛ",
+        "amountEurDeclarant": 4385.350465019966,
         "amountEurSpouse": null
       }
     ],
@@ -68,11 +44,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17300,
-        "valueEur": 8845.34954469458,
+        "amount": 38496,
+        "valueEur": 19682.692258529627,
         "holderName": "Къймет Юсуф Исмаил",
         "isSpouse": false,
-        "legalBasis": "Договор за банков кредит - 5.90 %",
+        "legalBasis": "Договор - 5,90 %",
         "fundsOrigin": null
       },
       {
@@ -86,27 +62,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16500,
-        "valueEur": 8436.316039737605,
+        "amount": 14833,
+        "valueEur": 7583.992473783509,
         "holderName": "Къймет Юсуф Исмаил",
         "isSpouse": false,
-        "legalBasis": "Договор за банков кредит - 5.05 %",
+        "legalBasis": "Договор - 6,10 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит за текущо потребление",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14273,
+        "valueEur": 7297.669020313627,
+        "holderName": "Къймет Юсуф Исмаил",
+        "isSpouse": false,
+        "legalBasis": "Договор - 5,25%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Шумен",
-        "municipality": "Шумен",
-        "areaSqm": 44,
-        "builtAreaSqm": 44,
-        "currency": "BGN",
-        "valueEur": 18662.153663661975,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

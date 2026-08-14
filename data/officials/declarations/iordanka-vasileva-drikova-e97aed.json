@@ -5,6 +5,93 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2360",
+    "controlHash": "332A3CCE",
+    "sourceUrl": "https://register.cacbg.bg/2026/8A4A9631-4F91-47AC-8704-D3ED5B0524DF226406.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23632.422040770416,
+        "amountEurSpouse": 5524.50877632514
+      },
+      {
+        "parent": null,
+        "category": "НОИ  - Пенсия за инвалидност",
+        "amountEurDeclarant": 4662.470664628317,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дирекция Социално Подпомагане  - гр. Ракитово - помощ",
+        "amountEurDeclarant": 344.09943604505503,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "нисан джук",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4700,
+        "valueEur": 2403.071841622227,
+        "holderName": "Йорданка Василева Дрикова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "сузуки гранд витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
+        "holderName": "Муса Юсеинов Дриков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "iordanka-vasileva-drikova-e97aed",
+    "declarantName": "Йорданка Василева Дрикова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

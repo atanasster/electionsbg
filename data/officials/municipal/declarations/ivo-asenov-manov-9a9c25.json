@@ -4,19 +4,25 @@
     "declarantName": "Иво Асенов Манов",
     "institution": "Угърчин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г11071",
-    "controlHash": "CFAD91F4",
-    "sourceUrl": "https://register.cacbg.bg/2025/2F8E7EB4-A036-4814-BAAB-BE5DA0ABCB42214195.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9713",
+    "controlHash": "5153ABCA",
+    "sourceUrl": "https://register.cacbg.bg/2026/2F8E7EB4-A036-4814-BAAB-BE5DA0ABCB42234359.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6394.727558121104,
+        "amountEurDeclarant": 7377.430553780237,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2246.1052340949877,
         "amountEurSpouse": null
       }
     ],
@@ -32,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32000,
-        "valueEur": 16361.340198278991,
+        "amount": 45430,
+        "valueEur": 23227.990162744205,
         "holderName": "Иво Асенов Манов",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор, лихвен %12.5",
         "fundsOrigin": null
       }
     ],

@@ -4,23 +4,48 @@
     "declarantName": "Елеонора Николаева Гаврилова",
     "institution": "Симитли",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13241",
-    "controlHash": "8359DA8F",
-    "sourceUrl": "https://register.cacbg.bg/2025/1349C9A6-83D6-440D-9366-8807B378CA19216442.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13494",
+    "controlHash": "6166FF3B",
+    "sourceUrl": "https://register.cacbg.bg/2026/1349C9A6-83D6-440D-9366-8807B378CA19239010.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12888.645741194276,
-        "amountEurSpouse": 12162.611269895646
+        "amountEurDeclarant": 16966.709785615316,
+        "amountEurSpouse": 20668.974297357134
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 65.44536079311597,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "кия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1200,
+        "valueEur": 613.5502574354622,
+        "holderName": "Борислав Драгомиров Гаврилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -1,6 +1,68 @@
 [
   {
     "slug": "tonka-dinkova-atanasova-dae950",
+    "declarantName": "Тонка Динкова Атанасова",
+    "institution": "РИОСВ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8790",
+    "controlHash": "6DA6C2DF",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D654385-6C01-4B74-8B56-1B0CB1B814A9233327.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34178.83967420481,
+        "amountEurSpouse": 7898.94827260038
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42052,
+        "valueEur": 21500.84618806338,
+        "holderName": "Тонка Динкова Атанасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9603,
+        "valueEur": 4909.935935127286,
+        "holderName": "Николай Атанасов Атанасов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tonka-dinkova-atanasova-dae950",
     "declarantName": "ТОНКА ДИНКОВА АТАНАСОВА",
     "institution": "РИОСВ",
     "positionTitle": "Директор",

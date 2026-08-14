@@ -1,15 +1,15 @@
 {
   "obshtina": "VAR24",
   "registryName": "Провадия",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 3,
+    "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 21,
+    "councillor": 19,
     "chief_architect": 0,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "svilena-nikova-ivanova-cfec2e",
@@ -47,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -58,30 +61,14 @@
       }
     },
     {
-      "slug": "sevim-tezzhan-mustafa-1a037e",
-      "name": "Севим Тезжан Мустафа",
-      "normalizedName": "СЕВИМ ТЕЗЖАН МУСТАФА",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Движение за права и свободи – ДПС",
-        "partyCanonicalId": "p_16",
-        "listPos": 103,
-        "prefVotes": 23,
-        "isElected": false
-      }
-    },
-    {
       "slug": "dian-parushev-nikolov-510a17",
       "name": "Диан Парушев Николов",
       "normalizedName": "ДИАН ПАРУШЕВ НИКОЛОВ",
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -98,7 +85,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -115,7 +103,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -126,30 +115,14 @@
       }
     },
     {
-      "slug": "georgi-milkov-simeonov-c9f565",
-      "name": "Георги Милков Симеонов",
-      "normalizedName": "ГЕОРГИ МИЛКОВ СИМЕОНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "СДС",
-        "partyCanonicalId": "p_126",
-        "listPos": 114,
-        "prefVotes": 99,
-        "isElected": true
-      }
-    },
-    {
       "slug": "darin-iordanov-iordanov-3c3340",
       "name": "Дарин Йорданов Йорданов",
       "normalizedName": "ДАРИН ЙОРДАНОВ ЙОРДАНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -166,7 +139,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -183,7 +157,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -194,30 +169,14 @@
       }
     },
     {
-      "slug": "elina-georgieva-dimitrova-6d8f81",
-      "name": "Елина Георгиева Димитрова",
-      "normalizedName": "ЕЛИНА ГЕОРГИЕВА ДИМИТРОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "БСП ЗА БЪЛГАРИЯ",
-        "partyCanonicalId": "bsp",
-        "listPos": 103,
-        "prefVotes": 87,
-        "isElected": true
-      }
-    },
-    {
       "slug": "zhoro-ivanov-ilchev-f89ec6",
       "name": "Жоро Иванов Илчев",
       "normalizedName": "ЖОРО ИВАНОВ ИЛЧЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС",
@@ -234,7 +193,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -251,7 +211,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -268,7 +229,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС",
@@ -285,7 +247,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "СДС",
@@ -302,7 +265,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -319,7 +283,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -336,7 +301,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -353,7 +319,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -370,7 +337,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -387,7 +355,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -404,7 +373,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -423,7 +393,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "hyuliya-ahmedova-mustafova-be0ecc",
@@ -432,7 +403,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Провадия",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",

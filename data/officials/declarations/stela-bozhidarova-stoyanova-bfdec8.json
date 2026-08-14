@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г11545",
+    "controlHash": "DB354BDA",
+    "sourceUrl": "https://register.cacbg.bg/2026/EC0430F1-FCBE-4D0E-8261-51681911B36E236480.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Майчинство",
+        "amountEurDeclarant": 7735.979098387897,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 130444,
+        "valueEur": 66694.95815075953,
+        "holderName": "Стела Стоянова-Иванова; Радостин Иванов",
+        "isSpouse": true,
+        "legalBasis": "2,7",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17644,
+        "valueEur": 9021.23395182608,
+        "holderName": "Стела Стоянова-Иванова; Радостин Иванов",
+        "isSpouse": true,
+        "legalBasis": "8,1",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stela-bozhidarova-stoyanova-bfdec8",
+    "declarantName": "Стела Божидарова Стоянова-Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,15 +1,15 @@
 {
   "obshtina": "SHU21",
   "registryName": "Никола Козлево",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
-    "council_chair": 2,
-    "councillor": 11,
+    "council_chair": 1,
+    "councillor": 12,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "sevgin-ruzhdi-ahmed-ea7a48",
@@ -47,24 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "nurai-ferudin-redzheb-517136",
-      "name": "Нурай Ферудин Реджеб",
-      "normalizedName": "НУРАЙ ФЕРУДИН РЕДЖЕБ",
-      "role": "council_chair",
-      "roleRaw": "Председател на ОбС",
-      "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
-        "partyCanonicalId": "p_134",
-        "listPos": 102,
-        "prefVotes": 16,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "halil-rufat-ali-d75f39",
@@ -73,7 +59,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
@@ -90,7 +77,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "ahmed-fikret-ahmed-35ace1",
@@ -99,7 +87,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -116,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
@@ -133,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -150,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -167,7 +159,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -184,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -195,21 +189,32 @@
       }
     },
     {
-      "slug": "redzheb-eshref-veli-7d2f2d",
-      "name": "Реджеб Ешреф Вели",
-      "normalizedName": "РЕДЖЕБ ЕШРЕФ ВЕЛИ",
+      "slug": "nurai-ferudin-redzheb-8dd78b",
+      "name": "Нурай Ферудин Реджеб",
+      "normalizedName": "НУРАЙ ФЕРУДИН РЕДЖЕБ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
         "partyCanonicalId": "p_134",
-        "listPos": 101,
-        "prefVotes": 30,
+        "listPos": 102,
+        "prefVotes": 16,
         "isElected": true
       }
+    },
+    {
+      "slug": "redzheb-eshref-eshrefoglu-8f4e07",
+      "name": "Реджеб Ешреф Ешрефоглу",
+      "normalizedName": "РЕДЖЕБ ЕШРЕФ ЕШРЕФОГЛУ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Никола Козлево",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "turhan-fahredin-karakash-e4bf15",
@@ -218,7 +223,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -235,7 +241,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
@@ -252,7 +259,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК \"ДПС\" (БСП за България)",
@@ -269,7 +277,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Никола Козлево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",

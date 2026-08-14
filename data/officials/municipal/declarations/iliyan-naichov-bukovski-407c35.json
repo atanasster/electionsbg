@@ -4,25 +4,25 @@
     "declarantName": "Илиян Найчов Буковски",
     "institution": "Борован",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8130",
-    "controlHash": "BD64CFEA",
-    "sourceUrl": "https://register.cacbg.bg/2025/4BDC66AE-C2BD-45FB-BE3B-B396785737CE211139.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3977",
+    "controlHash": "0931B657",
+    "sourceUrl": "https://register.cacbg.bg/2026/4BDC66AE-C2BD-45FB-BE3B-B396785737CE228159.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14305.946835870192,
+        "amountEurDeclarant": 15867.94353292464,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 762.8474867447579,
+        "amountEurDeclarant": 562.4210693158403,
         "amountEurSpouse": null
       }
     ],
@@ -30,35 +30,40 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Мерцедес",
+        "detail": "БМВ Х5",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 5548,
-        "valueEur": 2836.64735687662,
+        "amount": 4498,
+        "valueEur": 2299.790881620591,
         "holderName": "Илиян Найчов Буковски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес",
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1800.7700055730816,
-        "legalBasis": "възмездно"
+        "amount": 18415,
+        "valueEur": 9415.439992228363,
+        "holderName": "Илиян Найчов Буковски",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит с уговорен лихвен процент 29,99 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

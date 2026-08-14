@@ -4,32 +4,32 @@
     "declarantName": "Васил Алексиев Василев",
     "institution": "Несебър",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г15302",
-    "controlHash": "622CBADF",
-    "sourceUrl": "https://register.cacbg.bg/2025/BC951435-9B9C-4AA2-B9CC-3269BA49F22C219152.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2755",
+    "controlHash": "5AF87E8C",
+    "sourceUrl": "https://register.cacbg.bg/2026/BC951435-9B9C-4AA2-B9CC-3269BA49F22C226837.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5762.7707929625785,
+        "amountEurDeclarant": 6826.769197731909,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12584.938363763722,
+        "amountEurDeclarant": 14186.304535670279,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Пенсия",
+        "category": "пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4276.956586206367
+        "amountEurSpouse": 4700.3062638368365
       }
     ],
     "assets": [
@@ -48,7 +48,7 @@
         "valueEur": 3579.0431683735296,
         "holderName": "Васил Алексиев Василев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "покупко продажба",
         "fundsOrigin": "заплата"
       },
       {
@@ -59,7 +59,7 @@
         "municipality": "Несебър",
         "areaSqm": 750,
         "builtAreaSqm": 200,
-        "acquiredYear": 1986,
+        "acquiredYear": 1988,
         "share": null,
         "currency": null,
         "amount": null,
@@ -71,7 +71,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек Автомобил",
+        "description": "лек автомобил",
         "detail": "Нисан Терано",
         "location": null,
         "municipality": null,
@@ -82,8 +82,8 @@
         "currency": "BGN",
         "amount": 500,
         "valueEur": 255.64594059810923,
-        "holderName": "Васил Алексиев Василлев",
-        "isSpouse": true,
+        "holderName": "Васил Алексиев Василев",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -106,20 +106,38 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 11346,
-        "valueEur": 5801.117684052295,
-        "holderName": "Василл Алексиев Василев",
-        "isSpouse": true,
+        "currency": "EUR",
+        "amount": 10579,
+        "valueEur": 10579.140313830956,
+        "holderName": "Васил Алексиев Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10579,
+        "valueEur": 10579.140313830956,
+        "holderName": "Васил Алексиев Василев",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

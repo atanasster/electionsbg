@@ -1,0 +1,149 @@
+[
+  {
+    "slug": "ivanka-angelova-konakchiiska-9083f1",
+    "declarantName": "Иванка Ангелова Конакчийска",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1707",
+    "controlHash": "AB9E4009",
+    "sourceUrl": "https://register.cacbg.bg/2026/72DFFB33-3D63-4411-B5ED-FB8468BB4F42225653.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 74978.39791801946,
+        "amountEurSpouse": 86197.67566710808
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11969.342938803475
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Иванка Ангелова Конакчийска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Ивайло Миладинов Конакчийски",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55840,
+        "valueEur": 28550.53864599684,
+        "holderName": "Иванка Ангелова Конакчийска",
+        "isSpouse": false,
+        "legalBasis": "ипотека 2,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55840,
+        "valueEur": 28550.53864599684,
+        "holderName": "Ивайло Миладинов Конакчийски",
+        "isSpouse": true,
+        "legalBasis": "ипотека 2,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74978,
+        "valueEur": 38335.64266833007,
+        "holderName": "Иванка Ангелова Конакчийска",
+        "isSpouse": false,
+        "legalBasis": "доковор за кредит 4,76 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Созуки - Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "Созуки - Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -5,6 +5,74 @@
     "institution": "ПУДООС",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г4156",
+    "controlHash": "FD70CCBD",
+    "sourceUrl": "https://register.cacbg.bg/2026/72E1DB3F-8FF0-41FC-8F79-48E9D362F4A4228352.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 19505.785267635736
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 25256.285055449604,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25028,
+        "valueEur": 12796.613202578956,
+        "holderName": "Мариета Йорданова Георгиева - Попова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Ивайло Радоев Фитковски",
+        "isSpouse": true,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-nikolaev-popov-b2cf4f",
+    "declarantName": "Любомир Николаев Попов",
+    "institution": "ПУДООС",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

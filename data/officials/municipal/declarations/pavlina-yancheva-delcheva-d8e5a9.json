@@ -4,61 +4,78 @@
     "declarantName": "Павлина Янчева Делчева",
     "institution": "Стара Загора",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10523",
-    "controlHash": "73EF7A08",
-    "sourceUrl": "https://register.cacbg.bg/2025/E1EA928C-ED14-404C-B35C-E2EEE7B47266213617.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11624",
+    "controlHash": "9CD6D31A",
+    "sourceUrl": "https://register.cacbg.bg/2026/E1EA928C-ED14-404C-B35C-E2EEE7B47266236569.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23549.592756016627,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 409.0335049569748,
+        "amountEurDeclarant": 23787.854772654064,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Потребителски кредит FL1508178",
-        "detail": "BGN",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 18304,
-        "valueEur": 9358.686593415583,
+        "currency": "EUR",
+        "amount": 27969,
+        "valueEur": 27969.19977707674,
         "holderName": "Павлина Янчева Делчева",
         "isSpouse": false,
-        "legalBasis": "потреб. Кредит / лихва 4,45",
+        "legalBasis": "Ипотечен кредит 2.68",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "МПС",
-        "detail": "Фолксваген голф",
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 51.12918811962185,
-        "legalBasis": "възмездно"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 11999.509159794052,
+        "holderName": "Павлина Янчева Делчева",
+        "isSpouse": false,
+        "legalBasis": "Потребит. кредит 3.99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 963,
+        "valueEur": 963.2739041736756,
+        "holderName": "Павлина Янчева Делчева",
+        "isSpouse": false,
+        "legalBasis": "Кредитна карта18.9",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

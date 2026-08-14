@@ -4,40 +4,52 @@
     "declarantName": "Илия Николаев Томов",
     "institution": "Смолян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10984",
-    "controlHash": "BF2FE8CC",
-    "sourceUrl": "https://register.cacbg.bg/2025/89903851-7BDC-4328-8EBE-88E0A9AADE4C214103.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12826",
+    "controlHash": "1E0CC98C",
+    "sourceUrl": "https://register.cacbg.bg/2026/89903851-7BDC-4328-8EBE-88E0A9AADE4C238168.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5010.660435722941,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4908.4020594836975,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 145287.67837695507,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 8794.220356574959,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Смолян",
-        "municipality": "Смолян",
-        "areaSqm": 1500,
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
+        "amount": 284158,
+        "valueEur": 145287.67837695507,
         "holderName": "Илия Николаев Томов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": "дивидент от търговска дейност"
       }
     ],
     "events": []

@@ -4,32 +4,44 @@
     "declarantName": "Венетка Иванова Колева",
     "institution": "Попово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-25",
-    "entryNumber": "Г232",
-    "controlHash": "75AEDEB5",
-    "sourceUrl": "https://register.cacbg.bg/2025/48E53467-39B3-478D-BC63-B68E642A861E202014.xml",
+    "filedAt": null,
+    "entryNumber": "Г9885",
+    "controlHash": "1D13DC62",
+    "sourceUrl": "https://register.cacbg.bg/2026/48E53467-39B3-478D-BC63-B68E642A861E234558.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5465.198918106379,
+        "amountEurDeclarant": 5285.735467806507,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 38880.67981368524,
+        "amountEurDeclarant": 41534.79596897481,
         "amountEurSpouse": null
       },
       {
         "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8901.591651626164
+      },
+      {
+        "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 640.6487271388618,
-        "amountEurSpouse": 734.7264332789659
+        "amountEurDeclarant": 731.1473901105925,
+        "amountEurSpouse": 615.5954249602471
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 18267.436331378492,
+        "amountEurSpouse": 6509.256939509058
       }
     ],
     "assets": [
@@ -44,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 235026,
-        "valueEur": 120166.88567002244,
+        "amount": 19557,
+        "valueEur": 9999.335320554444,
         "holderName": "Венетка Иванова Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "Заплата, пенсия"
       },
       {
         "category": "bank",
@@ -62,12 +74,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38858,
-        "valueEur": 19867.779919522658,
+        "amount": 258501,
+        "valueEur": 132169.46258110367,
+        "holderName": "Венетка Иванова Колева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44759,
+        "valueEur": 22884.913310461543,
         "holderName": "Йордан Йорданов Колев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "пенсия, комисиона"
       }
     ],
     "events": []

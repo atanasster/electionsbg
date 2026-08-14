@@ -5,6 +5,111 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5821",
+    "controlHash": "29BC1384",
+    "sourceUrl": "https://register.cacbg.bg/2026/7D9E4FA6-A31F-4D45-951F-E2C22E27B09E230093.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 70767.39798448741,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98000,
+        "valueEur": 50106.604357229415,
+        "holderName": "Надя Йорданова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на политическа партия ДПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на политическа партия ДПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на политическа партия ДПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на политическа партия ДПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3272.2680396557985,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение НОИ-ДОО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5241.764366023632,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "nadya-iordanova-petrova-6ff4a9",
+    "declarantName": "Надя Йорданова Петрова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

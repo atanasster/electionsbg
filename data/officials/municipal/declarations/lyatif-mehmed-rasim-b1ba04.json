@@ -1,29 +1,35 @@
 [
   {
     "slug": "lyatif-mehmed-rasim-b1ba04",
-    "declarantName": "Лятиф Мехмед Расим",
+    "declarantName": "ЛЯТИФ  МЕХМЕД  РАСИМ",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13511",
-    "controlHash": "9D7C7B49",
-    "sourceUrl": "https://register.cacbg.bg/2025/13181CD2-6E2E-4F38-B834-C4A7161BD7EC216731.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7513",
+    "controlHash": "A696F934",
+    "sourceUrl": "https://register.cacbg.bg/2026/13181CD2-6E2E-4F38-B834-C4A7161BD7EC231927.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21595.946477965877,
-        "amountEurSpouse": 19394.834929416156
+        "amountEurDeclarant": 9791.239524907583,
+        "amountEurSpouse": 21634.80466093679
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12277.140651283598,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Лизиг",
+        "description": "Лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37776,
-        "valueEur": 19314.56210406835,
-        "holderName": "Лятиф Мехмед Расим",
+        "amount": 26281,
+        "valueEur": 13437.261929717819,
+        "holderName": "Лятиф Мехмед  Расим",
         "isSpouse": false,
-        "legalBasis": "лизинг",
+        "legalBasis": "лизинг 4,9%",
         "fundsOrigin": null
       }
     ],

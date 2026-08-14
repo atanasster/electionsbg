@@ -4,26 +4,26 @@
     "declarantName": "Димитър Иванов Стаменков",
     "institution": "Невестино",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г14035",
-    "controlHash": "4185C200",
-    "sourceUrl": "https://register.cacbg.bg/2025/C84B291F-2438-48A3-9B15-216760633BA2217297.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9175",
+    "controlHash": "38432418",
+    "sourceUrl": "https://register.cacbg.bg/2026/C84B291F-2438-48A3-9B15-216760633BA2233761.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35556.26000214743,
+        "amountEurDeclarant": 40696.27728381301,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "пенсия",
-        "amountEurDeclarant": 15053.966858060261,
-        "amountEurSpouse": 7808.960901509845
+        "amountEurDeclarant": 16791.847962246207,
+        "amountEurSpouse": 8569.251928848622
       },
       {
         "parent": null,
@@ -33,24 +33,6 @@
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ Х5",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Димитър Иванов Стаменков и Боряна Тончева Стаменкова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -106,19 +88,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Сузуки Джимни",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

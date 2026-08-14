@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-04",
+    "entryNumber": "Г208",
+    "controlHash": "D558496F",
+    "sourceUrl": "https://register.cacbg.bg/2026/D52723E8-2793-4D56-9DA3-9837641F0E5A223199.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1937.2849378524718,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения за майчинство",
+        "amountEurDeclarant": 12141.137010885404,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 10000,
+        "valueEur": 8505.340443699095,
+        "holderName": "Здравко Петров Барукчиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boika-manova-barukchieva-d902f1",
+    "declarantName": "Бойка Манова Барукчиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

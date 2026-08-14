@@ -4,20 +4,26 @@
     "declarantName": "Славчо Теофилов Савов",
     "institution": "Якимово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5735",
-    "controlHash": "FFA52368",
-    "sourceUrl": "https://register.cacbg.bg/2025/E0A58C95-09C9-4659-90EE-BA652C9862DF208678.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г12953",
+    "controlHash": "6A2E5B40",
+    "sourceUrl": "https://register.cacbg.bg/2026/E0A58C95-09C9-4659-90EE-BA652C9862DF238305.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3618.9239351068345,
-        "amountEurSpouse": 6202.993102672523
+        "amountEurDeclarant": 3951.2636578843767,
+        "amountEurSpouse": 7177.004136351319
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 4061.7027042227596,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -37,7 +43,7 @@
         "holderName": "Славчо Теофилов Савов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания от предходни години от заплати"
       }
     ],
     "events": []

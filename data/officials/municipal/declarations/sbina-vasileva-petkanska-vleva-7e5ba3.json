@@ -1,52 +1,34 @@
 [
   {
     "slug": "sbina-vasileva-petkanska-vleva-7e5ba3",
-    "declarantName": "Събина Василева Петканска-Вълева",
+    "declarantName": "Събинаа Василева Петканска-Вълева",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г12823",
-    "controlHash": "A17D212E",
-    "sourceUrl": "https://register.cacbg.bg/2025/ED6D93A0-72F8-452F-A25A-3A3224C203F7216000.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14381",
+    "controlHash": "091126DB",
+    "sourceUrl": "https://register.cacbg.bg/2026/ED6D93A0-72F8-452F-A25A-3A3224C203F7240143.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8808.536529248453,
+        "amountEurDeclarant": 9203.253861531934,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 41235.69021847502,
+        "amountEurDeclarant": 35648.80383264394,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "форд фиеста",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
-        "holderName": "Събина Василева Петканска-Въълева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -58,28 +40,10 @@
         "currency": "BGN",
         "amount": 73683,
         "valueEur": 37673.519682180966,
-        "holderName": "Събина Василева Петканска Вълева",
+        "holderName": "Събина Василева Петканска-Вълева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 163000,
-        "valueEur": 83340.57663498362,
-        "holderName": "Събина Василева Петканска Вълева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплати"
       },
       {
         "category": "bank",
@@ -92,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4988,
-        "valueEur": 2550.323903406738,
-        "holderName": "Събина Василева Петканска Вълева",
+        "amount": 246669,
+        "valueEur": 126119.85704279001,
+        "holderName": "Събина Василева Петканска-Вълева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "зплати"
       },
       {
         "category": "investment",
@@ -110,27 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 121789,
-        "valueEur": 62269.72691900625,
-        "holderName": "Събина Василева Пеетканска-Вълева",
+        "amount": 122578,
+        "valueEur": 62673.13621327007,
+        "holderName": "Събина Василева Петканска - Вълеваа",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "инфинити",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 17895.215841867648,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

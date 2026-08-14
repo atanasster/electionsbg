@@ -4,29 +4,48 @@
     "declarantName": "ИВАН СПАСОВ ПЕШУНОВ",
     "institution": "Две Могили",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3048",
-    "controlHash": "19CE0B4C",
-    "sourceUrl": "https://register.cacbg.bg/2025/EE7B37D9-E1D3-4EDB-AB5E-F470829A0712205765.xml",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г874",
+    "controlHash": "731A7408",
+    "sourceUrl": "https://register.cacbg.bg/2026/EE7B37D9-E1D3-4EDB-AB5E-F470829A0712224473.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7308.917441699943,
+        "amountEurDeclarant": 7152.973417935096,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10819.958789874376,
+        "amountEurDeclarant": 12287.877780788718,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3640,
+        "valueEur": 3640.3981941170755,
+        "holderName": "ИВАН СПАСОВ ПЕШУНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

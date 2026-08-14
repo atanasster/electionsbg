@@ -4,26 +4,26 @@
     "declarantName": "СВЕТЛА ГЕОРГИЕВА ГЕОРГИЕВА",
     "institution": "Твърдица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12569",
-    "controlHash": "DA7D4ED8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3474D25F-7726-402C-AADD-9CC531713048215738.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13924",
+    "controlHash": "DCC9906E",
+    "sourceUrl": "https://register.cacbg.bg/2026/3474D25F-7726-402C-AADD-9CC531713048239580.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17215.19763987668,
-        "amountEurSpouse": 15862.83061411268
+        "amountEurDeclarant": 28901.284876497448,
+        "amountEurSpouse": 18968.417500498508
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4718.712771559901,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 2530.3835200400854,
+        "amountEurSpouse": 53.68564752560294
       }
     ],
     "assets": [
@@ -31,28 +31,28 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Твърдица",
-        "municipality": "Твърдица",
-        "areaSqm": 34,
-        "builtAreaSqm": 34,
-        "acquiredYear": 2010,
+        "location": "Ст. Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 215790,
+        "valueEur": 110331.67504333198,
         "holderName": "Светла Георгиева Георгиева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "с.Сборище",
+        "location": "с. Сборище",
         "municipality": "Твърдица",
         "areaSqm": 1980,
-        "builtAreaSqm": 1789,
+        "builtAreaSqm": 178,
         "acquiredYear": 2022,
         "share": "1/2",
         "currency": null,
@@ -65,7 +65,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Мерцедес",
         "location": null,
         "municipality": null,
@@ -98,6 +98,24 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 206280,
+        "valueEur": 105469.28925315595,
+        "holderName": "Светла Георгиева  Георгиева",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
       }
     ],
     "events": []

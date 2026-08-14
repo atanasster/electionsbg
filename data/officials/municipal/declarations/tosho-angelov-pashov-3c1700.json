@@ -4,35 +4,151 @@
     "declarantName": "ТОШО АНГЕЛОВ ПАШОВ",
     "institution": "Пловдив",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10522",
-    "controlHash": "0ACBC2FB",
-    "sourceUrl": "https://register.cacbg.bg/2025/0CD409CF-2DAE-488B-8714-6A6FF28542CC213616.xml",
+    "filedAt": null,
+    "entryNumber": "Г9612",
+    "controlHash": "B9BCC9C8",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CD409CF-2DAE-488B-8714-6A6FF28542CC234249.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 34527.029445299435,
+        "amountEurDeclarant": 21364.33125578399,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2556.4594059810925
+        "amountEurSpouse": 613.5502574354622
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 4530.557359279692,
-        "amountEurSpouse": 5031.623402851986
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 50399.06331327365,
+        "amountEurSpouse": 50399.06331327365
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ЖИЛИЩЕ",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "ПЛОВДИВ",
+        "areaSqm": 138,
+        "builtAreaSqm": 138,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "ТОШО АНГЕЛОВ ПАШОВ",
+        "isSpouse": false,
+        "legalBasis": "ПРЕУСТРОЙСТВО",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "ЖИЛИЩЕ",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "ПЛОВДИВ",
+        "areaSqm": 138,
+        "builtAreaSqm": 138,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "ДОНКА АПОСТОЛОВА ПАШОВА",
+        "isSpouse": true,
+        "legalBasis": "ПРЕУСТРОЙСТВО",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 219430,
+        "valueEur": 112192.77749088622,
+        "holderName": "ТОШО АНГЕЛОВ ПАШОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ПРОДАЖБА, ПЕНСИЯ,ЗАПЛАТА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80777,
+        "valueEur": 41300.62428738694,
+        "holderName": "ДОНКА  АПОСТОЛОВА ПАШОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ПРОДАЖБА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26864,
+        "valueEur": 26864,
+        "holderName": "ДОНКА АНГЕЛОВА ПАШОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЗЕМЯ",
+        "detail": null,
+        "location": "ГР. ХИСАР",
+        "municipality": "Хисаря",
+        "areaSqm": 1.26,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50399.06331327365,
+        "legalBasis": "ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ЗЕМЯ",
+        "detail": null,
+        "location": "ГР. ХИСАР",
+        "municipality": "ХИСАРЯ",
+        "areaSqm": 1.26,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50399.06331327365,
+        "legalBasis": "ПРОДАЖБА"
+      }
+    ]
   }
 ]

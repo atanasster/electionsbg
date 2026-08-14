@@ -4,29 +4,95 @@
     "declarantName": "Йордан Цонев Цонев",
     "institution": "Стражица",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г3010",
-    "controlHash": "73730A90",
-    "sourceUrl": "https://register.cacbg.bg/2025/65A22400-B599-4AAA-B3D8-2FAD1D0FA686205725.xml",
+    "filedAt": null,
+    "entryNumber": "Г2879",
+    "controlHash": "7967077F",
+    "sourceUrl": "https://register.cacbg.bg/2026/65A22400-B599-4AAA-B3D8-2FAD1D0FA686226972.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26020.66641783795,
-        "amountEurSpouse": 12959.71531268055
+        "amountEurDeclarant": 30537.418896325347,
+        "amountEurSpouse": 14920.519677068049
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 35540.92124571154
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Необлагаеми доходи от трудови правоотоношения",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 45531.05331240445
+        "amountEurSpouse": 255.64594059810923
+      },
+      {
+        "parent": null,
+        "category": "Доходи от обезщетения и помощи по първа част от КСО, включително изплатените на основание чл.40 ал.5",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 82.82928475378739
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "земеделска земя-8 имота",
+        "detail": null,
+        "location": "Мирово",
+        "municipality": "Стражица",
+        "areaSqm": 56,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6216,
+        "valueEur": 3178.190333515694,
+        "holderName": "Антония Янакиева Цонева",
+        "isSpouse": true,
+        "legalBasis": "Възмездно лолзване",
+        "fundsOrigin": "Доходи от стопанска дейност"
+      },
+      {
+        "category": "real_estate",
+        "description": "Земеделска земя-26 имота",
+        "detail": null,
+        "location": "Ново градище",
+        "municipality": "Стражица",
+        "areaSqm": 244,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26616,
+        "valueEur": 13608.544709918551,
+        "holderName": "Антония Янакиева Цонева",
+        "isSpouse": true,
+        "legalBasis": "Възмездно лолзване",
+        "fundsOrigin": "Доходи от стопанска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14400,
+        "valueEur": 7362.603089225547,
+        "holderName": "Йордан Цонев Цонев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Кредит",
@@ -38,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 51666,
+        "valueEur": 26416.406333883824,
         "holderName": "Йордан Цонев Цонев",
         "isSpouse": false,
-        "legalBasis": "Кредит",
+        "legalBasis": "4,5%",
         "fundsOrigin": null
       }
     ],

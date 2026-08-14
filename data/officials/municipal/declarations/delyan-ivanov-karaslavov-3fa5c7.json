@@ -1,38 +1,74 @@
 [
   {
     "slug": "delyan-ivanov-karaslavov-3fa5c7",
-    "declarantName": "ДЕЛЯН ИВАНОВ КАРАСЛАВОВ",
+    "declarantName": "Делян Иванов Караславов",
     "institution": "Първомай",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г3535",
-    "controlHash": "ED63FDAA",
-    "sourceUrl": "https://register.cacbg.bg/2025/82E5A15B-C7FC-4064-B4F8-4DF8B8338459206326.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2920",
+    "controlHash": "08416537",
+    "sourceUrl": "https://register.cacbg.bg/2026/82E5A15B-C7FC-4064-B4F8-4DF8B8338459227013.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6961.2389624865145,
-        "amountEurSpouse": 13705.690167345832
+        "amountEurDeclarant": 8322.297950230848,
+        "amountEurSpouse": 15344.891938460909
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17490.272671960243,
+        "amountEurDeclarant": 21619.465904500903,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 188.66670416140462,
+        "amountEurDeclarant": 425.3948451552538,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 195583,
+        "valueEur": 100000,
+        "holderName": "Делян Иванов Караславов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 195583,
+        "valueEur": 100000,
+        "holderName": "Станислава Петрова Караславова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,9 +80,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35560,
-        "valueEur": 18181.53929533753,
-        "holderName": "ДЕЛЯН ИВАНОВ КАРАСЛАВОВ",
+        "amount": 14500,
+        "valueEur": 7413.732277345168,
+        "holderName": "Делян Иванов Караславов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -62,27 +98,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31180,
-        "valueEur": 15942.080855698092,
-        "holderName": "СТАНИСЛАВА ПЕТРОВА КАРАСЛАВОВА",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Станислава Петрова Караславова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 196564,
+        "valueEur": 100501.57733545349,
+        "holderName": "Делян Иванов Караславов",
+        "isSpouse": false,
+        "legalBasis": "кредит, 3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21550,
+        "valueEur": 11018.340039778508,
+        "holderName": "Станислава Петрова Караславова",
+        "isSpouse": true,
+        "legalBasis": "кредит, 5,7%",
+        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "ГР.ПЪРВОМАЙ",
-        "municipality": "Първомай",
-        "areaSqm": 790,
-        "builtAreaSqm": 175,
-        "currency": "BGN",
-        "valueEur": 5112.918811962185,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "angelina-kostadinova-strahilova-cc0fe9",
+    "declarantName": "Ангелина Костадинова Страхилова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7820",
+    "controlHash": "0EDDDEC1",
+    "sourceUrl": "https://register.cacbg.bg/2026/D71DEC62-66BF-4D59-B77A-93D155B8AAF7232264.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26251.259056257444,
+        "amountEurSpouse": 21304.510105684032
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 103.28096000163613,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Етаж от къща",
+        "detail": null,
+        "location": "гр.Перник",
+        "municipality": "Перник",
+        "areaSqm": 486,
+        "builtAreaSqm": 69,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
+        "holderName": "Красимир Димитров Страхилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21605,
+        "valueEur": 11046.461093244301,
+        "holderName": "Ангелина Костадинова Страхилова",
+        "isSpouse": false,
+        "legalBasis": "Кредит Доверие: годишен лихвен процент: 4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

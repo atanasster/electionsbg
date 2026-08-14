@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12271",
+    "controlHash": "F579BF56",
+    "sourceUrl": "https://register.cacbg.bg/2026/31EA0FC4-E150-41BB-B4DB-DDC6C9157791237461.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22328.11645183886,
+        "amountEurSpouse": 19387.165551198214
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит-потребителски",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11064,
+        "valueEur": 5656.933373554962,
+        "holderName": "Николй Димов Широв",
+        "isSpouse": true,
+        "legalBasis": "кредит 2018-5.99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит-потребителски",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19811,
+        "valueEur": 10129.203458378284,
+        "holderName": "Николай Димов Широв",
+        "isSpouse": false,
+        "legalBasis": "кредит2023-6.38%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-dimov-shirov-013cd0",
+    "declarantName": "Николай Димов Широв",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

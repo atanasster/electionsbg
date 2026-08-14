@@ -5,6 +5,50 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-12",
+    "entryNumber": "Г385",
+    "controlHash": "953CD4EA",
+    "sourceUrl": "https://register.cacbg.bg/2026/34D459A7-30CA-4472-B5EC-27351EDDFCF2223638.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42336.50163869048,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2 част",
+        "currency": "BGN",
+        "amount": 235079,
+        "valueEur": 120193.98413972584,
+        "holderName": "Мартин Бойков Тодоров и Снежанка Атанасова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "snezhanka-atanasova-todorova-af09b4",
+    "declarantName": "Снежанка Атанасова Тодорова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

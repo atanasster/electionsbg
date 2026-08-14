@@ -5,6 +5,128 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10957",
+    "controlHash": "AF68205E",
+    "sourceUrl": "https://register.cacbg.bg/2026/2454D2BE-61FC-4FB3-8032-E6FE816EF07A235781.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17190.14433769806,
+        "amountEurSpouse": 41808.337125414786
+      },
+      {
+        "parent": null,
+        "category": "Районен съд гр. Лом",
+        "amountEurDeclarant": 16.87263207947521,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Нобел фарма",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 281.21053465792016
+      },
+      {
+        "parent": null,
+        "category": "Нов медицински център",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6042.958743858107
+      },
+      {
+        "parent": null,
+        "category": "Стада България",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 818.0670099139496
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Зорница Михайлова Любенова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6840,
+        "valueEur": 6840.574078524207,
+        "holderName": "Зорница Михайлова Любенова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2641,
+        "valueEur": 2640.8225663784683,
+        "holderName": "Зорница Михайлова Любенова",
+        "isSpouse": false,
+        "legalBasis": "4,7",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13735,
+        "valueEur": 13728.698301999662,
+        "holderName": "Георги Гаврилов Георгиев",
+        "isSpouse": true,
+        "legalBasis": "4,33",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zornitsa-mihailova-lyubenova-1e6043",
+    "declarantName": "Зорница Михайлова Любенова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

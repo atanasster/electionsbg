@@ -1,6 +1,80 @@
 [
   {
     "slug": "pavlina-stoyanova-pavlova-0cc02d",
+    "declarantName": "Павлина Стоянова Павлова",
+    "institution": "МБАЛ - Омуртаг ЕАД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г2331",
+    "controlHash": "47EE3F73",
+    "sourceUrl": "https://register.cacbg.bg/2026/DA0D1C7D-5F5C-49A6-95D9-F30D77708344226377.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 49221.04681899756,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 29924.37993077108,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": 16589.887669173702,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 258509,
+        "valueEur": 132173.55291615325,
+        "holderName": "Павлина Стоянова Павлова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11454,
+        "valueEur": 5856.337207221487,
+        "holderName": "Павлина Стоянова Павлова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlina-stoyanova-pavlova-0cc02d",
     "declarantName": "ПАВЛИНА СТОЯНОВА ПАВЛОВА",
     "institution": "МБАЛ - Омуртаг ЕАД",
     "positionTitle": "Изпълнителен директор",

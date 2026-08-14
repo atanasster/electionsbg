@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7462",
+    "controlHash": "F8C26B59",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC87F107-A184-4864-884D-3A7EB98A8F5E231874.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24853.387053066985,
+        "amountEurSpouse": 24553.770010686
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15532,
+        "valueEur": 15532.024766978726,
+        "holderName": "МАРИЯ ЙОРДАНОВА НИКИФОРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13224,
+        "valueEur": 13224.053215258995,
+        "holderName": "МАРИЯ ЙОРДАНОВА НИКИФОРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-iordanova-nikiforova-222994",
+    "declarantName": "МАРИЯ ЙОРДАНОВА НИКИФОРОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

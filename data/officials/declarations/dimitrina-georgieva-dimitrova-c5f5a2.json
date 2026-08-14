@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11556",
+    "controlHash": "E2D96EE0",
+    "sourceUrl": "https://register.cacbg.bg/2026/58BAFBCD-E6D9-4824-8DC7-DF1278371D7F236491.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22152.74333658856,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1646.3598574518235,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалидност поради общо заболяване",
+        "amountEurDeclarant": 5995.9198907880545,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Добавка по чл. 70 от ЗХУ",
+        "amountEurDeclarant": 269.96211327160336,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14460,
+        "valueEur": 7393.280602097319,
+        "holderName": "Димитрина Георгиева Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitrina-georgieva-dimitrova-c5f5a2",
+    "declarantName": "Димитрина Георгиева Димитрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

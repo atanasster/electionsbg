@@ -5,6 +5,105 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г4084",
+    "controlHash": "EE0F4A84",
+    "sourceUrl": "https://register.cacbg.bg/2026/CEFE0B59-B988-43F3-AB31-5F5CE554259D228280.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21547.88504113343,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 930.5512237771177,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1072.1790748684703,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "UniCreditBulbank",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Шенай Зюрапов Нуриев",
+        "isSpouse": false,
+        "legalBasis": "8,09",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банка ДСК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
+        "holderName": "Шенай Зюрапов Нуриев",
+        "isSpouse": false,
+        "legalBasis": "6,95",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Морска академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 112.48421386316807,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Есенна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.02172990495083,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "shenai-zyurapov-nuriev-9a2328",
+    "declarantName": "Шенай Зюрапов Нуриев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

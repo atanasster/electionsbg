@@ -4,71 +4,70 @@
     "declarantName": "Шебан Хилмиев Билянов",
     "institution": "Рудозем",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10096",
-    "controlHash": "A2678FAD",
-    "sourceUrl": "https://register.cacbg.bg/2025/22412B7D-700C-4CE6-BC69-2C75B36885CE213169.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10162",
+    "controlHash": "33CCE642",
+    "sourceUrl": "https://register.cacbg.bg/2026/22412B7D-700C-4CE6-BC69-2C75B36885CE234856.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "stakeKind": "share",
-        "itemType": "Дружество",
-        "shareSize": "1/2",
-        "companyName": "РОДОПИ-МЕС",
+        "itemType": "ДРУЖЕСТВО",
+        "shareSize": "25/100",
+        "companyName": "РОДОПИ-МЕС ООД",
         "registeredOffice": "Мадан",
         "valueEur": 1278.2297029905462,
-        "holderName": null,
-        "transfereeName": "Шебан Хилмиев Билянов",
-        "legalBasis": "безвъзмездно",
-        "fundsOrigin": null
+        "holderName": "Шебан Хилмиев Билянов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23897.271235230055,
+        "amountEurDeclarant": 10853.19276215213,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 2449.0881109298866,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2147.4259010241176,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6233.1593236631,
+        "amountEurDeclarant": 6014.326398511118,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 1278.2297029905462,
+        "category": "свободна практика",
+        "amountEurDeclarant": 11651.830680580622,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "пасище",
+        "detail": null,
+        "location": "Бориново",
+        "municipality": "Мадан",
+        "areaSqm": 7,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 4800,
-        "valueEur": 2454.2010297418487,
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
         "holderName": "Шебан Хилмиев Билянов",
         "isSpouse": false,
-        "legalBasis": "договор за наем",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
@@ -82,16 +81,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
         "holderName": "Шебан Хилмиев Билянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "debt",
-        "description": "лизинг",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -100,12 +99,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Шебан Хилмиев Билянов",
         "isSpouse": false,
-        "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

@@ -1,32 +1,51 @@
 [
   {
     "slug": "mariya-ivanova-zhlyabinkova-4fe32f",
-    "declarantName": "Мария Иванова Жлябинкова",
+    "declarantName": "Мария Иванова Жлябникова",
     "institution": "Рила",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4707",
-    "controlHash": "FA285FFE",
-    "sourceUrl": "https://register.cacbg.bg/2025/CD11C0A8-8611-40C2-B798-2FCAB2E51627207583.xml",
+    "filedAt": null,
+    "entryNumber": "Г12295",
+    "controlHash": "9E1FB85E",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD11C0A8-8611-40C2-B798-2FCAB2E51627237493.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1521.6046384399463,
-        "amountEurSpouse": 8010.409902701155
+        "amountEurDeclarant": 2088.6273346865523,
+        "amountEurSpouse": 9779.47981164007
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 336.43005782711174,
+        "amountEurDeclarant": 230.08134653829833,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26505,
+        "valueEur": 13551.791311105771,
+        "holderName": "Мария Иванова Жлябинкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,105 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4204",
+    "controlHash": "765FC46C",
+    "sourceUrl": "https://register.cacbg.bg/2026/94ED7386-BF02-4584-9F67-89772C2DA41A228401.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29770.992366412214,
+        "amountEurSpouse": 5844.066202072778
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8929.712705091955
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х3 2.0 Д",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Лиляна Георгиева Косовска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "МЕРЦЕДЕС МЛ 320 ЦДИ 4 МАТИК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2200,
+        "valueEur": 1124.8421386316807,
+        "holderName": "Владислав Петров Косовски",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5369,
+        "valueEur": 5368.564752560294,
+        "holderName": "Владислав Петров Косовски",
+        "isSpouse": true,
+        "legalBasis": "CARU-21012345 - 14%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ОПЕЛ МЕРИВА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "lilyana-georgieva-kosovska-859a4e",
+    "declarantName": "Лиляна Георгиева Косовска",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

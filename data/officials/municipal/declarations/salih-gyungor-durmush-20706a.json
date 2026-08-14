@@ -4,32 +4,32 @@
     "declarantName": "Салих Гюнгьор Дурмуш",
     "institution": "Момчилград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4875",
-    "controlHash": "D4E875A4",
-    "sourceUrl": "https://register.cacbg.bg/2025/D614FFE1-05E3-44F5-85B5-A887942B555A207755.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г7109",
+    "controlHash": "A980728F",
+    "sourceUrl": "https://register.cacbg.bg/2026/D614FFE1-05E3-44F5-85B5-A887942B555A231500.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10878.246064330744,
+        "amountEurDeclarant": 4423.697356109682,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4419.607021060113,
+        "amountEurDeclarant": 6442.277703072353,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Обезщетение за майчинство",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 5112.918811962185
+        "amountEurDeclarant": 3988.076673330504,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -52,7 +52,7 @@
         "fundsOrigin": "дарения"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "EUR",
         "location": null,
@@ -62,15 +62,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 14232,
-        "valueEur": 14232.320804977939,
+        "amount": 5,
+        "valueEur": 5.112918811962185,
         "holderName": "Салих Гюнгьор Дурмуш",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -80,30 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 253,
-        "valueEur": 129.35684594264328,
+        "amount": 8755,
+        "valueEur": 4476.360419872893,
         "holderName": "Салих Гюнгьор Дурмуш",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "Ипотечен кредит 3%",
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 24098,
-        "valueEur": 24026.116789291504,
-        "holderName": "Салих Гюнгьор Дурмуш",
-        "isSpouse": false,
-        "legalBasis": "банков кредит",
-        "fundsOrigin": null
       }
     ],
     "events": []

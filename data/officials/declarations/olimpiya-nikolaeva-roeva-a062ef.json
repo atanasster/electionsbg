@@ -5,6 +5,80 @@
     "institution": "Фонд \"Научни изследвания\"",
     "positionTitle": "Член",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8501",
+    "controlHash": "AAFA0B26",
+    "sourceUrl": "https://register.cacbg.bg/2026/EB5260DF-E241-43C0-B818-9E1066589B6B233009.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5449.348869789296,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 35723.45244729859,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3118.3691834157366,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21455,
+        "valueEur": 10969.767311064868,
+        "holderName": "Олимпия Николаева Роева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43617,
+        "valueEur": 22301.01798213546,
+        "holderName": "Олимпия Николаева Роева",
+        "isSpouse": false,
+        "legalBasis": "ипотека, 2.25%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "olimpiya-nikolaeva-roeva-a062ef",
+    "declarantName": "Олимпия Николаева Роева",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": "Член",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

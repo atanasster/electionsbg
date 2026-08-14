@@ -4,35 +4,53 @@
     "declarantName": "Лилия Георгиева Чингарска - Димитрова",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9947",
-    "controlHash": "D93F53ED",
-    "sourceUrl": "https://register.cacbg.bg/2025/29A0C0EF-7D5F-4550-8CE6-25637405352E213016.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8758",
+    "controlHash": "C9982916",
+    "sourceUrl": "https://register.cacbg.bg/2026/29A0C0EF-7D5F-4550-8CE6-25637405352E233291.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6807.340106246453,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 11551.106179984969,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 26735.96375963146,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 345.1220198074475,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 47194.797093816946,
+        "amountEurDeclarant": 50069.28004990209,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2025,
+        "share": "2/3",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Лилия Георгиева Чингарска - Димитрова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,12 +62,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100000,
-        "valueEur": 51129.188119621846,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Лилия Георгиева Чингарска - Димитрова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Лилия Георгиева Чингарска - Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
       }
     ],
     "events": []

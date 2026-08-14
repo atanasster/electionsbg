@@ -4,13 +4,13 @@
     "declarantName": "Асен Николаев Гаджев",
     "institution": "Септември",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7485",
-    "controlHash": "1331B179",
-    "sourceUrl": "https://register.cacbg.bg/2025/AA46E4DC-7B80-4E85-891E-A91AF8F2A3EE210480.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13463",
+    "controlHash": "FDF8DCEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/AA46E4DC-7B80-4E85-891E-A91AF8F2A3EE238976.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,46 +29,40 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4470.736209179734,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6629.921823471365,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3423.0991446086828,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 35116.54898431868,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "парично обещетение - майчинство",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4857.272871364075
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 6607.936272579927
+        "amountEurSpouse": 3067.751287177311
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Септември",
+        "municipality": "Септември",
+        "areaSqm": 169,
+        "builtAreaSqm": 275,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 9600,
-        "valueEur": 4908.4020594836975,
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
         "holderName": "Асен Николаев Гаджев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -81,8 +75,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
         "holderName": "Асен Николаев Гаджев",
         "isSpouse": false,
         "legalBasis": null,
@@ -99,8 +93,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 10723,
-        "valueEur": 10722.813332447095,
+        "amount": 11175,
+        "valueEur": 11174.79535542455,
         "holderName": "Асен Николаев Гаджев",
         "isSpouse": false,
         "legalBasis": null,
@@ -117,8 +111,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5600,
-        "valueEur": 2863.2345346988236,
+        "amount": 53463,
+        "valueEur": 27335.197844393428,
         "holderName": "Асен Николаев Гаджев",
         "isSpouse": false,
         "legalBasis": null,
@@ -135,8 +129,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4598,
-        "valueEur": 2350.9200697402125,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Иванка Георгиева Гаджева",
         "isSpouse": true,
         "legalBasis": null,
@@ -153,11 +147,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45267,
-        "valueEur": 23144.649586109223,
-        "holderName": "Асен Ниголаев Гаджев",
-        "isSpouse": true,
-        "legalBasis": "договор",
+        "amount": 5199,
+        "valueEur": 2658.20649033914,
+        "holderName": "Асен Николаев Гаджев",
+        "isSpouse": false,
+        "legalBasis": "договор - 5,3%",
         "fundsOrigin": null
       },
       {
@@ -171,11 +165,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8500,
-        "valueEur": 4345.980990167857,
-        "holderName": "Асен Ниголаев Гаджев",
-        "isSpouse": true,
-        "legalBasis": "договор",
+        "amount": 41427,
+        "valueEur": 21181.288762315744,
+        "holderName": "Асен Николаев Гаджев",
+        "isSpouse": false,
+        "legalBasis": "договор - 2,88%",
         "fundsOrigin": null
       },
       {
@@ -193,21 +187,21 @@
         "valueEur": 4090.3350495697478,
         "holderName": "Иванка Георгиева Гаджева",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 0%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "фиат",
+        "description": "лека кола",
+        "detail": "нисан",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 2556.4594059810925,
+        "valueEur": 4345.980990167857,
         "legalBasis": "възмездно"
       }
     ]

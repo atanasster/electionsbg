@@ -1,6 +1,80 @@
 [
   {
     "slug": "yuliyan-agop-odazhiyan-5fbcc3",
+    "declarantName": "ЮЛИЯН АГОП ОДАЖИЯН",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г10915",
+    "controlHash": "94BA66B8",
+    "sourceUrl": "https://register.cacbg.bg/2026/543D3E8F-4F28-4DF5-A8A4-ED83C5E780C6235726.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22295.393771442305,
+        "amountEurSpouse": 7694.431520121892
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15369.433948758327,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1068.6000317000967,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Момин проход",
+        "municipality": "Костенец",
+        "areaSqm": 120,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Юлиян Агоп Одажиян",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено каптюр",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Юлиян Агоп Одажиян",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yuliyan-agop-odazhiyan-5fbcc3",
     "declarantName": "Юлиян Агоп Одажиян",
     "institution": "Училища",
     "positionTitle": "Директор",

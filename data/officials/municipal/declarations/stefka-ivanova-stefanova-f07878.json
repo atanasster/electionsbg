@@ -4,19 +4,25 @@
     "declarantName": "Стефка Иванова Стефанова",
     "institution": "Гълъбово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14541",
-    "controlHash": "EEA3D632",
-    "sourceUrl": "https://register.cacbg.bg/2025/946EE34C-9A82-45D3-AE3F-F7407A5AA95F217863.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11575",
+    "controlHash": "E374C321",
+    "sourceUrl": "https://register.cacbg.bg/2026/946EE34C-9A82-45D3-AE3F-F7407A5AA95F236511.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": 6740.872161690944,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 9405.214154604439,
         "amountEurSpouse": null
       }
     ],
@@ -25,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "с.Мъдрец",
+        "location": "Мъдрец",
         "municipality": "Гълъбово",
         "areaSqm": 800,
         "builtAreaSqm": null,
@@ -42,7 +48,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "опел",
+        "detail": "Опел",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -60,19 +66,19 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "мерцедес",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2024,
-        "share": null,
+        "share": "1/1",
         "currency": "BGN",
         "amount": 4000,
         "valueEur": 2045.1675247848739,
         "holderName": "Стефка Иванова Стефанова",
         "isSpouse": false,
-        "legalBasis": "1/1",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],

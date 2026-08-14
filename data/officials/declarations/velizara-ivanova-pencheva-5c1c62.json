@@ -5,6 +5,105 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10695",
+    "controlHash": "33A22F72",
+    "sourceUrl": "https://register.cacbg.bg/2026/73F8C9FC-A17F-4B1D-9A0A-B9FE610B1E84235481.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7635.632953784327,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 21761.60504747345,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 39611.31591191464,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на два парцела в с. Батишница",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Купони за храна",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свети Влас",
+        "municipality": "несебър",
+        "areaSqm": 1,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 280000,
+        "valueEur": 143161.72673494118,
+        "holderName": "Ивелина Пенчева Пенчева",
+        "isSpouse": true,
+        "legalBasis": "покупка",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28230,
+        "valueEur": 14433.769806169248,
+        "holderName": "Велизара Иванова Пенчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "2 парцела",
+        "detail": null,
+        "location": "с. Батишница",
+        "municipality": "Две могили",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "velizara-ivanova-pencheva-5c1c62",
+    "declarantName": "Велизара Иванова Пенчева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,93 @@
     "institution": "МБАЛ \"Д-р Братан Шукеров\" АД, гр.Смолян",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3929",
+    "controlHash": "ADDA86B1",
+    "sourceUrl": "https://register.cacbg.bg/2026/92D2D2A6-C01E-431B-A367-C93AD024E555228105.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35740.32507937807,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 38951.23809329032,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения от КСО - временна нетрудоспособност",
+        "amountEurDeclarant": 300.63962614337646,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32460,
+        "valueEur": 16596.534463629254,
+        "holderName": "Ваня Георгиева Величкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 271200,
+        "valueEur": 138662.35818041445,
+        "holderName": "Ваня Георгиева Величкова",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит - 2,42",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "vanya-georgieva-velichkova-a3ab7f",
+    "declarantName": "Ваня Георгиева Величкова",
+    "institution": "МБАЛ \"Д-р Братан Шукеров\" АД, гр.Смолян",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

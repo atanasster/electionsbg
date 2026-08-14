@@ -4,20 +4,20 @@
     "declarantName": "ФЕРДИ ВИЖДАНОВ АХМЕДОВ",
     "institution": "Лозница",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13591",
-    "controlHash": "79D0E04F",
-    "sourceUrl": "https://register.cacbg.bg/2025/D846C67B-9396-4829-9916-A8FE89EA16B3216818.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11399",
+    "controlHash": "CE8BC6F7",
+    "sourceUrl": "https://register.cacbg.bg/2026/D846C67B-9396-4829-9916-A8FE89EA16B3236305.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16884.391792742725,
-        "amountEurSpouse": 8548.288961719576
+        "amountEurDeclarant": 19597.30651436986,
+        "amountEurSpouse": 13864.19065051666
       },
       {
         "parent": null,
@@ -27,6 +27,24 @@
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ЛОЗНИЦА",
+        "municipality": "ЛОЗНИЦА",
+        "areaSqm": 0,
+        "builtAreaSqm": 98,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 129,
+        "valueEur": 65.95665267431218,
+        "holderName": "ФЕРДИ ВИЖДАНОВ АХМЕДОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,16 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
-        "holderName": "Ферди Вижданов Ахмедов",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ФЕРДИ ВИЖДАНОВ АХМЕДОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "Лизинг на автомобил",
+        "description": "АВТОМОБИЛ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,21 +74,21 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
-        "holderName": "Ферди Вижданов Ахмедов",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ФЕРДИ ВИЖДАНОВ АХМЕДОВ",
         "isSpouse": false,
-        "legalBasis": "Договор - 4.9%",
+        "legalBasis": "ДОГОВОР - 4.9%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_property",
-        "description": "нива",
+        "description": "НИВА",
         "detail": null,
-        "location": "с. Сейдол",
-        "municipality": "Лозница",
+        "location": "СЕЙДОЛ",
+        "municipality": "ЛОЗНИЦА",
         "areaSqm": 10,
         "builtAreaSqm": 0,
         "currency": "BGN",

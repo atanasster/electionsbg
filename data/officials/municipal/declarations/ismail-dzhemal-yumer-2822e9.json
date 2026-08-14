@@ -4,52 +4,52 @@
     "declarantName": "Исмаил Джемал Юмер",
     "institution": "Руен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г14065",
-    "controlHash": "CACA52E2",
-    "sourceUrl": "https://register.cacbg.bg/2025/83FDB39A-F09B-48ED-929C-57C44A374D84217329.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10108",
+    "controlHash": "8BB7B1E9",
+    "sourceUrl": "https://register.cacbg.bg/2026/83FDB39A-F09B-48ED-929C-57C44A374D84234799.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5325.616234539812,
-        "amountEurSpouse": 12240.327635837471
+        "amountEurDeclarant": 5713.175480486545,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8776.32514073309,
+        "amountEurDeclarant": 710.6957148627437,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 194.29091485456303,
-        "amountEurSpouse": null
+        "category": "обезщетения при безработица",
+        "amountEurDeclarant": 7565.074674179249,
+        "amountEurSpouse": 6799.1594361473135
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Чорлу",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 0,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 17000,
-        "valueEur": 8691.961980335715,
-        "holderName": "Исмаил Джемал Юмер",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "amount": 35205,
+        "valueEur": 18000.03067751287,
+        "holderName": "Исмаил Джемал Юмер и Ефраим Джемаил Юмер",
+        "isSpouse": true,
+        "legalBasis": "покупко- продажба",
+        "fundsOrigin": "дарение от баща"
       },
       {
         "category": "bank",
@@ -62,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6139,
-        "valueEur": 3138.820858663585,
+        "amount": 9120,
+        "valueEur": 4662.981956509512,
         "holderName": "Исмаил Джемал Юмер",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "трудов договор и обезщетение"
       },
       {
         "category": "bank",
@@ -80,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 9800,
-        "valueEur": 9770.787849659735,
+        "amount": 3732,
+        "valueEur": 3731.919440851199,
         "holderName": "Исмаил Джемал Юмер",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "трудов договор и обезщетение"
       },
       {
         "category": "bank",
@@ -98,12 +98,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28600,
-        "valueEur": 14622.94780221185,
+        "amount": 17798,
+        "valueEur": 9099.972901530296,
         "holderName": "Хатче Мустафа Юмер",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "трудов договор и обезщетение"
       }
     ],
     "events": []

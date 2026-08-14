@@ -4,42 +4,29 @@
     "declarantName": "Петър Николаев Иванов",
     "institution": "Долни Дъбник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11977",
-    "controlHash": "8040DC70",
-    "sourceUrl": "https://register.cacbg.bg/2025/BA25CB5D-03BD-4B62-AFD7-75A3B06F3800215131.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9505",
+    "controlHash": "1A7E5345",
+    "sourceUrl": "https://register.cacbg.bg/2026/BA25CB5D-03BD-4B62-AFD7-75A3B06F3800234129.xml",
     "ownershipStakes": [],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2954.2444895517506,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7158.086336747059,
+        "amountEurDeclarant": 6646.79445555084,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Петър Николаев Иванов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

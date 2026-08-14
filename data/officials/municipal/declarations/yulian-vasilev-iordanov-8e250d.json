@@ -1,45 +1,69 @@
 [
   {
     "slug": "yulian-vasilev-iordanov-8e250d",
-    "declarantName": "Юлиан Василев Йорданов",
+    "declarantName": "ЮЛИАН ВАСИЛЕВ ЙОРДАНОВ",
     "institution": "Бобовдол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г6093",
-    "controlHash": "B919FF11",
-    "sourceUrl": "https://register.cacbg.bg/2025/26AF985D-749F-41D8-8A32-9521C9EEB5E5209042.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г5336",
+    "controlHash": "ADE645F8",
+    "sourceUrl": "https://register.cacbg.bg/2026/26AF985D-749F-41D8-8A32-9521C9EEB5E5229588.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6821.656278919947,
+        "amountEurDeclarant": 5569.502461870408,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22223.812908074833,
+        "amountEurDeclarant": 13870.83744497221,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "мотоциклет",
-        "detail": "Ямаха",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "ЮЛИАН ВАСИЛЕВ ЙОРДАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 38350,
+        "valueEur": 39133.76929487737,
+        "holderName": "ЮЛИАН ВАСИЛЕВ ЙОРДАНОВ",
+        "isSpouse": false,
+        "legalBasis": "кредит, 4,5%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

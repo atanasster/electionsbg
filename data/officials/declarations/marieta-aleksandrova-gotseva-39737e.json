@@ -5,6 +5,111 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12228",
+    "controlHash": "C13F0483",
+    "sourceUrl": "https://register.cacbg.bg/2026/AB01E3CD-69F1-4BD9-85E1-E33C00393D1F237411.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35661.586129673844,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1195.400418236759,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6666.734838917493
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 68,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Мариета Александрова Гоцева",
+        "isSpouse": false,
+        "legalBasis": "дарение от родител",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10288,
+        "valueEur": 5260.170873746696,
+        "holderName": "Мариета Александрова Гоцева",
+        "isSpouse": false,
+        "legalBasis": "договор с 4.62 лихвен процент",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12395,
+        "valueEur": 6337.462867427128,
+        "holderName": "Мариета Александрова Гоцева",
+        "isSpouse": false,
+        "legalBasis": "договор с 4.45 лихвен процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 333,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "marieta-aleksandrova-gotseva-39737e",
+    "declarantName": "Мариета Александрова Гоцева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

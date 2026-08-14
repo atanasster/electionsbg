@@ -5,6 +5,74 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4913",
+    "controlHash": "53DD58F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/DDB2E064-EADC-448D-AABF-BE2B1450F34E229144.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36145.26824928547,
+        "amountEurSpouse": 11168.659852850196
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за временна нетрудоспособност",
+        "amountEurDeclarant": 196.33608237934789,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 19999.693224871284,
+        "holderName": "Петър Георгиев Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 45568,
+        "valueEur": 45567.86632785058,
+        "holderName": "Петър Георгиев Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-georgiev-vasilev-9d1928",
+    "declarantName": "Петър Георгиев Василев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

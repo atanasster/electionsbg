@@ -1,13 +1,13 @@
 {
   "obshtina": "S2406",
   "registryName": "Район Подуяне",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 0,
     "councillor": 0,
     "chief_architect": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Подуяне",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "andrea-kosta-pandulis-0b3ad6",
@@ -30,7 +31,18 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Подуяне",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "deyan-iordanov-kostov-479179",
+      "name": "Деян Йорданов Костов",
+      "normalizedName": "ДЕЯН ЙОРДАНОВ КОСТОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Подуяне",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "stamen-petrov-stoyanov-8ff619",
@@ -39,7 +51,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Подуяне",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ПРОДЪЛЖАВАМЕ ПРОМЯНАТА- ДЕМОКРАТИЧНА БЪЛГАРИЯ(СПАСИ СОФИЯ)",
@@ -56,7 +69,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Подуяне",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

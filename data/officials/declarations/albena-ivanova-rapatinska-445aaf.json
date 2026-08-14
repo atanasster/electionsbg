@@ -5,6 +5,74 @@
     "institution": "ЦСМП",
     "positionTitle": "Директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г1717",
+    "controlHash": "19DF7DDC",
+    "sourceUrl": "https://register.cacbg.bg/2026/50F1BD77-EDA9-4130-B264-6803B3A7A279225663.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46749.97315717624,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18712.7715599004,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Кюстендил, ул. Христо Лекарски 9",
+        "municipality": "Кюстендил",
+        "areaSqm": 404,
+        "builtAreaSqm": 104,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 21514,
+        "valueEur": 10999.933532055444,
+        "holderName": "Албена Иванова Рапатнска",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Албена Иванова Рапатинска",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 4,44% лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "albena-ivanova-rapatinska-445aaf",
+    "declarantName": "Албена Иванова Рапатинска",
+    "institution": "ЦСМП",
+    "positionTitle": "Директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

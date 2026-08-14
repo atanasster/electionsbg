@@ -1,32 +1,75 @@
 [
   {
     "slug": "vladislava-tihomirova-blagoeva-976f97",
-    "declarantName": "Владислава Тихомирова Благоева",
+    "declarantName": "ВЛАДИСЛАВА ТИХОМИРОВА БЛАГОЕВА",
     "institution": "Мизия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12998",
-    "controlHash": "E3A6C3C8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3EC7876F-FD94-4E13-99F7-42CF31C8DBA6216184.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7294",
+    "controlHash": "7CDEFFD3",
+    "sourceUrl": "https://register.cacbg.bg/2026/3EC7876F-FD94-4E13-99F7-42CF31C8DBA6231701.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3407.7603881727964,
-        "amountEurSpouse": 3849.516573526329
+        "amountEurDeclarant": 3865.366621843412,
+        "amountEurSpouse": 4769.841959679522
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14690.438330529749,
+        "amountEurDeclarant": 18451.501408609132,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14144.889893293384
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "ВЛАДИСЛАВА ТИХОМИРОВА БЛАГОЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27665,
+        "valueEur": 14144.889893293384,
+        "holderName": "ВАЛЕРИ СТОЯНОВ ЗЛАТАНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "РАЙОНЕН СЪД ГР.ОРЯХОВО"
+      }
+    ],
     "events": []
   }
 ]

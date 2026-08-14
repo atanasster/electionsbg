@@ -4,31 +4,31 @@
     "declarantName": "Любомир Младенов Филипов",
     "institution": "Вълчедръм",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г10963",
-    "controlHash": "4224810B",
-    "sourceUrl": "https://register.cacbg.bg/2025/C75241AE-04D8-4E60-8126-A2849A1550F9214080.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6712",
+    "controlHash": "68177401",
+    "sourceUrl": "https://register.cacbg.bg/2026/C75241AE-04D8-4E60-8126-A2849A1550F9231056.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6549.648998123559,
-        "amountEurSpouse": 22158.367547281716
+        "amountEurDeclarant": 6749.052831790084,
+        "amountEurSpouse": 23244.862794823683
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11289.324736812505,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 11602.746659985785,
+        "amountEurSpouse": 372.2204895108471
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5433.498821472214,
+        "amountEurDeclarant": 8390.299770429945,
         "amountEurSpouse": null
       }
     ],
@@ -44,30 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8555,
-        "valueEur": 4374.102043633649,
-        "holderName": "Любомир Младенов Филипов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 37067,
-        "valueEur": 18952.05616030023,
+        "amount": 45865,
+        "valueEur": 23450.402131064562,
         "holderName": "Анета Стоянова Филипова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -80,11 +62,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9471,
-        "valueEur": 4842.4454068093855,
+        "amount": 6608,
+        "valueEur": 3378.616750944612,
         "holderName": "Любомир Младенов Филипов",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит",
+        "legalBasis": "кредит, 7.02%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "дебитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 501,
+        "valueEur": 256.15723247930543,
+        "holderName": "Любомир Младенов Филипов",
+        "isSpouse": false,
+        "legalBasis": "15.9%",
         "fundsOrigin": null
       },
       {
@@ -98,11 +98,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20797,
-        "valueEur": 10633.337253237756,
+        "amount": 16689,
+        "valueEur": 8532.95020528369,
         "holderName": "Анета Стоянова Филипова",
         "isSpouse": true,
-        "legalBasis": "Потребителски кредит",
+        "legalBasis": "кредит, 5.46%",
         "fundsOrigin": null
       }
     ],

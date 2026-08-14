@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-07-28",
+    "entryNumber": "Г14700",
+    "controlHash": "B7C60A49",
+    "sourceUrl": "https://register.cacbg.bg/2026/7788D4D7-D88A-4F81-80EB-2DA01A77B3F7240754.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38058.52246872172,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63928,
+        "valueEur": 32685.867381111857,
+        "holderName": "СВИЛЕН ИВАНОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svilen-ivanov-dimitrov-2de1e7",
+    "declarantName": "СВИЛЕН ИВАНОВ ДИМИТРОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

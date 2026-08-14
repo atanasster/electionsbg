@@ -1,49 +1,43 @@
 [
   {
     "slug": "mariya-ivanova-angelova-doicheva-4e83cb",
-    "declarantName": "Мария Иванова Ангелова-Дойчева",
+    "declarantName": "Мария Иванова Ангелова - Дойчева",
     "institution": "Варна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-02",
-    "entryNumber": "Г1388",
-    "controlHash": "ED2193AC",
-    "sourceUrl": "https://register.cacbg.bg/2025/39CE56A2-6C96-4931-9415-E7F2D81D32DA203848.xml",
+    "filedAt": "2026-04-18",
+    "entryNumber": "Г2737",
+    "controlHash": "4F72E7FA",
+    "sourceUrl": "https://register.cacbg.bg/2026/39CE56A2-6C96-4931-9415-E7F2D81D32DA226819.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19648.946994370675,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21474.259010241178,
+        "amountEurDeclarant": 18406.507723063867,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
-        "holderName": "Мария Иванова Ангелова- Дойчева",
-        "isSpouse": false,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Мария Иванова Ангелова- Дойчевяа",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -56,12 +50,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 3000,
-        "valueEur": 3000,
-        "holderName": "Мария Иванова Ангелова- Дойчева",
+        "amount": 20000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Мария Иванова Ангелова-Дойчева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Мария Иванова Ангелова-Дойчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

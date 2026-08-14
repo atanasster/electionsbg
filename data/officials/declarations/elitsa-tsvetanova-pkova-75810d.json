@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14616",
+    "controlHash": "8A8BFC09",
+    "sourceUrl": "https://register.cacbg.bg/2026/7604CA83-DED3-4089-A441-B791D267F778240552.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18764.412039901217,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150133,
+        "valueEur": 76761.78399963187,
+        "holderName": "Елица Цветанова Пъкова",
+        "isSpouse": false,
+        "legalBasis": "2.5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22980,
+        "valueEur": 11749.4874298891,
+        "holderName": "Елица Цветанова Пъкова",
+        "isSpouse": false,
+        "legalBasis": "5.5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elitsa-tsvetanova-pkova-75810d",
+    "declarantName": "Елица Цветанова Пъкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

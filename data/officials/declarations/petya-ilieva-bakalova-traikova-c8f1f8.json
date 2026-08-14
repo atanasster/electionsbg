@@ -5,6 +5,68 @@
     "institution": "РДНСК",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4710",
+    "controlHash": "1DAE4CA4",
+    "sourceUrl": "https://register.cacbg.bg/2026/BE18C928-29B7-4984-B6DF-D3AB57EE644F228931.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20891.386265677487,
+        "amountEurSpouse": 14386.219661218
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18500,
+        "valueEur": 9458.899802130041,
+        "holderName": "Петя Илиева Бакалова-Трайкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54500,
+        "valueEur": 27865.407525193907,
+        "holderName": "Калоян Владимиров Трайков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-ilieva-bakalova-traikova-c8f1f8",
+    "declarantName": "Петя Илиева Бакалова-Трайкова",
+    "institution": "РДНСК",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

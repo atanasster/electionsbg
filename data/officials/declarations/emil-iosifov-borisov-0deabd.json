@@ -5,6 +5,62 @@
     "institution": "Главна дирекция \"Борба с организираната престъпност\"",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14825",
+    "controlHash": "632B19E2",
+    "sourceUrl": "https://register.cacbg.bg/2026/E89B9A49-5B96-4C98-A842-0249E97247D0241126.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42916.81792384819,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6109.937980294811
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи от трудови правоотношения",
+        "amountEurDeclarant": 1393.2703762596955,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88070,
+        "valueEur": 45029.47597695096,
+        "holderName": "Емил Йосифов Борисов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emil-iosifov-borisov-0deabd",
+    "declarantName": "Емил Йосифов Борисов",
+    "institution": "Главна дирекция \"Борба с организираната престъпност\"",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

@@ -5,6 +5,56 @@
     "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2594",
+    "controlHash": "69C0A3BE",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5B01031-55BE-4C7C-A3AC-C30B8F8F1AB4226657.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 105731.07069632842,
+        "amountEurSpouse": 12120.174043756359
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2147.937192905314,
+        "amountEurSpouse": 1712.3165101261357
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рейндж Роувър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "Димитър Божидаров Стоилов",
+        "isSpouse": false,
+        "legalBasis": "Лизинг",
+        "fundsOrigin": "Лизинг"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-bozhidarov-stoilov-d39f64",
+    "declarantName": "Димитър Божидаров Стоилов",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

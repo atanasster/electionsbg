@@ -4,25 +4,25 @@
     "declarantName": "НЕСРИН РАМАДАНОВА РАМАДАНОВА-ЮМЕРОВА",
     "institution": "Асеновград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5073",
-    "controlHash": "962B1FF2",
-    "sourceUrl": "https://register.cacbg.bg/2025/333910AB-EDA2-49C9-8954-BE064D776632207962.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2975",
+    "controlHash": "F44CCE6F",
+    "sourceUrl": "https://register.cacbg.bg/2026/333910AB-EDA2-49C9-8954-BE064D776632227070.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8229.242827853137,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 14519.666842210212,
+        "amountEurSpouse": 6124.765444849501
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5331.24044523297,
+        "amountEurDeclarant": 6387.0581799031615,
         "amountEurSpouse": null
       }
     ],
@@ -38,11 +38,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "ШАБАН ШЕФКЕДОВ ЮМЕРОВ",
+        "amount": 23636,
+        "valueEur": 12084.89490395382,
+        "holderName": "НЕСРИН РАМАДАНОВА РАМАДАНОВА ШЕФКЕДОВА",
         "isSpouse": true,
-        "legalBasis": "6,3",
+        "legalBasis": "4",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 104000,
+        "valueEur": 53174.35564440672,
+        "holderName": "НЕСИЛ 2006 ООД 200826918",
+        "isSpouse": true,
+        "legalBasis": "6",
         "fundsOrigin": null
       }
     ],

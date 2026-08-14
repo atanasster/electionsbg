@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7865",
+    "controlHash": "2E3E0EAD",
+    "sourceUrl": "https://register.cacbg.bg/2026/9EEE672F-CCC2-4A67-B30D-11DC01D168E5232320.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23849.721090278807,
+        "amountEurSpouse": 5848.667829003543
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Ахтопол",
+        "municipality": "Царево",
+        "areaSqm": 6156,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "0.059",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Красимир Анестиев Пасков",
+        "isSpouse": true,
+        "legalBasis": "0",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Ахтопол",
+        "municipality": "Царево",
+        "areaSqm": 3896,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "0.760",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Красимир Анестиев Пасков",
+        "isSpouse": true,
+        "legalBasis": "0",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolinka-vasileva-paskova-d44839",
+    "declarantName": "Николинка Василева Паскова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

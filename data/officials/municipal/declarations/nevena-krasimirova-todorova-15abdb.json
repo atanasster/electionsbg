@@ -4,43 +4,25 @@
     "declarantName": "Невена Красимирова Тодорова",
     "institution": "Севлиево",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г4907",
-    "controlHash": "AFA86DE8",
-    "sourceUrl": "https://register.cacbg.bg/2025/075AB689-9964-4646-BFC2-FDFC6F4D8235207787.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9405",
+    "controlHash": "5F5606EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/075AB689-9964-4646-BFC2-FDFC6F4D8235234025.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 40290.31153014321,
-        "amountEurSpouse": 15560.145820444517
+        "amountEurDeclarant": 57001.375375160416,
+        "amountEurSpouse": 20974.215550431276
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Корола",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 26000,
-        "valueEur": 13293.58891110168,
-        "holderName": "Евгени Стефанов Тодоров",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -59,7 +41,7 @@
       },
       {
         "category": "debt",
-        "description": "заем",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,14 +50,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25228,
-        "valueEur": 12898.8715788182,
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
         "holderName": "Невена Красимирова Тодорова",
         "isSpouse": false,
-        "legalBasis": "договор, 4,33 %",
+        "legalBasis": "4,33",
         "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Невена Красимирова Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Евгени Стефанов Тодоров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 273.5411564399769,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 273.5411564399769,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

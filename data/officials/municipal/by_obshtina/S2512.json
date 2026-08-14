@@ -1,9 +1,9 @@
 {
   "obshtina": "S2512",
   "registryName": "Район Илинден",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
@@ -21,16 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Илинден",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "galin-krasimirov-tsenkinski-aea02c",
-      "name": "Галин Красимиров Ценкински",
-      "normalizedName": "ГАЛИН КРАСИМИРОВ ЦЕНКИНСКИ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Район Илинден",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "svetoslav-boikov-iliev-ae6063",
@@ -39,7 +31,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Илинден",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКИ ВЪЗХОД",
@@ -50,13 +43,24 @@
       }
     },
     {
+      "slug": "stanislav-stanislavov-petrunov-b47ae7",
+      "name": "Станислав Станиславов Петрунов",
+      "normalizedName": "СТАНИСЛАВ СТАНИСЛАВОВ ПЕТРУНОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Илинден",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "boris-vasilev-kostadinov-64ba8e",
       "name": "Борис Василев Костадинов",
       "normalizedName": "БОРИС ВАСИЛЕВ КОСТАДИНОВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Илинден",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

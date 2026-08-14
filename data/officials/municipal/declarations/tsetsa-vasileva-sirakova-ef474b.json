@@ -1,28 +1,34 @@
 [
   {
     "slug": "tsetsa-vasileva-sirakova-ef474b",
-    "declarantName": "ЦЕЦА ВАСИЛЕВА СИРАКОВА",
+    "declarantName": "Цеца Василева Сиракова",
     "institution": "Правец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г13945",
-    "controlHash": "3A81E335",
-    "sourceUrl": "https://register.cacbg.bg/2025/7088F665-3203-46BC-98D0-DDCEA794BC64217207.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10286",
+    "controlHash": "DE8BC380",
+    "sourceUrl": "https://register.cacbg.bg/2026/7088F665-3203-46BC-98D0-DDCEA794BC64235014.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3781.0034614460355,
+        "amountEurDeclarant": 4345.980990167857,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6087.952429403374,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -32,9 +38,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39500,
-        "valueEur": 20196.029307250632,
-        "holderName": "ЦЕЦА ВАСИЛЕВА СИРАКОВА",
+        "amount": 71717,
+        "valueEur": 36668.3198437492,
+        "holderName": "Цеца Василева Сиракова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"

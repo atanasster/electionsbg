@@ -4,29 +4,54 @@
     "declarantName": "Байрям Джевдет Мечкарски",
     "institution": "Сърница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4603",
-    "controlHash": "062A88A5",
-    "sourceUrl": "https://register.cacbg.bg/2025/DD4D2C24-691D-44DB-993F-6A9F13C6ED02207468.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12670",
+    "controlHash": "E9378568",
+    "sourceUrl": "https://register.cacbg.bg/2026/DD4D2C24-691D-44DB-993F-6A9F13C6ED02237988.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2096.808004785692,
-        "amountEurSpouse": 5583.307342662706
+        "amountEurDeclarant": 1216.9206935163077,
+        "amountEurSpouse": 5.624210693158403
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10803.730385565206,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Обезщетения от НОИ",
-        "amountEurDeclarant": 3410.3168475787775,
+        "amountEurDeclarant": 3374.526415895042,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1,2",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Байрям Джевдет Мечкарски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

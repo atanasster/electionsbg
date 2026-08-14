@@ -1,32 +1,100 @@
 [
   {
     "slug": "mustafa-ismailov-mustafov-f36e39",
-    "declarantName": "Мустафа Исмаилов Мустафов",
+    "declarantName": "МУСТАФА ИСМАИЛОВ МУСТАФОВ",
     "institution": "Завет",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13290",
-    "controlHash": "BBF84732",
-    "sourceUrl": "https://register.cacbg.bg/2025/A63FB11D-C231-4290-8853-DC324BE9047A216493.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8853",
+    "controlHash": "B9F256A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/A63FB11D-C231-4290-8853-DC324BE9047A233398.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5313.345229391102,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5216.199771963821,
+        "amountEurSpouse": 9351.528507078836
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15786.648123814442,
-        "amountEurSpouse": 1712.3165101261357
+        "amountEurDeclarant": 19065.051666044594,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Мустафа Исмаилов Мустафов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79504,
+        "valueEur": 40649.749722624154,
+        "holderName": "Мустафа Исмаилов Мустафов",
+        "isSpouse": false,
+        "legalBasis": "договор с 2,69 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27703,
+        "valueEur": 14164.318984778842,
+        "holderName": "Мустафа Исмаилов Мустафов",
+        "isSpouse": false,
+        "legalBasis": "договор с 4,94 % лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

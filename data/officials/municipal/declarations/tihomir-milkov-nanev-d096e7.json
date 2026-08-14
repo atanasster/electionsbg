@@ -4,25 +4,31 @@
     "declarantName": "Тихомир Милков Нанев",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г6553",
-    "controlHash": "A91BBC72",
-    "sourceUrl": "https://register.cacbg.bg/2025/943E3E11-2B89-416E-AD3C-CA806594BB26209514.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г2014",
+    "controlHash": "06314831",
+    "sourceUrl": "https://register.cacbg.bg/2026/943E3E11-2B89-416E-AD3C-CA806594BB26225990.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7928.091909828564,
-        "amountEurSpouse": 5382.369633352592
+        "amountEurDeclarant": 9480.88535302148,
+        "amountEurSpouse": 6834.949867831048
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 219245.02640822568,
+        "amountEurDeclarant": 225229.6978776274,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти по чл.38 ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": 3272.2680396557985,
         "amountEurSpouse": null
       }
     ],
@@ -38,10 +44,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12765,
-        "valueEur": 6526.640863469729,
-        "holderName": "Тихомир Милков Нанев",
-        "isSpouse": false,
+        "amount": 17568,
+        "valueEur": 8982.375768855167,
+        "holderName": "Тихомир Минков Нанков",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -56,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38545,
-        "valueEur": 19707.74556070824,
+        "amount": 31899,
+        "valueEur": 16309.699718278174,
         "holderName": "Тихомир Милков Нанев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "Кредит - лих. пр. 5.40%",
         "fundsOrigin": null
       },
       {
@@ -74,29 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
         "holderName": "Тихомир Милков Нанев",
         "isSpouse": false,
-        "legalBasis": "кредитна карта",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Тихомир Милков Нанев",
-        "isSpouse": false,
-        "legalBasis": "кредитна карта",
+        "legalBasis": "Кредитна карта - лих.пр. 18.90%",
         "fundsOrigin": null
       }
     ],

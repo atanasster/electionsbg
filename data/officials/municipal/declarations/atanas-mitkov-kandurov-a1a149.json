@@ -4,25 +4,37 @@
     "declarantName": "Атанас Митков Кандуров",
     "institution": "Баните",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г9491",
-    "controlHash": "40417805",
-    "sourceUrl": "https://register.cacbg.bg/2025/4E5CAE85-90FF-42B1-B56B-A52CC956E4AA212532.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6317",
+    "controlHash": "D3C1361D",
+    "sourceUrl": "https://register.cacbg.bg/2026/4E5CAE85-90FF-42B1-B56B-A52CC956E4AA230628.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3521.267185798357,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5093.4897204767285,
+        "amountEurSpouse": 19537.996656151096
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7819.698031014966,
+        "amountEurDeclarant": 6555.784500697913,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": 16361.340198278991,
         "amountEurSpouse": null
       }
     ],
@@ -44,6 +56,60 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Атанас Митков Кандуров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг за автомобил",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19626,
+        "valueEur": 19620.825940904884,
+        "holderName": "Атанас Митков Кандуров",
+        "isSpouse": false,
+        "legalBasis": "лизинг за автомобил- лих.процент-3,50",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 27809,
+        "valueEur": 27809.165418262324,
+        "holderName": "Атанас Митков Кандуров",
+        "isSpouse": false,
+        "legalBasis": "кредит-лих. процент-6,57",
+        "fundsOrigin": null
       }
     ],
     "events": []

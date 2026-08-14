@@ -5,6 +5,81 @@
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3982",
+    "controlHash": "BF0F2A2D",
+    "sourceUrl": "https://register.cacbg.bg/2026/4AD966D3-E701-4402-A192-BE2034364389228164.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30134.520893942725,
+        "amountEurSpouse": 50229.314408716506
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74322,
+        "valueEur": 38000.23519426535,
+        "holderName": "Миглена Петрова Топалова - Мартинова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21654,
+        "valueEur": 11071.514395422915,
+        "holderName": "Мартин Николаев Мартинов",
+        "isSpouse": false,
+        "legalBasis": "3,3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Парична сума",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8586.635852809293,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "martin-nikolaev-martinov-a04558",
+    "declarantName": "Мартин Николаев Мартинов",
+    "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

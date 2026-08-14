@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1613",
+    "controlHash": "F85E3E69",
+    "sourceUrl": "https://register.cacbg.bg/2026/037D719E-01FD-4ADB-B106-A921241BEF0E225532.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23929.993915626615,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108047,
+        "valueEur": 55243.55388760782,
+        "holderName": "Донка Петрова Костова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия инв."
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "donka-petrova-kostova-2adb16",
+    "declarantName": "Донка Петрова Костова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

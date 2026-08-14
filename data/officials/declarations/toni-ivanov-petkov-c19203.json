@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г14896",
+    "controlHash": "E1D6EE6F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F9B6ACE8-C7C1-43F6-94BD-C2E376068BB7241296.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39541.26892419075,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 193532,
+        "valueEur": 98951.34035166656,
+        "holderName": "Тони Иванов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9783,
+        "valueEur": 9783.058854808445,
+        "holderName": "Тони Иванов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "родител работил в чужбина"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "toni-ivanov-petkov-c19203",
+    "declarantName": "Тони Иванов Петков",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

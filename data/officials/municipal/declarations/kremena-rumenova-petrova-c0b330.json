@@ -4,31 +4,31 @@
     "declarantName": "Кремена Руменова Петрова",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-11",
-    "entryNumber": "Г932",
-    "controlHash": "D5BED1BD",
-    "sourceUrl": "https://register.cacbg.bg/2025/4E07EC54-914F-48C4-92BE-FD48CCBDB773203221.xml",
+    "filedAt": "2026-03-27",
+    "entryNumber": "Г2009",
+    "controlHash": "EBB83A67",
+    "sourceUrl": "https://register.cacbg.bg/2026/4E07EC54-914F-48C4-92BE-FD48CCBDB773225985.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5768.906295536934,
-        "amountEurSpouse": 54643.808510964656
+        "amountEurDeclarant": 7221.48653001539,
+        "amountEurSpouse": 65072.117719842725
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15875.612911142583,
+        "amountEurDeclarant": 18189.71996543667,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,28 +38,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22650,
-        "valueEur": 11580.761109094348,
+        "amount": 15950,
+        "valueEur": 8155.105505079685,
         "holderName": "Кремена Руменова Петрова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 18890,
-        "valueEur": 9658.303635796567,
-        "holderName": "Антон Денев Даскалов",
-        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

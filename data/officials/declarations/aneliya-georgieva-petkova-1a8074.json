@@ -1,6 +1,69 @@
 [
   {
     "slug": "aneliya-georgieva-petkova-1a8074",
+    "declarantName": "Анелия Георгиева Петкова",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": "Директор",
+    "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12188",
+    "controlHash": "4CC5BA06",
+    "sourceUrl": "https://register.cacbg.bg/2026/63D1B309-827C-41F6-85ED-6B553800184A237361.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32465.500580316286,
+        "amountEurSpouse": 4654.801286410373
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 4959.53124760332,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 46907,
+        "valueEur": 46906.93976470348,
+        "holderName": "Анелия Георгиева Петкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Левски",
+        "municipality": "Левски",
+        "areaSqm": 149,
+        "builtAreaSqm": 149,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "aneliya-georgieva-petkova-1a8074",
     "declarantName": "АНЕЛИЯ ГЕОРГИЕВА ПЕТКОВА",
     "institution": "ЦКОДУХЗ",
     "positionTitle": "Директор",

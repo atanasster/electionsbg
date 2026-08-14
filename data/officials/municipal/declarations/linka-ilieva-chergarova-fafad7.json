@@ -4,29 +4,84 @@
     "declarantName": "ЛИНКА ИЛИЕВА ЧЕРГАРОВА",
     "institution": "Съединение",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8623",
-    "controlHash": "36C56FE2",
-    "sourceUrl": "https://register.cacbg.bg/2025/FC5200EA-B438-4A5F-9A7D-6BECAF733699211645.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12885",
+    "controlHash": "A655AA33",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC5200EA-B438-4A5F-9A7D-6BECAF733699238235.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6167.202670988788,
+        "amountEurDeclarant": 5739.7626583087485,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19358.533205851225,
+        "amountEurDeclarant": 17757.678325825866,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2515,
+        "valueEur": 1285.8990812084894,
+        "holderName": "Линка Илиева Чергарова",
+        "isSpouse": false,
+        "legalBasis": "2,89%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23440,
+        "valueEur": 11984.681695239362,
+        "holderName": "Линка Илиева Чергарова",
+        "isSpouse": false,
+        "legalBasis": "2,89%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна Карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Линка Илиева Чергарова",
+        "isSpouse": false,
+        "legalBasis": "14%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,74 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8818",
+    "controlHash": "EDCBFD6C",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F94C423-317E-4BD8-9C66-16CC123F73B1233358.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18600.79863791843,
+        "amountEurSpouse": 20646.4774545845
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1058.3741940761722,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7568,
+        "valueEur": 7568.653717347623,
+        "holderName": "Стойчо Николов Маров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5842,
+        "valueEur": 5842.021034547993,
+        "holderName": "Кипра Иванова Марова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoicho-nikolov-marov-8565fa",
+    "declarantName": "Стойчо Николов Маров",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

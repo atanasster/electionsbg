@@ -5,6 +5,56 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-26",
+    "entryNumber": "Г597",
+    "controlHash": "89833188",
+    "sourceUrl": "https://register.cacbg.bg/2026/B7C0F8BF-8B76-4B7A-BCDE-4AB30D0DD93A224038.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36397.3351467152,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия за инвалидност поради общо заболяване по чл.71 - 73 от КСО",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2802.3908008364733
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Любомир Христов Вачев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-hristov-vachev-a4d2ae",
+    "declarantName": "Любомир Христов Вачев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

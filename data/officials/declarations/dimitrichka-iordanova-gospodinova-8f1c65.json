@@ -5,6 +5,50 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-10",
+    "entryNumber": "Г387",
+    "controlHash": "517DB5EC",
+    "sourceUrl": "https://register.cacbg.bg/2026/FF4CAD23-8C27-4EE4-9089-D4B99C0ADF1A223640.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25462.33568357168,
+        "amountEurSpouse": 26706.82012240328
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 15850.048317082774,
+        "holderName": "Деян Вълканов Господинов",
+        "isSpouse": true,
+        "legalBasis": "5,5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitrichka-iordanova-gospodinova-8f1c65",
+    "declarantName": "Димитричка Йорданова Господинова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

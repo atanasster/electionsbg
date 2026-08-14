@@ -5,6 +5,50 @@
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9527",
+    "controlHash": "F667DEA5",
+    "sourceUrl": "https://register.cacbg.bg/2026/761E03B1-071E-49D1-BF0E-19DCFA5F3818234154.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30561.960906622764,
+        "amountEurSpouse": 18815.54122802084
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 254000,
+        "valueEur": 129868.1378238395,
+        "holderName": "Гаврил Иванов  Рангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gavril-ivanov-rangelov-90118e",
+    "declarantName": "Гаврил Иванов Рангелов",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

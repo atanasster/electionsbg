@@ -5,6 +5,68 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5768",
+    "controlHash": "86575F72",
+    "sourceUrl": "https://register.cacbg.bg/2026/3A2BD876-F767-4DF7-9076-31D523509DE9230033.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41808.337125414786,
+        "amountEurSpouse": 18177.44896028796
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51000,
+        "valueEur": 26075.88594100714,
+        "holderName": "ДАРИНА НЕЙЧЕВА КОЛЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "ДАРИНА НЕЙЧЕВА КОЛЕВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР 5,07%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "darina-neicheva-koleva-ef3d2e",
+    "declarantName": "ДАРИНА НЕЙЧЕВА КОЛЕВА",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,80 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г10656",
+    "controlHash": "5CDA87B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC610CF3-4E22-4E98-92E2-7D0DC5FEDB4C235442.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17552.65028146618,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 92.03253861531933
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ ЗА ОСИГУРИТЕЛЕН СТАЖ И ВЪЗРАСТ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 19142.76803198642
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6000,
+        "valueEur": 6000.010225837624,
+        "holderName": "СЕВДА БОРИСОВА КАЦАРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000.357904316837,
+        "holderName": "СИМЕОН МИНЧЕВ КУЦЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ПЕНСИЯ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sevda-borisova-katsarova-c979b0",
+    "declarantName": "СЕВДА БОРИСОВА КАЦАРОВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,42 +4,67 @@
     "declarantName": "Лариса Костадинова Каменова",
     "institution": "Бобошево",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9963",
-    "controlHash": "CD4C08A0",
-    "sourceUrl": "https://register.cacbg.bg/2025/36F3F407-352B-4EEA-AAF4-B2896076957C213032.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11275",
+    "controlHash": "AFD14CE8",
+    "sourceUrl": "https://register.cacbg.bg/2026/36F3F407-352B-4EEA-AAF4-B2896076957C236162.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24905.0275330678,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 24621.771830885096,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Хонда СРВ",
+        "detail": "Нисан Кашкай",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
-        "holderName": "Камен Йорданов Каменов",
-        "isSpouse": true,
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Лариса Костадинова Каменова",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3473.2057489659123,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12566",
+    "controlHash": "889B7EC4",
+    "sourceUrl": "https://register.cacbg.bg/2026/778FABD9-E363-447E-B109-24F1CA1CD230237875.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23879.887311269384,
+        "amountEurSpouse": 10239.642504716669
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалидност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7221.48653001539
+      },
+      {
+        "parent": null,
+        "category": "Социални помощи, интеграционни добавки, транспорт за хора с увреждания",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 582.872744563689
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25948,
+        "valueEur": 13267.001733279478,
+        "holderName": "Нели Иванова Йорданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27024,
+        "valueEur": 13817.151797446608,
+        "holderName": "Йордан Досев Йорданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-ivanova-iordanova-95c9f6",
+    "declarantName": "Нели Иванова Йорданова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

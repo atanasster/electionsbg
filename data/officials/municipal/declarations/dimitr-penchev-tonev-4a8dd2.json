@@ -4,29 +4,66 @@
     "declarantName": "Димитър Пенчев Тонев",
     "institution": "Севлиево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8016",
-    "controlHash": "CEA9C254",
-    "sourceUrl": "https://register.cacbg.bg/2025/2D21AB32-9135-4E42-BB4D-64DEA7ED6433211023.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9409",
+    "controlHash": "14022E2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/2D21AB32-9135-4E42-BB4D-64DEA7ED6433234029.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4729.961192946217,
-        "amountEurSpouse": 8407.683694390616
+        "amountEurDeclarant": 5328.172693945793,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13913.274671111498,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 15448.684190343742,
+        "amountEurSpouse": 8817.739783109984
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Димитър Пенчев Тонев",
+        "isSpouse": false,
+        "legalBasis": "4,99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Димитър Пенчев Тонев",
+        "isSpouse": false,
+        "legalBasis": "6,85%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

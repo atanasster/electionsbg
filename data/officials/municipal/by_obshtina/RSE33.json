@@ -1,16 +1,16 @@
 {
   "obshtina": "RSE33",
   "registryName": "Сливо поле",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 16,
-    "chief_architect": 2,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "borislava-marinova-bratoeva-b5ca82",
@@ -30,7 +31,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "mihail-asenov-chilikov-0c82a6",
@@ -39,7 +41,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -56,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -73,7 +77,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -84,22 +89,14 @@
       }
     },
     {
-      "slug": "zlatina-neicheva-iordanova-911033",
-      "name": "Златина Нейчева Йорданова",
-      "normalizedName": "ЗЛАТИНА НЕЙЧЕВА ЙОРДАНОВА",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "ivan-krasimirov-enimanev-9ec0f3",
       "name": "Иван Красимиров Ениманев",
       "normalizedName": "ИВАН КРАСИМИРОВ ЕНИМАНЕВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aidn-zyulkyarov-ahmedov-c9e6b1",
@@ -108,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЗНС",
@@ -119,13 +117,22 @@
       }
     },
     {
-      "slug": "antoaneta-vasileva-lyubenova-7e5a73",
-      "name": "Антоанета Василева Любенова",
-      "normalizedName": "АНТОАНЕТА ВАСИЛЕВА ЛЮБЕНОВА",
+      "slug": "antoaneta-lyubenova-vasileva-4cc147",
+      "name": "Антоанета Любенова Василева",
+      "normalizedName": "АНТОАНЕТА ЛЮБЕНОВА ВАСИЛЕВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 107,
+        "prefVotes": 62,
+        "isElected": true
+      }
     },
     {
       "slug": "anton-danailov-penchev-4d6294",
@@ -134,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -151,7 +159,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -168,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЗНС",
@@ -185,7 +195,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -202,7 +213,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -219,7 +231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -236,7 +249,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -253,7 +267,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -270,7 +285,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -287,7 +303,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -304,7 +321,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -321,7 +339,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -338,7 +357,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -355,7 +375,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Сливо поле",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

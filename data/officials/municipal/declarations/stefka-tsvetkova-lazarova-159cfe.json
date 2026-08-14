@@ -4,99 +4,39 @@
     "declarantName": "Стефка Цветкова Лазарова",
     "institution": "Червен бряг",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г12408",
-    "controlHash": "AFA0A819",
-    "sourceUrl": "https://register.cacbg.bg/2025/E81F273F-6E84-40AB-A1AB-F38126D5E8DD215576.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2710",
+    "controlHash": "DB3AFD8F",
+    "sourceUrl": "https://register.cacbg.bg/2026/E81F273F-6E84-40AB-A1AB-F38126D5E8DD226789.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28381.30103332089,
-        "amountEurSpouse": 10333.208918975575
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 106.86000317000966,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 31483.30887653835,
+        "amountEurSpouse": 12305.772996630587
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща",
-        "detail": null,
-        "location": "гр. Койнаре",
-        "municipality": "Червен бряг",
-        "areaSqm": 1080,
-        "builtAreaSqm": 103,
-        "acquiredYear": 2024,
-        "share": "1І3",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Стефка Цветкова Лазарова",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща",
-        "detail": null,
-        "location": "с.Чомаковци",
-        "municipality": "Червен бряг",
-        "areaSqm": 1400,
-        "builtAreaSqm": 156,
-        "acquiredYear": 2024,
-        "share": "1І9",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Стефка Цветкова Лазарова",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "ауди",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
+        "amount": 10626,
+        "valueEur": 5432.987529591018,
         "holderName": "Стефка Цветкова Лазарова",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "ауди",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1І2",
-        "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
-        "holderName": "Лазар Петров Лазаров",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -136,19 +76,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща",
-        "detail": null,
-        "location": "с.Чомаковци",
-        "municipality": "Червен бряг",
-        "areaSqm": 1540,
-        "builtAreaSqm": 84,
-        "currency": "BGN",
-        "valueEur": 536.8564752560294,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

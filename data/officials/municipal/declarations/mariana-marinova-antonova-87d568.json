@@ -4,20 +4,20 @@
     "declarantName": "Мариана Маринова Антонова",
     "institution": "Смядово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3795",
-    "controlHash": "0FD8CD1A",
-    "sourceUrl": "https://register.cacbg.bg/2025/89C16DF5-7A9F-48DB-B2C0-584844BFA4B7206610.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13212",
+    "controlHash": "7CB0CC5F",
+    "sourceUrl": "https://register.cacbg.bg/2026/89C16DF5-7A9F-48DB-B2C0-584844BFA4B7238712.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19278.26038050342,
-        "amountEurSpouse": 16348.557901249087
+        "amountEurDeclarant": 21488.575182914672,
+        "amountEurSpouse": 24504.17469820997
       },
       {
         "parent": null,
@@ -56,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23239,
-        "valueEur": 11881.912027118922,
+        "amount": 18942,
+        "valueEur": 9684.890813618771,
         "holderName": "Мариана Маринова Антонова",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "Потребителски кредит 5,88%",
         "fundsOrigin": null
       },
       {
@@ -74,11 +74,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38000,
-        "valueEur": 19429.0914854563,
+        "amount": 37289,
+        "valueEur": 19065.56295792579,
         "holderName": "Антон Стоянов Антонов",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "кредит 6,4%",
         "fundsOrigin": null
       },
       {
@@ -92,39 +92,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 18900,
+        "valueEur": 9663.41655460853,
         "holderName": "Антон Стоянов Антонов",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "кредит 10%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 636,
+        "valueEur": 325.18163644079493,
+        "holderName": "Антон Стоянов Антонов",
+        "isSpouse": true,
+        "legalBasis": "кредитна карта 0%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген пасат",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "продажба"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген туран",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

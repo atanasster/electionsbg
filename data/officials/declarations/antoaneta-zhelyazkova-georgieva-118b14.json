@@ -5,6 +5,80 @@
     "institution": "МБАЛ \"Царица Йоанна\" - Провадия ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г652",
+    "controlHash": "4A66559E",
+    "sourceUrl": "https://register.cacbg.bg/2026/C7BEC2F0-B0FC-4C48-9FF4-4F7B690663A2224132.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62589.28434475389,
+        "amountEurSpouse": 10368.999350659311
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 90895.42547153894
+      },
+      {
+        "parent": null,
+        "category": "пенсии",
+        "amountEurDeclarant": 13804.8807922979,
+        "amountEurSpouse": 13804.8807922979
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 720000,
+        "valueEur": 368130.1544612773,
+        "holderName": "АнтоанетаЖелязкова Георгиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, пенсии"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 822000,
+        "valueEur": 420281.9263432916,
+        "holderName": "Георги Николов Георгиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, пенсии"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "antoaneta-zhelyazkova-georgieva-118b14",
+    "declarantName": "Антоанета Желязкова Георгиева",
+    "institution": "МБАЛ \"Царица Йоанна\" - Провадия ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

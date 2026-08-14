@@ -1,40 +1,46 @@
 [
   {
     "slug": "tsanka-mitkova-markova-fa8fb1",
-    "declarantName": "Цанка Миткова Макова",
+    "declarantName": "Цанка Миткова Маркова",
     "institution": "Ботевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г4852",
-    "controlHash": "AEBA8E4F",
-    "sourceUrl": "https://register.cacbg.bg/2025/1E8053F1-6B1F-42DE-B12E-E6DF587AA557207730.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8679",
+    "controlHash": "88699080",
+    "sourceUrl": "https://register.cacbg.bg/2026/1E8053F1-6B1F-42DE-B12E-E6DF587AA557233209.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2982.365543017542,
+        "amountEurDeclarant": 3466.558954510361,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18277.66216900242,
+        "amountEurDeclarant": 23503.06519482777,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 73.62603089225546,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1472.5206178451092,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 10225.83762392437,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 2070.732118844685,
+        "amountEurDeclarant": 61.35502574354622,
         "amountEurSpouse": null
       }
     ],
@@ -50,9 +56,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23536,
-        "valueEur": 12033.765715834199,
-        "holderName": "Цанка Миткова Маркова",
+        "amount": null,
+        "valueEur": 38986.00594121166,
+        "holderName": "ЦАНКА Миткова МАРКООВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46166,
+        "valueEur": 23604.30098730462,
+        "holderName": "ЦАНКА Миткова МАРКООВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4843,
+        "valueEur": 2476.186580633286,
+        "holderName": "ЦАНКА Миткова МАРКООВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -70,7 +112,7 @@
         "currency": "BGN",
         "amount": 16500,
         "valueEur": 8436.316039737605,
-        "holderName": "Цанка Миткова Маркова",
+        "holderName": "ЦАНКА Миткова МАРКООВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -78,24 +120,6 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 27486,
-        "valueEur": 24913.71949504814,
-        "holderName": "Цанка Миткова Маркова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "наем"
-      },
-      {
-        "category": "debt",
-        "description": "кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -104,14 +128,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Цанка Миткова Маркова",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "ЦАНКА Миткова МАРКООВА",
         "isSpouse": true,
-        "legalBasis": "дог.кр. Карта 18.9%",
+        "legalBasis": null,
+        "fundsOrigin": "наеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5963,
+        "valueEur": 3048.8334875730507,
+        "holderName": "ЦАНКА Миткова МАРКООВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредитна ктарта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 1579.891912896315,
+        "holderName": "ЦАНКА МИТКОВА МАРКОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОТОВОР- 18..5",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с- Ллитакова",
+        "municipality": "Ботевград",
+        "areaSqm": 1,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

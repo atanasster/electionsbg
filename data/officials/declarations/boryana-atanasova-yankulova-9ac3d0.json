@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "boryana-atanasova-yankulova-9ac3d0",
+    "declarantName": "Боряна Атанасова Янкулова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12642",
+    "controlHash": "54159A55",
+    "sourceUrl": "https://register.cacbg.bg/2026/8CDEE234-370E-4BA0-8B7A-1BE05D7E4D7D237960.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19107.40197256408,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 84.37849915381194,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "Фолксваген голф +",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Боряна Атанасова Янкулова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18390,
+        "valueEur": 9402.657695198459,
+        "holderName": "Боряна Атанасова Янкулова",
+        "isSpouse": false,
+        "legalBasis": "5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13947",
+    "controlHash": "EF6F219E",
+    "sourceUrl": "https://register.cacbg.bg/2026/2CCA3FF9-17AD-47D7-9AC4-1F624AC72D8A239604.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32637.80594427941,
+        "amountEurSpouse": 7669.378217943277
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 32000,
+        "valueEur": 31999.71367654653,
+        "holderName": "Георги Миланов Тончев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Лилия Петрова Тончева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-milanov-tonchev-8fb0c6",
+    "declarantName": "Георги Миланов Тончев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

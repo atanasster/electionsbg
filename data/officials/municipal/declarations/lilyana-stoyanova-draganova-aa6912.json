@@ -4,37 +4,44 @@
     "declarantName": "ЛИЛЯНА СТОЯНОВА ДРАГАНОВА",
     "institution": "Карлово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г12389",
-    "controlHash": "2A524276",
-    "sourceUrl": "https://register.cacbg.bg/2025/A8178BC0-2148-4AD5-8ADA-F115602868BE215556.xml",
-    "ownershipStakes": [],
+    "entryNumber": "Г6295",
+    "controlHash": "8786DC5F",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8178BC0-2148-4AD5-8ADA-F115602868BE230604.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "АПАРТАМЕНТ",
+        "shareSize": "1/2",
+        "companyName": "СТОРА ООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 25.564594059810926,
+        "holderName": "ЛИЛЯНА СТОЯНОВА ДРАГАНОВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 9571.38401599321
+        "amountEurDeclarant": 9174.110224303748,
+        "amountEurSpouse": 11056.175638987028
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7755.275253984242,
+        "amountEurDeclarant": 6387.0581799031615,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1328.3363073477756,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2574.8659137041564,
+        "amountEurDeclarant": 11981.102652070987,
         "amountEurSpouse": null
       }
     ],
@@ -44,7 +51,7 @@
         "description": "къща",
         "detail": null,
         "location": "КАРЛОВО",
-        "municipality": "Карлово",
+        "municipality": "КАРЛОВО",
         "areaSqm": 123,
         "builtAreaSqm": 123,
         "acquiredYear": 2022,
@@ -72,7 +79,7 @@
         "valueEur": 60025.66685243605,
         "holderName": "ПАВЕЛ ХРИСТОВ ДРАГАНОВ",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТ 2,92%",
+        "legalBasis": "2,9",
         "fundsOrigin": null
       }
     ],

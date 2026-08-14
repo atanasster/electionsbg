@@ -4,35 +4,97 @@
     "declarantName": "ГОШО ИВАНОВ ИЛИЕВ",
     "institution": "Бойница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8363",
-    "controlHash": "3786038E",
-    "sourceUrl": "https://register.cacbg.bg/2025/01EDF68F-3419-4F5D-A9F3-5164EB096727211382.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г8343",
+    "controlHash": "217E5CEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/01EDF68F-3419-4F5D-A9F3-5164EB096727232842.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 617.1293006038358,
-        "amountEurSpouse": 9648.58909005384
+        "amountEurDeclarant": 639.1148514952731,
+        "amountEurSpouse": 11326.649044139827
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4084.7108388765896,
+        "amountEurDeclarant": 5537.802365236243,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 8296.733356171037,
+        "amountEurDeclarant": 9253.87175777036,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА КАРОЛА ВЕРСО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "ГОШО ИВАНОВ ИЛИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА КАРОЛА ВЕРСО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "МАРИЯНА НЕДКОВА ИЛИЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСФАГЕН ПАСАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСФАГЕН ПАСАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

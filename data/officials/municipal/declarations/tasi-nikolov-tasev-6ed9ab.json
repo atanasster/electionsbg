@@ -4,42 +4,48 @@
     "declarantName": "ТАСИ НИКОЛОВ ТАСЕВ",
     "institution": "Димово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4405",
-    "controlHash": "5C0280E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/7BA773A8-FA93-427F-83AA-E5AA8BCBDBA7207253.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5494",
+    "controlHash": "DB11F290",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BA773A8-FA93-427F-83AA-E5AA8BCBDBA7229755.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5798.561224646314,
+        "amountEurDeclarant": 6031.710322471789,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1058.8854859573685,
+        "amountEurDeclarant": 1010.3127572437278,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 766.9378217943278,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Трактор",
-        "detail": "Владимировец Т25А",
+        "description": "лек автомобил",
+        "detail": "Ланд Ровър Дискавъри",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
         "holderName": "Таси Николов Тасев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -56,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18500,
-        "valueEur": 9458.899802130041,
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
         "holderName": "Таси Николов Тасев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата; доход от стопанска дейност"
       }
     ],
     "events": []

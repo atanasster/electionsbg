@@ -5,6 +5,50 @@
     "institution": "КЕВР",
     "positionTitle": "Член",
     "category": "regulator",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2241",
+    "controlHash": "5E3A1469",
+    "sourceUrl": "https://register.cacbg.bg/2026/CAE0B02D-1354-42EC-88C8-4BE60DB8BB7F226254.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 70835.9110965677,
+        "amountEurSpouse": 73752.31998691092
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35000,
+        "valueEur": 34999.974435405944,
+        "holderName": "Александра Николова Богословска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aleksandra-nikolova-bogoslovska-adf1cb",
+    "declarantName": "Александра Николова Богословска",
+    "institution": "КЕВР",
+    "positionTitle": "Член",
+    "category": "regulator",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

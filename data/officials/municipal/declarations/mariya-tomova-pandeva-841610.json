@@ -1,51 +1,51 @@
 [
   {
     "slug": "mariya-tomova-pandeva-841610",
-    "declarantName": "МАРИЯ ТОМОВА ПАНДЕВА",
+    "declarantName": "Мария Томова Пандева",
     "institution": "Разлог",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13021",
-    "controlHash": "38D57694",
-    "sourceUrl": "https://register.cacbg.bg/2025/01DF9E3F-315B-4FFC-A92D-85195B9BC70E216210.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10701",
+    "controlHash": "5E1B0083",
+    "sourceUrl": "https://register.cacbg.bg/2026/01DF9E3F-315B-4FFC-A92D-85195B9BC70E235488.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3632.2175240179363,
+        "amountEurDeclarant": 4152.201367194491,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "дарение",
-        "amountEurDeclarant": 18176.426376525567,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 10225.83762392437,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения",
+        "amountEurDeclarant": 6126.29932049309,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "vehicle",
+        "kind": "disposal_vehicle",
         "description": "лек автомобил",
         "detail": "БМВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
         "currency": "BGN",
-        "amount": 36033,
-        "valueEur": 18423.38035514334,
-        "holderName": "Мария Томова Пандева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

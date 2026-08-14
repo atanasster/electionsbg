@@ -4,38 +4,44 @@
     "declarantName": "Сашко Иванов Станчев",
     "institution": "Габрово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-12",
-    "entryNumber": "Г425",
-    "controlHash": "D81A0AB8",
-    "sourceUrl": "https://register.cacbg.bg/2025/0C2B2D36-D379-4D17-845A-FD1D84DFA26A202435.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2484",
+    "controlHash": "7A5891FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/0C2B2D36-D379-4D17-845A-FD1D84DFA26A226533.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7059.918295557385,
+        "amountEurDeclarant": 32217.52401793612,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7577.856971209154,
+        "amountEurDeclarant": 8242.025124883043,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "интеграционни добавки",
-        "amountEurDeclarant": 206.05062812207606,
+        "amountEurDeclarant": 273.5411564399769,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "пенсия по инвалидност",
-        "amountEurDeclarant": 8258.897756962517,
+        "amountEurDeclarant": 9154.681132818292,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6458.639043270632
       }
     ],
     "assets": [
@@ -50,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 101338,
-        "valueEur": 51813.29665666239,
+        "amount": 165045,
+        "valueEur": 84386.16853202989,
         "holderName": "Сашко Иванов Станчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 58798,
-        "valueEur": 30062.940030575253,
+        "amount": 92024,
+        "valueEur": 47051.12407520081,
         "holderName": "Цеца Маринова Станчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наличност от предходни години"
+        "fundsOrigin": "наличност от минали години и дивиденти"
       }
     ],
     "events": []

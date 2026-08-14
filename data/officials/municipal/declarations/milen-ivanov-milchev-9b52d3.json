@@ -4,68 +4,38 @@
     "declarantName": "Милен Иванов Милчев",
     "institution": "Нови пазар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г14083",
-    "controlHash": "E1193B58",
-    "sourceUrl": "https://register.cacbg.bg/2025/5E34E750-6A2E-483B-95F8-9C7FF246BD53217347.xml",
+    "entryNumber": "Г12134",
+    "controlHash": "8D810E6D",
+    "sourceUrl": "https://register.cacbg.bg/2026/5E34E750-6A2E-483B-95F8-9C7FF246BD53237255.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4992.765219881074,
+        "amountEurDeclarant": 5728.514236922432,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10304.065281747391,
-        "amountEurSpouse": 6119.141234156343
+        "amountEurDeclarant": 9082.588977569625,
+        "amountEurSpouse": 6417.224400893739
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1009.2901734813353,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 1600,
-        "valueEur": 818.0670099139496,
-        "holderName": "Милен Иванов Милчев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 1600,
-        "valueEur": 818.0670099139496,
-        "holderName": "Силвия Стефанова Милчева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "debt",
-        "description": "Ипотечен кредит - 2.84",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,16 +44,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22785,
-        "valueEur": 11649.785513055838,
+        "amount": 21394,
+        "valueEur": 10938.578506311898,
         "holderName": "Милен Иванов Милчев",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит 2.65",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Ипотечен кредит - 2.84",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -92,16 +62,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22785,
-        "valueEur": 11649.785513055838,
+        "amount": 21394,
+        "valueEur": 10938.578506311898,
         "holderName": "Силвия Стефанова Милчева",
         "isSpouse": true,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит 2.65",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Портебителски кредит - 5.39",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -110,39 +80,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18022,
-        "valueEur": 9214.502282918249,
+        "amount": 15407,
+        "valueEur": 7877.474013590138,
         "holderName": "Милен Иванов Милчев",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит 5.39",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 690.244039614895,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 690.244039614895,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

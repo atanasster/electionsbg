@@ -4,23 +4,42 @@
     "declarantName": "ЙОРДАНКА АТАНАСОВА ВЕЧЕВА",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г4332",
-    "controlHash": "8583DA54",
-    "sourceUrl": "https://register.cacbg.bg/2025/FB36CEF1-29D4-452E-BABA-383FC969DEE3207179.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8726",
+    "controlHash": "37670F4C",
+    "sourceUrl": "https://register.cacbg.bg/2026/FB36CEF1-29D4-452E-BABA-383FC969DEE3233259.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11634.446756619951,
-        "amountEurSpouse": 24406.517948901488
+        "amountEurDeclarant": 16211.5316770885,
+        "amountEurSpouse": 28512.70304678832
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "КОЛЕСЕН ТРАКТОР",
+        "detail": "ЮМЗ-6КЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ДИМИТЪР ПЕТКОВ ВЕЧЕВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
     "events": []
   }
 ]

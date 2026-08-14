@@ -5,6 +5,68 @@
     "institution": "Европейски парламент",
     "positionTitle": "Член",
     "category": "mep",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-09",
+    "entryNumber": "Г566",
+    "controlHash": "02E75325",
+    "sourceUrl": "https://register.cacbg.bg/2026/C07C3CF1-394F-4C6F-9CF2-D657838012CB224001.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 132570.31541596152,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3011,
+        "valueEur": 3010.997888364531,
+        "holderName": "РАДА СТЕФАНОВА ЛАЙКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 90121,
+        "valueEur": 90120.81827152667,
+        "holderName": "РАДА СТЕФАНОВА ЛАЙКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rada-stefanova-laikova-2c05a0",
+    "declarantName": "РАДА СТЕФАНОВА ЛАЙКОВА",
+    "institution": "Европейски парламент",
+    "positionTitle": "Член",
+    "category": "mep",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

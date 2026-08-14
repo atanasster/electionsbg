@@ -4,35 +4,54 @@
     "declarantName": "Ваня Руменова Григорова",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12123",
-    "controlHash": "8EA98D5C",
-    "sourceUrl": "https://register.cacbg.bg/2025/165D257F-6AA4-43B0-8D3A-7BE06D01CD45215281.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6972",
+    "controlHash": "B7B0D220",
+    "sourceUrl": "https://register.cacbg.bg/2026/165D257F-6AA4-43B0-8D3A-7BE06D01CD45231353.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26791.69457468185,
-        "amountEurSpouse": 18910.13022604214
+        "amountEurDeclarant": 36587.024434639,
+        "amountEurSpouse": 20238.466533389917
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5222.846566419372,
+        "amountEurDeclarant": 7803.336690816686,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3553.4785743137186
+        "amountEurSpouse": 3313.171390151496
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "жилищен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 76694,
+        "valueEur": 76693.78217943278,
+        "holderName": "Ваня Руменова Григорова",
+        "isSpouse": false,
+        "legalBasis": "2.71 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

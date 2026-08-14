@@ -1,19 +1,51 @@
 [
   {
     "slug": "krasimira-kostadinova-iovkova-582869",
-    "declarantName": "Красимира Костадинова Йовкова",
+    "declarantName": "КРАСИМИРА КОСТАДИНОВА ЙОВКОВА",
     "institution": "Асеновград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13046",
-    "controlHash": "F44DFDE5",
-    "sourceUrl": "https://register.cacbg.bg/2025/E30E99C3-8301-428A-A862-F9319731DAE8216236.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12086",
+    "controlHash": "CE1C921A",
+    "sourceUrl": "https://register.cacbg.bg/2026/E30E99C3-8301-428A-A862-F9319731DAE8237196.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5624.210693158403,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4601.626930765967,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "КРАСИМИРА КОСТАДИНОВА ЙОВКОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ПОКУПКО-ПРОДАЖБА",
+        "fundsOrigin": "РАБОТНА ЗАПЛАТА"
+      }
+    ],
     "events": []
   }
 ]

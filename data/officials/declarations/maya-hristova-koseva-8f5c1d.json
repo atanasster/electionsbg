@@ -5,6 +5,63 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12921",
+    "controlHash": "0EC6FFBC",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F5B130B-B56D-4662-B160-D0D4067810DE238273.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "ЮРОТИЙМ",
+        "registeredOffice": "София",
+        "valueEur": 511.29188119621847,
+        "holderName": "Мая Христова Косева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 76741.33232438403,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88606,
+        "valueEur": 45303.52842527213,
+        "holderName": "Мая Христова Косева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-hristova-koseva-8f5c1d",
+    "declarantName": "Мая Христова Косева",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

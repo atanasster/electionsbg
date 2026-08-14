@@ -4,36 +4,61 @@
     "declarantName": "Юлиан Димитров Иванов",
     "institution": "Долни Чифлик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г12262",
-    "controlHash": "2BEFFD58",
-    "sourceUrl": "https://register.cacbg.bg/2025/407B108E-C657-4C8C-B33E-5C51A50232C8215423.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г5593",
+    "controlHash": "FDD97879",
+    "sourceUrl": "https://register.cacbg.bg/2026/407B108E-C657-4C8C-B33E-5C51A50232C8229857.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "фирма",
         "shareSize": "100%",
-        "companyName": "\"Шери Ю\" ЕООД",
+        "companyName": "\" Шери Ю\" ЕООД",
         "registeredOffice": "Варна",
         "valueEur": 2556.4594059810925,
         "holderName": "Юлиан Димитров Иванов",
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4574.01716918137,
-        "amountEurSpouse": 2307.97155171973
+        "amountEurDeclarant": 4397.621470168675,
+        "amountEurSpouse": 2659.7403659827287
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Долни чифлик",
+        "municipality": "долни чифлик",
+        "areaSqm": 592,
+        "builtAreaSqm": 327,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Долни чифлик",
+        "municipality": "долни чифлик",
+        "areaSqm": 592,
+        "builtAreaSqm": 327,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

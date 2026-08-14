@@ -1,6 +1,122 @@
 [
   {
     "slug": "mariana-radeva-iordanova-7a0c2f",
+    "declarantName": "Мариана Радева Йорданова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-27",
+    "entryNumber": "Г6058",
+    "controlHash": "10990861",
+    "sourceUrl": "https://register.cacbg.bg/2026/BF8D2FAA-A3AB-4B79-ADC0-7ACCF1CC23E7230351.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32328.985648036894,
+        "amountEurSpouse": 27105.627789736325
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 369.15273822366976,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Изплатена месечна финансова подкрепа от АСП по чл.70, т.1 от ЗХУ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 269.96211327160336
+      },
+      {
+        "parent": null,
+        "category": "Инвализна пенсия от НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5761.23691731899
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2344,
+        "valueEur": 1198.4681695239362,
+        "holderName": "Мариана Радева Йорданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Станислав Стефанов Йорданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "жилищен кредит с 2,75 лихв%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 148395,
+        "valueEur": 75873.15871011284,
+        "holderName": "Мариана Радева Йорданова",
+        "isSpouse": false,
+        "legalBasis": "148395",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит с 5,86лихв.%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32934,
+        "valueEur": 16838.88681531626,
+        "holderName": "Станислав Стефанов Йорданов",
+        "isSpouse": true,
+        "legalBasis": "32934",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariana-radeva-iordanova-7a0c2f",
     "declarantName": "Мариана Радева Йорданов",
     "institution": "Училища",
     "positionTitle": "Директор",

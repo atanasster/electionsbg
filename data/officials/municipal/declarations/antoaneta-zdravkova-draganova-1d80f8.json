@@ -4,23 +4,42 @@
     "declarantName": "Антоанета Здравкова Драганова",
     "institution": "Елин Пелин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8258",
-    "controlHash": "8A71BA8C",
-    "sourceUrl": "https://register.cacbg.bg/2025/CB3B14DD-9ADA-4EA6-9B5B-2E9C140F7698211274.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10098",
+    "controlHash": "0971E597",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB3B14DD-9ADA-4EA6-9B5B-2E9C140F7698234789.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6724.510821492666,
-        "amountEurSpouse": 12439.2201776228
+        "amountEurDeclarant": 8184.760434189066,
+        "amountEurSpouse": 10758.092472249633
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Форд",
+        "detail": "форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Антоанета Драганова",
+        "isSpouse": true,
+        "legalBasis": "договор за покупко-продажба",
+        "fundsOrigin": "лични средства"
+      }
+    ],
     "events": []
   }
 ]

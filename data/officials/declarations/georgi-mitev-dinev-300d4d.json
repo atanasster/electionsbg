@@ -1,6 +1,74 @@
 [
   {
     "slug": "georgi-mitev-dinev-300d4d",
+    "declarantName": "ГЕОРГИ МИТЕВ ДИНЕВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-03-06",
+    "entryNumber": "Ф70",
+    "controlHash": "9D255C5C",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9CC9627-C7F1-4BF4-842D-11076F0C3141223116.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "georgi-mitev-dinev-300d4d",
+    "declarantName": "ГЕОРГИ МИТЕВ ДИНЕВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-09",
+    "entryNumber": "Г113",
+    "controlHash": "92338BE7",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9CC9627-C7F1-4BF4-842D-11076F0C3141222920.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16916.09188937689,
+        "amountEurSpouse": 3531.493023422281
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5189.612594141618,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Георги Митев Динев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-mitev-dinev-300d4d",
     "declarantName": "Георги Митев Динев",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",

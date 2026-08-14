@@ -1,55 +1,61 @@
 [
   {
     "slug": "martin-kirilov-grncharski-80a39b",
-    "declarantName": "Мартин Кирилов Грънчарски",
+    "declarantName": "МАРТИН КИРИЛОВ ГРЪНЧАРСКИ",
     "institution": "Сопот",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г1929",
-    "controlHash": "F032FB5E",
-    "sourceUrl": "https://register.cacbg.bg/2025/5421554D-5DA0-4ABB-B112-4EE5DE758049204500.xml",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1438",
+    "controlHash": "0D6CA1FC",
+    "sourceUrl": "https://register.cacbg.bg/2026/5421554D-5DA0-4ABB-B112-4EE5DE758049225300.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3514.1090994616097,
+        "amountEurDeclarant": 12138.069259598227,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11106.282243344258,
+        "amountEurDeclarant": 19124.872816144554,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "пенсия",
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1431.6172673494118,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
         "amountEurDeclarant": 3067.751287177311,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Карлово, ул. Генерал Заимов 16",
-        "municipality": "Карлово",
-        "areaSqm": 82,
-        "builtAreaSqm": 82,
-        "acquiredYear": 2024,
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Toyota Yaris",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 80000,
-        "valueEur": 40903.35049569748,
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
         "holderName": "Мартин Кирилов Грънчарски",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -62,11 +68,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 57268,
-        "valueEur": 29280.66345234504,
+        "amount": 23401,
+        "valueEur": 11964.741311872709,
         "holderName": "Мартин Кирилов Грънчарски",
         "isSpouse": false,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор - ОЛП 5.530%",
         "fundsOrigin": null
       },
       {
@@ -80,14 +86,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 175769,
-        "valueEur": 89869.26266597812,
+        "amount": 172253,
+        "valueEur": 88071.56041169222,
         "holderName": "Мартин Кирилов Грънчарски",
         "isSpouse": false,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор - ОЛП 2.800%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Toyota Yaris",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

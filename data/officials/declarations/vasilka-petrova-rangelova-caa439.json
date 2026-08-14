@@ -5,6 +5,128 @@
     "institution": "Комисия за защита на личните данни",
     "positionTitle": "Член",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7081",
+    "controlHash": "CE05AD81",
+    "sourceUrl": "https://register.cacbg.bg/2026/20BD114A-D98C-4FA6-9A8E-246052FD34D4231471.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50644.48341624784,
+        "amountEurSpouse": 27330.08492558147
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2703.200175884407
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения, освободени от облагане на основание чл.24, ал.2, т. 8 от ЗДДФЛ",
+        "amountEurDeclarant": 26745.167013492992,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения, освободени от облагане на основание чл.24, ал.2, т. 14 от ЗДДФЛ",
+        "amountEurDeclarant": 143.16172673494117,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение съгласно Тълкувателно дело на ВАС № 1/2024г.",
+        "amountEurDeclarant": 3425.655604014664,
+        "amountEurSpouse": 3425.655604014664
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Василка Петрова Рангелова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42732,
+        "valueEur": 21848.524667276808,
+        "holderName": "Василка Петрова Рангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36312,
+        "valueEur": 18566.030789997087,
+        "holderName": "Андрей Кънчев Тифонов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31200,
+        "valueEur": 15952.306693322016,
+        "holderName": "Андрей Кънчев Трифонов",
+        "isSpouse": true,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vasilka-petrova-rangelova-caa439",
+    "declarantName": "Василка Петрова Рангелова",
+    "institution": "Комисия за защита на личните данни",
+    "positionTitle": "Член",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "antoaneta-angelova-stoikova-49ca62",
+    "declarantName": "Антоанета Ангелова Стойкова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10232",
+    "controlHash": "188E0860",
+    "sourceUrl": "https://register.cacbg.bg/2026/B8147C3E-B2E2-40AE-A70B-8F6D79C3757F234956.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13210.759626347894,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125002,
+        "valueEur": 63912.507733289705,
+        "holderName": "Антоанета Ангелова Стойкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "debt",
+        "description": "Заем - лих. % 6.01",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Любомир Иванов Стойков",
+        "isSpouse": true,
+        "legalBasis": "Заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

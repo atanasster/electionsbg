@@ -4,25 +4,25 @@
     "declarantName": "Светла Милчева Илиева",
     "institution": "Долна Митрополия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г8019",
-    "controlHash": "398148B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/5D8F3800-A4F1-46F3-A6EE-942257D5EE8C211026.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7743",
+    "controlHash": "D0F74F18",
+    "sourceUrl": "https://register.cacbg.bg/2026/5D8F3800-A4F1-46F3-A6EE-942257D5EE8C232177.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2905.1604689569135,
+        "amountEurDeclarant": 5793.448305834352,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 6804.783646840472,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3834.6891089716387,
         "amountEurSpouse": null
       }
     ],
@@ -38,16 +38,34 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2589,
-        "valueEur": 1323.7346804170097,
+        "amount": 14981,
+        "valueEur": 7659.66367220055,
         "holderName": "Светла Милчева Илиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
         "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3061,
+        "valueEur": 3061.10449272176,
+        "holderName": "Светла Милчева Илиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16172,
-        "valueEur": 8268.612302705245,
+        "amount": 13895,
+        "valueEur": 7104.400689221456,
         "holderName": "Светла Милчева Илиева",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "банкжв кредит",
+        "fundsOrigin": null
       }
     ],
     "events": []

@@ -4,19 +4,38 @@
     "declarantName": "Галичка Тинкова Николова",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г15205",
-    "controlHash": "01E6FDB8",
-    "sourceUrl": "https://register.cacbg.bg/2025/7D534F07-29B8-4D13-AE2E-7C0133BBCAB1218894.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4386",
+    "controlHash": "DA43F3AE",
+    "sourceUrl": "https://register.cacbg.bg/2026/7D534F07-29B8-4D13-AE2E-7C0133BBCAB1228584.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялово д-во с ограничена отговорност",
+        "shareSize": "25%",
+        "companyName": "Авдромеда инженеринг груп ООД",
+        "registeredOffice": "гр.Русе",
+        "valueEur": 127.82297029905462,
+        "holderName": "Галичка Тинкова Николова",
+        "legalBasis": "съдружник-дружествен дял",
+        "fundsOrigin": "собствени средства"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5478.492507017481,
+        "amountEurDeclarant": 4814.324353343593,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти от \"Андромеда инженеринг груп\" ООД",
+        "amountEurDeclarant": 7669.378217943277,
         "amountEurSpouse": null
       }
     ],

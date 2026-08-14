@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13391",
+    "controlHash": "FB36D327",
+    "sourceUrl": "https://register.cacbg.bg/2026/16DD8B47-698B-460C-8716-F8E1839A799D238897.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22124.11099124157,
+        "amountEurSpouse": 7705.168649627012
+      },
+      {
+        "parent": null,
+        "category": "Наем земеделска земя",
+        "amountEurDeclarant": 746.486146546479,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64125,
+        "valueEur": 32786.59188170751,
+        "holderName": "Гюлшен Ахмед Ахмед",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, наем земеделска земя"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gyulshen-ahmed-ahmed-9e4c47",
+    "declarantName": "Гюлшен Ахмед Ахмед",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

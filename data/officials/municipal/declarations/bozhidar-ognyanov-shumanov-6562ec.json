@@ -4,32 +4,32 @@
     "declarantName": "Божидар Огнянов Шуманов",
     "institution": "Смолян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г13329",
-    "controlHash": "84FEC3A1",
-    "sourceUrl": "https://register.cacbg.bg/2025/64943EA0-1FC6-44DC-93B1-CA85D31D525B216534.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12823",
+    "controlHash": "29DAE644",
+    "sourceUrl": "https://register.cacbg.bg/2026/64943EA0-1FC6-44DC-93B1-CA85D31D525B238165.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12317.5327098981,
+        "amountEurDeclarant": 19725.129484668912,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 9002.827444103015,
+        "amountEurDeclarant": 4109.764141055204,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Шкода Октавия",
         "location": null,
         "municipality": null,
@@ -47,7 +47,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Ауди А6",
         "location": null,
         "municipality": null,
@@ -65,26 +65,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Мотоциклет",
+        "description": "мотоциклет",
         "detail": "Ямаха ХЖ6",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "цяло",
-        "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "Божидар Огнянов Шуманов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Мотоциклет",
-        "detail": "Хонда Хорнет",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -110,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12563,
-        "valueEur": 6423.359903468093,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Божидар Огнянов Шуманов",
         "isSpouse": false,
         "legalBasis": null,
@@ -119,7 +101,7 @@
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит с лихвен процент 3.54",
+        "description": "Потребителски кредит с лихвен процент 3.28",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -128,39 +110,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26115,
-        "valueEur": 13352.387477439246,
+        "amount": 74826,
+        "valueEur": 38257.926302388245,
         "holderName": "Божидар Огнянов Шуманов",
         "isSpouse": false,
-        "legalBasis": "Заем 3.54",
+        "legalBasis": "заем 3.28",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Мотоциклет",
-        "detail": "Ямаха ХЖ6",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 971.4545742728151,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Мотоциклет",
-        "detail": "Хонда Хорнет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

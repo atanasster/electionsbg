@@ -4,23 +4,34 @@
     "declarantName": "Джем Мустафа Курт",
     "institution": "Крумовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г10283",
-    "controlHash": "C172B09B",
-    "sourceUrl": "https://register.cacbg.bg/2025/B63BA826-6A98-4797-87A1-AD816753074F213362.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6415",
+    "controlHash": "18D822D4",
+    "sourceUrl": "https://register.cacbg.bg/2026/B63BA826-6A98-4797-87A1-AD816753074F230737.xml",
     "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2866.3022859860007,
-        "amountEurSpouse": null
-      }
-    ],
+    "income": [],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Джем Мустафа Курт",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
       {
         "category": "bank",
         "description": null,
@@ -32,27 +43,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26000,
-        "valueEur": 13293.58891110168,
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
         "holderName": "Джем Мустафа Курт",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лека кола",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

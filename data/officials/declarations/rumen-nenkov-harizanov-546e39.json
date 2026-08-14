@@ -48,6 +48,98 @@
     "institution": "Национален център по заразни и паразитни болести",
     "positionTitle": "Заместник-директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3140",
+    "controlHash": "644B64C0",
+    "sourceUrl": "https://register.cacbg.bg/2026/6AF0C929-C6C4-4C07-B8AF-51806C0DB687227253.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34161.455750244146,
+        "amountEurSpouse": 13182.127281000905
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7872.872386659373,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1060.9306534821533,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
+        "holderName": "Румен Ненков Харизанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 123103,
+        "valueEur": 62941.564450898084,
+        "holderName": "Весела Димитрова Йочкова-Харизанова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем ог 14.01.2022 г. (л.п. 4.82%)",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20221,
+        "valueEur": 10338.833129668734,
+        "holderName": "Весела Димитрова Йочкова-Харизанова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит (л.п. 4.82%)",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumen-nenkov-harizanov-546e39",
+    "declarantName": "Румен Ненков Харизанов",
+    "institution": "Национален център по заразни и паразитни болести",
+    "positionTitle": "Заместник-директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

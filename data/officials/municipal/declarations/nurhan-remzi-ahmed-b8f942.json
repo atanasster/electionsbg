@@ -4,23 +4,42 @@
     "declarantName": "Нурхан Ремзи Ахмед",
     "institution": "Крумовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г6861",
-    "controlHash": "E88DAB01",
-    "sourceUrl": "https://register.cacbg.bg/2025/689A67F8-40B5-4F4E-BF49-21A5A56F96E4209841.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10382",
+    "controlHash": "0EC6A3A7",
+    "sourceUrl": "https://register.cacbg.bg/2026/689A67F8-40B5-4F4E-BF49-21A5A56F96E4235122.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3390.376464212125,
-        "amountEurSpouse": 5531.6668626618875
+        "amountEurDeclarant": 4561.234872151465,
+        "amountEurSpouse": 6650.373498719214
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Нурхан Ремзи Ахмед",
+        "isSpouse": false,
+        "legalBasis": "договор - 10 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

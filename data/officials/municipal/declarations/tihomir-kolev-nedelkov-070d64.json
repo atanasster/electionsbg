@@ -4,29 +4,61 @@
     "declarantName": "ТИХОМИР КОЛЕВ НЕДЕЛКОВ",
     "institution": "Бойница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10796",
-    "controlHash": "A272B210",
-    "sourceUrl": "https://register.cacbg.bg/2025/23C1585A-14FD-4293-85F9-A6F26A5A7799213902.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2787",
+    "controlHash": "C588727D",
+    "sourceUrl": "https://register.cacbg.bg/2026/23C1585A-14FD-4293-85F9-A6F26A5A7799226871.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 617.1293006038358,
+        "amountEurDeclarant": 639.1148514952731,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10704.918116605226,
+        "amountEurDeclarant": 12422.858837424521,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13311,
+        "valueEur": 6805.806230602864,
+        "holderName": "ТИХОМИР КОЛЕВ НЕДЕЛКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "12 000 - ДАРЕНИЕ И 1311 - ЗАПЛАТА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕКАВТОМОБИЛ",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 869.1961980335715,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

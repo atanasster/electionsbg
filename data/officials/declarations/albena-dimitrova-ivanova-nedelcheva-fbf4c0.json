@@ -5,6 +5,99 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5629",
+    "controlHash": "1FE23936",
+    "sourceUrl": "https://register.cacbg.bg/2026/AB04092E-6C99-4374-8E7F-FC29760611F7229893.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 61191.41234156343,
+        "amountEurSpouse": 21513.628485093286
+      },
+      {
+        "parent": null,
+        "category": "СМБ 2000 ЕООД",
+        "amountEurDeclarant": 11003.001283342623,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29797,
+        "valueEur": 15234.964184003722,
+        "holderName": "Албена Димитрова Иванова-Неделчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64259,
+        "valueEur": 32855.104993787805,
+        "holderName": "Неделчо Димов Неделчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Шумен, ул. \"Д-р Петър Берон№19,, ап.13, ет.4",
+        "municipality": "Шумен",
+        "areaSqm": 43,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Шумен, ул. \"Д-р Петър Берон№19,, ап.13, ет.4",
+        "municipality": "Шумен",
+        "areaSqm": 43,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "albena-dimitrova-ivanova-nedelcheva-fbf4c0",
+    "declarantName": "Албена Димитрова Иванова-Неделчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

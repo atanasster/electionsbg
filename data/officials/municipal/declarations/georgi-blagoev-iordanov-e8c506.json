@@ -4,50 +4,32 @@
     "declarantName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12351",
-    "controlHash": "EE6983B6",
-    "sourceUrl": "https://register.cacbg.bg/2025/F1139C01-B1B6-438F-A10B-2A7394698837215515.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13731",
+    "controlHash": "276E3DD7",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1139C01-B1B6-438F-A10B-2A7394698837239324.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3006.3962614337647,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 3129.1063129208574,
+        "amountEurSpouse": 8129.540911019874
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13202.578956248753,
+        "amountEurDeclarant": 7096.731311003513,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "СПЕЦИАЛИЗИРАНО РЕМАРКЕ",
-        "detail": "КОРС ЗНАП АТ 4020",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ, СИО",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,27 +38,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 150000,
-        "valueEur": 76693.78217943278,
+        "amount": 146000,
+        "valueEur": 74648.6146546479,
         "holderName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ",
         "isSpouse": false,
-        "legalBasis": "3%",
+        "legalBasis": "КРЕДИТ - 2.8 %",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСФАГЕН ТУРАН",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1118.706636057326,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

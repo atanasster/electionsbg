@@ -4,13 +4,13 @@
     "declarantName": "МИЛКА ДОНЧЕВА ХРИСТОВА",
     "institution": "Павликени",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г4609",
-    "controlHash": "32EE0CE2",
-    "sourceUrl": "https://register.cacbg.bg/2025/643F92F6-ECC9-42C0-BB36-88BE98657240207475.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г3087",
+    "controlHash": "D8F24BD0",
+    "sourceUrl": "https://register.cacbg.bg/2026/643F92F6-ECC9-42C0-BB36-88BE98657240227184.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -65,7 +65,7 @@
         "stakeKind": "share",
         "itemType": "пари",
         "shareSize": "100",
-        "companyName": "\"Грийин ивнест ММ\"ООД",
+        "companyName": "\"Грийн Инвест ММ\"ООД",
         "registeredOffice": "Велико Търново",
         "valueEur": 10.22583762392437,
         "holderName": "Милко Иванов Христов",
@@ -89,19 +89,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5789.869262665979,
+        "amountEurDeclarant": 5890.082471380437,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9869.467182730605,
+        "amountEurDeclarant": 10276.966812043991,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 16308.165842634586,
+        "amountEurDeclarant": 17240.762233936486,
         "amountEurSpouse": null
       }
     ],
@@ -172,45 +172,9 @@
         "share": null,
         "currency": "BGN",
         "amount": 200000,
-        "valueEur": 10225.83762392437,
+        "valueEur": 102258.37623924369,
         "holderName": "Милко Иванов Христов",
         "isSpouse": true,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 153177,
-        "valueEur": 78318.15648599315,
-        "holderName": "Милко Иванов Христов",
-        "isSpouse": true,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 153177,
-        "valueEur": 78318.15648599315,
-        "holderName": "Милка Дончева Христова",
-        "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
       }

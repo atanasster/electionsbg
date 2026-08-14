@@ -4,23 +4,36 @@
     "declarantName": "Любомир Тодоров Цеков",
     "institution": "Копривщица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8815",
-    "controlHash": "BA2F8ADF",
-    "sourceUrl": "https://register.cacbg.bg/2025/C5CAFA4F-68E3-4F8A-8E8B-EDCC0A7CBD07211841.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г10299",
+    "controlHash": "84E51973",
+    "sourceUrl": "https://register.cacbg.bg/2026/C5CAFA4F-68E3-4F8A-8E8B-EDCC0A7CBD07235032.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6302.183727624589,
-        "amountEurSpouse": 28648.19539530532
+        "amountEurDeclarant": 6369.162964061294,
+        "amountEurSpouse": 31274.701789010294
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

@@ -4,29 +4,48 @@
     "declarantName": "Стоян Веселинов Миланов",
     "institution": "Рила",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г5482",
-    "controlHash": "9B8561BE",
-    "sourceUrl": "https://register.cacbg.bg/2025/3414F907-92A0-449D-B2F3-3A6A6A646FA2208410.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9306",
+    "controlHash": "FD3F9566",
+    "sourceUrl": "https://register.cacbg.bg/2026/3414F907-92A0-449D-B2F3-3A6A6A646FA2233910.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1518.0255952715727,
-        "amountEurSpouse": 10050.975800555263
+        "amountEurDeclarant": 1757.3101956714029,
+        "amountEurSpouse": 10910.457452846107
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12935.684594264329,
+        "amountEurDeclarant": 14174.544822402766,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Стоян Веселинов Миланов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

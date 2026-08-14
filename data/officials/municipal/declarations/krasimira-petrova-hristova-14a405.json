@@ -4,23 +4,35 @@
     "declarantName": "Красимира Петрова Христова",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-25",
-    "entryNumber": "Г896",
-    "controlHash": "06374B48",
-    "sourceUrl": "https://register.cacbg.bg/2025/529DD45B-D0B3-44DF-9B26-B04D4495E855203171.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7520",
+    "controlHash": "F1BAEA2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/529DD45B-D0B3-44DF-9B26-B04D4495E855231934.xml",
     "ownershipStakes": [],
-    "income": [
+    "income": [],
+    "assets": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12328.26983940322,
-        "amountEurSpouse": null
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 500,
+        "valueEur": 500.04345980990166,
+        "holderName": "Красимира Петрова Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "assets": [],
     "events": []
   }
 ]

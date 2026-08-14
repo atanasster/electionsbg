@@ -4,41 +4,77 @@
     "declarantName": "КРАСИМИРА ЙОРДАНОВА ПЕНЕВА",
     "institution": "Бяла/Русе/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8615",
-    "controlHash": "B5023B78",
-    "sourceUrl": "https://register.cacbg.bg/2025/BA90C8D6-4448-4859-9D50-F0C5F139CC75211637.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8709",
+    "controlHash": "9D6F7BEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/BA90C8D6-4448-4859-9D50-F0C5F139CC75233242.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8525.280827065748,
+        "amountEurDeclarant": 4924.763399681977,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4654.801286410373,
+        "amountEurDeclarant": 9067.250221133738,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2658.717782220336
+        "amountEurSpouse": 9714.54574272815
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 132.93588911101682,
-        "amountEurSpouse": 11375.221772853469
+        "amountEurDeclarant": 9563.714637775267,
+        "amountEurSpouse": 12455.070225939882
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лекотоварен автомобил",
+        "detail": "Рено Канго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4300,
+        "valueEur": 2198.5550891437397,
+        "holderName": "Йордан Ангелов Пенев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "пенсия и доходи от ЗП"
+      },
+      {
+        "category": "vehicle",
+        "description": "Трактор",
+        "detail": "Трактор LS36i",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Йордан Ангелов Пенев",
+        "isSpouse": true,
+        "legalBasis": "покупка чрез лизинг",
+        "fundsOrigin": "пенсия и доходи от ЗП"
+      },
       {
         "category": "debt",
         "description": "овърдрафт",
@@ -54,12 +90,12 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Йордан Ангелов Пенев",
         "isSpouse": true,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор, лихва-18%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "лизинг - лихв. - 2.95%",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
-        "holderName": "Йордан Ангелов Пенев",
-        "isSpouse": true,
-        "legalBasis": "Договор",
+        "amount": 8990,
+        "valueEur": 7669.378217943277,
+        "holderName": "Красимира Йорданова Пенева",
+        "isSpouse": false,
+        "legalBasis": "Договр, лихва-6.66%",
         "fundsOrigin": null
       }
     ],

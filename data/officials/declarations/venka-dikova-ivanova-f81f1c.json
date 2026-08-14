@@ -9,6 +9,62 @@
     "fiscalYear": 2024,
     "declarationType": "Annualy",
     "filedAt": "2025-04-30",
+    "entryNumber": "Г4791",
+    "controlHash": "1643F379",
+    "sourceUrl": "https://register.cacbg.bg/2026/666A642C-C30E-4FAE-A67E-41FDCCCFBF8D229017.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15940.035688173308,
+        "amountEurSpouse": 11310.798995822746
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 383.4689108971639
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8589.70360409647
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4196,
+        "valueEur": 2145.3807334993326,
+        "holderName": "Венка Дикова Иванова",
+        "isSpouse": false,
+        "legalBasis": "Заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "venka-dikova-ivanova-f81f1c",
+    "declarantName": "Венка Дикова Иванова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
     "entryNumber": "Г6771",
     "controlHash": "1643F379",
     "sourceUrl": "https://register.cacbg.bg/2025/666A642C-C30E-4FAE-A67E-41FDCCCFBF8D209745.xml",

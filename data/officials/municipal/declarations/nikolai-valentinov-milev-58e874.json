@@ -4,38 +4,38 @@
     "declarantName": "Николай Валентинов Милев",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13233",
-    "controlHash": "7030DA1B",
-    "sourceUrl": "https://register.cacbg.bg/2025/EDD9420F-781E-4703-9250-8BA728ACA60E216432.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14312",
+    "controlHash": "D5A5F26E",
+    "sourceUrl": "https://register.cacbg.bg/2026/EDD9420F-781E-4703-9250-8BA728ACA60E240058.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5521.95231691916,
+        "amountEurDeclarant": 5609.89452048491,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 40903.35049569748,
+        "amountEurDeclarant": 24352.32100949469,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Лек автомобил -лизинг, предстои доставка",
-        "detail": "Хюндай-лизинг, предстои доставка",
+        "description": "Лек автомобил-лизинг",
+        "detail": "Хюндай Санта Фе",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
         "amount": 137800,
@@ -46,22 +46,40 @@
         "fundsOrigin": "заеми"
       },
       {
-        "category": "vehicle",
-        "description": "Лек автомобил-лизинг, предстои доставка",
-        "detail": "Хюндай-лизинг, предстои доставка",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 137800,
-        "valueEur": 70456.0212288389,
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
         "holderName": "Николай Валентинов Милев",
         "isSpouse": false,
-        "legalBasis": "лизинг",
-        "fundsOrigin": "заеми"
+        "legalBasis": null,
+        "fundsOrigin": "продажба лек автомобил 2025 г."
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71800,
+        "valueEur": 36710.75706988849,
+        "holderName": "Николай Валентинов Милев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -74,11 +92,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
         "holderName": "Николай Валентинов Милев",
         "isSpouse": false,
-        "legalBasis": "заем -6%",
+        "legalBasis": "заем - 6%",
         "fundsOrigin": null
       },
       {
@@ -92,14 +110,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 137800,
-        "valueEur": 70456.0212288389,
+        "amount": 127300,
+        "valueEur": 65087.45647627861,
         "holderName": "Николай Валентинов Милев",
         "isSpouse": false,
-        "legalBasis": "заем лизинг-3,9%",
+        "legalBasis": "ОТП лизинг- 3,9%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16872.63207947521,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

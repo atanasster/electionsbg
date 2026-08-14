@@ -5,6 +5,68 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г1488",
+    "controlHash": "95DA5E47",
+    "sourceUrl": "https://register.cacbg.bg/2026/1E12A837-9030-4D59-8F24-D0B691E7B2A0225381.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41266.36773134679,
+        "amountEurSpouse": 10737.129505120589
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 72,
+        "builtAreaSqm": null,
+        "acquiredYear": 1988,
+        "share": "0.5",
+        "currency": "BGN",
+        "amount": 18352,
+        "valueEur": 9383.228603713002,
+        "holderName": "Татяна Досева/Юрий Досев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69000,
+        "valueEur": 35279.13980253907,
+        "holderName": "Татяна Георгиева Досева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-georgieva-doseva-c7fe59",
+    "declarantName": "Татяна Георгиева Досева",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

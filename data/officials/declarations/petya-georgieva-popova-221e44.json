@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1457",
+    "controlHash": "2F33C57D",
+    "sourceUrl": "https://register.cacbg.bg/2026/0A9D0A68-8D66-4A7C-AF7C-35EFA85D7620225329.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20945.07191320309,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 29509.722215120946
+      },
+      {
+        "parent": null,
+        "category": "КОМПЕНСАЦИОННИ СУМИ ОСВ.ОТ ОБЛАГАНЕ",
+        "amountEurDeclarant": 255.64594059810923,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24970,
+        "valueEur": 12766.958273469576,
+        "holderName": "ПЕТЯ ГЕОРГИЕВА ПОПОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70459,
+        "valueEur": 36025.11465720436,
+        "holderName": "КРУМ АЛЕКСАНДРОВ ПОПОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-georgieva-popova-221e44",
+    "declarantName": "ПЕТЯ ГЕОРГИЕВА ПОПОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

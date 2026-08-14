@@ -5,6 +5,87 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11163",
+    "controlHash": "F0FF6564",
+    "sourceUrl": "https://register.cacbg.bg/2026/DCBF2044-8FE9-43C1-8DD7-0B78923E4455236016.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялов в оод",
+        "shareSize": "50",
+        "companyName": "Мисис Бейкър ООД",
+        "registeredOffice": "София",
+        "valueEur": 127.82297029905462,
+        "holderName": "Силвия Пеева Пеева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35284.25272135104,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1866.2153663661975,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42185,
+        "valueEur": 21568.848008262477,
+        "holderName": "Силвия Пеева Пеева",
+        "isSpouse": false,
+        "legalBasis": "4,29",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33598,
+        "valueEur": 17178.38462443055,
+        "holderName": "Силвия Пеева Пеева",
+        "isSpouse": false,
+        "legalBasis": "4,4",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "silviya-peeva-peeva-9d4359",
+    "declarantName": "Силвия Пеева Пеева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

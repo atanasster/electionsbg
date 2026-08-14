@@ -4,50 +4,62 @@
     "declarantName": "ХРИСТО СТРАХИЛОВ МИХАЛЧЕВ",
     "institution": "Дупница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-14",
-    "entryNumber": "Г14265",
-    "controlHash": "E4B4B8EC",
-    "sourceUrl": "https://register.cacbg.bg/2025/6FAAF2C3-D74C-4DFB-BE12-B9385CC76446217547.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9588",
+    "controlHash": "9B6CC0C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/6FAAF2C3-D74C-4DFB-BE12-B9385CC76446234221.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25339.62563208459,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3301.922968765179,
+        "amountEurDeclarant": 23187.086812248508,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Лексус РХ450",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Мърчаево",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1047,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 78233,
+        "valueEur": 39999.89774162376,
         "holderName": "Христо Страхилов Михалчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата+кредит"
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "село Мърчаево",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 79,
+        "builtAreaSqm": 237,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 97791,
+        "valueEur": 49999.7443540594,
+        "holderName": "Христо Страхилов Михалчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,27 +68,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
+        "amount": 191107,
+        "valueEur": 97711.45753976573,
         "holderName": "Христо Страхилов Михалчев",
         "isSpouse": false,
-        "legalBasis": "рефинансиран кредит",
+        "legalBasis": "3.0510%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Лексус GS300h",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 16105.694257680883,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

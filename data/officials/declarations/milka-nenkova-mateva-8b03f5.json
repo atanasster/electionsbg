@@ -1,6 +1,98 @@
 [
   {
     "slug": "milka-nenkova-mateva-8b03f5",
+    "declarantName": "Милка Ненкова Матева",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г7174",
+    "controlHash": "A9DC480D",
+    "sourceUrl": "https://register.cacbg.bg/2026/6B47C33E-E0A7-4E9D-83ED-F4CC71C26019231569.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19051.758077133494,
+        "amountEurSpouse": 3007.4188451961572
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7816.630279727789
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 276.097615845958
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Милка Ненкова Матева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 800,
+        "valueEur": 664.679445555084,
+        "holderName": "Милка Ненкова Матева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4500,
+        "valueEur": 4499.368554526723,
+        "holderName": "Милка Ненкова Матева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milka-nenkova-mateva-8b03f5",
     "declarantName": "МИЛКА НЕНКОВА МАТЕВА",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",

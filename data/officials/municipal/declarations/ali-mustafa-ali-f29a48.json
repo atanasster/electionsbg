@@ -1,33 +1,46 @@
 [
   {
     "slug": "ali-mustafa-ali-f29a48",
-    "declarantName": "Али Мустафа Али",
+    "declarantName": "АЛИ МУСТАФА АЛИ",
     "institution": "Павел баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г13459",
-    "controlHash": "A64560DE",
-    "sourceUrl": "https://register.cacbg.bg/2025/E85E0411-ABBE-4BEB-A625-0E35525533C6216672.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12924",
+    "controlHash": "5C403851",
+    "sourceUrl": "https://register.cacbg.bg/2026/E85E0411-ABBE-4BEB-A625-0E35525533C6238276.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6014.326398511118,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5728.514236922432,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "автомобил",
+        "description": "ЛЕК АВТОМОБИЛ",
         "detail": "БМВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
-        "share": null,
+        "share": "1",
         "currency": "BGN",
         "amount": 10000,
         "valueEur": 5112.918811962185,
-        "holderName": "Али Мустафа Али",
+        "holderName": "АЛИ МУСТАФА АЛИ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -45,8 +58,8 @@
         "currency": "BGN",
         "amount": 9500,
         "valueEur": 4857.272871364075,
-        "holderName": "Али Мусафа Али",
-        "isSpouse": true,
+        "holderName": "АЛИ МУСТАФА АЛИ",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

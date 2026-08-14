@@ -5,6 +5,81 @@
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6466",
+    "controlHash": "410390D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/AAF485DD-96FE-4D70-BC0E-196E9C53F1DC230790.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39723.28883389661,
+        "amountEurSpouse": 29329.74747293988
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил на лизинг",
+        "detail": "Hyndai TUCSON",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74160,
+        "valueEur": 37917.405909511566,
+        "holderName": "АНГЕЛ СПАСОВ КУЗМАНОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ НА ЛЕК АВТОМОБИЛ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 23379,
+        "valueEur": 23378.82126769709,
+        "holderName": "АНГЕЛ СПАСОВ КУЗМАНОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ПЕЖО 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 335.91876594591554,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "angel-spasov-kuzmanov-6f8df9",
+    "declarantName": "АНГЕЛ СПАСОВ КУЗМАНОВ",
+    "institution": "Югозападно държавно предприятие ДП Благоевград",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

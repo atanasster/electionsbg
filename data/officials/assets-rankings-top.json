@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T15:14:35.860Z",
+  "generatedAt": "2026-08-14T18:59:55.827Z",
   "years": [
     2015,
     2016,
@@ -10,26 +10,55 @@
     2022,
     2023,
     2024,
-    2025
+    2025,
+    2026
   ],
-  "total": 14497,
+  "total": 16109,
   "topOfficials": [
+    {
+      "slug": "georgi-stefanov-kaschiev-df51c3",
+      "name": "Георги Стефанов Касчиев",
+      "category": "state_enterprise",
+      "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+      "positionTitle": "Член на Съвета на директорите",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 15890206.436541004,
+      "totalDebtsEur": 0,
+      "netWorthEur": 15890206.436541004,
+      "realEstateCount": 13,
+      "realEstateUnvalued": 0,
+      "delta": null
+    },
+    {
+      "slug": "kiril-ivanov-boshov-863c15",
+      "name": "Кирил Иванов Бошов",
+      "category": "social_fund",
+      "institution": "Национален осигурителен институт",
+      "positionTitle": "Член на Надзорния съвет",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 14637010.374112269,
+      "totalDebtsEur": 1327646.574600042,
+      "netWorthEur": 13309363.799512226,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": null
+    },
     {
       "slug": "delyan-slavchev-peevski-f0d3fe",
       "name": "Делян Славчев Пеевски",
       "category": "party_leader",
       "institution": "ПП \"Движение за права и свободи\"",
       "positionTitle": "Председател",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 10972598.445498843,
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 10070563.25906137,
       "totalDebtsEur": 0,
-      "netWorthEur": 10972598.445498843,
+      "netWorthEur": 10070563.25906137,
       "realEstateCount": 8,
       "realEstateUnvalued": 0,
       "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -1303538.770383928,
-        "pct": -0.10618476703709533
+        "previousYear": 2024,
+        "absoluteEur": -902035.1864374727,
+        "pct": -0.08220798299672616
       }
     },
     {
@@ -47,21 +76,35 @@
       "delta": null
     },
     {
+      "slug": "nadya-vasileva-ivanova-dbb775",
+      "name": "Надя Василева Иванова",
+      "category": "social_care",
+      "institution": "Социални домове и центрове",
+      "positionTitle": "Директор",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 7500000,
+      "totalDebtsEur": 98614.39900195826,
+      "netWorthEur": 7401385.600998042,
+      "realEstateCount": 1,
+      "realEstateUnvalued": 0,
+      "delta": null
+    },
+    {
       "slug": "stanislav-todorov-trifonov-1dd427",
       "name": "Станислав Тодоров Трифонов",
       "category": "party_leader",
       "institution": "ПП \"ИМА ТАКЪВ НАРОД\"",
       "positionTitle": "Председател",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 7608937.893375192,
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 6593155.88866108,
       "totalDebtsEur": 0,
-      "netWorthEur": 7608937.893375192,
-      "realEstateCount": 0,
+      "netWorthEur": 6593155.88866108,
+      "realEstateCount": 4,
       "realEstateUnvalued": 0,
       "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -2304779.5565054193,
-        "pct": -0.23248388590429064
+        "previousYear": 2025,
+        "absoluteEur": -658932.4830276659,
+        "pct": -0.09086106639296573
       }
     },
     {
@@ -130,24 +173,6 @@
         "previousYear": 2023,
         "absoluteEur": 4012618.6836279226,
         "pct": 94.84217141199787
-      }
-    },
-    {
-      "slug": "ivan-bonev-shikov-2b2240",
-      "name": "Иван Бонев Шиков",
-      "category": "agency_head",
-      "institution": "Българска агенция по безопасност на храните",
-      "positionTitle": "Заместник-изпълнителен директор",
-      "latestDeclarationYear": 2023,
-      "totalAssetsEur": 4041537.3524283804,
-      "totalDebtsEur": 6017.905441679492,
-      "netWorthEur": 4035519.446986701,
-      "realEstateCount": 3,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2022,
-        "absoluteEur": 4012520.0042948513,
-        "pct": 174.46161883378159
       }
     },
     {
@@ -229,20 +254,6 @@
       "delta": null
     },
     {
-      "slug": "alise-kyamilova-murtezova-dfcd07",
-      "name": "Алисе Кямилова Муртезова",
-      "category": "civil_society",
-      "institution": "Български червен кръст",
-      "positionTitle": "Член на НС",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 3364950.941544,
-      "totalDebtsEur": 6356.380667031388,
-      "netWorthEur": 3358594.560876969,
-      "realEstateCount": 0,
-      "realEstateUnvalued": 0,
-      "delta": null
-    },
-    {
       "slug": "kiril-panaiotov-panaiotov-4b4bc3",
       "name": "Кирил Панайотов Панайотов",
       "category": "hospital_head",
@@ -258,6 +269,42 @@
         "previousYear": 2023,
         "absoluteEur": 75376.69429347245,
         "pct": 0.022958176202881455
+      }
+    },
+    {
+      "slug": "dimitr-georgiev-taskov-14e4c2",
+      "name": "Димитър Георгиев Тасков",
+      "category": "hospital_head",
+      "institution": "СОБАЛ \"Д-р Тасков\"ООД, гр. Търговище",
+      "positionTitle": "Управител",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 3208673.5554726124,
+      "totalDebtsEur": 7669.378217943277,
+      "netWorthEur": 3201004.177254669,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 407457.7033791272,
+        "pct": 0.1458567835507863
+      }
+    },
+    {
+      "slug": "dimitr-georgiev-taskov-39b7b6",
+      "name": "Димитър Георгиев Тасков",
+      "category": "hospital_head",
+      "institution": "СОБАЛ \"Луксор\" ЕООД, гр. Пловдив",
+      "positionTitle": "Управител",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 3208673.5554726124,
+      "totalDebtsEur": 7669.378217943277,
+      "netWorthEur": 3201004.177254669,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 407457.7033791272,
+        "pct": 0.1458567835507863
       }
     },
     {
@@ -302,48 +349,34 @@
       "category": "regulator",
       "institution": "Комисия за защита на конкуренцията",
       "positionTitle": "Член",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 2955648.497057515,
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 3067570.801143248,
       "totalDebtsEur": 25564.594059810923,
-      "netWorthEur": 2930083.902997704,
+      "netWorthEur": 3042006.207083437,
       "realEstateCount": 9,
       "realEstateUnvalued": 0,
-      "delta": null
-    },
-    {
-      "slug": "dimitr-georgiev-taskov-14e4c2",
-      "name": "Димитър Георгиев Тасков",
-      "category": "hospital_head",
-      "institution": "СОБАЛ \"Д-р Тасков\"ООД, гр. Търговище",
-      "positionTitle": "Управител",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 2801215.852093485,
-      "totalDebtsEur": 7669.378217943277,
-      "netWorthEur": 2793546.4738755417,
-      "realEstateCount": 1,
-      "realEstateUnvalued": 0,
       "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -438094.824192286,
-        "pct": -0.13556418667326084
+        "previousYear": 2024,
+        "absoluteEur": 111922.3040857329,
+        "pct": 0.038197644774345084
       }
     },
     {
-      "slug": "dimitr-georgiev-taskov-39b7b6",
-      "name": "Димитър Георгиев Тасков",
+      "slug": "ivan-gospodinov-milanov-dbb578",
+      "name": "Иван Господинов Миланов",
       "category": "hospital_head",
-      "institution": "СОБАЛ \"Луксор\" ЕООД, гр. Пловдив",
-      "positionTitle": "Управител",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 2801215.852093485,
-      "totalDebtsEur": 7669.378217943277,
-      "netWorthEur": 2793546.4738755417,
-      "realEstateCount": 1,
+      "institution": "МБАЛНП “Св.Наум” ЕАД, гр.София",
+      "positionTitle": "Изпълнителен директор",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2989115.1071412135,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2989115.1071412135,
+      "realEstateCount": 13,
       "realEstateUnvalued": 0,
       "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -438094.824192286,
-        "pct": -0.13556418667326084
+        "previousYear": 2024,
+        "absoluteEur": 296082.4816062744,
+        "pct": 0.10994388957596125
       }
     },
     {
@@ -383,20 +416,6 @@
       }
     },
     {
-      "slug": "plamen-ivanov-danailov-96e9c1",
-      "name": "Пламен Иванов Данаилов",
-      "category": "regulator",
-      "institution": "Комисия за финансов надзор",
-      "positionTitle": "Заместник-председател",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 2735002.530894812,
-      "totalDebtsEur": 10225.83762392437,
-      "netWorthEur": 2724776.6932708877,
-      "realEstateCount": 4,
-      "realEstateUnvalued": 1,
-      "delta": null
-    },
-    {
       "slug": "petko-georgiev-nikolov-291cff",
       "name": "Петко Георгиев Николов",
       "category": "agency_head",
@@ -412,24 +431,6 @@
         "previousYear": 2019,
         "absoluteEur": 2327661.4020645963,
         "pct": 5.917161224579982
-      }
-    },
-    {
-      "slug": "ivan-gospodinov-milanov-dbb578",
-      "name": "Иван Господинов Миланов",
-      "category": "hospital_head",
-      "institution": "МБАЛНП “Св.Наум” ЕАД, гр.София",
-      "positionTitle": "Изпълнителен директор",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 2693032.625534939,
-      "totalDebtsEur": 0,
-      "netWorthEur": 2693032.625534939,
-      "realEstateCount": 0,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": 220989.04301498644,
-        "pct": 0.0893952859802393
       }
     },
     {
@@ -465,18 +466,22 @@
       "delta": null
     },
     {
-      "slug": "pavlin-nikiforov-petrov-2c1ed0",
-      "name": "Павлин Никифоров Петров",
-      "category": "school",
-      "institution": "Училища",
-      "positionTitle": "Директор",
-      "latestDeclarationYear": 2024,
-      "totalAssetsEur": 2610400.6994472933,
+      "slug": "tanya-todorova-miteva-karakash-6e824b",
+      "name": "Таня Тодорова Митева-Каракаш",
+      "category": "security_service",
+      "institution": "Държавна агенция \"Национална сигурност\"",
+      "positionTitle": "Директор на дирекция",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2654003.1597838253,
       "totalDebtsEur": 0,
-      "netWorthEur": 2610400.6994472933,
-      "realEstateCount": 6,
+      "netWorthEur": 2654003.1597838253,
+      "realEstateCount": 13,
       "realEstateUnvalued": 0,
-      "delta": null
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 1982346.6252179379,
+        "pct": 2.951429076022003
+      }
     },
     {
       "slug": "vladislav-panchev-panev-a4f5c8",
@@ -511,6 +516,42 @@
       "delta": null
     },
     {
+      "slug": "slavcho-ventsislavov-iliev-2e0589",
+      "name": "Славчо Венциславов Илиев",
+      "category": "school",
+      "institution": "Училища",
+      "positionTitle": "Директор",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2352370.604807166,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2352370.604807166,
+      "realEstateCount": 3,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 2229196.8115838286,
+        "pct": 18.097979718314534
+      }
+    },
+    {
+      "slug": "maksim-isak-yakov-803e23",
+      "name": "Максим Исак Яков",
+      "category": "hospital_head",
+      "institution": "МБАЛ \"Майчин дом - Варна\"",
+      "positionTitle": "Управител",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2316451.3275693697,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2316451.3275693697,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 474372.51703880215,
+        "pct": 0.25752020723921704
+      }
+    },
+    {
       "slug": "dimitr-asenov-dimitrov-ebf466",
       "name": "Димитър Асенов Димитров",
       "category": "medical_center",
@@ -522,6 +563,20 @@
       "netWorthEur": 2299101.1488728565,
       "realEstateCount": 8,
       "realEstateUnvalued": 0,
+      "delta": null
+    },
+    {
+      "slug": "evtim-petrov-miloshev-57858e",
+      "name": "Евтим Петров Милошев",
+      "category": "cabinet",
+      "institution": "Министерство на културата",
+      "positionTitle": "Министър",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2279642.402458291,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2279642.402458291,
+      "realEstateCount": 28,
+      "realEstateUnvalued": 6,
       "delta": null
     },
     {
@@ -554,6 +609,24 @@
         "previousYear": 2018,
         "absoluteEur": 3.067751287482679,
         "pct": 0.0000013693565394984615
+      }
+    },
+    {
+      "slug": "lyudmila-zhelyazkova-georgieva-ba5d17",
+      "name": "Людмила Желязкова Георгиева",
+      "category": "agency_head",
+      "institution": "РЦТХ",
+      "positionTitle": "Директор",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2262133.723278608,
+      "totalDebtsEur": 50106.604357229415,
+      "netWorthEur": 2212027.1189213786,
+      "realEstateCount": 2,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 2091298.8347658028,
+        "pct": 17.322360285273845
       }
     },
     {
@@ -603,6 +676,56 @@
       }
     },
     {
+      "slug": "iovelina-neicheva-tihova-a9f1de",
+      "name": "Йовелина Нейчева Тихова",
+      "category": "regional_governor",
+      "institution": "Област - София град",
+      "positionTitle": "Областен управител",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2120345.32653656,
+      "totalDebtsEur": 15185.36887152769,
+      "netWorthEur": 2105159.9576650322,
+      "realEstateCount": 6,
+      "realEstateUnvalued": 0,
+      "delta": null
+    },
+    {
+      "slug": "bozhidar-todorov-finkov-b74357",
+      "name": "Божидар Тодоров Финков",
+      "category": "hospital_head",
+      "institution": "МБАЛ \"Св.Анна\" - София\"  АД, гр.София",
+      "positionTitle": "Член на СД",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2104110.2754329364,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2104110.2754329364,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 218170.80216583237,
+        "pct": 0.1156828229422891
+      }
+    },
+    {
+      "slug": "ivan-bonev-shikov-2b2240",
+      "name": "Иван Бонев Шиков",
+      "category": "agency_head",
+      "institution": "Българска агенция по безопасност на храните",
+      "positionTitle": "Заместник-изпълнителен директор",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 2090111.1037257842,
+      "totalDebtsEur": 0,
+      "netWorthEur": 2090111.1037257842,
+      "realEstateCount": 6,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2023,
+        "absoluteEur": -1945408.3432609166,
+        "pct": -0.48207135879707924
+      }
+    },
+    {
       "slug": "konstantin-zhivkov-bachiiski-1ae22d",
       "name": "Константин Живков Бачийски",
       "category": "party_leader",
@@ -618,42 +741,6 @@
         "previousYear": 2022,
         "absoluteEur": 556257.9569799013,
         "pct": 0.3792457236876507
-      }
-    },
-    {
-      "slug": "bozhidar-todorov-finkov-b74357",
-      "name": "Божидар Тодоров Финков",
-      "category": "hospital_head",
-      "institution": "МБАЛ \"Св.Анна\" - София\"  АД, гр.София",
-      "positionTitle": "Член на СД",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1885939.473267104,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1885939.473267104,
-      "realEstateCount": 0,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": 483539.469176769,
-        "pct": 0.3447942582476077
-      }
-    },
-    {
-      "slug": "maksim-isak-yakov-803e23",
-      "name": "Максим Исак Яков",
-      "category": "hospital_head",
-      "institution": "МБАЛ \"Майчин дом - Варна\"",
-      "positionTitle": "Управител",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1842078.8105305675,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1842078.8105305675,
-      "realEstateCount": 0,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": 333483.4827157778,
-        "pct": 0.22105562477038215
       }
     },
     {
@@ -693,6 +780,42 @@
       }
     },
     {
+      "slug": "rosen-andreev-karadimov-b99e1c",
+      "name": "Росен Андреев Карадимов",
+      "category": "regulator",
+      "institution": "Комисия за защита на конкуренцията",
+      "positionTitle": "Председател",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 1892109.74368938,
+      "totalDebtsEur": 179469.07451056584,
+      "netWorthEur": 1712640.6691788142,
+      "realEstateCount": 1,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 178558.4636701555,
+        "pct": 0.11639432556415744
+      }
+    },
+    {
+      "slug": "nina-angelova-simova-25591d",
+      "name": "Нина Ангелова Симова",
+      "category": "diplomat",
+      "institution": "Ръководителите на задграничните представителства на Р.България",
+      "positionTitle": "Извънреден и пълномощен посланик",
+      "latestDeclarationYear": 2026,
+      "totalAssetsEur": 1707893.8353537885,
+      "totalDebtsEur": 0,
+      "netWorthEur": 1707893.8353537885,
+      "realEstateCount": 1,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": 1525023.6472495054,
+        "pct": 8.339378129691918
+      }
+    },
+    {
       "slug": "svetoslav-zhivkov-georgiev-541af2",
       "name": "Светослав Живков Георгиев",
       "category": "academic",
@@ -727,120 +850,6 @@
         "absoluteEur": -1434457.493749457,
         "pct": -0.4675125553530347
       }
-    },
-    {
-      "slug": "lyuben-lilyanov-nanov-b68db1",
-      "name": "Любен Лилянов Нанов",
-      "category": "state_enterprise",
-      "institution": "Държавни предприятия",
-      "positionTitle": "Член на Съвета на директорите",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1616711.0638450172,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1616711.0638450172,
-      "realEstateCount": 8,
-      "realEstateUnvalued": 5,
-      "delta": null
-    },
-    {
-      "slug": "gergana-stoyanova-mladenova-db6cc3",
-      "name": "Гергана Стоянова Младенова",
-      "category": "state_enterprise",
-      "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
-      "positionTitle": "Член на Съвета на директорите",
-      "latestDeclarationYear": 2022,
-      "totalAssetsEur": 1707135.5894939739,
-      "totalDebtsEur": 141397.76974481423,
-      "netWorthEur": 1565737.8197491597,
-      "realEstateCount": 14,
-      "realEstateUnvalued": 1,
-      "delta": {
-        "previousYear": 2021,
-        "absoluteEur": 95540.00092032505,
-        "pct": 0.06498445290609436
-      }
-    },
-    {
-      "slug": "rosen-andreev-karadimov-67e939",
-      "name": "Росен Андреев Карадимов",
-      "category": "cabinet",
-      "institution": "Министерство на иновациите и растежа",
-      "positionTitle": "Служебен министър",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1719631.56307041,
-      "totalDebtsEur": 185549.35756175127,
-      "netWorthEur": 1534082.2055086587,
-      "realEstateCount": 3,
-      "realEstateUnvalued": 3,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -137370.32359663164,
-        "pct": -0.08218619506362196
-      }
-    },
-    {
-      "slug": "rosen-andreev-karadimov-b99e1c",
-      "name": "Росен Андреев Карадимов",
-      "category": "regulator",
-      "institution": "Комисия за защита на конкуренцията",
-      "positionTitle": "Председател",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1719631.56307041,
-      "totalDebtsEur": 185549.35756175127,
-      "netWorthEur": 1534082.2055086587,
-      "realEstateCount": 3,
-      "realEstateUnvalued": 3,
-      "delta": null
-    },
-    {
-      "slug": "rosen-andreev-karadimov-e17f12",
-      "name": "Росен Андреев Карадимов",
-      "category": "state_enterprise",
-      "institution": "Членове на УС и на НС на Българската банка за развитие",
-      "positionTitle": "Член на Надзорен съвет",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1719631.56307041,
-      "totalDebtsEur": 185549.35756175127,
-      "netWorthEur": 1534082.2055086587,
-      "realEstateCount": 3,
-      "realEstateUnvalued": 3,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -137370.32359663164,
-        "pct": -0.08218619506362196
-      }
-    },
-    {
-      "slug": "stanislav-iordanov-stanchev-33952c",
-      "name": "Станислав Йорданов Станчев",
-      "category": "security_service",
-      "institution": "Държавна агенция \"Национална сигурност\"",
-      "positionTitle": "Заместник-председател",
-      "latestDeclarationYear": 2023,
-      "totalAssetsEur": 1514343.4445887425,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1514343.4445887425,
-      "realEstateCount": 4,
-      "realEstateUnvalued": 2,
-      "delta": {
-        "previousYear": 2021,
-        "absoluteEur": 1517749.1598093905,
-        "pct": 445.6477014307164
-      }
-    },
-    {
-      "slug": "borislava-stefanova-sirakova-hristova-c7af18",
-      "name": "Борислава Стефанова Сиракова-Христова",
-      "category": "hospital_head",
-      "institution": "СБР - \"Бургаски минерални бани” ЕАД, гр.Бургас",
-      "positionTitle": "Независим член",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 1483128.3905042876,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1483128.3905042876,
-      "realEstateCount": 12,
-      "realEstateUnvalued": 0,
-      "delta": null
     }
   ]
 }

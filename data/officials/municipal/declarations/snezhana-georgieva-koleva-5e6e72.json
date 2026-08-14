@@ -4,23 +4,41 @@
     "declarantName": "Снежана Георгиева Колева",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14567",
-    "controlHash": "3479F285",
-    "sourceUrl": "https://register.cacbg.bg/2025/D1329EFD-16E6-4C57-8D55-3A799A24303D217897.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11305",
+    "controlHash": "4F0B058E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D1329EFD-16E6-4C57-8D55-3A799A24303D236194.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5112.918811962185,
+        "amountEurDeclarant": 6607.936272579927,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Нова Загора",
+        "municipality": "Нова Загора",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Снежана Георгиева Колева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -37,7 +55,25 @@
         "holderName": "Снежана Георгиева Колева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Снежана Георгиева Колева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
       }
     ],
     "events": []

@@ -4,46 +4,46 @@
     "declarantName": "Мая Василева Петкова-Борисова",
     "institution": "Димово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2299",
-    "controlHash": "F3A54BB2",
-    "sourceUrl": "https://register.cacbg.bg/2025/27058317-F1A3-4D0F-982B-BB244243C450204917.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1371",
+    "controlHash": "75C9DE6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/27058317-F1A3-4D0F-982B-BB244243C450225204.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5323.059775133831,
+        "amountEurDeclarant": 6202.481810791326,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9868.444598968214,
+        "amountEurDeclarant": 18106.89068068288,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Арчар",
+        "municipality": "Димово",
+        "areaSqm": 800,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Мая Василева Петкова-Борисова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
       }
     ],
     "events": []

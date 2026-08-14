@@ -5,6 +5,62 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г5790",
+    "controlHash": "F2D672F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/74169BF3-6365-46E4-977F-FC3B39302E55230059.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32679.220586656305,
+        "amountEurSpouse": 17037.268065220393
+      },
+      {
+        "parent": null,
+        "category": "Дарение от родителите ми",
+        "amountEurDeclarant": 16118.987846591985,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наследство",
+        "amountEurDeclarant": 5266.30637632105,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85077,
+        "valueEur": 43499.17937653068,
+        "holderName": "Мануел Василев Чутурков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, дарение, наследство"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "manuel-vasilev-chuturkov-f385ed",
+    "declarantName": "Мануел Василев Чутурков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10803",
+    "controlHash": "BB41A265",
+    "sourceUrl": "https://register.cacbg.bg/2026/FFF1C165-374C-4BC6-A21A-EAA061B61C8B235598.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30993.49125435237,
+        "amountEurSpouse": 17821.078519094197
+      },
+      {
+        "parent": null,
+        "category": "Застрахователно обезщетение",
+        "amountEurDeclarant": 31700.096634165548,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10964,
+        "valueEur": 5605.80418543534,
+        "holderName": "КИНА СТЕФАНОВА ФИЛИПОВА-ЙОРДАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "trifon-naidenov-iordanov-e8fb41",
+    "declarantName": "ТРИФОН НАЙДЕНОВ ЙОРДАНОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

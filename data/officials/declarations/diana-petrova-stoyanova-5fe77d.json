@@ -5,6 +5,74 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г841",
+    "controlHash": "F196BEA0",
+    "sourceUrl": "https://register.cacbg.bg/2026/72AAE4F3-AB28-4C35-B180-1D6793A94E1F224432.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23657.986634830224,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4497.323387001938
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 22,
+        "builtAreaSqm": 22,
+        "acquiredYear": 2021,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Диана Петрова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Раковски",
+        "municipality": "Раковски",
+        "areaSqm": 592,
+        "builtAreaSqm": 145,
+        "acquiredYear": 2021,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Диана Петрова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diana-petrova-stoyanova-5fe77d",
+    "declarantName": "Диана Петрова Стоянова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

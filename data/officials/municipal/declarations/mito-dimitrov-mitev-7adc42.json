@@ -1,16 +1,16 @@
 [
   {
     "slug": "mito-dimitrov-mitev-7adc42",
-    "declarantName": "Митьо Димитров Митев",
+    "declarantName": "Митъо Димитров Митев",
     "institution": "Севлиево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-19",
-    "entryNumber": "Г684",
-    "controlHash": "49A3AAC1",
-    "sourceUrl": "https://register.cacbg.bg/2025/EFF0782F-C387-4A14-A753-54FBE179604B202871.xml",
+    "filedAt": null,
+    "entryNumber": "Г929",
+    "controlHash": "74C87342",
+    "sourceUrl": "https://register.cacbg.bg/2026/EFF0782F-C387-4A14-A753-54FBE179604B224555.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -20,7 +20,7 @@
         "companyName": "Инна Агро ЕООД",
         "registeredOffice": "Севлиево",
         "valueEur": 2556.4594059810925,
-        "holderName": "Митьо Димитров Митев",
+        "holderName": "Митъо Димитров Митев",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
@@ -29,13 +29,25 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5486.161885235424,
-        "amountEurSpouse": 9714.54574272815
+        "amountEurDeclarant": 4908.4020594836975,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12066.488396230756
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5112.918811962185,
+        "amountEurDeclarant": 5719.3109830609,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 460.16269307659667,
         "amountEurSpouse": null
       }
     ],
@@ -53,7 +65,7 @@
         "currency": "BGN",
         "amount": 15000,
         "valueEur": 7669.378217943277,
-        "holderName": "Митьо Димитров Митев",
+        "holderName": "Митъо Димитров Митев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"

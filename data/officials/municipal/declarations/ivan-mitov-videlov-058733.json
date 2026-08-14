@@ -4,31 +4,37 @@
     "declarantName": "Иван Митьов Виделов",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2484",
-    "controlHash": "D67B44CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/3FD54CD1-4804-4DC9-A90C-8B27BC1B9448205134.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1511",
+    "controlHash": "A7C8D932",
+    "sourceUrl": "https://register.cacbg.bg/2026/3FD54CD1-4804-4DC9-A90C-8B27BC1B9448225420.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26791.69457468185,
-        "amountEurSpouse": 6288.890138713487
+        "amountEurDeclarant": 39971.77668815797,
+        "amountEurSpouse": 3770.2663319409153
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 30185.650082062348,
+        "amountEurDeclarant": 29456.036567595344,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 651.8971485251785,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1104.390463383832,
+        "amountEurDeclarant": 1380.48807922979,
         "amountEurSpouse": null
       }
     ],
@@ -163,7 +169,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Ресилово",
+        "location": "Ресилво",
         "municipality": "Сапарева баня",
         "areaSqm": 120,
         "builtAreaSqm": 120,
@@ -181,7 +187,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Ресилово",
+        "location": "Ресилво",
         "municipality": "Сапарева баня",
         "areaSqm": 74,
         "builtAreaSqm": 74,
@@ -199,7 +205,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Ресилово",
+        "location": "Ресилво",
         "municipality": "Сапарева баня",
         "areaSqm": 74,
         "builtAreaSqm": 74,
@@ -208,7 +214,7 @@
         "currency": "BGN",
         "amount": 12500,
         "valueEur": 6391.148514952731,
-        "holderName": "Радина Христова йорданова",
+        "holderName": "Радина Христова Йорданова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -252,24 +258,6 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2021,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Иван Митьов Виделов",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
         "detail": "Мини Купър",
         "location": null,
         "municipality": null,
@@ -293,14 +281,14 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2023,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 18466,
-        "valueEur": 9441.51587816937,
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
         "holderName": "Иван Митьов Виделов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       },
       {
@@ -314,8 +302,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
         "holderName": "Иван Митьов Виделов",
         "isSpouse": false,
         "legalBasis": null,
@@ -332,14 +320,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55997,
-        "valueEur": 28630.81147134465,
+        "amount": 101658,
+        "valueEur": 51976.91005864518,
         "holderName": "Иван Митьов Виделов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

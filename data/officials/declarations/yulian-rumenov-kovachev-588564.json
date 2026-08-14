@@ -5,6 +5,74 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г14638",
+    "controlHash": "6A2BDE01",
+    "sourceUrl": "https://register.cacbg.bg/2026/BC97723B-C97C-424F-8490-5BC24D6787EA240589.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7467.929216751967
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 30595.19487890052,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Юлиан Руменов Ковачев",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит (2,79%)",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14890,
+        "valueEur": 7613.136111011693,
+        "holderName": "Юлиан Руменов Ковачев",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит (5,781%)",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yulian-rumenov-kovachev-588564",
+    "declarantName": "Юлиан Руменов Ковачев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

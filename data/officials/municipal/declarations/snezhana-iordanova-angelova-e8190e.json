@@ -4,23 +4,48 @@
     "declarantName": "Снежана Йорданова Ангелова",
     "institution": "Димитровград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6373",
-    "controlHash": "07A0E517",
-    "sourceUrl": "https://register.cacbg.bg/2025/568B4DE5-DCCC-4E32-958A-73C1FA05769B209329.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г2525",
+    "controlHash": "8EB6416F",
+    "sourceUrl": "https://register.cacbg.bg/2026/568B4DE5-DCCC-4E32-958A-73C1FA05769B226577.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5967.798837322262,
+        "amountEurDeclarant": 7378.964429423825,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 621.2196356534055,
+        "amountEurSpouse": 4528.000899873711
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27600,
+        "valueEur": 14111.65592101563,
+        "holderName": "Снежана Йорданова Ангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,73 +4,61 @@
     "declarantName": "Петранка Стефанова Стефанова",
     "institution": "Левски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-11",
-    "entryNumber": "Г5047",
-    "controlHash": "3A71AEC3",
-    "sourceUrl": "https://register.cacbg.bg/2025/09EAB276-9022-4F05-AD1C-1CB3C1111134207934.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г10534",
+    "controlHash": "A5DF9AA6",
+    "sourceUrl": "https://register.cacbg.bg/2026/09EAB276-9022-4F05-AD1C-1CB3C1111134235293.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5397.197097907282,
+        "amountEurDeclarant": 7785.441474974819,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8887.27547895267,
+        "amountEurDeclarant": 10437.001170858408,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Рента от земя",
-        "amountEurDeclarant": 1457.1818614092226,
+        "amountEurDeclarant": 1329.358891110168,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5123.144649586109
+        "amountEurSpouse": 5604.781601672947
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Туран",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Атанас Стефанов Стефанов",
-        "isSpouse": true,
-        "legalBasis": "дарение",
-        "fundsOrigin": "няма"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща",
+        "category": "real_estate",
+        "description": "къща с двор",
         "detail": null,
         "location": "гр.Левски",
         "municipality": "Левски",
-        "areaSqm": 0,
-        "builtAreaSqm": 182,
+        "areaSqm": 740,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Атанас Стефанов Стефанов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
       {
         "kind": "disposal_vehicle",
         "description": "Товарен автомобил",
@@ -80,7 +68,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 255.64594059810923,
+        "valueEur": 1329.358891110168,
         "legalBasis": "възмездно"
       }
     ]

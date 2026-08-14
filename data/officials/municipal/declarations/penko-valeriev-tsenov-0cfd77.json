@@ -4,23 +4,60 @@
     "declarantName": "Пенко Валериев Ценов",
     "institution": "Монтана",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9786",
-    "controlHash": "BD670E57",
-    "sourceUrl": "https://register.cacbg.bg/2025/62A41FBC-EA02-4DB4-9BA5-DA610F441E5F212843.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6399",
+    "controlHash": "9949D12A",
+    "sourceUrl": "https://register.cacbg.bg/2026/62A41FBC-EA02-4DB4-9BA5-DA610F441E5F230720.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14269.133820424066,
-        "amountEurSpouse": 1473.5432016075017
+        "amountEurDeclarant": 17065.90041056738,
+        "amountEurSpouse": 3326.9762709437937
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 951,
+        "builtAreaSqm": 195,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Пенко Валериев Ценов",
+        "isSpouse": false,
+        "legalBasis": "въвеждане в експлоатация",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 951,
+        "builtAreaSqm": 195,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Цветина Николаева Ценова",
+        "isSpouse": true,
+        "legalBasis": "въвеждане в експлоатация",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

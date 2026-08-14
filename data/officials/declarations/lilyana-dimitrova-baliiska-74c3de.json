@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6884",
+    "controlHash": "706B8A46",
+    "sourceUrl": "https://register.cacbg.bg/2026/9C68A6FF-645B-4A90-8DF9-02B5CBF0E5C9231246.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32127.02535496439,
+        "amountEurSpouse": 9495.71281757617
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14669,
+        "valueEur": 7500.140605267329,
+        "holderName": "Лиляна Димитрова Балийска",
+        "isSpouse": false,
+        "legalBasis": "4,99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lilyana-dimitrova-baliiska-74c3de",
+    "declarantName": "Лиляна Димитрова Балийска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

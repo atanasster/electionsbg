@@ -4,42 +4,29 @@
     "declarantName": "Милен Тодоров Манолов",
     "institution": "Поморие",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г5162",
-    "controlHash": "807DFE44",
-    "sourceUrl": "https://register.cacbg.bg/2025/F27CF9DA-3E72-45FB-8000-E1686EC20D7B208066.xml",
+    "filedAt": "2026-04-02",
+    "entryNumber": "Г894",
+    "controlHash": "08EC819B",
+    "sourceUrl": "https://register.cacbg.bg/2026/F27CF9DA-3E72-45FB-8000-E1686EC20D7B224510.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6616.1169426790675,
-        "amountEurSpouse": 1081.8936206111982
-      }
-    ],
-    "assets": [
+        "amountEurDeclarant": 8245.604168051415,
+        "amountEurSpouse": 12650.383724556837
+      },
       {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "Рено",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 5100,
-        "valueEur": 2607.588594100714,
-        "holderName": "Милен Тодоров Манолов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": null
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

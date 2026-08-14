@@ -4,46 +4,46 @@
     "declarantName": "Мартин Лин Чан",
     "institution": "Чавдар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10966",
-    "controlHash": "BEE57A33",
-    "sourceUrl": "https://register.cacbg.bg/2025/DB2D7D40-6DC6-4B40-BDA1-7628F5E2DD93214084.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г9451",
+    "controlHash": "9DECD526",
+    "sourceUrl": "https://register.cacbg.bg/2026/DB2D7D40-6DC6-4B40-BDA1-7628F5E2DD93234072.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6300.649851981,
-        "amountEurSpouse": 12564.99798039707
+        "amountEurDeclarant": 6480.1133022808735,
+        "amountEurSpouse": 15766.196448566594
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 29647.771023043926,
+        "amountEurDeclarant": 39795.38098914528,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди КУ 7",
+        "description": "АТВ",
+        "detail": "Segway",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 5725,
-        "valueEur": 2927.146019848351,
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
         "holderName": "Мартин Лин Чан",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -56,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25740,
-        "valueEur": 13160.653021990664,
+        "amount": 55475,
+        "valueEur": 28363.91710936022,
         "holderName": "Мартин Лин Чан",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит 3.99%",
+        "legalBasis": "Договор за кредит 4.44%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ Х 3",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1619.7726796296201,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

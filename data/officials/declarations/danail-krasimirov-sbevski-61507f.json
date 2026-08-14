@@ -5,6 +5,50 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9820",
+    "controlHash": "042BA234",
+    "sourceUrl": "https://register.cacbg.bg/2026/6DC99D8A-0670-4C71-96F6-871A9CC870A9234487.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 77252.62420558024,
+        "amountEurSpouse": 15338.756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Данаил Красимиров Събевски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "danail-krasimirov-sbevski-61507f",
+    "declarantName": "Данаил Красимиров Събевски",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

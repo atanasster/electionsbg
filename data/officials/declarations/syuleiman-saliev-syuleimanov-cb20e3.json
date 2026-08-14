@@ -1,6 +1,86 @@
 [
   {
     "slug": "syuleiman-saliev-syuleimanov-cb20e3",
+    "declarantName": "СЮЛЕЙМАН САЛИЕВ СЮЛЕЙМАНОВ",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1312",
+    "controlHash": "CAD1572E",
+    "sourceUrl": "https://register.cacbg.bg/2026/9537CB4B-EB4F-4592-8BB8-B2266C4E71B4225132.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17482.6032937423,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "ХАСКОВО",
+        "municipality": "Хасково",
+        "areaSqm": 23,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "СЮЛЕЙМАН САЛИЕВ СЮЛЕЙМАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "БМВ 1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "СЮЛЕЙМАН САЛИЕВ СЮЛЕЙМАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23270,
+        "valueEur": 11897.762075436005,
+        "holderName": "СЮЛЕЙМАН САЛИЕВ СЮЛЕЙМАНОВ",
+        "isSpouse": false,
+        "legalBasis": "5.99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "syuleiman-saliev-syuleimanov-cb20e3",
     "declarantName": "СЮЛЕЙМАН САЛИЕВ  СЮЛЕЙМАНОВ",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

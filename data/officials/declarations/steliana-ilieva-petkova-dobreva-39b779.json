@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2486",
+    "controlHash": "77FBCFBC",
+    "sourceUrl": "https://register.cacbg.bg/2026/84621585-438D-48E6-AC04-7D301648A524226535.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26857.65122735616,
+        "amountEurSpouse": 24030.71841622227
+      },
+      {
+        "parent": null,
+        "category": "пенсия на съпруг",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10910.968744727303
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 175624,
+        "valueEur": 89795.12534320468,
+        "holderName": "Стелиана Илиева Петкова-Добрева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": null,
+        "valueEur": 7353.91112724521,
+        "holderName": "Стелиана Илиева Петкова-Добрева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "steliana-ilieva-petkova-dobreva-39b779",
+    "declarantName": "Стелиана Илиева Петкова-Добрева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

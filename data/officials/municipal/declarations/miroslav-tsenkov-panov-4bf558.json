@@ -4,44 +4,44 @@
     "declarantName": "Мирослав Ценков Паньов",
     "institution": "Георги Дамяново",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10368",
-    "controlHash": "5AEC499C",
-    "sourceUrl": "https://register.cacbg.bg/2025/648EC1E4-6D7C-4DEE-ADFB-F08B879E7477213450.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3697",
+    "controlHash": "2762417C",
+    "sourceUrl": "https://register.cacbg.bg/2026/648EC1E4-6D7C-4DEE-ADFB-F08B879E7477227848.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13947.019935270448,
+        "amountEurDeclarant": 15793.294918269992,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3607.1642218393213
+        "amountEurSpouse": 3659.827285602532
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 116987.16146086316,
-        "amountEurSpouse": 56742.15039139394
+        "amountEurDeclarant": 143433.73401573757,
+        "amountEurSpouse": 54625.402003241594
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 997.019168332626,
-        "amountEurSpouse": 1505.7545901228634
+        "amountEurDeclarant": 234.68297346906428,
+        "amountEurSpouse": 923.3931374403705
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 141.1165592101563
+        "amountEurSpouse": 21.985550891437395
       }
     ],
     "assets": [
@@ -213,7 +213,7 @@
         "detail": null,
         "location": "с. Гаврил Геново",
         "municipality": "Георги Дамяново",
-        "areaSqm": 838,
+        "areaSqm": 835,
         "builtAreaSqm": null,
         "acquiredYear": 2019,
         "share": "1",
@@ -244,8 +244,44 @@
         "fundsOrigin": "заплата и доходи от стопанска дейност"
       },
       {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Гаврил Геново",
+        "municipality": "Георги Дамяново",
+        "areaSqm": 223,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Венелина Димитрова Паньова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и доходи от стопанска дейност"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 537853,
+        "valueEur": 274999.8721770297,
+        "holderName": "Венелина Димитрова Паньова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "Кредитна карта, 13.3%",
+        "description": "Ипотечен кредит 2.21%",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -254,11 +290,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 555,
-        "valueEur": 283.7669940639013,
+        "amount": 290925,
+        "valueEur": 148747.59053700988,
         "holderName": "Венелина Димитрова Паньова",
         "isSpouse": true,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "Договор за кредит 2.21%",
         "fundsOrigin": null
       },
       {
@@ -272,8 +308,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15492,
-        "valueEur": 7920.933823491817,
+        "amount": 17858,
+        "valueEur": 9130.65041440207,
         "holderName": "Мирослав Ценков Паньов",
         "isSpouse": false,
         "legalBasis": null,
@@ -290,8 +326,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9739,
-        "valueEur": 4979.471630969972,
+        "amount": 12933,
+        "valueEur": 6612.537899510694,
         "holderName": "Венелина Димитрова Паньова",
         "isSpouse": true,
         "legalBasis": null,
@@ -308,8 +344,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 10192,
-        "valueEur": 10192.09235976542,
+        "amount": 6450,
+        "valueEur": 6450.458373171493,
         "holderName": "Мирослав Ценков Паньов",
         "isSpouse": false,
         "legalBasis": null,
@@ -326,94 +362,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 10904,
-        "valueEur": 10903.810658390556,
+        "amount": 7583,
+        "valueEur": 7583.4811819023125,
         "holderName": "Венелина Димитрова Паньова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от стопанска дейност"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген Голф",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 483.1708277304265,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Ярис",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "бракувана и снета от отчет"
-      }
-    ]
-  },
-  {
-    "slug": "miroslav-tsenkov-panov-4bf558",
-    "declarantName": "Мирослав Ценков Паньов",
-    "institution": "Георги Дамяново",
-    "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10994",
-    "controlHash": "B0968AAB",
-    "sourceUrl": "https://register.cacbg.bg/2025/648EC1E4-6D7C-4DEE-ADFB-F08B879E7477214113.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "sole_trader",
-        "itemType": "Едноличен търговец",
-        "shareSize": "Дейност на общопрактикуващи лекари",
-        "companyName": "ЕТ \"Д-р Мирослав Паньов\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "sole_trader",
-        "itemType": "Едноличен търговец",
-        "shareSize": "Дейност на общопрактикуващи лекари",
-        "companyName": "ЕТ \"Д-р Мирослав Паньов\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
-    "events": [
-      {
-        "kind": "early_repayment",
-        "description": "Кредитна карта към ОББ АД",
-        "detail": "Венелина Димитрова Паньова",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 261.27015129126767,
-        "legalBasis": "заплата и доходи от стопанска дейност"
-      }
-    ]
+    "events": []
   }
 ]

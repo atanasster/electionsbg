@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ivan-georgiev-ivanov-eaafcd",
+    "declarantName": "Иван Георгиев Иванов",
+    "institution": "Червен бряг",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10590",
+    "controlHash": "D5765BF6",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF6DBBD1-13D7-492B-AA7C-83ECBCCC537C235353.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 25122.837874457393
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 23621.1736193841,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 14500,
+        "valueEur": 7413.732277345168,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14740,
+        "valueEur": 7536.4423288322605,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "6.6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49702,
+        "valueEur": 25412.229079214452,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "4.79%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55257,
+        "valueEur": 28252.455479259446,
+        "holderName": "Росица Христова Иванова",
+        "isSpouse": true,
+        "legalBasis": "4.15%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

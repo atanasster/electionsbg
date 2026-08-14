@@ -1,6 +1,50 @@
 [
   {
     "slug": "violeta-mihailova-paeva-021804",
+    "declarantName": "Виоилета Михаилова Паева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12528",
+    "controlHash": "20330D24",
+    "sourceUrl": "https://register.cacbg.bg/2026/8E345220-1C0A-42E6-883D-9C6E70150FF8237831.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26972.691900625312,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 81.80670099139496,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 163.61340198278992,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "violeta-mihailova-paeva-021804",
     "declarantName": "Виолета Михаилова Паева",
     "institution": "Училища",
     "positionTitle": "Директор",

@@ -1,26 +1,69 @@
 [
   {
     "slug": "katrin-naskova-bogoeva-493469",
-    "declarantName": "КАТРИН НАСКОВА БОГОЕВА",
+    "declarantName": "Катрин Наскова Богоева",
     "institution": "Брегово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-28",
-    "entryNumber": "Г1098",
-    "controlHash": "1AD2ADAE",
-    "sourceUrl": "https://register.cacbg.bg/2025/2221BE28-5BF2-4AA8-955F-FF3C4607164D203455.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2564",
+    "controlHash": "F55F0792",
+    "sourceUrl": "https://register.cacbg.bg/2026/2221BE28-5BF2-4AA8-955F-FF3C4607164D226627.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2980.8316673739537,
+        "amountEurDeclarant": 4365.921373534509,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9217.05874232423,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11999,
+        "valueEur": 6134.991282473426,
+        "holderName": "Катрин Наскова Богоева",
+        "isSpouse": false,
+        "legalBasis": "8,35",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Катрин Наскова Богоева",
+        "isSpouse": false,
+        "legalBasis": "7,15",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

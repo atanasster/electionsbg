@@ -1,45 +1,70 @@
 [
   {
     "slug": "desislava-petrova-ivanova-ef50a3",
-    "declarantName": "Десислава Петрова Иванова",
+    "declarantName": "ДЕСИСЛАВА ПЕТРОВА ИВАНОВА",
     "institution": "Ковачевци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-04",
-    "entryNumber": "Г2605",
-    "controlHash": "FF950579",
-    "sourceUrl": "https://register.cacbg.bg/2025/07C2C679-4FA2-4426-A3E3-FA519EB265C6205283.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г3264",
+    "controlHash": "C061573A",
+    "sourceUrl": "https://register.cacbg.bg/2026/07C2C679-4FA2-4426-A3E3-FA519EB265C6227387.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1355.4347770511752,
-        "amountEurSpouse": 5170.694794537358
+        "amountEurDeclarant": 2619.3483073682273,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "автомобил",
+        "description": "АВТОМОБИЛ",
+        "detail": "HONDA",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "ДЕСИСЛАВА ПЕТРОВА ИВАНОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПАРЦЕЛ",
+        "detail": null,
+        "location": "СИРИЩНИК",
+        "municipality": "КОВАЧЕВЦИ",
+        "areaSqm": 840,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
         "detail": "BMW",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
         "currency": "BGN",
-        "amount": 6560,
-        "valueEur": 3354.0747406471933,
-        "holderName": "Десислава Петрова Иванова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

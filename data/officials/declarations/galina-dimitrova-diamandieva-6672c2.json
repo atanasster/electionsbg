@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1532",
+    "controlHash": "275BA96B",
+    "sourceUrl": "https://register.cacbg.bg/2026/437A5F7B-5E6E-41CB-AD96-5030EAA5771B225444.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21194.582351226843,
+        "amountEurSpouse": 29329.74747293988
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем ВСК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Галина Димитрова Диамандиева",
+        "isSpouse": false,
+        "legalBasis": "1,83%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем ДСК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Галина Димитрова Диамандиева",
+        "isSpouse": false,
+        "legalBasis": "5,50%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-dimitrova-diamandieva-6672c2",
+    "declarantName": "Галина Димитрова Диамандиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

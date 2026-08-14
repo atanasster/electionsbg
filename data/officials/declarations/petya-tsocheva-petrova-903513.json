@@ -5,6 +5,50 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г981",
+    "controlHash": "83D43C87",
+    "sourceUrl": "https://register.cacbg.bg/2026/391DE94D-7CAA-4713-B223-9BB0DF2DF244224619.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27830.639677272564,
+        "amountEurSpouse": 16864.962701257267
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16412,
+        "valueEur": 8391.322354192338,
+        "holderName": "Петя Цочева Петрова",
+        "isSpouse": false,
+        "legalBasis": "5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-tsocheva-petrova-903513",
+    "declarantName": "Петя Цочева Петрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

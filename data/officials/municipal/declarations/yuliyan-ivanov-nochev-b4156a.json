@@ -4,54 +4,36 @@
     "declarantName": "Юлиян Иванов Ночев",
     "institution": "Раковски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10762",
-    "controlHash": "AB99264E",
-    "sourceUrl": "https://register.cacbg.bg/2025/3F908225-E77C-449D-9907-BE7A3D023997213868.xml",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г9350",
+    "controlHash": "0CD4D44A",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F908225-E77C-449D-9907-BE7A3D023997233964.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8479.775849639283,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 9019.188784301294,
+        "amountEurSpouse": 981.6804118967395
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8693.495855979303,
-        "amountEurSpouse": 1120.7518035821108
+        "amountEurDeclarant": 7965.416217155888,
+        "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2278.3166226103494,
+        "amountEurDeclarant": 3806.0567636246506,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "трактор",
-        "detail": "янмар",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 5400,
-        "valueEur": 2760.97615845958,
-        "holderName": "Юлиян Иванов Ночев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем"
-      },
-      {
         "category": "debt",
         "description": "кредит",
         "detail": "BGN",
@@ -62,16 +44,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
+        "amount": 19200,
+        "valueEur": 9816.804118967395,
         "holderName": "Юлиян Иванов Ночев",
         "isSpouse": false,
-        "legalBasis": "договор по кредит",
+        "legalBasis": "договор по кредит, 4,29%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "рефинансиран кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 24900,
+        "valueEur": 12731.16784178584,
         "holderName": "Юлиян Иванов Ночев",
         "isSpouse": false,
-        "legalBasis": "договор по кредит",
+        "legalBasis": "договор по кредит, 5,99%",
         "fundsOrigin": null
       }
     ],

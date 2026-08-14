@@ -4,26 +4,26 @@
     "declarantName": "Людмила Крумова Зойкова",
     "institution": "Сандански",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9928",
-    "controlHash": "A3263CE3",
-    "sourceUrl": "https://register.cacbg.bg/2025/A23D1EA2-909B-4193-99ED-BFA528A18042212996.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13933",
+    "controlHash": "07C1AF20",
+    "sourceUrl": "https://register.cacbg.bg/2026/A23D1EA2-909B-4193-99ED-BFA528A18042239589.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 33261.5820393388,
+        "amountEurDeclarant": 36953.10942157549,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 9246.202379552415
+        "amountEurDeclarant": 12063.931936824776,
+        "amountEurSpouse": 9638.874544311111
       }
     ],
     "assets": [
@@ -38,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 98000,
-        "valueEur": 50106.604357229415,
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
         "holderName": "Людмила Крумова Зойкова",
         "isSpouse": false,
         "legalBasis": null,
@@ -57,7 +57,7 @@
         "share": null,
         "currency": "USD",
         "amount": 1335,
-        "valueEur": 1284.8764974460971,
+        "valueEur": 1124.8421386316807,
         "holderName": "Людмила Крумова Зойкова",
         "isSpouse": false,
         "legalBasis": null,
@@ -82,6 +82,31 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ТОЙОТА РАВ-4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ТОЙОТА РАВ-4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

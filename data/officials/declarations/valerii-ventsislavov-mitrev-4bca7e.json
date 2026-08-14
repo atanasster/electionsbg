@@ -5,6 +5,37 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4571",
+    "controlHash": "E496A267",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A14A739-B7FE-43EF-8C09-D0DB5CEE6179228779.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16927.8516026444,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4087.2672982825707,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "valerii-ventsislavov-mitrev-4bca7e",
+    "declarantName": "Валерий Венциславов Митрев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Област - София град",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6234",
+    "controlHash": "09E3ED22",
+    "sourceUrl": "https://register.cacbg.bg/2026/5ED5A128-C260-4405-93A6-F10046BD024C230535.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31837.63415020733,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2914.3637228184452,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18800,
+        "valueEur": 18800.202471584955,
+        "holderName": "Диана Динкова Аладжова-Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69023,
+        "valueEur": 35290.89951580659,
+        "holderName": "Диана Динкова Аладжова-Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diana-dinkova-aladzhova-dimitrova-feaa6e",
+    "declarantName": "Диана Динкова Аладжова-Димитрова",
+    "institution": "Област - София град",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

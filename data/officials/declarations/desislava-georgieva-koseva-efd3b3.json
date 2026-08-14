@@ -1,6 +1,98 @@
 [
   {
     "slug": "desislava-georgieva-koseva-efd3b3",
+    "declarantName": "ДЕСИСЛАВА ГЕОРГИЕВА КЬОСЕВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-12",
+    "entryNumber": "Г380",
+    "controlHash": "4C6CD423",
+    "sourceUrl": "https://register.cacbg.bg/2026/97C72E89-4134-482D-A0BD-32352685CED0223627.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28632.345346988237,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4829.151817898283,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Ваучери за храна, получени в размера и по реда на Закона за корпоративното подоходно облагане, освободени от облагане на основание чл. 24, ал. 2, т. 1, б. „е",
+        "amountEurDeclarant": 869.1961980335715,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ДЕСИСЛАВА ГЕОРГИЕВА КЬОСЕВА",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12782,
+        "valueEur": 12782.297029905461,
+        "holderName": "ДЕСИСЛАВА ГЕОРГИЕВА КЬОСЕВА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ 0,35ГЛП",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20451,
+        "valueEur": 20451.67524784874,
+        "holderName": "ДЕСИСЛАВА ГЕОРГИЕВА КЬОСЕВА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ 4,73ГЛП",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "desislava-georgieva-koseva-efd3b3",
     "declarantName": "Десислава Георгиева Кьосева",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

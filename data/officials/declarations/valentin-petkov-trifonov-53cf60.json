@@ -5,6 +5,56 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г2767",
+    "controlHash": "9A391BB8",
+    "sourceUrl": "https://register.cacbg.bg/2026/F8650FE4-622E-4320-A6AC-B3B56D70B9BE226850.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19936.804323484146,
+        "amountEurSpouse": 5827.704861874498
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38422,
+        "valueEur": 19644.856659321107,
+        "holderName": "Валентин Петков Трифонов",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valentin-petkov-trifonov-53cf60",
+    "declarantName": "Валентин Петков Трифонов",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

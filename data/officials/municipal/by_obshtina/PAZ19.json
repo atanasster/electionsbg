@@ -1,15 +1,15 @@
 {
   "obshtina": "PAZ19",
   "registryName": "Пазарджик",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 4,
+    "deputy_mayor": 5,
     "council_chair": 1,
-    "councillor": 40,
+    "councillor": 38,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -40,7 +41,26 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "kalinka-dimitrova-minkova-6eb322",
+      "name": "Калинка Димитрова Минкова",
+      "normalizedName": "КАЛИНКА ДИМИТРОВА МИНКОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВОЛЯ",
+        "partyCanonicalId": "p_76",
+        "listPos": 102,
+        "prefVotes": 324,
+        "isElected": true
+      }
     },
     {
       "slug": "lyubomir-angelov-gechev-f1a5b1",
@@ -49,7 +69,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -66,7 +87,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК Земеделски народен съюз /ПП \"ЗНС\", ПП \"ДБГ\"/",
@@ -83,7 +105,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -94,209 +117,14 @@
       }
     },
     {
-      "slug": "hari-nikolov-haralampiev-d162c0",
-      "name": "Хари Николов Харалампиев",
-      "normalizedName": "ХАРИ НИКОЛОВ ХАРАЛАМПИЕВ",
+      "slug": "desislava-angelova-todorova-1c9a63",
+      "name": "Десислава Ангелова Тодорова",
+      "normalizedName": "ДЕСИСЛАВА АНГЕЛОВА ТОДОРОВА",
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 102,
-        "prefVotes": 106,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "dimitr-petrov-boyukliev-c38444",
-      "name": "Димитър Петров Боюклиев",
-      "normalizedName": "ДИМИТЪР ПЕТРОВ БОЮКЛИЕВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "aleksandr-krasimirov-ivanov-3445db",
-      "name": "Александър Красимиров Иванов",
-      "normalizedName": "АЛЕКСАНДЪР КРАСИМИРОВ ИВАНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 106,
-        "prefVotes": 188,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "angel-chavdarov-vasilev-1f9577",
-      "name": "Ангел Чавдаров Василев",
-      "normalizedName": "АНГЕЛ ЧАВДАРОВ ВАСИЛЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПРЯКА ДЕМОКРАЦИЯ",
-        "partyCanonicalId": "p_1",
-        "listPos": 101,
-        "prefVotes": 100,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "atanas-georgiev-shopov-ff96fd",
-      "name": "Атанас Георгиев Шопов",
-      "normalizedName": "АТАНАС ГЕОРГИЕВ ШОПОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
-        "partyCanonicalId": null,
-        "listPos": 102,
-        "prefVotes": 158,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "atanas-ivanov-kachakov-558e8d",
-      "name": "Атанас Иванов Качаков",
-      "normalizedName": "АТАНАС ИВАНОВ КАЧАКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ВОЛЯ",
-        "partyCanonicalId": "p_76",
-        "listPos": 101,
-        "prefVotes": 118,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "blago-atanasov-solov-e62985",
-      "name": "Благо Атанасов Солов",
-      "normalizedName": "БЛАГО АТАНАСОВ СОЛОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
-        "partyCanonicalId": null,
-        "listPos": 101,
-        "prefVotes": 176,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "boris-aleksandrov-vladov-de292b",
-      "name": "Борис Александров Владов",
-      "normalizedName": "БОРИС АЛЕКСАНДРОВ ВЛАДОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 104,
-        "prefVotes": 121,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "vasil-nadkov-yankov-57330b",
-      "name": "Васил Надков Янков",
-      "normalizedName": "ВАСИЛ НАДКОВ ЯНКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП Движение Напред България",
-        "partyCanonicalId": null,
-        "listPos": 102,
-        "prefVotes": 272,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "verzhin-garbis-hugasyan-631a51",
-      "name": "Вержин Гарбис Хугасян",
-      "normalizedName": "ВЕРЖИН ГАРБИС ХУГАСЯН",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 107,
-        "prefVotes": 102,
-        "isElected": false
-      }
-    },
-    {
-      "slug": "georgi-angelov-georgiev-f654f9",
-      "name": "Георги Ангелов Георгиев",
-      "normalizedName": "ГЕОРГИ АНГЕЛОВ ГЕОРГИЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 103,
-        "prefVotes": 332,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "georgi-dimitrov-koprishtenov-a8bb6e",
-      "name": "Георги Димитров Коприщенов",
-      "normalizedName": "ГЕОРГИ ДИМИТРОВ КОПРИЩЕНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 107,
-        "prefVotes": 89,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "desislava-angelova-todorova-c3c3f4",
-      "name": "Десислава Ангелова Тодорова",
-      "normalizedName": "ДЕСИСЛАВА АНГЕЛОВА ТОДОРОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -309,22 +137,201 @@
       }
     },
     {
-      "slug": "desislava-ilieva-georgieva-a6c395",
-      "name": "Десислава Илиева Георгиева",
-      "normalizedName": "ДЕСИСЛАВА ИЛИЕВА ГЕОРГИЕВА",
+      "slug": "dimitr-petrov-boyukliev-c38444",
+      "name": "Димитър Петров Боюклиев",
+      "normalizedName": "ДИМИТЪР ПЕТРОВ БОЮКЛИЕВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "aneta-veradinova-popova-9507e5",
+      "name": "Анета Верадинова Попова",
+      "normalizedName": "АНЕТА ВЕРАДИНОВА ПОПОВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "anton-spasov-nikolov-57c148",
+      "name": "Антон Спасов Николов",
+      "normalizedName": "АНТОН СПАСОВ НИКОЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "ВЪЗРАЖДАНЕ",
-        "partyCanonicalId": "p_7",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
         "listPos": 101,
-        "prefVotes": 238,
-        "isElected": true,
-        "mpId": 3922,
-        "photoUrl": "/parliament/photos/3922.webp"
+        "prefVotes": 187,
+        "isElected": false
+      }
+    },
+    {
+      "slug": "asya-pavlova-fitkina-spasova-a0bae4",
+      "name": "Ася Павлова Фиткина-Спасова",
+      "normalizedName": "АСЯ ПАВЛОВА ФИТКИНА-СПАСОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "atanas-georgiev-shopov-ff96fd",
+      "name": "Атанас Георгиев Шопов",
+      "normalizedName": "АТАНАС ГЕОРГИЕВ ШОПОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
+        "partyCanonicalId": null,
+        "listPos": 102,
+        "prefVotes": 158,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "atanas-dimitrov-pavlov-d2d92d",
+      "name": "Атанас Димитров Павлов",
+      "normalizedName": "АТАНАС ДИМИТРОВ ПАВЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "atanas-ivanov-kachakov-558e8d",
+      "name": "Атанас Иванов Качаков",
+      "normalizedName": "АТАНАС ИВАНОВ КАЧАКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВОЛЯ",
+        "partyCanonicalId": "p_76",
+        "listPos": 101,
+        "prefVotes": 118,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "atanas-nikolov-nikolov-c91783",
+      "name": "Атанас Николов Николов",
+      "normalizedName": "АТАНАС НИКОЛОВ НИКОЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "boris-aleksandrov-vladov-de292b",
+      "name": "Борис Александров Владов",
+      "normalizedName": "БОРИС АЛЕКСАНДРОВ ВЛАДОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 104,
+        "prefVotes": 121,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "borislav-boyanov-pavlov-312cc4",
+      "name": "Борислав Боянов Павлов",
+      "normalizedName": "БОРИСЛАВ БОЯНОВ ПАВЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "borislav-ventsislavov-bogoslovov-582b17",
+      "name": "Борислав Венциславов Богословов",
+      "normalizedName": "БОРИСЛАВ ВЕНЦИСЛАВОВ БОГОСЛОВОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "ventsislav-georgiev-andreev-4b8d26",
+      "name": "Венцислав Георгиев Андреев",
+      "normalizedName": "ВЕНЦИСЛАВ ГЕОРГИЕВ АНДРЕЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "vladislav-asenov-petkov-643239",
+      "name": "Владислав Асенов Петков",
+      "normalizedName": "ВЛАДИСЛАВ АСЕНОВ ПЕТКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "georgi-angelov-georgiev-f654f9",
+      "name": "Георги Ангелов Георгиев",
+      "normalizedName": "ГЕОРГИ АНГЕЛОВ ГЕОРГИЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
+        "partyCanonicalId": "p_151",
+        "listPos": 103,
+        "prefVotes": 332,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "georgi-nikolaev-panushev-a0af12",
+      "name": "Георги Николаев Панушев",
+      "normalizedName": "ГЕОРГИ НИКОЛАЕВ ПАНУШЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВОЛЯ",
+        "partyCanonicalId": "p_76",
+        "listPos": 105,
+        "prefVotes": 213,
+        "isElected": false
       }
     },
     {
@@ -334,7 +341,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
@@ -345,21 +353,14 @@
       }
     },
     {
-      "slug": "elena-georgieva-madzharova-bcc864",
-      "name": "Елена Георгиева Маджарова",
-      "normalizedName": "ЕЛЕНА ГЕОРГИЕВА МАДЖАРОВА",
+      "slug": "elena-todorova-teteva-32f321",
+      "name": "Елена Тодорова Тетева",
+      "normalizedName": "ЕЛЕНА ТОДОРОВА ТЕТЕВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ВЪЗРАЖДАНЕ",
-        "partyCanonicalId": "p_7",
-        "listPos": 102,
-        "prefVotes": 55,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "elisaveta-ivanova-georgieva-310114",
@@ -368,7 +369,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -379,88 +381,31 @@
       }
     },
     {
-      "slug": "zlatko-dimitrov-mitrev-074030",
-      "name": "Златко Димитров Митрев",
-      "normalizedName": "ЗЛАТКО ДИМИТРОВ МИТРЕВ",
+      "slug": "ivelina-krasimirova-nyagolova-03833f",
+      "name": "Ивелина Красимирова Няголова",
+      "normalizedName": "ИВЕЛИНА КРАСИМИРОВА НЯГОЛОВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "iliyan-vladov-poryazov-46e72c",
+      "name": "Илиян Владов Порязов",
+      "normalizedName": "ИЛИЯН ВЛАДОВ ПОРЯЗОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
         "partyCanonicalId": "p_151",
-        "listPos": 109,
-        "prefVotes": 53,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "ivan-dimitrov-stoyanov-e221fd",
-      "name": "Иван Димитров Стоянов",
-      "normalizedName": "ИВАН ДИМИТРОВ СТОЯНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ДВИЖЕНИЕ НАШИЯТ ГРАД",
-        "partyCanonicalId": null,
-        "listPos": 113,
-        "prefVotes": 116,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "ivan-stoichev-papazov-ae1e8f",
-      "name": "Иван Стойчев Папазов",
-      "normalizedName": "ИВАН СТОЙЧЕВ ПАПАЗОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Земеделски съюз Ал. Стамболийски",
-        "partyCanonicalId": null,
-        "listPos": 101,
-        "prefVotes": 39,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "iskro-ferdov-beikov-f20868",
-      "name": "Искро Фердов Бейков",
-      "normalizedName": "ИСКРО ФЕРДОВ БЕЙКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
-        "partyCanonicalId": "p_134",
-        "listPos": 102,
-        "prefVotes": 10,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "iordan-kirilov-kozhuharov-daca2d",
-      "name": "Йордан Кирилов Кожухаров",
-      "normalizedName": "ЙОРДАН КИРИЛОВ КОЖУХАРОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 102,
-        "prefVotes": 111,
-        "isElected": true
+        "listPos": 131,
+        "prefVotes": 70,
+        "isElected": false
       }
     },
     {
@@ -470,7 +415,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП Движение Напред България",
@@ -481,30 +427,14 @@
       }
     },
     {
-      "slug": "kalinka-dimitrova-minkova-d4b697",
-      "name": "Калинка Димитрова Минкова",
-      "normalizedName": "КАЛИНКА ДИМИТРОВА МИНКОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ВОЛЯ",
-        "partyCanonicalId": "p_76",
-        "listPos": 102,
-        "prefVotes": 324,
-        "isElected": true
-      }
-    },
-    {
       "slug": "kiril-sergeev-andonov-d5b3a5",
       "name": "Кирил Сергеев Андонов",
       "normalizedName": "КИРИЛ СЕРГЕЕВ АНДОНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК Земеделски народен съюз /ПП \"ЗНС\", ПП \"ДБГ\"/",
@@ -521,7 +451,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -540,7 +471,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -551,13 +483,34 @@
       }
     },
     {
+      "slug": "milen-kolev-trifonov-989add",
+      "name": "Милен Колев Трифонов",
+      "normalizedName": "МИЛЕН КОЛЕВ ТРИФОНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "",
+        "partyCanonicalId": null,
+        "listPos": 0,
+        "prefVotes": 0,
+        "isElected": false,
+        "mpId": 5161,
+        "photoUrl": "/parliament/photos/5161.webp"
+      }
+    },
+    {
       "slug": "naiden-todorov-shopov-2e8beb",
       "name": "Найден Тодоров Шопов",
       "normalizedName": "НАЙДЕН ТОДОРОВ ШОПОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -568,38 +521,14 @@
       }
     },
     {
-      "slug": "nikolai-georgiev-angelov-1ae09b",
-      "name": "Николай Георгиев Ангелов",
-      "normalizedName": "НИКОЛАЙ ГЕОРГИЕВ АНГЕЛОВ",
+      "slug": "nenko-danchov-cholakov-ed2cc8",
+      "name": "Ненко Данчов Чолаков",
+      "normalizedName": "НЕНКО ДАНЧОВ ЧОЛАКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 105,
-        "prefVotes": 126,
-        "isElected": false
-      }
-    },
-    {
-      "slug": "nikolai-georgiev-pndezov-6b89eb",
-      "name": "Николай Георгиев Пъндезов",
-      "normalizedName": "НИКОЛАЙ ГЕОРГИЕВ ПЪНДЕЗОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПРЯКА ДЕМОКРАЦИЯ",
-        "partyCanonicalId": "p_1",
-        "listPos": 102,
-        "prefVotes": 60,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "nona-dimitrova-zagorska-2e8fdf",
@@ -608,7 +537,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -619,13 +549,52 @@
       }
     },
     {
+      "slug": "petr-luan-nguen-ab6c6e",
+      "name": "Петър Луан Нгуен",
+      "normalizedName": "ПЕТЪР ЛУАН НГУЕН",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "petr-stoyanov-kostov-5609ce",
+      "name": "Петър Стоянов Костов",
+      "normalizedName": "ПЕТЪР СТОЯНОВ КОСТОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "petya-ivanova-tsvetkova-27cc03",
+      "name": "Петя Иванова Цветкова",
+      "normalizedName": "ПЕТЯ ИВАНОВА ЦВЕТКОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Партия на ЗЕЛЕНИТЕ",
+        "partyCanonicalId": "p_22",
+        "listPos": 106,
+        "prefVotes": 39,
+        "isElected": false
+      }
+    },
+    {
       "slug": "reneta-petrova-kamberova-c6ca5d",
       "name": "Ренета Петрова Камберова",
       "normalizedName": "РЕНЕТА ПЕТРОВА КАМБЕРОВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
@@ -642,7 +611,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪЛГАРСКИ СЪЮЗ ЗА ДИРЕКТНА ДЕМОКРАЦИЯ",
@@ -653,13 +623,34 @@
       }
     },
     {
+      "slug": "rudi-sadkov-sinapov-14fe81",
+      "name": "Руди Садков Синапов",
+      "normalizedName": "РУДИ САДКОВ СИНАПОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "rumen-nikolaev-kozhuharov-cbbaeb",
+      "name": "Румен Николаев Кожухаров",
+      "normalizedName": "РУМЕН НИКОЛАЕВ КОЖУХАРОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "rumen-spasov-dimitrov-aa2767",
       "name": "Румен Спасов Димитров",
       "normalizedName": "РУМЕН СПАСОВ ДИМИТРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
@@ -670,88 +661,21 @@
       }
     },
     {
-      "slug": "sasho-georgiev-angelov-9f8f0e",
-      "name": "Сашо Георгиев Ангелов",
-      "normalizedName": "САШО ГЕОРГИЕВ АНГЕЛОВ",
+      "slug": "stoyan-atanasov-trayanov-759685",
+      "name": "Стоян Атанасов Траянов",
+      "normalizedName": "СТОЯН АТАНАСОВ ТРАЯНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА ПРАВА И СВОБОДИ – НДПС",
-        "partyCanonicalId": "p_134",
-        "listPos": 101,
-        "prefVotes": 38,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "stoyan-ilkov-pavlov-99afb7",
-      "name": "Стоян Илков Павлов",
-      "normalizedName": "СТОЯН ИЛКОВ ПАВЛОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
+        "partyName": "МК Земеделски народен съюз /ПП \"ЗНС\", ПП \"ДБГ\"/",
         "partyCanonicalId": null,
-        "listPos": 110,
-        "prefVotes": 131,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "stoyan-nikolov-samunev-e84dc4",
-      "name": "Стоян Николов Самунев",
-      "normalizedName": "СТОЯН НИКОЛОВ САМУНЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 105,
-        "prefVotes": 77,
+        "listPos": 102,
+        "prefVotes": 111,
         "isElected": false
-      }
-    },
-    {
-      "slug": "todor-dimitrov-popov-6b642e",
-      "name": "Тодор Димитров Попов",
-      "normalizedName": "ТОДОР ДИМИТРОВ ПОПОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 101,
-        "prefVotes": 268,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "todor-milchev-todorov-7eb7c6",
-      "name": "Тодор Милчев Тодоров",
-      "normalizedName": "ТОДОР МИЛЧЕВ ТОДОРОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция \"НОВОТО ВРЕМЕ\"",
-        "partyCanonicalId": "p_151",
-        "listPos": 104,
-        "prefVotes": 146,
-        "isElected": true
       }
     },
     {
@@ -761,7 +685,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -772,30 +697,14 @@
       }
     },
     {
-      "slug": "trendafil-angelov-velichkov-fea38d",
-      "name": "Трендафил Ангелов Величков",
-      "normalizedName": "ТРЕНДАФИЛ АНГЕЛОВ ВЕЛИЧКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ДВИЖЕНИЕ НАШИЯТ ГРАД",
-        "partyCanonicalId": null,
-        "listPos": 101,
-        "prefVotes": 146,
-        "isElected": true
-      }
-    },
-    {
       "slug": "chavdar-stoyanov-chavdarov-cbd9d5",
       "name": "Чавдар Стоянов Чавдаров",
       "normalizedName": "ЧАВДАР СТОЯНОВ ЧАВДАРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пазарджик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК Земеделски народен съюз /ПП \"ЗНС\", ПП \"ДБГ\"/",

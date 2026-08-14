@@ -1,6 +1,86 @@
 [
   {
     "slug": "dimitr-rumenov-savov-ee7a66",
+    "declarantName": "ДИМИТЪР  РУМЕНОВ  САВОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11947",
+    "controlHash": "0FD07EC6",
+    "sourceUrl": "https://register.cacbg.bg/2026/5E1D2B34-55D1-44EF-B849-2A9C8667A2EC237012.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18631.4761507902,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ГОЦЕ ДЕЛЧЕВ",
+        "municipality": "ГОЦЕ ДЕЛЧЕВ",
+        "areaSqm": 91,
+        "builtAreaSqm": 102,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ДИМИТЪР РУМЕНОВ САВОВ",
+        "isSpouse": false,
+        "legalBasis": "ДАРЕНИЕ",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ ЛЕК",
+        "detail": "КИА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "РУНИ 07 ООД",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12507,
+        "valueEur": 12506.7107059407,
+        "holderName": "Димитър Руменов Савов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-rumenov-savov-ee7a66",
     "declarantName": "Димитър Руменов Савов",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

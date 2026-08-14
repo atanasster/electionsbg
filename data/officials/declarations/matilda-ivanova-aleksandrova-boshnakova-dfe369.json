@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "matilda-ivanova-aleksandrova-boshnakova-dfe369",
+    "declarantName": "Матилда Иванова Александрова-Бошнакова",
+    "institution": "Университет за национално и световно стопанство",
+    "positionTitle": "Заместник-ректор",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г5426",
+    "controlHash": "615D7CAF",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7078E69-F558-4C4C-BB5F-9D015895E771229685.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 75785.21650654709,
+        "amountEurSpouse": 49847.37937346293
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5277.5547977073675,
+        "amountEurSpouse": 14024.736301212273
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 28000,
+        "valueEur": 27999.36599806732,
+        "holderName": "Матилда Иванова Александрова-Бошнакова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 22000,
+        "valueEur": 21999.867064110887,
+        "holderName": "Венелин Николаев Бошнаков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 173904,
+        "valueEur": 173903.66238374502,
+        "holderName": "Венелин Николаев Бошнаков",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит 2.55%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

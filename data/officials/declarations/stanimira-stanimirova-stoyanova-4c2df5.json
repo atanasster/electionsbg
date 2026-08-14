@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11239",
+    "controlHash": "9B856CA6",
+    "sourceUrl": "https://register.cacbg.bg/2026/5CA5A873-0781-4DD6-9445-55F69FDD97EE236113.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19069.142001094166,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42196,
+        "valueEur": 21574.472218955634,
+        "holderName": "Станимира Станимирова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "договор - лихвен процент 3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6707,
+        "valueEur": 3429.2346471830374,
+        "holderName": "Станимира Станимирова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "договор - лихвен процент 7%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stanimira-stanimirova-stoyanova-4c2df5",
+    "declarantName": "Станимира Станимирова Стоянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

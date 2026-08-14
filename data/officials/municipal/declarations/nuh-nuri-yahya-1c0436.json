@@ -4,29 +4,72 @@
     "declarantName": "Нух Нури Яхя",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11101",
-    "controlHash": "417B4E2F",
-    "sourceUrl": "https://register.cacbg.bg/2025/52385F88-583C-486A-B282-75214004A4F3214226.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9873",
+    "controlHash": "28404314",
+    "sourceUrl": "https://register.cacbg.bg/2026/52385F88-583C-486A-B282-75214004A4F3234545.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16988.695336506753,
+        "amountEurDeclarant": 5523.997484443945,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5268.862835727032,
+        "amountEurDeclarant": 15760.060945992238,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "майчинство и соц.подпомагане",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8519.65661637259
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26279,
+        "valueEur": 13436.239345955426,
+        "holderName": "Нух Нури Яхя",
+        "isSpouse": false,
+        "legalBasis": "кредит-4.29 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26431,
+        "valueEur": 13513.955711897252,
+        "holderName": "Нух Нури Яхя",
+        "isSpouse": false,
+        "legalBasis": "кредит-3,45%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

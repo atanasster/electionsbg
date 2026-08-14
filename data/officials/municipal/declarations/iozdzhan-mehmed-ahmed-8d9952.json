@@ -4,38 +4,32 @@
     "declarantName": "Йозджан Мехмед Ахмед",
     "institution": "Самуил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6237",
-    "controlHash": "7296E4AB",
-    "sourceUrl": "https://register.cacbg.bg/2025/F358D0EB-273D-4F43-9B4C-AAF646253654209192.xml",
+    "filedAt": null,
+    "entryNumber": "Г14453",
+    "controlHash": "61F0488D",
+    "sourceUrl": "https://register.cacbg.bg/2026/F358D0EB-273D-4F43-9B4C-AAF646253654240236.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4415.005394129346,
+        "amountEurDeclarant": 11050.040136412674,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4970.26837710844,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Пенсия за инвалидност",
-        "amountEurDeclarant": 3554.501158076111,
+        "category": "Пенсия",
+        "amountEurDeclarant": 3900.6457616459506,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "нива",
+        "description": "незастроен поземлен имот",
         "detail": null,
         "location": "с.Здравец",
         "municipality": "Самуил",
@@ -53,7 +47,7 @@
       },
       {
         "category": "real_estate",
-        "description": "нива",
+        "description": "незастроен поземлен имот",
         "detail": null,
         "location": "с.Здравец",
         "municipality": "Самуил",
@@ -72,18 +66,18 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "фолсваген пасат",
+        "detail": "фолксваген пасат",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2019,
-        "share": "100%",
+        "share": "10%",
         "currency": "BGN",
         "amount": 600,
         "valueEur": 306.7751287177311,
-        "holderName": "Йоздаж Мехмед Ахмед",
-        "isSpouse": true,
+        "holderName": "Йозджан Мехмед Ахмед",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -98,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32502,
-        "valueEur": 16618.008722639493,
+        "amount": 51844,
+        "valueEur": 26507.416288736753,
         "holderName": "Йозджан Мехмед Ахмед",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

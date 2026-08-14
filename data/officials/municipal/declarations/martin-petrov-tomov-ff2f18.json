@@ -4,31 +4,25 @@
     "declarantName": "Мартин Петров Томов",
     "institution": "Трън",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4102",
-    "controlHash": "F169E007",
-    "sourceUrl": "https://register.cacbg.bg/2025/A0F63F80-3643-4AC0-B8D4-9EAF2B101869206934.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13477",
+    "controlHash": "EECBB8DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0F63F80-3643-4AC0-B8D4-9EAF2B101869238990.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1789.5215841867648,
-        "amountEurSpouse": 58693.240210038704
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 24042.47812948978,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 1585.0048317082774,
+        "amountEurSpouse": 66238.8857927325
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 3579.0431683735296,
+        "amountEurDeclarant": 9299.888027078017,
         "amountEurSpouse": null
       }
     ],
@@ -40,7 +34,7 @@
         "location": "София",
         "municipality": "София-град (Столична)",
         "areaSqm": 137,
-        "builtAreaSqm": 137,
+        "builtAreaSqm": null,
         "acquiredYear": 2016,
         "share": "СО",
         "currency": "BGN",
@@ -58,7 +52,7 @@
         "location": "София",
         "municipality": "София-град (Столична)",
         "areaSqm": 37,
-        "builtAreaSqm": 37,
+        "builtAreaSqm": null,
         "acquiredYear": 2016,
         "share": "СО",
         "currency": "BGN",
@@ -67,7 +61,7 @@
         "holderName": "Мартин Петров Томов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
@@ -76,7 +70,7 @@
         "location": "Виена",
         "municipality": "ЧУЖБИНА",
         "areaSqm": 100,
-        "builtAreaSqm": 100,
+        "builtAreaSqm": null,
         "acquiredYear": 2012,
         "share": "СО",
         "currency": "BGN",
@@ -85,11 +79,11 @@
         "holderName": "Мартин Петров Томов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
-        "description": "гараж",
+        "description": "апартамент",
         "detail": null,
         "location": "София",
         "municipality": "София-град (Столична)",
@@ -109,7 +103,7 @@
         "category": "real_estate",
         "description": "гори",
         "detail": null,
-        "location": "с Богойна",
+        "location": "с.Богойна",
         "municipality": "Трън",
         "areaSqm": 2,
         "builtAreaSqm": null,
@@ -132,7 +126,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
-        "share": "100",
+        "share": null,
         "currency": "BGN",
         "amount": 1500,
         "valueEur": 766.9378217943278,
@@ -188,12 +182,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 4000,
-        "valueEur": 4090.3350495697478,
+        "amount": 22307,
+        "valueEur": 22306.64219282862,
         "holderName": "Вяра Емилова Томова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наем"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
@@ -206,11 +200,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21000,
-        "valueEur": 10737.129505120589,
+        "amount": 18500,
+        "valueEur": 9458.899802130041,
         "holderName": "Вяра Емилова Томова",
         "isSpouse": true,
-        "legalBasis": "5,17%",
+        "legalBasis": "кредит 4,5%",
         "fundsOrigin": null
       },
       {
@@ -224,11 +218,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 48000,
-        "valueEur": 49084.02059483698,
+        "amount": 35400,
+        "valueEur": 35401.84985402617,
         "holderName": "Вяра Емилова Томова",
         "isSpouse": true,
-        "legalBasis": "0,9%",
+        "legalBasis": "кредит 0,9%",
         "fundsOrigin": null
       }
     ],

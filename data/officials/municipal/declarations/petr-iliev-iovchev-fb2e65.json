@@ -4,70 +4,88 @@
     "declarantName": "Петър Илиев Йовчев",
     "institution": "Куклен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6224",
-    "controlHash": "093F6889",
-    "sourceUrl": "https://register.cacbg.bg/2025/040EBA53-F22F-4014-BD15-6B581C1FC082209179.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12262",
+    "controlHash": "F4CAF97E",
+    "sourceUrl": "https://register.cacbg.bg/2026/040EBA53-F22F-4014-BD15-6B581C1FC082237452.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6622.763737134618,
-        "amountEurSpouse": 9751.35875817428
+        "amountEurDeclarant": 7516.501945465608,
+        "amountEurSpouse": 9095.882566480726
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19517.544980903247,
+        "amountEurDeclarant": 21611.79652628296,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5317.435564440672,
+        "amountEurDeclarant": 6084.373386235,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "вила",
+        "description": "парцел",
         "detail": null,
-        "location": "С. Яврово",
+        "location": "Куклен",
         "municipality": "Куклен",
-        "areaSqm": 452,
-        "builtAreaSqm": 43,
-        "acquiredYear": 2024,
+        "areaSqm": 638,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Илиев Йовчев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
       },
       {
-        "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "мазда",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 495,
+        "builtAreaSqm": 124,
+        "acquiredYear": 2025,
+        "share": "1/4",
         "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Илиев Йовчев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 99,
+        "builtAreaSqm": 99,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Илия Петров Йовчев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
       },
       {
         "category": "bank",
@@ -80,14 +98,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 80328,
-        "valueEur": 41071.05423272984,
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
         "holderName": "Петър Илиев Йовчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "тойота рънър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

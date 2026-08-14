@@ -4,41 +4,65 @@
     "declarantName": "Неделчо Андонов Великов",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г1954",
-    "controlHash": "B6262A05",
-    "sourceUrl": "https://register.cacbg.bg/2025/315D1418-556F-4A06-93D8-F40A166ECD6C204532.xml",
+    "entryNumber": "Г12726",
+    "controlHash": "EB725BC1",
+    "sourceUrl": "https://register.cacbg.bg/2026/315D1418-556F-4A06-93D8-F40A166ECD6C238047.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9761.584595798204,
+        "amountEurDeclarant": 10225.83762392437,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 6720.931778324292,
+        "amountEurDeclarant": 6309.341813961336,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 8779.904183901464,
-        "amountEurSpouse": 7835.036787450852
+        "amountEurDeclarant": 9670.574640945277,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Застраховка живот",
+        "category": "Подажба на автомобил",
+        "amountEurDeclarant": 434.59809901678574,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3819.3503525357523
+        "amountEurSpouse": 8630.095662710972
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Рено Зое",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
+        "holderName": "Неделчо Андонов Великов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -50,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3100,
-        "valueEur": 1585.0048317082774,
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
         "holderName": "Неделчо Андонов Великов",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4500,
-        "valueEur": 2300.8134653829834,
+        "amount": 3850,
+        "valueEur": 1968.4737426054412,
         "holderName": "Иванка Бинева Великова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, излязла застраховка живот."
+        "fundsOrigin": "пенсия, излязла застраховка живот"
       },
       {
         "category": "bank",
@@ -86,8 +110,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13854,
-        "valueEur": 7083.437722092411,
+        "amount": 13375,
+        "valueEur": 6838.528910999422,
+        "holderName": "Неделчо Андонов Великов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия, дейност като ЕТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21785,
+        "valueEur": 11138.49363185962,
         "holderName": "Неделчо Андонов Великов",
         "isSpouse": false,
         "legalBasis": null,
@@ -96,38 +138,20 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 9111,
-        "valueEur": 4658.380329578747,
+        "currency": "EUR",
+        "amount": 4338,
+        "valueEur": 4337.800320068718,
         "holderName": "Неделчо Андонов Великов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 11,
-        "valueEur": 5.624210693158403,
-        "holderName": "Неделчо Андонов Великов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "излязла застраховка живот"
       },
       {
         "category": "bank",
@@ -140,12 +164,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 4217,
-        "valueEur": 4217,
+        "amount": 1717,
+        "valueEur": 1716.9181370569017,
         "holderName": "Неделчо Андонов Великов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "застраховка живот"
+        "fundsOrigin": "монетизиран канал в You Tube"
       },
       {
         "category": "bank",
@@ -158,32 +182,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43894,
-        "valueEur": 22442.645833226816,
+        "amount": 58514,
+        "valueEur": 29917.733136315528,
         "holderName": "Иванка Бинева Великова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия, заплати при пенсиониране, застраховка живот"
-      },
+        "fundsOrigin": "пенсия, заплата, застраховка живот, обезщетение при пенсиониране"
+      }
+    ],
+    "events": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Ауди А3",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 1842,
-        "valueEur": 1845.7636911183488,
-        "holderName": "Неделчо Андонов Великов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "монетизиран канал в Pay Pal"
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

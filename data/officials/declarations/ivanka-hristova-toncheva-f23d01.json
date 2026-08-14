@@ -5,6 +5,81 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г9522",
+    "controlHash": "0C7C3C40",
+    "sourceUrl": "https://register.cacbg.bg/2026/89043824-1BFE-43A5-A48B-376F77D98F15234149.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31794.685632186847,
+        "amountEurSpouse": 30677.51287177311
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2528.3383525153004,
+        "amountEurSpouse": 2528.3383525153004
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51858,
+        "valueEur": 26514.5743750735,
+        "holderName": "Иванка Христова Тончева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ап.11",
+        "detail": null,
+        "location": "ул.\"Шар Планина\"73",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 42,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парко място 22",
+        "detail": null,
+        "location": "ул.\"Шар Планина\"73",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 14,
+        "builtAreaSqm": 14,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "ivanka-hristova-toncheva-f23d01",
+    "declarantName": "Иванка Христова Тончева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

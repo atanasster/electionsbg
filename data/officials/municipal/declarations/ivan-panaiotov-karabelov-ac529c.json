@@ -4,16 +4,35 @@
     "declarantName": "Иван Панайотов Карабелов",
     "institution": "Съединение",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7993",
-    "controlHash": "B0EC9582",
-    "sourceUrl": "https://register.cacbg.bg/2025/C9D180B3-B15E-4CD0-A933-FF2E87436C53210999.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12902",
+    "controlHash": "4837931E",
+    "sourceUrl": "https://register.cacbg.bg/2026/C9D180B3-B15E-4CD0-A933-FF2E87436C53238254.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Иван Панайотов Карабелов",
+        "isSpouse": false,
+        "legalBasis": "Договор за потребителски кредит, 4,75%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

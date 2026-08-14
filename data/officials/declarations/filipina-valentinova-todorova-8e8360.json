@@ -1,6 +1,56 @@
 [
   {
     "slug": "filipina-valentinova-todorova-8e8360",
+    "declarantName": "Филипина Валентинова Тодорова",
+    "institution": "Национална агенция за приходи",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5716",
+    "controlHash": "02FCF1FC",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AD404BF-3DAB-4922-8FC1-4F3312D05043229980.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45418.56909854129,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2595.317588952005,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 143637,
+        "valueEur": 143637.22818445365,
+        "holderName": "Филипина Валентинова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "жилищен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "filipina-valentinova-todorova-8e8360",
     "declarantName": "ФИЛИПИНА ВАЛЕНТИНОВА ТОДОРОВА",
     "institution": "Национална агенция за приходи",
     "positionTitle": "Директор на дирекция",

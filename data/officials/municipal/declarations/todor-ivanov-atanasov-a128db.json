@@ -4,26 +4,20 @@
     "declarantName": "Тодор Иванов Атанасов",
     "institution": "Смядово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г14281",
-    "controlHash": "A8D88BD3",
-    "sourceUrl": "https://register.cacbg.bg/2025/0FAA81D3-A72B-4C0A-BBA3-96D6F66AA82D217565.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13216",
+    "controlHash": "A29F4803",
+    "sourceUrl": "https://register.cacbg.bg/2026/0FAA81D3-A72B-4C0A-BBA3-96D6F66AA82D238716.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3274.8244990617795,
+        "amountEurDeclarant": 12504.665538415915,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 5607.849352960125
       }
     ],
     "assets": [
@@ -31,7 +25,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "гр.Смядово",
+        "location": "гр. Смядово",
         "municipality": "Смядово",
         "areaSqm": 120,
         "builtAreaSqm": 120,
@@ -48,7 +42,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Фолсваген",
+        "detail": "Фолксватген пасат",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -61,12 +55,12 @@
         "holderName": "Тодор Иванов Атанасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заем"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Волво",
+        "detail": "Волво Е 60",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -76,24 +70,24 @@
         "currency": "BGN",
         "amount": 4000,
         "valueEur": 2045.1675247848739,
-        "holderName": "Тодор Иванов Атанасов",
-        "isSpouse": false,
+        "holderName": "Тодор Иванов Атаносв",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
         "description": "заем",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "currency": "EUR",
+        "amount": 14000,
+        "valueEur": 14316.172673494118,
         "holderName": "Тодор Иванов Атанасов",
         "isSpouse": false,
         "legalBasis": "кредит",

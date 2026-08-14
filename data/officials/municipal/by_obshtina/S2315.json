@@ -1,13 +1,13 @@
 {
   "obshtina": "S2315",
   "registryName": "Район Младост",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 5,
     "council_chair": 0,
     "councillor": 0,
     "chief_architect": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Младост",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "anzhela-valentinova-mihailova-c4db0e",
@@ -30,7 +31,28 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Младост",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "daniel-stanimirov-mihalev-b6f569",
+      "name": "Даниел Станимиров Михалев",
+      "normalizedName": "ДАНИЕЛ СТАНИМИРОВ МИХАЛЕВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Младост",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "kaloyan-marinov-trulev-006876",
+      "name": "Калоян Маринов Трулев",
+      "normalizedName": "КАЛОЯН МАРИНОВ ТРУЛЕВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Младост",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "petromila-mohamed-bashar-bchvarova-78f5aa",
@@ -39,7 +61,18 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Младост",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "stoil-vladimirov-mollov-bae67e",
+      "name": "Стоил Владимиров Моллов",
+      "normalizedName": "СТОИЛ ВЛАДИМИРОВ МОЛЛОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Младост",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "rositsa-ivanova-semova-304aaa",
@@ -48,7 +81,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Младост",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

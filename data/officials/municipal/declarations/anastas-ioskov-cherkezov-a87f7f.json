@@ -1,29 +1,29 @@
 [
   {
     "slug": "anastas-ioskov-cherkezov-a87f7f",
-    "declarantName": "АНАСТАС ЙОСКОВ ЧЕРКЕЗОВ",
+    "declarantName": "Анастас Йосков Черкезов",
     "institution": "Гурково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г5466",
-    "controlHash": "E2B15C75",
-    "sourceUrl": "https://register.cacbg.bg/2025/59811444-5C89-47B3-A8E5-DCA84ED4B546208394.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г3115",
+    "controlHash": "D11975B4",
+    "sourceUrl": "https://register.cacbg.bg/2026/59811444-5C89-47B3-A8E5-DCA84ED4B546227216.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3633.751399661525,
+        "amountEurDeclarant": 5389.527719689339,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 8468.527428252966
+        "amountEurSpouse": 9910.881825107499
       },
       {
         "parent": null,
@@ -35,32 +35,14 @@
     "assets": [
       {
         "category": "real_estate",
-        "description": "етерично маслена култура",
-        "detail": null,
-        "location": "Николаево",
-        "municipality": "Николаево",
-        "areaSqm": 7000,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Анастас Йосков Черкезов",
-        "isSpouse": false,
-        "legalBasis": "договор за аренда",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "real_estate",
-        "description": "етерично маслена култура",
+        "description": "етерично-  маслена култура",
         "detail": null,
         "location": "Гурково",
         "municipality": "Гурково",
         "areaSqm": 769,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
-        "share": "181",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 50,
         "valueEur": 25.564594059810926,
@@ -70,31 +52,6 @@
         "fundsOrigin": "субсидии"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел - астра",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 128.84555406144705,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

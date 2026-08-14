@@ -4,29 +4,54 @@
     "declarantName": "Румен Величков Иванов",
     "institution": "Долна баня",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14214",
-    "controlHash": "8EB6E5F0",
-    "sourceUrl": "https://register.cacbg.bg/2025/DA53C63D-CB54-451A-8C1F-54CED8A404A2217489.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г5070",
+    "controlHash": "1DF6EE22",
+    "sourceUrl": "https://register.cacbg.bg/2026/DA53C63D-CB54-451A-8C1F-54CED8A404A2229312.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9803.510530056294,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 12091.030406528174,
+        "amountEurSpouse": 5063.323499486151
       },
       {
         "parent": null,
         "category": "пенсия",
+        "amountEurDeclarant": 4454.374868981456,
+        "amountEurSpouse": 7019.014945061687
+      },
+      {
+        "parent": null,
+        "category": "наследяване",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6141.126785047781
+        "amountEurSpouse": 42733.775430379945
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай IONIQ 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 100400,
+        "valueEur": 51333.70487210034,
+        "holderName": "Румен Величков Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

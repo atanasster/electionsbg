@@ -1,6 +1,81 @@
 [
   {
     "slug": "zornitsa-todorova-ivanova-d6f6cc",
+    "declarantName": "Зорница  Тодорова   Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7057",
+    "controlHash": "4D0C7F8A",
+    "sourceUrl": "https://register.cacbg.bg/2026/C57D40EA-CA3C-4700-AFF8-FD3D245A6189231445.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30165.709698695693,
+        "amountEurSpouse": 19522.146607834013
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 449992,
+        "valueEur": 230077.25620324875,
+        "holderName": "Зорница Тодорова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Зорница Тодорова Иванова",
+        "isSpouse": false,
+        "legalBasis": "4,25",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "zornitsa-todorova-ivanova-d6f6cc",
     "declarantName": "Зорница Тодорова Иванова",
     "institution": "Училища",
     "positionTitle": "Директор",

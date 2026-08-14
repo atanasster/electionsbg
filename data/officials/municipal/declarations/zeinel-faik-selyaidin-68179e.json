@@ -4,13 +4,13 @@
     "declarantName": "Зейнел Фаик Селяйдин",
     "institution": "Павел баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13453",
-    "controlHash": "E5048A7D",
-    "sourceUrl": "https://register.cacbg.bg/2025/0C3D05A2-2D66-4ABF-A0E0-E8E56941257A216665.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12917",
+    "controlHash": "59DBF152",
+    "sourceUrl": "https://register.cacbg.bg/2026/0C3D05A2-2D66-4ABF-A0E0-E8E56941257A238269.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -20,7 +20,7 @@
         "companyName": "ЕКСПЕРИА",
         "registeredOffice": "Стара Загора",
         "valueEur": 1.022583762392437,
-        "holderName": "ЗЕЙНЕЛ ФАИК СЕЛЯЙДИН",
+        "holderName": "Зейнел Фаик Селяйдин",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -29,10 +29,10 @@
         "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "40",
-        "companyName": "ЕВРОГОЛ",
+        "companyName": "ЕВРО ГОЛ",
         "registeredOffice": "Стара Загора",
         "valueEur": 1.022583762392437,
-        "holderName": "ЗЕЙНЕЛ ФАИК СЕЛЯЙДИН",
+        "holderName": "Сибел Сабриева Селяйдин",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -41,15 +41,28 @@
         "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "60",
-        "companyName": "ЕВРОГОЛ",
+        "companyName": "ЕВРО ГОЛ",
         "registeredOffice": "Стара Загора",
         "valueEur": 1.022583762392437,
-        "holderName": "СИБЕЛ САБРИЕВА СЕЛЯЙДИН",
+        "holderName": "Сибел Сабриева Селяйдин",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 601.2792522867529,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11016.294872253724
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -73,7 +86,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Габарево",
+        "location": "Габалево",
         "municipality": "Павел баня",
         "areaSqm": 1000,
         "builtAreaSqm": 120,
@@ -89,7 +102,7 @@
       },
       {
         "category": "vehicle",
-        "description": "лекавтомобил",
+        "description": "лек автомобил",
         "detail": "субаро",
         "location": null,
         "municipality": null,
@@ -107,7 +120,7 @@
       },
       {
         "category": "vehicle",
-        "description": "лекавтомобил",
+        "description": "лек автомобил",
         "detail": "сузуки",
         "location": null,
         "municipality": null,
@@ -126,7 +139,7 @@
       {
         "category": "vehicle",
         "description": "товарен автомобил",
-        "detail": "опел комби",
+        "detail": "опел комбо",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -143,7 +156,7 @@
       },
       {
         "category": "vehicle",
-        "description": "лекавтомобил",
+        "description": "лек автомобил",
         "detail": "рено",
         "location": null,
         "municipality": null,
@@ -152,8 +165,8 @@
         "acquiredYear": 2024,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 200,
+        "valueEur": 102.2583762392437,
         "holderName": "Сибел Сабриева Селяйдин",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",

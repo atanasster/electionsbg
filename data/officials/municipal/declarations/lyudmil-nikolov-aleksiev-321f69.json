@@ -4,32 +4,56 @@
     "declarantName": "Людмил Николов Алексиев",
     "institution": "Белоградчик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5765",
-    "controlHash": "6D377C36",
-    "sourceUrl": "https://register.cacbg.bg/2025/206B97A4-EE39-4480-A6FF-E432FF254CCF208709.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11046",
+    "controlHash": "B365F43F",
+    "sourceUrl": "https://register.cacbg.bg/2026/206B97A4-EE39-4480-A6FF-E432FF254CCF235879.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29130.854931154547,
+        "amountEurDeclarant": 5606.315477316536,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4450.795825813082,
+        "amountEurDeclarant": 29722.419637698575,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ваучери за храна",
+        "amountEurDeclarant": 1227.1005148709244,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Рабиша",
+        "municipality": "Белоградчик",
+        "areaSqm": 1400,
+        "builtAreaSqm": 106,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Людмил Николов Алексиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Стоков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12258,
-        "valueEur": 6267.415879703246,
+        "amount": 11140,
+        "valueEur": 5695.791556525874,
         "holderName": "Людмил Николов Алексиев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "стоков кредит - 17% лихва",
+        "fundsOrigin": null
       }
     ],
     "events": []

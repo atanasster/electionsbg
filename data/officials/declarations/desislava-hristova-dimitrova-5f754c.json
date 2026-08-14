@@ -1,6 +1,68 @@
 [
   {
     "slug": "desislava-hristova-dimitrova-5f754c",
+    "declarantName": "ДЕСИСЛАВА ХРИСТОВА ДИМИТРОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12413",
+    "controlHash": "86532EC4",
+    "sourceUrl": "https://register.cacbg.bg/2026/B03341C5-D74E-46CA-8282-4EF7E1BB2428237669.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17089.419837102407,
+        "amountEurSpouse": 8325.365701518025
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 300000,
+        "valueEur": 153387.56435886555,
+        "holderName": "ЕМИЛ РОСЕНОВ ДИМИТРОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОРЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 300000,
+        "valueEur": 153387.56435886555,
+        "holderName": "ДЕСИСЛАВА ХРИСТОВА ДИМИТРОВА",
+        "isSpouse": false,
+        "legalBasis": "0,2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "desislava-hristova-dimitrova-5f754c",
     "declarantName": "Десислава Христова Димитрова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

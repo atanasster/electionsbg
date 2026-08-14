@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г14796",
+    "controlHash": "BD90C82C",
+    "sourceUrl": "https://register.cacbg.bg/2026/4E8C26E2-BED4-4C2E-8E77-ADBE6A25BBDF241080.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23740.815919584013,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Меляне",
+        "municipality": "Георги Дамяново",
+        "areaSqm": 489,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Мая Асенова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25571,
+        "valueEur": 13074.244694068502,
+        "holderName": "Мая Асенова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "6.05",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-asenova-dimitrova-e8c1ff",
+    "declarantName": "Мая Асенова Димитрова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,73 +1,58 @@
 [
   {
     "slug": "mariyana-georgieva-nedelcheva-287b4b",
-    "declarantName": "Марияна Георгев Неделчева",
+    "declarantName": "Марияна Георгиева Неделчева",
     "institution": "Бяла/Варна/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-04-10",
-    "entryNumber": "В761",
-    "controlHash": "1B8E6191",
-    "sourceUrl": "https://register.cacbg.bg/2025/CCC6A539-F6F0-4715-8EEE-D2BFF3DD6916206282.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г6755",
+    "controlHash": "A6BA540B",
+    "sourceUrl": "https://register.cacbg.bg/2026/CCC6A539-F6F0-4715-8EEE-D2BFF3DD6916231100.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9739.599044906767,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Бяла",
-        "municipality": "Бяла (Варна)",
-        "areaSqm": 1719,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1719",
-        "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
-        "holderName": "Марияна Георгиева Неделчева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
         "category": "vehicle",
-        "description": "автомобил",
-        "detail": "мерцедес",
+        "description": "мпс",
+        "detail": "рено клио",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "0",
         "currency": "BGN",
-        "amount": 2900,
-        "valueEur": 1482.7464554690337,
-        "holderName": "Марияна георгиева Неделчева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Марияна Георгиева неделчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "mariyana-georgieva-nedelcheva-287b4b",
-    "declarantName": "Марияна Георгиева Неделчева",
-    "institution": "Бяла/Варна/",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-10",
-    "entryNumber": "В762",
-    "controlHash": "3EE0B6F5",
-    "sourceUrl": "https://register.cacbg.bg/2025/CCC6A539-F6F0-4715-8EEE-D2BFF3DD6916206283.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мпс",
+        "detail": "рено клио",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 413.6351318877408,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

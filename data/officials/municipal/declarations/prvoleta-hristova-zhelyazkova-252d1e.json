@@ -1,48 +1,42 @@
 [
   {
     "slug": "prvoleta-hristova-zhelyazkova-252d1e",
-    "declarantName": "Първолета Христова Желязкова",
+    "declarantName": "ПЪРВОЛЕТА ХРИСТОВА ЖЕЛЯЗКОВА",
     "institution": "Сухиндол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г13628",
-    "controlHash": "9011AC9D",
-    "sourceUrl": "https://register.cacbg.bg/2025/B9A3A27B-CA3C-4F6D-A52C-430564FE4DF7216861.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г12874",
+    "controlHash": "3C721C34",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9A3A27B-CA3C-4F6D-A52C-430564FE4DF7238223.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13467.939442589592,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 449.93685545267226,
+        "amountEurDeclarant": 16946.258110367464,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 4813.3017695812005,
+        "amountEurDeclarant": 11043.393341957124,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "зем. Земи",
+        "description": "нива",
         "detail": null,
-        "location": "гр. Сухиндол",
+        "location": "Сухиндол",
         "municipality": "Сухиндол",
-        "areaSqm": 1,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "areaSqm": 14,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "5/18",
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
@@ -50,45 +44,44 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 5,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "5/18",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Първолета Христова Желязкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9000,
+        "valueEur": 8999.759692815838,
+        "holderName": "ПЪРВОЛЕТА ХРИСТОВА ЖЕЛЯЗКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "гр. Сухиндол",
-        "municipality": "Сухиндол",
-        "areaSqm": 60,
-        "builtAreaSqm": 120,
-        "currency": "BGN",
-        "valueEur": 1789.5215841867648,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "стопански постройки",
-        "detail": null,
-        "location": "гр. Сухиндол",
-        "municipality": "Сухиндол",
-        "areaSqm": 0,
-        "builtAreaSqm": 470,
-        "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "стопански постройки",
-        "detail": null,
-        "location": "гр. Сухиндол",
-        "municipality": "Сухиндол",
-        "areaSqm": 0,
-        "builtAreaSqm": 477,
-        "currency": "BGN",
-        "valueEur": 3579.0431683735296,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

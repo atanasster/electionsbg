@@ -4,104 +4,56 @@
     "declarantName": "Петър Юриев Друнчилов",
     "institution": "Банско",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8003",
-    "controlHash": "B219D1F8",
-    "sourceUrl": "https://register.cacbg.bg/2025/D9BAC1F8-9A5E-4C3A-9639-41008CB6A51F211009.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4383",
+    "controlHash": "75328ECD",
+    "sourceUrl": "https://register.cacbg.bg/2026/D9BAC1F8-9A5E-4C3A-9639-41008CB6A51F228581.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7366.182132393919,
-        "amountEurSpouse": 16512.682595113074
+        "amountEurDeclarant": 8243.559000526631,
+        "amountEurSpouse": 19138.67769693685
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12936.70717802672,
+        "amountEurDeclarant": 13488.39111783744,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 199.91512554772143
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "апартамент в строеж",
+        "description": "гараж",
         "detail": null,
-        "location": "Гърция",
-        "municipality": "ЧУЖБИНА",
-        "areaSqm": 35,
-        "builtAreaSqm": 35,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "location": "Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 19,
+        "builtAreaSqm": 19,
+        "acquiredYear": 2025,
+        "share": "1/6",
         "currency": "BGN",
-        "amount": 68547,
-        "valueEur": 35047.52458035719,
-        "holderName": "Петър Юриев Друнчилов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "real_estate",
-        "description": "апартамент в строеж",
-        "detail": null,
-        "location": "Гърция",
-        "municipality": "ЧУЖБИНА",
-        "areaSqm": 35,
-        "builtAreaSqm": 35,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 68547,
-        "valueEur": 35047.52458035719,
+        "amount": 2001,
+        "valueEur": 1023.0950542736332,
         "holderName": "Мария Христова Друнчилова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 23000,
-        "valueEur": 11759.713267513025,
-        "holderName": "Петър Юриев Друнчилов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 23000,
-        "valueEur": 11759.713267513025,
-        "holderName": "Мария Христова Друнчилова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -114,10 +66,23 @@
         "valueEur": 10225.83762392437,
         "holderName": "Мария Христова Друнчилова",
         "isSpouse": true,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор, 13.8%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 377.84470020400545,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

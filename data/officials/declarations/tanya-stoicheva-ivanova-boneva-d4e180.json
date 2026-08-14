@@ -138,5 +138,127 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "tanya-stoicheva-ivanova-boneva-d4e180",
+    "declarantName": "ТАНЯ СТОЙЧЕВА ИВАНОВА-БОНЕВА",
+    "institution": "МБАЛ - Пирдоп",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6243",
+    "controlHash": "0F310389",
+    "sourceUrl": "https://register.cacbg.bg/2026/3EB1D7E5-B6DD-4C95-A476-A396D671FEE7230544.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8589.70360409647,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 32819.31456210407,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 16622.61034957026,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 9138.83108450121,
+        "amountEurSpouse": 12412.632999800597
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 29143.637228184452
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46493,
+        "valueEur": 23771.493432455787,
+        "holderName": "ГЕОРГИ СТОЯНОВ БОНЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26418,
+        "valueEur": 26416.91762576502,
+        "holderName": "ГЕОРГИ СТОЯНОВ БОНЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15638,
+        "valueEur": 7995.5824381464645,
+        "holderName": "ТАНЯ СТОЙЧЕВА ИВАНОВА-БОНЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11852,
+        "valueEur": 11851.745806128345,
+        "holderName": "ТАНЯ  СТОЙЧЕВА ИВАНОВА - БОНЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

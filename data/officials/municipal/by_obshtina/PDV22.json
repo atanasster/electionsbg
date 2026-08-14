@@ -1,16 +1,16 @@
 {
   "obshtina": "PDV22",
   "registryName": "Пловдив",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 7,
-    "deputy_mayor": 30,
-    "council_chair": 0,
-    "councillor": 51,
-    "chief_architect": 8,
+    "deputy_mayor": 28,
+    "council_chair": 1,
+    "councillor": 48,
+    "chief_architect": 7,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен"
     },
     {
@@ -31,7 +32,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Северен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Северен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -51,7 +53,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен"
     },
     {
@@ -61,7 +64,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Тракия"
     },
     {
@@ -71,7 +75,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Източен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Източен"
     },
     {
@@ -81,7 +86,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -98,7 +104,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район \"Западен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Западен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -110,31 +117,14 @@
       }
     },
     {
-      "slug": "aleksandr-milkov-drzhikov-e68dfb",
-      "name": "Александър Милков Държиков",
-      "normalizedName": "АЛЕКСАНДЪР МИЛКОВ ДЪРЖИКОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "angel-ivanov-slavov-c82b9c",
-      "name": "Ангел Иванов Славов",
-      "normalizedName": "АНГЕЛ ИВАНОВ СЛАВОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "aneta-lyubenova-gospodinova-e203d2",
       "name": "Анета Любенова Господинова",
       "normalizedName": "АНЕТА ЛЮБЕНОВА ГОСПОДИНОВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -146,13 +136,25 @@
       }
     },
     {
+      "slug": "anton-georgiev-georgiev-9363c7",
+      "name": "Антон Георгиев Георгиев",
+      "normalizedName": "АНТОН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район \"Тракия\" - Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "district": "Район Тракия"
+    },
+    {
       "slug": "vladimir-bozhilov-temelkov-f477dd",
       "name": "Владимир Божилов Темелков",
       "normalizedName": "ВЛАДИМИР БОЖИЛОВ ТЕМЕЛКОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "gergana-vasileva-gatova-zlatkova-aac2e9",
@@ -161,7 +163,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен"
     },
     {
@@ -171,7 +174,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -189,7 +193,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Западен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Западен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -201,30 +206,15 @@
       }
     },
     {
-      "slug": "erol-ayanov-sadkov-5d4a41",
-      "name": "Ерол Аянов Садъков",
-      "normalizedName": "ЕРОЛ АЯНОВ САДЪКОВ",
+      "slug": "emiliya-vasileva-vasileva-b35648",
+      "name": "Емилия Василева Василева",
+      "normalizedName": "ЕМИЛИЯ ВАСИЛЕВА ВАСИЛЕВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
-        "partyCanonicalId": "p_79",
-        "listPos": 102,
-        "prefVotes": 690,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "zhenya-petkova-petkova-68e7a1",
-      "name": "Женя Петкова Петкова",
-      "normalizedName": "ЖЕНЯ ПЕТКОВА ПЕТКОВА",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "municipality": "Район \"Северен\" - Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "district": "Район Северен"
     },
     {
       "slug": "ivailo-milenov-dukov-58b058",
@@ -233,7 +223,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Тракия"
     },
     {
@@ -243,7 +234,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -260,26 +252,9 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Западен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Западен"
-    },
-    {
-      "slug": "ivo-lazarov-hristev-ed81db",
-      "name": "Иво Лазаров Христев",
-      "normalizedName": "ИВО ЛАЗАРОВ ХРИСТЕВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Тракия",
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
-        "partyCanonicalId": "p_79",
-        "listPos": 107,
-        "prefVotes": 158,
-        "isElected": false
-      }
     },
     {
       "slug": "krasimir-romanov-asenov-d5d5b5",
@@ -288,7 +263,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Тракия",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -300,32 +276,47 @@
       }
     },
     {
+      "slug": "krasimira-vasileva-vteva-eaa6a1",
+      "name": "Красимира Василева Вътева",
+      "normalizedName": "КРАСИМИРА ВАСИЛЕВА ВЪТЕВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район \"Северен\" - Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "district": "Район Северен"
+    },
+    {
+      "slug": "mariya-ivanova-koleva-2430b4",
+      "name": "Мария Иванова Колева",
+      "normalizedName": "МАРИЯ ИВАНОВА КОЛЕВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "nikola-anastasov-slavchev-1ee1c2",
       "name": "Никола Анастасов Славчев",
       "normalizedName": "НИКОЛА АНАСТАСОВ СЛАВЧЕВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Западен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Западен"
     },
     {
-      "slug": "nikolai-vasilev-madanski-a096a0",
-      "name": "Николай Василев Мадански",
-      "normalizedName": "НИКОЛАЙ ВАСИЛЕВ МАДАНСКИ",
+      "slug": "nikolai-georgiev-chunchukov-4a4b61",
+      "name": "Николай Георгиев Чунчуков",
+      "normalizedName": "НИКОЛАЙ ГЕОРГИЕВ ЧУНЧУКОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Източен\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Източен",
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
-        "partyCanonicalId": "p_79",
-        "listPos": 109,
-        "prefVotes": 210,
-        "isElected": false
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "district": "Район Източен"
     },
     {
       "slug": "nikolai-iliev-arabadzhiev-88c207",
@@ -334,7 +325,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -352,7 +344,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -363,13 +356,24 @@
       }
     },
     {
+      "slug": "nikolai-petkov-dushkov-402283",
+      "name": "Николай Петков Душков",
+      "normalizedName": "НИКОЛАЙ ПЕТКОВ ДУШКОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "oktai-shaban-chalshkan-6fef01",
       "name": "Октай Шабан Чалъшкан",
       "normalizedName": "ОКТАЙ ШАБАН ЧАЛЪШКАН",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -387,7 +391,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Тракия",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -405,7 +410,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -423,7 +429,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -434,31 +441,14 @@
       }
     },
     {
-      "slug": "rumyana-bogdanova-tolova-910fac",
-      "name": "Румяна Богданова Толова",
-      "normalizedName": "РУМЯНА БОГДАНОВА ТОЛОВА",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Централен",
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
-        "partyCanonicalId": "p_51",
-        "listPos": 114,
-        "prefVotes": 352,
-        "isElected": false
-      }
-    },
-    {
       "slug": "stanislava-kirilova-lulcheva-5e2142",
       "name": "Станислава Кирилова Лулчева",
       "normalizedName": "СТАНИСЛАВА КИРИЛОВА ЛУЛЧЕВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Източен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Източен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -476,7 +466,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "fidanka-ivanova-katsareva-25b875",
@@ -485,7 +476,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен",
       "candidateLink": {
         "cycle": "2023_10_29_mi",
@@ -505,7 +497,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "tsvetelina-angelova-peneva-28b21f",
@@ -514,7 +507,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен"
     },
     {
@@ -524,25 +518,26 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район \"Източен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Източен"
     },
     {
-      "slug": "tsvetomir-angelov-tsvetkov-10d4b3",
-      "name": "Цветомир Ангелов Цветков",
-      "normalizedName": "ЦВЕТОМИР АНГЕЛОВ ЦВЕТКОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Район \"Северен\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Северен",
+      "slug": "atanas-andreev-uzunov-c597ef",
+      "name": "Атанас Андреев Узунов",
+      "normalizedName": "АТАНАС АНДРЕЕВ УЗУНОВ",
+      "role": "council_chair",
+      "roleRaw": "Председател на ОбС",
+      "municipality": "Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 123,
-        "prefVotes": 107,
-        "isElected": false
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 108,
+        "prefVotes": 222,
+        "isElected": true
       }
     },
     {
@@ -552,18 +547,9 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район \"Южен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Южен"
-    },
-    {
-      "slug": "lenko-grigorov-grigorov-5adf64",
-      "name": "Ленко Григоров Григоров",
-      "normalizedName": "ЛЕНКО ГРИГОРОВ ГРИГОРОВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Тракия"
     },
     {
       "slug": "petko-ivanov-prokopiev-fe6766",
@@ -572,8 +558,20 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район \"Тракия\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Тракия"
+    },
+    {
+      "slug": "ramona-ognyanova-georgieva-30179a",
+      "name": "Рамона Огнянова Георгиева",
+      "normalizedName": "РАМОНА ОГНЯНОВА ГЕОРГИЕВА",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Район \"Северен\" - Пловдив",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "district": "Район Северен"
     },
     {
       "slug": "sonya-atanasova-andonova-dc7918",
@@ -582,7 +580,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район \"Източен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Източен"
     },
     {
@@ -592,18 +591,9 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район \"Западен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Западен"
-    },
-    {
-      "slug": "todor-georgiev-uzunov-f0885c",
-      "name": "Тодор Георгиев Узунов",
-      "normalizedName": "ТОДОР ГЕОРГИЕВ УЗУНОВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Район \"Северен\" - Пловдив",
-      "latestDeclarationYear": 2025,
-      "district": "Район Северен"
     },
     {
       "slug": "yuliana-lyubenova-petrova-7f5805",
@@ -612,7 +602,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район \"Централен\" - Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "district": "Район Централен"
     },
     {
@@ -622,7 +613,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aleksandr-nikolaev-rakshiev-eec6eb",
@@ -631,7 +623,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -650,7 +643,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "angel-blagoev-molev-0a95b8",
@@ -659,7 +653,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
@@ -676,7 +671,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -687,30 +683,14 @@
       }
     },
     {
-      "slug": "atanas-andreev-uzunov-299979",
-      "name": "Атанас Андреев Узунов",
-      "normalizedName": "АТАНАС АНДРЕЕВ УЗУНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 108,
-        "prefVotes": 222,
-        "isElected": true
-      }
-    },
-    {
       "slug": "borislav-krstev-inchev-4e69b0",
       "name": "Борислав Кръстев Инчев",
       "normalizedName": "БОРИСЛАВ КРЪСТЕВ ИНЧЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
@@ -727,7 +707,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -744,7 +725,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -761,7 +743,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -778,7 +761,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -795,7 +779,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -812,7 +797,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -829,7 +815,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -846,7 +833,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -857,30 +845,14 @@
       }
     },
     {
-      "slug": "georgi-ivanov-kolev-c933f9",
-      "name": "Георги Иванов Колев",
-      "normalizedName": "ГЕОРГИ ИВАНОВ КОЛЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
-        "partyCanonicalId": "p_51",
-        "listPos": 103,
-        "prefVotes": 240,
-        "isElected": true
-      }
-    },
-    {
       "slug": "georgi-nikolaev-rogachev-f5c4b6",
       "name": "Георги Николаев Рогачев",
       "normalizedName": "ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -897,7 +869,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -914,7 +887,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -931,7 +905,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -948,7 +923,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -965,7 +941,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -982,7 +959,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -999,7 +977,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -1016,7 +995,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -1033,7 +1013,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1050,7 +1031,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -1061,13 +1043,14 @@
       }
     },
     {
-      "slug": "ivan-dimirtov-penkov-c64054",
-      "name": "Иван Димиртов Пенков",
-      "normalizedName": "ИВАН ДИМИРТОВ ПЕНКОВ",
+      "slug": "ivan-dimitrov-penkov-59e075",
+      "name": "Иван Димитров Пенков",
+      "normalizedName": "ИВАН ДИМИТРОВ ПЕНКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -1084,7 +1067,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -1101,7 +1085,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -1118,7 +1103,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1135,7 +1121,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -1154,7 +1141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -1171,7 +1159,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -1188,7 +1177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -1205,7 +1195,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
@@ -1222,7 +1213,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -1239,7 +1231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -1256,7 +1249,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1273,7 +1267,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
@@ -1290,7 +1285,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -1307,7 +1303,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1324,7 +1321,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -1343,7 +1341,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1360,7 +1359,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -1379,7 +1379,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -1390,30 +1391,14 @@
       }
     },
     {
-      "slug": "tervel-veselinov-borisov-c4e710",
-      "name": "Тервел Веселинов Борисов",
-      "normalizedName": "ТЕРВЕЛ ВЕСЕЛИНОВ БОРИСОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ИМА ТАКЪВ НАРОД",
-        "partyCanonicalId": "p_0",
-        "listPos": 104,
-        "prefVotes": 433,
-        "isElected": true
-      }
-    },
-    {
       "slug": "todor-atanasov-tokov-08f739",
       "name": "Тодор Атанасов Токов",
       "normalizedName": "ТОДОР АТАНАСОВ ТОКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -1430,7 +1415,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „КОАЛИЦИЯ СЪЕДИНЕНИ ЗА ПЛОВДИВ (КАУЗА БЪЛГАРИЯ, НОВИТЕ ЛИДЕРИ) (ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, Земеделски съюз Ал. Стамболийски, ВОЛЯ, АТАКА, Партия на ЗЕЛЕНИТЕ)”",
@@ -1447,7 +1433,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -1464,7 +1451,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП БЪЛГАРСКА ПРОГРЕСИВНА ЛИНИЯ",
@@ -1481,7 +1469,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пловдив",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",

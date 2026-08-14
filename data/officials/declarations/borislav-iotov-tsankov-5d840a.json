@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7203",
+    "controlHash": "F31AA41B",
+    "sourceUrl": "https://register.cacbg.bg/2026/ED41D882-FAC8-402F-AAC0-E99A7BD5FE46231602.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Борислав Йотов Цанков",
+        "isSpouse": false,
+        "legalBasis": "6",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "5/6 идеални части апартамент",
+        "detail": null,
+        "location": "Видин",
+        "municipality": "Видин",
+        "areaSqm": 125,
+        "builtAreaSqm": 125,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "borislav-iotov-tsankov-5d840a",
+    "declarantName": "Борислав Йотов Цанков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

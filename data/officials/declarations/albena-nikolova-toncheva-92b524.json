@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3787",
+    "controlHash": "A73DB147",
+    "sourceUrl": "https://register.cacbg.bg/2026/894B7103-53E0-4A17-9D8F-012A28B5326C227947.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21652.699876778657,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Албена Николова Тончева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 33,
+        "builtAreaSqm": 33,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Албена Николова Тончева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "albena-nikolova-toncheva-92b524",
+    "declarantName": "Албена Николова Тончева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,62 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г4021",
+    "controlHash": "02156F76",
+    "sourceUrl": "https://register.cacbg.bg/2026/43E01044-533F-43DE-A448-645CBA30301A228205.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Идриз Мустафа Осман",
+        "detail": "Лицето е назначено в обУ\"Братя Миладинови\" на длъжността учител в група целодневна организация на учебния ден",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "fatma-emin-osman-968f59",
+    "declarantName": "Фатма Емин Осман",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2480",
+    "controlHash": "6126E6EF",
+    "sourceUrl": "https://register.cacbg.bg/2026/43E01044-533F-43DE-A448-645CBA30301A226529.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24396.803403158763,
+        "amountEurSpouse": 17717.286267211362
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "fatma-emin-osman-968f59",
+    "declarantName": "Фатма Емин Осман",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

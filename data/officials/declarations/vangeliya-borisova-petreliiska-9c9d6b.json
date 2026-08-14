@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7736",
+    "controlHash": "008BEEFE",
+    "sourceUrl": "https://register.cacbg.bg/2026/63099F09-84A9-4441-97EA-58C2D24A917C232169.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25252.706012281233,
+        "amountEurSpouse": 4280.535629374741
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9125,
+        "valueEur": 9125.02620370891,
+        "holderName": "Вангелия Борисова Петрелийска",
+        "isSpouse": false,
+        "legalBasis": "договор, 5,59%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vangeliya-borisova-petreliiska-9c9d6b",
+    "declarantName": "Вангелия Борисова Петрелийска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

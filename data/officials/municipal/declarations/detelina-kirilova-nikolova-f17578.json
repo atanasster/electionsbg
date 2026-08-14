@@ -4,31 +4,31 @@
     "declarantName": "Детелина Кирилова Николова",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г2018",
-    "controlHash": "38749A3D",
-    "sourceUrl": "https://register.cacbg.bg/2025/88BA8B34-7D76-40BD-8066-B36A0C6EA2F5204599.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3812",
+    "controlHash": "7170B1E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/88BA8B34-7D76-40BD-8066-B36A0C6EA2F5227978.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14200.620708343773,
+        "amountEurDeclarant": 18773.615293762752,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Рента",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4422.67477234729
+        "amountEurSpouse": 3986.0315058057195
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 12788.432532479817,
+        "amountEurDeclarant": 14062.060608539598,
         "amountEurSpouse": 20860.708752805713
       }
     ],
@@ -44,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 140000,
-        "valueEur": 71580.86336747059,
+        "amount": 153000,
+        "valueEur": 78227.65782302142,
         "holderName": "Детелина Кирилова Николова",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,8 +98,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 45000,
-        "valueEur": 44999.82104784158,
+        "amount": 50000,
+        "valueEur": 50063.144547327734,
         "holderName": "Николай Георгиев Николов",
         "isSpouse": true,
         "legalBasis": null,
@@ -117,7 +117,7 @@
         "share": null,
         "currency": "USD",
         "amount": 18000,
-        "valueEur": 16671.1830782839,
+        "valueEur": 15328.53059826263,
         "holderName": "Николай Георгиев Николов",
         "isSpouse": true,
         "legalBasis": null,
@@ -134,14 +134,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 48733,
-        "valueEur": 24916.787246335316,
+        "amount": 51820,
+        "valueEur": 26495.14528358804,
         "holderName": "Детелина Кирилова Николова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсия"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "РЕНО-19",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 173.83923960671427,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

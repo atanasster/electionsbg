@@ -5,6 +5,118 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г1037",
+    "controlHash": "5DCF2749",
+    "sourceUrl": "https://register.cacbg.bg/2026/61304999-AB8A-4927-97C8-5825AD83A345224702.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
+        "description": "ипотечен кредит към Уникредит Бубланк",
+        "detail": "Румяна Цветкова Райкова",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 27449.215933900185,
+        "legalBasis": "продажба на имот в с. Стубел, заплата и пенсия"
+      }
+    ]
+  },
+  {
+    "slug": "ventsislav-kuzdov-raikov-739ad3",
+    "declarantName": "Венцислав Куздов Райков",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-02",
+    "entryNumber": "Г1036",
+    "controlHash": "C57C4013",
+    "sourceUrl": "https://register.cacbg.bg/2026/61304999-AB8A-4927-97C8-5825AD83A345224700.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35432.52736689794,
+        "amountEurSpouse": 28964.68506976578
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 18784.863715149066,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Венцислав Куздов Райков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1559,
+        "valueEur": 797.1040427849047,
+        "holderName": "Венцислав Куздов Райков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и стопанска постройка",
+        "detail": null,
+        "location": "Стубел",
+        "municipality": "Монтана",
+        "areaSqm": 768,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
+  },
+  {
+    "slug": "ventsislav-kuzdov-raikov-739ad3",
+    "declarantName": "Венцислав Куздов Райков",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

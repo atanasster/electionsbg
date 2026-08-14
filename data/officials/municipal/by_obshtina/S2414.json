@@ -1,54 +1,78 @@
 {
   "obshtina": "S2414",
   "registryName": "Район Искър",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
-    "mayor": 0,
-    "deputy_mayor": 4,
+    "mayor": 1,
+    "deputy_mayor": 3,
     "council_chair": 0,
     "councillor": 0,
-    "chief_architect": 1,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
     {
-      "slug": "aleksandr-tsvevtanov-ivanov-f6430d",
-      "name": "Александър Цвевтанов Иванов",
-      "normalizedName": "АЛЕКСАНДЪР ЦВЕВТАНОВ ИВАНОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
+      "slug": "petko-hristov-kraev-1f7378",
+      "name": "Петко Христов Краев",
+      "normalizedName": "ПЕТКО ХРИСТОВ КРАЕВ",
+      "role": "mayor",
+      "roleRaw": "Кмет",
       "municipality": "Район Искър",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
-      "slug": "anzhelina-lyubenova-toteva-85b6db",
-      "name": "Анжелина Любенова Тотева",
-      "normalizedName": "АНЖЕЛИНА ЛЮБЕНОВА ТОТЕВА",
+      "slug": "boris-tsvetkov-tsvetkov-116793",
+      "name": "Борис Цветков Цветков",
+      "normalizedName": "БОРИС ЦВЕТКОВ ЦВЕТКОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Искър",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „БСП ЗА БЪЛГАРИЯ“ (коалиция „БСП ЗА БЪЛГАРИЯ“, КП „ЛЕВИЦАТА!“, КП „НЕУТРАЛНА БЪЛГАРИЯ“, КП „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ“, ПП „АТАКА“)",
+        "partyCanonicalId": "bsp",
+        "listPos": 114,
+        "prefVotes": 516,
+        "isElected": false,
+        "mpId": 3016,
+        "photoUrl": "/parliament/photos/3016.webp"
+      }
     },
     {
-      "slug": "anna-nikolaeva-savova-844ad9",
-      "name": "Анна Николаева Савова",
-      "normalizedName": "АННА НИКОЛАЕВА САВОВА",
+      "slug": "trayan-rumenov-lyalev-9cd0be",
+      "name": "Траян Руменов Лялев",
+      "normalizedName": "ТРАЯН РУМЕНОВ ЛЯЛЕВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Искър",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
-      "slug": "kiril-nachkov-kirilov-c134f4",
-      "name": "Кирил Начков Кирилов",
-      "normalizedName": "КИРИЛ НАЧКОВ КИРИЛОВ",
+      "slug": "tsveta-angelova-tocheva-7f3326",
+      "name": "Цвета Ангелова Точева",
+      "normalizedName": "ЦВЕТА АНГЕЛОВА ТОЧЕВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Искър",
-      "latestDeclarationYear": 2024
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "svetlomir-genkov-kolev-8a7718",
+      "name": "Светломир Генков Колев",
+      "normalizedName": "СВЕТЛОМИР ГЕНКОВ КОЛЕВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Район Искър",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "filip-nikolaev-chipev-755c9a",
@@ -57,7 +81,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Искър",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

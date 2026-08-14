@@ -4,13 +4,13 @@
     "declarantName": "Соня Георгиева Будева",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9004",
-    "controlHash": "1BE0BF55",
-    "sourceUrl": "https://register.cacbg.bg/2025/6DFF0661-6088-449A-AFFE-AE4CC5A8A1F2212033.xml",
+    "filedAt": "2026-05-18",
+    "entryNumber": "Г9761",
+    "controlHash": "FAF5166A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6DFF0661-6088-449A-AFFE-AE4CC5A8A1F2234412.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -41,26 +41,26 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7110.024899914614,
+        "amountEurDeclarant": 9038.617875786751,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 26672.56356636313,
+        "amountEurDeclarant": 28927.360762438453,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 154.9214400024542,
+        "amountEurDeclarant": 172.81665584432184,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
+        "category": "debt",
+        "description": "Ипотечен жилищен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -69,16 +69,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17847,
-        "valueEur": 9125.02620370891,
+        "amount": 117009,
+        "valueEur": 59825.75172688833,
         "holderName": "Соня Георгиева Будева",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "Обезщетение за причинени вреди по \"Гражданска отговорност\""
+        "legalBasis": "банков кредит, 3,82%",
+        "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
+        "category": "debt",
+        "description": "Потребитлески кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -87,12 +87,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36,
-        "valueEur": 18.406507723063864,
-        "holderName": "Васил Христов Петров",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "Дивиденти"
+        "amount": 7722,
+        "valueEur": 3948.195906597199,
+        "holderName": "Соня Георгиева Будева",
+        "isSpouse": false,
+        "legalBasis": "банков кредит, 4,85%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 454,
+        "valueEur": 232.1265140630832,
+        "holderName": "Соня Георгиева Будева",
+        "isSpouse": false,
+        "legalBasis": "Кредитна карта, до падежна дата - 0%, извън падежна дата -18,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребитлески кредит за закупуване на стоки и услуги",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Соня Георгиева Будева",
+        "isSpouse": false,
+        "legalBasis": "банков кредит, 0%",
+        "fundsOrigin": null
       }
     ],
     "events": []

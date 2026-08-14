@@ -4,13 +4,13 @@
     "declarantName": "Мирослав Иванов Симеонов",
     "institution": "Габрово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г10320",
-    "controlHash": "159BBDF0",
-    "sourceUrl": "https://register.cacbg.bg/2025/B36E8A69-4417-4B80-8AD4-E4440C8333BE213399.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5043",
+    "controlHash": "3A9D1686",
+    "sourceUrl": "https://register.cacbg.bg/2026/B36E8A69-4417-4B80-8AD4-E4440C8333BE229285.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,12 +21,153 @@
         "registeredOffice": "Габрово",
         "valueEur": 46.01626930765966,
         "holderName": "Мирослав Иванов Симеонов",
-        "legalBasis": "учредяване",
-        "fundsOrigin": "заплата"
+        "legalBasis": "други",
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружесвен дял",
+        "shareSize": "100",
+        "companyName": "Школа Интензив ЕООД",
+        "registeredOffice": "Габрово",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Анелия Илиева Атанасова-Симеонова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Дивиденти"
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "100%",
+        "companyName": "Школа Интензив ЕООД",
+        "registeredOffice": "Габрово",
+        "valueEur": 2556.4594059810925,
+        "holderName": null,
+        "transfereeName": "МИрослав Иванов Симеонов",
+        "legalBasis": "продажба на дружествен дял",
+        "fundsOrigin": null
       }
     ],
-    "income": [],
-    "assets": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8036.485788642162,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1368.2170740810807
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 5194.72551295358,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 44993.685545267224,
+        "amountEurSpouse": 20451.67524784874
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15000,
+        "valueEur": 14999.769918653461,
+        "holderName": "Мирослав Иванов Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Анелия Илиева Атанасова-Симеонова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5290,
+        "valueEur": 5289.825802856077,
+        "holderName": "Мирослав Иванов Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29000,
+        "valueEur": 29000.475501449513,
+        "holderName": "Анелия Илиева Атанасова-Симеонова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 33681,
+        "valueEur": 33681.352673800895,
+        "holderName": "Анелия Илиева Атанасова-Симеонова",
+        "isSpouse": true,
+        "legalBasis": "ИК с лихв.% 3,2",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

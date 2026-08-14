@@ -4,29 +4,53 @@
     "declarantName": "Маргаритка Йонева Цекина",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9969",
-    "controlHash": "2F0DBDB6",
-    "sourceUrl": "https://register.cacbg.bg/2025/12C77C4D-EE41-4D2D-8B28-C2BC189827FF213038.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11472",
+    "controlHash": "7BF24AED",
+    "sourceUrl": "https://register.cacbg.bg/2026/12C77C4D-EE41-4D2D-8B28-C2BC189827FF236392.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6984.2470971403445,
-        "amountEurSpouse": 24730.165709698696
+        "amountEurDeclarant": 7451.567876553689,
+        "amountEurSpouse": 11151.275928889525
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 29060.29665154947,
+        "amountEurDeclarant": 33612.3282698394,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 14438.371433100014,
+        "amountEurSpouse": 12355.879600987815
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15223,
+        "valueEur": 7783.396307450034,
+        "holderName": "Маргаритка Йонева Цекина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35164,
-        "valueEur": 17979.067710383828,
+        "amount": 81368,
+        "valueEur": 41602.79778917391,
         "holderName": "Маргаритка Йонева Цекина",
         "isSpouse": false,
         "legalBasis": null,

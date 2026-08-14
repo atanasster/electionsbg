@@ -5,6 +5,56 @@
     "institution": "ГДИН",
     "positionTitle": "Началник на затвор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5381",
+    "controlHash": "337F6EE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/A835BD1D-7BF0-4943-851E-B79BE093B4DE229637.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39551.494761814676,
+        "amountEurSpouse": 16180.854164216727
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 14562.615360230695,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50200,
+        "valueEur": 25666.85243605017,
+        "holderName": "Йордан Динев Данев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия и заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-dinev-danev-b49c89",
+    "declarantName": "Йордан Динев Данев",
+    "institution": "ГДИН",
+    "positionTitle": "Началник на затвор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

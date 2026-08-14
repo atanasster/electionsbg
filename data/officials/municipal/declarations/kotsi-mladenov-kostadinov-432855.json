@@ -4,54 +4,73 @@
     "declarantName": "Коци Младенов Костадинов",
     "institution": "Годеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13610",
-    "controlHash": "B14C21E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E416135-54E5-44B3-AA13-7F2B086EE819216837.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10747",
+    "controlHash": "639B791B",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E416135-54E5-44B3-AA13-7F2B086EE819235538.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4601.626930765967,
+        "amountEurDeclarant": 3967.113706201459,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5201.883599290327,
+        "amountEurDeclarant": 5966.264961678674,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1065.020988531723
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 383.4689108971639
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Кредит потребителски",
-        "detail": "BGN",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 31000,
-        "valueEur": 15850.048317082774,
+        "currency": "EUR",
+        "amount": 12272,
+        "valueEur": 12271.005148709244,
         "holderName": "Коци Младенов Костадинов",
         "isSpouse": false,
-        "legalBasis": "Договор,6,96%",
+        "legalBasis": "Договор,6,5%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Пунто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 337.4526415895042,
+        "legalBasis": "Договор за покупко-продажба"
+      }
+    ]
   }
 ]

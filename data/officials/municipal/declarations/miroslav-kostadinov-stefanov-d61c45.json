@@ -4,29 +4,48 @@
     "declarantName": "Мирослав Костадинов Стефанов",
     "institution": "Златарица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6124",
-    "controlHash": "B0F8FB97",
-    "sourceUrl": "https://register.cacbg.bg/2025/4897D4E0-4F90-45B4-B761-2A666078276C209075.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12771",
+    "controlHash": "7E00F40F",
+    "sourceUrl": "https://register.cacbg.bg/2026/4897D4E0-4F90-45B4-B761-2A666078276C238104.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4341.379363237092,
+        "amountEurDeclarant": 4842.956698690581,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4116.410935510755,
+        "amountEurDeclarant": 5269.885419489424,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Златарица,ул. Еделвайс № 1",
+        "municipality": "Златарица",
+        "areaSqm": 407,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3636,
+        "valueEur": 1859.0572800294503,
+        "holderName": "Мирослав Костадинов Стефанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

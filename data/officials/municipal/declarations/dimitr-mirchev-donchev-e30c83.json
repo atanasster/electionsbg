@@ -1,105 +1,32 @@
 [
   {
     "slug": "dimitr-mirchev-donchev-e30c83",
-    "declarantName": "Димитър Мирчев Дончев",
+    "declarantName": "ДИМИТЪР МИРЧЕВ ДОНЧЕВ",
     "institution": "Баните",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г10551",
-    "controlHash": "868C00F8",
-    "sourceUrl": "https://register.cacbg.bg/2025/9AF3D179-9DC5-4AA1-9C2A-385456EC718C213647.xml",
+    "entryNumber": "Г2291",
+    "controlHash": "E2B8086F",
+    "sourceUrl": "https://register.cacbg.bg/2026/9AF3D179-9DC5-4AA1-9C2A-385456EC718C226318.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4238.609695116651,
-        "amountEurSpouse": 8221.573449635192
+        "amountEurDeclarant": 26799.363952899792,
+        "amountEurSpouse": 13762.95485803981
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17655.931241467817,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4133.283567590231,
+        "amountEurSpouse": 1504.2207144792749
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Десислава Димитрова Дончева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "автомобил - бракуван",
-        "detail": "опел",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2007,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
-        "holderName": "Димитър Мирчев Дончев",
-        "isSpouse": false,
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 7020,
-        "valueEur": 3589.269005997454,
-        "holderName": "Димитър Мирчев Дончев",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Десислава Димитрова Дончева",
-        "isSpouse": true,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

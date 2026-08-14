@@ -4,29 +4,78 @@
     "declarantName": "Елеонора Орлинова Ангелова",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6573",
-    "controlHash": "9CAB73AC",
-    "sourceUrl": "https://register.cacbg.bg/2025/1B37AC26-197F-459E-82A0-7AC44D67A532209534.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10566",
+    "controlHash": "C798572C",
+    "sourceUrl": "https://register.cacbg.bg/2026/1B37AC26-197F-459E-82A0-7AC44D67A532235329.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6994.984226645465,
-        "amountEurSpouse": 12054.728682963243
+        "amountEurDeclarant": 7472.530843682734,
+        "amountEurSpouse": 6771.038382681521
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6823.1901545635355,
+        "amountEurDeclarant": 13789.542035862012,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия ТЕЛК",
+        "amountEurDeclarant": 3263.576077675463,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "почасов договор-футболен  треньор",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1294.5910431888253
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Елеонора Орлинова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39116,
+        "valueEur": 19999.693224871284,
+        "holderName": "Мануш Сашев Маринов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "субсидия фонд земеделие"
+      }
+    ],
     "events": []
   }
 ]

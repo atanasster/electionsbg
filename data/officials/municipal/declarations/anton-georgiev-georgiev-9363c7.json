@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "anton-georgiev-georgiev-9363c7",
+    "declarantName": "Антон Георгиев Георгиев",
+    "institution": "Район \"Тракия\" - Пловдив",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10017",
+    "controlHash": "17DFB5A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/4063D11D-E983-4056-8B18-8751A8F093C6234701.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27683.89890736925,
+        "amountEurSpouse": 14692.99478993573
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21144,
+        "valueEur": 21143.964454988418,
+        "holderName": "Антон Георгиев Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 43267,
+        "valueEur": 43267.0528624676,
+        "holderName": "Надежда Георгиева Георгиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел + постройка",
+        "detail": null,
+        "location": "Царацово",
+        "municipality": "Марица",
+        "areaSqm": 551,
+        "builtAreaSqm": 551,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
+  }
+]

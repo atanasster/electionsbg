@@ -5,6 +5,74 @@
     "institution": "ОСИН",
     "positionTitle": "Началник на ОСИН",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2032",
+    "controlHash": "64751440",
+    "sourceUrl": "https://register.cacbg.bg/2026/2DA91504-9D0A-4752-8CEE-5E347AE81AD1226009.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38129.0807483268,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 14316.172673494118,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Борис Иванов Гинчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41000,
+        "valueEur": 20962.96712904496,
+        "holderName": "Борис Иванов Гинчев",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boris-ivanov-ginchev-acc940",
+    "declarantName": "Борис Иванов Гинчев",
+    "institution": "ОСИН",
+    "positionTitle": "Началник на ОСИН",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

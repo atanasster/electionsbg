@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9002",
+    "controlHash": "94520799",
+    "sourceUrl": "https://register.cacbg.bg/2026/BABFC0D5-D17E-42FA-B7B3-C653A5CE65F9233553.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21721.21298885895,
+        "amountEurSpouse": 3493.146132332565
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21000,
+        "valueEur": 20999.780144491087,
+        "holderName": "ЙОРДАН АНГЕЛОВ АЛЕКСИЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 40903,
+        "valueEur": 40903.35049569748,
+        "holderName": "ЙОРДАН АНГЕЛОВ АЛЕКСИЕВ",
+        "isSpouse": false,
+        "legalBasis": "4.9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-angelov-aleksiev-cce5aa",
+    "declarantName": "ЙОРДАН АНГЕЛОВ АЛЕКСИЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

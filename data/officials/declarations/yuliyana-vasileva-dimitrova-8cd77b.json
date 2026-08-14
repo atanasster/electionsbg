@@ -5,6 +5,56 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8866",
+    "controlHash": "40DAB0EE",
+    "sourceUrl": "https://register.cacbg.bg/2026/B3B0BA78-C223-48D0-BB7B-0757FB049B44233412.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14879.61632657235,
+        "amountEurSpouse": 253137.5426289606
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 12427.460464355287,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9450,
+        "valueEur": 9449.69654826851,
+        "holderName": "Юлияна Василева Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yuliyana-vasileva-dimitrova-8cd77b",
+    "declarantName": "Юлияна Василева Димитрова",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

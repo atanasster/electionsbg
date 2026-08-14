@@ -4,25 +4,25 @@
     "declarantName": "Станислав Стефанов Гюнелиев",
     "institution": "Златоград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2973",
-    "controlHash": "BEE5B41C",
-    "sourceUrl": "https://register.cacbg.bg/2025/8D46E133-BA07-4D65-9BAF-1C0438359A17205687.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г11948",
+    "controlHash": "0ABD5559",
+    "sourceUrl": "https://register.cacbg.bg/2026/8D46E133-BA07-4D65-9BAF-1C0438359A17237013.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 99553.1308958345,
-        "amountEurSpouse": 16556.14240501475
+        "amountEurDeclarant": 148361.05387482553,
+        "amountEurSpouse": 18507.74351554072
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6812.964316939611,
+        "amountEurDeclarant": 8113.179570821595,
         "amountEurSpouse": null
       }
     ],
@@ -43,7 +43,7 @@
         "holderName": "Станислав Стефанов Гюнелиев",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарение"
       },
       {
         "category": "real_estate",
@@ -62,21 +62,80 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "автомобил",
-        "detail": "тойота",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 6196.346308216972,
-        "legalBasis": "продажба"
+        "amount": 93187,
+        "valueEur": 47645.756533032014,
+        "holderName": "Станислав Стефанов Гюнелиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29516,
+        "valueEur": 15091.291165387585,
+        "holderName": "Илияна Мирчева Гюнелиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1872,
+        "valueEur": 957.138401599321,
+        "holderName": "Илияна Мирчева Гюнелиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4055,
+        "valueEur": 2073.288578250666,
+        "holderName": "Илияна Мирчева Гюнелиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

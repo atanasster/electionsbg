@@ -4,32 +4,68 @@
     "declarantName": "Стефан Василев Якимов",
     "institution": "Белово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12812",
-    "controlHash": "9CC0AD91",
-    "sourceUrl": "https://register.cacbg.bg/2025/F1BE63A5-B659-4DFF-84E7-1172D3A167B4215987.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г7114",
+    "controlHash": "D61C8383",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1BE63A5-B659-4DFF-84E7-1172D3A167B4231505.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18888.144675150703,
+        "amountEurDeclarant": 13381.53111466743,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "пенсии",
+        "category": "Пенсии",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3027.8705204440057
+        "amountEurSpouse": 3766.6872887725417
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "Дворно място",
+        "detail": null,
+        "location": "с.Дъбравите",
+        "municipality": "Белово",
+        "areaSqm": 387,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Стефан Василев Якимов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Стефан Василев Якимов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -42,8 +78,8 @@
         "valueEur": 5112.918811962185,
         "holderName": "Стефан Василев Якимов",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "legalBasis": "Потребителски кредит 4,38%",
+        "fundsOrigin": null
       }
     ],
     "events": []

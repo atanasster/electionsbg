@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1284",
+    "controlHash": "2AF72CD0",
+    "sourceUrl": "https://register.cacbg.bg/2026/9FC47487-C502-46E2-A2DC-C9470060D758225098.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27738.09584677605,
+        "amountEurSpouse": 13122.306130900948
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Труд",
+        "municipality": "Марица",
+        "areaSqm": 933,
+        "builtAreaSqm": 244,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Диана Атанасова Генова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Wolkswagen Golf",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2100,
+        "valueEur": 1073.7129505120588,
+        "holderName": "Диана Атанасова Генова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diana-atanasova-genova-2466c6",
+    "declarantName": "Диана Атанасова Генова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

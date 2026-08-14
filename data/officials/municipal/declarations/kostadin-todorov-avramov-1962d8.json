@@ -4,29 +4,48 @@
     "declarantName": "Костадин Тодоров Аврамов",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г7995",
-    "controlHash": "2F447967",
-    "sourceUrl": "https://register.cacbg.bg/2025/77BC2D5F-20B5-4148-AC3C-29939520033C211001.xml",
+    "entryNumber": "Г13376",
+    "controlHash": "C19D6A03",
+    "sourceUrl": "https://register.cacbg.bg/2026/77BC2D5F-20B5-4148-AC3C-29939520033C238882.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5686.588302664342,
-        "amountEurSpouse": 12271.005148709244
+        "amountEurDeclarant": 4330.130941850774,
+        "amountEurSpouse": 17059.764907993027
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6953.058292387375,
+        "amountEurDeclarant": 7362.603089225547,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25000,
+        "valueEur": 24999.616531089105,
+        "holderName": "Костадин Тодоров Аврамов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "собствени средства"
+      }
+    ],
     "events": []
   }
 ]

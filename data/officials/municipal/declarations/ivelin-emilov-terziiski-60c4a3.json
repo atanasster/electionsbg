@@ -4,35 +4,53 @@
     "declarantName": "Ивелин Емилов Терзийски",
     "institution": "Сандански",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10931",
-    "controlHash": "B91957E7",
-    "sourceUrl": "https://register.cacbg.bg/2025/71E695EF-21B5-4FB1-B9B2-09E65EBF6546214048.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14488",
+    "controlHash": "1D43490B",
+    "sourceUrl": "https://register.cacbg.bg/2026/71E695EF-21B5-4FB1-B9B2-09E65EBF6546240313.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6825.746613969517,
-        "amountEurSpouse": 4986.629717306719
+        "amountEurDeclarant": 7823.788366064536,
+        "amountEurSpouse": 18913.709269210514
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 600.7679604055568,
+        "amountEurDeclarant": 1272.0942004161916,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от изплатен дивидент",
-        "amountEurDeclarant": 27718.155463409395,
+        "category": "Доходи от разпределен дивидент",
+        "amountEurDeclarant": 15532.536058859921,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 66168,
+        "valueEur": 33831.161194991386,
+        "holderName": "Ивелин Емилов Терзийски",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 7726,
-        "valueEur": 7702.100898339835,
+        "amount": 11000,
+        "valueEur": 10999.933532055444,
         "holderName": "Диана Георгиева Терзийска",
         "isSpouse": true,
         "legalBasis": null,
@@ -62,14 +80,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22301,
-        "valueEur": 11402.320242556869,
+        "amount": 16234,
+        "valueEur": 8300.312399339411,
         "holderName": "Диана Георгиева Терзийска",
         "isSpouse": true,
         "legalBasis": "Ипотечен кредит - 2,5 %",
         "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46209,
+        "valueEur": 23626.286538196062,
+        "holderName": "Ивелин Емилов Терзийски",
+        "isSpouse": false,
+        "legalBasis": "Финансов лизинг - 4,5 %",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8589.70360409647,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5251",
+    "controlHash": "AB6B0C4C",
+    "sourceUrl": "https://register.cacbg.bg/2026/1DEBDE1D-C946-4DC6-98DC-7C3D9B54C858229502.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20877.58138488519,
+        "amountEurSpouse": 11901.852410485573
+      },
+      {
+        "parent": null,
+        "category": "Пенсия НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5552.118537909737
+      },
+      {
+        "parent": null,
+        "category": "УПФ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3194.5516737139733
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88175,
+        "valueEur": 45083.16162447657,
+        "holderName": "Камелия Кънчева Месчиян",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25044,
+        "valueEur": 12804.793872678096,
+        "holderName": "Киркор Симон Месчиян",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kameliya-kncheva-meschiyan-ed54f9",
+    "declarantName": "Камелия Кънчева Месчиян",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

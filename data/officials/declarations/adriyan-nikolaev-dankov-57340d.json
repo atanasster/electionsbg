@@ -5,6 +5,68 @@
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г6653",
+    "controlHash": "E1C09A79",
+    "sourceUrl": "https://register.cacbg.bg/2026/042F5D9C-E301-4424-AA00-E2210CE7A27D230994.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24043.500713252175,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 498.509584166313,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Лична пенсия за инвалидност поради общо заболяване и добавка по чл. 84 от КСО",
+        "amountEurDeclarant": 1540.5224380442064,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Месечна финансова подкрепа на осн. чл. 70, т. 1 от ЗХУ",
+        "amountEurDeclarant": 91.0099548529269,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10562,
+        "valueEur": 5400.26484919446,
+        "holderName": "Адриян Николаев Данков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "adriyan-nikolaev-dankov-57340d",
+    "declarantName": "Адриян Николаев Данков",
+    "institution": "ОДБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

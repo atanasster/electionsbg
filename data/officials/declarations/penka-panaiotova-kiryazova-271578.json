@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8723",
+    "controlHash": "06ED579E",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB82D8B6-0B68-4940-9DE8-DD1B3382677B233256.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33929.840528062254,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57458,
+        "valueEur": 29377.80890977232,
+        "holderName": "Пенка Панайотова Кирязова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит, 4,97% лихвен процент",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10643,
+        "valueEur": 5441.6794915713535,
+        "holderName": "Пенка Панайотова Кирязова",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит с лихвен процент 4,97%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "penka-panaiotova-kiryazova-271578",
+    "declarantName": "Пенка Панайотова Кирязова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

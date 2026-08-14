@@ -5,6 +5,62 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7942",
+    "controlHash": "D5A106BF",
+    "sourceUrl": "https://register.cacbg.bg/2026/2CB71B14-7F1E-4A14-A62F-9A5828A1A1F9232404.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24098.720236421366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 67.49052831790084,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения и помощи по част първа от КСО- необлагаеми",
+        "amountEurDeclarant": 231.61522218188696,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28319,
+        "valueEur": 14479.27478359571,
+        "holderName": "Нели Иванова Николова",
+        "isSpouse": false,
+        "legalBasis": "кредит- 6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-ivanova-nikolova-0b7fdd",
+    "declarantName": "Нели Иванова Николова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

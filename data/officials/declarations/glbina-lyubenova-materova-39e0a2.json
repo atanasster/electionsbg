@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7768",
+    "controlHash": "0FAC61EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/000E21F9-A953-4252-8F94-3D7470FCDC29232204.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26096.33761625499,
+        "amountEurSpouse": 4254.97103531493
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Кадиево",
+        "municipality": "Родопи",
+        "areaSqm": 992,
+        "builtAreaSqm": 182,
+        "acquiredYear": 2020,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Гълъбина Любенова Матерова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "glbina-lyubenova-materova-39e0a2",
+    "declarantName": "Гълъбина Любенова Матерова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,117 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3285",
+    "controlHash": "CD38BF35",
+    "sourceUrl": "https://register.cacbg.bg/2026/48992A4C-6886-45C4-8BB4-71B2D12C6FB2227408.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14613.23325646912,
+        "amountEurSpouse": 28695.745540256565
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1498.0852119049202,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Nissan New X-Trail 1.5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 34146,
+        "valueEur": 17458.572575326078,
+        "holderName": "Цветомир Георгиев Илиев",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Nissan New X-Trail 1.5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 34146,
+        "valueEur": 17458.572575326078,
+        "holderName": "Галя Цветанова Илиева",
+        "isSpouse": true,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29501,
+        "valueEur": 15083.62178716964,
+        "holderName": "Галя Цветанова Илиева",
+        "isSpouse": true,
+        "legalBasis": "3.99",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1099.2775445718698,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1099.2775445718698,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tsvetomir-georgiev-iliev-47cf2c",
+    "declarantName": "Цветомир Георгиев Илиев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

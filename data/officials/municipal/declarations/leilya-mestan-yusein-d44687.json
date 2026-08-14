@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "leilya-mestan-yusein-d44687",
+    "declarantName": "Лейля Местан Юсеин",
+    "institution": "Крумовград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10818",
+    "controlHash": "C5559F2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/F8FE94B7-C10B-4FD8-BB72-0302DC47885E235614.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5236.140155330473,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19217.927938522265,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Крумовград",
+        "municipality": "Крумовград",
+        "areaSqm": 0,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2010,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5832,
+        "valueEur": 2981.854251136346,
+        "holderName": "Лейля Местан Юсеин",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Лейля Местан Юсеин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12499,
+        "valueEur": 6390.637223071535,
+        "holderName": "Лейля Местан Юсеин",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заем и заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15117,
+        "valueEur": 15176.676909547354,
+        "holderName": "Лейля Местан Юсеин",
+        "isSpouse": false,
+        "legalBasis": "договор -5.5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

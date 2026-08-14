@@ -4,42 +4,72 @@
     "declarantName": "ХАВА МЕХМЕДОВА ХАМИДОВА",
     "institution": "Велики Преслав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12397",
-    "controlHash": "B76F697D",
-    "sourceUrl": "https://register.cacbg.bg/2025/CA305A0F-8ED9-4FCB-BF8D-717E0AB2A747215565.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2567",
+    "controlHash": "2BC54DC2",
+    "sourceUrl": "https://register.cacbg.bg/2026/CA305A0F-8ED9-4FCB-BF8D-717E0AB2A747226630.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5503.545809196095,
+        "amountEurDeclarant": 3728.3403976828254,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10121.534080160342,
+        "category": "пенсия",
+        "amountEurDeclarant": 390.6269972339109,
+        "amountEurSpouse": 429.4851802048235
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 283.7669940639013,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСФАГЕН ПОЛО",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
+        "amount": 19558,
+        "valueEur": 9999.846612435642,
+        "holderName": "ХАВА МЕХМЕДОВА ХАМИДОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19444,
+        "valueEur": 9941.559337979272,
+        "holderName": "ХАВА МЕХМЕДОВА ХАМИДОВА",
+        "isSpouse": false,
+        "legalBasis": "7,69",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -1,16 +1,16 @@
 [
   {
     "slug": "nikolai-tsvetkov-nankov-3250b8",
-    "declarantName": "Николай Цветков Нанков",
+    "declarantName": "НИКОЛАЙ ЦВЕТКОВ НАНКОВ",
     "institution": "Борован",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3606",
-    "controlHash": "3CD4406E",
-    "sourceUrl": "https://register.cacbg.bg/2025/53838001-612D-4CA3-B45C-40A0ADAF2C78213999.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11077",
+    "controlHash": "CCDA6C0A",
+    "sourceUrl": "https://register.cacbg.bg/2026/53838001-612D-4CA3-B45C-40A0ADAF2C78235911.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -55,7 +55,7 @@
         "shareSize": "30%",
         "companyName": "АЛАТИР ООД",
         "registeredOffice": "Враца",
-        "valueEur": 17.895215841867646,
+        "valueEur": 15.338756435886555,
         "holderName": "Христина Димитрова Петрушева-Нанкова",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
@@ -63,31 +63,61 @@
     ],
     "income": [
       {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 16938.58873214952
+        "amountEurSpouse": 13820.219548733785
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 19363.646124663188,
-        "amountEurSpouse": 2285.4747089470966
+        "amountEurDeclarant": 16321.459431545687,
+        "amountEurSpouse": 3343.848903023269
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8589.70360409647
       },
       {
         "parent": null,
         "category": "Доходи от дивиденти",
-        "amountEurDeclarant": 27098.46970339958,
-        "amountEurSpouse": 27098.46970339958
+        "amountEurDeclarant": 10481.48356452248,
+        "amountEurSpouse": 10481.48356452248
       },
       {
         "parent": null,
-        "category": "Пенсии",
+        "category": "Доход от продажба на апартамент",
+        "amountEurDeclarant": 30677.51287177311,
+        "amountEurSpouse": 30677.51287177311
+      },
+      {
+        "parent": null,
+        "category": "Доходи от задължително осигуряване",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7816.630279727789
+        "amountEurSpouse": 4034.092942638164
       }
     ],
     "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21678,
+        "valueEur": 21677.75317895727,
+        "holderName": "Николай Цветков Нанков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
       {
         "category": "bank",
         "description": null,
@@ -99,12 +129,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43928,
-        "valueEur": 22460.029757187487,
+        "amount": 84022,
+        "valueEur": 42959.76644186867,
         "holderName": "Николай Цветков Нанков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "възнаграждения  и дивидент"
+        "fundsOrigin": "дивиденти и възнаграждения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15820,
+        "valueEur": 8088.6375605241765,
+        "holderName": "Николай Цветков Нанков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения"
       },
       {
         "category": "bank",
@@ -117,8 +165,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 45757,
-        "valueEur": 45756.53303201198,
+        "amount": 46382,
+        "valueEur": 46381.84300271496,
         "holderName": "Николай Цветков Нанков",
         "isSpouse": false,
         "legalBasis": null,
@@ -135,26 +183,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 31134,
-        "valueEur": 29926.425098295866,
-        "holderName": "Николай Цветков Нанков",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "дивиденти"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 21516,
-        "valueEur": 21516.184944499266,
+        "amount": 31197,
+        "valueEur": 26558.03418497518,
         "holderName": "Николай Цветков Нанков",
         "isSpouse": false,
         "legalBasis": null,
@@ -171,12 +201,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25328,
-        "valueEur": 12950.000766937821,
+        "amount": 22678,
+        "valueEur": 11595.077281767843,
         "holderName": "Христина Димитрова Петрушева-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсии"
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62510,
+        "valueEur": 31960.85549357562,
+        "holderName": "Христина Димитрова Петрушева-Нанкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти, заплата, продажба"
       },
       {
         "category": "bank",
@@ -189,44 +237,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 10125,
-        "valueEur": 10125.113123328714,
-        "holderName": "Христина Димитрова Петрушева-Нанкова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "дивиденти"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 23064,
-        "valueEur": 20639.830660128948,
-        "holderName": "Христина Димитрова Петрушева-Нанкова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "дивиденти"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 6087,
-        "valueEur": 6086.9298456409815,
+        "amount": 39808,
+        "valueEur": 39807.651994293985,
         "holderName": "Христина Димитрова Петрушева-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -243,8 +255,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 20382,
-        "valueEur": 20382.139552006054,
+        "amount": 20545,
+        "valueEur": 20545.241662107648,
         "holderName": "Христина Димитрова Петрушева-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -254,15 +266,27 @@
     "events": [
       {
         "kind": "disposal_property",
-        "description": "парцел",
+        "description": "апартамент",
         "detail": null,
-        "location": "с. Тошевци",
-        "municipality": "Грамада",
-        "areaSqm": 3000,
-        "builtAreaSqm": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно /отказ от наследство/"
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
       }
     ]
   }

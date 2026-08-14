@@ -1,6 +1,80 @@
 [
   {
     "slug": "mario-koichev-egov-95c1f1",
+    "declarantName": "МАРИО КОЙЧЕВ ЕГОВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-08-04",
+    "entryNumber": "Г14988",
+    "controlHash": "3B9AC28B",
+    "sourceUrl": "https://register.cacbg.bg/2026/93C1638A-3D03-451B-A89E-E92762AD0BA3241461.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19687.80517734159,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 10432.910835808838,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4758,
+        "valueEur": 2432.7267707316078,
+        "holderName": "Марио Койчев Егов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29826,
+        "valueEur": 15249.791648558412,
+        "holderName": "Марио Койчев Егов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит, 4,94%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mario-koichev-egov-95c1f1",
     "declarantName": "Марио Койчев Егов",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",

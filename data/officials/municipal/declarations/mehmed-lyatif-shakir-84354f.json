@@ -4,20 +4,26 @@
     "declarantName": "МЕХМЕД ЛЯТИФ ШАКИР",
     "institution": "Минерални Бани",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3923",
-    "controlHash": "70731B1A",
-    "sourceUrl": "https://register.cacbg.bg/2025/73500F2E-54C3-4580-BCEB-5501BF6CFD2B206747.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12243",
+    "controlHash": "F811DDF0",
+    "sourceUrl": "https://register.cacbg.bg/2026/73500F2E-54C3-4580-BCEB-5501BF6CFD2B237433.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17385.457836315018,
-        "amountEurSpouse": 15036.071642218394
+        "amountEurDeclarant": 1897.915463000363,
+        "amountEurSpouse": 15439.48093648221
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2688.884003210913,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -32,10 +38,28 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 18000,
+        "valueEur": 18000.03067751287,
         "holderName": "МЕХМЕД ЛЯТИФ ШАКИР",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "САБРИЕ БАСРИ ШАКИР",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

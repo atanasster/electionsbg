@@ -5,6 +5,62 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1273",
+    "controlHash": "979B92CE",
+    "sourceUrl": "https://register.cacbg.bg/2026/E9A0B68C-73B7-44E7-909E-F0C1D3EE4655225075.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21170.551632810624,
+        "amountEurSpouse": 20068.717628832772
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 66.46794455550841,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 506.6902542654525,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13707,
+        "valueEur": 13707.224042989421,
+        "holderName": "СЕВГЮЛ АХМЕД СЮЛЕЙМАНОВА",
+        "isSpouse": true,
+        "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kenan-aliev-syuleimanov-65ff92",
+    "declarantName": "КЕНАН АЛИЕВ СЮЛЕЙМАНОВ",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

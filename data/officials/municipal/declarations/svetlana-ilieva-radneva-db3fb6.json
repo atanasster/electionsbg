@@ -4,29 +4,59 @@
     "declarantName": "Светлана Илиева Раднева",
     "institution": "Провадия",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2802",
-    "controlHash": "6B09ECF3",
-    "sourceUrl": "https://register.cacbg.bg/2025/86E9A946-54A3-4721-9B97-9229E3478B55205507.xml",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г10466",
+    "controlHash": "9B3FA2F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/86E9A946-54A3-4721-9B97-9229E3478B55235224.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19112.09051911465,
-        "amountEurSpouse": 18812.473476733663
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 1234.7698930888675
+        "amountEurDeclarant": 19627.472735360436,
+        "amountEurSpouse": 21376.090969051504
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Добло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 700,
+        "valueEur": 357.90431683735295,
+        "holderName": "Светлана Илиева Раднева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Добло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 700,
+        "valueEur": 357.90431683735295,
+        "holderName": "Юлиян Петков Раднев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Кредит",
@@ -38,14 +68,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 64195,
-        "valueEur": 32822.382313391245,
+        "amount": 14676,
+        "valueEur": 7503.719648435703,
         "holderName": "Светлана Илиева Раднева",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "Договор за кредит 2,66",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Ескорт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Ескорт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

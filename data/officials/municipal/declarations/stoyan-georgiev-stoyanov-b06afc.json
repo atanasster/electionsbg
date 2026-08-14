@@ -4,59 +4,29 @@
     "declarantName": "Стоян Георгиев Стоянов",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г9902",
-    "controlHash": "4DB50EAE",
-    "sourceUrl": "https://register.cacbg.bg/2025/A571FD82-CF42-45E7-B1BE-A77473C49AEA212965.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г6896",
+    "controlHash": "C7EA8A5D",
+    "sourceUrl": "https://register.cacbg.bg/2026/A571FD82-CF42-45E7-B1BE-A77473C49AEA231260.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14555.718032753357,
+        "amountEurDeclarant": 16795.93829729578,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 828.292847537874,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
-        "holderName": "Стоян Георгиев Стоянов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 3300,
-        "valueEur": 1687.263207947521,
-        "holderName": "Станислава Атанасова Маркова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,27 +38,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Стоян Георгиев Стоянов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "ерцедес",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Стоян Георгиев Стоянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11999,
+        "valueEur": 6134.991282473426,
+        "holderName": "Стоян Георгиев Стоянов",
+        "isSpouse": false,
+        "legalBasis": "кредит- 5.89%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

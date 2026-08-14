@@ -5,6 +5,56 @@
     "institution": "МБАЛ \"Живот+\" ЕООД, гр. Крумовград",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7749",
+    "controlHash": "40E62627",
+    "sourceUrl": "https://register.cacbg.bg/2026/F21823E7-4D11-4090-B57A-F5677F0B29FC232183.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 63815.36227586242,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 15092.313749149977,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 53023,
+        "valueEur": 53023.01324757264,
+        "holderName": "Мария Иванова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-ivanova-stefanova-77fe4d",
+    "declarantName": "Мария Иванова Стефанова",
+    "institution": "МБАЛ \"Живот+\" ЕООД, гр. Крумовград",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12200",
+    "controlHash": "E9A58DE1",
+    "sourceUrl": "https://register.cacbg.bg/2026/0BFAF984-3B5E-49E0-AC80-87225C83E1F0237378.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28424.249551341374,
+        "amountEurSpouse": 27043.25018023039
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 35790.431683735296
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10400,
+        "valueEur": 5317.435564440672,
+        "holderName": "Милкана Стефанова Каменова",
+        "isSpouse": true,
+        "legalBasis": "заем - ДЛ%=4.4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "Стилиян Христов Каменов",
+        "isSpouse": false,
+        "legalBasis": "заем - ДЛ%=4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stiliyan-hristov-kamenov-1e3b3c",
+    "declarantName": "Стилиян Христов Каменов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

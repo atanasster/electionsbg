@@ -4,13 +4,13 @@
     "declarantName": "Сунай Шабан Зюлкяр",
     "institution": "Омуртаг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7717",
-    "controlHash": "34156092",
-    "sourceUrl": "https://register.cacbg.bg/2025/F40E8B07-0997-4882-A439-5771BE91A309210719.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12158",
+    "controlHash": "EF242102",
+    "sourceUrl": "https://register.cacbg.bg/2026/F40E8B07-0997-4882-A439-5771BE91A309237306.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -18,7 +18,7 @@
         "itemType": "Дялов капитал",
         "shareSize": "2",
         "companyName": "Спаси строй",
-        "registeredOffice": "с.Голямо Църквище",
+        "registeredOffice": "Търговище",
         "valueEur": 1.022583762392437,
         "holderName": "Сунай Шабан Зюлкяр",
         "legalBasis": "покупко-продажба",
@@ -29,20 +29,20 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6178.451092375104,
-        "amountEurSpouse": 2335.0700214231297
-      },
-      {
-        "parent": null,
-        "category": "Пенсии",
-        "amountEurDeclarant": 2864.768410342412,
+        "amountEurDeclarant": 6528.174739113318,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "ОБЕЗЩЕТЕНИЕ НОИ",
+        "category": "Пенсии",
+        "amountEurDeclarant": 3133.707939851623,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение НОИ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7340.106246452912
+        "amountEurSpouse": 4108.230265411616
       }
     ],
     "assets": [
@@ -65,8 +65,26 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Сунай Шабан Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "vehicle",
-        "description": "лек автомобил",
+        "description": "Лек автомобил",
         "detail": "Тойота",
         "location": null,
         "municipality": null,
@@ -84,7 +102,7 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
+        "description": "Лек автомобил",
         "detail": "Мазда",
         "location": null,
         "municipality": null,
@@ -103,7 +121,7 @@
       {
         "category": "vehicle",
         "description": "Четириколесно ПС",
-        "detail": "СИМ УА 18 А",
+        "detail": "СИМ УА 18А",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -116,11 +134,11 @@
         "holderName": "Сунай Шабан Зюлкяр",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
-        "description": "банков кредит",
+        "description": "Банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -129,11 +147,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 24547,
-        "valueEur": 12550.681807723575,
+        "amount": 22513,
+        "valueEur": 11510.714121370467,
         "holderName": "Сунай Шабан Зюлкяр",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "кредит-6.27%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47761,
+        "valueEur": 24419.81153781259,
+        "holderName": "Сунай Шабан Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": "кредит-6.39%",
         "fundsOrigin": null
       }
     ],

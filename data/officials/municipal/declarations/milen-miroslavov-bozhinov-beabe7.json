@@ -1,64 +1,64 @@
 [
   {
     "slug": "milen-miroslavov-bozhinov-beabe7",
-    "declarantName": "Милен Мирославов Божинов",
+    "declarantName": "МИЛЕН МИРОСЛАВОВ БОЖИНОВ",
     "institution": "Средец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3522",
-    "controlHash": "F88F65F7",
-    "sourceUrl": "https://register.cacbg.bg/2025/ABF5576C-1D03-4D93-87B0-70C3C4B9FAF2206311.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2985",
+    "controlHash": "205EAAA6",
+    "sourceUrl": "https://register.cacbg.bg/2026/ABF5576C-1D03-4D93-87B0-70C3C4B9FAF2227080.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8282.92847537874,
-        "amountEurSpouse": 7873.894970421765
+        "amountEurDeclarant": 6470.910048419341,
+        "amountEurSpouse": 11740.28417602757
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7083.949013973607,
+        "amountEurDeclarant": 8019.101864681491,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "фиат Браво",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФИАТ ФРИМОНТ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 3300,
-        "valueEur": 1687.263207947521,
-        "holderName": "Милен Мирославов Божинов",
+        "amount": 2850,
+        "valueEur": 1457.1818614092226,
+        "holderName": "МИЛЕН МИРОСЛАВОВ БОЖИНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "фиат Браво",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФИАТ ФРИМОНТ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 3300,
-        "valueEur": 1687.263207947521,
-        "holderName": "Росица Веселинова Божинова",
+        "amount": 2850,
+        "valueEur": 1457.1818614092226,
+        "holderName": "РОСИЦА ВЕСЕЛИНОВА БОЖИНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -66,24 +66,24 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Милен Мирославов Божинов",
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10149.143841744937,
+        "holderName": "МИЛЕН МИРОСЛАВОВ БОЖИНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "receivable",
-        "description": "ипотечен кредит",
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -92,39 +92,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28000,
-        "valueEur": 14316.172673494118,
-        "holderName": "Росица Веселинова Божинова",
+        "amount": 24168,
+        "valueEur": 12356.902184750208,
+        "holderName": "РОСИЦА ВЕСЕЛИНОВА БОЖИНОВА",
         "isSpouse": true,
-        "legalBasis": "ипотека",
+        "legalBasis": "3,11%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "фиат Стило",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 143.16172673494117,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "фиат Стило",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 143.16172673494117,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

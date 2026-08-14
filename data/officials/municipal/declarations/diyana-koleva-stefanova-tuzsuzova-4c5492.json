@@ -4,71 +4,64 @@
     "declarantName": "Дияна Колева Стефанова-Тузсузова",
     "institution": "Каспичан",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7398",
-    "controlHash": "D477EE37",
-    "sourceUrl": "https://register.cacbg.bg/2025/86E67FB7-C6B0-4105-9B8C-AB07A3A3EF01210386.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "ЕООД",
-        "shareSize": "5000",
-        "companyName": "АГОРА ЕООД",
-        "registeredOffice": "Шумен",
-        "valueEur": 2556.4594059810925,
-        "holderName": "Светлозар Стоянов Тузсузов",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
-      }
-    ],
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г11179",
+    "controlHash": "C4805DCD",
+    "sourceUrl": "https://register.cacbg.bg/2026/86E67FB7-C6B0-4105-9B8C-AB07A3A3EF01236040.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15561.16840420691,
+        "amountEurDeclarant": 17543.958319485846,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3443.5508198565317,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1188.753623781208,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 441.75618535353277
+        "category": "Рента",
+        "amountEurDeclarant": 508.7354217902374,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 9203.253861531934,
-        "amountEurSpouse": 6749.052831790084
+        "amountEurDeclarant": 10724.858499971879,
+        "amountEurSpouse": 8290.597853596682
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 69966.20360665293
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "град Попово",
+        "municipality": "Попово",
+        "areaSqm": 10,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 15050,
-        "valueEur": 7694.942812003088,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Дияна Колева Стефанова-Тузсузова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "bank",
@@ -81,10 +74,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 195000,
-        "valueEur": 99701.9168332626,
-        "holderName": "Дияна Колева Стефанова-Тузсузова",
-        "isSpouse": false,
+        "amount": 241491,
+        "valueEur": 123472.387681956,
+        "holderName": "Дияна КолеваСтефанова-Тузсузова",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       },
@@ -99,27 +92,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 12000,
-        "valueEur": 12271.005148709244,
-        "holderName": "Дияна Колева Стефанова-Тузсузова",
-        "isSpouse": false,
+        "amount": 12020,
+        "valueEur": 12019.9608350419,
+        "holderName": "Дияна КолеваСтефанова-Тузсузова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Светлозар Стоянов Тузсузов",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Попово",
-        "municipality": "Попово",
-        "areaSqm": 120,
-        "builtAreaSqm": 120,
-        "currency": "BGN",
-        "valueEur": 61355.02574354622,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

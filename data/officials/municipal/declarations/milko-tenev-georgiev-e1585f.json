@@ -4,38 +4,25 @@
     "declarantName": "Милко Тенев Георгиев",
     "institution": "Раднево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2719",
-    "controlHash": "ED2C6E41",
-    "sourceUrl": "https://register.cacbg.bg/2025/A30382F5-FD35-441D-B7D9-6CDC32C45B3A205411.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "пари",
-        "shareSize": "100 %",
-        "companyName": "МИЛЕ ГРУП ЕООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 51.12918811962185,
-        "holderName": "Милко Тенев Георгиев",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3291",
+    "controlHash": "029CA0DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/A30382F5-FD35-441D-B7D9-6CDC32C45B3A227414.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5941.211659500059,
+        "amountEurDeclarant": 7033.331117735182,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2650.5371121211965,
+        "amountEurDeclarant": 2696.04208954766,
         "amountEurSpouse": null
       }
     ],
@@ -78,20 +65,20 @@
       },
       {
         "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
+        "description": "Кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "currency": "EUR",
+        "amount": 20452,
+        "valueEur": 20451.67524784874,
         "holderName": "Милко Тенев Георгиев",
         "isSpouse": false,
-        "legalBasis": "заем, 2.7 % лихва",
+        "legalBasis": "Заем",
         "fundsOrigin": null
       }
     ],

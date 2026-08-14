@@ -5,6 +5,50 @@
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1756",
+    "controlHash": "7820DBDD",
+    "sourceUrl": "https://register.cacbg.bg/2026/34169A85-618D-4F8B-8662-9D699FA3F5F5225709.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33164.94787379271,
+        "amountEurSpouse": 14723.161010926307
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3408,
+        "valueEur": 3407.7603881727964,
+        "holderName": "Тодор Василев Василев",
+        "isSpouse": false,
+        "legalBasis": "6,7",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todor-vasilev-vasilev-d845f9",
+    "declarantName": "Тодор Василев Василев",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

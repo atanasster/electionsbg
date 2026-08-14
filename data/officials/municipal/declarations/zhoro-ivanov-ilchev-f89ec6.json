@@ -4,83 +4,83 @@
     "declarantName": "Жоро Иванов Илчев",
     "institution": "Провадия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14474",
-    "controlHash": "0DF3A1ED",
-    "sourceUrl": "https://register.cacbg.bg/2025/8A2D6A80-2DB2-42E9-A8D2-83CD6AA5D484217788.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12632",
+    "controlHash": "A2C3FA2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/8A2D6A80-2DB2-42E9-A8D2-83CD6AA5D484237950.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялово участгие",
+        "itemType": "дялово участие",
         "shareSize": "50",
         "companyName": "Пожарна техника ООД",
         "registeredOffice": "София",
         "valueEur": 1278.2297029905462,
         "holderName": "Живка Атанасова Илчева",
         "legalBasis": "други",
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплата и спестявания"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4486.074965615621,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 380.91245149118276,
+        "amountEurSpouse": 47029.64981619057
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4522.887981061749,
-        "amountEurSpouse": 55375.97848483764
+        "amountEurDeclarant": 4943.681199286237,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти",
+        "category": "Доход от дивиденти",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 194290.91485456302
+        "amountEurSpouse": 357904.31683735293
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес С 500 4МАТИК",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "category": "real_estate",
+        "description": "дворно място с жилищна постройка",
+        "detail": null,
+        "location": "с. Кривня",
+        "municipality": "Провадия",
+        "areaSqm": 1420,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2025,
+        "share": "1/3",
         "currency": "BGN",
-        "amount": 117702,
-        "valueEur": 60180.07700055731,
-        "holderName": "Живка Атанасова Илчева",
-        "isSpouse": true,
-        "legalBasis": "лизинг",
-        "fundsOrigin": "заплата и спестявания"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес С 500 4МАТИК",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 117702,
-        "valueEur": 60180.07700055731,
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
-        "legalBasis": "лизинг",
-        "fundsOrigin": "заплата и спестявания"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплати и спестявания"
+      },
+      {
+        "category": "real_estate",
+        "description": "дворно място с жилищна постройка",
+        "detail": null,
+        "location": "с. Кривня",
+        "municipality": "Провадия",
+        "areaSqm": 1420,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2025,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Живка Атанасова Илчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплати и спестявания"
       },
       {
         "category": "cash",
@@ -111,8 +111,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 61037,
-        "valueEur": 31207.72255257359,
+        "amount": 68350,
+        "valueEur": 34946.80007976153,
         "holderName": "Жоро Иванов Илчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -129,12 +129,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 146697,
-        "valueEur": 75004.98509584166,
+        "amount": 211932,
+        "valueEur": 108359.11096567698,
         "holderName": "Живка Атанасова Илчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплати, спестявания и дивиденти"
       },
       {
         "category": "debt",

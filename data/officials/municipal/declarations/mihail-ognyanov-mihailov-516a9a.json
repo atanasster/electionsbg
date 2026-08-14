@@ -4,22 +4,22 @@
     "declarantName": "Михаил Огнянов Михайлов",
     "institution": "Лом",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13162",
-    "controlHash": "9AE62508",
-    "sourceUrl": "https://register.cacbg.bg/2025/8D75E56C-19A1-4479-B4DA-F621E0FBF766216355.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4642",
+    "controlHash": "D8740792",
+    "sourceUrl": "https://register.cacbg.bg/2026/8D75E56C-19A1-4479-B4DA-F621E0FBF766228859.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "50",
-        "companyName": "\"КЕНДИ ДОЛС\" ООД",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "\"Дикистрой инвест\" ЕООД",
         "registeredOffice": "София (столица)",
-        "valueEur": 25.564594059810926,
+        "valueEur": 51.12918811962185,
         "holderName": "Цветелина Вилхемова Михайлова",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
@@ -29,48 +29,23 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 110279.52327144997,
-        "amountEurSpouse": 40647.70455509937
-      }
-    ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Несебър",
-        "municipality": "Несебър",
-        "areaSqm": 83,
-        "builtAreaSqm": 83,
-        "acquiredYear": 2024,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Михаил Огнянов Михайлов",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "amountEurDeclarant": 327558.12110459496,
+        "amountEurSpouse": 88522.5198509073
       },
       {
-        "category": "vehicle",
-        "description": "Товарен автомобил",
-        "detail": "Мицубиши Аутлендър",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Михаил Огнянов Михайлов",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "безвъзмездно"
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5457.529539888436,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 11786.300445335228,
+        "amountEurSpouse": null
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

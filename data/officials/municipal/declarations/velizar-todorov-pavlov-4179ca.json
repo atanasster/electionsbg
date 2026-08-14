@@ -4,47 +4,29 @@
     "declarantName": "Велизар Тодоров Павлов",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3755",
-    "controlHash": "3CE10D65",
-    "sourceUrl": "https://register.cacbg.bg/2025/48ABD184-FEF8-4B9B-AACB-CF28447BA2F0206566.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12827",
+    "controlHash": "892EF646",
+    "sourceUrl": "https://register.cacbg.bg/2026/48ABD184-FEF8-4B9B-AACB-CF28447BA2F0238169.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7190.809017143617,
+        "amountEurDeclarant": 50061.610671684146,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 36110.50040136413,
+        "amountEurDeclarant": 2553.9029465751114,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Велизар Тодоров Павлов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -56,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
         "holderName": "Велизар Тодоров Павлов",
         "isSpouse": false,
         "legalBasis": null,
@@ -74,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28000,
-        "valueEur": 14316.172673494118,
+        "amount": 10700,
+        "valueEur": 5470.823128799538,
         "holderName": "Велизар Тодоров Павлов",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит, 5,36%",
+        "legalBasis": "Договор за кредит 5,75%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2198.5550891437397,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

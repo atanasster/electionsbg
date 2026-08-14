@@ -4,29 +4,65 @@
     "declarantName": "Нели Тончева Кавалджиева",
     "institution": "Стралджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12236",
-    "controlHash": "7D83ACD0",
-    "sourceUrl": "https://register.cacbg.bg/2025/40B14CBD-A33E-498B-9DE9-E95A9CE0BC27215396.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г12798",
+    "controlHash": "8D5179F9",
+    "sourceUrl": "https://register.cacbg.bg/2026/40B14CBD-A33E-498B-9DE9-E95A9CE0BC27238137.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7899.970856362772,
-        "amountEurSpouse": 13725.630550712485
+        "amountEurDeclarant": 9281.99281123615,
+        "amountEurSpouse": 13616.214088136494
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 23983.679563152218,
+        "amountEurDeclarant": 21909.879693020353,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "гр.Стралджа",
+        "municipality": "Стралджа",
+        "areaSqm": 1084,
+        "builtAreaSqm": 116,
+        "acquiredYear": 2019,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10781,
+        "valueEur": 5512.237771176431,
+        "holderName": "Нели Тончева Кавалджиева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Хаджи Димитрово",
+        "municipality": "Тунджа",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "acquiredYear": 2006,
+        "share": "30",
+        "currency": "BGN",
+        "amount": 2488,
+        "valueEur": 1272.0942004161916,
+        "holderName": "Нели Тончева Кавалджиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,15 +74,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14535,
-        "valueEur": 7431.627493187036,
-        "holderName": "Нели Тончева Кавалджиева",
+        "amount": 23604,
+        "valueEur": 12068.533563755542,
+        "holderName": "Нели тончева Кавалджиева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -56,26 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "Нели Тончева Кавалджиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20175,
-        "valueEur": 10315.313703133708,
+        "amount": 30721,
+        "valueEur": 15707.397882229028,
         "holderName": "Георги Велчев Кавалджиев",
         "isSpouse": true,
         "legalBasis": null,
@@ -92,14 +110,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20824,
-        "valueEur": 10647.142134030053,
+        "amount": 25396,
+        "valueEur": 12984.768614859166,
         "holderName": "Нели Тончева Кавалджиева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "продажба"
+      }
+    ]
   }
 ]

@@ -5,6 +5,98 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Ръководител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12975",
+    "controlHash": "5BDEA2ED",
+    "sourceUrl": "https://register.cacbg.bg/2026/86B6EEA3-D0B6-42BE-B26B-129062798979238358.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19880.050924671366,
+        "amountEurSpouse": 15338.756435886555
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4938.568280474275,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Инвалидна пенсия",
+        "amountEurDeclarant": 3282.4938772797227,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 270000,
+        "valueEur": 138048.807922979,
+        "holderName": "Петър Красимиров Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70716,
+        "valueEur": 36156.51667067179,
+        "holderName": "Петър Красимиров Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88270,
+        "valueEur": 45131.73435319021,
+        "holderName": "Петър Красимиров Петров",
+        "isSpouse": false,
+        "legalBasis": "3,95",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-krasimirov-petrov-ef0379",
+    "declarantName": "Петър Красимиров Петров",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Ръководител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

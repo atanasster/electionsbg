@@ -1,44 +1,62 @@
 [
   {
     "slug": "mariyana-angelova-kerpieva-14dcb8",
-    "declarantName": "Марияна Ангелова Керпиева",
+    "declarantName": "МАРИЯНА АНГЕЛОВА КЕРПИЕВА",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-06",
-    "entryNumber": "Г8341",
-    "controlHash": "964AB80F",
-    "sourceUrl": "https://register.cacbg.bg/2025/2DE79970-F533-4AAF-BC7E-D4AA0BA41717211359.xml",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г13377",
+    "controlHash": "75631FB4",
+    "sourceUrl": "https://register.cacbg.bg/2026/2DE79970-F533-4AAF-BC7E-D4AA0BA41717238883.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4780.067797303446,
-        "amountEurSpouse": 20023.723943287503
+        "amountEurDeclarant": 3454.287949361652,
+        "amountEurSpouse": 30098.219170377793
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11573.091730876406,
+        "amountEurDeclarant": 13868.28098556623,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "пенсия",
+        "category": "ПЕНСИЯ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 17088.397253340016
+        "amountEurSpouse": 19135.098653768477
       },
       {
         "parent": null,
-        "category": "граждански договор",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 1232.7247255640827
+        "category": "ОБЕЗЩЕТЕНИЯ ПО ЧАСТ ПЪРВА ОТ  КСО",
+        "amountEurDeclarant": 97.14545742728151,
+        "amountEurSpouse": 368.1301544612773
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "КУПРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "АНГЕЛ СТОИЛОВ КЕРПИЕВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -50,9 +68,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32000,
-        "valueEur": 16361.340198278991,
-        "holderName": "Марияна Ангелова Керпиева",
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
+        "holderName": "МАРИЯНА АНГЕЛОВА КЕРПИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9970.19168332626,
+        "holderName": "МАРИЯНА АНГЕЛОВА КЕРПИЕВА",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване"
@@ -68,14 +104,93 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
-        "holderName": "Ангел Стоилов Керпиев",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "АНГЕЛ СТОИЛОВ КЕРПИЕВ",
         "isSpouse": true,
         "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10300,
+        "valueEur": 10276.966812043991,
+        "holderName": "АНГЕЛ СТОИЛОВ КЕРПИЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24860,
+        "valueEur": 12710.716166537992,
+        "holderName": "МАРИЯНА АНГЕЛОВА КЕРПИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40650,
+        "valueEur": 20784.014970626282,
+        "holderName": "АНГЕЛ СТОИЛОВ КЕРПИЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН ГОЛФ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "КУПРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

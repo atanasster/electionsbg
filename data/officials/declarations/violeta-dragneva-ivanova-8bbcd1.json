@@ -5,6 +5,81 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Ръководител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2393",
+    "controlHash": "01073277",
+    "sourceUrl": "https://register.cacbg.bg/2026/93132903-4746-4BFE-85BB-E55519E32A28226441.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19350.863827633282,
+        "amountEurSpouse": 12266.403521778479
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1209.716590910253,
+        "amountEurSpouse": 901.4075865489332
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "\"ачия Джогър\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100 % собственик",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Виолета Драгнева Иванова",
+        "isSpouse": false,
+        "legalBasis": "други - договор чрез лизинг",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "- 4 бр. надграждащи обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 272.0072807963882,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Супервиции:2 броя",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 166.68115326996724,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "violeta-dragneva-ivanova-8bbcd1",
+    "declarantName": "Виолета Драгнева Иванова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Ръководител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1349",
+    "controlHash": "13090454",
+    "sourceUrl": "https://register.cacbg.bg/2026/EDE9AFDF-0D4E-4BDC-AC19-FE73E84B0770225181.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13936.794097646523,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна, ул. \"Стара планина\" 56",
+        "municipality": "Варна",
+        "areaSqm": 57,
+        "builtAreaSqm": 238.14,
+        "acquiredYear": 2023,
+        "share": "10%",
+        "currency": "BGN",
+        "amount": 86000,
+        "valueEur": 43971.10178287479,
+        "holderName": "Даниела Пламенова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2777.72,
+        "valueEur": 1420.22568423636,
+        "holderName": "Даниела Пламенова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-plamenova-dimitrova-a8ff63",
+    "declarantName": "Даниела Пламенова Димитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

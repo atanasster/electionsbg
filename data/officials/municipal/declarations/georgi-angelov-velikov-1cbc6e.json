@@ -4,32 +4,26 @@
     "declarantName": "Георги Ангелов Великов",
     "institution": "Две Могили",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г683",
-    "controlHash": "FEF49A2E",
-    "sourceUrl": "https://register.cacbg.bg/2025/D6B8082D-F9F1-4801-AB45-440521F9A647202863.xml",
+    "entryNumber": "Г2145",
+    "controlHash": "7BB7EFCC",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6B8082D-F9F1-4801-AB45-440521F9A647226142.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21688.49030846239,
-        "amountEurSpouse": 34137.42503182792
+        "amountEurDeclarant": 30750.116318902972,
+        "amountEurSpouse": 45086.74066764494
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 15136.284850932852,
+        "amountEurDeclarant": 17018.86155749733,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Наследство и продажба на наследствен апартамент",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 68280.9855662302
       }
     ],
     "assets": [
@@ -44,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 101144,
-        "valueEur": 51714.106031710326,
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
         "holderName": "Георги Ангелов Великов",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32211,
-        "valueEur": 16469.222785211394,
+        "amount": 67420,
+        "valueEur": 34471.29863024905,
         "holderName": "Здравка Стоянчева Великова",
         "isSpouse": true,
         "legalBasis": null,
@@ -80,27 +74,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 162000,
-        "valueEur": 82829.28475378739,
+        "amount": 90305,
+        "valueEur": 46172.21333142451,
+        "holderName": "Георги Ангелов Великов",
+        "isSpouse": false,
+        "legalBasis": "захранване на сметка",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "парично",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20500,
+        "valueEur": 10481.48356452248,
         "holderName": "Здравка Стоянчева Великова",
         "isSpouse": true,
         "legalBasis": "захранване на сметка",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Русе",
-        "municipality": "Русе",
-        "areaSqm": 84,
-        "builtAreaSqm": 84,
-        "currency": "BGN",
-        "valueEur": 59000.015338756435,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

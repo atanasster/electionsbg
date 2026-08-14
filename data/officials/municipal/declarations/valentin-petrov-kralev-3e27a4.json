@@ -4,13 +4,13 @@
     "declarantName": "ВАЛЕНТИН ПЕТРОВ КРАЛЕВ",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-05",
-    "entryNumber": "Г6799",
-    "controlHash": "991098C5",
-    "sourceUrl": "https://register.cacbg.bg/2025/143563BC-4118-41C5-9993-D8823EBB3B19209775.xml",
+    "filedAt": null,
+    "entryNumber": "Г9029",
+    "controlHash": "D9050D12",
+    "sourceUrl": "https://register.cacbg.bg/2026/143563BC-4118-41C5-9993-D8823EBB3B19233581.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -20,7 +20,7 @@
         "companyName": "ПРОФИКОМ ЕООД",
         "registeredOffice": "Стара Загора",
         "valueEur": 511.29188119621847,
-        "holderName": "ЦАНИТА МИЛКОВА МИХАЙЛОВА",
+        "holderName": "Цанита Милкова Кралева",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
@@ -29,14 +29,14 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6418.758276537327,
+        "amountEurDeclarant": 7330.902992591381,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8869.891554991998,
-        "amountEurSpouse": 5843.043618310385
+        "amountEurDeclarant": 11968.83164692228,
+        "amountEurSpouse": 6288.890138713487
       }
     ],
     "assets": [
@@ -71,7 +71,7 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Цанита Милкова Михайлова",
+        "holderName": "Цанита Милкова Кралева",
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
@@ -115,7 +115,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "BMV",
+        "detail": "BMW",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -133,7 +133,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "НИСАН",
+        "detail": "Нисан",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -143,8 +143,8 @@
         "currency": "BGN",
         "amount": 10000,
         "valueEur": 5112.918811962185,
-        "holderName": "Валентин Петров Кралев",
-        "isSpouse": false,
+        "holderName": "Цанита Милкова Кралева",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -159,12 +159,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "amount": 42200,
+        "valueEur": 21576.51738648042,
         "holderName": "Валентин Петров Кралев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "bank",
@@ -177,9 +177,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
-        "holderName": "Цанита Милкова Михайлова",
+        "amount": 17800,
+        "valueEur": 9100.99548529269,
+        "holderName": "Цанита Милкова Кралева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"

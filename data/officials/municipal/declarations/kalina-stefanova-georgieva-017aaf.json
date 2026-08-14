@@ -4,59 +4,23 @@
     "declarantName": "Калина Стефанова Георгиева",
     "institution": "Севлиево",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-01-31",
-    "entryNumber": "Г58",
-    "controlHash": "DADAE991",
-    "sourceUrl": "https://register.cacbg.bg/2025/3A32C9E3-9FEE-4B1F-A306-4FD7CDF7F1B1201633.xml",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г839",
+    "controlHash": "AF1F9227",
+    "sourceUrl": "https://register.cacbg.bg/2026/3A32C9E3-9FEE-4B1F-A306-4FD7CDF7F1B1224430.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 49556.45429306228,
-        "amountEurSpouse": 4500.391138289116
+        "amountEurDeclarant": 68177.19331434736,
+        "amountEurSpouse": 6047.049078907676
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "избено помещение 14",
-        "detail": null,
-        "location": "ул. Плодородие 2",
-        "municipality": "Габрово",
-        "areaSqm": 8,
-        "builtAreaSqm": 8,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 1943,
-        "valueEur": 993.4401251642525,
-        "holderName": "Калина Стефанова Георгиева",
-        "isSpouse": false,
-        "legalBasis": "замяна",
-        "fundsOrigin": "безвъзмездно"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "мазда CX 5",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
-        "holderName": "Калина Стефанова Георгиева",
-        "isSpouse": false,
-        "legalBasis": "покупка",
-        "fundsOrigin": "заплата и продажба имот"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,26 +32,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 78000,
-        "valueEur": 39880.76673330504,
-        "holderName": "Калина Стефанова Георгиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата и продажба имот"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 105300,
+        "valueEur": 53839.035089961806,
         "holderName": "Калина Стефанова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
@@ -104,39 +50,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Калина Стефанова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба имот"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "ул. Плодородие 2, ет.3, ап.14",
-        "municipality": "Габрово",
-        "areaSqm": 125,
-        "builtAreaSqm": 125,
-        "currency": "BGN",
-        "valueEur": 127822.97029905462,
-        "legalBasis": "възмездно"
+        "fundsOrigin": "заплата"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "мазда 6",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1073.7129505120588,
-        "legalBasis": "безвъзмездно"
+        "amount": 95300,
+        "valueEur": 48726.11627799962,
+        "holderName": "Калина Стефанова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

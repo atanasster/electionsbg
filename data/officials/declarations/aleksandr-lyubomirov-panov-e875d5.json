@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7872",
+    "controlHash": "5479EC54",
+    "sourceUrl": "https://register.cacbg.bg/2026/050402A8-C4F1-4055-856C-3161BE244D19232327.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6744.962496740514,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "Стрелча",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100 %",
+        "currency": "BGN",
+        "amount": 46940,
+        "valueEur": 24000.040903350495,
+        "holderName": "АЛЕКСАНДЪР ЛЮБОМИРОВ ПАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ И 10",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "АЛЕКСАНДЪР ЛЮБОМИРОВ ПАНОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aleksandr-lyubomirov-panov-e875d5",
+    "declarantName": "АЛЕКСАНДЪР ЛЮБОМИРОВ ПАНОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

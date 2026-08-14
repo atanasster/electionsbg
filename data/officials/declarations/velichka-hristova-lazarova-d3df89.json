@@ -1,6 +1,129 @@
 [
   {
     "slug": "velichka-hristova-lazarova-d3df89",
+    "declarantName": "ВЕЛИЧКА ХРИСТОВА ЛАЗАРОВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5531",
+    "controlHash": "FF639876",
+    "sourceUrl": "https://register.cacbg.bg/2026/E0029AFC-C2E0-4614-AC90-B54870C86169229794.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23627.309121958453,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4558.167120864287,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2795.7440063809227,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "цяла",
+        "currency": "BGN",
+        "amount": 16428,
+        "valueEur": 8399.503024291478,
+        "holderName": "Величка Христова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "цяла",
+        "currency": "BGN",
+        "amount": 59652,
+        "valueEur": 30499.583297116824,
+        "holderName": "Величка Христова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "средства от родители"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 16,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "16,24/12781,96",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Величка Христова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "средства от родители"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Величка Христова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "3,9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ - 328i",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дерегистрирана"
+      }
+    ]
+  },
+  {
+    "slug": "velichka-hristova-lazarova-d3df89",
     "declarantName": "Величка Христова Лазарова",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

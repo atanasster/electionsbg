@@ -1,16 +1,16 @@
 {
   "obshtina": "VTR22",
   "registryName": "Павликени",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
-    "council_chair": 1,
-    "councillor": 22,
-    "chief_architect": 2,
+    "council_chair": 0,
+    "councillor": 21,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -55,33 +57,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "hristo-galinov-kavalski-623e94",
-      "name": "Христо Галинов Кавалски",
-      "normalizedName": "ХРИСТО ГАЛИНОВ КАВАЛСКИ",
-      "role": "council_chair",
-      "roleRaw": "Председател на ОбС",
-      "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "БСП ЗА БЪЛГАРИЯ",
-        "partyCanonicalId": "bsp",
-        "listPos": 102,
-        "prefVotes": 90,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "georgi-veselinov-grigorov-cefa34",
-      "name": "Георги Веселинов Григоров",
-      "normalizedName": "ГЕОРГИ ВЕСЕЛИНОВ ГРИГОРОВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Павликени",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "ivelina-vasileva-peneva-kmetova-ab83e5",
@@ -90,7 +67,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aleksandr-ivanov-aleksandrov-fb1c56",
@@ -99,7 +77,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -116,7 +95,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -133,7 +113,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -150,7 +131,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
@@ -167,7 +149,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -184,7 +167,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -201,7 +185,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2023,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -218,7 +203,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -235,7 +221,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -252,7 +239,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -269,7 +257,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
@@ -286,7 +275,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
@@ -303,7 +293,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -322,7 +313,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
@@ -339,7 +331,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
@@ -356,7 +349,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -373,7 +367,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -390,7 +385,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -407,7 +403,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -424,7 +421,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -437,30 +435,14 @@
       }
     },
     {
-      "slug": "svetlana-hristova-eneva-f592bc",
-      "name": "Светлана Христова Енева",
-      "normalizedName": "СВЕТЛАНА ХРИСТОВА ЕНЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",
-        "partyCanonicalId": "p_6",
-        "listPos": 104,
-        "prefVotes": 75,
-        "isElected": true
-      }
-    },
-    {
       "slug": "tsanko-ivanchev-tsonev-237e4e",
       "name": "Цанко Иванчев Цонев",
       "normalizedName": "ЦАНКО ИВАНЧЕВ ЦОНЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Павликени",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК “ЗАЕДНО ЗА СИЛНА ОБЩИНА” /КП “ЗАЕДНО ЗА СИЛНА ОБЩИНА”, КП „ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ“, ПП „БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, ПП „БЪЛГАРСКИ ВЪЗХОД“, ПП „ПАРТИЯ КОНСЕРВАТИВНА БЪЛГАРИЯ“/",

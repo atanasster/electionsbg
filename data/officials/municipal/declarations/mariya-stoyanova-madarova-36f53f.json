@@ -4,72 +4,35 @@
     "declarantName": "Мария Стоянова Мадарова",
     "institution": "Брацигово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г10428",
-    "controlHash": "D2A4B985",
-    "sourceUrl": "https://register.cacbg.bg/2025/0282C330-A43B-4E95-AA48-D1D513FE83AF213513.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8653",
+    "controlHash": "CAB08C05",
+    "sourceUrl": "https://register.cacbg.bg/2026/0282C330-A43B-4E95-AA48-D1D513FE83AF233180.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3041.675401236304,
+        "amountEurDeclarant": 18076.213167811107,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16369.520868378131,
+        "amountEurDeclarant": 2533.4512713272625,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 22897.69560749145
+        "amountEurSpouse": 20656.192000327228
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Дачия Логан",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 5250,
-        "valueEur": 2684.282376280147,
-        "holderName": "Димитър Василев Мадаров",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Дачия Логан",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 5250,
-        "valueEur": 2684.282376280147,
-        "holderName": "Мария Стоянова Мадарова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

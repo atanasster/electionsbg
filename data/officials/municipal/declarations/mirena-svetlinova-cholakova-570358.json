@@ -1,32 +1,100 @@
 [
   {
     "slug": "mirena-svetlinova-cholakova-570358",
-    "declarantName": "Мирена Светлинова Чолакова",
+    "declarantName": "МИРЕНА СВЕТЛИНОВА МИТЕВА",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-04",
-    "entryNumber": "Г1643",
-    "controlHash": "18B28734",
-    "sourceUrl": "https://register.cacbg.bg/2025/A87FCC41-EE84-42D1-97A8-752A56AD0FFA204157.xml",
+    "filedAt": "2025-05-06",
+    "entryNumber": "Г7375",
+    "controlHash": "47F18742",
+    "sourceUrl": "https://register.cacbg.bg/2026/A87FCC41-EE84-42D1-97A8-752A56AD0FFA231784.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2020.6255144874556,
+        "amountEurDeclarant": 19304.336266444425,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12304.750412868194,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 2556.4594059810925,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 64000,
+        "valueEur": 32722.680396557982,
+        "holderName": "МИРЕНА СВЕТЛИНОВА МИТЕВА",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА",
+        "fundsOrigin": "Изпл.Каско, заплата и дарение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "МИРЕНА СВЕТЛИНОВА МИТЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТИ"
+      },
+      {
+        "category": "receivable",
+        "description": "обезщетение по застр.КАСКО",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34663,
+        "valueEur": 17722.910477904523,
+        "holderName": "МИРЕНА СВЕТЛИНОВА ЧОЛАКОВА",
+        "isSpouse": true,
+        "legalBasis": "КРАЖБА НА АВТОМОБИЛ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПОЗЕМЛЕН ИМОТ",
+        "detail": null,
+        "location": "ХАСКОВО м.ХАЛИЛОВО",
+        "municipality": "ХАСКОВО",
+        "areaSqm": 889,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "ПРОДАЖБА"
+      }
+    ]
   }
 ]

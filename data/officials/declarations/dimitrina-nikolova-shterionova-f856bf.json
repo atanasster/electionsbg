@@ -5,6 +5,81 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-17",
+    "entryNumber": "Г322",
+    "controlHash": "78114B29",
+    "sourceUrl": "https://register.cacbg.bg/2026/28AAC281-D6FF-41E3-9DCE-EAA9DD8379F0223470.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33345.945199736176,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 260000,
+        "valueEur": 132935.88911101682,
+        "holderName": "Мирослав Георгиев Щерионов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Продажба на апартамент"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17990,
+        "valueEur": 9198.14094271997,
+        "holderName": "Димитрина Николова Щерионова",
+        "isSpouse": false,
+        "legalBasis": "3",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 103,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 132935.88911101682,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "dimitrina-nikolova-shterionova-f856bf",
+    "declarantName": "Димитрина Николова Щерионова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

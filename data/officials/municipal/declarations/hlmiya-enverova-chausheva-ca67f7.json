@@ -4,87 +4,46 @@
     "declarantName": "ХЪЛМИЯ ЕНВЕРОВА ЧАУШЕВА",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-03-12",
-    "entryNumber": "В347",
-    "controlHash": "F0475C88",
-    "sourceUrl": "https://register.cacbg.bg/2025/C4CEC7C5-4B77-49D8-ADB8-2F1BBB3CAE98202542.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10858",
+    "controlHash": "EDA67E00",
+    "sourceUrl": "https://register.cacbg.bg/2026/C4CEC7C5-4B77-49D8-ADB8-2F1BBB3CAE98235668.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1687.263207947521,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7379.475721305022,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "КЪЩА",
+        "description": "нива",
         "detail": null,
-        "location": "С.ОБРЕТЕНИК",
-        "municipality": "Борово",
-        "areaSqm": 100,
-        "builtAreaSqm": 100,
-        "acquiredYear": 1961,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 4800,
-        "valueEur": 2454.2010297418487,
-        "holderName": "РАМИ АХМЕДОВ ЧАУШЕВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "real_estate",
-        "description": "НИВА",
-        "detail": null,
-        "location": "С.БРЕСТОВИЦА",
-        "municipality": "Борово",
-        "areaSqm": 14,
-        "builtAreaSqm": 14,
-        "acquiredYear": 2003,
+        "location": "С.ТРЪСТЕНИК",
+        "municipality": "ИВАНОВО",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "РАМИ АХМЕДОВ ЧАУШЕВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ОПЕЛ АСТРА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2013,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 4800,
-        "valueEur": 2454.2010297418487,
-        "holderName": "РАМИ АХМЕДОВ ЧАУШЕВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "vehicle",
-        "description": "МОТОР",
-        "detail": "СИМСОН",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2006,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "РАМИ АХМЕДОВ ЧАУШЕВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "holderName": "ХЪЛМИЯ ЕНВЕРОВА ЧАУШЕВА",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -97,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
         "holderName": "ХЪЛМИЯ ЕНВЕРОВА ЧАУШЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
       },
       {
         "category": "bank",
@@ -120,7 +79,7 @@
         "holderName": "ХЪЛМИЯ ЕНВЕРОВА ЧАУШЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "СПЕСТЯНАВИЯ"
       },
       {
         "category": "bank",
@@ -133,31 +92,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36000,
-        "valueEur": 18406.507723063867,
+        "amount": 37264,
+        "valueEur": 19052.780660895885,
         "holderName": "РАМИ АХМЕДОВ ЧАУШЕВ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "hlmiya-enverova-chausheva-ca67f7",
-    "declarantName": "ХЪЛМИЯ ЕНВЕРОВА ЧАУШЕВА",
-    "institution": "Борово",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-12",
-    "entryNumber": "В348",
-    "controlHash": "9852E11B",
-    "sourceUrl": "https://register.cacbg.bg/2025/C4CEC7C5-4B77-49D8-ADB8-2F1BBB3CAE98202543.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

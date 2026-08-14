@@ -1,6 +1,50 @@
 [
   {
     "slug": "petr-antonov-petrov-c3aca3",
+    "declarantName": "Петър Антонов Петров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13806",
+    "controlHash": "A4376A82",
+    "sourceUrl": "https://register.cacbg.bg/2026/EAB28C6B-3379-4250-8C8A-706F65B51FA2239410.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12682.083821191003,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "ФИНАНСОВИ ИНСТИТУЦИИ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-antonov-petrov-c3aca3",
     "declarantName": "ПЕТЪР АНТОНОВ ПЕТРОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

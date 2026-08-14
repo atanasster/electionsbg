@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12064",
+    "controlHash": "6390B158",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5695591-10B4-49D4-9C57-C10D9F8F2817237167.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19093.684011391582,
+        "amountEurSpouse": 10371.555810065292
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Стоков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2923,
+        "valueEur": 1494.5061687365467,
+        "holderName": "Боян Иванов Чифчиев",
+        "isSpouse": false,
+        "legalBasis": "Договор 6806207 - 21,45%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boyan-ivanov-chifchiev-1efcb7",
+    "declarantName": "Боян Иванов Чифчиев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

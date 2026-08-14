@@ -4,16 +4,79 @@
     "declarantName": "Антоанета Петрова Стоева",
     "institution": "Район Подуяне",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г5312",
-    "controlHash": "4CA08CF8",
-    "sourceUrl": "https://register.cacbg.bg/2025/72FAC6E8-BBBB-43DE-AD8C-90EA4BCA2084208232.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7622",
+    "controlHash": "0C588B54",
+    "sourceUrl": "https://register.cacbg.bg/2026/72FAC6E8-BBBB-43DE-AD8C-90EA4BCA2084232044.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": []
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28375.165530746537,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Присъдена издръжка за непълнолетно дете в моя полза (договорена)",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 181712,
+        "valueEur": 92907.87031592726,
+        "holderName": "Антоанета Петрова Стоева",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит - 2,68%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7577,
+        "valueEur": 3874.0585838237475,
+        "holderName": "Антоанета Петрова Стоева",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит - 4,45%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

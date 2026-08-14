@@ -1,48 +1,54 @@
 [
   {
     "slug": "galin-stoyanov-gospodinov-c0765d",
-    "declarantName": "ГАЛИН СТОЯНОВ ГОСПОДИНОВ",
+    "declarantName": "Галин Стоянов Господинов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-12",
-    "entryNumber": "Г10732",
-    "controlHash": "C3A97B91",
-    "sourceUrl": "https://register.cacbg.bg/2025/9DA91A0A-3B1E-494C-B2F1-21D86EB15098213837.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7146",
+    "controlHash": "F616048A",
+    "sourceUrl": "https://register.cacbg.bg/2026/9DA91A0A-3B1E-494C-B2F1-21D86EB15098231538.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12458.13797722706,
-        "amountEurSpouse": 17661.555452160974
+        "amountEurDeclarant": 16539.78106481647,
+        "amountEurSpouse": 18393.214134152764
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1408.0978408143858,
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2871.415204797963
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4036.649402044145,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "ул. \"Славянска\" № 16, ап.3",
-        "municipality": "Добрич",
-        "areaSqm": 88,
-        "builtAreaSqm": 82,
-        "acquiredYear": 2024,
-        "share": "1",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Боряна Колева Георгиева",
-        "isSpouse": true,
-        "legalBasis": "дарение",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Галин Стоянов Господинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "дарения"
       }
     ],

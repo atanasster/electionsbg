@@ -5,6 +5,86 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2732",
+    "controlHash": "FA987F46",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AF21853-0FFD-4752-969D-AA499888A494226813.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 89365.12887111865,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1513.4239683408068,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 17645.70540384389,
+        "amountEurSpouse": 5075.083212753665
+      },
+      {
+        "parent": null,
+        "category": "Рента от земеделска земя",
+        "amountEurDeclarant": 863.571987340413,
+        "amountEurSpouse": 287.3460372322748
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 149518,
+        "valueEur": 76447.33949269619,
+        "holderName": "ПАВЛИНКА ДИМОВА ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 313829,
+        "valueEur": 160458.21978392804,
+        "holderName": "ПАВЛИНКА ДИМОВА ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlinka-dimova-georgieva-932bce",
+    "declarantName": "ПАВЛИНКА ДИМОВА ГЕОРГИЕВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-06-22",
+    "entryNumber": "Ф752",
+    "controlHash": "C37964D6",
+    "sourceUrl": "https://register.cacbg.bg/2026/D86EB332-E1C7-42EB-8666-76D359FC4826237662.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "atanas-todorov-dimankov-328966",
+    "declarantName": "Атанас Тодоров Диманков",
+    "institution": "Югозападно държавно предприятие ДП Благоевград",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2599",
+    "controlHash": "6B92F7FD",
+    "sourceUrl": "https://register.cacbg.bg/2026/D86EB332-E1C7-42EB-8666-76D359FC4826226662.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38085.62093842512,
+        "amountEurSpouse": 15522.821513117193
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Грейт Уолл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Грейт Уолл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "atanas-todorov-dimankov-328966",
+    "declarantName": "Атанас Тодоров Диманков",
+    "institution": "Югозападно държавно предприятие ДП Благоевград",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

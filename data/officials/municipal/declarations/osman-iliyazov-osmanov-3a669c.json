@@ -4,25 +4,25 @@
     "declarantName": "ОСМАН ИЛИЯЗОВ ОСМАНОВ",
     "institution": "Котел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8936",
-    "controlHash": "B05A30AE",
-    "sourceUrl": "https://register.cacbg.bg/2025/A06A9FBE-F7F6-45F9-9C93-FD8CED542886211965.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9994",
+    "controlHash": "445E088E",
+    "sourceUrl": "https://register.cacbg.bg/2026/A06A9FBE-F7F6-45F9-9C93-FD8CED542886234672.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4773.932294729092,
-        "amountEurSpouse": 12966.362107136101
+        "amountEurDeclarant": 6238.783534356258,
+        "amountEurSpouse": 6900.906520505361
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12811.951959014843,
+        "amountEurDeclarant": 14032.916971311413,
         "amountEurSpouse": null
       }
     ],
@@ -30,18 +30,18 @@
       {
         "category": "vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "НИСАН КАШКАЙ",
+        "detail": "ОПЕЛ КОРСА",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2023,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 5524,
-        "valueEur": 2824.376351727911,
-        "holderName": "ХАТЧЕ АЛИЕВА ОСМАНОВА",
-        "isSpouse": true,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "ОСМАН ИЛИЯЗОВ ОСМАНОВ",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -56,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31812,
-        "valueEur": 16265.217324614103,
+        "amount": 20406,
+        "valueEur": 10433.422127690035,
         "holderName": "ХАТЧЕ АЛИЕВА ОСМАНОВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МАЗДА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

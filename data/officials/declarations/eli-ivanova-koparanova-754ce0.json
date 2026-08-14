@@ -5,6 +5,56 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9384",
+    "controlHash": "ACC95D77",
+    "sourceUrl": "https://register.cacbg.bg/2026/CBA8BDC7-7186-4931-9294-A07B2B96345C234001.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28494.80783094645,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 94.58899802130043,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул Гавраил Кръстевич 10",
+        "municipality": "Пловдив",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2004,
+        "share": "2/3",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ЕЛИ ИВАНОВА КОПАРАНОВА",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "eli-ivanova-koparanova-754ce0",
+    "declarantName": "ЕЛИ ИВАНОВА КОПАРАНОВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

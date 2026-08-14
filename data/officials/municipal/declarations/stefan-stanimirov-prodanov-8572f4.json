@@ -4,35 +4,54 @@
     "declarantName": "Стефан Станимиров Проданов",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14279",
-    "controlHash": "2BE7769E",
-    "sourceUrl": "https://register.cacbg.bg/2025/2002D416-D8AF-4A86-AD16-4EDFE53EE7B3217563.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г13519",
+    "controlHash": "EEDE16C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/2002D416-D8AF-4A86-AD16-4EDFE53EE7B3239050.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 558.3307342662706,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6600.266894361985,
+        "amountEurSpouse": 6605.891105055143
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14880.638910334743,
-        "amountEurSpouse": 5992.852139500877
+        "amountEurDeclarant": 18866.159124259266,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 28654.842189760868,
-        "amountEurSpouse": 112.99550574436428
+        "amountEurDeclarant": 33561.19908171978,
+        "amountEurSpouse": 850.2783984293113
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39341,
+        "valueEur": 20114.733898140432,
+        "holderName": "Стефан Станимиров Проданов",
+        "isSpouse": false,
+        "legalBasis": "5.4 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

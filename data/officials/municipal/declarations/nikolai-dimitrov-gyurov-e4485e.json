@@ -4,13 +4,13 @@
     "declarantName": "НИКОЛАЙ ДИМИТРОВ ГЮРОВ",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-06",
-    "entryNumber": "Г14250",
-    "controlHash": "9CB5C120",
-    "sourceUrl": "https://register.cacbg.bg/2025/DEAA5A66-519B-4239-B01E-6E533986CCBF217531.xml",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г9701",
+    "controlHash": "0D87EC2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/DEAA5A66-519B-4239-B01E-6E533986CCBF234346.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -20,7 +20,7 @@
         "companyName": "НОМЕР СЕДЕМ ООД",
         "registeredOffice": "Пловдив",
         "valueEur": 1278.2297029905462,
-        "holderName": "НИКОЛАЙ ДИМИТРОВ ГЮРОВ",
+        "holderName": "НИКОЛАЙ ГЮРОВ",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
@@ -32,7 +32,7 @@
         "companyName": "ЧИЛИ ПОЙНТ В НЕСЪСТОЯТЕЛНОСТ",
         "registeredOffice": "Видин",
         "valueEur": 24030.71841622227,
-        "holderName": "НИКОЛАЙ ДИМИТРОВ ГЮРОВ",
+        "holderName": "НИКОЛАЙ ГЮРОВ",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
@@ -44,7 +44,7 @@
         "companyName": "ПЕПЕР ЛЕНД В НЕСЪСТОЯТЕЛНОСТ",
         "registeredOffice": "Видин",
         "valueEur": 102560.03844914946,
-        "holderName": "НИКОЛАЙ ДИМИТРОВ ГЮРОВ",
+        "holderName": "НИКОЛАЙ ГЮРОВ",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
@@ -56,7 +56,7 @@
         "companyName": "НОМЕР СЕДЕМ ООД",
         "registeredOffice": "Пловдив",
         "valueEur": 1278.2297029905462,
-        "holderName": "МАРИЯ ПЕТРОВЯ ГЮРОВА",
+        "holderName": "МАРИЯ ГЮРОВА",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
@@ -65,8 +65,20 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25439.327548917852,
-        "amountEurSpouse": 5153.822162457883
+        "amountEurDeclarant": 18807.3605579217,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6218.331859108409,
+        "amountEurSpouse": 128487.13845272851
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 66.46794455550841
       },
       {
         "parent": null,
@@ -113,6 +125,42 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДЖИП ГРАНД ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2475,
+        "valueEur": 1265.4474059606407,
+        "holderName": "НИКОЛАЙ ДИМИТРОВ ГЮРОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДЖИП ГРАНД ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2475,
+        "valueEur": 1265.4474059606407,
+        "holderName": "МАРИЯ ПЕТРОВА ГЮРОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -123,9 +171,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "НИКОЛАЙ ПЕТРОВ ГЮРОВ",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "НИКОЛАЙ ГЮРОВ",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -141,9 +189,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
-        "holderName": "НИКОЛАЙ ПЕТРОВ ГЮРОВ",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "НИКОЛАЙ ГЮРОВ",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"

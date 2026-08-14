@@ -1,6 +1,92 @@
 [
   {
     "slug": "tanya-petrova-todorova-08cec0",
+    "declarantName": "ТАНЯ ПЕТРОВА ТОДОРОВА",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13161",
+    "controlHash": "5AACD17F",
+    "sourceUrl": "https://register.cacbg.bg/2026/C6179227-EDD8-4CF9-8862-90617DA632D2238635.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22493.26372946524,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4634.860903043721,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН Х ТРЕЙЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "ТАНЯ ПЕТРОВА ТОДОРОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 2614.235388556265,
+        "holderName": "ТАНЯ ПЕТРОВА ТОДОРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛНСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25565,
+        "valueEur": 25564.594059810923,
+        "holderName": "ТАНЯ ПЕТРОВА ТОДОРВА",
+        "isSpouse": true,
+        "legalBasis": "ПОТРЕБНАИТЕЛСКИ КРЕДИТ 5,50% ЛП",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tanya-petrova-todorova-08cec0",
     "declarantName": "Таня Петрова Тодорова",
     "institution": "Музеи",
     "positionTitle": "Директор",

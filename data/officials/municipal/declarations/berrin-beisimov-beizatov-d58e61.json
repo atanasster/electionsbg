@@ -4,29 +4,66 @@
     "declarantName": "Беррин Бейсимов Бейзатов",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г5062",
-    "controlHash": "D7A480EC",
-    "sourceUrl": "https://register.cacbg.bg/2025/73665783-0AD5-4564-8296-221AE2599C1B207949.xml",
+    "entryNumber": "Г11283",
+    "controlHash": "3DB15ECF",
+    "sourceUrl": "https://register.cacbg.bg/2026/73665783-0AD5-4564-8296-221AE2599C1B236171.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5074.060628991272,
-        "amountEurSpouse": 10621.066248089046
+        "amountEurDeclarant": 5523.997484443945,
+        "amountEurSpouse": 11854.813557415522
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8603.508484888769,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 10638.450172049717,
+        "amountEurSpouse": 3330.5553141121673
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56277,
+        "valueEur": 28773.973198079588,
+        "holderName": "Беррин Бейсимов Беейзатов",
+        "isSpouse": true,
+        "legalBasis": "ипотека- 4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31497,
+        "valueEur": 16104.160382037293,
+        "holderName": "Беррин Бейсимов Беейзатов",
+        "isSpouse": true,
+        "legalBasis": "6 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

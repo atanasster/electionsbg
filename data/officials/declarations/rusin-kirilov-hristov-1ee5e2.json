@@ -5,6 +5,68 @@
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г7883",
+    "controlHash": "6265B1E0",
+    "sourceUrl": "https://register.cacbg.bg/2026/EC36287A-17C8-4159-BC0F-CDB3A8C1015B232344.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16483.538957884888,
+        "amountEurSpouse": 7187.74126585644
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62300,
+        "valueEur": 31853.484198524413,
+        "holderName": "РУСИН КИРИЛОВ ХИСТОЗОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19850,
+        "valueEur": 10149.143841744937,
+        "holderName": "РУСИН КИРИЛОВ ХИСТОЗОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rusin-kirilov-hristov-1ee5e2",
+    "declarantName": "РУСИН КИРИЛОВ ХРИСТОВ",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г5782",
+    "controlHash": "3863D59E",
+    "sourceUrl": "https://register.cacbg.bg/2026/87AF1792-7849-41E0-A6EF-E3EB4AC331EC230051.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26675.631317650306,
+        "amountEurSpouse": 21907.323233614374
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 22088,
+        "valueEur": 22087.80926767664,
+        "holderName": "Биляна Неделчева Милева",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг 4.99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "bilyana-nedelcheva-mileva-63cf69",
+    "declarantName": "Биляна Неделчева Милева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

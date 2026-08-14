@@ -4,25 +4,19 @@
     "declarantName": "ЕМИЛ КИРИЛОВ ТОПАЛОВ",
     "institution": "Момчилград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г1486",
-    "controlHash": "05B6A798",
-    "sourceUrl": "https://register.cacbg.bg/2025/FDB82C84-FA38-4A04-82CC-F5FA15777640203968.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г7151",
+    "controlHash": "BF949640",
+    "sourceUrl": "https://register.cacbg.bg/2026/FDB82C84-FA38-4A04-82CC-F5FA15777640231543.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2894.423339451793,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16552.563361846376,
+        "amountEurDeclarant": 10951.360803341804,
         "amountEurSpouse": null
       }
     ],
@@ -38,39 +32,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 99000,
-        "valueEur": 50617.89623842563,
-        "holderName": "Емил Кирилов Топалов",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "ЕМИЛ КИРИЛОВ ТОПАЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания от заплати"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Момчилград",
-        "municipality": "Момчилград",
-        "areaSqm": 500,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2045.1675247848739,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Момчилград",
-        "municipality": "Момчилград",
-        "areaSqm": 500,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2045.1675247848739,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

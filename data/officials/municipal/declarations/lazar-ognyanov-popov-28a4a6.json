@@ -4,37 +4,25 @@
     "declarantName": "Лазар Огнянов Попов",
     "institution": "Пазарджик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14556",
-    "controlHash": "6F052EBE",
-    "sourceUrl": "https://register.cacbg.bg/2025/ABE3A9B7-F620-4C63-B5A7-DCF7E64C616D217885.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11795",
+    "controlHash": "1A4D8C43",
+    "sourceUrl": "https://register.cacbg.bg/2026/ABE3A9B7-F620-4C63-B5A7-DCF7E64C616D236776.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13736.878972098802,
-        "amountEurSpouse": 5087.354217902374
+        "amountEurDeclarant": 12178.972610093924,
+        "amountEurSpouse": 12626.353006140616
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15640.418645792324,
-        "amountEurSpouse": 5031.11211097079
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 11977.523608902615,
         "amountEurSpouse": null
       },
       {
@@ -46,17 +34,143 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 3834.6891089716387,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
+        "category": "Пенсия за инвалидност, платец НОИ",
+        "amountEurDeclarant": 7840.660998144011,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор, гараж",
+        "detail": null,
+        "location": "гр. Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 270,
+        "builtAreaSqm": 145,
+        "acquiredYear": 1999,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Етрополе",
+        "municipality": "Етрополе",
+        "areaSqm": 586,
+        "builtAreaSqm": 284,
+        "acquiredYear": 1997,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "вилно място",
+        "detail": null,
+        "location": "с. Ветрен Дол",
+        "municipality": "Септември",
+        "areaSqm": 600,
+        "builtAreaSqm": 0,
+        "acquiredYear": 1999,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Априлци",
+        "municipality": "Пазарджик",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "acquiredYear": 1999,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "офис - право на ползване",
+        "detail": null,
+        "location": "гр. Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Елена Кръстева Попова",
+        "isSpouse": true,
+        "legalBasis": "нотариален акт",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор - право на ползване",
+        "detail": null,
+        "location": "с. Паталеница",
+        "municipality": "Пазарджик",
+        "areaSqm": 444,
+        "builtAreaSqm": 210,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Елена Кръстева Попова",
+        "isSpouse": true,
+        "legalBasis": "нотариален акт",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
       {
         "category": "bank",
         "description": null,
@@ -68,14 +182,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
         "holderName": "Лазар Огнянов Попов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43506,
+        "valueEur": 22244.26458332268,
+        "holderName": "Лазар Огнянов Попов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит 5.58%",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Паталеница",
+        "municipality": "Пазарджик",
+        "areaSqm": 444,
+        "builtAreaSqm": 210,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "продажба"
+      }
+    ]
   }
 ]

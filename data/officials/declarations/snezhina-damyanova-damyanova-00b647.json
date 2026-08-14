@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12561",
+    "controlHash": "D8DEC00A",
+    "sourceUrl": "https://register.cacbg.bg/2026/CBB247D5-1820-4175-9AAA-CD62C1F42F9F237870.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 26080.487567937907
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна жк Младостбл.116 вх.6 ет 5 ап 14",
+        "municipality": "Варна",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": "0,6765",
+        "currency": "BGN",
+        "amount": 7854,
+        "valueEur": 4015.6864349151,
+        "holderName": "Снежина Дамяьнова Дамянова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Сноп",
+        "municipality": "Генерал Тошево",
+        "areaSqm": 23,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Снежина Дамянова Дамянова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "snezhina-damyanova-damyanova-00b647",
+    "declarantName": "Снежина Дамянова Дамянова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,23 +4,59 @@
     "declarantName": "Теодора Володиева Гогова",
     "institution": "Костинброд",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7478",
-    "controlHash": "1BDAA1F7",
-    "sourceUrl": "https://register.cacbg.bg/2025/64FA92E0-24EF-4F76-AD7A-ED50FEA4A9A0210473.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8612",
+    "controlHash": "75EB4982",
+    "sourceUrl": "https://register.cacbg.bg/2026/64FA92E0-24EF-4F76-AD7A-ED50FEA4A9A0233136.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28925.315594913667,
+        "amountEurDeclarant": 32369.377706651398,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Теодора Володиева Гогова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Теодора Володиева Гогова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -32,12 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38937,
-        "valueEur": 19908.171978137158,
+        "amount": 65142,
+        "valueEur": 33306.57572488407,
         "holderName": "Теодора Володиева Гогова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, наследяване вкл.иот предходни години"
+        "fundsOrigin": "заплата, наследяване, вкл. и от предходни години"
       },
       {
         "category": "bank",
@@ -50,12 +86,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 95253,
-        "valueEur": 95252.65488309311,
+        "amount": 95226,
+        "valueEur": 95226.0677052709,
         "holderName": "Теодора Володиева Гогова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване,продажба на нед. имот, заплата вкл. от предходни години"
+        "fundsOrigin": "наследяване,продажба на нед. имот,заплата, вкл. И от предходни години"
       },
       {
         "category": "investment",
@@ -68,37 +104,37 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17856,
-        "valueEur": 9129.627830639678,
+        "amount": 21666,
+        "valueEur": 11077.64989799727,
         "holderName": "Теодора Володиева Гогова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ДЗПО - заплата"
+        "fundsOrigin": "ДЗПО"
       }
     ],
     "events": [
       {
         "kind": "third_party_expense",
-        "description": "Среща на местните власти",
+        "description": "Годишна среща на местните власти",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 465.27561188855884,
+        "valueEur": 823.1799287259117,
         "legalBasis": null
       },
       {
         "kind": "third_party_expense",
-        "description": "Норвегия - обучение на тема \"Повишаване на осведоменост за енергийния преход\"",
+        "description": "Проект \"Къща за едно евро\" - Италия",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 536.3451833748331,
+        "valueEur": 840.5638526865832,
         "legalBasis": null
       }
     ]

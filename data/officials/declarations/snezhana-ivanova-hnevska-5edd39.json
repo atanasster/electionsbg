@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1123",
+    "controlHash": "91F3CB56",
+    "sourceUrl": "https://register.cacbg.bg/2026/B45BEB76-CAA6-4D19-B47E-0D44A0326BDD224837.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26848.959265375826,
+        "amountEurSpouse": 15247.746481033628
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30567,
+        "valueEur": 15628.658932524811,
+        "holderName": "Снежана Иванова Хъневска",
+        "isSpouse": false,
+        "legalBasis": "2,95 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 153437,
+        "valueEur": 78451.09237510417,
+        "holderName": "Снежана Иванова Хъневска",
+        "isSpouse": false,
+        "legalBasis": "2,95 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "snezhana-ivanova-hnevska-5edd39",
+    "declarantName": "Снежана Иванова Хъневска",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,29 +4,66 @@
     "declarantName": "АНЕЛИЯ ТОДОРОВА УЛАНОВА",
     "institution": "Родопи",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-04-24",
-    "entryNumber": "Г5449",
-    "controlHash": "427C2516",
-    "sourceUrl": "https://register.cacbg.bg/2025/3E09A981-5486-4DAB-80D8-E894CD82ACC6208377.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г9917",
+    "controlHash": "69FE1042",
+    "sourceUrl": "https://register.cacbg.bg/2026/3E09A981-5486-4DAB-80D8-E894CD82ACC6234593.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7899.203918540978,
+        "amountEurDeclarant": 9632.22774985556,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7539.729935628352,
+        "amountEurDeclarant": 9233.420082522509,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 19999.693224871284,
+        "holderName": "Анелия Тодорова Уланова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29000,
+        "valueEur": 28999.964209568316,
+        "holderName": "Анелия Тодорова Уланова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

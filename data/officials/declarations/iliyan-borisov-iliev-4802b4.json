@@ -5,6 +5,50 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10116",
+    "controlHash": "75A602A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/B0FDE3E5-4C98-4C77-A9C3-423BDC337DCD234807.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 78571.75725906648,
+        "amountEurSpouse": 19053.291952777083
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 408309,
+        "valueEur": 208765.07671934678,
+        "holderName": "Илиян Борисов Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliyan-borisov-iliev-4802b4",
+    "declarantName": "Илиян Борисов Илиев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

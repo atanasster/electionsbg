@@ -4,35 +4,71 @@
     "declarantName": "Лина Петрова Симеонова",
     "institution": "Брезник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7085",
-    "controlHash": "9500A7EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/9994D153-4B75-408C-ACC8-B50343727A9D210073.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5431",
+    "controlHash": "C0FEF829",
+    "sourceUrl": "https://register.cacbg.bg/2026/9994D153-4B75-408C-ACC8-B50343727A9D229690.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5672.7834218720445,
+        "amountEurDeclarant": 5868.096920489,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 25931.190338628614,
+        "amountEurDeclarant": 27323.949423007114,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5289.825802856077
+        "amountEurSpouse": 6341.553202476698
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Mazda, CX-30",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Лина Петрова Симеонова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Mazda, CX-30",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Александър Иванов Симеонов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "потребителски кредит",
@@ -44,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 79500,
-        "valueEur": 40647.70455509937,
+        "amount": 74423,
+        "valueEur": 38051.87567426617,
         "holderName": "Лина Петрова Симеонова",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит - 4,5192",
+        "legalBasis": "потребителски кредит - 4,5192%",
         "fundsOrigin": null
       }
     ],

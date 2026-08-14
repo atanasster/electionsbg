@@ -4,23 +4,42 @@
     "declarantName": "ОЛЕГ АСЕНОВ МИКОВ",
     "institution": "Димово",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-01",
-    "entryNumber": "Г1396",
-    "controlHash": "07968B7F",
-    "sourceUrl": "https://register.cacbg.bg/2025/9751A642-5C7C-4D29-8959-9BC22A2317B7203856.xml",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г2212",
+    "controlHash": "C037B8E2",
+    "sourceUrl": "https://register.cacbg.bg/2026/9751A642-5C7C-4D29-8959-9BC22A2317B7226215.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14371.39219666331,
+        "amountEurDeclarant": 13292.566327339287,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 6800,
+        "valueEur": 5816.967732369378,
+        "holderName": "ОЛЕГ АСЕНОВ МИКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

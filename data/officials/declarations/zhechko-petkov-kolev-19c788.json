@@ -5,6 +5,80 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1615",
+    "controlHash": "F536379D",
+    "sourceUrl": "https://register.cacbg.bg/2026/A94CA455-21BF-4CCB-8987-8001ADA3CF72225534.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23697.86740156353,
+        "amountEurSpouse": 12095.120741577744
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4387.906924425947,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти в полза на физически лица по чл. 38 ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 24235.235168700758
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит Възможност",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45018,
+        "valueEur": 23017.337907691362,
+        "holderName": "Ася Жечкова Кюркчиева",
+        "isSpouse": true,
+        "legalBasis": "2,6",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит Възможност",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32402,
+        "valueEur": 16566.87953451987,
+        "holderName": "Ася Жечкова Кюркчиева",
+        "isSpouse": true,
+        "legalBasis": "2,5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zhechko-petkov-kolev-19c788",
+    "declarantName": "Жечко Петков Колев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

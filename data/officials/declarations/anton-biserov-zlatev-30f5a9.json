@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11110",
+    "controlHash": "6DEC0D26",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0EDCB4D-EC15-41D9-AE06-738C483029BD235948.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22048.951084705724,
+        "amountEurSpouse": 13086.004407336017
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "дългосрочен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Антон Бисеров Златев",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "дългосрочн заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Кремена Красимирова Златева",
+        "isSpouse": true,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anton-biserov-zlatev-30f5a9",
+    "declarantName": "Антон Бисеров Златев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

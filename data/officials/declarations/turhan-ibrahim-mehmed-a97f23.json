@@ -5,6 +5,128 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13898",
+    "controlHash": "49E4425E",
+    "sourceUrl": "https://register.cacbg.bg/2026/649DB903-F64A-4203-8706-C9F0DEF0A5A5239551.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12566.531856040658,
+        "amountEurSpouse": 6141.638076928976
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 37429.63345485037,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Субсидии от дейността като земеделски производител",
+        "amountEurDeclarant": 21501.86877182577,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 1959.2704887439093,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други",
+        "amountEurDeclarant": 944.3561045694156,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Добротица",
+        "municipality": "Ситово",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Турхан Ибрахим Мехмед",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18806,
+        "valueEur": 18805.82668227811,
+        "holderName": "Турхан Ибрахим Мехмед Нигяр Исмет Мехмед",
+        "isSpouse": true,
+        "legalBasis": "6.2628",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 23315,
+        "valueEur": 23314.909782547562,
+        "holderName": "Турхан Ибрахим Мехмед Нигяр Исмет Мехмед",
+        "isSpouse": true,
+        "legalBasis": "6.4618",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15748,
+        "valueEur": 15747.78994084353,
+        "holderName": "Турхан Ибрахим Мехмед Нигяр Исмет Мехмед",
+        "isSpouse": true,
+        "legalBasis": "6.2678",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "turhan-ibrahim-mehmed-a97f23",
+    "declarantName": "ТУРХАН ИБРАХИМ МЕХМЕД",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

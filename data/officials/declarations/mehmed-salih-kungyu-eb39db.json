@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "mehmed-salih-kungyu-eb39db",
+    "declarantName": "МЕХМЕД САЛИХ КУНГЮ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-16",
+    "entryNumber": "Г461",
+    "controlHash": "4DD1145F",
+    "sourceUrl": "https://register.cacbg.bg/2026/21A4CAB4-0503-4FBC-BABA-7F6F0E2FA820223784.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2390.800836473518,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19588.61455238952,
+        "amountEurSpouse": 11306.708660773176
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18910,
+        "valueEur": 18910.13022604214,
+        "holderName": "Мехмед Салих Кунгю",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10141,
+        "valueEur": 10140.963171645797,
+        "holderName": "Найле Исмитова Кунгю",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180,
+        "valueEur": 179.9747421810689,
+        "holderName": "Мехмед Салих Кунгю",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

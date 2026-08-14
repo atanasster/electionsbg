@@ -4,23 +4,48 @@
     "declarantName": "Ирина Иванова Величкова",
     "institution": "Аксаково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2121",
-    "controlHash": "750808B7",
-    "sourceUrl": "https://register.cacbg.bg/2025/D2043634-9E87-4423-AE27-18AD7B736C1C204718.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9252",
+    "controlHash": "15E29DDA",
+    "sourceUrl": "https://register.cacbg.bg/2026/D2043634-9E87-4423-AE27-18AD7B736C1C233851.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5391.572887214124,
+        "amountEurDeclarant": 6550.160290004755,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 368.1301544612773,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 7567.119841704033,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Доброглед",
+        "municipality": "Аксаково",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 7567.119841704033,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

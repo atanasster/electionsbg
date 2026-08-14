@@ -4,47 +4,29 @@
     "declarantName": "Екатерина Манолева Петрова",
     "institution": "Чепеларе",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6607",
-    "controlHash": "875B7D0E",
-    "sourceUrl": "https://register.cacbg.bg/2025/A6017BEB-C96A-4ECB-9913-1077B6DD9DAA209568.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г10326",
+    "controlHash": "4EA9AF67",
+    "sourceUrl": "https://register.cacbg.bg/2026/A6017BEB-C96A-4ECB-9913-1077B6DD9DAA235060.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19079.367838718088,
+        "amountEurDeclarant": 22290.28085263034,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 4357.74070343537,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 62.37760950593866,
+        "amountEurSpouse": 102.2583762392437
       }
     ],
     "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "USD",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "USD",
-        "amount": 36582,
-        "valueEur": 37408.15919584013,
-        "holderName": "Екатерина Манолева Петрова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "дарение"
-      },
       {
         "category": "bank",
         "description": null,
@@ -56,12 +38,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15342,
-        "valueEur": 7844.240041312384,
+        "amount": 14485,
+        "valueEur": 7406.062899127225,
         "holderName": "Екатерина Манолева Петрова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 36585,
+        "valueEur": 31238.40006544536,
+        "holderName": "Екатерина Манолева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
       }
     ],
     "events": []

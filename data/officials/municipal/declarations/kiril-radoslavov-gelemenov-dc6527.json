@@ -1,32 +1,51 @@
 [
   {
     "slug": "kiril-radoslavov-gelemenov-dc6527",
-    "declarantName": "Кирил Радословов Гелеменов",
+    "declarantName": "Кирил Радославов Гелеменов",
     "institution": "Лесичево",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г2984",
-    "controlHash": "40C781D8",
-    "sourceUrl": "https://register.cacbg.bg/2025/6A61DCDC-C02D-4301-BFA6-629EBAFAAECD205698.xml",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г962",
+    "controlHash": "427A3C75",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A61DCDC-C02D-4301-BFA6-629EBAFAAECD224597.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22301.01798213546,
-        "amountEurSpouse": 8649.013462315232
+        "amountEurDeclarant": 22733.059621746266,
+        "amountEurSpouse": 8332.523787854772
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 483.1708277304265,
-        "amountEurSpouse": 8605.042360532358
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Земя и сграда",
+        "detail": null,
+        "location": "с.Целрово",
+        "municipality": "Лесичово",
+        "areaSqm": 1070,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Борис Радославов Гелеменов",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
     "events": []
   }
 ]

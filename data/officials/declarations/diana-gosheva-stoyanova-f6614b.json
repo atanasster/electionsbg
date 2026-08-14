@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "diana-gosheva-stoyanova-f6614b",
+    "declarantName": "Диана Гошева Стоянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г670",
+    "controlHash": "725091F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/727E279D-4185-424F-94F2-FE60CAEBC95D224150.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13009.82191703778,
+        "amountEurSpouse": 6286.333679307506
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение по чл. 224, ал. 1",
+        "amountEurDeclarant": 5873.209839300962,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101348,
+        "valueEur": 51818.409575474354,
+        "holderName": "Диана Гошева Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1040,
+        "valueEur": 531.7435564440673,
+        "holderName": "Стоян Събев Стоянов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

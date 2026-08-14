@@ -4,31 +4,49 @@
     "declarantName": "Ирина Петрова Ценкова",
     "institution": "Долни Дъбник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5833",
-    "controlHash": "1A873985",
-    "sourceUrl": "https://register.cacbg.bg/2025/47E52CE1-F48F-46F4-964A-2D0FE7DE9FCF208777.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3546",
+    "controlHash": "2838654B",
+    "sourceUrl": "https://register.cacbg.bg/2026/47E52CE1-F48F-46F4-964A-2D0FE7DE9FCF227681.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6092.554056334139,
-        "amountEurSpouse": 10896.141280172613
+        "amountEurDeclarant": 7545.134290812596,
+        "amountEurSpouse": 17506.122720277326
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 10691.624527694124,
-        "amountEurSpouse": 9438.448126882193
+        "amountEurDeclarant": 17663.60061968576,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "real_estate",
+        "description": "сграда",
+        "detail": null,
+        "location": "Долни Дъбник",
+        "municipality": "Долни Дъбник",
+        "areaSqm": 973,
+        "builtAreaSqm": 973,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Ценко Красимиров Ценков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,30 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 32986,
+        "valueEur": 16865.473993138465,
         "holderName": "Ирина Петрова Ценкова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 8301,
-        "valueEur": 8301.846274983,
-        "holderName": "Ирина Петрова Ценкова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

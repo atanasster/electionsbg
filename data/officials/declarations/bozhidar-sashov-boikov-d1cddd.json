@@ -5,6 +5,81 @@
     "institution": "Отбрана и въоръжени сили на Република България",
     "positionTitle": "Командир на 68-а бригада „Специални сили\"",
     "category": "military_command",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г6544",
+    "controlHash": "65ED756F",
+    "sourceUrl": "https://register.cacbg.bg/2026/1981E323-B4D4-41CC-804E-71CD7F90EC20230873.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 58518.378386669596,
+        "amountEurSpouse": 48934.212073646486
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "журбис",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 98,
+        "builtAreaSqm": 98,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 381386,
+        "valueEur": 194999.565401901,
+        "holderName": "Божидар Сашов Бойков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Божидар Сашов Бойков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "bozhidar-sashov-boikov-d1cddd",
+    "declarantName": "Божидар Сашов Бойков",
+    "institution": "Отбрана и въоръжени сили на Република България",
+    "positionTitle": "Командир на 68-а бригада „Специални сили\"",
+    "category": "military_command",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

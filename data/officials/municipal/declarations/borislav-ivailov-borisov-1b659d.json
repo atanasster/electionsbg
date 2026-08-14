@@ -4,29 +4,65 @@
     "declarantName": "Борислав Ивайлов Борисов",
     "institution": "Ветрино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11742",
-    "controlHash": "6536E3E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/DA2879EB-6454-4655-8A28-9EDAE80FBD08214894.xml",
+    "filedAt": "2026-06-15",
+    "entryNumber": "Г11611",
+    "controlHash": "E9E88E91",
+    "sourceUrl": "https://register.cacbg.bg/2026/DA2879EB-6454-4655-8A28-9EDAE80FBD08236552.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3714.535516890527,
+        "amountEurDeclarant": 4428.298983040449,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5011.683019485334,
+        "amountEurDeclarant": 5317.435564440672,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Бус",
+        "detail": "Фолксваген Крафтер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3900,
+        "valueEur": 1994.038336665252,
+        "holderName": "Борислав Ивайлов Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Трактор",
+        "detail": "ЮМЗ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3200,
+        "valueEur": 1636.1340198278992,
+        "holderName": "Борислав Ивайлов Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
       {
         "category": "debt",
         "description": "Потребителски кредит",
@@ -38,14 +74,57 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14500,
-        "valueEur": 7158.086336747059,
+        "amount": 9946,
+        "valueEur": 5085.309050377589,
         "holderName": "Борислав Ивайлов Борисов",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "договор, лихвен процент 6.79%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Стан",
+        "municipality": "Нови пазар",
+        "areaSqm": 1275,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "borislav-ivailov-borisov-1b659d",
+    "declarantName": "Борислав Ивайлов Борисов",
+    "institution": "Ветрино",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-06-03",
+    "entryNumber": "Г11808",
+    "controlHash": "EA4D3D75",
+    "sourceUrl": "https://register.cacbg.bg/2026/DA2879EB-6454-4655-8A28-9EDAE80FBD08236790.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
+        "description": "Потребителски кредит към УниКредит Булбанк",
+        "detail": "Борислав Ивайлов Борисов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2144.3581497369405,
+        "legalBasis": "спестявания"
+      }
+    ]
   }
 ]

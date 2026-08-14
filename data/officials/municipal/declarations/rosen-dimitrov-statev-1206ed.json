@@ -4,25 +4,25 @@
     "declarantName": "Росен Димитров Статев",
     "institution": "Аврен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7027",
-    "controlHash": "9C82A864",
-    "sourceUrl": "https://register.cacbg.bg/2025/A00E2972-BB2F-4AA7-908B-9EF81D82E7F9210014.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2910",
+    "controlHash": "24CDE61B",
+    "sourceUrl": "https://register.cacbg.bg/2026/A00E2972-BB2F-4AA7-908B-9EF81D82E7F9227003.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6839.551494761815,
-        "amountEurSpouse": 9561.158178369285
+        "amountEurDeclarant": 7847.819084480758,
+        "amountEurSpouse": 12358.436060393797
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 5904.909935935128,
         "amountEurSpouse": null
       },
       {
@@ -34,26 +34,8 @@
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шкода октавия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 1600,
-        "valueEur": 818.0670099139496,
-        "holderName": "Росен димитров Статев/Емел Неджемединова Юзбеева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "кредит",
+        "description": "заем ВСК",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,16 +44,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 8897,
+        "valueEur": 4548.963867002756,
         "holderName": "Росен Димитров Статев",
         "isSpouse": false,
-        "legalBasis": "кредит ВСК",
+        "legalBasis": "заем ВСК",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "заем ВСК",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 8498,
+        "valueEur": 4344.958406405464,
         "holderName": "Емел Неджемединова Юзбеева",
         "isSpouse": true,
-        "legalBasis": "кредит ВСК",
+        "legalBasis": "заем ВСК",
         "fundsOrigin": null
       }
     ],

@@ -4,44 +4,38 @@
     "declarantName": "ВЛАДИМИР ИВАНОВ КАРАДЕМИРЕВ",
     "institution": "Бяла/Русе/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3780",
-    "controlHash": "CD08A6BD",
-    "sourceUrl": "https://register.cacbg.bg/2025/13674181-B455-41FF-B60D-49715A703F9F206595.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3854",
+    "controlHash": "EAB6E0D3",
+    "sourceUrl": "https://register.cacbg.bg/2026/13674181-B455-41FF-B60D-49715A703F9F228025.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12311.397207323746,
-        "amountEurSpouse": 14915.406758256086
+        "amountEurDeclarant": 4697.749804430856,
+        "amountEurSpouse": 11504.067326914916
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4728.938609183825,
+        "amountEurDeclarant": 10015.696660752725,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 444.8239366407101,
-        "amountEurSpouse": null
+        "category": "Пенсия",
+        "amountEurDeclarant": 6809.896565652434,
+        "amountEurSpouse": 9416.973867871951
       },
       {
         "parent": null,
         "category": "Рента от земеделска земя",
         "amountEurDeclarant": 263.3153188160525,
         "amountEurSpouse": 1392.247792497303
-      },
-      {
-        "parent": null,
-        "category": "Пенсия",
-        "amountEurDeclarant": 5087.354217902374,
-        "amountEurSpouse": 8067.163301513935
       }
     ],
     "assets": [
@@ -56,14 +50,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 133145,
-        "valueEur": 68075.95752187051,
+        "amount": 98715,
+        "valueEur": 50472.17805228471,
         "holderName": "Владимир Иванов Карадемирев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплата, пенсия и продажба на земя"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Бяла",
+        "municipality": "Бяла (Русе)",
+        "areaSqm": 8,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 8919.998159349228,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

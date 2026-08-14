@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "kalinka-radeva-asenova-643dee",
+    "declarantName": "Калинка Радева Асенова",
+    "institution": "Правец",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г2087",
+    "controlHash": "5AB85A74",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD2D10AD-A379-4B23-894E-1E1FDC017697226070.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23662.588261760993,
+        "amountEurSpouse": 6854.378959316505
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15500,
+        "valueEur": 7925.024158541387,
+        "holderName": "Асен Данчев Асенов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30331,
+        "valueEur": 15507.994048562503,
+        "holderName": "Асен Данчев Асенов",
+        "isSpouse": true,
+        "legalBasis": "3,7 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

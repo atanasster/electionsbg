@@ -1,65 +1,47 @@
 [
   {
     "slug": "atanas-georgiev-shopov-ff96fd",
-    "declarantName": "Атанас Георгиев Шопов",
+    "declarantName": "АТАНАС ГЕОРГИЕВ ШОПОВ",
     "institution": "Пазарджик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11496",
-    "controlHash": "7A603F6E",
-    "sourceUrl": "https://register.cacbg.bg/2025/7853C62F-911B-43C5-BF56-F0701681351A214640.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12610",
+    "controlHash": "ED1BC8E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/7853C62F-911B-43C5-BF56-F0701681351A237928.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12721.964587924309,
+        "amountEurDeclarant": 9448.673964506117,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2928.1686036107435,
+        "amountEurDeclarant": 4651.222243241999,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2914.3637228184452
+        "amountEurSpouse": 3681.3015446127733
       },
       {
         "parent": null,
-        "category": "Дивиденти",
+        "category": "ДИВИДЕНТ от РЕНТА КАР ПАЗАРДЖИК ЕООД",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5112.918811962185
+        "amountEurSpouse": 15338.756435886555
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Рено Каджар",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
-        "holderName": "Атанас Георгиев Шопов",
-        "isSpouse": false,
-        "legalBasis": "покупка",
-        "fundsOrigin": "кредит"
-      },
-      {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,11 +50,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
-        "holderName": "Атанас Георгиев Шопов",
+        "amount": 39420,
+        "valueEur": 20155.12595675493,
+        "holderName": "АТАНАС ГЕОРГИЕВ ШОПОВ",
         "isSpouse": false,
-        "legalBasis": "4.890% Кредит",
+        "legalBasis": "ДОГОВОР, 4,89%",
         "fundsOrigin": null
       }
     ],

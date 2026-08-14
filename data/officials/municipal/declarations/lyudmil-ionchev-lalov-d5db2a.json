@@ -4,20 +4,20 @@
     "declarantName": "Людмил Йончев Лалов",
     "institution": "Кула",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4591",
-    "controlHash": "BC359A5C",
-    "sourceUrl": "https://register.cacbg.bg/2025/7F0213D0-AF0F-46DC-B304-90E3CCBF4C0B207454.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6727",
+    "controlHash": "647FE124",
+    "sourceUrl": "https://register.cacbg.bg/2026/7F0213D0-AF0F-46DC-B304-90E3CCBF4C0B231071.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24323.177372266506,
-        "amountEurSpouse": 6900.395228624165
+        "amountEurDeclarant": 24353.85488513828,
+        "amountEurSpouse": 7688.807309428734
       },
       {
         "parent": null,
@@ -26,39 +26,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Форд",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 5300,
-        "valueEur": 2709.846970339958,
-        "holderName": "Людмил Йончев Лалов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Форд",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 409.0335049569748,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

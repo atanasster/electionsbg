@@ -1,6 +1,74 @@
 [
   {
     "slug": "kostadin-ivanov-kobakov-53517d",
+    "declarantName": "Костадин Иванов Кобаков",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6595",
+    "controlHash": "473CA568",
+    "sourceUrl": "https://register.cacbg.bg/2026/AF76EF23-6B4A-4189-860A-0DDD7D5788D6230929.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29145.17110382804,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6475.511675350107,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 102258,
+        "valueEur": 102258.37623924369,
+        "holderName": "Костадин Иванов Кобаков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2030,
+        "valueEur": 2030.3400602301836,
+        "holderName": "Костадин Иванов Кобаков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kostadin-ivanov-kobakov-53517d",
     "declarantName": "КОСТАДИН ИВАНОВ КОБАКОВ",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

@@ -4,26 +4,51 @@
     "declarantName": "Радослав Любенов Живков",
     "institution": "Белоградчик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8971",
-    "controlHash": "60EB92DD",
-    "sourceUrl": "https://register.cacbg.bg/2025/FA44CB58-EF08-43E9-B2FC-190BC1A08BC6212000.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г8270",
+    "controlHash": "41DB0EF9",
+    "sourceUrl": "https://register.cacbg.bg/2026/FA44CB58-EF08-43E9-B2FC-190BC1A08BC6232761.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "5000",
+        "companyName": "ПРО БЕЛС ЕООД",
+        "registeredOffice": "Видин",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Пенка Васкова Живкова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4284.625964424311,
-        "amountEurSpouse": 5550.073370384952
+        "amountEurDeclarant": 5827.193569993302,
+        "amountEurSpouse": 7518.035821109197
       },
       {
         "parent": null,
-        "category": "пенсия",
-        "amountEurDeclarant": 3037.073774305538,
-        "amountEurSpouse": 1883.5992903268689
+        "category": "пенсии",
+        "amountEurDeclarant": 1681.6389972543627,
+        "amountEurSpouse": 2076.8676214190396
+      },
+      {
+        "parent": null,
+        "category": "земеделски проиэводител",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1377.931619823809
+      },
+      {
+        "parent": null,
+        "category": "парични и предметни печалби от хазартни игри",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 121013.58502528339
       }
     ],
     "assets": [
@@ -42,7 +67,7 @@
         "valueEur": 0,
         "holderName": "Радослав Любенов Живков",
         "isSpouse": false,
-        "legalBasis": "наследство",
+        "legalBasis": "делба",
         "fundsOrigin": "наследяване"
       },
       {
@@ -102,7 +127,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Мерцедес А 160",
+        "detail": "Мерцедес А160",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -130,8 +155,8 @@
         "currency": "BGN",
         "amount": 77673,
         "valueEur": 39713.574288153875,
-        "holderName": "Радосляв Любенов Живков",
-        "isSpouse": true,
+        "holderName": "Радослав Любенов Живков",
+        "isSpouse": false,
         "legalBasis": "Изпълнителен лист",
         "fundsOrigin": null
       },
@@ -146,11 +171,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 44000,
-        "valueEur": 22496.842772633612,
-        "holderName": "Пенка Васкова Любенова",
+        "amount": 30338,
+        "valueEur": 15511.573091730877,
+        "holderName": "Пенка Васкова Живкова",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 4,69%лихва",
         "fundsOrigin": null
       },
       {
@@ -166,9 +191,9 @@
         "currency": "BGN",
         "amount": 67000,
         "valueEur": 34256.556040146635,
-        "holderName": "Пенка Васкова Любенова",
+        "holderName": "Пенка Васкова Живкова",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 4,28%лихва",
         "fundsOrigin": null
       }
     ],

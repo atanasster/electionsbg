@@ -4,29 +4,90 @@
     "declarantName": "ИВАНКА НИКОЛАЕВА АВКОВА",
     "institution": "Асеновград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11200",
-    "controlHash": "4B7AD868",
-    "sourceUrl": "https://register.cacbg.bg/2025/2905ED63-EC88-4D05-80E7-58DEE5F79A90214333.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5927",
+    "controlHash": "FF6CC00D",
+    "sourceUrl": "https://register.cacbg.bg/2026/2905ED63-EC88-4D05-80E7-58DEE5F79A90230206.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 199.4038336665252,
+        "amountEurDeclarant": 11187.06636057326,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9573.940475399191,
+        "amountEurDeclarant": 10884.3815669051,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 613.5502574354622,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "VOLKSWAGEN GOLF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ИВАНКА НИКОЛАЕВА АВКОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ  КРЕДИТ С ИПОТЕКА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "ИВАНКА НИКОЛАЕВА АВКОВА",
+        "isSpouse": false,
+        "legalBasis": "2,8",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11264,
+        "valueEur": 5759.191749794205,
+        "holderName": "ИВАНКА НИКОЛАЕВА АВКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

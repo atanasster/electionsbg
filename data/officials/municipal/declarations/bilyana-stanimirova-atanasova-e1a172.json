@@ -1,32 +1,51 @@
 [
   {
     "slug": "bilyana-stanimirova-atanasova-e1a172",
-    "declarantName": "Биляна Станимирова Атанасова",
+    "declarantName": "БИЛЯНА СТАНИМИРОВА АТАНАСОВА",
     "institution": "Ловеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7616",
-    "controlHash": "886580D5",
-    "sourceUrl": "https://register.cacbg.bg/2025/1074C80D-14F7-4F89-B670-2F15610D511D210613.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10560",
+    "controlHash": "26EB897F",
+    "sourceUrl": "https://register.cacbg.bg/2026/1074C80D-14F7-4F89-B670-2F15610D511D235323.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7033.842409616378,
+        "amountEurDeclarant": 7399.416104671674,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 24203.535072066592,
+        "amountEurDeclarant": 27174.14090181662,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108803,
+        "valueEur": 55630.09054979216,
+        "holderName": "Биляна Станимирова Атанасова",
+        "isSpouse": false,
+        "legalBasis": "кредит - 3,58 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

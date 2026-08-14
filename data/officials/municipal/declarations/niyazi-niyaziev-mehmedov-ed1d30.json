@@ -4,14 +4,26 @@
     "declarantName": "НИЯЗИ НИЯЗИЕВ МЕХМЕДОВ",
     "institution": "Завет",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8461",
-    "controlHash": "0DBE864E",
-    "sourceUrl": "https://register.cacbg.bg/2025/068681EA-F59C-4250-9614-7F2B67214FA9211482.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8448",
+    "controlHash": "28AFC4E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/068681EA-F59C-4250-9614-7F2B67214FA9232956.xml",
     "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "\"ЗАВЕТ СТРОЙ\" ЕООД",
+        "registeredOffice": "с. Брестовене",
+        "valueEur": 255.64594059810923,
+        "holderName": "Неждан Ахмед Мехмедова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
       {
         "table": "10",
         "stakeKind": "share",
@@ -20,7 +32,7 @@
         "companyName": "\"ТОЧИ\" ООД",
         "registeredOffice": "с. Брестовене",
         "valueEur": 25.564594059810926,
-        "holderName": "Ниязи Ниязиев Мехмедов",
+        "holderName": "Ниязи Ниязиев Мехмедов, Неждан Ахмед Мехмедова",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
@@ -29,28 +41,46 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5313.345229391102,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 5226.936901468942,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "ипотечен кредит",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Мерцедес атеко",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
         "currency": "BGN",
-        "amount": 99000,
-        "valueEur": 50617.89623842563,
-        "holderName": "Ниязи Ниязиев Мехмедов/Неждан Ахмед Мехмедова",
+        "amount": 14400,
+        "valueEur": 7362.603089225547,
+        "holderName": "\"ТОЧИ\" ООДНиязи Ниязиев Мехмедов",
         "isSpouse": true,
-        "legalBasis": "договор за кредит",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия джокер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 40240,
+        "valueEur": 20574.38529933583,
+        "holderName": "Ниязи Ниязиев Мехмедов",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -63,27 +93,68 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36000,
-        "valueEur": 18406.507723063867,
+        "amount": 34975,
+        "valueEur": 17882.433544837742,
         "holderName": "Ниязи Ниязиев Мехмедов",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор с 6,2 % лихва",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
+        "amount": 96689,
+        "valueEur": 49436.30070098117,
+        "holderName": "Ниязи Ниязиев Мехмедов, Неждан Ахмед Мехмедова",
+        "isSpouse": true,
+        "legalBasis": "договор с 3,09 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1002,
+        "valueEur": 512.3144649586109,
+        "holderName": "Неждан Ахмед Мехмедова",
+        "isSpouse": true,
+        "legalBasis": "договор с 18,95 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24800,
+        "valueEur": 12680.038653666219,
+        "holderName": "Ниязи Ниязиев Мехмедов",
+        "isSpouse": false,
+        "legalBasis": "договор с 3% лихва",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

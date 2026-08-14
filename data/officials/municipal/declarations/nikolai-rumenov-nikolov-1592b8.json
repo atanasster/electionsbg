@@ -4,37 +4,37 @@
     "declarantName": "Николай Руменов Николов",
     "institution": "Белоградчик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8688",
-    "controlHash": "41A0D2A1",
-    "sourceUrl": "https://register.cacbg.bg/2025/77D8312D-18F2-44B6-9BA6-5C422FC768B4211712.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10338",
+    "controlHash": "3B920D70",
+    "sourceUrl": "https://register.cacbg.bg/2026/77D8312D-18F2-44B6-9BA6-5C422FC768B4235072.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4248.32424085938,
-        "amountEurSpouse": 13214.849961397464
+        "amountEurDeclarant": 5826.682278112106,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15016.131258851741,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 17539.867984436274,
+        "amountEurSpouse": 15593.379792722271
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2332.0022701359526,
+        "amountEurDeclarant": 3185.8597117336376,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Граждански договори",
-        "amountEurDeclarant": 1988.92541785329,
+        "category": "граждански договори",
+        "amountEurDeclarant": 3292.208423022451,
         "amountEurSpouse": null
       }
     ],
@@ -63,7 +63,7 @@
         "detail": null,
         "location": "с.Чупрене",
         "municipality": "Чупрене",
-        "areaSqm": 3263,
+        "areaSqm": 3,
         "builtAreaSqm": 0,
         "acquiredYear": 2024,
         "share": "1",
@@ -81,7 +81,7 @@
         "detail": null,
         "location": "с.Чупрене",
         "municipality": "Чупрене",
-        "areaSqm": 1007,
+        "areaSqm": 1,
         "builtAreaSqm": 0,
         "acquiredYear": 2024,
         "share": "1",
@@ -99,7 +99,7 @@
         "detail": null,
         "location": "с.Чупрене",
         "municipality": "Чупрене",
-        "areaSqm": 2609,
+        "areaSqm": 3,
         "builtAreaSqm": 0,
         "acquiredYear": 2024,
         "share": "1",
@@ -117,7 +117,7 @@
         "detail": null,
         "location": "с.Чупрене",
         "municipality": "Чупрене",
-        "areaSqm": 1498,
+        "areaSqm": 2,
         "builtAreaSqm": 0,
         "acquiredYear": 2024,
         "share": "1",
@@ -130,22 +130,22 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Форд",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 57445,
-        "valueEur": 29371.162115316773,
+        "amount": 4400,
+        "valueEur": 2249.6842772633613,
         "holderName": "Николай Руменов Николов",
         "isSpouse": false,
-        "legalBasis": "ипотека",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8605",
+    "controlHash": "0FD4300E",
+    "sourceUrl": "https://register.cacbg.bg/2026/33F2B58C-D702-419D-B944-DE666E686DAE233127.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20555.978791612768,
+        "amountEurSpouse": 13976.67486437983
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6410,
+        "valueEur": 6410.577606438187,
+        "holderName": "Михаил Тихомиров Чуркин",
+        "isSpouse": true,
+        "legalBasis": "8,6",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanaska-nikolova-churkina-7b43d9",
+    "declarantName": "Атанаска Николова Чуркина",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

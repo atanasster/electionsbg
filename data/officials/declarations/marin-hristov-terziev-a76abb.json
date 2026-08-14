@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-12",
+    "entryNumber": "Г11444",
+    "controlHash": "443EAD2E",
+    "sourceUrl": "https://register.cacbg.bg/2026/68EEBE0F-7490-4D72-8E6A-75F39644C75C236361.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23284.23226967579,
+        "amountEurSpouse": 15236.49805964731
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг МПС",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Марин Христов Терзиев",
+        "isSpouse": false,
+        "legalBasis": "4.8",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "marin-hristov-terziev-a76abb",
+    "declarantName": "Марин Христов Терзиев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,105 @@
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6063",
+    "controlHash": "20BB305F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F5438A58-1145-43B9-B1BF-00237628E717230360.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "33",
+        "companyName": "СКИЛС БРИДЖ ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 16.87263207947521,
+        "holderName": "Бянка Светлозар Рачева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47071.57575044866,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 75420.6653952542,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. Бойчо Огнянов 28, ет. 3, ап. 1",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 68,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Бянка Светлозар Рачева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Бянка Светлозар Рачева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 81296,
+        "valueEur": 81295.40911019874,
+        "holderName": "Бянка Светлозар Рачева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "byanka-svetlozar-racheva-3bdfc3",
+    "declarantName": "Бянка Светлозар Рачева",
+    "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": null,
     "declarationType": "Other",

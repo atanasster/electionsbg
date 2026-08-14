@@ -1,26 +1,51 @@
 [
   {
     "slug": "ivan-mihailov-stoyanov-faa6fa",
-    "declarantName": "ИВАН МИХАЙЛОВ СТОЯНОВ",
+    "declarantName": "Иван Михайлов Стоянов",
     "institution": "Гурково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г5513",
-    "controlHash": "35CEA0AE",
-    "sourceUrl": "https://register.cacbg.bg/2025/43760F8D-12D7-4517-AEBE-241ECCFFEA09208441.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г3126",
+    "controlHash": "5D2783E6",
+    "sourceUrl": "https://register.cacbg.bg/2026/43760F8D-12D7-4517-AEBE-241ECCFFEA09227227.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3764.1308293665606,
+        "amountEurDeclarant": 5228.47077711253,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 561.3984855534479,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "сеат алтеа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1600,
+        "valueEur": 818.0670099139496,
+        "holderName": "Иван Михайлов Стоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

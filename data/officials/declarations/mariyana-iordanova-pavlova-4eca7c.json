@@ -5,6 +5,87 @@
     "institution": "Национална агенция за професионално образование и обучение",
     "positionTitle": "Председател",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4179",
+    "controlHash": "B7E73BB4",
+    "sourceUrl": "https://register.cacbg.bg/2026/206A6C19-4DF7-4291-8EC5-A5126CA2E0DB228376.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48134.0402795744,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4471.758792942127,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 12000,
+        "holderName": "Марияна Павлова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3700,
+        "valueEur": 3700,
+        "holderName": "Марияна Павлова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай и 20",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7388.167683285357,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "mariyana-iordanova-pavlova-4eca7c",
+    "declarantName": "Марияна Йорданова Павлова",
+    "institution": "Национална агенция за професионално образование и обучение",
+    "positionTitle": "Председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г940",
+    "controlHash": "22072EF4",
+    "sourceUrl": "https://register.cacbg.bg/2026/24E44A06-F340-41E6-8338-B82607721973224567.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23661.5656779986,
+        "amountEurSpouse": 16236.584979267114
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 248.9991461425584,
+        "amountEurSpouse": 1813.0410107217908
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4070,
+        "valueEur": 2080.957956468609,
+        "holderName": "Светлозар Георгиев Чавдаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови доходи"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6722,
+        "valueEur": 3436.9040254009806,
+        "holderName": "Светлозар Георгиев Чавдаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svetlozar-georgiev-chavdarov-39e2ab",
+    "declarantName": "Светлозар Георгиев Чавдаров",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

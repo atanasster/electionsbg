@@ -4,35 +4,29 @@
     "declarantName": "Силвия Иванова Янакиева",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г13488",
-    "controlHash": "807FA37A",
-    "sourceUrl": "https://register.cacbg.bg/2025/50A071BE-0542-4413-8757-1D3F7572F3FD216707.xml",
+    "entryNumber": "Г8935",
+    "controlHash": "609A43A4",
+    "sourceUrl": "https://register.cacbg.bg/2026/50A071BE-0542-4413-8757-1D3F7572F3FD233484.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "income": [
       {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
-        "holderName": "Силвия Иванова Янакиева",
-        "isSpouse": false,
-        "legalBasis": "4.5",
-        "fundsOrigin": null
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15920.095304806655,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7090.595808429158,
+        "amountEurSpouse": null
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

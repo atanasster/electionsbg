@@ -4,107 +4,72 @@
     "declarantName": "Гинка Атанасова Христова",
     "institution": "Добричка",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12151",
-    "controlHash": "879E61B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/2550C977-3F7F-4A4C-B335-6D17B64CBF58215309.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10006",
+    "controlHash": "0948D3DD",
+    "sourceUrl": "https://register.cacbg.bg/2026/2550C977-3F7F-4A4C-B335-6D17B64CBF58234685.xml",
     "ownershipStakes": [
       {
-        "table": "10",
+        "table": "11",
         "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "1/2",
         "companyName": "Жарава 2024 ООД",
-        "registeredOffice": "гр. Добрич",
+        "registeredOffice": "Добрич",
         "valueEur": 511.29188119621847,
-        "holderName": "Гинка Атанасова Христова",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "holderName": null,
+        "transfereeName": "Гинка Атанасова Христова",
+        "legalBasis": "продажба",
+        "fundsOrigin": null
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6855.912834960093,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 4372.056876108864
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 7186.718682094047,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7638.700705071505
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 511.29188119621847,
+        "amountEurSpouse": 511.29188119621847
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 15414.938926184792,
-        "amountEurSpouse": 27205.840998450785
+        "amountEurDeclarant": 14529.38138795294,
+        "amountEurSpouse": 18303.738054943427
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "фолксваген",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 3100,
-        "valueEur": 1585.0048317082774,
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
         "holderName": "Гинка Атанасова Христова",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3100,
-        "valueEur": 1585.0048317082774,
-        "holderName": "Живко Радичков Христов",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "legalBasis": null,
+        "fundsOrigin": "спестявания,заплата,рента"
       },
       {
         "category": "cash",
@@ -117,30 +82,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3500,
-        "valueEur": 1789.5215841867648,
-        "holderName": "Гинка Атанасова Христова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "спестявания, рента"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 5600,
-        "valueEur": 2863.2345346988236,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Живко Радичков Христов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, рента"
+        "fundsOrigin": "спестявания,наем, рента"
       },
       {
         "category": "bank",
@@ -153,12 +100,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45241,
-        "valueEur": 23223.38853581344,
+        "amount": 67772,
+        "valueEur": 34651.27337243012,
         "holderName": "Гинка Атанасова Христова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, рента"
+        "fundsOrigin": "спестявания,заплата,рента"
       },
       {
         "category": "bank",
@@ -171,39 +118,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34736,
-        "valueEur": 17760.234785231845,
+        "amount": 34860,
+        "valueEur": 17823.634978500177,
         "holderName": "Живко Радичков Христов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания, рента"
+        "fundsOrigin": "спестявания,наем,рента"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Къща",
-        "detail": null,
-        "location": "с.Котленци",
-        "municipality": "Добричка",
-        "areaSqm": 70,
-        "builtAreaSqm": 70,
-        "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": "продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Къща",
-        "detail": null,
-        "location": "с.Котленци",
-        "municipality": "Добричка",
-        "areaSqm": 70,
-        "builtAreaSqm": 70,
-        "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

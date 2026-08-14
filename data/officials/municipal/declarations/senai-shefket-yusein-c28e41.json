@@ -4,25 +4,25 @@
     "declarantName": "СЕНАЙ ШЕФКЕТ ЮСЕИН",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-18",
-    "entryNumber": "Г622",
-    "controlHash": "12179A55",
-    "sourceUrl": "https://register.cacbg.bg/2025/ECAF1198-6615-432F-A979-0A58CFCA47A2202755.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1345",
+    "controlHash": "B6F4F814",
+    "sourceUrl": "https://register.cacbg.bg/2026/ECAF1198-6615-432F-A979-0A58CFCA47A2225177.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3681.3015446127733,
-        "amountEurSpouse": 10430.354376402856
+        "amountEurDeclarant": 7413.732277345168,
+        "amountEurSpouse": 19722.573025262933
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 7976.153346661008,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "ГР. ХАСКОВО, УЛ. МИМОЗА №6",
+        "location": "ГР. ХАСКОВО, УЛ. МИМОЗА 6",
         "municipality": "Хасково",
         "areaSqm": 500,
         "builtAreaSqm": 262,
@@ -42,14 +42,14 @@
         "valueEur": 2556.4594059810925,
         "holderName": "СЕНАЙ ШЕФКЕТ ЮСЕИН",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "ГР. ХАСКОВО, УЛ. МИМОЗА №6",
+        "location": "ГР. ХАСКОВО, УЛ. МИМОЗА 6",
         "municipality": "Хасково",
         "areaSqm": 500,
         "builtAreaSqm": 262,
@@ -60,7 +60,7 @@
         "valueEur": 2556.4594059810925,
         "holderName": "СЕМРА АЛЕЙДИН ЮСЕИН",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
       {
@@ -72,24 +72,6 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "СЕНАЙ ШЕФКЕТ ЮСЕИН",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСВАГЕН",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2009,
         "share": null,
         "currency": "BGN",
         "amount": 1000,
@@ -120,16 +102,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 654,
-        "valueEur": 334.3848903023269,
+        "currency": "EUR",
+        "amount": 900,
+        "valueEur": 920.3253861531933,
         "holderName": "СЕНАЙ ШЕФКЕТ ЮСЕИН",
         "isSpouse": false,
         "legalBasis": null,
@@ -146,14 +128,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 10233,
-        "valueEur": 10232.995710261117,
+        "amount": 11260,
+        "valueEur": 11260.692391465516,
         "holderName": "СЕНАЙ ШЕФКЕТ ЮСЕИН",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ГЕРМАНИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 499.53216792870546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ИТАЛИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 499.53216792870546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КИПЪР",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 499.53216792870546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ГЪРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 599.7453766431643,
+        "legalBasis": null
+      }
+    ]
   }
 ]

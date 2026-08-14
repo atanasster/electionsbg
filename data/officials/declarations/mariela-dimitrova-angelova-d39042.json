@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9220",
+    "controlHash": "4E31B21A",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7414C2C-56D7-4384-9F90-59C31E8F8C13233811.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30136.054769586313,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Враца",
+        "municipality": "Враца",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "acquiredYear": 2025,
+        "share": "75 %",
+        "currency": "BGN",
+        "amount": 6239,
+        "valueEur": 3189.950046783207,
+        "holderName": "Мариела Димитрова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 3210,
+        "valueEur": 1641.2469386398614,
+        "holderName": "Мариела Димитрова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariela-dimitrova-angelova-d39042",
+    "declarantName": "Мариела Димитрова Ангелова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Annualy",

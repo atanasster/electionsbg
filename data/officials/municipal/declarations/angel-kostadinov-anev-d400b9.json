@@ -4,61 +4,36 @@
     "declarantName": "АНГЕЛ КОСТАДИНОВ АНЕВ",
     "institution": "Кричим",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10268",
-    "controlHash": "BDCA7B71",
-    "sourceUrl": "https://register.cacbg.bg/2025/6D7FADFD-31DF-400E-9070-21D2CB8FDD67213345.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3259",
+    "controlHash": "4B968C47",
+    "sourceUrl": "https://register.cacbg.bg/2026/6D7FADFD-31DF-400E-9070-21D2CB8FDD67227382.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4391.485967594321,
+        "amountEurDeclarant": 6118.629942275146,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2139.7565228061744
-      }
-    ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ДАЧИЯ САНДЕРО",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 35990,
-        "valueEur": 18401.394804251904,
-        "holderName": "АНГЕЛ КОСТАДИНОВ АНЕВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МЕРЦЕДЕС МЛ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4397.110178287479,
-        "legalBasis": "ВЪЗМЕЗДНО"
+        "amountEurSpouse": 2595.8288808332013
       },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1224.5440554649433,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": [
       {
         "kind": "disposal_vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
@@ -69,7 +44,7 @@
         "builtAreaSqm": null,
         "currency": "BGN",
         "valueEur": 0,
-        "legalBasis": "БРАКУВАНО"
+        "legalBasis": "БРАКУВАНА"
       }
     ]
   }

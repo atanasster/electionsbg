@@ -4,23 +4,47 @@
     "declarantName": "ХРИСТО АЛЕКСАНДРОВ ХРИСТОВ",
     "institution": "Поморие",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13014",
-    "controlHash": "5B27BF31",
-    "sourceUrl": "https://register.cacbg.bg/2025/50C415D7-515C-49B5-8944-52049560ACE4216200.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11448",
+    "controlHash": "5EBA50E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/50C415D7-515C-49B5-8944-52049560ACE4236365.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7267.50279932305,
-        "amountEurSpouse": 24674.946186529505
+        "amountEurDeclarant": 8245.604168051415,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7721.018697944095
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ПОМОРИЕ",
+        "municipality": "ПОМОРИЕ",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 185803,
+        "valueEur": 94999.56540190098,
+        "holderName": "МАРИЯ НИКОЛОВА ХРИСТОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -32,30 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": null,
-        "valueEur": 255.64594059810923,
+        "amount": 7427,
+        "valueEur": 3797.364801644315,
         "holderName": "ХРИСТО АЛЕКСАНДРОВ ХРИСТОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": null,
-        "valueEur": 99.7019168332626,
-        "holderName": "ХРИСТО АЛЕКСАНДРОВ ХРИСТОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
       }
     ],
     "events": []

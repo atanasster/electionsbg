@@ -4,25 +4,25 @@
     "declarantName": "Янчо Груйчев Апостолов",
     "institution": "Харманли",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12488",
-    "controlHash": "694A453D",
-    "sourceUrl": "https://register.cacbg.bg/2025/1DB323DA-1582-4637-9720-6930FDC93735215657.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13242",
+    "controlHash": "0CBB0A09",
+    "sourceUrl": "https://register.cacbg.bg/2026/1DB323DA-1582-4637-9720-6930FDC93735238742.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5813.388689201004,
+        "amountEurDeclarant": 7693.408936359499,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4601.626930765967,
+        "amountEurDeclarant": 8103.976316960063,
         "amountEurSpouse": null
       }
     ],
@@ -38,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 66887,
-        "valueEur": 66889.24906561409,
+        "amount": 71552,
+        "valueEur": 71552.2310221236,
         "holderName": "Галя Кирилова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата + застраховки"
       },
       {
         "category": "cash",
@@ -74,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6802,
-        "valueEur": 3477.807375896678,
+        "amount": 9540,
+        "valueEur": 4877.724546611925,
         "holderName": "Галя Кирилова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
@@ -98,6 +98,24 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "застраховка"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14635,
+        "valueEur": 7482.756681306658,
+        "holderName": "Янчо Груйчев Апостолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -128,12 +146,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 30954,
-        "valueEur": 30956.678238906246,
+        "amount": 35618,
+        "valueEur": 35618.12631977217,
         "holderName": "Галя Кирилова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата + застраховка"
       },
       {
         "category": "bank",
@@ -164,8 +182,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6802,
-        "valueEur": 3109.677221435401,
+        "amount": 9540,
+        "valueEur": 4877.724546611925,
         "holderName": "Галя Кирилова Апостолова",
         "isSpouse": true,
         "legalBasis": null,
@@ -188,6 +206,24 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "застраховка"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14635,
+        "valueEur": 7482.756681306658,
+        "holderName": "Янчо Груйчев Апостолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

@@ -4,29 +4,54 @@
     "declarantName": "АХМЕД ЮСУФ ЮНЛЮСОЙ",
     "institution": "Минерални Бани",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4667",
-    "controlHash": "7C51866D",
-    "sourceUrl": "https://register.cacbg.bg/2025/C820C51A-F7D6-4F12-9379-BCDB7DB80FEF207538.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9298",
+    "controlHash": "EC8AB19D",
+    "sourceUrl": "https://register.cacbg.bg/2026/C820C51A-F7D6-4F12-9379-BCDB7DB80FEF233902.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1879.5089552772993,
+        "amountEurDeclarant": 9269.210514206245,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2406.139592909404,
+        "amountEurDeclarant": 3783.5599208520166,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУБСИДИИ ОТ ДФЗ",
+        "amountEurDeclarant": 2533.4512713272625,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "АХМЕД ЮСУФ ЮНЛЮСОЙ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

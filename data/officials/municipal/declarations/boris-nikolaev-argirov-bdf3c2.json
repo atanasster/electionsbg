@@ -1,32 +1,51 @@
 [
   {
     "slug": "boris-nikolaev-argirov-bdf3c2",
-    "declarantName": "Борис Николаев Аргиров",
+    "declarantName": "БОРИС НИКОЛАЕВ АРГИРОВ",
     "institution": "Ихтиман",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6788",
-    "controlHash": "0452216D",
-    "sourceUrl": "https://register.cacbg.bg/2025/5031D89D-3299-4B67-BA3E-B7BDE60E51FC209762.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9837",
+    "controlHash": "3AEFF422",
+    "sourceUrl": "https://register.cacbg.bg/2026/5031D89D-3299-4B67-BA3E-B7BDE60E51FC234504.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4419.095729178916,
+        "amountEurDeclarant": 5308.23231057914,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Пенсия",
-        "amountEurDeclarant": 3241.079234902829,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 3380.661918469397,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14900,
+        "valueEur": 7618.249029823655,
+        "holderName": "Борис Николаев Аргиров",
+        "isSpouse": false,
+        "legalBasis": "Договор за финансов лизинг, 31.46%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

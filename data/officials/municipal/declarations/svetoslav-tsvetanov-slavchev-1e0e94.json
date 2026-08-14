@@ -4,37 +4,37 @@
     "declarantName": "Светослав Цветанов Славчев",
     "institution": "Видин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11504",
-    "controlHash": "FB02FF98",
-    "sourceUrl": "https://register.cacbg.bg/2025/FFFAB81F-82BD-4FEC-949B-7907D0B42CF6214648.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6513",
+    "controlHash": "1C7B87FA",
+    "sourceUrl": "https://register.cacbg.bg/2026/FFFAB81F-82BD-4FEC-949B-7907D0B42CF6230837.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 34406.36456133713,
-        "amountEurSpouse": 47287.85221619466
+        "amountEurDeclarant": 41215.74983510837,
+        "amountEurSpouse": 48506.77206096645
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 23565.44280433371,
+        "amountEurDeclarant": 16167.049283424429,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия за инвалидност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 10832.741086904281
+        "amountEurSpouse": 12096.654617221333
       },
       {
         "parent": null,
         "category": "Пенсия за възраст и прослужено време",
-        "amountEurDeclarant": 9895.543068671612,
+        "amountEurDeclarant": 9497.757985100954,
         "amountEurSpouse": null
       }
     ],
@@ -50,15 +50,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
-        "holderName": "Мариела Викторова Йосифова",
-        "isSpouse": true,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Светослав Цветанов Славчев",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -68,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 90000,
-        "valueEur": 46016.26930765966,
+        "amount": 139975,
+        "valueEur": 71568.08107044068,
         "holderName": "Светослав Цветанов Славчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -94,24 +94,6 @@
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 67081,
-        "valueEur": 34297.97068252353,
-        "holderName": "Светослав Цветанов Славчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
         "category": "debt",
         "description": "Ипотечен кредит",
         "detail": "BGN",
@@ -122,11 +104,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 264612,
-        "valueEur": 135293.96726709377,
+        "amount": 240716,
+        "valueEur": 123076.13647402893,
         "holderName": "Мариела Викторова Йосифова",
         "isSpouse": true,
-        "legalBasis": "Договор, лихва 2.4%",
+        "legalBasis": "Договор, лихва 2,6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Съдлъжник към кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 240716,
+        "valueEur": 123076.13647402893,
+        "holderName": "Светослав Цветанов Славчев",
+        "isSpouse": false,
+        "legalBasis": "Договор, лихва 2,6%",
         "fundsOrigin": null
       }
     ],

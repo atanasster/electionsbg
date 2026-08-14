@@ -5,6 +5,49 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г9310",
+    "controlHash": "41CE09E4",
+    "sourceUrl": "https://register.cacbg.bg/2026/863E6E76-9CE8-4B09-A4BF-027E9BAE6D10233914.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7082.926430211215,
+        "amountEurSpouse": 26453.73064121115
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 28051.517769949332,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 453.0046067398496
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 213.72000634001932,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "mariana-ilieva-markova-d512f7",
+    "declarantName": "МАРИАНА ИЛИЕВА МАРКОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

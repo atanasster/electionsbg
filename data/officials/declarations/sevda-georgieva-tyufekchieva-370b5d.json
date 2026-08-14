@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г1890",
+    "controlHash": "EE621740",
+    "sourceUrl": "https://register.cacbg.bg/2026/D87349BB-157B-4FA0-BE02-7B8B9D40F06C225860.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27494.72091132665,
+        "amountEurSpouse": 19593.727471201484
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификационни курсове",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификационни курсове",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 290.9250804006483,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "sevda-georgieva-tyufekchieva-370b5d",
+    "declarantName": "Севда Георгиева Тюфекчиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

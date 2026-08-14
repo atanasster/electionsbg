@@ -5,6 +5,74 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3261",
+    "controlHash": "9B7E7285",
+    "sourceUrl": "https://register.cacbg.bg/2026/6BCEE38C-6668-491D-9438-3432B14330AB227384.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28481.51424203535,
+        "amountEurSpouse": 44559.59873813164
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2208.780926767664,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 255400,
+        "valueEur": 130583.9464575142,
+        "holderName": "Емил Руменов Савов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 123486,
+        "valueEur": 63137.38924139624,
+        "holderName": "Диана Валериева Йотова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emil-rumenov-savov-453a6f",
+    "declarantName": "Емил Руменов Савов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Надзорен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

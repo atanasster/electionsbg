@@ -5,6 +5,87 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8222",
+    "controlHash": "F050CE72",
+    "sourceUrl": "https://register.cacbg.bg/2026/EA25D25C-311C-415F-815F-0697968DBB10232711.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27310.65583409601,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 327.22680396557985,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на недвижими имоти",
+        "amountEurDeclarant": 16248.344692534627,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Димчо Куцаров Димчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Айтос",
+        "municipality": "Айтос",
+        "areaSqm": 72,
+        "builtAreaSqm": 123,
+        "currency": "BGN",
+        "valueEur": 13634.109303978363,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "град Айтос",
+        "municipality": "Айтос",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 2614.235388556265,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "dimcho-kutsarov-dimchev-15b05e",
+    "declarantName": "Димчо Куцаров Димчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

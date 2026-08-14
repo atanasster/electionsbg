@@ -1,60 +1,29 @@
 [
   {
     "slug": "borislav-nikolaev-tsankovski-53a675",
-    "declarantName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
+    "declarantName": "Борислав Николаев Цанковски",
     "institution": "Кнежа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9563",
-    "controlHash": "E626402F",
-    "sourceUrl": "https://register.cacbg.bg/2025/7E613007-D724-4C70-A7F8-CE707D640BCF212608.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "КНЕЖА ТАКСИ ООД",
-        "shareSize": "50%",
-        "companyName": "КНЕЖА ТАКСИ ООД",
-        "registeredOffice": "КНЕЖА",
-        "valueEur": 5.112918811962185,
-        "holderName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
-        "legalBasis": "други",
-        "fundsOrigin": "СОБСТВЕНИ СРЕДСТВА"
-      }
-    ],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13107",
+    "controlHash": "3B571A83",
+    "sourceUrl": "https://register.cacbg.bg/2026/7E613007-D724-4C70-A7F8-CE707D640BCF238512.xml",
+    "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6172.31558980075,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5331.24044523297,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "АПАРТАМЕНТ",
-        "detail": null,
-        "location": "ЧЕРВЕН БРЯГ",
-        "municipality": "ЧЕРВЕН БРЯГ",
-        "areaSqm": 84,
-        "builtAreaSqm": 84,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 6500,
-        "valueEur": 3323.39722777542,
-        "holderName": "ФЮЧЪР ТРАВЕЛ ООД",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "КАПИТАЛ НА ТД"
-      },
-      {
         "category": "debt",
-        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "description": "ипотечен кредит",
         "detail": "EUR",
         "location": null,
         "municipality": null,
@@ -63,11 +32,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 17000,
-        "valueEur": 17036.245481458,
-        "holderName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
+        "amount": 16091,
+        "valueEur": 16091.378085007389,
+        "holderName": "Борислав Николаев Цанковски",
         "isSpouse": false,
-        "legalBasis": "ИПОТЕКА",
+        "legalBasis": "6.5%",
         "fundsOrigin": null
       }
     ],

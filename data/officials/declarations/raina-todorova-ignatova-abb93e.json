@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1864",
+    "controlHash": "2CC98CF9",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC679D36-314A-4444-9513-711E69FDCF37225831.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 35455.53550155177
+      },
+      {
+        "parent": null,
+        "category": "доходи от майчиснтво",
+        "amountEurDeclarant": 5511.726479295236,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17895,
+        "valueEur": 17895.215841867648,
+        "holderName": "Райна Тодорова Игнатова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания/средства от заплатата на съпруга"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "raina-todorova-ignatova-abb93e",
+    "declarantName": "Райна Тодорова Игнатова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

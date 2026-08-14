@@ -1,6 +1,117 @@
 [
   {
     "slug": "vesela-gospodinova-paldmova-kovacheva-b8cb8f",
+    "declarantName": "Весела Господинова Палдъмова-Ковачева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г5726",
+    "controlHash": "02BBB2DC",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9E49635-AF10-422A-9E7A-FB1F6068471C229990.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38434.32200140094,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10922.21716611362
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31099,
+        "valueEur": 15900.6662133212,
+        "holderName": "Весела Господинова Палдъмова-Ковачева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101700,
+        "valueEur": 51998.38431765542,
+        "holderName": "Пенчо Златанов Коваче",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия, хонорари"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27848,
+        "valueEur": 14238.456307552293,
+        "holderName": "Весела Господинова Палдъмова-Ковачева",
+        "isSpouse": false,
+        "legalBasis": "4,15",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Хераково",
+        "municipality": "Божурище",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31574.830123272473,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "пенсия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15169.007531329411,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "vesela-gospodinova-paldmova-kovacheva-b8cb8f",
     "declarantName": "Весела Господинова Палдъмова - Ковачева",
     "institution": "Училища",
     "positionTitle": "Директор",

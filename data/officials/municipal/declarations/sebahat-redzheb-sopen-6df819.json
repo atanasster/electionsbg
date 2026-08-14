@@ -1,26 +1,81 @@
 [
   {
     "slug": "sebahat-redzheb-sopen-6df819",
-    "declarantName": "Себахат Реджеб Сопен",
+    "declarantName": "СЕБАХАТ РЕДЖЕБ СОПЕН",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6603",
-    "controlHash": "39061430",
-    "sourceUrl": "https://register.cacbg.bg/2025/6916ACAB-BA28-44E5-8C03-A76A1D5F4F8A209564.xml",
+    "filedAt": "2026-05-19",
+    "entryNumber": "Г14126",
+    "controlHash": "A6DA5525",
+    "sourceUrl": "https://register.cacbg.bg/2026/6916ACAB-BA28-44E5-8C03-A76A1D5F4F8A239833.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6162.089752176826,
-        "amountEurSpouse": 4394.042427000301
+        "amountEurDeclarant": 8365.246468251331,
+        "amountEurSpouse": 9950.251299959607
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37687,
+        "valueEur": 19269.057126641885,
+        "holderName": "СЕБАХАТ РЕДЖЕБ СОПЕН",
+        "isSpouse": false,
+        "legalBasis": "6.25%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25928,
+        "valueEur": 13256.775895655554,
+        "holderName": "БЕЙХАН МЕХМЕД СОПЕН",
+        "isSpouse": true,
+        "legalBasis": "6.75%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 84755,
+        "valueEur": 43334.5433907855,
+        "holderName": "БЕЙХАН МЕХМЕД СОПЕН",
+        "isSpouse": true,
+        "legalBasis": "3.8%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

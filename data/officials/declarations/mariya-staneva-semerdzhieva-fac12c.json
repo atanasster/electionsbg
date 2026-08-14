@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "mariya-staneva-semerdzhieva-fac12c",
+    "declarantName": "Мария Станева Семерджиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-24",
+    "entryNumber": "Г919",
+    "controlHash": "9AE70189",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF7ACE39-2DD0-411E-9A9B-5845A2B485BD224544.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8083.013349831018,
+        "amountEurSpouse": 4994.810387405859
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "acquiredYear": 1995,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мария Станева Семерджиева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Копривлен",
+        "municipality": "Хаджидимово",
+        "areaSqm": 740,
+        "builtAreaSqm": 537,
+        "acquiredYear": 2001,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 988,
+        "valueEur": 505.1563786218639,
+        "holderName": "Мария Станева Семерджиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 1,
+        "valueEur": 0.5112918811962185,
+        "holderName": "Мария Станева Семерджиева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,48 +4,35 @@
     "declarantName": "Дилян Сашов Беновски",
     "institution": "Кнежа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8804",
-    "controlHash": "38AB4E82",
-    "sourceUrl": "https://register.cacbg.bg/2025/3E122F7F-DE02-4728-B95F-CFB3CE67C5FB211830.xml",
+    "filedAt": null,
+    "entryNumber": "Г10354",
+    "controlHash": "8BCCA431",
+    "sourceUrl": "https://register.cacbg.bg/2026/3E122F7F-DE02-4728-B95F-CFB3CE67C5FB235088.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4360.808454722547,
-        "amountEurSpouse": 15338.756435886555
+        "amountEurDeclarant": 5611.428396128498,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": 5112.918811962185,
         "amountEurSpouse": null
-      }
-    ],
-    "assets": [
+      },
       {
-        "category": "debt",
-        "description": "Потребителски заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 11416,
-        "valueEur": 5836.908115736031,
-        "holderName": "Дилян Сашов Беновски",
-        "isSpouse": false,
-        "legalBasis": "потребителски кредит 7.07 лихвен %",
-        "fundsOrigin": null
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 102258.37623924369
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

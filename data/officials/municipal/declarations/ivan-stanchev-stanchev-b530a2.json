@@ -4,19 +4,19 @@
     "declarantName": "Иван Станчев Станчев",
     "institution": "Чирпан",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г13637",
-    "controlHash": "C20E02EE",
-    "sourceUrl": "https://register.cacbg.bg/2025/FF5C36B7-63D7-4CCD-9043-6BB21DF20392216871.xml",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г14137",
+    "controlHash": "30AF5C45",
+    "sourceUrl": "https://register.cacbg.bg/2026/FF5C36B7-63D7-4CCD-9043-6BB21DF20392239853.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16230.44947669276,
+        "amountEurDeclarant": 17791.423589984814,
         "amountEurSpouse": null
       }
     ],
@@ -48,7 +48,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
-        "share": "1/2",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 4100,
         "valueEur": 2096.296712904496,
@@ -68,14 +68,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21934,
-        "valueEur": 11214.676122157856,
+        "amount": 18941,
+        "valueEur": 9684.379521737574,
         "holderName": "Иван Станчев Станчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Чирпан",
+        "municipality": "Чирпан",
+        "areaSqm": 128,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

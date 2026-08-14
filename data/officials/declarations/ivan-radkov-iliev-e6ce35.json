@@ -5,6 +5,56 @@
     "institution": "СБДПЛР - Любимец ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5435",
+    "controlHash": "3FD40E5C",
+    "sourceUrl": "https://register.cacbg.bg/2026/57EF56CE-99BE-44C4-BC98-9E83CE1D8C43229694.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42981.75199276011,
+        "amountEurSpouse": 17909.532014541142
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 81267,
+        "valueEur": 41551.15730917309,
+        "holderName": "ИВАН РАДКОВ ИЛИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР-4,59%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-radkov-iliev-e6ce35",
+    "declarantName": "ИВАН РАДКОВ ИЛИЕВ",
+    "institution": "СБДПЛР - Любимец ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,98 @@
     "institution": "Отбрана и въоръжени сили на Република България",
     "positionTitle": "Директор на щаба на отбраната",
     "category": "military_command",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14862",
+    "controlHash": "7CC67CC9",
+    "sourceUrl": "https://register.cacbg.bg/2026/1919D56E-30CD-4820-9848-A87F020D5B37241226.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47351.25240946299,
+        "amountEurSpouse": 24860.54513940373
+      },
+      {
+        "parent": null,
+        "category": "Необлагаем доход от трудова дейност",
+        "amountEurDeclarant": 2096.296712904496,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни пари",
+        "amountEurDeclarant": 1480.7012879442486,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 151000,
+        "valueEur": 77205.07406062899,
+        "holderName": "Здравко Иванов Пехливанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 53127,
+        "valueEur": 53127.31679133667,
+        "holderName": "Здравко Иванов Пехливанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "командировъчни НАТО, участие в операции и мисии"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 4239,
+        "valueEur": 4141.46423768937,
+        "holderName": "Здравко Иванов Пехливанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "командировъчни обучение в САЩ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zdravko-ivanov-pehlivanov-eeac2c",
+    "declarantName": "Здравко Иванов Пехливанов",
+    "institution": "Отбрана и въоръжени сили на Република България",
+    "positionTitle": "Директор на щаба на отбраната",
+    "category": "military_command",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

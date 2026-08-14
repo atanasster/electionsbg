@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12751",
+    "controlHash": "F601C896",
+    "sourceUrl": "https://register.cacbg.bg/2026/915124B4-8C37-4B1E-9A83-BA4DB80BC390238084.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21480.394512815532,
+        "amountEurSpouse": 29956.080027405245
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6987.314848427522,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "dimitrina-marinova-ivanova-dimova-b370e6",
+    "declarantName": "Димитрина Маринова Иванова-Димова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

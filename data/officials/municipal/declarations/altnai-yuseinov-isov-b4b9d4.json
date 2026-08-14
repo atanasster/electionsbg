@@ -4,33 +4,40 @@
     "declarantName": "Алтънай Юсеинов Исов",
     "institution": "Батак",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г14232",
-    "controlHash": "3ED388EB",
-    "sourceUrl": "https://register.cacbg.bg/2025/DFC2C959-24CE-49BA-A65D-9B3B55F35C2E217511.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7933",
+    "controlHash": "833A9E62",
+    "sourceUrl": "https://register.cacbg.bg/2026/DFC2C959-24CE-49BA-A65D-9B3B55F35C2E232395.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15556.566777276144,
+        "amountEurSpouse": 6050.628122076049
+      }
+    ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 10100,
-        "valueEur": 5164.048000081807,
+        "currency": "EUR",
+        "amount": 15000,
+        "valueEur": 15018.687718257723,
         "holderName": "Алтънай Юсеинов Исов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       }
     ],
     "events": []

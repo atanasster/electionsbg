@@ -4,19 +4,19 @@
     "declarantName": "Любослав Тодоров Зетов",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10964",
-    "controlHash": "60FAAE48",
-    "sourceUrl": "https://register.cacbg.bg/2025/56AE30B7-8637-401E-BB6A-E9EB411EE42E214081.xml",
+    "filedAt": "2026-05-16",
+    "entryNumber": "Г13757",
+    "controlHash": "1A078C68",
+    "sourceUrl": "https://register.cacbg.bg/2026/56AE30B7-8637-401E-BB6A-E9EB411EE42E239356.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5202.394891171523,
+        "amountEurDeclarant": 6169.759130394768,
         "amountEurSpouse": null
       },
       {
@@ -26,7 +26,26 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65065,
+        "valueEur": 33267.20625003196,
+        "holderName": "Даяна Василева Зетова",
+        "isSpouse": true,
+        "legalBasis": "Лихвен процент 3,7 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

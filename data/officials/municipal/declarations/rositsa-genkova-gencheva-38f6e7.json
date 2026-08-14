@@ -4,29 +4,48 @@
     "declarantName": "Росица Генкова Генчева",
     "institution": "Сухиндол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2088",
-    "controlHash": "F04B3389",
-    "sourceUrl": "https://register.cacbg.bg/2025/381FA058-42A1-4CF0-A1D5-A234CA471AA5204676.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г12871",
+    "controlHash": "1D377297",
+    "sourceUrl": "https://register.cacbg.bg/2026/381FA058-42A1-4CF0-A1D5-A234CA471AA5238220.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2068.175659438704,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 3226.763062229335,
+        "amountEurSpouse": 6607.936272579927
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7984.845308641344,
+        "amountEurDeclarant": 7171.891217539357,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19934,
+        "valueEur": 19933.73657219697,
+        "holderName": "Красимир Тодоров Драганчев",
+        "isSpouse": true,
+        "legalBasis": "6%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

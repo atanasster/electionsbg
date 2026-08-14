@@ -4,29 +4,95 @@
     "declarantName": "Стоян Атанасов Христанов",
     "institution": "Николаево",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г8563",
-    "controlHash": "2882A664",
-    "sourceUrl": "https://register.cacbg.bg/2025/0D648EE6-3C0D-433E-AE74-3264432D7F8F211585.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12299",
+    "controlHash": "4C1FBECB",
+    "sourceUrl": "https://register.cacbg.bg/2026/0D648EE6-3C0D-433E-AE74-3264432D7F8F237497.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35679.48134551571,
+        "amountEurDeclarant": 20451.67524784874,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2300.8134653829834,
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Помощ за отглеждане на дете от ДСП",
+        "amountEurDeclarant": null,
         "amountEurSpouse": 306.7751287177311
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Пежо 1007",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Стоян Атанасов Христанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Стоян Атанасов Христанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Стоян Атанасов Христанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Жилищен кредит",
@@ -38,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 94622,
-        "valueEur": 48379.46038254858,
+        "amount": 110000,
+        "valueEur": 47550.144951248316,
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
-        "legalBasis": "Закопуване на жилище",
+        "legalBasis": "Кредит",
         "fundsOrigin": null
       },
       {
@@ -56,14 +122,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
         "holderName": "Стоян Атанасов Христанов",
         "isSpouse": false,
-        "legalBasis": "Задължително условия към Жилищен кредит",
+        "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

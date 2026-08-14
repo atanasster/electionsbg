@@ -4,29 +4,47 @@
     "declarantName": "Христо Атанасов Димитров",
     "institution": "Варна",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10867",
-    "controlHash": "E26B61A9",
-    "sourceUrl": "https://register.cacbg.bg/2025/994D7D89-BA79-42FE-873A-673925351B6F213981.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3455",
+    "controlHash": "F2E97DDE",
+    "sourceUrl": "https://register.cacbg.bg/2026/994D7D89-BA79-42FE-873A-673925351B6F227590.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 36529.24845206383,
+        "amountEurDeclarant": 42927.55505335331,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 5400.26484919446,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 2970.0945378688334,
+        "amountEurSpouse": 4074.4850012526654
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Бенц EQS 580",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18019,
+        "valueEur": 9212.96840727466,
+        "holderName": "Христо Атанасов Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 244626,
-        "valueEur": 125075.28772950615,
+        "amount": 284294,
+        "valueEur": 145357.21407279774,
         "holderName": "Христо Атанасов Димитров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "работна заплата, пенсия, дивиденти"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -61,7 +79,7 @@
         "holderName": "Анелия Димитрова Василева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

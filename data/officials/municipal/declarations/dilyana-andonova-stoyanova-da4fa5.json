@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "dilyana-andonova-stoyanova-da4fa5",
+    "declarantName": "Диляна Андонова Стоянова",
+    "institution": "Район Сердика",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г333",
+    "controlHash": "DE335BAC",
+    "sourceUrl": "https://register.cacbg.bg/2026/3557805C-FC26-495E-8AE0-1E1459B32FE7223510.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12934.15071862074,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7182.628347044478,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Район \"Нови Искър\"",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 490,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2007,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Диляна Андонова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "кредит"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9954,
+        "valueEur": 5089.399385427158,
+        "holderName": "Диляна Андонова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29646,
+        "valueEur": 15157.759109943094,
+        "holderName": "Диляна Андонова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "6.7%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

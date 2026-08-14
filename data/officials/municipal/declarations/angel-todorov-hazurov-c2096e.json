@@ -4,21 +4,21 @@
     "declarantName": "Ангел Тодоров Хазуров",
     "institution": "Карлово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4819",
-    "controlHash": "D36F0DE4",
-    "sourceUrl": "https://register.cacbg.bg/2025/C880BEC3-3405-4AFD-B2E5-CAD249ADA8D4207696.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г2867",
+    "controlHash": "06F64F12",
+    "sourceUrl": "https://register.cacbg.bg/2026/C880BEC3-3405-4AFD-B2E5-CAD249ADA8D4226960.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялове",
+        "itemType": "Дялове",
         "shareSize": "50",
-        "companyName": "Д=Форс Компютърс ООД",
-        "registeredOffice": "Пловдив",
+        "companyName": "Д-Форс Компютърс ООД",
+        "registeredOffice": "Карлово",
         "valueEur": 1278.2297029905462,
         "holderName": "Ангел Тодоров Хазуров",
         "legalBasis": "покупко-продажба",
@@ -27,17 +27,42 @@
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялове",
+        "itemType": "Дялове",
         "shareSize": "50",
-        "companyName": "Д=Форс Компютърс ООД",
-        "registeredOffice": "Пловдив",
+        "companyName": "Д-Форс Компютърс ООД",
+        "registeredOffice": "Карлово",
         "valueEur": 1278.2297029905462,
+        "holderName": "Даниела Стоянова Топова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Лаванда -72 ЕООД",
+        "registeredOffice": "Карлово",
+        "valueEur": 2556.4594059810925,
         "holderName": "Даниела Стоянова Топова",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6624.297612778207,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -66,7 +91,7 @@
         "areaSqm": 120,
         "builtAreaSqm": 120,
         "acquiredYear": 2002,
-        "share": "1/2",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
@@ -88,8 +113,8 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "Ангел Тодоров Хазуроя",
-        "isSpouse": true,
+        "holderName": "Ангел Тодоров Хазуров",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -104,10 +129,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Ангвл Тодоров Хазуров",
-        "isSpouse": true,
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Ангел Тодоров Хазуров",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

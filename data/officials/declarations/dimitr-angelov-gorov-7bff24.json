@@ -5,6 +5,68 @@
     "institution": "ДФ \"Земеделие\"-РА",
     "positionTitle": "Заместник-изпълнителен директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4705",
+    "controlHash": "CD4D9EE3",
+    "sourceUrl": "https://register.cacbg.bg/2026/1C6049A1-E7AC-493C-9686-413EFD4C3639228926.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 64839.99120577965,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 45204,
+        "valueEur": 45204.33780032007,
+        "holderName": "Димитър Ангелов Горов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17736,
+        "valueEur": 17735.69277493443,
+        "holderName": "Димитър Ангелов Горов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с 7,109 лихвен процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-angelov-gorov-7bff24",
+    "declarantName": "Димитър Ангелов Горов",
+    "institution": "ДФ \"Земеделие\"-РА",
+    "positionTitle": "Заместник-изпълнителен директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

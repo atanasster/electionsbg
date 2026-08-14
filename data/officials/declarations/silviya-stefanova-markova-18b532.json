@@ -5,6 +5,81 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4469",
+    "controlHash": "899849A7",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1C43DF3-D358-4F97-8185-10C88FB4B52D228669.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25353.430512876886,
+        "amountEurSpouse": 16686.01054283859
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Мотоциклет",
+        "detail": "Триумф Рокет 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 1100,
+        "valueEur": 562.4210693158403,
+        "holderName": "Ангел Иванов Марков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 1200,
+        "valueEur": 613.5502574354622,
+        "holderName": "Ангел Иванов Марков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда ГЛ 1800 А",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "silviya-stefanova-markova-18b532",
+    "declarantName": "Силвия Стефанова Маркова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

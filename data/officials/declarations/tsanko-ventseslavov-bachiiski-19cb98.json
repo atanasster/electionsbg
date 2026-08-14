@@ -5,6 +5,68 @@
     "institution": "Агенция за ядрено регулиране",
     "positionTitle": "Председател",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12314",
+    "controlHash": "59184976",
+    "sourceUrl": "https://register.cacbg.bg/2026/445C9C74-43F8-415E-8982-376B741320FF237517.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 60026.178144317244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120500,
+        "valueEur": 61610.67168414433,
+        "holderName": "Цанко Венцеславов Бачийски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33500,
+        "valueEur": 17128.278020073318,
+        "holderName": "Стела Димова Бачийска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "обезщетение при пенсиониране"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsanko-ventseslavov-bachiiski-19cb98",
+    "declarantName": "Цанко Венцеславов Бачийски",
+    "institution": "Агенция за ядрено регулиране",
+    "positionTitle": "Председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

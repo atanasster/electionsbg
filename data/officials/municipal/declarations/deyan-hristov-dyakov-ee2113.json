@@ -4,28 +4,221 @@
     "declarantName": "ДЕЯН ХРИСТОВ ДЯКОВ",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8746",
-    "controlHash": "E9011713",
-    "sourceUrl": "https://register.cacbg.bg/2025/98542FE5-5851-459E-9DAE-76983FC31E6F211771.xml",
+    "filedAt": "2026-05-21",
+    "entryNumber": "Г6648",
+    "controlHash": "ADDD0797",
+    "sourceUrl": "https://register.cacbg.bg/2026/98542FE5-5851-459E-9DAE-76983FC31E6F230989.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 49299.27447682058,
-        "amountEurSpouse": 12190.221031480241
+        "amountEurDeclarant": 8840.236625882617,
+        "amountEurSpouse": 120265.05371121212
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 37553.87738198105,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 995.4852926890374
+        "amountEurSpouse": 2780.9165418262323
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 2812.1053465792015,
+        "amountEurSpouse": null
       }
     ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36822,
+        "valueEur": 18826.789649407157,
+        "holderName": "ДЕЯН ХРИСТОВ ДЯКОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА НА МОТОР 4.84%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "deyan-hristov-dyakov-ee2113",
+    "declarantName": "ДЕЯН ХРИСТОВ ДЯКОВ",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-21",
+    "entryNumber": "Г6649",
+    "controlHash": "D55A47F0",
+    "sourceUrl": "https://register.cacbg.bg/2026/98542FE5-5851-459E-9DAE-76983FC31E6F230990.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Нямам участие, не съм съдружник",
+        "companyName": "РЕМСТРОЙ 03",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Нямам участие, не съм съдружник",
+        "companyName": "РЕМСТРОЙ 2008",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "РЕМСТРОЙ 03",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "РЕМСТРОЙ 2008",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм част от управителния съвет",
+        "companyName": "Взаимоспомагателна каса на КНСБ \"ТЕЦ Марица Изток 2\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм част от управителния съвет",
+        "companyName": "ЗА МАРИЦА ИЗТОК",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Нямам участие, не съм съдружник",
+        "companyName": "РЕМСТРОЙ 03",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Нямам участие, не съм съдружник",
+        "companyName": "РЕМСТРОЙ 2008",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "РЕМСТРОЙ 03",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "РЕМСТРОЙ 2008",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм част от Управителния съвет",
+        "companyName": "Взаимоспомагателна каса на КНСБ \"ТЕЦ Марица Изток 2\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм част от Управителния съвет",
+        "companyName": "ЗА МАРИЦА ИЗТОК",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
     "assets": [],
     "events": []
   }

@@ -4,54 +4,48 @@
     "declarantName": "БЛАГА ГЕОРГИЕВА ЯНАКИЕВА",
     "institution": "Бяла/Варна/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9631",
-    "controlHash": "4B250B6F",
-    "sourceUrl": "https://register.cacbg.bg/2025/88FC7B47-224E-4854-8D74-A87CC3885AB5212679.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10770",
+    "controlHash": "6AB4F8D4",
+    "sourceUrl": "https://register.cacbg.bg/2026/88FC7B47-224E-4854-8D74-A87CC3885AB5235564.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3537.6285259966357,
-        "amountEurSpouse": 10058.13388689201
+        "amountEurDeclarant": 3722.7161869896668,
+        "amountEurSpouse": 10966.69955977769
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16421.161348378948,
+        "amountEurDeclarant": 20936.379951222756,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Мотопед",
-        "detail": "ЯМАХА",
+        "category": "debt",
+        "description": "Възмездна помощ",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Мотопед",
-        "detail": "ЯМАХА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "БЛАГА ГЕОРГИЕВА ЯНАКИЕВА",
+        "isSpouse": false,
+        "legalBasis": "ВСУВ, ЛИХВЕН ПРОЦЕНТ 3.66 % - ЕДНОКРАТНО",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "erol-akif-yumer-c60989",
+    "declarantName": "Ерол Акиф Юмер",
+    "institution": "Исперих",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4871",
+    "controlHash": "9914C164",
+    "sourceUrl": "https://register.cacbg.bg/2026/0A278CD8-0F3B-42FA-9B84-E4C85A6496A2229102.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 69629.77354882582,
+        "amountEurSpouse": 6318.033775941672
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 30953.610487619066,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 60779.31108531928,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "СЕВИЛ РИДВАН ЮМЕР",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 142474,
+        "valueEur": 72845.79948155003,
+        "holderName": "ЕРОЛ АКИФ ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 14936,
+        "valueEur": 12704.06937208244,
+        "holderName": "ЕРОЛ АКИФ ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "ВЗЕМАНЕ ОТ ДРУГА СТОПАНСКА ДЕЙНОСТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 139492,
+        "valueEur": 71321.12709182291,
+        "holderName": "ЕРОЛ АКИФ ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": "ПО ФАКТУРИ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПО ДОГОВОР ЗА ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26324,
+        "valueEur": 13459.247480609256,
+        "holderName": "ЕРОЛ АКИФ ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

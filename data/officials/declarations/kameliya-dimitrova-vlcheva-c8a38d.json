@@ -5,6 +5,74 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2428",
+    "controlHash": "D6D052E1",
+    "sourceUrl": "https://register.cacbg.bg/2026/02D07A75-C652-4082-BE05-46A21E76DB1F226477.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16519.84068144982,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11672.282355828473,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 174070,
+        "valueEur": 89000.57775982576,
+        "holderName": "Камелия Димитрова Вълчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 113429,
+        "valueEur": 57995.326792205866,
+        "holderName": "Камелия Димитрова Вълчева",
+        "isSpouse": false,
+        "legalBasis": "договор за банков кредит с лихва 3.19%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kameliya-dimitrova-vlcheva-c8a38d",
+    "declarantName": "Камелия Димитрова Вълчева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

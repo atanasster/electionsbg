@@ -4,29 +4,127 @@
     "declarantName": "Сюлейман Мехмедов Сюлейманов",
     "institution": "Цар Калоян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-04",
-    "entryNumber": "Г2025",
-    "controlHash": "DB1EF156",
-    "sourceUrl": "https://register.cacbg.bg/2025/C69F6F66-B6AF-48DC-ACF8-F50B3B8557E8204606.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г14035",
+    "controlHash": "62CD74A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/C69F6F66-B6AF-48DC-ACF8-F50B3B8557E8239719.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1123.308262988092,
-        "amountEurSpouse": 6236.738366831473
+        "amountEurDeclarant": 1579.891912896315,
+        "amountEurSpouse": 6773.083550206306
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5783.7337600916235,
+        "amountEurDeclarant": 7441.3420389297635,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Любичево",
+        "municipality": "Антоново",
+        "areaSqm": 1700,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Фатме Мустафа Сюлейманова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Сюлейман Мехмедов Сюлейманов",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек Аавтомобил",
+        "detail": "Фолксваген Бора",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Сюлейман Мехмедов Сюлейманов",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16500,
+        "valueEur": 8436.316039737605,
+        "holderName": "Сюлейман Мехмедов Сюлейманов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 5ЕР РИЕХЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Бора",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

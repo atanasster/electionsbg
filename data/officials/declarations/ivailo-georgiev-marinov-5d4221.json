@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "ivailo-georgiev-marinov-5d4221",
+    "declarantName": "ИВАЙЛО ГЕОРГИЕВ МАРИНОВ",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-02-18",
+    "entryNumber": "В132",
+    "controlHash": "9C4B2863",
+    "sourceUrl": "https://register.cacbg.bg/2026/04F878A4-13A0-44CF-ACC6-85F3FDA119F5222969.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм ликвидатор",
+        "companyName": "\"ОВЧА КУПЕЛ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител от 09.02.2026 г.",
+        "companyName": "\"ОВЧА КУПЕЛ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ivailo-georgiev-marinov-5d4221",
+    "declarantName": "Ивайло Георгиев Маринов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г14487",
+    "controlHash": "EFDF18BB",
+    "sourceUrl": "https://register.cacbg.bg/2026/04F878A4-13A0-44CF-ACC6-85F3FDA119F5240298.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14153.070563392524,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2024.7158495370252,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Ивайло Георгиев Маринов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 600,
+        "valueEur": 613.5502574354622,
+        "holderName": "Ивайло Георгиев Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

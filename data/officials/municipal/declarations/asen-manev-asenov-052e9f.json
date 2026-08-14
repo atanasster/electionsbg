@@ -4,25 +4,25 @@
     "declarantName": "АСЕН МАНЕВ АСЕНОВ",
     "institution": "Тетевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-24",
-    "entryNumber": "Г8419",
-    "controlHash": "9EFD9D2A",
-    "sourceUrl": "https://register.cacbg.bg/2025/D5EF0E32-EB7F-4A17-B077-5E17894834A7211439.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г14247",
+    "controlHash": "3216B373",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5EF0E32-EB7F-4A17-B077-5E17894834A7239991.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7815.0964040842,
+        "amountEurDeclarant": 8908.238446081714,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6165.668795345199,
+        "amountEurDeclarant": 6858.469294366075,
         "amountEurSpouse": null
       },
       {
@@ -32,20 +32,44 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Астра",
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес Бенц МЛ 350",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "бракувана"
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Атанас Манев Асенов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16990,
+        "valueEur": 8686.849061523752,
+        "holderName": "Асен Манев Асенов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

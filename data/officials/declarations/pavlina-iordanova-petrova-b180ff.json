@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2152",
+    "controlHash": "E96B5F88",
+    "sourceUrl": "https://register.cacbg.bg/2026/9CBD74EB-696B-430D-8DFE-ADD8D328F148226149.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19271.613586047868,
+        "amountEurSpouse": 5057.187996911797
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Павлина Йорданова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlina-iordanova-petrova-b180ff",
+    "declarantName": "Павлина Йорданова Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

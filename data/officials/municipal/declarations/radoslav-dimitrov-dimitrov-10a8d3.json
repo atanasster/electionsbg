@@ -4,13 +4,13 @@
     "declarantName": "Радослав Димитров Димитров",
     "institution": "Годеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8026",
-    "controlHash": "30B76267",
-    "sourceUrl": "https://register.cacbg.bg/2025/33B58731-3ACC-4F21-B72B-4ADE4C08F543211035.xml",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г4390",
+    "controlHash": "2188C043",
+    "sourceUrl": "https://register.cacbg.bg/2026/33B58731-3ACC-4F21-B72B-4ADE4C08F543228588.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -22,31 +22,13 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16159.891197087682,
+        "amountEurDeclarant": 17255.07840660998,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 54,
-        "builtAreaSqm": 64,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 89000,
-        "valueEur": 45504.97742646345,
-        "holderName": "Радослав Димитров Димитров",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "от родител"
-      },
-      {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -56,10 +38,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7412,
-        "valueEur": 3789.6954234263712,
-        "holderName": "Радослав Димитров Димитров",
-        "isSpouse": false,
+        "amount": 28015,
+        "valueEur": 14323.842051712061,
+        "holderName": "Радослав Димитров Димигров",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -74,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 40100,
-        "valueEur": 40099.599658457024,
-        "holderName": "Радослав Димитров Димитров",
-        "isSpouse": false,
+        "amount": 45709,
+        "valueEur": 45709,
+        "holderName": "Радослав Димитров Димигров",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестяване"
       }
     ],
     "events": []

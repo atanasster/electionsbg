@@ -4,25 +4,25 @@
     "declarantName": "Мирослав Веселинов Балчев",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8903",
-    "controlHash": "391D78C6",
-    "sourceUrl": "https://register.cacbg.bg/2025/0C12B515-FE54-4797-AB70-ACA78DC93F7C211930.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6040",
+    "controlHash": "4833821B",
+    "sourceUrl": "https://register.cacbg.bg/2026/0C12B515-FE54-4797-AB70-ACA78DC93F7C230333.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12933.128134858347,
-        "amountEurSpouse": 11510.20282948927
+        "amountEurDeclarant": 27451.26110142497,
+        "amountEurSpouse": 11709.606663155795
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10865.975059182036,
+        "amountEurDeclarant": 100.72450059565504,
         "amountEurSpouse": null
       }
     ],
@@ -118,6 +118,60 @@
         "fundsOrigin": "наследяване"
       },
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "acquiredYear": 2025,
+        "share": "1/3",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Мирослав Веселинов Балчев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11998,
+        "valueEur": 6134.479990592229,
+        "holderName": "Мирослав Веселинов Балчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4062,
+        "valueEur": 2076.8676214190396,
+        "holderName": "Ангелина Любенова Балчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "ипотечен кредит",
         "detail": "BGN",
@@ -128,8 +182,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34988,
-        "valueEur": 17894.193258105253,
+        "amount": 28125,
+        "valueEur": 14380.084158643645,
         "holderName": "Ангелина Любенова Балчева",
         "isSpouse": true,
         "legalBasis": "ипотечен кредит 2,99%",
@@ -137,35 +191,5 @@
       }
     ],
     "events": []
-  },
-  {
-    "slug": "miroslav-veselinov-balchev-326b55",
-    "declarantName": "Мирослав Веселинов Балчев",
-    "institution": "Добрич",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "Г15493",
-    "controlHash": "D7E535C8",
-    "sourceUrl": "https://register.cacbg.bg/2025/0C12B515-FE54-4797-AB70-ACA78DC93F7C219722.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
-      {
-        "kind": "early_repayment",
-        "description": "ипотечен кредит към към УниКредит",
-        "detail": "Ангелина Любенова Балчева",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 17889.080339293294,
-        "legalBasis": "предсрочно погасени 4400 от заплати"
-      }
-    ]
   }
 ]

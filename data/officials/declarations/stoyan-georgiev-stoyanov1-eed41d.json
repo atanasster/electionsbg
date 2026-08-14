@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г12229",
+    "controlHash": "41354EAA",
+    "sourceUrl": "https://register.cacbg.bg/2026/AF888636-199B-4AB2-A229-07896D2C5704237412.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24802.76915682856,
+        "amountEurSpouse": 19038.97578010359
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26680,
+        "valueEur": 13641.26739031511,
+        "holderName": "СТОЯН ГЕОРГИЕВ СТОЯНОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyan-georgiev-stoyanov1-eed41d",
+    "declarantName": "СТОЯН ГЕОРГИЕВ СТОЯНОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

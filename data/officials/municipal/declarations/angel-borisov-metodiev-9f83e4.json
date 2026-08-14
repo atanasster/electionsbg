@@ -4,50 +4,51 @@
     "declarantName": "Ангел Борисов Методиев",
     "institution": "Калояново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13468",
-    "controlHash": "8C7AB3DA",
-    "sourceUrl": "https://register.cacbg.bg/2025/31752A5B-DCC0-4139-99BF-B985147FE33D216685.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12516",
+    "controlHash": "84192893",
+    "sourceUrl": "https://register.cacbg.bg/2026/31752A5B-DCC0-4139-99BF-B985147FE33D237819.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "АМ-СТИЛ-МЕТОДИЕВ ЕООД",
+        "registeredOffice": "Бегово",
+        "valueEur": 255.64594059810923,
+        "holderName": "Ангел Борисов Методиев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7007.2552317941745,
-        "amountEurSpouse": 8278.83814032917
+        "amountEurDeclarant": 6957.148627436945,
+        "amountEurSpouse": 3221.1388515361764
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3067.751287177311,
+        "amountEurDeclarant": 3671.0757069888487,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Бегово",
-        "municipality": "Калояново",
-        "areaSqm": 800,
-        "builtAreaSqm": 90,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3900,
-        "valueEur": 1994.038336665252,
-        "holderName": "Ангел Борисов Методиев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
+        "category": "debt",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,12 +57,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
-        "holderName": "Ангел Борисов Методиев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "amount": 31000,
+        "valueEur": 15850.048317082774,
+        "holderName": "Ангел Борисов Методие",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит с лихвен процент 7,6",
+        "fundsOrigin": null
       }
     ],
     "events": []

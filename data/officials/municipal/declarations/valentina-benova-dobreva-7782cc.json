@@ -4,50 +4,56 @@
     "declarantName": "Валентина Бенова Добрева",
     "institution": "Харманли",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5511",
-    "controlHash": "FB3EF255",
-    "sourceUrl": "https://register.cacbg.bg/2025/3B736351-BCFF-48DB-A1A8-18135797566D208439.xml",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г3528",
+    "controlHash": "CA0719FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/3B736351-BCFF-48DB-A1A8-18135797566D227663.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4260.595246008089,
-        "amountEurSpouse": 639.1148514952731
+        "amountEurDeclarant": 8979.819309449185,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 639.1148514952731,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
@@ -55,10 +61,10 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Харманли",
+        "location": "гр.Харманли,ул.Алеко Константинов  62",
         "municipality": "Харманли",
         "areaSqm": 93,
-        "builtAreaSqm": 645,
+        "builtAreaSqm": 635,
         "acquiredYear": 2012,
         "share": "1",
         "currency": "BGN",
@@ -91,17 +97,17 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Харманли",
+        "location": "гр.Харманли",
         "municipality": "Харманли",
         "areaSqm": 65,
         "builtAreaSqm": 65,
         "acquiredYear": 2020,
-        "share": "СИО 1/2",
+        "share": "1",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Валентина Бенова Добрева",
-        "isSpouse": false,
+        "holderName": "Добри Жеков Добрев",
+        "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       },
@@ -121,7 +127,7 @@
         "holderName": "Валентина Бенова Добрева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -139,25 +145,25 @@
         "holderName": "Валентина Бенова Добрева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
-        "description": "нива",
+        "description": "къща с двор",
         "detail": null,
-        "location": "Харманли",
+        "location": "гр.Харманли,ул.Витопа №1",
         "municipality": "Харманли",
-        "areaSqm": 1,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "areaSqm": 148,
+        "builtAreaSqm": 808,
+        "acquiredYear": 2025,
         "share": "СИО 1/2",
         "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
-        "holderName": "Валентина Бенова Добрев",
-        "isSpouse": true,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Валентина Бенова Добрева",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -180,7 +186,7 @@
       {
         "category": "vehicle",
         "description": "Автомобил",
-        "detail": "Toyota",
+        "detail": "Тойота",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -208,8 +214,8 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "Валентина Бенова Добрева",
-        "isSpouse": false,
+        "holderName": "Добри Жеков Добрев",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -226,8 +232,8 @@
         "currency": "BGN",
         "amount": 520,
         "valueEur": 265.87177822203364,
-        "holderName": "Валентина Бенова Добрева",
-        "isSpouse": false,
+        "holderName": "Добри Жеков Добрев",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -244,8 +250,8 @@
         "currency": "BGN",
         "amount": 3300,
         "valueEur": 1687.263207947521,
-        "holderName": "Валентина Бенова Добрева",
-        "isSpouse": false,
+        "holderName": "Добри Жеков Добрев",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -260,8 +266,8 @@
         "acquiredYear": 2024,
         "share": "СИО 1/2",
         "currency": "BGN",
-        "amount": 58675,
-        "valueEur": 30000.05112918812,
+        "amount": 50851,
+        "valueEur": 25999.703450708905,
         "holderName": "Валентина Бенова Добрева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -269,7 +275,7 @@
       },
       {
         "category": "debt",
-        "description": "Апартамент на изплащане",
+        "description": "Заем за закууване на апартамент",
         "detail": "EUR",
         "location": null,
         "municipality": null,
@@ -279,28 +285,10 @@
         "share": null,
         "currency": "EUR",
         "amount": 52000,
-        "valueEur": 51999.91819329901,
+        "valueEur": 52008.61015527935,
         "holderName": "Валентина Бенова Добрева",
         "isSpouse": false,
-        "legalBasis": "лизинг",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Апартамент на изплащане",
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 29000,
-        "valueEur": 28990.249663825587,
-        "holderName": "Валентина Бенова Добрева",
-        "isSpouse": false,
-        "legalBasis": "лизинг",
+        "legalBasis": null,
         "fundsOrigin": null
       }
     ],

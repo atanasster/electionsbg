@@ -5,6 +5,74 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г14605",
+    "controlHash": "BD568FF4",
+    "sourceUrl": "https://register.cacbg.bg/2026/E46F8E11-BA73-49EA-BBE4-1E600BF67CC4240534.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21065.2255052842,
+        "amountEurSpouse": 52981.08731331455
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 63525.97107110536,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 47115,
+        "valueEur": 24089.516982559835,
+        "holderName": "Христо Монев Христов",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заплата и лизинг"
+      },
+      {
+        "category": "debt",
+        "description": "Договор за лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47115,
+        "valueEur": 24089.516982559835,
+        "holderName": "Христо Монев Христов",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "miglena-krasimirova-hristova-edbaf1",
+    "declarantName": "Миглена Красимирова Христова",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": null,
     "declarationType": "Other",

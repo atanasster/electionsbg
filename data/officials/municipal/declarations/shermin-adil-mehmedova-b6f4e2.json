@@ -4,109 +4,72 @@
     "declarantName": "Шермин Адил Мехмедова",
     "institution": "Севлиево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г15273",
-    "controlHash": "E479EF97",
-    "sourceUrl": "https://register.cacbg.bg/2025/3D0EEA43-940B-443B-8651-B2C62E4A7C34219067.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г4380",
+    "controlHash": "9712274D",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D0EEA43-940B-443B-8651-B2C62E4A7C34228578.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6330.816072971577,
-        "amountEurSpouse": 8597.372982314413
+        "amountEurDeclarant": 4341.379363237092,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4802.564640076081,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4061.7027042227596
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 69,
-        "builtAreaSqm": 89,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Емин Айгюнов Мехмедов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "рено",
+        "description": "Автомобил",
+        "detail": "Шкода",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
+        "amount": 8900,
+        "valueEur": 4550.497742646345,
         "holderName": "Емин Айгюнов Мехмедов",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "гранд чироки",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3950,
-        "valueEur": 2019.602930725063,
-        "holderName": "Шермин Адил Мехмедова",
-        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Волксваген",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 2347,
+        "valueEur": 1200.0020451675248,
         "holderName": "Емин Айгюнов Мехмедов",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 69,
-        "builtAreaSqm": 89,
-        "currency": "BGN",
-        "valueEur": 12782.297029905461,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

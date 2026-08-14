@@ -4,52 +4,64 @@
     "declarantName": "Емин Юсеинов Кумбаров",
     "institution": "Сатовча",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г4965",
-    "controlHash": "7B0426D7",
-    "sourceUrl": "https://register.cacbg.bg/2025/A6A33727-6428-4D90-B484-1B5FE1E29B9A207845.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13907",
+    "controlHash": "0819DE70",
+    "sourceUrl": "https://register.cacbg.bg/2026/A6A33727-6428-4D90-B484-1B5FE1E29B9A239561.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4399.66663769346,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4411.937642842169,
+        "amountEurSpouse": 2946.575111333807
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5894.684098311203,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 530.7209726816748,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4214.578976700429,
+        "amountEurSpouse": 1761.911822602169
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с.Сатовча",
+        "municipality": "Сатовча",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 58100,
-        "valueEur": 29706.058297500294,
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
         "holderName": "Емин Юсеинов Кумбаров",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Кочан",
+        "municipality": "Сатовча",
+        "areaSqm": 660,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Емин Юсеинов Кумбаров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -62,49 +74,37 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 58100,
-        "valueEur": 29706.058297500294,
+        "amount": 95507,
+        "valueEur": 48831.95369740724,
         "holderName": "Емин Юсеинов Кумбаров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": [
       {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Кочан",
-        "municipality": "Сатовча",
-        "areaSqm": 300,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 7669.378217943277,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Кочан",
-        "municipality": "Сатовча",
-        "areaSqm": 720,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 16872.63207947521,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "third_party_expense",
-        "description": "Гърция",
+        "kind": "guarantee",
+        "description": "болнични и майчинство",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "EUR",
-        "valueEur": 418.74805069970296,
+        "currency": "BGN",
+        "valueEur": 8561.58255063068,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "необлагаеми печалби",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11418.170290873952,
         "legalBasis": null
       },
       {
@@ -115,8 +115,20 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "EUR",
-        "valueEur": 378.8672839663979,
+        "currency": "BGN",
+        "valueEur": 368.1301544612773,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Саудитска Арабия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 485.72728713640754,
         "legalBasis": null
       }
     ]

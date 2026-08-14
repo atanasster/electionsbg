@@ -4,44 +4,38 @@
     "declarantName": "Анелия Георгиева Георгиева",
     "institution": "Свиленград",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13328",
-    "controlHash": "9C46F514",
-    "sourceUrl": "https://register.cacbg.bg/2025/CCBB3538-8640-43C0-B239-F4D0B595B2AC216532.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14542",
+    "controlHash": "4FE9E7A0",
+    "sourceUrl": "https://register.cacbg.bg/2026/CCBB3538-8640-43C0-B239-F4D0B595B2AC240445.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24911.163035642156,
-        "amountEurSpouse": 22110.817402330467
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 102258.37623924369
+        "amountEurDeclarant": 33216.077061912336,
+        "amountEurSpouse": 328161.4455244065
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 157.98919128963152
+        "amountEurSpouse": 156.96660752723906
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 24407.029240782686,
+        "amountEurDeclarant": 13556.392938036537,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 15338.756435886555,
-        "amountEurSpouse": 194290.91485456302
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 279676.6590143315
       }
     ],
     "assets": [
@@ -56,51 +50,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15000,
-        "valueEur": 14999.769918653461,
+        "amount": 15010,
+        "valueEur": 15010.507048158583,
         "holderName": "Анелия Георгиева Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 42000,
-        "valueEur": 21474.259010241178,
-        "holderName": "Анелия Георгиева Георгиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 138423,
-        "valueEur": 70774.55607082415,
-        "holderName": "Анелия Георгиева Георгиева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
         "description": null,
         "detail": "EUR",
         "location": null,
@@ -110,8 +68,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15000,
-        "valueEur": 14999.769918653461,
+        "amount": 17000,
+        "valueEur": 16999.94375789307,
+        "holderName": "Анелия Георгиева Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 127512,
+        "valueEur": 65195.85035509221,
         "holderName": "Анелия Георгиева Георгиева",
         "isSpouse": false,
         "legalBasis": null,
@@ -120,34 +96,34 @@
       {
         "category": "debt",
         "description": "кредит",
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 59363,
-        "valueEur": 59363,
+        "currency": "BGN",
+        "amount": 53210,
+        "valueEur": 27205.840998450785,
         "holderName": "Анелия Георгиева Георгиева",
         "isSpouse": false,
-        "legalBasis": "договор - 4.35%",
+        "legalBasis": "договор -5.75%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "third_party_expense",
-        "description": "почивка",
+        "kind": "disposal_property",
+        "description": "парцел",
         "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 2063,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 5010.660435722941,
-        "legalBasis": null
+        "valueEur": 43224.61563632831,
+        "legalBasis": "възмездно"
       }
     ]
   }

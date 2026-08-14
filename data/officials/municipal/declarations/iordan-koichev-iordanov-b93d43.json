@@ -4,29 +4,47 @@
     "declarantName": "ЙОРДАН КОЙЧЕВ ЙОРДАНОВ",
     "institution": "Стралджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г9124",
-    "controlHash": "32A88288",
-    "sourceUrl": "https://register.cacbg.bg/2025/04C58BD3-197F-48BE-B0CC-269B80413104212156.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г14741",
+    "controlHash": "1B8C37F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/04C58BD3-197F-48BE-B0CC-269B80413104240861.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3614.3223081760684,
+        "amountEurDeclarant": 3618.4126432256385,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17054.140697299867,
+        "amountEurDeclarant": 16979.492082645218,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 249997,
+        "valueEur": 127821.43642341104,
+        "holderName": "ЕЛЕНА КОЛЕВА ЙОРДАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ДЕВИДЕНТ"
+      },
       {
         "category": "debt",
         "description": "БАНКОВ ЗАЕМ",
@@ -38,16 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "ЙОРДАН КОЙЧЕВ ЙОРДАНОВ",
         "isSpouse": false,
-        "legalBasis": "ЗАЕМ",
+        "legalBasis": "ЗАЕМ-7% ЛИХВА",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "КРЕДИТНА ЛИНИЯ- СЪДЛЪЖНИК",
+        "description": "КРЕДИТНА ЛИНИЯ -СЪДЛЪЖНИК",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -60,12 +78,12 @@
         "valueEur": 3885818.2970912606,
         "holderName": "ЙОРДАН КОЙЧЕВ ЙОРДАНОВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТНА ЛИНИЯ 4 %",
+        "legalBasis": "КРЕДИТНА ЛИНИЯ 4%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "КРЕДИТНА ЛИНИЯ- СЪДЛЪЖНИК",
+        "description": "КРЕДИТНА ЛИНИЯ -СЪДЛЪЖНИК",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -78,10 +96,41 @@
         "valueEur": 3885818.2970912606,
         "holderName": "ЕЛЕНА КОЛЕВА ЙОРДАНОВА",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТНА ЛИНИЯ- 4%",
+        "legalBasis": "КРЕДИТНА ЛИНИЯ 4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "ЙОРДАН КОЙЧЕВ ЙОРДАНОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТНА КАРТА-10 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ЕСКУРЗИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,44 +1,32 @@
 [
   {
     "slug": "nikolai-dimitrov-lukanov-f1c9d0",
-    "declarantName": "Николай Димитров луканов",
+    "declarantName": "Николай Димитров Луканов",
     "institution": "Георги Дамяново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11769",
-    "controlHash": "CD0B9424",
-    "sourceUrl": "https://register.cacbg.bg/2025/8EB7B1E0-7393-40BA-92E7-5B7ED6E898C2214921.xml",
+    "filedAt": null,
+    "entryNumber": "Г10004",
+    "controlHash": "1F1954AF",
+    "sourceUrl": "https://register.cacbg.bg/2026/8EB7B1E0-7393-40BA-92E7-5B7ED6E898C2234683.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2198.5550891437397,
-        "amountEurSpouse": 2658.717782220336
+        "amountEurDeclarant": 10390.473609669552,
+        "amountEurSpouse": 7899.459564481575
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2243.5487746890067,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Николай Димитров Луканов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "Потребителски кредит",
@@ -50,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22427,
-        "valueEur": 11466.743019587591,
+        "amount": 19640,
+        "valueEur": 10041.772546693732,
         "holderName": "Николай Димитров Луканов",
         "isSpouse": false,
-        "legalBasis": "4.25",
+        "legalBasis": "4,75",
         "fundsOrigin": null
       },
       {
@@ -68,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 142742,
-        "valueEur": 72982.82570571062,
+        "amount": 139890,
+        "valueEur": 71524.621260539,
         "holderName": "Николай Димитров Луканов",
         "isSpouse": false,
-        "legalBasis": "2.69",
+        "legalBasis": "2,69",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

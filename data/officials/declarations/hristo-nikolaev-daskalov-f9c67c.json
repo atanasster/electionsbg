@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "hristo-nikolaev-daskalov-f9c67c",
+    "declarantName": "Христо Николаев Даскалов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10934",
+    "controlHash": "C31AD7AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/7B1EBD83-7461-4140-B903-16F733C3C5C4235745.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15397.043710342923,
+        "amountEurSpouse": 10435.978587096015
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9002.827444103015,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "град Добрич, Гаази баба",
+        "municipality": "Добрич",
+        "areaSqm": 932,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Христо Николаев Даскалов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Димитрина Русева Даскалова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Христо Николаев Даскалов",
+        "isSpouse": false,
+        "legalBasis": "4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,58 +1,76 @@
 [
   {
     "slug": "krasimir-dimitrov-batilov-73f708",
-    "declarantName": "КРАСИМИР ДИМИТРОВ БАТИЛОВ",
+    "declarantName": "Красимир Димитров Батилов",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6312",
-    "controlHash": "A0F056D3",
-    "sourceUrl": "https://register.cacbg.bg/2025/4FABB379-87B1-4689-A2A9-BF2F181A0FC0209267.xml",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г2517",
+    "controlHash": "1E6B4D16",
+    "sourceUrl": "https://register.cacbg.bg/2026/4FABB379-87B1-4689-A2A9-BF2F181A0FC0226567.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12356.902184750208,
+        "amountEurDeclarant": 13731.254761405644,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 5728.514236922432,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 15338.756435886555,
+        "category": "доходи по предварителен договор за покупко продажба",
+        "amountEurDeclarant": 40072.501188753624,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "складово помещение с двор",
+        "description": "парцел",
         "detail": null,
-        "location": "Бургас",
+        "location": "Гр.Бургас",
         "municipality": "Бургас",
         "areaSqm": 2700,
-        "builtAreaSqm": 463,
-        "acquiredYear": 2024,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
         "share": "1/3",
         "currency": "BGN",
-        "amount": 108385,
-        "valueEur": 55416.37054345214,
-        "holderName": "Красимир Димитров Батилов",
-        "isSpouse": false,
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Красимир Димитрова ЍБатилов",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на имот"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "cash",
+        "category": "real_estate",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "Гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 463,
+        "builtAreaSqm": 463,
+        "acquiredYear": 2025,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 8383,
+        "valueEur": 4286.1598400678995,
+        "holderName": "Красимир Димитрова ЍБатилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -62,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70000,
-        "valueEur": 35790.431683735296,
-        "holderName": "КРАСИМИР ДИМИТРОВ БАТИЛОВ",
+        "amount": 78375,
+        "valueEur": 40072.501188753624,
+        "holderName": "Красимир Димитров Батилов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и прподажба на имот"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

@@ -5,6 +5,143 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13688",
+    "controlHash": "CA960731",
+    "sourceUrl": "https://register.cacbg.bg/2026/B55C8944-5A86-407E-AA9D-656FD6CFD1AB239272.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "едноличен собственик на капитала",
+        "companyName": "\"ЦЕНТРУМ ВИЖЪН 26\" ЕООД           ЕИК 208775496",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"ЦЕНТРУМ ВИЖЪН 26\" ЕООД ЕИК 208775496",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "svetoslav-georgiev-stefanov-6e82df",
+    "declarantName": "Светослав Георгиев Стефанов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1072",
+    "controlHash": "B1D27E98",
+    "sourceUrl": "https://register.cacbg.bg/2026/B55C8944-5A86-407E-AA9D-656FD6CFD1AB224754.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "50 %",
+        "companyName": "Прима тур - МДМ ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 511.29188119621847,
+        "holderName": "Светослав Георгиев Стефанов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23128.288245910942,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 30494.470378304864,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Светослав Георгиев Стефанов",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Светослав Георгиев Стефанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3374.526415895042,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "svetoslav-georgiev-stefanov-6e82df",
+    "declarantName": "Светослав Георгиев Стефанов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

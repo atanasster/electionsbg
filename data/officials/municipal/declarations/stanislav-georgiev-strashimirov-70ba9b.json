@@ -4,38 +4,89 @@
     "declarantName": "Станислав Георгиев Страшимиров",
     "institution": "Дупница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8500",
-    "controlHash": "AFE7D9AF",
-    "sourceUrl": "https://register.cacbg.bg/2025/F7E3190C-59DF-41A4-A200-701944833AA0211522.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10690",
+    "controlHash": "87924C44",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7E3190C-59DF-41A4-A200-701944833AA0235476.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "100",
+        "companyName": "\"Ейми-2016\"ЕООД",
+        "registeredOffice": "Дупница",
+        "valueEur": 51.12918811962185,
+        "holderName": "Станислав Георгиев Страшимиров",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "10",
+        "companyName": "\"Партс енд сървис\"ООД",
+        "registeredOffice": "Дупница",
+        "valueEur": 5.112918811962185,
+        "holderName": null,
+        "transfereeName": "Станислав Георгиев Страшимиров",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "дружествени дялове",
+        "shareSize": "5000",
+        "companyName": "\"Милигро 08\"ЕООД",
+        "registeredOffice": "Дупница",
+        "valueEur": 7669.378217943277,
+        "holderName": null,
+        "transfereeName": "Станислав Георгиев Страшимиров",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4836.30990423503,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5891.10505514283,
+        "amountEurSpouse": 3982.963754518542
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9643.987463123072,
+        "amountEurDeclarant": 10942.157549480273,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1051.7273996206213,
+        "amountEurDeclarant": 742.3958114969092,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "дарения",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 15338.756435886555
+        "category": "Дивидент /данъчна основа/",
+        "amountEurDeclarant": 64583.83397330034,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент /данъчна основа/",
+        "amountEurDeclarant": 3228.8082297541196,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия и помощи",
+        "amountEurDeclarant": 4504.992765219881,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -50,8 +101,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31095,
-        "valueEur": 15898.621045796413,
+        "amount": 197878,
+        "valueEur": 101173.41486734532,
         "holderName": "Станислав Георгиев Страшимиров",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,12 +119,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18009,
-        "valueEur": 9207.8554884627,
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
         "holderName": "Снежана Йорданова Страшимирова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

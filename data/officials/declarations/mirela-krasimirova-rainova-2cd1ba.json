@@ -5,6 +5,64 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3630",
+    "controlHash": "A4EC267A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B2CB811F-A78B-4D5C-ADD1-115B835E0B7B227774.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "\"Сий Хаус 306\" ЕООД",
+        "registeredOffice": "гр. Варна, ул. Ивайло № 68",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Мирела Красимирова Райнова",
+        "legalBasis": "Договор за прехвърляне на дружествени дялове",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17480.558126217515,
+        "amountEurSpouse": 4472.781376704519
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14879,
+        "valueEur": 7607.511900318535,
+        "holderName": "Мирела Красимирова Райнова",
+        "isSpouse": false,
+        "legalBasis": "4.7% лихвен процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mirela-krasimirova-rainova-2cd1ba",
+    "declarantName": "Мирела Красимирова Райнова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

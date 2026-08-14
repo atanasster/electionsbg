@@ -4,53 +4,35 @@
     "declarantName": "Илияна Дянкова Николова-Иванова",
     "institution": "Севлиево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12217",
-    "controlHash": "B24CC4D5",
-    "sourceUrl": "https://register.cacbg.bg/2025/92059FCB-1CC2-4906-AE73-CCA9B9F948C3215377.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13850",
+    "controlHash": "15FB39AF",
+    "sourceUrl": "https://register.cacbg.bg/2026/92059FCB-1CC2-4906-AE73-CCA9B9F948C3239494.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23725.477163148127,
-        "amountEurSpouse": 8833.07853954587
+        "amountEurDeclarant": 55711.89725078356,
+        "amountEurSpouse": 8998.737109053445
       },
       {
         "parent": null,
-        "category": "Ваучери храна",
-        "amountEurDeclarant": 188.1554122802084,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1831.4475184448547,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Обезщетение за временна неработоспособност от работодателя",
-        "amountEurDeclarant": 521.0064269389467,
-        "amountEurSpouse": null
+        "category": "Обезщетение за временна неработоспособност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2189.3518352822075
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 63881,
-        "valueEur": 32661.836662695634,
-        "holderName": "Илияна Дянкова Николова-Иванова",
-        "isSpouse": false,
-        "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -62,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12356,
-        "valueEur": 6317.522484060476,
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
         "holderName": "Илияна Дянкова Николова-Иванова",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100082,
-        "valueEur": 51171.11405387994,
+        "amount": 155106,
+        "valueEur": 79304.43852482067,
         "holderName": "Илияна Дянкова Николова-Иванова",
         "isSpouse": false,
         "legalBasis": null,
@@ -116,32 +98,57 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16669,
-        "valueEur": 8522.724367659766,
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
         "holderName": "Илияна Дянкова Николова-Иванова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "Оставащи лизингови вноски за л.а. Пежо",
-        "detail": "EUR",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 15066,
-        "valueEur": 15065.726571327774,
-        "holderName": "Илияна Дянкова Николова-Иванова",
-        "isSpouse": false,
-        "legalBasis": "договор за лизинг",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 14434,
+        "valueEur": 7379.987013186218,
+        "holderName": "Стефан Мартинов Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота, Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота, Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,76 +4,89 @@
     "declarantName": "Боян Иванов Петров",
     "institution": "Район \"Аспарухово\" - Варна",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г10211",
-    "controlHash": "0F2BD465",
-    "sourceUrl": "https://register.cacbg.bg/2025/ABD84D21-3000-49A4-BF7B-2D58369F9D82213287.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3719",
+    "controlHash": "D380A1A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/ABD84D21-3000-49A4-BF7B-2D58369F9D82227871.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21620.488488263294,
-        "amountEurSpouse": 5724.423901872862
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 21726.32590767091,
+        "amountEurSpouse": 17652.86349018064
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Киа Ниро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 16647,
+        "valueEur": 8511.47594627345,
+        "holderName": "Боян Иванов Петров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Тойота C-HR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 15669,
+        "valueEur": 8011.432486463547,
+        "holderName": "Нела Христова Петрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Боян Иванов Петров",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит / 6.9%",
+        "fundsOrigin": null
+      }
+    ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "МПС",
-        "detail": "БМВ х3",
+        "description": "автомобил",
+        "detail": "Хюндай i30",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 2658.717782220336,
+        "valueEur": 1738.392396067143,
         "legalBasis": "възмездно"
       }
     ]

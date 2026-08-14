@@ -5,6 +5,98 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6598",
+    "controlHash": "518F2E5B",
+    "sourceUrl": "https://register.cacbg.bg/2026/99891997-C855-46F0-8DC4-EB6BBF04D5DD230932.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51351.600087942206,
+        "amountEurSpouse": 35883.998097994205
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 42606.46375196208,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1999.6625473584106,
+        "amountEurSpouse": 7698.5218551714615
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "МИРЕЛА РАЛЧЕВА МАРКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "РАБОТНИ ЗАПЛАТИ"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17192,
+        "valueEur": 17192.189505222846,
+        "holderName": "МИРЕЛА РАЛЧЕВА МАРКОВА",
+        "isSpouse": false,
+        "legalBasis": "4,49",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16279,
+        "valueEur": 16279.0222054064,
+        "holderName": "КРАСИМИР ВАСИЛЕВ МАРКОВ",
+        "isSpouse": true,
+        "legalBasis": "4,82",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mirela-ralcheva-markova-af2258",
+    "declarantName": "МИРЕЛА РАЛЧЕВА МАРКОВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

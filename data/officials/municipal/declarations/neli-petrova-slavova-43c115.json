@@ -1,26 +1,63 @@
 [
   {
     "slug": "neli-petrova-slavova-43c115",
-    "declarantName": "НЕЛИ ПЕТРОВА СЛАВОВА",
+    "declarantName": "Нели Петрова Славова",
     "institution": "Тунджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г11327",
-    "controlHash": "839AD8D8",
-    "sourceUrl": "https://register.cacbg.bg/2025/FD3E8CF8-1013-48A2-865B-FDDBA7546FF7214462.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13542",
+    "controlHash": "C30711B0",
+    "sourceUrl": "https://register.cacbg.bg/2026/FD3E8CF8-1013-48A2-865B-FDDBA7546FF7239074.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5598.6460990985925,
+        "amountEurDeclarant": 7423.958114969092,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 43.58,
+        "builtAreaSqm": 43.58,
+        "acquiredYear": 2025,
+        "share": "4,44",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Нели Петрова Славова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания и обищитение от шенсиониране"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "село Асеново",
+        "municipality": "Тунджа",
+        "areaSqm": 17.147,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Нели Петрова Славова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,74 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-06-07",
+    "entryNumber": "Г14407",
+    "controlHash": "9BD01A6B",
+    "sourceUrl": "https://register.cacbg.bg/2026/9CCCE8BC-3200-46B5-A7AE-5613A8FA66CC240181.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14240.501475077077,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3242.1018186652213,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 83,
+        "builtAreaSqm": 83,
+        "acquiredYear": 1976,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Татяна Димитрова Пазийска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2001,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Татяна Димитрова Пазийска",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-dimitrova-paziiska-d76a97",
+    "declarantName": "Татяна Димитрова Пазийска",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

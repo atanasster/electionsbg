@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г14822",
+    "controlHash": "6C5953A8",
+    "sourceUrl": "https://register.cacbg.bg/2026/A5DAAA9D-CA2A-4144-BD16-E45ECB71C40E241123.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23890.11314889331,
+        "amountEurSpouse": 7662.22013160653
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8676,
+        "valueEur": 4435.968361258391,
+        "holderName": "Атанаска Иванова Дичкова",
+        "isSpouse": false,
+        "legalBasis": "5.99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80248,
+        "valueEur": 41030.15088223414,
+        "holderName": "Ирен Даниелова Дичкова",
+        "isSpouse": true,
+        "legalBasis": "3.35",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanaska-ivanova-dichkova-ecead5",
+    "declarantName": "Атанаска Иванова Дичкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г3496",
+    "controlHash": "D0E9BB02",
+    "sourceUrl": "https://register.cacbg.bg/2026/D3308051-8ADB-4A40-AB33-A169C4557017227631.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25952.664597638854,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6268.438463465639
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Валентин Райчев Колев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27884,
+        "valueEur": 14256.862815275357,
+        "holderName": "Валентин Райчев Колев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valentin-raichev-kolev-70d2e8",
+    "declarantName": "Валентин Райчев Колев",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митническо бюро",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

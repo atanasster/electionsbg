@@ -5,6 +5,68 @@
     "institution": "РИОСВ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г3154",
+    "controlHash": "BFDC2DD6",
+    "sourceUrl": "https://register.cacbg.bg/2026/05298D87-EDD3-4410-8A48-B10293BBBF4F227271.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43548.774689006714,
+        "amountEurSpouse": 21096.925601918367
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 260238,
+        "valueEur": 133057.57657874151,
+        "holderName": "Екатерина Димитрова Гаджева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен заем - 3,75 % лихва",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13117,
+        "valueEur": 13116.68192020779,
+        "holderName": "Георги Райчев Гаджев",
+        "isSpouse": true,
+        "legalBasis": "3,75 % - нотариален акт за учредяване на ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ekaterina-dimitrova-gadzheva-aa471f",
+    "declarantName": "Екатерина Димитрова Гаджева",
+    "institution": "РИОСВ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

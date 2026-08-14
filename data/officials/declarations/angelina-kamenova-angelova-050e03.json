@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2131",
+    "controlHash": "9EC99415",
+    "sourceUrl": "https://register.cacbg.bg/2026/72A885D8-8318-4FBC-B854-D7FFE8A18939226122.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22062.244673616828,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "кв.\" Галата\"",
+        "municipality": "Варна",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "24,42",
+        "currency": "BGN",
+        "amount": 48895,
+        "valueEur": 24999.616531089105,
+        "holderName": "Ангелина Каменова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30860,
+        "valueEur": 15778.467453715302,
+        "holderName": "Ангелина Каменова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "кредит 3,14 лих. %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "angelina-kamenova-angelova-050e03",
+    "declarantName": "Ангелина Каменова Ангелова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,6 +1,98 @@
 [
   {
     "slug": "nina-vasileva-dyulgerska-0ccf25",
+    "declarantName": "НИНА ВАСИЛЕВА ДЮЛГЕРСКА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г8533",
+    "controlHash": "6116C6E6",
+    "sourceUrl": "https://register.cacbg.bg/2026/4DF7ECB3-8A21-44FD-8ED9-9C495B78E552233046.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21669.061216976937,
+        "amountEurSpouse": 4164.983664224395
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 24695.397861777354,
+        "amountEurSpouse": 16565.85695075748
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1644.3146899270387
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 124,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 19758,
+        "valueEur": 10102.104988674884,
+        "holderName": "ДЕТЕЛИН ДИМИТРОВ ДЮЛГЕРСКИ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 154381,
+        "valueEur": 78933.7519109534,
+        "holderName": "НИНА ВАСИЛЕВА ДЮЛГЕРСКА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31603,
+        "valueEur": 16158.357321444093,
+        "holderName": "ДЕТЕЛИН ДИМИТРОВ ДЩЛГЕРСКИ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nina-vasileva-dyulgerska-0ccf25",
     "declarantName": "Нина Василева Дюлгерска",
     "institution": "Училища",
     "positionTitle": "Директор",

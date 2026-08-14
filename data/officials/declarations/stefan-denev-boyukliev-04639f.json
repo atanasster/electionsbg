@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-12-31",
+    "entryNumber": "Г6938",
+    "controlHash": "8C985457",
+    "sourceUrl": "https://register.cacbg.bg/2026/D374A92D-2F45-42AA-97F5-4B1EE4CD562F231313.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20638.29678448536,
+        "amountEurSpouse": 4356.2068277917815
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Долен",
+        "municipality": "Златоград",
+        "areaSqm": 48,
+        "builtAreaSqm": 96,
+        "acquiredYear": 2000,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Рамадан Халилов Боюклиев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefan-denev-boyukliev-04639f",
+    "declarantName": "Стефан Денев Боюклиев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,51 +1,38 @@
 [
   {
     "slug": "bernar-erdinch-akif-6342db",
-    "declarantName": "Бернар Ердинч Акиф",
+    "declarantName": "БЕРНАР ЕРДИНЧ АКИФ",
     "institution": "Търговище",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11139",
-    "controlHash": "CC438CD6",
-    "sourceUrl": "https://register.cacbg.bg/2025/CB50E315-0534-406E-BD4A-8E46E75A12CB214264.xml",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13228",
+    "controlHash": "2542F35A",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB50E315-0534-406E-BD4A-8E46E75A12CB238728.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6274.062674158797,
+        "amountEurDeclarant": 7514.968069822019,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 3426.6781877770563,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 412.6125481253483,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "debt",
-        "description": "Лизинг",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
-        "holderName": "Бернар Ердинч Акиф",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

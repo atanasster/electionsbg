@@ -4,32 +4,50 @@
     "declarantName": "Хубан Евгениев Соколов",
     "institution": "Разград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11973",
-    "controlHash": "D85EF0B8",
-    "sourceUrl": "https://register.cacbg.bg/2025/C8180693-7F83-41FC-BD51-602DD45B3E34215127.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11010",
+    "controlHash": "744058BA",
+    "sourceUrl": "https://register.cacbg.bg/2026/C8180693-7F83-41FC-BD51-602DD45B3E34235840.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9014.075865489333,
-        "amountEurSpouse": 22349.5907108491
+        "amountEurDeclarant": 10141.474463526994,
+        "amountEurSpouse": 23981.123103746235
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 19323.254066048685,
+        "amountEurDeclarant": 23309.285571854405,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "Финансов лизинг",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота ЦХР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 63000,
+        "valueEur": 32211.388515361767,
+        "holderName": "Мая Георгиева Маринова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11268,
-        "valueEur": 5761.23691731899,
-        "holderName": "Мая Георгиева Маринова",
-        "isSpouse": true,
-        "legalBasis": "Договор",
-        "fundsOrigin": null
+        "amount": 50156,
+        "valueEur": 25644.355593277534,
+        "holderName": "Хубан Евгениев Соколов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

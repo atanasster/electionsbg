@@ -4,48 +4,103 @@
     "declarantName": "АБЕДИН РАКИПОВ КАМБУРОВ",
     "institution": "Гоце Делчев",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6236",
-    "controlHash": "B546ECA5",
-    "sourceUrl": "https://register.cacbg.bg/2025/A142D044-8263-4660-AC92-0E79F1DAD435209191.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6490",
+    "controlHash": "2F7A00AF",
+    "sourceUrl": "https://register.cacbg.bg/2026/A142D044-8263-4660-AC92-0E79F1DAD435230814.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4785.692007996605,
+        "amountEurDeclarant": 5863.495293558233,
+        "amountEurSpouse": 2951.176738264573
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 27781.044364796533,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 25564.594059810923
+        "amountEurSpouse": 24848.78542613622
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Мицубиши L 200",
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Гърция,с.Офронио,Кавала",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 38,
+        "builtAreaSqm": 76,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 127128,
+        "valueEur": 64999.51427271286,
+        "holderName": "АБИБЕ ФИКРЕТОВА КАМБУРОВА",
+        "isSpouse": true,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "НАЕМИ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 29999.539837306922,
+        "holderName": "АБИБЕ ФИКРЕТОВА КАМБУРОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "НАЕМИ И ЗАПЛАТА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3000,
+        "valueEur": 2999.749466978214,
         "holderName": "АБЕДИН РАКИПОВ КАМБУРОВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Други плащания с единична цена над",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2351.942653502605,
+        "legalBasis": null
+      }
+    ]
   }
 ]

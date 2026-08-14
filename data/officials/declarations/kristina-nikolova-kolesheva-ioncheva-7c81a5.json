@@ -1,6 +1,69 @@
 [
   {
     "slug": "kristina-nikolova-kolesheva-ioncheva-7c81a5",
+    "declarantName": "Кристина николова Колешева-Йончева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6757",
+    "controlHash": "97A430D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/9161A85A-6E15-4B47-8492-45C445ED1E72231102.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26076.39723288834,
+        "amountEurSpouse": 3806.5680555058466
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 766.9378217943278,
+        "amountEurSpouse": 766.9378217943278
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 49000,
+        "valueEur": 48999.6574344396,
+        "holderName": "Кристина Николова Колешева-Йончева, Пламен Матеев Йончев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "Продажба"
+      }
+    ]
+  },
+  {
+    "slug": "kristina-nikolova-kolesheva-ioncheva-7c81a5",
     "declarantName": "Кристина Николова Колешева-Йончева",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

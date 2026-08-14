@@ -4,23 +4,60 @@
     "declarantName": "Христо Иванов Пищялов",
     "institution": "Калояново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12579",
-    "controlHash": "A1E988B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/6BCC0E1E-B1DF-4473-B290-062ECC9BEE10215748.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9993",
+    "controlHash": "BD761779",
+    "sourceUrl": "https://register.cacbg.bg/2026/6BCC0E1E-B1DF-4473-B290-062ECC9BEE10234671.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7092.640975953943,
-        "amountEurSpouse": 7434.183952593017
+        "amountEurDeclarant": 7615.181278536478,
+        "amountEurSpouse": 9788.683065501604
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Христо Иванов Пищялов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16500,
+        "valueEur": 8436.316039737605,
+        "holderName": "Христо Иванов Пищялов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

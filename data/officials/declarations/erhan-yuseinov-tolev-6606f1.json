@@ -1,6 +1,86 @@
 [
   {
     "slug": "erhan-yuseinov-tolev-6606f1",
+    "declarantName": "Ерхан Юсеинов Толев",
+    "institution": "Северозападно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6312",
+    "controlHash": "66CA57E6",
+    "sourceUrl": "https://register.cacbg.bg/2026/16C0CB88-E85A-4C12-AE28-06D406DAE10E230622.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31600.394717332285,
+        "amountEurSpouse": 7362.603089225547
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Троян",
+        "municipality": "Троян",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "acquiredYear": 2024,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Севил Юсеинова Кабакчиева-Толева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2248,
+        "valueEur": 1149.3841489290992,
+        "holderName": "Ерхан Юсеинов Толев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Ерхан Юсеинов Толев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "erhan-yuseinov-tolev-6606f1",
     "declarantName": "ЕРХАН ЮСЕИНОВ ТОЛЕВ",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",

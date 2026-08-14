@@ -4,25 +4,25 @@
     "declarantName": "Альон Насков Хаджиев",
     "institution": "Ардино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г1462",
-    "controlHash": "29B218D1",
-    "sourceUrl": "https://register.cacbg.bg/2025/2975E2CA-3076-437C-B391-E8E8A120A952203944.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4449",
+    "controlHash": "13CF71D2",
+    "sourceUrl": "https://register.cacbg.bg/2026/2975E2CA-3076-437C-B391-E8E8A120A952228649.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2014.490011913101,
-        "amountEurSpouse": 7209.21552486668
+        "amountEurDeclarant": 3013.0430558893154,
+        "amountEurSpouse": 8061.539090820777
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11534.744839786688,
+        "amountEurDeclarant": 14851.495273106559,
         "amountEurSpouse": null
       }
     ],
@@ -38,14 +38,81 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 42000,
-        "valueEur": 21474.259010241178,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Альон Насков Хаджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Альон Насков Хаджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Росица Колева Хаджиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
         "holderName": "Росица Колева Хаджиева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с.Млечино",
+        "municipality": "Ардино",
+        "areaSqm": 117,
+        "builtAreaSqm": 117,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

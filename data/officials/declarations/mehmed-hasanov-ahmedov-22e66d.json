@@ -1,6 +1,80 @@
 [
   {
     "slug": "mehmed-hasanov-ahmedov-22e66d",
+    "declarantName": "Мехмед Хасанов Ахмедов",
+    "institution": "МБАЛ - Омуртаг ЕАД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4626",
+    "controlHash": "605C585A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6237E281-C2FA-4A35-9614-082BFD8D7C7C228843.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 30130.94185077435,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2580.4901243973145,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": 11820.04570949418,
+        "amountEurSpouse": 4475.849127991697
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22831,
+        "valueEur": 11673.304939590864,
+        "holderName": "Мехмед Хасанов Мехмедов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "security",
+        "description": "АКЦИИ",
+        "detail": "Митропол трейдинг 2013 АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "151486",
+        "currency": "BGN",
+        "amount": 151486,
+        "valueEur": 77453.56191489035,
+        "holderName": "МЕХМЕД ХАСАНОВ МЕХМЕДОВ",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "фирмени"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mehmed-hasanov-ahmedov-22e66d",
     "declarantName": "МЕХМЕД ХАСАНОВ АХМЕДОВ",
     "institution": "МБАЛ - Омуртаг ЕАД",
     "positionTitle": "Член на СД",

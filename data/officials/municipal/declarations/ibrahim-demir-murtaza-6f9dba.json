@@ -4,52 +4,70 @@
     "declarantName": "Ибрахим Демир Муртаза",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5950",
-    "controlHash": "6A13D940",
-    "sourceUrl": "https://register.cacbg.bg/2025/F2FB1E1D-7915-4171-A263-A1846CE663B5208896.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7097",
+    "controlHash": "69C8C428",
+    "sourceUrl": "https://register.cacbg.bg/2026/F2FB1E1D-7915-4171-A263-A1846CE663B5231487.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5951.437497123983,
-        "amountEurSpouse": 3303.9681362899637
+        "amountEurDeclarant": 7212.794568035054,
+        "amountEurSpouse": 1285.3877893272934
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13913.785962992693,
+        "amountEurDeclarant": 14503.305502011934,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Социална помощ за дете с увреждане",
-        "amountEurDeclarant": 3589.269005997454,
-        "amountEurSpouse": null
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3573.930249561567
+      },
+      {
+        "parent": null,
+        "category": "Обещетение НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 68.00182019909705
+      },
+      {
+        "parent": null,
+        "category": "Инвалидна пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2840.73769192619
+      },
+      {
+        "parent": null,
+        "category": "Дирекция социално подпомагане-пътни",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 182.53120158705
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Автомобил",
-        "detail": "БМВ Х3",
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "currency": "BGN",
+        "amount": 61389,
+        "valueEur": 31387.697294754656,
         "holderName": "Ибрахим Демир Муртаза",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "legalBasis": "3,2963%",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -62,16 +80,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 17895,
+        "valueEur": 9149.568214006329,
         "holderName": "Ибрахим Демир Муртаза",
         "isSpouse": false,
-        "legalBasis": "5,1328%-кредит",
+        "legalBasis": "5,2323%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Ипотечен кредит",
+        "description": "Овърдрафт",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,27 +98,68 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 62000,
-        "valueEur": 31700.096634165548,
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
         "holderName": "Ибрахим Демир Муртаза",
         "isSpouse": false,
-        "legalBasis": "3,2968",
+        "legalBasis": "8,8577%",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "е200",
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "възмездно"
+        "amount": 2947,
+        "valueEur": 1506.777173885256,
+        "holderName": "Ибрахим Демир Муртаза",
+        "isSpouse": false,
+        "legalBasis": "16%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21475,
+        "valueEur": 10979.993148688793,
+        "holderName": "Росица Пламенова Муртаза",
+        "isSpouse": true,
+        "legalBasis": "7,75%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Росица Пламенова Муртаза",
+        "isSpouse": true,
+        "legalBasis": "9,83%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

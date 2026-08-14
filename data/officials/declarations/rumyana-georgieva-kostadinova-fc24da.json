@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1285",
+    "controlHash": "6C19EC7A",
+    "sourceUrl": "https://register.cacbg.bg/2026/F89DBF01-08BE-4B9B-8D9E-95B18240AFB7225099.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19386.654259317016,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наследствена пенсия",
+        "amountEurDeclarant": 241.32976792461514,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наем земеделска земя",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Лозница",
+        "municipality": "Лозница",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 1990,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Румяна Георгиева Костадинова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Лозница",
+        "municipality": "Лозница",
+        "areaSqm": 3,
+        "builtAreaSqm": 3,
+        "acquiredYear": 1998,
+        "share": "3",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Румяна Георгиева Костадинова",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Румяна  георгиева Костадинова",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-georgieva-kostadinova-fc24da",
+    "declarantName": "Румяна Георгиева Костадинова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

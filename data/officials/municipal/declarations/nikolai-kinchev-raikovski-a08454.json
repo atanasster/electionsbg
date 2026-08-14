@@ -4,25 +4,67 @@
     "declarantName": "Николай Кинчев Райковски",
     "institution": "Троян",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3710",
-    "controlHash": "DBDF5E42",
-    "sourceUrl": "https://register.cacbg.bg/2025/FD4EBD43-BE9C-4BC2-ABAA-A53BDAB54676206511.xml",
+    "filedAt": "2026-01-28",
+    "entryNumber": "Г108",
+    "controlHash": "B9798C27",
+    "sourceUrl": "https://register.cacbg.bg/2026/FD4EBD43-BE9C-4BC2-ABAA-A53BDAB54676222914.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32147.988322093435,
-        "amountEurSpouse": 12491.371949504814
+        "amountEurDeclarant": 38276.33281011131,
+        "amountEurSpouse": 18067.009913949576
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 562.4210693158403,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "vehicle",
+        "description": "Лек атомобил",
+        "detail": "Volkswagen, T-cross",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 53000,
+        "valueEur": 27098.46970339958,
+        "holderName": "Николай Кинчев Райковски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек атомобил",
+        "detail": "Volkswagen, T-cross",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 53000,
+        "valueEur": 27098.46970339958,
+        "holderName": "Миглена Петрова Райковска",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -32,15 +74,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13791,
-        "valueEur": 7051.226333577049,
+        "amount": 23320,
+        "valueEur": 11923.326669495815,
         "holderName": "Николай Кинчев Райковски",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -50,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1171,
-        "valueEur": 598.7227928807719,
+        "amount": 2943,
+        "valueEur": 1504.732006360471,
         "holderName": "Миглена Петрова Райковска",
         "isSpouse": true,
         "legalBasis": null,
@@ -59,7 +101,7 @@
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,14 +110,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 41034,
-        "valueEur": 20980.35105300563,
+        "amount": 37500,
+        "valueEur": 19173.445544858194,
         "holderName": "Миглена Петрова Райковска",
         "isSpouse": true,
-        "legalBasis": "кредит, 2.99% лихвен %",
+        "legalBasis": "ипотечен кредит, 2.9%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Toyota Corolla verso",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Toyota Corolla verso",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,29 +4,48 @@
     "declarantName": "Танер Тефик Ахмед",
     "institution": "Главиница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-27",
-    "entryNumber": "Г3205",
-    "controlHash": "006894AF",
-    "sourceUrl": "https://register.cacbg.bg/2025/602E7399-5350-4CA3-9C69-563EA8187E2A205938.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1067",
+    "controlHash": "96FDEB2C",
+    "sourceUrl": "https://register.cacbg.bg/2026/602E7399-5350-4CA3-9C69-563EA8187E2A224749.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4950.839285622984,
-        "amountEurSpouse": 14803.433836274115
+        "amountEurDeclarant": 3625.059437681189,
+        "amountEurSpouse": 15797.89654520076
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10395.075236600318,
+        "amountEurDeclarant": 3427.1894796582524,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Нуртен Ахмед Ахмед",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

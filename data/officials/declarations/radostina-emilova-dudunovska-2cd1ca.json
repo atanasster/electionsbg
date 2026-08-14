@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "radostina-emilova-dudunovska-2cd1ca",
+    "declarantName": "Радостина Емилова Дудуновска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10564",
+    "controlHash": "DBE5A0C5",
+    "sourceUrl": "https://register.cacbg.bg/2026/28B98F65-7D57-4D6B-AA7A-67A360F4756C235327.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11669.725896422491,
+        "amountEurSpouse": 6460.684210795417
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 170000,
+        "valueEur": 86919.61980335714,
+        "holderName": "Радостина Емилова Дудуновска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Славчо Радославов Дудуновски",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125000,
+        "valueEur": 63911.48514952731,
+        "holderName": "Радостина Емилова Дудуновска",
+        "isSpouse": false,
+        "legalBasis": "2,76",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125000,
+        "valueEur": 63911.48514952731,
+        "holderName": "Славчо Радославов Дудуновски",
+        "isSpouse": true,
+        "legalBasis": "2,76",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

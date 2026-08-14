@@ -5,6 +5,43 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г761",
+    "controlHash": "560DB790",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F3A2294-5E67-49C1-8FE3-66342D6A36CC224310.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19619.803357142493,
+        "amountEurSpouse": 21872.044093811834
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4213.04510105684
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 14543.697560626435,
+        "amountEurSpouse": 12086.428779597409
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "atanas-nenkov-nenkov-360440",
+    "declarantName": "АТАНАС НЕНКОВ НЕНКОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

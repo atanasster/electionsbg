@@ -4,23 +4,42 @@
     "declarantName": "Константин Руйчев Костов",
     "institution": "Николаево",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г8530",
-    "controlHash": "D2F5783B",
-    "sourceUrl": "https://register.cacbg.bg/2025/0680504C-3D63-400F-A949-53E761122D1B211552.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5493",
+    "controlHash": "F645E837",
+    "sourceUrl": "https://register.cacbg.bg/2026/0680504C-3D63-400F-A949-53E761122D1B229754.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17151.797446608347,
+        "amountEurDeclarant": 23826.20166374378,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Константин Руйчев Костов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

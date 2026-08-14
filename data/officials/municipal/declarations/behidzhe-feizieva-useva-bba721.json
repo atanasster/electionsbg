@@ -4,56 +4,32 @@
     "declarantName": "Бехидже Фейзиева Усева",
     "institution": "Борино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г13787",
-    "controlHash": "26D8AE2D",
-    "sourceUrl": "https://register.cacbg.bg/2025/C79D74DB-A845-4C7D-B58B-2C4D301C7C2F217039.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5196",
+    "controlHash": "C675DA1D",
+    "sourceUrl": "https://register.cacbg.bg/2026/C79D74DB-A845-4C7D-B58B-2C4D301C7C2F229445.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4864.430957700823,
-        "amountEurSpouse": 4930.3876103751345
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10889.494485717061,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 14986.987621623557,
+        "amountEurSpouse": 12217.830793064837
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 172.81665584432184,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 185.08766099303108,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "category": "Покупко-продажба на МПС",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1073.7129505120588
       }
     ],
     "assets": [
@@ -64,7 +40,7 @@
         "location": "Чатак",
         "municipality": "Борино",
         "areaSqm": 1,
-        "builtAreaSqm": 0,
+        "builtAreaSqm": null,
         "acquiredYear": 2003,
         "share": "1",
         "currency": "BGN",
@@ -82,7 +58,7 @@
         "location": "Кастракли",
         "municipality": "Борино",
         "areaSqm": 1,
-        "builtAreaSqm": 0,
+        "builtAreaSqm": null,
         "acquiredYear": 2010,
         "share": "1",
         "currency": "BGN",
@@ -92,24 +68,6 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Голф",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2021,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Фейзи Алиев Усев",
-        "isSpouse": true,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",

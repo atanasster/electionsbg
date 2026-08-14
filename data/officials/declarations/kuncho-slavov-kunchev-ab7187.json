@@ -1,6 +1,92 @@
 [
   {
     "slug": "kuncho-slavov-kunchev-ab7187",
+    "declarantName": "Кунчо Славов Кунчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4154",
+    "controlHash": "646ED321",
+    "sourceUrl": "https://register.cacbg.bg/2026/EE32B8C6-C0B3-4929-9122-1ABB99EFED57228350.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62003.85514078422,
+        "amountEurSpouse": 15354.095192322442
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 1936.2623540900795,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Красен",
+        "municipality": "Иваново",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Кунчо Славов Кунчев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 38041,
+        "valueEur": 38041.138544761045,
+        "holderName": "Кунчо Славов Кунчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100029,
+        "valueEur": 51144.01558417654,
+        "holderName": "Кунчо Славов Кунчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и рента"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kuncho-slavov-kunchev-ab7187",
     "declarantName": "КУНЧО СЛАВОВ КУНЧЕВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

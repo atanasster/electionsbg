@@ -4,15 +4,22 @@
     "declarantName": "Теодор Божидаров Ставрев",
     "institution": "Червен бряг",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-05-08",
-    "entryNumber": "В1443",
-    "controlHash": "B5C0716A",
-    "sourceUrl": "https://register.cacbg.bg/2025/6243BC13-EE8A-41DC-A7C3-B24AFFC74D54219577.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4086",
+    "controlHash": "8C63B6A3",
+    "sourceUrl": "https://register.cacbg.bg/2026/6243BC13-EE8A-41DC-A7C3-B24AFFC74D54228282.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22538.768706891704,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -29,13 +36,13 @@
         "valueEur": 5112.918811962185,
         "holderName": "Теодор Божидаров Ставрев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "vehicle",
         "description": "лек",
-        "detail": "волво",
+        "detail": "Волво",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -47,8 +54,8 @@
         "valueEur": 5112.918811962185,
         "holderName": "Теодор Божидаров Ставрев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -65,7 +72,7 @@
         "valueEur": 25564.594059810923,
         "holderName": "Теодор Божидаров Ставрев",
         "isSpouse": false,
-        "legalBasis": "потребителски",
+        "legalBasis": "Потребителски",
         "fundsOrigin": null
       },
       {
@@ -83,27 +90,10 @@
         "valueEur": 10225.83762392437,
         "holderName": "Теодор Божидаров Ставрев",
         "isSpouse": false,
-        "legalBasis": "потребителски",
+        "legalBasis": "Потребителски",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "teodor-bozhidarov-stavrev-056433",
-    "declarantName": "Теодор Божидаров Ставрев",
-    "institution": "Червен бряг",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-08",
-    "entryNumber": "В1444",
-    "controlHash": "189D2883",
-    "sourceUrl": "https://register.cacbg.bg/2025/6243BC13-EE8A-41DC-A7C3-B24AFFC74D54219578.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

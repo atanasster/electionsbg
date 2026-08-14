@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6665",
+    "controlHash": "BCA73F27",
+    "sourceUrl": "https://register.cacbg.bg/2026/AA8AB30B-5654-476D-B2C4-068CF921EB7E231008.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18979.15463000363,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39790,
+        "valueEur": 20344.303952797534,
+        "holderName": "Татяна Иванова Величкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от заплати и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39790,
+        "valueEur": 20344.303952797534,
+        "holderName": "Татяна Иванова Величкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от заплата и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-ivanova-velichkova-f4bd25",
+    "declarantName": "Татяна Иванова Величкова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

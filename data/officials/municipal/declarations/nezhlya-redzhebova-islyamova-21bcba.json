@@ -4,32 +4,38 @@
     "declarantName": "Нежля Реджебова Ислямова",
     "institution": "Ветово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12792",
-    "controlHash": "058F69EE",
-    "sourceUrl": "https://register.cacbg.bg/2025/B56044E7-C93B-4FBE-961D-8DEF76319F99215967.xml",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г7825",
+    "controlHash": "523EA50A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B56044E7-C93B-4FBE-961D-8DEF76319F99232271.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5887.01472009326,
+        "amountEurDeclarant": 4833.242152947853,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6987.826140308718,
+        "amountEurDeclarant": 6124.765444849501,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4486.586257496817
+        "amountEurSpouse": 4141.46423768937
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за временна нетрудоспособност",
+        "amountEurDeclarant": 2249.6842772633613,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -44,11 +50,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16080,
-        "valueEur": 8221.573449635192,
+        "amount": 11497,
+        "valueEur": 5878.322758112924,
         "holderName": "Нежля Реджебова Ислямова",
         "isSpouse": false,
         "legalBasis": "5,99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23146,
+        "valueEur": 11834.361882167674,
+        "holderName": "Нежля Реджебова Ислямова",
+        "isSpouse": false,
+        "legalBasis": "5,90",
         "fundsOrigin": null
       }
     ],

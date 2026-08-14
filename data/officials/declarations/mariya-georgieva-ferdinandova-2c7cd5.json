@@ -1,6 +1,74 @@
 [
   {
     "slug": "mariya-georgieva-ferdinandova-2c7cd5",
+    "declarantName": "МАРИЯ ГЕОРГИЕВА ФЕРДИНАНДОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-13",
+    "entryNumber": "Г326",
+    "controlHash": "3F84619C",
+    "sourceUrl": "https://register.cacbg.bg/2026/27F0228E-1CD6-404C-8643-D7317BF9E217223491.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21111.75306647306,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход по чл.81 от КСО",
+        "amountEurDeclarant": 578.7824095141193,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27376,
+        "valueEur": 13997.126539627678,
+        "holderName": "Мария Георгиева Фердинандова",
+        "isSpouse": false,
+        "legalBasis": "4.1",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9613,
+        "valueEur": 4915.048853939248,
+        "holderName": "Мария Георгиева Фердинандова",
+        "isSpouse": false,
+        "legalBasis": "4.1",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-georgieva-ferdinandova-2c7cd5",
     "declarantName": "Мария Георгиева Фердинандова",
     "institution": "Училища",
     "positionTitle": "Директор",

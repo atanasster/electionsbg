@@ -4,32 +4,26 @@
     "declarantName": "Шабан Ердинч Абтиходжа",
     "institution": "Ветово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-04",
-    "entryNumber": "Г5603",
-    "controlHash": "3205A08A",
-    "sourceUrl": "https://register.cacbg.bg/2025/E03A9C76-0F87-4CE4-9BCE-22F9741CE1CA208536.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2460",
+    "controlHash": "34864C92",
+    "sourceUrl": "https://register.cacbg.bg/2026/E03A9C76-0F87-4CE4-9BCE-22F9741CE1CA226509.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4637.841734711094,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 507.56456338229805,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 13191.330534862436,
+        "amountEurSpouse": 5945.8132864308245
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "къща с двор",
+        "description": "Kъща с двор",
         "detail": null,
         "location": "гр.Глоджево",
         "municipality": "Ветово",
@@ -46,22 +40,22 @@
         "fundsOrigin": "дарения"
       },
       {
-        "category": "vehicle",
-        "description": "Лека кола",
-        "detail": "Форд Фокус",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2017,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "category": "real_estate",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "гр.Глоджево",
+        "municipality": "Ветово",
+        "areaSqm": 970,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
         "holderName": "Шабан Ердинч Абтиходжа",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
       },
       {
         "category": "vehicle",
@@ -80,8 +74,39 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Фиат Дукато",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3200,
+        "valueEur": 1636.1340198278992,
+        "holderName": "Шабан Ердинч Абтиходжа",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Форд фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 371.7091976296508,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

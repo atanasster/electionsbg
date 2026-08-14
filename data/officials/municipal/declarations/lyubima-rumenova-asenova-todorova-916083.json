@@ -4,29 +4,67 @@
     "declarantName": "Любима Руменова Асенова-Тодорова",
     "institution": "Криводол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5977",
-    "controlHash": "CE501028",
-    "sourceUrl": "https://register.cacbg.bg/2025/F3E161BA-D690-4156-9F56-2DB0CE1DEEFF208923.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г3250",
+    "controlHash": "E6CDC79B",
+    "sourceUrl": "https://register.cacbg.bg/2026/F3E161BA-D690-4156-9F56-2DB0CE1DEEFF227371.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4908.4020594836975,
-        "amountEurSpouse": 21474.259010241178
+        "amountEurDeclarant": 12884.555406144706,
+        "amountEurSpouse": 35790.431683735296
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6448.413205646708,
+        "amountEurDeclarant": 6749.052831790084,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 50106.604357229415,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВРАЦА",
+        "municipality": "Враца",
+        "areaSqm": 60,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 115000,
+        "valueEur": 58798.56633756513,
+        "holderName": "ЛЮБИМА РУМЕНОВА АСЕНОВА-ТОДОРОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА АПАРТАМЕНТ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВРАЦА",
+        "municipality": "Враца",
+        "areaSqm": 39,
+        "builtAreaSqm": 2,
+        "currency": "BGN",
+        "valueEur": 50106.604357229415,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

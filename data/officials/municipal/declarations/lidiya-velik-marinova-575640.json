@@ -1,29 +1,29 @@
 [
   {
     "slug": "lidiya-velik-marinova-575640",
-    "declarantName": "Лидия Велик Маринова",
+    "declarantName": "Лидия Велик Маринов",
     "institution": "Варна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13956",
-    "controlHash": "9E06A348",
-    "sourceUrl": "https://register.cacbg.bg/2025/6D785273-E55B-4945-8E2F-62C94BDFD03D217218.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10760",
+    "controlHash": "33259C59",
+    "sourceUrl": "https://register.cacbg.bg/2026/6D785273-E55B-4945-8E2F-62C94BDFD03D235554.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15846.4692739144,
+        "amountEurDeclarant": 21760.071171829863,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6876.875802089138
+        "amountEurSpouse": 5418.671356917524
       }
     ],
     "assets": [
@@ -38,14 +38,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8634,
-        "valueEur": 4414.494102248151,
+        "amount": 9943,
+        "valueEur": 5083.775174734001,
         "holderName": "Лидия Велик Маринова",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 53,
+        "builtAreaSqm": 127129,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 53,
+        "builtAreaSqm": 127129,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

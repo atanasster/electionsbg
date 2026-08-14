@@ -5,6 +5,110 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13679",
+    "controlHash": "FF12E3E5",
+    "sourceUrl": "https://register.cacbg.bg/2026/86322503-45F1-4382-A5B0-A56B47ADB424239261.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19178.04717178896,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Възстановени средства за съдебни разноски",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на наследствена земеделска земя",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на наследствена къща",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на наследствен етаж от къща",
+        "amountEurDeclarant": 10737.129505120589,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Надежда Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1800,
+        "valueEur": 920.3253861531933,
+        "holderName": "Надежда Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Надежда Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "2,60 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nadezhda-hristova-ivanova-6b2f67",
+    "declarantName": "Надежда Христова Иванова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

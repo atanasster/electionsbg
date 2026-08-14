@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11645",
+    "controlHash": "0D81EBD2",
+    "sourceUrl": "https://register.cacbg.bg/2026/1BFD3560-C5D1-411C-AABA-0A15BF09E5C3236598.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 265246.46825133066,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 9450.719132030903,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28480,
+        "valueEur": 14561.592776468302,
+        "holderName": "Анета Стефанова Делчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1623,
+        "valueEur": 829.8267231814626,
+        "holderName": "Анета Стефанова Делчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aneta-stefanova-delcheva-4670f6",
+    "declarantName": "Анета Стефанова Делчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

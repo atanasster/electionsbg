@@ -5,6 +5,68 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г1147",
+    "controlHash": "259F440C",
+    "sourceUrl": "https://register.cacbg.bg/2026/0656F8BD-4D21-41E8-A968-AC8552E16E2D224870.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38304.4538635771,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 91569,
+        "valueEur": 46818.48626925653,
+        "holderName": "Димитър Спиридонов Стойчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения и спестявания"
+      },
+      {
+        "category": "receivable",
+        "description": "заем към юридическо лице",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 86776,
+        "valueEur": 44367.864282683055,
+        "holderName": "Димитър Спиридонов Стойчев",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-spiridonov-stoichev-d57b44",
+    "declarantName": "Димитър Спиридонов Стойчев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1611",
+    "controlHash": "66AFCFC7",
+    "sourceUrl": "https://register.cacbg.bg/2026/AD434CE6-25C8-4314-BF22-647BCBF99528225530.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12849.276266342167,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 138.048807922979,
+        "amountEurSpouse": 966.341655460853
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "tanya-iordanova-tonova-draganova-45e491",
+    "declarantName": "Таня Йорданова Тонова-Драганова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

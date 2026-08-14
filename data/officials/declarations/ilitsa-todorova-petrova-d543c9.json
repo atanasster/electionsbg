@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13082",
+    "controlHash": "B340539B",
+    "sourceUrl": "https://register.cacbg.bg/2026/859244C1-A6AA-4225-AB69-41BED0A2D090238479.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34821.02227698726,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3742.656570356319
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ilitsa-todorova-petrova-d543c9",
+    "declarantName": "Илица Тодорова Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

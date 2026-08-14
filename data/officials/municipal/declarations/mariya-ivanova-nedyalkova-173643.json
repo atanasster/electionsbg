@@ -4,90 +4,103 @@
     "declarantName": "Мария Иванова Недялкова",
     "institution": "Силистра",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2505",
-    "controlHash": "ADF6F2D2",
-    "sourceUrl": "https://register.cacbg.bg/2025/2962B2F7-DFBA-4AC9-AE50-75FBE2885E86205155.xml",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г853",
+    "controlHash": "1DF7BDB1",
+    "sourceUrl": "https://register.cacbg.bg/2026/2962B2F7-DFBA-4AC9-AE50-75FBE2885E86224444.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7351.865959720426,
-        "amountEurSpouse": 5584.329926425098
+        "amountEurDeclarant": 5968.310129203458,
+        "amountEurSpouse": 5442.702075333746
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 0
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6868.1838401088025,
+        "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3058.036741434583
+        "amountEurSpouse": 3043.7205687610885
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил (части)",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10221,
+        "valueEur": 10220.724705112407,
+        "holderName": "Мария Иванова Недялков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2571,
+        "valueEur": 2570.7755786545868,
+        "holderName": "Димитър Атанасов Недялков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 113000,
+        "valueEur": 57775.98257517269,
+        "holderName": "Димитър Атанасов Недялков",
+        "isSpouse": true,
+        "legalBasis": "ипотечен кредит, лихвен процент 4.17",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил - бракуван",
         "detail": "Пежо",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Димитър Атанасов Недялков",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 21258,
-        "valueEur": 10869.042810469213,
-        "holderName": "Мария Иванова Недялкова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 14247,
-        "valueEur": 7284.375431402525,
-        "holderName": "Димитър Атанасов Недялков",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

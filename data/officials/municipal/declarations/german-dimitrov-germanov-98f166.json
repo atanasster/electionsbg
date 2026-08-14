@@ -4,64 +4,88 @@
     "declarantName": "Герман Димитров Германов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6979",
-    "controlHash": "41E31B23",
-    "sourceUrl": "https://register.cacbg.bg/2025/49ADBFD2-26DC-440C-88C4-8E1B62CCA393209966.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6151",
+    "controlHash": "D82E38A1",
+    "sourceUrl": "https://register.cacbg.bg/2026/49ADBFD2-26DC-440C-88C4-8E1B62CCA393230452.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30347.218316520353,
-        "amountEurSpouse": 20690.95984824857
+        "amountEurDeclarant": 35172.79109125026,
+        "amountEurSpouse": 21516.184944499266
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14200.620708343773,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 17939.186943650522,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
-        "category": "пенсия ДОО",
-        "amountEurDeclarant": 13866.235818041445,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
-        "category": "Доходи на допълнитлно доброволно осигуряване от доброволно здравно осигуряване и от застраховки живот",
-        "amountEurDeclarant": 6357.403250793781,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
-        "category": "рента",
-        "amountEurDeclarant": 3190.4613386644032,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 3589.269005997454,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Пенсия ДОО",
+        "amountEurDeclarant": 15408.29213172924,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Корола",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 1,
-        "valueEur": 0.5112918811962185,
+        "amount": 30821,
+        "valueEur": 15758.52707034865,
         "holderName": "Герман Димитров Германов",
         "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -74,8 +98,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 3361,
-        "valueEur": 3360.721535102744,
+        "amount": 3406,
+        "valueEur": 3403.1587612420303,
         "holderName": "Герман Димитров Германов",
         "isSpouse": false,
         "legalBasis": null,
@@ -92,26 +116,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 79747,
-        "valueEur": 40773.99364975483,
-        "holderName": "Герман Димитров Германов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 4049,
-        "valueEur": 4048.9204071928543,
+        "amount": 20410,
+        "valueEur": 10435.46729521482,
         "holderName": "Димитрина Жечева Германова",
         "isSpouse": true,
         "legalBasis": null,
@@ -120,16 +126,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 14000,
-        "valueEur": 7158.086336747059,
+        "currency": "EUR",
+        "amount": 4011,
+        "valueEur": 4010.573516103138,
         "holderName": "Димитрина Жечева Германова",
         "isSpouse": true,
         "legalBasis": null,

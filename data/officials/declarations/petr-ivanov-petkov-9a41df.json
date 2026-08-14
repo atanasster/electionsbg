@@ -5,6 +5,56 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8871",
+    "controlHash": "3B259BD1",
+    "sourceUrl": "https://register.cacbg.bg/2026/1BCB1EE2-7808-4EF1-B3FE-92B465236FFD233417.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23966.80693107274,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1288.4555406144707
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "ПЕТЪР ИВАНОВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-ivanov-petkov-9a41df",
+    "declarantName": "ПЕТЪР ИВАНОВ ПЕТКОВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

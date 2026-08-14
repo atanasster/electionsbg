@@ -4,23 +4,42 @@
     "declarantName": "Жени Димитрова Бъчварова",
     "institution": "Карнобат",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2598",
-    "controlHash": "5D94E75C",
-    "sourceUrl": "https://register.cacbg.bg/2025/1D5201C5-225F-4BBD-8BA3-74733B6F49CE205272.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10983",
+    "controlHash": "D128C53F",
+    "sourceUrl": "https://register.cacbg.bg/2026/1D5201C5-225F-4BBD-8BA3-74733B6F49CE235809.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10214.077910656857,
+        "amountEurDeclarant": 13527.760592689549,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Жени Димитрова Бъчварова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

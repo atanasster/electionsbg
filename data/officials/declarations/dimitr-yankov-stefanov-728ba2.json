@@ -5,6 +5,43 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9694",
+    "controlHash": "A7DE2598",
+    "sourceUrl": "https://register.cacbg.bg/2026/8DC77D84-1312-46A3-AC71-841884DA92FD234338.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25936.303257440577,
+        "amountEurSpouse": 17850.733448203577
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 335.91876594591554,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5902.864768410343
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "dimitr-yankov-stefanov-728ba2",
+    "declarantName": "Димитър Янков Стефанов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

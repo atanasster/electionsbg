@@ -4,31 +4,31 @@
     "declarantName": "Сабахтин Мустафа Караибрям",
     "institution": "Крумовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г14146",
-    "controlHash": "AD2C0DFE",
-    "sourceUrl": "https://register.cacbg.bg/2025/75706D1A-5BF6-4B5F-ABCC-79B687BBC30B217412.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6836",
+    "controlHash": "112E249C",
+    "sourceUrl": "https://register.cacbg.bg/2026/75706D1A-5BF6-4B5F-ABCC-79B687BBC30B231191.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3709.9338899597615,
-        "amountEurSpouse": 6628.387947827777
+        "amountEurDeclarant": 8106.021484484848,
+        "amountEurSpouse": 7111.558775558203
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 19478.686797932336
+        "amountEurSpouse": 12256.177684154554
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти и ликвидационни дялове в полза на физически лица по чл. 38 ал.1 от ЗДДФЛ",
-        "amountEurDeclarant": 25564.594059810923,
+        "category": "Доходи от дивиденти и ликвидационни дялове в полза на физически лица по чл. 38 ал. 1 от ЗДДФЛ",
+        "amountEurDeclarant": 78329.91619926067,
         "amountEurSpouse": null
       }
     ],
@@ -44,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 225000,
-        "valueEur": 115040.67326914916,
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания; дивиденти"
+        "fundsOrigin": "спестявания, дивиденти"
       },
       {
         "category": "cash",
@@ -62,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
         "holderName": "Гюлер Сабри Караибрям",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания; доходи като земеделски стопанин"
+        "fundsOrigin": "спестявания, доходи като земеделски стопанин"
       },
       {
         "category": "bank",
@@ -80,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9107,
-        "valueEur": 4656.3351620539615,
+        "amount": 1103,
+        "valueEur": 563.954944959429,
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата; дивиденти"
+        "fundsOrigin": "заплата, дивиденти"
       },
       {
         "category": "bank",
@@ -98,34 +98,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 64329,
-        "valueEur": 32890.89542547154,
+        "amount": 144034,
+        "valueEur": 73643.41481621613,
         "holderName": "Гюлер Сабри Караибрям",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата; доходи като земеделски стопанин"
+        "fundsOrigin": "заплата, доходи като земеделски стопанин, спестявания"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 14568,
-        "valueEur": 14567.728279042658,
-        "holderName": "Гюлер Сабри Караибрям",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
-      },
-      {
-        "category": "receivable",
-        "description": "Заем",
+        "category": "debt",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -134,34 +116,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46200,
-        "valueEur": 23621.684911265293,
+        "amount": 53357,
+        "valueEur": 27281.00090498663,
         "holderName": "Сабахтин Мустафа Караибрям",
         "isSpouse": false,
-        "legalBasis": "Договор за заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "receivable",
-        "description": "Заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 86200,
-        "valueEur": 44073.36015911403,
-        "holderName": "Сабахтин Мустафа Караибрям",
-        "isSpouse": false,
-        "legalBasis": "Договор за заем",
+        "legalBasis": "Договор 8,95 %",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит 8,95%",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -170,11 +134,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60390,
-        "valueEur": 30876.916705439635,
-        "holderName": "Сабахтин Мустафа Караибрям",
-        "isSpouse": false,
-        "legalBasis": "Договор",
+        "amount": 102383,
+        "valueEur": 52347.59667251244,
+        "holderName": "Гюлер Сабри Караибрям",
+        "isSpouse": true,
+        "legalBasis": "Договор 4,56 %",
         "fundsOrigin": null
       }
     ],

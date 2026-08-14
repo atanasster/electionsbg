@@ -4,25 +4,25 @@
     "declarantName": "Камен Георгиев Тодоров",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г6929",
-    "controlHash": "75F41834",
-    "sourceUrl": "https://register.cacbg.bg/2025/CA1F881E-A7B5-4436-95C5-952E912DABCB209916.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г2840",
+    "controlHash": "FA8993F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/CA1F881E-A7B5-4436-95C5-952E912DABCB226930.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6447.390621884315,
+        "amountEurDeclarant": 8345.817376765874,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7158.086336747059,
+        "amountEurDeclarant": 31245.04685990091,
         "amountEurSpouse": null
       }
     ],
@@ -49,7 +49,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Малкко Търново",
+        "location": "Малко Търново",
         "municipality": "Малко Търново",
         "areaSqm": 300,
         "builtAreaSqm": 50,
@@ -82,22 +82,22 @@
         "fundsOrigin": "наследяване"
       },
       {
-        "category": "debt",
-        "description": "Лизинг на МПС",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "Шкода",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
+        "amount": 47382,
+        "valueEur": 24226.031914839223,
         "holderName": "Камен Георгиев Тодоров",
         "isSpouse": false,
-        "legalBasis": "лизинг",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

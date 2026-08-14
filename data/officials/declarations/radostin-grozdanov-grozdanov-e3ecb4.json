@@ -1,6 +1,69 @@
 [
   {
     "slug": "radostin-grozdanov-grozdanov-e3ecb4",
+    "declarantName": "Радостин Грозданов Грозданов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-07-27",
+    "entryNumber": "Г14730",
+    "controlHash": "3EAA4788",
+    "sourceUrl": "https://register.cacbg.bg/2026/8396FB9B-50EE-49CB-9268-546A07CB8C30240836.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2416.876722414525,
+        "amountEurSpouse": 6895.282309812203
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16885.414376505116,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1400,
+        "valueEur": 715.8086336747059,
+        "holderName": "Катя Георгиева Китина",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотопед",
+        "detail": "Ямаха WHY",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "radostin-grozdanov-grozdanov-e3ecb4",
     "declarantName": "РАДОСТИН ГРОЗДАНОВ ГРОЗДАНОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

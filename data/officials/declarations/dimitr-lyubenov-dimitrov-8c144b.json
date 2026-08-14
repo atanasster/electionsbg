@@ -1,6 +1,86 @@
 [
   {
     "slug": "dimitr-lyubenov-dimitrov-8c144b",
+    "declarantName": "Димитър Любенов Димитров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13954",
+    "controlHash": "178A2F94",
+    "sourceUrl": "https://register.cacbg.bg/2026/84DFB716-CC84-4F9E-AC06-4559204020D3239614.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31279.30341594106,
+        "amountEurSpouse": 5859.91625038986
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18674,
+        "valueEur": 9547.864589458184,
+        "holderName": "Димитър любенов Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит Уникредит Булбанк",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12374,
+        "valueEur": 6326.725737922007,
+        "holderName": "Димитър Любенов Димитров",
+        "isSpouse": false,
+        "legalBasis": "3,5% договор за ипотечен кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит Уникредит Булбанк",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 277,
+        "valueEur": 141.6278510913525,
+        "holderName": "Анна Димитрова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "0,0 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-lyubenov-dimitrov-8c144b",
     "declarantName": "ДИМИТЪР ЛЮБЕНОВ ДИМИТРОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

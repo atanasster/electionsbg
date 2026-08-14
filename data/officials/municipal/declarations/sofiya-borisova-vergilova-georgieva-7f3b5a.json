@@ -4,65 +4,84 @@
     "declarantName": "София Борисова Вергилова - Георгиева",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-02",
-    "entryNumber": "Г1439",
-    "controlHash": "0F2CC24F",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D123176-D6CF-451D-B7FE-D7CD35760CF5203916.xml",
+    "filedAt": null,
+    "entryNumber": "Г13518",
+    "controlHash": "3CF3F242",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D123176-D6CF-451D-B7FE-D7CD35760CF5239048.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5835.885531973638,
-        "amountEurSpouse": 12922.391005353225
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14035.98472259859,
+        "amountEurDeclarant": 7881.564348639708,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3407.7603881727964
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16124.612057285143,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
-  },
-  {
-    "slug": "sofiya-borisova-vergilova-georgieva-7f3b5a",
-    "declarantName": "София Борисова Вергилова - Георгиева",
-    "institution": "Свищов",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-12",
-    "entryNumber": "Г2809",
-    "controlHash": "50555E66",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D123176-D6CF-451D-B7FE-D7CD35760CF5205514.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "early_repayment",
-        "description": "Ипотечен кредит към ФИ БАНК АД",
-        "detail": "Тихомир Йонков Георгиев",
+        "category": "real_estate",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "гр. Свищов, местност\" Стъклен\"",
+        "municipality": "Свищов",
+        "areaSqm": 76,
+        "builtAreaSqm": 20,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "София Борисова Вергилова - Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Обзор, ул. \" Черноморска\"",
+        "municipality": "Несебър",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 68454,
+        "valueEur": 34999.974435405944,
+        "holderName": "София Борисова Вергилова - Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата/ заем"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 6661.621920105531,
-        "legalBasis": "заплата"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12800,
+        "valueEur": 12799.169661984937,
+        "holderName": "София Борисова Вергилова - Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

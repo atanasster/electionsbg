@@ -5,6 +5,56 @@
     "institution": "Служба “Военна информация” към МО",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5585",
+    "controlHash": "C858F2AD",
+    "sourceUrl": "https://register.cacbg.bg/2026/21E6C038-324C-4D61-86A7-72DAC1AAF81A229849.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 54321.69462581104,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения по ЗОВС РБ",
+        "amountEurDeclarant": 88006.6263427803,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 284569,
+        "valueEur": 145497.8193401267,
+        "holderName": "Сергей Радев Вълев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и обезщетения по ЗОВС РБ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sergei-radev-vlev-227d1d",
+    "declarantName": "Сергей Радев Вълев",
+    "institution": "Служба “Военна информация” към МО",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

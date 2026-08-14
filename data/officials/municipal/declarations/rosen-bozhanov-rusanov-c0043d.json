@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "rosen-bozhanov-rusanov-c0043d",
+    "declarantName": "Росен Божанов Русанов",
+    "institution": "Полски Тръмбеш",
+    "positionTitle": "Кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10378",
+    "controlHash": "9BDBFDA6",
+    "sourceUrl": "https://register.cacbg.bg/2026/97D97737-59D3-411F-85F8-BD1864B68A7B235117.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20669.485589238328,
+        "amountEurSpouse": 28440.099599658457
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 157.4778994084353,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 198654,
+        "valueEur": 101570.17736715359,
+        "holderName": "Росен божанов Русанов-Диана Александрова Русанова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "receivable",
+        "description": "Дарение",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25650,
+        "valueEur": 13114.636752683004,
+        "holderName": "Росен Божанов Русанов",
+        "isSpouse": false,
+        "legalBasis": "Договор за дарение",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит - ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 220000,
+        "valueEur": 112484.21386316807,
+        "holderName": "Диана Александрова Русанова-Росен Божанов Русанов",
+        "isSpouse": true,
+        "legalBasis": "Договор-2.6% лихвен %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13175,
+        "valueEur": 6736.270534760179,
+        "holderName": "Росен Божанов Русанов",
+        "isSpouse": false,
+        "legalBasis": "Договор-4.6% лихвен %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,6 +1,86 @@
 [
   {
     "slug": "siyana-georgieva-zheleva-0d4577",
+    "declarantName": "Сияна Георгиева Желева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7581",
+    "controlHash": "8008926E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D66BAFB4-986C-4C6B-81D7-07C4C327AF2B231999.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30576.788371177456,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Сияна Георгиева Желева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40646,
+        "valueEur": 20781.969803101496,
+        "holderName": "Сияна Георгиева Желева",
+        "isSpouse": false,
+        "legalBasis": "банков заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33388,
+        "valueEur": 17071.013329379344,
+        "holderName": "Сияна Георгиева Желева",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "siyana-georgieva-zheleva-0d4577",
     "declarantName": "Сияна Георгиеева Желева",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

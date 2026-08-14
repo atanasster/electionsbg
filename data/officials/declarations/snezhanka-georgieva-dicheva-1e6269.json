@@ -5,6 +5,43 @@
     "institution": "МБАЛ - Пирдоп",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г8098",
+    "controlHash": "79B1F332",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8E2CBDD-4A27-4D57-864B-28A556845988232576.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16881.324041455548,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16471.26795273618,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8810.070404892042
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "snezhanka-georgieva-dicheva-1e6269",
+    "declarantName": "Снежанка Георгиева Дичев",
+    "institution": "МБАЛ - Пирдоп",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

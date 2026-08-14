@@ -5,6 +5,68 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2578",
+    "controlHash": "9CFD14F0",
+    "sourceUrl": "https://register.cacbg.bg/2026/80CEFD73-630C-4E49-9127-4C5CDAF0B930226641.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7936.272579927703,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Долна Кремена",
+        "municipality": "Мездра",
+        "areaSqm": 350,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2017,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 651,
+        "valueEur": 332.8510146587382,
+        "holderName": "Марияна Цветанова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Горна Кремена",
+        "municipality": "Мездра",
+        "areaSqm": 980,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2017,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 365,
+        "valueEur": 186.62153663661974,
+        "holderName": "Марияна Цветанова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "завещание",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariyana-tsvetanova-todorova-f85882",
+    "declarantName": "Марияна Цветанова Тодорова",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,29 +4,60 @@
     "declarantName": "Мартин Бисеров Божанов",
     "institution": "Смолян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-03",
-    "entryNumber": "Г5705",
-    "controlHash": "D678E01B",
-    "sourceUrl": "https://register.cacbg.bg/2025/493774CA-1B95-434B-AD4A-F334F064149F208648.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г12753",
+    "controlHash": "322EE0AA",
+    "sourceUrl": "https://register.cacbg.bg/2026/493774CA-1B95-434B-AD4A-F334F064149F238086.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8465.45967696579,
-        "amountEurSpouse": 5276.5322139449745
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5861.961417914645,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5439.123032165372,
+        "amountEurSpouse": 4337.289028187522
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 143350,
+        "valueEur": 73293.69116947793,
+        "holderName": "Александра Иванова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит - титуляр",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 143350,
+        "valueEur": 73293.69116947793,
+        "holderName": "Мартин Бисеров Божанов",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит - солидарен длъжник",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -1,62 +1,50 @@
 [
   {
     "slug": "plamena-stamenova-terziradeva-velkova-c53559",
-    "declarantName": "Пламена Стаменова Терзирадева-Велкова",
+    "declarantName": "Пламена Стаменова Терзирадева - Велкова",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г7792",
-    "controlHash": "2B6951CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/3D934C0A-B75D-476B-8008-C174F4EB9181210794.xml",
+    "filedAt": null,
+    "entryNumber": "Г4544",
+    "controlHash": "27ADD929",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D934C0A-B75D-476B-8008-C174F4EB9181228744.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26639.329594085375,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 25264.465725548744,
+        "amountEurSpouse": 4262.129121651677
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11712.674414442974,
+        "amountEurDeclarant": 5635.970406425917,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 2585.0917513280806
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6309.341813961336
+        "amountEurSpouse": 1621.306555273209
+      },
+      {
+        "parent": null,
+        "category": "ДОХОДИ ОТ МАЙЧИНСТВО",
+        "amountEurDeclarant": 7903.5498995311455,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДОХОДИ ОТ РОДИТЕЛ",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1178,
-        "valueEur": 602.3018360491454,
-        "holderName": "Пламена Стаменова Терзирадева-Велкова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -68,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 24181,
-        "valueEur": 24180.52693741276,
+        "amount": 259843,
+        "valueEur": 259842.62435896782,
         "holderName": "Пламена Стаменова Терзирадева-Велкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Предварителен договор за покупко-продажба на имот - 29.11.2024 г."
+        "fundsOrigin": "Продажба на имот"
       },
       {
         "category": "bank",
@@ -86,12 +74,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6386,
-        "valueEur": 3265.1099533190513,
+        "amount": 31790,
+        "valueEur": 16253.968903227786,
         "holderName": "Пламена Стаменова Терзирадева-Велкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения родител"
+        "fundsOrigin": "Продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2273,
+        "valueEur": 1162.1664459590047,
+        "holderName": "Пламена Стаменова Терзирадева-Велкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -231,7 +237,7 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 7446.966249622922,
+        "valueEur": 5496.387722859349,
         "holderName": "Марио Емилов Велков",
         "isSpouse": true,
         "legalBasis": null,
@@ -240,15 +246,27 @@
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил - продажба",
-        "detail": "Хонда",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, кв. Витоша",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 103,
+        "builtAreaSqm": 103,
         "currency": "BGN",
-        "valueEur": 8691.961980335715,
+        "valueEur": 249209.28710573004,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София, кв. Витоша",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
         "legalBasis": "възмездно"
       }
     ]

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3277",
+    "controlHash": "A8876BA3",
+    "sourceUrl": "https://register.cacbg.bg/2026/4EFA7318-746A-49D5-B129-339C47F045ED227400.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38692.01310952383,
+        "amountEurSpouse": 14274.246739236029
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "други",
+        "detail": null,
+        "location": "с.Николаевка",
+        "municipality": "Суворово",
+        "areaSqm": 0,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Веска Петрова Донева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8615,
+        "valueEur": 8615.268198156282,
+        "holderName": "Веска Петрова Донева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "veska-petrova-doneva-5f3673",
+    "declarantName": "Веска Петрова Донева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

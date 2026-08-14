@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6967",
+    "controlHash": "D9E7B35E",
+    "sourceUrl": "https://register.cacbg.bg/2026/945D667C-95B5-4A10-894D-2C6FD394787B231348.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22120.020656192002,
+        "amountEurSpouse": 14273.224155473636
+      },
+      {
+        "parent": null,
+        "category": "Обещетение при пенсиониране",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 24652.96063563807
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18582,
+        "valueEur": 9500.825736388131,
+        "holderName": "Неджибе Али Дурльова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45018,
+        "valueEur": 23017.337907691362,
+        "holderName": "Мехмед Билялов Дурльов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nedzhibe-ali-durlova-eaaf21",
+    "declarantName": "Неджибе Али Дурльова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

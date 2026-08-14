@@ -4,20 +4,20 @@
     "declarantName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12210",
-    "controlHash": "DCE8D7B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/7BD7AD89-1698-46C8-8DD5-7D52A1147C5C215370.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11032",
+    "controlHash": "F8D04939",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BD7AD89-1698-46C8-8DD5-7D52A1147C5C235863.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ДЯЛ В ООД",
         "shareSize": "70 %",
-        "companyName": "\"МЕДИЦИНСКИ ЦЕНТЪР СВ. НИКОЛАЙ ЧУДОТВОРЕЦ - БЯЛА СЛАТИНА\" ООД",
+        "companyName": "\"МЕДИЦИНСКИ ЦЕНТЪР СВ. НИКОЛАЙ ЧУДОТВОРЕЦ-БЯЛА СЛАТИНА\" ООД",
         "registeredOffice": "Бяла Слатина",
         "valueEur": 35.79043168373529,
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
@@ -41,19 +41,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5807.7644785078455,
-        "amountEurSpouse": 2796.766590143315
+        "amountEurDeclarant": 5788.335387022389,
+        "amountEurSpouse": 4125.614189372287
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 102045.16752478488,
+        "amountEurDeclarant": 104907.3794757213,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 13762.95485803981,
+        "amountEurDeclarant": 17516.859849782446,
         "amountEurSpouse": null
       },
       {
@@ -65,6 +65,24 @@
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -75,8 +93,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60602,
-        "valueEur": 30985.31058425323,
+        "amount": 63716,
+        "valueEur": 32577.473502298257,
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
@@ -93,8 +111,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16914,
-        "valueEur": 8647.990878552839,
+        "amount": 5484,
+        "valueEur": 2803.9246764800623,
         "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
         "isSpouse": true,
         "legalBasis": null,
@@ -111,8 +129,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4004,
-        "valueEur": 2047.212692309659,
+        "amount": 78738,
+        "valueEur": 40258.10014162785,
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
         "legalBasis": null,
@@ -129,11 +147,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120000,
-        "valueEur": 61355.02574354622,
+        "amount": 55216,
+        "valueEur": 28231.4925121304,
         "holderName": "НИКОЛАЙ ИВАНОВ НИКОЛОВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ С 4,33 ЛИХВЕН %",
+        "legalBasis": "КРЕДИТ С 4.15 ЛИХВЕН %",
         "fundsOrigin": null
       },
       {
@@ -147,14 +165,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 11129,
-        "valueEur": 11149.742053245936,
+        "amount": 824,
+        "valueEur": 823.691220607108,
+        "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1380,
+        "valueEur": 1379.9767873485937,
         "holderName": "ДИЯНА НИКОЛОВА НИКОЛОВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ЖИВОТОЗАСТРАХОВАНЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 592.075998425221,
+        "legalBasis": null
+      }
+    ]
   }
 ]

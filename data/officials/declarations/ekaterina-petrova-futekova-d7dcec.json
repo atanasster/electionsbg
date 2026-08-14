@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6380",
+    "controlHash": "31E38A98",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F4383E1-2752-4D8B-9C72-83E1B1CC0574230696.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25053.302178614707,
+        "amountEurSpouse": 31772.188789414213
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120645,
+        "valueEur": 61684.80900691778,
+        "holderName": "Велко Цвятков Футеков",
+        "isSpouse": true,
+        "legalBasis": "2.83%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ekaterina-petrova-futekova-d7dcec",
+    "declarantName": "Екатерина Петрова Футекова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

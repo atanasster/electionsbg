@@ -4,31 +4,37 @@
     "declarantName": "Владимир Малинов Цеков",
     "institution": "Грамада",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7682",
-    "controlHash": "73927128",
-    "sourceUrl": "https://register.cacbg.bg/2025/C8053E5A-D2BB-48B5-B123-C9B141A012CF210681.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г5815",
+    "controlHash": "4943306A",
+    "sourceUrl": "https://register.cacbg.bg/2026/C8053E5A-D2BB-48B5-B123-C9B141A012CF230086.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3779.469585802447,
+        "amountEurDeclarant": 6722.465653967881,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12893.247368125041,
+        "amountEurDeclarant": 15507.994048562503,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 77.71636594182522,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
-        "holderName": "Владимир Малинов цеков",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Владимир Малинов Цеков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дариние"
+        "fundsOrigin": "заплата, дарение"
       },
       {
         "category": "investment",
@@ -57,7 +63,7 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 5194.72551295358,
+        "valueEur": 5903.376060291539,
         "holderName": "Владимир Малинов Цеков",
         "isSpouse": false,
         "legalBasis": null,

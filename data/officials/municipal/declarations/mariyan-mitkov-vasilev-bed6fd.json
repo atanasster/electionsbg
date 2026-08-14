@@ -4,66 +4,114 @@
     "declarantName": "Мариян Митков Василев",
     "institution": "Лясковец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г14224",
-    "controlHash": "2D8FD7FD",
-    "sourceUrl": "https://register.cacbg.bg/2025/1F6F8BA0-89D8-4E56-A48D-F6B05897EB68217501.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10694",
+    "controlHash": "6D2D2958",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F6F8BA0-89D8-4E56-A48D-F6B05897EB68235480.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
-        "companyName": "Василеви Груп 20",
-        "registeredOffice": "с. Козаревец",
+        "companyName": "АЦ Клима ЕООД",
+        "registeredOffice": "Горна Оряховица",
         "valueEur": 511.29188119621847,
         "holderName": "Мариян Митков Василев",
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       },
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "50",
-        "companyName": "Интерактив Груп",
-        "registeredOffice": "с. Козаревец",
+        "companyName": "Интерактив Груп ООД",
+        "registeredOffice": "Горна Оряховица",
         "valueEur": 1533.8756435886555,
         "holderName": "Мариян Митков Василев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "50",
+        "companyName": "ДМ Хоум",
+        "registeredOffice": "Горна Оряховица",
+        "valueEur": 5112.918811962185,
+        "holderName": "Мариян Митков Василев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2221.051931916373,
+        "amountEurDeclarant": 5343.511450381679,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurDeclarant": 3326.9762709437937,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 390.6269972339109,
+        "amountEurDeclarant": 1717.940720819294,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 11248.421386316806,
+        "amountEurDeclarant": 4553.054202052325,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5300,
+        "valueEur": 2709.846970339958,
+        "holderName": "Мариян Митков Василев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "Кавазаки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3100,
+        "valueEur": 1585.0048317082774,
+        "holderName": "Мариян Митков Василев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
       {
         "category": "cash",
         "description": null,
@@ -75,15 +123,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Мариян Митков Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажби"
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -93,16 +141,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
-        "holderName": "Мариян Митков Василев",
-        "isSpouse": false,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Аделина Атанасова Василева",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажби и заплата"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -111,63 +159,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 112000,
-        "valueEur": 57264.690693976474,
-        "holderName": "Мариян Митков василев",
+        "amount": 109656,
+        "valueEur": 56066.22252445253,
+        "holderName": "Мариян Митков Василев",
         "isSpouse": false,
-        "legalBasis": "ипотека  2.48%",
+        "legalBasis": "ипотека - 2.48 %",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с.Козаревец",
-        "municipality": "Лясковец",
-        "areaSqm": 2,
-        "builtAreaSqm": 150,
-        "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2045.1675247848739,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Порше",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Шкода",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

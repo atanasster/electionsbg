@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14617",
+    "controlHash": "92F933BF",
+    "sourceUrl": "https://register.cacbg.bg/2026/F3AD3B15-1AFF-40E9-924F-B2198CF73B80240553.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41986.777991952265,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 75.67119841704033,
+        "amountEurSpouse": 96.12287366488907
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения при пенсиониране",
+        "amountEurDeclarant": 26242.56709427711,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 102896,
+        "valueEur": 52609.8894075661,
+        "holderName": "Даниела Михайлова Велкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5127,
+        "valueEur": 2621.3934748930124,
+        "holderName": "Альоша Тодоров Велков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2982,
+        "valueEur": 2981.854251136346,
+        "holderName": "Альоша Тодоров Велков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-mihailova-velkova-757543",
+    "declarantName": "Даниела Михайлова Велкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

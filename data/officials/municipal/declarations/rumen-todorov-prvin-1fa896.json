@@ -4,13 +4,13 @@
     "declarantName": "РУМЕН ТОДОРОВ ПЪРВИН",
     "institution": "Вълчедръм",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10712",
-    "controlHash": "554B7015",
-    "sourceUrl": "https://register.cacbg.bg/2025/633BA7F0-EAFD-467B-B10F-EF13A2519A5C213816.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9176",
+    "controlHash": "B4B2E6F0",
+    "sourceUrl": "https://register.cacbg.bg/2026/633BA7F0-EAFD-467B-B10F-EF13A2519A5C233762.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -21,12 +21,30 @@
       },
       {
         "parent": null,
-        "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 12064.954520587167,
+        "category": "ПЕНСИИ НОИ",
+        "amountEurDeclarant": 13479.699155857104,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "КАДИЛАК ХТ 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
       {
         "category": "debt",
         "description": "КРЕДИТ",
@@ -38,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30103,
-        "valueEur": 15391.419499649764,
+        "amount": 7611,
+        "valueEur": 3891.442507784419,
         "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "ДОГОВОР 5,2 %",
         "fundsOrigin": null
       },
       {
@@ -56,11 +74,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9545,
-        "valueEur": 4880.281006017905,
+        "amount": 13230,
+        "valueEur": 6764.391588225971,
         "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "ДОГОВОР 5,76 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26358,
+        "valueEur": 13476.631404569927,
+        "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР 5,42 %",
         "fundsOrigin": null
       },
       {
@@ -78,7 +114,7 @@
         "valueEur": 1533.8756435886555,
         "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТНА КАРТА",
+        "legalBasis": "ДОГОВОР 20 %",
         "fundsOrigin": null
       },
       {
@@ -96,7 +132,7 @@
         "valueEur": 2556.4594059810925,
         "holderName": "РУМЕН ТОДОРОВ ПЪРВИН",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТНА КАРТА",
+        "legalBasis": "ДОГОВОР 20 %",
         "fundsOrigin": null
       }
     ],

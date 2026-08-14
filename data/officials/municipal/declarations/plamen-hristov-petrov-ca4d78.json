@@ -1,32 +1,50 @@
 [
   {
     "slug": "plamen-hristov-petrov-ca4d78",
-    "declarantName": "Пламен Христов Петров",
+    "declarantName": "Пламен Христов Петрова",
     "institution": "Борован",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г9769",
-    "controlHash": "F360E25C",
-    "sourceUrl": "https://register.cacbg.bg/2025/95813A17-70C8-4399-9B6A-AD867E1A8597212825.xml",
+    "filedAt": null,
+    "entryNumber": "Г11064",
+    "controlHash": "17D384F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/95813A17-70C8-4399-9B6A-AD867E1A8597235897.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12053.70609920085,
-        "amountEurSpouse": 11257.62464017834
+        "amountEurDeclarant": 13714.893421207365,
+        "amountEurSpouse": 13762.443566158614
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 536.8564752560294
+        "amountEurSpouse": 2147.4259010241176
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 65,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Пламен Христов Петров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,10 +56,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
         "holderName": "Пламен Христов Петров",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати"
       }

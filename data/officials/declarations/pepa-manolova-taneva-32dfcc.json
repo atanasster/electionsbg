@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г10595",
+    "controlHash": "E2240D26",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8D292F7-8DBE-4CB0-92BC-D9F8EC0D5136235366.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23191.688439179274,
+        "amountEurSpouse": 7713.349319726152
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1586,
+        "valueEur": 810.9089235772025,
+        "holderName": "Пепа Манолова Танева",
+        "isSpouse": false,
+        "legalBasis": "5.07%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Стоков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 330,
+        "valueEur": 168.7263207947521,
+        "holderName": "Пепа Манолова Танева",
+        "isSpouse": false,
+        "legalBasis": "0%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pepa-manolova-taneva-32dfcc",
+    "declarantName": "Пепа Манолова Танева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

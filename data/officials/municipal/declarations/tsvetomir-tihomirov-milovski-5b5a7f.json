@@ -1,36 +1,30 @@
 [
   {
     "slug": "tsvetomir-tihomirov-milovski-5b5a7f",
-    "declarantName": "ЦВЕТОМИР ТИХОМИРОВ МИЛОВСКИ",
+    "declarantName": "Цветомир Тихомиров Миловски",
     "institution": "Кнежа",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-13",
-    "entryNumber": "Г183",
-    "controlHash": "8027DAF7",
-    "sourceUrl": "https://register.cacbg.bg/2025/35A14668-E496-4B03-9D75-D34ACEA0DA73201903.xml",
+    "filedAt": "2026-03-19",
+    "entryNumber": "Г434",
+    "controlHash": "EE098D8D",
+    "sourceUrl": "https://register.cacbg.bg/2026/35A14668-E496-4B03-9D75-D34ACEA0DA73223737.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26049.29876318494,
-        "amountEurSpouse": 16666.581451353133
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3126.549853514876
+        "amountEurDeclarant": 28207.461793714177,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "ШКОДА СУПЕРБ",
+        "detail": "Шкода Суперб",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -40,14 +34,14 @@
         "currency": "BGN",
         "amount": 59837,
         "valueEur": 30594.172295138127,
-        "holderName": "Цветомир Тихомир Миловски",
-        "isSpouse": true,
+        "holderName": "Цветомир тихомиров Миловски",
+        "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "Лизинг - 3.29%",
+        "description": "Лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -57,26 +51,13 @@
         "share": null,
         "currency": "BGN",
         "amount": 59837,
-        "valueEur": 30594.172295138127,
+        "valueEur": 30612.57880286119,
         "holderName": "Цветомир Тихомиров Миловски",
         "isSpouse": false,
-        "legalBasis": "лизинг",
+        "legalBasis": "лизинг-3.29%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 7413.732277345168,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

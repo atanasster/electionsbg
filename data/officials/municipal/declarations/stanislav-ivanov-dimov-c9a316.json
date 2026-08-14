@@ -4,47 +4,35 @@
     "declarantName": "Станислав Иванов Димов",
     "institution": "Тополовград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8587",
-    "controlHash": "50F9238A",
-    "sourceUrl": "https://register.cacbg.bg/2025/8148A608-FF84-40E8-AB58-D1D203930325211609.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г14180",
+    "controlHash": "74066BE4",
+    "sourceUrl": "https://register.cacbg.bg/2026/8148A608-FF84-40E8-AB58-D1D203930325239899.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6646.79445555084,
+        "amountEurDeclarant": 6040.9135763333215,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 27088.243865775654,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 94588.99802130042,
+        "amountEurDeclarant": 70046.98772388193,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "товарен",
-        "detail": "ивеко",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 14000,
-        "valueEur": 7158.086336747059,
-        "holderName": "Станислав Иванов Димов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -56,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 95000,
-        "valueEur": 48572.728713640754,
-        "holderName": "Станислав Димов Иванов",
-        "isSpouse": true,
+        "amount": 201800,
+        "valueEur": 103178.70162539689,
+        "holderName": "Станислав Иванов Димов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

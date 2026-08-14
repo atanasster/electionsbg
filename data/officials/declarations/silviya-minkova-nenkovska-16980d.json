@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г8494",
+    "controlHash": "A6F205CC",
+    "sourceUrl": "https://register.cacbg.bg/2026/EA09227A-5543-47D0-81B4-F45FFD88D780233002.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23666.167304929364,
+        "amountEurSpouse": 8755.873465485241
+      },
+      {
+        "parent": null,
+        "category": "пенсия по болест",
+        "amountEurDeclarant": 3156.204782624257,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дирекция социално подпомагане",
+        "amountEurDeclarant": 273.5411564399769,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Белиш",
+        "municipality": "Троян",
+        "areaSqm": 645,
+        "builtAreaSqm": 645,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Силвия Минкова Ненковска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5582,
+        "valueEur": 5582.79605078151,
+        "holderName": "Силвия Минкова Ненковска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "silviya-minkova-nenkovska-16980d",
+    "declarantName": "Силвия Минкова Ненковска",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

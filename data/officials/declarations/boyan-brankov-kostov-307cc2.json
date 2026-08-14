@@ -1,6 +1,147 @@
 [
   {
     "slug": "boyan-brankov-kostov-307cc2",
+    "declarantName": "БОЯН БРАНКОВ КОСТОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-24",
+    "entryNumber": "Г14117",
+    "controlHash": "9D2E9378",
+    "sourceUrl": "https://register.cacbg.bg/2026/9DD45ED2-87F1-424D-B0C7-2F772A4F1D3E239820.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35790.431683735296,
+        "amountEurSpouse": 61355.02574354622
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7158.086336747059,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 114999.76991865346
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 216,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 234000,
+        "valueEur": 119642.30019991513,
+        "holderName": "Маргарита Здравкова Костова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2005,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2310,
+        "valueEur": 1181.0842455632646,
+        "holderName": "Маргарита Здравкова Костова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "опел корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Маргарита Здравкова Костова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 102000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Маргарита Здравкова Костова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3000,
+        "valueEur": 3016.622099057689,
+        "holderName": "Боян Бранков Костов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 48,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 114999.76991865346,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "boyan-brankov-kostov-307cc2",
     "declarantName": "Боян Бранков Костов",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",

@@ -4,25 +4,19 @@
     "declarantName": "ПЕТКО БОРИСОВ НЕНОВ",
     "institution": "Твърдица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г12160",
-    "controlHash": "8C5207AC",
-    "sourceUrl": "https://register.cacbg.bg/2025/E88841DA-AA76-428B-99C2-1F7A6504790F215319.xml",
+    "entryNumber": "Г13930",
+    "controlHash": "0FAE02FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/E88841DA-AA76-428B-99C2-1F7A6504790F239586.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6373.253299110864,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ИЗПЛАТЕНИ от НОИ",
-        "amountEurDeclarant": 10053.532259961245,
+        "amountEurDeclarant": 7808.449609628648,
         "amountEurSpouse": null
       }
     ],
@@ -38,9 +32,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 52800,
-        "valueEur": 26996.211327160338,
-        "holderName": "Петко Борисов Ненов",
+        "amount": 48579,
+        "valueEur": 24838.0482966311,
+        "holderName": "ПЕТКО БОРИСОВ НЕНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -56,9 +50,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1455,
-        "valueEur": 743.9296871404979,
-        "holderName": "Петко Борисов Ненов",
+        "amount": 2450,
+        "valueEur": 1252.6651089307352,
+        "holderName": "ПЕТКО БОРИСОВ НЕНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -118,19 +112,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ОПЕЛ",
-        "detail": "ВЕКТРА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

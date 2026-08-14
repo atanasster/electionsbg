@@ -4,29 +4,66 @@
     "declarantName": "Иванка Тодорова Гинина",
     "institution": "Лесичево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-17",
-    "entryNumber": "Г342",
-    "controlHash": "0168D9A2",
-    "sourceUrl": "https://register.cacbg.bg/2025/44EC3CC7-F611-4FD0-91B9-5A215D67E1A2202237.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г10616",
+    "controlHash": "24F20E85",
+    "sourceUrl": "https://register.cacbg.bg/2026/44EC3CC7-F611-4FD0-91B9-5A215D67E1A2235390.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 477.03532515607185,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4218.669311749999,
+        "amountEurSpouse": 6823.701446444732
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9177.689267472122,
-        "amountEurSpouse": 5793.448305834352
+        "amountEurDeclarant": 9043.219502717517,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "калугерово",
+        "municipality": "Лесичово",
+        "areaSqm": 1426,
+        "builtAreaSqm": 196,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8600,
+        "valueEur": 4397.110178287479,
+        "holderName": "Павел Димитров  Гинин",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5500,
+        "valueEur": 5483.605425829443,
+        "holderName": "Иванка тодорова Гинина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

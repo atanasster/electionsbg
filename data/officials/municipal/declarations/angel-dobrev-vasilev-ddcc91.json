@@ -4,19 +4,25 @@
     "declarantName": "Ангел Добрев Василев",
     "institution": "Девня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г11809",
-    "controlHash": "712B355B",
-    "sourceUrl": "https://register.cacbg.bg/2025/03B9D9CA-63B3-4921-BA5B-E07DE89E0932214961.xml",
+    "entryNumber": "Г10685",
+    "controlHash": "22A9C2B0",
+    "sourceUrl": "https://register.cacbg.bg/2026/03B9D9CA-63B3-4921-BA5B-E07DE89E0932235471.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4202.30797155172,
+        "amountEurDeclarant": 4658.380329578747,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5836.396823854834,
         "amountEurSpouse": null
       }
     ],
@@ -82,16 +88,16 @@
         "location": "Киселово",
         "municipality": "Вълчи дол",
         "areaSqm": 5,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 5,
         "acquiredYear": 2003,
         "share": "1",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Ангел Добрев Василев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -114,7 +120,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "мерцедес Ванео",
+        "detail": "Мерцедес Ванео",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -132,7 +138,7 @@
       {
         "category": "vehicle",
         "description": "лекотоварен автомобил",
-        "detail": "ситроен",
+        "detail": "Ситроен",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -150,7 +156,7 @@
       {
         "category": "vehicle",
         "description": "лекотоварен автомобил",
-        "detail": "нисан",
+        "detail": "Нисан",
         "location": null,
         "municipality": null,
         "areaSqm": null,

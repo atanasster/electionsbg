@@ -5,6 +5,98 @@
     "institution": "МБАЛ \"Д-р Иван Селимински\" - Сливен АД",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5184",
+    "controlHash": "682871CA",
+    "sourceUrl": "https://register.cacbg.bg/2026/F4018695-BD79-41EE-A120-C89CFFD25B81229433.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35300.10276966812,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 133895.0726801409,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6234.181907425492,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Р Италия, област Сиена, гр. Монтепулчано",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 231,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 547632,
+        "valueEur": 279999.79548324755,
+        "holderName": "Ивайло Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76634,
+        "valueEur": 39182.34202359101,
+        "holderName": "Ивайло Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 145642,
+        "valueEur": 74465.57216117965,
+        "holderName": "Ивайло Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 2.79%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivailo-dimitrov-dimitrov-56a78f",
+    "declarantName": "Ивайло Димитров Димитров",
+    "institution": "МБАЛ \"Д-р Иван Селимински\" - Сливен АД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

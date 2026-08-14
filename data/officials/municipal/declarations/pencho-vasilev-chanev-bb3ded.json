@@ -4,24 +4,24 @@
     "declarantName": "Пенчо Василев Чанев",
     "institution": "Златарица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4174",
-    "controlHash": "FA75BC05",
-    "sourceUrl": "https://register.cacbg.bg/2025/E69CE3EF-4956-4ACA-80C3-011776B77BCA207013.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4584",
+    "controlHash": "29EACEFA",
+    "sourceUrl": "https://register.cacbg.bg/2026/E69CE3EF-4956-4ACA-80C3-011776B77BCA228794.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дестилерия",
-        "shareSize": "50 %",
-        "companyName": "Ставрак 2015 ООД",
-        "registeredOffice": "Златарица",
+        "shareSize": "50%",
+        "companyName": "Ставрак-2015 ООД",
+        "registeredOffice": "Велико Търново",
         "valueEur": 51.12918811962185,
         "holderName": "Пенчо Василев Чанев",
-        "legalBasis": "наследяване/дарение",
+        "legalBasis": "Наследяване/дарение",
         "fundsOrigin": "наследяване/дарение"
       }
     ],
@@ -29,19 +29,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4860.851914532449,
-        "amountEurSpouse": 12265.892229897281
+        "amountEurDeclarant": 5331.24044523297,
+        "amountEurSpouse": 16195.17033689022
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14151.025395867739,
+        "amountEurDeclarant": 18775.660461287534,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 243.3749354494,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 238.77330851863402,
         "amountEurSpouse": null
       },
       {
@@ -53,100 +53,52 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 1476.610952894679,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4573.505877300175,
+        "amountEurSpouse": 4573.505877300175
       },
       {
         "parent": null,
         "category": "Ваучери за храна",
-        "amountEurDeclarant": 198.38124990413277,
+        "amountEurDeclarant": 241.32976792461514,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Обезщетения и помощи по част първа от КСО",
-        "amountEurDeclarant": 225.47971960753236,
-        "amountEurSpouse": 163.61340198278992
+        "amountEurDeclarant": 184.06507723063865,
+        "amountEurSpouse": 71.58086336747058
       },
       {
         "parent": null,
-        "category": "Доходи от продажба или замяна на недвижимо имущество, освободени от облагане на основание чл. 13, ал.1, т.1 и/или т.26 от ЗДДФЛ",
-        "amountEurDeclarant": 4384.83917313877,
-        "amountEurSpouse": 4384.83917313877
-      },
-      {
-        "parent": null,
-        "category": "Доходи, получени от рента, аренда на земеделска земя по чл.13, ал.1, т.24 от ЗДДФЛ",
-        "amountEurDeclarant": 5250.967619885164,
-        "amountEurSpouse": 5250.967619885164
-      },
-      {
-        "parent": null,
-        "category": "Стойност на дневните, командировъчни пари, освободени от облагане на основание чл.24, ал.2, т.5, буква \"Б\" от ЗДДФЛ",
+        "category": "Облекчения за деца",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 736.2603089225546
+        "amountEurSpouse": 306.7751287177311
       },
       {
         "parent": null,
-        "category": "Данъчни облекчения за деца",
+        "category": "Командировъчни",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 613.5502574354622
+        "amountEurSpouse": 838.5186851617983
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "парцел",
+        "description": "лозя",
         "detail": null,
         "location": "Златарица",
         "municipality": "Златарица",
-        "areaSqm": 2371,
+        "areaSqm": 823,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "СИО",
         "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
+        "amount": 250,
+        "valueEur": 127.82297029905462,
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 6071,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "СИО",
-        "currency": "BGN",
-        "amount": 19000,
-        "valueEur": 9714.54574272815,
-        "holderName": "Пенчо Василев Чанев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 1079,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "18/20",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Пенчо и Бистра Чаневи",
-        "isSpouse": true,
-        "legalBasis": "замяна",
-        "fundsOrigin": "няма"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -160,7 +112,7 @@
         "share": null,
         "currency": "USD",
         "amount": 10000,
-        "valueEur": 8794.220356574959,
+        "valueEur": 8513.009821917038,
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
         "legalBasis": null,
@@ -169,6 +121,24 @@
       {
         "category": "cash",
         "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "Пенчо Василев Чанев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "receivable",
+        "description": "Парично вземане",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -177,12 +147,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "legalBasis": "Наем/аренда земеделска земя",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -195,16 +165,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18486,
-        "valueEur": 9451.741715793294,
+        "amount": 16853,
+        "valueEur": 8616.80207379987,
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
-        "legalBasis": "Договор за ипотека 3,4%",
+        "legalBasis": "Ипотечен кредит-3,4%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит-4,49 %",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -213,158 +183,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 51675,
-        "valueEur": 26421.00796081459,
+        "amount": 77500,
+        "valueEur": 39625.12079270693,
         "holderName": "Пенчо Василев Чанев",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит-4,49",
+        "legalBasis": "Потребителски кредит-4,49%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_property",
-        "description": "нива",
+        "description": "парцел",
         "detail": null,
         "location": "Златарица",
         "municipality": "Златарица",
-        "areaSqm": 1860,
+        "areaSqm": 2371,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 572.6469069397647,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 3286,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1567.620907747606,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 6866,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1755.265028146618,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 4176,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2884.1975018278686,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 7599,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "Дарение"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 7599,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3108.1433457918124,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 2207,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "Дарение"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 2207,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 902.4301703113256,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Росно",
-        "municipality": "Златарица",
-        "areaSqm": 1997,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "Дарение"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Росно",
-        "municipality": "Златарица",
-        "areaSqm": 1997,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.13464871691303,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 6304,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "Продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 6199,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "Замяна"
+        "valueEur": 14765.086945184397,
+        "legalBasis": "възмездно"
       }
     ]
   }

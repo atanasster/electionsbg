@@ -4,38 +4,63 @@
     "declarantName": "Светослав Иванов Бординяшки",
     "institution": "Искър",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9464",
-    "controlHash": "183F0D77",
-    "sourceUrl": "https://register.cacbg.bg/2025/5AE359F6-B140-4B33-A7FB-0F4A634527F7212505.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11402",
+    "controlHash": "18032D9A",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AE359F6-B140-4B33-A7FB-0F4A634527F7236308.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "100",
+        "companyName": "Ла Фиетса 57 ЕООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 1022.5837623924369,
+        "holderName": "Светослав Иванов Бординяшки",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "33.34",
+        "companyName": "СИВ 05 ООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 511.29188119621847,
+        "holderName": "Светослав Иванов Бординяшки",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "33.33",
+        "companyName": "СИВ 05 ООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 511.29188119621847,
+        "holderName": "Виолета Маркова Бординяшла",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6786.377139117408,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 5248.411160479182
+        "amountEurDeclarant": 6579.815219114135,
+        "amountEurSpouse": 4644.575448786449
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 734.7264332789659
-      },
-      {
-        "parent": null,
-        "category": "Дивидент Лафиеста 57 ЕООД",
-        "amountEurDeclarant": 1022.5837623924369,
-        "amountEurSpouse": null
+        "amountEurSpouse": 658.0326510995332
       }
     ],
     "assets": [
@@ -50,8 +75,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
         "holderName": "Светослав Иванов Бординяшки",
         "isSpouse": false,
         "legalBasis": null,

@@ -4,57 +4,45 @@
     "declarantName": "Кънчо Стоянов Папазов",
     "institution": "Гурково",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г2325",
-    "controlHash": "87F041BF",
-    "sourceUrl": "https://register.cacbg.bg/2025/E50F82F2-77FC-499C-93F3-18F911ECD4EC204946.xml",
+    "entryNumber": "Г7258",
+    "controlHash": "F7AD1B5B",
+    "sourceUrl": "https://register.cacbg.bg/2026/E50F82F2-77FC-499C-93F3-18F911ECD4EC231662.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31791.106589018473,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 12782.297029905461
+        "amountEurDeclarant": 35398.27081085779,
+        "amountEurSpouse": 1581.4257885399038
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 9815.781535205002,
-        "amountEurSpouse": 9815.781535205002
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 10225.83762392437,
-        "amountEurSpouse": 10225.83762392437
+        "amountEurDeclarant": 7361.580505463154,
+        "amountEurSpouse": 7361.580505463154
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Шкода",
+        "detail": "опел астра",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "Кънчо Стоянов Папазов",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "КЪНЧО СТОЯНОВ ПАПАЗОВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "ПОКУПКО - ПРОДАЖБА",
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
@@ -68,34 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14400,
-        "valueEur": 7362.603089225547,
-        "holderName": "Кънчо Стоянов Папазов",
+        "amount": 32776,
+        "valueEur": 16758.102698087256,
+        "holderName": "КЪНЧО СТОЯНОВ ПАПАЗОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит с 2,48 % год. Лихва",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 140000,
-        "valueEur": 71580.86336747059,
-        "holderName": "Кънчо Стоянов Папазов",
-        "isSpouse": false,
-        "legalBasis": "главница по ипотечен кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "кредитна карта с 17,95 % год лихва",
+        "description": "КРЕДИТНА КАРТА С 17,95 % ГОД ЛИХВА",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -106,25 +76,48 @@
         "currency": "BGN",
         "amount": 14300,
         "valueEur": 7311.473901105925,
-        "holderName": "Кънчо Стоянов Папазов",
+        "holderName": "КЪНЧО СТОЯНОВ ПАПАЗОВ",
         "isSpouse": false,
-        "legalBasis": "лимит по кредитна карта",
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТНА КАРТА С ГОДИШНА ЛИХВА 17,95 %",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шкода",
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА С 15 % ГОД ЛИХВА",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 20451.67524784874,
-        "legalBasis": "възмездно"
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "КЪНЧО СТОЯНОВ ПАПАЗОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТНА КАРТА С ГОДИШНА ЛИХВА 15 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ С 2,48 % ГОД ЛИХВА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53236,
+        "valueEur": 27219.13458736189,
+        "holderName": "КЪНЧО СТОЯНОВ ПАПАЗОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ИПОТЕЧЕН КРЕДИТ С ГОДИШНА ЛИХВА 2,48 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

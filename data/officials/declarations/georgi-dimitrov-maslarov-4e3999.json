@@ -5,6 +5,152 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9497",
+    "controlHash": "3E2AF2A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/CF2C7CA3-47F1-4A15-A806-5CCC5392C9F2234120.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30406.01688285792,
+        "amountEurSpouse": 22650.230336992478
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4768.3080840359335,
+        "amountEurSpouse": 4527.489607992515
+      },
+      {
+        "parent": null,
+        "category": "ЛИЧНА ПЕНСИЯ ЗА ОСИГУРИТЕЛЕН СТАЖ И ВЪЗРАСТ",
+        "amountEurDeclarant": 14086.602618837016,
+        "amountEurSpouse": 9898.61081995879
+      },
+      {
+        "parent": null,
+        "category": "СОЛАРЕН ПАРК /ВЕИ/",
+        "amountEurDeclarant": 1460.7609045775962,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОБЛАГАНЕ ПО ЧЛ.24,АЛ.2,Т.14 ОТ ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 155.94402376484663
+      },
+      {
+        "parent": null,
+        "category": "ДРУГИ НЕОБЛАГАЕМИ ДОХОДИ ПО ЧЛ.24 Т.16 ,Т.17 ОТ ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 21735.01786965125
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА ОТ ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "ВЪЗСТАНОВЕНИ СУМИ ОТ НАП /ЗО/",
+        "amountEurDeclarant": 428.4625964424311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ВЪЗСТАНОВЕНИ СУМИ ОТ НАП /ЛИЧНИ ОСИГУРОВКИ/",
+        "amountEurDeclarant": 1167.2793647709668,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 49340,
+        "valueEur": 49339.666535435084,
+        "holderName": "ГЕОРГИ ДИМИТРОВ МАСЛАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата ,пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 183285,
+        "valueEur": 93712.1324450489,
+        "holderName": "ГЕОРГИ ДИМИТРОВ МАСЛАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 311849,
+        "valueEur": 159445.86185915954,
+        "holderName": "ДИМИТРИЯ ГЕОРГИЕВА МАСЛАРОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,пенсия"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58113,
+        "valueEur": 29712.705091955846,
+        "holderName": "ГЕОРГИ ДИМИТРОВ МАСЛАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от нал.с-ма по с-ма и прехвърлена сума от с-ката на дъщеря ми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-dimitrov-maslarov-4e3999",
+    "declarantName": "ГЕОРГИ ДИМИТРОВ МАСЛАРОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

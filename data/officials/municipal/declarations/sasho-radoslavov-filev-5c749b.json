@@ -4,35 +4,48 @@
     "declarantName": "Сашо Радославов Филев",
     "institution": "Лъки",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12919",
-    "controlHash": "62A7CA34",
-    "sourceUrl": "https://register.cacbg.bg/2025/3C07E789-427B-4B87-B76D-BFEDC5014B71216099.xml",
+    "filedAt": null,
+    "entryNumber": "Г11380",
+    "controlHash": "122D5462",
+    "sourceUrl": "https://register.cacbg.bg/2026/3C07E789-427B-4B87-B76D-BFEDC5014B71236282.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10430.354376402856,
-        "amountEurSpouse": 7976.153346661008
+        "amountEurDeclarant": 9816.804118967395,
+        "amountEurSpouse": 7362.603089225547
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4294.851802048235,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurDeclarant": 3067.751287177311,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "Сашо Радославов Филев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

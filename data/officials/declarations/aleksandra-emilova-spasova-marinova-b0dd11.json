@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г13003",
+    "controlHash": "65A7ED0F",
+    "sourceUrl": "https://register.cacbg.bg/2026/76DA9912-0D5C-473B-8936-DF2F2C019020238387.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18189.208673555473,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Личен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11156,
+        "valueEur": 5703.972226625014,
+        "holderName": "Александра Емилова Спасова-Маринова",
+        "isSpouse": false,
+        "legalBasis": "5.53",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Личен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2276,
+        "valueEur": 1163.7003216025932,
+        "holderName": "Александра Емилова Спасова-Маринова",
+        "isSpouse": false,
+        "legalBasis": "6.76",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aleksandra-emilova-spasova-marinova-b0dd11",
+    "declarantName": "Александра Емилова Спасова-Маринова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

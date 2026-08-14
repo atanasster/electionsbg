@@ -1,6 +1,86 @@
 [
   {
     "slug": "irina-ilieva-cholakova-aa3b2c",
+    "declarantName": "Ирина Илиева Чолакова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7349",
+    "controlHash": "7DAD3553",
+    "sourceUrl": "https://register.cacbg.bg/2026/9F8EF3AC-EDBE-4F76-B94B-8D2CAD432521231758.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26710.910457452846,
+        "amountEurSpouse": 12213.740458015267
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Фиат \"Добло\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 2105,
+        "valueEur": 1076.2694099180399,
+        "holderName": "Илия Георгиев Чолаков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15918,
+        "valueEur": 8138.744164881406,
+        "holderName": "Ирина Илиева Чолакова",
+        "isSpouse": false,
+        "legalBasis": "4,2",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4595,
+        "valueEur": 2349.386194096624,
+        "holderName": "Илия Георгиев Чолаков",
+        "isSpouse": true,
+        "legalBasis": "4,7",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "irina-ilieva-cholakova-aa3b2c",
     "declarantName": "Ирина  Илиева Чолакова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

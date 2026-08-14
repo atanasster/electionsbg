@@ -1,6 +1,68 @@
 [
   {
     "slug": "pavlin-nikiforov-petrov-2c1ed0",
+    "declarantName": "Павлин Никифоров Петров",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3956",
+    "controlHash": "280C2EA5",
+    "sourceUrl": "https://register.cacbg.bg/2026/796EC25B-99DF-4917-8D6F-2D5FDCE2D880228134.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30992.979962471178,
+        "amountEurSpouse": 17378.811041859466
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 122600,
+        "valueEur": 62684.38463465639,
+        "holderName": "Павлин Никифоров Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6200,
+        "valueEur": 3170.0096634165548,
+        "holderName": "Симона Георгиева Петрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlin-nikiforov-petrov-2c1ed0",
     "declarantName": "Павлин Никифорав Петров",
     "institution": "Училища",
     "positionTitle": "Директор",

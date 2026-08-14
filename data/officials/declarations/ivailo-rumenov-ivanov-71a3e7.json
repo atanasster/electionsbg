@@ -5,6 +5,56 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9834",
+    "controlHash": "C5DFAC36",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F6A973E-8BFC-4BC7-9F49-53A99DAAF12B234501.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27028.934007556894,
+        "amountEurSpouse": 24107.923490282898
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7666.821758537296,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес GLC 400 E 4MATIC",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 135833,
+        "valueEur": 69450.31009852595,
+        "holderName": "Ивайло Руменов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "лизингов договор"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivailo-rumenov-ivanov-71a3e7",
+    "declarantName": "Ивайло Руменов Иванов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

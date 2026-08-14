@@ -4,26 +4,32 @@
     "declarantName": "Симеон Тодоров Шопов",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г13983",
-    "controlHash": "CA438676",
-    "sourceUrl": "https://register.cacbg.bg/2025/18712E4F-A732-4B86-BC17-221C9A3A60A5217245.xml",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г4696",
+    "controlHash": "A63DD01F",
+    "sourceUrl": "https://register.cacbg.bg/2026/18712E4F-A732-4B86-BC17-221C9A3A60A5228917.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7444.4097902169415,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 9020.722659944882,
+        "amountEurSpouse": 5096.557471763906
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4448.2393664071005,
+        "amountEurDeclarant": 5609.89452048491,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 696.3795421892496
       }
     ],
     "assets": [
@@ -138,16 +144,16 @@
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Mercedes C220",
+        "kind": "third_party_expense",
+        "description": "самолетни билети, трансфери, хотелско настаняване, вечеря (посещение в Брюксел)",
+        "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1175.9713267513025,
-        "legalBasis": "възмездно"
+        "currency": "EUR",
+        "valueEur": 579.8049932765118,
+        "legalBasis": null
       }
     ]
   }

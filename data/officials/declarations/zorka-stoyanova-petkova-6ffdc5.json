@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г681",
+    "controlHash": "2C295E98",
+    "sourceUrl": "https://register.cacbg.bg/2026/F974AAD2-7A86-46B5-B8DB-7E10A7144343224166.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26182.234652295956,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 20.96296712904496
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Тойота ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34900,
+        "valueEur": 17844.086653748025,
+        "holderName": "Зорка Стоянова Петкова",
+        "isSpouse": false,
+        "legalBasis": "придобиване на лизингова вещ",
+        "fundsOrigin": "Договор за лизинг"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Иван Жечев Петков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zorka-stoyanova-petkova-6ffdc5",
+    "declarantName": "Зорка Стоянова Петкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

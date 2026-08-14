@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "radostin-ivanov-milanov-dbd128",
+    "declarantName": "Радостин Иванов Миланов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11685",
+    "controlHash": "2B2F14C6",
+    "sourceUrl": "https://register.cacbg.bg/2026/E7753C16-BAE7-4D50-9C57-C85FC07EB82D236647.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 71954.10644074382,
+        "amountEurSpouse": 10172.663268279963
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 3010.997888364531,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент от източник в България",
+        "amountEurDeclarant": 35074.62305006059,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 279895,
+        "valueEur": 143108.04108741556,
+        "holderName": "Радостин Иванов Миланов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42585,
+        "valueEur": 21773.364760740966,
+        "holderName": "Радостин Иванов Миланов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г14912",
+    "controlHash": "64A489CA",
+    "sourceUrl": "https://register.cacbg.bg/2026/B085AC35-B091-4AAE-BAA9-38D60DB5B9A5241324.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32052.88803219094,
+        "amountEurSpouse": 18452.523992371523
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Крушаре",
+        "municipality": "Сливен",
+        "areaSqm": 160,
+        "builtAreaSqm": 160,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 13566,
+        "valueEur": 6936.1856603079,
+        "holderName": "Иван Славов Иванов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Иван Славов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-slavov-ivanov-9bbdc3",
+    "declarantName": "Иван Славов Иванов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,15 +4,22 @@
     "declarantName": "Свилен Цонев Андреев",
     "institution": "Троян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12378",
-    "controlHash": "9EC52643",
-    "sourceUrl": "https://register.cacbg.bg/2025/FA8F4195-8FB3-4C20-B8C0-6FC40975E92A215543.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14443",
+    "controlHash": "345F5B2C",
+    "sourceUrl": "https://register.cacbg.bg/2026/FA8F4195-8FB3-4C20-B8C0-6FC40975E92A240223.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13598.830164175823,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -35,7 +42,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Фолгсваген Поло",
+        "detail": "Фолксваген Поло",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -61,12 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4500,
-        "valueEur": 2300.8134653829834,
+        "amount": 12500,
+        "valueEur": 6391.148514952731,
         "holderName": "Свилен Цонев Андреев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

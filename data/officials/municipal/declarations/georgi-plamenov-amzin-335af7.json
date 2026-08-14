@@ -1,19 +1,82 @@
 [
   {
     "slug": "georgi-plamenov-amzin-335af7",
-    "declarantName": "Георги Пламенов Амзин",
+    "declarantName": "Георги Пламенов Амизн",
     "institution": "Район Панчарево",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г9057",
-    "controlHash": "78C90588",
-    "sourceUrl": "https://register.cacbg.bg/2025/70C0323B-544B-468E-82C9-6499728B55A2212087.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5730",
+    "controlHash": "85EDA4D4",
+    "sourceUrl": "https://register.cacbg.bg/2026/70C0323B-544B-468E-82C9-6499728B55A2229994.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": []
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34082.71680053992,
+        "amountEurSpouse": 19940.38336665252
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Бистрица ул.Младен Ангелов 3",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 516,
+        "builtAreaSqm": 76,
+        "acquiredYear": 2025,
+        "share": "1 и 1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Георги Пламенов Амзин",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарение"
+      },
+      {
+        "category": "real_estate",
+        "description": "Етаж и гараж",
+        "detail": null,
+        "location": "с.Бистрица ул.Младен Ангелов 3",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 516,
+        "builtAreaSqm": 155,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Георги Пламенов Амзин",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарение"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

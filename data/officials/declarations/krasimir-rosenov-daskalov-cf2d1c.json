@@ -1,6 +1,93 @@
 [
   {
     "slug": "krasimir-rosenov-daskalov-cf2d1c",
+    "declarantName": "Красимир Росенов Даскалов",
+    "institution": "Област - Смолян",
+    "positionTitle": "Заместник-областен управител",
+    "category": "regional_governor",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Ф615",
+    "controlHash": "0770929D",
+    "sourceUrl": "https://register.cacbg.bg/2026/1B7B1BA1-938D-4FD0-A5DE-15B50B01BC9F235786.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 39488,
+        "valueEur": 20189.893804676274,
+        "holderName": "Красимир Росенов Даскалов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с лихмен процент 4.59%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimir-rosenov-daskalov-cf2d1c",
+    "declarantName": "Красимир Росенов Даскалов",
+    "institution": "Област - Смолян",
+    "positionTitle": "Заместник-областен управител",
+    "category": "regional_governor",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5461",
+    "controlHash": "1B617569",
+    "sourceUrl": "https://register.cacbg.bg/2026/1B7B1BA1-938D-4FD0-A5DE-15B50B01BC9F229720.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26550.364806757232,
+        "amountEurSpouse": 6562.431295153464
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение от временна неработоспособност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 35.79043168373529
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 38938,
+        "valueEur": 19908.683270018355,
+        "holderName": "Красимир Росенов Даскалов",
+        "isSpouse": false,
+        "legalBasis": "договор з акредит с лихвен процент4.59",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimir-rosenov-daskalov-cf2d1c",
     "declarantName": "КРАСИМИР РОСЕНОВ ДАСКАЛОВ",
     "institution": "Област - Смолян",
     "positionTitle": "Заместник-областен управител",

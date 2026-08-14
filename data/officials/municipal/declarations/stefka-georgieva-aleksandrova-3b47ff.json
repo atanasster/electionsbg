@@ -4,39 +4,38 @@
     "declarantName": "Стефка Георгиева Александрова",
     "institution": "Монтана",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6763",
-    "controlHash": "D84EFF33",
-    "sourceUrl": "https://register.cacbg.bg/2025/B95A7643-0D00-49C4-97BF-898D47E903DD209734.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "1/2",
-        "companyName": "Фаворит Секюрити 4 ООД",
-        "registeredOffice": "Монтана",
-        "valueEur": 0.5112918811962185,
-        "holderName": "Стефка Георгиева Александрова",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-06-05",
+    "entryNumber": "Г10226",
+    "controlHash": "3F61D477",
+    "sourceUrl": "https://register.cacbg.bg/2026/B95A7643-0D00-49C4-97BF-898D47E903DD234950.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5810.8322297950235,
-        "amountEurSpouse": 7669.378217943277
+        "amountEurDeclarant": 6908.575898723304,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10225.83762392437,
+        "amountEurDeclarant": 7158.086336747059,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсии",
+        "amountEurDeclarant": 11759.713267513025,
+        "amountEurSpouse": 8180.6700991394955
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
       }
     ],
     "assets": [
@@ -48,11 +47,11 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 4200,
-        "valueEur": 2147.4259010241176,
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
         "holderName": "Стефка Георгиева Александрова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -66,15 +65,15 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 4200,
-        "valueEur": 2147.4259010241176,
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
         "holderName": "Георги Александров Александров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -87,9 +86,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17000,
-        "valueEur": 8691.961980335715,
-        "holderName": "Стефка Георгиева александрова",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Стефка Георгиева Александрова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -110,56 +109,32 @@
         "holderName": "Георги Александров Александров",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
         "description": "лек автомобил",
-        "detail": "Мерцедес",
+        "detail": "СУБАРУ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 766.9378217943278,
+        "valueEur": 2709.846970339958,
         "legalBasis": "възмездно"
       },
       {
         "kind": "disposal_vehicle",
         "description": "лек автомобил",
-        "detail": "Мерцедес",
+        "detail": "СУБАРУ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобилл",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 715.8086336747059,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 715.8086336747059,
+        "valueEur": 2709.846970339958,
         "legalBasis": "възмездно"
       }
     ]

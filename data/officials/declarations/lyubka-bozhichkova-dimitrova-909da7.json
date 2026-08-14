@@ -5,6 +5,111 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3945",
+    "controlHash": "F99A4D0D",
+    "sourceUrl": "https://register.cacbg.bg/2026/7CD89C81-1B47-434D-AE20-B2270B8B6B25228121.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове",
+        "shareSize": "100%",
+        "companyName": "БЕР МАР ЕООД",
+        "registeredOffice": "Радомир",
+        "valueEur": 1.022583762392437,
+        "holderName": "Симеон Спасов Димитров",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29737.247102253263,
+        "amountEurSpouse": 10025.411206495452
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3527.4026883727115,
+        "amountEurSpouse": 3527.4026883727115
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лека кола",
+        "detail": "Пежо 208",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 14300,
+        "valueEur": 7311.473901105925,
+        "holderName": "Любка Божичкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 111129,
+        "valueEur": 56819.355465454566,
+        "holderName": "Любка Божичкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11187,
+        "valueEur": 5719.822274942097,
+        "holderName": "Любка Божичкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubka-bozhichkova-dimitrova-909da7",
+    "declarantName": "Любка Божичкова Димитрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

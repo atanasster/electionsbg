@@ -4,47 +4,29 @@
     "declarantName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
     "institution": "Кайнарджа",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г12410",
-    "controlHash": "EA425BCB",
-    "sourceUrl": "https://register.cacbg.bg/2025/01003491-E09A-42DD-8C12-8D60AF79D1A0215578.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8144",
+    "controlHash": "8251E5B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/01003491-E09A-42DD-8C12-8D60AF79D1A0232625.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16487.118001053263,
-        "amountEurSpouse": 11402.831534438064
+        "amountEurDeclarant": 17215.19763987668,
+        "amountEurSpouse": 24194.33181820506
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12002.065619200033,
+        "amountEurDeclarant": 15830.619225597316,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ХЮНДАЙ ТУКСОН",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
-        "holderName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
       {
         "category": "debt",
         "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
@@ -57,10 +39,10 @@
         "share": null,
         "currency": "BGN",
         "amount": 48000,
-        "valueEur": 24542.01029741849,
-        "holderName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
-        "isSpouse": false,
-        "legalBasis": "ДОГОВОР",
+        "valueEur": 21650.143417372678,
+        "holderName": "ИВАЙЛО ПЕТКОВ ПЕТКОВ",
+        "isSpouse": true,
+        "legalBasis": "договор, лихвен процент - 4,7",
         "fundsOrigin": null
       },
       {
@@ -75,10 +57,28 @@
         "share": null,
         "currency": "BGN",
         "amount": 3115,
-        "valueEur": 1592.6742099262206,
+        "valueEur": 143.16172673494117,
         "holderName": "КРАСИМИРА СТОЯНОВА ПЕТКОВА",
         "isSpouse": true,
-        "legalBasis": "ДОГОВОР",
+        "legalBasis": "договор, лихвен процент - 4,7",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "КРАСИМИРА СТОЯНОВА ПЕТКОВА",
+        "isSpouse": true,
+        "legalBasis": "договор, лихвен процент - 18,9",
         "fundsOrigin": null
       }
     ],

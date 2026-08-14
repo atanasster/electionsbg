@@ -1,64 +1,40 @@
 [
   {
     "slug": "iliya-mitkov-pashov-83253e",
-    "declarantName": "ИЛИЯ МИТКОВ ПАШОВ",
+    "declarantName": "Илия Митков Пашов",
     "institution": "Петрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14305",
-    "controlHash": "C6AC6716",
-    "sourceUrl": "https://register.cacbg.bg/2025/A8B4541F-6C77-40C7-9E1B-9CBC779581B4217591.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11270",
+    "controlHash": "EA1935B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8B4541F-6C77-40C7-9E1B-9CBC779581B4236152.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6813.475608820808,
-        "amountEurSpouse": 20629.604822505025
+        "amountEurDeclarant": 7608.5344840809275,
+        "amountEurSpouse": 23963.739179785563
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 12952.557226343803,
+        "amountEurSpouse": null
       },
       {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 17376.76587433468,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 27516.19517033689,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -68,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
-        "holderName": "ИВАН МИТКОВ ПАШОВ",
-        "isSpouse": true,
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Илия Митков Пашов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "възнаграждения и субсидии"
       }
     ],
     "events": []

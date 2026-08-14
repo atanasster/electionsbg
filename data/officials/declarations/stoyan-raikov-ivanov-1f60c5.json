@@ -5,6 +5,50 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14643",
+    "controlHash": "8C00543A",
+    "sourceUrl": "https://register.cacbg.bg/2026/29549C63-028D-4A1F-BF1B-FD592BA07963240594.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 470655.9363543866,
+        "amountEurSpouse": 8970.104763706457
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 86000,
+        "valueEur": 43971.10178287479,
+        "holderName": "Стоян Райиков Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyan-raikov-ivanov-1f60c5",
+    "declarantName": "СТОЯН РАЙКОВ ИВАНОВ",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

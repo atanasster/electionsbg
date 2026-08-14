@@ -1,32 +1,68 @@
 [
   {
     "slug": "yanko-stoyanov-dobrev-81566a",
-    "declarantName": "Янко Стоянова Добрев",
+    "declarantName": "Янко Стоянов Добрев",
     "institution": "Стралджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г7862",
-    "controlHash": "2C2A708D",
-    "sourceUrl": "https://register.cacbg.bg/2025/D041195E-8154-4255-B58A-6835EB351D92210866.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г12796",
+    "controlHash": "D49E3D7E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D041195E-8154-4255-B58A-6835EB351D92238135.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3914.450642438249,
-        "amountEurSpouse": 5703.972226625014
+        "amountEurDeclarant": 4340.868071355895,
+        "amountEurSpouse": 12781.27444614307
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15393.975959055746,
+        "amountEurDeclarant": 18083.371254147856,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 101,
+        "builtAreaSqm": 113,
+        "acquiredYear": 2025,
+        "share": "1/2 (56,5 кв.м)",
+        "currency": "BGN",
+        "amount": 318799,
+        "valueEur": 162999.34043347326,
+        "holderName": "Янко Стоянов Добрев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Заем, спестявания, дарение от родители"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 101,
+        "builtAreaSqm": 113,
+        "acquiredYear": 2025,
+        "share": "1/2 (56,5 кв.м.)",
+        "currency": "BGN",
+        "amount": 318799,
+        "valueEur": 162999.34043347326,
+        "holderName": "Жечка Петкова Ганчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Заплата, дарение от родители"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +74,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36000,
-        "valueEur": 18406.507723063867,
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
         "holderName": "Янко Стоянов Добрев",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "Заплати, остатък от кредит"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Янко Стоянов Добрев",
+        "isSpouse": false,
+        "legalBasis": "2.28",
+        "fundsOrigin": null
       },
       {
         "category": "investment",
@@ -56,12 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11000,
-        "valueEur": 5624.210693158403,
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
         "holderName": "Янко Стоянов Добрев",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Натрупвания по Универсален пенсионен фонд"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "desislava-valentinova-hristova-3bde33",
+    "declarantName": "ДЕСИСЛАВА ВАЛЕНТИНОВА ХРИСТОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-19",
+    "entryNumber": "Г1606",
+    "controlHash": "8BCAD9CD",
+    "sourceUrl": "https://register.cacbg.bg/2026/D9DC59D2-AAD1-498C-B23B-AAC2FA64D108225525.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6501.587561291114,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1014.4030922932975,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11377,
+        "valueEur": 5816.967732369378,
+        "holderName": "ДЕСИСЛАВА ВАЛЕНТИНОВА ХРИСТОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "РЗ"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62696,
+        "valueEur": 32055.955783478115,
+        "holderName": "ДЕСИСЛАВА ВАЛЕНТИНОВА ХРИСТОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР 4.73%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

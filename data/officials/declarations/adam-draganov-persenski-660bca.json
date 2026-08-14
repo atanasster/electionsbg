@@ -5,6 +5,178 @@
     "institution": "МБАЛ \"Д-р Атанас Дафовски\" АД, гр. Кърджали",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4259",
+    "controlHash": "311DCFEB",
+    "sourceUrl": "https://register.cacbg.bg/2026/D61C6827-922E-40E0-8C78-AE824B88BA7A228456.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дял",
+        "shareSize": "1",
+        "companyName": "Екофудс Д.р Адам Персенски",
+        "registeredOffice": "Кърджали",
+        "valueEur": 511.29188119621847,
+        "holderName": "Адам Драганов Персенски",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дял",
+        "shareSize": "1/2",
+        "companyName": "Жълтуша ООД",
+        "registeredOffice": "Кърджали",
+        "valueEur": 511.29188119621847,
+        "holderName": "Адам Драганов Персенски",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дял",
+        "shareSize": "1/3",
+        "companyName": "Персенски ООД",
+        "registeredOffice": "Кърджали",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Адам Драганов Персенски",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39292.78106992939,
+        "amountEurSpouse": 49595.31247603319
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 50933.87462100489,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 251913.50986537684,
+        "amountEurSpouse": 122710.05148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Авдира Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 95,
+        "builtAreaSqm": 190,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 240000,
+        "valueEur": 122710.05148709244,
+        "holderName": "Адам Драганов Персенски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Жълтуша",
+        "municipality": "Ардино",
+        "areaSqm": 1,
+        "builtAreaSqm": 960,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Адам Драганов Персенски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 100000,
+        "valueEur": 100468.85465505693,
+        "holderName": "Адам Драганов Персенски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 100000,
+        "valueEur": 100468.85465505693,
+        "holderName": "Адам Драганов Персенски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "за закупуване на имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "за закупуване на имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "adam-draganov-persenski-660bca",
+    "declarantName": "Адам Драганов Персенски",
+    "institution": "МБАЛ \"Д-р Атанас Дафовски\" АД, гр. Кърджали",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

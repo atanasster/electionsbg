@@ -4,25 +4,31 @@
     "declarantName": "Мартин Илиев Иванов",
     "institution": "Девня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г5908",
-    "controlHash": "D98FEB24",
-    "sourceUrl": "https://register.cacbg.bg/2025/2806CB72-B331-452B-8657-2D8D6A65BE75208853.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г4613",
+    "controlHash": "F3C2FEE8",
+    "sourceUrl": "https://register.cacbg.bg/2026/2806CB72-B331-452B-8657-2D8D6A65BE75228830.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4584.754298686491,
-        "amountEurSpouse": 9575.47435104278
+        "amountEurDeclarant": 5217.222355726213,
+        "amountEurSpouse": 13771.13552813895
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6387.0581799031615,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5548.539494741363,
+        "amountEurDeclarant": 20656.70329220842,
         "amountEurSpouse": null
       },
       {
@@ -32,86 +38,123 @@
         "amountEurSpouse": 306.7751287177311
       },
       {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 30750.62761078417,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 16105.694257680883,
+        "amountEurSpouse": 16105.694257680883
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 529.1870970380861,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "с.Падина",
-        "municipality": "Девня",
-        "areaSqm": 6200,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Мартин Илиев Иванов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "с.Падина",
-        "municipality": "Девня",
-        "areaSqm": 6000,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Снежана Кръстева Иванова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "Ивеко",
+        "description": "лек автомобил",
+        "detail": "Шкода",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
         "holderName": "Мартин Илиев Иванов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "Ивеко",
+        "description": "лек автомобил",
+        "detail": "Шкода",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
         "holderName": "Снежана Кръстева Иванова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Мартин Илиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Ген. Колево",
+        "municipality": "Вълчи дол",
+        "areaSqm": 0,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Ген. Колево",
+        "municipality": "Вълчи дол",
+        "areaSqm": 0,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Киа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24542.01029741849,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Киа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24542.01029741849,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

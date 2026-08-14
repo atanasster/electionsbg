@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3141",
+    "controlHash": "5540AA2D",
+    "sourceUrl": "https://register.cacbg.bg/2026/99A2433A-A4F7-41F5-A9F7-25FDE7AB818A227255.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19636.675989221967,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 281.72182653911636,
+        "amountEurSpouse": 584.9179120884739
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1533.8756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "тойота корола крос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 81000,
+        "valueEur": 41414.642376893695,
+        "holderName": "Цветелин Петков Кръстев, Гергана Христова Кръстева",
+        "isSpouse": true,
+        "legalBasis": "финансов лизинг",
+        "fundsOrigin": "заем/лизинг"
+      },
+      {
+        "category": "debt",
+        "description": "финансов лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31029,
+        "valueEur": 15864.875781637464,
+        "holderName": "Цветелин Петков Кръстев, Гергана Христова Кръстева",
+        "isSpouse": true,
+        "legalBasis": "договор за финансов лизинг, 3,95 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-hristova-krsteva-ac1f16",
+    "declarantName": "Гергана Христова Кръстева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

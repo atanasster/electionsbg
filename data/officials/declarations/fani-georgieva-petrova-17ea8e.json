@@ -5,6 +5,86 @@
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3584",
+    "controlHash": "BF22F68F",
+    "sourceUrl": "https://register.cacbg.bg/2026/69D9F6CC-2DCD-4A94-A506-BE83FA391770227721.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 25053.302178614707
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 14111.65592101563,
+        "amountEurSpouse": 20860.708752805713
+      },
+      {
+        "parent": null,
+        "category": "Граждански договори",
+        "amountEurDeclarant": 286.32345346988234,
+        "amountEurSpouse": 1789.5215841867648
+      },
+      {
+        "parent": null,
+        "category": "Рента  - земя",
+        "amountEurDeclarant": 792.5024158541387,
+        "amountEurSpouse": 920.3253861531933
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89614,
+        "valueEur": 45818.91064151793,
+        "holderName": "Фани Георгиева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10433,
+        "valueEur": 10432.910835808838,
+        "holderName": "Фани Георгиева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "fani-georgieva-petrova-17ea8e",
+    "declarantName": "Фани Георгиева Петрова",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

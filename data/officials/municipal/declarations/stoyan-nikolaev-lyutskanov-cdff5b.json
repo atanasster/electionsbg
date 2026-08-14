@@ -4,13 +4,13 @@
     "declarantName": "Стоян Николаев Люцканов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г4699",
-    "controlHash": "C20A43C1",
-    "sourceUrl": "https://register.cacbg.bg/2025/F491289E-FF48-497A-87B1-DCB89A6EF7F8207571.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5775",
+    "controlHash": "75CF9E4A",
+    "sourceUrl": "https://register.cacbg.bg/2026/F491289E-FF48-497A-87B1-DCB89A6EF7F8230040.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -20,7 +20,7 @@
         "companyName": "Мистфарм ООД",
         "registeredOffice": "Добрич",
         "valueEur": 2556.4594059810925,
-        "holderName": "Стоян Николаев Люцканов",
+        "holderName": "СтоянНиколаев Люцканов",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
@@ -32,7 +32,7 @@
         "companyName": "Боникс ООД",
         "registeredOffice": "Добрич",
         "valueEur": 5.112918811962185,
-        "holderName": "Стоян Николаев Люцканов",
+        "holderName": "СтоянНиколаев Люцканов",
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
@@ -41,33 +41,39 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8226.686368447155,
+        "amountEurDeclarant": 15814.257885399038,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9008.96294667737,
-        "amountEurSpouse": 3793.274466594745
+        "amountEurDeclarant": 6642.704120501271,
+        "amountEurSpouse": 4636.39477868731
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1994.038336665252,
-        "amountEurSpouse": 1994.038336665252
+        "amountEurDeclarant": 1345.720231308447,
+        "amountEurSpouse": 1345.720231308447
       },
       {
         "parent": null,
         "category": "Дивидент",
-        "amountEurDeclarant": 16105.694257680883,
-        "amountEurSpouse": 16105.694257680883
+        "amountEurDeclarant": 26587.17782220336,
+        "amountEurSpouse": 2658.717782220336
+      },
+      {
+        "parent": null,
+        "category": "Лихви",
+        "amountEurDeclarant": 170.77148831953699,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "мотор",
-        "detail": "Хонда",
+        "detail": "хонда",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -79,22 +85,22 @@
         "valueEur": 102.2583762392437,
         "holderName": "Стоян Николаев Люцканов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "покупко0продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 80000,
-        "valueEur": 40903.35049569748,
+        "currency": "EUR",
+        "amount": 19048,
+        "valueEur": 19047.667742083922,
         "holderName": "Стоян Николаев Люцканов",
         "isSpouse": false,
         "legalBasis": null,

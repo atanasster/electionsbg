@@ -5,6 +5,136 @@
     "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г6338",
+    "controlHash": "0894C132",
+    "sourceUrl": "https://register.cacbg.bg/2026/BC3E5EF8-25B7-44AE-9813-CD5ECB3CA2A3230653.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "ХЕЛМЕТ КОНСУЛТ ЕООД",
+        "registeredOffice": "СТАРА ЗАГОРА",
+        "valueEur": null,
+        "holderName": "Пламен Веселинов Йорданов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45069.356743684264,
+        "amountEurSpouse": 10374.112269471274
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6817.054651989181,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Албена Иванова Радева-Йорданова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24109,
+        "valueEur": 12326.735963759631,
+        "holderName": "Пламен Веселинов Йорданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28564,
+        "valueEur": 14604.541294488785,
+        "holderName": "Албена Иванова Радева-Йорданова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Пламен Веселинов Йорданов",
+        "isSpouse": false,
+        "legalBasis": "заем олп + 2.5 пункта",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "plamen-veselinov-iordanov-6a8cdf",
+    "declarantName": "Пламен Веселинов Йорданов",
+    "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

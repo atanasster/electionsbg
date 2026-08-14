@@ -4,23 +4,79 @@
     "declarantName": "Иванка Асенова Петрова",
     "institution": "Троян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г2032",
-    "controlHash": "94C88E2C",
-    "sourceUrl": "https://register.cacbg.bg/2025/A424CD3B-FC5A-46DF-92F8-6480D040B1A6204613.xml",
+    "entryNumber": "Г14099",
+    "controlHash": "9AE3C641",
+    "sourceUrl": "https://register.cacbg.bg/2026/A424CD3B-FC5A-46DF-92F8-6480D040B1A6239802.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21290.193933010538,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 23766.380513643824,
+        "amountEurSpouse": 6387.0581799031615
+      },
+      {
+        "parent": null,
+        "category": "Девиденти от собствено на фирма",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5982.115009995757
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес е 300",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 1659,
+        "valueEur": 848.2332309045265,
+        "holderName": "Иво Иванов Петров",
+        "isSpouse": true,
+        "legalBasis": "покупка",
+        "fundsOrigin": "спестяване от заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
+        "holderName": "Иванка Асенова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестяване от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Закупуване на  бяла техника –фризер",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
+      }
+    ]
   }
 ]

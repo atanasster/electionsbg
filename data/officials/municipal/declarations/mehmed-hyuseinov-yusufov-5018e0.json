@@ -4,13 +4,13 @@
     "declarantName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
     "institution": "Върбица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г11498",
-    "controlHash": "5BFDF3EC",
-    "sourceUrl": "https://register.cacbg.bg/2025/D61707E1-539D-4B6E-A638-F00733DF0D51214642.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г6761",
+    "controlHash": "56E357D7",
+    "sourceUrl": "https://register.cacbg.bg/2026/D61707E1-539D-4B6E-A638-F00733DF0D51231106.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,40 +29,40 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5100.136514932279,
+        "amountEurDeclarant": 5809.809646032631,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7011.85685872494,
-        "amountEurSpouse": 25139.19921465567
+        "amountEurDeclarant": 7671.934677349258,
+        "amountEurSpouse": 26424.587003982964
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 81.29540911019873,
-        "amountEurSpouse": 2548.278735881953
+        "amountEurDeclarant": 43.97110178287479,
+        "amountEurSpouse": 3206.311386981486
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСФАГЕН ТАЙГО",
+        "description": "МИКРОБУС",
+        "detail": "МЕРЦЕДЕС ВИТО 2010",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2  1/2",
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 44820,
-        "valueEur": 22916.10211521451,
-        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН ЮСУФОВА МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
-        "isSpouse": true,
+        "amount": 6900,
+        "valueEur": 3527.9139802539075,
+        "holderName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -75,12 +75,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5166,
-        "valueEur": 2641.333858259665,
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
         "holderName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "РАБОТНИ ЗАПЛАТИ"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -93,12 +93,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1349,
-        "valueEur": 689.7327477336987,
-        "holderName": "ЮВЮГЮЛ АХМЕД ЗЪРЪН ЮСУФОВА",
+        "amount": 2006,
+        "valueEur": 1025.6515136796143,
+        "holderName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4683,
+        "valueEur": 2394.379879641891,
+        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН -ЮСУФОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "РАБОТНИ ЗАПЛАТИ"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -111,9 +129,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23762,
-        "valueEur": 12149.317680984544,
-        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН ЮСУФОВА",
+        "amount": 2547,
+        "valueEur": 1302.2604214067685,
+        "holderName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
+        "isSpouse": false,
+        "legalBasis": "КТП ДОГ ЛИХ ПРОЦЕНТ 3,8",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19115,
+        "valueEur": 9773.344309065717,
+        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН - ЮСУФОВА",
         "isSpouse": true,
         "legalBasis": "КТП ДОГ ЛИХ ПРОЦЕНТ 5,87",
         "fundsOrigin": null
@@ -129,16 +165,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31112,
-        "valueEur": 15907.31300777675,
-        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН ЮСУФОВА",
+        "amount": 25805,
+        "valueEur": 13193.886994268418,
+        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН - ЮСУФОВА",
         "isSpouse": true,
-        "legalBasis": "КТП ДОГ ЛИХ ПРОЦЕНТ 4,98",
+        "legalBasis": "КТП ДОГ ЛИХ ПРОЦЕНТ 4,90",
         "fundsOrigin": null
       },
       {
-        "category": "debt",
-        "description": "КРЕДИТНА КАРТА",
+        "category": "investment",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -147,32 +183,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "ЮМЮГЮЛ АХМЕД ЗЪРЪН ЮСУФОВА",
-        "isSpouse": true,
-        "legalBasis": "КК ДОГ ЛИХ ПРОЦЕНТ 18,90",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "КРЕДИТ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
+        "amount": 900,
+        "valueEur": 460.16269307659667,
         "holderName": "МЕХМЕД ХЮСЕИНОВ ЮСУФОВ",
         "isSpouse": false,
-        "legalBasis": "КТП ДОГ ЛИХ ПРОЦЕНТ 3,8",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕКА КОЛА",
+        "detail": "ФОЛКСФАГЕН ПАСАТ 1992",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "ПРОДАЖБА"
+      }
+    ]
   }
 ]

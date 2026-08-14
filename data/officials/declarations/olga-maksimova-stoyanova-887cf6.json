@@ -1,0 +1,161 @@
+[
+  {
+    "slug": "olga-maksimova-stoyanova-887cf6",
+    "declarantName": "Олга Максимова Стоянова",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г14992",
+    "controlHash": "A2E139B0",
+    "sourceUrl": "https://register.cacbg.bg/2026/B127C4DF-2373-4671-9E04-C4642FA13456241478.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "\"АГРОЛЕСПРОЕКТ\" ЕООД",
+        "detail": "правни консултации, становища, изготвяне на документи",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "\"АГРОЛЕСПРОЕКТ\" ЕООД",
+        "detail": "дружество, собственост на министъра на земеделието и храните",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "olga-maksimova-stoyanova-887cf6",
+    "declarantName": "Олга Максимова Стоянова",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14947",
+    "controlHash": "ACBC5646",
+    "sourceUrl": "https://register.cacbg.bg/2026/B127C4DF-2373-4671-9E04-C4642FA13456241384.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7528.261658733121,
+        "amountEurSpouse": 8127.495743495089
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 36504.706441766415,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 15498.279502819774,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 414.146423768937,
+        "amountEurSpouse": 414.146423768937
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай Кона",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Олга Максимова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59819,
+        "valueEur": 30584.969041276592,
+        "holderName": "Олга Максимова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и наеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15038,
+        "valueEur": 7688.807309428734,
+        "holderName": "Делян Колев Стоянов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 76088,
+        "valueEur": 76087.90130021525,
+        "holderName": "Олга Максимова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит, 2,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,29 +4,65 @@
     "declarantName": "Анелия Иванова Кметова",
     "institution": "Куклен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2874",
-    "controlHash": "CDF3753C",
-    "sourceUrl": "https://register.cacbg.bg/2025/CBE2845F-8077-4D7A-84F0-E77167BD1ABF205587.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9962",
+    "controlHash": "CDBFBE2D",
+    "sourceUrl": "https://register.cacbg.bg/2026/CBE2845F-8077-4D7A-84F0-E77167BD1ABF234638.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7006.2326480317815,
+        "amountEurDeclarant": 6764.391588225971,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13498.105663580169,
+        "amountEurDeclarant": 10474.325478185732,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ваучери за храна",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от дивиденти и ликвидационни дялове по чл. 38, ал. 1 от ЗДДФЛ",
+        "amountEurDeclarant": 102002.73029864559,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 4896.131054334988,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 103050,
+        "valueEur": 52688.62835727032,
+        "holderName": "Анелия Иванова Кметова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 109000,
-        "valueEur": 55730.81505038781,
+        "amount": 96000,
+        "valueEur": 49084.02059483698,
         "holderName": "Анелия Иванова Кметова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивидент"
+        "fundsOrigin": "заплата, пенсия, дивидент"
       }
     ],
     "events": []

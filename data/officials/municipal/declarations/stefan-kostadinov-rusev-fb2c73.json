@@ -1,69 +1,64 @@
 [
   {
     "slug": "stefan-kostadinov-rusev-fb2c73",
-    "declarantName": "Стефан Костадинов Русев",
+    "declarantName": "СТЕФАН КОСТАДИНОВ РУСЕВ",
     "institution": "Кайнарджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12416",
-    "controlHash": "35C1C000",
-    "sourceUrl": "https://register.cacbg.bg/2025/54B3D87D-5E90-48F0-9110-A4E8DAE65177215584.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13126",
+    "controlHash": "EF466551",
+    "sourceUrl": "https://register.cacbg.bg/2026/54B3D87D-5E90-48F0-9110-A4E8DAE65177238536.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5572.058921276389,
+        "amountEurDeclarant": 5223.869150181764,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 14888.819580433883,
+        "amountEurDeclarant": 9827.541248472515,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "дворно место със селскостоп.сгради",
+        "description": "нива",
         "detail": null,
         "location": "Кайнарджа",
         "municipality": "Кайнарджа",
-        "areaSqm": 1899,
-        "builtAreaSqm": 68,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Стефан Костадинов Русев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "субсидия ЗП"
-      },
+        "legalBasis": "замяна",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": [
       {
-        "category": "real_estate",
-        "description": "дворно место със селскостоп.сгради",
+        "kind": "disposal_property",
+        "description": "нива",
         "detail": null,
         "location": "Кайнарджа",
         "municipality": "Кайнарджа",
-        "areaSqm": 1899,
-        "builtAreaSqm": 68,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "areaSqm": 6,
+        "builtAreaSqm": 0,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
-        "holderName": "Светла Костадинова Русева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "семеен бюджет"
+        "valueEur": 0,
+        "legalBasis": "замяна"
       }
-    ],
-    "events": []
+    ]
   }
 ]

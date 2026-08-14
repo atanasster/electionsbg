@@ -1,56 +1,26 @@
 [
   {
     "slug": "stefan-blagoev-hristov-e582e3",
-    "declarantName": "СТЕФАН БЛАГОЕВ ХРИСТОВ",
+    "declarantName": "Стефан Благоев Христов",
     "institution": "Созопол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г12475",
-    "controlHash": "23BD827C",
-    "sourceUrl": "https://register.cacbg.bg/2025/80E3C0D6-CCA0-4572-B84A-82FA09FFF5F4215644.xml",
+    "filedAt": "2026-07-15",
+    "entryNumber": "Г14408",
+    "controlHash": "BDF31839",
+    "sourceUrl": "https://register.cacbg.bg/2026/80E3C0D6-CCA0-4572-B84A-82FA09FFF5F4240182.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "income": [
       {
-        "category": "real_estate",
-        "description": "част от къща",
-        "detail": null,
-        "location": "Равадиново",
-        "municipality": "Созопол",
-        "areaSqm": 60,
-        "builtAreaSqm": 60,
-        "acquiredYear": 2017,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Стефан Благоев Христов",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "vehicle",
-        "description": "товарен  автомобил",
-        "detail": "Фиат Скудо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Стефан Благоев Христов",
-        "isSpouse": false,
-        "legalBasis": "покупка",
-        "fundsOrigin": "заплата"
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2944.5299438090224,
+        "amountEurSpouse": 307.79771248012355
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

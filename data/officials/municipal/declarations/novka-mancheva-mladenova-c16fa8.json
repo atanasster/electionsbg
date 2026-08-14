@@ -4,59 +4,41 @@
     "declarantName": "Новка Манчева Младенова",
     "institution": "Мадан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3911",
-    "controlHash": "41FCAC2F",
-    "sourceUrl": "https://register.cacbg.bg/2025/CB5CD882-31C3-4EDA-B7A2-CB6D8913CB73206734.xml",
+    "filedAt": null,
+    "entryNumber": "Г9558",
+    "controlHash": "9C562282",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB5CD882-31C3-4EDA-B7A2-CB6D8913CB73234187.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2262.977866174463,
-        "amountEurSpouse": 23626.286538196062
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14651.06885567764,
+        "amountEurDeclarant": 2548.278735881953,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 255.64594059810923,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14509.952296467485,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1124.8421386316807
+        "amountEurSpouse": 1350.321858239213
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 16793.893129770993
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "фолксваген поло",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 36813,
-        "valueEur": 18822.18802247639,
-        "holderName": "Новка Манчева Младенова",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,16 +50,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "Новка Манчева Младенова/Бисер Ефтимов Младенов",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Новка Манчева Младенова / Бисер Ефтимов Младенов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
-        "description": "лизинг",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -86,27 +68,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36813,
-        "valueEur": 18822.18802247639,
+        "amount": 7109,
+        "valueEur": 3634.7739834239173,
         "holderName": "Новка Манчева Младенова",
         "isSpouse": false,
-        "legalBasis": "Договор за поръчка",
+        "legalBasis": "3,9",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Корса",
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
+        "amount": 14328,
+        "valueEur": 7325.790073779419,
+        "holderName": "Новка Манчева Младенова",
+        "isSpouse": false,
+        "legalBasis": "4,5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9809,
+        "valueEur": 9809.134740749452,
+        "holderName": "Новка Манчева Младенова",
+        "isSpouse": false,
+        "legalBasis": "договор за поръчка",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

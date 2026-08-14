@@ -1,79 +1,79 @@
 [
   {
     "slug": "mehmed-ahmedov-ramisov-4ade4b",
-    "declarantName": "Мехмед Ахмедов Рамисов",
+    "declarantName": "МЕХМЕД АХМЕДОВ РАМИСОВ",
     "institution": "Каолиново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5940",
-    "controlHash": "7F873777",
-    "sourceUrl": "https://register.cacbg.bg/2025/A4427EB7-7C4F-47B6-BACF-E90CDC846295208886.xml",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г11325",
+    "controlHash": "F52DE749",
+    "sourceUrl": "https://register.cacbg.bg/2026/A4427EB7-7C4F-47B6-BACF-E90CDC846295236217.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3118.8804752969327,
-        "amountEurSpouse": 9714.54574272815
+        "amountEurDeclarant": 3885.8182970912603,
+        "amountEurSpouse": 19340.126698128162
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5813.388689201004,
+        "amountEurDeclarant": 6135.502574354622,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": 5624.210693158403,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 1344.6976475460547,
+        "amountEurDeclarant": 1227.1005148709244,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Шумен",
-        "municipality": "Шумен",
-        "areaSqm": 48,
+        "category": "vehicle",
+        "description": "Кола",
+        "detail": "Форд куга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1\\2",
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 109000,
-        "valueEur": 55730.81505038781,
+        "amount": 4900,
+        "valueEur": 2505.3302178614704,
         "holderName": "Мехмед Ахмедов Рамисов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Шумен",
-        "municipality": "Шумен",
-        "areaSqm": 48,
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1\\2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 109000,
-        "valueEur": 55730.81505038781,
-        "holderName": "Неджля Неждиева Рамисова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Мехмед Ахмедов Рамисов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -86,14 +86,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120000,
-        "valueEur": 61355.02574354622,
-        "holderName": "МЕХМЕД АХМЕДОВ РАМИСОВ",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Мехмед Ахмедов Рамисов",
         "isSpouse": false,
         "legalBasis": "3%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Кола",
+        "detail": "Фолсваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

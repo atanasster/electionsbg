@@ -4,26 +4,26 @@
     "declarantName": "Венелин Людмилов Янков",
     "institution": "Враца",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г10830",
-    "controlHash": "59A81508",
-    "sourceUrl": "https://register.cacbg.bg/2025/FDCD84AE-4309-4342-9F1D-18C03B8BDA38213938.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8972",
+    "controlHash": "2508F455",
+    "sourceUrl": "https://register.cacbg.bg/2026/FDCD84AE-4309-4342-9F1D-18C03B8BDA38233523.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7730.221951805627,
+        "amountEurDeclarant": 6798.648144266117,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 4773.932294729092,
-        "amountEurSpouse": 1968.4737426054412
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4908.4020594836975
       }
     ],
     "assets": [
@@ -64,6 +64,24 @@
         "fundsOrigin": "заеми"
       },
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди Q5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 16624,
+        "valueEur": 8499.716233005936,
+        "holderName": "Теолина Любенова Колчакова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "ипотечен кредит",
         "detail": "BGN",
@@ -78,10 +96,40 @@
         "valueEur": 33233.972277754205,
         "holderName": "Венелин Людмилов Янков",
         "isSpouse": false,
-        "legalBasis": "ипотечен банков кредит",
+        "legalBasis": "ипотечен банков кредит-2.69%",
         "fundsOrigin": null
       }
     ],
+    "events": []
+  },
+  {
+    "slug": "venelin-lyudmilov-yankov-183017",
+    "declarantName": "Венелин Людмилов Янков",
+    "institution": "Враца",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-07-29",
+    "entryNumber": "Г14869",
+    "controlHash": "0E0F8E03",
+    "sourceUrl": "https://register.cacbg.bg/2026/FDCD84AE-4309-4342-9F1D-18C03B8BDA38241234.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Българска конфедерация по кик бокс и муай тай",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
     "events": []
   }
 ]

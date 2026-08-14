@@ -5,6 +5,56 @@
     "institution": "Държавна агенция \"Архиви\"",
     "positionTitle": "Председател",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7387",
+    "controlHash": "78B16E1E",
+    "sourceUrl": "https://register.cacbg.bg/2026/F420CA80-2EAC-40A1-9DD2-519DA0B42085231796.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50316.74532040106,
+        "amountEurSpouse": 29685.09533037125
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 3891.953799665615,
+        "amountEurSpouse": 779.7201188242332
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Михаил Иванов Груев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mihail-ivanov-gruev-c162e1",
+    "declarantName": "Михаил Иванов Груев",
+    "institution": "Държавна агенция \"Архиви\"",
+    "positionTitle": "Председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

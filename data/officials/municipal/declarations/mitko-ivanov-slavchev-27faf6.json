@@ -1,40 +1,40 @@
 [
   {
     "slug": "mitko-ivanov-slavchev-27faf6",
-    "declarantName": "Митко Иванов Славчев",
+    "declarantName": "МИТКО ИВАНОВ СЛАВЧЕВ",
     "institution": "Димово",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11779",
-    "controlHash": "66768B29",
-    "sourceUrl": "https://register.cacbg.bg/2025/31ECA83A-EBDF-41BA-A819-AD1E1A66B46A214931.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9929",
+    "controlHash": "8536CF7B",
+    "sourceUrl": "https://register.cacbg.bg/2026/31ECA83A-EBDF-41BA-A819-AD1E1A66B46A234605.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10350.592842936247,
+        "amountEurDeclarant": 10191.069776003027,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5995.408598906858,
+        "amountEurDeclarant": 6612.537899510694,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1475.0770772510903,
+        "amountEurDeclarant": 460.16269307659667,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "EUR",
         "location": null,
@@ -44,15 +44,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": null,
-        "valueEur": 8973.172514993634,
+        "amount": 9000,
+        "valueEur": 8999.759692815838,
         "holderName": "Митко Иванов Славчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -62,7 +62,7 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": null,
+        "amount": 7500,
         "valueEur": 3834.6891089716387,
         "holderName": "Митко Иванов Славчев",
         "isSpouse": false,

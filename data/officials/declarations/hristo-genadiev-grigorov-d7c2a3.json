@@ -5,6 +5,86 @@
     "institution": "Български червен кръст",
     "positionTitle": "Председател",
     "category": "civil_society",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8915",
+    "controlHash": "934E21D3",
+    "sourceUrl": "https://register.cacbg.bg/2026/2BEBCB05-D343-4C8D-99DA-E7F6F69302B8233464.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 44412.85796822832
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 172.30536396312564,
+        "amountEurSpouse": 3494.6800079761533
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 12148.295097222152,
+        "amountEurSpouse": 12148.295097222152
+      },
+      {
+        "parent": null,
+        "category": "Авансово по договор за прехвърляне",
+        "amountEurDeclarant": 140779.617860448,
+        "amountEurSpouse": 140779.617860448
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200733,
+        "valueEur": 102633.15318816053,
+        "holderName": "Христо Генадиев Григоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 565000,
+        "valueEur": 564999.5142727129,
+        "holderName": "Елисавета Йорданова Наумова-Григорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания, заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-genadiev-grigorov-d7c2a3",
+    "declarantName": "Христо Генадиев Григоров",
+    "institution": "Български червен кръст",
+    "positionTitle": "Председател",
+    "category": "civil_society",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

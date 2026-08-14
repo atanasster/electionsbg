@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7021",
+    "controlHash": "535B3DBE",
+    "sourceUrl": "https://register.cacbg.bg/2026/8F14E3F6-57B1-49F0-ABF2-828F6323DB85231406.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31875.981041297044,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Нови пазар",
+        "municipality": "Нови пазар",
+        "areaSqm": 112,
+        "builtAreaSqm": 112,
+        "acquiredYear": 1994,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Даниела Иванчева Ангелова",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-ivancheva-angelova-7dbdb1",
+    "declarantName": "Даниела Иванчева Ангелова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

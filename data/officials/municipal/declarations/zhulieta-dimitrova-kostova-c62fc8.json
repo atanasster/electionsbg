@@ -1,32 +1,76 @@
 [
   {
     "slug": "zhulieta-dimitrova-kostova-c62fc8",
-    "declarantName": "Жулиета Димитрова Костова",
+    "declarantName": "ЖУЛИЕТА ДИМИТРОВА КОСТОВА",
     "institution": "Родопи",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14669",
-    "controlHash": "269065EF",
-    "sourceUrl": "https://register.cacbg.bg/2025/DAE2F145-1838-49F4-83B4-26C2FE118893218055.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12054",
+    "controlHash": "FF8C1D37",
+    "sourceUrl": "https://register.cacbg.bg/2026/DAE2F145-1838-49F4-83B4-26C2FE118893237155.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7539.510080119438,
-        "amountEurSpouse": 3681.3015446127733
+        "amountEurDeclarant": 9233.931374403706,
+        "amountEurSpouse": 715.8086336747059
       },
       {
         "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 9203.253861531934,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1278.2297029905462,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ",
+        "amountEurDeclarant": 30375.850661867342,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ВЪЗНАГРАЖДЕНИЕ ПРОКУРИСТ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 715.8086336747059
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50412,
+        "valueEur": 25775.246314863765,
+        "holderName": "ЖУЛИЕТА ДИМИТРОВА КОСТОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "DS4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

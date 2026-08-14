@@ -5,6 +5,87 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13852",
+    "controlHash": "E4C9F09E",
+    "sourceUrl": "https://register.cacbg.bg/2026/9F4F3811-68FA-4CE0-9C49-A3473FD49400239496.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11328.182919783418,
+        "amountEurSpouse": 10213.56661877566
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 622.7535112969941,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Севлиево",
+        "municipality": "Севлиево",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2024,
+        "share": "56",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Тихомир Свиленов Колев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит от 02.12.2021 г.",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Тихомир Свиленов Колев",
+        "isSpouse": false,
+        "legalBasis": "4.1",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен Ксара Пикасо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tihomir-svilenov-kolev-ff261f",
+    "declarantName": "Тихомир Свиленов Колев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

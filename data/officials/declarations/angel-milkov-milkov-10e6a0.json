@@ -5,6 +5,63 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11638",
+    "controlHash": "A41C3E1A",
+    "sourceUrl": "https://register.cacbg.bg/2026/DDB50D5A-10A0-4679-9A5C-4D8E3E49ADEA236588.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22951.38125501705,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 23638,
+        "valueEur": 23638.046251463573,
+        "holderName": "Ангел Милков Милков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати, дарение, продажба на лек автомобил"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес-бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "angel-milkov-milkov-10e6a0",
+    "declarantName": "Ангел Милков Милков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

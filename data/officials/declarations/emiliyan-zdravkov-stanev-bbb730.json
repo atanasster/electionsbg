@@ -5,6 +5,62 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2037",
+    "controlHash": "CFD3FAB6",
+    "sourceUrl": "https://register.cacbg.bg/2026/82F78334-1770-416F-B48C-D77FADA6394F226014.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35038.32132649566,
+        "amountEurSpouse": 15475.782660047142
+      },
+      {
+        "parent": null,
+        "category": "рента от земеделска земя",
+        "amountEurDeclarant": 730.1248063482,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доход от пенсия",
+        "amountEurDeclarant": 17323.591518690275,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40014,
+        "valueEur": 20458.833334185485,
+        "holderName": "Емилиян Здравков Станев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emiliyan-zdravkov-stanev-bbb730",
+    "declarantName": "ЕМИЛИЯН ЗДРАВКОВ СТАНЕВ",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

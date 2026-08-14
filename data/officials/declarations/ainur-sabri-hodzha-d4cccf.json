@@ -1,6 +1,86 @@
 [
   {
     "slug": "ainur-sabri-hodzha-d4cccf",
+    "declarantName": "Айнур сабри Ходжа",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4765",
+    "controlHash": "D8113996",
+    "sourceUrl": "https://register.cacbg.bg/2026/D0EED67B-2609-4B14-A858-D290E19BC8DE228988.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24279.20627048363,
+        "amountEurSpouse": 12782.297029905461
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ОСП",
+        "detail": null,
+        "location": "жк.Възрожденци",
+        "municipality": "Кърджали",
+        "areaSqm": 103,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Нурай Феим Ходжа",
+        "isSpouse": true,
+        "legalBasis": "покупко продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "кв.Веселчани",
+        "municipality": "Кърджали",
+        "areaSqm": 74,
+        "builtAreaSqm": null,
+        "acquiredYear": 1974,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Сабри Махмуд мехмедали",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Нурай Феим Ходжа",
+        "isSpouse": true,
+        "legalBasis": "покупко продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ainur-sabri-hodzha-d4cccf",
     "declarantName": "Айнур Сабри Ходжа",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

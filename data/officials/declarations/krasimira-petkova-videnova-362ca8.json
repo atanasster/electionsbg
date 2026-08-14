@@ -1,6 +1,86 @@
 [
   {
     "slug": "krasimira-petkova-videnova-362ca8",
+    "declarantName": "Красимира Петкова Виденова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8908",
+    "controlHash": "C39C6DC8",
+    "sourceUrl": "https://register.cacbg.bg/2026/41529EE0-6715-4029-84DA-04AA91E33C4B233457.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28536.222473323345,
+        "amountEurSpouse": 2760.97615845958
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Видин",
+        "municipality": "Видин",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "acquiredYear": 1991,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Володя Илиев Виденов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "цяла",
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Красимира Петкова Виденова",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Красимира Петкова Виденова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimira-petkova-videnova-362ca8",
     "declarantName": "Красимира Петкова  Виденова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

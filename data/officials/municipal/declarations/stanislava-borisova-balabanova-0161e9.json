@@ -4,29 +4,83 @@
     "declarantName": "Станислава Борисова Балабанова",
     "institution": "Годеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5347",
-    "controlHash": "FDD2D9DF",
-    "sourceUrl": "https://register.cacbg.bg/2025/C8253AAB-C2CC-41C0-BE14-7037BBFD1C89208268.xml",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г9621",
+    "controlHash": "6CF1A367",
+    "sourceUrl": "https://register.cacbg.bg/2026/C8253AAB-C2CC-41C0-BE14-7037BBFD1C89234259.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3967.6249980826556,
-        "amountEurSpouse": 28879.810617487205
+        "amountEurDeclarant": 4000.85897036041,
+        "amountEurSpouse": 34921.74677758292
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14256.862815275357,
+        "amountEurDeclarant": 27612.31804400178,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "ATV",
+        "detail": "segway AT 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 12400,
+        "valueEur": 6340.0193268331095,
+        "holderName": "Мартин Юлиев Балабанов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ATV",
+        "detail": "segway AT 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 15400,
+        "valueEur": 7873.894970421765,
+        "holderName": "Мартин Юлиев Балабанов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ремарке",
+        "detail": "Тригано Р 265",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2150,
+        "valueEur": 1099.2775445718698,
+        "holderName": "Мартин Юлиев Балабанов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 80000,
-        "valueEur": 40903.35049569748,
+        "amount": 101000,
+        "valueEur": 51640.48000081807,
         "holderName": "Станислава Борисова Балабанова",
         "isSpouse": false,
         "legalBasis": null,
@@ -82,6 +136,19 @@
         "fundsOrigin": "заплата и спестявания"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

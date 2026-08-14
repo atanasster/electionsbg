@@ -1,6 +1,68 @@
 [
   {
     "slug": "atanas-yuliyanov-toskov-ca77a3",
+    "declarantName": "АТАНАС ЮЛИЯНОВ ТОСКОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1090",
+    "controlHash": "C2A78443",
+    "sourceUrl": "https://register.cacbg.bg/2026/6DD327D2-7DE3-4CDF-A6D7-3412D91CAE35224789.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21167.99517340464,
+        "amountEurSpouse": 17754.61057453869
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140000,
+        "valueEur": 71580.86336747059,
+        "holderName": "Атанас Юлиянов Тосков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Анета Огнянова Тоскова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanas-yuliyanov-toskov-ca77a3",
     "declarantName": "Атанас Юлиянов Тосков",
     "institution": "Училища",
     "positionTitle": "Директор",

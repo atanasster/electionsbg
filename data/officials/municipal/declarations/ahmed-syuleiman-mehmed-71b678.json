@@ -4,32 +4,32 @@
     "declarantName": "Ахмед Сюлейман Мехмед",
     "institution": "Руен",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14403",
-    "controlHash": "BC0BFD4B",
-    "sourceUrl": "https://register.cacbg.bg/2025/1B121A0D-A8F8-48F8-809D-122BD1BA6A6C217705.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12586",
+    "controlHash": "FB8AC131",
+    "sourceUrl": "https://register.cacbg.bg/2026/1B121A0D-A8F8-48F8-809D-122BD1BA6A6C237902.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 37628.0147047545,
-        "amountEurSpouse": 12594.65290950645
+        "amountEurDeclarant": 42150.39139393505,
+        "amountEurSpouse": 15501.858545988149
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2401.537965978638
+        "amountEurSpouse": 2319.7312649872433
       },
       {
         "parent": null,
         "category": "получена субсидия като земеделски производител",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 8386.720727261572
+        "amountEurSpouse": 8915.907824299658
       }
     ],
     "assets": [
@@ -44,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43271,
-        "valueEur": 22124.11099124157,
+        "amount": 77555,
+        "valueEur": 39653.24184617273,
         "holderName": "Ахмед Сюлейман Мехмед",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,9 +62,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26766,
-        "valueEur": 13685.238492097984,
-        "holderName": "Зелиха Мехмедали Мехмд",
+        "amount": 22313,
+        "valueEur": 11408.455745131223,
+        "holderName": "Зелиха Мехмедали Мехмед",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "доходи от земеделска продукция и субсидии"
@@ -80,16 +80,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23356,
-        "valueEur": 11941.733177218879,
-        "holderName": "Зелиха Мехмедали Мехмд",
+        "amount": 30727,
+        "valueEur": 15710.465633516205,
+        "holderName": "Зелиха Мехмедали Мехмед",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "жилищен кредит, общ лихвен %3,327",
+        "description": "жилищен кредит, общ лихвен %3,437",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -98,11 +98,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50999,
-        "valueEur": 26075.374649125948,
+        "amount": 44253,
+        "valueEur": 22626.19961857626,
         "holderName": "Ахмед Сюлейман Мехмед",
         "isSpouse": false,
-        "legalBasis": "договор за жилищен кредит",
+        "legalBasis": "договор за ипотечен кредит с 3,437%",
         "fundsOrigin": null
       },
       {
@@ -124,19 +124,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "мотоциклет",
-        "detail": "Ямаха",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

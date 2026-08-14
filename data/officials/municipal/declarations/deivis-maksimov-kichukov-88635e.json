@@ -1,32 +1,51 @@
 [
   {
     "slug": "deivis-maksimov-kichukov-88635e",
-    "declarantName": "ДЕЙВИС МАКСИМОВ КИЧУКОВ",
+    "declarantName": "Дейвис Максимов Кичуков",
     "institution": "Бобовдол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г6288",
-    "controlHash": "504DD18F",
-    "sourceUrl": "https://register.cacbg.bg/2025/0000AF5A-E37D-4BF0-BA11-AFB49A7D75B3209243.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5316",
+    "controlHash": "2A59AEBF",
+    "sourceUrl": "https://register.cacbg.bg/2026/0000AF5A-E37D-4BF0-BA11-AFB49A7D75B3229567.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6817.054651989181,
+        "amountEurDeclarant": 14225.162718641192,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15853.11606836995,
+        "amountEurDeclarant": 5570.013753751604,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ккредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29102,
+        "valueEur": 29696.855043638763,
+        "holderName": "Дейвис Максимов Кичуков",
+        "isSpouse": false,
+        "legalBasis": "4,73",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

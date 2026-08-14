@@ -5,6 +5,80 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7956",
+    "controlHash": "B3A826F1",
+    "sourceUrl": "https://register.cacbg.bg/2026/C4F6DE11-CD75-41F0-99FD-7688723F1F0D232422.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27247.766932708877,
+        "amountEurSpouse": 27351.04789271051
+      },
+      {
+        "parent": null,
+        "category": "ТЕЛК",
+        "amountEurDeclarant": 7681.13793121079,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12422.858837424521
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30380,
+        "valueEur": 15533.047350741117,
+        "holderName": "ХРИСТИНКА ЮЛИЕВА БАЛДАХИНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21453,
+        "valueEur": 10968.744727302475,
+        "holderName": "ХРИСТИНКА ЮЛИЕВА БАЛДАХИНОВА",
+        "isSpouse": false,
+        "legalBasis": "ПОТРЕБИТЕЛСКИ 4.38%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristinka-yulieva-baldahinova-142f2e",
+    "declarantName": "ХРИСТИНКА ЮЛИЕВА БАЛДАХИНОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

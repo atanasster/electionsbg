@@ -1,29 +1,35 @@
 [
   {
     "slug": "serozha-nikolov-lazarov-7df12f",
-    "declarantName": "СЕРЬОЖА НИКОЛОВ ЛАЗАРОВ",
+    "declarantName": "Серьожа Николов Лазаров",
     "institution": "Лесичево",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13570",
-    "controlHash": "810A8A60",
-    "sourceUrl": "https://register.cacbg.bg/2025/EC6EBD1F-57B2-4006-9ED5-0C7DDEF95B98216797.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г11648",
+    "controlHash": "113B076F",
+    "sourceUrl": "https://register.cacbg.bg/2026/EC6EBD1F-57B2-4006-9ED5-0C7DDEF95B98236601.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17346.599653344103,
+        "amountEurDeclarant": 18661.131079899584,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8017.056697156706,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "КРЕДИТ ГЛАВНИЦА",
+        "description": "кредит главница",
         "detail": "EUR",
         "location": null,
         "municipality": null,
@@ -32,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15022,
-        "valueEur": 15021.7554695449,
-        "holderName": "СЕРЬОЖА НИКОЛОВ ЛАЗАРОВ",
+        "amount": 11345,
+        "valueEur": 11345.055551862892,
+        "holderName": "Серьожа Николов Лазаров",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
+        "legalBasis": "договор за кредит-7.9%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ЛИХВИ",
+        "description": "лихви",
         "detail": "EUR",
         "location": null,
         "municipality": null,
@@ -50,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 2330,
-        "valueEur": 2329.9571026111676,
-        "holderName": "СЕРЬОЖА НИКОЛОВ ЛАЗАРОВ",
+        "amount": 1274,
+        "valueEur": 1274.1393679409764,
+        "holderName": "Серьожа Николов Лазаров",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
+        "legalBasis": "договор за кредит-7.9%",
         "fundsOrigin": null
       }
     ],

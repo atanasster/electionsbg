@@ -4,62 +4,26 @@
     "declarantName": "Румен Георгиев Пенджуров",
     "institution": "Костенец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4939",
-    "controlHash": "232E1ABA",
-    "sourceUrl": "https://register.cacbg.bg/2025/D1AAD80D-8B47-402B-99B2-76756EB6048D207819.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4027",
+    "controlHash": "733DA7AB",
+    "sourceUrl": "https://register.cacbg.bg/2026/D1AAD80D-8B47-402B-99B2-76756EB6048D228211.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 639.1148514952731,
-        "amountEurSpouse": 945.8899802130042
+        "amountEurDeclarant": 6213.218940296447,
+        "amountEurSpouse": 12577.780277426975
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с.Костенец",
-        "municipality": "Костенец",
-        "areaSqm": 1000,
-        "builtAreaSqm": 60,
-        "acquiredYear": 1993,
-        "share": "1/2",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Румен Георгиев Пенджуров",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "няма"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "гр. Самоков",
-        "municipality": "Самоков",
-        "areaSqm": 450,
-        "builtAreaSqm": 80,
-        "acquiredYear": 2003,
-        "share": "1/2",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Румен Георгиев Пенджуров",
-        "isSpouse": false,
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "vehicle",
-        "description": "Автомобил",
+        "description": "лек автомобил",
         "detail": "фолксваген",
         "location": null,
         "municipality": null,
@@ -73,7 +37,25 @@
         "holderName": "Румен Георгиев Пенджуров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заем"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20582,
+        "valueEur": 10523.40949878057,
+        "holderName": "Мариана Заркова Пенджурова",
+        "isSpouse": true,
+        "legalBasis": "7%",
+        "fundsOrigin": null
       }
     ],
     "events": []

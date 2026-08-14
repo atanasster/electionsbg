@@ -4,13 +4,13 @@
     "declarantName": "Румен Живков Желязков",
     "institution": "Дупница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-01",
-    "entryNumber": "Г5003",
-    "controlHash": "BB24BD76",
-    "sourceUrl": "https://register.cacbg.bg/2025/70753EDC-1ED9-42B9-AA54-0EDB96A5CA84207887.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4783",
+    "controlHash": "ACDDBE00",
+    "sourceUrl": "https://register.cacbg.bg/2026/70753EDC-1ED9-42B9-AA54-0EDB96A5CA84229009.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -20,7 +20,44 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Дупница",
+        "municipality": "Дупница",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Румен Живков Желязков",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес ML164",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Румен Живков Желязков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "events": []
   }
 ]

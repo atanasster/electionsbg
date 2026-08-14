@@ -1,6 +1,128 @@
 [
   {
     "slug": "rositsa-svilenova-kireva-5e3b4b",
+    "declarantName": "Росица Свиленова Кирева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8735",
+    "controlHash": "18DF9F6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/30BC7798-577C-43E4-BB44-5715A533238B233268.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17948.390197512053,
+        "amountEurSpouse": 3262.042202031874
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 91.0099548529269,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15722.225346783718
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15628.658932524811
+      },
+      {
+        "parent": null,
+        "category": "Втора пенсия от Алианс",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1533.8756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Градина",
+        "municipality": "Първомай",
+        "areaSqm": 1000,
+        "builtAreaSqm": 175,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Петър Кирилов Кирев",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "незастроен урегулиран поземлен имот",
+        "detail": null,
+        "location": "с. Градина",
+        "municipality": "Първомай",
+        "areaSqm": 640,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Петър Кирилов Кирев",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6025,
+        "valueEur": 3080.5335842072163,
+        "holderName": "Петър Кирилов Кирев",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит 4.65%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4482,
+        "valueEur": 2291.610211521451,
+        "holderName": "Петър Кирилов Кирев",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит 4.95%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rositsa-svilenova-kireva-5e3b4b",
     "declarantName": "РОСИЦА СВИЛЕНОВА КИРЕВА",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

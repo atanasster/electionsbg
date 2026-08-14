@@ -1,15 +1,15 @@
 {
   "obshtina": "BLG44",
   "registryName": "Симитли",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
-    "councillor": 16,
+    "councillor": 14,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "marusya-dobrinova-filatova-8dc49e",
@@ -47,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "yulian-aleksandrov-mishev-225899",
@@ -56,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "vilimir-marinov-aleksandrov-161899",
@@ -65,7 +69,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -82,24 +87,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "vera-veselinova-kachulska-09edc3",
-      "name": "Вера Веселинова Качулска",
-      "normalizedName": "ВЕРА ВЕСЕЛИНОВА КАЧУЛСКА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Съюз на свободните демократи",
-        "partyCanonicalId": "ssd",
-        "listPos": 102,
-        "prefVotes": 150,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "vladimir-romeov-blagoev-1f5ade",
@@ -108,7 +97,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -119,13 +109,32 @@
       }
     },
     {
+      "slug": "vladimir-hristov-stoilov-32ec18",
+      "name": "Владимир Христов Стоилов",
+      "normalizedName": "ВЛАДИМИР ХРИСТОВ СТОИЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Симитли",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Партия на ЗЕЛЕНИТЕ",
+        "partyCanonicalId": "p_22",
+        "listPos": 110,
+        "prefVotes": 68,
+        "isElected": false
+      }
+    },
+    {
       "slug": "georgi-stoyanov-iliev-0023c4",
       "name": "Георги Стоянов Илиев",
       "normalizedName": "ГЕОРГИ СТОЯНОВ ИЛИЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -142,7 +151,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -160,6 +170,7 @@
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
       "latestDeclarationYear": 2025,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -176,7 +187,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -193,7 +205,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -210,7 +223,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -227,7 +241,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Съюз на свободните демократи",
@@ -244,7 +259,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -261,7 +277,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -272,47 +289,14 @@
       }
     },
     {
-      "slug": "slavcho-stoichev-gurguleev-be3759",
-      "name": "Славчо Стойчев Гургулеев",
-      "normalizedName": "СЛАВЧО СТОЙЧЕВ ГУРГУЛЕЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Съюз на свободните демократи",
-        "partyCanonicalId": "ssd",
-        "listPos": 104,
-        "prefVotes": 108,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "tanya-hristova-yankova-fc1570",
-      "name": "Таня Христова Янкова",
-      "normalizedName": "ТАНЯ ХРИСТОВА ЯНКОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Партия на ЗЕЛЕНИТЕ",
-        "partyCanonicalId": "p_22",
-        "listPos": 105,
-        "prefVotes": 88,
-        "isElected": true
-      }
-    },
-    {
       "slug": "toni-georgiev-stoev-cf1f99",
       "name": "Тони Георгиев Стоев",
       "normalizedName": "ТОНИ ГЕОРГИЕВ СТОЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -329,7 +313,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",
@@ -346,7 +331,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Симитли",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Партия на ЗЕЛЕНИТЕ",

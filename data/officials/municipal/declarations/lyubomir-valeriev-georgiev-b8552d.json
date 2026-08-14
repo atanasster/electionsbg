@@ -1,32 +1,51 @@
 [
   {
     "slug": "lyubomir-valeriev-georgiev-b8552d",
-    "declarantName": "ЛЮБОМИР ВАЛЕРИЕВ ГЕОРГИЕВ",
+    "declarantName": "Любомир Валериев Георгиев",
     "institution": "Кула",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6052",
-    "controlHash": "E5670CBF",
-    "sourceUrl": "https://register.cacbg.bg/2025/7A689D97-341E-4D30-B5E9-6B4DF5E57305208999.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9178",
+    "controlHash": "E6B137F0",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A689D97-341E-4D30-B5E9-6B4DF5E57305233764.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4673.207794133437,
+        "amountEurDeclarant": 5315.390396915887,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20220.57131754805,
+        "amountEurDeclarant": 22665.569093428367,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41251,
+        "valueEur": 42094.66057888467,
+        "holderName": "Любомир Валериев Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

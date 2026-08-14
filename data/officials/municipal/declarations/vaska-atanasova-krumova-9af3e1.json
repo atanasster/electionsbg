@@ -4,29 +4,54 @@
     "declarantName": "Васка Атанасова Крумова",
     "institution": "Полски Тръмбеш",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14802",
-    "controlHash": "1EC732B6",
-    "sourceUrl": "https://register.cacbg.bg/2025/96D4B6B5-7861-4C23-9C30-2BDDE32282A1218276.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12160",
+    "controlHash": "42230F1D",
+    "sourceUrl": "https://register.cacbg.bg/2026/96D4B6B5-7861-4C23-9C30-2BDDE32282A1237308.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7007.2552317941745,
+        "amountEurDeclarant": 8715.48140687074,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7669.378217943277,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12255.666392273357
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 76440.18140635945
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Горна Липница",
+        "municipality": "Павликени",
+        "areaSqm": 5,
+        "builtAreaSqm": 5,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 930,
+        "valueEur": 475.5014495124832,
+        "holderName": "Пламен Иванов Крумов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "няма"
+      }
+    ],
     "events": []
   }
 ]

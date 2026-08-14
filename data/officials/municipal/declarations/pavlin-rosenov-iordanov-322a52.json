@@ -4,102 +4,36 @@
     "declarantName": "Павлин Росенов Йорданов",
     "institution": "Генерал Тошево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г8922",
-    "controlHash": "C8E17511",
-    "sourceUrl": "https://register.cacbg.bg/2025/73251742-614D-4B5D-8DBD-A6F228209A27211950.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г8167",
+    "controlHash": "79E98E7C",
+    "sourceUrl": "https://register.cacbg.bg/2026/73251742-614D-4B5D-8DBD-A6F228209A27232653.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6862.559629415645,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 7178.026720113711,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 25214.870413072713,
-        "amountEurSpouse": 5009.637851960549
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 5480.02638266107,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 27266.17344043194,
+        "amountEurSpouse": 5816.967732369378
       },
       {
         "parent": null,
         "category": "Доходи от дивиденти",
-        "amountEurDeclarant": 91893.46722363395,
+        "amountEurDeclarant": 56201.71487296953,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент и паркомясто",
-        "detail": null,
-        "location": "гр.Варна ул. Орех 7-В ет. 2 ап.1",
-        "municipality": "Варна",
-        "areaSqm": 72,
-        "builtAreaSqm": 72,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 139353,
-        "valueEur": 71250.05752033663,
-        "holderName": "Павлин Росенов Йорданов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "real_estate",
-        "description": "апартамент и паркомясто",
-        "detail": null,
-        "location": "гр.Варна ул. Орех 7-В ет. 2 ап.1",
-        "municipality": "Варна",
-        "areaSqm": 72,
-        "builtAreaSqm": 72,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 139353,
-        "valueEur": 71250.05752033663,
-        "holderName": "Милица Лъчезарова Йорданова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -110,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 74685,
-        "valueEur": 38185.834147139576,
+        "amount": 88388,
+        "valueEur": 45192.06679517136,
         "holderName": "Павлин Росенов Йорданов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и дивиденти"
+        "fundsOrigin": "заплати и дивиденти"
       },
       {
         "category": "bank",
@@ -128,12 +62,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Милица Лъчезарова Йорданова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Предоставен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Павлин Росенов Йорданов",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -146,11 +98,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 248738,
-        "valueEur": 127177.719944985,
+        "amount": 242433,
+        "valueEur": 123954.02463404284,
         "holderName": "Павлин Росен Йорданов",
         "isSpouse": true,
-        "legalBasis": "договор за заем",
+        "legalBasis": "договор за заем, лихвен процент 2.19%",
         "fundsOrigin": null
       },
       {
@@ -164,27 +116,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 248738,
-        "valueEur": 127177.719944985,
+        "amount": 242433,
+        "valueEur": 123954.02463404284,
         "holderName": "Милица Лъчезарова Йорданова",
         "isSpouse": true,
-        "legalBasis": "съдлъжник по договор за заем",
+        "legalBasis": "съдлъжник по договор за заем, лихвен процент 2.19%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

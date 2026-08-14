@@ -4,37 +4,50 @@
     "declarantName": "Никола Венелинов Еков",
     "institution": "Угърчин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г11052",
-    "controlHash": "04D6109C",
-    "sourceUrl": "https://register.cacbg.bg/2025/0589BC5E-8D6F-4377-B990-B454CB13D5CA214174.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г9738",
+    "controlHash": "C45E7D5A",
+    "sourceUrl": "https://register.cacbg.bg/2026/0589BC5E-8D6F-4377-B990-B454CB13D5CA234384.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялово участие",
+        "shareSize": "100",
+        "companyName": "Линк 86 ЕООД",
+        "registeredOffice": "Ловеч",
+        "valueEur": 51.12918811962185,
+        "holderName": "Никола Венелинов Еков",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6394.727558121104,
-        "amountEurSpouse": 8407.17240250942
+        "amountEurDeclarant": 44695.60237852983,
+        "amountEurSpouse": 11272.963396614225
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10524.432082542962,
+        "amountEurDeclarant": 7377.430553780237,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1348.7879825956243,
+        "amountEurDeclarant": 2891.3555881646157,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "дивидент",
-        "amountEurDeclarant": 4601.626930765967,
+        "category": "Дивидент",
+        "amountEurDeclarant": 17588.440713149917,
         "amountEurSpouse": null
       }
     ],
@@ -50,8 +63,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14429,
-        "valueEur": 7377.430553780237,
+        "amount": 254457,
+        "valueEur": 130101.79821354616,
         "holderName": "Никола Венелинов Еков",
         "isSpouse": false,
         "legalBasis": null,
@@ -69,7 +82,7 @@
         "share": null,
         "currency": "EUR",
         "amount": 16495,
-        "valueEur": 16495.298671152403,
+        "valueEur": 16494.787379271205,
         "holderName": "Никола Венелинов Еков",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,10 +99,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 137371,
-        "valueEur": 70236.67701180573,
-        "holderName": "Никола Венелинов Еков",
-        "isSpouse": false,
+        "amount": 27220,
+        "valueEur": 13917.365006161068,
+        "holderName": "Калина Николаева Екова",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
@@ -104,14 +117,51 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 56642,
-        "valueEur": 28960.594734716207,
+        "amount": 56802,
+        "valueEur": 29042.4014357076,
         "holderName": "Теодора Николова Екова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес СLK320 IDI",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Пежо Партнер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

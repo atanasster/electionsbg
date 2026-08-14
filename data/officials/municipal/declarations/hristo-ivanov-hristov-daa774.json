@@ -4,55 +4,108 @@
     "declarantName": "Христо Иванов Христов",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6083",
-    "controlHash": "3065E384",
-    "sourceUrl": "https://register.cacbg.bg/2025/5F91C82F-EA77-47BF-8ED8-97A95EFCBF5B209030.xml",
-    "ownershipStakes": [
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "съдружник",
-        "shareSize": "10",
-        "companyName": "Виртус 22 ЕООД",
-        "registeredOffice": "Кюстендил",
-        "valueEur": 5.112918811962185,
-        "holderName": null,
-        "transfereeName": "Христо Иванов Христов",
-        "legalBasis": "безвъзмездно",
-        "fundsOrigin": null
-      }
-    ],
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г7200",
+    "controlHash": "71B71B0A",
+    "sourceUrl": "https://register.cacbg.bg/2026/5F91C82F-EA77-47BF-8ED8-97A95EFCBF5B231599.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1482.7464554690337,
-        "amountEurSpouse": 11645.183886125073
+        "amountEurDeclarant": 16361.340198278991,
+        "amountEurSpouse": 9714.54574272815
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurDeclarant": 6749.052831790084,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_property",
-        "description": "апартамент",
+        "category": "real_estate",
+        "description": "етаж от къща",
         "detail": null,
         "location": "Кюстендил",
         "municipality": "Кюстендил",
-        "areaSqm": 50,
-        "builtAreaSqm": 50,
+        "areaSqm": 85,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "дарение"
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Александрина Александрова Христова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Христо Иванов Христов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Христо Иванов Христов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Алфа Ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ОБРАЗОВАНИЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": null
       }
     ]
   }

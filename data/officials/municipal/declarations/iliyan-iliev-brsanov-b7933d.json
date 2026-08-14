@@ -4,23 +4,42 @@
     "declarantName": "ИЛИЯН ИЛИЕВ БЪРСАНОВ",
     "institution": "Брегово",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10681",
-    "controlHash": "966B9917",
-    "sourceUrl": "https://register.cacbg.bg/2025/4778A683-280C-4BE5-9DED-A581E83102E2213784.xml",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1649",
+    "controlHash": "70BBFAE6",
+    "sourceUrl": "https://register.cacbg.bg/2026/4778A683-280C-4BE5-9DED-A581E83102E2225576.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29381.387952940695,
-        "amountEurSpouse": 7701.5896064586395
+        "amountEurDeclarant": 31703.67567733392,
+        "amountEurSpouse": 8598.395566076806
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "ИЛИЯН ИЛИЕВ БЪРСАНОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ 6%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

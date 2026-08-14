@@ -4,26 +4,20 @@
     "declarantName": "Християн Людмилов Георгиев",
     "institution": "Район Овча купел",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-15",
-    "entryNumber": "Г9388",
-    "controlHash": "3F03D757",
-    "sourceUrl": "https://register.cacbg.bg/2025/BDDEF72E-E7A9-411E-A459-F71F885A41D4212423.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7664",
+    "controlHash": "CD8760B4",
+    "sourceUrl": "https://register.cacbg.bg/2026/BDDEF72E-E7A9-411E-A459-F71F885A41D4232088.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25117.213663764232,
-        "amountEurSpouse": 5887.01472009326
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 460.16269307659667,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 26395.954658635976,
+        "amountEurSpouse": 6379.900093566414
       }
     ],
     "assets": [
@@ -47,7 +41,7 @@
       },
       {
         "category": "real_estate",
-        "description": "вила",
+        "description": "вила с вилно място",
         "detail": null,
         "location": "Луково",
         "municipality": "Своге",
@@ -98,24 +92,6 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит 5.92%",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 70171,
-        "valueEur": 35877.86259541985,
-        "holderName": "Християн Людмилов Георгиев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
       }
     ],
     "events": []

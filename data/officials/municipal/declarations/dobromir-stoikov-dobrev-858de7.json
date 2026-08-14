@@ -4,31 +4,25 @@
     "declarantName": "ДОБРОМИР СТОЙКОВ ДОБРЕВ",
     "institution": "Горна Оряховица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5985",
-    "controlHash": "F1A44527",
-    "sourceUrl": "https://register.cacbg.bg/2025/09F5181F-1469-4B85-8479-DC2DAD91DC1C208931.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г5885",
+    "controlHash": "C850760B",
+    "sourceUrl": "https://register.cacbg.bg/2026/09F5181F-1469-4B85-8479-DC2DAD91DC1C230160.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7540.021372000634,
-        "amountEurSpouse": 8661.795759345137
+        "amountEurDeclarant": 8368.825511419704,
+        "amountEurSpouse": 9422.59807856511
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1409.6317164579743,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Обезщетения за безработица",
-        "amountEurDeclarant": 10672.195436208669,
+        "amountEurDeclarant": 21733.48399400766,
         "amountEurSpouse": null
       }
     ],
@@ -36,19 +30,37 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "пежо 308",
+        "detail": "киа ниро",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2021,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 9212,
-        "valueEur": 4710.020809579565,
+        "amount": 11203,
+        "valueEur": 5728.002945041236,
         "holderName": "Добромир Стойков Добрев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "договор за лицинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59996,
+        "valueEur": 30675.467704248324,
+        "holderName": "Добромир Стойков Добрев",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -66,12 +78,12 @@
         "valueEur": 51129.188119621846,
         "holderName": "Добромир Стойков Добрев",
         "isSpouse": false,
-        "legalBasis": "договр за заем",
+        "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "заем",
+        "description": "договор за заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -84,10 +96,41 @@
         "valueEur": 127822.97029905462,
         "holderName": "Добромир Стойков Добрев",
         "isSpouse": false,
-        "legalBasis": "заем бизлихвен",
+        "legalBasis": "договор за заем безлихвен",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Добромир Стойков Добрев",
+        "isSpouse": false,
+        "legalBasis": "договор за овърдрафт 8% лихва",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина",
+        "detail": null,
+        "location": "гр. Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 439,
+        "builtAreaSqm": 439,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

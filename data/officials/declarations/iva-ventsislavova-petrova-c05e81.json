@@ -5,6 +5,80 @@
     "institution": "Министерство на енергетиката",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-18",
+    "entryNumber": "Г1888",
+    "controlHash": "AC4E0114",
+    "sourceUrl": "https://register.cacbg.bg/2026/6B4F2444-5CC7-4FF8-8FD9-5AD21DED6F0D225858.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 77279.72267528364,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 390.6269972339109,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 230.08134653829833,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Ива Венциславова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доходи"
+      },
+      {
+        "category": "debt",
+        "description": "лимит по кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Ива Венциславова Петрова",
+        "isSpouse": false,
+        "legalBasis": "лимит по кредитна карта",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iva-ventsislavova-petrova-c05e81",
+    "declarantName": "Ива Венциславова Петрова",
+    "institution": "Министерство на енергетиката",
+    "positionTitle": "Заместник-министър",
+    "category": "deputy_minister",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

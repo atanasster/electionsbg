@@ -5,6 +5,92 @@
     "institution": "Военно-географска служба",
     "positionTitle": "Заместник-началник",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9087",
+    "controlHash": "DC65F6DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/00CE9078-D801-44EF-A2A9-163B58CA4D8E233648.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34369.04025400981,
+        "amountEurSpouse": 19808.470061303895
+      },
+      {
+        "parent": null,
+        "category": "Парична награда от работодателя по служебно правоотношение",
+        "amountEurDeclarant": 255.64594059810923,
+        "amountEurSpouse": 255.64594059810923
+      },
+      {
+        "parent": null,
+        "category": "Порционни пари",
+        "amountEurDeclarant": 1840.6507723063867,
+        "amountEurSpouse": 1840.6507723063867
+      },
+      {
+        "parent": null,
+        "category": "Пари за представително облекло",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 204.5167524784874
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения по част първа от КСО (болнични)",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6167.202670988788
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Кирил Маринов Костадинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47500,
+        "valueEur": 24286.364356820377,
+        "holderName": "Боряна Бориславова Борисова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kiril-marinov-kostadinov-e441ee",
+    "declarantName": "Кирил Маринов Костадинов",
+    "institution": "Военно-географска служба",
+    "positionTitle": "Заместник-началник",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

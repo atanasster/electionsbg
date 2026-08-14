@@ -4,20 +4,20 @@
     "declarantName": "КРАСИМИРА КОСТАДИНОВА МАВРОДИЕВА",
     "institution": "Белица",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13981",
-    "controlHash": "7F9781E8",
-    "sourceUrl": "https://register.cacbg.bg/2025/20806512-04E4-4E8F-89A0-E78DF4796736217243.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9294",
+    "controlHash": "E8859E3F",
+    "sourceUrl": "https://register.cacbg.bg/2026/20806512-04E4-4E8F-89A0-E78DF4796736233898.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19970.0382957619,
-        "amountEurSpouse": 3206.8226788626826
+        "amountEurDeclarant": 31280.32599970345,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
@@ -32,10 +32,28 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "КРАСИМИРА КОСТАДИНОВА МАВРОДИЕВА",
+        "amount": 38006,
+        "valueEur": 19432.15923674348,
+        "holderName": "Красимира Костадинова мавродиева",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10526,
+        "valueEur": 5381.858341471396,
+        "holderName": "Георги Иванов Мавродиев",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

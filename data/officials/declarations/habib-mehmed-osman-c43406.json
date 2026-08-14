@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "habib-mehmed-osman-c43406",
+    "declarantName": "Хабиб Мехмед Осман",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4059",
+    "controlHash": "7BAE0A76",
+    "sourceUrl": "https://register.cacbg.bg/2026/831A8E71-574D-4AAE-B0EF-5FB965ABFEC3228250.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19502.71751634856,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2579.4675406349224,
+        "amountEurSpouse": 570.0904475337836
+      },
+      {
+        "parent": null,
+        "category": "Доход от патентна дейност Приложение 7",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 580.316285157708
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "ОПЕЛ Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Хабиб Мехмед Осман",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16560,
+        "valueEur": 8466.993552609378,
+        "holderName": "Хабиб Мехмед Осман",
+        "isSpouse": false,
+        "legalBasis": "Кредит, лихвен % 4,93",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25907,
+        "valueEur": 13246.038766150432,
+        "holderName": "Хабиб Мехмед Осман",
+        "isSpouse": false,
+        "legalBasis": "Кредит, лихвен % 5.07",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

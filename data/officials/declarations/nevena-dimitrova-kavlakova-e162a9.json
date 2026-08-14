@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3344",
+    "controlHash": "CA420D1D",
+    "sourceUrl": "https://register.cacbg.bg/2026/73525217-D49C-4B10-8A55-56882AE1B0FB227471.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34772.449548273624,
+        "amountEurSpouse": 6254.122290792145
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180588,
+        "valueEur": 92333.17824146271,
+        "holderName": "Невена Димитрова Кавлакова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудов договор"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nevena-dimitrova-kavlakova-e162a9",
+    "declarantName": "Невена Димитрова Кавлакова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

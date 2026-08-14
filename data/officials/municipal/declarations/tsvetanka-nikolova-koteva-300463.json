@@ -4,38 +4,80 @@
     "declarantName": "Цветанка Николова Котева",
     "institution": "Радомир",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5824",
-    "controlHash": "F3FD4B2A",
-    "sourceUrl": "https://register.cacbg.bg/2025/D9153209-0A69-4AE9-AA2D-84486850E343208768.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10366",
+    "controlHash": "46756C53",
+    "sourceUrl": "https://register.cacbg.bg/2026/D9153209-0A69-4AE9-AA2D-84486850E343235102.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7759.876880915008,
-        "amountEurSpouse": 2552.880362812719
+        "amountEurDeclarant": 5629.834903851562,
+        "amountEurSpouse": 2963.959035294479
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3892.9763834280075,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3913.9393505570524
+        "amountEurSpouse": 1865.192782603805
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2852.497405193703
+        "amountEurSpouse": 3536.094650353047
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти",
+        "amountEurDeclarant": 12701.51291267646,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от задължително осигуряване по чл. 13, ал. 1, т. 6 от ЗДДФЛ",
+        "amountEurDeclarant": 529.1870970380861,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от допълнително доброволно осигуряване",
+        "amountEurDeclarant": 3165.9193283669847,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "СМАРТ МИКРО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Валентин Огнянов Котев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Кредит-4.75% лихвен процент",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,16 +86,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28960,
-        "valueEur": 14807.012879442487,
+        "amount": 18873,
+        "valueEur": 9649.61167381623,
         "holderName": "Цветанка Николова Котева",
         "isSpouse": false,
-        "legalBasis": "Потребителски заем",
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Кредит-4.50% лихвен процент",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,16 +104,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9780,
-        "valueEur": 5000.4345980990165,
+        "amount": 14500,
+        "valueEur": 7413.732277345168,
         "holderName": "Цветанка Николова Котева",
         "isSpouse": false,
-        "legalBasis": "Потребителски заем",
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Кредит-5.94% лихвен процент",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,14 +122,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20500,
-        "valueEur": 10481.48356452248,
-        "holderName": "Цветанка Николова Котева",
-        "isSpouse": false,
-        "legalBasis": "Потребителски заем",
+        "amount": 7180,
+        "valueEur": 3671.0757069888487,
+        "holderName": "Валентин Огнянов Котев",
+        "isSpouse": true,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит-7.30%лихвен процент",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5600,
+        "valueEur": 2863.2345346988236,
+        "holderName": "Валентин Огнянов Котев",
+        "isSpouse": true,
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ 530Д",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11657.454891273781,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

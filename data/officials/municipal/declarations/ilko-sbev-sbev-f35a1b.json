@@ -4,44 +4,26 @@
     "declarantName": "Илко Събев Събев",
     "institution": "Челопеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-14",
-    "entryNumber": "Г13565",
-    "controlHash": "F17E9C3C",
-    "sourceUrl": "https://register.cacbg.bg/2025/1723614E-56EA-49A3-BDE0-C15967426336216792.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г14321",
+    "controlHash": "5F6B566E",
+    "sourceUrl": "https://register.cacbg.bg/2026/1723614E-56EA-49A3-BDE0-C15967426336240067.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6648.839623075625,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 6981.179345853167,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген Голф 7",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Илко Събев Събев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,14 +32,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 2182,
+        "valueEur": 1115.6388847701487,
         "holderName": "Илко Събев Събев",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "18,75%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес МЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

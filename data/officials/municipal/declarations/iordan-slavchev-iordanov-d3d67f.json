@@ -1,59 +1,48 @@
 [
   {
     "slug": "iordan-slavchev-iordanov-d3d67f",
-    "declarantName": "ЙОРДАН СЛАВЧЕВ ЙОРДАНОВ",
+    "declarantName": "Йордан Славчев Йорданов",
     "institution": "Тунджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г11296",
-    "controlHash": "C19C88F1",
-    "sourceUrl": "https://register.cacbg.bg/2025/61AACC8B-7D7B-4525-936E-6E6FA07FCF12214431.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г14290",
+    "controlHash": "F3B1C189",
+    "sourceUrl": "https://register.cacbg.bg/2026/61AACC8B-7D7B-4525-936E-6E6FA07FCF12240035.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "РИМС ЕКСПРЕС ЕООД",
+        "shareSize": "100",
+        "companyName": "РИМС ЕКСПРЕС ЕООД",
+        "registeredOffice": "с. Златаре",
+        "valueEur": 1.022583762392437,
+        "holderName": "Йордан Славчев Йорданов",
+        "legalBasis": "друго",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5598.6460990985925,
-        "amountEurSpouse": 14327.421094880434
+        "amountEurDeclarant": 1633.5775604219182,
+        "amountEurSpouse": 14884.217953503117
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1755.7763200278143,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 1398.8945869528538,
+        "amountEurDeclarant": 9754.937801342652,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "СОФИЯ",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 74,
-        "builtAreaSqm": 74,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 230000,
-        "valueEur": 117597.13267513025,
-        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,16 +51,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 204516.75247848738,
-        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
+        "amount": 210106,
+        "valueEur": 107425.49199061269,
+        "holderName": "Милена Петрова Йорданова",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТ 5.2%",
+        "legalBasis": "ипотечен заем,2,68%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,11 +69,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 230000,
-        "valueEur": 117597.13267513025,
-        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
+        "amount": 38153,
+        "valueEur": 19507.319143279325,
+        "holderName": "Милена Петрова Йорданова",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТ 2.9%",
+        "legalBasis": "потреб. заем, 5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 770,
+        "valueEur": 393.69474852108823,
+        "holderName": "Милена Петрова Йорданова",
+        "isSpouse": true,
+        "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
     ],

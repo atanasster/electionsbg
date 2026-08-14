@@ -4,13 +4,13 @@
     "declarantName": "Жечо Георгиев Атанасов",
     "institution": "Царево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8824",
-    "controlHash": "8C807648",
-    "sourceUrl": "https://register.cacbg.bg/2025/4BFC1086-5A6D-482F-AB89-CAC83E216B52211851.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10723",
+    "controlHash": "E7258CCF",
+    "sourceUrl": "https://register.cacbg.bg/2026/4BFC1086-5A6D-482F-AB89-CAC83E216B52235512.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -33,7 +33,7 @@
         "registeredOffice": "Лозенец",
         "valueEur": 255.64594059810923,
         "holderName": "Жечо Георгиев Атанасов",
-        "legalBasis": "учредяване",
+        "legalBasis": "Учредяване",
         "fundsOrigin": "заплата"
       }
     ],
@@ -41,14 +41,8 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": null,
+        "amountEurDeclarant": 3093.315881237122,
         "amountEurSpouse": 1840.6507723063867
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 25564.594059810923,
-        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -83,24 +77,6 @@
         "currency": "BGN",
         "amount": 3500,
         "valueEur": 1789.5215841867648,
-        "holderName": "Жечо Георгиев Атанасов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
-      },
-      {
-        "category": "vehicle",
-        "description": "Пежо",
-        "detail": "Партнер",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
         "holderName": "Жечо Георгиев Атанасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -144,44 +120,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Ауди",
-        "detail": "А7",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2020,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Жечо Георгиев Атанасов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
-      },
-      {
-        "category": "vehicle",
         "description": "Джип",
         "detail": "Вранглер",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2014,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 700,
-        "valueEur": 357.90431683735295,
-        "holderName": "Жечо Георгиев Атанасов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
-      },
-      {
-        "category": "vehicle",
-        "description": "Джип",
-        "detail": "Град Чероки",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -191,6 +131,24 @@
         "currency": "BGN",
         "amount": 9000,
         "valueEur": 4601.626930765967,
+        "holderName": "Жечо Георгиев Атанасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Спестявания"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
         "holderName": "Жечо Георгиев Атанасов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -215,6 +173,31 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо Партнер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Гранд Чероки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

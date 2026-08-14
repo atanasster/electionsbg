@@ -1,29 +1,35 @@
 [
   {
     "slug": "penka-nedelkova-penkova-7740c2",
-    "declarantName": "ПЕНКА НЕДЕЛКОВА ПЕНКОВА",
+    "declarantName": "Пенка Неделкова Пенкова",
     "institution": "Лом",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г4962",
-    "controlHash": "FBC9308B",
-    "sourceUrl": "https://register.cacbg.bg/2025/C1E88AC9-308A-428A-99FB-A3598FE2A03C207842.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10064",
+    "controlHash": "7DFA1365",
+    "sourceUrl": "https://register.cacbg.bg/2026/C1E88AC9-308A-428A-99FB-A3598FE2A03C234753.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14116.768839827593,
+        "amountEurDeclarant": 20433.268740125677,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи за прослужено време и старост",
-        "amountEurDeclarant": 12828.824591094319,
-        "amountEurSpouse": 2560.549741030662
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 537.8790590184218,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 14552.900814487966,
+        "amountEurSpouse": 3245.169569952399
       }
     ],
     "assets": [
@@ -38,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5721,
-        "valueEur": 2925.100852323566,
+        "amount": 30990,
+        "valueEur": 15844.93539827081,
         "holderName": "Пенка Неделкова Пенкова",
         "isSpouse": false,
         "legalBasis": null,
@@ -47,7 +53,7 @@
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7500,
-        "valueEur": 3834.6891089716387,
+        "amount": 5268,
+        "valueEur": 2693.485630141679,
         "holderName": "Пенка Неделкова Пенкова",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "10.81",
         "fundsOrigin": null
       }
     ],

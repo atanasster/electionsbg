@@ -1,6 +1,111 @@
 [
   {
     "slug": "nina-ognyanova-kalapankova-21ed81",
+    "declarantName": "Нина Огнянова Калапанкова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9521",
+    "controlHash": "DE597158",
+    "sourceUrl": "https://register.cacbg.bg/2026/B50C95D0-C581-4FF9-BD61-D6C6CED117ED234148.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21578.05126212401,
+        "amountEurSpouse": 33989.15038628101
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизинг автомобил",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19885,
+        "valueEur": 19884.652551602132,
+        "holderName": "Калин Танев Калапанков",
+        "isSpouse": true,
+        "legalBasis": "лизинг - 0 проц.лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3748,
+        "valueEur": 3747.7694891682813,
+        "holderName": "Калин Танев Калапанков",
+        "isSpouse": true,
+        "legalBasis": "кредит -6,43 год.лихвлпроц.",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25565,
+        "valueEur": 25564.08276792973,
+        "holderName": "Калин Танев Калапанков",
+        "isSpouse": true,
+        "legalBasis": "кредит - 5,6 год.лихв.проц.",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 535 ХИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 535 ХИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "nina-ognyanova-kalapankova-21ed81",
     "declarantName": "НИНА ОГНЯНОВА КАЛАПАНКОВА",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

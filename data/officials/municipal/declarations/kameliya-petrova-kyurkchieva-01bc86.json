@@ -4,26 +4,26 @@
     "declarantName": "Камелия Петрова Кюркчиева",
     "institution": "Район Изгрев",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4376",
-    "controlHash": "953F97E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/85AD6DA7-60F5-47B4-8400-31BAE17B25DB207223.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7489",
+    "controlHash": "230D160D",
+    "sourceUrl": "https://register.cacbg.bg/2026/85AD6DA7-60F5-47B4-8400-31BAE17B25DB231902.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32568.781540317923,
-        "amountEurSpouse": 45070.89061932785
+        "amountEurDeclarant": 37195.9730651437,
+        "amountEurSpouse": 43208.76558801123
       },
       {
         "parent": null,
         "category": "Пенсия по експертно решение (ТЕЛК)",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 12729.633966142252
+        "amountEurSpouse": 17126.232852548535
       }
     ],
     "assets": [
@@ -67,7 +67,7 @@
         "category": "real_estate",
         "description": "ливада",
         "detail": null,
-        "location": "Нови Хан",
+        "location": "с. Нови Хан",
         "municipality": "Елин Пелин",
         "areaSqm": 5,
         "builtAreaSqm": 5659,
@@ -85,7 +85,7 @@
         "category": "real_estate",
         "description": "ливада",
         "detail": null,
-        "location": "Нови Хан",
+        "location": "с. Нови Хан",
         "municipality": "Елин Пелин",
         "areaSqm": 5,
         "builtAreaSqm": 5659,
@@ -156,7 +156,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Шевролет \"Малибу\"",
+        "detail": "Шевролет Малибу",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -174,7 +174,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Шевролет \"Малибу\"",
+        "detail": "Шевролет Малибу",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -192,7 +192,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Опел \"Кросленд\"",
+        "detail": "Опел Кросленд",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -210,7 +210,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Опел \"Кросленд\"",
+        "detail": "Опел Кросленд",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -228,16 +228,16 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 5112.918811962185,
         "holderName": "Камелия Петрова Кюркчиева",
         "isSpouse": false,
         "legalBasis": null,
@@ -272,51 +272,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 80000,
-        "valueEur": 40903.35049569748,
+        "amount": 21500,
+        "valueEur": 10992.775445718698,
         "holderName": "Камелия Петрова Кюркчиева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "По договор за заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Камелия Петрова Кюркчиева",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "По договор за заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Камелия Петрова Кюркчиева",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шевролет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1311.4636752683004,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Шевролет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1311.4636752683004,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "third_party_expense",
-        "description": "Куба",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3628.6384808495627,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

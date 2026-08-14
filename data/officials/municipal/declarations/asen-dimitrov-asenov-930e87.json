@@ -4,45 +4,51 @@
     "declarantName": "АСЕН ДИМИТРОВ АСЕНОВ",
     "institution": "Долни Чифлик",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г12211",
-    "controlHash": "BE23B9F2",
-    "sourceUrl": "https://register.cacbg.bg/2025/CC5FA6D7-859A-4FED-BA1E-FCCCC3A44499215371.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5598",
+    "controlHash": "42CF772C",
+    "sourceUrl": "https://register.cacbg.bg/2026/CC5FA6D7-859A-4FED-BA1E-FCCCC3A44499229862.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6423.871195349289,
+        "amountEurDeclarant": 6866.649964465214,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12271.005148709244,
+        "amountEurDeclarant": 13918.898881804656,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДОХОДИ ОТ ФИЗИЧЕСКО ЛИЦЕ, ОСЪЩЕСТВЯВАЛО ДЕЙНОСТ ПО КОД 701 НА НАП",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3583.1335034230992
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "ЛЕКО-ТОВАРЕН",
-        "detail": "ТОЙОТА ХАЙЛУКС",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "TOYOTA HILUX",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 129551,
-        "valueEur": 66238.3745008513,
+        "amount": 107959,
+        "valueEur": 55198.56020206255,
         "holderName": "АСЕН ДИМИТРОВ АСЕНОВ",
         "isSpouse": false,
-        "legalBasis": "ЛИЗИНГ",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       },
       {
@@ -56,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26933,
-        "valueEur": 13770.624236257752,
+        "amount": 25371,
+        "valueEur": 12971.98631782926,
         "holderName": "АСЕН ДИМИТРОВ АСЕНОВ",
         "isSpouse": false,
-        "legalBasis": "6.5877",
+        "legalBasis": "КРЕДИТ/6.60%",
         "fundsOrigin": null
       },
       {
@@ -74,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 83712,
-        "valueEur": 46366.50424627907,
+        "amount": 60379,
+        "valueEur": 30871.292494746474,
         "holderName": "АСЕН ДИМИТРОВ АСЕНОВ",
         "isSpouse": false,
-        "legalBasis": "3.59",
+        "legalBasis": "ЛИЗИНГ/3.62%",
         "fundsOrigin": null
       }
     ],

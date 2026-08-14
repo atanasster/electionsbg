@@ -4,58 +4,58 @@
     "declarantName": "Севдалин Бойков Хъшинов",
     "institution": "Баните",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8719",
-    "controlHash": "8B9EFECA",
-    "sourceUrl": "https://register.cacbg.bg/2025/43F025CC-898C-4204-878A-34F2E248BD2D211744.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11017",
+    "controlHash": "912558B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/43F025CC-898C-4204-878A-34F2E248BD2D235848.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4238.609695116651,
-        "amountEurSpouse": 26787.604239632277
+        "amountEurDeclarant": 5170.183502656161,
+        "amountEurSpouse": 43893.385416932964
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 23535.78787522433,
+        "amountEurDeclarant": 25481.25348317594,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 2454.2010297418487,
-        "amountEurSpouse": 2454.2010297418487
+        "amountEurDeclarant": 2965.4929109380673,
+        "amountEurSpouse": 2965.4929109380673
       },
       {
         "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 76693.78217943278,
-        "amountEurSpouse": 42652.480021269745
+        "category": "дивиденти",
+        "amountEurDeclarant": 24797.656238016596,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Поповица",
+        "municipality": "Садово",
+        "areaSqm": 7,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 668000,
-        "valueEur": 341542.9766390739,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Севдалин Бойков Хъшинов",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "Дивидент"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -68,12 +68,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 385421,
-        "valueEur": 197062.6281425277,
+        "amount": 700000,
+        "valueEur": 357904.31683735293,
+        "holderName": "Севдалин Бойков Хъшинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дивидент"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 390000,
+        "valueEur": 199403.8336665252,
         "holderName": "Събка Славкова Хъшинова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Дивидент"
+        "fundsOrigin": "дивидент"
       },
       {
         "category": "debt",

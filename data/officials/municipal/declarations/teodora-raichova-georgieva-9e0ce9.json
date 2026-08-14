@@ -4,51 +4,57 @@
     "declarantName": "Теодора Райчова Георгиева",
     "institution": "Невестино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13255",
-    "controlHash": "78829DBB",
-    "sourceUrl": "https://register.cacbg.bg/2025/6A955461-9FEA-4350-8262-6DF6D24C92B0216456.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10221",
+    "controlHash": "70AAEA88",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A955461-9FEA-4350-8262-6DF6D24C92B0234938.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3606.6529299581252,
-        "amountEurSpouse": 6131.412239305052
+        "amountEurDeclarant": 6362.0048777245465,
+        "amountEurSpouse": 3962.5120792706934
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6423.871195349289,
+        "amountEurDeclarant": 3956.376576696339,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "граждански договор",
+        "amountEurDeclarant": 869.1961980335715,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3674.143458276026
+        "amountEurSpouse": 3742.145278475123
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
+        "description": "кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 12253,
-        "valueEur": 6264.859420297265,
+        "currency": "EUR",
+        "amount": 3744,
+        "valueEur": 3744.7017378811042,
         "holderName": "Теодора Райчова Георгиева",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "6,15",
         "fundsOrigin": null
       }
     ],

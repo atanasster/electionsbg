@@ -1,32 +1,92 @@
 [
   {
     "slug": "ivan-georgiev-yankulov-e1e375",
-    "declarantName": "Иван Георгиев Янкулов",
+    "declarantName": "ИВАН ГЕОРГИЕВ ЯНКУЛОВ",
     "institution": "Ихтиман",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3828",
-    "controlHash": "FEECC065",
-    "sourceUrl": "https://register.cacbg.bg/2025/E47A57AE-3FA4-495F-9B6A-79F4BA647CFF206644.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г9036",
+    "controlHash": "98867186",
+    "sourceUrl": "https://register.cacbg.bg/2026/E47A57AE-3FA4-495F-9B6A-79F4BA647CFF233592.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24896.335571087468,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 33472.74558627284,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6708.1494812943865,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 10072.450059565504,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия от осигурителен стаж",
+        "amountEurDeclarant": 12884.555406144706,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 90000,
+        "valueEur": 89999.64209568316,
+        "holderName": "ИВАН ГЕОРГИЕВ ЯНКУЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,43 +98,37 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 57000,
-        "valueEur": 58287.274456368905,
-        "holderName": "Иван Георгиев Янкулов",
+        "amount": 90000,
+        "valueEur": 89999.64209568316,
+        "holderName": "ИВАН ГЕОРГИЕВ ЯНКУЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 27000,
-        "valueEur": 13804.8807922979,
-        "holderName": "Иван Георгиев Янкулов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Сузуки Гранд Витара",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А4",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 1789.5215841867648,
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СУЗУКИ ГРАНД ВИТАРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
         "legalBasis": "възмездно"
       }
     ]

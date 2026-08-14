@@ -1,88 +1,69 @@
 [
   {
     "slug": "svetlana-yankova-luleva-bcd43c",
-    "declarantName": "Светлана Янкова Лулева",
+    "declarantName": "СВЕТЛАНА ЯНКОВА ЛУЛЕВА",
     "institution": "Созопол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7402",
-    "controlHash": "D9E380C4",
-    "sourceUrl": "https://register.cacbg.bg/2025/DE315C10-A384-45CC-BAB7-CF434CF0C613210390.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13347",
+    "controlHash": "DA1A5E78",
+    "sourceUrl": "https://register.cacbg.bg/2026/DE315C10-A384-45CC-BAB7-CF434CF0C613238853.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12357.924768512601,
+        "amountEurDeclarant": 13915.319838636282,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2490.50275330678,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Прехвърляне на недвижими имоти",
-        "amountEurDeclarant": 4444.149031357531,
+        "amountEurDeclarant": 2622.927350536601,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Банков кредит",
-        "detail": "BGN",
+        "description": "ЖИЛИЩЕН КРЕДИТ",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 262760,
-        "valueEur": 134347.05470311837,
-        "holderName": "Светлана Янкова Лулева",
+        "currency": "EUR",
+        "amount": 130824,
+        "valueEur": 130824.25364167642,
+        "holderName": "СВЕТЛАНА ЯНКОВА ЛУЛЕВА",
         "isSpouse": false,
-        "legalBasis": "Договор, лихвен процент - 2.80%",
+        "legalBasis": "ДОГОВОР, 2,86%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
-        "detail": "BGN",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 12518,
-        "valueEur": 6400.351768814263,
-        "holderName": "Светлана Янкова Лулева",
+        "currency": "EUR",
+        "amount": 5767,
+        "valueEur": 5760.7256254377935,
+        "holderName": "СВЕТЛАНА ЯНКОВА ЛУЛЕВА",
         "isSpouse": false,
-        "legalBasis": "Договор, лихвен процент - 5.74%",
+        "legalBasis": "ДОГОВОР, 5,80%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "лозя",
-        "detail": null,
-        "location": "гр.Созопол, м.Буджака",
-        "municipality": "Созопол",
-        "areaSqm": 1127,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4444.149031357531,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

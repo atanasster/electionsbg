@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7453",
+    "controlHash": "CE46EB57",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7C9B170-EA58-4020-B35A-C5F22520A1C5231865.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19600.374265657036,
+        "amountEurSpouse": 21454.82991875572
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39752,
+        "valueEur": 20324.874861312077,
+        "holderName": "Ферхан Юсеиен Хасан",
+        "isSpouse": true,
+        "legalBasis": "Договор, 5,32 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34381,
+        "valueEur": 17578.72616740719,
+        "holderName": "Шермин Шабанова Хасан",
+        "isSpouse": true,
+        "legalBasis": "Договор, 4,77%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ferhan-yusein-hasan-0918d0",
+    "declarantName": "Ферхан Юсеин Хасан",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

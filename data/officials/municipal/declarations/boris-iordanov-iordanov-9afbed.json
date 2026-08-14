@@ -4,61 +4,23 @@
     "declarantName": "Борис Йорданов Йорданов",
     "institution": "Иваново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г5864",
-    "controlHash": "07A7F515",
-    "sourceUrl": "https://register.cacbg.bg/2025/1A15F20D-9429-49BF-B77E-FB57B8B27313208809.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10348",
+    "controlHash": "BDCA76C4",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A15F20D-9429-49BF-B77E-FB57B8B27313235082.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19303.824974563227,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 762.8474867447579,
+        "amountEurDeclarant": 23631.39945700802,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Сузуки",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "Борис Йорданов Йорданов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойоота Корола Версо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 677.9730344661857,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

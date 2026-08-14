@@ -4,71 +4,35 @@
     "declarantName": "Хюсеин Ешреф Джелил",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9830",
-    "controlHash": "C2F4A9EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/56CEDFB4-51B6-4E72-B1D3-C4D778431BF9212888.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11090",
+    "controlHash": "87BA267E",
+    "sourceUrl": "https://register.cacbg.bg/2026/56CEDFB4-51B6-4E72-B1D3-C4D778431BF9235926.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6385.524304259573,
-        "amountEurSpouse": 16646.641067986482
+        "amountEurDeclarant": 7314.030360511905,
+        "amountEurSpouse": 16983.58241769479
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17142.594192746812,
+        "amountEurDeclarant": 19119.75989733259,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 4247.812948978183,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 10608.795242940338,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр.Варна",
-        "municipality": "Варна",
-        "areaSqm": 59,
-        "builtAreaSqm": 59,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 174289,
-        "valueEur": 89112.55068180773,
-        "holderName": "Хюсеин Ешреф Джелил",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "vehicle",
-        "description": "колесен трактор",
-        "detail": "КС ЖХ 95",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 21000,
-        "valueEur": 10737.129505120589,
-        "holderName": "ЗП Хюсеин Ешреф Джелил",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "Ипотечен кредит",
@@ -80,11 +44,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 166289,
-        "valueEur": 85022.21563223797,
+        "amount": 161303,
+        "valueEur": 82472.91431259362,
         "holderName": "Хюсеин Ешреф Джелил",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор - 2,8%",
         "fundsOrigin": null
       },
       {
@@ -98,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46000,
-        "valueEur": 23519.42653502605,
+        "amount": 54925,
+        "valueEur": 28082.7065747023,
         "holderName": "Хюсеин Ешреф Джелил",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор - 5,52%",
         "fundsOrigin": null
       },
       {
@@ -116,45 +80,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 14818,
+        "valueEur": 7576.323095565565,
+        "holderName": "Хюсеин Ешреф Джелил",
+        "isSpouse": false,
+        "legalBasis": "договор - 6,2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит-сътитуляр",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 161303,
+        "valueEur": 82472.91431259362,
         "holderName": "Нурджихан Хюсню Джелил",
         "isSpouse": true,
-        "legalBasis": "договор за кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Хюсеин Ешреф Джелил",
-        "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 2,8%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "колесен трактор",
-        "detail": "НАТАТ 95",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

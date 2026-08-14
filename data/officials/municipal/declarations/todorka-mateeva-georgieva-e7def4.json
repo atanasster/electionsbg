@@ -4,29 +4,84 @@
     "declarantName": "Тодорка Матеева Георгиева",
     "institution": "Ветрино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г3547",
-    "controlHash": "685A4E3A",
-    "sourceUrl": "https://register.cacbg.bg/2025/1A8D33DC-C435-4EB2-AE2B-243B35CC97CC206338.xml",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г753",
+    "controlHash": "C7422950",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A8D33DC-C435-4EB2-AE2B-243B35CC97CC224296.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4144.531988976547,
+        "amountEurDeclarant": 5568.991169989212,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9495.71281757617,
+        "amountEurDeclarant": 9424.643246089896,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Момчилово",
+        "municipality": "Ветрино",
+        "areaSqm": 7,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1300,
+        "valueEur": 664.679445555084,
+        "holderName": "Тодорка Матеева Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Момчилово",
+        "municipality": "Ветрино",
+        "areaSqm": 17,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3100,
+        "valueEur": 1585.0048317082774,
+        "holderName": "Тодорка Матеева Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16209,
+        "valueEur": 8287.530102309505,
+        "holderName": "Тодорка Матеева Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -1,6 +1,177 @@
 [
   {
     "slug": "gergana-krstanova-georgieva-kirilova-9dee56",
+    "declarantName": "Гергана Кръстанова Георгиева-Кирилова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г8614",
+    "controlHash": "500AABD9",
+    "sourceUrl": "https://register.cacbg.bg/2026/87D12122-0F43-4716-AEB3-9EE0A062009C233138.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "49%",
+        "companyName": "Екохолидейс България ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 501.0660435722941,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31441.894234161457,
+        "amountEurSpouse": 9777.945935996482
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 1046.6144808086592
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Волуяк",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 82,
+        "builtAreaSqm": 164,
+        "acquiredYear": 2025,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Бели Осъм",
+        "municipality": "Троян",
+        "areaSqm": 700,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2022,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Волуяк",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 625,
+        "builtAreaSqm": 162,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 200,
+        "builtAreaSqm": 270,
+        "acquiredYear": 2025,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит потребителски",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13227,
+        "valueEur": 13227.120966546172,
+        "holderName": "Гергана Кръстанова Георгиева-Кирилова",
+        "isSpouse": false,
+        "legalBasis": "4,2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-krstanova-georgieva-kirilova-9dee56",
     "declarantName": "ГЕРГАНА КРЪСТАНОВА ГЕОРГИЕВА-КИРИЛОВА",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

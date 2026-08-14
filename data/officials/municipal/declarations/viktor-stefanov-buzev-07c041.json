@@ -4,46 +4,40 @@
     "declarantName": "Виктор Стефанов Бузев",
     "institution": "Варна",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6882",
-    "controlHash": "EA463245",
-    "sourceUrl": "https://register.cacbg.bg/2025/E247CD01-D5AB-4D7C-8F16-729165444E8A209865.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10054",
+    "controlHash": "5288E00A",
+    "sourceUrl": "https://register.cacbg.bg/2026/E247CD01-D5AB-4D7C-8F16-729165444E8A234742.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22431.908703721692,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10205.385948676521,
+        "amountEurDeclarant": 30532.305977513384,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 34500,
-        "valueEur": 34397.1613074756,
-        "holderName": "Виктор Стефанов Буезв",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 13153,
+        "valueEur": 6725.022113373861,
+        "holderName": "Виктор Стефанов Бузев",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -56,10 +50,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1580,
-        "valueEur": 807.8411722900253,
-        "holderName": "Виктор Стефанов Буезв",
-        "isSpouse": true,
+        "amount": 13153,
+        "valueEur": 6725.022113373861,
+        "holderName": "Виктор Стефанов Бузев",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

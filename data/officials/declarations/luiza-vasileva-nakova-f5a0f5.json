@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10168",
+    "controlHash": "84EE97AF",
+    "sourceUrl": "https://register.cacbg.bg/2026/67B950B1-E985-4DDF-B54F-736779DA45A2234862.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35828.267282943816,
+        "amountEurSpouse": 38042.16112852344
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4418.58443729772
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20887,
+        "valueEur": 20887.807222509113,
+        "holderName": "Луиза Василева Накова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания трудови доходи"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29849,
+        "valueEur": 29849.220024235234,
+        "holderName": "Луиза Василева Накова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания трудови доходи"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "luiza-vasileva-nakova-f5a0f5",
+    "declarantName": "Луиза Василева Накова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2024,
     "fiscalYear": null,
     "declarationType": "Other",

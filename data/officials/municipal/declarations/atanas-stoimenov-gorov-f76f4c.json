@@ -4,26 +4,26 @@
     "declarantName": "Атанас Стоименов Горов",
     "institution": "Район Студентски",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г9559",
-    "controlHash": "45F13111",
-    "sourceUrl": "https://register.cacbg.bg/2025/370E17AD-FB8C-445B-9E1D-0823B1D22A0A212604.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г7650",
+    "controlHash": "B9AF09D3",
+    "sourceUrl": "https://register.cacbg.bg/2026/370E17AD-FB8C-445B-9E1D-0823B1D22A0A232072.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 33118.420312603856,
-        "amountEurSpouse": 20907.23631399457
+        "amountEurDeclarant": 39178.76298042263,
+        "amountEurSpouse": 22952.91513066064
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Ипотечен кредит - годишен лихвен процент 2.69 %",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,16 +32,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34279,
-        "valueEur": 17526.574395525175,
+        "amount": 23453,
+        "valueEur": 11991.328489694912,
         "holderName": "Антоанета Асенова Горова",
         "isSpouse": true,
-        "legalBasis": "Банков кредит",
+        "legalBasis": "Банков кредит 2.69%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков кредит - годишен лихвен процент 4.15%",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,26 +50,44 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37125,
-        "valueEur": 18981.71108940961,
+        "amount": 25607,
+        "valueEur": 13092.651201791567,
         "holderName": "Атанас Стоименов Горов",
         "isSpouse": false,
-        "legalBasis": "Банков кредит",
+        "legalBasis": "Банков кредит 4.15%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Договор лизинг автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45665,
+        "valueEur": 23348.143754825316,
+        "holderName": "Атанас Стоименов Горов",
+        "isSpouse": false,
+        "legalBasis": "Договор лизинг 3.20%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Дупница",
-        "municipality": "Дупница",
-        "areaSqm": 48,
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

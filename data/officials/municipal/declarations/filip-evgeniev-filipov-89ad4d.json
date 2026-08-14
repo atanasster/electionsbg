@@ -4,38 +4,32 @@
     "declarantName": "ФИЛИП ЕВГЕНИЕВ ФИЛИПОВ",
     "institution": "Карлово",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10422",
-    "controlHash": "3BDFBE35",
-    "sourceUrl": "https://register.cacbg.bg/2025/168996B0-E2EF-44AB-BA90-153104F9318F213505.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1710",
+    "controlHash": "C2FD57A1",
+    "sourceUrl": "https://register.cacbg.bg/2026/168996B0-E2EF-44AB-BA90-153104F9318F225656.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20847.415163894613,
-        "amountEurSpouse": 4654.801286410373
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 337.4526415895042
+        "amountEurDeclarant": 19713.3697714014,
+        "amountEurSpouse": 6135.502574354622
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3681.3015446127733
+        "amountEurSpouse": 766.9378217943278
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Виолета Атанасова Филипова",
+        "description": "КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,14 +38,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Филип Евгениев Филипов",
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
+        "holderName": "ФИЛИП ЕВГЕНИЕВ ФИЛИПОВ",
         "isSpouse": false,
-        "legalBasis": "0.00",
+        "legalBasis": "ДОГ ЛИХВ ПРОЦЕНТ",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ОБУЧЕНИЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4999.923306217821,
+        "legalBasis": null
+      }
+    ]
   }
 ]

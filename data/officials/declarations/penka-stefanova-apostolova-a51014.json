@@ -5,6 +5,62 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11922",
+    "controlHash": "DACFD433",
+    "sourceUrl": "https://register.cacbg.bg/2026/6CA8D80D-B295-457B-A0E1-47CE7E0C6B44236977.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24919.854997622493,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 6036.8232412837515,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 219.34421703317773,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 106492,
+        "valueEur": 54448.4950123477,
+        "holderName": "Пенка Стефанова Апостолова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "penka-stefanova-apostolova-a51014",
+    "declarantName": "Пенка Стефанова Апостолова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

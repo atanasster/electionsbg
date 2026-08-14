@@ -5,6 +5,74 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г4713",
+    "controlHash": "B2653594",
+    "sourceUrl": "https://register.cacbg.bg/2026/76FBFFB8-5C2D-4640-9CAA-B4805594DFC8228934.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25270.601228123098,
+        "amountEurSpouse": 18766.9684993072
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2404.094425384619,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 294851,
+        "valueEur": 150754.92246258623,
+        "holderName": "Стоян Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 294851,
+        "valueEur": 150754.92246258623,
+        "holderName": "Миглена Валериева Иванова",
+        "isSpouse": true,
+        "legalBasis": "кредит с лихвен процент 2,14%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyan-ivanov-ivanov-30ffa2",
+    "declarantName": "СТОЯН ИВАНОВ ИВАНОВ",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

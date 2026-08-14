@@ -5,6 +5,37 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1240",
+    "controlHash": "A1DB1B22",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD8A2E02-0D71-4586-9A22-EFD26CD9A2A8225024.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16673.228245808685,
+        "amountEurSpouse": 16687.54441848218
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 470.388530700521
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "boncho-penev-bogdanov-1c15f1",
+    "declarantName": "Бончо Пенев Богданов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

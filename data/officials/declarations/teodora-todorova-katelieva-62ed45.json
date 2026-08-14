@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "teodora-todorova-katelieva-62ed45",
+    "declarantName": "Теодора Тодорова Кателиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10903",
+    "controlHash": "0E175916",
+    "sourceUrl": "https://register.cacbg.bg/2026/990A7D56-9105-49C7-A59E-8E8ED2929388235714.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34274.451255988504,
+        "amountEurSpouse": 19581.456466052776
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 57.77598257517269,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1794.634502998727,
+        "amountEurSpouse": 7261.367296748695
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 128574,
+        "valueEur": 65738.84233292259,
+        "holderName": "Теодора Тодорова Кателиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 163326,
+        "valueEur": 83507.25778825358,
+        "holderName": "Константин Георгиев Кателиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Константин Георгиев Кателиев",
+        "isSpouse": true,
+        "legalBasis": "Договор за дългов продукт",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

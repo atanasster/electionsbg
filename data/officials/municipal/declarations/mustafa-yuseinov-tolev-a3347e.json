@@ -4,29 +4,47 @@
     "declarantName": "Мустафа Юсеинов Толев",
     "institution": "Троян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-23",
-    "entryNumber": "Г252",
-    "controlHash": "0390503D",
-    "sourceUrl": "https://register.cacbg.bg/2025/B9F51242-3479-4075-BE31-C4FBC5872D19202053.xml",
+    "filedAt": null,
+    "entryNumber": "Г3494",
+    "controlHash": "A7326B0C",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9F51242-3479-4075-BE31-C4FBC5872D19227629.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7039.466620309536,
+        "amountEurDeclarant": 8267.589718942852,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7323.744906254634,
+        "amountEurDeclarant": 7394.814477740908,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3500,
+        "valueEur": 3500,
+        "holderName": "Мустафа Юсеинов Толев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11456,
-        "valueEur": 5857.359790983879,
+        "amount": 1555,
+        "valueEur": 795.0588752601197,
         "holderName": "Мустафа Юсеинов Толев",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 23612,
-        "valueEur": 23541.412085917487,
+        "amount": 35032,
+        "valueEur": 35032.6971158025,
         "holderName": "Мустафа Юсеинов Толев",
         "isSpouse": false,
         "legalBasis": null,
@@ -74,27 +92,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 10062,
-        "valueEur": 9568.827556587228,
+        "amount": 10064,
+        "valueEur": 8691.961980335715,
         "holderName": "Мустафа Юсеинов Толев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "товарен автомобил",
-        "detail": "ЗИЛ 131",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

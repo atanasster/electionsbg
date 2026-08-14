@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-12-31",
+    "entryNumber": "Г1292",
+    "controlHash": "2282815F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F2D50989-9C6C-4662-8A3C-7C370B3FF996225108.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24577.800729102222,
+        "amountEurSpouse": 20897.52176825184
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": 2024.7158495370252
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "kera-georgieva-iordanova-tasheva-1e4b18",
+    "declarantName": "Кера Георгиева Йорданова-Ташева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

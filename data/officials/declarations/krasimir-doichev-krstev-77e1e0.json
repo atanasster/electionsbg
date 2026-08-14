@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13400",
+    "controlHash": "A62E7383",
+    "sourceUrl": "https://register.cacbg.bg/2026/A4A06627-6B2B-44F0-B3D0-A1B9542E3F02238908.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28945.767270161516,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "хасково",
+        "municipality": "Хасково",
+        "areaSqm": 104,
+        "builtAreaSqm": 104,
+        "acquiredYear": 2001,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Красимир Дойчев Кръстев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Злато Поле",
+        "municipality": "Димитровград",
+        "areaSqm": 1180,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2009,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Красимир Дойчев Кръстев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimir-doichev-krstev-77e1e0",
+    "declarantName": "Красимир Дойчев Кръстев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

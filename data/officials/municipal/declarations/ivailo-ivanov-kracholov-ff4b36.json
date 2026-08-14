@@ -1,23 +1,35 @@
 [
   {
     "slug": "ivailo-ivanov-kracholov-ff4b36",
-    "declarantName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+    "declarantName": "Ивайло Иванов Крачолов",
     "institution": "Чирпан",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13640",
-    "controlHash": "8B31DE57",
-    "sourceUrl": "https://register.cacbg.bg/2025/B7F77F86-F6C3-4C28-AEF5-42CF1F8FA797216874.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14135",
+    "controlHash": "8774707B",
+    "sourceUrl": "https://register.cacbg.bg/2026/B7F77F86-F6C3-4C28-AEF5-42CF1F8FA797239851.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22613.417321546352,
-        "amountEurSpouse": 33847.522535189666
+        "amountEurDeclarant": 22956.494173829014,
+        "amountEurSpouse": 11860.949059989876
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 17052.095529775084
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3994.2121759048587
       }
     ],
     "assets": [
@@ -34,8 +46,8 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
-        "isSpouse": false,
+        "holderName": "Ивайло Иванво Крачолов",
+        "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
@@ -52,8 +64,8 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
-        "isSpouse": false,
+        "holderName": "Ивайло Иванво Крачолов",
+        "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
@@ -70,7 +82,7 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
@@ -88,7 +100,7 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
@@ -97,7 +109,7 @@
         "category": "real_estate",
         "description": "гараж",
         "detail": null,
-        "location": "гр. Стара Загора",
+        "location": "гр.Стара Загора",
         "municipality": "Стара Загора",
         "areaSqm": 15,
         "builtAreaSqm": 15,
@@ -106,7 +118,7 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
@@ -124,7 +136,7 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -142,7 +154,25 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -150,7 +180,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "АЛФА РОМЕО 156",
+        "detail": "АЛФА РОМЕО",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -160,7 +190,7 @@
         "currency": "BGN",
         "amount": 4000,
         "valueEur": 2045.1675247848739,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -178,7 +208,7 @@
         "currency": "BGN",
         "amount": 1000,
         "valueEur": 511.29188119621847,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -196,7 +226,7 @@
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -214,7 +244,7 @@
         "currency": "BGN",
         "amount": 500,
         "valueEur": 255.64594059810923,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -232,7 +262,7 @@
         "currency": "BGN",
         "amount": 3000,
         "valueEur": 1533.8756435886555,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -250,7 +280,7 @@
         "currency": "BGN",
         "amount": 41000,
         "valueEur": 20962.96712904496,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова костова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -266,9 +296,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -284,9 +314,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
+        "amount": 24000,
         "valueEur": 20451.67524784874,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -304,7 +334,7 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -320,12 +350,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
+        "amount": 74000,
         "valueEur": 10225.83762392437,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -338,11 +368,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31200,
-        "valueEur": 15952.306693322016,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "amount": 25400,
+        "valueEur": 12986.81378238395,
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "кредит - 4,37%",
         "fundsOrigin": null
       },
       {
@@ -356,11 +386,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35100,
-        "valueEur": 17946.345029987267,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "amount": 134000,
+        "valueEur": 68513.11208029327,
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "кредит - 2,40%",
         "fundsOrigin": null
       },
       {
@@ -374,29 +404,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 87000,
-        "valueEur": 44482.39366407101,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
+        "amount": 78700,
+        "valueEur": 40238.671050142395,
+        "holderName": "Десислава Генова Костова",
         "isSpouse": true,
-        "legalBasis": "КРЕДИТ",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "ЛИЗИНГ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "ДЕСИСЛАВА ГЕНОВА КОСТОВА",
-        "isSpouse": true,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "кредит - 2,97%",
         "fundsOrigin": null
       },
       {
@@ -410,11 +422,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
-        "holderName": "ИВАЙЛО ИВАНОВ КРАЧОЛОВ",
+        "amount": 29700,
+        "valueEur": 15185.36887152769,
+        "holderName": "Ивайло Иванов Крачолов",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "кредит - 4,37%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Ивайло Иванов Крачолов",
+        "isSpouse": false,
+        "legalBasis": "кредит - 18,90%",
         "fundsOrigin": null
       }
     ],

@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "erol-emin-myumyun-e53670",
+    "declarantName": "Ерол Емин Мюмюн",
+    "institution": "ПП \"Движение за права и свободи\"",
+    "positionTitle": "Заместник-председател",
+    "category": "party_leader",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13993",
+    "controlHash": "32B4C71A",
+    "sourceUrl": "https://register.cacbg.bg/2026/AE2B273B-91DB-4139-82B6-E3858AB58718239662.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42908.637253749046,
+        "amountEurSpouse": 14180.169033095923
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 10200.273029864558,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 28121.053465792018,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 104,
+        "builtAreaSqm": 104,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 273425,
+        "valueEur": 139799.98261607604,
+        "holderName": "Ерол Емин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 33,
+        "builtAreaSqm": 33,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Ерол Емин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16260,
+        "valueEur": 8313.605988250512,
+        "holderName": "Ерол Емин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 540000,
+        "valueEur": 276097.615845958,
+        "holderName": "Ерол Емин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": "1.88",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Ерол  Емин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": "17.75",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

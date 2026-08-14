@@ -4,26 +4,57 @@
     "declarantName": "ВЛАДИМИР ИВАНОВ СТЕФАНОВ",
     "institution": "Петрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5648",
-    "controlHash": "898C20CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/2E021D58-CF5B-47A6-979E-930998E94AE4208589.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4969",
+    "controlHash": "DBAC33CC",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E021D58-CF5B-47A6-979E-930998E94AE4229200.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "СТРОЙВИС ИНЖЕНЕРИНГ ЕООД",
+        "registeredOffice": "ПЕТРИЧ",
+        "valueEur": 2556.4594059810925,
+        "holderName": "ВЕЛИЧКА ДИМИТРОВА СТЕФАНОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50",
+        "companyName": "ИМОТИ ПЕТРИЧ ООД",
+        "registeredOffice": "ПЕТРИЧ",
+        "valueEur": 25.564594059810926,
+        "holderName": "ВЕЛИЧКА ДИМИТРОВА СТЕФАНОВА",
+        "legalBasis": "делба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5874.74371494455,
-        "amountEurSpouse": 10646.630842148857
+        "amountEurDeclarant": 7072.70059258729,
+        "amountEurSpouse": 11989.794614051323
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13244.504890506843,
+        "amountEurDeclarant": 14139.265682600226,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 911.1221322916614,
+        "amountEurSpouse": 911.1221322916614
       }
     ],
     "assets": [],

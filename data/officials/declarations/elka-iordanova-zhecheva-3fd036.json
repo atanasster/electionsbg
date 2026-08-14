@@ -5,6 +5,99 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-06-01",
+    "entryNumber": "Г9586",
+    "controlHash": "F786BED8",
+    "sourceUrl": "https://register.cacbg.bg/2026/9CC96E31-03C4-4BE4-871F-AF383B16719F234219.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Контролен съвет",
+        "companyName": "Земеделска кооперация \"Янтар\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Контролен съвет",
+        "companyName": "Земеделска кооперация \"Янтар\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "elka-iordanova-zhecheva-3fd036",
+    "declarantName": "Елка Йорданова Жечева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2054",
+    "controlHash": "E6533B9A",
+    "sourceUrl": "https://register.cacbg.bg/2026/9CC96E31-03C4-4BE4-871F-AF383B16719F226037.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8873.981890041568,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13134.577136049656,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29680,
+        "valueEur": 15175.143033903765,
+        "holderName": "Елка Йорданова Жечева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elka-iordanova-zhecheva-3fd036",
+    "declarantName": "Елка Йорданова Жечева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

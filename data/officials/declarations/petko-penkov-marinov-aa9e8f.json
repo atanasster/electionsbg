@@ -5,6 +5,224 @@
     "institution": "СБР \"Света Елена 1\" ООД, Варна",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2367",
+    "controlHash": "D56B9DB3",
+    "sourceUrl": "https://register.cacbg.bg/2026/EB26377A-A921-4EE4-8B68-738B574F017E226414.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "5 дяла",
+        "companyName": "Мединвест ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 0,
+        "holderName": null,
+        "transfereeName": "Петко Пенков Маринов",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "8 дяла",
+        "companyName": "Мединвест ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 56742.66168327513,
+        "holderName": null,
+        "transfereeName": "Петко Пенков Маринов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "7 дяла",
+        "companyName": "Мединвест ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 50023.775072475626,
+        "holderName": null,
+        "transfereeName": "Нели Тодорова Маринова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "20 дяла",
+        "companyName": "МЦ Евромедикс ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 0,
+        "holderName": null,
+        "transfereeName": "Нели Тодорова Маринова",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "30 дяла",
+        "companyName": "МЦ Евромедикс ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 803.7508372404554,
+        "holderName": null,
+        "transfereeName": "Нели Тодорова Маринова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 298966.67910810246
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 273012.9919267012,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1718.4520127004903,
+        "amountEurSpouse": 1035.3660594223425
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6750.075415552476
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 51068.3443857595,
+        "amountEurSpouse": 44717.58792942127
+      },
+      {
+        "parent": null,
+        "category": "Ваучери за храна, чл. 24, ал.2, т. 1б от ЗДДФЛ",
+        "amountEurDeclarant": 1108.9920903145978,
+        "amountEurSpouse": 1108.9920903145978
+      },
+      {
+        "parent": null,
+        "category": "Обещететие, чл. 24, ал. 2, т. 14 от ЗДДФЛ",
+        "amountEurDeclarant": 336.43005782711174,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от лихви по влогове, чл. 13, ал. 1, т. 8 от ЗДДФЛ",
+        "amountEurDeclarant": 52.6630637632105,
+        "amountEurSpouse": 671.8375318918311
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента, чл. 13, ал. 1, т. 24 от ЗДДФЛ",
+        "amountEurDeclarant": 1060.9306534821533,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход по чл. 24, ал. 2, т. 15 от ЗДДФЛ",
+        "amountEurDeclarant": 127.82297029905462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1150,
+        "valueEur": 587.9856633756513,
+        "holderName": "Петко Пенков Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2200,
+        "valueEur": 1124.8421386316807,
+        "holderName": "Нели Тодорова Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 181252,
+        "valueEur": 92672.67605057699,
+        "holderName": "Петко Пенков Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 399086,
+        "valueEur": 204049.43169907405,
+        "holderName": "Нели Тодорова Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petko-penkov-marinov-aa9e8f",
+    "declarantName": "Петко Пенков Маринов",
+    "institution": "СБР \"Света Елена 1\" ООД, Варна",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

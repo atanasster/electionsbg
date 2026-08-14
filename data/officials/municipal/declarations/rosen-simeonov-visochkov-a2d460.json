@@ -4,32 +4,32 @@
     "declarantName": "Росен Симеонов Височков",
     "institution": "Плевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г2711",
-    "controlHash": "B6C6A0B8",
-    "sourceUrl": "https://register.cacbg.bg/2025/689ACA0B-57EF-4FC4-912B-26C981FCEFF0205401.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9125",
+    "controlHash": "D8A45BC4",
+    "sourceUrl": "https://register.cacbg.bg/2026/689ACA0B-57EF-4FC4-912B-26C981FCEFF0233697.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14171.988362996784,
-        "amountEurSpouse": 9122.46974430293
+        "amountEurDeclarant": 20190.40509655747,
+        "amountEurSpouse": 13160.141730109468
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16484.56154164728,
+        "amountEurDeclarant": 21678.775762719662,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32471,
-        "valueEur": 16602.15867432241,
+        "amount": 16961,
+        "valueEur": 8672.021596969062,
         "holderName": "Росен Симеонов Височков",
         "isSpouse": false,
-        "legalBasis": "4,85%",
+        "legalBasis": "4,4, банков заем",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,27 +56,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7820,
-        "valueEur": 3998.3025109544287,
+        "amount": 19346,
+        "valueEur": 9891.452733622044,
         "holderName": "Росен Симеонов Височков",
         "isSpouse": false,
-        "legalBasis": "4,85%",
+        "legalBasis": "4,85, банков заем",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "Пежо 206",
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
+        "amount": 9257,
+        "valueEur": 4733.028944233394,
+        "holderName": "Весела Георгиева Тилева",
+        "isSpouse": true,
+        "legalBasis": "4,7, банков заем",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

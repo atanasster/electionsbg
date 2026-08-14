@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8358",
+    "controlHash": "8ACC7F64",
+    "sourceUrl": "https://register.cacbg.bg/2026/041F2EBD-51D3-448B-8336-1CA37CCB7C99232860.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18870.76075119003,
+        "amountEurSpouse": 4580.152671755725
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 40.39205861450126
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гори",
+        "detail": null,
+        "location": "с. Стикъл",
+        "municipality": "Смолян",
+        "areaSqm": 4,
+        "builtAreaSqm": 4,
+        "acquiredYear": 2011,
+        "share": "1/8",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Василев Бочуков",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76052,
+        "valueEur": 38884.77014873481,
+        "holderName": "Маруся Атанасова Бочукова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "marusya-atanasova-bochukova-92f8fc",
+    "declarantName": "Маруся Атанасова Бочукова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

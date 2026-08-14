@@ -4,20 +4,20 @@
     "declarantName": "Симеон Димитров Костадинов",
     "institution": "Аврен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8743",
-    "controlHash": "9C61FC34",
-    "sourceUrl": "https://register.cacbg.bg/2025/46F9CD7B-30E7-47BA-BDFD-385B6BE8DC76211768.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9541",
+    "controlHash": "33114CAD",
+    "sourceUrl": "https://register.cacbg.bg/2026/46F9CD7B-30E7-47BA-BDFD-385B6BE8DC76234168.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100%",
-        "companyName": "КОСТАДИНОВА 1",
+        "companyName": "КОСТАДИНОВА1",
         "registeredOffice": "Варна",
         "valueEur": 153.38756435886555,
         "holderName": "Симеон Димитров Костадинов",
@@ -27,9 +27,21 @@
     ],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5624.210693158403,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 16999.94375789307,
         "amountEurSpouse": null
       }
     ],
@@ -45,14 +57,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 29000,
-        "valueEur": 14827.464554690336,
-        "holderName": "Симеон Димитров Костадинов",
+        "amount": 39000,
+        "valueEur": 19940.38336665252,
+        "holderName": "Симеон ДИмитров Костадинов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Звездица,м-т \"Орехчето\"",
+        "municipality": "Варна",
+        "areaSqm": 9970,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16999.94375789307,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

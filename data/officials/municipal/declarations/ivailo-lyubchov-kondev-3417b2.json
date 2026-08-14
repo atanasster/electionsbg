@@ -4,25 +4,25 @@
     "declarantName": "Ивайло Любчов Кондев",
     "institution": "Рила",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5820",
-    "controlHash": "081A914C",
-    "sourceUrl": "https://register.cacbg.bg/2025/D6B6C92B-737E-4FB8-854B-B63EB4B5EA59208764.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12650",
+    "controlHash": "D6D0A463",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6B6C92B-737E-4FB8-854B-B63EB4B5EA59237968.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1525.6949734895159,
-        "amountEurSpouse": 13935.260222002935
+        "amountEurDeclarant": 2198.5550891437397,
+        "amountEurSpouse": 987.3046225898979
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7996.605021908857,
+        "amountEurDeclarant": 9243.134628265238,
         "amountEurSpouse": null
       },
       {
@@ -34,6 +34,42 @@
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Смочево",
+        "municipality": "Рила",
+        "areaSqm": 580,
+        "builtAreaSqm": 261,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 17400,
+        "valueEur": 8896.478732814201,
+        "holderName": "Магдалена Бойчева Стефанова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Нисан Навара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1662,
+        "valueEur": 849.7671065481152,
+        "holderName": "Ивайло Любчов Кондев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "Потребителски кредит",
         "detail": "BGN",
@@ -44,27 +80,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 66237,
-        "valueEur": 33866.44033479392,
-        "holderName": "Ивайло Любчов Кондев",
+        "amount": 60381,
+        "valueEur": 30872.31507850887,
+        "holderName": null,
         "isSpouse": false,
-        "legalBasis": "4,8",
+        "legalBasis": "4.8",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек антомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

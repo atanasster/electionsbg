@@ -4,38 +4,25 @@
     "declarantName": "Драгомир Събев Йосифов",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12654",
-    "controlHash": "919128C2",
-    "sourceUrl": "https://register.cacbg.bg/2025/AE5D172B-48D5-4128-AC73-7ED783C072EB215826.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "33,3%",
-        "companyName": "цсд истейт оод",
-        "registeredOffice": "Велико Търново",
-        "valueEur": 51.12918811962185,
-        "holderName": "Любка Великова Великова",
-        "legalBasis": "дружествен договор",
-        "fundsOrigin": "заплата и дивидент"
-      }
-    ],
+    "filedAt": null,
+    "entryNumber": "Г7739",
+    "controlHash": "2CC31FCB",
+    "sourceUrl": "https://register.cacbg.bg/2026/AE5D172B-48D5-4128-AC73-7ED783C072EB232173.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15606.162089752177,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 16245.788233128646,
+        "amountEurSpouse": 100574.18078258335
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 305.24125307414243,
+        "amountEurDeclarant": 594.6324578312021,
         "amountEurSpouse": null
       },
       {
@@ -47,8 +34,8 @@
       {
         "parent": null,
         "category": "разпределен дивидент",
-        "amountEurDeclarant": 32292.683924471963,
-        "amountEurSpouse": 36975.09497246693
+        "amountEurDeclarant": 35978.5870960155,
+        "amountEurSpouse": 31296.68733990173
       }
     ],
     "assets": [
@@ -57,72 +44,36 @@
         "description": "поземлен имот",
         "detail": null,
         "location": "Велико Търново",
-        "municipality": "Велико Търново",
-        "areaSqm": 881,
+        "municipality": "Велико търново",
+        "areaSqm": 955,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 8700,
-        "valueEur": 4448.2393664071005,
-        "holderName": "Любка Великова Великова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и дивидент"
-      },
-      {
-        "category": "real_estate",
-        "description": "ателие",
-        "detail": null,
-        "location": "Велико Търново",
-        "municipality": "Велико Търново",
-        "areaSqm": 10,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 8500,
-        "valueEur": 4345.980990167857,
-        "holderName": "Драгомир Събев йосифов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и дивидент"
-      },
-      {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "Велико Търново",
-        "municipality": "Велико Търново",
-        "areaSqm": 29,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "100%",
         "currency": "BGN",
         "amount": 9500,
         "valueEur": 4857.272871364075,
-        "holderName": "Драгомир Събев йосифов",
-        "isSpouse": false,
+        "holderName": "Любка Великова Великова",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и дивидент"
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "шевролет",
+        "description": "Мотоциклет",
+        "detail": "Харлей Дейвидсън",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
-        "holderName": "Любка Великова Великова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати и дивидент"
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Драгомир Събев Йосифов",
+        "isSpouse": false,
+        "legalBasis": "Договор за продажба на МПС",
+        "fundsOrigin": "заплати, дивидент"
       },
       {
         "category": "cash",
@@ -135,12 +86,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75500,
-        "valueEur": 38602.537030314495,
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
         "holderName": "Драгомир Събев Йосифов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивидент,заплати"
+        "fundsOrigin": "заплати, дивидент"
       },
       {
         "category": "bank",
@@ -153,8 +104,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33723,
-        "valueEur": 17242.296109580075,
+        "amount": 90400,
+        "valueEur": 46220.786060138154,
         "holderName": "Любка Великова Великова",
         "isSpouse": true,
         "legalBasis": null,
@@ -162,7 +113,7 @@
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -171,16 +122,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 128853,
-        "valueEur": 65881.49276777635,
+        "amount": 122863,
+        "valueEur": 62818.85439941099,
         "holderName": "Любка Великова Великова",
         "isSpouse": true,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит-2,35%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -189,11 +140,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 83235,
-        "valueEur": 42557.37973136725,
+        "amount": 78923,
+        "valueEur": 40352.68913964915,
         "holderName": "Драгомир Събев Йосифов",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": "договор за кредит-2,50%",
         "fundsOrigin": null
       },
       {
@@ -207,14 +158,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12144,
-        "valueEur": 6209.128605246878,
-        "holderName": "Драгомир Събев Йосифов",
+        "amount": 7448,
+        "valueEur": 3808.101931149435,
+        "holderName": "Драгомир Събев йосифов",
         "isSpouse": false,
-        "legalBasis": "договор за лизинг",
+        "legalBasis": "договор за лизинг-2,49%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "Велико търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 549,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

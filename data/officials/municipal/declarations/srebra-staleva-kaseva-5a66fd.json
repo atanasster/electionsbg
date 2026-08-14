@@ -4,32 +4,50 @@
     "declarantName": "Сребра Сталева Касева",
     "institution": "Казанлък",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7322",
-    "controlHash": "68272EEE",
-    "sourceUrl": "https://register.cacbg.bg/2025/500A491E-4821-430F-9706-015704B25DEB210310.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7800",
+    "controlHash": "36C44B5F",
+    "sourceUrl": "https://register.cacbg.bg/2026/500A491E-4821-430F-9706-015704B25DEB232240.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 42664.75102641845,
-        "amountEurSpouse": 15036.58293409959
+        "amountEurDeclarant": 49045.673703747256,
+        "amountEurSpouse": 21901.699022921217
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 51.12918811962185,
-        "amountEurSpouse": null
+        "category": "трудова пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12009.734997417976
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "опел астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
+        "holderName": "Сребра Сталева Касева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "БАНКОВ КРЕДИТ",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 146000,
+        "valueEur": 74137.32277345168,
         "holderName": "Сребра Сталева Касева",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "2.5% за срок 168 месеца",
         "fundsOrigin": null
       }
     ],

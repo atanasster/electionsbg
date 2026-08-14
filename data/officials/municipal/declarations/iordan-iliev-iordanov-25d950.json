@@ -4,102 +4,61 @@
     "declarantName": "Йордан Илиев Йорданов",
     "institution": "Добричка",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-31",
-    "entryNumber": "Г1267",
-    "controlHash": "A8F59DF8",
-    "sourceUrl": "https://register.cacbg.bg/2025/536E672E-8F84-48C1-9146-C05E6F203BE4203686.xml",
+    "filedAt": null,
+    "entryNumber": "Г5767",
+    "controlHash": "32229971",
+    "sourceUrl": "https://register.cacbg.bg/2026/536E672E-8F84-48C1-9146-C05E6F203BE4230032.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7754.763962103046,
+        "amountEurDeclarant": 6813.475608820808,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6553.739333173128,
-        "amountEurSpouse": 4785.692007996605
+        "amountEurDeclarant": 6005.634436530782,
+        "amountEurSpouse": 7725.109032993665
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Варна",
-        "municipality": "Варна",
-        "areaSqm": 108,
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": "50",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 123100,
-        "valueEur": 62940.030575254495,
+        "amount": 82933,
+        "valueEur": 42402.96958324599,
         "holderName": "Елена Стефанова Йорданова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
+        "legalBasis": "2.35",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
       {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "Варна",
-        "municipality": "Варна",
-        "areaSqm": 20,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": "50",
-        "currency": "BGN",
-        "amount": 11700,
-        "valueEur": 5982.115009995757,
-        "holderName": "Елена Стефанова Йорданова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Паскалево",
-        "municipality": "Добричка",
-        "areaSqm": 1050,
-        "builtAreaSqm": 92,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 4306,
-        "valueEur": 2201.6228404309168,
-        "holderName": "Йордан Илиев Йорданов",
-        "isSpouse": false,
-        "legalBasis": "договор за гледане",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "vehicle",
+        "kind": "disposal_vehicle",
         "description": "Лек автомобил",
         "detail": "Форд",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2008,
-        "share": "100",
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Йордан Илиев Йорданов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

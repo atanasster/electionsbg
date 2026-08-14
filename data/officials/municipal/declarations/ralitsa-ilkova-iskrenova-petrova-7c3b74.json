@@ -4,13 +4,13 @@
     "declarantName": "Ралица Илкова Искренова-Петрова",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14744",
-    "controlHash": "1B66FC4A",
-    "sourceUrl": "https://register.cacbg.bg/2025/B9AE7A36-20FD-40CC-B78C-030F91938CA1218190.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9923",
+    "controlHash": "0D25B74A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B9AE7A36-20FD-40CC-B78C-030F91938CA1234599.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,8 +29,8 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10326.050832638828,
-        "amountEurSpouse": 18406.507723063867
+        "amountEurDeclarant": 8167.887802109591,
+        "amountEurSpouse": 24542.01029741849
       }
     ],
     "assets": [
@@ -53,6 +53,42 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бяла Слатина",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 441,
+        "builtAreaSqm": 71,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Ралица Илкова Искренова-Петрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Ралица Илкова Искренова-Петрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "потребителски кредит",
         "detail": "BGN",
@@ -63,11 +99,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28280,
-        "valueEur": 14459.33440022906,
+        "amount": 22200,
+        "valueEur": 11350.67976255605,
         "holderName": "Ралица Илкова Искренова-Петрова",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "потребителски кредит 5.9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Ралица Илкова Искренова-Петрова",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта 7%",
         "fundsOrigin": null
       }
     ],

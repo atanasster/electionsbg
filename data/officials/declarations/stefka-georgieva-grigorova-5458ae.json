@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8056",
+    "controlHash": "26C6C2C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/595E53C5-12BC-4151-B521-EFD30932A45D232532.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20202.67610170618,
+        "amountEurSpouse": 7630.520034972365
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28891,
+        "valueEur": 14771.733739639949,
+        "holderName": "Стефка Георгиева Григорова",
+        "isSpouse": false,
+        "legalBasis": "7,67%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8181,
+        "valueEur": 4182.878880066263,
+        "holderName": "Александър Георгиев Григоров",
+        "isSpouse": true,
+        "legalBasis": "5,4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefka-georgieva-grigorova-5458ae",
+    "declarantName": "Стефка Георгиева Григорова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

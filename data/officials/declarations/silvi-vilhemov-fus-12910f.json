@@ -5,6 +5,50 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13728",
+    "controlHash": "A23F080A",
+    "sourceUrl": "https://register.cacbg.bg/2026/715D6080-3553-4451-8567-0AACC3F37DDB239321.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21974.813761932273,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Силви Вилхемов Фус",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "silvi-vilhemov-fus-12910f",
+    "declarantName": "Силви Вилхемов Фус",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

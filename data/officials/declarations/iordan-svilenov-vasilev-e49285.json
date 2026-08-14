@@ -5,6 +5,56 @@
     "institution": "НИНКН",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г7790",
+    "controlHash": "001BF398",
+    "sourceUrl": "https://register.cacbg.bg/2026/654C2EE2-CB00-4164-B0BC-400A64DD5DF6232228.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9170.01988925418,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 28732.0472638215,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29151,
+        "valueEur": 29151.3066064024,
+        "holderName": "ЙОРДАН СВИЛЕНОВ ВАСИЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА,КРЕДИТ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-svilenov-vasilev-e49285",
+    "declarantName": "ЙОРДАН СВИЛЕНОВ ВАСИЛЕВ",
+    "institution": "НИНКН",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

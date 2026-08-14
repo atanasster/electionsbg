@@ -4,25 +4,31 @@
     "declarantName": "Стоян Петров Петров",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г14262",
-    "controlHash": "CD2D8342",
-    "sourceUrl": "https://register.cacbg.bg/2025/547B5BF8-A6BB-43D4-8C89-B9770AA70463217544.xml",
+    "filedAt": null,
+    "entryNumber": "Г12320",
+    "controlHash": "47DE8A23",
+    "sourceUrl": "https://register.cacbg.bg/2026/547B5BF8-A6BB-43D4-8C89-B9770AA70463237523.xml",
     "ownershipStakes": [],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7221.48653001539,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2976.741332324384,
+        "amountEurDeclarant": 2933.7928143039017,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 7799.246355767117,
+        "amountEurDeclarant": 1007.2450059565505,
         "amountEurSpouse": null
       }
     ],
@@ -30,7 +36,7 @@
       {
         "category": "vehicle",
         "description": "Мотоциклет",
-        "detail": "Ендуро КТМ ехс",
+        "detail": "Ендуро КТМ ехц",
         "location": null,
         "municipality": null,
         "areaSqm": null,

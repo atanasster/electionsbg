@@ -5,6 +5,37 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-06-01",
+    "entryNumber": "Г11735",
+    "controlHash": "1B96E9D8",
+    "sourceUrl": "https://register.cacbg.bg/2026/3948B839-C948-419C-96D8-AC52D8AAC959236704.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
+        "description": "потребителски кредит към ДСК БАНКА",
+        "detail": "СВЕТОСЛАВ ТОДОРОВ ИВАНОВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 19126.917983669337,
+        "legalBasis": "рефинансиране с потребителски кредит от Уникредит Булбанк - договор 7415141 от 29.05.2026"
+      }
+    ]
+  },
+  {
+    "slug": "svetoslav-todorov-ivanov-182f7b",
+    "declarantName": "СВЕТОСЛАВ ТОДОРОВ ИВАНОВ",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",
@@ -29,6 +60,86 @@
         "legalBasis": "рефенансиране с потребителски кредит от 14.04.2025 от ДСК; лихвен % 5.50"
       }
     ]
+  },
+  {
+    "slug": "svetoslav-todorov-ivanov-182f7b",
+    "declarantName": "Светослав Тодоров Иванов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2547",
+    "controlHash": "6A2567DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/3948B839-C948-419C-96D8-AC52D8AAC959226605.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22663.012634022383,
+        "amountEurSpouse": 22516.27186411907
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76774,
+        "valueEur": 39238.58413052259,
+        "holderName": "Светослав Тодоров Иванов",
+        "isSpouse": false,
+        "legalBasis": "договор от 14.04.2025 от ДСК; лихвен % 5.50",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "усвоени средства от кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3556,
+        "valueEur": 1818.153929533753,
+        "holderName": "Светослав Тодоров Иванов",
+        "isSpouse": false,
+        "legalBasis": "договор от 14.04.2025 от ДСК, 0.053% на ден от усвоената сума",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110994,
+        "valueEur": 56750.331061493074,
+        "holderName": "Радостина Стоянова Желева",
+        "isSpouse": true,
+        "legalBasis": "договор 959LRAM250240001 ot 20.01.2025 - ГЛП - 2,2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-todorov-ivanov-182f7b",

@@ -4,53 +4,78 @@
     "declarantName": "Димитър Игнатов Вретенарски",
     "institution": "Кочериново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г11398",
-    "controlHash": "C23FEDDF",
-    "sourceUrl": "https://register.cacbg.bg/2025/9F920E16-F5C4-4596-8539-724F460A7767214534.xml",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г8888",
+    "controlHash": "CFC2C0A4",
+    "sourceUrl": "https://register.cacbg.bg/2026/9F920E16-F5C4-4596-8539-724F460A7767233436.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5725.446485635254,
+        "amountEurDeclarant": 6107.8928127700265,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7924.001574778994,
+        "amountEurDeclarant": 7291.533517739272,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 220.36680079557016,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56613,
+        "valueEur": 28945.767270161516,
+        "holderName": "Димитър Игнатов Вретенарски",
+        "isSpouse": false,
+        "legalBasis": "Банков  кредит с лихва 4.62 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": [
       {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Благоевград, Изгрев, бл.62, вх.А, ап.16",
-        "municipality": "Благоевград",
-        "areaSqm": 61,
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 4 Авант",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "безвъзмездно"
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       },
       {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Благоевград, Изгрев, бл.62, вх.А, ап.16",
-        "municipality": "Благоевград",
-        "areaSqm": 61,
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 4 Авант",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "безвъзмездно"
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   }

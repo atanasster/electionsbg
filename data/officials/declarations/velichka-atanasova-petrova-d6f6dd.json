@@ -5,6 +5,69 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г6851",
+    "controlHash": "DE45E1E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/9F0912A7-34E8-4DB3-85FF-18EA709D453F231206.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35111.436065506714,
+        "amountEurSpouse": 6534.310241687673
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 343.58814416385883,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48700,
+        "valueEur": 24899.914614255842,
+        "holderName": "Величка Атанасова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови възнаграждения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Електронизация на училищната администрация, репутационно управление и изграждане на устойчив публичен образ на училището",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 365.0624031741,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "velichka-atanasova-petrova-d6f6dd",
+    "declarantName": "Величка Атанасова Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

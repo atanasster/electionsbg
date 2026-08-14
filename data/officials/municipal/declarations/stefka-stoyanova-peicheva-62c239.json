@@ -4,54 +4,90 @@
     "declarantName": "Стефка Стоянова Пейчева",
     "institution": "Провадия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13890",
-    "controlHash": "BF121519",
-    "sourceUrl": "https://register.cacbg.bg/2025/38C0A1DF-36F0-4D8C-B047-0AFC7F0F3B67217148.xml",
+    "filedAt": null,
+    "entryNumber": "Г10514",
+    "controlHash": "F6254E7C",
+    "sourceUrl": "https://register.cacbg.bg/2026/38C0A1DF-36F0-4D8C-B047-0AFC7F0F3B67235273.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5962.6859185103,
+        "amountEurDeclarant": 6331.838656733969,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1104.390463383832,
+        "amountEurDeclarant": 1734.3020610175731,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 3669.54183134526,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 204.5167524784874,
+        "amountEurDeclarant": 3757.4840349110095,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Форд Фокус",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Провадя",
+        "municipality": "Провадия",
+        "areaSqm": 101,
         "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стефка Стоянова Пейчева",
+        "isSpouse": false,
+        "legalBasis": "Давност",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
         "currency": "BGN",
-        "valueEur": 204.5167524784874,
-        "legalBasis": "продажба"
+        "amount": 101507,
+        "valueEur": 51899.70498458455,
+        "holderName": "Стефка Стоянова Пейчева",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "собствени"
+      },
+      {
+        "category": "real_estate",
+        "description": "Магазин",
+        "detail": null,
+        "location": "Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "acquiredYear": 2000,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стефка Стоянова Пейчева",
+        "isSpouse": false,
+        "legalBasis": "Давност",
+        "fundsOrigin": "няма"
       }
-    ]
+    ],
+    "events": []
   }
 ]

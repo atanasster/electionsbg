@@ -4,20 +4,26 @@
     "declarantName": "Мартина Петьова Темелкова",
     "institution": "Септември",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-06",
-    "entryNumber": "Г8465",
-    "controlHash": "F5316418",
-    "sourceUrl": "https://register.cacbg.bg/2025/DF9B7B1E-E2F6-4035-BFD4-887724BC07D9211486.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14591",
+    "controlHash": "54104FFC",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF9B7B1E-E2F6-4035-BFD4-887724BC07D9240518.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4378.1923786832185,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 1451.046358834868,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 6607.936272579927
       }
     ],
     "assets": [
@@ -25,10 +31,10 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Пазарджик",
+        "location": "гр. Пазарджик",
         "municipality": "Пазарджик",
-        "areaSqm": 81,
-        "builtAreaSqm": 81,
+        "areaSqm": 80.9,
+        "builtAreaSqm": 80.9,
         "acquiredYear": 2015,
         "share": null,
         "currency": "BGN",
@@ -76,19 +82,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -5,6 +5,56 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5304",
+    "controlHash": "9B52A131",
+    "sourceUrl": "https://register.cacbg.bg/2026/C796FD36-ACAD-436F-A4C8-074D7B4FE47D229555.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38974.246227944146,
+        "amountEurSpouse": 20236.93265774633
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 22426.795784909733,
+        "amountEurSpouse": 1130.9776412060353
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил джип",
+        "detail": "Хюндай Туксон",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68000,
+        "valueEur": 34767.84792134286,
+        "holderName": "Роберт Янакиев Янакиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "robert-yanakiev-yanakiev-efbf8a",
+    "declarantName": "Роберт Янакиев Янакиев",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

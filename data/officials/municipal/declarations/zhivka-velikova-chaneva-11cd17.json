@@ -4,13 +4,13 @@
     "declarantName": "ЖИВКА ВЕЛИКОВА ЧАНЕВА",
     "institution": "Вълчидол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14618",
-    "controlHash": "F9AA2AE6",
-    "sourceUrl": "https://register.cacbg.bg/2025/3E732661-1587-4D8E-B0DA-46DE6FA0E5C7217977.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3033",
+    "controlHash": "A6AD0E49",
+    "sourceUrl": "https://register.cacbg.bg/2026/3E732661-1587-4D8E-B0DA-46DE6FA0E5C7227129.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -53,17 +53,36 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 2413.8089711273474,
+        "amountEurDeclarant": 1898.4267548815592,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Доходи от дейности, подлежащи на облагане с патентен данък",
-        "amountEurDeclarant": 1963.360823793479,
+        "amountEurDeclarant": 1871.3282851781596,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "ВЪЛЧИ ДОЛ",
+        "municipality": "Вълчи дол",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "acquiredYear": 2006,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "ЖИВКА ВЕЛИКОВА ЧАНЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "events": []
   }
 ]

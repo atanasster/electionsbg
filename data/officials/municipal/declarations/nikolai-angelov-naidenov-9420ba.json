@@ -4,24 +4,24 @@
     "declarantName": "Николай Ангелов Найденов",
     "institution": "Грамада",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3981",
-    "controlHash": "27E4FECA",
-    "sourceUrl": "https://register.cacbg.bg/2025/EED1AB48-6CCC-4A02-96B7-E1B0C639C666206805.xml",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г1988",
+    "controlHash": "762CDB86",
+    "sourceUrl": "https://register.cacbg.bg/2026/EED1AB48-6CCC-4A02-96B7-E1B0C639C666225964.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100 %",
-        "companyName": "\"Палома-НС\"ЕООД0",
+        "companyName": "\"Палома-НС\"ЕООД",
         "registeredOffice": "Грамада",
         "valueEur": 5.112918811962185,
         "holderName": "Николай Ангелов Найденов",
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "други",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
@@ -29,19 +29,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3829.5761901596766,
-        "amountEurSpouse": 5291.870970380862
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 4812.279185818808,
+        "amountEurDeclarant": 3352.5408650036047,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доход като едноличен търговец - патентна дейност",
-        "amountEurDeclarant": 707.6279635755664,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6157.999417127256
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 2334.5587295419336,
         "amountEurSpouse": null
       }
     ],
@@ -119,22 +119,22 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Грамада",
-        "municipality": "Грамада",
-        "areaSqm": 571,
-        "builtAreaSqm": 62,
-        "acquiredYear": 2023,
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Форд Транзит",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "amount": 200,
+        "valueEur": 102.2583762392437,
         "holderName": "Николай Ангелов Найденов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -189,6 +189,42 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3780,
+        "valueEur": 1932.683310921706,
+        "holderName": "Николай Ангелов Найденов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9065,
+        "valueEur": 4634.860903043721,
+        "holderName": "Николай Ангелов Найденов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

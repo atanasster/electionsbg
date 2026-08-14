@@ -5,6 +5,74 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8485",
+    "controlHash": "9B831871",
+    "sourceUrl": "https://register.cacbg.bg/2026/8B19EC62-878C-49B7-83E1-BD5FB75A8AAE232993.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31280.32599970345,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 18099.732594346133,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 82000,
+        "valueEur": 81999.96932248713,
+        "holderName": "ГЕРГАНА НИКОЛОВА КАЛПАЧКА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, наеми, продажба имоти"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32586,
+        "valueEur": 16660.957240659976,
+        "holderName": "ГЕРГАНА НИКОЛОВА КАЛПАЧКА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-nikolova-kalpachka-345ab4",
+    "declarantName": "ГЕРГАНА НИКОЛОВА КАЛПАЧКА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

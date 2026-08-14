@@ -4,26 +4,20 @@
     "declarantName": "Музафер Ахмедов Ахмедов",
     "institution": "Борино",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7776",
-    "controlHash": "3C3860FC",
-    "sourceUrl": "https://register.cacbg.bg/2025/96A272F2-43AA-4113-9424-07E9548EF769210778.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7705",
+    "controlHash": "9DE10933",
+    "sourceUrl": "https://register.cacbg.bg/2026/96A272F2-43AA-4113-9424-07E9548EF769232135.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23650.31725661228,
-        "amountEurSpouse": 3590.2915897598464
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 613.5502574354622,
-        "amountEurSpouse": 811.931507339595
+        "amountEurDeclarant": 25449.04209466058,
+        "amountEurSpouse": 3901.157053527147
       }
     ],
     "assets": [
@@ -120,24 +114,6 @@
       {
         "category": "vehicle",
         "description": "лека кола",
-        "detail": "ВАЗ - 21213",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2006,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "Музафер Ахмедов Ахмедов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лека кола",
         "detail": "Мерцедес 270 ЦДИ",
         "location": null,
         "municipality": null,
@@ -154,8 +130,8 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
+        "category": "debt",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -164,16 +140,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15700,
-        "valueEur": 8027.28253478063,
+        "amount": 79200,
+        "valueEur": 40494.3169907405,
         "holderName": "Музафер Ахмедов Ахмедов",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "2,9",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "банков кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -182,11 +158,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 110320,
-        "valueEur": 56405.720333566824,
+        "amount": 23650,
+        "valueEur": 12092.052990290567,
         "holderName": "Музафер Ахмедов Ахмедов",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "4,75",
         "fundsOrigin": null
       }
     ],

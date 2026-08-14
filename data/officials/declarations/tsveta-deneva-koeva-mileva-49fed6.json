@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3275",
+    "controlHash": "5986FEDF",
+    "sourceUrl": "https://register.cacbg.bg/2026/DB43AC5F-4369-404C-803F-4E80ED271E11227398.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31826.385728821013,
+        "amountEurSpouse": 858.970360409647
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28151,
+        "valueEur": 14393.377747554747,
+        "holderName": "Цвета Денева Коева-Милева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20849,
+        "valueEur": 10659.924431059959,
+        "holderName": "Белчо Иванов Милев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsveta-deneva-koeva-mileva-49fed6",
+    "declarantName": "Цвета Денева Коева-Милева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

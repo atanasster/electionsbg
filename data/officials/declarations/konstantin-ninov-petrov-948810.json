@@ -1,6 +1,68 @@
 [
   {
     "slug": "konstantin-ninov-petrov-948810",
+    "declarantName": "Константин Нинов Петров",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3745",
+    "controlHash": "0CBA2841",
+    "sourceUrl": "https://register.cacbg.bg/2026/947E4AAC-02D7-4A30-957F-93EC66C554C5227901.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44354.05940189076,
+        "amountEurSpouse": 29931.538017107825
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51037,
+        "valueEur": 26094.8037406114,
+        "holderName": "Константин Нинов Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76136,
+        "valueEur": 38927.71866675529,
+        "holderName": "Соня Петрова Петрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "konstantin-ninov-petrov-948810",
     "declarantName": "КОНСТАНТИН НИНОВ ПЕТРОВ",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",

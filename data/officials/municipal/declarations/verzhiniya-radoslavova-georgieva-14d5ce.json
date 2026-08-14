@@ -4,107 +4,52 @@
     "declarantName": "Вержиния Радославова Георгиева",
     "institution": "Несебър",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-15",
-    "entryNumber": "Г15308",
-    "controlHash": "8B502297",
-    "sourceUrl": "https://register.cacbg.bg/2025/2E952544-CE0E-49E3-919B-8A5EE74368CB219169.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "100%",
-        "companyName": "АИППИМП САНИ МЕД ЕООД",
-        "registeredOffice": "Несебър",
-        "valueEur": 51.12918811962185,
-        "holderName": "Вержиния Радословова Георгиева",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "50%",
-        "companyName": "МЦ САНИ МЕД ООД",
-        "registeredOffice": "Несебър",
-        "valueEur": 25.564594059810926,
-        "holderName": "Вержиния Радословова Георгиева",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "2%",
-        "companyName": "ТОНУС АГППМП ООД",
-        "registeredOffice": "Варна",
-        "valueEur": 51.12918811962185,
-        "holderName": "Вержиния Радословова Георгиева",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11148",
+    "controlHash": "A55727B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E952544-CE0E-49E3-919B-8A5EE74368CB235992.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6865.627380702822,
+        "amountEurDeclarant": 8036.997080523359,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 34965.2065874846,
+        "amountEurDeclarant": 27611.295460239387,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 2300.8134653829834,
+        "amountEurDeclarant": 805.2847128840441,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "апартамент",
+        "description": "къща с двор",
         "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 75,
-        "builtAreaSqm": 75,
-        "acquiredYear": 2006,
+        "location": "Бяла Слатина",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 563,
+        "builtAreaSqm": 155,
+        "acquiredYear": 2025,
         "share": "1/2",
-        "currency": "BGN",
-        "amount": 32030,
-        "valueEur": 16376.678954714878,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
         "holderName": "Вержиния Радославова Георгиева",
         "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Несебър",
-        "municipality": "Несебър",
-        "areaSqm": 70,
-        "builtAreaSqm": 70,
-        "acquiredYear": 2017,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 67377,
-        "valueEur": 34449.31307935761,
-        "holderName": "Вержиния Радославова Георгиева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "cash",
@@ -117,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 541000,
-        "valueEur": 276608.9077271542,
+        "amount": 561000,
+        "valueEur": 286834.74535107857,
         "holderName": "Вержиния Радославова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти и заплати"
+        "fundsOrigin": "дивиденти и заплата"
       },
       {
         "category": "cash",
@@ -136,11 +81,29 @@
         "share": null,
         "currency": "EUR",
         "amount": 111741,
-        "valueEur": 111740.79546790877,
+        "valueEur": 57132.26609674665,
         "holderName": "Вержиния Радославова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти и заплати"
+        "fundsOrigin": "дивиденти и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65267,
+        "valueEur": 33370.48721003359,
+        "holderName": "Вержиния Радославова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот и заплата"
       },
       {
         "category": "debt",
@@ -153,14 +116,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21093,
-        "valueEur": 10784.679650071837,
+        "amount": 19502,
+        "valueEur": 9971.214267088653,
         "holderName": "Вержиния Радославова Георгиева",
         "isSpouse": false,
-        "legalBasis": "покупка на имот  3,827%",
+        "legalBasis": "ипотека  3,877%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бяла Слатина",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 563,
+        "builtAreaSqm": 155,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

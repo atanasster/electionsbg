@@ -4,67 +4,72 @@
     "declarantName": "НАИМ МУСТАФА НАИМ",
     "institution": "Кайнарджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9475",
-    "controlHash": "0A3235F0",
-    "sourceUrl": "https://register.cacbg.bg/2025/2EEF9BB1-8C33-42D7-9BC7-8E3E474DE061212516.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12518",
+    "controlHash": "168ED7C9",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EEF9BB1-8C33-42D7-9BC7-8E3E474DE061237821.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5572.570213157585,
-        "amountEurSpouse": 6357.9145426749765
+        "amountEurDeclarant": 5223.869150181764,
+        "amountEurSpouse": 6785.865847236212
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 2877.5507073723174,
-        "amountEurSpouse": 3555.012449957307
+        "amountEurDeclarant": 1502.1755469544898,
+        "amountEurSpouse": 3926.721647586958
       },
       {
         "parent": null,
-        "category": "ФИННСОВА ПОДКРЕПА ПО ЗХУ",
-        "amountEurDeclarant": 232.1265140630832,
-        "amountEurSpouse": 429.4851802048235
+        "category": "ФИНАНСОВА ПОДКРЕПА ПО ЗХУ",
+        "amountEurDeclarant": 723.9893037738453,
+        "amountEurSpouse": 460.16269307659667
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСВАГЕН ПАСАТ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Добруджанка",
+        "municipality": "Кайнарджа",
+        "areaSqm": 1503,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
+        "amount": 2971,
+        "valueEur": 1519.0481790339652,
         "holderName": "АЛИЯ РАМИЗ НАИМ",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСВАГЕН ПАСАТ",
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 306.7751287177311,
-        "legalBasis": "възмездно"
+        "amount": 17516,
+        "valueEur": 8955.788591032962,
+        "holderName": "АЛИЯ РАМИЗ НАИМ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР 6.86 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

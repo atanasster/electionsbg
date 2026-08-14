@@ -5,6 +5,86 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6162",
+    "controlHash": "6DAE3CCD",
+    "sourceUrl": "https://register.cacbg.bg/2026/23D84C2C-BEB6-4FB4-9AD9-7BF7392B9182230463.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36799.21056533543,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 823.1799287259117,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наследствен дял от починал родител",
+        "amountEurDeclarant": 7925.024158541387,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наследствена пенсия от починал съпруг",
+        "amountEurDeclarant": 6411.60019020058,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78122,
+        "valueEur": 39943.14434281098,
+        "holderName": "Венелина Христолюбова Бодурова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73500,
+        "valueEur": 37579.95326792206,
+        "holderName": "Венелина Христолюбова Бодурова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "venelina-hristolyubova-bodurova-cc9646",
+    "declarantName": "Венелина Христолюбова Бодурова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

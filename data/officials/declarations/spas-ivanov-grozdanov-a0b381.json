@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "spas-ivanov-grozdanov-a0b381",
+    "declarantName": "Спас Иванов Грозданов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4781",
+    "controlHash": "799E24AD",
+    "sourceUrl": "https://register.cacbg.bg/2026/EBEA0CB3-FFBF-431A-B5F5-29C461F59FD7229006.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4128.681940659464,
+        "amountEurSpouse": 13496.060496055383
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "етаж от къща",
+        "detail": null,
+        "location": "с.Бистрица",
+        "municipality": "Дупница",
+        "areaSqm": 80,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2018,
+        "share": "15",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Спас Иванов Грозданов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес C 220 CDI",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7823,
+        "valueEur": 3999.8363865980173,
+        "holderName": "Спас Иванов Грозданов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2543,
+        "valueEur": 1300.2152538819837,
+        "holderName": "Спас Иванов Грозданов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

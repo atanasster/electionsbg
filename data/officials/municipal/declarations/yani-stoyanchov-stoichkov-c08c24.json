@@ -4,26 +4,26 @@
     "declarantName": "Яни Стоянчов Стоичков",
     "institution": "Копривщица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г13425",
-    "controlHash": "EBD8807A",
-    "sourceUrl": "https://register.cacbg.bg/2025/31F1FFBE-738C-4109-BEC3-488F6F337173216637.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13127",
+    "controlHash": "4C90A832",
+    "sourceUrl": "https://register.cacbg.bg/2026/31F1FFBE-738C-4109-BEC3-488F6F337173238540.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7120.762029419735,
+        "amountEurDeclarant": 7386.633807641769,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5030.600819089594
+        "amountEurSpouse": 6005.123144649586
       }
     ],
     "assets": [
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "гр. Стрелча",
+        "location": "гр, Стрелча",
         "municipality": "Стрелча",
         "areaSqm": 638,
         "builtAreaSqm": 80,
@@ -52,7 +52,7 @@
         "location": "гр. Копривщица",
         "municipality": "Копривщица",
         "areaSqm": 473,
-        "builtAreaSqm": 60,
+        "builtAreaSqm": 80,
         "acquiredYear": 2023,
         "share": "1/2",
         "currency": "BGN",
@@ -102,16 +102,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 33707,
-        "valueEur": 17234.11543948094,
+        "currency": "EUR",
+        "amount": 11853,
+        "valueEur": 11853.279681771934,
         "holderName": "Стиляна Стоянова Стоичкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -119,48 +119,23 @@
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит",
-        "detail": "BGN",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 63707,
-        "valueEur": 32572.87187536749,
+        "currency": "EUR",
+        "amount": 29277,
+        "valueEur": 29277.084409176667,
         "holderName": "Стиляна Стоянова Стоичкова",
         "isSpouse": true,
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "мотоциклет",
-        "detail": "Хонда",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2454.2010297418487,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

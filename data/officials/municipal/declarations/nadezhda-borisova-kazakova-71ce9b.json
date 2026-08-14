@@ -1,29 +1,65 @@
 [
   {
     "slug": "nadezhda-borisova-kazakova-71ce9b",
-    "declarantName": "Надежда Борисова Казаковао",
+    "declarantName": "Надежда Борисова Казакова",
     "institution": "Брацигово",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4347",
-    "controlHash": "59315F37",
-    "sourceUrl": "https://register.cacbg.bg/2025/D1F8C30D-D7C9-45A6-96A9-0222831F59C2207194.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г8650",
+    "controlHash": "C7F86E0D",
+    "sourceUrl": "https://register.cacbg.bg/2026/D1F8C30D-D7C9-45A6-96A9-0222831F59C2233176.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20984.952679936396,
+        "amountEurDeclarant": 27522.330672911245,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Равногор",
+        "municipality": "Брацигово",
+        "areaSqm": 230,
+        "builtAreaSqm": 156,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Надежда Борисова Казакова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Равногор",
+        "municipality": "Брацигово",
+        "areaSqm": 230,
+        "builtAreaSqm": 156,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Атанасов Казаков",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
         "category": "debt",
-        "description": "кредит- 5,85%",
+        "description": "кредит -5,85%",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,26 +68,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21790,
-        "valueEur": 11141.0500912656,
+        "amount": 16308,
+        "valueEur": 8338.147998547931,
         "holderName": "Надежда Борисова Казакова",
-        "isSpouse": true,
-        "legalBasis": "Договор за заем №046LD-R-002255/30.08.2018",
+        "isSpouse": false,
+        "legalBasis": "договор за банков кредит №046-LD-R-002255",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "форд ескорт-бракувано",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пещера",
+        "municipality": "Пещера",
+        "areaSqm": 102,
+        "builtAreaSqm": 127,
         "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -4,29 +4,84 @@
     "declarantName": "ИБРАХИМ СЮЛЕЙМАНОВ ДЖУРКИН",
     "institution": "Гърмен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-26",
-    "entryNumber": "Г1476",
-    "controlHash": "04FD9EB7",
-    "sourceUrl": "https://register.cacbg.bg/2025/D8DC2866-0D7E-4BDA-83CB-5EAFD66F72B9203958.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4555",
+    "controlHash": "D7022BFD",
+    "sourceUrl": "https://register.cacbg.bg/2026/D8DC2866-0D7E-4BDA-83CB-5EAFD66F72B9228755.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17246.89773651084,
-        "amountEurSpouse": 8449.09833676751
+        "amountEurDeclarant": 20533.99324072133,
+        "amountEurSpouse": 10865.975059182036
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6954.592168030964,
+        "amountEurDeclarant": 6936.1856603079,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "ОГНЯНОВО",
+        "municipality": "ГЪРМЕН",
+        "areaSqm": 205,
+        "builtAreaSqm": 205,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "ИБРАХИМ СЮЛЕЙМАНОВ ДЖУРКИН",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "ОГНЯНОВО",
+        "municipality": "ГЪРМЕН",
+        "areaSqm": 386,
+        "builtAreaSqm": 386,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 772,
+        "valueEur": 394.7173322834807,
+        "holderName": "ИБРАХИМ СЮЛЕЙМАНОВ ДЖУРКИН",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "ИБРАХИМ СЮЛЕЙМАНОВ ДЖУРКИН",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

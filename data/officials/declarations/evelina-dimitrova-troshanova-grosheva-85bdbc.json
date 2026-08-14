@@ -1,6 +1,56 @@
 [
   {
     "slug": "evelina-dimitrova-troshanova-grosheva-85bdbc",
+    "declarantName": "Евелина Димитрова Трошанова - Грошева",
+    "institution": "СБАЛПФЗ -Бургас ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7082",
+    "controlHash": "ABFE4EEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/9E7D65C5-94D3-48EA-96C6-A6825770F3B4231472.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 52359.35638577995,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 42747.06901929104,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Евелина Димитрова Трошанова-Грошкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "evelina-dimitrova-troshanova-grosheva-85bdbc",
     "declarantName": "Евелина Димитрова Трошанова-Грошева",
     "institution": "СБАЛПФЗ -Бургас ЕООД",
     "positionTitle": "Управител",

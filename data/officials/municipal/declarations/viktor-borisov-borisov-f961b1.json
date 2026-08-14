@@ -4,52 +4,52 @@
     "declarantName": "ВИКТОР БОРИСОВ БОРИСОВ",
     "institution": "Несебър",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7582",
-    "controlHash": "BA570F53",
-    "sourceUrl": "https://register.cacbg.bg/2025/A2BC7084-5028-48E4-95BF-2718341D27D0210579.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12114",
+    "controlHash": "A94CA474",
+    "sourceUrl": "https://register.cacbg.bg/2026/A2BC7084-5028-48E4-95BF-2718341D27D0237229.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 27702.305415092313,
-        "amountEurSpouse": 6636.568617926916
+        "amountEurDeclarant": 39026.397999826164,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 24286.364356820377
+        "amountEurSpouse": 1533.8756435886555
       },
       {
         "parent": null,
         "category": "Пенсия НОИ",
-        "amountEurDeclarant": 6984.758389021541,
+        "amountEurDeclarant": 8236.91220607108,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 69,
+        "builtAreaSqm": 69,
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "amount": 63500,
-        "valueEur": 32467.034455959874,
-        "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
-        "isSpouse": false,
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "ДИАНА МАЛИНОВА БОРИСОВА",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заем, спестявания"
+        "fundsOrigin": "Годишна данъчна основа от друга стопанска дейност"
       },
       {
         "category": "cash",
@@ -62,34 +62,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
-        "holderName": "Виктор Борисов Борисов",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 58763,
-        "valueEur": 30045.04481473339,
-        "holderName": "ДИАНА МАЛИНОВА БОРИСОВА",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
         "category": "debt",
-        "description": "Потребителски заем",
+        "description": "потребителски заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -98,27 +80,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 24185,
+        "valueEur": 12365.594146730544,
         "holderName": "ВИКТОР БОРИСОВ БОРИСОВ",
         "isSpouse": false,
-        "legalBasis": "Потребителски заем",
+        "legalBasis": "потребителски заем",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

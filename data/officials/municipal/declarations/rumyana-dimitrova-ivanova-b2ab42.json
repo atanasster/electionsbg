@@ -4,36 +4,54 @@
     "declarantName": "Румяна Димитрова Иванова",
     "institution": "Добричка",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12098",
-    "controlHash": "B08D882E",
-    "sourceUrl": "https://register.cacbg.bg/2025/26E2BCF3-6D7C-4D98-A4D3-40D46651C174215255.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9270",
+    "controlHash": "508D031B",
+    "sourceUrl": "https://register.cacbg.bg/2026/26E2BCF3-6D7C-4D98-A4D3-40D46651C174233874.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29976.020410771896,
-        "amountEurSpouse": 16139.439521839833
+        "amountEurDeclarant": 37932.74466594745,
+        "amountEurSpouse": 21720.190405096557
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 451.9820229774571
-      },
-      {
-        "parent": null,
-        "category": "Рента от земеделска земя",
+        "category": "рента земеделска земя",
         "amountEurDeclarant": null,
         "amountEurSpouse": 1738.392396067143
+      },
+      {
+        "parent": null,
+        "category": "Димитър Галинов Първанов - трудов доход",
+        "amountEurDeclarant": 3922.120020656192,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Audi",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1600,
+        "valueEur": 818.0670099139496,
+        "holderName": "Румяна Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "кредит",
         "detail": "BGN",
@@ -44,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 72404,
-        "valueEur": 37019.577366131,
+        "amount": 71786,
+        "valueEur": 37222.048951084704,
         "holderName": "Румяна Димитрова Иванова",
         "isSpouse": false,
-        "legalBasis": "ипотечен кредит- съдлъжник",
+        "legalBasis": "ипотечен кредит-съдлъжник; 2,5%",
         "fundsOrigin": null
       },
       {
@@ -62,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 72404,
-        "valueEur": 37019.577366131,
+        "amount": 71786,
+        "valueEur": 37222.048951084704,
         "holderName": "Галин Първанов Иванов",
         "isSpouse": true,
-        "legalBasis": "ипотечен кредит- съдлъжник",
+        "legalBasis": "ипотечен кредит-съдлъжник; 2,5%",
         "fundsOrigin": null
       },
       {
@@ -80,11 +98,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9240,
-        "valueEur": 4724.3369822530585,
+        "amount": 7207,
+        "valueEur": 3684.8805877811465,
         "holderName": "Румяна Димитрова Иванова",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "потребителски кредит; 4%",
         "fundsOrigin": null
       },
       {
@@ -98,29 +116,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9500,
-        "valueEur": 4857.272871364075,
+        "amount": 7880,
+        "valueEur": 4028.980023826202,
         "holderName": "Галин Първанов Иванов",
         "isSpouse": true,
-        "legalBasis": "потребителски кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 264,
-        "valueEur": 134.98105663580168,
-        "holderName": "Румяна Димитрова Иванова",
-        "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "потребителски кредит; 7,72%",
         "fundsOrigin": null
       },
       {
@@ -139,6 +139,24 @@
         "holderName": "Румяна Димитрова Иванова",
         "isSpouse": false,
         "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Румяна Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
     ],

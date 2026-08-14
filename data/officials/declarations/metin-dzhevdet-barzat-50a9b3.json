@@ -5,6 +5,93 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г14389",
+    "controlHash": "9B96C83B",
+    "sourceUrl": "https://register.cacbg.bg/2026/FA517428-BA6F-46B8-8AC1-2C339E19D983240155.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10214.589202538053
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 11012.204537204154,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на лек автомобил",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 62000,
+        "valueEur": 31700.096634165548,
+        "holderName": "Метин Джевдет Барзат",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 86424,
+        "valueEur": 44187.88954050199,
+        "holderName": "Метин Джевдет Барзат",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "metin-dzhevdet-barzat-50a9b3",
+    "declarantName": "Метин Джевдет Барзат",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

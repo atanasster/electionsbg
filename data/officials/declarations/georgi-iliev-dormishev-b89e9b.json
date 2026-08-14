@@ -5,6 +5,50 @@
     "institution": "СБАЛОЗ\"Кристал\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6282",
+    "controlHash": "50EF79FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/EF8CF039-27A2-40EB-B401-3AC6EF5465F6230587.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в еднолично дружество с ограничена отговорност",
+        "shareSize": "100%",
+        "companyName": "\"Кристал Мениджмънт\" ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 51.12918811962185,
+        "holderName": "Георги Илиев Дормишев",
+        "legalBasis": "наследство и дарение",
+        "fundsOrigin": "дяловете са получени по наследство и дарение"
+      }
+    ],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 55697.069786228865,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 829.3154313002664,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "georgi-iliev-dormishev-b89e9b",
+    "declarantName": "Георги Илиев Дормишев",
+    "institution": "СБАЛОЗ\"Кристал\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

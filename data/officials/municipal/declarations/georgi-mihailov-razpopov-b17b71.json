@@ -4,42 +4,47 @@
     "declarantName": "Георги Михайлов Разпопов",
     "institution": "Марица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6514",
-    "controlHash": "7651544C",
-    "sourceUrl": "https://register.cacbg.bg/2025/4C30FB8C-D54F-4D1F-8B9A-BBB4A6599E48209474.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "100",
-        "companyName": "РАЗПОПОВ КОМЕРС ЕООД",
-        "registeredOffice": "с. Царацово",
-        "valueEur": 51.12918811962185,
-        "holderName": "ГЕорги Михайлов Разпопов",
-        "legalBasis": "други",
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      }
-    ],
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9515",
+    "controlHash": "09647D4D",
+    "sourceUrl": "https://register.cacbg.bg/2026/4C30FB8C-D54F-4D1F-8B9A-BBB4A6599E48234142.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10424.7301657097,
-        "amountEurSpouse": 5088.376801664766
+        "amountEurDeclarant": 11269.384353445852,
+        "amountEurSpouse": 6640.658952976486
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 57696.22104170608,
+        "amountEurDeclarant": 49442.436203555524,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай СантаФе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 53833,
+        "valueEur": 27524.37584043603,
+        "holderName": "Георги Михайлов Разпопов",
+        "isSpouse": false,
+        "legalBasis": "ОТП лизинг",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -51,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
         "holderName": "Георги Михайлов Разпопов",
         "isSpouse": false,
         "legalBasis": null,

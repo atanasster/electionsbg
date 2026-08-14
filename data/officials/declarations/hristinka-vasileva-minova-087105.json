@@ -5,6 +5,110 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5659",
+    "controlHash": "702CF138",
+    "sourceUrl": "https://register.cacbg.bg/2026/2FCC6328-474B-4754-BE17-52125A58047E229923.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23942.264920775324,
+        "amountEurSpouse": 301.1509180245727
+      },
+      {
+        "parent": null,
+        "category": "пенсия поради инвалидност за общо заболяване",
+        "amountEurDeclarant": 5355.782455530389,
+        "amountEurSpouse": 4273.377543037994
+      },
+      {
+        "parent": null,
+        "category": "месечна финасова подкрепа",
+        "amountEurDeclarant": 586.9630796132589,
+        "amountEurSpouse": 978.6126606095622
+      },
+      {
+        "parent": null,
+        "category": "обезщетение при безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3171.5435390601433
+      },
+      {
+        "parent": null,
+        "category": "месечна помощ за дете с увреждане",
+        "amountEurDeclarant": 2760.97615845958,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Липница",
+        "municipality": "Ботевград",
+        "areaSqm": 612,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "Христинка Василева Минова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60489,
+        "valueEur": 30927.53460167806,
+        "holderName": "Христинка Василева Минова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21382,
+        "valueEur": 10932.443003737544,
+        "holderName": "Атанас Иванов Минов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristinka-vasileva-minova-087105",
+    "declarantName": "Христинка Василева Минова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

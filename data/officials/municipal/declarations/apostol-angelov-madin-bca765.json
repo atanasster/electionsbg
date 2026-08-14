@@ -4,29 +4,53 @@
     "declarantName": "Апостол  Ангелов Мадин",
     "institution": "Пещера",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г14915",
-    "controlHash": "089CC79E",
-    "sourceUrl": "https://register.cacbg.bg/2025/39E5454C-CC91-49E0-B89F-0E399200BD34218428.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2816",
+    "controlHash": "7169EE06",
+    "sourceUrl": "https://register.cacbg.bg/2026/39E5454C-CC91-49E0-B89F-0E399200BD34226903.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6922.380779515602,
-        "amountEurSpouse": 17743.36215315237
+        "amountEurDeclarant": 7480.200221900676,
+        "amountEurSpouse": 16358.272446991814
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 112324.17950435365,
+        "amountEurDeclarant": 79166.38971689768,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 485.72728713640754,
+        "amountEurSpouse": 485.72728713640754
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "SMART FORFOUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Апостол Ангелов Мадин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 80000,
-        "valueEur": 40903.35049569748,
+        "amount": 85000,
+        "valueEur": 43459.80990167857,
         "holderName": "Апостол Ангелов Мадин",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
         "holderName": "Апостол Ангелов Мадин",
         "isSpouse": false,
         "legalBasis": null,
@@ -74,14 +98,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19752,
-        "valueEur": 10099.037237387707,
+        "amount": 16629,
+        "valueEur": 8502.272692411918,
         "holderName": "Апостол Ангелов Мадин",
         "isSpouse": false,
-        "legalBasis": "4,48",
+        "legalBasis": "4,46",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ е61",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 485.72728713640754,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ е61",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 485.72728713640754,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

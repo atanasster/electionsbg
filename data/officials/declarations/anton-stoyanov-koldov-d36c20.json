@@ -1,6 +1,69 @@
 [
   {
     "slug": "anton-stoyanov-koldov-d36c20",
+    "declarantName": "Антон Стоянов Колдов",
+    "institution": "Северозападно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-22",
+    "entryNumber": "Г507",
+    "controlHash": "B23AF17B",
+    "sourceUrl": "https://register.cacbg.bg/2026/A9262BAB-5F8C-412F-8301-1E0EDC81BCBB223872.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39134.28058675856,
+        "amountEurSpouse": 15924.185639856225
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3709.9338899597615
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42002,
+        "valueEur": 21475.28159400357,
+        "holderName": "Антон Стоянов Колдов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 628.8890138713488,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "anton-stoyanov-koldov-d36c20",
     "declarantName": "АНТОН СТОЯНОВ КОЛДОВ",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",

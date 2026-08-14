@@ -4,26 +4,32 @@
     "declarantName": "Димитър Живков Петков",
     "institution": "Чипровци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14216",
-    "controlHash": "E1C98A8D",
-    "sourceUrl": "https://register.cacbg.bg/2025/D7DC0B6C-731F-410C-AA6D-F66C02203C15217492.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9934",
+    "controlHash": "AFD2071A",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7DC0B6C-731F-410C-AA6D-F66C02203C15234610.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9226.77328806696,
-        "amountEurSpouse": 2906.183052719306
+        "amountEurDeclarant": 9221.660369254996,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3136.264399257604,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "заем",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,11 +38,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 18478,
+        "valueEur": 9447.651380743726,
         "holderName": "Димитър Живков Петков",
         "isSpouse": false,
-        "legalBasis": "договор за заем с 6.46",
+        "legalBasis": "Договор за банков кредит6.52",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1100,
+        "valueEur": 562.4210693158403,
+        "holderName": "Полина Дамянова Петкова",
+        "isSpouse": true,
+        "legalBasis": "договор за овърдрафт 0.00",
         "fundsOrigin": null
       }
     ],

@@ -5,6 +5,141 @@
     "institution": "Българските граждани заемащи длъжности в НАТО",
     "positionTitle": "Представител",
     "category": "international",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3936",
+    "controlHash": "B9428F15",
+    "sourceUrl": "https://register.cacbg.bg/2026/174784D9-8798-4F97-941C-04E68DC615F7228112.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37501.725610099034,
+        "amountEurSpouse": 2045.1675247848739
+      },
+      {
+        "parent": null,
+        "category": "Командировачни средства",
+        "amountEurDeclarant": 35790.431683735296,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Научно-изследователска дейност",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обещетения за майчинство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4090.3350495697478
+      },
+      {
+        "parent": null,
+        "category": "Продажба на недвижимо имущество - апартамент",
+        "amountEurDeclarant": 179974.7421810689,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Калин Красимиров Копанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 180000,
+        "valueEur": 179974.7421810689,
+        "holderName": "Калин Красимиров Копанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4000,
+        "valueEur": 3988.076673330504,
+        "holderName": "Калин Красимиров Копанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18000,
+        "valueEur": 17997.47421810689,
+        "holderName": "Росица Георгиева Копанова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участия в конференции",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "kalin-krasimirov-kopanov-6a9c27",
+    "declarantName": "Калин Красимиров Копанов",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

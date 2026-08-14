@@ -4,29 +4,48 @@
     "declarantName": "Ивайло Величков Цветанов",
     "institution": "Вършец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13584",
-    "controlHash": "127AC28C",
-    "sourceUrl": "https://register.cacbg.bg/2025/5AEE0F76-D159-4480-861F-57A5F7EBC229216811.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10494",
+    "controlHash": "2DB63B88",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AEE0F76-D159-4480-861F-57A5F7EBC229235252.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2238.4358558770446,
+        "amountEurDeclarant": 2940.4396087594523,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4572.483293537782,
-        "amountEurSpouse": 10479.438396997693
+        "amountEurDeclarant": 5495.365139096956,
+        "amountEurSpouse": 11412.546080180793
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ивайло Величков Цветанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "events": []
   }
 ]

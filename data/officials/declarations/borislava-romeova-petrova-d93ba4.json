@@ -5,6 +5,69 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г13982",
+    "controlHash": "1B502C27",
+    "sourceUrl": "https://register.cacbg.bg/2026/3348C456-A018-4F2E-A909-914D770FBC8C239650.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13203.601540011146,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16653.799154323227,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 151951,
+        "valueEur": 77691.3126396466,
+        "holderName": "Борислава Ромеова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Лом",
+        "municipality": "Лом",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 64422.77703072353,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "borislava-romeova-petrova-d93ba4",
+    "declarantName": "БОРИСЛАВА РОМЕОВА ПЕТРОВА",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

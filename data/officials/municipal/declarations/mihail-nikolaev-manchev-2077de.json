@@ -4,35 +4,72 @@
     "declarantName": "Михаил Николаев Манчев",
     "institution": "Трън",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4655",
-    "controlHash": "16C7F181",
-    "sourceUrl": "https://register.cacbg.bg/2025/06FF76BC-4B93-4517-B6C5-BF0FCBF6C471207526.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13231",
+    "controlHash": "9F66DA55",
+    "sourceUrl": "https://register.cacbg.bg/2026/06FF76BC-4B93-4517-B6C5-BF0FCBF6C471238731.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3221.1388515361764,
-        "amountEurSpouse": 17307.741470373192
+        "amountEurDeclarant": 3553.4785743137186,
+        "amountEurSpouse": 21160.837087067895
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6481.647177924462,
+        "amountEurDeclarant": 6649.862206838017,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6487.782680498816,
+        "amountEurDeclarant": 9483.953104308657,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10738,
+        "valueEur": 10738.15208888298,
+        "holderName": "Михаил Николаев Манчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗП кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17666,
+        "valueEur": 17666.15707909174,
+        "holderName": "Михаил Николаев Манчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

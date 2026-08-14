@@ -1,6 +1,63 @@
 [
   {
     "slug": "adnan-durmush-durmush-9c9504",
+    "declarantName": "Аднан Дурмуш Дурмуш",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-06-19",
+    "entryNumber": "Г13593",
+    "controlHash": "9498C9C7",
+    "sourceUrl": "https://register.cacbg.bg/2026/0EF9C113-ED53-4C87-AF9F-7348370F377C239137.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19753.250538134704,
+        "amountEurSpouse": 11344.544259981696
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Аднан Дурмуш Дурмуш",
+        "isSpouse": false,
+        "legalBasis": "2.5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ул. Язовирска 7",
+        "municipality": "Кърджали",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "adnan-durmush-durmush-9c9504",
     "declarantName": "Аднан Дурмуп Дурмуш",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

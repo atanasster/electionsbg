@@ -5,6 +5,74 @@
     "institution": "РУО",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1596",
+    "controlHash": "07278A07",
+    "sourceUrl": "https://register.cacbg.bg/2026/2CA1FD83-1C6D-476C-8531-9B8E05FDB4EB225513.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27691.568285587193,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4417.561853535328,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43753,
+        "valueEur": 22370.553677978147,
+        "holderName": "Елка Иванова Станчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 91038,
+        "valueEur": 46546.99028034134,
+        "holderName": "Елка Иванова Станчева",
+        "isSpouse": false,
+        "legalBasis": "договор - 4,19%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elka-ivanova-stancheva-7a2a2d",
+    "declarantName": "Елка Иванова Станчева",
+    "institution": "РУО",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

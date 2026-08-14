@@ -1,6 +1,98 @@
 [
   {
     "slug": "elena-borisova-mihailova-412531",
+    "declarantName": "ЕЛЕНА БОРИСОВА МИХАЙЛОВА",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2300",
+    "controlHash": "6B9F663B",
+    "sourceUrl": "https://register.cacbg.bg/2026/910021F3-6D2B-4C85-A861-E897D0AF9242226331.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 65822.18290955758,
+        "amountEurSpouse": 43951.672691389336
+      },
+      {
+        "parent": null,
+        "category": "Други",
+        "amountEurDeclarant": 4570.949417894193,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от трудови правоотношения \"Труд Инвест\" ЕООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 36813.015446127734
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "ЕЛЕНА БОРИСОВА МИХАЙЛОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестяване от предходни години и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "ЕЛЕНА БОРИСОВА МИХАЙЛОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лек автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95075,
+        "valueEur": 48611.075604730475,
+        "holderName": "Людмил Христов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "лизингов договору, лп 3.85%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-borisova-mihailova-412531",
     "declarantName": "Елена Борисова Михайлова",
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",

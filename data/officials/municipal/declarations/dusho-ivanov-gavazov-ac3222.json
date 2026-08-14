@@ -1,34 +1,34 @@
 [
   {
     "slug": "dusho-ivanov-gavazov-ac3222",
-    "declarantName": "Д-р Душо Иванов Гавазов",
+    "declarantName": "Душо Иванов Гавазов",
     "institution": "Мъглиж",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13781",
-    "controlHash": "B4939E51",
-    "sourceUrl": "https://register.cacbg.bg/2025/D0A4869C-3A4E-4243-9E7D-351C4D750FB7217033.xml",
+    "filedAt": null,
+    "entryNumber": "Г12703",
+    "controlHash": "E98F018F",
+    "sourceUrl": "https://register.cacbg.bg/2026/D0A4869C-3A4E-4243-9E7D-351C4D750FB7238023.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28317.90084005256,
-        "amountEurSpouse": 26716.534668146003
+        "amountEurDeclarant": 31908.703721693604,
+        "amountEurSpouse": 62494.69534673259
       },
       {
         "parent": null,
         "category": "онлайн залагания",
-        "amountEurDeclarant": 35023.493861940966,
+        "amountEurDeclarant": 26791.69457468185,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43317,
-        "valueEur": 22147.630417776596,
-        "holderName": "Маргарита Тончева Гавазова",
-        "isSpouse": true,
+        "amount": 36657,
+        "valueEur": 18742.42648900978,
+        "holderName": "Душо Иванов гавазов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "от заплата и от онлайн залагания"
       },
       {
-        "category": "debt",
-        "description": "кредитна карта",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,12 +56,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Д-р Душо Иванов Гавазов",
+        "amount": 14876,
+        "valueEur": 7605.978024674946,
+        "holderName": "Душо Иванов гавазов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "от заплата и от онлайн залагания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 135240,
+        "valueEur": 69147.11401297658,
+        "holderName": "Маргарита Тончева Гавазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "от заплата"
       },
       {
         "category": "debt",
@@ -74,11 +92,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6856,
-        "valueEur": 3505.417137481274,
-        "holderName": "Д-р Душо Иванов Гавазов",
+        "amount": 4617,
+        "valueEur": 2360.6346154829407,
+        "holderName": "Душо Иванов Гавазов",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит, 4,97%",
+        "legalBasis": "договор за кредит, 4,97%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 453315,
+        "valueEur": 231776.2791244638,
+        "holderName": "Стелина Душева Гавазова",
+        "isSpouse": true,
+        "legalBasis": "догово за ипотечен кредит, 2,54%",
         "fundsOrigin": null
       }
     ],

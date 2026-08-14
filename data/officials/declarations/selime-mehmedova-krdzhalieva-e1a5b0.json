@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13055",
+    "controlHash": "39BB1660",
+    "sourceUrl": "https://register.cacbg.bg/2026/B77D850D-5494-4406-B8F1-2206E2ED6636238448.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21374.557093407915,
+        "amountEurSpouse": 13817.151797446608
+      },
+      {
+        "parent": null,
+        "category": "Възнаграждение общински съветник в община Венец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2314.1070542940847
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21043,
+        "valueEur": 10759.115056012026,
+        "holderName": "Селиме Мехмедова Кърджалиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12999,
+        "valueEur": 6646.283163669644,
+        "holderName": "Орхан Велиев Кърджалиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "selime-mehmedova-krdzhalieva-e1a5b0",
+    "declarantName": "Селиме Мехмедова Кърджалиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,6 +1,68 @@
 [
   {
     "slug": "aneliya-ninova-grigorova-7a876a",
+    "declarantName": "Анелия Нинова Григорова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9107",
+    "controlHash": "629A1223",
+    "sourceUrl": "https://register.cacbg.bg/2026/65648F13-9EA2-4E3A-B365-8DFF1601BCD8233672.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24960.247056236993,
+        "amountEurSpouse": 14576.420241022994
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "жк „Разсадника“",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 43,
+        "builtAreaSqm": 43,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Анелия Нинова Григорова",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Петър Григоров Григоров",
+        "isSpouse": true,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aneliya-ninova-grigorova-7a876a",
     "declarantName": "АНЕЛИЯ НИНОВА ГРИГОРОВА",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

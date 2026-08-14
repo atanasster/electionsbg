@@ -1,6 +1,122 @@
 [
   {
     "slug": "aneta-dimitrova-dragneva-danailova-41c1b9",
+    "declarantName": "АНЕТА ДИМИТРОВА- ДРАГНЕВА- ДАНАИЛОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9328",
+    "controlHash": "5B89710A",
+    "sourceUrl": "https://register.cacbg.bg/2026/7DC8543D-690E-4D4A-B9E8-2A71BC55146D233936.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8169.932969634376,
+        "amountEurSpouse": 19004.207932182246
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6651.396082481607,
+        "amountEurSpouse": 19004.207932182246
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 138.048807922979,
+        "amountEurSpouse": 2862.211950936431
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1380.48807922979,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ПЕРНИК",
+        "municipality": "Перник",
+        "areaSqm": 74,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ВЛАДИМИР ВЕЛИНОВ ДАНАИЛОВ",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ТОЙОТА АЙГО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 7200,
+        "valueEur": 3681.3015446127733,
+        "holderName": "Анета Драгнева Данаилова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 59366,
+        "valueEur": 59366.100325692925,
+        "holderName": "АНЕТА ДРАГНЕВА- ДАНАИЛОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5900,
+        "valueEur": 5900.308309004361,
+        "holderName": "АНЕТА ДРАГНЕВА- ДАНАИЛОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aneta-dimitrova-dragneva-danailova-41c1b9",
     "declarantName": "АНЕТА ДИМИТРОВА ДРАГНЕВА - ДАНАИЛОВА",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

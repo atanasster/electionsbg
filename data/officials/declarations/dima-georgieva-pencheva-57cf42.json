@@ -1,6 +1,68 @@
 [
   {
     "slug": "dima-georgieva-pencheva-57cf42",
+    "declarantName": "Дима Георгиева Пенчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11814",
+    "controlHash": "E6179FE0",
+    "sourceUrl": "https://register.cacbg.bg/2026/66B85CAE-AC5F-4C1B-ABC3-350A40E0D6A3236798.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20853.03937458777,
+        "amountEurSpouse": 5489.740928403798
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Дима Георгиева Пенчева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "взаимоспомагателна каса учители",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14197,
+        "valueEur": 7258.810837342714,
+        "holderName": "Дима Георгиева Пенчева",
+        "isSpouse": false,
+        "legalBasis": "договор-0,13%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dima-georgieva-pencheva-57cf42",
     "declarantName": "ДИМА ГЕОРГИЕВА ПЕНЧЕВА",
     "institution": "Училища",
     "positionTitle": "Директор",

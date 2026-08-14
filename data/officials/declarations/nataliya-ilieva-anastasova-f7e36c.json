@@ -5,6 +5,80 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г884",
+    "controlHash": "1BA4D8DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/C2907A7E-6434-4505-8F09-BA947128A8BD224493.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51413.97769744814,
+        "amountEurSpouse": 19166.287458521445
+      },
+      {
+        "parent": null,
+        "category": "Данъчни облекчения за деца",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "Еднокрактна помощ за ученик",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 153.38756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71827,
+        "valueEur": 36724.561950680785,
+        "holderName": "Наталия Илиева Анастасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10396,
+        "valueEur": 10396.097820362711,
+        "holderName": "Наталия Илиева Анастасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nataliya-ilieva-anastasova-f7e36c",
+    "declarantName": "Наталия Илиева Анастасова",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

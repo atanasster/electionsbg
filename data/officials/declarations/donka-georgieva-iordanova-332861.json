@@ -5,6 +5,93 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10887",
+    "controlHash": "D70EACAB",
+    "sourceUrl": "https://register.cacbg.bg/2026/2116D514-936F-4A93-962E-1A043925B964235697.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32920.039062699725,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1658.1195707193365,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 19474.08517100157
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 194542,
+        "valueEur": 99467.74515167474,
+        "holderName": "Донка Георгиева Йорданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати в едно с предходен период"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 106478,
+        "valueEur": 54441.336926010954,
+        "holderName": "Йордан Златинов Йорданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Сузуки АН 400",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 705.5827960507816,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
+  },
+  {
+    "slug": "donka-georgieva-iordanova-332861",
+    "declarantName": "Донка Георгиева Йорданова",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

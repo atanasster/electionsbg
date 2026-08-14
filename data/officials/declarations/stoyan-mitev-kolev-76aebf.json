@@ -5,6 +5,81 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г13889",
+    "controlHash": "DDF23535",
+    "sourceUrl": "https://register.cacbg.bg/2026/B87077AB-7B95-45B7-8F00-B598FB171C17239542.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22163.991757974876,
+        "amountEurSpouse": 20448.096204680365
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Стоян Митев Колев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14800,
+        "valueEur": 7567.119841704033,
+        "holderName": "Желка Димова Колева",
+        "isSpouse": true,
+        "legalBasis": "2.5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 47965.31395877965,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "stoyan-mitev-kolev-76aebf",
+    "declarantName": "Стоян Митев Колев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

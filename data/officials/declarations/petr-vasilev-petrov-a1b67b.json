@@ -5,6 +5,69 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г950",
+    "controlHash": "9B76253C",
+    "sourceUrl": "https://register.cacbg.bg/2026/729296DC-9900-488B-80C5-1BE900D53D64224577.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42851.37256305507,
+        "amountEurSpouse": 140780.1291523292
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 881.9784950634769,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8500,
+        "valueEur": 8499.716233005936,
+        "holderName": "Петър Василев Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 32,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 124999.61653108911,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "petr-vasilev-petrov-a1b67b",
+    "declarantName": "Петър Василев Петров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

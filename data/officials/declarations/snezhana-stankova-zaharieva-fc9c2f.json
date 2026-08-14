@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1570",
+    "controlHash": "AF99954A",
+    "sourceUrl": "https://register.cacbg.bg/2026/C6FCF250-6ED1-4547-B9E6-F70763842B6D225485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27128.12463250896,
+        "amountEurSpouse": 19735.866614174032
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18436,
+        "valueEur": 9426.177121733484,
+        "holderName": "Снежана Станкова Захариева",
+        "isSpouse": false,
+        "legalBasis": "заем 4,8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "стоков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2488,
+        "valueEur": 1272.0942004161916,
+        "holderName": "Снежана Станкова Захариева",
+        "isSpouse": false,
+        "legalBasis": "стоков кредит 4,8%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "snezhana-stankova-zaharieva-fc9c2f",
+    "declarantName": "Снежана Станкова Захариева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,47 +4,29 @@
     "declarantName": "Васил Захариев Василев",
     "institution": "Симеоновград",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-12",
-    "entryNumber": "Г530",
-    "controlHash": "B796A6C7",
-    "sourceUrl": "https://register.cacbg.bg/2025/D0B24F42-DF0E-454E-AF85-AA4A1212D994202600.xml",
+    "filedAt": "2026-03-25",
+    "entryNumber": "Г850",
+    "controlHash": "AF341B23",
+    "sourceUrl": "https://register.cacbg.bg/2026/D0B24F42-DF0E-454E-AF85-AA4A1212D994224441.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 2763.021325984365,
+        "amountEurDeclarant": 3170.520955297751,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 579.8049932765118,
+        "amountEurDeclarant": 607.4147548611076,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 96,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 345323,
-        "valueEur": 176560.84629032176,
-        "holderName": "Васил Захариев Василев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "продажба на недвижим имот, заплати, пенсии"
-      },
       {
         "category": "cash",
         "description": null,
@@ -56,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 34278,
-        "valueEur": 34278.03029915688,
+        "amount": 14278,
+        "valueEur": 14278,
         "holderName": "Васил Захариев Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "cash",
@@ -74,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3805,
-        "valueEur": 1945.4656079516114,
+        "amount": 44864,
+        "valueEur": 22938.598957987146,
         "holderName": "Васил Захариев Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       }
     ],
     "events": []

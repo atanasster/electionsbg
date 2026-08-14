@@ -4,29 +4,48 @@
     "declarantName": "ГЮЛВЕР ИСМЕТ ОСМАН",
     "institution": "Каолиново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2981",
-    "controlHash": "A2417316",
-    "sourceUrl": "https://register.cacbg.bg/2025/7AB8D0C3-7C01-48FA-AE34-470DE8DB8DAA205695.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2676",
+    "controlHash": "8F4A6618",
+    "sourceUrl": "https://register.cacbg.bg/2026/7AB8D0C3-7C01-48FA-AE34-470DE8DB8DAA226751.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3118.8804752969327,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurDeclarant": 4141.46423768937,
+        "amountEurSpouse": 4878.747130374317
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5136.949530378407,
+        "amountEurDeclarant": 2202.6454241933093,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "РИДВАН РИДДА ОСМАН",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

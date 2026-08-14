@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г14179",
+    "controlHash": "EE56E78F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F4797741-E4AE-46B8-ADB1-EA0D5273E2C3239898.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14681.746368549413,
+        "amountEurSpouse": 2808.015011529632
+      },
+      {
+        "parent": null,
+        "category": "Стипендия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9581.609853617134
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Тутракан",
+        "municipality": "Тутракан",
+        "areaSqm": 220,
+        "builtAreaSqm": 220,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Йордан Стоянов Куцаров",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-stoyanova-stoyanova-kutsarova-181ec7",
+    "declarantName": "Теодора Стоянова Стоянова-Куцарова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

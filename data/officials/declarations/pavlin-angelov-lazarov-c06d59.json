@@ -5,6 +5,68 @@
     "institution": "ОСИН",
     "positionTitle": "Началник на ОСИН",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4938",
+    "controlHash": "CE38500A",
+    "sourceUrl": "https://register.cacbg.bg/2026/AA6E8A62-BFFE-4962-8C75-180E26FD2F6A229169.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33977.9019648947,
+        "amountEurSpouse": 12547.614056436398
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "СЕЛО МЕЧЕВО",
+        "municipality": "АНТОНОВО",
+        "areaSqm": 960,
+        "builtAreaSqm": 960,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "ПАВЛИН АНГЕЛОВ ЛАЗАРОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13000,
+        "valueEur": 13000,
+        "holderName": "ПАВЛИН АНГЕЛОВ ЛАЗАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlin-angelov-lazarov-c06d59",
+    "declarantName": "ПАВЛИН АНГЕЛОВ ЛАЗАРОВ",
+    "institution": "ОСИН",
+    "positionTitle": "Началник на ОСИН",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

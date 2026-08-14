@@ -4,29 +4,41 @@
     "declarantName": "Петър Милчев Трифонов",
     "institution": "Пордим",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4530",
-    "controlHash": "6E9F62FC",
-    "sourceUrl": "https://register.cacbg.bg/2025/09BB3964-19D5-4291-8659-1FE4EFF5F08D207388.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9330",
+    "controlHash": "AD397398",
+    "sourceUrl": "https://register.cacbg.bg/2026/09BB3964-19D5-4291-8659-1FE4EFF5F08D233938.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7886.677267451671,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17293.425297699698,
+        "amountEurDeclarant": 7759.876880915008,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Згалево",
+        "municipality": "Пордим",
+        "areaSqm": 1000,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Петър Милчев Трифонов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -46,19 +58,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "село Згалево",
-        "municipality": "Пордим",
-        "areaSqm": 500,
-        "builtAreaSqm": 70,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

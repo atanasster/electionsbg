@@ -4,37 +4,31 @@
     "declarantName": "Галина Петрова Лазарова-Иванова",
     "institution": "Медковец",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13747",
-    "controlHash": "13E86E7D",
-    "sourceUrl": "https://register.cacbg.bg/2025/43EAF488-614D-47DD-BDFB-375EFA8AC91F216997.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г7168",
+    "controlHash": "0579DE13",
+    "sourceUrl": "https://register.cacbg.bg/2026/43EAF488-614D-47DD-BDFB-375EFA8AC91F231563.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 416.70288317491804,
-        "amountEurSpouse": 7362.603089225547
+        "amountEurDeclarant": 19097.181247858964,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 358.92690059974535,
-        "amountEurSpouse": null
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4785.692007996605
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3603.0738867897517,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "доход от отпуск по майчинство",
-        "amountEurDeclarant": 11758.179391869437,
+        "amountEurDeclarant": 15562.28813342673,
         "amountEurSpouse": null
       }
     ],
@@ -88,7 +82,7 @@
         "currency": "BGN",
         "amount": 200,
         "valueEur": 102.2583762392437,
-        "holderName": "Иван Гепргиев Иванов",
+        "holderName": "Иван Георгиев Иванов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -106,7 +100,7 @@
         "currency": "BGN",
         "amount": 100,
         "valueEur": 51.12918811962185,
-        "holderName": "Иван Гепргиев Иванов",
+        "holderName": "Иван Георгиев Иванов",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -150,12 +144,30 @@
       {
         "category": "vehicle",
         "description": "колесен трактор",
-        "detail": "ЮМЗ -6АМ",
+        "detail": "ЮМЗ-6АМ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "колесен трактов",
+        "detail": "ЮМЗ-L6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
         "share": "1",
         "currency": "BGN",
         "amount": 1000,
@@ -194,27 +206,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12800,
-        "valueEur": 6544.536079311597,
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
         "holderName": "Галина Петрова Лазарова-Иванова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

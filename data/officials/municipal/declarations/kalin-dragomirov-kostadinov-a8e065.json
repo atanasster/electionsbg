@@ -4,68 +4,32 @@
     "declarantName": "Калин Драгомиров Костадинов",
     "institution": "Върбица",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-22",
-    "entryNumber": "Г14143",
-    "controlHash": "8BE7A8DD",
-    "sourceUrl": "https://register.cacbg.bg/2025/6913F749-4511-4EDD-8155-00EA07D78659217409.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9073",
+    "controlHash": "9B45AF65",
+    "sourceUrl": "https://register.cacbg.bg/2026/6913F749-4511-4EDD-8155-00EA07D78659233633.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5624.210693158403,
+        "amountEurDeclarant": 10358.773513035387,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3067.751287177311,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 28915.089757289745,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "автомобил",
-        "detail": "фиат",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
-        "holderName": "Калин Драгомиров Костадинов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "ветроходна лодка",
-        "detail": "Flying arrow",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 2400,
-        "valueEur": 1227.1005148709244,
-        "holderName": "Калин Драгомиров Костадинов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,27 +38,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 20105,
+        "valueEur": 10279.523271449973,
         "holderName": "Калин Драгомиров Костадинов",
         "isSpouse": false,
-        "legalBasis": "3%",
+        "legalBasis": "потребителски кредит 6,25%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "автомобил",
-        "detail": "рено",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1278.2297029905462,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

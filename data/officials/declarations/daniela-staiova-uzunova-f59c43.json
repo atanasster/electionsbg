@@ -5,6 +5,63 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4102",
+    "controlHash": "C1D62D39",
+    "sourceUrl": "https://register.cacbg.bg/2026/D540A196-57F8-4A8B-AA87-B5793701634E228298.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18069.055081474362,
+        "amountEurSpouse": 34637.97978351902
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лек автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66833,
+        "valueEur": 34171.17029598687,
+        "holderName": "Михаил Ангелов Узунов",
+        "isSpouse": true,
+        "legalBasis": "4.5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "daniela-staiova-uzunova-f59c43",
+    "declarantName": "Даниела Стайова Узунова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

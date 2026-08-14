@@ -4,23 +4,42 @@
     "declarantName": "Мехмед Рамис Хасан",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12369",
-    "controlHash": "930C24FD",
-    "sourceUrl": "https://register.cacbg.bg/2025/7E28FF64-9B6C-40CC-BB2E-E506D98EFEEE215534.xml",
+    "filedAt": "2026-08-03",
+    "entryNumber": "Г14851",
+    "controlHash": "4D9FF5FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/7E28FF64-9B6C-40CC-BB2E-E506D98EFEEE241192.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2445.509067761513,
+        "amountEurDeclarant": 4527.489607992515,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Подайва",
+        "municipality": "Исперих",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Мехмед Рамис Хасан",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

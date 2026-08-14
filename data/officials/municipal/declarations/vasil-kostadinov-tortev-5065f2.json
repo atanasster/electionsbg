@@ -4,16 +4,35 @@
     "declarantName": "Васил Костадинов Тортев",
     "institution": "Велинград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-01",
-    "entryNumber": "Г5318",
-    "controlHash": "C05C3FF3",
-    "sourceUrl": "https://register.cacbg.bg/2025/C28AAAD8-81A4-4F65-A3CF-CB2B83AEA4E5208238.xml",
+    "filedAt": null,
+    "entryNumber": "Г3774",
+    "controlHash": "4794D8E8",
+    "sourceUrl": "https://register.cacbg.bg/2026/C28AAAD8-81A4-4F65-A3CF-CB2B83AEA4E5227933.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44246,
+        "valueEur": 22622.620575407884,
+        "holderName": "Васил Костадинов Тортев",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг с 3.9 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

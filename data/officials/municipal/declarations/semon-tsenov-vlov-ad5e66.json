@@ -4,51 +4,51 @@
     "declarantName": "Семьон Ценов Вълов",
     "institution": "Искър",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г8589",
-    "controlHash": "B7DF30A6",
-    "sourceUrl": "https://register.cacbg.bg/2025/A1F84FD2-F71D-442B-92F7-E7C01DF58E04211611.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9077",
+    "controlHash": "91325AE8",
+    "sourceUrl": "https://register.cacbg.bg/2026/A1F84FD2-F71D-442B-92F7-E7C01DF58E04233637.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5400.776141075656,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 5940.189075737667,
+        "amountEurSpouse": 6607.936272579927
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 686.1537045653253,
+        "amountEurDeclarant": 8476.19680647091,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 7911.730569630285,
+        "amountEurDeclarant": 8416.375656370952,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лекавтомобил",
-        "detail": "Ленд Ровер",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2022,
+        "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
         "holderName": "Семьон Ценов Вълов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -66,23 +66,10 @@
         "valueEur": 46169.65687201853,
         "holderName": "Семьон Ценов Вълов",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит,2.99 лихвен процент",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лекавтомобил",
-        "detail": "Опел Астра",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1636.1340198278992,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

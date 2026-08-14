@@ -1,6 +1,135 @@
 [
   {
     "slug": "nikolai-ganchev-nikolaev-8053d2",
+    "declarantName": "Николай Ганчев Николаев",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11885",
+    "controlHash": "BC2D61FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/2AB1B95E-FF4B-4B58-B8CA-96DA38FE5DE8236925.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35902.40460571727,
+        "amountEurSpouse": 11572.58043899521
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 45999.90796746138,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дарение от родител",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Бургас, ж.к. Лазур",
+        "municipality": "Бургас",
+        "areaSqm": 298,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/8",
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Николай Ганчев Николаев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Николай Ганчев Николаев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 91012,
+        "valueEur": 91011.48872857048,
+        "holderName": "Николай Ганчев Николаев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг на автомобил Тойота Корола",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11915,
+        "valueEur": 6092.042764452944,
+        "holderName": "Николай Ганчев Николаев",
+        "isSpouse": false,
+        "legalBasis": "лизинг с 4,92% лихвен процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 45999.90796746138,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "nikolai-ganchev-nikolaev-8053d2",
     "declarantName": "НИКОЛАЙ ГАНЧЕВ НИКОЛАЕВ",
     "institution": "РДПБЗН",
     "positionTitle": "Директор",

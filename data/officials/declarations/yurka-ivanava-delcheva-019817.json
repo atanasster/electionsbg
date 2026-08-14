@@ -5,6 +5,81 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10288",
+    "controlHash": "198E0CB7",
+    "sourceUrl": "https://register.cacbg.bg/2026/696939AE-B2D2-4BDD-8735-5CD2A8B6E1C3235016.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20831.053823696333,
+        "amountEurSpouse": 12199.93557722297
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ЮРКА ИВАНОВА ДЕЛЧЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3745,
+        "valueEur": 1914.7880950798383,
+        "holderName": "ЮРКА ИВАНОВА ДЕЛЧЕВА",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ВИЛА",
+        "detail": null,
+        "location": "РАМАНУША",
+        "municipality": "СЛИВЕН",
+        "areaSqm": 1000,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "yurka-ivanava-delcheva-019817",
+    "declarantName": "ЮРКА ИВАНОВА ДЕЛЧЕВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

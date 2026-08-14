@@ -1,35 +1,35 @@
 [
   {
     "slug": "sezgin-basri-aliibryam-97601f",
-    "declarantName": "СЕЗГИН БАСРИ АЛИИБРЯМ",
+    "declarantName": "Сезгин Басри Алиибрям",
     "institution": "Ситово",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г11079",
-    "controlHash": "7E786923",
-    "sourceUrl": "https://register.cacbg.bg/2025/E614FE1C-EBC9-4E1E-9972-A6ACA8CCD2A7214204.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13894",
+    "controlHash": "B55944EE",
+    "sourceUrl": "https://register.cacbg.bg/2026/E614FE1C-EBC9-4E1E-9972-A6ACA8CCD2A7239547.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2893.9120475705968,
+        "amountEurDeclarant": 42604.92987631849,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ЗЕМЕДЕЛСКА ПРОДУКЦИЯ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 8285.484934784721
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 2705.756635290388,
+        "amountEurDeclarant": 5707.039977912191,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2194.976045975366
       }
     ],
     "assets": [
@@ -48,12 +48,12 @@
         "valueEur": null,
         "holderName": "СЕЗГИН БАСРИ АЛИИБРЯМ",
         "isSpouse": false,
-        "legalBasis": "доброволна делба",
+        "legalBasis": "Доброволна делба",
         "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
-        "description": "НИВА",
+        "description": "Нива",
         "detail": null,
         "location": "с.Искра",
         "municipality": "Ситово",
@@ -71,7 +71,7 @@
       },
       {
         "category": "real_estate",
-        "description": "НИВА",
+        "description": "Нива",
         "detail": null,
         "location": "с.Искра",
         "municipality": "Ситово",
@@ -98,16 +98,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 48473,
-        "valueEur": 24783.8513572243,
-        "holderName": "Сезгин  Басри Алиибрям",
+        "amount": 17464,
+        "valueEur": 8929.20141321076,
+        "holderName": "Сезгин Басри Алиибрям",
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредтна карта",
+        "description": "кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -116,9 +116,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3191,
-        "valueEur": 1631.5323928971331,
-        "holderName": "Сезгин  Басри Алиибрям",
+        "amount": 328,
+        "valueEur": 167.70373703235967,
+        "holderName": "Сезгин Басри Алиибрям",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "разплащателна сметка",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 648,
+        "valueEur": 331.31713901514956,
+        "holderName": "Сезгин Басри Алиибрям",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null

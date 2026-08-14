@@ -4,26 +4,50 @@
     "declarantName": "Кармен Кирилова Каменова",
     "institution": "Брусарци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12549",
-    "controlHash": "1FEDED76",
-    "sourceUrl": "https://register.cacbg.bg/2025/459A64F3-2621-4776-8966-C86D0B828C37215718.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г10946",
+    "controlHash": "098BA0ED",
+    "sourceUrl": "https://register.cacbg.bg/2026/459A64F3-2621-4776-8966-C86D0B828C37235766.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2644.9129014280384,
+        "amountEurDeclarant": 9294.775108266056,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2424.546100632468,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Брусарци ул. Димитър Благоев №5",
+        "municipality": "Брусарци",
+        "areaSqm": 1255,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2023,
+        "share": "единствен собственик",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Кармен Кирилова Каменова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "Кредит за текущо потребление",
+        "description": "Банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
         "holderName": "Кармен Кирилова Каменова",
         "isSpouse": false,
-        "legalBasis": "Ремонтни дейности",
+        "legalBasis": "Потребителски кредит,6%",
         "fundsOrigin": null
       }
     ],

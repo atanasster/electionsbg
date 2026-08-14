@@ -1,28 +1,28 @@
 [
   {
     "slug": "aigyun-radvanov-hadzhiismailov-812004",
-    "declarantName": "АЙГЮН РАДВАНОВ ХОДЖИИСМАИЛОВ",
+    "declarantName": "АЙГЮН РАДВАНОВ ХАДЖИИСМАИЛОВ",
     "institution": "Павел баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11826",
-    "controlHash": "FD350B3E",
-    "sourceUrl": "https://register.cacbg.bg/2025/971A065D-0616-4D9A-831B-D77A5C69D008214978.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12927",
+    "controlHash": "60A17B52",
+    "sourceUrl": "https://register.cacbg.bg/2026/971A065D-0616-4D9A-831B-D77A5C69D008238279.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5524.50877632514,
+        "amountEurDeclarant": 6975.555135160009,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5725.957777516451,
+        "amountEurDeclarant": 6615.0943589166745,
         "amountEurSpouse": null
       }
     ],
@@ -41,9 +41,27 @@
         "amount": 1000,
         "valueEur": 511.29188119621847,
         "holderName": "АЙГЮН РАДВАНОВ ХАДЖИИСМАИЛОВ",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "СПЕЦИАЛЕН АВТОМОБИЛ",
+        "detail": "ИВЕКО 35Ц14 ДЕЙЛИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3900,
+        "valueEur": 1994.038336665252,
+        "holderName": "АЙГЮН РАДВАНОВ ХАДЖИИСМАИЛОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -59,7 +77,7 @@
         "amount": 11000,
         "valueEur": 5624.210693158403,
         "holderName": "АЙГЮН РАДВАНОВ ХАДЖИИСМАИЛОВ",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "КРЕДИТ-4,47%",
         "fundsOrigin": null
       },
@@ -77,24 +95,11 @@
         "amount": 20800,
         "valueEur": 10634.871128881345,
         "holderName": "АЙГЮН РАДВАНОВ ХАДЖИИСМАИЛОВ",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "КРЕДИТ-4,47%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "АУДИ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 766.9378217943278,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

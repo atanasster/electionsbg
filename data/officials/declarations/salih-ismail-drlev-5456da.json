@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г8189",
+    "controlHash": "C49AB5A1",
+    "sourceUrl": "https://register.cacbg.bg/2026/8686DD90-7788-4EFA-BA72-33C12901F3CA232676.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12431.550799404857,
+        "amountEurSpouse": 1561.9966970544474
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7187,
+        "valueEur": 7187.229973975243,
+        "holderName": "САЛИХ ИСМАИЛ ДЪРЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР - 6,58л.процент",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "salih-ismail-drlev-5456da",
+    "declarantName": "САЛИХ ИСМАИЛ ДЪРЛЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

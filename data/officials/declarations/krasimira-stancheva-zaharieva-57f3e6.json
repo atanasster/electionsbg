@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8301",
+    "controlHash": "F8D0399C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E449EBF1-A469-4BA2-9762-56DFDCB74433232795.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23642.136586513145,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "жирищен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23654,
+        "valueEur": 12094.098157815351,
+        "holderName": "Красимира Станчева Захариева",
+        "isSpouse": false,
+        "legalBasis": "4.52",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "личен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34202,
+        "valueEur": 17487.204920673066,
+        "holderName": "Красимира Станчева Захариева",
+        "isSpouse": false,
+        "legalBasis": "5.90",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimira-stancheva-zaharieva-57f3e6",
+    "declarantName": "Красимира Станчева Захариева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

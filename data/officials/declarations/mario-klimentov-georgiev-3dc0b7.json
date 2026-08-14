@@ -5,6 +5,68 @@
     "institution": "ОД МВР Сливен",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г14837",
+    "controlHash": "FD6E5F22",
+    "sourceUrl": "https://register.cacbg.bg/2026/4318BFB0-8879-4B4C-ABE4-C9766E0BEF86241150.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37268.57651227356,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
+        "holderName": "Марио Климентов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71644,
+        "valueEur": 36630.99553642188,
+        "holderName": "Марио Климентов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит - 6,17 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mario-klimentov-georgiev-3dc0b7",
+    "declarantName": "Марио Климентов Георгиев",
+    "institution": "ОД МВР Сливен",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

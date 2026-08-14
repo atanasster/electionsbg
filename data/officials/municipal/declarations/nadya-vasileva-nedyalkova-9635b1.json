@@ -4,13 +4,13 @@
     "declarantName": "Надя Василева Недялкова",
     "institution": "Драгоман",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г8759",
-    "controlHash": "B2B2C503",
-    "sourceUrl": "https://register.cacbg.bg/2025/63B964DD-B6FE-41F5-979B-2451A04B5672211784.xml",
+    "entryNumber": "Г5317",
+    "controlHash": "1FF4122D",
+    "sourceUrl": "https://register.cacbg.bg/2026/63B964DD-B6FE-41F5-979B-2451A04B5672229569.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -35,26 +35,62 @@
         "holderName": "Недялко Борисов Недялков",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в ООД",
+        "shareSize": "20",
+        "companyName": "Трейдинг тайм 2025 ООД",
+        "registeredOffice": "Драгоман",
+        "valueEur": 10.22583762392437,
+        "holderName": "Надя Василева Недялкова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в ООД",
+        "shareSize": "40",
+        "companyName": "Трейдинг тайм 2025 ООД",
+        "registeredOffice": "Драгоман",
+        "valueEur": 20.45167524784874,
+        "holderName": "Недялко Борисов Недялков",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в ЕООД",
+        "shareSize": "100",
+        "companyName": "Ен - Стандарт ЕООД",
+        "registeredOffice": "Драгоман",
+        "valueEur": 51.12918811962185,
+        "holderName": "Недялко Борисов Недялков",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5247.38857671679,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4955.952204434946,
+        "amountEurSpouse": 4795.917845620529
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8823.875285684338,
+        "amountEurDeclarant": 796.5927509037084,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти по чл. 38 от ЗДДФЛ",
-        "amountEurDeclarant": 920.3253861531933,
-        "amountEurSpouse": 920.3253861531933
+        "category": "Доходи от дивиденти по чл.38 от ЗДДФЛ",
+        "amountEurDeclarant": 30728.642059892733,
+        "amountEurSpouse": 30728.642059892733
       }
     ],
     "assets": [
@@ -139,7 +175,7 @@
         "areaSqm": 568,
         "builtAreaSqm": 130,
         "acquiredYear": 1997,
-        "share": "1/2 - СИО",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
@@ -169,7 +205,7 @@
       {
         "category": "vehicle",
         "description": "Мотоциклет",
-        "detail": "БМВ Р1100РТ",
+        "detail": "БМВ P1100PT",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -193,7 +229,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2010,
-        "share": "1/1",
+        "share": "1/1 СИО",
         "currency": "BGN",
         "amount": 200,
         "valueEur": 102.2583762392437,
@@ -213,11 +249,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70231,
-        "valueEur": 35908.54010829162,
+        "amount": 68382,
+        "valueEur": 34963.16141995981,
         "holderName": "Надя Василева Недялкова",
         "isSpouse": false,
-        "legalBasis": "Банков кредит- 2,8 % лихва",
+        "legalBasis": "Банков кредит-2,8% лихва",
         "fundsOrigin": null
       },
       {
@@ -231,11 +267,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18644,
-        "valueEur": 9532.525833022297,
+        "amount": 12791,
+        "valueEur": 6539.93445238083,
         "holderName": "Недялко Борисов Недялков",
         "isSpouse": true,
-        "legalBasis": "Банков кредит - 7,424 % лихва",
+        "legalBasis": "Банков кредит-7,424% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14703,
+        "valueEur": 7517.524529228001,
+        "holderName": "Недялко Борисов Недялков",
+        "isSpouse": true,
+        "legalBasis": "Банков кредит-11,91%лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21014,
+        "valueEur": 10744.287591457336,
+        "holderName": "Надя Василева Недялкова",
+        "isSpouse": false,
+        "legalBasis": "Банков кредит - 7,4%лихва",
         "fundsOrigin": null
       }
     ],

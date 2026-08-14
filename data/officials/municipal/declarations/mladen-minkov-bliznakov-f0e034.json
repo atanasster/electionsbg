@@ -4,40 +4,64 @@
     "declarantName": "Младен Минков Близнаков",
     "institution": "Ловеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г11987",
-    "controlHash": "07D5482F",
-    "sourceUrl": "https://register.cacbg.bg/2025/70794067-6FFA-4E65-8AA8-079C62115360215141.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8313",
+    "controlHash": "E0AE8433",
+    "sourceUrl": "https://register.cacbg.bg/2026/70794067-6FFA-4E65-8AA8-079C62115360232809.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1356.4573608135677
+      },
+      {
+        "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 8393.87881359832,
-        "amountEurSpouse": 4686.501383044539
+        "amountEurDeclarant": 45107.703634773985,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Митцубиши Еклипс",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Младен Минков Близнаков",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Митцубиши Еклипс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Юлиана Рачева Близнакова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "няма"
       },
       {
         "category": "bank",
@@ -50,16 +74,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11000,
-        "valueEur": 5624.210693158403,
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
         "holderName": "Младен Минков Близнаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       },
       {
-        "category": "receivable",
-        "description": "заем",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,32 +92,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
         "holderName": "Младен Минков Близнаков",
         "isSpouse": false,
-        "legalBasis": "заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
-        "holderName": "Младен Минков Близнаков",
-        "isSpouse": false,
-        "legalBasis": "заем",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Джук",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

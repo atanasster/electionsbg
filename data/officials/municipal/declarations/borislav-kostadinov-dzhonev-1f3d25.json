@@ -4,25 +4,31 @@
     "declarantName": "Борислав Костадинов Джонев",
     "institution": "Септември",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7459",
-    "controlHash": "C5B8FE7E",
-    "sourceUrl": "https://register.cacbg.bg/2025/3DF53753-BCC7-4DB3-A6E5-604A1D7DC550210454.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5068",
+    "controlHash": "87D0CDF1",
+    "sourceUrl": "https://register.cacbg.bg/2026/3DF53753-BCC7-4DB3-A6E5-604A1D7DC550229310.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3489.055797282995,
-        "amountEurSpouse": 17576.169708001205
+        "amountEurDeclarant": 6439.721243666372,
+        "amountEurSpouse": 17611.448847803746
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6387.0581799031615,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение г.д. 126/22.08.2025 ОС Пазарджик",
+        "amountEurDeclarant": 10337.81054590634,
         "amountEurSpouse": null
       }
     ],
@@ -38,8 +44,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19430,
-        "valueEur": 9934.401251642525,
+        "amount": 4696,
+        "valueEur": 2401.026674097442,
+        "holderName": "Даниела Петкова Джонева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24262,
+        "valueEur": 12404.963621582652,
         "holderName": "Борислав Костадинов Джонев",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,10 +80,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19290,
-        "valueEur": 9862.820388275055,
-        "holderName": "Даниела Петкова Джонева",
-        "isSpouse": true,
+        "amount": 40258,
+        "valueEur": 20583.588553197365,
+        "holderName": "Борислав Костадинов Джонев",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -84,7 +108,7 @@
       {
         "category": "security",
         "description": "дялове",
-        "detail": "Експертийз дин. толерантен /евро/",
+        "detail": "Експертийз дин.толерантен /евро/",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -100,31 +124,6 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Форд Сиера",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Форд Сиера",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

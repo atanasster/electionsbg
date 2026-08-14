@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "kostadin-nikolov-paunov-7bc06b",
+    "declarantName": "Костадин Николов Паунов",
+    "institution": "\"Велимед Инвест\" ООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7385",
+    "controlHash": "F996A538",
+    "sourceUrl": "https://register.cacbg.bg/2026/3DD7140F-575E-4457-B634-44125E2AA3BF231794.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 91962.49162759545,
+        "amountEurSpouse": 25253.217304162426
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6825.746613969517,
+        "amountEurSpouse": 7798.735063885921
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16879,
+        "valueEur": 8630.095662710972,
+        "holderName": "Костадин Николов Паунов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 40903,
+        "valueEur": 40902.839203816286,
+        "holderName": "Саша Атанасова Паунова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "инвестиционен план"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит договорен лихва 4,15 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14112,
+        "valueEur": 7215.3510274410355,
+        "holderName": "Костадин Николов Паунов",
+        "isSpouse": false,
+        "legalBasis": "Кредит дог.лих. 4,15 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

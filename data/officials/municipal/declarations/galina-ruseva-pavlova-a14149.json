@@ -4,26 +4,68 @@
     "declarantName": "Галина Русева Павлова",
     "institution": "Силистра",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-09",
-    "entryNumber": "Г1840",
-    "controlHash": "EE30CF1C",
-    "sourceUrl": "https://register.cacbg.bg/2025/C17AD9EA-1933-4192-9C61-4C525250773F204396.xml",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г2263",
+    "controlHash": "C33F8594",
+    "sourceUrl": "https://register.cacbg.bg/2026/C17AD9EA-1933-4192-9C61-4C525250773F226283.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5748.965912170281,
-        "amountEurSpouse": 7625.918408041599
+        "amountEurDeclarant": 6868.1838401088025,
+        "amountEurSpouse": 9677.732727282024
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 809.8863398148101
+        "amountEurSpouse": 1175.9713267513025
+      },
+      {
+        "parent": null,
+        "category": "Доброволен пенсионен фонд\"Алианц България\"",
+        "amountEurDeclarant": 5631.36877949515,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба нива в с.Попина, общ. Силистра",
+        "amountEurDeclarant": 1237.3263524948488,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "БДСК лихва",
+        "amountEurDeclarant": 8.180670099139496,
+        "amountEurSpouse": 6.6467944555508405
+      },
+      {
+        "parent": null,
+        "category": "Рента от земедеелска земя",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 818.0670099139496
+      },
+      {
+        "parent": null,
+        "category": "Доход продожбе отпадъци на Водстрой трейд",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 62.88890138713487
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за осигурителен стаж и възраст",
+        "amountEurDeclarant": 8447.564461123922,
+        "amountEurSpouse": 7196.944519717971
+      },
+      {
+        "parent": null,
+        "category": "Обратно изкупуване дялове\"ДСК Стандарт\"",
+        "amountEurDeclarant": 10993.286737599894,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -38,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2284,
-        "valueEur": 1167.790656652163,
+        "amount": 2190,
+        "valueEur": 1631.021101015937,
         "holderName": "Галина Русева Павлова",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,14 +98,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15001,
-        "valueEur": 7669.889509824474,
+        "amount": 64906,
+        "valueEur": 33185.91084092176,
         "holderName": "Галина Русева Павлова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37040,
+        "valueEur": 18938.251279507935,
+        "holderName": "Павел Иванов Павлов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Попина",
+        "municipality": "Ситово",
+        "areaSqm": 4,
+        "builtAreaSqm": 3766,
+        "currency": "BGN",
+        "valueEur": 1237.3263524948488,
+        "legalBasis": "продажба"
+      }
+    ]
   }
 ]

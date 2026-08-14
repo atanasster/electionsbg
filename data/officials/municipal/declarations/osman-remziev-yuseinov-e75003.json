@@ -4,41 +4,54 @@
     "declarantName": "Осман Ремзиев Юсеинов",
     "institution": "Сливо поле",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7898",
-    "controlHash": "B5BE012E",
-    "sourceUrl": "https://register.cacbg.bg/2025/2F77E3CB-AFAE-4891-8CCD-091F1C9C1B98210903.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13203",
+    "controlHash": "F25F8290",
+    "sourceUrl": "https://register.cacbg.bg/2026/2F77E3CB-AFAE-4891-8CCD-091F1C9C1B98238703.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18121.718145237573,
-        "amountEurSpouse": 931.5738075395101
+        "amountEurDeclarant": 24492.414984942454,
+        "amountEurSpouse": 25564.594059810923
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 566.51140436541,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4047.386531549266
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 574.1807825833533,
+        "amountEurDeclarant": 116.0632570315416,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 8.180670099139496,
-        "amountEurSpouse": 10225.83762392437
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Осман Ремзиев Юсеинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Спестявания"
+      }
+    ],
     "events": []
   }
 ]

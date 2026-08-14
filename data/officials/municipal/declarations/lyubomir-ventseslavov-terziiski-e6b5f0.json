@@ -1,28 +1,28 @@
 [
   {
     "slug": "lyubomir-ventseslavov-terziiski-e6b5f0",
-    "declarantName": "Любомир Венцеславов Трезийски",
+    "declarantName": "Любомир Венцеславов Терзийски",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г7588",
-    "controlHash": "EFBF5903",
-    "sourceUrl": "https://register.cacbg.bg/2025/C069B587-F65F-4856-9F0B-060956A3DD44210585.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2397",
+    "controlHash": "D8D3A486",
+    "sourceUrl": "https://register.cacbg.bg/2026/C069B587-F65F-4856-9F0B-060956A3DD44226445.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6984.241984221532,
+        "amountEurDeclarant": 7451.567876553689,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8043.383116119499,
+        "amountEurDeclarant": 5702.438350981425,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Кюстендил",
+        "location": "гр.Кюстендил",
         "municipality": "Кюстендил",
         "areaSqm": 76,
         "builtAreaSqm": 76,
@@ -41,13 +41,13 @@
         "amount": 39500,
         "valueEur": 20196.029307250632,
         "holderName": "Любомир Венцеславов Терзийски",
-        "isSpouse": true,
-        "legalBasis": "Дарение от баба ми и дядо ми",
+        "isSpouse": false,
+        "legalBasis": "дарение от баба ми и дядо ми",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Пежо 3008",
         "location": null,
         "municipality": null,
@@ -59,26 +59,8 @@
         "amount": 12500,
         "valueEur": 6391.148514952731,
         "holderName": "Любомир Венцеславов Терзийски",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 46000,
-        "valueEur": 23519.42653502605,
-        "holderName": "Любомир Венцеславов Терзийски",
-        "isSpouse": true,
-        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -92,10 +74,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 7500,
-        "valueEur": 7499.629313386133,
+        "amount": 33500,
+        "valueEur": 33499.84405597624,
         "holderName": "Любомир Венцеславов Терзийски",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -110,27 +92,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 1000,
-        "valueEur": 884.534954469458,
+        "amount": 1500,
+        "valueEur": 1294.5910431888253,
         "holderName": "Любомир Венцеславов Терзийски",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Пежо 3008",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

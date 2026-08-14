@@ -5,6 +5,44 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10891",
+    "controlHash": "64A919BE",
+    "sourceUrl": "https://register.cacbg.bg/2026/15EE8791-4D1F-4578-BBED-B80236914232235701.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50%",
+        "companyName": "ПР тренд ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 1022.5837623924369,
+        "holderName": "Радка Недева Димитрова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6283.265928020329,
+        "amountEurSpouse": 8116.247322108772
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "radka-nedeva-dimitrova-c6d5c1",
+    "declarantName": "Радка Недева Димитрова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

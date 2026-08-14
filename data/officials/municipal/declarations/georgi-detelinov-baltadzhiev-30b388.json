@@ -4,21 +4,34 @@
     "declarantName": "Георги Детелинов Балтаджиев",
     "institution": "Каварна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11160",
-    "controlHash": "3D269F89",
-    "sourceUrl": "https://register.cacbg.bg/2025/38A82F4F-3F67-42E7-9138-859970BF4374214286.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9026",
+    "controlHash": "228C39FD",
+    "sourceUrl": "https://register.cacbg.bg/2026/38A82F4F-3F67-42E7-9138-859970BF4374233577.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7646.881375170644,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5278.066089588563,
+        "amountEurSpouse": 8347.86254429066
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр. Каварна, ул. Гларус 41",
+        "location": "Каварна, ул. Гларус 41",
         "municipality": "Каварна",
         "areaSqm": 99,
         "builtAreaSqm": 99,
@@ -31,6 +44,24 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Каварна, 35064.501.4168",
+        "municipality": "Каварна",
+        "areaSqm": 262,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Георги Детелинов Балтаджиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -69,6 +100,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7388,
+        "valueEur": 7388.167683285357,
+        "holderName": "Павлина Николаева Николова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "ипотечен кредит",
         "detail": "BGN",
@@ -79,11 +128,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
+        "amount": 105065,
+        "valueEur": 53718.8814978807,
         "holderName": "Георги Детелинов Балтаджиев",
         "isSpouse": false,
-        "legalBasis": "договор ГЛП 2,59% и ГПР 6,61",
+        "legalBasis": "договор ГЛП 2,59%",
         "fundsOrigin": null
       }
     ],

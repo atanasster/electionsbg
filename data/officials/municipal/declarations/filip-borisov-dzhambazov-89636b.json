@@ -4,25 +4,25 @@
     "declarantName": "Филип Борисов Джамбазов",
     "institution": "Долна баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-13",
-    "entryNumber": "Г3056",
-    "controlHash": "C8A6D821",
-    "sourceUrl": "https://register.cacbg.bg/2025/0D53C6BD-C3B0-4FB2-94D7-584E97239748205773.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г5529",
+    "controlHash": "4BACECCF",
+    "sourceUrl": "https://register.cacbg.bg/2026/0D53C6BD-C3B0-4FB2-94D7-584E97239748229792.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2300.8134653829834,
-        "amountEurSpouse": 9230.86362311653
+        "amountEurDeclarant": 1763.4456982457575,
+        "amountEurSpouse": 12776.161527331107
       },
       {
         "parent": null,
         "category": "Пенсия за прослужено време и старост",
-        "amountEurDeclarant": 7299.714187838412,
+        "amountEurDeclarant": 8034.951912998574,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Долна баня",
+        "location": "гр. Долна баня",
         "municipality": "Долна баня",
         "areaSqm": 400,
         "builtAreaSqm": 114,
@@ -84,7 +84,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Шкода Октавия",
+        "detail": "Шкода октавия",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -97,6 +97,42 @@
         "holderName": "Филип Борисов Джамбазов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14122,
+        "valueEur": 7220.463946252998,
+        "holderName": "Филип Борисов Джамбазов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31871,
+        "valueEur": 31870.868122485084,
+        "holderName": "Филип Борисов Джамбазов",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "спестявания"
       },
       {
@@ -115,43 +151,7 @@
         "holderName": "Филип Борисов Джамбазов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 34128,
-        "valueEur": 17449.369321464546,
-        "holderName": "Филип Борисов Джамбазов",
-        "isSpouse": false,
-        "legalBasis": null,
         "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 31872,
-        "valueEur": 31871.890706247475,
-        "holderName": "Филип Борисов Джамбазов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -169,7 +169,7 @@
         "holderName": "Филип Борисов Джамбазов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -182,12 +182,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 2803,
-        "valueEur": 2802.3908008364733,
+        "amount": 2802,
+        "valueEur": 2801.8795089552773,
         "holderName": "Филип Борисов Джамбазов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -200,12 +200,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 42475,
-        "valueEur": 42475.06173849465,
+        "amount": 42434,
+        "valueEur": 42434.158387998956,
         "holderName": "Филип Борисов Джамбазов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       }
     ],
     "events": []

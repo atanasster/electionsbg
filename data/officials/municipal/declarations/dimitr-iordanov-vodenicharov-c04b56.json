@@ -4,29 +4,72 @@
     "declarantName": "Димитър Йорданов Воденичаров",
     "institution": "Родопи",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13027",
-    "controlHash": "6781ED06",
-    "sourceUrl": "https://register.cacbg.bg/2025/F808271F-E7ED-44C4-B6C5-644B0F1F7746216216.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11263",
+    "controlHash": "54EE3EB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/F808271F-E7ED-44C4-B6C5-644B0F1F7746236143.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7539.510080119438,
+        "amountEurDeclarant": 8533.972789046084,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5864.517877320626,
+        "amountEurDeclarant": 6809.385273771238,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2495.6156721187426,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДАЧИЯ ДЪСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Димитър Йорданов Воденичарож",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "ДИМИТЪР ЙОРДАНОВ ВОДЕНИЧАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

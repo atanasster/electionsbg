@@ -4,61 +4,60 @@
     "declarantName": "Тихомир Иванов Колев",
     "institution": "Добричка",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г8897",
-    "controlHash": "47F1F521",
-    "sourceUrl": "https://register.cacbg.bg/2025/C03D052C-D279-49B4-B95A-CC0E7B844A9E211924.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2301",
+    "controlHash": "B17561D8",
+    "sourceUrl": "https://register.cacbg.bg/2026/C03D052C-D279-49B4-B95A-CC0E7B844A9E226332.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6519.482777132982,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18471.95308385698,
+        "amountEurDeclarant": 8335.080247260754,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "Договор за заем",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "ремарке",
+        "detail": "туристическо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Станимира Николаева Лищева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
-        "holderName": "Тихомир Иванов Колев",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": null
+        "currency": "EUR",
+        "amount": 14000,
+        "valueEur": 14060.526732896009,
+        "holderName": "Станимира Николаева Лищева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Малка Смолница",
-        "municipality": "Добричка",
-        "areaSqm": 1160,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 9203.253861531934,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

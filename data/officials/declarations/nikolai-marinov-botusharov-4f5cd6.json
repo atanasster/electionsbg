@@ -5,6 +5,105 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5952",
+    "controlHash": "90CDBBDB",
+    "sourceUrl": "https://register.cacbg.bg/2026/DE6ED97D-5A86-4300-8145-DB27BC1F2F4E230232.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31528.302562083616,
+        "amountEurSpouse": 16921.716100070047
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 173.83923960671427,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 217.29904950839287,
+        "amountEurSpouse": 217.29904950839287
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5200,
+        "valueEur": 5199.838431765542,
+        "holderName": "Николай Маринов Ботушаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и пенсии"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 33000,
+        "valueEur": 32999.80059616634,
+        "holderName": "Теодора Банчева Ботушарова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "залати и пенсии, обещетение при пенсиониране"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 217.29904950839287,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 217.29904950839287,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "nikolai-marinov-botusharov-4f5cd6",
+    "declarantName": "Николай Маринов Ботушаров",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "zdravka-hristova-mincheva-b6c96e",
+    "declarantName": "Здравка Христова Минчева",
+    "institution": "РУО",
+    "positionTitle": "Началник",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-20",
+    "entryNumber": "Г12284",
+    "controlHash": "AE797222",
+    "sourceUrl": "https://register.cacbg.bg/2026/5C646A71-C841-4C8C-83AD-ED3B553349B0237481.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
+        "description": "Ипотечен кредит към Пощенска банка",
+        "detail": "Радослав Христов Минчев",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 22241,
+        "legalBasis": "лични спестявания и безлихвен заем от приятели"
+      }
+    ]
+  },
+  {
+    "slug": "zdravka-hristova-mincheva-b6c96e",
+    "declarantName": "Здравка Христова Минчева",
+    "institution": "РУО",
+    "positionTitle": "Началник",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4103",
+    "controlHash": "9105FF00",
+    "sourceUrl": "https://register.cacbg.bg/2026/5C646A71-C841-4C8C-83AD-ED3B553349B0228299.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26891.396491515112,
+        "amountEurSpouse": 37149.95679583604
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 92.03253861531933,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6175,
+        "valueEur": 3157.227366386649,
+        "holderName": "Здравка Христова Минчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наплатен отпуск и ДТВ"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5566,
+        "valueEur": 2845.850610738152,
+        "holderName": "Радослав Христов Минчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45533,
+        "valueEur": 23280.653226507417,
+        "holderName": "Радослав Христов Минчев",
+        "isSpouse": true,
+        "legalBasis": "2.95",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59291,
+        "valueEur": 30315.00692800499,
+        "holderName": "Радослав Христов Минчев",
+        "isSpouse": true,
+        "legalBasis": "7.28",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

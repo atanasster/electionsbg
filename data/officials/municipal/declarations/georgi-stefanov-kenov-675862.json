@@ -4,25 +4,31 @@
     "declarantName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
     "institution": "Сунгурларе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13183",
-    "controlHash": "5936AA5E",
-    "sourceUrl": "https://register.cacbg.bg/2025/3F1B52A0-3E47-424D-B3CE-EC98A4AF4042216380.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12779",
+    "controlHash": "12E95D51",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F1B52A0-3E47-424D-B3CE-EC98A4AF4042238118.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7669.378217943277,
+        "amountEurDeclarant": 8213.90407141725,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 46357.30099241754,
+        "amountEurDeclarant": 55621.398587811826,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 41547.57826600471,
         "amountEurSpouse": null
       }
     ],
@@ -43,7 +49,7 @@
         "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАЕМ"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
@@ -83,7 +89,7 @@
       },
       {
         "category": "real_estate",
-        "description": "ВИЛА",
+        "description": "вила",
         "detail": null,
         "location": "КАРНОБАТ",
         "municipality": "КАРНОБАТ",
@@ -115,7 +121,7 @@
         "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -128,11 +134,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12002,
-        "valueEur": 6136.525158117014,
+        "amount": 6528,
+        "valueEur": 3337.7134004489144,
         "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА ИПОТЕКА",
+        "legalBasis": "ДОГОВОР ЗА ИПОТЕКА -7,659%",
         "fundsOrigin": null
       },
       {
@@ -146,16 +152,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4225,
-        "valueEur": 2160.2081980540233,
+        "amount": 2156,
+        "valueEur": 1102.3452958590472,
         "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА ОВЪРДРАФТ",
+        "legalBasis": "ДОГОВОР ЗА ОВЪРДРАФТ -15,05%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ДОГОВОРНА ИПОТЕКА",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -164,29 +170,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100000,
-        "valueEur": 51129.188119621846,
+        "amount": 18465,
+        "valueEur": 9441.004586288174,
         "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОРНА ИПОТЕКА",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "ДОГОВОРНА ИПОТЕКА",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 94926,
-        "valueEur": 48534.893114432234,
-        "holderName": "ГЕОРГИ СТЕФАНОВ КЕНОВ",
-        "isSpouse": false,
-        "legalBasis": "ДОГОВОРНА ИПОТЕКА",
+        "legalBasis": "договор за потребителски кредит -7,75%",
         "fundsOrigin": null
       }
     ],

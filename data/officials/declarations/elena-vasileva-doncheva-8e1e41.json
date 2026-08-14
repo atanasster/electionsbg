@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г14740",
+    "controlHash": "F7C81EC0",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7928E93-476E-4D4C-B522-18DC7B606154240860.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17218.265391163855,
+        "amountEurSpouse": 5697.325432169463
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11548,
+        "valueEur": 5904.398644053931,
+        "holderName": "Елена Василева Дончева",
+        "isSpouse": false,
+        "legalBasis": "4,25",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30094,
+        "valueEur": 15386.817872718999,
+        "holderName": "ЕЛЕНА ВАСИЛЕВА ДОНЧЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-vasileva-doncheva-8e1e41",
+    "declarantName": "ЕЛЕНА ВАСИЛЕВА ДОНЧЕВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,60 +1,102 @@
 [
   {
     "slug": "serdar-vahdet-adem-1847e4",
-    "declarantName": "СЕРДАР ВАХДЕТ АДЕМ",
+    "declarantName": "Сердар Вахдет Адем",
     "institution": "Ситово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2732",
-    "controlHash": "8287CB74",
-    "sourceUrl": "https://register.cacbg.bg/2025/84F3C85D-2D6B-449B-A1FA-0E6ADC3B6CDE205424.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13891",
+    "controlHash": "93D56069",
+    "sourceUrl": "https://register.cacbg.bg/2026/84F3C85D-2D6B-449B-A1FA-0E6ADC3B6CDE239544.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6191.23338940501,
-        "amountEurSpouse": 12601.299703962
+        "amountEurDeclarant": 10278.50068768758,
+        "amountEurSpouse": 6806.317522484061
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21260.539003901158,
+        "amountEurDeclarant": 28124.63250896039,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 484.1934114928189,
-        "amountEurSpouse": 818.0670099139496
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5305.67585117316
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 368.1301544612773,
+        "amountEurDeclarant": 496.97570852272435,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 13955.711897250783,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 50815,
+        "valueEur": 25981.296942985842,
+        "holderName": "Сердар Вахдет Адем",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "Потребителски кредит с 4.15% лихвен процент",
-        "detail": "BGN",
+        "description": "Банков кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 37396,
-        "valueEur": 19120.271189213785,
+        "currency": "EUR",
+        "amount": 17757,
+        "valueEur": 17757.16703394467,
         "holderName": "Сердар Вахдет Адем",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит с 4.15% лихв.процент",
+        "legalBasis": "Потребителски кредит с 4.15% л.п.",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Финансов лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18708,
+        "valueEur": 18708.169932969635,
+        "holderName": "Сердар Вахдет Адем",
+        "isSpouse": false,
+        "legalBasis": "Лизинг с 3.9% лих.пр.",
         "fundsOrigin": null
       }
     ],

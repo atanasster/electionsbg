@@ -4,25 +4,25 @@
     "declarantName": "Цветанка Кирилова Дамянова",
     "institution": "Мизия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-09",
-    "entryNumber": "Г3776",
-    "controlHash": "4CCCEFF6",
-    "sourceUrl": "https://register.cacbg.bg/2025/73145880-BEBA-42D8-B8F9-096BEE75E3A1206591.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г10371",
+    "controlHash": "B28B630E",
+    "sourceUrl": "https://register.cacbg.bg/2026/73145880-BEBA-42D8-B8F9-096BEE75E3A1235107.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3294.253590547236,
+        "amountEurDeclarant": 3962.000787389497,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17779.152584836105,
+        "amountEurDeclarant": 28890.03645511113,
         "amountEurSpouse": null
       }
     ],
@@ -34,7 +34,7 @@
         "location": "Крушовица",
         "municipality": "Мизия",
         "areaSqm": 1760,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 189,
         "acquiredYear": 2014,
         "share": "1",
         "currency": "BGN",
@@ -62,6 +62,24 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Цветанка Кирилова Дамянова",
+        "isSpouse": false,
+        "legalBasis": "4,29",
+        "fundsOrigin": null
       }
     ],
     "events": []

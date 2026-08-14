@@ -4,26 +4,32 @@
     "declarantName": "ДЕНИЦА ТОДОРОВА ТОДОРОВА",
     "institution": "Белослав",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13868",
-    "controlHash": "EAE1F108",
-    "sourceUrl": "https://register.cacbg.bg/2025/2E4649E1-8E91-46B1-BAAE-F43B7C88BE5B217126.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3998",
+    "controlHash": "69C59E51",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E4649E1-8E91-46B1-BAAE-F43B7C88BE5B228180.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31242.49040049493,
+        "amountEurDeclarant": 35925.412740371095,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5726.469069397647,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Заем (лихвата се приспада от заема)",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 16200,
+        "valueEur": 8282.92847537874,
         "holderName": "Деница Тодорова Тодорова",
         "isSpouse": false,
-        "legalBasis": "Договор за възмездна помощ пт 01.02.2024 г.",
+        "legalBasis": "Договор, в т.1. лихва: 1,83%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Договор за кредит 014LD-R-021767",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,37 +56,25 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 77000,
-        "valueEur": 39369.474852108826,
+        "amount": 65643,
+        "valueEur": 33562.73295736337,
         "holderName": "Деница Тодорова Тодорова",
         "isSpouse": false,
-        "legalBasis": "Д-р №014LD-R021767/06.2.2024",
+        "legalBasis": "Договор, в т.1. лихва: 4,40%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "third_party_expense",
-        "description": "гр. Варна, България –Букурещ, Румъния – Галаци, Гърция и обратно /14.04.2024 г. до 18.04.2024 г./",
+        "description": "Работна среща  по проект COAST CRAFT /02-04 октомври/ в Мюнхен, Германия",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 419.25934258089916,
-        "legalBasis": null
-      },
-      {
-        "kind": "third_party_expense",
-        "description": "15.05.2024 г. до 19.05.2024 г. до гр. Неапол, Италия и обратно, със следния маршрут: гр. Белослав Варна, България –Букурещ, Румъния – Неапол, Италия и обратно.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 419.25934258089916,
+        "valueEur": 429.4851802048235,
         "legalBasis": null
       }
     ]

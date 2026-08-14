@@ -5,6 +5,68 @@
     "institution": "ГДИН",
     "positionTitle": "Заместник-главен директор на ГДИН",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6056",
+    "controlHash": "F3FEC6CE",
+    "sourceUrl": "https://register.cacbg.bg/2026/058F1B82-42D0-4269-A3D9-12C44E528618230349.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44807.5753005118,
+        "amountEurSpouse": 21660.3692549966
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31000,
+        "valueEur": 15850.048317082774,
+        "holderName": "Цветан Трифонов Цветков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Десислава Тошкова Стойчева-Цветкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsvetan-trifonov-tsvetkov-7ec359",
+    "declarantName": "Цветан Трифонов Цветков",
+    "institution": "ГДИН",
+    "positionTitle": "Заместник-главен директор на ГДИН",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,84 +4,35 @@
     "declarantName": "Ерол Мустафа Али",
     "institution": "Черноочене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9184",
-    "controlHash": "65B7F925",
-    "sourceUrl": "https://register.cacbg.bg/2025/CE773CA6-BDB5-4740-8CFF-A9E264B3AED7212216.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13823",
+    "controlHash": "007FFEA3",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE773CA6-BDB5-4740-8CFF-A9E264B3AED7239438.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20475.705966264963,
-        "amountEurSpouse": 6657.531585055961
+        "amountEurDeclarant": 2406.6508847906002,
+        "amountEurSpouse": 7845.262625074776
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2171.967911321536,
+        "amountEurDeclarant": 21130.67086607732,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ваучери за храна",
+        "amountEurDeclarant": 797.6153346661008,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с.Минзухар",
-        "municipality": "Черноочене",
-        "areaSqm": 100,
-        "builtAreaSqm": 100,
-        "acquiredYear": 2024,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Ерол Мустафа Али",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "с.Минзухар",
-        "municipality": "Черноочене",
-        "areaSqm": 21,
-        "builtAreaSqm": 21,
-        "acquiredYear": 2024,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Ерол Мустафа Али",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
-        "description": "складови помещения",
-        "detail": null,
-        "location": "с.Минзухар",
-        "municipality": "Черноочене",
-        "areaSqm": 36,
-        "builtAreaSqm": 36,
-        "acquiredYear": 2024,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Ерол Мустафа Али",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

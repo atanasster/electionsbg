@@ -4,15 +4,22 @@
     "declarantName": "Васил Петров Зашкев",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10506",
-    "controlHash": "04C4655B",
-    "sourceUrl": "https://register.cacbg.bg/2025/D3FACF25-1C7F-4A9E-BFB5-41B85126BF34213598.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13763",
+    "controlHash": "9CF05B8A",
+    "sourceUrl": "https://register.cacbg.bg/2026/D3FACF25-1C7F-4A9E-BFB5-41B85126BF34239362.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6340.0193268331095,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -58,7 +65,7 @@
         "municipality": "София-град (Столична)",
         "areaSqm": 2,
         "builtAreaSqm": null,
-        "acquiredYear": 2005,
+        "acquiredYear": 2025,
         "share": "100",
         "currency": "BGN",
         "amount": 1500,

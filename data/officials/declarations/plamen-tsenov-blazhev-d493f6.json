@@ -1,6 +1,56 @@
 [
   {
     "slug": "plamen-tsenov-blazhev-d493f6",
+    "declarantName": "ПЛАМЕН ЦЕНОВ БЛАЖЕВ",
+    "institution": "Първа Частна МБАЛ Враца ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8944",
+    "controlHash": "013581C0",
+    "sourceUrl": "https://register.cacbg.bg/2026/126D5154-414A-42B4-93D2-3055BE8F764D233493.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 79924.12428483048,
+        "amountEurSpouse": 35628.86344927729
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7880.5417648773155,
+        "amountEurSpouse": 2561.5723247930546
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 195500,
+        "valueEur": 99957.56277386071,
+        "holderName": "Пламен Ценав Блажев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "plamen-tsenov-blazhev-d493f6",
     "declarantName": "Пламен Ценов Блажев",
     "institution": "Първа Частна МБАЛ Враца ЕООД",
     "positionTitle": "Управител",

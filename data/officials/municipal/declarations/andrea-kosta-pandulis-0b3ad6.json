@@ -4,13 +4,13 @@
     "declarantName": "Андреа Коста Пандулис",
     "institution": "Район Подуяне",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7378",
-    "controlHash": "EA2F3DB7",
-    "sourceUrl": "https://register.cacbg.bg/2025/F96B00C5-A358-4AB1-9FC9-5679B4A7296A210366.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г9631",
+    "controlHash": "9A7E4516",
+    "sourceUrl": "https://register.cacbg.bg/2026/F96B00C5-A358-4AB1-9FC9-5679B4A7296A234269.xml",
     "ownershipStakes": [],
     "income": [],
     "assets": [
@@ -30,7 +30,43 @@
         "holderName": "Андреа Коста Пандулис",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6203,
+        "valueEur": 6202.481810791326,
+        "holderName": "Андреа Коста Пандулис",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6045,
+        "valueEur": 6044.492619501695,
+        "holderName": "Андреа Коста Пандулис",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -43,8 +79,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19413,
-        "valueEur": 9925.709289662189,
+        "amount": 37470,
+        "valueEur": 19158.10678842231,
         "holderName": "Андреа Коста Пандулис",
         "isSpouse": false,
         "legalBasis": "Кредит",
@@ -61,8 +97,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21277,
-        "valueEur": 10878.757356211941,
+        "amount": 46309,
+        "valueEur": 23677.41572631568,
         "holderName": "Андреа Коста Пандулис",
         "isSpouse": false,
         "legalBasis": "Кредит",
@@ -79,14 +115,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15288,
-        "valueEur": 7816.630279727789,
+        "amount": 19060,
+        "valueEur": 9745.223255599924,
         "holderName": "Андреа Коста Пандулис",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "Доверителен фонд"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1776.7392871568593,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Лечение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17471.354872355983,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,16 +1,16 @@
 {
   "obshtina": "PVN27",
   "registryName": "Пордим",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 12,
-    "chief_architect": 1,
+    "councillor": 13,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "filip-nikolaev-nikolov-582844",
@@ -47,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -64,7 +67,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -75,13 +79,24 @@
       }
     },
     {
+      "slug": "evgeni-petrov-petrov-5f3877",
+      "name": "Евгени Петров Петров",
+      "normalizedName": "ЕВГЕНИ ПЕТРОВ ПЕТРОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Пордим",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "petr-todorov-petrov-e68b40",
       "name": "Петър Тодоров Петров",
       "normalizedName": "ПЕТЪР ТОДОРОВ ПЕТРОВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aleksandr-stefanov-bogdanov-ef39b1",
@@ -90,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -107,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -124,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -141,7 +159,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -158,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -175,7 +195,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -192,7 +213,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -209,7 +231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -220,13 +243,32 @@
       }
     },
     {
+      "slug": "radoslav-rumenov-georgiev-08dfe2",
+      "name": "Радослав Руменов Георгиев",
+      "normalizedName": "РАДОСЛАВ РУМЕНОВ ГЕОРГИЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пордим",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
+        "partyCanonicalId": "gerb",
+        "listPos": 111,
+        "prefVotes": 32,
+        "isElected": false
+      }
+    },
+    {
       "slug": "svetlana-ioveva-sbeva-023b4b",
       "name": "Светлана Йовева Събева",
       "normalizedName": "СВЕТЛАНА ЙОВЕВА СЪБЕВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -243,7 +285,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -260,7 +303,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция ГЕРБ /ЛЕВИЦАТА!, ВМРО - БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ, БЗНС/",
@@ -277,7 +321,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Пордим",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",

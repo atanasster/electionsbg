@@ -1,6 +1,105 @@
 [
   {
     "slug": "diyana-ivanova-pantileeva-ebbd2d",
+    "declarantName": "Дияна Иванова  Пантилееваа",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г5197",
+    "controlHash": "CBBC5784",
+    "sourceUrl": "https://register.cacbg.bg/2026/79BCB618-2527-4E58-93C4-FE6FBE52F858229446.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36564.52759186637,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 184822.30050669026,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 86084,
+        "valueEur": 44014.05030089527,
+        "holderName": "Деяна Иванова Пантилеева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62881,
+        "valueEur": 32150.544781499415,
+        "holderName": "Дияна Иванова Пантилеева",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит 2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101158,
+        "valueEur": 51721.26411804707,
+        "holderName": "Дияна Иванова Пантилеева",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит 2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Глъбник",
+        "municipality": "Радомир",
+        "areaSqm": 608,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "diyana-ivanova-pantileeva-ebbd2d",
     "declarantName": "Дияна Иванова Пантилеева",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Член на Съвета на директорите",

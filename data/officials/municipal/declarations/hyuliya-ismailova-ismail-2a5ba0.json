@@ -1,58 +1,58 @@
 [
   {
     "slug": "hyuliya-ismailova-ismail-2a5ba0",
-    "declarantName": "Хюлия Исмаилова Исмаил",
+    "declarantName": "Хюлия Исмаиловя Исмаил",
     "institution": "Белослав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г10170",
-    "controlHash": "42A0936B",
-    "sourceUrl": "https://register.cacbg.bg/2025/FAA81E9C-8164-45AA-83BB-A8F9BECF4006213245.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4208",
+    "controlHash": "18976225",
+    "sourceUrl": "https://register.cacbg.bg/2026/FAA81E9C-8164-45AA-83BB-A8F9BECF4006228405.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4679.3432967077915,
+        "amountEurDeclarant": 3992.167008380074,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13299.213121794839,
+        "amountEurDeclarant": 17427.383770573106,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доход от граждански договор",
-        "amountEurDeclarant": 344.6107279262513,
+        "category": "Доход от рента на земеделска земя",
+        "amountEurDeclarant": 2800.3456333116887,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доход от рента",
-        "amountEurDeclarant": 3511.5526400556287,
+        "category": "Лична пенсия за инвалидност поради общо заболяване по чл. 74 КСО и ЗХУ-чл. 70",
+        "amountEurDeclarant": 5947.347162074413,
+        "amountEurSpouse": 5072.015461466487
+      },
+      {
+        "parent": null,
+        "category": "Болнични",
+        "amountEurDeclarant": 179.46345029987268,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Лична пенсия за инвалидност поради общо заболяване по чл.74 КСО",
-        "amountEurDeclarant": 5541.381408404616,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ЗХУ - чл. 70",
-        "amountEurDeclarant": 207.0732118844685,
+        "category": "Доходи от лихва",
+        "amountEurDeclarant": 0.5112918811962185,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -62,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
+        "amount": 85091,
+        "valueEur": 43506.33746286743,
         "holderName": "Хюлия Исмаилова Исмаил",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "наследяване, заплати, спестявания"
       },
       {
         "category": "bank",
@@ -80,12 +80,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6500,
-        "valueEur": 3323.39722777542,
-        "holderName": "Хюлия Исмаилова Исмаил",
-        "isSpouse": false,
+        "amount": 30280,
+        "valueEur": 15481.918162621496,
+        "holderName": "Исмаил Исмет Исмаил",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9920,
+        "valueEur": 5072.015461466487,
+        "holderName": "Исмаил Исмет Исмаил",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
       }
     ],
     "events": []

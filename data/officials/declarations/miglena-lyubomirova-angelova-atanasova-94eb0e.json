@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г6027",
+    "controlHash": "62CA3980",
+    "sourceUrl": "https://register.cacbg.bg/2026/BF6F0F35-AF11-4D2E-9566-0477B4C4E9FD230320.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21535.614035984723,
+        "amountEurSpouse": 6387.0581799031615
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20869,
+        "valueEur": 10670.150268683883,
+        "holderName": "Севдалин Цветанов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "7.89%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "miglena-lyubomirova-angelova-atanasova-94eb0e",
+    "declarantName": "Миглена Любомирова Ангелова-Атанасова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

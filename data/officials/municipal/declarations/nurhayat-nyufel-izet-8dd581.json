@@ -4,25 +4,25 @@
     "declarantName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
     "institution": "Крушари",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г11794",
-    "controlHash": "1CA61637",
-    "sourceUrl": "https://register.cacbg.bg/2025/1F88F3EB-1B42-49D9-BD8C-80C672FE71CD214946.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г6626",
+    "controlHash": "8B2724DF",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F88F3EB-1B42-49D9-BD8C-80C672FE71CD230964.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7805.893150222668,
+        "amountEurDeclarant": 4049.942990955247,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1560.974113292055,
+        "amountEurDeclarant": 10117.443745110771,
         "amountEurSpouse": null
       }
     ],
@@ -38,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25500,
-        "valueEur": 13037.94297050357,
+        "amount": 96043,
+        "valueEur": 49106.00614572841,
         "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "ЗАПЛАТА И СПЕСТЯВАНИЯ"
       },
       {
         "category": "cash",
@@ -61,10 +61,10 @@
         "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -74,15 +74,33 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50500,
-        "valueEur": 25820.240000409034,
+        "amount": 20332,
+        "valueEur": 10395.586528481514,
+        "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50290,
+        "valueEur": 25712.86870535783,
         "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       },
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -92,30 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50153,
-        "valueEur": 25642.821717633946,
+        "amount": 25244,
+        "valueEur": 12907.05224891734,
         "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20100,
-        "valueEur": 10276.966812043991,
-        "holderName": "НУРХАЯТ НЮФЕЛ ИЗЕТ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "наследяване"
       }
     ],
     "events": []

@@ -1,6 +1,62 @@
 [
   {
     "slug": "dimka-mihailova-borisova-aa7613",
+    "declarantName": "Димка Михайлова борисова",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12089",
+    "controlHash": "78BD3EA5",
+    "sourceUrl": "https://register.cacbg.bg/2026/3DC57E4D-E41A-4A9F-B5A0-DEA2D21C7C61237199.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28920.202676101708,
+        "amountEurSpouse": 13086.004407336017
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6951.524416743787
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4284.625964424311
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000,
+        "holderName": "Димка Михайлова Борисова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimka-mihailova-borisova-aa7613",
     "declarantName": "Димка Михайлова Борисова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",

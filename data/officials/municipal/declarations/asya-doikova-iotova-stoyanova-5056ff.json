@@ -1,32 +1,105 @@
 [
   {
     "slug": "asya-doikova-iotova-stoyanova-5056ff",
-    "declarantName": "Ася Дойкова Йотова - Стоянова",
+    "declarantName": "Ася Дойкова Йотова-Стоянова",
     "institution": "Кула",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12669",
-    "controlHash": "E078E547",
-    "sourceUrl": "https://register.cacbg.bg/2025/A972C321-1559-49F1-B19D-208D1723C7B8215842.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г6937",
+    "controlHash": "6CFB72B6",
+    "sourceUrl": "https://register.cacbg.bg/2026/A972C321-1559-49F1-B19D-208D1723C7B8231312.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16614.940971352316,
-        "amountEurSpouse": 23803.193529089953
+        "amountEurDeclarant": 17728.023396716482,
+        "amountEurSpouse": 22577.11559798142
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2683.7710843989507,
+        "amountEurDeclarant": 4538.738029378832,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София,кв.Овча Купел,ул.Маестро Кънев №67,ап.В02",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "acquiredYear": 2025,
+        "share": "0.33",
+        "currency": "BGN",
+        "amount": 361829,
+        "valueEur": 185000.23008134653,
+        "holderName": "Ася Дойкова Йотова-Стоянова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София,кв.Овча Купел,ул.Маестро Кънев №67,ап.В02",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "acquiredYear": 2025,
+        "share": "0.33",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Владимир Иванов Стоянов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кресит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 324000,
+        "valueEur": 165658.56950757478,
+        "holderName": "Ася Дойкова Йотова",
+        "isSpouse": true,
+        "legalBasis": "2.6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2588,
+        "valueEur": 1323.2233885358135,
+        "holderName": "Ася Дойкова Йотова",
+        "isSpouse": true,
+        "legalBasis": "4.6%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

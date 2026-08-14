@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "mariya-negrinova-negreva-196878",
+    "declarantName": "МАРИЯ НЕГРИНОВА НЕГРЕВА",
+    "institution": "Медицински университет - Варна",
+    "positionTitle": "Заместник-ректор",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г7281",
+    "controlHash": "201131F1",
+    "sourceUrl": "https://register.cacbg.bg/2026/EA8ECD4E-FB3B-4B7B-9DE4-B29AD3154FDD231686.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 105792.42572207196,
+        "amountEurSpouse": 76543.46236636108
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17056.185864824653,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5474.402171967911,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксфаген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 118950,
+        "valueEur": 60818.16926829019,
+        "holderName": "Георги Стефанов Бъчваров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110138,
+        "valueEur": 56312.66521118911,
+        "holderName": "Мария Негринова Негрева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 102300,
+        "valueEur": 52305.15944637315,
+        "holderName": "Георги Стефанов Бъчваров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 52000,
+        "valueEur": 26587.17782220336,
+        "holderName": "Георги Стефанов Бъчваров",
+        "isSpouse": true,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

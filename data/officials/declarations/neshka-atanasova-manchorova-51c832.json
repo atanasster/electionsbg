@@ -1,0 +1,125 @@
+[
+  {
+    "slug": "neshka-atanasova-manchorova-51c832",
+    "declarantName": "Нешка Атанасова Манчорова",
+    "institution": "Медицински университет - Пловдив",
+    "positionTitle": "Заместник-ректор",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9479",
+    "controlHash": "E887FBDB",
+    "sourceUrl": "https://register.cacbg.bg/2026/8CA3B378-C4EA-4745-A83D-D49F2686D91C234100.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 96656.15109697673,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3344.8714867856615,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1656.585695075748,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Нешка Атанасова Манчорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 461418,
+        "valueEur": 235919.27723779675,
+        "holderName": "Нешка Атанасова Манчорова",
+        "isSpouse": false,
+        "legalBasis": "договор за ипотечен кредит с 2,18%ЛИХВА",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85102,
+        "valueEur": 43511.96167356059,
+        "holderName": "Нешка Атанасова Манчорова",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит 4,2 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "договор за заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 175000,
+        "valueEur": 89476.07920933823,
+        "holderName": "Нешка Атанасова Манчорова",
+        "isSpouse": false,
+        "legalBasis": "Договор за безлихвен заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 100,
+        "builtAreaSqm": 130,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  }
+]

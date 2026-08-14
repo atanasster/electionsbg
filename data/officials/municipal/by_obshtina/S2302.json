@@ -1,16 +1,16 @@
 {
   "obshtina": "S2302",
   "registryName": "Район Красно село",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 0,
     "councillor": 0,
-    "chief_architect": 1,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
@@ -21,16 +21,18 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Красно село",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
-      "slug": "dilyana-stoicheva-zhavova-99f8b7",
-      "name": "Диляна Стойчева Жавова",
-      "normalizedName": "ДИЛЯНА СТОЙЧЕВА ЖАВОВА",
+      "slug": "sava-dimitrov-tashev-4db252",
+      "name": "Сава Димитров Ташев",
+      "normalizedName": "САВА ДИМИТРОВ ТАШЕВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Красно село",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "sotir-marianov-ivanov-35a664",
@@ -39,7 +41,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Красно село",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "stanislava-petkova-shalamanova-tsoncheva-ae069f",
@@ -48,7 +51,18 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Красно село",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "vladimir-georgiev-vladov-b3efb0",
+      "name": "Владимир Георгиев Владов",
+      "normalizedName": "ВЛАДИМИР ГЕОРГИЕВ ВЛАДОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Район Красно село",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "miroslav-plamenov-rusev-f584aa",
@@ -57,7 +71,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Красно село",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

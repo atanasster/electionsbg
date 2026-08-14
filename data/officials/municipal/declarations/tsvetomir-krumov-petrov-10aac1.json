@@ -4,40 +4,40 @@
     "declarantName": "ЦВЕТОМИР КРУМОВ ПЕТРОВ",
     "institution": "Ценово",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13089",
-    "controlHash": "216591CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/80F0D2D5-7C98-4FBA-98BA-1C78639CDB66216282.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14372",
+    "controlHash": "A59456C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/80F0D2D5-7C98-4FBA-98BA-1C78639CDB66240133.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15095.892792318351,
-        "amountEurSpouse": 19649.458286251873
+        "amountEurDeclarant": 16665.047575709545,
+        "amountEurSpouse": 22673.749763527507
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "KIA XCEED",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Кубрат",
+        "municipality": "Кубрат",
+        "areaSqm": 376,
+        "builtAreaSqm": 126,
+        "acquiredYear": 2025,
+        "share": "1/8",
         "currency": "BGN",
-        "amount": 52000,
-        "valueEur": 26587.17782220336,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
-        "legalBasis": "лизинг",
-        "fundsOrigin": "продажба, лизинг, заплати"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "debt",
@@ -50,11 +50,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 29013,
-        "valueEur": 14834.111349145887,
+        "amount": 4818,
+        "valueEur": 2463.4042836033805,
         "holderName": "Юлия Василевна Петрова",
         "isSpouse": true,
-        "legalBasis": "2,69%",
+        "legalBasis": "ипотечен кредит, 2,69 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ОК-кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Цветомир Крумов Петров",
+        "isSpouse": false,
+        "legalBasis": "ОК-кредит, 11,75 %",
         "fundsOrigin": null
       },
       {
@@ -68,27 +86,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26000,
-        "valueEur": 13293.58891110168,
+        "amount": 12071,
+        "valueEur": 6171.804297919553,
         "holderName": "Цветомир Крумов Петров",
         "isSpouse": false,
-        "legalBasis": "4,20%",
+        "legalBasis": "лизинг, 4,20 %",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "шкода Октавия",
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 8794.220356574959,
-        "legalBasis": "възмездно"
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Юлия Василевна Петрова",
+        "isSpouse": true,
+        "legalBasis": "КК, 12,30 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

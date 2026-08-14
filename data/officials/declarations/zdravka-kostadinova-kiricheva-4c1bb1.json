@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г8566",
+    "controlHash": "BD87F03C",
+    "sourceUrl": "https://register.cacbg.bg/2026/6AB57A5B-FFB7-47C7-A54F-E53F5AC13E42233082.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21759.559879948665,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8877.560933209941,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3742.656570356319,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5632.391363257543,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Лещен, общ. Гърмен",
+        "municipality": "Гърмен",
+        "areaSqm": 146,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/20",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Здравка Костадинова Киричева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zdravka-kostadinova-kiricheva-4c1bb1",
+    "declarantName": "Здравка Костадинова Киричева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

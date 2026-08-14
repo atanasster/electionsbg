@@ -5,6 +5,74 @@
     "institution": "Област - Видин",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-26",
+    "entryNumber": "Г288",
+    "controlHash": "5ED5A12A",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB3F3570-7AB4-422E-A618-26762E8C3CC5223391.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29004.56583649908,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от рента",
+        "amountEurDeclarant": 981.6804118967395,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Силвия Сашова Стрезова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27637,
+        "valueEur": 14130.57372061989,
+        "holderName": "Силвия Сашова Стрезова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "silviya-sashova-strezova-206f2f",
+    "declarantName": "Силвия Сашова Стрезова",
+    "institution": "Област - Видин",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

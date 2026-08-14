@@ -4,74 +4,50 @@
     "declarantName": "Василена Тодорова Георгиева-Ивкова",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3215",
-    "controlHash": "AC671A3C",
-    "sourceUrl": "https://register.cacbg.bg/2025/6AB21686-FD47-4F20-A059-C1EC62B474DE205949.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1763",
+    "controlHash": "DAF2756B",
+    "sourceUrl": "https://register.cacbg.bg/2026/6AB21686-FD47-4F20-A059-C1EC62B474DE225719.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11767.893937612165,
+        "amountEurDeclarant": 12557.839894060322,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7116.160402488969,
+        "amountEurDeclarant": 8697.586191028873,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5624.210693158403
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 484.70470337401514,
-        "amountEurSpouse": null
+        "amountEurSpouse": 5819.012899894163
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Поло",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 1340,
-        "valueEur": 685.1311208029327,
-        "holderName": "Иван Симеонов Ивков",
+        "amount": 11371,
+        "valueEur": 5813.899981082201,
+        "holderName": "Василена Тодорова Георгиев-Ивкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 11192,
-        "valueEur": 5722.378734348077,
-        "holderName": "Василена Тодорова Георгиева-Ивкова",
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -86,10 +62,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Василена Тодорова Георгиева-Ивкова",
-        "isSpouse": false,
+        "amount": 11193,
+        "valueEur": 5722.890026229274,
+        "holderName": "Василена Тодорова Георгиев-Ивкова",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -104,39 +80,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 4400,
+        "valueEur": 2249.6842772633613,
         "holderName": "Иван Симеонов Ивков",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ситроен Саксо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 274.05244832117313,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Товарен автомобил",
-        "detail": "Ивеко",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3775.8905426340734,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

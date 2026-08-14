@@ -5,6 +5,74 @@
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6328",
+    "controlHash": "2687244B",
+    "sourceUrl": "https://register.cacbg.bg/2026/47F94CD0-CA39-44FA-B774-D76616EEBB99230642.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26320.283460218936,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наем, земеделска земя",
+        "amountEurDeclarant": 409.0335049569748,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1200,
+        "valueEur": 613.5502574354622,
+        "holderName": "Николай Тодоров Златаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 360099,
+        "valueEur": 184115.69512687708,
+        "holderName": "Николай Тодоров Златаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-todorov-zlatarov-8adc2f",
+    "declarantName": "НИКОЛАЙ ТОДОРОВ ЗЛАТАРОВ",
+    "institution": "Североцентрално държавно предприятие - ДП Габрово",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,25 +4,31 @@
     "declarantName": "Айлин Нежмединова Аптулова",
     "institution": "Вълчидол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10219",
-    "controlHash": "78D63F14",
-    "sourceUrl": "https://register.cacbg.bg/2025/BBE82774-CE1B-4513-9DC7-4D0C2D96DCF5213295.xml",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1115",
+    "controlHash": "EAB8FDD8",
+    "sourceUrl": "https://register.cacbg.bg/2026/BBE82774-CE1B-4513-9DC7-4D0C2D96DCF5224826.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10522.386915018176,
-        "amountEurSpouse": 10225.83762392437
+        "amountEurDeclarant": 661.1004023867105,
+        "amountEurSpouse": 11204.450284533932
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 2397.9589228102645,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12716.851669112346,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1268.0038653666218,
         "amountEurSpouse": null
       }
     ],
@@ -66,7 +72,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Тойота\"Айго\"",
+        "detail": "Тойота \"Айго\"",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -98,6 +104,24 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Айлин Нежмединова Аптулова",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
       }
     ],
     "events": []

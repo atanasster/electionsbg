@@ -4,71 +4,41 @@
     "declarantName": "Христо Ивайлов Таслаков",
     "institution": "Плевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г11474",
-    "controlHash": "7DFF7187",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3DC0AEF-B614-4BC4-AD81-D95DD93F4038214614.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11008",
+    "controlHash": "5E4487CE",
+    "sourceUrl": "https://register.cacbg.bg/2026/E3DC0AEF-B614-4BC4-AD81-D95DD93F4038235837.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14767.643404590379,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 256794.30216327595,
+        "amountEurSpouse": 5099.113931169887
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 444.8239366407101,
+        "amountEurDeclarant": 19401.481723871708,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 766.9378217943278,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 3190.4613386644032,
+        "amountEurDeclarant": 5521.95231691916,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с.Гиген",
-        "municipality": "Гулянци",
-        "areaSqm": 73,
-        "builtAreaSqm": 73,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 9070,
-        "valueEur": 4637.417362449702,
-        "holderName": "Ралица Христова Таслакова",
-        "isSpouse": true,
-        "legalBasis": "дарение",
-        "fundsOrigin": "няма"
-      },
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Гиген",
-        "municipality": "Гулянци",
-        "areaSqm": 990,
-        "builtAreaSqm": 990,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Ралица Христова Таслакова",
-        "isSpouse": true,
-        "legalBasis": "дарение",
-        "fundsOrigin": "няма"
-      },
       {
         "category": "cash",
         "description": null,
@@ -85,29 +55,11 @@
         "holderName": "Христо Ивайлов Таслаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "receivable",
-        "description": "паричен заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 41221,
-        "valueEur": 21075.96263478932,
-        "holderName": "Христо Ивайлов Таслаков",
-        "isSpouse": false,
-        "legalBasis": "договор за заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "receivable",
-        "description": "паричен заем",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -120,41 +72,10 @@
         "valueEur": 26075.88594100714,
         "holderName": "Ралица Христова Таслакова",
         "isSpouse": true,
-        "legalBasis": "договор за заем",
-        "fundsOrigin": null
-      },
-      {
-        "category": "receivable",
-        "description": "паричен заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Ралица Христова Таслакова",
-        "isSpouse": true,
-        "legalBasis": "договор за заем",
+        "legalBasis": "заем",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Голяма Желязна",
-        "municipality": "Троян",
-        "areaSqm": 349,
-        "builtAreaSqm": 83,
-        "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

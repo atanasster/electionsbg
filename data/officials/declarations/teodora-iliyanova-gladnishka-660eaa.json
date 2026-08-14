@@ -5,6 +5,50 @@
     "institution": "СБПЛРВБ - Мездра ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7008",
+    "controlHash": "70971B70",
+    "sourceUrl": "https://register.cacbg.bg/2026/61688C36-B40A-409E-9F08-2725C9D34BD6231393.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34683.996052826675,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2183,
+        "valueEur": 2182.705040826657,
+        "holderName": "ТЕОДОРА ИЛИЯНОВА ГЛАДНИШКА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-iliyanova-gladnishka-660eaa",
+    "declarantName": "ТЕОДОРА ИЛИЯНОВА ГЛАДНИШКА",
+    "institution": "СБПЛРВБ - Мездра ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

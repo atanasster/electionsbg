@@ -4,23 +4,60 @@
     "declarantName": "Анета Муса Ел-Хадад-Георгиева",
     "institution": "Павел баня",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5404",
-    "controlHash": "D1C7A189",
-    "sourceUrl": "https://register.cacbg.bg/2025/168A7311-E468-4521-A69E-9639D33E974B208329.xml",
+    "filedAt": null,
+    "entryNumber": "Г12581",
+    "controlHash": "B267BF65",
+    "sourceUrl": "https://register.cacbg.bg/2026/168A7311-E468-4521-A69E-9639D33E974B237897.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18461.21595435186,
-        "amountEurSpouse": 1533.8756435886555
+        "amountEurDeclarant": 24419.300245931394,
+        "amountEurSpouse": 18275.617001477633
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "гр.Казанлък, ул. \"Ген.Скобелев\"",
+        "municipality": "Казанлък",
+        "areaSqm": 45,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2025,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Татяна Тенчева Тенва",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "гр.Казанлък, ул. \"Ген.Скобелев\"",
+        "municipality": "Казанлък",
+        "areaSqm": 45,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2025,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Муса Ауад Ел-Хадад",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      }
+    ],
     "events": []
   }
 ]

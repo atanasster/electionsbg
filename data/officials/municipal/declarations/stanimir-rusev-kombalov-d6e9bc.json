@@ -1,52 +1,34 @@
 [
   {
     "slug": "stanimir-rusev-kombalov-d6e9bc",
-    "declarantName": "Станимир Русев Комбалов",
+    "declarantName": "СТАНИМИР РУСЕВ КОМБАЛОВ",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г9481",
-    "controlHash": "91B2614B",
-    "sourceUrl": "https://register.cacbg.bg/2025/38F6C85D-B65B-4EE7-803F-EB401CB1D8CA212522.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5299",
+    "controlHash": "79B52680",
+    "sourceUrl": "https://register.cacbg.bg/2026/38F6C85D-B65B-4EE7-803F-EB401CB1D8CA229550.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9676.198851638435,
+        "amountEurDeclarant": 13227.120966546172,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1036.899935065931,
+        "amountEurDeclarant": 3001.2833426218026,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "бнков кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 42275,
-        "valueEur": 21614.864277570137,
-        "holderName": "Станимир Русев Комбалов",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
         "description": "банков кредит",
         "detail": "BGN",
         "location": null,
@@ -56,16 +38,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9037,
-        "valueEur": 4620.544730370227,
-        "holderName": "Станимир Русев Комбалов",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "СТАНИМИР РУСЕВ КОМБАЛОВ",
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "банков кредит",
+        "description": "БАНКОВ КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,14 +56,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "Станимир Русев Комбалов",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "СТАНИМИР РУСЕВ КОМБАЛОВ",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "СТАНИМИР РУСЕВ КОМБАЛОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХАВАЛ Х6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 22496.842772633612,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

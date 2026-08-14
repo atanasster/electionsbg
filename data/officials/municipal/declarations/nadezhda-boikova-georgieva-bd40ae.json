@@ -4,35 +4,47 @@
     "declarantName": "Надежда Бойкова Георгиева",
     "institution": "Кресна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11699",
-    "controlHash": "5B372FAB",
-    "sourceUrl": "https://register.cacbg.bg/2025/D216B1C2-F596-4A6F-B841-84BAFD58CCA7214849.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13026",
+    "controlHash": "956C1765",
+    "sourceUrl": "https://register.cacbg.bg/2026/D216B1C2-F596-4A6F-B841-84BAFD58CCA7238413.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5337.887239688521,
-        "amountEurSpouse": 9830.608999759694
+        "amountEurDeclarant": 3885.8182970912603,
+        "amountEurSpouse": 10082.164605308233
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7209.726816747877,
+        "amountEurDeclarant": 6063.410419105955,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 409.0335049569748
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Васил Петров Георгиев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,14 +56,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20200,
-        "valueEur": 10328.096000163614,
+        "amount": 23200,
+        "valueEur": 11861.97164375227,
         "holderName": "Надежда Бойкова Георгиева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Кресна",
+        "municipality": "Кресна",
+        "areaSqm": 574,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 341.0316847578777,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,35 +4,53 @@
     "declarantName": "ПЛАМЕН КИРИЛОВ МАРИНОВ",
     "institution": "Бяла/Русе/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6880",
-    "controlHash": "ED75503E",
-    "sourceUrl": "https://register.cacbg.bg/2025/65896616-8C30-4FBA-8839-F8E3C871FACD209863.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7012",
+    "controlHash": "6F6488AA",
+    "sourceUrl": "https://register.cacbg.bg/2026/65896616-8C30-4FBA-8839-F8E3C871FACD231397.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4548.963867002756,
-        "amountEurSpouse": 19611.111395162156
+        "amountEurDeclarant": 5684.031843258361,
+        "amountEurSpouse": 20931.77832429199
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 48310.94727046829,
+        "amountEurDeclarant": 45861.859159538406,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 14505.350669536718,
+        "amountEurDeclarant": 16250.389860059413,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Дарина Станева Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 186932,
-        "valueEur": 95576.81393577151,
+        "amount": 274406,
+        "valueEur": 140301.55995152952,
         "holderName": "Пламен Кирилов Маринов",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36629,
-        "valueEur": 18728.110316336286,
+        "amount": 57519,
+        "valueEur": 29408.997714525292,
         "holderName": "Пламен Кирилов Маринов",
         "isSpouse": false,
         "legalBasis": null,
@@ -81,7 +99,7 @@
         "share": null,
         "currency": "GBP",
         "amount": 55000,
-        "valueEur": 63553.58083268996,
+        "valueEur": null,
         "holderName": "Пламен Кирилов Маринов",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,8 +116,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 8059,
+        "valueEur": 4120.501270560325,
         "holderName": "Дарина Станева Маринова",
         "isSpouse": true,
         "legalBasis": null,
@@ -116,12 +134,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 98000,
-        "valueEur": 50106.604357229415,
+        "amount": 55203,
+        "valueEur": 28224.84571767485,
         "holderName": "Дарина Станева Маринова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на недвижим имот"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -134,27 +152,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27800,
-        "valueEur": 14213.914297254874,
+        "amount": 6080,
+        "valueEur": 5091.95584483314,
         "holderName": "Дарина Станева Маринова",
         "isSpouse": true,
-        "legalBasis": "Договор за финансов лизинг",
+        "legalBasis": "Дог.за фин.лизинг-2.20%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Къща с двор, гараж и ст. постройка",
-        "detail": null,
-        "location": "с.Щръклево",
-        "municipality": "Русе",
-        "areaSqm": 1060,
-        "builtAreaSqm": 75,
-        "currency": "BGN",
-        "valueEur": 33233.972277754205,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

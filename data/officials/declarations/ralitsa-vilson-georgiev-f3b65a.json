@@ -5,6 +5,98 @@
     "institution": "Първа САГБАЛ \"Света София\" -София ЕАД",
     "positionTitle": "Независим член",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г7104",
+    "controlHash": "82C01194",
+    "sourceUrl": "https://register.cacbg.bg/2026/5A00C244-E1E5-4131-9358-836991EE8A67231494.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44356.10456941554,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 59372.74712014848,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 56043.7256816799,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76000,
+        "valueEur": 38858.1829709126,
+        "holderName": "РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 201185,
+        "valueEur": 102864.25711846122,
+        "holderName": "РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": "3.10",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11078,
+        "valueEur": 5664.091459891709,
+        "holderName": "РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": "5.08",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ralitsa-vilson-georgiev-f3b65a",
+    "declarantName": "Ралица Вилсон Георгиева",
+    "institution": "Първа САГБАЛ \"Света София\" -София ЕАД",
+    "positionTitle": "Независим член",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

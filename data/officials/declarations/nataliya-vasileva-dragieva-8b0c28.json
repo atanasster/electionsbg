@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-06-24",
+    "entryNumber": "Г12301",
+    "controlHash": "9BDAFA7F",
+    "sourceUrl": "https://register.cacbg.bg/2026/00EDD216-651C-4A5A-A69E-EE6FC7750053237499.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19280.8168399094,
+        "amountEurSpouse": 23546.013712848253
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Харманли",
+        "municipality": "Харманли",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2018,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Наталия Василева Драгиева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nataliya-vasileva-dragieva-8b0c28",
+    "declarantName": "Наталия Василева Драгиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

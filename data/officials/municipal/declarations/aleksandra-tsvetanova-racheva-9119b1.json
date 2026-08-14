@@ -4,43 +4,102 @@
     "declarantName": "Александра Цветанова Рачева",
     "institution": "Видин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г8162",
-    "controlHash": "88C3D1A3",
-    "sourceUrl": "https://register.cacbg.bg/2025/CFCE2317-5367-4EEA-8503-5C811D8DFF6E211175.xml",
-    "ownershipStakes": [
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "дружествен дял",
-        "shareSize": "10 лв.",
-        "companyName": "РВР Партнер Груп ООД",
-        "registeredOffice": "Видин",
-        "valueEur": 0,
-        "holderName": null,
-        "transfereeName": "Александра Цветанова Рачева",
-        "legalBasis": "безвъзмездно",
-        "fundsOrigin": null
-      }
-    ],
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3930",
+    "controlHash": "143763D8",
+    "sourceUrl": "https://register.cacbg.bg/2026/CFCE2317-5367-4EEA-8503-5C811D8DFF6E228106.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5678.918924446399,
-        "amountEurSpouse": 2872.4377885603553
+        "amountEurDeclarant": 6592.597516144041,
+        "amountEurSpouse": 2780.9165418262323
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12670.835399804686,
+        "amountEurDeclarant": 21081.075553601284,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Александра Цветанова Рачева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2399,
+        "valueEur": 1226.5892229897281,
+        "holderName": "Алексансра Цветанова Рачева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Венцислав Кольов Славчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46963,
+        "valueEur": 24011.80061661801,
+        "holderName": "Александра Цветанова Рачева",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с 5,7 % лихва",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

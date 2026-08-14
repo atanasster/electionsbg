@@ -1,6 +1,111 @@
 [
   {
     "slug": "iliya-karamfilov-kostyanev-a2946c",
+    "declarantName": "Илия Карамфилов Костянев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5528",
+    "controlHash": "B4A33046",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC0E7949-F6FE-4594-809C-D8C5C2E36079229791.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Капитал",
+        "shareSize": "1",
+        "companyName": "Касиопея 15 ЕООД",
+        "registeredOffice": "Велинград",
+        "valueEur": 1.022583762392437,
+        "holderName": "Илия Карамфилов Костянев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Капитал",
+        "shareSize": "1/2",
+        "companyName": "Орион10-СИК ООД",
+        "registeredOffice": "Велинград",
+        "valueEur": 0.5112918811962185,
+        "holderName": "Илия Карамфилов Костянев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29059.785359668273,
+        "amountEurSpouse": 3586.712546591473
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "ВЕЛИНГРАД",
+        "municipality": "Велинград",
+        "areaSqm": 280,
+        "builtAreaSqm": 380,
+        "acquiredYear": 1986,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "ИЛИЯ КАРАМФИЛОВ КОСТЯНЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ПЕЖО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "ИЛИЯ КАРАМФИЛОВ КОСЯНЕВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "ИЛИЯ КАРАМФИЛОВ КОСТЯНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliya-karamfilov-kostyanev-a2946c",
     "declarantName": "ИЛИЯ КАРАМФИЛОВ КОСТЯНЕВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

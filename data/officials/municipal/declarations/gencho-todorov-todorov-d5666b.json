@@ -4,33 +4,32 @@
     "declarantName": "Генчо Тодоров Тодоров",
     "institution": "Раковски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2654",
-    "controlHash": "6021D58D",
-    "sourceUrl": "https://register.cacbg.bg/2025/80F480D7-E57F-4107-B11C-290E46B9AE08205338.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове в търговски  дружества",
-        "shareSize": "100",
-        "companyName": "Танцова Школа Тодорови ЕООД",
-        "registeredOffice": "Пловдив",
-        "valueEur": 5.112918811962185,
-        "holderName": "Генчо Тодоров Тодоров",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11529",
+    "controlHash": "8C961B2E",
+    "sourceUrl": "https://register.cacbg.bg/2026/80F480D7-E57F-4107-B11C-290E46B9AE08236461.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8479.775849639283,
-        "amountEurSpouse": 12077.736817617073
+        "amountEurDeclarant": 7960.814590225122,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10085.23235659541
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 102.2583762392437,
+        "amountEurSpouse": 102.2583762392437
       }
     ],
     "assets": [
@@ -38,7 +37,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "с.Белоем",
+        "location": "с.Белозем",
         "municipality": "Раковски",
         "areaSqm": 1500,
         "builtAreaSqm": 160,
@@ -89,6 +88,24 @@
         "fundsOrigin": "заеми"
       },
       {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "Хонда ЦРФ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3200,
+        "valueEur": 1636.1340198278992,
+        "holderName": "Генчо Тодоров Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -126,7 +143,7 @@
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -136,33 +153,15 @@
         "share": null,
         "currency": "BGN",
         "amount": 38000,
-        "valueEur": 15142.931645388402,
+        "valueEur": 19429.0914854563,
         "holderName": "Генчо Тодоров Тодоров",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "договор за кредит 6,11%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Генчо Тодоров Тодоров",
-        "isSpouse": false,
-        "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -172,38 +171,13 @@
         "share": null,
         "currency": "BGN",
         "amount": 40000,
-        "valueEur": 20274.76825695485,
+        "valueEur": 20451.67524784874,
         "holderName": "Станислава Иванова Тодорова",
         "isSpouse": true,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "договор за кредит 4,5%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес Бенц",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "мотициклет",
-        "detail": "Хонда ЦБР",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

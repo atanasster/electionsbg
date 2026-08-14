@@ -5,6 +5,74 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-11",
+    "entryNumber": "Г90",
+    "controlHash": "0D59D373",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E3BF1D6-CBFC-43B0-AEA0-57642C65FF9B222889.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18017.41460147354,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1467.407699033147,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР. РУСЕ",
+        "municipality": "Русе",
+        "areaSqm": 46,
+        "builtAreaSqm": 53,
+        "acquiredYear": 1996,
+        "share": "3",
+        "currency": "BGN",
+        "amount": 268087,
+        "valueEur": 137070.70655425062,
+        "holderName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
+        "isSpouse": false,
+        "legalBasis": "БИТОВ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "temenuzhka-ivanova-haralanova-c9348e",
+    "declarantName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

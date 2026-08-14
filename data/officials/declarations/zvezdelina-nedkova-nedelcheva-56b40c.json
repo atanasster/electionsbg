@@ -1,6 +1,116 @@
 [
   {
     "slug": "zvezdelina-nedkova-nedelcheva-56b40c",
+    "declarantName": "Звезделина Недкова Неделчева",
+    "institution": "Търговски дружества",
+    "positionTitle": "Представител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14995",
+    "controlHash": "CD4818F1",
+    "sourceUrl": "https://register.cacbg.bg/2026/2FD28172-0BB4-4664-95FC-AC1B2EE8B14B241488.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 14429.679471119678,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 255.64594059810923,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 55,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 51643,
+        "valueEur": 26404.646620616313,
+        "holderName": "Звезделина Недкова Неделчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26475,
+        "valueEur": 13536.452554669884,
+        "holderName": "Звезделина Недкова Неделчева",
+        "isSpouse": false,
+        "legalBasis": "5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98325,
+        "valueEur": 50272.774218618186,
+        "holderName": "Звезделина Недкова Неделчева",
+        "isSpouse": false,
+        "legalBasis": "4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Договор за лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 103385,
+        "valueEur": 103384.75225351896,
+        "holderName": "Звезделина Недкова Неделчева",
+        "isSpouse": false,
+        "legalBasis": "3.75%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zvezdelina-nedkova-nedelcheva-56b40c",
     "declarantName": "ЗВЕЗДЕЛИНА НЕДКОВА НЕДЕЛЧЕВА",
     "institution": "Търговски дружества",
     "positionTitle": "Представител",

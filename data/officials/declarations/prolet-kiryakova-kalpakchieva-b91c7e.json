@@ -5,6 +5,50 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5053",
+    "controlHash": "3A4EFFEC",
+    "sourceUrl": "https://register.cacbg.bg/2026/AD543F1E-8261-4F01-976E-57CD2043F2C5229295.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23027.56374531529,
+        "amountEurSpouse": 24567.5748914783
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Ателие",
+        "detail": null,
+        "location": "гр.Бургас ул.Сан Стефано-10",
+        "municipality": "Бургас",
+        "areaSqm": 23,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": "27",
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Пролет Кирякова Калпакчиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарение"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "prolet-kiryakova-kalpakchieva-b91c7e",
+    "declarantName": "Пролет Кирякова Калпакчиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

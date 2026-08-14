@@ -5,6 +5,62 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7187",
+    "controlHash": "9B508DE1",
+    "sourceUrl": "https://register.cacbg.bg/2026/23A02CF6-5683-4E99-8536-900D04A78E3E231586.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17689.67650562677,
+        "amountEurSpouse": 11191.667987504026
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 51881.809768742685,
+        "amountEurSpouse": 749.5538978336563
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 317.00096634165544,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 148382,
+        "valueEur": 75866.51191565729,
+        "holderName": "ГЕОРГИ АНДРЕЕВ АНДРЕЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "АВТОРСКИ, ИЗПЪЛНИТЕЛСКИ ПРАВА, ХОНОРАРИ КАТО КОМПОЗИТОР, ДИРИГЕНТ И ИЗПЪЛНИТЕЛ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-andreev-andreev-d42006",
+    "declarantName": "ГЕОРГИ АНДРЕЕВ АНДРЕЕВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

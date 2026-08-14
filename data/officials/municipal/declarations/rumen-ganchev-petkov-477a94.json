@@ -4,50 +4,26 @@
     "declarantName": "Румен Ганчев Петков",
     "institution": "Опака",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-11",
-    "entryNumber": "Г35",
-    "controlHash": "AC618C1B",
-    "sourceUrl": "https://register.cacbg.bg/2025/162DFFC2-689A-4D3D-851D-EB6496F541D3201547.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4458",
+    "controlHash": "281216AD",
+    "sourceUrl": "https://register.cacbg.bg/2026/162DFFC2-689A-4D3D-851D-EB6496F541D3228658.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16899.73054917861,
-        "amountEurSpouse": 2359.100739839352
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 10850.125010864953
+        "amountEurDeclarant": 19851.929871205575,
+        "amountEurSpouse": 3834.1778170904427
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 26500,
-        "valueEur": 13549.23485169979,
-        "holderName": "Румен Ганчев Петков",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "debt",
-        "description": "кредит",
+        "description": "кредит 4,5% лихва",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,39 +32,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45363,
-        "valueEur": 23193.73360670406,
+        "amount": 20783,
+        "valueEur": 10626.179166901009,
         "holderName": "Румен Ганчев Петков",
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "гора и храсти",
-        "detail": null,
-        "location": "с. Горско Абланова",
-        "municipality": "Опака",
-        "areaSqm": 2,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 76.69378217943277,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "гора и храсти",
-        "detail": null,
-        "location": "с. Горско Абланова",
-        "municipality": "Опака",
-        "areaSqm": 2,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 76.69378217943277,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

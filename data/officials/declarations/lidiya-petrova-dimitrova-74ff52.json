@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9110",
+    "controlHash": "F06FB8D6",
+    "sourceUrl": "https://register.cacbg.bg/2026/CC8A6176-F64E-496C-92F8-EF423D41BAE4233675.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17581.28262681317,
+        "amountEurSpouse": 15791.249750745208
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41000,
+        "valueEur": 20962.96712904496,
+        "holderName": "ЛИДИЯ ПЕТРОВА ДИМИТРОВА",
+        "isSpouse": false,
+        "legalBasis": "4.33",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "МАРТИН ЙОРДАНОВ ДИМИТРОВ",
+        "isSpouse": true,
+        "legalBasis": "7.5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lidiya-petrova-dimitrova-74ff52",
+    "declarantName": "ЛИДИЯ ПЕТРОВА ДИМИТРОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

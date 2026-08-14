@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6820",
+    "controlHash": "F909BFEE",
+    "sourceUrl": "https://register.cacbg.bg/2026/88544E16-7B21-4BD4-8670-884B32C65D99231175.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19636.16469734077,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 66,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 116000,
+        "valueEur": 59309.85821876134,
+        "holderName": "Янислава Драганова Ахчиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба ЛП 2.6%",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95000,
+        "valueEur": 48572.728713640754,
+        "holderName": "Янислава Драганова Ахчиева",
+        "isSpouse": false,
+        "legalBasis": "2.6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yanislava-draganova-ahchieva-bdf680",
+    "declarantName": "Янислава Драганова Ахчиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

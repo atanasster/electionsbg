@@ -4,66 +4,30 @@
     "declarantName": "София Стефанова Торолова",
     "institution": "Челопеч",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г8183",
-    "controlHash": "6651B4CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/3400DF4E-F672-4047-A1BE-5D30D9222820211198.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14328",
+    "controlHash": "BD28F51D",
+    "sourceUrl": "https://register.cacbg.bg/2026/3400DF4E-F672-4047-A1BE-5D30D9222820240074.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6741.894745453337,
-        "amountEurSpouse": 25740.478466942423
+        "amountEurDeclarant": 6981.179345853167,
+        "amountEurSpouse": 28578.148407581437
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 49801.36310415527,
+        "amountEurDeclarant": 52938.650087175265,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Челопеч",
-        "municipality": "Челопеч",
-        "areaSqm": 660,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "София Стефанова Торолова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Челопеч",
-        "municipality": "Челопеч",
-        "areaSqm": 660,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Илия Цветков Торолов",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -74,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 150000,
-        "valueEur": 76693.78217943278,
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
         "holderName": "София Стефанова Торолова",
         "isSpouse": false,
         "legalBasis": null,
@@ -92,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
         "holderName": "Илия Цветков Торолов",
         "isSpouse": true,
         "legalBasis": null,
@@ -110,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 74000,
-        "valueEur": 37835.599208520165,
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
         "holderName": "София Стефанова Торолова",
         "isSpouse": false,
         "legalBasis": null,
@@ -128,14 +92,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Илия Цветков Торолов",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Челопеч",
+        "municipality": "Челопеч",
+        "areaSqm": 920,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Челопеч",
+        "municipality": "Челопеч",
+        "areaSqm": 920,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

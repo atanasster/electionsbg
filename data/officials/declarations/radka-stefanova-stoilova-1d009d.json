@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13403",
+    "controlHash": "F1D57BFB",
+    "sourceUrl": "https://register.cacbg.bg/2026/5B9DA454-0185-4BA2-9D26-3BCC093E44C8238915.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20284.482802697577,
+        "amountEurSpouse": 7718.973530419311
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8800,
+        "valueEur": 4499.368554526723,
+        "holderName": "Тенчо Стойчев Стоилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radka-stefanova-stoilova-1d009d",
+    "declarantName": "Радка Стефанова Стоилова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

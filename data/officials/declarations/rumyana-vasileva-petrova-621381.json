@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1574",
+    "controlHash": "C11EBBEB",
+    "sourceUrl": "https://register.cacbg.bg/2026/CC00074F-0618-456F-A658-7B610E878687225489.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43621.88942801777,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение при пенсиониране",
+        "amountEurDeclarant": 26878.614194485206,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 243925,
+        "valueEur": 124716.8721207876,
+        "holderName": "Румяна Василева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и обезщетение"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-vasileva-petrova-621381",
+    "declarantName": "Румяна Василева Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

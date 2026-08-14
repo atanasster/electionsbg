@@ -4,40 +4,40 @@
     "declarantName": "ИВАН  ПЕТРОВ  ИВАНОВ",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г4213",
-    "controlHash": "C26DD5AA",
-    "sourceUrl": "https://register.cacbg.bg/2025/8AA7A9F6-62E1-4362-8D2C-F6039AA37A78207052.xml",
+    "filedAt": null,
+    "entryNumber": "Г10031",
+    "controlHash": "951BC47A",
+    "sourceUrl": "https://register.cacbg.bg/2026/8AA7A9F6-62E1-4362-8D2C-F6039AA37A78234717.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6885.056472188278,
+        "amountEurDeclarant": 7064.519922488151,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТИ",
-        "detail": "BGN",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 21991,
-        "valueEur": 11243.81975938604,
+        "currency": "EUR",
+        "amount": 61753,
+        "valueEur": 61752.810827116875,
         "holderName": "ИВАН  ПЕТРОВ  ИВАНОВ",
         "isSpouse": false,
-        "legalBasis": "Съгласно договор",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "ПОЛУЧЕНИ ДИВИДЕНТИ"
       }
     ],
     "events": []

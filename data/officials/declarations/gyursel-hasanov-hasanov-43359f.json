@@ -5,6 +5,80 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14996",
+    "controlHash": "BC2F5A57",
+    "sourceUrl": "https://register.cacbg.bg/2026/D88EFD75-12AE-4541-8D64-6D5FFF233A90241489.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12965.850815254904,
+        "amountEurSpouse": 6578.792635351743
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6484.203637330443,
+        "amountEurSpouse": 3439.4604848069616
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3202.7323438131125,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 30000.05112918812,
+        "holderName": "ГЮРСЕЛ ХАСАНОВ ХАСАНОВ - ДАРЕНИЯ ОТ СВАТБЕНО ТЪРЖЕСТВО",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38611,
+        "valueEur": 19741.490824867193,
+        "holderName": "ГЮРСЕЛ ХАСАНОВ ХАСАНОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ \"ДОВЕРИЕ\" С 4,1% ЛИХВА",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gyursel-hasanov-hasanov-43359f",
+    "declarantName": "ГЮРСЕЛ ХАСАНОВ ХАСАНОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

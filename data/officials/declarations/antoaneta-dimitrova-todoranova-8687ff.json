@@ -5,6 +5,80 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3565",
+    "controlHash": "BAA08162",
+    "sourceUrl": "https://register.cacbg.bg/2026/85C76DD5-C22C-4A28-8D9A-8763C9F62385227700.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30414.708844838253,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7063.497338725759,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 931.5738075395101,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 42000,
+        "valueEur": 41982.1763650215,
+        "holderName": "Антоанета Димитрова Тодоранова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доходи от трудови правоотношения"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9995.756277386072,
+        "holderName": "Антоанета Димитрова Тодоранова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доходи от трудови правоотношения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "antoaneta-dimitrova-todoranova-8687ff",
+    "declarantName": "Антоанета Димитрова Тодоранова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

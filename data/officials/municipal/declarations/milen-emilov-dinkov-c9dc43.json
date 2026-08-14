@@ -4,23 +4,60 @@
     "declarantName": "Милен Емилов Динков",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-01",
-    "entryNumber": "Г1440",
-    "controlHash": "90AA9740",
-    "sourceUrl": "https://register.cacbg.bg/2025/CB335623-A8EB-4AC0-8D32-15B565FF53AB203917.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3871",
+    "controlHash": "58E29709",
+    "sourceUrl": "https://register.cacbg.bg/2026/CB335623-A8EB-4AC0-8D32-15B565FF53AB228044.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 27078.01802815173,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurDeclarant": 27982.49336598784,
+        "amountEurSpouse": 7669.378217943277
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11945,
+        "valueEur": 11944.800928506056,
+        "holderName": "Милен Емилов Динков",
+        "isSpouse": false,
+        "legalBasis": "5,78",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14907,
+        "valueEur": 14907.226088156945,
+        "holderName": "Милен Емилов Динков",
+        "isSpouse": false,
+        "legalBasis": "5,04",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

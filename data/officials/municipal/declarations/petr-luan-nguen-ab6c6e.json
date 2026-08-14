@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "petr-luan-nguen-ab6c6e",
+    "declarantName": "Петър Луан Нгуен",
+    "institution": "Пазарджик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г9912",
+    "controlHash": "FDD52647",
+    "sourceUrl": "https://register.cacbg.bg/2026/35F3268C-97B1-4A41-9720-8C0C3B9194DF234588.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20056.446623684064,
+        "amountEurSpouse": 11791.924656028386
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 435.62068277917814,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14617,
+        "valueEur": 14616.812299637495,
+        "holderName": "Петър Луан Нгуен",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10023,
+        "valueEur": 10022.854747089472,
+        "holderName": "Валентина Иванова Нгуен",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16687,
+        "valueEur": 16686.521834719788,
+        "holderName": "Петър Луан Нгуен",
+        "isSpouse": false,
+        "legalBasis": "банков заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

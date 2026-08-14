@@ -4,23 +4,109 @@
     "declarantName": "Алекси Иванов Кесяков",
     "institution": "Челопеч",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13518",
-    "controlHash": "A6900F26",
-    "sourceUrl": "https://register.cacbg.bg/2025/BD9BC9A8-9BB7-44BB-AA0A-1DAF6A12C9FB216740.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14338",
+    "controlHash": "1446B095",
+    "sourceUrl": "https://register.cacbg.bg/2026/BD9BC9A8-9BB7-44BB-AA0A-1DAF6A12C9FB240086.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 91340.76070006084,
-        "amountEurSpouse": 10750.42309403169
+        "amountEurDeclarant": 123066.4219282862,
+        "amountEurSpouse": 13757.841939227847
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "лексус НХ300Н",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Алекси Иванов Кесяков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000,
+        "holderName": "Алекси Иванов Кесяков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 105399,
+        "valueEur": 105399.24226543207,
+        "holderName": "Алекси Иванов Кесяков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Цесия",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 101472,
+        "valueEur": 100000,
+        "holderName": "Алекси Иванов Кесяков",
+        "isSpouse": false,
+        "legalBasis": "Изп. Дело №219/2005г. По описа на СИС при РС Мездра",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
+      }
+    ]
   }
 ]

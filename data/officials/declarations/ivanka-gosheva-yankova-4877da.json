@@ -5,6 +5,87 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9911",
+    "controlHash": "AB25C9E5",
+    "sourceUrl": "https://register.cacbg.bg/2026/B3272125-11F6-4372-95A3-6293DEF3A70A234587.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20908.77018963816,
+        "amountEurSpouse": 4955.952204434946
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8578.96647459135
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16199,
+        "valueEur": 8282.417183497544,
+        "holderName": "Иванка Гошева Янкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15011,
+        "valueEur": 7675.002428636436,
+        "holderName": "Иванка Гошева Янкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Присъствени обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 520.4951350577504,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "ivanka-gosheva-yankova-4877da",
+    "declarantName": "Иванка Гошева Янкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

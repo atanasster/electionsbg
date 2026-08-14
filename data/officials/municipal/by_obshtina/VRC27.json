@@ -1,15 +1,15 @@
 {
   "obshtina": "VRC27",
   "registryName": "Мездра",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 0,
-    "councillor": 17,
+    "councillor": 16,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "borislava-nikolaeva-hristova-408a54",
@@ -30,7 +31,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗНС (ЛЕВИЦАТА!, БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ-ЕВРОЛЕВИЦА, БЪДЕЩЕ ЗА РОДИНАТА)",
@@ -47,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗНС (ЛЕВИЦАТА!, БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ-ЕВРОЛЕВИЦА, БЪДЕЩЕ ЗА РОДИНАТА)",
@@ -64,7 +67,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "atanas-iordanov-iordanov-184283",
@@ -73,7 +77,26 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "veselin-ivanov-veselinov-654e2d",
+      "name": "Веселин Иванов Веселинов",
+      "normalizedName": "ВЕСЕЛИН ИВАНОВ ВЕСЕЛИНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Мездра",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 106,
+        "prefVotes": 101,
+        "isElected": false
+      }
     },
     {
       "slug": "georgi-valentinov-ivanov-41b599",
@@ -82,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗНС (ЛЕВИЦАТА!, БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ-ЕВРОЛЕВИЦА, БЪДЕЩЕ ЗА РОДИНАТА)",
@@ -99,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗНС (ЛЕВИЦАТА!, БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ-ЕВРОЛЕВИЦА, БЪДЕЩЕ ЗА РОДИНАТА)",
@@ -116,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -133,7 +159,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -150,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -167,7 +195,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -178,30 +207,14 @@
       }
     },
     {
-      "slug": "iohan-tihomirov-vutov-808cae",
-      "name": "Йохан Тихомиров Вутов",
-      "normalizedName": "ЙОХАН ТИХОМИРОВ ВУТОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 109,
-        "prefVotes": 203,
-        "isElected": true
-      }
-    },
-    {
       "slug": "karolina-simeonova-koler-09d50d",
       "name": "Каролина Симеонова Кьолер",
       "normalizedName": "КАРОЛИНА СИМЕОНОВА КЬОЛЕР",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ДПС (ПП „НОВОТО ВРЕМЕ“, ДПС)",
@@ -218,7 +231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -235,7 +249,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -253,7 +268,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ДПС (ПП „НОВОТО ВРЕМЕ“, ДПС)",
@@ -270,7 +286,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -287,7 +304,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗНС (ЛЕВИЦАТА!, БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ-ЕВРОЛЕВИЦА, БЪДЕЩЕ ЗА РОДИНАТА)",
@@ -304,7 +322,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -315,30 +334,14 @@
       }
     },
     {
-      "slug": "hristina-violetova-stoyanova-a68774",
-      "name": "Христина Виолетова Стоянова",
-      "normalizedName": "ХРИСТИНА ВИОЛЕТОВА СТОЯНОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 105,
-        "prefVotes": 168,
-        "isElected": true
-      }
-    },
-    {
       "slug": "hristo-ivanov-ivanov-4718d2",
       "name": "Христо Иванов Иванов",
       "normalizedName": "ХРИСТО ИВАНОВ ИВАНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ДПС (ПП „НОВОТО ВРЕМЕ“, ДПС)",
@@ -356,7 +359,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Мездра",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

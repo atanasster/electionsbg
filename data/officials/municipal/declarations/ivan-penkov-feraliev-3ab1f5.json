@@ -4,36 +4,42 @@
     "declarantName": "Иван Пенков Фералиев",
     "institution": "Симеоновград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-07",
-    "entryNumber": "Г334",
-    "controlHash": "374BC808",
-    "sourceUrl": "https://register.cacbg.bg/2025/779DA12A-8E9C-42DD-AB7E-BA622C0E9225202222.xml",
+    "filedAt": "2026-03-13",
+    "entryNumber": "Г349",
+    "controlHash": "06972B36",
+    "sourceUrl": "https://register.cacbg.bg/2026/779DA12A-8E9C-42DD-AB7E-BA622C0E9225223555.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5672.7834218720445,
-        "amountEurSpouse": 13327.845467141828
+        "amountEurDeclarant": 5193.191637309991,
+        "amountEurSpouse": 14289.585495671914
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 30646.32406702014,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Гранд чероки",
+        "description": "туристическо ремарке",
+        "detail": "Хоумкар",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Иван Пенков Фералиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -41,17 +47,17 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Гранд чероки",
+        "description": "туристическо ремарке",
+        "detail": "Хоумкар",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Живка Танчева Фералиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -68,27 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 27000,
+        "valueEur": 13804.8807922979,
         "holderName": "Иван Пенков Фералиев",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит     да",
+        "legalBasis": "потребителски кредит, 7,61",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Симеоновград",
-        "municipality": "Симеоновград",
-        "areaSqm": 650,
-        "builtAreaSqm": 96,
-        "currency": "BGN",
-        "valueEur": 5112.918811962185,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

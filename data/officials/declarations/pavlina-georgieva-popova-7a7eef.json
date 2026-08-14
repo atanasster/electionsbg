@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г889",
+    "controlHash": "B9696844",
+    "sourceUrl": "https://register.cacbg.bg/2026/99A5D94B-CE96-4163-A9B3-6C9783A32284224502.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34114.92818905529,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Павлина георгиева Попова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания,заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "pavlina-georgieva-popova-7a7eef",
+    "declarantName": "Павлина Георгиева Попова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "vanya-dimcheva-micheva-82a6c5",
+    "declarantName": "Ваня Димчева Мичева",
+    "institution": "Район Средец",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7641",
+    "controlHash": "C2689ED9",
+    "sourceUrl": "https://register.cacbg.bg/2026/673F219A-04B9-47EB-8D80-87FC4B5E3613232063.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 43274.21094880434
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. Шипченски проход 43, вх. А, ет. 7, ап. 20",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 199,
+        "builtAreaSqm": 199,
+        "acquiredYear": 2007,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Ваня Димчева Мичева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Порше Кайен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16890,
+        "valueEur": 8635.71987340413,
+        "holderName": "Ваня Димчева Мичева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди Ку 8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 154081,
+        "valueEur": 78780.36434659454,
+        "holderName": "Уникредит Лизинг ЕАД- Ваня Димчева Мичева",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3898,
+        "valueEur": 3898.0893022399696,
+        "holderName": "Ваня Димчева Мичева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Договор за лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 154081,
+        "valueEur": 78780.36434659454,
+        "holderName": "Ваня Димчева Мичева",
+        "isSpouse": false,
+        "legalBasis": "3,3600",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Порше Кайен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

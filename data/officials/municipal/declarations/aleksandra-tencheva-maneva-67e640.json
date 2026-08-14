@@ -4,55 +4,42 @@
     "declarantName": "Александра Тенчева Манева",
     "institution": "Трявна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7963",
-    "controlHash": "75351AB2",
-    "sourceUrl": "https://register.cacbg.bg/2025/957EB72A-0C13-4D2E-B27F-39785AF8BCC6210968.xml",
+    "filedAt": null,
+    "entryNumber": "Г14106",
+    "controlHash": "7B5AFB56",
+    "sourceUrl": "https://register.cacbg.bg/2026/957EB72A-0C13-4D2E-B27F-39785AF8BCC6239809.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6953.569584268572,
+        "amountEurDeclarant": 620.1970518910131,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолцваген Поло",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2025,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 1350,
-        "valueEur": 690.244039614895,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1000,
+        "valueEur": 1000.5982115009996,
         "holderName": "Александра Тенчева Манева",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "с.Престой",
-        "municipality": "ТРЯВНА",
-        "areaSqm": 2,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 3834.6891089716387,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

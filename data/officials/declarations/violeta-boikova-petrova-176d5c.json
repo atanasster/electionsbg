@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "violeta-boikova-petrova-176d5c",
+    "declarantName": "Виолета Бойкова Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9665",
+    "controlHash": "2C80E898",
+    "sourceUrl": "https://register.cacbg.bg/2026/8171BED7-8D96-4D9E-B3D4-5234F9036AC6234306.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19580.433882290385,
+        "amountEurSpouse": 6644.749288026055
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
+        "holderName": "Дарин Йорданов Петров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51600,
+        "valueEur": 26382.661069724873,
+        "holderName": "Виолета Бойкова Петрова",
+        "isSpouse": false,
+        "legalBasis": "4.4",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

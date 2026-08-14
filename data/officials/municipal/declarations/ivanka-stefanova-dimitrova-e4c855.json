@@ -4,25 +4,25 @@
     "declarantName": "Иванка Стефанова Димитрова",
     "institution": "Сунгурларе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-19",
-    "entryNumber": "Г4014",
-    "controlHash": "EDE6748C",
-    "sourceUrl": "https://register.cacbg.bg/2025/EDAFD02C-E704-4850-B4D2-72AB1417B8F9206839.xml",
+    "filedAt": "2026-07-10",
+    "entryNumber": "Г14371",
+    "controlHash": "1AB47E0D",
+    "sourceUrl": "https://register.cacbg.bg/2026/EDAFD02C-E704-4850-B4D2-72AB1417B8F9240132.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6643.726704263663,
+        "amountEurDeclarant": 7082.415138330019,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10056.600011248422,
+        "amountEurDeclarant": 11246.376218792022,
         "amountEurSpouse": null
       },
       {
@@ -35,7 +35,7 @@
     "assets": [
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Банков Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,11 +44,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
-        "holderName": "Иванка Стефанова Димиторва",
-        "isSpouse": true,
-        "legalBasis": "кредит",
+        "amount": 8600,
+        "valueEur": 4397.110178287479,
+        "holderName": "Иванка Стефанова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "кредит, 3,2% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16200,
+        "valueEur": 8282.92847537874,
+        "holderName": "Иванка Стефанова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "кредит, 7,49% лихва",
         "fundsOrigin": null
       }
     ],

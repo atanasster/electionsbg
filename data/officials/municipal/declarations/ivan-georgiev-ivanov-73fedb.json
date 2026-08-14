@@ -4,23 +4,42 @@
     "declarantName": "Иван Георгиев Иванов",
     "institution": "Враца",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г10825",
-    "controlHash": "AD9F327D",
-    "sourceUrl": "https://register.cacbg.bg/2025/5102653A-56F7-40DD-9339-32A325081AA0213933.xml",
+    "entryNumber": "Г9005",
+    "controlHash": "96ADB003",
+    "sourceUrl": "https://register.cacbg.bg/2026/5102653A-56F7-40DD-9339-32A325081AA0233556.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6665.200963273905,
-        "amountEurSpouse": 12960.226604561747
+        "amountEurDeclarant": 6798.648144266117,
+        "amountEurSpouse": 16954.438780466604
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шевролет Каптива",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2915,
+        "valueEur": 1490.4158336869768,
+        "holderName": "Ина Йонкова Иванова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

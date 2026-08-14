@@ -5,6 +5,98 @@
     "institution": "Европейски парламент",
     "positionTitle": "Член",
     "category": "mep",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г906",
+    "controlHash": "2AD2ADE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CE7F43C-78FF-4E37-B365-9769094F4323224529.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 59415.69563816896,
+        "amountEurSpouse": 2109.5903018155973
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4149.644907788509,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6503.632728815899,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 253412,
+        "valueEur": 129567.49819769611,
+        "holderName": "ПЕТЪР ПЕТРОВ ВОЛГИН",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2543,
+        "valueEur": 1300.2152538819837,
+        "holderName": "ДАНИЕЛА АНГЕЛОВА ГОЛЕМИНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18318,
+        "valueEur": 18318.054227616918,
+        "holderName": "ПЕТЪР ПЕТРОВ ВОЛГИН",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-petrov-volgin-7d7596",
+    "declarantName": "ПЕТЪР ПЕТРОВ ВОЛГИН",
+    "institution": "Европейски парламент",
+    "positionTitle": "Член",
+    "category": "mep",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

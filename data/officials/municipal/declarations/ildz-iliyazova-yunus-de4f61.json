@@ -4,46 +4,46 @@
     "declarantName": "ИЛДЪЗ ИЛИЯЗОВА ЮНУС",
     "institution": "Добричка",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8559",
-    "controlHash": "60C662A6",
-    "sourceUrl": "https://register.cacbg.bg/2025/402803E4-C2BB-4A3C-AAF0-01C8908356F7211581.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8585",
+    "controlHash": "313B44B6",
+    "sourceUrl": "https://register.cacbg.bg/2026/402803E4-C2BB-4A3C-AAF0-01C8908356F7233101.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6855.912834960093,
+        "amountEurDeclarant": 7186.718682094047,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 314.4445069356744,
+        "amountEurDeclarant": 12639.646595051718,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "гараж",
+        "description": "апартамент",
         "detail": null,
         "location": "Добрич",
         "municipality": "Добрич",
-        "areaSqm": 22,
+        "areaSqm": 130,
         "builtAreaSqm": null,
-        "acquiredYear": 2022,
+        "acquiredYear": 2004,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "БИЛГИН АНИС ЮНУС",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ДИВИДЕНТИ"
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "ИЛДЪЗ ИЛИЯЗОВА ЮНУС",
+        "isSpouse": false,
+        "legalBasis": "НОТАРИАЛЕН АКТ ЗА СОБСТВЕНОСТ ВЪРХУ НЕДВИЖИМ ИМОТ, ПОСТРОЕН ПО ЗЖСК № 193, т.II, д.324/2025г.",
+        "fundsOrigin": "няма"
       },
       {
         "category": "cash",
@@ -56,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 248077,
-        "valueEur": 126839.7560115143,
+        "amount": 201708,
+        "valueEur": 103131.66277232683,
         "holderName": "БИЛГИН АНИС ЮНУС",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ДИВИДЕНТИ И ПРОДАЖБА НА ЗЕМЕДЕЛСКА ЗЕМЯ"
+        "fundsOrigin": "ЗАКРИВАНЕ НА СДЕЛКА"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Фелдфебел Дянково и Подслон",
-        "municipality": "Добричка",
-        "areaSqm": 80,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 40903.35049569748,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

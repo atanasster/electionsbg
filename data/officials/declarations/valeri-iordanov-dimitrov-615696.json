@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "valeri-iordanov-dimitrov-615696",
+    "declarantName": "ВАЛЕРИ ЙОРДАНОВ ДИМИТРОВ",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13220",
+    "controlHash": "4E3C2548",
+    "sourceUrl": "https://register.cacbg.bg/2026/84D56F5A-8C5A-41E1-9E48-808E085EDD72238720.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8745.647627861317,
+        "amountEurSpouse": 24458.669720783502
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 50572.90255288036,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 115536,
+        "valueEur": 59072.6187858863,
+        "holderName": "ВАЛЕРИ ЙОРДАНОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": "Договор за жилищен кредит, лихвен процент - 2,99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ВАЛЕРИ ЙОРДАНОВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит, лихвен процент - 5,68",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

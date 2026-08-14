@@ -4,25 +4,25 @@
     "declarantName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
     "institution": "Борино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г5653",
-    "controlHash": "D613C597",
-    "sourceUrl": "https://register.cacbg.bg/2025/A6426BED-475E-4AC8-A1CA-30AE14B50223208594.xml",
+    "filedAt": null,
+    "entryNumber": "Г4149",
+    "controlHash": "4D7AE6C4",
+    "sourceUrl": "https://register.cacbg.bg/2026/A6426BED-475E-4AC8-A1CA-30AE14B50223228345.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ДРУЖЕСТВО",
         "shareSize": "1/2",
-        "companyName": "ЕРМЕТ СОЛАР БГ ООД",
-        "registeredOffice": "С.БОРИНО, УЛ.ОРФЕЙ 14",
+        "companyName": "ЕРМЕТ СОЛОР БГ ООД",
+        "registeredOffice": "С. БОРИНО, УЛ. ОРФЕЙ 14",
         "valueEur": 255.64594059810923,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТА"
       },
       {
         "table": "10",
@@ -30,11 +30,11 @@
         "itemType": "ДРУЖЕСТВО",
         "shareSize": "1/1",
         "companyName": "ЕРИС ГРУП ЕООД",
-        "registeredOffice": "С.БОРИНО, УЛ.ОРФЕЙ 14",
+        "registeredOffice": "С. БОРИНО, УЛ. ОРФЕЙ 14",
         "valueEur": 25.564594059810926,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТА"
       },
       {
         "table": "10",
@@ -42,11 +42,11 @@
         "itemType": "ДРУЖЕСТВО",
         "shareSize": "1/1",
         "companyName": "ЕРИС ФУУД ЕООД",
-        "registeredOffice": "С.БОРИНО, УЛ.ОРФЕЙ 14",
+        "registeredOffice": "С. БОРИНО, УЛ. ОРФЕЙ 14",
         "valueEur": 51.12918811962185,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТА"
       },
       {
         "table": "10",
@@ -54,30 +54,30 @@
         "itemType": "ДРУЖЕСТВО",
         "shareSize": "1/1",
         "companyName": "КЕРИ ГРУП ЕООД",
-        "registeredOffice": "С.БОРИНО, УЛ.ОРФЕЙ 14",
+        "registeredOffice": "С. БОРИНО, УЛ. ОРФЕЙ 14",
         "valueEur": 2556.4594059810925,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "legalBasis": "други",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТА"
       }
     ],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4492.721760071172,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2607.588594100714,
+        "amountEurDeclarant": 7628.4748674475795,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 78764.51429827746,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 3665.9627881768865,
+        "amountEurDeclarant": 64261.72008814672,
         "amountEurSpouse": null
       }
     ],
@@ -97,26 +97,8 @@
         "valueEur": 2045.1675247848739,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА",
+        "fundsOrigin": "ЗАПЛАТА"
       },
       {
         "category": "debt",
@@ -129,11 +111,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР",
+        "legalBasis": "ДОГОВОР С ЛИХВА 7.1%",
         "fundsOrigin": null
       },
       {
@@ -147,11 +129,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16300,
-        "valueEur": 8334.05766349836,
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
         "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР",
+        "legalBasis": "ДОГОВОР С ЛИХВА14%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2600,
+        "valueEur": 1329.358891110168,
+        "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР С ЛИХВА 18%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "ЕРОЛ КЕМАЛОВ АЛИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР С ЛИХВА 6,18%",
         "fundsOrigin": null
       }
     ],

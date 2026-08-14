@@ -5,6 +5,81 @@
     "institution": "Национална агенция за приходи",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-11",
+    "entryNumber": "Г7251",
+    "controlHash": "3C44D751",
+    "sourceUrl": "https://register.cacbg.bg/2026/3418DBCB-708B-4D56-87E6-4220BB1C36D7231655.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43483.840620094794,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ А6 Олроуд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
+        "holderName": "Борис Маринов Николов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71467,
+        "valueEur": 36540.496873450145,
+        "holderName": "Борис Маринов Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ А6 Олроуд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1994.038336665252,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "boris-marinov-nikolov-2a6ed0",
+    "declarantName": "Борис Маринов Николов",
+    "institution": "Национална агенция за приходи",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

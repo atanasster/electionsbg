@@ -1,52 +1,126 @@
 [
   {
     "slug": "ailyan-gyunaidnov-pashala-412262",
-    "declarantName": "АЙЛЯН ГЮНАЙДЪНОВ ПАШАЛА",
+    "declarantName": "Айлян Гюдайдънов Пашала",
     "institution": "Никопол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12386",
+    "controlHash": "15FBD56F",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EE5BEF5-D5CE-44B3-9631-E170E06071F8237629.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100% от капитала",
+        "companyName": "„КАЙ АУТО ТЕСТ ГРУП“ ЕООД, ЕИК 208188467",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "„КАЙ АУТО ТЕСТ ГРУП“ ЕООД, ЕИК 208188467",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100% от капитала",
+        "companyName": "„КАЙ АУТО ТЕСТ ГРУП“ ЕООД, ЕИК 208188467",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "„КАЙ АУТО ТЕСТ ГРУП“ ЕООД, ЕИК 208188467",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Община Никопол",
+        "detail": "Право на строеж върху УПИ IX, стр. кв. 37 по плана на гр. Никопол /ПИ с идентификатор 51723.500.67 по КККР на гр. Никопол",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "ailyan-gyunaidnov-pashala-412262",
+    "declarantName": "Айлян Гюдайдънов Пашала",
+    "institution": "Никопол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г11022",
-    "controlHash": "E9B71748",
-    "sourceUrl": "https://register.cacbg.bg/2025/2EE5BEF5-D5CE-44B3-9631-E170E06071F8214141.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12385",
+    "controlHash": "550249D3",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EE5BEF5-D5CE-44B3-9631-E170E06071F8237628.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове",
+        "shareSize": "100% от капитала",
+        "companyName": "\"КАЙ АУТО ТЕСТ ГРУП\" ЕООД",
+        "registeredOffice": "гр. Никопол, п.к. 5940\n, ул. \"Мусала\" № 6",
+        "valueEur": 102.2583762392437,
+        "holderName": "Айлян Гюнайдънов Пашала",
+        "legalBasis": "Учредяване на дружество",
+        "fundsOrigin": "Заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5376.745422659434,
+        "amountEurDeclarant": 4967.200625821262,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8583.05680964092,
+        "amountEurDeclarant": 6176.9172167315155,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Хюндай И30",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "АЙЛЯН ГЮНАЙДЪНОВ ПАШАЛА",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -56,12 +130,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 19833,
+        "valueEur": 10140.451879764601,
         "holderName": "Айлян Гюнайдънов Пашала",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Вземане от допълнителна парична вноска",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21000,
+        "valueEur": 10737.129505120589,
+        "holderName": "Айлян Гюдайдънов Пашала",
+        "isSpouse": false,
+        "legalBasis": "Решение на едноличния собственик на капитала",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "Вземане от допълнителна парична вноска",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Айлян Гюдайдънов Пашала",
+        "isSpouse": false,
+        "legalBasis": "Решение на едноличния собственик на капитала",
+        "fundsOrigin": null
       }
     ],
     "events": []

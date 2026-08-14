@@ -1,35 +1,35 @@
 [
   {
     "slug": "bilyal-hasan-mollahasan-1bf4ad",
-    "declarantName": "БИЛЯЛ  ХАСАН  МОЛЛАХАСАН",
+    "declarantName": "БИЛЯЛ  ХАСАН  МОЛЛАХАСН",
     "institution": "Кирково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4572",
-    "controlHash": "1B7D58D5",
-    "sourceUrl": "https://register.cacbg.bg/2025/B94EBA47-03C7-44B0-9A5C-C856536A298A207431.xml",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г3020",
+    "controlHash": "1520F30C",
+    "sourceUrl": "https://register.cacbg.bg/2026/B94EBA47-03C7-44B0-9A5C-C856536A298A227116.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4914.026270176856,
+        "amountEurDeclarant": 4959.53124760332,
         "amountEurSpouse": null
       },
       {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7260.3447129863025
+        "amountEurSpouse": 4169.0739992739655
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Лека кола",
+        "description": "лека кола",
         "detail": "фолсваген тигуан",
         "location": null,
         "municipality": null,
@@ -40,28 +40,28 @@
         "currency": "BGN",
         "amount": 8500,
         "valueEur": 4345.980990167857,
-        "holderName": "БИЛЯЛ ХАСАН МОЛЛАХАСАН",
-        "isSpouse": false,
+        "holderName": "БИЛЛЯЛ  ХАСАН МОЛЛАХАСАН",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
-        "holderName": "ГЮЛФЕР  МУСТАФА  МОЛЛАХАСАН",
+        "currency": "EUR",
+        "amount": 6500,
+        "valueEur": 6507.723063865469,
+        "holderName": "БИЛЯЛ  ХАСАН  МОЛЛАХАСАН",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "земеделие"
+        "fundsOrigin": "ЗЕМЕДЕЛИЕ"
       }
     ],
     "events": []

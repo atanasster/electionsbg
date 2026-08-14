@@ -4,33 +4,46 @@
     "declarantName": "Георги Василев Данов",
     "institution": "Ботевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5609",
-    "controlHash": "2711A921",
-    "sourceUrl": "https://register.cacbg.bg/2025/6C19B7FB-C44D-4A0F-8AC8-E74CB2BCE015208542.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г5247",
+    "controlHash": "50D8BF32",
+    "sourceUrl": "https://register.cacbg.bg/2026/6C19B7FB-C44D-4A0F-8AC8-E74CB2BCE015229498.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове",
+        "shareSize": "50%",
+        "companyName": "Дантри Тех ООД",
+        "registeredOffice": "гр. Ботевград",
+        "valueEur": 25.564594059810926,
+        "holderName": "Георги Василев Данов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [],
     "assets": [
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 19463,
-        "valueEur": 9951.273883722,
+        "currency": "EUR",
+        "amount": 5450,
+        "valueEur": 5449.860161670493,
         "holderName": "Георги Василев Данов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

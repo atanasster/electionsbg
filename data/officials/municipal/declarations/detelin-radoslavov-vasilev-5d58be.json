@@ -4,44 +4,26 @@
     "declarantName": "Детелин Радославов Василев",
     "institution": "Пордим",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5992",
-    "controlHash": "8EB5CA44",
-    "sourceUrl": "https://register.cacbg.bg/2025/BBCE6F55-9FC8-4386-972C-21229FAB5F7E208938.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10123",
+    "controlHash": "9878E342",
+    "sourceUrl": "https://register.cacbg.bg/2026/BBCE6F55-9FC8-4386-972C-21229FAB5F7E234814.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35418.211194224445,
-        "amountEurSpouse": 28380.789741439698
+        "amountEurDeclarant": 35654.939335218296,
+        "amountEurSpouse": 32453.74086704877
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "ФОЛКСВАГЕН ТИГУАН",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 82000,
-        "valueEur": 41925.93425808992,
-        "holderName": "Детелин Радославов Василев",
-        "isSpouse": false,
-        "legalBasis": "договор за лизинг",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "debt",
-        "description": "потребителски кредит",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,11 +32,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
         "holderName": "Детелин Радославов Василев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Емилия Илиева Василева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 92648,
+        "valueEur": 47370.17020906725,
+        "holderName": "Емилия Илиева Василева",
+        "isSpouse": true,
+        "legalBasis": "кредит - 3.09%",
         "fundsOrigin": null
       },
       {
@@ -72,12 +90,12 @@
         "valueEur": 41925.93425808992,
         "holderName": "Детелин Радославов Василев",
         "isSpouse": false,
-        "legalBasis": "лизинг по договор",
+        "legalBasis": "лизинг по договор - 3.6%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -86,39 +104,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 92648,
-        "valueEur": 47370.17020906725,
-        "holderName": "Емилия Илиева Василева",
-        "isSpouse": true,
-        "legalBasis": "кредит",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Детелин Радославов Василев",
+        "isSpouse": false,
+        "legalBasis": "кредит - 4.89%кредит - 4.89%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "СЕАТ АТЕКА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "СЕАТ АТЕКА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

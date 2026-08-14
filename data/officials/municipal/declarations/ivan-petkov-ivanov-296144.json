@@ -4,13 +4,13 @@
     "declarantName": "Иван Петков Иванов",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г12479",
-    "controlHash": "91C462E0",
-    "sourceUrl": "https://register.cacbg.bg/2025/D997C33A-E348-47E8-8ABE-C2ED92BD885C215648.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г11035",
+    "controlHash": "197B75C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/D997C33A-E348-47E8-8ABE-C2ED92BD885C235866.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -28,7 +28,7 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "Оборудване",
-        "shareSize": "100 %",
+        "shareSize": "100",
         "companyName": "ФАММА  ЕООД",
         "registeredOffice": "Хасково",
         "valueEur": 2556.4594059810925,
@@ -37,7 +37,14 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7294.601269026449,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -113,8 +120,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Мерцедес Бенц  ЦЛК-200",
-        "detail": "лека",
+        "description": "лека",
+        "detail": "Мерцедес Бенц  ЦЛК-200",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -131,8 +138,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Ланд Ровър Дискавари -2",
-        "detail": "лека",
+        "description": "лека",
+        "detail": "Ланд Ровър Дискавари -2",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -158,8 +165,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Иван Петков Иванов",
         "isSpouse": false,
         "legalBasis": null,
@@ -176,8 +183,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7000,
-        "valueEur": 3579.0431683735296,
+        "amount": 3200,
+        "valueEur": 1636.1340198278992,
+        "holderName": "Иван Петков Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3600,
+        "valueEur": 1840.6507723063867,
         "holderName": "Иван Петков Иванов",
         "isSpouse": false,
         "legalBasis": null,
@@ -194,27 +219,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75500,
-        "valueEur": 38602.537030314495,
+        "amount": 67000,
+        "valueEur": 34256.556040146635,
         "holderName": "Иван Петков Иванов",
         "isSpouse": false,
-        "legalBasis": "ЗАЕМ 2.7%",
+        "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "BMW -",
-        "detail": "лека",
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
+        "amount": 54000,
+        "valueEur": 27609.7615845958,
+        "holderName": "Иван Петков Иванов",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Иван Петков Иванов",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

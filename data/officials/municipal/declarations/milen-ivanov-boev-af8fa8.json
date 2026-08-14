@@ -4,26 +4,62 @@
     "declarantName": "Милен Иванов Боев",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11949",
-    "controlHash": "F808D041",
-    "sourceUrl": "https://register.cacbg.bg/2025/D19E50C9-7A5B-41BC-95FA-62AAB43474A3215103.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5460",
+    "controlHash": "92E62B53",
+    "sourceUrl": "https://register.cacbg.bg/2026/D19E50C9-7A5B-41BC-95FA-62AAB43474A3229719.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 897.3172514993635,
+        "amountEurDeclarant": 13444.931307935762,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "Потребителки кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -32,16 +68,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10368,
-        "valueEur": 5301.074224242393,
+        "amount": 8537,
+        "valueEur": 4364.898789772117,
         "holderName": "Милен Иванов Боев",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "Договор - 5,99 %",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредитна карта",
+        "description": "Кредит - овърдрафт",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,16 +86,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6750,
-        "valueEur": 3451.220198074475,
+        "amount": 1838,
+        "valueEur": 939.7544776386496,
         "holderName": "Милен Иванов Боев",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "Договор - 12,95 %",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ошърдрафт-кредит",
+        "description": "Кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -68,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "милен Иванов Боев",
+        "amount": 6639,
+        "valueEur": 3394.4667992616946,
+        "holderName": "Милен Иванов Боев",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "Договор - 19,90 %",
         "fundsOrigin": null
       }
     ],

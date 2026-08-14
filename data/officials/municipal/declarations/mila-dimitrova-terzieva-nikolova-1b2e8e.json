@@ -4,32 +4,45 @@
     "declarantName": "Мила Димитрова Терзиева-Николова",
     "institution": "Попово",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5642",
-    "controlHash": "A12DB715",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E3D9232-724C-46BA-898B-3E4AA83A824D208583.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13005",
+    "controlHash": "01D1E1D5",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E3D9232-724C-46BA-898B-3E4AA83A824D238389.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100%",
+        "companyName": "д-р Иван Николов-амбулатория за първична извънболнична медицинска помощ-индивидуална практика ЕООД",
+        "registeredOffice": "град Попово",
+        "valueEur": 5.112918811962185,
+        "holderName": "Иван Бончев Николов",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15132.705807764478,
-        "amountEurSpouse": 34475.38896529862
+        "amountEurDeclarant": 15477.31653569073,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 25992.54536437216
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6432.563157329625,
-        "amountEurSpouse": 21048.864165085924
-      },
-      {
-        "parent": null,
-        "category": "Доходи от дивидент",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 14571.818614092226
+        "amountEurDeclarant": 5109.851060675008,
+        "amountEurSpouse": 17231.558980074955
       }
     ],
     "assets": [
@@ -44,8 +57,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2300,
-        "valueEur": 1175.9713267513025,
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
         "holderName": "Мила Димитрова Терзиева-Николова",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,27 +75,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100000,
-        "valueEur": 51129.188119621846,
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
         "holderName": "Иван Бончев Николов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати и хонорари"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Апартамент",
-        "detail": null,
-        "location": "Велико Търново",
-        "municipality": "Велико Търново",
-        "areaSqm": 46,
-        "builtAreaSqm": 46,
-        "currency": "BGN",
-        "valueEur": 69999.94887081189,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

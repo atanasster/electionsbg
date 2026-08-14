@@ -5,6 +5,74 @@
     "institution": "ЦСМП",
     "positionTitle": "Директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4382",
+    "controlHash": "1F345CCC",
+    "sourceUrl": "https://register.cacbg.bg/2026/FDCE757E-D5EC-43D0-9157-FD39AFD9EBEE228580.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48132.50640393081,
+        "amountEurSpouse": 16165.004115899645
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 511.8031730774147
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41426,
+        "valueEur": 21180.777470434547,
+        "holderName": "Красимир Владимиров Кипров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг автомобил 4.03%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36543,
+        "valueEur": 18684.139214553412,
+        "holderName": "Красимир Владимиров Кипров",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimir-vladimirov-kiprov-9dff62",
+    "declarantName": "Красимир Владимиров Кипров",
+    "institution": "ЦСМП",
+    "positionTitle": "Директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

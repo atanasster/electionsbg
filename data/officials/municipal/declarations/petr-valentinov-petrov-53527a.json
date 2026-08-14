@@ -4,47 +4,29 @@
     "declarantName": "Петър Валентинов Петров",
     "institution": "Долна Митрополия",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2237",
-    "controlHash": "11997D96",
-    "sourceUrl": "https://register.cacbg.bg/2025/DAD83462-EE9A-4741-AF6B-5A906A2EE6BE204847.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4017",
+    "controlHash": "F56D501F",
+    "sourceUrl": "https://register.cacbg.bg/2026/DAD83462-EE9A-4741-AF6B-5A906A2EE6BE228201.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26919.517544980903,
-        "amountEurSpouse": 6138.570325641799
+        "amountEurDeclarant": 25884.662777439757,
+        "amountEurSpouse": 6065.966878511937
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1670.901867749242,
+        "amountEurDeclarant": 1732.7681853739844,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "ателие",
-        "detail": null,
-        "location": "гр. Плевен",
-        "municipality": "Плевен",
-        "areaSqm": 24,
-        "builtAreaSqm": 24,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 7201,
-        "valueEur": 3681.8128364939694,
-        "holderName": "Петър Валентинов Петров",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "банков кредит",
@@ -56,11 +38,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 41357,
-        "valueEur": 21145.498330632006,
+        "amount": 38151,
+        "valueEur": 19506.29655951693,
         "holderName": "Петър Валентинов Петров",
         "isSpouse": false,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "потребителски кредит 5%",
         "fundsOrigin": null
       },
       {
@@ -74,12 +56,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33484,
-        "valueEur": 17120.09734997418,
+        "amount": 30828,
+        "valueEur": 15762.106113517024,
         "holderName": "Петър Валентинов Петров",
         "isSpouse": false,
-        "legalBasis": "инвестиционен заем",
+        "legalBasis": "инвестиционен кредит 6,06%",
         "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 5728.514236922432,
+        "holderName": "Петър Валентинов Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

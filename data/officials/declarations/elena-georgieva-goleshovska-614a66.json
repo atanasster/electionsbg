@@ -5,6 +5,50 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11764",
+    "controlHash": "2E66BAEC",
+    "sourceUrl": "https://register.cacbg.bg/2026/8C929988-7D16-4D8E-AB77-4C0020A177B6236741.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25768.599520408217,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46208,
+        "valueEur": 23625.775246314864,
+        "holderName": "Елена Георгиева Голешовска",
+        "isSpouse": false,
+        "legalBasis": "3,89%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-georgieva-goleshovska-614a66",
+    "declarantName": "Елена Георгиева Голешовска",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митническо бюро",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

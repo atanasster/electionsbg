@@ -4,29 +4,84 @@
     "declarantName": "Андрей Иванов Илиев",
     "institution": "Павликени",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г11625",
-    "controlHash": "4419B926",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D801AFB-EE7D-4499-92E1-C97FE335E484214772.xml",
+    "entryNumber": "Г12633",
+    "controlHash": "43F5280E",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D801AFB-EE7D-4499-92E1-C97FE335E484237951.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5981.092426233364,
-        "amountEurSpouse": 6712.751108225152
+        "amountEurDeclarant": 6488.293972380013,
+        "amountEurSpouse": 8547.77766983838
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 2300.8134653829834,
+        "amountEurDeclarant": 920.3253861531933,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Алмера",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1200,
+        "valueEur": 613.5502574354622,
+        "holderName": "Елза Юлиянова Аспарухова",
+        "isSpouse": true,
+        "legalBasis": "Покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Елза Юлиянова Аспарухова",
+        "isSpouse": true,
+        "legalBasis": "Кредит ,7%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Изпълнително дело",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6200,
+        "valueEur": 3170.0096634165548,
+        "holderName": "Андрей Иванов Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

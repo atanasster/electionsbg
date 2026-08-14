@@ -5,6 +5,80 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7263",
+    "controlHash": "E2FF86C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/15DD3649-467E-4295-AC97-D459CF249967231667.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17482.6032937423,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1608.0129663621071,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от пожизнена пенсия",
+        "amountEurDeclarant": 9305.512237771176,
+        "amountEurSpouse": 3182.79196044646
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "опел зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1740,
+        "valueEur": 889.6478732814202,
+        "holderName": "Йордан Петров Колев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55371,
+        "valueEur": 28310.742753715815,
+        "holderName": "Йордан Петров Колев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordan-petrov-kolev-8fec42",
+    "declarantName": "Йордан Петров Колев",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

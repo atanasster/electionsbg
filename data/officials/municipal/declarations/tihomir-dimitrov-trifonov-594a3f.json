@@ -4,29 +4,48 @@
     "declarantName": "Тихомир Димитров Трифонов",
     "institution": "Дряново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4445",
-    "controlHash": "CA032610",
-    "sourceUrl": "https://register.cacbg.bg/2025/2E6CE626-CA0F-4A0F-B38C-582F3C39FD48207294.xml",
+    "filedAt": "2026-06-04",
+    "entryNumber": "Г11691",
+    "controlHash": "9979FD82",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E6CE626-CA0F-4A0F-B38C-582F3C39FD48236653.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7621.828072992029,
+        "amountEurDeclarant": 7139.168537142798,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8044.6664587413015,
+        "amountEurDeclarant": 8555.95833993752,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Тихомир Димитров Трифонов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

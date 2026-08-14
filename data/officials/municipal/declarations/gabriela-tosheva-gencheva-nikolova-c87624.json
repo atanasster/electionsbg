@@ -4,96 +4,30 @@
     "declarantName": "Габриела Тошева Генчева-Николова",
     "institution": "Бойница",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-19",
-    "entryNumber": "Г3568",
-    "controlHash": "2C7A28ED",
-    "sourceUrl": "https://register.cacbg.bg/2025/2C94CDB2-2619-470B-B85E-B4D40D90393F206361.xml",
+    "filedAt": "2026-04-11",
+    "entryNumber": "Г2205",
+    "controlHash": "4BFA5773",
+    "sourceUrl": "https://register.cacbg.bg/2026/2C94CDB2-2619-470B-B85E-B4D40D90393F226208.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26943.03697151593,
-        "amountEurSpouse": 18367.138248211755
+        "amountEurDeclarant": 30366.647408005807,
+        "amountEurSpouse": 26948.14989032789
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4969.757085227244
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Плевен",
-        "municipality": "Плевен",
-        "areaSqm": 114,
-        "builtAreaSqm": 114,
-        "acquiredYear": 2024,
-        "share": "1/6",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Пламен Георгиев Николов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "таванско помещение",
-        "detail": null,
-        "location": "гр. Плевен",
-        "municipality": "Плевен",
-        "areaSqm": 21,
-        "builtAreaSqm": 21,
-        "acquiredYear": 2024,
-        "share": "1/6",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Пламен Георгиев Николов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "гр. Плевен",
-        "municipality": "Плевен",
-        "areaSqm": 15,
-        "builtAreaSqm": 15,
-        "acquiredYear": 2024,
-        "share": "1/3",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Пламен Георгиев Николов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Бойница",
-        "municipality": "Бойница",
-        "areaSqm": 1540,
-        "builtAreaSqm": 197,
-        "acquiredYear": 2024,
-        "share": "1/6",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Пламен Георгиев Николов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -104,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19430,
-        "valueEur": 9934.401251642525,
+        "amount": 8093,
+        "valueEur": 4137.885194520996,
         "holderName": "Габриела Тошева Генчева-Николова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "Заплата"
       },
       {
         "category": "bank",
@@ -122,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 658,
-        "valueEur": 336.43005782711174,
+        "amount": 1718,
+        "valueEur": 878.3994518951033,
         "holderName": "Пламен Георгиев Николов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "Заплата"
       },
       {
         "category": "bank",
@@ -140,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 18914,
-        "valueEur": 18914.22056109171,
+        "amount": 20931,
+        "valueEur": 20930.755740529596,
         "holderName": "Пламен Георгиев Николов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "14674 - заплата и 4240 - спестявания на Ц. Н. Цокова"
+        "fundsOrigin": "Заплата"
       }
     ],
     "events": []

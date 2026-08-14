@@ -1,6 +1,86 @@
 [
   {
     "slug": "stoyanka-naidenova-zlatanova-ilinova-a66311",
+    "declarantName": "Стоянка Найденова Златанова-Илинова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7969",
+    "controlHash": "B1C2968F",
+    "sourceUrl": "https://register.cacbg.bg/2026/378D0F16-05AD-4334-9914-09851E32825E232439.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24256.709427710997,
+        "amountEurSpouse": 11795.50369919676
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17546,
+        "valueEur": 8971.12734746885,
+        "holderName": "Стоянка Найденова Златанова-Илинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8816,
+        "valueEur": 4507.549224625862,
+        "holderName": "Красимир Велков Илинов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108116,
+        "valueEur": 55278.83302741036,
+        "holderName": "Стоянка Найденова Златанова-Илинова",
+        "isSpouse": false,
+        "legalBasis": "2,39",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stoyanka-naidenova-zlatanova-ilinova-a66311",
     "declarantName": "Стоянка Найденова Златанова - Илинова",
     "institution": "Училища",
     "positionTitle": "Директор",

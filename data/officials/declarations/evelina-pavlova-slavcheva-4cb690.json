@@ -5,6 +5,69 @@
     "institution": "БАН",
     "positionTitle": "Председател на БАН",
     "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г8918",
+    "controlHash": "D7F1CE55",
+    "sourceUrl": "https://register.cacbg.bg/2026/052EAB91-F258-4FEF-93B1-F2A023DF605E233467.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 106642.70412050126,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16235.562395504721,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 430000,
+        "valueEur": 219855.50891437396,
+        "holderName": "Евелина Павлова Славчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота CH-R",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "evelina-pavlova-slavcheva-4cb690",
+    "declarantName": "Евелина Павлова Славчева",
+    "institution": "БАН",
+    "positionTitle": "Председател на БАН",
+    "category": "academic",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

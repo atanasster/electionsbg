@@ -1,26 +1,45 @@
 [
   {
     "slug": "svetlomir-mishev-velikov-14c6e8",
-    "declarantName": "светломир мишев великов",
+    "declarantName": "Светломир Мишев Великов",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-26",
-    "entryNumber": "Г1103",
-    "controlHash": "B9EAE13D",
-    "sourceUrl": "https://register.cacbg.bg/2025/62A0B5B5-839D-4549-9745-1C77B409C8BE203465.xml",
+    "filedAt": "2026-07-07",
+    "entryNumber": "Г14063",
+    "controlHash": "6347FCFB",
+    "sourceUrl": "https://register.cacbg.bg/2026/62A0B5B5-839D-4549-9745-1C77B409C8BE239751.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1790.544167949157,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1685.218040422736,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кридит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Светломир Мишев Великов",
+        "isSpouse": false,
+        "legalBasis": "7,3%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

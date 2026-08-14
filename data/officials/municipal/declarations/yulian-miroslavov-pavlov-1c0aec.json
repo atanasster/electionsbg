@@ -4,13 +4,13 @@
     "declarantName": "Юлиан Мирославов Павлов",
     "institution": "Свищов",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г1487",
-    "controlHash": "E7594C6B",
-    "sourceUrl": "https://register.cacbg.bg/2025/8EBB987D-8A43-48C2-AC68-3F595EC8CFF1203969.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1453",
+    "controlHash": "79F3658A",
+    "sourceUrl": "https://register.cacbg.bg/2026/8EBB987D-8A43-48C2-AC68-3F595EC8CFF1225319.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -41,25 +41,67 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20566.204629236694,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 23032.67666412725,
+        "amountEurSpouse": 3557.057617482092
       },
       {
         "parent": null,
         "category": "Доход по чл. 38, ал.1 от ЗДДФЛ - дивидент от БРИАПРОДЖЕКТ ООД",
-        "amountEurDeclarant": 72657.13277738863,
-        "amountEurSpouse": 537.8790590184218
+        "amountEurDeclarant": 198215.5913346252,
+        "amountEurSpouse": 24776.69327088755
       },
       {
         "parent": null,
         "category": "данъчно облекчение от друдов договор",
         "amountEurDeclarant": 613.5502574354622,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа от трудови доходи в БРИАПРОДЖЕКТ ООД",
+        "amountEurDeclarant": 1676.0147865612041,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 75000,
+        "valueEur": 74999.8721770297,
+        "holderName": "Юлиан Мирославов Павлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "Ивалина Красимирова Павлова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -69,8 +111,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100000,
-        "valueEur": 51129.188119621846,
+        "amount": 185000,
+        "valueEur": 94588.99802130042,
         "holderName": "Юлиан Мирославов Павлов",
         "isSpouse": false,
         "legalBasis": null,
@@ -87,12 +129,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4226,
-        "valueEur": 2160.7194899352194,
-        "holderName": "Юлиан Мирославов Павлов",
-        "isSpouse": false,
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Ивалина Красимирова Павлова",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "investment",
@@ -106,7 +148,7 @@
         "share": null,
         "currency": "EUR",
         "amount": null,
-        "valueEur": 6472.955215944126,
+        "valueEur": 7559.961755367287,
         "holderName": "Юлиан Мирославов Павлов",
         "isSpouse": false,
         "legalBasis": null,
@@ -124,8 +166,8 @@
         "share": null,
         "currency": "EUR",
         "amount": null,
-        "valueEur": 6465.797129607379,
-        "holderName": "Ивалиа Красимирова Павлова",
+        "valueEur": 7550.758501505755,
+        "holderName": "Ивалина Красимирова Павлова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
@@ -141,8 +183,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 5200,
-        "valueEur": 4761.149997699186,
+        "amount": 4000,
+        "valueEur": null,
         "holderName": "Юлиан Мирославов Павлов",
         "isSpouse": false,
         "legalBasis": null,

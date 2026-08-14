@@ -4,13 +4,13 @@
     "declarantName": "Димитър Цветанов Георгиев",
     "institution": "Гулянци",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-06-16",
-    "entryNumber": "В1159",
-    "controlHash": "BA3AC226",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3BDC6B1-6C2B-4631-9BB4-6607BA4AAB11218740.xml",
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12098",
+    "controlHash": "332CB15B",
+    "sourceUrl": "https://register.cacbg.bg/2026/E3BDC6B1-6C2B-4631-9BB4-6607BA4AAB11237210.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,20 +21,33 @@
         "registeredOffice": "Плевен",
         "valueEur": 255.64594059810923,
         "holderName": "Димитър Цветанов Георгиев",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5307.209726816748,
+        "amountEurSpouse": 6894.771017931006
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6607.936272579927,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр. Плевен",
+        "location": "Плевен",
         "municipality": "Плевен",
         "areaSqm": 90,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 90,
         "acquiredYear": 2018,
         "share": "100%",
         "currency": "BGN",
@@ -42,14 +55,14 @@
         "valueEur": 0,
         "holderName": "Димитър Цветанов Георгиев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
         "description": "нива",
         "detail": null,
-        "location": "с. Славяново",
+        "location": "с. Скавяново",
         "municipality": "Плевен",
         "areaSqm": 6,
         "builtAreaSqm": null,
@@ -60,52 +73,10 @@
         "valueEur": 0,
         "holderName": "Димитър Цветанов Георгиев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "дарения"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "dimitr-tsvetanov-georgiev-66a531",
-    "declarantName": "Димитър Цветанов Георгиев",
-    "institution": "Гулянци",
-    "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "В1160",
-    "controlHash": "DF3CEBB1",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3BDC6B1-6C2B-4631-9BB4-6607BA4AAB11218741.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "100%",
-        "companyName": "ЕНАЙ ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "100%",
-        "companyName": "ЕНАЙ ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

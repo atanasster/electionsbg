@@ -4,23 +4,41 @@
     "declarantName": "Лидия Върбанова Петкова",
     "institution": "Плевен",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5388",
-    "controlHash": "3EE2B065",
-    "sourceUrl": "https://register.cacbg.bg/2025/8FB72A37-15BC-4C83-A7EB-116A6CA01F94208313.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12252",
+    "controlHash": "90A99010",
+    "sourceUrl": "https://register.cacbg.bg/2026/8FB72A37-15BC-4C83-A7EB-116A6CA01F94237442.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23197.312649872434,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurDeclarant": 36578.332472658665,
+        "amountEurSpouse": 9816.804118967395
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 150,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1996,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 20360,
+        "valueEur": 10409.902701155008,
+        "holderName": "Лидия Върбанова Петкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "real_estate",
         "description": "гараж",
@@ -59,21 +77,21 @@
       },
       {
         "category": "real_estate",
-        "description": "къща",
+        "description": "апартамент",
         "detail": null,
         "location": "Плевен",
         "municipality": "Плевен",
-        "areaSqm": 98,
-        "builtAreaSqm": 95,
-        "acquiredYear": 1996,
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 185000,
+        "valueEur": 94588.99802130042,
         "holderName": "Лидия Върбанова Петкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "vehicle",
@@ -110,6 +128,24 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Лидия Върбанова Петкова",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков заем",
+        "fundsOrigin": null
       }
     ],
     "events": []

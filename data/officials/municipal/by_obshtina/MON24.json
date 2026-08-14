@@ -1,15 +1,15 @@
 {
   "obshtina": "MON24",
   "registryName": "Лом",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
-    "councillor": 20,
+    "councillor": 19,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,16 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "elin-enchev-davidkov-afe583",
-      "name": "Елин Енчев Давидков",
-      "normalizedName": "ЕЛИН ЕНЧЕВ ДАВИДКОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Лом",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "irena-metodieva-dimova-0b08f0",
@@ -39,7 +31,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "",
@@ -52,13 +45,24 @@
       }
     },
     {
+      "slug": "teodora-iordanova-kamenova-tsenkova-eef238",
+      "name": "Теодора Йорданова Каменова-Ценкова",
+      "normalizedName": "ТЕОДОРА ЙОРДАНОВА КАМЕНОВА-ЦЕНКОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Лом",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "hilda-aleksandrova-vladimirova-c3956c",
       "name": "Хилда Александрова Владимирова",
       "normalizedName": "ХИЛДА АЛЕКСАНДРОВА ВЛАДИМИРОВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "penka-nedelkova-penkova-7740c2",
@@ -67,7 +71,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -84,7 +89,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "albena-rosenova-ivanova-35d37d",
@@ -93,7 +99,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -110,7 +117,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -127,7 +135,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -144,7 +153,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -161,7 +171,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -178,7 +189,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -195,7 +207,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -212,7 +225,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -229,7 +243,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -246,7 +261,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -263,7 +279,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -280,7 +297,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -297,7 +315,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -314,7 +333,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК НДСВ (ЗС „Ал. Стамболийски“, ЗНС, ДПС)",
@@ -331,7 +351,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -342,30 +363,14 @@
       }
     },
     {
-      "slug": "toni-borisov-rangelov-5bbbe0",
-      "name": "Тони Борисов Рангелов",
-      "normalizedName": "ТОНИ БОРИСОВ РАНГЕЛОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Лом",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 104,
-        "prefVotes": 129,
-        "isElected": true
-      }
-    },
-    {
       "slug": "filip-angelov-dimitrov-147bc2",
       "name": "Филип Ангелов Димитров",
       "normalizedName": "ФИЛИП АНГЕЛОВ ДИМИТРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -382,7 +387,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -399,7 +405,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -416,7 +423,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Лом",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

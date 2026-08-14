@@ -5,6 +5,80 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г13244",
+    "controlHash": "4F8CB643",
+    "sourceUrl": "https://register.cacbg.bg/2026/0AAE3D31-D8F0-46BD-B0CF-197E6D40E2F0238744.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8574.87613954178,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15196.617292914007,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 14022.69113368749,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 87471,
+        "valueEur": 44723.212140114425,
+        "holderName": "Антони Иванов Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39685,
+        "valueEur": 20290.61830527193,
+        "holderName": "Валентина Иванова Тодорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "antoni-ivanov-todorov-55b9d3",
+    "declarantName": "Антони Иванов Тодоров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

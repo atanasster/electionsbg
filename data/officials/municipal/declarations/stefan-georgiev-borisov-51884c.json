@@ -1,37 +1,37 @@
 [
   {
     "slug": "stefan-georgiev-borisov-51884c",
-    "declarantName": "Стефан Георгиев Борисов",
+    "declarantName": "СТЕФАН ГЕОРГИЕВ БОРИСОВ",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г4723",
-    "controlHash": "4C41FF4E",
-    "sourceUrl": "https://register.cacbg.bg/2025/AEA01C0B-69B2-4BF6-B7E4-4F2A929A3D33207600.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г7256",
+    "controlHash": "46F28594",
+    "sourceUrl": "https://register.cacbg.bg/2026/AEA01C0B-69B2-4BF6-B7E4-4F2A929A3D33231660.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10146.07609045776,
+        "amountEurDeclarant": 9935.423835404918,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 20196.029307250632,
+        "amountEurDeclarant": 19871.870254572226,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "Апартамент",
+        "description": "апартамент",
         "detail": null,
-        "location": "София ж.к.Връбница",
+        "location": "София",
         "municipality": "София-град (Столична)",
         "areaSqm": 67,
         "builtAreaSqm": 67,
@@ -42,7 +42,7 @@
         "valueEur": 55730.81505038781,
         "holderName": "Стефан Георгиев Борисов",
         "isSpouse": false,
-        "legalBasis": "покупко продажба",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       },
       {
@@ -87,8 +87,8 @@
         "detail": null,
         "location": "Безден",
         "municipality": "Костинброд",
-        "areaSqm": 516,
-        "builtAreaSqm": 516,
+        "areaSqm": 518,
+        "builtAreaSqm": 518,
         "acquiredYear": 2022,
         "share": "1/1",
         "currency": "BGN",
@@ -133,25 +133,25 @@
         "holderName": "Стефан Георгиев Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестяванне"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
+        "currency": "BGN",
         "amount": 600,
-        "valueEur": 536.8564752560294,
+        "valueEur": 306.7751287177311,
         "holderName": "Стефан Георгиев Борисов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестяване"
       },
       {
         "category": "debt",
@@ -166,14 +166,14 @@
         "currency": "BGN",
         "amount": 109000,
         "valueEur": 55730.81505038781,
-        "holderName": "СтефанГеоргиев Борисов",
-        "isSpouse": true,
-        "legalBasis": "ипотека",
+        "holderName": "Стефан Георгиев Борисов",
+        "isSpouse": false,
+        "legalBasis": "ипотека 2.85%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -182,11 +182,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
-        "holderName": "СтефанГеоргиев Борисов",
-        "isSpouse": true,
-        "legalBasis": "кредит",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Стефан Георгиев Борисов",
+        "isSpouse": false,
+        "legalBasis": "кредит 4.44%",
         "fundsOrigin": null
       }
     ],

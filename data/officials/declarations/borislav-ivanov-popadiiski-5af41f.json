@@ -1,0 +1,89 @@
+[
+  {
+    "slug": "borislav-ivanov-popadiiski-5af41f",
+    "declarantName": "Борислав Иванов Попадийски",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г14941",
+    "controlHash": "86070359",
+    "sourceUrl": "https://register.cacbg.bg/2026/1E2E9E21-0638-473B-B7C2-77BC6FD6DA1A241356.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25879.0385667466,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21991,
+        "valueEur": 21946.181416585285,
+        "holderName": "Борислав Иванов Попадийски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Продажба на недвижим имот-апартамент"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17698,
+        "valueEur": 17697.857175725905,
+        "holderName": "Борислав Иванов Попадийски",
+        "isSpouse": false,
+        "legalBasis": "Договор- 5,56%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

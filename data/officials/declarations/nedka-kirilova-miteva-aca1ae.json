@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1245",
+    "controlHash": "DE728BC6",
+    "sourceUrl": "https://register.cacbg.bg/2026/A9A75D8A-594F-4FA9-B313-60B9E6084E31225029.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21431.310492220695,
+        "amountEurSpouse": 8326.388285280418
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "джип",
+        "detail": "мерцедес бенц gle 350d",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "МИЛЕН СТЕФАНОВ МИТЕВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 36664.25,
+        "valueEur": 36664.24996037487,
+        "holderName": "Недка Кирилова Митева",
+        "isSpouse": false,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nedka-kirilova-miteva-aca1ae",
+    "declarantName": "Недка Кирилова Митева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

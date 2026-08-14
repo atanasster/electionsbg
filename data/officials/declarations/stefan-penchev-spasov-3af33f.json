@@ -1,6 +1,92 @@
 [
   {
     "slug": "stefan-penchev-spasov-3af33f",
+    "declarantName": "СТЕФАН ПЕНЧЕВ СПАСОВ",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9198",
+    "controlHash": "2B1C8419",
+    "sourceUrl": "https://register.cacbg.bg/2026/AF770F35-0254-408C-9050-3AAC3DC4080B233786.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19570.719336547656,
+        "amountEurSpouse": 16137.905646196245
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 5514.282938701216,
+        "amountEurSpouse": 2868.8587453919818
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13000,
+        "valueEur": 3398.045842430068,
+        "holderName": "СТЕФАН ПЕНЧЕВ СПАСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5500,
+        "valueEur": 5499.966766027722,
+        "holderName": "СТЕФАН ПЕНЧЕВ СПАСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9000,
+        "valueEur": 8999.759692815838,
+        "holderName": "СТЕФАН ПЕНЧЕВ СПАСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefan-penchev-spasov-3af33f",
     "declarantName": "Стефан Пенчев Спасов",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",

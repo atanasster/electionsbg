@@ -5,6 +5,62 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10593",
+    "controlHash": "9FEA8DCD",
+    "sourceUrl": "https://register.cacbg.bg/2026/046ACF88-907B-4A53-AD1B-C976D6439A99235356.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3773.3340832280924,
+        "amountEurSpouse": 13839.648640219242
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3551.4334067889336,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПАРЦЕЛ",
+        "detail": null,
+        "location": "ГР.ПЕРНИК",
+        "municipality": "ПЕРНИК",
+        "areaSqm": 1059,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1377.931619823809,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ЗЕМЯ И СГРАДА",
+        "detail": null,
+        "location": "С.ЛЕСКОВЕЦ",
+        "municipality": "ПЕРНИК",
+        "areaSqm": 750,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 971.4545742728151,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "boryana-simeonova-metodieva-8318fa",
+    "declarantName": "БОРЯНА СИМЕОНОВА МЕТОДИЕВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

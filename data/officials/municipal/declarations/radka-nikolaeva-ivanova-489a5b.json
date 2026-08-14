@@ -4,65 +4,41 @@
     "declarantName": "РАДКА НИКОЛАЕВА ИВАНОВА",
     "institution": "Павел баня",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5785",
-    "controlHash": "F80B133D",
-    "sourceUrl": "https://register.cacbg.bg/2025/0A23CE18-6E0E-4E43-A0F3-D89ABEA44B57208729.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2042",
+    "controlHash": "F5FE2103",
+    "sourceUrl": "https://register.cacbg.bg/2026/0A23CE18-6E0E-4E43-A0F3-D89ABEA44B57226020.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14842.803311126223,
-        "amountEurSpouse": 12764.401814063594
+        "amountEurDeclarant": 36507.26290117239,
+        "amountEurSpouse": 20336.123282698394
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5369.5873363226865,
-        "amountEurSpouse": 2458.2913647914183
+        "amountEurDeclarant": 1691.3535429970907,
+        "amountEurSpouse": 2393.357295879499
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА НА ЗЕМЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 500.04345980990166
+      },
+      {
+        "parent": null,
+        "category": "НОИ  И ЦКБ СИЛА - ПЕНСИИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1349.8105663580168
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "АУДИ КУ 5",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 24300,
-        "valueEur": 12424.39271306811,
-        "holderName": "ОГНЯН ТОДОРОВ ИВАНОВ",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ТОЙОТА КОРОЛА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
-        "holderName": "ОГНЯН ТОДОРОВ ИВАНОВ",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -74,8 +50,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 165850,
-        "valueEur": 84797.75849639284,
+        "amount": 273656,
+        "valueEur": 139918.09104063237,
         "holderName": "РАДКА НИКОЛАЕВА ИВАНОВА",
         "isSpouse": false,
         "legalBasis": null,

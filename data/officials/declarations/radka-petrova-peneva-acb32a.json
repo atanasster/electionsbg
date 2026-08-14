@@ -1,6 +1,56 @@
 [
   {
     "slug": "radka-petrova-peneva-acb32a",
+    "declarantName": "Радка Петрова Пенева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1960",
+    "controlHash": "ABABBD1B",
+    "sourceUrl": "https://register.cacbg.bg/2026/FFA0EDF7-AE77-4044-83BC-E8BB9404A68F225933.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18193.29900860504,
+        "amountEurSpouse": 23970.897266122312
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1585.0048317082774
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15000,
+        "valueEur": 14999.769918653461,
+        "holderName": "Радка Петрова Пенева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radka-petrova-peneva-acb32a",
     "declarantName": "Радка Петрова пенева",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

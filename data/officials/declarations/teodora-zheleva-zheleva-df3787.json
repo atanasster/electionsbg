@@ -5,6 +5,105 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г6644",
+    "controlHash": "9507BFE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/BEAB6417-43A0-40AE-87EF-8D795D7BD5F7230983.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30476.575162462996,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2530.8948119212814,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15399,
+        "valueEur": 7873.383678540568,
+        "holderName": "Теодора желева Желева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг на автомобил Дачия Сандеро",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6270,
+        "valueEur": 3205.80009510029,
+        "holderName": "Теодора Желева Желева",
+        "isSpouse": false,
+        "legalBasis": "лизинг-2.25%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг на автомобил Рено Аркана",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34464,
+        "valueEur": 17621.163393546474,
+        "holderName": "Теодора Желева Желева",
+        "isSpouse": false,
+        "legalBasis": "лизинг-4.12%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Хонда",
+        "detail": "Джаз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "отчужден"
+      }
+    ]
+  },
+  {
+    "slug": "teodora-zheleva-zheleva-df3787",
+    "declarantName": "Теодора Желева Желева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

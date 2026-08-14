@@ -4,60 +4,78 @@
     "declarantName": "Огнян Славейков Добрев",
     "institution": "Долна баня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г4400",
-    "controlHash": "1BF97519",
-    "sourceUrl": "https://register.cacbg.bg/2025/68F6EE45-AB9B-47E7-B24D-069F33EB84B2207247.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10000",
+    "controlHash": "ADF5E8A1",
+    "sourceUrl": "https://register.cacbg.bg/2026/68F6EE45-AB9B-47E7-B24D-069F33EB84B2234678.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 119192.36334446246,
-        "amountEurSpouse": 11197.292198197185
+        "amountEurDeclarant": 13418.855421994755,
+        "amountEurSpouse": 11348.634595031266
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2147.4259010241176,
+        "amountEurDeclarant": 1873.3734527029446,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тоиота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Огнян Славейков Добрев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
-        "holderName": "ОГНЯН Славейков Добрев",
+        "currency": "EUR",
+        "amount": 5400,
+        "valueEur": 5399.753557313264,
+        "holderName": "Огнян Славейков Добрев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплата"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
         "description": "лек автомобил",
-        "detail": "ауди А4",
+        "detail": "Нисан Микра",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 664.679445555084,
-        "legalBasis": "продажба"
+        "valueEur": 557.8194423850744,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9971",
+    "controlHash": "7251F1FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/869317BC-CD29-4846-8564-6F128053110F234648.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19296.666888226482,
+        "amountEurSpouse": 10967.210851658887
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 64,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2007,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стоян Михайлов Стоянов",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2585,
+        "valueEur": 1321.6895128922247,
+        "holderName": "Стоян Михайлов Стоянов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nina-toncheva-pisarova-3c4bf0",
+    "declarantName": "Нина Тончева Писарова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

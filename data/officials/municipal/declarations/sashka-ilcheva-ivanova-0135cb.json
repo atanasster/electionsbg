@@ -4,38 +4,32 @@
     "declarantName": "Сашка Илчева Иванова",
     "institution": "Трън",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8697",
-    "controlHash": "3AF9EFCE",
-    "sourceUrl": "https://register.cacbg.bg/2025/51E92624-5B45-4038-BAE2-B282E4A38EDB211721.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13237",
+    "controlHash": "0EF7E7E4",
+    "sourceUrl": "https://register.cacbg.bg/2026/51E92624-5B45-4038-BAE2-B282E4A38EDB238737.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2607.588594100714,
+        "amountEurDeclarant": 3374.526415895042,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 27453.306268949756,
+        "amountEurDeclarant": 5982.115009995757,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 687.6875802089139
-      },
-      {
-        "parent": null,
-        "category": "Пенсия за прослужено време",
-        "amountEurDeclarant": 8438.36120726239,
-        "amountEurSpouse": 10197.205278577381
+        "category": "Пенси за осигурителен стаж и възраст",
+        "amountEurDeclarant": 11079.695065522055,
+        "amountEurSpouse": 11043.90463383832
       }
     ],
     "assets": [
@@ -50,30 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10050,
-        "valueEur": 5138.4834060219955,
-        "holderName": "Николай Христов Иванов",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 53595,
-        "valueEur": 27402.68837271133,
+        "amount": 48896,
+        "valueEur": 25000.1278229703,
         "holderName": "Сашка Илчева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

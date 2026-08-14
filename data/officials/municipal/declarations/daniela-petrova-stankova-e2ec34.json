@@ -4,120 +4,73 @@
     "declarantName": "Даниела Петрова Станкова",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-16",
-    "entryNumber": "Г562",
-    "controlHash": "9CB05064",
-    "sourceUrl": "https://register.cacbg.bg/2025/85003DC6-F3BD-4F2E-BA86-E921B5814774202652.xml",
+    "filedAt": "2026-03-13",
+    "entryNumber": "Г267",
+    "controlHash": "B85A4706",
+    "sourceUrl": "https://register.cacbg.bg/2026/85003DC6-F3BD-4F2E-BA86-E921B5814774223341.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11767.893937612165,
+        "amountEurDeclarant": 12557.839894060322,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20904.168562707393,
+        "amountEurDeclarant": 23921.301953646278,
         "amountEurSpouse": 6749.052831790084
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 37620.856618417754,
+        "amountEurDeclarant": 55080.45177750623,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1022.5837623924369
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 337.4526415895042,
-        "amountEurSpouse": null
+        "amountEurSpouse": 1533.8756435886555
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай Туксон",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Новград",
+        "municipality": "Русе",
+        "areaSqm": 1000,
+        "builtAreaSqm": 1000,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 16086,
-        "valueEur": 8224.641200922371,
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
         "holderName": "Даниела Петрова Станкова",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолксваген Голф",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 600,
-        "valueEur": 306.7751287177311,
-        "holderName": "Борислав Иванов Станков",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 17795,
-        "valueEur": 9098.439025886708,
-        "holderName": "Даниела Петрова Станкова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 20408,
-        "valueEur": 20451.67524784874,
-        "holderName": "Даниела Петрова Станкова",
-        "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "делба",
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Велико Търново",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

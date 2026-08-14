@@ -4,29 +4,55 @@
     "declarantName": "Нехрин Исуф Яшар",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9467",
-    "controlHash": "C56DD3A3",
-    "sourceUrl": "https://register.cacbg.bg/2025/FC60A887-A21E-419F-8AEF-9EEED06545B2212508.xml",
+    "filedAt": "2026-08-04",
+    "entryNumber": "Г14980",
+    "controlHash": "0273661C",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC60A887-A21E-419F-8AEF-9EEED06545B2241450.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4781.601672947036,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Наем",
-        "amountEurDeclarant": 1840.6507723063867,
+        "amountEurDeclarant": 5301.074224242393,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "Ауди А7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Нехрин Исуф Яшар",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Ауди А7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

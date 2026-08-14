@@ -5,6 +5,74 @@
     "institution": "Съвет за електронни медии",
     "positionTitle": "Член",
     "category": "regulator",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4503",
+    "controlHash": "690BEC33",
+    "sourceUrl": "https://register.cacbg.bg/2026/6EBF6133-29F4-408E-9DA4-B2C3165C599C228703.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 58404.871589044036,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход  аренда",
+        "amountEurDeclarant": 127.82297029905462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63934,
+        "valueEur": 32688.935132399034,
+        "holderName": "Пролет Вълкова Велкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от заплата, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10200,
+        "valueEur": 5215.177188201428,
+        "holderName": "Владимир Ганчев Велков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания, пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "prolet-vlkova-velkova-a8cbf8",
+    "declarantName": "Пролет Вълкова Велкова",
+    "institution": "Съвет за електронни медии",
+    "positionTitle": "Член",
+    "category": "regulator",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

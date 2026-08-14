@@ -5,6 +5,56 @@
     "institution": "МБАЛ \"Д-р Теодоси Витанов\" ЕООД, гр. Трявна",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-02",
+    "entryNumber": "Г1308",
+    "controlHash": "F148E4F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/176EBED3-414B-413D-B493-8F6C33C2E08E225124.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37884.17193723381,
+        "amountEurSpouse": 24490.881109298865
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7847.819084480758,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "Хонда РС47",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "0.5",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Таньо Иванов Танев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-stefanova-stancheva-23bfac",
+    "declarantName": "Татяна Стефанова Станчева-Танева",
+    "institution": "МБАЛ \"Д-р Теодоси Витанов\" ЕООД, гр. Трявна",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

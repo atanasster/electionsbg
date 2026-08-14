@@ -1,6 +1,74 @@
 [
   {
     "slug": "sava-nedkov-simeonov-3cde03",
+    "declarantName": "САВА НЕДКОВ СИМЕОНОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9354",
+    "controlHash": "5955B9D2",
+    "sourceUrl": "https://register.cacbg.bg/2026/909215C6-1AA2-4EFA-B40F-51C3DBEC549F233968.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20259.42950051896,
+        "amountEurSpouse": 22534.16707996094
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1743.505314879105,
+        "amountEurSpouse": 35.79043168373529
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23200,
+        "valueEur": 11861.97164375227,
+        "holderName": "Сава Недков Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42270,
+        "valueEur": 21612.307818164154,
+        "holderName": "Камелия Йорданова Симеонова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sava-nedkov-simeonov-3cde03",
     "declarantName": "Сава Недков Симеонов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

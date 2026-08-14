@@ -5,6 +5,74 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14001",
+    "controlHash": "566050EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/C13ED389-CCB1-4F6F-A5E4-4BE37B70A9FF239674.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14531.937847358922,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 160.03435881441638,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Севлиево,ул.\"Митко Палаузов\"8, вх.В, ет.1, ап.3",
+        "municipality": "Севлиево",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "acquiredYear": 1997,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 29080,
+        "valueEur": 14868.367905186034,
+        "holderName": "Алфидин Раифов Ахмедов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38967,
+        "valueEur": 19923.510734573047,
+        "holderName": "Алфидин Раифов Ахмедов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "alfidin-raifov-ahmedov-e2d8b9",
+    "declarantName": "Алфидин Раифов Ахмедов",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

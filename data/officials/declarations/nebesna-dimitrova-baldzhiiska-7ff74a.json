@@ -5,6 +5,87 @@
     "institution": "СБАЛ \"Йоан Павел\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1377",
+    "controlHash": "9E22DBB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/5455A4F3-1431-4FD4-BEE1-FC0C885E338B225214.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30786.418042467903,
+        "amountEurSpouse": 26548.830931113644
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3242.1018186652213,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 255.64594059810923
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "жил.ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72002,
+        "valueEur": 36814.03802989012,
+        "holderName": "Небесна Димитрова Балджийска",
+        "isSpouse": false,
+        "legalBasis": "3.97%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София ул.\"Лозенска планине\" 14пвх.Б ап.18",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение - син"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Сузуки Джимни",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "nebesna-dimitrova-baldzhiiska-7ff74a",
+    "declarantName": "Небесна Димитрова Балджийска",
+    "institution": "СБАЛ \"Йоан Павел\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

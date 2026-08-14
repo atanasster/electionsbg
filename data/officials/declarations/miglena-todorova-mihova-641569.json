@@ -1,6 +1,50 @@
 [
   {
     "slug": "miglena-todorova-mihova-641569",
+    "declarantName": "МИГЛЕНА ТОДОРОВА МИХОВА",
+    "institution": "МБАЛ \"Св. София\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1392",
+    "controlHash": "016308E6",
+    "sourceUrl": "https://register.cacbg.bg/2026/A85F88B1-5B35-496B-91D3-BF257645D3FA225240.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46500.97401103368,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 165625,
+        "valueEur": 84682.71782312369,
+        "holderName": "МИГЛЕНА ТОДОРОВА МИХОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "miglena-todorova-mihova-641569",
     "declarantName": "Миглена Тодорова Михова",
     "institution": "МБАЛ \"Св. София\" ООД, гр. София",
     "positionTitle": "Управител",

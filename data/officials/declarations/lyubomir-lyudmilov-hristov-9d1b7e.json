@@ -5,6 +5,68 @@
     "institution": "ДА „Държавен резерв и военновременни запаси”  ",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г6515",
+    "controlHash": "B3C1EE9B",
+    "sourceUrl": "https://register.cacbg.bg/2026/41D560FC-BDD9-4072-B75C-108D40E161AA230839.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36402.95935740836,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит 2.43%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 328400,
+        "valueEur": 156455.31564604284,
+        "holderName": "Любомир Людмилов Христов",
+        "isSpouse": false,
+        "legalBasis": "покупка на имот",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит 4.4%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 32211.388515361767,
+        "holderName": "Любомир Людмилов Христов",
+        "isSpouse": false,
+        "legalBasis": "текущи нужди",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-lyudmilov-hristov-9d1b7e",
+    "declarantName": "Любомир Людмилов Христов",
+    "institution": "ДА „Държавен резерв и военновременни запаси”  ",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

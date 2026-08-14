@@ -1,38 +1,56 @@
 [
   {
     "slug": "andoniya-todorova-spasova-727ad4",
-    "declarantName": "АНДОНИЯ ТОДОРОВА СПАСОВА",
+    "declarantName": "Андония Тодорова Спасова",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-09",
-    "entryNumber": "Г3459",
-    "controlHash": "0C6D17D8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3C375DFB-4DF2-4869-B2BF-5381D6237BE1206237.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1937",
+    "controlHash": "BACBC643",
+    "sourceUrl": "https://register.cacbg.bg/2026/3C375DFB-4DF2-4869-B2BF-5381D6237BE1225907.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6297.070808812627,
+        "amountEurDeclarant": 6645.260579907252,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17687.120046220785,
+        "amountEurDeclarant": 20472.638214977786,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 6718.375318918311,
+        "amountEurDeclarant": 9600.016361340198,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "acquiredYear": 2025,
+        "share": "3/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Андония Тодорова Спасова",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,14 +62,51 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 54763,
+        "valueEur": 27999.877289948512,
         "holderName": "Андония Тодорова Спасова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Ясеново",
+        "municipality": "Казанлък",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 30000.05112918812,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 330,
+        "builtAreaSqm": 330,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

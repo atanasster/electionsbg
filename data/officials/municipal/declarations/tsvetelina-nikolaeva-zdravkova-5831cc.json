@@ -4,29 +4,91 @@
     "declarantName": "Цветелина Николаева Здравкова",
     "institution": "Враца",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-28",
-    "entryNumber": "Г10717",
-    "controlHash": "AB731E12",
-    "sourceUrl": "https://register.cacbg.bg/2025/82840846-FF2E-4E36-9389-2CA9822167BE213821.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9035",
+    "controlHash": "04665FE7",
+    "sourceUrl": "https://register.cacbg.bg/2026/82840846-FF2E-4E36-9389-2CA9822167BE233591.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9413.394824703579,
+        "amountEurDeclarant": 7895.880521313202,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 11638.025799788325
+        "amountEurDeclarant": 10912.502620370891,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 275.5863239647618,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 8180.6700991394955,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 700,
+        "valueEur": 357.90431683735295,
+        "holderName": "Цветелина Николаева Здравкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5905,
+        "valueEur": 5904.909935935128,
+        "holderName": "Цветелина Николаева Здравкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "прехвърляне на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 1411,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

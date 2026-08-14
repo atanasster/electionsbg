@@ -4,56 +4,32 @@
     "declarantName": "СТЕФАН ИВАНОВ МАЛИНОВ",
     "institution": "Септември",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-26",
-    "entryNumber": "Г4399",
-    "controlHash": "1C86FD5B",
-    "sourceUrl": "https://register.cacbg.bg/2025/591B9BDA-1FAA-4A7A-84BC-B5B5AA5BD182207246.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г13460",
+    "controlHash": "E2859B2E",
+    "sourceUrl": "https://register.cacbg.bg/2026/591B9BDA-1FAA-4A7A-84BC-B5B5AA5BD182238973.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10878.757356211941,
-        "amountEurSpouse": 14069.218694876345
+        "amountEurDeclarant": 12926.481340402795,
+        "amountEurSpouse": 15349.493565391675
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3899.111886002362,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 5552.118537909737,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 2760.97615845958,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 2991.0575049978784,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -68,27 +44,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26000,
-        "valueEur": 13293.58891110168,
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
         "holderName": "СТЕФАН ИВАНОВ МАЛИНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "СИТРОЕН С4",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 869.1961980335715,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

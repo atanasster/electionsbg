@@ -4,23 +4,48 @@
     "declarantName": "Маринела Тодорова Стоянова",
     "institution": "Сопот",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2641",
-    "controlHash": "BDAD8C20",
-    "sourceUrl": "https://register.cacbg.bg/2025/6741B2C2-DDA7-4969-9308-1C1461678624205324.xml",
+    "filedAt": null,
+    "entryNumber": "Г13190",
+    "controlHash": "AAD10FE6",
+    "sourceUrl": "https://register.cacbg.bg/2026/6741B2C2-DDA7-4969-9308-1C1461678624238690.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3997.7912190732322,
-        "amountEurSpouse": 13672.967486949276
+        "amountEurDeclarant": 12159.543518608469,
+        "amountEurSpouse": 21292.239100535324
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1994.038336665252,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24351,
+        "valueEur": 12450.468599009117,
+        "holderName": "Маринела Тодорова Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,68 +4,86 @@
     "declarantName": "Николай Цанков Ненов",
     "institution": "Кула",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-01",
-    "entryNumber": "Г1480",
-    "controlHash": "F1E8C914",
-    "sourceUrl": "https://register.cacbg.bg/2025/5F491E27-9948-4102-85B7-3753ABFF4932203962.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6709",
+    "controlHash": "7D17D242",
+    "sourceUrl": "https://register.cacbg.bg/2026/5F491E27-9948-4102-85B7-3753ABFF4932231052.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4712.065977104349,
-        "amountEurSpouse": 5549.050786622559
+        "amountEurDeclarant": 6162.089752176826,
+        "amountEurSpouse": 5725.957777516451
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21237.530869247326,
+        "amountEurDeclarant": 26353.51743249669,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 818.0670099139496,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 738.3054764473395,
+        "amountEurSpouse": 347.67847921342855
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. Кула",
+        "municipality": "Кула",
+        "areaSqm": 146,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
         "holderName": "Николай Цанков Ненов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Видин",
+        "municipality": "Видин",
+        "areaSqm": 27,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 18600,
+        "valueEur": 9510.028990249664,
+        "holderName": "Валентина Стайкова Ненова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 13323,
-        "valueEur": 13283.363073477756,
-        "holderName": "Никола Цанков Ненов",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "Николай Цанков Ненов",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -80,27 +98,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38854,
-        "valueEur": 19865.734751997872,
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
         "holderName": "Николай Цанков Ненов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1789.5215841867648,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

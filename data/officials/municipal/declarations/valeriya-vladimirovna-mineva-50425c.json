@@ -4,23 +4,78 @@
     "declarantName": "Валерия Владимировна Минева",
     "institution": "Борово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г3908",
-    "controlHash": "207D5260",
-    "sourceUrl": "https://register.cacbg.bg/2025/788542CF-65EE-4B9F-9EDB-7DE7127E10E9206729.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3720",
+    "controlHash": "050B6E86",
+    "sourceUrl": "https://register.cacbg.bg/2026/788542CF-65EE-4B9F-9EDB-7DE7127E10E9227872.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1511.890092697218,
-        "amountEurSpouse": 5105.760725625438
+        "amountEurDeclarant": 2026.249725180614,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "град Борово",
+        "municipality": "Борово",
+        "areaSqm": 687,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Петър Иванов Минев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "град Борово",
+        "municipality": "Борово",
+        "areaSqm": 532,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Петър Иванов Минев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21267,
+        "valueEur": 10873.644437399978,
+        "holderName": "Валерия Владимировна Минева",
+        "isSpouse": false,
+        "legalBasis": "лихвен процент 4,19",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

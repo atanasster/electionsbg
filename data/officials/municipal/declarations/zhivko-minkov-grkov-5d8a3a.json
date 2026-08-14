@@ -1,51 +1,106 @@
 [
   {
     "slug": "zhivko-minkov-grkov-5d8a3a",
-    "declarantName": "ЖИВКО МИНКОВ ГЪРКОВ",
+    "declarantName": "Живко Минков Гърков",
     "institution": "Средец",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8105",
-    "controlHash": "06C0C34E",
-    "sourceUrl": "https://register.cacbg.bg/2025/D14C2231-CBF2-4779-A4FD-120B4AB458AF211114.xml",
+    "filedAt": null,
+    "entryNumber": "Г13415",
+    "controlHash": "5F785892",
+    "sourceUrl": "https://register.cacbg.bg/2026/D14C2231-CBF2-4779-A4FD-120B4AB458AF238928.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15833.175685003298,
-        "amountEurSpouse": 25322.24170812392
+        "amountEurDeclarant": 14382.12932616843,
+        "amountEurSpouse": 28516.282089956694
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 209.62967129044958,
+        "amountEurDeclarant": 127.82297029905462,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 11718.809917017328,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8800,
+        "valueEur": 4499.368554526723,
+        "holderName": "Живко Минков Гърков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 31083,
-        "valueEur": 15892.48554322206,
-        "holderName": "ЖИВКО МИНКОВ ГЪРКОВ",
+        "currency": "EUR",
+        "amount": 23000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Живко Минков Гърков",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20400,
+        "valueEur": 20451.67524784874,
+        "holderName": "Мариела Константинова Гъркова",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "хонда Джас",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

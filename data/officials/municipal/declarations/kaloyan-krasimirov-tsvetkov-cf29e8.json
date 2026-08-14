@@ -4,63 +4,50 @@
     "declarantName": "Калоян Красимиров Цветков",
     "institution": "Вълчидол",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8112",
-    "controlHash": "C8FAC8B0",
-    "sourceUrl": "https://register.cacbg.bg/2025/18DAB6D7-ED77-474A-8CB6-672802DC5306211121.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "10",
-        "companyName": "Коко 88 ЕООД",
-        "registeredOffice": "Варна",
-        "valueEur": 51.12918811962185,
-        "holderName": "Павлина Росенова Русева",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата  и спестявания"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "100",
-        "companyName": "Имотни услуги ООД",
-        "registeredOffice": "Варна",
-        "valueEur": 5.112918811962185,
-        "holderName": "Павлина Росенова Русева",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и спестявания"
-      }
-    ],
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5268",
+    "controlHash": "4EE7C7A9",
+    "sourceUrl": "https://register.cacbg.bg/2026/18DAB6D7-ED77-474A-8CB6-672802DC5306229519.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20046.220786060137,
+        "amountEurDeclarant": 28180.874615891975,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Доходи от дивидент",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 207.0732118844685
-      },
-      {
-        "parent": null,
-        "category": "Доходи от дивиденти",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurSpouse": 18837.01548703108
       }
     ],
     "assets": [
       {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23653,
+        "valueEur": 12093.586865934156,
+        "holderName": "Калоян Красимиров Цветков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "работна заплата и спестявания"
+      },
+      {
         "category": "receivable",
-        "description": "Запис на заповед",
+        "description": "запис на заповед",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -73,7 +60,7 @@
         "valueEur": 7669.378217943277,
         "holderName": "Калоян Красимиров Цветков",
         "isSpouse": false,
-        "legalBasis": "вземане по запис на заповед",
+        "legalBasis": "вземане от запис на заповед",
         "fundsOrigin": null
       },
       {
@@ -87,11 +74,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120863,
-        "valueEur": 61796.270637018555,
+        "amount": 117439,
+        "valueEur": 60045.6072358027,
         "holderName": "Павлина Росенова Русева",
         "isSpouse": true,
-        "legalBasis": "договор за ипотечет кредит",
+        "legalBasis": "ипотекарен длъжник -",
         "fundsOrigin": null
       },
       {
@@ -105,14 +92,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120863,
-        "valueEur": 61796.270637018555,
+        "amount": 117439,
+        "valueEur": 60045.6072358027,
         "holderName": "Калоян Красимиров Цветков",
         "isSpouse": false,
-        "legalBasis": "съдлъжник по договор за ипотечен кредит",
+        "legalBasis": "съдлъжник по ипотечен кредит",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 790.4572483293538,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

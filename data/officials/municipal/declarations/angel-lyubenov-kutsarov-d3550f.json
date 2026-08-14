@@ -4,18 +4,18 @@
     "declarantName": "Ангел Любенов Куцаров",
     "institution": "Нови пазар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г14112",
-    "controlHash": "91FEAC90",
-    "sourceUrl": "https://register.cacbg.bg/2025/6E7B6531-9BE8-4886-B2C1-5A6AFC7FF9CA217378.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11063",
+    "controlHash": "53DF5C42",
+    "sourceUrl": "https://register.cacbg.bg/2026/6E7B6531-9BE8-4886-B2C1-5A6AFC7FF9CA235896.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "Джужествен капитал",
+        "itemType": "Дружествен капитал",
         "shareSize": "1/1",
         "companyName": "Куцаров 62 ЕООД",
         "registeredOffice": "Шумен",
@@ -29,29 +29,65 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4631.793151756543,
-        "amountEurSpouse": 14877.05986716637
+        "amountEurDeclarant": 6150.841330790508,
+        "amountEurSpouse": 19661.217999519387
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7362.603089225547,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 539.9242265432067,
+        "amountEurDeclarant": 887.6027057566353,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3451.220198074475
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 222.41196832035504,
-        "amountEurSpouse": null
+        "amountEurSpouse": 4847.047033740151
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Нови пазар",
+        "municipality": "Нови пазар",
+        "areaSqm": 1124,
+        "builtAreaSqm": 93,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Нели Методиева Куцарова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Нови пазар",
+        "municipality": "Нови пазар",
+        "areaSqm": 1124,
+        "builtAreaSqm": 93,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Ангел любенов Куцаров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Кредит",
@@ -63,16 +99,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9479,
-        "valueEur": 4846.535741858955,
+        "amount": 3304,
+        "valueEur": 1689.308375472306,
         "holderName": "Ангел Любенов Куцаров",
         "isSpouse": false,
-        "legalBasis": "кредит 6,04%",
+        "legalBasis": "кредит 6,10%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кр,карта",
+        "description": "Кр.карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -99,16 +135,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6709,
-        "valueEur": 3430.25723094543,
+        "amount": 3925,
+        "valueEur": 2006.8206336951575,
         "holderName": "Нели Методиева Куцарова",
         "isSpouse": true,
-        "legalBasis": "кредит 6,48%",
+        "legalBasis": "кредит 6,54%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кр.карта",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -139,7 +175,7 @@
         "valueEur": 1022.5837623924369,
         "holderName": "Нели Методиева Куцарова",
         "isSpouse": true,
-        "legalBasis": "кредит 10,78%",
+        "legalBasis": "кредит 10,78",
         "fundsOrigin": null
       },
       {
@@ -157,7 +193,7 @@
         "valueEur": 511.29188119621847,
         "holderName": "Нели Методиева Куцарова",
         "isSpouse": true,
-        "legalBasis": "кредит 15,75%",
+        "legalBasis": "кредит 15,75",
         "fundsOrigin": null
       }
     ],

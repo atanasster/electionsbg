@@ -5,6 +5,68 @@
     "institution": "ЦЛОЗФ - БАБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7981",
+    "controlHash": "F9EBE2B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/339469DE-37F1-4EA9-9783-A828AE1AE6CF232451.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20898.03306013304,
+        "amountEurSpouse": 20441.96070210601
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Боряна Димитрова Нинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "жилищно кредитиране - 2.5 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 87357,
+        "valueEur": 44664.92486565806,
+        "holderName": "Боряна Димитрова Нинова",
+        "isSpouse": false,
+        "legalBasis": "кредит - 2.5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boryana-dimitrova-ninova-7d8c84",
+    "declarantName": "Боряна Димитрова Нинова",
+    "institution": "ЦЛОЗФ - БАБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

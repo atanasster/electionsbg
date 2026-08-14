@@ -4,25 +4,25 @@
     "declarantName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12835",
-    "controlHash": "21885E5C",
-    "sourceUrl": "https://register.cacbg.bg/2025/D53003E9-45A1-4A6F-AA8D-B1E1CFF5927E216013.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13724",
+    "controlHash": "A4A48DCB",
+    "sourceUrl": "https://register.cacbg.bg/2026/D53003E9-45A1-4A6F-AA8D-B1E1CFF5927E239317.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3006.3962614337647,
-        "amountEurSpouse": 11810.842455632646
+        "amountEurDeclarant": 3129.1063129208574,
+        "amountEurSpouse": 13033.341343572805
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8810.070404892042,
+        "amountEurDeclarant": 8885.741603309081,
         "amountEurSpouse": null
       },
       {
@@ -34,22 +34,22 @@
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МЕРЦЕДЕС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "Пловдив",
+        "areaSqm": 48,
+        "builtAreaSqm": 54,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 47448,
-        "valueEur": 24259.777178998174,
-        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
-        "isSpouse": false,
-        "legalBasis": "ЛИЗИНГ",
-        "fundsOrigin": "заеми"
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ, СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -62,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 300500,
-        "valueEur": 153643.21029946365,
-        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ, СИО",
-        "isSpouse": true,
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "ДИВИДЕНТИ"
       },
       {
         "category": "bank",
@@ -80,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "ИВА ТОДОРОВА ГЕОРГИЕВА",
-        "isSpouse": true,
+        "amount": 136000,
+        "valueEur": 69535.69584268572,
+        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАЕМИ, ДИВИДЕНТИ"
       },
       {
         "category": "bank",
@@ -106,26 +106,8 @@
         "fundsOrigin": "КРЕДИТНА КАРТА"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 28500,
-        "valueEur": 14571.818614092226,
-        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -134,29 +116,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18513,
-        "valueEur": 9465.546596585593,
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ, 5.74%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "КРЕДИТ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 17550,
-        "valueEur": 8973.172514993634,
-        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
-        "isSpouse": false,
-        "legalBasis": "КРЕДИТНА КАРТА",
+        "legalBasis": "КРЕДИТ - 5.4%",
         "fundsOrigin": null
       },
       {
@@ -174,23 +138,28 @@
         "valueEur": 51129.188119621846,
         "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ, 0%",
+        "legalBasis": "КРЕДИТ - 0 %",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСВАГЕН ТИГУАН",
+        "category": "debt",
+        "description": "КРЕДИНТА КАРТА",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
+        "amount": 17550,
+        "valueEur": 8973.172514993634,
+        "holderName": "ТОШО ГЕОРГИЕВ ГЕОРГИЕВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТНА КАРТА -0%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

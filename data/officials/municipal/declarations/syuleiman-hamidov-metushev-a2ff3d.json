@@ -4,13 +4,13 @@
     "declarantName": "Сюлейман Хамидов Метушев",
     "institution": "Хаджидимово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2230",
-    "controlHash": "D4339CFE",
-    "sourceUrl": "https://register.cacbg.bg/2025/EB8C11FD-8D1B-41D3-8786-DC6A277870C3204840.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13345",
+    "controlHash": "2A70C2EF",
+    "sourceUrl": "https://register.cacbg.bg/2026/EB8C11FD-8D1B-41D3-8786-DC6A277870C3238851.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,115 +29,60 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4235.541943829474,
-        "amountEurSpouse": 5019.863689584473
+        "amountEurDeclarant": 4998.389430574232,
+        "amountEurSpouse": 2823.3537679655183
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6697.412351789266,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6876.875802089138,
+        "amountEurSpouse": 2992.0800887602704
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 49467.48950573414,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 2060.5062812207607,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1127.3985980376617,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "ниви",
-        "detail": null,
-        "location": "с. Абланица",
-        "municipality": "Хаджидимово",
-        "areaSqm": 11,
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксвагелн Кади",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 110,
-        "valueEur": 56.24210693158403,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Сюлейман Хамидов Метушев",
         "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "real_estate",
-        "description": "ниви",
-        "detail": null,
-        "location": "гр. Хаджидимово",
-        "municipality": "Хаджидимово",
-        "areaSqm": 15,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 150,
-        "valueEur": 76.69378217943277,
-        "holderName": "Сюлейман Хамидов Метушев",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "real_estate",
-        "description": "ниви",
-        "detail": null,
-        "location": "с. Ново Лески, с. Блатска, с. Садово",
-        "municipality": "Хаджидимово",
-        "areaSqm": 49,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 736,
-        "valueEur": 376.3108245604168,
-        "holderName": "Сюлейман Хамидов Метушев",
-        "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 74387,
-        "valueEur": 38033.4691665431,
+        "currency": "EUR",
+        "amount": 41704,
+        "valueEur": 41704.03358165076,
         "holderName": "Сюлейман Хамидов Метушев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба"
+        "fundsOrigin": "спестявания"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Благоевград",
-        "municipality": "Благоевград",
-        "areaSqm": 61,
-        "builtAreaSqm": 61,
-        "currency": "BGN",
-        "valueEur": 54963.87722859349,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

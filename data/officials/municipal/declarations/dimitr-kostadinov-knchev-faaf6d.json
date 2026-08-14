@@ -4,41 +4,85 @@
     "declarantName": "Димитър Костадинов Кънчев",
     "institution": "Марица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г5454",
-    "controlHash": "54E0F23E",
-    "sourceUrl": "https://register.cacbg.bg/2025/60D00461-9BDA-4729-AF48-87399E13A065208382.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г7096",
+    "controlHash": "83909A7B",
+    "sourceUrl": "https://register.cacbg.bg/2026/60D00461-9BDA-4729-AF48-87399E13A065231486.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10424.7301657097,
-        "amountEurSpouse": 9946.16096491004
+        "amountEurDeclarant": 8960.39021796373,
+        "amountEurSpouse": 11043.90463383832
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1631.021101015937
+        "amountEurSpouse": 995.4852926890374
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1692.3761267594832,
+        "amountEurDeclarant": 1380.48807922979,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти",
-        "amountEurDeclarant": 47577.243420951716,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 78738.94970421765,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Транспортно ремарке",
+        "detail": "WT-METALL",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1400,
+        "valueEur": 715.8086336747059,
+        "holderName": "Димитър Костадинов Кънчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "с. Калековец",
+        "municipality": "Марица",
+        "areaSqm": 320,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "с. Калековец",
+        "municipality": "Марица",
+        "areaSqm": 320,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

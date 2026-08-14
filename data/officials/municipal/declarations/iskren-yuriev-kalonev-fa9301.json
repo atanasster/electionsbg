@@ -4,31 +4,31 @@
     "declarantName": "ИСКРЕН ЮРИЕВ КАЛЬОНЕВ",
     "institution": "Сатовча",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13202",
-    "controlHash": "7E473AD4",
-    "sourceUrl": "https://register.cacbg.bg/2025/667C1678-D62D-42CB-9703-AE4859EAC057216399.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13913",
+    "controlHash": "F0BADFD5",
+    "sourceUrl": "https://register.cacbg.bg/2026/667C1678-D62D-42CB-9703-AE4859EAC057239568.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4472.781376704519,
-        "amountEurSpouse": 10491.709402146404
+        "amountEurDeclarant": 5790.891846428371,
+        "amountEurSpouse": 3282.4938772797227
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 168012.04603672097,
+        "amountEurDeclarant": 106757.74479377043,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,10 +38,28 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 29209,
-        "valueEur": 14934.324557860346,
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
         "holderName": "ИСКРЕН ЮРИЕВ КАЛЬОНЕВ",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ЕЛЕНА ЕМИЛОВА КАЛЬОНЕВА",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }

@@ -4,35 +4,54 @@
     "declarantName": "Мариан Петров Петров",
     "institution": "Правец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-02",
-    "entryNumber": "Г1317",
-    "controlHash": "4628C5C3",
-    "sourceUrl": "https://register.cacbg.bg/2025/7CA3856E-5909-4953-8745-392E16EA35F7203749.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г3286",
+    "controlHash": "C9414380",
+    "sourceUrl": "https://register.cacbg.bg/2026/7CA3856E-5909-4953-8745-392E16EA35F7227409.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3481.897710946248,
-        "amountEurSpouse": 14772.245031521144
+        "amountEurDeclarant": 4330.642233731971,
+        "amountEurSpouse": 16613.918387589925
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5741.296533952337,
+        "amountEurDeclarant": 8933.29174826033,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": 1840.6507723063867,
-        "amountEurSpouse": 4908.4020594836975
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Мариан Петров Петров",
+        "isSpouse": false,
+        "legalBasis": "3,5 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -4,29 +4,48 @@
     "declarantName": "Лъчезар Емилов Бузев",
     "institution": "Пордим",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г7053",
-    "controlHash": "2257FA80",
-    "sourceUrl": "https://register.cacbg.bg/2025/D2746AF4-C07C-465B-A4D5-2911C5CA4F7A210041.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г12081",
+    "controlHash": "CD96D6DF",
+    "sourceUrl": "https://register.cacbg.bg/2026/D2746AF4-C07C-465B-A4D5-2911C5CA4F7A237187.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7886.677267451671,
+        "amountEurDeclarant": 7891.790186263633,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14137.220515075442,
+        "amountEurDeclarant": 16202.839715108164,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Лъчезар Емилов Бузев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,23 +4,60 @@
     "declarantName": "Сидика Алиева Ахмедова",
     "institution": "Цар Калоян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12165",
-    "controlHash": "A22D025E",
-    "sourceUrl": "https://register.cacbg.bg/2025/568AE07F-5F18-463F-B6C5-B587B8331A4D215324.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г14017",
+    "controlHash": "EAF8CBB6",
+    "sourceUrl": "https://register.cacbg.bg/2026/568AE07F-5F18-463F-B6C5-B587B8331A4D239699.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 748.5313140712639,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 1053.26127526421,
+        "amountEurSpouse": 1460.2496126964
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Ивеко",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 15060,
+        "valueEur": 7700.05573081505,
+        "holderName": "Сидика Алиева Ахмедова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8222,
+        "valueEur": 8221.573449635192,
+        "holderName": "Сидика Алиева Ахмедова",
+        "isSpouse": false,
+        "legalBasis": "FL1562869",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

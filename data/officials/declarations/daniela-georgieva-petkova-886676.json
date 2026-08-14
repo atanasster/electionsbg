@@ -1,6 +1,68 @@
 [
   {
     "slug": "daniela-georgieva-petkova-886676",
+    "declarantName": "Даниела Георгиева Петкова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10626",
+    "controlHash": "959F5393",
+    "sourceUrl": "https://register.cacbg.bg/2026/4FFF69A8-E8E1-4B30-8594-ACEC21FC2949235402.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21316.78111083274,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48544,
+        "valueEur": 48544.096368293765,
+        "holderName": "Даниела Георгиева Петкова",
+        "isSpouse": false,
+        "legalBasis": "5.15",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15090,
+        "valueEur": 15090.779873506388,
+        "holderName": "Даниела Георгиева Петкова",
+        "isSpouse": false,
+        "legalBasis": "5.99",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-georgieva-petkova-886676",
     "declarantName": "ДАНИЕЛА ГЕОРГИЕВА ПЕТКОВА",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

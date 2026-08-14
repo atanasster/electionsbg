@@ -4,13 +4,13 @@
     "declarantName": "Сашка Илиева Владимирова",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11481",
-    "controlHash": "564F4FE0",
-    "sourceUrl": "https://register.cacbg.bg/2025/F57BCDFD-5FFA-422F-B6F1-331943205964214621.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г5154",
+    "controlHash": "70B0A75F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F57BCDFD-5FFA-422F-B6F1-331943205964229401.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,7 +21,7 @@
         "registeredOffice": "София",
         "valueEur": 2556.4594059810925,
         "holderName": "Любомир Владимиров Владимиров",
-        "legalBasis": "друго",
+        "legalBasis": "други",
         "fundsOrigin": "спестявания"
       }
     ],
@@ -29,36 +29,18 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19440.851198723816,
+        "amountEurDeclarant": 22522.91865857462,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10979.993148688793,
+        "amountEurDeclarant": 10428.309208878072,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 47000,
-        "valueEur": 24030.71841622227,
-        "holderName": "Сашка Илиева Владимирова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
         "category": "debt",
         "description": "Потребителски кредит",
         "detail": "BGN",
@@ -69,11 +51,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33000,
-        "valueEur": 16872.63207947521,
+        "amount": 7455,
+        "valueEur": 3811.6809743178087,
         "holderName": "Сашка Илиева Владимирова",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       },
       {
@@ -87,11 +69,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 34323,
+        "valueEur": 17549.07123829781,
         "holderName": "Сашка Илиева Владимирова",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       },
       {
@@ -105,11 +87,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
         "holderName": "Сашка Илиева Владимирова",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26157,
+        "valueEur": 13373.861736449488,
+        "holderName": "Сашка Илиева Владимирова",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
     ],

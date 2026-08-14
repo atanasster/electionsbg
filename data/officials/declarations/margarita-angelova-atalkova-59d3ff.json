@@ -5,6 +5,80 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11932",
+    "controlHash": "EA3E1253",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A64FE48-203C-4874-A3E0-179FC007DAD1236993.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3449.17503054969,
+        "amountEurSpouse": 1542.056313687795
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10904.321950271751,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсии",
+        "amountEurDeclarant": 5387.993844045751,
+        "amountEurSpouse": 4555.610661458307
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Струмяни",
+        "municipality": "Струмяни",
+        "areaSqm": 120,
+        "builtAreaSqm": 240,
+        "acquiredYear": 1991,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Маргарита Ангелова Аталъкова",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15652,
+        "valueEur": 8002.740524483212,
+        "holderName": "Маргарита Ангелова Аталъкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и пенсии"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "margarita-angelova-atalkova-59d3ff",
+    "declarantName": "Маргарита Ангелова Аталъкова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Entry",

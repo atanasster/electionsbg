@@ -4,32 +4,26 @@
     "declarantName": "Давид Стоименов Петров",
     "institution": "Благоевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г3057",
-    "controlHash": "43292C11",
-    "sourceUrl": "https://register.cacbg.bg/2025/AB4475F9-16CC-405B-931B-39BDF14E9AEC205774.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8259",
+    "controlHash": "A18031F2",
+    "sourceUrl": "https://register.cacbg.bg/2026/AB4475F9-16CC-405B-931B-39BDF14E9AEC232749.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4264.1742891764625,
+        "amountEurDeclarant": 8175.045888446338,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5244.320825429613,
-        "amountEurSpouse": 12994.483160601892
-      },
-      {
-        "parent": null,
-        "category": "Обещетения за временна неработоспособност",
-        "amountEurDeclarant": 3655.225658671766,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7298.180312194822,
+        "amountEurSpouse": 13608.033418037356
       }
     ],
     "assets": [
@@ -37,7 +31,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Бело Поле",
+        "location": "с. Бело Поле",
         "municipality": "Благоевград",
         "areaSqm": 120,
         "builtAreaSqm": null,
@@ -55,12 +49,12 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Бело Поле",
+        "location": "с. Бело Поле",
         "municipality": "Благоевград",
         "areaSqm": 60,
         "builtAreaSqm": null,
         "acquiredYear": 2018,
-        "share": "1/4",
+        "share": "1/6",
         "currency": "BGN",
         "amount": 753,
         "valueEur": 385.00278654075254,
@@ -68,6 +62,42 @@
         "isSpouse": false,
         "legalBasis": "наследство, дарение и покупка",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Ракитна",
+        "municipality": "Симитли",
+        "areaSqm": 40,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/10",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Давид Стоименов Петров",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Ракитна",
+        "municipality": "Симитли",
+        "areaSqm": 500,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/10",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Давид Стоименов Петров",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
       },
       {
         "category": "vehicle",
@@ -98,12 +128,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14484,
-        "valueEur": 7405.551607246029,
+        "amount": 19925,
+        "valueEur": 10187.490732834653,
         "holderName": "Давид Стоименов Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

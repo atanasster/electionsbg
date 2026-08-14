@@ -5,6 +5,87 @@
     "institution": "МБАЛ  \"Св.Петка\" АД, гр.Видин",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7935",
+    "controlHash": "BE36623D",
+    "sourceUrl": "https://register.cacbg.bg/2026/947713D7-6E7D-4569-BD56-F77000040204232397.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25564.594059810923,
+        "amountEurSpouse": 14958.355276276568
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 16504.501925013934,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 140000,
+        "valueEur": 139999.89774162378,
+        "holderName": "Кирил Атанасов Груев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банкав кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 27000,
+        "valueEur": 26999.79037032871,
+        "holderName": "Ани Христова Каменова",
+        "isSpouse": true,
+        "legalBasis": "4.83",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Банков кредит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 6000.010225837624,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "kiril-atanasov-gruev-bc4def",
+    "declarantName": "Кирил Атанасов Груев",
+    "institution": "МБАЛ  \"Св.Петка\" АД, гр.Видин",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

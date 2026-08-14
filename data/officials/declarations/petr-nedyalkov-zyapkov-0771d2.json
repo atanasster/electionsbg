@@ -5,6 +5,50 @@
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3388",
+    "controlHash": "FC8210E2",
+    "sourceUrl": "https://register.cacbg.bg/2026/FCDF0404-C0D4-4C6E-AF3C-48DAA193638C227519.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23897.782527111252,
+        "amountEurSpouse": 7491.4486432869935
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 111701,
+        "valueEur": 57111.8144214988,
+        "holderName": "Петър Недялков Зяпков",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит/2.49%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-nedyalkov-zyapkov-0771d2",
+    "declarantName": "Петър Недялков Зяпков",
+    "institution": "Югозападно държавно предприятие ДП Благоевград",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

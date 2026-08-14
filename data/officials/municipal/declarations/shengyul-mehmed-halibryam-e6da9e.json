@@ -1,26 +1,112 @@
 [
   {
     "slug": "shengyul-mehmed-halibryam-e6da9e",
-    "declarantName": "Шенгюл Мехмед Халибрям",
+    "declarantName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
     "institution": "Джебел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-09",
-    "entryNumber": "Г9741",
-    "controlHash": "2D5BEFED",
-    "sourceUrl": "https://register.cacbg.bg/2025/97479E44-F7A9-4CF2-8E80-3A4779EFF187212792.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11366",
+    "controlHash": "28CAAE64",
+    "sourceUrl": "https://register.cacbg.bg/2026/97479E44-F7A9-4CF2-8E80-3A4779EFF187236263.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДЯЛ",
+        "shareSize": "1/5",
+        "companyName": "ДИШ",
+        "registeredOffice": "ДЖЕБЕЛ",
+        "valueEur": 0.5112918811962185,
+        "holderName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДЯЛ",
+        "shareSize": "1/10",
+        "companyName": "МАХСЕН",
+        "registeredOffice": "ДЖЕБЕЛ",
+        "valueEur": 255.64594059810923,
+        "holderName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДЯЛ",
+        "shareSize": "100",
+        "companyName": "КВАНТУМ",
+        "registeredOffice": "Кърджали",
+        "valueEur": 2556.4594059810925,
+        "holderName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2162.7646574600044,
+        "amountEurDeclarant": 1840.6507723063867,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 511.29188119621847,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2556.4594059810925,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ФОЛЦВАГЕН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ШЕНГЮЛ МЕХМЕД ХАЛИБРЯМ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

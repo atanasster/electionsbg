@@ -5,6 +5,50 @@
     "institution": "Национална агенция за приходи",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8690",
+    "controlHash": "E9EFE8FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/BE62E677-1A8D-4409-B2A8-4444D0BBFDC8233223.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45222.74430804313,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18687,
+        "valueEur": 18687.20696584059,
+        "holderName": "Анна Иванова Митова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anna-ivanova-mitova-ed34d9",
+    "declarantName": "Анна Иванова Митова",
+    "institution": "Национална агенция за приходи",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

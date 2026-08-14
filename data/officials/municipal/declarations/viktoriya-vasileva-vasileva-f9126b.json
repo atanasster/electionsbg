@@ -1,55 +1,67 @@
 [
   {
     "slug": "viktoriya-vasileva-vasileva-f9126b",
-    "declarantName": "Виктория Василева Василева",
+    "declarantName": "ВИКТОРИЯ ВАСИЛЕВА ВАСИЛЕВА",
     "institution": "Раднево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-28",
-    "entryNumber": "Г14823",
-    "controlHash": "DECB570F",
-    "sourceUrl": "https://register.cacbg.bg/2025/28384661-0224-4F76-80BD-DF24802B1E0B218301.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г9861",
+    "controlHash": "6479D86D",
+    "sourceUrl": "https://register.cacbg.bg/2026/28384661-0224-4F76-80BD-DF24802B1E0B234529.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5941.211659500059,
+        "amountEurDeclarant": 6273.551382277601,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5893.150222667614,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 102.2583762392437,
+        "amountEurDeclarant": 86207.90150473201,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "парцел",
+        "description": "апартамент",
         "detail": null,
-        "location": "с. Тополяне",
+        "location": "РАДНЕВО",
         "municipality": "Раднево",
-        "areaSqm": 613,
+        "areaSqm": 80,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Виктория Василева Василева",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "ВИКТОРИЯ ВАСИЛЕВА ВАСИЛЕВА",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ТОПОЛЯНЕ",
+        "municipality": "Раднево",
+        "areaSqm": 613,
+        "builtAreaSqm": 63,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "ВИКТОРИЯ ВАСИЛЕВА ВАСИЛЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

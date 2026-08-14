@@ -4,29 +4,48 @@
     "declarantName": "Георги Георгиев Бодуров",
     "institution": "Иваново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-20",
-    "entryNumber": "Г658",
-    "controlHash": "67DDFEE0",
-    "sourceUrl": "https://register.cacbg.bg/2025/74E2DE2B-D1C9-4D41-AFBF-6A2A51339D97202816.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3531",
+    "controlHash": "D5056E2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/74E2DE2B-D1C9-4D41-AFBF-6A2A51339D97227666.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5048.4960349314615,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5239.4737783958735,
+        "amountEurSpouse": 4288.210120511497
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5983.648885639345,
+        "amountEurDeclarant": 5400.960206152887,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Пиргово",
+        "municipality": "Иваново",
+        "areaSqm": 500,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "Георги Георгиев Бодуров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

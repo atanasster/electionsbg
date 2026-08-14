@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г10846",
+    "controlHash": "2F7FFA31",
+    "sourceUrl": "https://register.cacbg.bg/2026/E193DF27-9235-4302-A13E-ECF043D0215D235656.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22945.245752442697,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 107518,
+        "valueEur": 54973.08048245502,
+        "holderName": "Тодор Йорданов Трайков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от трудови правоотношения (заплати)"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todor-iordanov-traikov-218502",
+    "declarantName": "Тодор Йорданов Трайков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

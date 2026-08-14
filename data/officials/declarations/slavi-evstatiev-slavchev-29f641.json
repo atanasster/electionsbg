@@ -5,6 +5,75 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г5087",
+    "controlHash": "71150639",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7C86518-8BA8-45B2-B793-01C23574E463229329.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47825.21998333189,
+        "amountEurSpouse": 20649.03391399048
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 55757,
+        "valueEur": 55756.890936328826,
+        "holderName": "Слави Евстатиев Славчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба и заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Разлог",
+        "municipality": "Разлог",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "currency": "BGN",
+        "valueEur": 36999.63698276435,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3375.5489996574343,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "slavi-evstatiev-slavchev-29f641",
+    "declarantName": "Слави Евстатиев Славчев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,31 +4,67 @@
     "declarantName": "Тихомир Николов Маринов",
     "institution": "Ботевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г10660",
-    "controlHash": "583417E8",
-    "sourceUrl": "https://register.cacbg.bg/2025/9DA0A26A-3363-4BE3-9734-4E74508199D4213759.xml",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г2020",
+    "controlHash": "A2D21755",
+    "sourceUrl": "https://register.cacbg.bg/2026/9DA0A26A-3363-4BE3-9734-4E74508199D4225996.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2982.8768348987387,
-        "amountEurSpouse": 24404.9840732579
+        "amountEurDeclarant": 3767.1985806537377,
+        "amountEurSpouse": 35231.07836570663
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20127.516195170338,
+        "amountEurDeclarant": 16959.04040739737,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Ботевград в.з. Зелин",
+        "municipality": "Ботевград",
+        "areaSqm": 880,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Цветанка Симеонова Накова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване и спестявания"
+      },
+      {
+        "category": "vehicle",
+        "description": "Туристическо ремарке",
+        "detail": "няма",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Тихомир Николов Маринов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,39 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 125000,
-        "valueEur": 63911.48514952731,
-        "holderName": "Тихомир Николов Маринов",
-        "isSpouse": false,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Цветанка Симеонова Накова",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажби"
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 563,
-        "builtAreaSqm": 63,
-        "currency": "BGN",
-        "valueEur": 81806.70099139496,
-        "legalBasis": "продажба"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с.Телиш",
-        "municipality": "Червен бряг",
-        "areaSqm": 1095,
-        "builtAreaSqm": 60,
-        "currency": "BGN",
-        "valueEur": 2812.1053465792015,
-        "legalBasis": "продажба"
-      }
-    ]
+    "events": []
   }
 ]

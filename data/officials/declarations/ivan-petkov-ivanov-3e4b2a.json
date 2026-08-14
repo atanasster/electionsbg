@@ -5,6 +5,50 @@
     "institution": "Селскостопанска академия",
     "positionTitle": "Директор",
     "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8784",
+    "controlHash": "1FCFC47E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D994629F-668D-499D-9FCF-D2221FA67A70233320.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14510.46358834868,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Иван Петков Иванов",
+        "isSpouse": false,
+        "legalBasis": "заем с ГЛП 4.99%/ГПР 5.87%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-petkov-ivanov-3e4b2a",
+    "declarantName": "Иван Петков Иванов",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

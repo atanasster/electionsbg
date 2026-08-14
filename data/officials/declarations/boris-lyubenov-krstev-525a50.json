@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-06-10",
+    "entryNumber": "Г14670",
+    "controlHash": "CD38AF88",
+    "sourceUrl": "https://register.cacbg.bg/2026/BCDF0DF8-33F2-4309-AEC3-B5BB3A77CC33240657.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29374.22986660395,
+        "amountEurSpouse": 17458.572575326078
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 76.69378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 4857.272871364075,
+        "amountEurSpouse": 4857.272871364075
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено каптюр",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 27700,
+        "valueEur": 14162.785109135251,
+        "holderName": "Борис Любенов Кръстев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 50000,
+        "valueEur": 50000,
+        "holderName": "Борис Любенов Кръстев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от заплата, родители"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "GBP",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "GBP",
+        "amount": 15000,
+        "valueEur": null,
+        "holderName": "Елеонора Валентинова Кръстева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "от родители"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boris-lyubenov-krstev-525a50",
+    "declarantName": "Борис Любенов Кръстев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

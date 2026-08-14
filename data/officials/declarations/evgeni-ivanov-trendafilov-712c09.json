@@ -5,6 +5,80 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5766",
+    "controlHash": "7CA77C14",
+    "sourceUrl": "https://register.cacbg.bg/2026/64CC3753-9306-4D67-8870-C5A75C2CB019230031.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25502.216450304986,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ИЗПЛАТЕНИ СУМИ ОТ ПЕНСИОНЕН ФОНД",
+        "amountEurDeclarant": 12828.313299213121,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10430.354376402856
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "ГОЦЕ ДЕЛЧЕВ",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 85,
+        "builtAreaSqm": 170,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "ЕВГЕНИ ИВАНОВ ТРЕНДАФИЛОВ",
+        "isSpouse": false,
+        "legalBasis": "ДАРЕНИЕ",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82686,
+        "valueEur": 42276.68048859052,
+        "holderName": "ЕВГЕНИ ИВАНОВ ТРЕНДАФИЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "evgeni-ivanov-trendafilov-712c09",
+    "declarantName": "ЕВГЕНИ ИВАНОВ ТРЕНДАФИЛОВ",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митническо бюро",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

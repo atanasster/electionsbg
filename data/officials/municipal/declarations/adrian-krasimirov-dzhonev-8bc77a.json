@@ -4,31 +4,25 @@
     "declarantName": "Адриан Красимиров Джонев",
     "institution": "Летница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г13724",
-    "controlHash": "8E06D4A4",
-    "sourceUrl": "https://register.cacbg.bg/2025/3D871020-D423-4593-B55B-5A152518D35D216972.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г10847",
+    "controlHash": "95E76297",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D871020-D423-4593-B55B-5A152518D35D235657.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7723.575157350077,
+        "amountEurDeclarant": 7547.690750218578,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 442.77876911592523,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 10430.354376402856,
+        "amountEurDeclarant": 18406.507723063867,
         "amountEurSpouse": null
       }
     ],
@@ -44,14 +38,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Адриан Красимиров Джонев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

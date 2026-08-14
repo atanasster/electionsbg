@@ -4,22 +4,34 @@
     "declarantName": "КАСЪМ МЕХТИ КАСЪМОВ",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11620",
-    "controlHash": "E8958462",
-    "sourceUrl": "https://register.cacbg.bg/2025/DCD36284-0DBF-414D-AB40-1294D98DE4E7214767.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9914",
+    "controlHash": "D8CF660D",
+    "sourceUrl": "https://register.cacbg.bg/2026/DCD36284-0DBF-414D-AB40-1294D98DE4E7234590.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "ДЯЛОВЕ В ЕООД",
+        "itemType": "ДЯЛОВЕ В ООД",
         "shareSize": "100 %",
         "companyName": "\"ЕКСПРЕСКОНСУЛТ 2010\" ЕООД",
         "registeredOffice": "Бяла Слатина",
         "valueEur": 1.022583762392437,
+        "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДЯЛОВЕ В ООД",
+        "shareSize": "100 %",
+        "companyName": "\"ДЖЕНЕРАЛ КОНСТРУКШЪН\" ЕООД",
+        "registeredOffice": "Бяла Слатина",
+        "valueEur": 5.112918811962185,
         "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
@@ -29,54 +41,42 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6746.496372384103,
-        "amountEurSpouse": 8698.608774791264
+        "amountEurDeclarant": 6294.00305752545,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8032.906745473789
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 173.83923960671427
+        "amountEurSpouse": 165.14727762637858
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 838.5186851617983
+        "amountEurSpouse": 20451.67524784874
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "БМВ",
+        "description": "САМОХОДНА МАШИНА",
+        "detail": "КАВАЗАКИ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МЕРЦЕДЕС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
         "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -87,13 +87,13 @@
       {
         "kind": "disposal_vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "БМВ",
+        "detail": "МЕРЦЕДЕС",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 2373.416912512846,
+        "valueEur": 20451.67524784874,
         "legalBasis": "възмездно"
       }
     ]

@@ -5,6 +5,43 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6964",
+    "controlHash": "02AC5CCE",
+    "sourceUrl": "https://register.cacbg.bg/2026/05C8C21B-0BA0-484F-A760-91D738B741AB231345.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31929.155396941453,
+        "amountEurSpouse": 10794.394195814564
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3120.9256428217177,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за осигурителен стаж и възраст",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 16605.226425609588
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "katerina-blagoeva-vasileva-c31ae5",
+    "declarantName": "д-р Катерина Благоева Василева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

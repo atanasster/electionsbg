@@ -1,6 +1,80 @@
 [
   {
     "slug": "mariela-panaiotova-taneva-092366",
+    "declarantName": "МАРИЕЛА ПАНАЙОТОВА ТАНЕВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-03",
+    "entryNumber": "Г5597",
+    "controlHash": "121C7B03",
+    "sourceUrl": "https://register.cacbg.bg/2026/24EC2BBC-CD7C-475F-8409-0BEF72D24AF8229861.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37151.49067147963,
+        "amountEurSpouse": 13387.155325360589
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13360.568147538386,
+        "amountEurSpouse": 2537.5416063768325
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 14485.921578051262,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 243719,
+        "valueEur": 124611.54599326117,
+        "holderName": "МАРИЕЛА ПАНАЙОТОВА ТАНЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21753,
+        "valueEur": 11122.13229166134,
+        "holderName": "СТЕФАН ИВАНОВ ТАНЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariela-panaiotova-taneva-092366",
     "declarantName": "МАРИЕЛА ПАНАЙТОВА ТАНЕВА",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",

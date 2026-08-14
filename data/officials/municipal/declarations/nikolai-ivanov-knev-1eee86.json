@@ -4,56 +4,50 @@
     "declarantName": "Николай Иванов Кънев",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5719",
-    "controlHash": "2E5B8E1C",
-    "sourceUrl": "https://register.cacbg.bg/2025/F6B53F45-8285-4E68-8368-37FCE94304CB208662.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13389",
+    "controlHash": "68900FB5",
+    "sourceUrl": "https://register.cacbg.bg/2026/F6B53F45-8285-4E68-8368-37FCE94304CB238895.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16195.681628771417,
-        "amountEurSpouse": 8648.502170434036
+        "amountEurDeclarant": 16760.14786561204,
+        "amountEurSpouse": 11874.753940782175
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5035.713737901556,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 11248.421386316806,
+        "amountEurDeclarant": 4477.894295516481,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "МПС",
-        "detail": "АУДИ А3",
+        "description": "лек автомобил",
+        "detail": "тоио такорола",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 5500,
-        "valueEur": 2812.1053465792015,
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
         "holderName": "Николай Иванов Кънев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
-        "category": "receivable",
-        "description": "КРЕДИТ",
+        "category": "debt",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,26 +56,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18642,
-        "valueEur": 9531.503249259906,
+        "amount": 18772,
+        "valueEur": 9597.971193815414,
         "holderName": "Николай Иванов Кънев",
         "isSpouse": false,
-        "legalBasis": "заем",
+        "legalBasis": "5.99%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "МПС",
-        "detail": "\"ФОЛКСВАГЕН ПОЛО\"",
+        "description": "лек автомобил",
+        "detail": "сеат кордоба",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 11248.421386316806,
-        "legalBasis": "възмездно"
+        "valueEur": 449.93685545267226,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

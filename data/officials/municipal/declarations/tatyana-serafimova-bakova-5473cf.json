@@ -4,50 +4,44 @@
     "declarantName": "Татяна Серафимова Бакова",
     "institution": "Раковски",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14357",
-    "controlHash": "AC302623",
-    "sourceUrl": "https://register.cacbg.bg/2025/3B7945B2-5E51-408D-8906-2271171EBEA7217648.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11480",
+    "controlHash": "9F0572EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/3B7945B2-5E51-408D-8906-2271171EBEA7236402.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 42162.15110720257,
-        "amountEurSpouse": 11791.41336414719
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5227.448193350137,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 48927.56527919093,
+        "amountEurSpouse": 12575.73510990219
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "недвижим имот",
-        "detail": null,
-        "location": "с. Стряма",
-        "municipality": "Раковски",
-        "areaSqm": 75,
-        "builtAreaSqm": 150,
-        "acquiredYear": 2024,
-        "share": "покупко продажба",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Иван Серафимов Баков",
-        "isSpouse": true,
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Татяна Серафимова Бакова",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,16 +50,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 24274,
-        "valueEur": 12411.099124157008,
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
         "holderName": "Иван Рангелов Баков",
         "isSpouse": true,
-        "legalBasis": "кредит",
+        "legalBasis": "лихвен процент 4,98",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -78,10 +72,23 @@
         "valueEur": 25564.594059810923,
         "holderName": "Татяна Серафимова Бакова",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "лихвен процент 4,5",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

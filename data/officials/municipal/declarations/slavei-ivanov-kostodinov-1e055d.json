@@ -4,19 +4,25 @@
     "declarantName": "Славей Иванов Костодинов",
     "institution": "Бойчиновци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-17",
-    "entryNumber": "Г86",
-    "controlHash": "3DAFC4EF",
-    "sourceUrl": "https://register.cacbg.bg/2025/D6AE5569-CDF6-4E16-B6A5-7B6FAFA726C1201723.xml",
+    "filedAt": "2026-04-01",
+    "entryNumber": "Г858",
+    "controlHash": "E3E3F0CD",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6AE5569-CDF6-4E16-B6A5-7B6FAFA726C1224455.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12131.422465142676,
+        "amountEurDeclarant": 13886.176201408098,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2505.3302178614704,
         "amountEurSpouse": null
       },
       {
@@ -28,35 +34,17 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 3067.751287177311,
+        "amountEurDeclarant": 2300.8134653829834,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "пенсия",
-        "amountEurDeclarant": 13561.5058568485,
+        "amountEurDeclarant": 15747.78994084353,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "с. Мърчево",
-        "municipality": "Бойчиновци",
-        "areaSqm": 1310,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 2483,
-        "valueEur": 1269.5377410102105,
-        "holderName": "Славей Иванов Костодинов",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,12 +56,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22416,
-        "valueEur": 11461.118808894435,
-        "holderName": "Славей иванов Костодинов",
+        "amount": 25500,
+        "valueEur": 13037.94297050357,
+        "holderName": "Славей Иванов Костодинов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Славей Иванов Костодинов",
+        "isSpouse": false,
+        "legalBasis": "заем, 6.25%",
+        "fundsOrigin": null
       }
     ],
     "events": []

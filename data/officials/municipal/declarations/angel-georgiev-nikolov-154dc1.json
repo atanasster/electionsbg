@@ -4,29 +4,72 @@
     "declarantName": "Ангел Георгиев Николов",
     "institution": "Чепеларе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13529",
-    "controlHash": "781CF3E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/847DBC06-837A-4EA3-8E0A-157E4B2A33A0216753.xml",
+    "filedAt": null,
+    "entryNumber": "Г10324",
+    "controlHash": "19652978",
+    "sourceUrl": "https://register.cacbg.bg/2026/847DBC06-837A-4EA3-8E0A-157E4B2A33A0235058.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4219.691895512391,
+        "amountEurDeclarant": 4742.743489976123,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13762.443566158614,
+        "amountEurDeclarant": 12971.475025948062,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 96.6341655460853,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Хюндай ИХ35",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Ангел Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10225,
+        "valueEur": 10225.83762392437,
+        "holderName": "Ангел Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": "Личе заем 7,95%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

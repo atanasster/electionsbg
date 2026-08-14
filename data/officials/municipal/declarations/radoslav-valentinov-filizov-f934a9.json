@@ -1,26 +1,69 @@
 [
   {
     "slug": "radoslav-valentinov-filizov-f934a9",
-    "declarantName": "Радослав Валентинов Филизов",
+    "declarantName": "РАДОСЛАВ ВАЛЕНТИНОВ ФИЛИЗОВ",
     "institution": "Рудозем",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-31",
-    "entryNumber": "Г1201",
-    "controlHash": "5E618B41",
-    "sourceUrl": "https://register.cacbg.bg/2025/CBE3960C-6331-4BB8-B301-D57237F96E80203595.xml",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г4271",
+    "controlHash": "3FE76D4E",
+    "sourceUrl": "https://register.cacbg.bg/2026/CBE3960C-6331-4BB8-B301-D57237F96E80228468.xml",
     "ownershipStakes": [],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 541.9693940679916,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5926.895486826565,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6957.659919318141,
+        "amountEurSpouse": 10080.630729664645
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК",
+        "detail": "ХЮНДАЙ МАТРИКС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2151,
+        "valueEur": 1099.7888364530659,
+        "holderName": "РАДОСЛАВ ВАЛЕНТИНОВ ФИЛИЗОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11452,
+        "valueEur": 5855.314623459094,
+        "holderName": "РАДОСЛАВ ВАЛЕНТИНОВ ФИЛИЗОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

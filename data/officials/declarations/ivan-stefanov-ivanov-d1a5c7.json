@@ -5,6 +5,93 @@
     "institution": "УМБАЛ \"Канев\" АД, Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3467",
+    "controlHash": "BB9F2C38",
+    "sourceUrl": "https://register.cacbg.bg/2026/3FC88FA5-453E-4F46-9456-8B2BB7648FAC227602.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 132485.44096368295,
+        "amountEurSpouse": 21844.43433222724
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 14718.048092114346,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни",
+        "amountEurDeclarant": 685.1311208029327,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 279654,
+        "valueEur": 142984.81974404727,
+        "holderName": "Иван Стефанов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Иван Стефанов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Залог за управление",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16808.209302444488,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "ivan-stefanov-ivanov-d1a5c7",
+    "declarantName": "Иван Стефанов Иванов",
+    "institution": "УМБАЛ \"Канев\" АД, Русе",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

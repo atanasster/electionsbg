@@ -1,16 +1,16 @@
 {
   "obshtina": "PVN24",
   "registryName": "Плевен",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 5,
+    "deputy_mayor": 6,
     "council_chair": 1,
-    "councillor": 39,
-    "chief_architect": 1,
+    "councillor": 37,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -32,30 +33,24 @@
       }
     },
     {
+      "slug": "evgeni-ivanov-genov-a62b83",
+      "name": "Евгени Иванов Генов",
+      "normalizedName": "ЕВГЕНИ ИВАНОВ ГЕНОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "elina-svetoslavova-dimitrova-a3cce9",
       "name": "Елина Светославова Димитрова",
       "normalizedName": "ЕЛИНА СВЕТОСЛАВОВА ДИМИТРОВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "kaloyan-ivanov-kdriiski-7a8103",
-      "name": "Калоян Иванов Къдрийски",
-      "normalizedName": "КАЛОЯН ИВАНОВ КЪДРИЙСКИ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "МК АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
-        "partyCanonicalId": null,
-        "listPos": 109,
-        "prefVotes": 131,
-        "isElected": false
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "lidiya-vrbanova-petkova-307e02",
@@ -64,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -81,24 +77,28 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
-      "slug": "stefan-milev-milev-69088b",
-      "name": "Стефан Милев Милев",
-      "normalizedName": "СТЕФАН МИЛЕВ МИЛЕВ",
+      "slug": "paulina-hristoforova-kirova-d60c9c",
+      "name": "Паулина Христофорова Кирова",
+      "normalizedName": "ПАУЛИНА ХРИСТОФОРОВА КИРОВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "МК БЪЛГАРСКА НОВА ДЕМОКРАЦИЯ (СДС)",
-        "partyCanonicalId": "p_126",
-        "listPos": 101,
-        "prefVotes": 212,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "hristo-dimitrov-kochev-1ec6c9",
+      "name": "Христо Димитров Кочев",
+      "normalizedName": "ХРИСТО ДИМИТРОВ КОЧЕВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "ivan-tsvetanov-malkodanski-3919da",
@@ -107,7 +107,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -118,30 +119,24 @@
       }
     },
     {
+      "slug": "svetlomir-genkov-kolev-7a7b09",
+      "name": "Светломир Генков Колев",
+      "normalizedName": "СВЕТЛОМИР ГЕНКОВ КОЛЕВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "svetoslav-georgiev-mitev-8acff2",
       "name": "Светослав Георгиев Митев",
       "normalizedName": "СВЕТОСЛАВ ГЕОРГИЕВ МИТЕВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "angel-todorov-tsankov-99bd7b",
-      "name": "Ангел Тодоров Цанков",
-      "normalizedName": "АНГЕЛ ТОДОРОВ ЦАНКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 108,
-        "prefVotes": 169,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "antonio-vladimirov-vasilev-cd60cf",
@@ -150,7 +145,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -169,7 +165,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -186,7 +183,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -203,7 +201,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -220,7 +219,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -237,7 +237,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -254,7 +255,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪДЕЩЕ ЗА РОДИНАТА",
@@ -271,7 +273,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
@@ -290,7 +293,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -307,7 +311,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
@@ -324,7 +329,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -341,7 +347,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -358,7 +365,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -369,13 +377,32 @@
       }
     },
     {
+      "slug": "emanuil-atanasov-argilashki-c5bf48",
+      "name": "Емануил Атанасов Аргилашки",
+      "normalizedName": "ЕМАНУИЛ АТАНАСОВ АРГИЛАШКИ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 106,
+        "prefVotes": 77,
+        "isElected": false
+      }
+    },
+    {
       "slug": "emil-ivanov-peev-c4f20e",
       "name": "Емил Иванов Пеев",
       "normalizedName": "ЕМИЛ ИВАНОВ ПЕЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -392,7 +419,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -409,7 +437,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -426,7 +455,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -443,7 +473,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -460,7 +491,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -477,7 +509,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪДЕЩЕ ЗА РОДИНАТА",
@@ -488,20 +521,23 @@
       }
     },
     {
-      "slug": "kamen-kamenov-goranov-679981",
-      "name": "Камен Каменов Горанов",
-      "normalizedName": "КАМЕН КАМЕНОВ ГОРАНОВ",
+      "slug": "kalin-nikolov-popovski-9783a3",
+      "name": "Калин Николов Поповски",
+      "normalizedName": "КАЛИН НИКОЛОВ ПОПОВСКИ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
+        "partyName": "МК АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
         "partyCanonicalId": null,
-        "listPos": 109,
-        "prefVotes": 580,
-        "isElected": true
+        "listPos": 102,
+        "prefVotes": 200,
+        "isElected": false,
+        "mpId": 2926,
+        "photoUrl": "/parliament/photos/2926.webp"
       }
     },
     {
@@ -511,7 +547,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -528,7 +565,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -545,7 +583,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -556,13 +595,32 @@
       }
     },
     {
+      "slug": "monika-sbeva-chocheva-lilakova-3c5527",
+      "name": "Моника Събева Чочева- Лилакова",
+      "normalizedName": "МОНИКА СЪБЕВА ЧОЧЕВА-ЛИЛАКОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 105,
+        "prefVotes": 222,
+        "isElected": false
+      }
+    },
+    {
       "slug": "nataliya-stefanova-tsaneva-676f6b",
       "name": "Наталия Стефанова Цанева",
       "normalizedName": "НАТАЛИЯ СТЕФАНОВА ЦАНЕВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -579,7 +637,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪДЕЩЕ ЗА РОДИНАТА",
@@ -590,30 +649,14 @@
       }
     },
     {
-      "slug": "pavlin-stefanov-stefanov-e9a359",
-      "name": "Павлин Стефанов Стефанов",
-      "normalizedName": "ПАВЛИН СТЕФАНОВ СТЕФАНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 114,
-        "prefVotes": 225,
-        "isElected": true
-      }
-    },
-    {
       "slug": "pepo-vasilev-petkov-21c6f5",
       "name": "Пепо Василев Петков",
       "normalizedName": "ПЕПО ВАСИЛЕВ ПЕТКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БЪЛГАРСКА НОВА ДЕМОКРАЦИЯ (СДС)",
@@ -630,7 +673,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
@@ -641,30 +685,14 @@
       }
     },
     {
-      "slug": "ristem-mehmed-halkoglu-119d75",
-      "name": "Ристем Мехмед Халкоглу",
-      "normalizedName": "РИСТЕМ МЕХМЕД ХАЛКОГЛУ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Движение за права и свободи – ДПС",
-        "partyCanonicalId": "p_16",
-        "listPos": 122,
-        "prefVotes": 501,
-        "isElected": true
-      }
-    },
-    {
       "slug": "rosen-simeonov-visochkov-a2d460",
       "name": "Росен Симеонов Височков",
       "normalizedName": "РОСЕН СИМЕОНОВ ВИСОЧКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪДЕЩЕ ЗА РОДИНАТА",
@@ -681,7 +709,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ",
@@ -692,30 +721,14 @@
       }
     },
     {
-      "slug": "svilen-marinov-atanasov-c90f77",
-      "name": "Свилен Маринов Атанасов",
-      "normalizedName": "СВИЛЕН МАРИНОВ АТАНАСОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "БСП ЗА БЪЛГАРИЯ",
-        "partyCanonicalId": "bsp",
-        "listPos": 103,
-        "prefVotes": 128,
-        "isElected": false
-      }
-    },
-    {
       "slug": "stanislav-marinchev-ivanov-3aa7ed",
       "name": "Станислав Маринчев Иванов",
       "normalizedName": "СТАНИСЛАВ МАРИНЧЕВ ИВАНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -726,13 +739,32 @@
       }
     },
     {
+      "slug": "stefan-milev-milev-54b0b0",
+      "name": "Стефан Милев Милев",
+      "normalizedName": "СТЕФАН МИЛЕВ МИЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК БЪЛГАРСКА НОВА ДЕМОКРАЦИЯ (СДС)",
+        "partyCanonicalId": "p_126",
+        "listPos": 101,
+        "prefVotes": 212,
+        "isElected": true
+      }
+    },
+    {
       "slug": "tihomir-radoslavov-stoikov-8ff6ae",
       "name": "Тихомир Радославов Стойков",
       "normalizedName": "ТИХОМИР РАДОСЛАВОВ СТОЙКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -749,7 +781,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БЪЛГАРСКА НОВА ДЕМОКРАЦИЯ (СДС)",
@@ -760,30 +793,14 @@
       }
     },
     {
-      "slug": "chavdar-markos-hristanov-4d2f2d",
-      "name": "Чавдар Маркос Христанов",
-      "normalizedName": "ЧАВДАР МАРКОС ХРИСТАНОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП СРЕДНА ЕВРОПЕЙСКА КЛАСА",
-        "partyCanonicalId": null,
-        "listPos": 101,
-        "prefVotes": 225,
-        "isElected": true
-      }
-    },
-    {
       "slug": "yuliyan-aleksandrov-iovkov-b622df",
       "name": "Юлиян Александров Йовков",
       "normalizedName": "ЮЛИЯН АЛЕКСАНДРОВ ЙОВКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Плевен",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",

@@ -1,38 +1,38 @@
 [
   {
     "slug": "dimitr-vasilev-mihailov-6dbd2f",
-    "declarantName": "ДИМИТЪР ВАСИЛЕВ МИХАЙЛОВ",
+    "declarantName": "Димитър Василев Михайлов",
     "institution": "Габрово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г11312",
-    "controlHash": "85DF1819",
-    "sourceUrl": "https://register.cacbg.bg/2025/18EEA6B5-61BB-4F77-90BE-F34F0E6176E0214447.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8667",
+    "controlHash": "991DC9B6",
+    "sourceUrl": "https://register.cacbg.bg/2026/18EEA6B5-61BB-4F77-90BE-F34F0E6176E0233197.xml",
     "ownershipStakes": [
       {
         "table": "11",
         "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "99%",
-        "companyName": "МП-ГАБРОВО ТРАНС ООД",
+        "itemType": "дружествен дял като ЕТ",
+        "shareSize": "1",
+        "companyName": "\"СТИВ 98\" ООД",
         "registeredOffice": "Габрово",
-        "valueEur": 50.61789623842563,
+        "valueEur": 25.564594059810926,
         "holderName": null,
-        "transfereeName": "Димитър Василев Михайлов",
+        "transfereeName": "Димитър Василев Михайлов катоЕТ \"Добруджанка - Димитър Василев Михайлов\"",
         "legalBasis": "възмездно",
         "fundsOrigin": null
       },
       {
         "table": "11",
         "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "100%",
-        "companyName": "ВАВИ-М ЕООД",
+        "itemType": "дружествен дял",
+        "shareSize": "1/3",
+        "companyName": "\"СТИВ 98\" ООД",
         "registeredOffice": "Габрово",
-        "valueEur": 2556.4594059810925,
+        "valueEur": 16.87263207947521,
         "holderName": null,
         "transfereeName": "Димитър Василев Михайлов",
         "legalBasis": "възмездно",
@@ -43,79 +43,11 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6534.310241687673,
+        "amountEurDeclarant": 7106.445856746241,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "debt",
-        "description": "Банковови кредити",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 140000,
-        "valueEur": 71580.86336747059,
-        "holderName": "Димитър Василев Михайлов",
-        "isSpouse": false,
-        "legalBasis": "банкови кредити",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "град Габрово",
-        "municipality": "Габрово",
-        "areaSqm": 64,
-        "builtAreaSqm": 64,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "град Габрово",
-        "municipality": "Габрово",
-        "areaSqm": 876,
-        "builtAreaSqm": 248,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "гараж",
-        "detail": null,
-        "location": "град Габрово",
-        "municipality": "Габрово",
-        "areaSqm": 28,
-        "builtAreaSqm": 28,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "село Чавеи",
-        "municipality": "Габрово",
-        "areaSqm": 1350,
-        "builtAreaSqm": 112,
-        "currency": "BGN",
-        "valueEur": 1073.7129505120588,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

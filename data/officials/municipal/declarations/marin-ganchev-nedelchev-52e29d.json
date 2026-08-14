@@ -4,68 +4,80 @@
     "declarantName": "Марин Ганчев Неделчев",
     "institution": "Силистра",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г4718",
-    "controlHash": "F7985D30",
-    "sourceUrl": "https://register.cacbg.bg/2025/4443CCF6-3AAA-4235-9BF8-B508B8476411207594.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г4749",
+    "controlHash": "8456267E",
+    "sourceUrl": "https://register.cacbg.bg/2026/4443CCF6-3AAA-4235-9BF8-B508B8476411228972.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19030.28381812325,
-        "amountEurSpouse": 10268.786141944853
+        "amountEurDeclarant": 22215.632237975693,
+        "amountEurSpouse": 17792.957465628402
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 1136.6018518991937,
+        "amountEurDeclarant": 845.1654796173492,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 357.90431683735295
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 766.9378217943278,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 49,
+        "builtAreaSqm": 49,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 89000,
+        "valueEur": 45504.97742646345,
+        "holderName": "Марин Ганчев Неделчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Тойота",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
-        "holderName": "Марин Ганчев Неделчев и Красимира Минчева Неделчева",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Красимира Минчева Неделчева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 32303,
-        "valueEur": 16516.261638281445,
-        "holderName": "Марин Ганчев Неделчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "Банков Кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,14 +86,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14463,
-        "valueEur": 7394.814477740908,
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
         "holderName": "Марин Ганчев Неделчев",
         "isSpouse": false,
-        "legalBasis": "Банков кредит",
+        "legalBasis": "Ипотечен кредит 2.9%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

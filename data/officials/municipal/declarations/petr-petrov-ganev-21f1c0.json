@@ -4,19 +4,19 @@
     "declarantName": "Петър Петров Ганев",
     "institution": "Златарица",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9412",
-    "controlHash": "C9A4E9D6",
-    "sourceUrl": "https://register.cacbg.bg/2025/6AF20463-0714-4658-9A7A-DF19DC94FD78212448.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9862",
+    "controlHash": "F152DF2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/6AF20463-0714-4658-9A7A-DF19DC94FD78234530.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20539.617451414488,
+        "amountEurDeclarant": 22802.084025707754,
         "amountEurSpouse": null
       }
     ],
@@ -32,27 +32,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Петър Петров Ганев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестяване от заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "складови помещения",
-        "detail": null,
-        "location": "Златарица, ул. Васил Златарски № 84",
-        "municipality": "Златарица",
-        "areaSqm": 628,
-        "builtAreaSqm": 628,
-        "currency": "BGN",
-        "valueEur": 127822.97029905462,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

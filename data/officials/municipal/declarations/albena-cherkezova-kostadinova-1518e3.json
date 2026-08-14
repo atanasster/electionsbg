@@ -4,35 +4,78 @@
     "declarantName": "Албена Черкезова Костадинова",
     "institution": "Куклен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г1730",
-    "controlHash": "4ADA2933",
-    "sourceUrl": "https://register.cacbg.bg/2025/4AE8F8D0-2962-44E2-AB91-FA8BF5B54120204260.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11316",
+    "controlHash": "7C642A30",
+    "sourceUrl": "https://register.cacbg.bg/2026/4AE8F8D0-2962-44E2-AB91-FA8BF5B54120236205.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7005.721356150586,
-        "amountEurSpouse": 1199.4907532863285
+        "amountEurDeclarant": 7172.402509420553,
+        "amountEurSpouse": 6171.804297919553
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1145.2938138795294,
+        "amountEurDeclarant": 2882.1523343030835,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 11634.446756619951,
-        "amountEurSpouse": 562.4210693158403
+        "amountEurDeclarant": 11848.678054841168,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 3901.157053527147,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Албена Черкезова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "потребителски - 6 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Албена Черкезова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта - 18.90%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

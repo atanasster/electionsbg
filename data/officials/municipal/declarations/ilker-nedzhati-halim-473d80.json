@@ -4,41 +4,67 @@
     "declarantName": "Илкер Неджати Халим",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12728",
-    "controlHash": "7A8EB446",
-    "sourceUrl": "https://register.cacbg.bg/2025/573ADFFD-570F-4D55-9CD8-C6998339A35C215903.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3803",
+    "controlHash": "3534BE6F",
+    "sourceUrl": "https://register.cacbg.bg/2026/573ADFFD-570F-4D55-9CD8-C6998339A35C227965.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5575.6379644447625,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7103.88939734026,
+        "amountEurSpouse": 5506.613560483273
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 96094.75261142329,
-        "amountEurSpouse": 140.09397544776385
+        "amountEurDeclarant": 147123.21623044947,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1956.202737456732,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 96094.75261142329,
+        "amountEurDeclarant": 2003.241590526784,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Дулово",
+        "municipality": "Дулово",
+        "areaSqm": 836,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 32634,
+        "valueEur": 16685.499250957393,
+        "holderName": "Елиз Бейсим Халим",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Златоклас",
+        "municipality": "Дулово",
+        "areaSqm": 40,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

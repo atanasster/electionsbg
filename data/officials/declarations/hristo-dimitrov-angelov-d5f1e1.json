@@ -5,6 +5,87 @@
     "institution": "Област - Благоевград",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-04-01",
+    "entryNumber": "Ф329",
+    "controlHash": "78AC446B",
+    "sourceUrl": "https://register.cacbg.bg/2026/36396905-545A-4A42-A196-9091C1338293225244.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Анна Воемирова Ангелова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-dimitrov-angelov-d5f1e1",
+    "declarantName": "Христо Димитров Ангелов",
+    "institution": "Област - Благоевград",
+    "positionTitle": "Заместник-областен управител",
+    "category": "regional_governor",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-01",
+    "entryNumber": "Г1394",
+    "controlHash": "729A1ED7",
+    "sourceUrl": "https://register.cacbg.bg/2026/36396905-545A-4A42-A196-9091C1338293225243.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22841.96479244106,
+        "amountEurSpouse": 23782.230561960907
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000.869196198033,
+        "holderName": "Анна Воемирова Ангелова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-dimitrov-angelov-d5f1e1",
+    "declarantName": "Христо Димитров Ангелов",
+    "institution": "Област - Благоевград",
+    "positionTitle": "Заместник-областен управител",
+    "category": "regional_governor",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

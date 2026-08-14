@@ -4,29 +4,53 @@
     "declarantName": "Никола Иванов Барбов",
     "institution": "Козлодуй",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11374",
-    "controlHash": "9EED4F95",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E48EFC3-B08F-401C-AB20-B82B3C6050DC214510.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9901",
+    "controlHash": "2E320D38",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E48EFC3-B08F-401C-AB20-B82B3C6050DC234575.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4033.0703588757715,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 3486.4993378770137,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12884.555406144706,
+        "amountEurDeclarant": 11932.529923357348,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "майчинство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5098.602639288691
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 2113,
+        "builtAreaSqm": 93,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Цветина Емилова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
       {
         "category": "debt",
         "description": "Ипотечен кредит",
@@ -38,56 +62,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 145152,
-        "valueEur": 74215.03913939351,
+        "amount": 162675,
+        "valueEur": 83174.40677359485,
         "holderName": "Никола Иванов Барбов",
         "isSpouse": false,
-        "legalBasis": "кредит 3%",
+        "legalBasis": "кредит- 2,98 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "nikola-ivanov-barbov-235e23",
-    "declarantName": "Никола Иванов Барбов",
-    "institution": "Козлодуй",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "Г11385",
-    "controlHash": "4CFF5559",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E48EFC3-B08F-401C-AB20-B82B3C6050DC214521.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "95 %",
-        "companyName": "Ритейл  № 8 ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "Управител - 07.02.2025 г.",
-        "companyName": "Ритейл № 8 ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

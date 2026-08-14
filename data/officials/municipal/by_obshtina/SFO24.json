@@ -1,27 +1,36 @@
 {
   "obshtina": "SFO24",
   "registryName": "Копривщица",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 1,
     "councillor": 10,
-    "chief_architect": 2,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
     {
-      "slug": "mariya-hristova-tromanova-afd006",
-      "name": "Мария Христова Троманова",
-      "normalizedName": "МАРИЯ ХРИСТОВА ТРОМАНОВА",
+      "slug": "mariya-hristova-toromanova-55b22e",
+      "name": "Мария Христова Тороманова",
+      "normalizedName": "МАРИЯ ХРИСТОВА ТОРОМАНОВА",
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 101,
+        "prefVotes": 42,
+        "isElected": true
+      }
     },
     {
       "slug": "veselin-valentinov-yankulov-868cea",
@@ -30,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -47,7 +57,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -64,16 +75,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "stoyanka-velikova-kasabova-c81ae5",
-      "name": "Стоянка Великова Касабова",
-      "normalizedName": "СТОЯНКА ВЕЛИКОВА КАСАБОВА",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Копривщица",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "dimitr-nikolov-vatahov-74c1af",
@@ -82,7 +85,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -99,7 +103,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -116,7 +121,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -133,7 +139,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -150,7 +157,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -167,7 +175,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -178,13 +187,14 @@
       }
     },
     {
-      "slug": "petr-georgi-vlov-92c8d9",
-      "name": "Петър Георги Вълов",
-      "normalizedName": "ПЕТЪР ГЕОРГИ ВЪЛОВ",
+      "slug": "petr-georgiev-vlov-389e1c",
+      "name": "Петър Георгиев Вълов",
+      "normalizedName": "ПЕТЪР ГЕОРГИЕВ ВЪЛОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -201,7 +211,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -218,7 +229,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -235,7 +247,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Копривщица",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

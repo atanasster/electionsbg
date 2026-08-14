@@ -5,6 +5,98 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-01",
+    "entryNumber": "Г1013",
+    "controlHash": "176129CC",
+    "sourceUrl": "https://register.cacbg.bg/2026/06AF09AD-1201-4AA5-9945-833F268CBEC9224666.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6534.310241687673,
+        "amountEurSpouse": 70385.46294923383
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 45144.51665022011,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7976.153346661008
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71705,
+        "valueEur": 36662.18434117485,
+        "holderName": "Николина Димитрова Гюрова-Маджева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85573,
+        "valueEur": 43752.780149604005,
+        "holderName": "Николина Димитрова Гюрова-Маджева-солидарен длъжник",
+        "isSpouse": true,
+        "legalBasis": "догоров за ипотечен кредит с лихвен процент 2.29%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40011,
+        "valueEur": 20457.299458541896,
+        "holderName": "Николина Димитрова Гюрова-Маджева-солидарен длъжник",
+        "isSpouse": true,
+        "legalBasis": "догвор за потребителски кредит с лихвен процент 4.2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolina-dimitrova-gyurova-madzheva-e3c40e",
+    "declarantName": "Николина Димитрова Гюрова-Маджева",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

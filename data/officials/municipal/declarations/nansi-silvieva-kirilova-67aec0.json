@@ -4,30 +4,54 @@
     "declarantName": "Нанси Силвиева Кирилова",
     "institution": "Якимово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5741",
-    "controlHash": "F57431DB",
-    "sourceUrl": "https://register.cacbg.bg/2025/7AB462B1-4105-42BD-A097-126B621C1B61208685.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г12944",
+    "controlHash": "92B12800",
+    "sourceUrl": "https://register.cacbg.bg/2026/7AB462B1-4105-42BD-A097-126B621C1B61238296.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3618.9239351068345,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4586.2881743300795,
+        "amountEurSpouse": 6564.987754559445
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11903.386286129162,
+        "amountEurDeclarant": 13856.521272298718,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 4061.7027042227596,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Кирил Йосифов Кирилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "потребителски кредит",
         "detail": "BGN",
@@ -38,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 68000,
-        "valueEur": 34767.84792134286,
+        "amount": 72360,
+        "valueEur": 36997.08052335837,
         "holderName": "Нанси Силвиева Кирилова",
         "isSpouse": false,
-        "legalBasis": "договор  6.7%",
+        "legalBasis": "договор 4.6%",
         "fundsOrigin": null
       },
       {
@@ -56,14 +80,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
+        "amount": 983,
+        "valueEur": 502.5999192158828,
+        "holderName": "Нанси Силвиева Кирилова",
+        "isSpouse": false,
+        "legalBasis": "договор 7.2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1241,
+        "valueEur": 634.5132245645071,
+        "holderName": "Нанси Силвиева Кирилова",
+        "isSpouse": false,
+        "legalBasis": "договор 7.4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49660,
+        "valueEur": 25390.75482020421,
         "holderName": "Кирил Йосифов Кирилов",
         "isSpouse": true,
-        "legalBasis": "договор  5.7%",
+        "legalBasis": "договор 5.6%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

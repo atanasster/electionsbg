@@ -4,23 +4,60 @@
     "declarantName": "Денислав Виолинов Захариев",
     "institution": "Перник",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7764",
-    "controlHash": "F679E600",
-    "sourceUrl": "https://register.cacbg.bg/2025/80365286-5A4E-4A26-9BB1-43938A2FAB81210766.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г8951",
+    "controlHash": "028EFE13",
+    "sourceUrl": "https://register.cacbg.bg/2026/80365286-5A4E-4A26-9BB1-43938A2FAB81233500.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28864.983152932517,
+        "amountEurDeclarant": 29022.972344222148,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 113438,
+        "valueEur": 57999.92841913663,
+        "holderName": "Денислав Виолинов Захариев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 92145,
+        "valueEur": 92145.5341210637,
+        "holderName": "Денислав Виолинов Захариев",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит към договор №231/513/Р2025 от 28.10.2025 с лихвен процент 2.590 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

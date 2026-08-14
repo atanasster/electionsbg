@@ -4,13 +4,13 @@
     "declarantName": "Бойко Петров Лазаров",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г10510",
-    "controlHash": "D327D9CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/7A127AEB-2A01-4C0C-ABB1-9ABC6ECC35F4213602.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8116",
+    "controlHash": "8E34EA6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A127AEB-2A01-4C0C-ABB1-9ABC6ECC35F4232594.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -23,19 +23,6 @@
         "holderName": "Бойко Петров Лазаров",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "ООД",
-        "shareSize": "0.5",
-        "companyName": "Ел енд Джи уиндоу системс ООД",
-        "registeredOffice": "Самоков",
-        "valueEur": 1278.2297029905462,
-        "holderName": null,
-        "transfereeName": "Бойко Петров Лазаров",
-        "legalBasis": "възмездно",
-        "fundsOrigin": null
       }
     ],
     "income": [
@@ -48,7 +35,7 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1278.2297029905462,
+        "amountEurDeclarant": 1968.4737426054412,
         "amountEurSpouse": null
       }
     ],
@@ -91,9 +78,9 @@
       },
       {
         "category": "real_estate",
-        "description": "Земя",
+        "description": "земя",
         "detail": null,
-        "location": "Самоков ул. Христо Смирненски 76А",
+        "location": "Самоков ул. Христо Смирненски 76а",
         "municipality": "Самоков",
         "areaSqm": 161,
         "builtAreaSqm": null,
@@ -109,9 +96,9 @@
       },
       {
         "category": "real_estate",
-        "description": "Производствен обект",
+        "description": "производствени помещения",
         "detail": null,
-        "location": "Самоков ул. Христо Смирненски 76А",
+        "location": "Самоков ул. Христо Смирненски 76а",
         "municipality": "Самоков",
         "areaSqm": 50,
         "builtAreaSqm": null,
@@ -145,14 +132,14 @@
       },
       {
         "category": "real_estate",
-        "description": "Земя",
+        "description": "земя",
         "detail": null,
         "location": "с. Драгушиново м. Червената земя",
         "municipality": "Самоков",
         "areaSqm": 413,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "0.5",
+        "share": "0.50",
         "currency": "BGN",
         "amount": 552,
         "valueEur": 282.2331184203126,
@@ -163,14 +150,14 @@
       },
       {
         "category": "real_estate",
-        "description": "Други и нежилищни",
+        "description": "складови помещения",
         "detail": null,
         "location": "с. Драгушиново м. Червената земя",
         "municipality": "Самоков",
         "areaSqm": 182,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "0.5",
+        "share": "0.50",
         "currency": "BGN",
         "amount": 5221,
         "valueEur": 2669.454911725457,
@@ -182,7 +169,7 @@
       {
         "category": "vehicle",
         "description": "Товарно ремарке за лек автомобил",
-        "detail": "Неизвестна",
+        "detail": "неизвестна",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -217,7 +204,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Товарен Автомобил",
+        "description": "Товарен автомобил",
         "detail": "Киа",
         "location": null,
         "municipality": null,

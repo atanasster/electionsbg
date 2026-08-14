@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "stanislava-veselinova-ruseva-56b862",
+    "declarantName": "Станислава Веселинова Русева",
+    "institution": "Разград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12987",
+    "controlHash": "2DAC4ECB",
+    "sourceUrl": "https://register.cacbg.bg/2026/4E493884-8507-4DF2-83CF-AD9C339F3E6B238370.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36044.543748689815,
+        "amountEurSpouse": 34906.91931302823
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 383.4689108971639,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "рента от селскостопанска земя",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1293.5684594264328
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "място в регулация",
+        "detail": null,
+        "location": "с.Осенец",
+        "municipality": "Разград",
+        "areaSqm": 1790,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Станислава Веселинова Русева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "ремарке туристическо",
+        "detail": "няма",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Станислава Веселинова Русева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39693,
+        "valueEur": 20294.7086403215,
+        "holderName": "Станислава Веселинова Русева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6725,
+        "valueEur": 6724.510821492666,
+        "holderName": "Деян Петков Русев",
+        "isSpouse": true,
+        "legalBasis": "6,13%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,50 +4,62 @@
     "declarantName": "Рена Енчева Стефанова",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5131",
-    "controlHash": "3167BAFB",
-    "sourceUrl": "https://register.cacbg.bg/2025/AC71611D-C92E-42B2-AC71-068007E03AEB208028.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г9381",
+    "controlHash": "40B975F8",
+    "sourceUrl": "https://register.cacbg.bg/2026/AC71611D-C92E-42B2-AC71-068007E03AEB233996.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дялове в ООД",
         "shareSize": "17 дяла",
-        "companyName": "Лега Консулт ООД",
+        "companyName": "Лега консулт ООД",
         "registeredOffice": "Русе",
         "valueEur": 869.1961980335715,
         "holderName": "Рена Енчева Стефанова",
         "legalBasis": "други",
         "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в ООД",
+        "shareSize": "5 дяла",
+        "companyName": "Последни нюз ООД",
+        "registeredOffice": "Русе",
+        "valueEur": 25.564594059810926,
+        "holderName": "Рена Енчева Стефанова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6511.302107033843,
+        "amountEurDeclarant": 7334.482035759755,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2391.82342023591,
+        "amountEurDeclarant": 102.2583762392437,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 15465.04553054202,
+        "amountEurDeclarant": 22456.450714019113,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "дивидент",
-        "amountEurDeclarant": 8801.889734792901,
+        "amountEurDeclarant": 10494.77715343358,
         "amountEurSpouse": null
       }
     ],
@@ -163,6 +175,24 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
+        "detail": "Мерцедес-Ц220ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Рена Енчева Стефанова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
         "detail": "Тойота-Камри",
         "location": null,
         "municipality": null,
@@ -180,7 +210,7 @@
       },
       {
         "category": "debt",
-        "description": "Жилищен кредит",
+        "description": "Кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -189,8 +219,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9473,
-        "valueEur": 4843.467990571778,
+        "amount": 6893,
+        "valueEur": 3524.334937085534,
         "holderName": "Рена Енчева Стефанова",
         "isSpouse": false,
         "legalBasis": "банков кредит",
@@ -198,7 +228,7 @@
       },
       {
         "category": "debt",
-        "description": "кредитна карта",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -207,8 +237,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6846,
-        "valueEur": 3500.304218669312,
+        "amount": 10046,
+        "valueEur": 5136.438238497211,
         "holderName": "Рена Енчева Стефанова",
         "isSpouse": false,
         "legalBasis": "банков кредит",
@@ -216,7 +246,7 @@
       },
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -225,14 +255,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14918,
-        "valueEur": 7627.4522836851875,
+        "amount": 58121,
+        "valueEur": 29716.795427005414,
         "holderName": "Рена Енчева Стефанова",
         "isSpouse": false,
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес-Ц220ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 42.43722613928613,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -1,44 +1,93 @@
 [
   {
     "slug": "spas-angelov-panev-e67467",
-    "declarantName": "СПАС  АНГЕЛОВ  ПАНЕВ",
+    "declarantName": "СПАС АНГЕЛОВ ПАНЕВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7559",
-    "controlHash": "624581E7",
-    "sourceUrl": "https://register.cacbg.bg/2025/408CF4AC-FFB7-424E-9A6F-AD560D6C98DD210556.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13712",
+    "controlHash": "4076D2CB",
+    "sourceUrl": "https://register.cacbg.bg/2026/408CF4AC-FFB7-424E-9A6F-AD560D6C98DD239303.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3006.3962614337647,
-        "amountEurSpouse": 10777.010271853893
+        "amountEurDeclarant": 2346.829734690643,
+        "amountEurSpouse": 16108.250717086863
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11098.612865126315,
+        "amountEurDeclarant": 8159.707132010451,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 816.533134270361
-      },
-      {
-        "parent": null,
-        "category": "ПЕНСИИ",
-        "amountEurDeclarant": 5929.451946232546,
-        "amountEurSpouse": 3027.8705204440057
+        "category": "Пенсии",
+        "amountEurDeclarant": 6237.24965871267,
+        "amountEurSpouse": 3219.093684011392
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с. Малево",
+        "municipality": "Чепеларе",
+        "areaSqm": 240,
+        "builtAreaSqm": 78,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Спас Ангелов Панев, СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Спас Ангелов Панев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Спас Ангелов Панев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

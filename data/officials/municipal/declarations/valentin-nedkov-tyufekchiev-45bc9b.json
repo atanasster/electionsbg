@@ -4,44 +4,26 @@
     "declarantName": "Валентин Недков Тюфекчиев",
     "institution": "Сатовча",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10560",
-    "controlHash": "8482809B",
-    "sourceUrl": "https://register.cacbg.bg/2025/2491E80F-C6AF-4F12-AEC5-88AA9D0595BC213658.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13910",
+    "controlHash": "38C338B9",
+    "sourceUrl": "https://register.cacbg.bg/2026/2491E80F-C6AF-4F12-AEC5-88AA9D0595BC239564.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4863.919665819626,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6718.375318918311,
+        "amountEurSpouse": 12035.810883358983
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6804.783646840472,
-        "amountEurSpouse": 18850.82036782338
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3152.114447574687,
-        "amountEurSpouse": 1756.7989037902066
-      },
-      {
-        "parent": null,
-        "category": "Доходи от лихви по влохове,освободени от облагане на основание 1л.13 ал.1 т.8 от ЗДДФЛ",
-        "amountEurDeclarant": 88.96478732814202,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от дивиденти по чл.38 ал.1 от ЗДДФЛ",
-        "amountEurDeclarant": 2556.4594059810925,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 34435.508198565316,
+        "amountEurSpouse": 34435.508198565316
       }
     ],
     "assets": [
@@ -56,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120000,
-        "valueEur": 47038.8530700521,
-        "holderName": "Валентин Недков Тюфекчиев",
-        "isSpouse": false,
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Валентин Невдков Тюфекчиев",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати,дивидент и дарение от родители"
+        "fundsOrigin": "заплати,спестявания,кредит и дарения от родители и роднини"
       },
       {
         "category": "bank",
@@ -74,14 +56,87 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22800,
-        "valueEur": 11657.454891273781,
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
         "holderName": "Сузана Венциславова Амзова-Тюфекчиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и спестявания"
+        "fundsOrigin": "заплати,спестявания и кредит"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75969,
+        "valueEur": 41925.93425808992,
+        "holderName": "Валентин Невдков Тюфекчиев",
+        "isSpouse": true,
+        "legalBasis": "4.62",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45870,
+        "valueEur": 29399.283168782564,
+        "holderName": "Сузана Венциславова Амзова-Тюфекчиева",
+        "isSpouse": true,
+        "legalBasis": "4.52",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Семейна почивка Санданско",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Семейна повичка Лозенец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ДАРЕНИЕ ФУТБОЛЕН КЛУБ ЧЕРВЕНО ЗНАМЕ С.КОЧАН",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
+    ]
   }
 ]

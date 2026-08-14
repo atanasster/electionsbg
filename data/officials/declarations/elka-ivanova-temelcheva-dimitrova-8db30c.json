@@ -5,6 +5,74 @@
     "institution": "ЦЛХИК - БАБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1909",
+    "controlHash": "9423682E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D0251A76-8789-4397-B81C-297C274FBCE3225879.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25491.99061268106,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1691.3535429970907,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Елка Иванова Темелчева - Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12112.56,
+        "valueEur": 12112.371729649305,
+        "holderName": "Елка Иванова Темелчева-Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "извънредна премия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elka-ivanova-temelcheva-dimitrova-8db30c",
+    "declarantName": "Елка Иванова Темелчева -Димитрова",
+    "institution": "ЦЛХИК - БАБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

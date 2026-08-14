@@ -5,6 +5,43 @@
     "institution": "МБАЛ Берковица ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г7072",
+    "controlHash": "F37C0090",
+    "sourceUrl": "https://register.cacbg.bg/2026/AD133A87-998D-40A5-AC09-BA430A53B957231462.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43919.97259475517,
+        "amountEurSpouse": 207.0732118844685
+      },
+      {
+        "parent": null,
+        "category": "ПОСТЪПЛЕНИЯ ОТ ПЕНСИЯ ПО ТЕЛК",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3609.7206812453023
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЗЩЕТЕНИЯ ПО БОЛНИЧНИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5750.499787813869
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "atanas-kirilov-georgiev-57eb86",
+    "declarantName": "АТАНАС КИРИЛОВ ГЕОРГИЕВ",
+    "institution": "МБАЛ Берковица ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

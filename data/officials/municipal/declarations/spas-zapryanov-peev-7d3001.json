@@ -4,41 +4,53 @@
     "declarantName": "Спас Запрянов Пеев",
     "institution": "Братя Даскалови",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г7035",
-    "controlHash": "1EB50FE4",
-    "sourceUrl": "https://register.cacbg.bg/2025/1116EC49-E835-4ABE-8711-11780393B80D210022.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10461",
+    "controlHash": "EEAB6B9A",
+    "sourceUrl": "https://register.cacbg.bg/2026/1116EC49-E835-4ABE-8711-11780393B80D235219.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6560.38612762868,
+        "amountEurDeclarant": 7483.77926506905,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15792.783626388797,
+        "amountEurDeclarant": 23107.836570663094,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Данъчно облекчение за деца по чл. 22 в от ЗДДФЛ",
-        "amountEurDeclarant": 613.5502574354622,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Обезщетения и помощи при майчинство",
+        "category": "Отпуск по майчинство",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6174.8720492067305
+        "amountEurSpouse": 6004.100560887194
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "товарен автомобил",
+        "detail": "Форд Транзит",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1120,
+        "valueEur": 572.6469069397647,
+        "holderName": "Спас Запрянов Пеев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "лизинг",
@@ -50,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6500,
-        "valueEur": 3323.39722777542,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
         "holderName": "Спас Запрянов Пеев",
         "isSpouse": false,
-        "legalBasis": "договор , 5,33",
+        "legalBasis": "договор, 5.33%",
         "fundsOrigin": null
       },
       {
@@ -68,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20784,
-        "valueEur": 10626.690458782205,
+        "amount": 12385,
+        "valueEur": 6332.349948615166,
         "holderName": "Спас Запрянов Пеев",
         "isSpouse": false,
-        "legalBasis": "договор , 5,20",
+        "legalBasis": "договор, 5.20%",
         "fundsOrigin": null
       }
     ],

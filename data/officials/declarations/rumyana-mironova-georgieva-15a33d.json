@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7930",
+    "controlHash": "5B0F2CE4",
+    "sourceUrl": "https://register.cacbg.bg/2026/1606CA34-9EAD-4279-B41E-1242E0CCB402232392.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26516.619542598284,
+        "amountEurSpouse": 29092.508040064833
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Тодор Иванов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "4,45%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "TBI",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1971,
+        "valueEur": 1007.7562978377466,
+        "holderName": "Тодор Иванов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "безлихвен",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-mironova-georgieva-15a33d",
+    "declarantName": "Румяна Миронова Георгиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

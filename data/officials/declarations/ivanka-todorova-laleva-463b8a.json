@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "ivanka-todorova-laleva-463b8a",
+    "declarantName": "Иванка Тодорова Лалева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8405",
+    "controlHash": "C6EF549E",
+    "sourceUrl": "https://register.cacbg.bg/2026/058CA4CA-FA5D-4852-BCA2-D57E49EEC8A7232911.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19081.92429812407,
+        "amountEurSpouse": 12501.086495247542
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13731,
+        "valueEur": 7020.548820705276,
+        "holderName": "Иванка Тодорова Лалева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19800,
+        "valueEur": 10123.579247685126,
+        "holderName": "Костадин Стойков Лалев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Костадин Стойков Лалев",
+        "isSpouse": true,
+        "legalBasis": "Кредит с ДЛП 4,5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

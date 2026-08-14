@@ -4,118 +4,82 @@
     "declarantName": "Теодора Янчева Каракостова",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г6951",
-    "controlHash": "E2DEF134",
-    "sourceUrl": "https://register.cacbg.bg/2025/86E1D644-3903-4308-A48A-98D45C5BF05B209938.xml",
+    "entryNumber": "Г9019",
+    "controlHash": "97F0B00D",
+    "sourceUrl": "https://register.cacbg.bg/2026/86E1D644-3903-4308-A48A-98D45C5BF05B233570.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6792.512641691763,
-        "amountEurSpouse": 1656.585695075748
+        "amountEurDeclarant": 8608.62140370073,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7604.955440912554,
-        "amountEurSpouse": 5215.177188201428
+        "amountEurDeclarant": 3363.7892863899215,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1208.6940071478605,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 8530.393745877709,
+        "amountEurSpouse": 6319.56765158526
+      },
+      {
+        "parent": null,
+        "category": "универсален пенсионен фонд \"Съгласие\"",
+        "amountEurDeclarant": 2910.2733877688756,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Кърджали",
-        "municipality": "Кърджали",
-        "areaSqm": 35,
-        "builtAreaSqm": 35,
-        "acquiredYear": 1993,
-        "share": "1/3",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Теодора Янчева Каракостова",
-        "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Кърджали",
-        "municipality": "Кърджали",
-        "areaSqm": 194,
-        "builtAreaSqm": 194,
-        "acquiredYear": 1993,
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
         "holderName": "Атанас Христов Каракостов",
         "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "real_estate",
-        "description": "застр.и незастр.дворно място",
-        "detail": null,
-        "location": "Писаница",
-        "municipality": "Смолян",
-        "areaSqm": 196,
-        "builtAreaSqm": 196,
-        "acquiredYear": 2007,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9346,
+        "valueEur": 9345.904296385677,
         "holderName": "Атанас Христов Каракостов",
         "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "незастроен поземлен имот",
-        "detail": null,
-        "location": "Писаница",
-        "municipality": "Смолян",
-        "areaSqm": 160,
-        "builtAreaSqm": 160,
-        "acquiredYear": 2007,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Атанас Христов Каракостов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "real_estate",
-        "description": "ливада",
-        "detail": null,
-        "location": "Писаница",
-        "municipality": "Смолян",
-        "areaSqm": 3,
-        "builtAreaSqm": 3340,
-        "acquiredYear": 2008,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Атанас Христов Каракостов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": null,
+        "fundsOrigin": "продажба"
       },
       {
         "category": "debt",
@@ -128,14 +92,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 26500,
-        "valueEur": 13549.23485169979,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Атанас Христов Каракостов",
         "isSpouse": true,
-        "legalBasis": "банков договор",
+        "legalBasis": "банков договор-4,9%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и незастроен поземлен имот",
+        "detail": null,
+        "location": "с. Писаница",
+        "municipality": "Смолян",
+        "areaSqm": 356,
+        "builtAreaSqm": 356,
+        "currency": "BGN",
+        "valueEur": 61999.76480573465,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

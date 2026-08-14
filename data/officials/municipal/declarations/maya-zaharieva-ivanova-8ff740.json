@@ -4,46 +4,70 @@
     "declarantName": "Мая Захариева Иванова",
     "institution": "Ново село",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14462",
-    "controlHash": "0B106CCE",
-    "sourceUrl": "https://register.cacbg.bg/2025/7A461702-C3E3-4BDC-9EEA-19B1A8AD3661217773.xml",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г3048",
+    "controlHash": "93A3F902",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A461702-C3E3-4BDC-9EEA-19B1A8AD3661227144.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18529.729066432155,
+        "amountEurDeclarant": 21139.87411993885,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 153.38756435886555,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 245.42010297418489,
-        "amountEurSpouse": 20272.723089430063
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 29075.635407985355
       }
     ],
     "assets": [
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 126633,
-        "valueEur": 64746.42479152074,
+        "currency": "EUR",
+        "amount": 29075,
+        "valueEur": 29075.635407985355,
+        "holderName": "Ивайло Иванов Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 68691,
+        "valueEur": 68691.55294683076,
         "holderName": "Мая Захариева Иванова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

@@ -1,6 +1,50 @@
 [
   {
     "slug": "teodora-laleva-gocheva-0ce8f4",
+    "declarantName": "Теодора Лалева Гочевь",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7227",
+    "controlHash": "E08C3BD7",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0744200-D264-4CBD-8310-A4E00AC64CF9231631.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22665.569093428367,
+        "amountEurSpouse": 24769.535184550805
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит, лихва 4%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34900,
+        "valueEur": 17844.086653748025,
+        "holderName": "Теодора Лалева Гочева",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-laleva-gocheva-0ce8f4",
     "declarantName": "Теодора Лалева Гочева",
     "institution": "Училища",
     "positionTitle": "Директор",

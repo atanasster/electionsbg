@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2635",
+    "controlHash": "E14A34BC",
+    "sourceUrl": "https://register.cacbg.bg/2026/F24A729A-3598-4C66-8CB4-849FC94C31AA226706.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31060.470490789077,
+        "amountEurSpouse": 21850.058542920397
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 291.4363722818445,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22968,
+        "valueEur": 11743.351927314747,
+        "holderName": "Евгени Кънчев Кънчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-stefanova-doinova-kncheva-64c851",
+    "declarantName": "Даниела Стефанова Дойнова-Кънчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

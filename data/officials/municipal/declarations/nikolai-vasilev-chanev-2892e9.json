@@ -4,25 +4,25 @@
     "declarantName": "Николай Василев Чанев",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г1086",
-    "controlHash": "6F1F880D",
-    "sourceUrl": "https://register.cacbg.bg/2025/AEEB7B20-FA60-46A8-A303-416EF9F61DC1203439.xml",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г1180",
+    "controlHash": "FB2C0C81",
+    "sourceUrl": "https://register.cacbg.bg/2026/AEEB7B20-FA60-46A8-A303-416EF9F61DC1224930.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5261.704749390285,
-        "amountEurSpouse": 15338.756435886555
+        "amountEurDeclarant": 11677.90656652163,
+        "amountEurSpouse": 13381.019822786235
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9641.942295598288,
+        "amountEurDeclarant": 7010.322983081352,
         "amountEurSpouse": null
       }
     ],
@@ -38,27 +38,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 16709,
+        "valueEur": 8543.176042907615,
+        "holderName": "Николай Василев Чанев",
+        "isSpouse": false,
+        "legalBasis": "Договор, 4.88",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2569,
+        "valueEur": 1313.5088427930853,
+        "holderName": "Николай Василев Чанев",
+        "isSpouse": false,
+        "legalBasis": "Договор, 10",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредти, Овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19841,
+        "valueEur": 10144.542214814172,
         "holderName": "Светлана Николаева Николова",
         "isSpouse": true,
-        "legalBasis": "Договор 4.5",
+        "legalBasis": "Договор, 4.5",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "нива",
-        "detail": null,
-        "location": "Гр. Златарица",
-        "municipality": "Златарица",
-        "areaSqm": 1000,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

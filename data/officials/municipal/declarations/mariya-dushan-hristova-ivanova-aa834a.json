@@ -1,32 +1,64 @@
 [
   {
     "slug": "mariya-dushan-hristova-ivanova-aa834a",
-    "declarantName": "МАРИЯ ХРИСТОВА ИВАНОВА",
+    "declarantName": "Мария Душан Христова-Иванова",
     "institution": "Родопи",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-13",
-    "entryNumber": "Г3913",
-    "controlHash": "2625FE89",
-    "sourceUrl": "https://register.cacbg.bg/2025/A15A402F-C673-4855-AE10-C60E8365E922206736.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г5539",
+    "controlHash": "4E0DF1E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/A15A402F-C673-4855-AE10-C60E8365E922229802.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "Дента Мария-АИПППДМ ЕООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 51.12918811962185,
+        "holderName": "Мария Христова-Иванова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7539.510080119438,
+        "amountEurDeclarant": 9233.420082522509,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12528.184964950942,
-        "amountEurSpouse": 13702.11112417746
+        "amountEurDeclarant": 23776.095059386553,
+        "amountEurSpouse": 22123.08840747918
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25300,
+        "valueEur": 12935.684594264329,
+        "holderName": "Андон Иванов Иванов",
+        "isSpouse": true,
+        "legalBasis": "4,59",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

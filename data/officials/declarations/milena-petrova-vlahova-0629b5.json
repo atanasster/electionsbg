@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г5340",
+    "controlHash": "7E9CCF5D",
+    "sourceUrl": "https://register.cacbg.bg/2026/1EC0468B-843B-4B28-8336-736E0577A524229592.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24942.351840395128,
+        "amountEurSpouse": 19229.687651789776
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19758,
+        "valueEur": 10102.104988674884,
+        "holderName": "Милена Петрова Влахова",
+        "isSpouse": false,
+        "legalBasis": "2,99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milena-petrova-vlahova-0629b5",
+    "declarantName": "Милена Петрова Влахова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

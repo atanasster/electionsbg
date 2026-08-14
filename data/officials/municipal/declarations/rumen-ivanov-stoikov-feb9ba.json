@@ -4,39 +4,39 @@
     "declarantName": "Румен Иванов Стойков",
     "institution": "Лясковец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7655",
-    "controlHash": "2E5033B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/CA59E46D-4E84-4D8A-8989-2905738C8179210654.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8203",
+    "controlHash": "61F81734",
+    "sourceUrl": "https://register.cacbg.bg/2026/CA59E46D-4E84-4D8A-8989-2905738C8179232690.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4893.063303047811,
-        "amountEurSpouse": 10726.392375615467
+        "amountEurDeclarant": 5217.73364760741,
+        "amountEurSpouse": 12631.977216833773
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Дачия",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
-        "holderName": "Румен Иванов Стойков",
-        "isSpouse": false,
-        "legalBasis": null,
+        "amount": 84000,
+        "valueEur": 42948.518020482355,
+        "holderName": "ЗП Румен Стойков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "селскостопанска дейност"
       },
       {
@@ -68,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 40000,
-        "valueEur": 40903.35049569748,
+        "amount": 55000,
+        "valueEur": 56242.106931584036,
         "holderName": "Румен Иванов Стойков",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60400,
-        "valueEur": 30882.029624251598,
+        "amount": 70605,
+        "valueEur": 36099.763271859,
         "holderName": "Румен Иванов Стойков",
         "isSpouse": false,
         "legalBasis": null,
@@ -104,27 +104,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 176528,
-        "valueEur": 90257.33320380606,
+        "amount": 89300,
+        "valueEur": 45658.36499082231,
         "holderName": "Румен Иванов Стойков",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "селскостопанска дейност"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Джулюница",
-        "municipality": "Лясковец",
-        "areaSqm": 700,
-        "builtAreaSqm": 200,
-        "currency": "BGN",
-        "valueEur": 12782.297029905461,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

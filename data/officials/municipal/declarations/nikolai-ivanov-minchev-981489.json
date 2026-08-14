@@ -1,32 +1,51 @@
 [
   {
     "slug": "nikolai-ivanov-minchev-981489",
-    "declarantName": "Николай Иванов Минчев",
+    "declarantName": "НИКОЛАЙ ИВАНОВ МИНЧЕВ",
     "institution": "Дряново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5941",
-    "controlHash": "FEFE08EC",
-    "sourceUrl": "https://register.cacbg.bg/2025/EAE651CC-A46A-49E0-B394-DCBA4A93967C208887.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2096",
+    "controlHash": "27459638",
+    "sourceUrl": "https://register.cacbg.bg/2026/EAE651CC-A46A-49E0-B394-DCBA4A93967C226079.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7436.740411998998,
-        "amountEurSpouse": 13511.39925249127
+        "amountEurDeclarant": 6155.442957721274,
+        "amountEurSpouse": 3695.617717286267
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9368.912431039507,
+        "amountEurDeclarant": 6166.691379107591,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес S 500",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Николай Иванов Минчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "events": []
   }
 ]

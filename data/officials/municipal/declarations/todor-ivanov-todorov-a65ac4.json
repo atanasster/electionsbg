@@ -4,25 +4,25 @@
     "declarantName": "Тодор Иванов Тодоров",
     "institution": "Луковит",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-02",
-    "entryNumber": "Г570",
-    "controlHash": "280A254F",
-    "sourceUrl": "https://register.cacbg.bg/2025/8539D142-BB54-401A-B2E4-E41CE851E504202662.xml",
+    "filedAt": null,
+    "entryNumber": "Г10838",
+    "controlHash": "6EA9E20F",
+    "sourceUrl": "https://register.cacbg.bg/2026/8539D142-BB54-401A-B2E4-E41CE851E504235648.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3135.753107376408,
-        "amountEurSpouse": 7747.605875766299
+        "amountEurDeclarant": 3959.9556198647124,
+        "amountEurSpouse": 17244.34127710486
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6994.472934764269,
+        "amountEurDeclarant": 7442.364622692156,
         "amountEurSpouse": null
       }
     ],
@@ -30,47 +30,58 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Ауди А4",
+        "detail": "Ситроен Берлинго",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Тодор Иванов Тодоров",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "гр. Луковит",
-        "municipality": "Луковит",
-        "areaSqm": 840,
-        "builtAreaSqm": 160,
-        "currency": "BGN",
-        "valueEur": 9407.77061401042,
-        "legalBasis": "възмездно"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Ауди А4",
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
+        "amount": 230000,
+        "valueEur": 117597.13267513025,
+        "holderName": "Тодор Иванов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит 2.8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43212,
+        "valueEur": 22093.944770250993,
+        "holderName": "Нели Димитрова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит 4.5%",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

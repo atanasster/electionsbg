@@ -4,64 +4,46 @@
     "declarantName": "Хайредин Мустафов Мехмедов",
     "institution": "Антоново",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г1613",
-    "controlHash": "94FFA2D7",
-    "sourceUrl": "https://register.cacbg.bg/2025/CD416BC7-5804-4DFB-8070-F7EA878F4FE6204126.xml",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г1214",
+    "controlHash": "0C575F1E",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD416BC7-5804-4DFB-8070-F7EA878F4FE6224990.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 37557.45642514942,
-        "amountEurSpouse": 5828.216153755695
+        "amountEurDeclarant": 45304.03971715333,
+        "amountEurSpouse": 6378.877509804021
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 10922.21716611362
+        "amountEurSpouse": 23438.642417797048
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Колесен трактор",
-        "detail": "Дойц Фахър",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Кьосевци",
+        "municipality": "Антоново",
+        "areaSqm": 10,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 294000,
-        "valueEur": 150319.81307168823,
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
         "holderName": "Севинч Зекериева Мехмедова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ДФ \"Земеделие\""
-      },
-      {
-        "category": "vehicle",
-        "description": "Мулчер",
-        "detail": "Ферри",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 36000,
-        "valueEur": 18406.507723063867,
-        "holderName": "Севинч Зекериева Мехмедова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ДФ \"Земеделие\""
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -74,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7274,
-        "valueEur": 3719.137143821293,
+        "amount": 216664,
+        "valueEur": 110778.54414749748,
         "holderName": "Севинч Зекериева Мехмедова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Субсидия от ДФ \"Земеделие\""
+        "fundsOrigin": "Субсидия от ДФ Земеделие"
       },
       {
         "category": "bank",
@@ -92,30 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22070,
-        "valueEur": 11284.211818000542,
+        "amount": 77526,
+        "valueEur": 39638.41438161804,
         "holderName": "Хайредин Мустафов Мехмедов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
-        "holderName": "Хайредин Мустафов Мехмедов",
-        "isSpouse": false,
-        "legalBasis": "договор за кредит",
-        "fundsOrigin": null
       }
     ],
     "events": []

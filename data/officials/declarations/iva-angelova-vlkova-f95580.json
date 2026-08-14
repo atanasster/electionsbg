@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10234",
+    "controlHash": "466997AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/73924300-A49A-42BE-9748-0F37078C0798234958.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22245.79845896627,
+        "amountEurSpouse": 8186.294309832654
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 77353,
+        "valueEur": 39549.96088617109,
+        "holderName": "Ива Ангелова Вълкова",
+        "isSpouse": false,
+        "legalBasis": "4,59",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Васил Цеков Вълков",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19225,
+        "valueEur": 9829.5864159973,
+        "holderName": "Васил Цеков Вълков",
+        "isSpouse": true,
+        "legalBasis": "4,59",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iva-angelova-vlkova-f95580",
+    "declarantName": "ИВА АНГЕЛОВА ВЪЛКОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,25 +4,19 @@
     "declarantName": "Галин Антонов Антонов",
     "institution": "Шумен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11869",
-    "controlHash": "78FEB6F9",
-    "sourceUrl": "https://register.cacbg.bg/2025/00C89E3F-F887-4588-980F-851B26A11610215022.xml",
+    "filedAt": null,
+    "entryNumber": "Г13595",
+    "controlHash": "4C89B478",
+    "sourceUrl": "https://register.cacbg.bg/2026/00C89E3F-F887-4588-980F-851B26A11610239141.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6340.0193268331095,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9254.383049651555,
+        "amountEurDeclarant": 15214.001216874678,
         "amountEurSpouse": null
       }
     ],
@@ -64,6 +58,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13495,
+        "valueEur": 6899.883936742968,
+        "holderName": "Галин Антонов Антонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
         "description": "лизинг на автомобил",
         "detail": "BGN",
@@ -74,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16135,
-        "valueEur": 8249.694503100985,
+        "amount": 10447,
+        "valueEur": 5341.466282856894,
         "holderName": "Галин Антонов Антонов",
         "isSpouse": false,
         "legalBasis": "лизингов договор със средно годишно оскъпяване - 4,87%",

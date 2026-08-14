@@ -1,6 +1,56 @@
 [
   {
     "slug": "katya-miteva-pavlova-baedb1",
+    "declarantName": "КАТЯ МИТЕВА ПАВЛОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6103",
+    "controlHash": "621AA00F",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BE6016C-5601-4CC3-A56E-7F4D4DD31826230403.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14772.75632340234,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3144.9563612379397
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ-ТЕКУЩО ПОТРЕБЛЕНИЕ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14554,
+        "valueEur": 7441.3420389297635,
+        "holderName": "КАТЯ МИТЕВА ПАВЛОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ-5,24",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "katya-miteva-pavlova-baedb1",
     "declarantName": "Катя Митева Павлова",
     "institution": "Училища",
     "positionTitle": "Директор",

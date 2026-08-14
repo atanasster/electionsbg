@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13786",
+    "controlHash": "593E1F3B",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5E39DC7-4AB8-4F41-B292-5B3BFC249818239387.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9357.152717771995,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Котел",
+        "municipality": "Котел",
+        "areaSqm": 200,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2021,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Галина Колева Русева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galina-koleva-ruseva-464d85",
+    "declarantName": "Галина Колева Русева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

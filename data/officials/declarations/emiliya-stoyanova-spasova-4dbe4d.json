@@ -1,6 +1,56 @@
 [
   {
     "slug": "emiliya-stoyanova-spasova-4dbe4d",
+    "declarantName": "Емилия стоянова Спасова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г624",
+    "controlHash": "D3E9FECD",
+    "sourceUrl": "https://register.cacbg.bg/2026/39109967-5DDC-4FE1-A860-DF8128413D3D224094.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30909.128093954998,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 666.2133211986727,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Емилия Стоянова Спасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emiliya-stoyanova-spasova-4dbe4d",
     "declarantName": "Емилия Стоянова Спасова",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

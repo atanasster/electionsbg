@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "lyudmil-lyubenov-dobrev-1dfb77",
+    "declarantName": "Людмил Любенов Добрев",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4528",
+    "controlHash": "1EB3F97C",
+    "sourceUrl": "https://register.cacbg.bg/2026/2EFF0004-CEDA-42D4-8800-B20BEACEC876228728.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23184.53035284253,
+        "amountEurSpouse": 58228.98718191254
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 107906,
+        "valueEur": 55171.46173235915,
+        "holderName": "Виолета Наскова Добрева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56339,
+        "valueEur": 28805.673294713753,
+        "holderName": "Людмил Любенов Добрев",
+        "isSpouse": false,
+        "legalBasis": "договор, ЛП 2,6 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11160,
+        "valueEur": 5706.017394149799,
+        "holderName": "Людмил Любенов Добрев",
+        "isSpouse": false,
+        "legalBasis": "договор, ЛП 4,05 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

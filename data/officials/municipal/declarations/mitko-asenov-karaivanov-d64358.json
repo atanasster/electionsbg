@@ -4,20 +4,20 @@
     "declarantName": "Митко Асенов Караиванов",
     "institution": "Кирково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8769",
-    "controlHash": "6F14BE30",
-    "sourceUrl": "https://register.cacbg.bg/2025/CE8629EB-EA80-4FD4-BF62-F0EB1C8D8391211794.xml",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г10142",
+    "controlHash": "5EB10088",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE8629EB-EA80-4FD4-BF62-F0EB1C8D8391234834.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6017.905441679492,
-        "amountEurSpouse": 5816.967732369378
+        "amountEurDeclarant": 10724.347208090683,
+        "amountEurSpouse": 6424.382487230485
       }
     ],
     "assets": [
@@ -32,11 +32,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28078,
-        "valueEur": 14356.053440227422,
+        "amount": 36290,
+        "valueEur": 18554.78236861077,
         "holderName": "Митко Асенов Караиванов",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "кредит, лихва 6,8 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15595,
+        "valueEur": 7973.5968872550275,
+        "holderName": "Митко Асенов Караиванов",
+        "isSpouse": false,
+        "legalBasis": "кредит, лихва 7,06 %",
         "fundsOrigin": null
       }
     ],

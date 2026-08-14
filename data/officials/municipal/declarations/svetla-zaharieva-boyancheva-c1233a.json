@@ -4,71 +4,41 @@
     "declarantName": "Светла Захариева Боянчева",
     "institution": "Гълъбово",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г14254",
-    "controlHash": "49C93A77",
-    "sourceUrl": "https://register.cacbg.bg/2025/AD4B905F-834C-4508-AD7F-3026A6AD980C217535.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4892",
+    "controlHash": "066A644F",
+    "sourceUrl": "https://register.cacbg.bg/2026/AD4B905F-834C-4508-AD7F-3026A6AD980C229123.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29845.640981066863,
+        "amountEurDeclarant": 31033.883312966875,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6800.182019909706,
+        "amountEurDeclarant": 6828.814365256694,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1257.7780277426975,
+        "amountEurDeclarant": 3865.877913724608,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дарение от родител /майка/",
+        "amountEurDeclarant": 3834.6891089716387,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Стара Загора",
-        "municipality": "Стара Загора",
-        "areaSqm": 60,
-        "builtAreaSqm": 60,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 122000,
-        "valueEur": 62377.60950593866,
-        "holderName": "Светла Захариева Боянчева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата, спестявания, кредит"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Хонда HR-V",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 24000,
-        "valueEur": 12271.005148709244,
-        "holderName": "Светла Захариева Боянчева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания, заплата"
-      },
       {
         "category": "debt",
         "description": "Банков заем /кредит/",
@@ -80,27 +50,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 57000,
-        "valueEur": 29143.637228184452,
+        "amount": 15566,
+        "valueEur": 7958.769422700337,
         "holderName": "Светла Захариева Боянчева",
         "isSpouse": false,
-        "legalBasis": "4,8",
+        "legalBasis": "кредит с дог.лихв.% - 4,9 %",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Нисан Кашкай",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "бракуване"
-      }
-    ]
+    "events": []
   }
 ]

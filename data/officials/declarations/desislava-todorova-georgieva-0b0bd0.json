@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "desislava-todorova-georgieva-0b0bd0",
+    "declarantName": "Десислава Тодорова Георгиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8878",
+    "controlHash": "2105C8FF",
+    "sourceUrl": "https://register.cacbg.bg/2026/884F3FE8-2FB3-4BD5-B14E-2BC1485983D9233425.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "фирма",
+        "shareSize": "100%",
+        "companyName": "\"Хрис Кар 2018\" ЕООД",
+        "registeredOffice": "с. Пчелник",
+        "valueEur": 51.12918811962185,
+        "holderName": "Златко Христов Георгиев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13000.107371295051,
+        "amountEurSpouse": 6387.0581799031615
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10763.716682942792
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16710,
+        "valueEur": 8543.68733478881,
+        "holderName": "Десислава Тодорова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12800,
+        "valueEur": 6544.536079311597,
+        "holderName": "Златко Христов Георгиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  }
+]

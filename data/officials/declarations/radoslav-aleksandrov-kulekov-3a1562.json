@@ -5,6 +5,98 @@
     "institution": "Главна дирекция \"Гранична полиция\"",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г2804",
+    "controlHash": "98CEB9C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/F139F085-D3BE-4BCB-998C-1952F9CBCA04226889.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47000.50617896239,
+        "amountEurSpouse": 11248.421386316806
+      },
+      {
+        "parent": null,
+        "category": "Парична награда",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дневни командировъчни пари",
+        "amountEurDeclarant": 1917.8558463670156,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Левски",
+        "municipality": "Левски",
+        "areaSqm": 700,
+        "builtAreaSqm": 102,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Силвия Свиленова Хаджиева",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27460,
+        "valueEur": 14040.07505764816,
+        "holderName": "Радослав Александров Кулеков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Радослав Александров Кулеков",
+        "isSpouse": false,
+        "legalBasis": "договор, 5.15%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radoslav-aleksandrov-kulekov-3a1562",
+    "declarantName": "Радослав Александров Кулеков",
+    "institution": "Главна дирекция \"Гранична полиция\"",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

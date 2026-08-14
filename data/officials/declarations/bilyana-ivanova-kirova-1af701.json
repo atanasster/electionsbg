@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13926",
+    "controlHash": "ED7450E9",
+    "sourceUrl": "https://register.cacbg.bg/2026/71699CD4-549F-4AB7-A9D4-CA50AEC8E7A9239582.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 208607.59881993834,
+        "amountEurSpouse": 14413.3181309214
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30001,
+        "valueEur": 15339.26772776775,
+        "holderName": "Биляна Иванова Кирова",
+        "isSpouse": false,
+        "legalBasis": "4,5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 655,
+        "valueEur": 334.89618218352314,
+        "holderName": "Румен Енев Киров",
+        "isSpouse": true,
+        "legalBasis": "12,30",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "bilyana-ivanova-kirova-1af701",
+    "declarantName": "Биляна Иванова Кирова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,6 +1,56 @@
 [
   {
     "slug": "ivan-atanasov-atanasov-c51c8a",
+    "declarantName": "Иван Атанасов Атанасов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г13697",
+    "controlHash": "A62A5088",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D066F17-3114-4F4B-80F5-EC1EF205974C239283.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24923.94533267206,
+        "amountEurSpouse": 8155.105505079685
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1961.8269481498903
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37360,
+        "valueEur": 19101.864681490722,
+        "holderName": "Иван Атанасов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-atanasov-atanasov-c51c8a",
     "declarantName": "ИВАН АТАНАСОВ АТАНАСОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

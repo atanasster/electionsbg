@@ -4,46 +4,46 @@
     "declarantName": "Стамен Димитров Стаменов",
     "institution": "Чавдар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г3303",
-    "controlHash": "B7491716",
-    "sourceUrl": "https://register.cacbg.bg/2025/286890D0-1798-47E1-90C9-BB8D0DC26E7C206057.xml",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г9454",
+    "controlHash": "05FF7736",
+    "sourceUrl": "https://register.cacbg.bg/2026/286890D0-1798-47E1-90C9-BB8D0DC26E7C234075.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6030.687738709397,
+        "amountEurDeclarant": 8809.559113010844,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4662.470664628317,
+        "amountEurDeclarant": 5464.6876262251835,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Форд Пума",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 49200,
-        "valueEur": 25155.56055485395,
-        "holderName": "Анна Тодорова Гинчева",
-        "isSpouse": true,
-        "legalBasis": "Лизинг",
-        "fundsOrigin": "лизинг и заплати"
+        "amount": 14005,
+        "valueEur": 7160.64279615304,
+        "holderName": "Стамен Димитров Стаменов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии и заплати"
       },
       {
         "category": "bank",
@@ -56,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21500,
-        "valueEur": 10992.775445718698,
-        "holderName": "Стамен Димитров Стаменов",
-        "isSpouse": false,
+        "amount": 3463,
+        "valueEur": 1770.6037845825047,
+        "holderName": "Анна Тодорова Гинчева",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и пенсия"
+        "fundsOrigin": "заплати"
       },
       {
         "category": "debt",
@@ -74,56 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 49200,
-        "valueEur": 25155.56055485395,
+        "amount": 43500,
+        "valueEur": 22241.196832035504,
         "holderName": "Анна Тодорова Гинчева",
         "isSpouse": true,
-        "legalBasis": "договор за лизинг, 1,5%",
+        "legalBasis": "договор за лизинг, 1,5 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "stamen-dimitrov-stamenov-58b1a3",
-    "declarantName": "Стамен Димитров Стаменов",
-    "institution": "Чавдар",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г3314",
-    "controlHash": "A68623EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/286890D0-1798-47E1-90C9-BB8D0DC26E7C206073.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "Председател на ПК \"Възкресение\"",
-        "companyName": "ПК\"Възкресение\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "Председател на ПК\"Възкресение\"",
-        "companyName": "ПК\"Възкресение\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

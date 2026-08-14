@@ -1,6 +1,74 @@
 [
   {
     "slug": "bozhana-lazarova-georgieva-ce057e",
+    "declarantName": "БОЖАНА ЛАЗАРОВА ГЕОРГИЕВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8846",
+    "controlHash": "808710D7",
+    "sourceUrl": "https://register.cacbg.bg/2026/D1C583B8-9C5E-4EB7-AE51-58CFCA82221B233390.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29921.8234713651,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 601.7905441679492,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ТОПОЛОВГРАД",
+        "municipality": "ТОПОЛОВГРАД",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "acquiredYear": 2015,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "БОЖАНА ЛАЗАРОВА ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9714.54574272815,
+        "holderName": "БОЖАНА ЛАЗАРОВА ГЕОРГИЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "bozhana-lazarova-georgieva-ce057e",
     "declarantName": "Божана Лазарова Георгиева",
     "institution": "Училища",
     "positionTitle": "Директор",

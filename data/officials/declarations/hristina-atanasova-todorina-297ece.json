@@ -5,6 +5,98 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3733",
+    "controlHash": "E68CF83F",
+    "sourceUrl": "https://register.cacbg.bg/2026/3C859E5D-DA25-4277-A675-85858E704507227889.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19486.35617615028,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия от НОИ",
+        "amountEurDeclarant": 10732.527878189821,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия от ПОК \"Доверие\"",
+        "amountEurDeclarant": 3582.1109196607067,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Септември",
+        "municipality": "Септември",
+        "areaSqm": 325,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Христина Атанасова Тодорина",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "4/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Христина Атанасова Тодорина",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 20022.190067643915,
+        "holderName": "Христина Атанасова Тодорина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristina-atanasova-todorina-297ece",
+    "declarantName": "Христина Атанасова Тодорина",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

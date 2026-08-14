@@ -4,32 +4,38 @@
     "declarantName": "ВЕСЕЛИН РОСЕНОВ СИРАКОВ",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-27",
-    "entryNumber": "Г4645",
-    "controlHash": "F14FF7F4",
-    "sourceUrl": "https://register.cacbg.bg/2025/CF518ACB-786D-4558-9075-CDFC6515DE52207514.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г14058",
+    "controlHash": "95C3DA49",
+    "sourceUrl": "https://register.cacbg.bg/2026/CF518ACB-786D-4558-9075-CDFC6515DE52239746.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4879.769714136709,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 12269.471273065656,
+        "amountEurSpouse": 9203.253861531934
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
-        "amountEurSpouse": 7818.164155371377
+        "amountEurDeclarant": 6462.729378320202,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 613.5502574354622,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ БАНКОВ КРЕДИТ",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,9 +44,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33797.51,
-        "valueEur": 17280.39246764801,
-        "holderName": "ВЕСЕЛИН РОСЕНОВ СИРАКОВ",
+        "amount": 10,
+        "valueEur": 5.112918811962185,
+        "holderName": "Веселин Росенов Сираков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31800,
+        "valueEur": 16259.081822039749,
+        "holderName": "Веселин Росенов Сираков",
         "isSpouse": false,
         "legalBasis": "5%",
         "fundsOrigin": null

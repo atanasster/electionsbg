@@ -4,13 +4,13 @@
     "declarantName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
     "institution": "Сандански",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-03-24",
-    "entryNumber": "В487",
-    "controlHash": "281CDBA3",
-    "sourceUrl": "https://register.cacbg.bg/2025/0BB64D82-D032-478D-9FCA-72E9F91B6363203235.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3985",
+    "controlHash": "D6E367E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/0BB64D82-D032-478D-9FCA-72E9F91B6363228167.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,8 +21,8 @@
         "registeredOffice": "САНДАНСКИ",
         "valueEur": 178.95215841867648,
         "holderName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "записване на дружествен дял",
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
@@ -33,8 +33,8 @@
         "registeredOffice": "СОФИЯ",
         "valueEur": 2556.4594059810925,
         "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА-КОСТАДИНОВА",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарение и наследяване"
       },
       {
         "table": "10",
@@ -45,8 +45,8 @@
         "registeredOffice": "САНДАНСКИ",
         "valueEur": 2556.4594059810925,
         "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА-КОСТАДИНОВА",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко- продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
@@ -57,8 +57,8 @@
         "registeredOffice": "СОФИЯ",
         "valueEur": 5112.918811962185,
         "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА-КОСТАДИНОВА",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "записване на дружествен дял",
+        "fundsOrigin": "дивидент"
       },
       {
         "table": "10",
@@ -69,8 +69,8 @@
         "registeredOffice": "САНДАНСКИ",
         "valueEur": 511.29188119621847,
         "holderName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "записване на дружествен дял",
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
@@ -81,11 +81,24 @@
         "registeredOffice": "САНДАНСКИ",
         "valueEur": 766.9378217943278,
         "holderName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "записване на дружествен дял",
+        "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6538.911868618438,
+        "amountEurSpouse": 6765.414171988363
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 20870.42329854844,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -100,10 +113,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -118,10 +131,10 @@
         "currency": "BGN",
         "amount": 10000,
         "valueEur": 5112.918811962185,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дивидент"
       },
       {
         "category": "real_estate",
@@ -136,10 +149,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -154,10 +167,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -172,10 +185,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -190,10 +203,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -208,10 +221,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -226,10 +239,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА- КОСТАДИНОВА",
+        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "cash",
@@ -242,30 +255,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 190000,
-        "valueEur": 97145.45742728151,
+        "amount": 240000,
+        "valueEur": 122710.05148709244,
         "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА - КОСТАДИНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 10061,
-        "valueEur": 10060.690346297992,
-        "holderName": "ЕЛИЦА ВАСИЛЕВА БАБАЛЕВА-КОСТАДИНОВА",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "ДИВИДЕНТ"
       },
       {
         "category": "debt",
@@ -282,7 +277,7 @@
         "valueEur": 5879.856633756513,
         "holderName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
         "isSpouse": false,
-        "legalBasis": "17,90 % лихвен процент",
+        "legalBasis": "17.90 лихвен процент",
         "fundsOrigin": null
       },
       {
@@ -300,196 +295,10 @@
         "valueEur": 7669.378217943277,
         "holderName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
         "isSpouse": false,
-        "legalBasis": "17,90% лихвен процент",
+        "legalBasis": "17.90 Лихвен процент",
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "asparuh-ivanov-kostadinov-c90195",
-    "declarantName": "АСПАРУХ ИВАНОВ КОСТАДИНОВ",
-    "institution": "Сандански",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-03-24",
-    "entryNumber": "В488",
-    "controlHash": "F85569EE",
-    "sourceUrl": "https://register.cacbg.bg/2025/0BB64D82-D032-478D-9FCA-72E9F91B6363203236.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "350",
-        "companyName": "СТОУН -2002 ООС",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "1500",
-        "companyName": "ЕЛ МЕНИДЖМЪНТ ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "1000",
-        "companyName": "СПА АКВА ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "СТОУН - 2002 ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "КАИГРУП ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "КАМ-67 ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "ОМНИ МЕДИКА ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "350",
-        "companyName": "СТОУН-2002 ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "1500",
-        "companyName": "ЕЛ МЕНИДЖМЪНТ ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "1000",
-        "companyName": "СПА АКВА ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "СТОУН-2002 ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "КАИГРУП ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "КАМ-67 ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛ",
-        "companyName": "ОМНИ МЕДИКА ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

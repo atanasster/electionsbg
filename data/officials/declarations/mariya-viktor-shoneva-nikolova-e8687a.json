@@ -1,6 +1,81 @@
 [
   {
     "slug": "mariya-viktor-shoneva-nikolova-e8687a",
+    "declarantName": "Мария Виктор Шонева - Николова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8360",
+    "controlHash": "94B3807F",
+    "sourceUrl": "https://register.cacbg.bg/2026/E41A8D70-178E-410F-9C4F-79AF8DB26586232862.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29118.072634124645,
+        "amountEurSpouse": 24625.35087405347
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54000,
+        "valueEur": 27609.7615845958,
+        "holderName": "Мария Виктор Шонева - Николова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12815,
+        "valueEur": 6552.20545752954,
+        "holderName": "Георги Вълков Николов",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит 4,42%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Горна Василица",
+        "municipality": "Костенец",
+        "areaSqm": 810,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "mariya-viktor-shoneva-nikolova-e8687a",
     "declarantName": "Мария Виктор Шонева-Николова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

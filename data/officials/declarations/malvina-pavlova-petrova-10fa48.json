@@ -5,6 +5,50 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9257",
+    "controlHash": "E174CFD4",
+    "sourceUrl": "https://register.cacbg.bg/2026/43CFDF2C-869A-4FB1-A274-ED99C1201EC6233859.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29671.80174146015,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78240,
+        "valueEur": 40003.47678479213,
+        "holderName": "МАЛВИНА ПАВЛОВА ПЕТРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ПЕНСИЯ И ЗАПЛАТА"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "malvina-pavlova-petrova-10fa48",
+    "declarantName": "Малвина Павлова Петрова",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

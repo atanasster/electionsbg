@@ -5,6 +5,104 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4417",
+    "controlHash": "20D07648",
+    "sourceUrl": "https://register.cacbg.bg/2026/88EE6FC5-380F-4D39-A028-6904CDF5E029228615.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9485.998271833441,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1867.749242009786,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 439.7110178287479,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6463.751962082594
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67235,
+        "valueEur": 34376.70963222775,
+        "holderName": "Димитрина Петрова Нецова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6689,
+        "valueEur": 3420.0313933215057,
+        "holderName": "Алексаднър Акепсинов Нецов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Алексаднър Акепсинов Нецов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitrina-petrova-netsova-459761",
+    "declarantName": "Димитрина Петрова Нецова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

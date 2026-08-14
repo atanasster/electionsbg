@@ -4,35 +4,71 @@
     "declarantName": "Соня Христова Нешева",
     "institution": "Стрелча",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10600",
-    "controlHash": "CEFE6521",
-    "sourceUrl": "https://register.cacbg.bg/2025/1704C1E3-7A10-4351-B540-3D9CD5EA876F213698.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12671",
+    "controlHash": "65B4A75D",
+    "sourceUrl": "https://register.cacbg.bg/2026/1704C1E3-7A10-4351-B540-3D9CD5EA876F237989.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3430.25723094543,
+        "amountEurDeclarant": 2628.040269348563,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6029.153863065809
+        "amountEurSpouse": 5790.891846428371
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 30187.183957705936,
+        "amountEurDeclarant": 44656.23290367772,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "ливада",
+        "detail": null,
+        "location": "ЗЛАТИНАТА",
+        "municipality": "СТРЕЛЧА",
+        "areaSqm": 10580,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Соня Христова Нешева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА 4-РЪНЪР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "СОНЯ ХРИСТОВА НЕШЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 54000,
-        "valueEur": 27609.7615845958,
-        "holderName": "Соня Христова Нешева",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "СОНЯ ХРИСТОВА НЕШЕВА",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

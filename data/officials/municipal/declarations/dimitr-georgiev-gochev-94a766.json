@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "dimitr-georgiev-gochev-94a766",
+    "declarantName": "Димитър Георгиев Гочев",
+    "institution": "Козлодуй",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6274",
+    "controlHash": "4E70EF1C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E5EADD44-9AAD-403E-BFE9-2BBC0B858F6E230577.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5011.171727604137,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4916.582729582837,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 6651.396082481607,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Датчия Сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 18557,
+        "valueEur": 9488.043439358227,
+        "holderName": "Омникар Ауто ООД",
+        "isSpouse": true,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18557,
+        "valueEur": 9488.043439358227,
+        "holderName": "Димитър Георгиев Гочев",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 5000.4345980990165,
+        "holderName": "Дмитър Георгиев Гочев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,67 +1,43 @@
 [
   {
     "slug": "hilda-aleksandrova-vladimirova-c3956c",
-    "declarantName": "Хилда Александрова Владимирова",
+    "declarantName": "ХИЛДА АЛЕКСАНДРОВА ВЛАДИМИРОВА",
     "institution": "Лом",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6317",
-    "controlHash": "D5594D50",
-    "sourceUrl": "https://register.cacbg.bg/2025/B5E33098-E37A-4296-B2EE-6F2898C4E1D0209272.xml",
+    "filedAt": "2026-03-23",
+    "entryNumber": "Г695",
+    "controlHash": "D775719A",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5E33098-E37A-4296-B2EE-6F2898C4E1D0224181.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19217.927938522265,
-        "amountEurSpouse": 22978.99101660165
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 214.74259010241175,
-        "amountEurSpouse": 214.74259010241175
+        "amountEurDeclarant": 25180.613857032564,
+        "amountEurSpouse": 25606.519994069015
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА РАВ-4",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 39000,
-        "valueEur": 19940.38336665252,
-        "holderName": "Хилда Александрова Владимирова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
-        "holderName": "Владимир Цветанов Владимиров",
+        "amount": 34000,
+        "valueEur": 17383.92396067143,
+        "holderName": "ВЛАДИМИР ЦВЕТНОВ ВЛАДИМИРОВ",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА"
       }
     ],
     "events": []

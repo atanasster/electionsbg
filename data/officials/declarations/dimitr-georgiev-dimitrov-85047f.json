@@ -1,6 +1,93 @@
 [
   {
     "slug": "dimitr-georgiev-dimitrov-85047f",
+    "declarantName": "Димитър Георгиев Димитров",
+    "institution": "МБАЛ \"Юлия Вревска\" - Бяла ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4833",
+    "controlHash": "9CF9B458",
+    "sourceUrl": "https://register.cacbg.bg/2026/EE5807A6-C152-469F-988A-A8BF282A4404229063.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3380.1506265882003
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 23008.13465382983,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 81806.70099139496,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе ул. Боримечка № 9",
+        "municipality": "Русе",
+        "areaSqm": 97,
+        "builtAreaSqm": 97,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "Димитър Георгиев Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 327000,
+        "valueEur": 167192.44515116344,
+        "holderName": "Димитър Георгиев Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе ул. Боримечка № 9",
+        "municipality": "Русе",
+        "areaSqm": 97,
+        "builtAreaSqm": 97,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "dimitr-georgiev-dimitrov-85047f",
     "declarantName": "ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
     "institution": "МБАЛ \"Юлия Вревска\" - Бяла ЕООД",
     "positionTitle": "Управител",

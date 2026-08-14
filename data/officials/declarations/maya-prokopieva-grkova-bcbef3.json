@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3714",
+    "controlHash": "2C5B2B8D",
+    "sourceUrl": "https://register.cacbg.bg/2026/DB209032-291E-46C5-964F-D25F98483131227866.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29366.560488386007,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2331,
+        "valueEur": 1191.8213750683854,
+        "holderName": "Мая Прокопиева Гъркова",
+        "isSpouse": false,
+        "legalBasis": "21,95",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10386,
+        "valueEur": 5310.277478103925,
+        "holderName": "Мая Прокопиева Гъркова",
+        "isSpouse": false,
+        "legalBasis": "5,1",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-prokopieva-grkova-bcbef3",
+    "declarantName": "МАЯ ПРОКОПИЕВА ГЪРКОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,86 @@
     "institution": "МБАЛ \"Д-р Стефан Черкезов\" АД - гр.Велико Търново",
     "positionTitle": "Представител на Държавата",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3931",
+    "controlHash": "A13D3BC4",
+    "sourceUrl": "https://register.cacbg.bg/2026/19EAB552-56AF-4D4A-932A-DAC25A565C56228107.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33278.45467141827,
+        "amountEurSpouse": 20879.11526052878
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 29294.468333137338,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 16709.01867749242,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4784.158132353016
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 269218,
+        "valueEur": 137648.97767188356,
+        "holderName": "Тодор Атанасов Табаков и Силвана Стефанова Табакова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78575,
+        "valueEur": 40174.75956499287,
+        "holderName": "Тодор Атанасов Табаков и Силвана Стефанова Табакова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todor-atanasov-tabakov-f28285",
+    "declarantName": "Тодор Атанасов Табаков",
+    "institution": "МБАЛ \"Д-р Стефан Черкезов\" АД - гр.Велико Търново",
+    "positionTitle": "Представител на Държавата",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

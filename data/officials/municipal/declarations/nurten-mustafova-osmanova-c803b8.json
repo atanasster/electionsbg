@@ -4,29 +4,53 @@
     "declarantName": "Нуртен Мустафова Османова",
     "institution": "Руен",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г14575",
-    "controlHash": "5302E0B6",
-    "sourceUrl": "https://register.cacbg.bg/2025/A18A67CA-15CE-4247-89BB-EDFEBC440F30217908.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12306",
+    "controlHash": "0AC1701C",
+    "sourceUrl": "https://register.cacbg.bg/2026/A18A67CA-15CE-4247-89BB-EDFEBC440F30237509.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8788.084854000603,
-        "amountEurSpouse": 13112.59158515822
+        "amountEurDeclarant": 20078.4321745755,
+        "amountEurSpouse": 6881.988720901101
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6175.383341087927,
+        "amountEurDeclarant": 6895.793601693399,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от обезщетения за временна неработоспособност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 808.8637560524177
       }
     ],
     "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2614,
+        "valueEur": 1336.5169774469152,
+        "holderName": "Вели Селимов Османов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +62,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 49805,
-        "valueEur": 49804.94214732364,
+        "amount": 49781,
+        "valueEur": 49780.91142890742,
         "holderName": "Нуртен Мустафова Османова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17594,
+        "valueEur": 17593.553631961877,
+        "holderName": "Нуртен Мустафова Османова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и спестявания"
       },
       {
         "category": "bank",
@@ -56,30 +98,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30301,
-        "valueEur": 15492.655292126616,
+        "amount": 46791,
+        "valueEur": 23923.858413052258,
         "holderName": "Нуртен Мустафова Османова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 25448,
-        "valueEur": 13011.355792681368,
-        "holderName": "Нуртен Мустафова Османова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплати и спестявания"
       }
     ],
     "events": []

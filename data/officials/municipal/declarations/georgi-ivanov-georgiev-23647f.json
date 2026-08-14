@@ -4,32 +4,26 @@
     "declarantName": "Георги Иванов Георгиев",
     "institution": "Тутракан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г1665",
-    "controlHash": "43C758B5",
-    "sourceUrl": "https://register.cacbg.bg/2025/F9FC93AC-7A7E-45E3-817F-6FDF3367FA21204180.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10199",
+    "controlHash": "89CD405C",
+    "sourceUrl": "https://register.cacbg.bg/2026/F9FC93AC-7A7E-45E3-817F-6FDF3367FA21234896.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7341.128830215305,
-        "amountEurSpouse": 19160.15195594709
+        "amountEurDeclarant": 14423.543968545324,
+        "amountEurSpouse": 19709.27943635183
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4687.523966806931,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "рента",
+        "category": "РЕНТА",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 357.90431683735295
+        "amountEurSpouse": 409.0335049569748
       }
     ],
     "assets": [
@@ -44,10 +38,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2692,
-        "valueEur": 1376.3977441802201,
-        "holderName": "Георги Иванов Георгиев",
-        "isSpouse": false,
+        "amount": 7670,
+        "valueEur": 3921.6087287749956,
+        "holderName": "Деяна Йорданова Георгиева",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -62,16 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8362,
-        "valueEur": 4275.422710562779,
-        "holderName": "Деяна Йорданова Георгиева",
-        "isSpouse": true,
+        "amount": 2858,
+        "valueEur": 1461.2721964587925,
+        "holderName": "Георги Иванов Георгиев",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "крадит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,11 +74,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17568,
-        "valueEur": 8982.375768855167,
+        "amount": 13294,
+        "valueEur": 6797.1142686225285,
         "holderName": "Деяна Йорданова Георгиева",
         "isSpouse": true,
-        "legalBasis": "догов  + 4,97%",
+        "legalBasis": "5.04%",
         "fundsOrigin": null
       }
     ],

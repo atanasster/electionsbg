@@ -4,29 +4,54 @@
     "declarantName": "Бахар Мехмед Шевкед",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8246",
-    "controlHash": "EFBF2A9E",
-    "sourceUrl": "https://register.cacbg.bg/2025/7AB01037-C6C9-42E3-804C-A148C96ECFA5211262.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г5761",
+    "controlHash": "3F9ED309",
+    "sourceUrl": "https://register.cacbg.bg/2026/7AB01037-C6C9-42E3-804C-A148C96ECFA5230026.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6167.202670988788,
+        "amountEurDeclarant": 7212.794568035054,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 9896.565652434005
+        "amountEurSpouse": 10923.751041757208
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд Маверик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1482.7464554690337,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд Маверик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1482.7464554690337,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

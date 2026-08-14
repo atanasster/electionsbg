@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "katya-valerieva-stoyanova-ca13fc",
+    "declarantName": "Катя Валериева Стоянова",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14677",
+    "controlHash": "3CF74E52",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CE05B5F-8F23-450E-96E0-F4907E758785240667.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29461.149486407307,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2025,
+        "share": "1,93",
+        "currency": "BGN",
+        "amount": 146687,
+        "valueEur": 74999.8721770297,
+        "holderName": "Катя Валериеа Стоянова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11500,
+        "valueEur": 11499.976991865346,
+        "holderName": "Катя Валериева Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11500,
+        "valueEur": 11499.976991865346,
+        "holderName": "Катя Валериева Стоянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 22891,
+        "valueEur": 22891.048813035897,
+        "holderName": "Катя Вакериева Стоянова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,54 +4,97 @@
     "declarantName": "ИЛИЯН ГЕОРГИЕВ ГЕНОВ",
     "institution": "Камено",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-21",
-    "entryNumber": "Г795",
-    "controlHash": "2CB6C14E",
-    "sourceUrl": "https://register.cacbg.bg/2025/74F96883-0147-4000-8DD4-DAE3907B5832203027.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "няма",
-        "shareSize": "100%",
-        "companyName": "УИНТЪР ТРЕЙД ЕООД",
-        "registeredOffice": "гр.Камено",
-        "valueEur": 5.112918811962185,
-        "holderName": "МАРИЯ ДИНКОВА ГЕНОВА",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1806",
+    "controlHash": "1FAAC9A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/74F96883-0147-4000-8DD4-DAE3907B5832225767.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2960.8912840073012,
+        "amountEurDeclarant": 3803.5003042186695,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20657.725875970817,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Болнични. Майчинство. Обезщетения",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 4609.2963089839095
-      },
-      {
-        "parent": null,
-        "category": "Необлагаеми доходи от трудови правоотношения",
-        "amountEurDeclarant": 359.9494843621378,
+        "amountEurDeclarant": 27233.450760035383,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "рено клио",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3157,
+        "valueEur": 1614.1484689364618,
+        "holderName": "Илиян Георгиев Генов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Илиян Георгиев Генов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "съкредитоискател",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Илиян Георгиев Генов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо Ранч",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

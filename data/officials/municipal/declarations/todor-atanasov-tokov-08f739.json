@@ -4,81 +4,62 @@
     "declarantName": "ТОДОР АТАНАСОВ ТОКОВ",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г6003",
-    "controlHash": "CB0F5108",
-    "sourceUrl": "https://register.cacbg.bg/2025/8D84C921-FE1F-4E8A-83BF-7905C4C82ADA208949.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "100",
-        "companyName": "Ай Ди Сълюшънс ЕООД",
-        "registeredOffice": "Пловдив",
-        "valueEur": 2556.4594059810925,
-        "holderName": "Тодор Атанасов Токов",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11295",
+    "controlHash": "63D35691",
+    "sourceUrl": "https://register.cacbg.bg/2026/8D84C921-FE1F-4E8A-83BF-7905C4C82ADA236184.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12177.950026331531,
-        "amountEurSpouse": 43876.0014929723
+        "amountEurDeclarant": 16412.98067827981,
+        "amountEurSpouse": 30436.69439572969
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3854.629492338291,
+        "amountEurDeclarant": 4466.134582248968,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Дивидент",
-        "amountEurDeclarant": 2556.4594059810925,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 7718.462238538114,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -189,24 +170,6 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
-      },
-      {
-        "category": "debt",
-        "description": "банков заем",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
-        "holderName": "Тодор Атанасов Токов",
-        "isSpouse": false,
-        "legalBasis": "Договор за кредит 5.1%",
-        "fundsOrigin": null
       }
     ],
     "events": []

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-02",
+    "entryNumber": "Г807",
+    "controlHash": "B15C5E8A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F7999F6-74A6-4C80-A093-C4F42E2588FF224373.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22678.351390458272,
+        "amountEurSpouse": 17399.774008988512
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 69,
+        "builtAreaSqm": 204,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 51000,
+        "valueEur": 26075.88594100714,
+        "holderName": "Муса Салихов Чолаков",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9060,
+        "valueEur": 4632.3044436377395,
+        "holderName": "Муса Салихов Чолаков",
+        "isSpouse": false,
+        "legalBasis": "Потребителски, 6.73",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "musa-salihov-cholakov-906142",
+    "declarantName": "Муса Салихов Чолаков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

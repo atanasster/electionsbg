@@ -4,20 +4,26 @@
     "declarantName": "Сали Бекир Рамадан",
     "institution": "Кирково",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-14",
-    "entryNumber": "Г701",
-    "controlHash": "49D4156E",
-    "sourceUrl": "https://register.cacbg.bg/2025/C0C09F36-A2A1-405D-9F75-639875FB123D202902.xml",
+    "filedAt": "2026-03-18",
+    "entryNumber": "Г630",
+    "controlHash": "1687BD0C",
+    "sourceUrl": "https://register.cacbg.bg/2026/C0C09F36-A2A1-405D-9F75-639875FB123D224104.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31289.017961683785,
-        "amountEurSpouse": 4936.011821068293
+        "amountEurDeclarant": 36484.76605839976,
+        "amountEurSpouse": 3476.784792134286
+      },
+      {
+        "parent": null,
+        "category": "Парично обезщетение за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1860.0798637918429
       }
     ],
     "assets": [
@@ -43,7 +49,7 @@
         "category": "real_estate",
         "description": "апартамент с паркомясто",
         "detail": null,
-        "location": "гр София",
+        "location": "гр. София",
         "municipality": "София-град (Столична)",
         "areaSqm": 104,
         "builtAreaSqm": 104,
@@ -55,7 +61,7 @@
         "holderName": "Сали Бекир Рамадан - СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "кредит и собствени средсва"
+        "fundsOrigin": "кредит и собствени средства"
       },
       {
         "category": "real_estate",
@@ -77,8 +83,8 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "флксваген",
+        "description": "Лек автомобил",
+        "detail": "фолксваген",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -95,57 +101,21 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Пежо",
+        "description": "Лек автомобил",
+        "detail": "мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2015,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 5800,
-        "valueEur": 2965.4929109380673,
+        "amount": 55742,
+        "valueEur": 28500.43204163961,
         "holderName": "Сали Бекир Рамадан - СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 32150,
-        "valueEur": 16438.033980458426,
-        "holderName": "Сали Бекир Рамадан",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 10650,
-        "valueEur": 5445.258534739727,
-        "holderName": "Сафие Юсуф Рамадан",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплати на двамата съпрузи"
       },
       {
         "category": "bank",
@@ -158,16 +128,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15000,
-        "valueEur": 15000,
+        "amount": 8000,
+        "valueEur": 8000.184065077231,
         "holderName": "Сали Бекир Рамадан",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "Ипотечен кредит с 2,44% лихва",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -176,14 +146,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 69813,
-        "valueEur": 35694.8201019516,
+        "amount": 4687,
+        "valueEur": 2396.425047166676,
+        "holderName": "Сафие Юсуф Рамадан",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38687,
+        "valueEur": 19780.349007838104,
+        "holderName": "Сали Бекир Рамадан",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит с 2,7% лихва",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63663,
+        "valueEur": 32550.375032594857,
         "holderName": "Сали Бекир Рамадан",
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

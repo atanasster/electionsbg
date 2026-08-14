@@ -4,43 +4,49 @@
     "declarantName": "Иван Пейков Илиев",
     "institution": "Левски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г15312",
-    "controlHash": "09DA6A2D",
-    "sourceUrl": "https://register.cacbg.bg/2025/6E2D363B-ADF7-495C-8C62-817CF58F1105219179.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г10520",
+    "controlHash": "3C3D0BA2",
+    "sourceUrl": "https://register.cacbg.bg/2026/6E2D363B-ADF7-495C-8C62-817CF58F1105235279.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6259.746501485303,
-        "amountEurSpouse": 10247.823174815807
+        "amountEurDeclarant": 19257.297413374374,
+        "amountEurSpouse": 11389.026653645768
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16573.526328975422,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 9029.925913806415,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 618.6631762474244,
+        "amountEurDeclarant": 659.5665267431218,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Песия",
-        "amountEurDeclarant": 5639.038157713094,
+        "category": "Песии за 2025 г.",
+        "amountEurDeclarant": 6268.438463465639,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Болнични",
-        "amountEurDeclarant": 1163.7003216025932,
+        "category": "Член 70 от ЗХУ",
+        "amountEurDeclarant": 269.96211327160336,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Болничин",
+        "amountEurDeclarant": 219.85550891437396,
         "amountEurSpouse": null
       }
     ],
@@ -48,16 +54,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 20700,
-        "valueEur": 10583.741940761724,
+        "currency": "EUR",
+        "amount": 27000,
+        "valueEur": 26999.79037032871,
         "holderName": "Иван Пейков Илиев",
         "isSpouse": false,
         "legalBasis": null,

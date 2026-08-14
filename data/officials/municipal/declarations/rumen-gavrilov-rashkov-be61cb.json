@@ -4,38 +4,38 @@
     "declarantName": "Румен Гаврилов Рашков",
     "institution": "Ябланица",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11460",
-    "controlHash": "C6EFD055",
-    "sourceUrl": "https://register.cacbg.bg/2025/F759F224-CF5F-4874-B149-7D72FAB6D5A0214600.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9747",
+    "controlHash": "5E5C9762",
+    "sourceUrl": "https://register.cacbg.bg/2026/F759F224-CF5F-4874-B149-7D72FAB6D5A0234393.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21514.13977697448,
+        "amountEurDeclarant": 26603.027870520444,
+        "amountEurSpouse": 6313.432149010906
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 6313.432149010906,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Договор с НЗОК",
-        "amountEurDeclarant": 4962.0877070093,
+        "category": "Договор с РЗОК Ловеч",
+        "amountEurDeclarant": 4851.137368789721,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Договор с НЗОК",
+        "category": "Договор с РЗОК Ловеч",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 13884.131033883314
-      },
-      {
-        "parent": null,
-        "category": "Пенсия",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 9659.32621955896
+        "amountEurSpouse": 12109.948206132434
       }
     ],
     "assets": [
@@ -50,8 +50,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65076,
-        "valueEur": 33272.83046072511,
+        "amount": 48291,
+        "valueEur": 24690.796234846588,
         "holderName": "Румен Гаврилов Рашков",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9705,
-        "valueEur": 4962.0877070093,
+        "amount": 9488,
+        "valueEur": 4851.137368789721,
         "holderName": "Румен Гаврилов Рашков",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27155,
-        "valueEur": 13884.131033883314,
+        "amount": 23685,
+        "valueEur": 12109.948206132434,
         "holderName": "Виктория Василева Лалева-Рашкова",
         "isSpouse": true,
         "legalBasis": null,

@@ -1,15 +1,15 @@
 {
   "obshtina": "KNL38",
   "registryName": "Рила",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 10,
+    "councillor": 9,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -32,22 +33,24 @@
       }
     },
     {
-      "slug": "asen-vasilev-gavrilov-7d45f3",
-      "name": "Асен Василев Гаврилов",
-      "normalizedName": "АСЕН ВАСИЛЕВ ГАВРИЛОВ",
-      "role": "deputy_mayor",
-      "roleRaw": "Заместник кмет",
-      "municipality": "Рила",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "lazar-nikolov-chavkov-cd148a",
       "name": "Лазар Николов Чавков",
       "normalizedName": "ЛАЗАР НИКОЛОВ ЧАВКОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "stefan-simeonov-simeonov-1e2c34",
+      "name": "Стефан Симеонов Симеонов",
+      "normalizedName": "СТЕФАН СИМЕОНОВ СИМЕОНОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Рила",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "tsvetana-slavchova-shushkova-2d9525",
@@ -56,7 +59,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -73,24 +77,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "borimira-radoslavova-atanasova-0b7fac",
-      "name": "Боримира Радославова Атанасова",
-      "normalizedName": "БОРИМИРА РАДОСЛАВОВА АТАНАСОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Рила",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "ПП ГЕРБ",
-        "partyCanonicalId": "gerb",
-        "listPos": 107,
-        "prefVotes": 42,
-        "isElected": true
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "georgi-petrov-vasev-167253",
@@ -99,7 +87,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -116,7 +105,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -133,7 +123,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -150,7 +141,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -161,28 +153,20 @@
       }
     },
     {
-      "slug": "kotadin-georgiev-mihailov-e76207",
-      "name": "Котадин Георгиев Михайлов",
-      "normalizedName": "КОТАДИН ГЕОРГИЕВ МИХАЙЛОВ",
+      "slug": "kostadin-georgiev-mihailov-7a43d9",
+      "name": "Костадин Георгиев Михайлов",
+      "normalizedName": "КОСТАДИН ГЕОРГИЕВ МИХАЙЛОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "lazar-kostadinov-lazarov-232e98",
-      "name": "Лазар Костадинов Лазаров",
-      "normalizedName": "ЛАЗАР КОСТАДИНОВ ЛАЗАРОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 105,
-        "prefVotes": 54,
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 103,
+        "prefVotes": 72,
         "isElected": true
       }
     },
@@ -193,7 +177,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -204,13 +189,32 @@
       }
     },
     {
+      "slug": "metodi-botov-dzhikov-5007f9",
+      "name": "Методи Ботьов Джиков",
+      "normalizedName": "МЕТОДИ БОТЬОВ ДЖИКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Рила",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 109,
+        "prefVotes": 6,
+        "isElected": false
+      }
+    },
+    {
       "slug": "stoyan-veselinov-milanov-b2ee08",
       "name": "Стоян Веселинов Миланов",
       "normalizedName": "СТОЯН ВЕСЕЛИНОВ МИЛАНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -227,7 +231,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Рила",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",

@@ -4,25 +4,25 @@
     "declarantName": "Галя Йотова Илиева",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13952",
-    "controlHash": "198C8FE5",
-    "sourceUrl": "https://register.cacbg.bg/2025/C48ECD05-D5A9-4F04-A390-E248EDDF66F5217214.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11027",
+    "controlHash": "D545B08F",
+    "sourceUrl": "https://register.cacbg.bg/2026/C48ECD05-D5A9-4F04-A390-E248EDDF66F5235858.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5981.60371811456,
+        "amountEurDeclarant": 6171.804297919553,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5506.102268602077,
+        "amountEurDeclarant": 5615.518731178067,
         "amountEurSpouse": null
       },
       {
@@ -32,7 +32,26 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 34300,
+        "valueEur": 34302.5723094543,
+        "holderName": "Тодор Тодоров Илиев",
+        "isSpouse": true,
+        "legalBasis": "Банков кредит",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,63 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8377",
+    "controlHash": "42D65BE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7259F0F-109B-49C3-A18E-515A7FE6DFE1232879.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19307.404017731602,
+        "amountEurSpouse": 9486.509563714639
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 3802,
+        "valueEur": 1943.9317323080227,
+        "holderName": "Теодора Димитрова Атанасова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "пежо експерт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1173.4148673453215,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "teodora-dimitrova-atanasova-19efc2",
+    "declarantName": "Теодора Димитрова Атанасова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

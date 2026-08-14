@@ -1,36 +1,73 @@
 [
   {
     "slug": "vladimir-stoichev-georgiev-d00f53",
-    "declarantName": "ВЛАДИМИР СТОЙЧЕВ  ГЕОРГИЕВ",
+    "declarantName": "Владимир Стойчев Георгиев",
     "institution": "Девин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13624",
-    "controlHash": "F85270EB",
-    "sourceUrl": "https://register.cacbg.bg/2025/9F2823C9-F004-4654-A2B1-CCB51E1E7F44216857.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г11730",
+    "controlHash": "18E2187F",
+    "sourceUrl": "https://register.cacbg.bg/2026/9F2823C9-F004-4654-A2B1-CCB51E1E7F44236696.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествен дял",
+        "shareSize": "100%",
+        "companyName": "Влади СПА ЕООД",
+        "registeredOffice": "с. Брезе",
+        "valueEur": 25.564594059810926,
+        "holderName": "Владимир Стойчев Георгиев",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "паричен"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3339.758567973699,
+        "amountEurDeclarant": 4124.0803137286985,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 5289.825802856077,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6489.827848023601,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4090.3350495697478,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "избен етаж",
+        "detail": null,
+        "location": "с. Брезе",
+        "municipality": "Девин",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1605,
+        "valueEur": 820.6234693199307,
+        "holderName": "Владимир Стойчев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "ауди а 6",
+        "detail": "ауди А6",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -40,15 +77,15 @@
         "currency": "BGN",
         "amount": 6000,
         "valueEur": 3067.751287177311,
-        "holderName": "владимир стойчев георгиев",
+        "holderName": "Владимир Стойчев Георгиев",
         "isSpouse": false,
-        "legalBasis": "закупена",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "пикап",
-        "detail": "исузу ди макс",
+        "detail": "исузо ди макс",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -58,9 +95,9 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "владимир стойчев георгиев",
+        "holderName": "Владимир Стойчев Георгиев",
         "isSpouse": false,
-        "legalBasis": "закупуване",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
@@ -76,9 +113,9 @@
         "currency": "BGN",
         "amount": 20000,
         "valueEur": 10225.83762392437,
-        "holderName": "владимир стойчев георгиев",
+        "holderName": "Владимир Стойчев Георгиев",
         "isSpouse": false,
-        "legalBasis": "4%",
+        "legalBasis": null,
         "fundsOrigin": null
       }
     ],

@@ -5,6 +5,68 @@
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4646",
+    "controlHash": "E383A197",
+    "sourceUrl": "https://register.cacbg.bg/2026/8BBCD11D-B8D6-4BBB-B7E3-663E82D7F263228863.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21607.194899352195,
+        "amountEurSpouse": 30677.51287177311
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10225.83762392437,
+        "holderName": "АНЕЛИЯ КАНЕВА ПЕЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ РАЗНИ"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕКА",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 50000,
+        "valueEur": 51129.188119621846,
+        "holderName": "ДОБРОМИР ПЕЙЧЕВ ПЕЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aneliya-kaneva-peeva-8bcacb",
+    "declarantName": "АНЕЛИЯ КАНЕВА ПЕЕВА",
+    "institution": "ДФ Земеделие областни дирекции",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

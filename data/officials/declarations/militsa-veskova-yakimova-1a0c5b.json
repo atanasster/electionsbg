@@ -5,6 +5,68 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12743",
+    "controlHash": "DB360ED1",
+    "sourceUrl": "https://register.cacbg.bg/2026/77085E1A-3661-47D8-A26A-8EFF592B57B0238074.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15147.53327231917,
+        "amountEurSpouse": 2848.9183620253293
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10226,
+        "valueEur": 10225.83762392437,
+        "holderName": "Милица Вескова Якова",
+        "isSpouse": true,
+        "legalBasis": "5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16125,
+        "valueEur": 16124.612057285143,
+        "holderName": "Николай Василев Якимов",
+        "isSpouse": true,
+        "legalBasis": "4.5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "militsa-veskova-yakimova-1a0c5b",
+    "declarantName": "Милица Вескова Якимова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

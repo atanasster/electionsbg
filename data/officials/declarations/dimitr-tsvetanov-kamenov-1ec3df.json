@@ -5,6 +5,37 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2593",
+    "controlHash": "F05CFAB1",
+    "sourceUrl": "https://register.cacbg.bg/2026/16A4C896-8280-450F-BDCC-69A1BB944303226656.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18981.199797528414,
+        "amountEurSpouse": 46593.006549649
+      },
+      {
+        "parent": null,
+        "category": "Доходи от ренти и наеми на земеделска земя",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "dimitr-tsvetanov-kamenov-1ec3df",
+    "declarantName": "Димитър Цветанов Каменов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Началник на митнически пункт",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

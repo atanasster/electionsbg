@@ -4,26 +4,26 @@
     "declarantName": "Крум Спасов Нейков",
     "institution": "Златица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-20",
-    "entryNumber": "Г13378",
-    "controlHash": "1E485D4B",
-    "sourceUrl": "https://register.cacbg.bg/2025/E847CC48-3252-4B81-9CAB-3A410937EA79216585.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12752",
+    "controlHash": "A7046E2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/E847CC48-3252-4B81-9CAB-3A410937EA79238085.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6109.426688413615,
-        "amountEurSpouse": 11369.086270279115
+        "amountEurDeclarant": 5529.110403255907,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 43522.69880306571,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 41917.753587990774,
+        "amountEurSpouse": 13074.7559859497
       }
     ],
     "assets": [
@@ -66,6 +66,24 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "Крум Спасов Нейков",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
         "detail": "Хонда",
         "location": null,
         "municipality": null,
@@ -84,16 +102,16 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Сузуки",
+        "detail": "Форд",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2022,
+        "acquiredYear": 2009,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 400,
-        "valueEur": 204.5167524784874,
+        "amount": 1290,
+        "valueEur": 659.5665267431218,
         "holderName": "Крум Спасов Нейков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -101,7 +119,7 @@
       },
       {
         "category": "debt",
-        "description": "Кредит Доверие",
+        "description": "Лизингов договор",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -110,14 +128,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17000,
+        "amount": 49438,
+        "valueEur": 25564.594059810923,
+        "holderName": "Крум Спасов Нейков",
+        "isSpouse": false,
+        "legalBasis": "договор за финансов лизинг 3,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит доверие",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8691,
         "valueEur": 8691.961980335715,
         "holderName": "Крум Спасов Нейков",
         "isSpouse": false,
-        "legalBasis": "Ремонт",
+        "legalBasis": "4,5%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

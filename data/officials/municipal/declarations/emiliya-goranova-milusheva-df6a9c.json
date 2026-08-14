@@ -4,32 +4,26 @@
     "declarantName": "Емилия Горанова Милушева",
     "institution": "Драгоман",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-20",
-    "entryNumber": "Г1214",
-    "controlHash": "CFAC7917",
-    "sourceUrl": "https://register.cacbg.bg/2025/574FE5F9-558B-41BC-9CE7-5ECCF5A9F7B9203616.xml",
+    "filedAt": "2026-03-24",
+    "entryNumber": "Г613",
+    "controlHash": "55F28154",
+    "sourceUrl": "https://register.cacbg.bg/2026/574FE5F9-558B-41BC-9CE7-5ECCF5A9F7B9224073.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24207.114115234963,
+        "amountEurDeclarant": 28258.5909818338,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсии",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 8830.010788258693
-      },
-      {
-        "parent": null,
-        "category": "Дарение от продажба на имот",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 10225.83762392437
+        "amountEurSpouse": 10280.545855212365
       }
     ],
     "assets": [
@@ -37,37 +31,37 @@
         "category": "real_estate",
         "description": "парцел",
         "detail": null,
-        "location": "гр.Драгоман",
+        "location": "гр. Драгоман",
         "municipality": "Драгоман",
-        "areaSqm": 820,
-        "builtAreaSqm": 820,
-        "acquiredYear": 2024,
-        "share": "СИО",
+        "areaSqm": 876,
+        "builtAreaSqm": 876,
+        "acquiredYear": 2025,
+        "share": "7/12",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Мирослав Павлов Милушев",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Емилия Горанова Милушева, Мирослав Павлов Милушев",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "наследство, покупка",
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 46739,
-        "valueEur": 23897.271235230055,
-        "holderName": "Емилия Горанова Милушева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Мирослав Павлов милушев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -85,6 +79,24 @@
         "holderName": "Емилия Горанова Милушева",
         "isSpouse": false,
         "legalBasis": null,
+        "fundsOrigin": "заплата, отчуждавания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67908,
+        "valueEur": 34720.80906827281,
+        "holderName": "Емилия Горанова Милушева",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -98,12 +110,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 73079,
-        "valueEur": 37364.69938593845,
+        "amount": 50005,
+        "valueEur": 25567.150519216906,
         "holderName": "Мирослав Павлов Милушев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, обещетение пенсиониране, пенсия, дарение от продажба на имот"
+        "fundsOrigin": "заплата, обещетения при пенсиониране"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21734,
+        "valueEur": 11112.417745918612,
+        "holderName": "Мирослав Павлов Милушев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
       },
       {
         "category": "bank",
@@ -117,13 +147,26 @@
         "share": null,
         "currency": "EUR",
         "amount": 40816,
-        "valueEur": 40694.23211628823,
+        "valueEur": 40815.919584012925,
         "holderName": "Мирослав Павлов Милушев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Драгоман",
+        "municipality": "Драгоман",
+        "areaSqm": 920,
+        "builtAreaSqm": 920,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

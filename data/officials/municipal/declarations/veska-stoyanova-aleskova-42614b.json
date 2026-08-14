@@ -1,38 +1,57 @@
 [
   {
     "slug": "veska-stoyanova-aleskova-42614b",
-    "declarantName": "ВЕСКА  СТОЯНОВА АЛЕКСОВА",
+    "declarantName": "ВЕСКА   СТОЯНОВА  АЛЕКСОВА",
     "institution": "Брезник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г10044",
-    "controlHash": "C9A1B24E",
-    "sourceUrl": "https://register.cacbg.bg/2025/38C6FC54-22E6-4134-B48A-EBC603BE1FDB213115.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10526",
+    "controlHash": "37DBA661",
+    "sourceUrl": "https://register.cacbg.bg/2026/38C6FC54-22E6-4134-B48A-EBC603BE1FDB235285.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5209.5529775082705,
+        "amountEurDeclarant": 6559.874835747483,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 6416.713109012542,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2597.36275647679,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 20451.67524784874,
+        "category": "ДОХОД ОТ  СУБСИДИИ",
+        "amountEurDeclarant": 26433.790257844495,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ливада",
+        "detail": null,
+        "location": "ГОРНИ РОМАНЦИ",
+        "municipality": "Брезник",
+        "areaSqm": 2,
+        "builtAreaSqm": 2025,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ВЕСКА  СТОЯНОВА АЛЕКСОВА",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

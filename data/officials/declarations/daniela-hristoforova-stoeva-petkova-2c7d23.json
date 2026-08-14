@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "daniela-hristoforova-stoeva-petkova-2c7d23",
+    "declarantName": "Даниела Христофорова Стоева-Петкова",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г7274",
+    "controlHash": "3EEB6401",
+    "sourceUrl": "https://register.cacbg.bg/2026/5D9C0085-F4AE-4723-8C04-237EF7B9D53E231679.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27203.284539044806,
+        "amountEurSpouse": 22541.83645817888
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 245.42010297418489,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "GBP",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "GBP",
+        "amount": 6105,
+        "valueEur": 7008.277815556567,
+        "holderName": "Даниела Христофорова Стоева-Петкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Личен заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11247,
+        "valueEur": 11246.887510673218,
+        "holderName": "Даниела Христофорова Стоева-Петкова",
+        "isSpouse": false,
+        "legalBasis": "5.42%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

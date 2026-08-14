@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "madlen-vasileva-danova-99c1e2",
+    "declarantName": "Мадлен Василева Данова",
+    "institution": "Софийски университет \"Климент Охридски\"",
+    "positionTitle": "Заместник-ректор",
+    "category": "academic",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6934",
+    "controlHash": "B489C696",
+    "sourceUrl": "https://register.cacbg.bg/2026/09388883-7498-4FEF-AAC9-1C8F644AB2B9231309.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9816.804118967395,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 81232.00891693041,
+        "amountEurSpouse": 68783.58548544608
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4164.4723723432,
+        "amountEurSpouse": 8474.151638946125
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41817,
+        "valueEur": 41816.51779551392,
+        "holderName": "Мадлен Василева Данова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 52920,
+        "valueEur": 52917.68712004622,
+        "holderName": "Данаил Кирилов Данов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

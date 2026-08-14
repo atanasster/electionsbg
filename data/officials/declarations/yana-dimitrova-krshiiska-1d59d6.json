@@ -5,6 +5,68 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г290",
+    "controlHash": "53A7D7B4",
+    "sourceUrl": "https://register.cacbg.bg/2026/7546D30B-607F-4A63-9A07-863232878E48223394.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32646.49790625975,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Тополица",
+        "municipality": "Айтос",
+        "areaSqm": 355,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1992,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Яна Димитрова Кършийска",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 200,
+        "valueEur": 102.2583762392437,
+        "holderName": "Яна Димитрова Кършийска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yana-dimitrova-krshiiska-1d59d6",
+    "declarantName": "Яна Димитрова Кършийска",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

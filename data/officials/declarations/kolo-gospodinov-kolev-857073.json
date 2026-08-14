@@ -5,6 +5,74 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Ф275",
+    "controlHash": "62632D0B",
+    "sourceUrl": "https://register.cacbg.bg/2026/B61643F9-4B9B-4D7F-A45A-FE337B08B99C224734.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2026,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 690,
+        "valueEur": 352.7913980253908,
+        "holderName": "Кольо Господинов Колев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kolo-gospodinov-kolev-857073",
+    "declarantName": "Кольо Господинов Колев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г676",
+    "controlHash": "B1214DF4",
+    "sourceUrl": "https://register.cacbg.bg/2026/B61643F9-4B9B-4D7F-A45A-FE337B08B99C224161.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20770.210089833985,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 9464.012720942004,
+        "amountEurSpouse": 5506.613560483273
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "kolo-gospodinov-kolev-857073",
+    "declarantName": "Кольо Господинов Колев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

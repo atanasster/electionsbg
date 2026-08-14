@@ -4,26 +4,26 @@
     "declarantName": "ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
     "institution": "Рудозем",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г5326",
-    "controlHash": "64FB28FE",
-    "sourceUrl": "https://register.cacbg.bg/2025/1A3435FD-D34B-4412-823A-F8739E5A5D4D208246.xml",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г9302",
+    "controlHash": "9F15B509",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A3435FD-D34B-4412-823A-F8739E5A5D4D233906.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7756.809129627831,
+        "amountEurDeclarant": 14541.141101220453,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": 19756.31828942188,
-        "amountEurSpouse": 5440.145615927765
+        "amountEurSpouse": 8215.949238942036
       },
       {
         "parent": null,
@@ -33,30 +33,12 @@
       },
       {
         "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 16616.986138877102,
+        "category": "ДИВИДЕНТИ",
+        "amountEurDeclarant": 86822.98563781106,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "гр.Рудозем",
-        "municipality": "Рудозем",
-        "areaSqm": 16,
-        "builtAreaSqm": 20,
-        "acquiredYear": 2018,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 727,
-        "valueEur": 371.7091976296508,
-        "holderName": "Венцислав Венциславов Пехливанов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,12 +50,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "Венцислав Венциславов Пехливанов",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, наеми, дивиденти"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -86,12 +68,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 255000,
-        "valueEur": 130379.42970503571,
-        "holderName": "Венцислав Венциславов Пехливанов",
+        "amount": 331357,
+        "valueEur": 169420.14387753536,
+        "holderName": "ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, наеми, дивиденти"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12345,
+        "valueEur": 6311.898273367317,
+        "holderName": "ДЕСИСЛАВА ЕВЕЛИНОВА ПЕХЛИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Временен безлихвен заем от съдружник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "ПРОТОКОЛ ОС",
+        "fundsOrigin": null
       }
     ],
     "events": []

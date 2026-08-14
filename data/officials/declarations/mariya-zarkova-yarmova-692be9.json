@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "mariya-zarkova-yarmova-692be9",
+    "declarantName": "Мария Заркова Яръмова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф111",
+    "controlHash": "C81BA8F1",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1C9F403-2B00-470A-B0D4-08CF76AF0DB4223372.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан - Ноут",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 2557,
+        "valueEur": 1307.3733402187306,
+        "holderName": "Мария Заркова Яръмова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18387,
+        "valueEur": 9401.123819554869,
+        "holderName": "Мария Заркова Яръмова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-zarkova-yarmova-692be9",
+    "declarantName": "Мария Заркова Яръмова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-09",
+    "entryNumber": "Г277",
+    "controlHash": "D4947163",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1C9F403-2B00-470A-B0D4-08CF76AF0DB4223369.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1063.9984047693306,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан - Ноут",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Мария Заркова Яръмова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18387,
+        "valueEur": 18387.07863157841,
+        "holderName": "Мария Заркова Яръмова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  }
+]

@@ -4,35 +4,53 @@
     "declarantName": "Венцислав Илиев Ханев",
     "institution": "Угърчин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г11088",
-    "controlHash": "9512D53D",
-    "sourceUrl": "https://register.cacbg.bg/2025/AC10048E-B05B-4BC2-BE0C-29A19832884E214213.xml",
+    "filedAt": null,
+    "entryNumber": "Г9730",
+    "controlHash": "6F585411",
+    "sourceUrl": "https://register.cacbg.bg/2026/AC10048E-B05B-4BC2-BE0C-29A19832884E234376.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6625.831488421795,
-        "amountEurSpouse": 5528.087819493514
+        "amountEurDeclarant": 7377.430553780237,
+        "amountEurSpouse": 6426.42765475527
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13949.065102795234,
+        "amountEurDeclarant": 18696.921511583318,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 1667.8341164620647,
+        "amountEurDeclarant": 2575.888497466549,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Кирчево",
+        "municipality": "Угърчин",
+        "areaSqm": 851,
+        "builtAreaSqm": 260,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Светла Венциславова Михайлова",
+        "isSpouse": true,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,27 +62,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 37000,
-        "valueEur": 36999.63698276435,
-        "holderName": "Венцислав Илиев Ханев",
-        "isSpouse": false,
+        "amount": 8000,
+        "valueEur": 7999.6727731960345,
+        "holderName": "Светла Венциславова Михайлова",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения"
-      }
-    ],
-    "events": [
+        "fundsOrigin": "заплата"
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген Голф",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 715.8086336747059,
-        "legalBasis": "възмездно"
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25000,
+        "valueEur": 25000.1278229703,
+        "holderName": "Венцислав Илиев Ханев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

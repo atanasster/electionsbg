@@ -4,29 +4,47 @@
     "declarantName": "Калин Георгиев Гелев",
     "institution": "Сапарева баня",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12838",
-    "controlHash": "872C7EBF",
-    "sourceUrl": "https://register.cacbg.bg/2025/5C21C490-58FC-4E62-930D-C3869A3E78C1216016.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13642",
+    "controlHash": "5A89A05D",
+    "sourceUrl": "https://register.cacbg.bg/2026/5C21C490-58FC-4E62-930D-C3869A3E78C1239215.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 40361.381101629486,
-        "amountEurSpouse": 3029.4043960875947
+        "amountEurDeclarant": 44476.258161496655,
+        "amountEurSpouse": 4545.384823834383
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 80046.83433631758
+        "amountEurSpouse": 29024.506219865736
       }
     ],
     "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34606,
+        "valueEur": 17693.766840676337,
+        "holderName": "КалинГеоргиев Гелев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Потребителски кредит",
@@ -38,11 +56,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55003,
-        "valueEur": 28122.587341435607,
+        "amount": 47436,
+        "valueEur": 24253.64167642382,
         "holderName": "Калин Георгиев Гелев",
         "isSpouse": false,
-        "legalBasis": "Дог.за заем,Лихвен процент - 4,99%",
+        "legalBasis": "Договор за заем-л.п. 5,05%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Калин Георгиев Гелев",
+        "isSpouse": false,
+        "legalBasis": "Кредитна карта-л.п.18,90%",
         "fundsOrigin": null
       }
     ],

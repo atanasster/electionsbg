@@ -1,58 +1,44 @@
 [
   {
     "slug": "milena-dimitrova-balyamska-344083",
-    "declarantName": "Милена Димитрова Балямска",
+    "declarantName": "МИЛЕНА ДИМИТРОВА БАЛЯМСКА",
     "institution": "Хисаря",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7328",
-    "controlHash": "6E6529CB",
-    "sourceUrl": "https://register.cacbg.bg/2025/5825078D-C444-45F8-91BF-AB0F56F19E3A210316.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялове",
-        "shareSize": "100",
-        "companyName": "Масаи ЕООД",
-        "registeredOffice": "Хисаря",
-        "valueEur": 51.12918811962185,
-        "holderName": "Милена Димитрова Балямска",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г14236",
+    "controlHash": "132BEC52",
+    "sourceUrl": "https://register.cacbg.bg/2026/5825078D-C444-45F8-91BF-AB0F56F19E3A239978.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4610.830184627498,
+        "amountEurDeclarant": 5171.71737829975,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Обезщетение при безработица",
-        "amountEurDeclarant": 9505.427363318899,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1538.4772705194214,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЗЩЕТЕНИЕ ЗА БЕЗРАБОТИЦА",
+        "amountEurDeclarant": 170.26019643834076,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ВЪЗСТАНОВЕНА СУМА НА УПРАВИТЕЛ",
+        "amountEurDeclarant": 6135.502574354622,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Дарение",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 16361.340198278991,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

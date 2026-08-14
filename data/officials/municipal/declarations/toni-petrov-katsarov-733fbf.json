@@ -4,23 +4,42 @@
     "declarantName": "Тони Петров Кацаров",
     "institution": "Ихтиман",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-01-22",
-    "entryNumber": "Г174",
-    "controlHash": "F3862543",
-    "sourceUrl": "https://register.cacbg.bg/2025/5A88162F-B563-4668-8022-4B0D29ED88F1201889.xml",
+    "filedAt": "2026-01-19",
+    "entryNumber": "Г61",
+    "controlHash": "2D7484B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/5A88162F-B563-4668-8022-4B0D29ED88F1222778.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30207.635632953785,
-        "amountEurSpouse": 18819.120271189215
+        "amountEurDeclarant": 30861.57794900375,
+        "amountEurSpouse": 22257.558172233785
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Марияна Симеонова Бонева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Работна заплата"
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,68 @@
     "institution": "Дипломатически институт към МВнР",
     "positionTitle": "Директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г7078",
+    "controlHash": "7119E221",
+    "sourceUrl": "https://register.cacbg.bg/2026/AFAD4503-70F9-467D-82AD-6B07684F0A22231468.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35027.07290510934,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Таня Димова Михайлова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудово възнаграждение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Таня Димова Михайлова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудово възнаграждение"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tanya-dimova-mihailova-a7b4fc",
+    "declarantName": "Таня Димова Михайлова",
+    "institution": "Дипломатически институт към МВнР",
+    "positionTitle": "Директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

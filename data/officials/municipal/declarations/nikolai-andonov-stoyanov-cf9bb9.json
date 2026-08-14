@@ -4,32 +4,22 @@
     "declarantName": "Николай Андонов Стоянов",
     "institution": "Петрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-02-17",
-    "entryNumber": "В179",
-    "controlHash": "9991D48E",
-    "sourceUrl": "https://register.cacbg.bg/2025/CC4C5A52-F6A0-4188-9FD0-47214DE41C9A202020.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13023",
+    "controlHash": "31FE6B18",
+    "sourceUrl": "https://register.cacbg.bg/2026/CC4C5A52-F6A0-4188-9FD0-47214DE41C9A238410.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": []
-  },
-  {
-    "slug": "nikolai-andonov-stoyanov-cf9bb9",
-    "declarantName": "Николай Андонов Стоянов",
-    "institution": "Петрич",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-02-17",
-    "entryNumber": "В180",
-    "controlHash": "49D7E994",
-    "sourceUrl": "https://register.cacbg.bg/2025/CC4C5A52-F6A0-4188-9FD0-47214DE41C9A202021.xml",
-    "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6483.181053568051,
+        "amountEurSpouse": 11853.79097365313
+      }
+    ],
     "assets": [],
     "events": []
   }

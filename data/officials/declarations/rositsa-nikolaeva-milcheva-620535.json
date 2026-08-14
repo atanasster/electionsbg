@@ -5,6 +5,56 @@
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4144",
+    "controlHash": "62F73085",
+    "sourceUrl": "https://register.cacbg.bg/2026/31812131-9B46-46D6-A120-BBED4A782AC8228340.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62238.026822372085,
+        "amountEurSpouse": 6018.928025441884
+      },
+      {
+        "parent": null,
+        "category": "доходи от пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9752.38134193667
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16789,
+        "valueEur": 8584.079393403312,
+        "holderName": "Росица Николаева Милчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rositsa-nikolaeva-milcheva-620535",
+    "declarantName": "Росица Николаева Милчева",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

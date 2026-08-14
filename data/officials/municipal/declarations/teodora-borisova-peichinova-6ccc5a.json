@@ -4,29 +4,48 @@
     "declarantName": "Теодора Борисова Пейчинова",
     "institution": "Батак",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-28",
-    "entryNumber": "Г1157",
-    "controlHash": "105F8B28",
-    "sourceUrl": "https://register.cacbg.bg/2025/D7D9136B-FC85-4A23-8270-2669A6EDBC05203525.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3394",
+    "controlHash": "C1C45D68",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7D9136B-FC85-4A23-8270-2669A6EDBC05227525.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20334.07811517361,
-        "amountEurSpouse": 11493.330197409796
+        "amountEurDeclarant": 23391.603564726996,
+        "amountEurSpouse": 13392.26824417255
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4095.4479683817103,
+        "amountEurDeclarant": 4004.9493054099794,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7500,
+        "valueEur": 7669.378217943277,
+        "holderName": "Теодора Борисова Пейчинова",
+        "isSpouse": false,
+        "legalBasis": "4,8%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

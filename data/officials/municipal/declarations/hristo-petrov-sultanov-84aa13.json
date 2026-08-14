@@ -4,26 +4,32 @@
     "declarantName": "ХРИСТО ПЕТРОВ СУЛТАНОВ",
     "institution": "Твърдица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-21",
-    "entryNumber": "Г3657",
-    "controlHash": "38F632F5",
-    "sourceUrl": "https://register.cacbg.bg/2025/31F52205-39B4-4EDA-9777-D8B05B00B034206456.xml",
+    "filedAt": null,
+    "entryNumber": "Г3905",
+    "controlHash": "6C7A45AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/31F52205-39B4-4EDA-9777-D8B05B00B034228081.xml",
     "ownershipStakes": [],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9056.513091628618,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 209.11837940925335,
-        "amountEurSpouse": 552.195231691916
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1104.390463383832
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ И СПЕСТЯВАНИЯ",
-        "amountEurDeclarant": 9771.299141540932,
-        "amountEurSpouse": 1236.3037687324563
+        "amountEurDeclarant": 16645.107192342894,
+        "amountEurSpouse": 2767.6229529151306
       }
     ],
     "assets": [
@@ -38,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19111,
-        "valueEur": 9771.299141540932,
+        "amount": 32555,
+        "valueEur": 16645.107192342894,
         "holderName": "ХРИСТО ПЕТРОВ СУЛТАНОВ",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2418,
-        "valueEur": 1236.3037687324563,
+        "amount": 5413,
+        "valueEur": 2767.6229529151306,
         "holderName": "ВЕСА ПЕНЧЕВА СУЛТАНОВА",
         "isSpouse": true,
         "legalBasis": null,

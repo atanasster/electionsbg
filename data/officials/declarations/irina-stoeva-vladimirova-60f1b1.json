@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г6000",
+    "controlHash": "61C2A970",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE1E5E4F-DDFC-4E2E-A064-08A6F5E44301230289.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57543,
+        "valueEur": 29421.268719674,
+        "holderName": "Владислав Дончев Владимиров",
+        "isSpouse": true,
+        "legalBasis": "3,9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "irina-stoeva-vladimirova-60f1b1",
+    "declarantName": "Ирина Стоева Владимирова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

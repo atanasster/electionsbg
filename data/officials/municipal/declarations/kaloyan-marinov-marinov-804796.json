@@ -4,45 +4,59 @@
     "declarantName": "Калоян Маринов Маринов",
     "institution": "Аксаково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г9704",
-    "controlHash": "439AC918",
-    "sourceUrl": "https://register.cacbg.bg/2025/2A43571A-1C44-422B-94B7-7B6E82D5B2DE212753.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г5106",
+    "controlHash": "B36791A4",
+    "sourceUrl": "https://register.cacbg.bg/2026/2A43571A-1C44-422B-94B7-7B6E82D5B2DE229349.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "\"Луна 09\" ООД",
+        "registeredOffice": "гр. Варна",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Калоян Маринов Маринов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6075.681424254664,
+        "amountEurDeclarant": 7163.710547440217,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13977.69744814222,
+        "amountEurDeclarant": 15547.363523414611,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Мока",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 5400,
-        "valueEur": 2760.97615845958,
+        "amount": 10738,
+        "valueEur": 5490.252220284994,
         "holderName": "Калоян Маринов Маринов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -56,11 +70,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27232,
-        "valueEur": 13923.500508735422,
+        "amount": 47355,
+        "valueEur": 24212.227034046926,
         "holderName": "Калоян Маринов Маринов",
         "isSpouse": false,
-        "legalBasis": "битови нужди, 4.77%",
+        "legalBasis": "битови нужди, 4,1% лихва",
         "fundsOrigin": null
       },
       {
@@ -78,59 +92,10 @@
         "valueEur": 2556.4594059810925,
         "holderName": "Калоян Маринов Маринов",
         "isSpouse": false,
-        "legalBasis": "битови нужди",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
-        "holderName": "Калоян Маринов Маринов",
-        "isSpouse": false,
-        "legalBasis": "битови нужди",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "Калоян Маринов Маринов",
-        "isSpouse": false,
-        "legalBasis": "битови нужди",
+        "legalBasis": "битови нужди, 18,9% лихва",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Ярис",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1150.4067326914917,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

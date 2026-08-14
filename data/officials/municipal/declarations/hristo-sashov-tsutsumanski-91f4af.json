@@ -1,28 +1,41 @@
 [
   {
     "slug": "hristo-sashov-tsutsumanski-91f4af",
-    "declarantName": "ХРИСТО  САШОВ ЦУЦУМАНСКИ",
+    "declarantName": "ХРИСТО  САШОВ  ЦУЦУМАНСКИ",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-26",
-    "entryNumber": "Г193",
-    "controlHash": "7B44F343",
-    "sourceUrl": "https://register.cacbg.bg/2025/9A4ABD79-92DD-4B9C-8924-637F75F68E03201920.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1520",
+    "controlHash": "7AEE3082",
+    "sourceUrl": "https://register.cacbg.bg/2026/9A4ABD79-92DD-4B9C-8924-637F75F68E03225430.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "2500 лв.",
+        "companyName": "БУЛФОРС-КХ ООД",
+        "registeredOffice": "Кюстендил",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Христо Сашов Цуцумански",
+        "legalBasis": "дружествен договор",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5754.590122863439,
+        "amountEurDeclarant": 6113.517023463184,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4306.611515315748,
+        "amountEurDeclarant": 5850.201704647132,
         "amountEurSpouse": null
       }
     ],
@@ -40,7 +53,7 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Христо Сашов цуцумански",
+        "holderName": "Христо Сашов Цуцумански",
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
@@ -58,27 +71,9 @@
         "currency": "BGN",
         "amount": 7000,
         "valueEur": 3579.0431683735296,
-        "holderName": "Христо Сашов цуцумански",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
         "holderName": "Христо Сашов Цуцумански",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],

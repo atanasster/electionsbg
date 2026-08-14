@@ -1,6 +1,68 @@
 [
   {
     "slug": "georgi-dimitrov-botev-8e3751",
+    "declarantName": "Георги Димитров Ботев",
+    "institution": "Североизточно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7857",
+    "controlHash": "8666266D",
+    "sourceUrl": "https://register.cacbg.bg/2026/C167B81A-0E9D-4435-AA76-1B5B028603F0232310.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28111.850211930487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15063,
+        "valueEur": 7701.5896064586395,
+        "holderName": "Георги Димитров Ботев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70416,
+        "valueEur": 36003.129106312925,
+        "holderName": "Георги Димитров Ботев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-dimitrov-botev-8e3751",
     "declarantName": "Георги Диммитров Ботев",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор",

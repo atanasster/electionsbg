@@ -4,46 +4,64 @@
     "declarantName": "Искра Иванова Гиздова",
     "institution": "Хайредин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13262",
-    "controlHash": "F9E4C198",
-    "sourceUrl": "https://register.cacbg.bg/2025/418943B6-8B1F-42B0-9B09-DF4728B0B925216463.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г14364",
+    "controlHash": "9900776C",
+    "sourceUrl": "https://register.cacbg.bg/2026/418943B6-8B1F-42B0-9B09-DF4728B0B925240122.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6782.798095949034,
-        "amountEurSpouse": 4294.851802048235
+        "amountEurDeclarant": 7403.506439721244,
+        "amountEurSpouse": 4172.1417505611425
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17516.859849782446,
+        "amountEurDeclarant": 21332.11986726863,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Фолксваген \"Голф\" 4",
+        "category": "real_estate",
+        "description": "ниви",
+        "detail": null,
+        "location": "Хайредин",
+        "municipality": "Хайредин",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Искра Иванова Гиздова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
-        "holderName": "Данчо Евстатиев Владимиров",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Искра Иванова Гиздова",
+        "isSpouse": false,
+        "legalBasis": "8.1021%",
+        "fundsOrigin": null
       }
     ],
     "events": []

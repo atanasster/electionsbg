@@ -1,29 +1,35 @@
 [
   {
     "slug": "iva-nikolova-dicheva-6f59d3",
-    "declarantName": "Ива Николова Дичева",
+    "declarantName": "ИВА НИКОЛОВА ДИЧЕВА",
     "institution": "Куклен",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г1734",
-    "controlHash": "D134A1DA",
-    "sourceUrl": "https://register.cacbg.bg/2025/6129FADE-22CB-41CA-ACED-237E189429BC204264.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11312",
+    "controlHash": "2C4EA6AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/6129FADE-22CB-41CA-ACED-237E189429BC236201.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23084.828436009266,
+        "amountEurDeclarant": 31905.635970406427,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 153.38756435886555,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 17660.021576517385
+        "amountEurSpouse": 10338.321837787538
       }
     ],
     "assets": [
@@ -38,11 +44,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 79631,
-        "valueEur": 40714.683791536074,
-        "holderName": "Ива Николова Дичева",
+        "amount": 74150,
+        "valueEur": 37912.2929906996,
+        "holderName": "ИВА НИКОЛОВА ДИЧЕВА",
         "isSpouse": false,
-        "legalBasis": "договор на ипотека",
+        "legalBasis": "2.69 ДОГОВОРНА ИПОТЕКА",
         "fundsOrigin": null
       }
     ],

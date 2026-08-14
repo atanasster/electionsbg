@@ -5,6 +5,63 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г5226",
+    "controlHash": "FB19A09F",
+    "sourceUrl": "https://register.cacbg.bg/2026/8AFE5F79-325F-49C0-A335-55985DD73839229477.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "50 %",
+        "companyName": "Братя Захариеви",
+        "registeredOffice": "Якоруда",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Здравко Илиев Захариев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22655.854547685638,
+        "amountEurSpouse": 3516.1542669863948
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20076,
+        "valueEur": 10264.695806895283,
+        "holderName": "Катерина Любомирова Захариева",
+        "isSpouse": false,
+        "legalBasis": "Договор  5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "katerina-lyubomirova-zaharieva-915d0e",
+    "declarantName": "Катерина Любомирова Захариева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,67 +4,29 @@
     "declarantName": "Кармелита Костадинова Палашева",
     "institution": "Хаджидимово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-18",
-    "entryNumber": "Г671",
-    "controlHash": "D642DE35",
-    "sourceUrl": "https://register.cacbg.bg/2025/1D0E708D-E67D-4141-A75B-BF14C8FB1282202836.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "капитал",
-        "shareSize": "100%",
-        "companyName": "Кармелита мрамор ЕООД",
-        "registeredOffice": "гр. Хаджидимово",
-        "valueEur": 51.12918811962185,
-        "holderName": "Ангел Димитров Палашев",
-        "legalBasis": "учредителен договор",
-        "fundsOrigin": "спестявания"
-      }
-    ],
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2850",
+    "controlHash": "8FCC33B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/1D0E708D-E67D-4141-A75B-BF14C8FB1282226942.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3882.239253922887,
-        "amountEurSpouse": 2496.6382558811347
+        "amountEurDeclarant": 4998.389430574232,
+        "amountEurSpouse": 2842.2715675697787
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6638.613785451701,
+        "amountEurDeclarant": 7911.219277749089,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "поземлен имот",
-        "detail": null,
-        "location": "гр. Гоце Делчев",
-        "municipality": "Гоце Делчев",
-        "areaSqm": 261,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1380.48807922979,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "поземлен имот",
-        "detail": null,
-        "location": "гр. Гоце Делчев",
-        "municipality": "Гоце Делчев",
-        "areaSqm": 1214,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4218.1580198688025,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

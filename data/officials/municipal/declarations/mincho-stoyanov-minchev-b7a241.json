@@ -4,23 +4,48 @@
     "declarantName": "Минчо Стоянов Минчев",
     "institution": "Велики Преслав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12563",
-    "controlHash": "00B822B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/04ABC70E-EE7A-4A09-BF31-4F96B29C604C215732.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г7849",
+    "controlHash": "3E31675B",
+    "sourceUrl": "https://register.cacbg.bg/2026/04ABC70E-EE7A-4A09-BF31-4F96B29C604C232301.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5898.7744333607725,
-        "amountEurSpouse": 12674.41444297306
+        "amountEurDeclarant": 6530.731198519299,
+        "amountEurSpouse": 13394.824703578532
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 6166.180087226395,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Минчо Стоянов Минчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

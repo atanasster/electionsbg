@@ -4,13 +4,13 @@
     "declarantName": "ШАКИР ЗЕКЕРИЕВ ШАКИРОВ",
     "institution": "Омуртаг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г15322",
-    "controlHash": "0318A355",
-    "sourceUrl": "https://register.cacbg.bg/2025/18A25293-FE73-4FD1-8171-FA4F4DB16D8C219234.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г4278",
+    "controlHash": "A94AF658",
+    "sourceUrl": "https://register.cacbg.bg/2026/18A25293-FE73-4FD1-8171-FA4F4DB16D8C228475.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -18,43 +18,49 @@
         "itemType": "ЕООД",
         "shareSize": "100%",
         "companyName": "\"Шакирови\" ЕООД",
-        "registeredOffice": "ГР. ОМУРТАГ",
+        "registeredOffice": "гр. Омуртаг",
         "valueEur": 15.338756435886555,
         "holderName": "ШАКИР ЗЕКЕРИЕВ ШАКИРОВ",
         "legalBasis": "РЕГИСТРАЦИЯ 2015 Г.",
-        "fundsOrigin": "СОБСТВЕНИ СРЕДСТВА"
+        "fundsOrigin": "Собствени средства"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5327.1501101834,
-        "amountEurSpouse": 3986.5427976869155
+        "amountEurDeclarant": 5628.81232008917,
+        "amountEurSpouse": 6191.744681286206
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 341.54297663907397,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "ТОВАРЕН АВТОМОБИЛ",
-        "detail": "ОПЕЛ ВИВАРО",
+        "description": "Лек автомобил",
+        "detail": "Дачия Логан",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "ШАКИР ЗЕКЕРИЕВ ШАКИРОВ, Фикрие Алиева Шакирова",
-        "isSpouse": true,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Шакир Зекериев Шакиров",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -63,11 +69,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10238,
-        "valueEur": 5234.606279686885,
+        "amount": 9425,
+        "valueEur": 4818.925980274359,
         "holderName": "ФИКРИЕ АЛИЕВА ШАКИРОВА",
         "isSpouse": true,
-        "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИР, 9,15%",
+        "legalBasis": "Потребителски кредит, 9.21%",
         "fundsOrigin": null
       }
     ],

@@ -1,32 +1,56 @@
 [
   {
     "slug": "lora-krasimirova-lazarova-4aabee",
-    "declarantName": "ЛОРА КРАСИМИРОВА ЛАЗАРОВА",
+    "declarantName": "Лора Красимирова Лазарова",
     "institution": "Мизия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г6697",
-    "controlHash": "69BF229C",
-    "sourceUrl": "https://register.cacbg.bg/2025/F0285D71-7680-4D99-9393-C439F3D5D5FE209664.xml",
+    "entryNumber": "Г4854",
+    "controlHash": "E5B8021B",
+    "sourceUrl": "https://register.cacbg.bg/2026/F0285D71-7680-4D99-9393-C439F3D5D5FE229085.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3732.430732732395,
+        "amountEurDeclarant": 1354.923485169979,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19575.32096347842,
+        "amountEurDeclarant": 7884.6320999268855,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения при временна нетрудоспособност, бременност и майчинство",
+        "amountEurDeclarant": 10481.48356452248,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
+        "holderName": "Павел Ангелов Тодоров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Подаръци"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +62,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 97442,
-        "valueEur": 49821.303487521924,
-        "holderName": "ЛОРА КРАСИМИРОВА ЛАЗАРОВА",
+        "amount": 25881,
+        "valueEur": 13232.74517723933,
+        "holderName": "Лора Красимирова Лазарова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98053,
+        "valueEur": 50133.702826932815,
+        "holderName": "Лора Красимирова Лазарова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Подаръци"
       }
     ],
     "events": []

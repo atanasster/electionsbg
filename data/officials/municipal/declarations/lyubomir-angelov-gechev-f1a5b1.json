@@ -4,20 +4,20 @@
     "declarantName": "Любомир Ангелов Гечев",
     "institution": "Пазарджик",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11436",
-    "controlHash": "3C869635",
-    "sourceUrl": "https://register.cacbg.bg/2025/6F0FE6AB-EB27-41A6-B24B-AE2E2DEDE22F214573.xml",
+    "filedAt": null,
+    "entryNumber": "Г8477",
+    "controlHash": "262803C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F0FE6AB-EB27-41A6-B24B-AE2E2DEDE22F232985.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30677.51287177311,
-        "amountEurSpouse": 20502.804435968363
+        "amountEurDeclarant": 34767.84792134286,
+        "amountEurSpouse": 21729.904950839285
       }
     ],
     "assets": [
@@ -59,20 +59,38 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил - SUV",
-        "detail": "Форд Куга",
+        "description": "Автомобил SUV",
+        "detail": "Пежо 3008",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2015,
-        "share": "100%",
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
         "holderName": "Любомир Ангелов Гечев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Любомир Ангелов Гечев",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -86,26 +104,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 34000,
-        "valueEur": 34767.84792134286,
-        "holderName": "Любомир Ангелов Гечев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 52000,
-        "valueEur": 26587.17782220336,
+        "amount": 59000,
+        "valueEur": 59821.150099957566,
         "holderName": "Любомир Ангелов Гечев",
         "isSpouse": false,
         "legalBasis": null,
@@ -122,8 +122,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14500,
-        "valueEur": 7413.732277345168,
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
         "holderName": "Любомир Ангелов Гечев",
         "isSpouse": false,
         "legalBasis": null,
@@ -140,12 +140,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Даниела Атанасова Атанасова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
+        "holderName": "Любомир Ангелов Гечев",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
       },
       {
         "category": "investment",
@@ -168,7 +186,7 @@
       {
         "category": "security",
         "description": "iShares Core S&P 500 UCITS ETF",
-        "detail": "iShares/BlackRock",
+        "detail": "iShares/Blackrock",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -202,6 +220,19 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "ФОРД КУГА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

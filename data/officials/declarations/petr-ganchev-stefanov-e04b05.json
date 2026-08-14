@@ -5,6 +5,87 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г7844",
+    "controlHash": "DA5C64FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/6D19B68B-321A-4934-BD90-2C22F57B13A5232292.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в дружество",
+        "shareSize": "100",
+        "companyName": "ПЕГАС ЕООД",
+        "registeredOffice": "Монтана",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Анастасия Василева Стефанова",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22018.78486371515,
+        "amountEurSpouse": 5542.403992167008
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2208.780926767664,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55292,
+        "valueEur": 28270.35069510131,
+        "holderName": "Анастасияя Василева Стефанова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46653,
+        "valueEur": 23853.30013344718,
+        "holderName": "Петър Ганчев Стефанов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-ganchev-stefanov-e04b05",
+    "declarantName": "Петър Ганчев Стефанов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,44 +1,68 @@
 [
   {
     "slug": "yuliana-angelova-antimova-nankova-ba4dc9",
-    "declarantName": "Юлиана Ангелова Антимова-Нанков",
+    "declarantName": "Юлиана Ангелова Антимова-Накова",
     "institution": "Троян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-20",
-    "entryNumber": "Г4020",
-    "controlHash": "C9C87524",
-    "sourceUrl": "https://register.cacbg.bg/2025/322456C0-916F-406B-A927-20EF3F895DE1206845.xml",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г14446",
+    "controlHash": "71EE1FBB",
+    "sourceUrl": "https://register.cacbg.bg/2026/322456C0-916F-406B-A927-20EF3F895DE1240226.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6708.660773175583,
+        "amountEurDeclarant": 8110.6231114156135,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21684.91126529402,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1338.0508530905038,
+        "amountEurDeclarant": 25479.71960753235,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 613.5502574354622,
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1149.8954408102954,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент от \"МЕДИКА 2000\" ООД за счетоводната 2024г., изплатен м.05, 2025г.",
+        "amountEurDeclarant": 79387.26780957445,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Орешак, област Ловеч",
+        "municipality": "Троян",
+        "areaSqm": 1104,
+        "builtAreaSqm": 156,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 185804,
+        "valueEur": 95000.07669378218,
+        "holderName": "Юлиана Ангелова Антимова-Ненкова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -50,8 +74,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Юлиана Ангелова Антимова-Нанкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 103000,
+        "valueEur": 102999.74946697822,
         "holderName": "Юлиана Ангелова Антимова-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
@@ -68,15 +110,15 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 91000,
-        "valueEur": 46527.561188855885,
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
         "holderName": "Юлиана Ангелова Антимова-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата + дивиденти 2023"
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
+        "category": "investment",
         "description": null,
         "detail": "EUR",
         "location": null,
@@ -86,12 +128,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 108800,
-        "valueEur": 109144.45529519436,
+        "amount": 20000,
+        "valueEur": 20000.204516752478,
         "holderName": "Юлиана Ангелова Антимова-Нанкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата + дивиденти 2023"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

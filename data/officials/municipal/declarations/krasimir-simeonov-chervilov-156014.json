@@ -4,13 +4,13 @@
     "declarantName": "Красимир Симеонов Червилов",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4100",
-    "controlHash": "F5D3147E",
-    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894206932.xml",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г11676",
+    "controlHash": "380C52B9",
+    "sourceUrl": "https://register.cacbg.bg/2026/D19F00E1-A7B6-41AA-89F0-CB6502284894236638.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -35,7 +35,7 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7976.153346661008,
+        "amountEurDeclarant": 10430.354376402856,
         "amountEurSpouse": null
       }
     ],
@@ -57,50 +57,44 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "krasimir-simeonov-chervilov-156014",
-    "declarantName": "Красимир Симеонов Червилов",
-    "institution": "Стара Загора",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-01-27",
-    "entryNumber": "Г6664",
-    "controlHash": "B47C473F",
-    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894209628.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "50%",
-        "companyName": "Д.К.С. Инвестмънт ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
       },
       {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "Член на управителния съвет",
-        "companyName": "Фондация \"Фондация ВМРО\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Лясково",
+        "municipality": "Стара Загора",
+        "areaSqm": 1,
+        "builtAreaSqm": 458,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 1300,
+        "valueEur": 664.679445555084,
+        "holderName": "Красимир Симеонов Червилов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6555,
+        "valueEur": 6554.761916935521,
+        "holderName": "Красимир Симеонов Червилов",
+        "isSpouse": false,
+        "legalBasis": "кредит, лихвен процент 4,65%",
         "fundsOrigin": null
       }
     ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

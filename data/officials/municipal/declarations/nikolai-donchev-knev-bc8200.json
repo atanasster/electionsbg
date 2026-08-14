@@ -4,23 +4,66 @@
     "declarantName": "Николай Дончев Кънев",
     "institution": "Николаево",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г7548",
-    "controlHash": "08C3211E",
-    "sourceUrl": "https://register.cacbg.bg/2025/5860E456-2922-42DE-94B2-1CA8DB9147F2210544.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г5491",
+    "controlHash": "3057250A",
+    "sourceUrl": "https://register.cacbg.bg/2026/5860E456-2922-42DE-94B2-1CA8DB9147F2229752.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11336.363589882556,
-        "amountEurSpouse": 3765.664705010149
+        "amountEurDeclarant": 15305.5224636088,
+        "amountEurSpouse": 5666.136627416493
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 4675.764253539418,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6525,
+        "valueEur": 3336.179524805326,
+        "holderName": "Николай Дончев Кънев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11659,
+        "valueEur": 5961.152042866712,
+        "holderName": "Мария Михайлова Кънева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

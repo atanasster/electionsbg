@@ -5,6 +5,68 @@
     "institution": "ГДИН",
     "positionTitle": "Началник на затвор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г2680",
+    "controlHash": "6DED9065",
+    "sourceUrl": "https://register.cacbg.bg/2026/7C9B5117-83FF-481E-B5F5-01D19F3DEFEC226755.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39317.32308022681,
+        "amountEurSpouse": 24137.067127511084
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26600,
+        "valueEur": 13600.364039819411,
+        "holderName": "Адриан Христов Ненчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Адриан Христов Ненчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "adrian-hristov-nenchev-731537",
+    "declarantName": "Адриан Христов Ненчев",
+    "institution": "ГДИН",
+    "positionTitle": "Началник на затвор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

@@ -4,15 +4,28 @@
     "declarantName": "Диана Велинова Фиданова",
     "institution": "Баните",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г9921",
-    "controlHash": "C4F7FFEA",
-    "sourceUrl": "https://register.cacbg.bg/2025/7534EBC7-4733-403D-97B6-2337511CCEC9212989.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11225",
+    "controlHash": "E082C1F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/7534EBC7-4733-403D-97B6-2337511CCEC9236092.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9570.361432230819,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5697.325432169463,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [],
     "events": []
   }

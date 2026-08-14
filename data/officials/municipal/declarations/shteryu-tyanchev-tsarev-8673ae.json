@@ -4,38 +4,38 @@
     "declarantName": "Щерю Тянчев Царев",
     "institution": "Родопи",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8647",
-    "controlHash": "DF5ABA2F",
-    "sourceUrl": "https://register.cacbg.bg/2025/33AB72C9-176E-4CC8-9B0B-7C0038F0D62A211669.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г10033",
+    "controlHash": "1BAFA009",
+    "sourceUrl": "https://register.cacbg.bg/2026/33AB72C9-176E-4CC8-9B0B-7C0038F0D62A234719.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 19674.511588430487,
-        "amountEurSpouse": 58185.52737201086
+        "amountEurDeclarant": 9233.420082522509,
+        "amountEurSpouse": 54661.703726806525
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 6824.2127383259285
+        "amountEurDeclarant": 35915.18690274717,
+        "amountEurSpouse": 9537.63875183426
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 47775.624670855854
+        "amountEurSpouse": 50943.07787486642
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 202.98287683489875
+        "amountEurSpouse": 511.29188119621847
       }
     ],
     "assets": [
@@ -70,7 +70,7 @@
         "currency": "BGN",
         "amount": 45000,
         "valueEur": 23008.13465382983,
-        "holderName": "Щерю тянчев Царев",
+        "holderName": "Щерю Тянчев Царев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
@@ -145,11 +145,11 @@
         "holderName": "Щерю Тянчев Царев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Банков Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -158,32 +158,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 15800,
+        "valueEur": 8078.411722900252,
         "holderName": "Щерю Тянчев Царев",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "договор за кредит",
         "fundsOrigin": null
-      },
+      }
+    ],
+    "events": [
       {
-        "category": "investment",
-        "description": null,
-        "detail": "BGN",
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рейндж Роувър",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
         "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
-        "holderName": "Мария Георгиева Ганчевска-Царева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "рейндж Роувър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "безвъзмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

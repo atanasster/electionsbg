@@ -5,6 +5,68 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14786",
+    "controlHash": "E667E1C1",
+    "sourceUrl": "https://register.cacbg.bg/2026/E07C4A66-F492-45EE-8628-5D182D7625E4241067.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 102242.52619092661,
+        "amountEurSpouse": 41854.86468660364
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 280000,
+        "valueEur": 279999.79548324755,
+        "holderName": "Илия Добромиров гътовски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 260000,
+        "valueEur": 259999.59096649504,
+        "holderName": "Илия Добромиров Гътовски",
+        "isSpouse": false,
+        "legalBasis": "Договор за ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliya-dobromirov-gtovski-35570c",
+    "declarantName": "Илия Добромиров Гътовски",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Контрольор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7167",
+    "controlHash": "0C9C3A53",
+    "sourceUrl": "https://register.cacbg.bg/2026/3AB1A329-C3C5-4533-BF01-0B8D80238D7A231562.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10577.606438187368,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12413.655583562988,
+        "amountEurSpouse": 13073.733402187307
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "ТОЙОТА ЛАНД КРУИЗЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3800,
+        "valueEur": 1942.9091485456302,
+        "holderName": "Искра Атанасова Савова",
+        "isSpouse": true,
+        "legalBasis": "ДЕЛБА",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ВАСИЛ ПЕТРОВ САВОВ",
+        "isSpouse": false,
+        "legalBasis": "4.75%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vasil-petrov-savov-801526",
+    "declarantName": "Васил Петров Савов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Контрольор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

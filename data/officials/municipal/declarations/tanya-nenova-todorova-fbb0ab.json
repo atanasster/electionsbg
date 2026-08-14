@@ -4,48 +4,48 @@
     "declarantName": "Таня Ненова Тодорова",
     "institution": "Средец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4430",
-    "controlHash": "5AC7A8C8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3D29F0F4-6D13-49AF-B17F-58D5A1A0FCAA207278.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13413",
+    "controlHash": "79D0E196",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D29F0F4-6D13-49AF-B17F-58D5A1A0FCAA238925.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5647.7301196934295,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6470.910048419341,
+        "amountEurSpouse": 15338.756435886555
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11535.256131667886,
-        "amountEurSpouse": 18406.507723063867
+        "amountEurDeclarant": 12604.367455249178,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 217.29904950839287,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МАЗДА 3",
+        "kind": "disposal_vehicle",
+        "description": "продажба МПС",
+        "detail": "АУДИ 80",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Таня Ненова Тодорова",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

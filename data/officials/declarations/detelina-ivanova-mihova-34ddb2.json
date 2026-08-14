@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "detelina-ivanova-mihova-34ddb2",
+    "declarantName": "ДЕТЕЛИНА ИВАНОВА МИХОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9058",
+    "controlHash": "7EE63F8A",
+    "sourceUrl": "https://register.cacbg.bg/2026/8950CCE1-DAFA-4B2A-B968-CB1097FD6B94233618.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18803.781514753326,
+        "amountEurSpouse": 6607.936272579927
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ Х6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "МАНОЛИН КИРОВ МИХОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ДЕТЕЛИНА ИВАНОВА МИХОВА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "ДЕТЕЛИНА ИВАНОВА МИХОВА",
+        "isSpouse": false,
+        "legalBasis": "5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

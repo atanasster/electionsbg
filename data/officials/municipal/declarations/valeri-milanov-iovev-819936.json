@@ -4,47 +4,29 @@
     "declarantName": "ВАЛЕРИ МИЛАНОВ ЙОВЕВ",
     "institution": "Кюстендил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11918",
-    "controlHash": "BFF15BA7",
-    "sourceUrl": "https://register.cacbg.bg/2025/BCB3AA30-2DB2-4FA3-B897-3D5DAF3B17EA215072.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4025",
+    "controlHash": "32CD21C7",
+    "sourceUrl": "https://register.cacbg.bg/2026/BCB3AA30-2DB2-4FA3-B897-3D5DAF3B17EA228209.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6021.484484847865,
-        "amountEurSpouse": 12782.297029905461
+        "amountEurDeclarant": 7797.201188242332,
+        "amountEurSpouse": 16824.05935076157
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 9072.874431826896,
+        "amountEurDeclarant": 9061.626010440581,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "ДОЛНИ РАКОВЕЦ",
-        "municipality": "РАДОМИР",
-        "areaSqm": 820,
-        "builtAreaSqm": 90,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "АДЕЛИНА ЛАЗАРОВА ЙОВЕВА",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
       {
         "category": "bank",
         "description": null,
@@ -56,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 43170,
+        "valueEur": 22072.470511240754,
         "holderName": "АДЕЛИНА ЛАЗАРОВА ЙОВЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "ЗАПЛАТИ"
       },
       {
         "category": "debt",
@@ -74,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 58582,
-        "valueEur": 29952.50098423687,
+        "amount": 53147,
+        "valueEur": 27173.629609935426,
         "holderName": "ВАЛЕРИ МИЛАНОВ ЙОВЕВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР",
+        "legalBasis": "ДОГОВОР С ЛИХВЕН % 5.39",
         "fundsOrigin": null
       }
     ],

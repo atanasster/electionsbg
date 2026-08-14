@@ -4,38 +4,31 @@
     "declarantName": "Павел Андреев Гуджеров",
     "institution": "Раковски",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г6445",
-    "controlHash": "A8B52529",
-    "sourceUrl": "https://register.cacbg.bg/2025/79FD874D-B22B-49E8-A8E8-6B8903F64085209403.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялов капитал",
-        "shareSize": "3000",
-        "companyName": "Бендида Умай ЕООД",
-        "registeredOffice": "Пловдив",
-        "valueEur": 1533.8756435886555,
-        "holderName": "Анелия Васкова Гуджерова",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г8105",
+    "controlHash": "91E7AF11",
+    "sourceUrl": "https://register.cacbg.bg/2026/79FD874D-B22B-49E8-A8E8-6B8903F64085232583.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 43291.08358088382,
-        "amountEurSpouse": 3562.6818281752503
+        "amountEurDeclarant": 47228.5423579759,
+        "amountEurSpouse": 16062.234447779203
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1755.265028146618,
+        "amountEurDeclarant": 1436.730186161374,
         "amountEurSpouse": null
       },
       {
@@ -48,7 +41,7 @@
     "assets": [
       {
         "category": "vehicle",
-        "description": "лек автомобил",
+        "description": "Лек автомобил",
         "detail": "Шкода",
         "location": null,
         "municipality": null,
@@ -75,75 +68,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50245,
-        "valueEur": 25689.860570703997,
+        "amount": 78008,
+        "valueEur": 39884.85706835461,
         "holderName": "Павел Андреев Гуджеров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 15183,
-        "valueEur": 7762.944632202185,
-        "holderName": "Павел Андреев Гуджеров",
-        "isSpouse": false,
-        "legalBasis": "договор за кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "лизинг",
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 27928,
-        "valueEur": 27844.955849946058,
-        "holderName": "Павел Андреев Гуджеров",
-        "isSpouse": false,
-        "legalBasis": "Договор за лизинг",
-        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Нисан кашкай",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "мотоциклет",
-        "detail": "Хонда ЦБР",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3732.430732732395,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

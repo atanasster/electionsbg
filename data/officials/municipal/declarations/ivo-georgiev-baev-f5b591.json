@@ -4,25 +4,52 @@
     "declarantName": "Иво Георгиев Баев",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10451",
-    "controlHash": "E337ED6B",
-    "sourceUrl": "https://register.cacbg.bg/2025/E4487ED2-2F44-4F47-A6C3-1A064C9C9650213536.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4265",
+    "controlHash": "DBA83136",
+    "sourceUrl": "https://register.cacbg.bg/2026/E4487ED2-2F44-4F47-A6C3-1A064C9C9650228462.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "дружествен дял",
+        "shareSize": "1800",
+        "companyName": "Зира Риъл Истейтс ООД",
+        "registeredOffice": "Бургас",
+        "valueEur": 147.25206178451091,
+        "holderName": null,
+        "transfereeName": "Иво Георгиев Баев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "ужествен дял",
+        "shareSize": "1600",
+        "companyName": "Зира Риъл Истейтс ООД",
+        "registeredOffice": "Бургас",
+        "valueEur": 130.89072158623193,
+        "holderName": null,
+        "transfereeName": "Златина Илиева Илиева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
         "amountEurDeclarant": 13731.254761405644,
-        "amountEurSpouse": 9348.460755791659
+        "amountEurSpouse": 13333.980969716182
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 23487.215146510687,
+        "amountEurDeclarant": 9365.84467975233,
         "amountEurSpouse": null
       }
     ],

@@ -4,23 +4,41 @@
     "declarantName": "ДЕЯН ИВАНОВ ИВАНОВ",
     "institution": "Белослав",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11294",
-    "controlHash": "D5BD98E7",
-    "sourceUrl": "https://register.cacbg.bg/2025/86B6881A-016F-434F-ACCD-FBE6399613D4214429.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10009",
+    "controlHash": "B3F88512",
+    "sourceUrl": "https://register.cacbg.bg/2026/86B6881A-016F-434F-ACCD-FBE6399613D4234690.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 36389.66576849726,
+        "amountEurDeclarant": 37815.14753327232,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "СГРАДА",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 527,
+        "builtAreaSqm": 527,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ДЕЯН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
       {
         "category": "cash",
         "description": null,
@@ -32,26 +50,62 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70000,
-        "valueEur": 35790.431683735296,
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
         "holderName": "ДЕЯН ИВАНОВ ИВАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21191,
+        "valueEur": 10834.786254429066,
+        "holderName": "ДЕЯН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "ДЕЯН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "БМВ",
+        "kind": "third_party_expense",
+        "description": "РАБОТНА СРЕЩА В МЮНХЕН ГЕРМАНИЯ",
+        "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 4601.626930765967,
-        "legalBasis": "възмездно"
+        "valueEur": 429.4851802048235,
+        "legalBasis": null
       }
     ]
   }

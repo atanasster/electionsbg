@@ -5,6 +5,98 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6258",
+    "controlHash": "43A45B9A",
+    "sourceUrl": "https://register.cacbg.bg/2026/021AC21B-A4BF-4CF2-80DD-8A53F347235D230559.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15687.457498862375,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Аренда на земеделски земи",
+        "amountEurDeclarant": 1371.284825368258,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за стаж и възраст",
+        "amountEurDeclarant": 14549.321771319594,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3569,
+        "valueEur": 1824.8007239893038,
+        "holderName": "Иван Йорданов Гецов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 6.8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит Оувърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Иван Йорданов Гецов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 18%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6400,
+        "valueEur": 3272.2680396557985,
+        "holderName": "Иван Йорданов Гецов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 18%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-iordanov-getsov-6ce4a1",
+    "declarantName": "Иван Йорданов Гецов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

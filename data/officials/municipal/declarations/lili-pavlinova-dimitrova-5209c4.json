@@ -4,29 +4,66 @@
     "declarantName": "Лили Павлинова Димитрова",
     "institution": "Ботевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г8009",
-    "controlHash": "4C4A30E3",
-    "sourceUrl": "https://register.cacbg.bg/2025/02DCE0B5-A7F4-497F-9B73-4DB4BE33E63A211016.xml",
+    "entryNumber": "Г2077",
+    "controlHash": "2E2EDCB4",
+    "sourceUrl": "https://register.cacbg.bg/2026/02DCE0B5-A7F4-497F-9B73-4DB4BE33E63A226060.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2904.649177075717,
+        "amountEurDeclarant": 3789.184131545175,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": 5724.423901872862,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Липниза",
+        "municipality": "Ботевград",
+        "areaSqm": 1230,
+        "builtAreaSqm": 35,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Лили Павлинова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 970,
+        "valueEur": 970,
+        "holderName": "Лили Павлинова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

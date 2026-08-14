@@ -4,46 +4,46 @@
     "declarantName": "Георги Йорданов Георгиев",
     "institution": "Сливо поле",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8353",
-    "controlHash": "5704F047",
-    "sourceUrl": "https://register.cacbg.bg/2025/683E781B-80CF-4272-9710-17DD56D8F18A211372.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9458",
+    "controlHash": "3AF197C4",
+    "sourceUrl": "https://register.cacbg.bg/2026/683E781B-80CF-4272-9710-17DD56D8F18A234079.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5637.504282069505,
-        "amountEurSpouse": 10570.44835185062
+        "amountEurDeclarant": 6988.84872407111,
+        "amountEurSpouse": 14199.59812458138
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20122.914568239572,
+        "amountEurDeclarant": 1419.3462622007025,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Бабово",
-        "municipality": "Сливо поле",
-        "areaSqm": 1500,
-        "builtAreaSqm": 60,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25602,
+        "valueEur": 13090.094742385585,
         "holderName": "Георги Йорданов Георгиев",
         "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": "Ипотечен кредит, 10.8 %",
+        "fundsOrigin": null
       }
     ],
     "events": []

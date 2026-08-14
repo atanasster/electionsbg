@@ -4,35 +4,78 @@
     "declarantName": "Валя Здравкова Котелска",
     "institution": "Мадан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-27",
-    "entryNumber": "Г1314",
-    "controlHash": "0CF7088E",
-    "sourceUrl": "https://register.cacbg.bg/2025/C2FA9BFA-E730-4647-A72A-AD320216E237203745.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9544",
+    "controlHash": "885CABA1",
+    "sourceUrl": "https://register.cacbg.bg/2026/C2FA9BFA-E730-4647-A72A-AD320216E237234171.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2095.7854210232995,
-        "amountEurSpouse": 5702.949642862621
+        "amountEurDeclarant": 2792.164963212549,
+        "amountEurSpouse": 2582.0240000409035
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9648.077798172642,
+        "amountEurDeclarant": 8875.004473803961,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3359.1876594591554
+        "amountEurSpouse": 5011.171727604137
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7093.152267835139
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Валя Здравкова Котелска / Евтим Галинов Котелски",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 50000,
+        "valueEur": 50000.2556459406,
+        "holderName": "Евтим Галинов Котелски",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

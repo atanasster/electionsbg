@@ -5,6 +5,98 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10882",
+    "controlHash": "9EB1D285",
+    "sourceUrl": "https://register.cacbg.bg/2026/501A5F02-CB82-453E-8CCF-FF74F851D7C2235692.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29480.57857789276,
+        "amountEurSpouse": 18375.830210192093
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5340.954990975698,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 14424.05526042652,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 80857.23196801358
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2334.5587295419336
+      },
+      {
+        "parent": null,
+        "category": "КСО",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 75.15990653584412
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 181029,
+        "valueEur": 92558.65796107023,
+        "holderName": "Александър Йорданович Щерев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 8341,
+        "valueEur": 7119.739445657343,
+        "holderName": "Александър Йорданович Щерев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aleksandr-iordanovich-shterev-01c274",
+    "declarantName": "Александър Йорданович Щерев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

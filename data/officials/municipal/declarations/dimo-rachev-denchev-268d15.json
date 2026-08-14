@@ -4,25 +4,31 @@
     "declarantName": "Димо Рачев Денчев",
     "institution": "Тутракан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г5693",
-    "controlHash": "884741B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/C6DF7793-D69F-4C0E-8DA5-16D2236790CB208634.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10197",
+    "controlHash": "4E2854EB",
+    "sourceUrl": "https://register.cacbg.bg/2026/C6DF7793-D69F-4C0E-8DA5-16D2236790CB234894.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7405.040315364832,
-        "amountEurSpouse": 134296.94809876115
+        "amountEurDeclarant": 10932.95429561874,
+        "amountEurSpouse": 47833.400653431025
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 145916.0560989452,
+        "amountEurDeclarant": 72469.99994887081,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи получени от рента",
+        "amountEurDeclarant": 6508.234355746665,
         "amountEurSpouse": null
       }
     ],
@@ -38,12 +44,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 62638,
-        "valueEur": 32026.300854368732,
-        "holderName": "Димо Рачев Денчев",
+        "amount": 163995,
+        "valueEur": 83849.31205677385,
+        "holderName": "ДИМО РАЧЕВ ДЕНЧЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -56,14 +62,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5311,
-        "valueEur": 2715.4711810331164,
-        "holderName": "Марийка Ранчева Денчева",
+        "amount": 11051,
+        "valueEur": 5650.28657909941,
+        "holderName": "МАРИЙКА РАНЧЕВА ДЕНЧЕВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Мерцедес ГЛЕ 400 4МАТИК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Мерцедес ГЛЕ 400 4МАТИК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

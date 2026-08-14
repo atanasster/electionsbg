@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9147",
+    "controlHash": "C31AD043",
+    "sourceUrl": "https://register.cacbg.bg/2026/09240C56-8591-4D23-A133-00720DF721F3233724.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8763.031551821989,
+        "amountEurSpouse": 9816.804118967395
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4428,
+        "valueEur": 2264.0004499368556,
+        "holderName": "Николай Нгуен Лием",
+        "isSpouse": false,
+        "legalBasis": "5.80%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27680,
+        "valueEur": 14152.559271511327,
+        "holderName": "Ана Николаева Лием",
+        "isSpouse": true,
+        "legalBasis": "5.88%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-nguen-liem-c9695d",
+    "declarantName": "Николай Нгуен Лием",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

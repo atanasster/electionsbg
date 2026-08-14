@@ -1,26 +1,63 @@
 [
   {
     "slug": "valeriya-tsvetkova-borisova-5a8819",
-    "declarantName": "Валерия Цветкова Борисова",
+    "declarantName": "Валерия Цветкова  Борисова",
     "institution": "Борово",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2273",
-    "controlHash": "71BDB6EB",
-    "sourceUrl": "https://register.cacbg.bg/2025/1EFBF55B-A7D4-4F69-8BB1-1FF704EC6CAD204886.xml",
+    "filedAt": null,
+    "entryNumber": "Г2239",
+    "controlHash": "FB8FB365",
+    "sourceUrl": "https://register.cacbg.bg/2026/1EFBF55B-A7D4-4F69-8BB1-1FF704EC6CAD226252.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16698.2815479873,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 18859.512329803714,
+        "amountEurSpouse": 370.17532198606216
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Евгени Русев Борисов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6100,
+        "valueEur": 3118.8804752969327,
+        "holderName": "Валерия Цветкова Борисова",
+        "isSpouse": false,
+        "legalBasis": "6",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -4,48 +4,61 @@
     "declarantName": "Цветелина Йорданова Владимирова",
     "institution": "Правец",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14482",
-    "controlHash": "1245224A",
-    "sourceUrl": "https://register.cacbg.bg/2025/BEFC10BB-BDDA-41B6-B49F-8CB765FE85EF217796.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11079",
+    "controlHash": "821A33AF",
+    "sourceUrl": "https://register.cacbg.bg/2026/BEFC10BB-BDDA-41B6-B49F-8CB765FE85EF235914.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7343.17399774009,
-        "amountEurSpouse": 8794.220356574959
+        "amountEurDeclarant": 26612.742416263172,
+        "amountEurSpouse": 12191.243615242634
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18555.293660491967,
+        "amountEurDeclarant": 9437.936835000997,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Кредит",
-        "detail": "BGN",
+        "description": "Лизинг",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 5800,
-        "valueEur": 2965.4929109380673,
-        "holderName": "Цветелина Йорданова Владимирова",
-        "isSpouse": false,
-        "legalBasis": "кредит с лихвен процент - 5,75",
+        "currency": "EUR",
+        "amount": 38346,
+        "valueEur": 38346.89108971639,
+        "holderName": "Владимир Асенов Владимиров",
+        "isSpouse": true,
+        "legalBasis": "лизинг 4,40",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

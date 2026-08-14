@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "tsonka-hristova-maleva-84679c",
+    "declarantName": "ЦОНКА ХРИСТОВА МАЛЕВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13476",
+    "controlHash": "3C421D9D",
+    "sourceUrl": "https://register.cacbg.bg/2026/3B9092D2-8BFA-47EF-AE3A-563A4DF6F0E2238989.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6603.845937530358,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 14338.669516266751,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6495,
+        "valueEur": 3320.840768369439,
+        "holderName": "ЦОНКА ХРИСТОВА МАЛЕВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ-2,2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60855,
+        "valueEur": 32394.43100883001,
+        "holderName": "ЦОНКА ХРИСТОВА МАЛЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

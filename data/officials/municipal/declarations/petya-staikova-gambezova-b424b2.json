@@ -4,35 +4,96 @@
     "declarantName": "Петя Стайкова Гамбезова",
     "institution": "Ветрино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г14778",
-    "controlHash": "AE95C897",
-    "sourceUrl": "https://register.cacbg.bg/2025/1DF8CB5B-8104-4FD6-858A-18A7B3AE573E218239.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г6131",
+    "controlHash": "39482818",
+    "sourceUrl": "https://register.cacbg.bg/2026/1DF8CB5B-8104-4FD6-858A-18A7B3AE573E230432.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11043.90463383832,
+        "amountEurDeclarant": 24613.079868904762,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4724.3369822530585,
+        "amountEurDeclarant": 6586.462013569687,
         "amountEurSpouse": null
       },
       {
         "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6313.432149010906
+      },
+      {
+        "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3579.0431683735296,
-        "amountEurSpouse": 6092.554056334139
+        "amountEurDeclarant": 4499.368554526723,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41519,
+        "valueEur": 21228.327615385795,
+        "holderName": "ПЕТЯ ГАМБЕЗОВА",
+        "isSpouse": true,
+        "legalBasis": "4,26",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51952,
+        "valueEur": 26562.635811905944,
+        "holderName": "ПЕТЯ ГАМБЕЗОВА",
+        "isSpouse": true,
+        "legalBasis": "4,15",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59283,
+        "valueEur": 30310.916592955422,
+        "holderName": "ПЕТЯ ГАМБЕЗОВА",
+        "isSpouse": true,
+        "legalBasis": "4,25",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

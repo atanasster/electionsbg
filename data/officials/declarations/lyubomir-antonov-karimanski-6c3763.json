@@ -5,6 +5,68 @@
     "institution": "Българска народна банка",
     "positionTitle": "Член на Управителен съвет",
     "category": "central_bank",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4053",
+    "controlHash": "D13E3924",
+    "sourceUrl": "https://register.cacbg.bg/2026/F0663809-0887-420A-9A30-A96E494C4530228243.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 65276.63447232122,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5100,
+        "valueEur": 5100,
+        "holderName": "Любомир Антонов Каримански",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 53500,
+        "valueEur": 53500.048572728716,
+        "holderName": "Любомир Антонов Каримански",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-antonov-karimanski-6c3763",
+    "declarantName": "Любомир Антонов Каримански",
+    "institution": "Българска народна банка",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "central_bank",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

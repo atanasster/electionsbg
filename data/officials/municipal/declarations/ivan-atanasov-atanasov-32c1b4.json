@@ -1,26 +1,44 @@
 [
   {
     "slug": "ivan-atanasov-atanasov-32c1b4",
-    "declarantName": "Иван Атанасов Атанасов",
+    "declarantName": "ИВАН АТАНАСОВ АТАНАСОВ",
     "institution": "Сопот",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12361",
-    "controlHash": "7E356FD2",
-    "sourceUrl": "https://register.cacbg.bg/2025/ADA6FD23-ED9B-4292-8B10-11F9782DC851215526.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1813",
+    "controlHash": "4303E0EF",
+    "sourceUrl": "https://register.cacbg.bg/2026/ADA6FD23-ED9B-4292-8B10-11F9782DC851225774.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3478.8299596590705,
-        "amountEurSpouse": 9044.24208647991
+        "amountEurDeclarant": 12088.98523900339,
+        "amountEurSpouse": 10546.928925315595
       }
     ],
     "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11357,
+        "valueEur": 5806.7418947454535,
+        "holderName": "Иван Атанасов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "Потребителски кредит",
@@ -32,11 +50,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 54728,
-        "valueEur": 27981.982074106647,
+        "amount": 34491,
+        "valueEur": 17634.96827433877,
         "holderName": "Стоянка Рангелова Атанасова",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "Договор - ОЛП 6,0252%",
         "fundsOrigin": null
       }
     ],

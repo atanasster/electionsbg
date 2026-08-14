@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8392",
+    "controlHash": "AAEFDC24",
+    "sourceUrl": "https://register.cacbg.bg/2026/FFCD8520-017D-4E04-9518-6118D8B2C3D8232898.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36236.2782041384,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Заем ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74673,
+        "valueEur": 38179.69864456522,
+        "holderName": "Цветанка Божидарова Цокова",
+        "isSpouse": false,
+        "legalBasis": "Заем-лихва 2,99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем потребителски",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3905,
+        "valueEur": 1996.5947960712333,
+        "holderName": "Цветанка Божидарова Цокова",
+        "isSpouse": false,
+        "legalBasis": "Заем-лихва 6,49%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsvetanka-bozhidarova-tsokova-1c5e5c",
+    "declarantName": "Цветанка Божидарова Цокова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

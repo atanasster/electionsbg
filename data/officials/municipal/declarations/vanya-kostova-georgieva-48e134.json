@@ -4,29 +4,47 @@
     "declarantName": "Ваня Костова Георгиева",
     "institution": "Суворово",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2996",
-    "controlHash": "C201DCEA",
-    "sourceUrl": "https://register.cacbg.bg/2025/2B5676BE-FADB-4553-B70E-E4EDF97579BB205711.xml",
+    "filedAt": null,
+    "entryNumber": "Г12696",
+    "controlHash": "C9848E31",
+    "sourceUrl": "https://register.cacbg.bg/2026/2B5676BE-FADB-4553-B70E-E4EDF97579BB238016.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14181.702908739513,
-        "amountEurSpouse": 13486.857242193852
+        "amountEurDeclarant": 13785.451700812442,
+        "amountEurSpouse": 12857.456936441306
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 795.570167141316,
-        "amountEurSpouse": 546.5710209987576
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 323.64776079720633
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108259,
+        "valueEur": 55351.94776642142,
+        "holderName": "Ваня Костова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Остатък от Таблица №2"
+      },
       {
         "category": "debt",
         "description": "кредит",
@@ -38,14 +56,51 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15358,
-        "valueEur": 7852.420711411523,
+        "amount": 3789,
+        "valueEur": 1937.2849378524718,
         "holderName": "Симеон Георгиев Георгиев",
         "isSpouse": true,
-        "legalBasis": "потребителски кредит",
+        "legalBasis": "5.20%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 150000.2556459406,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 11.759713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия Спринг",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

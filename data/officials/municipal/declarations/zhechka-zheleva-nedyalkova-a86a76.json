@@ -4,23 +4,42 @@
     "declarantName": "Жечка Желева Недялкова",
     "institution": "Каспичан",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5953",
-    "controlHash": "361B866D",
-    "sourceUrl": "https://register.cacbg.bg/2025/CFE83ADD-E4AA-453A-B387-0B6589D86D55208899.xml",
+    "filedAt": null,
+    "entryNumber": "Г1745",
+    "controlHash": "6CB8342D",
+    "sourceUrl": "https://register.cacbg.bg/2026/CFE83ADD-E4AA-453A-B387-0B6589D86D55225696.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21578.05126212401,
+        "amountEurDeclarant": 22776.00813976675,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Жечка Желева Недялкова",
+        "isSpouse": false,
+        "legalBasis": "договор - 3,9 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

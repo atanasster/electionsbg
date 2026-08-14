@@ -4,45 +4,68 @@
     "declarantName": "Боян Йорданов Кулев",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11068",
-    "controlHash": "FF715370",
-    "sourceUrl": "https://register.cacbg.bg/2025/625394F3-847D-4072-9D55-BFC526406E9B214192.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялов капитал",
-        "shareSize": "100",
-        "companyName": "Кулевич ЕООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 51.12918811962185,
-        "holderName": "Боян Йорданов Кулев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11661",
+    "controlHash": "911946CF",
+    "sourceUrl": "https://register.cacbg.bg/2026/625394F3-847D-4072-9D55-BFC526406E9B236619.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8681.73614271179,
+        "amountEurDeclarant": 7799.757647648313,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21985.550891437397,
-        "amountEurSpouse": 41925.93425808992
+        "amountEurDeclarant": 25799.788325161186,
+        "amountEurSpouse": 42499.60374879208
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент с двор",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 255,
+        "builtAreaSqm": 255,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 347061,
+        "valueEur": 177449.47157984079,
+        "holderName": "Боян Йорданов Кулев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ипотечен кредит"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент с двор",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 255,
+        "builtAreaSqm": 255,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 347061,
+        "valueEur": 177449.47157984079,
+        "holderName": "Мартина Николова Кулева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ипотечен кредит"
+      },
+      {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -51,11 +74,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 44000,
-        "valueEur": 22496.842772633612,
+        "amount": 440061,
+        "valueEur": 224999.6165310891,
         "holderName": "Боян Йорданов Кулев",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "договор за кредит, 2,9%",
         "fundsOrigin": null
       }
     ],

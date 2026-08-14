@@ -4,40 +4,52 @@
     "declarantName": "СИМЕОН БОРИСОВ СИМЕОНОВ",
     "institution": "Район Връбница",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11041",
-    "controlHash": "B1C8EFAE",
-    "sourceUrl": "https://register.cacbg.bg/2025/DF234935-38D4-423F-83F1-8E456064FD19214163.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11435",
+    "controlHash": "B049D327",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF234935-38D4-423F-83F1-8E456064FD19236350.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15327.508014500238,
-        "amountEurSpouse": 38848.97971705107
+        "amountEurDeclarant": 12907.05224891734,
+        "amountEurSpouse": 44101.48121257983
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12467.341231088592,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 120000.20451675248,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "БАНСКО",
-        "municipality": "Банско",
-        "areaSqm": 84,
-        "builtAreaSqm": 84,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 78230,
-        "valueEur": 39998.36386598017,
-        "holderName": "МАРИЯ ИЛКОВА СИМЕОНОВА",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "amount": 234700,
+        "valueEur": 120000.20451675248,
+        "holderName": "Симеон Борисов Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

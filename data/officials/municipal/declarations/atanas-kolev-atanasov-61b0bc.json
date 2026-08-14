@@ -4,31 +4,67 @@
     "declarantName": "Атанас Колев Атанасов",
     "institution": "Маджарово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г6499",
-    "controlHash": "7BBDCC1D",
-    "sourceUrl": "https://register.cacbg.bg/2025/D5D8971B-CCC0-471D-9C97-AA07881DF225209459.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9367",
+    "controlHash": "0E47AAC1",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5D8971B-CCC0-471D-9C97-AA07881DF225233981.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3462.4686194607916,
+        "amountEurDeclarant": 3899.111886002362,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Субсидия за земеделски производител",
-        "amountEurDeclarant": 4499.368554526723,
+        "amountEurDeclarant": 4153.735242838079,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Сеноклас",
+        "municipality": "Маджарово",
+        "areaSqm": 15,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 250,
+        "valueEur": 127.82297029905462,
+        "holderName": "Атанас Колев Атанасов",
+        "isSpouse": false,
+        "legalBasis": "Договор за наем",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сузуки Гранд Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2500,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Атанас Колев атанасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -40,12 +76,25 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "Атанас Колев Атанасов",
+        "holderName": "Атанас  Колев Атанасов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 341.54297663907397,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

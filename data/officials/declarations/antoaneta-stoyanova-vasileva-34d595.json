@@ -5,6 +5,80 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г11542",
+    "controlHash": "C8C41287",
+    "sourceUrl": "https://register.cacbg.bg/2026/7B7F80CD-AC1D-4797-AE76-ADA6CD1A596D236477.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21547.88504113343,
+        "amountEurSpouse": 13485.323366550263
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6.6467944555508405,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наем земя",
+        "amountEurDeclarant": 2117.770971914737,
+        "amountEurSpouse": 404.43187802620884
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 323555,
+        "valueEur": 165431.04462044247,
+        "holderName": "Антоанета Стоянова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Антоанета Стоянова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наем земя"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "antoaneta-stoyanova-vasileva-34d595",
+    "declarantName": "Антоанета Стоянова Василева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

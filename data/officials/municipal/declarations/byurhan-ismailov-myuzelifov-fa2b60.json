@@ -4,13 +4,13 @@
     "declarantName": "Бюрхан Исмаилов Мюзелифов",
     "institution": "Кубрат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г13743",
-    "controlHash": "DA30FF65",
-    "sourceUrl": "https://register.cacbg.bg/2025/0A6E5326-A0F6-4666-98BE-37F6615F986C216993.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г7430",
+    "controlHash": "1DECABED",
+    "sourceUrl": "https://register.cacbg.bg/2026/0A6E5326-A0F6-4666-98BE-37F6615F986C231839.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -23,25 +23,31 @@
         "holderName": "Емел Лютфиева Мюзелифова",
         "legalBasis": "други",
         "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялово участие",
+        "shareSize": "1/2",
+        "companyName": "Полимекс-Т ООД",
+        "registeredOffice": "Разград",
+        "valueEur": 5.112918811962185,
+        "holderName": "Емел Лютфиева Мюзелифова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7620.29419734844,
-        "amountEurSpouse": 9204.276445294325
+        "amountEurDeclarant": 6567.544213965427,
+        "amountEurSpouse": 10649.187301554839
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5641.083325237879,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 25617.257123574134,
+        "amountEurDeclarant": 9580.587269854743,
         "amountEurSpouse": null
       }
     ],
@@ -194,6 +200,24 @@
         "category": "real_estate",
         "description": "нива",
         "detail": null,
+        "location": "Точилари",
+        "municipality": "Кубрат",
+        "areaSqm": 3,
+        "builtAreaSqm": 15,
+        "acquiredYear": 2025,
+        "share": "1/5",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Бюрхан Исмаилов Мюзелифов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
         "location": "Горичево",
         "municipality": "Кубрат",
         "areaSqm": 7,
@@ -237,57 +261,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
         "holderName": "Бюрхан Исмаилов Мюзелифов",
         "isSpouse": false,
-        "legalBasis": "кредит 8,2%",
+        "legalBasis": "кредит-лих. %10.25",
         "fundsOrigin": null
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "byurhan-ismailov-myuzelifov-fa2b60",
-    "declarantName": "Бюрхан Исмаилов Мюзелифов",
-    "institution": "Кубрат",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г13744",
-    "controlHash": "89D53FB6",
-    "sourceUrl": "https://register.cacbg.bg/2025/0A6E5326-A0F6-4666-98BE-37F6615F986C216994.xml",
-    "ownershipStakes": [
+      },
       {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "29,6%",
-        "companyName": "Динамика-Инвест АД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
-    "events": [
-      {
-        "kind": "early_repayment",
-        "description": "Паричен заем към Динамика-Инвест АД",
-        "detail": "Бюрхан Исмаилов Мюзелифов",
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 19429.0914854563,
-        "legalBasis": "дивидент"
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Бюрхан Исмаилов Мюзелифов",
+        "isSpouse": false,
+        "legalBasis": "кредит-лих. %11.12",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3400,
+        "valueEur": 1738.392396067143,
+        "holderName": "Бюрхан Исмаилов Мюзелифов",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта лих. %19.90",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

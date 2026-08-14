@@ -4,35 +4,35 @@
     "declarantName": "Емине Момчилова Талипова",
     "institution": "Сърница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9964",
-    "controlHash": "61DF260F",
-    "sourceUrl": "https://register.cacbg.bg/2025/7F3F8D3D-6861-4500-ABC9-CFBA6D9D2A95213033.xml",
+    "filedAt": null,
+    "entryNumber": "Г12701",
+    "controlHash": "3A543558",
+    "sourceUrl": "https://register.cacbg.bg/2026/7F3F8D3D-6861-4500-ABC9-CFBA6D9D2A95238021.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "income": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Дачия Сандеро",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "Емине Момчилова Талипова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1837.071729138013,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 52.6630637632105,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Стипендии",
+        "amountEurDeclarant": 828.292847537874,
+        "amountEurSpouse": null
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

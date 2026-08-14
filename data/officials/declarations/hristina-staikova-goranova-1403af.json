@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г7223",
+    "controlHash": "57CC7CC0",
+    "sourceUrl": "https://register.cacbg.bg/2026/51E40B4C-3A76-4875-8830-44D71DD01237231627.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24714.315661381614,
+        "amountEurSpouse": 8180.6700991394955
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38240,
+        "valueEur": 19551.801536943396,
+        "holderName": "Христина Стайкова Горанова",
+        "isSpouse": false,
+        "legalBasis": "4.59",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristina-staikova-goranova-1403af",
+    "declarantName": "Христина Стайкова Горанова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

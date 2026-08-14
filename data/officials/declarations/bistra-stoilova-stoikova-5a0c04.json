@@ -5,6 +5,99 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8157",
+    "controlHash": "686D55D8",
+    "sourceUrl": "https://register.cacbg.bg/2026/501AF358-5D43-41EF-A385-A8741AF77531232640.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28401.241416687546,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11755.622932463455
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13691,
+        "valueEur": 7000.097145457427,
+        "holderName": "Бистра Стоилова Стойкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови възнаграждения"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42231,
+        "valueEur": 21592.367434797503,
+        "holderName": "Бистра Стоилова Стойкова",
+        "isSpouse": false,
+        "legalBasis": "покупка на жилище - 3.08%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 130.89072158623193,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 264.8491944596412,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "bistra-stoilova-stoikova-5a0c04",
+    "declarantName": "Бистра Стоилова Стойкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

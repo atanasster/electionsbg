@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "penka-ilieva-marinova-0295e8",
+    "declarantName": "ПЕНКА ИЛИЕВА МАРИНОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г6053",
+    "controlHash": "0D937D85",
+    "sourceUrl": "https://register.cacbg.bg/2026/08F740C3-0A13-4C76-B6B1-C8F81ED8EA07230346.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5693.235097119893,
+        "amountEurSpouse": 7526.727783089533
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12914.721627135283,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЗЩЕТЕНИЕ ЗА БЕЗРАБОТИЦА",
+        "amountEurDeclarant": 333.8735984211307,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30047,
+        "valueEur": 15362.787154302778,
+        "holderName": "ПЕНКА ИЛИЕВА МАРИНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39918,
+        "valueEur": 20409.749313590648,
+        "holderName": "ПЕНКА ИЛИЕВА МАРИНОВА",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕКА 5.38",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

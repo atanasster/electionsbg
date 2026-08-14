@@ -4,46 +4,58 @@
     "declarantName": "Елена Филипова Филева",
     "institution": "Куклен",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14137",
-    "controlHash": "1E2B6851",
-    "sourceUrl": "https://register.cacbg.bg/2025/0CAD5E1F-05B0-4857-B5EE-DF958D1E9E76217403.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г5211",
+    "controlHash": "5AD8F79F",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CAD5E1F-05B0-4857-B5EE-DF958D1E9E76229462.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7005.721356150586,
-        "amountEurSpouse": 28861.404109764142
+        "amountEurDeclarant": 6764.391588225971,
+        "amountEurSpouse": 28941.676935111947
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7956.212963294356
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 13498.105663580169,
+        "amountEurDeclarant": 22398.674731443938,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "продажба на жилище",
+        "amountEurDeclarant": 33745.26415895042,
+        "amountEurSpouse": 33745.26415895042
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Куклен",
-        "municipality": "Куклен",
-        "areaSqm": 666,
-        "builtAreaSqm": 126,
-        "acquiredYear": 2024,
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Кодия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 71270,
-        "valueEur": 36439.772372854495,
-        "holderName": "Елена Филипова Филева",
-        "isSpouse": false,
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "Йови Тодоров Нанов",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -56,16 +68,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
+        "amount": 74533,
+        "valueEur": 38108.117781197754,
         "holderName": "Елена Филипова Филева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
-        "description": "ипотечен кредит с лихва 3%",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,16 +86,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 107982,
-        "valueEur": 55210.31991533007,
+        "amount": 104328,
+        "valueEur": 53342.05938143908,
         "holderName": "Елена Филипова Филева",
         "isSpouse": false,
-        "legalBasis": "договор за ипотечен кредит",
+        "legalBasis": "договор за ипотечен кредит с 3% лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потребителски кредит с лихва 4,56%",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -92,16 +104,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4264,
-        "valueEur": 2180.148581420676,
+        "amount": 17796,
+        "valueEur": 9098.950317767903,
         "holderName": "Елена Филипова Филева",
         "isSpouse": false,
-        "legalBasis": "договор за потребителски кредит",
+        "legalBasis": "договор за потребителски кредит с 4,56% лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потбебителски кредит с лихва 4,56%",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -110,32 +122,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19349,
-        "valueEur": 9892.986609265632,
+        "amount": 1233,
+        "valueEur": 630.4228895149374,
         "holderName": "Елена Филипова Филева",
         "isSpouse": false,
-        "legalBasis": "договор за потребителски кредит",
+        "legalBasis": "договор за потребителски кредит с 4,56% лихва",
         "fundsOrigin": null
-      },
-      {
-        "category": "security",
-        "description": "поименни налични акции",
-        "detail": "\"ВЕЕМ Консулт\" ЕАД",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "25000",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Елена Филипова Филева",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 33745.26415895042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 33745.26415895042,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

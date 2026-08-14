@@ -1,44 +1,32 @@
 [
   {
     "slug": "georgi-kostadinov-holyanov-da113c",
-    "declarantName": "ГЕОРГИ КОСТАДИНОВ ХОЛЯНОВ",
+    "declarantName": "ГЕОРТИ КОСТАДИНОВ ХОЛЯНОВ",
     "institution": "Ракитово",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11505",
-    "controlHash": "6A6CC0AE",
-    "sourceUrl": "https://register.cacbg.bg/2025/E81B44A4-B49D-4772-9867-B4BEA92FB5E5214649.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11216",
+    "controlHash": "5407D4E2",
+    "sourceUrl": "https://register.cacbg.bg/2026/E81B44A4-B49D-4772-9867-B4BEA92FB5E5236078.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29832.34739215576,
-        "amountEurSpouse": 40928.4037978761
+        "amountEurDeclarant": 38499.25607031286,
+        "amountEurSpouse": 37103.94052652838
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15069.816906377344
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "гр.РАКИТОВО",
-        "municipality": "Ракитово",
-        "areaSqm": 656,
-        "builtAreaSqm": 270,
-        "acquiredYear": 2024,
-        "share": "0,83",
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "ГЕОРГИ КОСТАДИНОВ ХОЛЯНОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "cash",
         "description": null,
@@ -50,10 +38,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75000,
-        "valueEur": 38346.89108971639,
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
         "holderName": "ГЕОРГИ КОСТАДИНОВ ХОЛЯНОВ",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -68,10 +56,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1246092,
-        "valueEur": 637116.7228235583,
+        "amount": 1318083,
+        "valueEur": 673925.1366427552,
         "holderName": "ГЕОРГИ КОСТАДИНОВ ХОЛЯНОВ",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
       },
@@ -86,10 +74,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 113470,
-        "valueEur": 113469.98461011438,
+        "amount": 122592,
+        "valueEur": 122591.43177065492,
         "holderName": "ГЕОРГИ КОСТАДИНОВ ХОЛЯНОВ",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
       },
@@ -104,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65880,
-        "valueEur": 33683.90913320687,
+        "amount": 77380,
+        "valueEur": 39563.765766963385,
         "holderName": "СУЗАНА КЕМАЛОВА ХОЛЯНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
       }
     ],
     "events": []

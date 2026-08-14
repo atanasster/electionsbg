@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "sonya-nikolova-doneva-dc299e",
+    "declarantName": "Соня Николова Донева",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12912",
+    "controlHash": "AD7A3572",
+    "sourceUrl": "https://register.cacbg.bg/2026/A518C23F-7BFC-4535-8E62-C90F1BCF0843238264.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30231.15505948881,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 244,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2001,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 5226,
+        "valueEur": 2672.011371131438,
+        "holderName": "Соня Николова Донева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2001,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Соня Николова Донева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3376,
+        "valueEur": 3376.0602915386307,
+        "holderName": "Соня Николова Донева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18689,
+        "valueEur": 18689.252133365375,
+        "holderName": "Соня Николова Донева",
+        "isSpouse": false,
+        "legalBasis": "4.09",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

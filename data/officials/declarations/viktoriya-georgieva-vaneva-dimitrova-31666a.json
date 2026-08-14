@@ -1,6 +1,116 @@
 [
   {
     "slug": "viktoriya-georgieva-vaneva-dimitrova-31666a",
+    "declarantName": "Виктория Георгиева Ванева- Димитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г4817",
+    "controlHash": "AA11C058",
+    "sourceUrl": "https://register.cacbg.bg/2026/D4E7AC88-D251-4A18-9200-021262099192229043.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26344.31417863516,
+        "amountEurSpouse": 2045.1675247848739
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14656.693066370799
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 42199.475414529894
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 42000,
+        "valueEur": 43649.49918960237,
+        "holderName": "Виктория Георгиева Ванева- Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заем от родители"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15500,
+        "valueEur": 6343.598370001483,
+        "holderName": "Димчо Иванов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков заем 11,15",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4554,
+        "valueEur": 4228.895149373923,
+        "holderName": "Димчо Иванов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков заем 11,15",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Димчо Иванов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков заем 2,00",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "viktoriya-georgieva-vaneva-dimitrova-31666a",
     "declarantName": "Виктория ГеоргиеваВанева- Димитрова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

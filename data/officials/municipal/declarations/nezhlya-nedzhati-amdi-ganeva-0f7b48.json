@@ -1,27 +1,27 @@
 [
   {
     "slug": "nezhlya-nedzhati-amdi-ganeva-0f7b48",
-    "declarantName": "Нежля Неджати Амди - Ганева",
+    "declarantName": "Нежля Неджати Амди -Ганева",
     "institution": "Крушари",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9546",
-    "controlHash": "08D0F44C",
-    "sourceUrl": "https://register.cacbg.bg/2025/AFBB3C76-F6DE-4A14-B4CE-03EE27C02729212591.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4589",
+    "controlHash": "FDE9BA92",
+    "sourceUrl": "https://register.cacbg.bg/2026/AFBB3C76-F6DE-4A14-B4CE-03EE27C02729228799.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "Дял",
+        "itemType": "дял",
         "shareSize": "100",
         "companyName": "\"Аленико 22\" ЕООД",
         "registeredOffice": "Добрич",
         "valueEur": 511.29188119621847,
         "holderName": "Пламен Любенов Ганев",
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
     ],
@@ -29,38 +29,38 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12889.157033075471,
-        "amountEurSpouse": 8054.38100448403
+        "amountEurDeclarant": 4454.374868981456,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5180.920632161282,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 22854.747089470966,
+        "amountEurSpouse": 10186.468149072261
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 7373.851510611863,
+        "amountEurDeclarant": 4252.925867790145,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Лихви",
-        "amountEurDeclarant": 601.7905441679492,
+        "category": "лихви от влогове",
+        "amountEurDeclarant": 521.0064269389467,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Ренти",
-        "amountEurDeclarant": 1784.4086653748025,
-        "amountEurSpouse": 1840.6507723063867
+        "category": "рента",
+        "amountEurDeclarant": 2863.2345346988236,
+        "amountEurSpouse": 2556.4594059810925
       },
       {
         "parent": null,
-        "category": "Продажба на лек автомобил",
-        "amountEurDeclarant": 4857.272871364075,
-        "amountEurSpouse": null
+        "category": "дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10737.129505120589
       }
     ],
     "assets": [
@@ -77,7 +77,7 @@
         "currency": "BGN",
         "amount": 9500,
         "valueEur": 4857.272871364075,
-        "holderName": "Нежля Неджати Амди -Ганева",
+        "holderName": "Нежля Неджати Амди-Ганева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -95,10 +95,64 @@
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
-        "holderName": "Нежля Неджати Амди -Ганева",
+        "holderName": "Нежля Неджати Амди-Ганева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Богдан",
+        "municipality": "Добричка",
+        "areaSqm": 70,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 2018,
+        "valueEur": 1031.7870162539689,
+        "holderName": "Пламен Любенов Ганев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Ангеларий",
+        "municipality": "Тервел",
+        "areaSqm": 31,
+        "builtAreaSqm": null,
+        "acquiredYear": 2008,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Нежля Неджати Амди-Ганева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Богдан",
+        "municipality": "Добричка",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Пламен Любенов Ганев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "vehicle",
@@ -129,8 +183,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Нежля Неджати Амди-Ганева",
         "isSpouse": false,
         "legalBasis": null,
@@ -147,45 +201,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40603,
-        "valueEur": 20759.98425221006,
-        "holderName": "Нежля Неджати Амди- Ганева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 60716,
-        "valueEur": 31043.597858709603,
-        "holderName": "Нежля Неджати Амди- Ганева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 766,
-        "valueEur": 391.64958099630337,
-        "holderName": "Нежля Неджати Амди- Ганева",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Нежля Неджати Амди-Ганева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -201,12 +219,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10022,
-        "valueEur": 5124.167233348502,
-        "holderName": "Нежля Неджати Амди- Ганева",
+        "amount": 41010,
+        "valueEur": 20968.08004785692,
+        "holderName": "Нежля Неджати Амди-Ганева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -219,27 +237,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11175,
-        "valueEur": 5713.6867723677415,
+        "amount": 61322,
+        "valueEur": 31353.44073871451,
+        "holderName": "Нежля Неджати Амди-Ганева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10395,
+        "valueEur": 5314.879105034691,
         "holderName": "Пламен Любенов Ганев",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": "възмездно"
+        "amount": 41110,
+        "valueEur": 21019.20923597654,
+        "holderName": "Нежля Неджати Амди-Ганева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

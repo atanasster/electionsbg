@@ -1,32 +1,106 @@
 [
   {
     "slug": "gyunai-ibryamov-tefikov-70c90d",
-    "declarantName": "Гюнай  Ибрямов  Тефиков",
+    "declarantName": "Гюнай Ибрямов Тефиков",
     "institution": "Шумен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11850",
-    "controlHash": "326ED9AC",
-    "sourceUrl": "https://register.cacbg.bg/2025/170613D9-7843-4EA9-943F-179627231CFA215002.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13587",
+    "controlHash": "86CC116B",
+    "sourceUrl": "https://register.cacbg.bg/2026/170613D9-7843-4EA9-943F-179627231CFA239131.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Екуиъс",
+        "registeredOffice": "Шумен",
+        "valueEur": 51.12918811962185,
+        "holderName": "Катерина Павлова Кайрякова",
+        "legalBasis": "създаване",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "50",
+        "companyName": "Старопрестол",
+        "registeredOffice": "Шумен",
+        "valueEur": 25.564594059810926,
+        "holderName": "Катерина Павлова Кайрякова",
+        "legalBasis": "създаване",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "НЮЗ М",
+        "registeredOffice": "Шумен",
+        "valueEur": 51.12918811962185,
+        "holderName": "Катерина Павлова Кайрякова",
+        "legalBasis": "създаване",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕТ",
+        "shareSize": "100",
+        "companyName": "ЕТ Надежда Катерина Павлова",
+        "registeredOffice": "Шумен",
+        "valueEur": 51.12918811962185,
+        "holderName": "Катерина Павлова Кайрякова",
+        "legalBasis": "създаване",
+        "fundsOrigin": "спестявания"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5495.365139096956,
+        "amountEurDeclarant": 17471.354872355983,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13464.871691302415,
+        "category": "Рента",
+        "amountEurDeclarant": 3236.477607972063,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 5529.621695137103,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16095,
+        "valueEur": 8229.242827853137,
+        "holderName": "Гюнай Ибрямов Тефиков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
     "events": []
   }
 ]

@@ -4,58 +4,65 @@
     "declarantName": "Светла Николова Данаилова",
     "institution": "Петрич",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г15118",
-    "controlHash": "C841FE3D",
-    "sourceUrl": "https://register.cacbg.bg/2025/433E61ED-CF6D-451E-B689-A88856B536AD218737.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5503",
+    "controlHash": "2A29F798",
+    "sourceUrl": "https://register.cacbg.bg/2026/433E61ED-CF6D-451E-B689-A88856B536AD229764.xml",
     "ownershipStakes": [
       {
-        "table": "10",
+        "table": "11",
         "stakeKind": "share",
-        "itemType": "дялове",
-        "shareSize": "100",
-        "companyName": "Венчър  Юръп ЕООД",
+        "itemType": "Дялово участие",
+        "shareSize": "1/2",
+        "companyName": "Ай Ви Уай Проджект",
         "registeredOffice": "София",
-        "valueEur": 51.12918811962185,
-        "holderName": "Светла Николова Данаилова",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "valueEur": 13079.86890476166,
+        "holderName": null,
+        "transfereeName": "Светла Николова Данаилова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20077.40959081311,
+        "amountEurDeclarant": 23821.600036813015,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Пенсия и добажки по ЗХУ",
-        "amountEurDeclarant": 13746.082225960334,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 12285.321321382738,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия и добавки съгл. ЗХУ",
+        "amountEurDeclarant": 15504.41500539413,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ АСТРА НОЧБАК",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
+        "amount": 14600,
+        "valueEur": 7464.86146546479,
         "holderName": "Светла Николова Данаилова",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
@@ -69,12 +76,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32208,
-        "valueEur": 16467.688909567805,
+        "amount": 45438,
+        "valueEur": 23232.080497793777,
         "holderName": "Светла Николова Данаилова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -87,45 +94,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25566.12793545451,
+        "amount": 52206,
+        "valueEur": 26692.503949729784,
         "holderName": "Светла Николова Данаилова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "receivable",
+        "description": "От поемател на задължение",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 6607,
-        "valueEur": 3378.1054590634158,
+        "currency": "EUR",
+        "amount": 170751,
+        "valueEur": 170751.03664428912,
         "holderName": "Светла Николова Данаилова",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "legalBasis": "чл.102 ,ал.1 от ЗЗД",
+        "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Мерива",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 357.90431683735295,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

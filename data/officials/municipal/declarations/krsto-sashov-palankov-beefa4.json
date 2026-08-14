@@ -4,32 +4,32 @@
     "declarantName": "КРЪСТЬО САШОВ ПАЛАНКОВ",
     "institution": "Разлог",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г10869",
-    "controlHash": "83C64A6D",
-    "sourceUrl": "https://register.cacbg.bg/2025/EF684D79-D465-4122-861C-CB05EBFA183D213983.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7988",
+    "controlHash": "25E5A3B7",
+    "sourceUrl": "https://register.cacbg.bg/2026/EF684D79-D465-4122-861C-CB05EBFA183D232458.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3706.866138672584,
-        "amountEurSpouse": 9012.030697964547
+        "amountEurDeclarant": 4358.763287197763,
+        "amountEurSpouse": 12383.489362572413
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5252.5014955287525,
+        "amountEurDeclarant": 5322.5484832526345,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4294.851802048235
+        "amountEurSpouse": 5061.789623842563
       }
     ],
     "assets": [
@@ -37,17 +37,17 @@
         "category": "real_estate",
         "description": "вила",
         "detail": null,
-        "location": "Ботвград",
+        "location": "Ботевград",
         "municipality": "Ботевград",
         "areaSqm": 77,
         "builtAreaSqm": 154,
-        "acquiredYear": 2009,
-        "share": "100",
+        "acquiredYear": 2025,
+        "share": "4/5",
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
-        "holderName": "КРЪСТЬО САШОВ ПАЛАНКОВ",
-        "isSpouse": false,
+        "amount": 10400,
+        "valueEur": 5317.435564440672,
+        "holderName": "ЙОАНА СТЕФАНОВА ЛОЗАНОВА ПАЛАНКОВА",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -55,7 +55,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "София",
+        "location": "СОФИЯ",
         "municipality": "София-град (Столична)",
         "areaSqm": 33,
         "builtAreaSqm": 33,
@@ -73,12 +73,12 @@
         "category": "real_estate",
         "description": "къща",
         "detail": null,
-        "location": "село Елешница",
+        "location": "ЕЛЕШНИЦА",
         "municipality": "Разлог",
         "areaSqm": 92,
         "builtAreaSqm": 184,
         "acquiredYear": 2021,
-        "share": "50 и СИО",
+        "share": "СИО И 50",
         "currency": "BGN",
         "amount": 1550,
         "valueEur": 792.5024158541387,
@@ -91,8 +91,8 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Гърция, Аспровалта",
-        "municipality": "Чужбина",
+        "location": "ГЪРЦИЯ, АСПРОВАЛТА",
+        "municipality": "ЧУЖБИНА",
         "areaSqm": 650,
         "builtAreaSqm": 86,
         "acquiredYear": 2023,
@@ -102,7 +102,7 @@
         "valueEur": 101695.95516992785,
         "holderName": "ЙОАНА СТЕФАНОВА ЛОЗАНОВА-ПАЛАНКОВА",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": "заеми"
       },
       {
@@ -170,16 +170,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 100000,
-        "valueEur": 51129.188119621846,
+        "amount": 135000,
+        "valueEur": 69024.4039614895,
         "holderName": "ЙОАНА СТЕФАНОВА ЛОЗАНОВА-ПАЛАНКОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАЕМ, ЗАПЛАТА, СРЕДСТВА НА КЛИЕНТИ"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
-        "description": "парично - заем от физически лица",
+        "description": "ЗАЕМ ОТ ФИЗИЧЕСКО ЛИЦЕ, БЕЗЛИХВЕН",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -192,10 +192,23 @@
         "valueEur": 15338.756435886555,
         "holderName": "Йоана Стефанова Лозанова-Паланкова",
         "isSpouse": true,
-        "legalBasis": "ЗАЕМ",
+        "legalBasis": "ЗАЕМ, БЕЗЛИХВЕН",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "БОТЕВГРАД",
+        "municipality": "БОТЕВГРАД",
+        "areaSqm": 77,
+        "builtAreaSqm": 154,
+        "currency": "BGN",
+        "valueEur": 5317.435564440672,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

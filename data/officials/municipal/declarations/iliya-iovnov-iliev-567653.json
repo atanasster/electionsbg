@@ -4,18 +4,18 @@
     "declarantName": "Илия Йовнов Илиев",
     "institution": "Царево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-06",
-    "entryNumber": "Г14896",
-    "controlHash": "65FBB1B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3F9189D-D94E-46FA-BA6D-EB3B0AE8EB86218407.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г10724",
+    "controlHash": "9762CF42",
+    "sourceUrl": "https://register.cacbg.bg/2026/E3F9189D-D94E-46FA-BA6D-EB3B0AE8EB86235513.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дружествени дялове",
+        "itemType": "Дружествени дялове",
         "shareSize": "33,3%",
         "companyName": "Делфин-3-2002 ООД",
         "registeredOffice": "Царево",
@@ -27,9 +27,9 @@
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дружествени дялове",
+        "itemType": "Дружествени дялове",
         "shareSize": "33,3%",
-        "companyName": "Делфин-3-2017 ООД",
+        "companyName": "Делфин-5-2017 ООД",
         "registeredOffice": "Царево",
         "valueEur": 153.38756435886555,
         "holderName": "Илия Йовнов Илиев",
@@ -41,14 +41,26 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16277.488329762811,
-        "amountEurSpouse": 11592.009530480665
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": 10914.547787895675
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17055.674572943455,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 43459.80990167857,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 204.5167524784874
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 425.90613703645,
+        "amountEurSpouse": 425.90613703645
       }
     ],
     "assets": [
@@ -56,7 +68,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Царево, ул. Черно море",
+        "location": "Царево",
         "municipality": "Царево",
         "areaSqm": 433,
         "builtAreaSqm": 358,
@@ -74,7 +86,7 @@
         "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "Царево, ул. Черно море",
+        "location": "Царево",
         "municipality": "Царево",
         "areaSqm": 433,
         "builtAreaSqm": 358,
@@ -126,9 +138,9 @@
       },
       {
         "category": "real_estate",
-        "description": "дворно място със складово помещение",
+        "description": "дворно място със складово  помещение",
         "detail": null,
-        "location": "Царево, Промишлена зона",
+        "location": "Царево",
         "municipality": "Царево",
         "areaSqm": 1877,
         "builtAreaSqm": 76,
@@ -144,9 +156,9 @@
       },
       {
         "category": "real_estate",
-        "description": "дворно място със складово помещение",
+        "description": "дворно място със складово  помещение",
         "detail": null,
-        "location": "Царево, Промишлена зона",
+        "location": "Царево",
         "municipality": "Царево",
         "areaSqm": 1877,
         "builtAreaSqm": 76,
@@ -164,7 +176,7 @@
         "category": "real_estate",
         "description": "поземлен имот с постройки",
         "detail": null,
-        "location": "с.Граматиково",
+        "location": "с. Граматиково",
         "municipality": "Малко Търново",
         "areaSqm": 3000,
         "builtAreaSqm": 500,
@@ -200,7 +212,7 @@
         "category": "real_estate",
         "description": "зем.земя",
         "detail": null,
-        "location": "Вургарски път",
+        "location": "м. Вургарски път",
         "municipality": "Царево",
         "areaSqm": 2,
         "builtAreaSqm": 2,
@@ -212,13 +224,13 @@
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "дивиденти"
       },
       {
         "category": "real_estate",
         "description": "зем.земя",
         "detail": null,
-        "location": "Вургарски път",
+        "location": "м. Вургарски път",
         "municipality": "Царево",
         "areaSqm": 2,
         "builtAreaSqm": 2,
@@ -230,7 +242,7 @@
         "holderName": "Матена Тодорова Илиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплати"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -248,7 +260,7 @@
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "дивиденти"
       },
       {
         "category": "real_estate",
@@ -266,7 +278,7 @@
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "дивиденти"
       },
       {
         "category": "real_estate",
@@ -284,42 +296,60 @@
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "дивиденти"
       },
       {
         "category": "vehicle",
-        "description": "Джип",
+        "description": "джип",
         "detail": "Тойота",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2020,
-        "share": "1",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 10000,
         "valueEur": 5112.918811962185,
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Дивиденти"
+        "fundsOrigin": "дивиденти"
       },
       {
         "category": "vehicle",
-        "description": "Джип",
+        "description": "джип",
         "detail": "Тойота",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2012,
-        "share": "1",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 9000,
         "valueEur": 4601.626930765967,
         "holderName": "Илия Йовнов Илиев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82000,
+        "valueEur": 41925.93425808992,
+        "holderName": "Илия Йовнов Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "Дивиденти"
       }
     ],

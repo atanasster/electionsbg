@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "mariya-lukova-vladimirova-d5cb32",
+    "declarantName": "Мария Лукова Владимирова",
+    "institution": "Годеч",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г4472",
+    "controlHash": "880B3D25",
+    "sourceUrl": "https://register.cacbg.bg/2026/7313A81E-4A58-41A2-B29D-A51932D44C3D228672.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18627.385815740632,
+        "amountEurSpouse": 8832.567247664674
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1417.8123865571138,
+        "amountEurSpouse": 831.3605988250513
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7601.37639774418
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Годеч",
+        "municipality": "Годеч",
+        "areaSqm": 26,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Мария Лукова Владимирова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "Годеч",
+        "municipality": "Годеч",
+        "areaSqm": 26,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -5,6 +5,87 @@
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г4574",
+    "controlHash": "7A05452B",
+    "sourceUrl": "https://register.cacbg.bg/2026/938CB222-F141-4700-864C-F182E7A62AF0228784.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 190525.25014955288,
+        "amountEurSpouse": 23263.780594427943
+      },
+      {
+        "parent": null,
+        "category": "необлагаеми доходи",
+        "amountEurDeclarant": 1308.9072158623194,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 95,
+        "acquiredYear": null,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Свилена Николова Николова",
+        "isSpouse": false,
+        "legalBasis": "съгласие на пълнолетно дете",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "Свилена Николова Николова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Свети Влас",
+        "municipality": "Несебър",
+        "areaSqm": 0,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 49999.7443540594,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "svilena-nikolova-nikolova-8c143d",
+    "declarantName": "Свилена Николова Николова",
+    "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,23 +4,42 @@
     "declarantName": "Светослава Александрова Славчева",
     "institution": "Якимово",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г6089",
-    "controlHash": "F13A863A",
-    "sourceUrl": "https://register.cacbg.bg/2025/AB4C018B-76FC-4AE3-91FD-E377730C5EB4209038.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г12955",
+    "controlHash": "F9CF6E1D",
+    "sourceUrl": "https://register.cacbg.bg/2026/AB4C018B-76FC-4AE3-91FD-E377730C5EB4238307.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8461.36934191622,
+        "amountEurDeclarant": 13627.462509522811,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Светослава Александрова Славчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

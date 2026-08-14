@@ -5,6 +5,136 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г5837",
+    "controlHash": "C559E60E",
+    "sourceUrl": "https://register.cacbg.bg/2026/F3CB7EA0-CA76-4DC6-A59C-1E482EF1C99E230109.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "ЕСТАНЕМАКЕСТЕЙТ ООД",
+        "registeredOffice": "АСЕНОВГРАД",
+        "valueEur": 1278.2297029905462,
+        "holderName": "САНЯ РОСЕНОВА ЧАТАЛБАШЕВА-РЕВАНСКА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30963.83632524299,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 828.292847537874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66557,
+        "valueEur": 34030.05373677672,
+        "holderName": "РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 84842,
+        "valueEur": 43379.02578444957,
+        "holderName": "РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18356,
+        "valueEur": 18355.88982682544,
+        "holderName": "РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95626,
+        "valueEur": 48892.79743126959,
+        "holderName": "САНЯ РОСЕНОВА ЧАТАЛБАШЕВА - РЕВАНСКА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и дарение"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение НОИ -  ДОО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1152.4519002162765,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "radoslav-sabinov-revanski-91cfbd",
+    "declarantName": "РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

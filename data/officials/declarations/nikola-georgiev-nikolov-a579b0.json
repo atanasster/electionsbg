@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "nikola-georgiev-nikolov-a579b0",
+    "declarantName": "Никола Георгиев Николов",
+    "institution": "Ръководителите на задграничните представителства на Р.България",
+    "positionTitle": "Извънреден и пълномощен посланик",
+    "category": "diplomat",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-02",
+    "entryNumber": "Г870",
+    "controlHash": "5BBBFCEC",
+    "sourceUrl": "https://register.cacbg.bg/2026/8B0EAEE6-B2AC-4208-83B5-B23FDA86D20F224467.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30517.98980483989,
+        "amountEurSpouse": 53292.46406896305
+      },
+      {
+        "parent": null,
+        "category": "командировъчни",
+        "amountEurDeclarant": 6432.563157329625,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16779,
+        "valueEur": 8578.96647459135,
+        "holderName": "Никола Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "от прехвърляне на лизинг на автомобил"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19927,
+        "valueEur": 10188.513316597046,
+        "holderName": "Мария Иванова Йотова-Николова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лично превозно средство",
+        "detail": "Audi q5 Sportbac S line TDI quatro",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "прехвърляне на лизинг"
+      }
+    ]
+  }
+]

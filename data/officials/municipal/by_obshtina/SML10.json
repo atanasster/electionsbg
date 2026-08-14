@@ -1,15 +1,15 @@
 {
   "obshtina": "SML10",
   "registryName": "Доспат",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 1,
-    "councillor": 12,
+    "councillor": 13,
     "chief_architect": 1,
     "other": 0
   },
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "adalbert-rosenov-ferev-619632",
@@ -47,7 +49,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -58,13 +61,14 @@
       }
     },
     {
-      "slug": "mano-nikolov-lazarov-279a6b",
-      "name": "Мано Николов Лазаров",
-      "normalizedName": "МАНО НИКОЛОВ ЛАЗАРОВ",
+      "slug": "dimitr-velichkov-dimov-f0125b",
+      "name": "Димитър Величков Димов",
+      "normalizedName": "ДИМИТЪР ВЕЛИЧКОВ ДИМОВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "aleksandr-atanasov-kutslev-e9bbcc",
@@ -73,7 +77,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -90,7 +95,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МЕСТНА КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ (ПП ИМА ТАКЪВ НАРОД)",
@@ -107,7 +113,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -124,7 +131,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -141,7 +149,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -152,13 +161,32 @@
       }
     },
     {
+      "slug": "boiko-stamatov-kehaiov-e55926",
+      "name": "Бойко Стаматов Кехайов",
+      "normalizedName": "БОЙКО СТАМАТОВ КЕХАЙОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Доспат",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МЕСТНА КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ (ПП ИМА ТАКЪВ НАРОД)",
+        "partyCanonicalId": "p_67",
+        "listPos": 105,
+        "prefVotes": 86,
+        "isElected": false
+      }
+    },
+    {
       "slug": "vladimir-sergeev-deliev-2d8b52",
       "name": "Владимир Сергеев Делиев",
       "normalizedName": "ВЛАДИМИР СЕРГЕЕВ ДЕЛИЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МЕСТНА КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ (ПП ИМА ТАКЪВ НАРОД)",
@@ -175,7 +203,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МЕСТНА КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ (ПП ИМА ТАКЪВ НАРОД)",
@@ -194,7 +223,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -211,7 +241,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -228,7 +259,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -245,7 +277,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МЕСТНА КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА - ДЕМОКРАТИЧНА БЪЛГАРИЯ (ПП ИМА ТАКЪВ НАРОД)",
@@ -262,7 +295,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Доспат",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",

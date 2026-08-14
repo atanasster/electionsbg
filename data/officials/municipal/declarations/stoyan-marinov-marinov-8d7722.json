@@ -1,32 +1,105 @@
 [
   {
     "slug": "stoyan-marinov-marinov-8d7722",
-    "declarantName": "СТОЯН МАРИНОВ МАРИНОВ",
+    "declarantName": "Стоян Маринов Маринов",
     "institution": "Тунджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г11340",
-    "controlHash": "D575D330",
-    "sourceUrl": "https://register.cacbg.bg/2025/6E619941-65A5-4B9A-B397-34A96B345EA4214475.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г14297",
+    "controlHash": "57F2122B",
+    "sourceUrl": "https://register.cacbg.bg/2026/6E619941-65A5-4B9A-B397-34A96B345EA4240042.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5598.6460990985925,
-        "amountEurSpouse": 2025.2271414182214
+        "amountEurDeclarant": 6233.670615544296,
+        "amountEurSpouse": 6494.940766835563
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 5580.239591375529,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7382.543472592199,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "дворно място с жилищна постройка",
+        "detail": null,
+        "location": "с. Гранитово",
+        "municipality": "Елхово",
+        "areaSqm": 585,
+        "builtAreaSqm": 64,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стоян Маринов Маринов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Стоян Маринов Маринов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Нина Трифонова Маринова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Нина Трифонова Маринова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит, лихва-5,66%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

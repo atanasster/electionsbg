@@ -4,50 +4,32 @@
     "declarantName": "Златина Димова Иванова",
     "institution": "Опан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5123",
-    "controlHash": "0364094B",
-    "sourceUrl": "https://register.cacbg.bg/2025/AB399BEB-9308-4B63-9E85-0B460F2DEE72208020.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3298",
+    "controlHash": "1B934A41",
+    "sourceUrl": "https://register.cacbg.bg/2026/AB399BEB-9308-4B63-9E85-0B460F2DEE72227421.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9389.875398168553,
+        "amountEurDeclarant": 3066.7287034149185,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1933.1946028029022,
+        "amountEurDeclarant": 10441.091505907978,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Skoda Octavia",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Златина Димова Иванова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
-        "description": "Ипотечен кредит, лихвен процент 2.85%",
+        "description": "Ипотечен кредит, лихвен процент 2.83",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,25 +38,25 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31066,
-        "valueEur": 15883.793581241724,
+        "amount": 27786,
+        "valueEur": 14206.756210918127,
         "holderName": "Златина Димова Иванова",
         "isSpouse": false,
-        "legalBasis": "кредит - 2.85%",
+        "legalBasis": "кредит - 2.83 %",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Аudi A4",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "с. Опан",
+        "municipality": "Опан",
+        "areaSqm": 216,
+        "builtAreaSqm": 864,
         "currency": "BGN",
-        "valueEur": 1022.5837623924369,
+        "valueEur": 10225.83762392437,
         "legalBasis": "възмездно"
       }
     ]

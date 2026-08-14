@@ -4,54 +4,78 @@
     "declarantName": "Диян Руменов Рафаилов",
     "institution": "Антоново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2374",
-    "controlHash": "214F728A",
-    "sourceUrl": "https://register.cacbg.bg/2025/4D4C2C93-090E-4CEE-9505-EB8467CED94B205008.xml",
+    "filedAt": "2026-04-13",
+    "entryNumber": "Г2612",
+    "controlHash": "600F92C3",
+    "sourceUrl": "https://register.cacbg.bg/2026/4D4C2C93-090E-4CEE-9505-EB8467CED94B226679.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11515.315748301233,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 12174.882275044354,
+        "amountEurSpouse": 9919.06249520664
       },
       {
         "parent": null,
-        "category": "Доход от продажба на недвижим имот - къща",
-        "amountEurDeclarant": 43459.80990167857,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доход от продажба на движимо имущество - зем.техника и лек автомобил",
-        "amountEurDeclarant": 4857.272871364075,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5836.396823854834,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Шишковица",
+        "municipality": "Антоново",
+        "areaSqm": 2450,
+        "builtAreaSqm": 80,
         "currency": "BGN",
-        "amount": 44620,
-        "valueEur": 22813.84373897527,
-        "holderName": "Диян Руменов Рафаилов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 1,
+        "builtAreaSqm": 44,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 12,
+        "builtAreaSqm": 12,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Шишковица",
+        "municipality": "Антоново",
+        "areaSqm": 1,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

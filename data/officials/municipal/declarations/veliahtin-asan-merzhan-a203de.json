@@ -4,64 +4,46 @@
     "declarantName": "Велиахтин Асан Мержан",
     "institution": "Мъглиж",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13139",
-    "controlHash": "89EC6AC3",
-    "sourceUrl": "https://register.cacbg.bg/2025/B4CB5025-1FB3-4567-A4A2-FA1896AFA1A8216332.xml",
+    "filedAt": null,
+    "entryNumber": "Г13130",
+    "controlHash": "9958D2E5",
+    "sourceUrl": "https://register.cacbg.bg/2026/B4CB5025-1FB3-4567-A4A2-FA1896AFA1A8238544.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1997.6173798336256,
-        "amountEurSpouse": 1067.066156056508
+        "amountEurDeclarant": 2318.708681224851,
+        "amountEurSpouse": 1435.1963105177854
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3339.247276092503,
+        "amountEurDeclarant": 6257.190042079322,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел корса",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Велиахтин Асан Мержан",
+        "amount": 26960,
+        "valueEur": 13784.429117050051,
+        "holderName": "Велиахтин Асан мержан",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел корса",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Светла Сашева Мерджанова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "legalBasis": null,
+        "fundsOrigin": "от кредит и от заплата"
       },
       {
         "category": "debt",
@@ -74,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33006,
-        "valueEur": 16875.699830762387,
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
         "holderName": "Велиахтин Асан Мержан",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит 5,20%",
+        "legalBasis": "Договор за кредит, 6,04%",
         "fundsOrigin": null
       },
       {
@@ -92,16 +74,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 66880,
-        "valueEur": 34195.201014403094,
+        "amount": 38270,
+        "valueEur": 19567.14029337928,
         "holderName": "Велиахтин Асан Мержан",
         "isSpouse": false,
-        "legalBasis": "договорна ипотека 4,52%",
+        "legalBasis": "Договор за кредит, 4,54%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "личен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -110,16 +92,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14000,
-        "valueEur": 7158.086336747059,
+        "amount": 6390,
+        "valueEur": 3267.1551208438364,
         "holderName": "Велиахтин Асан Мержан",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит 6,02%",
+        "legalBasis": "личен заем, 6,79%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "личен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -128,39 +110,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8836,
-        "valueEur": 4517.775062249787,
+        "amount": 25977,
+        "valueEur": 13281.829197834168,
         "holderName": "Велиахтин Асан Мержан",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит 6,73%",
+        "legalBasis": "личен заем, 5,26%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел корса",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел корса",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

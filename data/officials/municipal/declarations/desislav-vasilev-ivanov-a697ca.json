@@ -4,42 +4,84 @@
     "declarantName": "Десислав Василев Иванов",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7397",
-    "controlHash": "0BA5D3A0",
-    "sourceUrl": "https://register.cacbg.bg/2025/D890E4AC-5D94-4469-A3A9-3F38406EB3A5210385.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10589",
+    "controlHash": "8C5DFC2E",
+    "sourceUrl": "https://register.cacbg.bg/2026/D890E4AC-5D94-4469-A3A9-3F38406EB3A5235352.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6161.067168414433,
+        "amountEurDeclarant": 6926.982406446368,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12151.874140390524,
+        "amountEurDeclarant": 12726.054922973879,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_property",
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Телиш",
+        "municipality": "Червен бряг",
+        "areaSqm": 450,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Десислав Василев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
-        "location": "с. Радомирци",
+        "location": "с. Телиш",
         "municipality": "Червен бряг",
-        "areaSqm": 1195,
-        "builtAreaSqm": 223,
+        "areaSqm": 850,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Десислав Василев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9000,
+        "valueEur": 9039.640459549142,
+        "holderName": "Десислав Василев Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

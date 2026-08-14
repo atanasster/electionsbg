@@ -5,6 +5,37 @@
     "institution": "МБАЛДБ \"Света Анастасия\", Бургас",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5032",
+    "controlHash": "263BF69D",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F941A30-FD1F-4FEA-BF2E-97FE36B18A65229274.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29873.762034532654,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 11412.546080180793,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "daniela-stoichkova-petrova-nikolova-777cb1",
+    "declarantName": "Даниела Стоичкова Петрова-Николова",
+    "institution": "МБАЛДБ \"Света Анастасия\", Бургас",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

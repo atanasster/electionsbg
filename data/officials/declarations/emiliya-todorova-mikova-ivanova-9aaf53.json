@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11806",
+    "controlHash": "F1C0F99B",
+    "sourceUrl": "https://register.cacbg.bg/2026/342D12C9-79FF-45FD-934A-110F0EEB2D78236788.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30455.100903452756,
+        "amountEurSpouse": 8680.202267068202
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "TOYOTA YARIS CROSS",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 53320,
+        "valueEur": 27262.08310538237,
+        "holderName": "Емилия Тодорова Микова-Иванова",
+        "isSpouse": false,
+        "legalBasis": "договор за покупка",
+        "fundsOrigin": "лизинг"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44433,
+        "valueEur": 22718.232157191575,
+        "holderName": "Емилия Тодорова Микова-Иванова",
+        "isSpouse": false,
+        "legalBasis": "3.90%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "emiliya-todorova-mikova-ivanova-9aaf53",
+    "declarantName": "Емилия Тодорова Микова-Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

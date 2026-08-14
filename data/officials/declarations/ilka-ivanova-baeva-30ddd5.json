@@ -5,6 +5,74 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г2729",
+    "controlHash": "5CEB457F",
+    "sourceUrl": "https://register.cacbg.bg/2026/78EC5CC6-71CE-4952-B68C-320ECD38CE77226810.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 58792.43083499077,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7730.733243686824,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Илка Иванова Баева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "рента,спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61000,
+        "valueEur": 31188.80475296933,
+        "holderName": "Илка Иванова Баева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия, спестявания, работна заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ilka-ivanova-baeva-30ddd5",
+    "declarantName": "Илка Иванова Баева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

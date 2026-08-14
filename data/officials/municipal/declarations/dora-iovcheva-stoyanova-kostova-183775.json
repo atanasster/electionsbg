@@ -1,32 +1,56 @@
 [
   {
     "slug": "dora-iovcheva-stoyanova-kostova-183775",
-    "declarantName": "Дора Йовчева Стоянова-Костова",
+    "declarantName": "Дора Йовчева Стоянова- Костова",
     "institution": "Стралджа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7787",
-    "controlHash": "C305ED71",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3802D8A-4FC0-470A-8738-36BA677453DD210789.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г12799",
+    "controlHash": "AB5147BF",
+    "sourceUrl": "https://register.cacbg.bg/2026/E3802D8A-4FC0-470A-8738-36BA677453DD238138.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3375.037707776238,
+        "amountEurDeclarant": 3410.3168475787775,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1422.4140134878799,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 73394.92696195477,
+        "amountEurDeclarant": 78593.74280995793,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6025,
+        "valueEur": 3080.5335842072163,
+        "holderName": "Дора Йовчева Стоянова-Костова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19993,
-        "valueEur": 10222.258580755995,
-        "holderName": "ЕТ \"Д-р Дора Йовчева Стоянова'' ЕИК 128505109",
-        "isSpouse": true,
+        "amount": 977,
+        "valueEur": 499.53216792870546,
+        "holderName": "Дора Йовчева Стоянова-Костова",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Доход дейност ЕТ"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "investment",

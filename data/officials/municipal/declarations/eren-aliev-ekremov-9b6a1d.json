@@ -4,23 +4,73 @@
     "declarantName": "Ерен Алиев Екремов",
     "institution": "Никопол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г11020",
-    "controlHash": "75EB339C",
-    "sourceUrl": "https://register.cacbg.bg/2025/059DCE61-B9C4-4B62-8E20-1C7DE14DD4AA214139.xml",
+    "entryNumber": "Г12381",
+    "controlHash": "24A3F716",
+    "sourceUrl": "https://register.cacbg.bg/2026/059DCE61-B9C4-4B62-8E20-1C7DE14DD4AA237620.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9030.948497568806,
+        "amountEurDeclarant": 10933.976879381133,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Паричен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20475,
+        "valueEur": 10468.701267492574,
+        "holderName": "Ерен Алиев Екремов",
+        "isSpouse": false,
+        "legalBasis": "договор - 0%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Паричен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Ерен Алиев Екремов",
+        "isSpouse": false,
+        "legalBasis": "договор - 0%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Никопол",
+        "municipality": "Никопол",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 18150.861782465756,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

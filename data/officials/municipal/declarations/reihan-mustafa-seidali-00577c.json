@@ -4,15 +4,22 @@
     "declarantName": "РЕЙХАН МУСТАФА СЕЙДАЛИ",
     "institution": "Момчилград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13066",
-    "controlHash": "5B315684",
-    "sourceUrl": "https://register.cacbg.bg/2025/47B927FB-C2B4-4721-9BC5-246961DB51A2216259.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9280",
+    "controlHash": "461131D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/47B927FB-C2B4-4721-9BC5-246961DB51A2233884.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4405.802140267815,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "receivable",
@@ -43,11 +50,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23160,
-        "valueEur": 11841.51996850442,
+        "amount": 22406,
+        "valueEur": 11456.005890082472,
         "holderName": "Рейхан Мустафа Сейдали",
         "isSpouse": false,
         "legalBasis": "3,35",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1974,
+        "valueEur": 1009.2901734813353,
+        "holderName": "Рейхан Мустафа Сейдали",
+        "isSpouse": false,
+        "legalBasis": "5,5",
         "fundsOrigin": null
       }
     ],

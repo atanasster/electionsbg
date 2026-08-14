@@ -4,35 +4,71 @@
     "declarantName": "Златин Иванов Велев",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": "2025-05-05",
-    "entryNumber": "Г6028",
-    "controlHash": "4EA713E0",
-    "sourceUrl": "https://register.cacbg.bg/2025/7EE84BBC-A19D-41BB-AA50-AC51C33F3E80208974.xml",
+    "entryNumber": "Г9375",
+    "controlHash": "C8101CE5",
+    "sourceUrl": "https://register.cacbg.bg/2026/7EE84BBC-A19D-41BB-AA50-AC51C33F3E80233990.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14716.00292458956,
-        "amountEurSpouse": 28000.38858182971
+        "amountEurDeclarant": 16333.730436694395,
+        "amountEurSpouse": 32784.03542230153
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5464.176334343987,
+        "amountEurDeclarant": 5728.514236922432,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2546.233568357168
+        "amountEurSpouse": 2825.9102273715
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с гараж в строеж",
+        "detail": null,
+        "location": "Пловдив Остромила",
+        "municipality": "Пловдив",
+        "areaSqm": 273,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Златина Томова Томова-Велева",
+        "isSpouse": true,
+        "legalBasis": "строеж",
+        "fundsOrigin": "ипотечен кредит"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69000,
+        "valueEur": 35279.13980253907,
+        "holderName": "Златина Томова Томова-Велева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "кредит и продажба имот"
+      },
       {
         "category": "cash",
         "description": null,
@@ -62,14 +98,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Златина Томова Томова-Велева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Златина Томова Томова-Велева",
+        "isSpouse": true,
+        "legalBasis": "банков кредит 4.38%",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Свищов",
+        "areaSqm": 72,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 34256.556040146635,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

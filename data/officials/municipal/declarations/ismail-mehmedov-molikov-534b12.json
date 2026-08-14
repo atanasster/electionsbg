@@ -4,29 +4,65 @@
     "declarantName": "Исмаил Мехмедов Моликов",
     "institution": "Стражица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13216",
-    "controlHash": "3AA70E03",
-    "sourceUrl": "https://register.cacbg.bg/2025/171CCB0B-B2BD-4712-841E-9FFA3223DE2B216413.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12816",
+    "controlHash": "04403541",
+    "sourceUrl": "https://register.cacbg.bg/2026/171CCB0B-B2BD-4712-841E-9FFA3223DE2B238156.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13193.886994268418,
-        "amountEurSpouse": 4397.110178287479
+        "amountEurDeclarant": 163268.79125486367,
+        "amountEurSpouse": 5782.199884448035
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5267.328960083443,
+        "amountEurDeclarant": 6721.954362086684,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Исмаил Мехмедов Моликов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Дачия Сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 39000,
+        "valueEur": 19940.38336665252,
+        "holderName": "Исмаил Мехмедов Моликов",
+        "isSpouse": false,
+        "legalBasis": "дог за лизинг",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "КТП",
@@ -38,39 +74,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 66145,
+        "valueEur": 33819.40148172387,
         "holderName": "Исмаил Мехмедов Моликов",
         "isSpouse": false,
-        "legalBasis": "дог. за кредит-6,5%",
+        "legalBasis": "дог.за кредит-6,05",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КТП",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43100,
+        "valueEur": 22036.680079557016,
+        "holderName": "Исмаил Мехмедов Моликов",
+        "isSpouse": false,
+        "legalBasis": "дог.за кредит-7,96",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Кесарево",
-        "municipality": "Стражица",
-        "areaSqm": 500,
-        "builtAreaSqm": 98,
-        "currency": "BGN",
-        "valueEur": 5112.918811962185,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Кесарево",
-        "municipality": "Стражица",
-        "areaSqm": 500,
-        "builtAreaSqm": 98,
-        "currency": "BGN",
-        "valueEur": 5112.918811962185,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

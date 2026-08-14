@@ -4,19 +4,38 @@
     "declarantName": "Емилия Божидарова Ангелова",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г10162",
-    "controlHash": "33289349",
-    "sourceUrl": "https://register.cacbg.bg/2025/D8F65470-4D18-4854-8A34-F276F1A46272213237.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6973",
+    "controlHash": "A4154A78",
+    "sourceUrl": "https://register.cacbg.bg/2026/D8F65470-4D18-4854-8A34-F276F1A46272231354.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове в дружество с ограничена отговорност",
+        "shareSize": "45.77%",
+        "companyName": "ТераЛайф Солюшънс ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 153.38756435886555,
+        "holderName": "Емилия Божидарова Ангелова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 27749.344268162367,
+        "amountEurDeclarant": 39971.77668815797,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3854.629492338291,
         "amountEurSpouse": null
       }
     ],
@@ -25,7 +44,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "град София",
+        "location": "София",
         "municipality": "София-град (Столична)",
         "areaSqm": 105,
         "builtAreaSqm": null,
@@ -40,24 +59,6 @@
         "fundsOrigin": "дарения"
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 11705,
-        "valueEur": 5984.671469401737,
-        "holderName": "Емилия Божидарова Ангелова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -68,12 +69,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11705,
-        "valueEur": 5984.671469401737,
+        "amount": 42346,
+        "valueEur": 21651.16600113507,
         "holderName": "Емилия Божидарова Ангелова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49462,
+        "valueEur": 25289.519027727358,
+        "holderName": "Емилия Божидарова Ангелова",
+        "isSpouse": false,
+        "legalBasis": "Даговор кредит, 4.44%",
+        "fundsOrigin": null
       }
     ],
     "events": []

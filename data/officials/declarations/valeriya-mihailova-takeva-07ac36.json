@@ -1,6 +1,116 @@
 [
   {
     "slug": "valeriya-mihailova-takeva-07ac36",
+    "declarantName": "Валерия Михайлова Такева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11925",
+    "controlHash": "57788FDA",
+    "sourceUrl": "https://register.cacbg.bg/2026/7376FEB3-17E6-495B-A223-FD48F06FE438236980.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16872.63207947521,
+        "amountEurSpouse": 204516.75247848738
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 818.0670099139496,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6646.79445555084
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "ул. Малашевска 1",
+        "municipality": "Перник",
+        "areaSqm": 100,
+        "builtAreaSqm": 280,
+        "acquiredYear": 2003,
+        "share": "2/3",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Валерия Михайлоова Такева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. Стражите 11",
+        "municipality": "Разлог",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 170000,
+        "valueEur": 86919.61980335714,
+        "holderName": "Валерия Михайлоова Такева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай И 20",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Валерия Михайлова Такева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит ипотека жилищен имот",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Валерия Михайлова Такева",
+        "isSpouse": false,
+        "legalBasis": "договор за заем,  плаваща лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "valeriya-mihailova-takeva-07ac36",
     "declarantName": "ВАЛЕРИЯ МИХАЙЛОВА ТАКЕВА",
     "institution": "Училища",
     "positionTitle": "Директор",

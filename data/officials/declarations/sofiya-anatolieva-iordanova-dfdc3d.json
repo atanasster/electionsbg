@@ -1,6 +1,81 @@
 [
   {
     "slug": "sofiya-anatolieva-iordanova-dfdc3d",
+    "declarantName": "СОФИЯ АНАТОЛИЕВА ЙОРДАНОВА",
+    "institution": "СБАЛАГ \"Майчин дом” ЕАД, гр.София",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4321",
+    "controlHash": "F61C8889",
+    "sourceUrl": "https://register.cacbg.bg/2026/8C3EAD54-813C-4377-AA67-A13A1DBCC0F6228518.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51825.0563699299,
+        "amountEurSpouse": 48174.9436300701
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 17639.569901269537,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2454.2010297418487
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 209999.84661243565,
+        "amountEurSpouse": 209999.84661243565
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000,
+        "holderName": "София Анатолиева Йорданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "кв.Горна Баня",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 608,
+        "builtAreaSqm": 608,
+        "currency": "BGN",
+        "valueEur": 320999.7801444911,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "sofiya-anatolieva-iordanova-dfdc3d",
     "declarantName": "София Анатолиева Йорданова",
     "institution": "СБАЛАГ \"Майчин дом” ЕАД, гр.София",
     "positionTitle": "Член на СД",

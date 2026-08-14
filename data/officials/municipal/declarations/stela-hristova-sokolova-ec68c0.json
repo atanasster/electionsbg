@@ -4,23 +4,78 @@
     "declarantName": "Стела Христова Соколова",
     "institution": "Стражица",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5129",
-    "controlHash": "D5B2BDFA",
-    "sourceUrl": "https://register.cacbg.bg/2025/E7225C72-9628-48F5-B70B-3BC345F54E61208026.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12804",
+    "controlHash": "18493B9C",
+    "sourceUrl": "https://register.cacbg.bg/2026/E7225C72-9628-48F5-B70B-3BC345F54E61238143.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20039.062699723392,
-        "amountEurSpouse": 17732.625023647248
+        "amountEurDeclarant": 22939.62154174954,
+        "amountEurSpouse": 13515.48958754084
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 0,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ангел Илиев Петков",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 0,
+        "builtAreaSqm": 30,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ангел Илиев Петков",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "дворно място",
+        "detail": null,
+        "location": "с. Камен",
+        "municipality": "Стражица",
+        "areaSqm": 1000,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ангел Илиев Петков",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

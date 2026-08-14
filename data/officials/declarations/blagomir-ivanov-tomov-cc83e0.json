@@ -5,6 +5,56 @@
     "institution": "МБАЛ \"Иван Скендеров\" - Гоце Делчев ЕООД",
     "positionTitle": "Контрольор",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13475",
+    "controlHash": "A8EE9B68",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5A23DC2-D168-4E2D-B872-BCCFCD144ABD238988.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10128.692166497089,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19362.1122490196,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Благомир Иванов Томов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "blagomir-ivanov-tomov-cc83e0",
+    "declarantName": "Благомир Иванов Томов",
+    "institution": "МБАЛ \"Иван Скендеров\" - Гоце Делчев ЕООД",
+    "positionTitle": "Контрольор",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

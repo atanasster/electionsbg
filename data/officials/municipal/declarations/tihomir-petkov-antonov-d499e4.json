@@ -4,49 +4,49 @@
     "declarantName": "ТИХОМИР ПЕТКОВ АНТОНОВ",
     "institution": "Монтана",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-24",
-    "entryNumber": "Г1279",
-    "controlHash": "9EE07581",
-    "sourceUrl": "https://register.cacbg.bg/2025/E001660C-AA18-4A8D-AD29-74AD09E8E41C203700.xml",
+    "filedAt": "2026-03-13",
+    "entryNumber": "Г282",
+    "controlHash": "B5EACAFB",
+    "sourceUrl": "https://register.cacbg.bg/2026/E001660C-AA18-4A8D-AD29-74AD09E8E41C223380.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30816.58426345848,
-        "amountEurSpouse": 12743.43884693455
+        "amountEurDeclarant": 25310.9932867376,
+        "amountEurSpouse": 14127.505969332713
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2524.2480174657308
+        "amountEurSpouse": 2676.1017061810076
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "МОТОЦИКЛЕТ",
-        "detail": "BMW",
+        "description": "АВТОМОБИЛ",
+        "detail": "ПОРШЕ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 9500,
-        "valueEur": 4857.272871364075,
+        "amount": 21000,
+        "valueEur": 10737.129505120589,
         "holderName": "ТИХОМИР ПЕТКОВ АНТОНОВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ЗАПЛАГТА"
+        "legalBasis": "ВЪЗМЕЗДНО",
+        "fundsOrigin": ",ЗАПЛАТА"
       },
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -56,10 +56,28 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 56881,
-        "valueEur": 29082.793494322104,
+        "amount": 65926,
+        "valueEur": 33707.4285597419,
         "holderName": "ТИХОМИР ПЕТКОВ АНТОНОВ",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1428,
+        "valueEur": 730.1248063482,
+        "holderName": "ЗДРАВКА КРУМОВА КРЪСТЕВА - АНТОНОВА",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -74,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30430,
-        "valueEur": 20625.514487455453,
+        "amount": 30431,
+        "valueEur": 15559.123236682124,
         "holderName": "ТИХОМИР ПЕТКОВ АНТОНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "ЗАПЛАТИ, НАСЛЕДЯВАНЕ"
       },
       {
         "category": "bank",
@@ -92,30 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22823,
-        "valueEur": 11669.214604541294,
-        "holderName": "ЗДРАВКА КРУМОВАВ КРЪСТЕВА - АНТОНОВА",
+        "amount": 22825,
+        "valueEur": 11670.237188303687,
+        "holderName": "ЗДРАВКА КРУМОВА КРЪСТЕВА - АНТОНОВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1893,
-        "valueEur": 967.8755311044416,
-        "holderName": "ЗДРАВКА КРУМОВАВ КРЪСТЕВА - АНТОНОВА",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "ЗАПЛАТА"
+        "fundsOrigin": "трансфери от ДСП до 2020"
       },
       {
         "category": "debt",
@@ -128,26 +128,44 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 54427,
-        "valueEur": 27828.083217866584,
+        "amount": 10975,
+        "valueEur": 5611.428396128498,
         "holderName": "ЗДРАВКА КРУМОВА КРЪСТЕВА - АНТОНОВА",
         "isSpouse": true,
-        "legalBasis": "ПОТ. КРЕДИТ ПРИ 4.1%",
+        "legalBasis": "КРЕДИТ ПРИ 4.1%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КЛЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15351,
+        "valueEur": 7848.84166824315,
+        "holderName": "ЗДРАВКА КРУМОВА КРЪСТЕВА - АНТОНОВА",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ ПРИ 4.2%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "МОТОЦИКЛЕТ",
-        "detail": "BMW",
+        "description": "АВТОМОБИЛ",
+        "detail": "/B;W",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 3425.655604014664,
-        "legalBasis": "възмездно"
+        "valueEur": 8691.961980335715,
+        "legalBasis": "ВЪЗМЕЗДНО"
       }
     ]
   }

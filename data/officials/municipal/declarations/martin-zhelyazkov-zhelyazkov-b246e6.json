@@ -4,31 +4,25 @@
     "declarantName": "Мартин Желязков Желязков",
     "institution": "Камено",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-03",
-    "entryNumber": "Г12886",
-    "controlHash": "5BA4BF21",
-    "sourceUrl": "https://register.cacbg.bg/2025/635AA711-28B1-4F19-83DB-A40471284664216066.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г6576",
+    "controlHash": "D3976466",
+    "sourceUrl": "https://register.cacbg.bg/2026/635AA711-28B1-4F19-83DB-A40471284664230910.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4006.9944729347644,
-        "amountEurSpouse": 10238.619920954276
+        "amountEurDeclarant": 3964.557246795478,
+        "amountEurSpouse": 11040.325590669945
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8199.07660686256,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurDeclarant": 12960.226604561747,
         "amountEurSpouse": null
       }
     ],
@@ -44,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11860,
-        "valueEur": 6063.9217109871515,
+        "amount": 3810,
+        "valueEur": 1948.0220673575925,
         "holderName": "Мартин Желязков Желязков",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30120,
-        "valueEur": 15400.1114616301,
+        "amount": 22706,
+        "valueEur": 11609.393454441337,
         "holderName": "Мартин Желязков Желязков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Заплати, продажба на МПС, дивидент"
+        "fundsOrigin": "Заплати, продажба на МПС, дивиденти"
       },
       {
         "category": "bank",
@@ -80,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 49590,
-        "valueEur": 49584.57534652807,
+        "amount": 25260,
+        "valueEur": 12915.232919016478,
         "holderName": "Мартин Желязков Желязков",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,27 +92,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 93420,
-        "valueEur": 47764.887541350734,
+        "amount": 90152,
+        "valueEur": 46093.98567360149,
         "holderName": "Мартин Желязков Желязков",
         "isSpouse": false,
-        "legalBasis": "Договор за ипотечен кредит",
+        "legalBasis": "Договор ИК - 2,7 %",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
+        "category": "debt",
+        "description": "Лизинг придобиване на МПС",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 14060.526732896009,
-        "legalBasis": "възмездно"
+        "amount": 45577,
+        "valueEur": 23303.15006928005,
+        "holderName": "Мартин Желязков Желязков",
+        "isSpouse": false,
+        "legalBasis": "Договор Лизинг - 3,59 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

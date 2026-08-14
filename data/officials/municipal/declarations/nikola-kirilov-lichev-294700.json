@@ -1,29 +1,17 @@
 [
   {
     "slug": "nikola-kirilov-lichev-294700",
-    "declarantName": "НИКОЛА КИРИЛОВ ЛИЧЕВ",
+    "declarantName": "Никола Кирилов Личев",
     "institution": "Павликени",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г5493",
-    "controlHash": "DF46BC16",
-    "sourceUrl": "https://register.cacbg.bg/2025/E787E33A-3F77-4E62-8B14-B70315F2E250208421.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11569",
+    "controlHash": "F406D21F",
+    "sourceUrl": "https://register.cacbg.bg/2026/E787E33A-3F77-4E62-8B14-B70315F2E250236505.xml",
     "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "микробиологична лаборатория",
-        "shareSize": "1/2",
-        "companyName": "СМДЛ \"Ландалаб\" ООД",
-        "registeredOffice": "Велико Търново",
-        "valueEur": 255.64594059810923,
-        "holderName": "Никола Кирилов Личев",
-        "legalBasis": "други",
-        "fundsOrigin": "дивиденти"
-      },
       {
         "table": "10",
         "stakeKind": "share",
@@ -47,37 +35,32 @@
         "holderName": "Никола Кирилов Личев",
         "legalBasis": "други",
         "fundsOrigin": "дивиденти"
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "микробиологична лаборатория",
+        "shareSize": "1//2",
+        "companyName": "СМДЛ Ландалаб ООД",
+        "registeredOffice": "Велико Търново",
+        "valueEur": 0.5112918811962185,
+        "holderName": null,
+        "transfereeName": "Никола Кирилов Личев",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3332.6004816369523,
+        "amountEurDeclarant": 5333.796904638952,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 552.195231691916,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 39.36947485210882,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от получени дивиденти",
-        "amountEurDeclarant": 26715.000792502415,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "наем",
-        "amountEurDeclarant": 558.3307342662706,
+        "category": "пенсия",
+        "amountEurDeclarant": 1095.1872095223,
         "amountEurSpouse": null
       },
       {
@@ -85,11 +68,17 @@
         "category": "рента",
         "amountEurDeclarant": 306.7751287177311,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наеми",
+        "amountEurDeclarant": 613.5502574354622,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -99,12 +88,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 124250,
-        "valueEur": 63528.016238630145,
+        "amount": 124408,
+        "valueEur": 63608.80035585915,
         "holderName": "Никола Кирилов Личев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -117,14 +106,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 91990,
-        "valueEur": 47033.74015124014,
+        "amount": 118032,
+        "valueEur": 60348.80332135206,
         "holderName": "Никола Кирилов Личев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "дивиденти"
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотор",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,35 +4,78 @@
     "declarantName": "ВАЛЕНТИНА ДИМОВА МАРЧЕВА",
     "institution": "Каварна",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3335",
-    "controlHash": "7337B9A2",
-    "sourceUrl": "https://register.cacbg.bg/2025/138F7D94-C0AD-460B-A199-83066868965F206096.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1761",
+    "controlHash": "91A14A22",
+    "sourceUrl": "https://register.cacbg.bg/2026/138F7D94-C0AD-460B-A199-83066868965F225717.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6607.424980698732,
-        "amountEurSpouse": 7762.944632202185
+        "amountEurDeclarant": 7646.370083289447,
+        "amountEurSpouse": 7820.720614777358
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6387.569471784358,
+        "amountEurDeclarant": 8133.119954188248,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 40.90335049569748
+        "amountEurSpouse": 30.67751287177311
+      },
+      {
+        "parent": null,
+        "category": "СУМА ИЗПЛАТЕНА ПРИ ПЕНСИОНИРАНЕ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4090.3350495697478
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3600,
+        "valueEur": 1840.6507723063867,
+        "holderName": "ВАЛЕНТИНА ДИМОВА МАРЧЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "МАРЧО ЗЛАТЕВ МАРЧЕВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

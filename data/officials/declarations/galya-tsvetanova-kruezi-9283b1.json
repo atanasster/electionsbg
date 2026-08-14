@@ -1,6 +1,99 @@
 [
   {
     "slug": "galya-tsvetanova-kruezi-9283b1",
+    "declarantName": "Галя Цветанова Круези",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2349",
+    "controlHash": "1B4C4308",
+    "sourceUrl": "https://register.cacbg.bg/2026/FE5348D4-EC51-4569-8FF1-63ABCF064E76226395.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14679.701201024629,
+        "amountEurSpouse": 5588.931553355865
+      },
+      {
+        "parent": null,
+        "category": "инвалидна пенсия",
+        "amountEurDeclarant": 3901.157053527147,
+        "amountEurSpouse": 3901.157053527147
+      },
+      {
+        "parent": null,
+        "category": "финансова помощ от СП",
+        "amountEurDeclarant": 578.2711176329232,
+        "amountEurSpouse": 578.2711176329232
+      },
+      {
+        "parent": null,
+        "category": "обезщетение от временна нетрудоспособност",
+        "amountEurDeclarant": 1665.7889489372799,
+        "amountEurSpouse": 51.640480000818066
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17614,
+        "valueEur": 9005.895195390192,
+        "holderName": "Галя Цветанова Круези",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88047,
+        "valueEur": 45017.71626368345,
+        "holderName": "Галя Цветанова Круези",
+        "isSpouse": false,
+        "legalBasis": "2,78",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 45017.71626368345,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "galya-tsvetanova-kruezi-9283b1",
     "declarantName": "ГАЛЯ ЦВЕТАНОВА КРУЕЗИ",
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",

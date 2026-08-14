@@ -4,115 +4,67 @@
     "declarantName": "Милен Пламенов Милчев",
     "institution": "Видин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г11995",
-    "controlHash": "519A68A4",
-    "sourceUrl": "https://register.cacbg.bg/2025/A88A3BF6-87EE-4400-9992-942903118479215149.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Дялов капитал",
-        "shareSize": "100%",
-        "companyName": "\"ДЕМЕТРА 91\" ЕООД",
-        "registeredOffice": "Видин",
-        "valueEur": 1.022583762392437,
-        "holderName": "Милен Пламенов Милчев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5376",
+    "controlHash": "B2FABBF6",
+    "sourceUrl": "https://register.cacbg.bg/2026/A88A3BF6-87EE-4400-9992-942903118479229632.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5651.309162861803,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7029.2407826856115,
+        "amountEurDeclarant": 6956.126043674552,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 17000,
-        "valueEur": 8691.961980335715,
-        "holderName": "Милен Пламенов Милчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
         "description": "Потребителски кредит",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 5632,
-        "valueEur": 2879.5958748971025,
+        "currency": "EUR",
+        "amount": 9007,
+        "valueEur": 9006.917779152585,
         "holderName": "Милен Пламенов Милчев",
         "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 8602,
-        "valueEur": 4398.132762049871,
-        "holderName": "Милен Пламенов Милчев",
-        "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3720,
-        "valueEur": 1902.0057980499328,
-        "holderName": "Милен Пламенов Милчев",
-        "isSpouse": false,
-        "legalBasis": "Договор за потребителски кредит",
+        "legalBasis": "Договор за потребителски кредит - 16%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Видин",
+        "municipality": "Видин",
+        "areaSqm": 426,
+        "builtAreaSqm": 789,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. Видин",
+        "municipality": "Видин",
+        "areaSqm": 36,
+        "builtAreaSqm": 36,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

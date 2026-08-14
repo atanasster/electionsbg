@@ -4,66 +4,29 @@
     "declarantName": "Реджеп Ахмедов Асанов",
     "institution": "Борино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г9548",
-    "controlHash": "FA665313",
-    "sourceUrl": "https://register.cacbg.bg/2025/68D809ED-17D3-4816-AEFF-B776AE5B5C58212593.xml",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г6402",
+    "controlHash": "055EABA6",
+    "sourceUrl": "https://register.cacbg.bg/2026/68D809ED-17D3-4816-AEFF-B776AE5B5C58230724.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12088.473947122193,
+        "amountEurDeclarant": 13261.37752258632,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4864.430957700823,
+        "amountEurDeclarant": 5789.869262665979,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 800,
-        "valueEur": 409.0335049569748,
-        "holderName": "Реджеп Ахмедов Асанов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "Реджеп Ахмедов Асанов",
-        "isSpouse": false,
-        "legalBasis": "личен заем",
-        "fundsOrigin": null
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

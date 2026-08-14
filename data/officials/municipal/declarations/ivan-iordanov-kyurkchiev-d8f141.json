@@ -4,47 +4,29 @@
     "declarantName": "Иван Йорданов Кюркчиев",
     "institution": "Смядово",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г11786",
-    "controlHash": "A16A7D01",
-    "sourceUrl": "https://register.cacbg.bg/2025/A1175B06-4C6B-413C-81A0-5252020A0F1F214938.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г13209",
+    "controlHash": "D9A655C4",
+    "sourceUrl": "https://register.cacbg.bg/2026/A1175B06-4C6B-413C-81A0-5252020A0F1F238709.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30808.914885240538,
-        "amountEurSpouse": 13753.24031229708
+        "amountEurDeclarant": 38456.81884417358,
+        "amountEurSpouse": 15349.493565391675
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 25.564594059810926,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 1055.306442788995,
+        "amountEurSpouse": 114.52938138795294
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "мерцедес С220",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
-        "holderName": "Павлина Димчева Кюркчиева",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "bank",
         "description": null,
@@ -56,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5447,
-        "valueEur": 2785.006876875802,
+        "amount": 11170,
+        "valueEur": 5711.130312961761,
         "holderName": "Иван Йорданов Кюркчиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -74,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 135000,
-        "valueEur": 69024.4039614895,
+        "amount": 102259,
+        "valueEur": 52284.19647924411,
         "holderName": "Иван Йорданов Кюркчиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -92,9 +74,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65100,
-        "valueEur": 33285.10146587382,
-        "holderName": "Павлина Димчева Крюкчиева",
+        "amount": 93437,
+        "valueEur": 47773.579503331064,
+        "holderName": "Павлина Димчева Кюркчиева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -111,15 +93,15 @@
         "share": null,
         "currency": "BGN",
         "amount": null,
-        "valueEur": 7935.249996165311,
-        "holderName": "Павлина Димчева Крюкчиева",
+        "valueEur": 7042.023079715517,
+        "holderName": "Павлина Димчева Кюркчиева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "Ипотечен заем",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -128,11 +110,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 150000,
-        "valueEur": 76693.78217943278,
+        "amount": 145000,
+        "valueEur": 74137.32277345168,
         "holderName": "Иван Йорданов Кюркчиев",
         "isSpouse": false,
-        "legalBasis": "договор за кредит - 2,74",
+        "legalBasis": "д-р за кредит-ДЛП-2,74%",
         "fundsOrigin": null
       },
       {
@@ -150,7 +132,7 @@
         "valueEur": 1789.5215841867648,
         "holderName": "Иван Йорданов Кюркчиев",
         "isSpouse": false,
-        "legalBasis": "отпуснат овърдрафт - 3",
+        "legalBasis": "овърдрафт-ДЛП-3%",
         "fundsOrigin": null
       },
       {
@@ -168,8 +150,26 @@
         "valueEur": 1022.5837623924369,
         "holderName": "Иван Йорданов Кюркчиев",
         "isSpouse": false,
-        "legalBasis": "договор - 18,90%",
+        "legalBasis": "договор ДЛП-18,90%",
         "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7369,
+        "valueEur": 7368.227299918704,
+        "holderName": "Иван Йорданов Кюркчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

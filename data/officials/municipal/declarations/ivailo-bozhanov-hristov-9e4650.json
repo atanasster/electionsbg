@@ -4,24 +4,24 @@
     "declarantName": "ИВАЙЛО БОЖАНОВ ХРИСТОВ",
     "institution": "Иваново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5427",
-    "controlHash": "7C4B600D",
-    "sourceUrl": "https://register.cacbg.bg/2025/A8A806FE-E0FC-477C-B8D5-4E42D94A641C208355.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8809",
+    "controlHash": "61C8A099",
+    "sourceUrl": "https://register.cacbg.bg/2026/A8A806FE-E0FC-477C-B8D5-4E42D94A641C233348.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "1/2",
-        "companyName": "Дива 74 ООД",
+        "companyName": "\"Дива :\" ООД",
         "registeredOffice": "Русе",
         "valueEur": 1022.5837623924369,
         "holderName": "Ивайло Божанов Христов",
-        "legalBasis": "собственост",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
       {
@@ -29,11 +29,11 @@
         "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "1/2",
-        "companyName": "Дива 74 ООД",
+        "companyName": "\"Дива :\" ООД",
         "registeredOffice": "Русе",
         "valueEur": 1022.5837623924369,
         "holderName": "Диана Христова Божанова",
-        "legalBasis": "собственост",
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
     ],
@@ -41,13 +41,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5855.8259153402905,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5737.206198902768,
+        "amountEurSpouse": 4102.606054718457
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 242.86364356820377,
+        "amountEurSpouse": 242.86364356820377
       },
       {
         "parent": null,
         "category": "Рента",
-        "amountEurDeclarant": 276.097615845958,
+        "amountEurDeclarant": 429.4851802048235,
         "amountEurSpouse": null
       }
     ],

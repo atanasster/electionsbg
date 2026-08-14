@@ -4,25 +4,25 @@
     "declarantName": "Борислав Руменов Борисов",
     "institution": "Кубрат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г6029",
-    "controlHash": "3F912B22",
-    "sourceUrl": "https://register.cacbg.bg/2025/C02CE6E9-20C7-418B-BB99-0A6CC03D04D2208976.xml",
+    "entryNumber": "Г4592",
+    "controlHash": "BF536527",
+    "sourceUrl": "https://register.cacbg.bg/2026/C02CE6E9-20C7-418B-BB99-0A6CC03D04D2228802.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7681.649223091987,
-        "amountEurSpouse": 14895.466374889433
+        "amountEurDeclarant": 8225.152492803567,
+        "amountEurSpouse": 19676.045464074075
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15852.604776488753,
+        "amountEurDeclarant": 20770.72138171518,
         "amountEurSpouse": null
       }
     ],
@@ -43,7 +43,7 @@
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
         "legalBasis": "дарение",
-        "fundsOrigin": "безвъзмездно"
+        "fundsOrigin": "безвъзмезно"
       },
       {
         "category": "real_estate",
@@ -69,8 +69,8 @@
         "detail": null,
         "location": "Кубрат",
         "municipality": "Кубрат",
-        "areaSqm": 0,
-        "builtAreaSqm": 62,
+        "areaSqm": 62,
+        "builtAreaSqm": null,
         "acquiredYear": 1985,
         "share": "1/5",
         "currency": "BGN",
@@ -101,7 +101,7 @@
       },
       {
         "category": "debt",
-        "description": "кредит за текущо потребление",
+        "description": "кредит текущо потребление",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -110,11 +110,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30901,
-        "valueEur": 15799.430420844348,
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
         "holderName": "Борислав Руменов Борисов",
         "isSpouse": false,
-        "legalBasis": "5,16%",
+        "legalBasis": "5,22%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7150,
+        "valueEur": 3655.7369505529623,
+        "holderName": "Борислав Руменов Борисов",
+        "isSpouse": false,
+        "legalBasis": "18,9",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1505,
+        "valueEur": 769.4942812003088,
+        "holderName": "Борислав Руменов Борисов",
+        "isSpouse": false,
+        "legalBasis": "0",
         "fundsOrigin": null
       }
     ],

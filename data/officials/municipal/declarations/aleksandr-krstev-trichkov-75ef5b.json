@@ -4,20 +4,39 @@
     "declarantName": "АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
     "institution": "Дългопол",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-20",
-    "entryNumber": "Г15195",
-    "controlHash": "89106E2E",
-    "sourceUrl": "https://register.cacbg.bg/2025/4B584FF4-68C4-4BDC-B21E-C186111CB040218869.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г7901",
+    "controlHash": "E5567BCF",
+    "sourceUrl": "https://register.cacbg.bg/2026/4B584FF4-68C4-4BDC-B21E-C186111CB040232362.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "50%",
+        "companyName": "МЕТАЛ ЕКСПРЕС ПРО ООД",
+        "registeredOffice": "Пазарджик",
+        "valueEur": 25.564594059810926,
+        "holderName": "АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 99191.13624394758,
-        "amountEurSpouse": 7935.249996165311
+        "amountEurDeclarant": 12850.810141985756,
+        "amountEurSpouse": 13446.976475460546
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22705.449860161672,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -32,14 +51,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120000,
-        "valueEur": 61355.02574354622,
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
         "holderName": "АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30440,
+        "valueEur": 15563.724863612892,
+        "holderName": "АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
+        "isSpouse": false,
+        "legalBasis": "3.23",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2437,
+        "valueEur": 1246.0183144751845,
+        "holderName": "АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ПРИСЕЛЦИ 58445.95.35",
+        "municipality": "Аврен",
+        "areaSqm": 1949,
+        "builtAreaSqm": 1949,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

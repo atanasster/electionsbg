@@ -4,13 +4,13 @@
     "declarantName": "Мирослав Иванов Аспарухов",
     "institution": "Мездра",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14391",
-    "controlHash": "FF5CC1CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/BF505869-547A-406A-97AD-E4A61C705F70217692.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5383",
+    "controlHash": "8035A5C6",
+    "sourceUrl": "https://register.cacbg.bg/2026/BF505869-547A-406A-97AD-E4A61C705F70229639.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -41,19 +41,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3682.835420256362,
+        "amountEurDeclarant": 4065.793039272329,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11603.257951866983,
+        "amountEurDeclarant": 13005.73158198821,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 180.99732594346133,
+        "amountEurDeclarant": 205.53933624087983,
         "amountEurSpouse": null
       }
     ],
@@ -149,6 +149,42 @@
         "fundsOrigin": "заеми"
       },
       {
+        "category": "vehicle",
+        "description": "Миниван",
+        "detail": "Мерцедес Вито",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Миниван",
+        "detail": "Ситроен Джъмпи",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
         "description": "потребителски кредит",
         "detail": "BGN",
@@ -177,7 +213,7 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50000,
+        "amount": 5000,
         "valueEur": 25564.594059810923,
         "holderName": "Мирослав Иванов Аспарухов",
         "isSpouse": false,
@@ -185,31 +221,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "град Мездра",
-        "municipality": "Мездра",
-        "areaSqm": 75,
-        "builtAreaSqm": 90,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ 118",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2045.1675247848739,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

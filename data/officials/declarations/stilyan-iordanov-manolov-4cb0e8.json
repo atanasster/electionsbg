@@ -1,6 +1,116 @@
 [
   {
     "slug": "stilyan-iordanov-manolov-4cb0e8",
+    "declarantName": "СТИЛЯН ЙОРДАНОВ МАНОЛОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8647",
+    "controlHash": "41B908A7",
+    "sourceUrl": "https://register.cacbg.bg/2026/5FEB3A25-9846-4AC1-A022-05EBDE08FA0B233173.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44511.026009418,
+        "amountEurSpouse": 27374.56731924554
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8048.245501909675
+      },
+      {
+        "parent": null,
+        "category": "Присъдено обезщетение по г.д. 677/2024 г. на СРС 138-състав, съгласно Изпълнителен лист",
+        "amountEurDeclarant": 20572.851423692242,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19593,
+        "valueEur": 10017.741828277509,
+        "holderName": "СТИЛЯН ЙОРДАНОВ МАНОЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 215563,
+        "valueEur": 110215.61178630045,
+        "holderName": "СТИЛЯН ЙОРДАНОВ МАНОЛОВ",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕКА",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27240,
+        "valueEur": 13927.590843784992,
+        "holderName": "СТИЛЯН ЙОРДАНОВ МАНОЛОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23267,
+        "valueEur": 11896.228199792416,
+        "holderName": "СТИЛЯН ЙОРДАНОВ МАНОЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stilyan-iordanov-manolov-4cb0e8",
     "declarantName": "Стилян Йорданов Манолов",
     "institution": "Общински предприятия",
     "positionTitle": "Изпълнителен директор",

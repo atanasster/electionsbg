@@ -1,6 +1,99 @@
 [
   {
     "slug": "aleksandr-kostadinov-koyumdzhiev-a07276",
+    "declarantName": "Александър Костадинов Коюмджиев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5926",
+    "controlHash": "04C5C50C",
+    "sourceUrl": "https://register.cacbg.bg/2026/C7E265AA-F1A7-4207-ABAB-E86719747ED4230205.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19359.044497732422,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100,
+        "valueEur": 51.12918811962185,
+        "holderName": "Александър Костадинов Коюмджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26780,
+        "valueEur": 13692.396578434731,
+        "holderName": "Александър Костадинов Коюмджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32482,
+        "valueEur": 16607.782885015567,
+        "holderName": "Александър Костадинов Коюмджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "фолксваген пасат",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "aleksandr-kostadinov-koyumdzhiev-a07276",
     "declarantName": "АЛЕКСАНДЪР КОСТАДИНОВ КОЮМДЖИЕВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

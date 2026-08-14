@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8419",
+    "controlHash": "E4407F1A",
+    "sourceUrl": "https://register.cacbg.bg/2026/57FC08BC-0141-422B-ACCA-C19FC14FDFB6232925.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44012.516425251684,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22600,
+        "valueEur": 11555.196515034539,
+        "holderName": "Георги Яворов Аврамов",
+        "isSpouse": false,
+        "legalBasis": "по договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 469000,
+        "valueEur": 239795.89228102646,
+        "holderName": "Георги Яворов Аврамов",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-yavorov-avramov-3e58a2",
+    "declarantName": "Георги Яворов Аврамов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

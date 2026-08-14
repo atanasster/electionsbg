@@ -4,60 +4,67 @@
     "declarantName": "Митко Иванов Минчев",
     "institution": "Септември",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г1958",
-    "controlHash": "426A2D14",
-    "sourceUrl": "https://register.cacbg.bg/2025/D6934BDF-36D6-4883-A3C4-54D1CED70F7B204536.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13427",
+    "controlHash": "552EAC72",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6934BDF-36D6-4883-A3C4-54D1CED70F7B238940.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 0,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6426.42765475527,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "дворно място",
+        "detail": null,
+        "location": "гр. Септември",
+        "municipality": "Септември",
+        "areaSqm": 905,
+        "builtAreaSqm": 905,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
         "holderName": "Митко Иванов Минчев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "дарения от сина ни"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
-        "holderName": "Живка Янкова Минчева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "дарения от сина ни"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарение от син"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "част от нива",
+        "detail": null,
+        "location": "гр.Септември - Сунгурлука",
+        "municipality": "Септември",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "част от нива",
+        "detail": null,
+        "location": "гр.Септември - Сунгурлука",
+        "municipality": "Септември",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

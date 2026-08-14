@@ -4,36 +4,42 @@
     "declarantName": "Петя Драганова Петрова",
     "institution": "Тутракан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4946",
-    "controlHash": "2791CF30",
-    "sourceUrl": "https://register.cacbg.bg/2025/7569CA88-7FF2-4452-ACBA-80736F1F50B1207826.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10462",
+    "controlHash": "39231778",
+    "sourceUrl": "https://register.cacbg.bg/2026/7569CA88-7FF2-4452-ACBA-80736F1F50B1235220.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4581.175255518117,
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6733.714075354197,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Мотоциклет",
-        "detail": "КТМ",
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 207",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "valueEur": 6902.44039614895,
-        "legalBasis": "възмездно"
+        "amount": 1718,
+        "valueEur": 878.3994518951033,
+        "holderName": "Петя Драганова Петрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

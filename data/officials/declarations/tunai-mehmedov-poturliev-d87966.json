@@ -5,6 +5,93 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Ликвидатор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3097",
+    "controlHash": "8172C9C8",
+    "sourceUrl": "https://register.cacbg.bg/2026/A5224A88-D4D1-4AB7-AB00-F4B37D27109E227195.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30009.25438304965,
+        "amountEurSpouse": 42514.94250522796
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5867.074336726607,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2239.458439639437,
+        "amountEurSpouse": 766.9378217943278
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 41046.51222243242,
+        "amountEurSpouse": 41046.51222243242
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125938,
+        "valueEur": 64391.07693408937,
+        "holderName": "ТУНАЙ МЕХМЕДОВ ПОТУРЛИЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЛЕВЕН",
+        "municipality": "ПЛЕВЕН",
+        "areaSqm": 77,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 143.16172673494117,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tunai-mehmedov-poturliev-d87966",
+    "declarantName": "ТУНАЙ МЕХМЕДОВ ПОТУРЛИЕВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Ликвидатор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

@@ -4,13 +4,13 @@
     "declarantName": "Марияна Александрова Малчева",
     "institution": "Район \"Приморски\" - Варна",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11735",
-    "controlHash": "76B7A387",
-    "sourceUrl": "https://register.cacbg.bg/2025/FC1911CC-6921-496F-B755-4FDCC5A23D4F214887.xml",
+    "filedAt": null,
+    "entryNumber": "Г6420",
+    "controlHash": "B1CF58DB",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC1911CC-6921-496F-B755-4FDCC5A23D4F230742.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -65,26 +65,20 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24679.036521579073,
-        "amountEurSpouse": 5475.9360476115
+        "amountEurDeclarant": 32658.25761952726,
+        "amountEurSpouse": 6261.791669010087
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2820.797308559537
+        "amountEurSpouse": 2949.6428626209845
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти",
+        "category": "Доходи от дивидент",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 46016.26930765966
-      },
-      {
-        "parent": null,
-        "category": "Изплатено обезщетение от НОИ",
-        "amountEurDeclarant": 1080.871036848806,
-        "amountEurSpouse": null
+        "amountEurSpouse": 51129.188119621846
       }
     ],
     "assets": [
@@ -99,8 +93,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Марияна Александрова Малчева",
         "isSpouse": false,
         "legalBasis": null,
@@ -117,12 +111,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 44000,
-        "valueEur": 22496.842772633612,
+        "amount": 43000,
+        "valueEur": 21985.550891437397,
         "holderName": "Малин Генов Малчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "изплатени дивиденти"
+        "fundsOrigin": "дивидент"
       },
       {
         "category": "bank",
@@ -135,8 +129,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 29304,
-        "valueEur": 14982.897286573987,
+        "amount": 35506,
+        "valueEur": 18153.929533752933,
         "holderName": "Марияна Александрова Малчева",
         "isSpouse": false,
         "legalBasis": null,
@@ -153,8 +147,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20118,
-        "valueEur": 10286.170065905524,
+        "amount": 30584,
+        "valueEur": 15637.350894505147,
         "holderName": "Малин Генов Малчев",
         "isSpouse": true,
         "legalBasis": null,
@@ -171,12 +165,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38040,
-        "valueEur": 19449.54316070415,
+        "amount": 85540,
+        "valueEur": 43735.90751752453,
         "holderName": "Малин Генов Малчев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "изплатен дивидент"
+        "fundsOrigin": "дивиденти"
       }
     ],
     "events": []

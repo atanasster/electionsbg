@@ -4,14 +4,27 @@
     "declarantName": "Румен Белчев Илиев",
     "institution": "Николаево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г14492",
-    "controlHash": "D0771177",
-    "sourceUrl": "https://register.cacbg.bg/2025/949E716E-8810-4680-8343-920AD16C3657217806.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12578",
+    "controlHash": "7D4ABDF5",
+    "sourceUrl": "https://register.cacbg.bg/2026/949E716E-8810-4680-8343-920AD16C3657237894.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дружествен дял",
+        "shareSize": "100",
+        "companyName": "\"Мимоза 1981\" ЕООД",
+        "registeredOffice": "Стара Загора",
+        "valueEur": 51.12918811962185,
+        "holderName": "Мариана Иванчева Илиева",
+        "legalBasis": "откриване на фирма",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
@@ -22,29 +35,11 @@
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 45453.848238343824,
+        "amountEurDeclarant": 11929.973463951366,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Рено Меган Сценик",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Румен Белчев Илиев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "debt",
         "description": "финансов лизинг",
@@ -56,8 +51,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 54700,
-        "valueEur": 27967.665901433153,
+        "amount": 44478,
+        "valueEur": 22741.240291845406,
         "holderName": "Румен Белчев Илиев",
         "isSpouse": false,
         "legalBasis": "лизинг на автомобил, 4,5 %",

@@ -4,29 +4,53 @@
     "declarantName": "Стефан Стефанов Кръстев",
     "institution": "Перник",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11350",
-    "controlHash": "03497050",
-    "sourceUrl": "https://register.cacbg.bg/2025/AF30BB3E-A719-4E98-979D-6ED17617C3DD214485.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11715",
+    "controlHash": "5E1ED469",
+    "sourceUrl": "https://register.cacbg.bg/2026/AF30BB3E-A719-4E98-979D-6ED17617C3DD236677.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 36374.327012061374,
-        "amountEurSpouse": 13103.899623177884
+        "amountEurDeclarant": 32356.595409621492,
+        "amountEurSpouse": 14583.57832735974
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2224.1196832035503,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 2484.878542613622,
+        "amountEurDeclarant": 3313.171390151496,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Стефан Стефанов Кръстев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
       {
         "category": "bank",
         "description": null,
@@ -43,7 +67,25 @@
         "holderName": "Стефан Стефанов Кръстев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта с лимит 20 000лв",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Стефан Стефанов Кръстев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредитна карта, лихвен процент 9%",
+        "fundsOrigin": null
       }
     ],
     "events": []

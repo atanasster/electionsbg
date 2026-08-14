@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "plamen-tomov-delev-e85224",
+    "declarantName": "Пламен Томов Делев",
+    "institution": "Петрич",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г5489",
+    "controlHash": "8FB4B58B",
+    "sourceUrl": "https://register.cacbg.bg/2026/4D04F84A-2ECD-4436-BB15-F49BF747E7DC229750.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Пламен Делев Инженеринг",
+        "registeredOffice": "Благоевград",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Пламен Томов Делев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 715.8086336747059,
+        "amountEurSpouse": 7976.153346661008
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 180,
+        "builtAreaSqm": 180,
+        "acquiredYear": 2007,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Пламен Томов Делев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 133,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2010,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 1,
+        "valueEur": 0.5112918811962185,
+        "holderName": "Пламен Томов Делев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15631,
+        "valueEur": 4019.2654780834737,
+        "holderName": "Пламен Томов Делев",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

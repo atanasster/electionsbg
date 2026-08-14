@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12478",
+    "controlHash": "3FB38AE3",
+    "sourceUrl": "https://register.cacbg.bg/2026/47F88495-14B7-48F0-8492-671853BDFE49237766.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25914.828998430334,
+        "amountEurSpouse": 9493.667650051384
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит Доверие",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10760,
+        "valueEur": 5501.500641671311,
+        "holderName": "Даниела Ганчева Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-gancheva-ivanova-b24031",
+    "declarantName": "Даниела Ганчева Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

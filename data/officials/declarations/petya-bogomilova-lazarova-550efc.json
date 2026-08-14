@@ -5,6 +5,98 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г2036",
+    "controlHash": "29C4C5AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/3967C13B-FC6E-486B-9260-1B6707D6961F226013.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33913.47918786397,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 479.0804926808567,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наследствена пенсия",
+        "amountEurDeclarant": 1757.8214875525991,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17370,
+        "valueEur": 8881.139976378316,
+        "holderName": "Петя Богомилова Лазарова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46855,
+        "valueEur": 23956.581093448818,
+        "holderName": "Петя Богомилова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "договор; л. пр.-3.75%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ВСК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Петя Богомилова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "договор; л. пр.-3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-bogomilova-lazarova-550efc",
+    "declarantName": "Петя Богомилова Лазарова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

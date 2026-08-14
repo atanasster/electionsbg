@@ -4,31 +4,31 @@
     "declarantName": "Джевдет Фейзи Мехмед",
     "institution": "Батак",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г6685",
-    "controlHash": "A7766208",
-    "sourceUrl": "https://register.cacbg.bg/2025/439F4E49-A187-4EA8-A5D0-3D4B372D481E209652.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7723",
+    "controlHash": "BC283CDD",
+    "sourceUrl": "https://register.cacbg.bg/2026/439F4E49-A187-4EA8-A5D0-3D4B372D481E232155.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 942.822228925827,
-        "amountEurSpouse": 33922.682441725505
+        "amountEurDeclarant": 4004.9493054099794,
+        "amountEurSpouse": 6446.368038121923
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5120.588190180129,
+        "amountEurDeclarant": 5975.979507421402,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 4294.851802048235,
+        "amountEurDeclarant": 2454.2010297418487,
         "amountEurSpouse": null
       }
     ],
@@ -37,7 +37,7 @@
         "category": "real_estate",
         "description": "парцел",
         "detail": null,
-        "location": "К.К ЯЗ,Батак",
+        "location": "К.К. ЯЗ.Батак",
         "municipality": "Батак",
         "areaSqm": 653,
         "builtAreaSqm": null,
@@ -85,6 +85,42 @@
         "holderName": "Джевдет Фейзи Мехмед",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 51,
+        "builtAreaSqm": 51,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 42456,
+        "valueEur": 21707.40810806665,
+        "holderName": "Джевдет Фейзи Мехмед",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "вила",
+        "detail": null,
+        "location": "К.К. ЯЗ.Батак",
+        "municipality": "Батак",
+        "areaSqm": 187,
+        "builtAreaSqm": 392,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 28692,
+        "valueEur": 14669.9866552819,
+        "holderName": "Джевдет Фейзи Мехмед",
+        "isSpouse": false,
+        "legalBasis": "други",
         "fundsOrigin": "заплата"
       },
       {
@@ -144,7 +180,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Мерцедес МL",
+        "detail": "Мерцедес ML",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -154,24 +190,6 @@
         "currency": "BGN",
         "amount": 4000,
         "valueEur": 2045.1675247848739,
-        "holderName": "Джевдет Фейзи Мехмед",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Мотоциклет",
-        "detail": "Ямаха",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2020,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
         "holderName": "Джевдет Фейзи Мехмед",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -194,20 +212,56 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда NC750X",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 17500,
+        "valueEur": 8947.607920933824,
+        "holderName": "Джевдет Фейзи Мехмед",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Джевдет Фейзи Мехмед",
+        "isSpouse": false,
+        "legalBasis": "Фиксиран 10,97%",
+        "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди А3",
+        "description": "Мотоциклет",
+        "detail": "Ямаха",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 664.679445555084,
-        "legalBasis": "безвъзмездно"
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   }

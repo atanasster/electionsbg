@@ -5,6 +5,111 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-06",
+    "entryNumber": "Г1075",
+    "controlHash": "E6FE7A91",
+    "sourceUrl": "https://register.cacbg.bg/2026/82F902F4-19CF-42B3-96E3-3DC2BD36E29B224759.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6765.414171988363,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1329.358891110168,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 3323.39722777542,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Каблешково",
+        "municipality": "Поморие",
+        "areaSqm": 991,
+        "builtAreaSqm": 98,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "Цветелина Валентинова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Антоново",
+        "municipality": "Търговище",
+        "areaSqm": 36,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Цветелина Валентинова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48000,
+        "valueEur": 48061.43683244454,
+        "holderName": "Цветелина Валентинова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит 2.49%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Антоново",
+        "municipality": "Търговище",
+        "areaSqm": 36,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "tsvetelina-valentinova-todorova-70db9e",
+    "declarantName": "Цветелина Валентинова Тодорова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

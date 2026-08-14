@@ -5,6 +5,56 @@
     "institution": "Областни дирекции \"Земеделие\" - МЗХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г7269",
+    "controlHash": "E5694C64",
+    "sourceUrl": "https://register.cacbg.bg/2026/E659F0EE-13FF-42B9-B11F-05275911A250231673.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22602.168900160035,
+        "amountEurSpouse": 33020.25227141418
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4030.002607588594
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12782,
+        "valueEur": 12782.297029905461,
+        "holderName": "ДОНКО ТОДОРОВ ДОНКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "donko-todorov-donkov-1e9e74",
+    "declarantName": "ДОНКО ТОДОРОВ ДОНКОВ",
+    "institution": "Областни дирекции \"Земеделие\" - МЗХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

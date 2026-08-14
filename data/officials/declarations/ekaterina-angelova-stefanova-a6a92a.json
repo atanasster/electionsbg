@@ -5,6 +5,111 @@
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8542",
+    "controlHash": "E5E553F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/C0474068-6BE2-4DFD-BDDA-46E68CADD032233055.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48849.84891324911,
+        "amountEurSpouse": 30759.319572764503
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 37113.14378038991,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 287.857329113471
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение от Застр.компания Лев Инс АД за претърпяни имуществени и неимуществени вреди /съд.реш. по гр.д. № 9632/2023г. на СГС/",
+        "amountEurDeclarant": 5168.649627012573,
+        "amountEurSpouse": 23296.5032748245
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108680,
+        "valueEur": 55567.201648405025,
+        "holderName": "Екатерина Ангелова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и обезщетение по ред 2 от табл. 12"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 99796,
+        "valueEur": 51024.88457585782,
+        "holderName": "Стилиян Светославов Стефанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и обезщетение по ред 2 от табл.12"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дерегистрирано в КАТ въз основа на съдебно решение по гр.д. № 9632/2023г. на СГС"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дерегистрирано в КАТ въз основа на съдебно решение по гр.д. № 9632/2023г. на СГС"
+      }
+    ]
+  },
+  {
+    "slug": "ekaterina-angelova-stefanova-a6a92a",
+    "declarantName": "Екатерина Ангелова Стефанова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

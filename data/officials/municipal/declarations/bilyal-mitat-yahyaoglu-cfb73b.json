@@ -4,59 +4,47 @@
     "declarantName": "Билял Митат Яхяоглу",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3888",
-    "controlHash": "5F60EDE5",
-    "sourceUrl": "https://register.cacbg.bg/2025/50E3097F-ADE1-4F6F-BE7F-B55534C80C18206707.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6405",
+    "controlHash": "B7D83FD6",
+    "sourceUrl": "https://register.cacbg.bg/2026/50E3097F-ADE1-4F6F-BE7F-B55534C80C18230727.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9400.101235792477,
-        "amountEurSpouse": 6135.502574354622
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 729.1022225858076,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 10486.59648333444,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Субсидия",
-        "amountEurDeclarant": 5926.384194945368,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6387.0581799031615,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други доходи",
+        "amountEurDeclarant": 3367.368329558295,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6387.0581799031615
+      },
+      {
+        "parent": null,
+        "category": "Субсидии",
+        "amountEurDeclarant": 5000.4345980990165,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лека кола",
-        "detail": "Киа Спортич",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100%",
-        "currency": "BGN",
-        "amount": 66000,
-        "valueEur": 33745.26415895042,
-        "holderName": "Билял Митат Яхяоглу",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Билял Митат Яхяоглу",
         "isSpouse": false,
         "legalBasis": null,
@@ -77,7 +65,7 @@
       },
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -86,39 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 37719,
+        "valueEur": 19285.418466840165,
         "holderName": "Билял Митат Яхяоглу",
         "isSpouse": false,
-        "legalBasis": "купуване на кола",
+        "legalBasis": "лизинг - 4,20%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Слънчев бряг",
-        "municipality": "Несебър",
-        "areaSqm": 30,
-        "builtAreaSqm": 30,
-        "currency": "BGN",
-        "valueEur": 15287.627247766934,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лека кола",
-        "detail": "Ауди Кю 7",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3732.430732732395,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

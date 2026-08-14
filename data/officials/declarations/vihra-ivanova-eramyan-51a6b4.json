@@ -5,6 +5,49 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г1200",
+    "controlHash": "FEA5768B",
+    "sourceUrl": "https://register.cacbg.bg/2026/FF340C78-B059-481C-892D-DB9125E8BA74224968.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35835.93666116176,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 311.37675564849707,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от упражняване на свободна професия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9147.523046481545
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти Приложение 13",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 37418.38503346405
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "vihra-ivanova-eramyan-51a6b4",
+    "declarantName": "Вихра Иванова Ерамян",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

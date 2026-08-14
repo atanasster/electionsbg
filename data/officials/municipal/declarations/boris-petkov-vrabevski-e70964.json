@@ -4,56 +4,44 @@
     "declarantName": "БОРИС ПЕТКОВ ВРАБЕВСКИ",
     "institution": "Тетевен",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8877",
-    "controlHash": "9D3DF6DC",
-    "sourceUrl": "https://register.cacbg.bg/2025/AF5B44D3-DA66-493E-952A-FFAF3DFDEC0C211904.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9928",
+    "controlHash": "F9FDA787",
+    "sourceUrl": "https://register.cacbg.bg/2026/AF5B44D3-DA66-493E-952A-FFAF3DFDEC0C234604.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 43511.45038167939,
-        "amountEurSpouse": 7815.0964040842
+        "amountEurDeclarant": 49252.746915631724,
+        "amountEurSpouse": 8908.238446081714
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 14751.2820643921
+        "amountEurSpouse": 11183.487317404886
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
         "amountEurSpouse": 636.558392089292
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "поземлен имот",
-        "detail": null,
-        "location": "с. Рибарица",
-        "municipality": "Тетевен",
-        "areaSqm": 999,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Борис Петков Врабевски",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,12 +50,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11915,
-        "valueEur": 6092.042764452944,
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
         "holderName": "Борис Петков Врабевски",
         "isSpouse": false,
-        "legalBasis": "кредит",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "за ремонт преведени от Дамян Йорданов"
       },
       {
         "category": "investment",
@@ -80,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18490,
-        "valueEur": 9453.78688331808,
+        "amount": 865,
+        "valueEur": 442.267477234729,
         "holderName": "Цветелина Маринова Врабевска",
         "isSpouse": true,
         "legalBasis": null,
@@ -98,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21594,
-        "valueEur": 11040.836882551142,
+        "amount": 2012,
+        "valueEur": 1028.7192649667916,
         "holderName": "Борис Петков Врабевски",
         "isSpouse": false,
         "legalBasis": null,
@@ -124,6 +112,19 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Тетевен",
+        "municipality": "Тетевен",
+        "areaSqm": 357,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

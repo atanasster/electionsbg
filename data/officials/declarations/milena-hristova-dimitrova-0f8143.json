@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7546",
+    "controlHash": "9EFFBFFC",
+    "sourceUrl": "https://register.cacbg.bg/2026/D0E6CD74-B601-4C3D-97BE-D4E3510AC3CC231961.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21782.0567227213,
+        "amountEurSpouse": 9695.116651242695
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Венцислав Николов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Покупко-продажба",
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13500,
+        "valueEur": 13499.639539223757,
+        "holderName": "Венцислав Николов Димитров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Спестени"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "milena-hristova-dimitrova-0f8143",
+    "declarantName": "Милена Христова Димитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,29 +4,77 @@
     "declarantName": "АЛИ ХАБИЛ ФЕИМ",
     "institution": "Каолиново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-11",
-    "entryNumber": "Г15204",
-    "controlHash": "703F19DF",
-    "sourceUrl": "https://register.cacbg.bg/2025/CE8F5C87-7A7A-4F53-B02D-15C26962AC41218891.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10258",
+    "controlHash": "0583F201",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE8F5C87-7A7A-4F53-B02D-15C26962AC41234983.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3118.8804752969327,
-        "amountEurSpouse": 19305.870142088013
+        "amountEurDeclarant": 4141.46423768937,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8450.6322124111,
+        "amountEurDeclarant": 9315.7380753951,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 48566.5932110664
+      },
+      {
+        "parent": null,
+        "category": "БОЛНИЧНИ ОТ НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 280.1879508955277
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "ОМАРЧЕВО",
+        "municipality": "КАОЛИНОВО",
+        "areaSqm": 4150,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8666,
+        "valueEur": 4430.855442446429,
+        "holderName": "АЛИ ХАБИЛ ФЕИМ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "ОМАРЧЕВО",
+        "municipality": "КАОЛИНОВО",
+        "areaSqm": 4150,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8666,
+        "valueEur": 4430.855442446429,
+        "holderName": "НУРДЖИХАН АЛЯЙДИН ФЕИМ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
       {
         "category": "debt",
         "description": "ИПОТЕЧЕН КРЕДИТ",
@@ -38,11 +86,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12043,
-        "valueEur": 6157.488125246059,
+        "amount": 9314,
+        "valueEur": 4762.172581461579,
         "holderName": "АЛИ ХАБИЛ ФЕИМ",
         "isSpouse": false,
-        "legalBasis": "5,2 %",
+        "legalBasis": "КРЕДИТ - 5,2%",
         "fundsOrigin": null
       },
       {
@@ -56,14 +104,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5505,
-        "valueEur": 2814.6618059851826,
+        "amount": 4359,
+        "valueEur": 2228.7213101343164,
         "holderName": "АЛИ ХАБИЛ ФЕИМ",
         "isSpouse": false,
-        "legalBasis": "5,99 %",
+        "legalBasis": "КРЕДИТ - 5, 99%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "КАОЛИНОВО",
+        "municipality": "КАОЛИНОВО",
+        "areaSqm": 1100,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "КАОЛИНОВО",
+        "municipality": "КАОЛИНОВО",
+        "areaSqm": 1100,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

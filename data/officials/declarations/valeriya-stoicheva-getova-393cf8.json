@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "valeriya-stoicheva-getova-393cf8",
+    "declarantName": "Валерия Стойчева Гетова",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г7488",
+    "controlHash": "3B42D09C",
+    "sourceUrl": "https://register.cacbg.bg/2026/1A9FE196-70ED-4132-B687-71A328FB3115231901.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14248.170853295022,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1518.536887152769,
+        "amountEurSpouse": 1518.536887152769
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Валерия Стойчева Гетова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Валерия Стойчева Гетова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати при пенсиониране"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10491,
+        "valueEur": 5363.963125629528,
+        "holderName": "Валерия Стойчева Гетова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия, заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14807,
+        "valueEur": 7570.698884872407,
+        "holderName": "Валерий Иванов Гетов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия, дивидент"
+      }
+    ],
+    "events": []
+  }
+]

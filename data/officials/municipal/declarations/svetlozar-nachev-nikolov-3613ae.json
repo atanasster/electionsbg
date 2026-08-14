@@ -4,29 +4,78 @@
     "declarantName": "СВЕТЛОЗАР НАЧЕВ НИКОЛОВ",
     "institution": "Шумен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12103",
-    "controlHash": "8B849FE2",
-    "sourceUrl": "https://register.cacbg.bg/2025/8A1B3182-C617-44AD-9D11-698F1DC4F498215260.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г10739",
+    "controlHash": "A5F19AEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/8A1B3182-C617-44AD-9D11-698F1DC4F498235528.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7687.273433785145,
-        "amountEurSpouse": 7183.65093080687
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13379.997239023842
       },
       {
         "parent": null,
-        "category": "ДОХОД ОТ ИЗПЛАТЕН ДЕВИДЕНТ",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8818.762366872377,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ИЗПЛАТЕН ДЕВИДЕНТ",
         "amountEurDeclarant": null,
         "amountEurSpouse": 97145.45742728151
+      },
+      {
+        "parent": null,
+        "category": "ПРОДАЖБА НА АВТОМОБИЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 66467.94455550841
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЯНА ТОНЕВА НИКОЛОВА",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 24338,
+        "valueEur": 24337.49354494,
+        "holderName": "ЯНА ТОНЕВА НИКОЛОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГ ЗА ЗАЕМ 4,7%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЯНА ТОНЕВА НИКОЛОВА",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 91603,
+        "valueEur": 91602.54214323331,
+        "holderName": "ЯНА ТОНЕВА НИКОЛОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГ ЗА ЗАЕМ 2,5%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

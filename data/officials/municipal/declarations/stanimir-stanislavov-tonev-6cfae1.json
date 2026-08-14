@@ -4,25 +4,37 @@
     "declarantName": "Станимир Станиславов Тонев",
     "institution": "Челопеч",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4140",
-    "controlHash": "C2A06062",
-    "sourceUrl": "https://register.cacbg.bg/2025/9B5ECA19-901D-4C4E-BC0C-B010B9730385206976.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г14337",
+    "controlHash": "F8939DAF",
+    "sourceUrl": "https://register.cacbg.bg/2026/9B5ECA19-901D-4C4E-BC0C-B010B9730385240085.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14233.34338874033,
-        "amountEurSpouse": 2741.5470669741235
+        "amountEurDeclarant": 22491.729853821653,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 363.5285275305113,
+        "category": "Парично обезщетение за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1812.0184269593983
+      },
+      {
+        "parent": null,
+        "category": "Еднократни помощи, предоставени от работодателя за сметка на социалните разходи при: раждане или осиновяване на дете, сключване на граждански брак или смърт на член от семейството, освободени от облагане на основание чл. 24, ал 2, т. 11 от ЗДДФЛ",
+        "amountEurDeclarant": 230.08134653829833,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения и помощи по част първа от Кодекса за социално осигуряване, включително изплатените на основание чл. 40, ал. 5 от същия кодекс, освободени от облагане на основание чл. 24, ал. 2, т. 14 от ЗДДФЛ",
+        "amountEurDeclarant": 91.52124673412311,
         "amountEurSpouse": null
       }
     ],
@@ -46,6 +58,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Челопеч",
+        "municipality": "Челопеч",
+        "areaSqm": 142,
+        "builtAreaSqm": 212,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 394800,
+        "valueEur": 201858.03469626707,
+        "holderName": "Станимир Станиславов Тонев и Теодора Стефанова Тонева",
+        "isSpouse": true,
+        "legalBasis": "строителство чрез кредит",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "vehicle",
         "description": "лек автомобил",
         "detail": "Мазда 6",
@@ -65,7 +95,7 @@
       },
       {
         "category": "debt",
-        "description": "Ипотечен кредит с ГЛП 2.45%",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -74,11 +104,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 226153,
-        "valueEur": 115630.1928081684,
+        "amount": 385292,
+        "valueEur": 196996.6714898534,
         "holderName": "Станимир Станиславов Тонев",
         "isSpouse": false,
-        "legalBasis": "ипотечен кредит",
+        "legalBasis": "ипотечен кредит с ГЛП 2.45%",
         "fundsOrigin": null
       }
     ],

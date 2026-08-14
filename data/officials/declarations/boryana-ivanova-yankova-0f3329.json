@@ -5,6 +5,74 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1599",
+    "controlHash": "73DEDDB4",
+    "sourceUrl": "https://register.cacbg.bg/2026/A443BC34-3BA1-475D-99EF-B12F02E59216225516.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15127.081597071321,
+        "amountEurSpouse": 88071.56041169222
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2208.780926767664
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6834,
+        "valueEur": 3494.1687160949573,
+        "holderName": "БОРЯНА ИВАНОВА ЯНКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16754,
+        "valueEur": 8566.184177561445,
+        "holderName": "ВАЛЕНТИН ВАСИЛЕВ ЯНКОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boryana-ivanova-yankova-0f3329",
+    "declarantName": "БОРЯНА ИВАНОВА ЯНКОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

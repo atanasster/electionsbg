@@ -4,46 +4,46 @@
     "declarantName": "Камен Ивов Мартинов",
     "institution": "Чирпан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13676",
-    "controlHash": "5A525A84",
-    "sourceUrl": "https://register.cacbg.bg/2025/7A1FA729-1E41-4443-9B13-2D67A9AEE77A216917.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г14141",
+    "controlHash": "78E872F7",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A1FA729-1E41-4443-9B13-2D67A9AEE77A239858.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3595.9158004530045,
+        "amountEurDeclarant": 5749.988495932673,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10430.354376402856,
+        "amountEurDeclarant": 13027.205840998451,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Багер",
-        "detail": "Кубота",
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 59999,
+        "valueEur": 30677.001579891912,
         "holderName": "Камен Ивов Мартинов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "legalBasis": "5,44",
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -56,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 12487,
+        "valueEur": 6384.50172049718,
         "holderName": "Камен Ивов Мартинов",
         "isSpouse": false,
-        "legalBasis": "Потребителско кредитиране",
+        "legalBasis": "30,39",
         "fundsOrigin": null
       }
     ],

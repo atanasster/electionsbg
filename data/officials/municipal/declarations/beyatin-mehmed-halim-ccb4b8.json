@@ -1,32 +1,69 @@
 [
   {
     "slug": "beyatin-mehmed-halim-ccb4b8",
-    "declarantName": "Беатин Мехмед Халим",
+    "declarantName": "Беятин Мехмед Халим",
     "institution": "Черноочене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г4663",
-    "controlHash": "356279FA",
-    "sourceUrl": "https://register.cacbg.bg/2025/A84BA17A-2DC8-44AE-8BCB-8C6F41F9ED61207534.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3393",
+    "controlHash": "F86D0139",
+    "sourceUrl": "https://register.cacbg.bg/2026/A84BA17A-2DC8-44AE-8BCB-8C6F41F9ED61227524.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2683.7710843989507,
+        "amountEurDeclarant": 2335.581313304326,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6023.52965237265
+        "amountEurSpouse": 7451.056584672492
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13797,
+        "valueEur": 7054.2940848642265,
+        "holderName": "Беятин Мехмед Халим",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17669,
+        "valueEur": 9034.016248855985,
+        "holderName": "Нарбие Хрюстем Халим",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
     "events": []
   }
 ]

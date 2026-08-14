@@ -5,6 +5,93 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-02-09",
+    "entryNumber": "Ф39",
+    "controlHash": "721EF0FD",
+    "sourceUrl": "https://register.cacbg.bg/2026/37A769FD-BDBE-45EF-B3C6-6A309FC1FA39222950.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 36633,
+        "valueEur": 36633,
+        "holderName": "ЕФИМИЯ ИВАНОВА ПОВЛАВО",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "efimiya-ivanova-pavlova-e39b54",
+    "declarantName": "ЕФИМИЯ ИВАНОВА ПАВЛОВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-07-27",
+    "entryNumber": "Г14646",
+    "controlHash": "19F6C91E",
+    "sourceUrl": "https://register.cacbg.bg/2026/37A769FD-BDBE-45EF-B3C6-6A309FC1FA39240599.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24916.787246335316,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2099.8757560728695,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71062,
+        "valueEur": 36333.42366156568,
+        "holderName": "ЕФИМИЯ ИВАНОВА ПАВЛОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "efimiya-ivanova-pavlova-e39b54",
+    "declarantName": "ЕФИМИЯ ИВАНОВА ПАВЛОВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -1,6 +1,74 @@
 [
   {
     "slug": "aikut-aihanov-hyuseinov-18da94",
+    "declarantName": "Айкут Айханов Хюсеинов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-05",
+    "entryNumber": "Г193",
+    "controlHash": "D0F1B17F",
+    "sourceUrl": "https://register.cacbg.bg/2026/F2E7AEF2-E6EF-42D1-B4E7-C74E850108D4223161.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7935.249996165311,
+        "amountEurSpouse": 2192.930878450581
+      },
+      {
+        "parent": null,
+        "category": "Доходи от извънтрудови правоотношения (граждански договор)",
+        "amountEurDeclarant": 1564.5531564604287,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лека кола",
+        "detail": "VW Passat",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1100,
+        "valueEur": 562.4210693158403,
+        "holderName": "Айкут Айханов Хюсеинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 900,
+        "valueEur": 899.8737109053445,
+        "holderName": "Айкут Айханов Хюсеинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aikut-aihanov-hyuseinov-18da94",
     "declarantName": "АЙКУТ  АЙХАНОВ ХЮСЕИНОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

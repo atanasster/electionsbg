@@ -5,6 +5,49 @@
     "institution": "Общински предприятия",
     "positionTitle": "Ръководител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13859",
+    "controlHash": "846537A7",
+    "sourceUrl": "https://register.cacbg.bg/2026/396323BC-D54C-4D14-AF46-A448BDA623D2239506.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9297.842859553233,
+        "amountEurSpouse": 12271.005148709244
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15496.23433529499,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 4553.565493933522,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "фин.подкрепа по ЗХУ",
+        "amountEurDeclarant": 964.296487936068,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "petinka-vasileva-mihailova-f65e88",
+    "declarantName": "Петинка Василева Михайлова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Ръководител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

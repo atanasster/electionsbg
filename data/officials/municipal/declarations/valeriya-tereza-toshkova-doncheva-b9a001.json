@@ -4,72 +4,61 @@
     "declarantName": "Валерия-Тереза Тошкова Дончева",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г6654",
-    "controlHash": "8976C6A2",
-    "sourceUrl": "https://register.cacbg.bg/2025/E619451A-7BAA-41D0-824E-7CF412265887209616.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7128",
+    "controlHash": "1AF9CF38",
+    "sourceUrl": "https://register.cacbg.bg/2026/E619451A-7BAA-41D0-824E-7CF412265887231519.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7202.057438529933,
+        "amountEurDeclarant": 8880.628684497118,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14113.701088540414,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 358.92690059974535,
+        "amountEurDeclarant": 19224.06344109662,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "автомобил",
-        "detail": "Мини купър",
+        "description": "лек автомобил",
+        "detail": "Мерцедес АМГ ГЛЕ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Валерия-Тереза Тошкова Дончева",
-        "isSpouse": false,
+        "amount": 63401,
+        "valueEur": 32416.41655972145,
+        "holderName": "Диян Стоянов Куцаров",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е 220 ЦДИ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 10000,
-        "valueEur": 9999.846612435642,
-        "holderName": "Валерия-Тереза Тошкова Дончева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

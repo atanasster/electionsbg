@@ -1,6 +1,86 @@
 [
   {
     "slug": "georgi-petrov-vanev-6860b9",
+    "declarantName": "Георги Петров Ванев",
+    "institution": "Център за развитие на човешките ресурси и регионални инициативи",
+    "positionTitle": "Директор",
+    "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г11361",
+    "controlHash": "2A89458C",
+    "sourceUrl": "https://register.cacbg.bg/2026/13CBF3DF-6D5C-4A3B-980F-5C0B4BD9B0A7236257.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33007.46997438428,
+        "amountEurSpouse": 24393.22435999039
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе",
+        "municipality": "Русе",
+        "areaSqm": 114,
+        "builtAreaSqm": 129,
+        "acquiredYear": 1982,
+        "share": "1/10",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Георги Петров Ванев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Георги Петров Ванев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44000,
+        "valueEur": 22496.842772633612,
+        "holderName": "Георги Петров Ванев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-petrov-vanev-6860b9",
     "declarantName": "Георги Петров Петров",
     "institution": "Център за развитие на човешките ресурси и регионални инициативи",
     "positionTitle": "Директор",

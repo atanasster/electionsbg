@@ -4,19 +4,19 @@
     "declarantName": "Деян Юлиянов Куздов",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11125",
-    "controlHash": "BED03621",
-    "sourceUrl": "https://register.cacbg.bg/2025/96A32032-9A8B-463F-8BED-22D6E51723E9214250.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10752",
+    "controlHash": "A9B69D55",
+    "sourceUrl": "https://register.cacbg.bg/2026/96A32032-9A8B-463F-8BED-22D6E51723E9235544.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8215.949238942036,
+        "amountEurDeclarant": 8533.972789046084,
         "amountEurSpouse": null
       },
       {
@@ -54,9 +54,33 @@
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": 0,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "разпределен дивидент",
+        "amountEurDeclarant": 113506.7976255605,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 220000,
+        "valueEur": 112484.21386316807,
+        "holderName": "Деян Юлиянов Куздов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
       {
         "category": "bank",
         "description": null,
@@ -68,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
         "holderName": "Деян Юлиянов Куздов",
         "isSpouse": false,
         "legalBasis": null,

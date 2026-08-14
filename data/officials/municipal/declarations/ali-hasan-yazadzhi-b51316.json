@@ -4,29 +4,72 @@
     "declarantName": "Али Хасан Язаджи",
     "institution": "Цар Калоян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-06",
-    "entryNumber": "Г424",
-    "controlHash": "92FB557B",
-    "sourceUrl": "https://register.cacbg.bg/2025/9007C42E-E4FD-4BF4-B388-ED64E9030BEE202434.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г14018",
+    "controlHash": "E6A647FE",
+    "sourceUrl": "https://register.cacbg.bg/2026/9007C42E-E4FD-4BF4-B388-ED64E9030BEE239700.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1013.380508530905,
-        "amountEurSpouse": 5724.423901872862
+        "amountEurDeclarant": 1331.404058634953,
+        "amountEurSpouse": 3070.819038464488
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7205.636481698307,
+        "amountEurDeclarant": 7315.564236155494,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 550.6613560483273
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Али Хасан Язаджи",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Калибра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 600,
+        "valueEur": 306.7751287177311,
+        "holderName": "Али Хасан Язаджи",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

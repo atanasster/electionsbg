@@ -1,29 +1,23 @@
 [
   {
     "slug": "stefka-nikolaeva-shevkenova-pashova-cde070",
-    "declarantName": "Стефка Николаева Шевкенова-Пашова",
+    "declarantName": "Стефка Николаев Шевкенова - Пашова",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9718",
-    "controlHash": "4ECEA32A",
-    "sourceUrl": "https://register.cacbg.bg/2025/B81C988A-B610-4E7A-AA09-8597569FDBED212767.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13279",
+    "controlHash": "24DC3AF5",
+    "sourceUrl": "https://register.cacbg.bg/2026/B81C988A-B610-4E7A-AA09-8597569FDBED238779.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8909.261029844107,
-        "amountEurSpouse": 16419.62747273536
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1153.985775859865,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 10168.572933230393,
+        "amountEurSpouse": 20135.18557338828
       },
       {
         "parent": null,
@@ -34,20 +28,56 @@
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 726,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Стефка Николаева Шевкенова - Пашова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Инфинити",
+        "description": "лек автомобил",
+        "detail": "мазда",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
         "amount": 8000,
         "valueEur": 4090.3350495697478,
-        "holderName": "Стефка Николаева Шевкенова-Пашова",
-        "isSpouse": false,
+        "holderName": "Антон Петров Пашов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Антон Петров ПАшов",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
@@ -55,14 +85,26 @@
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди",
+        "description": "лек автомобил",
+        "detail": "Мазда",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
         "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
         "legalBasis": "възмездно"
       }
     ]

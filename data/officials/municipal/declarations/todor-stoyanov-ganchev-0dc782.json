@@ -4,25 +4,25 @@
     "declarantName": "Тодор Стоянов Ганчев",
     "institution": "Севлиево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11058",
-    "controlHash": "8BF9CAE5",
-    "sourceUrl": "https://register.cacbg.bg/2025/31CFD52D-A715-4DA3-B596-424C577AC82F214182.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9374",
+    "controlHash": "4A94A3B8",
+    "sourceUrl": "https://register.cacbg.bg/2026/31CFD52D-A715-4DA3-B596-424C577AC82F233989.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4090.3350495697478,
-        "amountEurSpouse": 14479.27478359571
+        "amountEurDeclarant": 5675.339881278025,
+        "amountEurSpouse": 15420.051844996753
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15270.243323806262,
+        "amountEurDeclarant": 16912.00155432732,
         "amountEurSpouse": null
       },
       {
@@ -34,13 +34,13 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 12524.094629901372,
+        "amountEurDeclarant": 10037.170919762964,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 460.16269307659667,
+        "amountEurDeclarant": 1104.390463383832,
         "amountEurSpouse": null
       },
       {
@@ -65,47 +65,29 @@
         "municipality": "Севлиево",
         "areaSqm": 135,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
         "amount": 1300,
         "valueEur": 664.679445555084,
-        "holderName": "Тодор Стояянов Ганчев",
-        "isSpouse": true,
-        "legalBasis": "Договор за наем",
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил Шкода",
-        "detail": "Октавиа",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
         "holderName": "Тодор Стоянов Ганчев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": "Договор за наем",
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 20000.204516752478,
         "holderName": "Тодор Стоянов Ганчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -122,39 +104,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 63000,
-        "valueEur": 32211.388515361767,
-        "holderName": "Ндая Лозанова Ганчева",
+        "amount": 53717,
+        "valueEur": 27465.065982217267,
+        "holderName": "Надя Лозанова Ганчева",
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "стопански постройки",
-        "detail": null,
-        "location": "Севлиево",
-        "municipality": "Севлиево",
-        "areaSqm": 363,
-        "builtAreaSqm": 363,
-        "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "магазин",
-        "detail": null,
-        "location": "Севлиево",
-        "municipality": "Севлиево",
-        "areaSqm": 125,
-        "builtAreaSqm": 125,
-        "currency": "BGN",
-        "valueEur": 112484.21386316807,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

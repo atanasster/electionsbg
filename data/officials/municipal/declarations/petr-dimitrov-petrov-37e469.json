@@ -1,32 +1,87 @@
 [
   {
     "slug": "petr-dimitrov-petrov-37e469",
-    "declarantName": "Петър Димитров Петров",
+    "declarantName": "Петър димитров Петров",
     "institution": "Девня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г2130",
-    "controlHash": "23F435D1",
-    "sourceUrl": "https://register.cacbg.bg/2025/38013843-C479-4909-A6B6-10402F094E62204730.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2895",
+    "controlHash": "FFB3BD51",
+    "sourceUrl": "https://register.cacbg.bg/2026/38013843-C479-4909-A6B6-10402F094E62226988.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялово участие",
+        "shareSize": "50%",
+        "companyName": "Митко 2011 ООД",
+        "registeredOffice": "гр.Девня",
+        "valueEur": 1.022583762392437,
+        "holderName": "Петър Димитров Петров",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялово участие",
+        "shareSize": "50%",
+        "companyName": "Митко 2011 ООД",
+        "registeredOffice": "гр.Девня",
+        "valueEur": 1.022583762392437,
+        "holderName": "Димитрина Пенева Петрова",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4584.754298686491,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 4448.2393664071005,
+        "amountEurDeclarant": 5217.222355726213,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Кия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Петър Димитров Петров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Кия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Димитрина Пенева Петрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "лизинг",
@@ -38,37 +93,37 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6400,
-        "valueEur": 3272.2680396557985,
-        "holderName": "Петър Димитров Петров",
+        "amount": 1070,
+        "valueEur": 547.0823128799537,
+        "holderName": "Петър димитров Петров",
         "isSpouse": false,
-        "legalBasis": "лизинг",
+        "legalBasis": "3,4%",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "Микробус",
-        "detail": "Ивеко",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Девня",
+        "municipality": "Девня",
+        "areaSqm": 441,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 4448.2393664071005,
+        "valueEur": 2556.4594059810925,
         "legalBasis": "възмездно"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "Микробус",
-        "detail": "Ивеко",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Девня",
+        "municipality": "Девня",
+        "areaSqm": 441,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 4448.2393664071005,
+        "valueEur": 2556.4594059810925,
         "legalBasis": "възмездно"
       }
     ]

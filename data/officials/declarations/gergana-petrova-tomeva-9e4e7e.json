@@ -5,6 +5,75 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-06",
+    "entryNumber": "Г4155",
+    "controlHash": "B09E8D88",
+    "sourceUrl": "https://register.cacbg.bg/2026/DE25EEC5-920E-455A-B2E9-8E333D4A71CB228351.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21087.722348056835,
+        "amountEurSpouse": 6958.682503080534
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 52563,
+        "valueEur": 26875.03515131683,
+        "holderName": "Пламен Любенов Томев",
+        "isSpouse": true,
+        "legalBasis": "лизинг, 3,89%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Фолксваген",
+        "detail": "Шаран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 442.267477234729,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Фолксваген",
+        "detail": "Шаран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 442.267477234729,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "gergana-petrova-tomeva-9e4e7e",
+    "declarantName": "Гергана Петрова Томева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

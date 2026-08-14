@@ -4,13 +4,13 @@
     "declarantName": "Анатоли Пенчев Ангелов",
     "institution": "Павликени",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13914",
-    "controlHash": "510A5DA5",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E84426E-B75C-4DEC-9A40-7BD244AF6FE8217175.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12392",
+    "controlHash": "C38627F8",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E84426E-B75C-4DEC-9A40-7BD244AF6FE8237637.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -41,13 +41,13 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6310.875689604924,
-        "amountEurSpouse": 5810.320937913827
+        "amountEurDeclarant": 5333.285612757755,
+        "amountEurSpouse": 5755.101414744635
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5795.493473359136,
+        "amountEurDeclarant": 5740.7852420711415,
         "amountEurSpouse": null
       },
       {
@@ -155,7 +155,7 @@
         "location": "с. Дъскот",
         "municipality": "Павликени",
         "areaSqm": 1480,
-        "builtAreaSqm": 0,
+        "builtAreaSqm": null,
         "acquiredYear": 2010,
         "share": "1",
         "currency": "BGN",
@@ -173,7 +173,7 @@
         "location": "с. Дъскот",
         "municipality": "Павликени",
         "areaSqm": 3400,
-        "builtAreaSqm": 0,
+        "builtAreaSqm": null,
         "acquiredYear": 2021,
         "share": "1",
         "currency": "BGN",
@@ -255,6 +255,24 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндаи",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Анатоли Пенчев Ангелов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

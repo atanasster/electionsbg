@@ -4,25 +4,25 @@
     "declarantName": "Красимир Иванов Цолов",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2479",
-    "controlHash": "63E47C62",
-    "sourceUrl": "https://register.cacbg.bg/2025/18FD9D64-0E13-41C8-B09A-B265181BFE10205129.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г13527",
+    "controlHash": "BAA42104",
+    "sourceUrl": "https://register.cacbg.bg/2026/18FD9D64-0E13-41C8-B09A-B265181BFE10239058.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5835.885531973638,
-        "amountEurSpouse": 11009.136785916977
+        "amountEurDeclarant": 8046.20033438489,
+        "amountEurSpouse": 11692.734031076321
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13503.21858239213,
+        "amountEurDeclarant": 18628.91969138422,
         "amountEurSpouse": null
       }
     ],
@@ -38,27 +38,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 97790,
+        "valueEur": 49999.23306217821,
         "holderName": "София Дочева Цолова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "продажба на апартамент"
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Красимир Иванов Цолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. Свищов, ул. \"33-ти Св. полк\" №74",
-        "municipality": "Свищов",
-        "areaSqm": 48,
-        "builtAreaSqm": 48,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,64 +4,82 @@
     "declarantName": "Янко Тонев Запрянов",
     "institution": "Казанлък",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г9515",
-    "controlHash": "921BB280",
-    "sourceUrl": "https://register.cacbg.bg/2025/82918A2A-D863-4267-9CED-10982EDCD32B212559.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14190",
+    "controlHash": "24E7692F",
+    "sourceUrl": "https://register.cacbg.bg/2026/82918A2A-D863-4267-9CED-10982EDCD32B239918.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6437.676076141587,
+        "amountEurDeclarant": 7088.550640904373,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 135246.9284140237,
+        "amountEurDeclarant": 134531.6310722302,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 18848.775200298594,
-        "amountEurSpouse": 3271.756747774602
+        "amountEurDeclarant": 30767.500242863644,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 6.6467944555508405,
+        "amountEurDeclarant": 3272.2680396557985,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Други доходи по чл.38,ал.1 от ЗДДФЛ",
-        "amountEurDeclarant": 454452.0740555161,
+        "amountEurDeclarant": 1367063.599597102,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Лексус NX450h+",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "СИО",
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 138.9,
+        "builtAreaSqm": 138.9,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 157800,
-        "valueEur": 80681.85885276328,
+        "amount": 281444,
+        "valueEur": 143900.03221138852,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 138.9,
+        "builtAreaSqm": 138.9,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 281444,
+        "valueEur": 143900.03221138852,
+        "holderName": "Мария Павлова Запрянова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -74,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 841702,
-        "valueEur": 430355.3989866195,
+        "amount": 1222139,
+        "valueEur": 624869.7483932653,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
@@ -92,8 +110,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 635800,
-        "valueEur": 635800.1462294781,
+        "amount": 1371532,
+        "valueEur": 1371531.7793468758,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
@@ -110,8 +128,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 164767,
-        "valueEur": 158597.628628255,
+        "amount": 474767,
+        "valueEur": 403817.81647689216,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
@@ -128,12 +146,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 139429,
-        "valueEur": 71288.91570330755,
+        "amount": 181815,
+        "valueEur": 92960.53337969046,
         "holderName": "Мария Павлова Запрянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата,дарения"
+        "fundsOrigin": "дарения"
       },
       {
         "category": "bank",
@@ -146,12 +164,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 23734,
-        "valueEur": 22845.543835609435,
+        "amount": 23741,
+        "valueEur": 20192.96155596345,
         "holderName": "Мария Павлова Запрянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дарения"
+        "fundsOrigin": "дарения, пенсия"
       },
       {
         "category": "investment",
@@ -164,12 +182,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16155,
-        "valueEur": 8259.92034072491,
+        "amount": 16740,
+        "valueEur": 8559.026091224698,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "investment",
@@ -182,12 +200,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 30280,
-        "valueEur": 30280.239080083647,
+        "amount": 33773,
+        "valueEur": 33772.873920535014,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "investment",
@@ -200,12 +218,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 61938,
-        "valueEur": 59618.67851500386,
+        "amount": 69841,
+        "valueEur": 59403.93592490145,
         "holderName": "Янко Тонев Запрянов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "investment",
@@ -218,12 +236,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12548,
-        "valueEur": 6415.690525250149,
+        "amount": 13766,
+        "valueEur": 7038.444036547144,
         "holderName": "Мария Павлова Запрянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дарения"
+        "fundsOrigin": "дарения,пенсия"
       },
       {
         "category": "investment",
@@ -236,12 +254,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 6577,
-        "valueEur": 6576.747467826958,
+        "amount": 7300,
+        "valueEur": 7300.225479719607,
         "holderName": "Мария Павлова Запрянова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дарения"
+        "fundsOrigin": "дарения,пенсия"
       }
     ],
     "events": []

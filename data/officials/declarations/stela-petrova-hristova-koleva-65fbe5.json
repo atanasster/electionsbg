@@ -1,6 +1,86 @@
 [
   {
     "slug": "stela-petrova-hristova-koleva-65fbe5",
+    "declarantName": "Стела Петрова Христива-Колева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1732",
+    "controlHash": "B7FDCC73",
+    "sourceUrl": "https://register.cacbg.bg/2026/643CC270-755F-46A2-A192-B85C15BF1A19225681.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26912.359458644158,
+        "amountEurSpouse": 18633.521318314986
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "acquiredYear": 1998,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2633,
+        "valueEur": 1346.2315231896432,
+        "holderName": "Стела Петрова Христова-Колева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "acquiredYear": 1998,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2633,
+        "valueEur": 1346.2315231896432,
+        "holderName": "Станомир Гочев Колев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Стела Петрова Христова-Колева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stela-petrova-hristova-koleva-65fbe5",
     "declarantName": "Стела Петрова Христова-Колева",
     "institution": "Училища",
     "positionTitle": "Директор",

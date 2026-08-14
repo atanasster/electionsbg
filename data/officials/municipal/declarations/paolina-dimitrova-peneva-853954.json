@@ -4,32 +4,25 @@
     "declarantName": "Паолина Димитрова Пенева",
     "institution": "Горна Оряховица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г7565",
-    "controlHash": "FD33910A",
-    "sourceUrl": "https://register.cacbg.bg/2025/462BC1C4-5285-4D55-8BC4-C82E08BFE289210562.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "ЕООД",
-        "shareSize": "100%",
-        "companyName": "Амбулатория за индивидуална практика за първична дентална помощ Сонриса дентал ЕООД",
-        "registeredOffice": "Горна Оряховица",
-        "valueEur": 511.29188119621847,
-        "holderName": "Паолина Димитрова Пенева",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4427",
+    "controlHash": "F38F742A",
+    "sourceUrl": "https://register.cacbg.bg/2026/462BC1C4-5285-4D55-8BC4-C82E08BFE289228627.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8256.852589437733,
+        "amountEurDeclarant": 9014.587157370528,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2863.2345346988236,
         "amountEurSpouse": null
       }
     ],
@@ -51,6 +44,24 @@
         "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Финансов лизинг за лек автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40845,
+        "valueEur": 20883.716887459545,
+        "holderName": "Паолина Димитрова Пенева",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг № 249322199064/22.10.2024, лихвен процент съгласно договора за лизинг",
+        "fundsOrigin": null
       }
     ],
     "events": []

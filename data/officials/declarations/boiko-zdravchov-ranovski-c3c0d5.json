@@ -5,6 +5,74 @@
     "institution": "ИА “Автомобилна администрация”",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1885",
+    "controlHash": "F905B3E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/9EADA6F8-A5D8-41F6-A05E-00035A5E982F233140.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20985.975263698787,
+        "amountEurSpouse": 44813.71080308616
+      },
+      {
+        "parent": null,
+        "category": "Рейд Шеър България ЕООД - граждански договор за консулнантска дейност",
+        "amountEurDeclarant": 2367.281409938492,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Бойко Здравчов Рановски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Мария Николаевна Рановска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "boiko-zdravchov-ranovski-c3c0d5",
+    "declarantName": "Бойко Здравчов Рановски",
+    "institution": "ИА “Автомобилна администрация”",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",

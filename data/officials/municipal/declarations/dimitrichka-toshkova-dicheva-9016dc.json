@@ -4,56 +4,56 @@
     "declarantName": "Димитричка Тошкова Дичева",
     "institution": "Провадия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г14247",
-    "controlHash": "ABE9BD0A",
-    "sourceUrl": "https://register.cacbg.bg/2025/6633565F-0558-46FC-A2D1-342F1EFBCC3F217528.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12529",
+    "controlHash": "41471EAA",
+    "sourceUrl": "https://register.cacbg.bg/2026/6633565F-0558-46FC-A2D1-342F1EFBCC3F237832.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7336.015911403343,
-        "amountEurSpouse": 18954.101327825014
+        "amountEurDeclarant": 8053.358420721637,
+        "amountEurSpouse": 18458.148203064684
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5395.151930382497,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 5026.510484040024,
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": null
+        "amountEurSpouse": 0
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
@@ -94,24 +94,6 @@
         "currency": "BGN",
         "amount": 1500,
         "valueEur": 766.9378217943278,
-        "holderName": "Миглен Христов Дичев",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "real_estate",
-        "description": "гараж",
-        "detail": null,
-        "location": "Провадия",
-        "municipality": "Провадия",
-        "areaSqm": 35,
-        "builtAreaSqm": 35,
-        "acquiredYear": 2001,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 1600,
-        "valueEur": 818.0670099139496,
         "holderName": "Миглен Христов Дичев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -191,39 +173,21 @@
       },
       {
         "category": "real_estate",
-        "description": "двор",
+        "description": "гараж",
         "detail": null,
-        "location": "Добрина",
+        "location": "Провадия",
         "municipality": "Провадия",
-        "areaSqm": 570,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "acquiredYear": 2001,
+        "share": "1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Димитричка Тошкова Дичева",
-        "isSpouse": false,
-        "legalBasis": "други",
-        "fundsOrigin": "няма"
-      },
-      {
-        "category": "real_estate",
-        "description": "двор",
-        "detail": null,
-        "location": "Добрина",
-        "municipality": "Провадия",
-        "areaSqm": 570,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 1600,
+        "valueEur": 818.0670099139496,
         "holderName": "Миглен Христов Дичев",
         "isSpouse": true,
-        "legalBasis": "други",
-        "fundsOrigin": "няма"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -263,8 +227,8 @@
       },
       {
         "category": "vehicle",
-        "description": "лека-кола",
-        "detail": "Волво ХС 90",
+        "description": "лека кола",
+        "detail": "Волко ХС 90",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -274,37 +238,12 @@
         "currency": "BGN",
         "amount": 3000,
         "valueEur": 1533.8756435886555,
-        "holderName": "Димитричка  Тошкова Дичева",
+        "holderName": "Димитричка Тошкова Дичева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "двор",
-        "detail": null,
-        "location": "с.Добрина",
-        "municipality": "Провадия",
-        "areaSqm": 570,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "двор",
-        "detail": null,
-        "location": "Добрина",
-        "municipality": "Провадия",
-        "areaSqm": 570,
-        "builtAreaSqm": 0,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

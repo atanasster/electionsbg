@@ -1,16 +1,16 @@
 {
   "obshtina": "VAR13",
   "registryName": "Долни Чифлик",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 2,
-    "councillor": 19,
-    "chief_architect": 2,
+    "councillor": 20,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -40,7 +41,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -57,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "stanka-parusheva-todorova-b623d2",
@@ -66,7 +69,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "dragan-koichev-dimov-4d9816",
@@ -75,7 +79,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!(ПП ИМА ТАКЪВ НАРОД, ПП ВМРО-БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ)",
@@ -92,7 +97,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -103,22 +109,14 @@
       }
     },
     {
-      "slug": "georgi-totev-mitev-77b4c8",
-      "name": "Георги Тотев Митев",
-      "normalizedName": "ГЕОРГИ ТОТЕВ МИТЕВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "kalin-ivanov-velchev-59f04a",
       "name": "Калин Иванов Велчев",
       "normalizedName": "КАЛИН ИВАНОВ ВЕЛЧЕВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "anna-koleva-tomova-b9eacd",
@@ -127,7 +125,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -144,7 +143,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -161,7 +161,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -178,7 +179,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -189,13 +191,32 @@
       }
     },
     {
+      "slug": "zhivko-dushev-zhelev-044a2e",
+      "name": "Живко Душев Желев",
+      "normalizedName": "ЖИВКО ДУШЕВ ЖЕЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Долни Чифлик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 113,
+        "prefVotes": 114,
+        "isElected": false
+      }
+    },
+    {
       "slug": "ivan-atanasov-iliev-ce2c3f",
       "name": "Иван Атанасов Илиев",
       "normalizedName": "ИВАН АТАНАСОВ ИЛИЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -212,7 +233,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -229,7 +251,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -246,7 +269,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -263,7 +287,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -280,7 +305,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -297,7 +323,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -314,7 +341,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА",
@@ -331,7 +359,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -348,7 +377,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -365,7 +395,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -382,7 +413,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -399,7 +431,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА",
@@ -416,7 +449,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -433,7 +467,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Долни Чифлик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!(ПП ИМА ТАКЪВ НАРОД, ПП ВМРО-БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ)",

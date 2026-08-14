@@ -1,6 +1,93 @@
 [
   {
     "slug": "ailin-orhanova-alieva-f1d9ab",
+    "declarantName": "Айлин Орханова Алиева-Юсуфова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-02-05",
+    "entryNumber": "Ф30",
+    "controlHash": "C5AC1D03",
+    "sourceUrl": "https://register.cacbg.bg/2026/B694214E-E8AB-49EB-8E7D-DDB451CCCA38222896.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40534,
+        "valueEur": 20724.70511240752,
+        "holderName": "Юсуф Бейханов Юсуфов",
+        "isSpouse": true,
+        "legalBasis": "договор зо кредит 4.2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ailin-orhanova-alieva-f1d9ab",
+    "declarantName": "Айлин Орханова Алиева-Юсуфова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-05",
+    "entryNumber": "Г92",
+    "controlHash": "5F64C74E",
+    "sourceUrl": "https://register.cacbg.bg/2026/B694214E-E8AB-49EB-8E7D-DDB451CCCA38222895.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17801.138135727542,
+        "amountEurSpouse": 6521.0166527765705
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6230.602864257118
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40534,
+        "valueEur": 20724.70511240752,
+        "holderName": "Юсуф Бейханов Юсуфов",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ailin-orhanova-alieva-f1d9ab",
     "declarantName": "Айлин Орханова Алиева Юсуфова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

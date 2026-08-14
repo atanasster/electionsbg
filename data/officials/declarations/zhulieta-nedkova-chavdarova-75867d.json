@@ -1,6 +1,92 @@
 [
   {
     "slug": "zhulieta-nedkova-chavdarova-75867d",
+    "declarantName": "Жулиета Недкова Чавдарова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4133",
+    "controlHash": "08759FA1",
+    "sourceUrl": "https://register.cacbg.bg/2026/BE144B21-6412-4B95-A750-65DF5F488156228329.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24256.709427710997,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 24099.742820183757
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Нива",
+        "detail": null,
+        "location": "с. Бъзън",
+        "municipality": "Русе",
+        "areaSqm": 501,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Красимир Чавдаров Чавдаров",
+        "isSpouse": true,
+        "legalBasis": "Предоставя се за производство на земеделска продукция",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25949,
+        "valueEur": 13267.513025160673,
+        "holderName": "Жулиета Недкова Чавдарова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19504,
+        "valueEur": 9972.236850851046,
+        "holderName": "Красимир Чавдаров Чавдаров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zhulieta-nedkova-chavdarova-75867d",
     "declarantName": "ЖУЛИЕТА НЕДКОВА ЧАВДАРОВА",
     "institution": "Училища",
     "positionTitle": "Директор",

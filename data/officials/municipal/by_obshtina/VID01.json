@@ -1,16 +1,16 @@
 {
   "obshtina": "VID01",
   "registryName": "Белоградчик",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 1,
+    "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 12,
-    "chief_architect": 2,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -38,7 +39,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ИМА ТАКЪВ НАРОД",
@@ -49,13 +51,24 @@
       }
     },
     {
+      "slug": "zhenya-bozhidarova-zhivova-7439c4",
+      "name": "Женя Божидарова Живова",
+      "normalizedName": "ЖЕНЯ БОЖИДАРОВА ЖИВОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Белоградчик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "angel-milchev-georgiev-69cc02",
       "name": "Ангел Милчев Георгиев",
       "normalizedName": "АНГЕЛ МИЛЧЕВ ГЕОРГИЕВ",
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -66,22 +79,14 @@
       }
     },
     {
-      "slug": "vladimir-ivanov-mladenov-45d077",
-      "name": "Владимир Иванов Младенов",
-      "normalizedName": "ВЛАДИМИР ИВАНОВ МЛАДЕНОВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "emil-georgiev-andreev-dad398",
       "name": "Емил Георгиев Андреев",
       "normalizedName": "ЕМИЛ ГЕОРГИЕВ АНДРЕЕВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "alosha-krasimirov-vtkov-cd99f9",
@@ -90,7 +95,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -107,7 +113,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -126,7 +133,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -143,7 +151,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -160,7 +169,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -177,7 +187,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -194,7 +205,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -211,7 +223,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -222,13 +235,32 @@
       }
     },
     {
+      "slug": "prolet-angelova-borisova-kostadinova-e3b1ec",
+      "name": "Пролет Ангелова Борисова-Костадинова",
+      "normalizedName": "ПРОЛЕТ АНГЕЛОВА БОРИСОВА-КОСТАДИНОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Белоградчик",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
+        "partyCanonicalId": "bsp",
+        "listPos": 110,
+        "prefVotes": 7,
+        "isElected": false
+      }
+    },
+    {
       "slug": "radoslav-lyubenov-zhivkov-f56623",
       "name": "Радослав Любенов Живков",
       "normalizedName": "РАДОСЛАВ ЛЮБЕНОВ ЖИВКОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Съюз на свободните демократи",
@@ -239,30 +271,14 @@
       }
     },
     {
-      "slug": "rumen-georgiev-tsankov-646326",
-      "name": "Румен Георгиев Цанков",
-      "normalizedName": "РУМЕН ГЕОРГИЕВ ЦАНКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
-        "partyCanonicalId": "bsp",
-        "listPos": 105,
-        "prefVotes": 192,
-        "isElected": true
-      }
-    },
-    {
       "slug": "tsvetomir-lyubomirov-stanimirov-24b746",
       "name": "Цветомир Любомиров Станимиров",
       "normalizedName": "ЦВЕТОМИР ЛЮБОМИРОВ СТАНИМИРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК БСП ЗА БЪЛГАРИЯ (НДСВ, НОВОТО ВРЕМЕ, ДПС, БЪЛГАРСКИ ВЪЗХОД, Движение Гергьовден)",
@@ -279,7 +295,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Белоградчик",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",

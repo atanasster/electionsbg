@@ -1,103 +1,25 @@
 [
   {
     "slug": "sarandi-valentinov-sarandiev-2fe5f4",
-    "declarantName": "САРАНДИ ВАЛЕНТИНОВ САРАНДИЕВ",
+    "declarantName": "Саранди Валентинов Сарандиев",
     "institution": "Димитровград",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-07-14",
-    "entryNumber": "В1472",
-    "controlHash": "755DA15C",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D72184F-D625-42FD-9A74-DBE0EBAA7AEB219669.xml",
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11265",
+    "controlHash": "029A3BF8",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D72184F-D625-42FD-9A74-DBE0EBAA7AEB236147.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "income": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "МЕРЦЕДЕС Е250 ЦДИ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2021,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 9500,
-        "valueEur": 4857.272871364075,
-        "holderName": "САРАНДИ ВАЛЕНТИНОВ САРАНДИЕВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8708.83461241519,
+        "amountEurSpouse": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "sarandi-valentinov-sarandiev-2fe5f4",
-    "declarantName": "САРАНДИ ВАЛЕНТИНОВ САРАНДИЕВ",
-    "institution": "Димитровград",
-    "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-07-14",
-    "entryNumber": "В1473",
-    "controlHash": "637A0AFD",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D72184F-D625-42FD-9A74-DBE0EBAA7AEB219670.xml",
-    "ownershipStakes": [
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "100",
-        "companyName": "АВС СТУДИО ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "100",
-        "companyName": "ЕТ САРАНДИЕВ 90 - САРАНДИ САРАНДИЕВ",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "50",
-        "companyName": "ПРЕМИУМ КЛАС ЕООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "50",
-        "companyName": "ПСТ КОНСУЛТ ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
     "assets": [],
     "events": []
   }

@@ -4,13 +4,13 @@
     "declarantName": "Георги Петров Шилев",
     "institution": "Съединение",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12721",
-    "controlHash": "92528C95",
-    "sourceUrl": "https://register.cacbg.bg/2025/921E62EE-D58A-4961-B6AE-6FCF8ACAD9A0215896.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12889",
+    "controlHash": "8CFB2A32",
+    "sourceUrl": "https://register.cacbg.bg/2026/921E62EE-D58A-4961-B6AE-6FCF8ACAD9A0238239.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,20 +29,38 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13511.39925249127,
+        "amountEurDeclarant": 12177.438734450336,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurSpouse": 7362.603089225547
       }
     ],
     "assets": [
       {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Лидия Минчева Кръстева-Шилева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "потребителски кредити",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -55,23 +73,10 @@
         "valueEur": 30677.51287177311,
         "holderName": "Георги Петров Шилев",
         "isSpouse": false,
-        "legalBasis": "кредит - 4%",
+        "legalBasis": "заем 6%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "гр. София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 85,
-        "builtAreaSqm": 85,
-        "currency": "BGN",
-        "valueEur": 51129.188119621846,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

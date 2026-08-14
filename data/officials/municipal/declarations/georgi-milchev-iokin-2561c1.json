@@ -1,40 +1,46 @@
 [
   {
     "slug": "georgi-milchev-iokin-2561c1",
-    "declarantName": "Георги Милчев йокин",
+    "declarantName": "Георги Милчев Йокин",
     "institution": "Чупрене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7762",
-    "controlHash": "3432FA78",
-    "sourceUrl": "https://register.cacbg.bg/2025/2AB47DD5-137F-47A0-89B5-E627E24166E7210764.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г14356",
+    "controlHash": "9C8D2584",
+    "sourceUrl": "https://register.cacbg.bg/2026/2AB47DD5-137F-47A0-89B5-E627E24166E7240114.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4818.4146883931635,
+        "amountEurDeclarant": 5389.016427808143,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1590.1177505202395,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "УАЗ",
+        "description": "Мотоциклет",
+        "detail": "Кавазаки Нинджа",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "Георги Милчев йокин",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Георги Милчев Йокин",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"

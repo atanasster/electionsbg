@@ -4,23 +4,48 @@
     "declarantName": "Данаил Николов Вълов",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г7392",
-    "controlHash": "4BCA7E0C",
-    "sourceUrl": "https://register.cacbg.bg/2025/31C453D5-9FE7-4183-B521-01AE2F11EF94210380.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10575",
+    "controlHash": "06003D08",
+    "sourceUrl": "https://register.cacbg.bg/2026/31C453D5-9FE7-4183-B521-01AE2F11EF94235338.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4953.907036910161,
-        "amountEurSpouse": 8223.107325278783
+        "amountEurDeclarant": 6116.584774750362,
+        "amountEurSpouse": 8235.889622308687
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Карлуково",
+        "municipality": "Луковит",
+        "areaSqm": 2800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Карлуково",
+        "municipality": "Луковит",
+        "areaSqm": 2800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

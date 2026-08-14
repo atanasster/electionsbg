@@ -1,40 +1,46 @@
 [
   {
     "slug": "dimitr-iordanov-balabanov-0e8f57",
-    "declarantName": "Димитър Йорданов Балабнов",
+    "declarantName": "Димитър Йорданов Балабанов",
     "institution": "Лъки",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г10565",
-    "controlHash": "13A24310",
-    "sourceUrl": "https://register.cacbg.bg/2025/C274FB39-D682-45AF-A85F-00522C93A841213663.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13100",
+    "controlHash": "3ECC983F",
+    "sourceUrl": "https://register.cacbg.bg/2026/C274FB39-D682-45AF-A85F-00522C93A841238502.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4218.1580198688025,
+        "amountEurDeclarant": 4294.851802048235,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13531.339635857923,
+        "amountEurDeclarant": 12309.863331680157,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 6365.58392089292,
+        "amountEurDeclarant": 13154.006227535114,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 511.29188119621847,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Наследствена пенсия",
-        "amountEurDeclarant": 8299.289815577018,
+        "amountEurDeclarant": 4472.2700848233235,
         "amountEurSpouse": null
       }
     ],
@@ -46,16 +52,16 @@
         "location": "гр. Пловдив",
         "municipality": "Пловдив",
         "areaSqm": 80,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 80,
         "acquiredYear": 2023,
-        "share": null,
+        "share": "1/1",
         "currency": "BGN",
         "amount": 213185,
         "valueEur": 108999.75969281585,
-        "holderName": "Димитър Йорданов Балабнов",
+        "holderName": "Димитър Йорданов Балабанов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "спестявания, заеми"
       },
       {
         "category": "real_estate",
@@ -64,34 +70,34 @@
         "location": "гр. Пловдив",
         "municipality": "Пловдив",
         "areaSqm": 62,
-        "builtAreaSqm": null,
+        "builtAreaSqm": 62,
         "acquiredYear": 2024,
-        "share": null,
+        "share": "1/1",
         "currency": "BGN",
         "amount": 217097,
         "valueEur": 110999.93353205544,
-        "holderName": "Димитър Йорданов Балабнов",
+        "holderName": "Димитър Йорданов Балабанов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "спестявания, заеми"
       },
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "BMW X5",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": "1/2",
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 125173,
+        "valueEur": 63999.93864497426,
         "holderName": "Димитър Йорданов Балабанов",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания, заеми"
       },
       {
         "category": "cash",
@@ -106,28 +112,10 @@
         "currency": "BGN",
         "amount": 10000,
         "valueEur": 5112.918811962185,
-        "holderName": "Димитър Йорданов Балабнов",
+        "holderName": "Димитър Йорданов Балабанов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "Ипотечен кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 132955,
-        "valueEur": 67978.81206444323,
-        "holderName": "Димитър Йорданов Балабанов",
-        "isSpouse": true,
-        "legalBasis": "договор - 2.4 лих. %",
-        "fundsOrigin": null
+        "fundsOrigin": "заплата, спестявания"
       },
       {
         "category": "debt",
@@ -143,13 +131,13 @@
         "amount": 193000,
         "valueEur": 98679.33307087017,
         "holderName": "Димитър Йорданов Балабанов",
-        "isSpouse": true,
-        "legalBasis": "договор - 2.6 лих. %",
+        "isSpouse": false,
+        "legalBasis": "договор - 2,6 лих.%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -158,14 +146,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33000,
-        "valueEur": 16872.63207947521,
+        "amount": 252698,
+        "valueEur": 129202.43579452203,
         "holderName": "Димитър Йорданов Балабанов",
-        "isSpouse": true,
-        "legalBasis": "договор - 6.5 лих. %",
+        "isSpouse": false,
+        "legalBasis": "договор - 2,19 лих.%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW X5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

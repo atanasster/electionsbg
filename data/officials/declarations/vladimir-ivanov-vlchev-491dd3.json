@@ -5,6 +5,74 @@
     "institution": "Здравноосигурителна каса",
     "positionTitle": "Директор на районна здравноосигурителна каса",
     "category": "social_fund",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3902",
+    "controlHash": "78EA1F22",
+    "sourceUrl": "https://register.cacbg.bg/2026/C8564D3C-F30C-4B32-AAE4-8B024D704978228078.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33619.997648057346,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 899.8737109053445
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25076,
+        "valueEur": 12821.155212876374,
+        "holderName": "ЮЛИЯ ВЕНЕЛИНОВА ВЪЛЧЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ОТ ТРУДОВА ДЕЙНОСТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4000,
+        "valueEur": 3999.8363865980173,
+        "holderName": "ЮЛИЯ ВЕНЕЛИНОВА ВЪЛЧЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ОТ ТРУДОВА ДЕЙНОСТ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vladimir-ivanov-vlchev-491dd3",
+    "declarantName": "ВЛАДИМИР ИВАНОВ ВЪЛЧЕВ",
+    "institution": "Здравноосигурителна каса",
+    "positionTitle": "Директор на районна здравноосигурителна каса",
+    "category": "social_fund",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

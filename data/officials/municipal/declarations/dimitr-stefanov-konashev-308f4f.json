@@ -1,38 +1,87 @@
 [
   {
     "slug": "dimitr-stefanov-konashev-308f4f",
-    "declarantName": "Димитър Снефанов Конашев",
+    "declarantName": "Димитър Стефанов Конашев",
     "institution": "Сухиндол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4007",
-    "controlHash": "63DDFBDA",
-    "sourceUrl": "https://register.cacbg.bg/2025/C5D38D7C-D3FA-48C0-9BB7-D6B5A79EC67B206832.xml",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1222",
+    "controlHash": "96066B7D",
+    "sourceUrl": "https://register.cacbg.bg/2026/C5D38D7C-D3FA-48C0-9BB7-D6B5A79EC67B225000.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2219.006764391588,
-        "amountEurSpouse": 13711.825669920187
+        "amountEurDeclarant": 3200.1758844071314,
+        "amountEurSpouse": 14609.14292141955
       },
       {
         "parent": null,
-        "category": "ПЕНСИЯ",
+        "category": "Елена Илиева Конашева пенсия",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7963.882341512299
-      },
-      {
-        "parent": null,
-        "category": "СОЦИАЛНИ ПОМОЩИ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 586.9630796132589
+        "amountEurSpouse": 8437.338623499998
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 2674,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 840,
+        "valueEur": 429.4851802048235,
+        "holderName": "Димитър Стефанов Конашев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5081,
+        "valueEur": 5080.707423446823,
+        "holderName": "Димитър Стефанов Конашев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3579,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Елена Илиева Конашева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

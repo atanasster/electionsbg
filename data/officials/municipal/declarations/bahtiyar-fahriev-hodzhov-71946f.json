@@ -4,20 +4,20 @@
     "declarantName": "Бахтияр Фахриев Ходжов",
     "institution": "Ардино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-26",
-    "entryNumber": "Г1132",
-    "controlHash": "C21B0568",
-    "sourceUrl": "https://register.cacbg.bg/2025/1F008FA7-0DCD-4863-95B8-277843C27E81203500.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1598",
+    "controlHash": "53366242",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F008FA7-0DCD-4863-95B8-277843C27E81225515.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22442.645833226816,
-        "amountEurSpouse": 8021.658324087472
+        "amountEurDeclarant": 25134.08629584371,
+        "amountEurSpouse": 3382.1957941129854
       }
     ],
     "assets": [
@@ -79,7 +79,7 @@
         "category": "real_estate",
         "description": "къща",
         "detail": null,
-        "location": "гр.Ардино",
+        "location": "р.Ардино",
         "municipality": "Ардино",
         "areaSqm": 76,
         "builtAreaSqm": 156,
@@ -113,7 +113,7 @@
       },
       {
         "category": "debt",
-        "description": "потребителски  кредит",
+        "description": "Остатък от потребителски  кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -122,16 +122,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 17334,
-        "valueEur": 8862.733468655251,
+        "amount": 13573,
+        "valueEur": 6939.764703476274,
         "holderName": "Бахтияр Фахриев Ходжов",
         "isSpouse": false,
-        "legalBasis": "договор за банков кредит",
+        "legalBasis": "договор за банков кредит,лихвен процент 4,96",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "потребителски  кредит",
+        "description": "Остатък от потребителски  кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -140,27 +140,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13239,
-        "valueEur": 6768.993215156736,
+        "amount": 9038,
+        "valueEur": 4621.056022251422,
         "holderName": "Бахтияр Фахриев Ходжов",
         "isSpouse": false,
-        "legalBasis": "договор за банков кредит",
+        "legalBasis": "договор за банков кредит,лихвен процент 4,96",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "фолксваген голф 3",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

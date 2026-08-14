@@ -4,43 +4,43 @@
     "declarantName": "ЗАХАРИН КИРИЛОВ ХАДЖИЙСКИ",
     "institution": "Благоевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г8141",
-    "controlHash": "D5689A3C",
-    "sourceUrl": "https://register.cacbg.bg/2025/DC9F11A2-DD09-46EE-BBE0-B9D8A3735896211152.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2189",
+    "controlHash": "38A5EE3C",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC9F11A2-DD09-46EE-BBE0-B9D8A3735896226192.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7228.13332447094,
+        "amountEurDeclarant": 9673.642392232454,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 37119.279282964264,
+        "amountEurDeclarant": 45038.1679389313,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 4868.010000869196
+        "amountEurDeclarant": 2002.2190067643917,
+        "amountEurSpouse": 5633.925238901132
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 17841.018902460848,
-        "amountEurSpouse": 15666.494531733331
+        "amountEurDeclarant": 19883.62996783974,
+        "amountEurSpouse": 17758.700909588257
       },
       {
         "parent": null,
         "category": "Ваучери за пазаруване",
-        "amountEurDeclarant": 901.4075865489332,
+        "amountEurDeclarant": 920.3253861531933,
         "amountEurSpouse": null
       }
     ],
@@ -56,9 +56,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 25007,
-        "valueEur": 25006.77461742585,
-        "holderName": "Захарин Кирилов Хаджийски",
+        "amount": 25009,
+        "valueEur": 25008.819784950636,
+        "holderName": "ЗАХАРИН КИРИЛОВ ХАДЖИЙСКИ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -74,9 +74,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60002,
-        "valueEur": 30678.5354555355,
-        "holderName": "Захарин Кирилов Хаджийски",
+        "amount": 100008,
+        "valueEur": 51133.27845467142,
+        "holderName": "ЗАХАРИН КИРИЛОВ ХАДЖИЙСКИ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -92,12 +92,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 84883,
-        "valueEur": 84883.1442405526,
-        "holderName": "Таня Младенова Хаджийска",
+        "amount": 97445,
+        "valueEur": 97445.0744696625,
+        "holderName": "ТАНЯ МЛАДЕНОВА ХАДЖИЙСКА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "ПАРИЧЕН ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45200,
+        "valueEur": 23110.393030069077,
+        "holderName": "ЗАХАРИН КИРИЛОВ ХАДЖИЙСКИ",
+        "isSpouse": false,
+        "legalBasis": "Договор за паричен заем",
+        "fundsOrigin": null
       }
     ],
     "events": []

@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г14173",
+    "controlHash": "0684DA16",
+    "sourceUrl": "https://register.cacbg.bg/2026/077EBC2C-66C9-48E1-8A68-06356A63CD0B239892.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29615.048342647366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 838.5186851617983,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Божурица",
+        "municipality": "Долна Митрополия",
+        "areaSqm": 159,
+        "builtAreaSqm": 159,
+        "acquiredYear": 2023,
+        "share": "1.6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стефан Георгиев Болнов",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20400,
+        "valueEur": 20400.546059729117,
+        "holderName": "Радостина Стефанова Болнова",
+        "isSpouse": false,
+        "legalBasis": "5.99",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radostina-stefanova-bolnova-4a8cb3",
+    "declarantName": "Радостина Стефанова Болнова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

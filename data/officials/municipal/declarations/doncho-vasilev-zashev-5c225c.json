@@ -4,20 +4,26 @@
     "declarantName": "Дончо Василев Зашев",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г5520",
-    "controlHash": "A9B2E54B",
-    "sourceUrl": "https://register.cacbg.bg/2025/648E5403-CBEF-4B96-ADAE-BADA5A8FD153208448.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г2218",
+    "controlHash": "9FFBA6D9",
+    "sourceUrl": "https://register.cacbg.bg/2026/648E5403-CBEF-4B96-ADAE-BADA5A8FD153226228.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5946.8358701932175,
-        "amountEurSpouse": 14212.891713492481
+        "amountEurDeclarant": 10219.190829468818,
+        "amountEurSpouse": 14724.1835946887
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6162.089752176826,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -58,6 +64,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Мазда CX5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Дончо Василев Зашев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -86,8 +110,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28683,
-        "valueEur": 14665.385028351135,
+        "amount": 24505,
+        "valueEur": 12529.207548713333,
         "holderName": "Дончо Василев Зашев",
         "isSpouse": false,
         "legalBasis": null,
@@ -104,27 +128,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 7201,
-        "valueEur": 3681.8128364939694,
+        "amount": 6730,
+        "valueEur": 3440.9943604505506,
         "holderName": "Илияна Костова Зашева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "Опел Вектра",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 562.4210693158403,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

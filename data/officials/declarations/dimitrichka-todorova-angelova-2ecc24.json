@@ -1,6 +1,92 @@
 [
   {
     "slug": "dimitrichka-todorova-angelova-2ecc24",
+    "declarantName": "Димитричка Тодорова Ангелова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1298",
+    "controlHash": "240E9CCC",
+    "sourceUrl": "https://register.cacbg.bg/2026/01CD0B72-0E2C-46AF-BC4E-7F63A5D50527225114.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30946.963693163518,
+        "amountEurSpouse": 9600.016361340198
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5557.231456721699,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45640,
+        "valueEur": 23335.36145779541,
+        "holderName": "Димитричка Тодорова Ангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ангел Георгиев Ангелов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21836,
+        "valueEur": 11164.569517800626,
+        "holderName": "Димитричка Тодорова Ангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "рента"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitrichka-todorova-angelova-2ecc24",
     "declarantName": "Диитричка Тодорова Ангелова",
     "institution": "Училища",
     "positionTitle": "Директор",

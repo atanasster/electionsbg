@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12256",
+    "controlHash": "A7F96A62",
+    "sourceUrl": "https://register.cacbg.bg/2026/8412645B-C545-48EB-ADAE-2242F19860BB237446.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13873.90519625939,
+        "amountEurSpouse": 10927.330084925581
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 130711,
+        "valueEur": 66831.47308303892,
+        "holderName": "ДОБРИ ИВАНОВ НАЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "АЙКАРД - 4,5 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41266,
+        "valueEur": 21098.970769443153,
+        "holderName": "ДОБРИ ИВАНОВ НАЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "ВИЗА ГОЛД - 3,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dobri-ivanov-nachev-d14d1a",
+    "declarantName": "ДОБРИ ИВАНОВ НАЧЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

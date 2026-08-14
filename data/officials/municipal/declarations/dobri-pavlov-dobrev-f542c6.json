@@ -4,42 +4,35 @@
     "declarantName": "Добри Павлов Добрев",
     "institution": "Белослав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-09",
-    "entryNumber": "Г2040",
-    "controlHash": "5C2F4EDA",
-    "sourceUrl": "https://register.cacbg.bg/2025/88BDD2FC-AF38-4070-A1CD-61C67A3A51E5204622.xml",
+    "filedAt": "2026-04-14",
+    "entryNumber": "Г1521",
+    "controlHash": "EEEB2595",
+    "sourceUrl": "https://register.cacbg.bg/2026/88BDD2FC-AF38-4070-A1CD-61C67A3A51E5225432.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3398.5571343112642,
-        "amountEurSpouse": 22279.54372312522
-      }
-    ],
-    "assets": [
+        "amountEurDeclarant": 11298.527990674036,
+        "amountEurSpouse": 24802.25786494736
+      },
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел Астра",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 871,
-        "valueEur": 445.3352285219063,
-        "holderName": "Добри Павлов Добрев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3012.5317640081194,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2185.261500232638
       }
     ],
+    "assets": [],
     "events": []
   }
 ]

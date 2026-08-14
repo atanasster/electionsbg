@@ -4,112 +4,64 @@
     "declarantName": "КЛИМЕНТ МИНКОВ КУНЕВ",
     "institution": "Габрово",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-02-26",
-    "entryNumber": "Г9312",
-    "controlHash": "41E4702B",
-    "sourceUrl": "https://register.cacbg.bg/2025/B1F4E69D-FA34-4A5E-A22B-68B59ED83120212345.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "прекратено участие в орган на управление",
-        "companyName": "СДРУЖЕНИЕ ОБЕДИНЕН ФУТБОЛЕН КЛУБ \"ЯНТРА 2019\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "прекратено участие в орган на управление",
-        "companyName": "СДРУЖЕНИЕ ОБЕДИНЕН ФУТБОЛЕН КЛУБ \"ЯНТРА 2019\"",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
-    "events": []
-  },
-  {
-    "slug": "kliment-minkov-kunev-cf0862",
-    "declarantName": "КЛИМЕНТ МИНКОВ КУНЕВ",
-    "institution": "Габрово",
-    "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9301",
-    "controlHash": "C832AEC2",
-    "sourceUrl": "https://register.cacbg.bg/2025/B1F4E69D-FA34-4A5E-A22B-68B59ED83120212334.xml",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г5343",
+    "controlHash": "D7AD03C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/B1F4E69D-FA34-4A5E-A22B-68B59ED83120229595.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 37732.829540399725,
-        "amountEurSpouse": 4287.1824238302925
+        "amountEurDeclarant": 41596.15099471836,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "ФИНАНСОВА ПОМОЩ ЗА НОВОРОДЕНО ДЕТЕ ОТ ДЪРЖАВАТА И ОБЩИНАТА",
+        "category": "Обезщетения за отглеждане на дете",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 715.8086336747059
+        "amountEurSpouse": 6656.509001293569
       },
       {
         "parent": null,
-        "category": "БОЛНИЧНИ И ЗА ОТГЛЕЖДАНЕ НА ДЕТЕ /МАЙЧИНСТВО/",
+        "category": "Финансова помощ за новородено дете, по реда на Правила на Община Габрово",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2066.6417837951153
+        "amountEurSpouse": 255.64594059810923
+      },
+      {
+        "parent": null,
+        "category": "Еднократна държавна помощ при раждане на второ дете",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 460.16269307659667
+      },
+      {
+        "parent": null,
+        "category": "Продажба на МПС",
+        "amountEurDeclarant": 2174.524370727517,
+        "amountEurSpouse": 2174.524370727517
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "ЖИЛИЩНА СГРАДА С ГАРАЖ - Акт образец 16 - въвеждане в експлоатация",
-        "detail": null,
-        "location": "гр. Габрово",
-        "municipality": "Габрово",
-        "areaSqm": 159,
-        "builtAreaSqm": 265,
-        "acquiredYear": 2024,
-        "share": "СИО",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 54000,
-        "valueEur": 27609.7615845958,
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
         "holderName": "КЛИМЕНТ МИНКОВ КУНЕВ",
         "isSpouse": false,
-        "legalBasis": "СТРОИТЕЛСТВО - СТОПАНСКИ НАЧИН",
-        "fundsOrigin": "кредит за строителство, трудови възнаграждения"
-      },
-      {
-        "category": "real_estate",
-        "description": "ЖИЛИЩНА СГРАДА С ГАРАЖ - Акт образец 16 - въвеждане в експлоатация",
-        "detail": null,
-        "location": "гр. Габрово",
-        "municipality": "Габрово",
-        "areaSqm": 159,
-        "builtAreaSqm": 265,
-        "acquiredYear": 2024,
-        "share": "СИО",
-        "currency": "BGN",
-        "amount": 54000,
-        "valueEur": 27609.7615845958,
-        "holderName": "ДАНИЕЛА ХРИСТОВА КУНЕВА",
-        "isSpouse": true,
-        "legalBasis": "СТРОИТЕЛСТВО - СТОПАНСКИ НАЧИН",
-        "fundsOrigin": "кредит, трудови възнаграждения, дивиденти от предходни периоди"
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, ЗАЕМИ"
       },
       {
         "category": "cash",
@@ -122,30 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31000,
-        "valueEur": 15850.048317082774,
-        "holderName": "КЛИМЕНТ МИНКОВ КУНЕВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "ТРУДОВИ ВЪЗНАГРАЖДЕНИЯ, КРЕДИТ"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 11400,
+        "valueEur": 5828.7274456368905,
         "holderName": "ДАНИЕЛА ХРИСТОВА КУНЕВА",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "ТРУДОВИ ВЪЗНАГРАЖДЕНИЯ, ДИВИДЕНТИ"
+        "fundsOrigin": "ЗАПЛАТА, ЗАЕМИ, ДИВИДЕНТИ ОТ МИНАЛИ ПЕРИОДИ"
       },
       {
         "category": "bank",
@@ -158,16 +92,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36001,
-        "valueEur": 18407.01901494506,
+        "amount": 47920,
+        "valueEur": 24501.10694692279,
         "holderName": "КЛИМЕНТ МИНКОВ КУНЕВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "трудови възнаграждения, кредит"
+        "fundsOrigin": "ЗАПЛАТА, ЗАЕМИ, РАЗПОРЕЖДАНЕ С ИМУЩЕСТВО"
       },
       {
         "category": "debt",
-        "description": "ЖИЛИЩЕН КРЕДИТ /ипотечен, за стоителство/ - остатък главница, при договорен лихвен процент - 2,98 %",
+        "description": "Ипотечен кредит за строителство",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -176,16 +110,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 148578,
-        "valueEur": 75966.72512437175,
+        "amount": 145849,
+        "valueEur": 74571.40958058726,
         "holderName": "КЛИМЕНТ МИНКОВ КУНЕВ",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ, 2.68% лихвен процент",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ - остатък главница, при договорен лихвен процент - 6,39 %",
+        "description": "Потребитерски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -194,14 +128,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19009,
-        "valueEur": 9719.147369658916,
+        "amount": 14062,
+        "valueEur": 7189.786433381224,
         "holderName": "ДАНИЕЛА ХРИСТОВА КУНЕВА",
         "isSpouse": true,
-        "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ, 6.59% лихвен процент",
         "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7585,
+        "valueEur": 3878.148918873317,
+        "holderName": "КЛИМЕНТ МИНКОВ КУНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8577,
+        "valueEur": 4385.350465019966,
+        "holderName": "ДАНИЕЛА ХРИСТОВА КУНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, ОБЕЗЩЕТЕНИЯ ЗА ОТГЛЕЖДАНЕ НА ДЕТЕ"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4349.048741455034,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4349.048741455034,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

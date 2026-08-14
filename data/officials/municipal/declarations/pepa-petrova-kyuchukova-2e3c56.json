@@ -4,23 +4,59 @@
     "declarantName": "ПЕПА ПЕТРОВА КЮЧУКОВА",
     "institution": "Елхово",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7254",
-    "controlHash": "E40EB4CF",
-    "sourceUrl": "https://register.cacbg.bg/2025/BBDFD74B-A4F5-48E7-A60C-3F422D839CE1210242.xml",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8762",
+    "controlHash": "38EF9674",
+    "sourceUrl": "https://register.cacbg.bg/2026/BBDFD74B-A4F5-48E7-A60C-3F422D839CE1233295.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21345.41345617973,
-        "amountEurSpouse": 18016.39201771115
+        "amountEurDeclarant": 23827.73553938737,
+        "amountEurSpouse": 25593.73769703911
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "с. Попово",
+        "municipality": "Болярово",
+        "areaSqm": 114,
+        "builtAreaSqm": 114,
+        "acquiredYear": 2025,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Пепа Петрово Кючуково",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "с. Попово",
+        "municipality": "Болярово",
+        "areaSqm": 529,
+        "builtAreaSqm": 529,
+        "acquiredYear": 2025,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Пепа Петрова Кючукова",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "наследяване"
+      },
       {
         "category": "bank",
         "description": null,
@@ -32,14 +68,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19376,
-        "valueEur": 9906.791490057929,
-        "holderName": "ИВАН  МИХАЙЛОВ КЮЧУКОВ",
+        "amount": 46336,
+        "valueEur": 23691.220607107978,
+        "holderName": "ИВАН МИХАЙЛОВ КЮЧУКОВ",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Попово",
+        "municipality": "Болярово",
+        "areaSqm": 900,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

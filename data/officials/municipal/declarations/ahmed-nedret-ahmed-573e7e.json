@@ -4,64 +4,88 @@
     "declarantName": "АХМЕД НЕДРЕТ АХМЕД",
     "institution": "Две Могили",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6610",
-    "controlHash": "DA2C82C0",
-    "sourceUrl": "https://register.cacbg.bg/2025/02C1B808-A5EE-4BF3-8A5E-CAA20E98FFBA209571.xml",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г2018",
+    "controlHash": "3978C948",
+    "sourceUrl": "https://register.cacbg.bg/2026/02C1B808-A5EE-4BF3-8A5E-CAA20E98FFBA225994.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7308.917441699943,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7157.575044865863,
+        "amountEurSpouse": 7899.459564481575
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4090.3350495697478,
+        "amountEurDeclarant": 5777.598257517269,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 511.29188119621847,
+        "amountEurDeclarant": 562.4210693158403,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "ВРЕМЕННА НЕРАБОТОСПОСОБНОСТ",
-        "amountEurDeclarant": 1227.1005148709244,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "ОТПУСК ПО МАЙЧИНСТВО",
+        "category": "ОБЕЩЕТЕНИЕ - МАЙЧИНСТВО",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6391.148514952731
+        "amountEurSpouse": 2403.071841622227
+      },
+      {
+        "parent": null,
+        "category": "ДАНЪЧНИ ОБЛЕКЧЕНИЯ ЗА ДЕЦА",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЩЕТЕНИЕ ЗА ВРЕМЕННА НЕТРУДОСПОСОБНОСТ НОИ",
+        "amountEurDeclarant": 1763.9569901269538,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "РУСЕ",
+        "municipality": "РУСЕ",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "amount": 93500,
+        "valueEur": 47805.79089184643,
         "holderName": "АХМЕД НЕДРЕТ АХМЕД",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "дарения"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "РУСЕ",
+        "municipality": "РУСЕ",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 93500,
+        "valueEur": 47805.79089184643,
+        "holderName": "НЕФИЗЕ АМДИЕВА АХМЕД",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

@@ -4,32 +4,19 @@
     "declarantName": "Димитър Колев Димитров",
     "institution": "Ветрино",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г8219",
-    "controlHash": "4F8124E0",
-    "sourceUrl": "https://register.cacbg.bg/2025/A29553C5-B9B4-441D-8171-B484E6A630BC211234.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "ЕООД",
-        "shareSize": "100",
-        "companyName": "ДИЛОНА-КРИС-90",
-        "registeredOffice": "с. Ветрино",
-        "valueEur": 0.5112918811962185,
-        "holderName": "Илона Димитрова Димитрова",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5115",
+    "controlHash": "B3293619",
+    "sourceUrl": "https://register.cacbg.bg/2026/A29553C5-B9B4-441D-8171-B484E6A630BC229361.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24483.211731080923,
+        "amountEurDeclarant": 29186.07445432374,
         "amountEurSpouse": null
       }
     ],
@@ -137,7 +124,7 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "\"ДИЛОНА-КРИС-90\" ЕООД",
+        "holderName": "ДИЛОНА-КРИС-90\"ЕООД",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "наследяване"
@@ -146,7 +133,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Бяля слятина",
+        "location": "Бяла Слатина",
         "municipality": "Бяла Слатина",
         "areaSqm": 40,
         "builtAreaSqm": 40,
@@ -157,13 +144,13 @@
         "valueEur": 0,
         "holderName": "Илона Димитрова Димитрова",
         "isSpouse": true,
-        "legalBasis": "делба",
+        "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Рено \"канго\"",
+        "detail": "Рено \"Канго\"",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -181,7 +168,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Ауди \"Q 7\"",
+        "detail": "\"Ауди Q7\"",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -215,26 +202,8 @@
         "fundsOrigin": "заеми"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "Илона Димитрова Димитрова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "наследяване"
-      },
-      {
         "category": "debt",
-        "description": "КРЕДИТ",
+        "description": "кредит л. п 4,29",
         "detail": "BGN",
         "location": null,
         "municipality": null,

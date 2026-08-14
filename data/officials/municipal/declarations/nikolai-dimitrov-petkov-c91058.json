@@ -4,25 +4,25 @@
     "declarantName": "Николай Димитров Петков",
     "institution": "Царево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6078",
-    "controlHash": "8A7358B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/D199D776-5C36-4268-A7A6-1640D4DF79BB209025.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10725",
+    "controlHash": "6E4F64E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/D199D776-5C36-4268-A7A6-1640D4DF79BB235514.xml",
     "ownershipStakes": [],
     "income": [
       {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14086.091326955819,
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2658.717782220336,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 10225.83762392437,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14086.091326955819,
         "amountEurSpouse": null
       }
     ],
@@ -54,7 +54,7 @@
         "areaSqm": 150,
         "builtAreaSqm": 190,
         "acquiredYear": 2017,
-        "share": "1/6",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
@@ -83,8 +83,8 @@
       },
       {
         "category": "vehicle",
-        "description": "автомобил",
-        "detail": "Тойота версо",
+        "description": "Лек автомобил",
+        "detail": "Тойота Версо",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -100,37 +100,24 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Audi Q 5",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 28640,
-        "valueEur": 14643.399477459698,
-        "holderName": "НИколай Димитров Петков",
+        "amount": 112500,
+        "valueEur": 57520.33663457458,
+        "holderName": "Николай Димитров Петков",
         "isSpouse": false,
-        "legalBasis": "Ипотека - 2,9%лихва",
-        "fundsOrigin": null
+        "legalBasis": "Лизинг",
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "лозе",
-        "detail": null,
-        "location": "Белия бряг",
-        "municipality": "Царево",
-        "areaSqm": 1,
-        "builtAreaSqm": 1000,
-        "currency": "BGN",
-        "valueEur": 25564.594059810923,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

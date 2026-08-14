@@ -4,38 +4,25 @@
     "declarantName": "Нургюн Рамадан Мехмед",
     "institution": "Момчилград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13067",
-    "controlHash": "E0C5164C",
-    "sourceUrl": "https://register.cacbg.bg/2025/0CB84E2C-6A14-4150-8340-192069F93CAB216260.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "\"ФРУТЕЛА - МГ\" ООД",
-        "shareSize": "50%",
-        "companyName": "\"ФРУТЕЛА - МГ\" ООД",
-        "registeredOffice": "гр. Момчилград",
-        "valueEur": null,
-        "holderName": "Нургюн Мехмед Рамадан",
-        "legalBasis": "лични",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12655",
+    "controlHash": "03C1135E",
+    "sourceUrl": "https://register.cacbg.bg/2026/0CB84E2C-6A14-4150-8340-192069F93CAB237973.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3774.356666990485,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurDeclarant": 3842.358487189582,
+        "amountEurSpouse": 7669.378217943277
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 45504.97742646345,
+        "amountEurDeclarant": 20451.67524784874,
         "amountEurSpouse": null
       },
       {
@@ -47,26 +34,26 @@
       {
         "parent": null,
         "category": "пенсия",
-        "amountEurDeclarant": 4319.393812345654,
+        "amountEurDeclarant": 4043.807488380892,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "товарен автомобил",
-        "detail": "ТОЙОТА ХАЙЛУКС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "земл.с. Чуково",
+        "municipality": "Момчилград",
+        "areaSqm": 2500,
         "builtAreaSqm": null,
         "acquiredYear": 2025,
-        "share": "1/2",
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 5000,
-        "valueEur": 2556.4594059810925,
-        "holderName": "Нургюн Рамадан Мехмед",
-        "isSpouse": false,
+        "amount": 84000,
+        "valueEur": 42948.518020482355,
+        "holderName": "Сюзан Бюрхан Мехмед",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       },
@@ -83,10 +70,10 @@
         "currency": "BGN",
         "amount": 89000,
         "valueEur": 45504.97742646345,
-        "holderName": "Нургюн Рамадан Мехмед",
-        "isSpouse": false,
+        "holderName": "Нургюн РамаданМехмед",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати и пенсия"
+        "fundsOrigin": "заплата и пенсия"
       },
       {
         "category": "cash",
@@ -104,7 +91,7 @@
         "holderName": "Сюзан Бюрхан Мехмед",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дарения и заплата"
+        "fundsOrigin": "заплата, дарения"
       },
       {
         "category": "bank",
@@ -135,14 +122,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25000,
-        "valueEur": 12782.297029905461,
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
         "holderName": "Сюзан Бюрхан Мехмед",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия"
+        "fundsOrigin": "продажба на имот"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "земл.с. Чуково",
+        "municipality": "Момчилград",
+        "areaSqm": 1840,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33233.972277754205,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

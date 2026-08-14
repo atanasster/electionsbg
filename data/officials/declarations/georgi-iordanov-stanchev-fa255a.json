@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г7914",
+    "controlHash": "D7D3DE09",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0E1CDC8-720A-458A-BEC7-4E618C88768B232376.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24505.19728197236,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАУМ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35856,
+        "valueEur": 35855.87704452841,
+        "holderName": "ГЕОРГИ ЙОРДАНОВ СТАНЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИХВЕН % 5.3",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1000,
+        "valueEur": 1000.0869196198033,
+        "holderName": "ГЕОРГИ ЙОРДАНОВ СТАНЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИХВЕН % 5.3",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-iordanov-stanchev-fa255a",
+    "declarantName": "ГЕОРГИ ЙОРДАНОВ СТАНЧЕВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

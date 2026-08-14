@@ -5,6 +5,68 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Заместник-директор на териториална дирекция",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5769",
+    "controlHash": "8DE04E49",
+    "sourceUrl": "https://register.cacbg.bg/2026/7556278B-002A-4863-B9FA-E68B4766D7EA230034.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37073.7743055378,
+        "amountEurSpouse": 14600.450959439215
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29509,
+        "valueEur": 15087.71212221921,
+        "holderName": "Румен Здравков Бабов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11609,
+        "valueEur": 5935.5874488069,
+        "holderName": "Румен Здравков Бабов",
+        "isSpouse": false,
+        "legalBasis": "2.45",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumen-zdravkov-babov-f760c2",
+    "declarantName": "Румен Здравков Бабов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

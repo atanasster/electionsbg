@@ -1,9 +1,9 @@
 {
   "obshtina": "S2519",
   "registryName": "Район Люлин",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Люлин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2025,
+      "descriptorYear": 2026
     },
     {
       "slug": "georgi-damyanov-gochev-cbb46a",
@@ -30,26 +31,18 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Люлин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
-      "slug": "rositsa-vasileva-pandova-iovkova-46c61a",
-      "name": "Росица Василева Пандова-Йовкова",
-      "normalizedName": "РОСИЦА ВАСИЛЕВА ПАНДОВА-ЙОВКОВА",
+      "slug": "mircho-radostinov-stoyanov-7d9775",
+      "name": "Мирчо Радостинов Стоянов",
+      "normalizedName": "МИРЧО РАДОСТИНОВ СТОЯНОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Люлин",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "",
-        "partyCanonicalId": null,
-        "listPos": 0,
-        "prefVotes": 0,
-        "isElected": false,
-        "mpId": 4371,
-        "photoUrl": "/parliament/photos/4371.webp"
-      }
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "dora-nikolova-todorova-c0c5d9",
@@ -58,7 +51,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Люлин",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

@@ -4,29 +4,66 @@
     "declarantName": "Миляна Горкова Каменова",
     "institution": "Георги Дамяново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-05-05",
-    "entryNumber": "Г6953",
-    "controlHash": "8B5A8FCE",
-    "sourceUrl": "https://register.cacbg.bg/2025/D34E555B-342D-4936-82F9-83710359773C209940.xml",
+    "filedAt": null,
+    "entryNumber": "Г3740",
+    "controlHash": "97E9B039",
+    "sourceUrl": "https://register.cacbg.bg/2026/D34E555B-342D-4936-82F9-83710359773C227896.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6919.824320109621,
+        "amountEurDeclarant": 9021.23395182608,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2838.181232520209,
+        "amountEurDeclarant": 3061.6157846029564,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Адам",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Миляна Горкова Каменова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Миляна Горкова Каменова",
+        "isSpouse": false,
+        "legalBasis": "Кредит - 18,51%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

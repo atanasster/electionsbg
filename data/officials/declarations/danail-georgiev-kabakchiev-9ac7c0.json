@@ -222,5 +222,173 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "danail-georgiev-kabakchiev-9ac7c0",
+    "declarantName": "Данаил Георгиев Кабакчиев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Ликвидатор",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13827",
+    "controlHash": "1FF3C93A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F5A712E-FB56-41FF-B995-4907A787B8EF239446.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "дружествен дял",
+        "shareSize": "2500",
+        "companyName": "Медицински център Света Варвара",
+        "registeredOffice": "Горна Оряховица",
+        "valueEur": 1278.2297029905462,
+        "holderName": null,
+        "transfereeName": "Данаил Георгиев Кабакчиев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "дружествен дял",
+        "shareSize": "2500",
+        "companyName": "Света Варвара Естетика",
+        "registeredOffice": "Горна Оряховица",
+        "valueEur": 1278.2297029905462,
+        "holderName": null,
+        "transfereeName": "Данаил Георгиев Кабакчиев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 86526.94763859845,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 82507.17086863378,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1278.2297029905462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 228000,
+        "valueEur": 116574.54891273781,
+        "holderName": "Данаил Георгиев Кабакчиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Голям Извор",
+        "municipality": "Самуил",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4600,
+        "valueEur": 2351.942653502605,
+        "holderName": "Данаил Георгиев Кабакчиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Антимово",
+        "municipality": "Тутракан",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Данаил Георгиев Кабакчиев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 343000,
+        "valueEur": 175373.11525030294,
+        "holderName": "Данаил Георгиев Кабакчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 343000,
+        "valueEur": 175373.11525030294,
+        "holderName": "Данаил Георгиев Кабакчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Коста Рика",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": null
+      }
+    ]
   }
 ]

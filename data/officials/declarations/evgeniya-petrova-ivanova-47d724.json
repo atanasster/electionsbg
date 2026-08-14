@@ -5,6 +5,74 @@
     "institution": "МБАЛ - Левски ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г3199",
+    "controlHash": "7190EF95",
+    "sourceUrl": "https://register.cacbg.bg/2026/E4B0B192-D69B-4C18-987E-96295D680064227318.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47518.44485461416,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 20962.96712904496,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6478,
+        "valueEur": 3312.1488063891034,
+        "holderName": "Евгения Петрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "банков кредит-3.4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6478,
+        "valueEur": 3312.1488063891034,
+        "holderName": "Красимир Апостолов Иванов",
+        "isSpouse": true,
+        "legalBasis": "банков кредит-3.4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "evgeniya-petrova-ivanova-47d724",
+    "declarantName": "Евгения Петрова Иванова",
+    "institution": "МБАЛ - Левски ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

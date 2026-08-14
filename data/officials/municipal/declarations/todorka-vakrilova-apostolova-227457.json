@@ -4,23 +4,84 @@
     "declarantName": "Тодорка Вакрилова Апостолова",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-04",
-    "entryNumber": "Г7597",
-    "controlHash": "ADA25CB6",
-    "sourceUrl": "https://register.cacbg.bg/2025/58F9EA8B-4BDE-4549-83C0-028ABB31586B210594.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13735",
+    "controlHash": "4C0381C7",
+    "sourceUrl": "https://register.cacbg.bg/2026/58F9EA8B-4BDE-4549-83C0-028ABB31586B239331.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23224.922411457028,
-        "amountEurSpouse": 16062.7457396604
+        "amountEurDeclarant": 3129.1063129208574,
+        "amountEurSpouse": 21812.222943711877
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22359.30525659183,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Тодорка Вакрилова Апостолова-СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17580,
+        "valueEur": 8988.511271429521,
+        "holderName": "Тодорка Вакрилова Апостолова",
+        "isSpouse": false,
+        "legalBasis": "4.4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17200,
+        "valueEur": 8794.220356574959,
+        "holderName": "Живко Ангелов Апостолов",
+        "isSpouse": true,
+        "legalBasis": "6 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

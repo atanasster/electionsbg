@@ -1,6 +1,68 @@
 [
   {
     "slug": "vladimir-vasev-daskalov-fc2e26",
+    "declarantName": "Владимир Васев Даскалов",
+    "institution": "УСБАЛЕ  “Акад.Ив.Пенчев” ЕАД, гр.София",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6224",
+    "controlHash": "3ADFB9E6",
+    "sourceUrl": "https://register.cacbg.bg/2026/A7975372-42E3-42F1-B312-49D2CD9049B1230525.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31489.444379112705,
+        "amountEurSpouse": 1704.6471319081925
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 156000,
+        "valueEur": 79761.53346661008,
+        "holderName": "Владимир Васев Даскалов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2000,
+        "valueEur": 1999.6625473584106,
+        "holderName": "Владимир Васев Даскалов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vladimir-vasev-daskalov-fc2e26",
     "declarantName": "ВЛАДИМИР ВАСЕВ ДАСКАЛОВ",
     "institution": "УСБАЛЕ  “Акад.Ив.Пенчев” ЕАД, гр.София",
     "positionTitle": "Член на СД",

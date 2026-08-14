@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "petya-ivanova-dinovska-00f0ba",
+    "declarantName": "Петя Иванова Диновска",
+    "institution": "СБАЛК - Варна ЕАД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г8936",
+    "controlHash": "AEB9B427",
+    "sourceUrl": "https://register.cacbg.bg/2026/A96B4FD1-E9BF-466D-92C4-AE3F6A8FF8DA233485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10938.578506311898,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12227,
+        "valueEur": 12246.463138411826,
+        "holderName": "Петя Иванова Диновска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43155,
+        "valueEur": 22064.801133022807,
+        "holderName": "Петя Иванова Диновска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14500,
+        "valueEur": 7413.732277345168,
+        "holderName": "Петя Иванова Диновска",
+        "isSpouse": false,
+        "legalBasis": "19",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

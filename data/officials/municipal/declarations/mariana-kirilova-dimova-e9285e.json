@@ -4,54 +4,30 @@
     "declarantName": "Мариана Кирилова Димова",
     "institution": "Айтос",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12171",
-    "controlHash": "CB7E8A8C",
-    "sourceUrl": "https://register.cacbg.bg/2025/68138C60-6E28-44A1-B309-EC464EC79884215330.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9060",
+    "controlHash": "5B01E654",
+    "sourceUrl": "https://register.cacbg.bg/2026/68138C60-6E28-44A1-B309-EC464EC79884233620.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 34110.32656212452,
+        "amountEurDeclarant": 41204.50141372205,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1840.6507723063867,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Пенсии",
-        "amountEurDeclarant": 14050.300895272085,
-        "amountEurSpouse": 6012.792522867529
+        "category": "Пенсия",
+        "amountEurDeclarant": 17179.40720819294,
+        "amountEurSpouse": 7853.443295173916
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "Кольо Димов Димов",
-        "isSpouse": true,
-        "legalBasis": "покупка",
-        "fundsOrigin": "заплати, пенсия"
-      },
-      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -62,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16042,
-        "valueEur": 8202.144358149737,
+        "amount": 59000,
+        "valueEur": 30166.22099057689,
         "holderName": "Кольо Димов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания, пенсия"
       },
       {
         "category": "cash",
@@ -80,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 47500,
-        "valueEur": 24286.364356820377,
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
         "holderName": "Кольо Димов Димов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, заплата"
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "cash",
@@ -98,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5075,
-        "valueEur": 2594.806297070809,
+        "amount": 117000,
+        "valueEur": 59821.150099957566,
         "holderName": "Мариана Кирилова Димова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия, заплата"
+        "fundsOrigin": "заплата,пенсия"
       },
       {
         "category": "cash",
@@ -116,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 87100,
-        "valueEur": 44533.52285219063,
+        "amount": 8900,
+        "valueEur": 4550.497742646345,
         "holderName": "Мариана Кирилова Димова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания, пенсия"
       }
     ],
     "events": []

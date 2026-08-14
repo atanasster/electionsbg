@@ -4,18 +4,18 @@
     "declarantName": "Камелия Димитрова Велкова",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11467",
-    "controlHash": "57F4C94F",
-    "sourceUrl": "https://register.cacbg.bg/2025/A51C314E-57C7-4581-82B3-D969674DFB4A214607.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9842",
+    "controlHash": "0B1EA229",
+    "sourceUrl": "https://register.cacbg.bg/2026/A51C314E-57C7-4581-82B3-D969674DFB4A234509.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялове",
+        "itemType": "Дялове",
         "shareSize": "50",
         "companyName": "Гларус 07 ООД",
         "registeredOffice": "Костинброд",
@@ -29,14 +29,20 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9684.379521737574,
+        "amountEurDeclarant": 20143.877535368618,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3375.037707776238,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 61355.02574354622,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13949.57639467643
       }
     ],
     "assets": [
@@ -60,31 +66,13 @@
       },
       {
         "category": "real_estate",
-        "description": "парцел",
-        "detail": null,
-        "location": "Костинброд",
-        "municipality": "Костинброд",
-        "areaSqm": 880,
-        "builtAreaSqm": 0,
-        "acquiredYear": 2000,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Камелия Димитрова Велкова",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "real_estate",
         "description": "къща с двор",
         "detail": null,
         "location": "Костинброд",
         "municipality": "Костинброд",
         "areaSqm": 1115,
         "builtAreaSqm": 160,
-        "acquiredYear": 2019,
+        "acquiredYear": 2009,
         "share": "1/3",
         "currency": "BGN",
         "amount": 0,
@@ -107,24 +95,6 @@
         "currency": "BGN",
         "amount": 5500,
         "valueEur": 2812.1053465792015,
-        "holderName": "Димо Димов Велков",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Кости",
-        "municipality": "Царево",
-        "areaSqm": 992,
-        "builtAreaSqm": 95,
-        "acquiredYear": 2015,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 10508,
-        "valueEur": 5372.655087609864,
         "holderName": "Димо Димов Велков",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -217,7 +187,7 @@
         "valueEur": 214742.59010241178,
         "holderName": "Димо Димов Велков",
         "isSpouse": true,
-        "legalBasis": "Ипотечен кредит 2,82%",
+        "legalBasis": "Ипотечен кредит 2.82%",
         "fundsOrigin": null
       },
       {
@@ -235,7 +205,7 @@
         "valueEur": 25564.594059810923,
         "holderName": "Димо Димов Велков",
         "isSpouse": true,
-        "legalBasis": "Потребителски кредит 5,56%",
+        "legalBasis": "Потребителски кредит 5.56%",
         "fundsOrigin": null
       },
       {
@@ -253,7 +223,7 @@
         "valueEur": 11248.421386316806,
         "holderName": "Камелия Димитрова Велкова",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 5,10%",
+        "legalBasis": "Потребителски кредит 5.10%",
         "fundsOrigin": null
       },
       {
@@ -271,10 +241,35 @@
         "valueEur": 27609.7615845958,
         "holderName": "Камелия Димитрова Велкова",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 7,58%",
+        "legalBasis": "Потребителски кредит 7.58%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Кости",
+        "municipality": "Созопол",
+        "areaSqm": 992,
+        "builtAreaSqm": 95,
+        "currency": "BGN",
+        "valueEur": 27899.664081234056,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Костинброд",
+        "municipality": "Костинброд",
+        "areaSqm": 880,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

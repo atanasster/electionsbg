@@ -4,44 +4,32 @@
     "declarantName": "СВЕТОСЛАВ ИВАНОВ ЦВЕТКОВ",
     "institution": "Горна Малина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г7178",
-    "controlHash": "9AC02A2E",
-    "sourceUrl": "https://register.cacbg.bg/2025/F0AFB868-0670-48B8-A20E-73C7C77388F8210166.xml",
+    "filedAt": "2026-06-25",
+    "entryNumber": "Г12398",
+    "controlHash": "9129FCD6",
+    "sourceUrl": "https://register.cacbg.bg/2026/F0AFB868-0670-48B8-A20E-73C7C77388F8237645.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5061.789623842563,
+        "amountEurDeclarant": 8180.6700991394955,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6139.592909404191,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "РЕНО",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 2500,
-        "valueEur": 1278.2297029905462,
-        "holderName": "СВЕТОСЛАВ ИВАНОВ ЦВЕТКОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "КРЕДИТ-2.79%",
+        "category": "cash",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -50,14 +38,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 91195,
-        "valueEur": 46627.26310568915,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
         "holderName": "СВЕТОСЛАВ ИВАНОВ ЦВЕТКОВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": null,
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89975,
+        "valueEur": 46003.48701062976,
+        "holderName": "СВЕТОСЛАВ ИВАНОВ ЦВЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР-2.79%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Сапарева баня",
+        "municipality": "Сапарева баня",
+        "areaSqm": 431,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

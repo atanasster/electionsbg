@@ -1,47 +1,47 @@
 [
   {
     "slug": "mariya-mikova-stoicheva-dd240b",
-    "declarantName": "МАРИЯ МИКОВА СТОЙЧЕВА",
+    "declarantName": "Мария Микова Стойчева",
     "institution": "Тетевен",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г8330",
-    "controlHash": "22B02593",
-    "sourceUrl": "https://register.cacbg.bg/2025/5222D573-DA38-46F9-AE6E-1CB3FC083EE3211347.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г9932",
+    "controlHash": "6615E28F",
+    "sourceUrl": "https://register.cacbg.bg/2026/5222D573-DA38-46F9-AE6E-1CB3FC083EE3234608.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 46756.10865975059,
-        "amountEurSpouse": 9964.056180751906
+        "amountEurDeclarant": 49315.63581701886,
+        "amountEurSpouse": 10306.110449272177
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3991.1444246176816,
+        "amountEurDeclarant": 3421.565268965094,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "лек автобил",
-        "detail": "Тойота РАВ 4",
+        "description": "лек автомобил",
+        "detail": "Опел Корса",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "amount": 20500,
-        "valueEur": 10481.48356452248,
-        "holderName": "Стойчо Петков Стойчев",
-        "isSpouse": true,
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "Мария Микова Стойчева",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -56,10 +56,46 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22000,
-        "valueEur": 11248.421386316806,
+        "amount": 21188,
+        "valueEur": 10833.252378785477,
         "holderName": "Мария Микова Стойчева",
         "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8806,
+        "valueEur": 4502.4363058139,
+        "holderName": "Стойчо Петков Стойчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1857,
+        "valueEur": 1857.0121125046655,
+        "holderName": "Стойчо Петков Стойчев",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -74,27 +110,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 22241,
-        "valueEur": 11371.642729685096,
+        "amount": 26286,
+        "valueEur": 13439.818389123799,
         "holderName": "Мария Микова Стойчева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Сузуки Игнис",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

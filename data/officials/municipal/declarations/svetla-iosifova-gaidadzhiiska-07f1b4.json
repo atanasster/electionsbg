@@ -4,32 +4,32 @@
     "declarantName": "Светла Йосифова Гайдаджийска",
     "institution": "Калояново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г9556",
-    "controlHash": "D0273D1E",
-    "sourceUrl": "https://register.cacbg.bg/2025/047E0AD6-2010-4E51-BB7F-7271C9E5FCA5212601.xml",
+    "entryNumber": "Г9884",
+    "controlHash": "2168EA90",
+    "sourceUrl": "https://register.cacbg.bg/2026/047E0AD6-2010-4E51-BB7F-7271C9E5FCA5234557.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13329.379342785416,
+        "amountEurDeclarant": 10046.374173624497,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3816.282601248575
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7606.4893165561425,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Дивидент от ЕООД",
+        "category": "Дивиденти",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 112024.05117009146
+        "amountEurSpouse": 67950.69101097743
       }
     ],
     "assets": [
@@ -44,10 +44,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
-        "holderName": "Светла Йосифова Гаайдаджийска",
-        "isSpouse": true,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Светла Йосифова Гайдаджийска",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -62,39 +62,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Петър Иванов Гайдаджийски",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Фолтсваген Голф",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

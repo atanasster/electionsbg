@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Началник",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13537",
+    "controlHash": "56DD0A9F",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BBF7475-971E-44C2-8666-6F8AD800983E239069.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22524.963826099407,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9742,
+        "valueEur": 9741.64421243155,
+        "holderName": "Румяна Янкова Кузева",
+        "isSpouse": false,
+        "legalBasis": "кредит- 6,37 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4565,
+        "valueEur": 4564.813915319839,
+        "holderName": "Румяна Янкова Кузева",
+        "isSpouse": false,
+        "legalBasis": "кредит- 7,7 % лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-yankova-kuzeva-b8b4b7",
+    "declarantName": "Румяна Янкова Кузева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Началник",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

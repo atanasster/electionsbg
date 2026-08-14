@@ -1,18 +1,31 @@
 [
   {
     "slug": "krum-georgiev-marinov-bbd22f",
-    "declarantName": "Крум Георгиев Маринов",
+    "declarantName": "КРУМ ГЕОРГИЕВ МАРИНОВ",
     "institution": "Бобошево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12837",
-    "controlHash": "7462B128",
-    "sourceUrl": "https://register.cacbg.bg/2025/89B2FB1F-8EC2-414B-B067-7C777C21D58C216015.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г6042",
+    "controlHash": "D03EF2EC",
+    "sourceUrl": "https://register.cacbg.bg/2026/89B2FB1F-8EC2-414B-B067-7C777C21D58C230335.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2398.470214691461,
+        "amountEurSpouse": 8747.692795386101
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4703.88530700521,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -25,17 +38,17 @@
         "acquiredYear": 2000,
         "share": "1/3",
         "currency": "BGN",
-        "amount": 330000,
-        "valueEur": 168726.3207947521,
-        "holderName": "Крум Геориев Мааринов",
-        "isSpouse": true,
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Крум Георгиев Маринов",
+        "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Мерчедес",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -45,15 +58,15 @@
         "currency": "BGN",
         "amount": 3500,
         "valueEur": 1789.5215841867648,
-        "holderName": "Крум Георгиев Маринов",
-        "isSpouse": false,
+        "holderName": "Крум Георгиев Мринов",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Мерчедес",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -67,6 +80,42 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20201,
+        "valueEur": 10328.60729204481,
+        "holderName": "Крум  Георгиев Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47677,
+        "valueEur": 24376.86301979211,
+        "holderName": "Стойка Николова  Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
       }
     ],
     "events": []

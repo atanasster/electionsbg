@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13088",
+    "controlHash": "9F354A23",
+    "sourceUrl": "https://register.cacbg.bg/2026/C5895D27-0351-4949-9B65-94CEFE80DDAC238485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29124.208136699,
+        "amountEurSpouse": 26790.16069903826
+      },
+      {
+        "parent": null,
+        "category": "НОИ-пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13235.812928526508
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Киа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 17500,
+        "valueEur": 8947.607920933824,
+        "holderName": "Валери Георгиев Давидков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-vasileva-davidkova-3bb0af",
+    "declarantName": "Румяна Василева Давидкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

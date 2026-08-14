@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "stanislav-kirilov-metodiev-6162b9",
+    "declarantName": "Станислв Кирилов Методиев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-05-22",
+    "entryNumber": "В1927",
+    "controlHash": "D3565F13",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AB7F420-1AC7-4645-ADC1-56AC9948FB98239690.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "секретар",
+        "companyName": "НЧ Пробуда 1935 г.",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "секретар",
+        "companyName": "НЧ Пробуда 1935",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "stanislav-kirilov-metodiev-6162b9",
+    "declarantName": "Станислав Кирилов Методиев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Entry",
+    "filedAt": "2026-05-22",
+    "entryNumber": "В1926",
+    "controlHash": "7AA29E68",
+    "sourceUrl": "https://register.cacbg.bg/2026/5AB7F420-1AC7-4645-ADC1-56AC9948FB98239689.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Зидарци",
+        "municipality": "Перник",
+        "areaSqm": 40,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2017,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Станислав Кирилов Методиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес W203",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Станислв Кирилов Методиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

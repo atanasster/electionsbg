@@ -4,26 +4,26 @@
     "declarantName": "Йордан Илиев Нейков",
     "institution": "Свищов",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7875",
-    "controlHash": "6A35767E",
-    "sourceUrl": "https://register.cacbg.bg/2025/A387BFBC-84A5-4E0C-87B7-DD9ECFA219A1210879.xml",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г9276",
+    "controlHash": "6CD7B28E",
+    "sourceUrl": "https://register.cacbg.bg/2026/A387BFBC-84A5-4E0C-87B7-DD9ECFA219A1233880.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25935.280673678182,
-        "amountEurSpouse": 72.60344712986303
+        "amountEurDeclarant": 29424.847762842375,
+        "amountEurSpouse": 8920.509451230424
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 18.917799604260082,
-        "amountEurSpouse": 143.6730186161374
+        "amountEurDeclarant": 14.316172673494117,
+        "amountEurSpouse": 162.59081822039747
       }
     ],
     "assets": [
@@ -38,11 +38,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 27000,
+        "valueEur": 13804.8807922979,
         "holderName": "Йордан Илиев Нейков",
         "isSpouse": false,
-        "legalBasis": "5,11",
+        "legalBasis": "5,09",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Криста Цветанова Нейкова",
+        "isSpouse": true,
+        "legalBasis": "4,2",
         "fundsOrigin": null
       }
     ],

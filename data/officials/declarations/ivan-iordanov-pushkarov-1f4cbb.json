@@ -1,6 +1,68 @@
 [
   {
     "slug": "ivan-iordanov-pushkarov-1f4cbb",
+    "declarantName": "ИВАН ЙОРДАНОВ ПУШКАРОВ",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3373",
+    "controlHash": "8A063E92",
+    "sourceUrl": "https://register.cacbg.bg/2026/5435FDE9-D7F7-4219-8AD3-A026845A9074227504.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46464.67228746875,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "ИВАН ЙОРДАНОВ ПУШКАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19854,
+        "valueEur": 10151.189009269721,
+        "holderName": "ИВАН ЙОРДАНОВ ПУШКАРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-iordanov-pushkarov-1f4cbb",
     "declarantName": "Иван Йорданов Пушкаров",
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",

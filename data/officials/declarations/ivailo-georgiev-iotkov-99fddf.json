@@ -1,6 +1,147 @@
 [
   {
     "slug": "ivailo-georgiev-iotkov-99fddf",
+    "declarantName": "ИВАЙЛО ГЕОРГИЕВ ЙОТКОВ",
+    "institution": "РИОСВ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11453",
+    "controlHash": "586BBAB0",
+    "sourceUrl": "https://register.cacbg.bg/2026/76F367C1-B49E-402E-9AC0-D22BA852DB79236371.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33075.471794583376,
+        "amountEurSpouse": 4216.1128523440175
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": 3067.751287177311
+      },
+      {
+        "parent": null,
+        "category": "ДОХОД ОТ ДИВИДЕНТ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 89650.94103270734
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения и помощи по част първа от КСО, включително изплатените на основание чл. 40,ал. 5 от същия кодекс освободени от облагане на основание чл.24, ал.2, т.14 от ЗДДФЛ",
+        "amountEurDeclarant": 360.97206812453027,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9300,
+        "valueEur": 9299.888027078017,
+        "holderName": "ИЛИНА ГЕОРГИЕВА ЙОТКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140147,
+        "valueEur": 71656.02327400644,
+        "holderName": "ИВАЙЛО ГЕОРГИЕВ ЙОТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 177975,
+        "valueEur": 90997.17255589699,
+        "holderName": "ИВАЙЛО ГЕОРГИЕВ ЙОТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 198771,
+        "valueEur": 101629.99851725355,
+        "holderName": "ИЛИНА ГЕОРГИЕВА ЙОТКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ДИВИДЕНТ ЗАПЛАТА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МАГАЗИН",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "ПЛОВДИВ",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 6250.031955742575,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "МАГАЗИН",
+        "detail": null,
+        "location": "ПЛОВДИВ",
+        "municipality": "ПЛОВДИВ",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 6250.031955742575,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "ivailo-georgiev-iotkov-99fddf",
     "declarantName": "Ивайло Георгиев Йотков",
     "institution": "РИОСВ",
     "positionTitle": "Директор",

@@ -5,6 +5,80 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г10183",
+    "controlHash": "58CB5F9B",
+    "sourceUrl": "https://register.cacbg.bg/2026/2A912CAC-ED9C-4AA8-8E7F-8EAE3E5A0991234879.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17681.49583552763,
+        "amountEurSpouse": 6808.873981890041
+      },
+      {
+        "parent": null,
+        "category": "Други необлагаеми доходи от трудови правоотношения.",
+        "amountEurDeclarant": 114.52938138795294,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други необлагаеми доходи от пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1031.7870162539689
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Лъчезар Димитров Владимиров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15705,
+        "valueEur": 8029.838994186612,
+        "holderName": "Йорданка Иванова Владимирова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iordanka-ivanova-vladimirova-9bce59",
+    "declarantName": "Йорданка Иванова Владимирова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

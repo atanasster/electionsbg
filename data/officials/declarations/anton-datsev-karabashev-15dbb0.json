@@ -5,6 +5,74 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8831",
+    "controlHash": "A69BC163",
+    "sourceUrl": "https://register.cacbg.bg/2026/940BA26D-CC80-4C37-B36D-68AFBE952A7E233372.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14569.773446567442,
+        "amountEurSpouse": 17926.915938501814
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 671.8375318918311,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 115,
+        "builtAreaSqm": 98,
+        "acquiredYear": 2025,
+        "share": "1/1 ид.ч.",
+        "currency": "BGN",
+        "amount": 47615,
+        "valueEur": 24345.162923157943,
+        "holderName": "Калина Спирова Карабашева",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда Модел Джаз 1.4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1 ид.ч.",
+        "currency": "BGN",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
+        "holderName": "Антон Дацев Карабашев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anton-datsev-karabashev-15dbb0",
+    "declarantName": "Антон Дацев Карабашев",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

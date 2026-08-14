@@ -4,76 +4,46 @@
     "declarantName": "Галя Генова Глухкина",
     "institution": "Чирпан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г13685",
-    "controlHash": "8A365DDC",
-    "sourceUrl": "https://register.cacbg.bg/2025/BB8B080A-424F-4FBE-BEEA-4322AC4C3CE7216927.xml",
+    "filedAt": null,
+    "entryNumber": "Г14127",
+    "controlHash": "10B1E095",
+    "sourceUrl": "https://register.cacbg.bg/2026/BB8B080A-424F-4FBE-BEEA-4322AC4C3CE7239834.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4682.411047994969,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 5749.988495932673,
+        "amountEurSpouse": 22310.73252787819
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17680.473251765234,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 11072.02568730411
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 19473.062587239176,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Чирпан",
+        "municipality": "Чирпан",
+        "areaSqm": 800,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 27300,
-        "valueEur": 13958.268356656765,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Галя Генова Глухкина",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       }
     ],
     "events": []

@@ -4,29 +4,59 @@
     "declarantName": "Махмуд Рафедов Алиев",
     "institution": "Куклен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6228",
-    "controlHash": "BD59FD46",
-    "sourceUrl": "https://register.cacbg.bg/2025/599387EF-5340-4363-AD00-61DAE968C6F8209183.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г9957",
+    "controlHash": "475FB5D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/599387EF-5340-4363-AD00-61DAE968C6F8234633.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7005.721356150586,
-        "amountEurSpouse": 4343.935822643072
+        "amountEurDeclarant": 6764.391588225971,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6607.936272579927,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "дивиденти от фирма",
-        "amountEurDeclarant": 3579.0431683735296,
+        "amountEurDeclarant": 14571.818614092226,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 1849.8540261679184,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Махмуд Рафедов Алиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,12 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Махмуд Рафедов Алиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата и дивиденти"
       },
       {
         "category": "cash",
@@ -58,12 +88,25 @@
         "currency": "BGN",
         "amount": 14000,
         "valueEur": 7158.086336747059,
-        "holderName": "Азизе Али Алиев",
+        "holderName": "Азизе Али Алиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "болничен, пенсия"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1239.3715200196336,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

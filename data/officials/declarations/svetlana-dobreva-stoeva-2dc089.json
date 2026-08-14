@@ -5,6 +5,110 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г12626",
+    "controlHash": "C72780D5",
+    "sourceUrl": "https://register.cacbg.bg/2026/53B59401-0211-4908-AF90-55C5248BA7AE237944.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27713.042544597436,
+        "amountEurSpouse": 847.210647142134
+      },
+      {
+        "parent": null,
+        "category": "Обещетение за неизползван годишен отпуск",
+        "amountEurDeclarant": 1351.3444420016056,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обещетение при пенсиониране",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6000.52151771882
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4230.429025017512
+      },
+      {
+        "parent": null,
+        "category": "Помощи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1457.6931532904189
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10922,
+        "valueEur": 5584.329926425098,
+        "holderName": "Светлана Добрева Стоева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7854,
+        "valueEur": 4015.6864349151,
+        "holderName": "Светлана Добрева Стоева",
+        "isSpouse": false,
+        "legalBasis": "7,92",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19820,
+        "valueEur": 10133.80508530905,
+        "holderName": "Светлана Добрева Стоева",
+        "isSpouse": false,
+        "legalBasis": "5,55",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svetlana-dobreva-stoeva-2dc089",
+    "declarantName": "Светлана Добрева Стоева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

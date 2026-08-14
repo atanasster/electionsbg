@@ -1,6 +1,93 @@
 [
   {
     "slug": "krasimir-mitkov-stamatov-ba97c4",
+    "declarantName": "Красимир Митков Стаматов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3422",
+    "controlHash": "0D8FD252",
+    "sourceUrl": "https://register.cacbg.bg/2026/DBCFCA69-5497-4109-85B8-EE4E8A9AEFF6227553.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26319.26087645654,
+        "amountEurSpouse": 4811.767893937612
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9023.279119350864
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1932.683310921706,
+        "amountEurSpouse": 220.87809267676639
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35453,
+        "valueEur": 18126.831064049533,
+        "holderName": "Красимир Митков Стаматов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2672,
+        "valueEur": 1366.1719065562959,
+        "holderName": "Красимир Митков Стаматов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Изложения в Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2167.36628439077,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "krasimir-mitkov-stamatov-ba97c4",
     "declarantName": "КРАСИМИР МИТКОВ СТАМАТОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

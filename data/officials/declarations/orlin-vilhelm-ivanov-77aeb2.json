@@ -5,6 +5,173 @@
     "institution": "Агенция за приватизация и следприватизационен контрол",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-31",
+    "entryNumber": "Г2368",
+    "controlHash": "112F1EB1",
+    "sourceUrl": "https://register.cacbg.bg/2026/31A99127-D44A-4187-9A1B-71DA24E2E52B226415.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "stakeKind": "share",
+        "itemType": "Дял",
+        "shareSize": "1/2",
+        "companyName": "\"Лигъл консулт партнърс\" ООД",
+        "registeredOffice": "София",
+        "valueEur": 76.69378217943277,
+        "holderName": null,
+        "transfereeName": "Албена Стоянова Иванова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 67817.24382998522,
+        "amountEurSpouse": 139238.5841305226
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 20514.05285735468,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9535.593584309474
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти от \"Чикън мастър шеф\" ЕООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 158021.40267814687
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти от \"Лигъл консулт партнърс\" ООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14531.426555477725
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Орлин Вилхелм Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и наеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 83762,
+        "valueEur": 42826.83055275765,
+        "holderName": "Орлин Вилхелм Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наеми вкл. От минали години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 65028,
+        "valueEur": 65028.14661805985,
+        "holderName": "Орлин Вилхелм Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наеми вкл. От минали години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 5019,
+        "valueEur": 4376.65850303963,
+        "holderName": "Орлин Вилхелм Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наеми вкл. От минали години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "CHF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "CHF",
+        "amount": 55001,
+        "valueEur": 59081.82203974783,
+        "holderName": "Орлин Вилхелм Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наеми вкл. От минали години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лодка",
+        "detail": "Кроунлайн",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18917.799604260083,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "orlin-vilhelm-ivanov-77aeb2",
+    "declarantName": "Орлин Вилхелм Иванов",
+    "institution": "Агенция за приватизация и следприватизационен контрол",
+    "positionTitle": "Член на Надзорен съвет",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

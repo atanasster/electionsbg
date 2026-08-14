@@ -4,37 +4,43 @@
     "declarantName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
     "institution": "Балчик",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г10460",
-    "controlHash": "DB736471",
-    "sourceUrl": "https://register.cacbg.bg/2025/70B330BB-FD6B-4823-B9DB-61EECD58F746213547.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5844",
+    "controlHash": "C297E34F",
+    "sourceUrl": "https://register.cacbg.bg/2026/70B330BB-FD6B-4823-B9DB-61EECD58F746230116.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 49378.0134265248,
+        "amountEurDeclarant": 58060.260861117786,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "РЕНТА",
-        "amountEurDeclarant": 75262.16491208336,
+        "amountEurDeclarant": 65087.45647627861,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
-        "amountEurDeclarant": 14337.646932504358,
+        "amountEurDeclarant": 16105.694257680883,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "ВАУЧЕРИ",
-        "amountEurDeclarant": 259.22498376648275,
+        "amountEurDeclarant": 339.49780911428905,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДМС",
+        "amountEurDeclarant": 220.36680079557016,
         "amountEurSpouse": null
       }
     ],
@@ -42,19 +48,37 @@
       {
         "category": "vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "СИТРОЕН С5Х",
+        "detail": "СИТРОЕН C5X",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2022,
-        "share": null,
+        "share": "1",
         "currency": "BGN",
         "amount": 102000,
         "valueEur": 52151.77188201428,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 50000,
+        "valueEur": 49999.7443540594,
+        "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
@@ -68,8 +92,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4535,
-        "valueEur": 2318.708681224851,
+        "amount": 28596,
+        "valueEur": 14620.902634687063,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": null,
@@ -77,7 +101,7 @@
       },
       {
         "category": "debt",
-        "description": "КРЕДИТ (ИПОТЕКАРЕН ДЛЪЖНИК)",
+        "description": "КРЕДИТ(ИПОТЕКАРЕН ДЛЪЖНИК)",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -86,8 +110,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5100000,
-        "valueEur": 2607588.594100714,
+        "amount": 4285409,
+        "valueEur": 2191094.8293052055,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "ИП.ДЛЪЖНИК-2.2%",
@@ -96,16 +120,16 @@
       {
         "category": "debt",
         "description": "ЛИЗИНГ",
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
-        "amount": 21663,
-        "valueEur": 21662.92571440258,
+        "currency": "BGN",
+        "amount": 30195,
+        "valueEur": 15438.458352719817,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ-2.3%",
@@ -113,7 +137,7 @@
       },
       {
         "category": "debt",
-        "description": "КРЕДИТНА КАРТА",
+        "description": "КРЕДИТНА КАРТА (НЕИЗПОЛЗВАН ЛИМИТ)",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -126,12 +150,12 @@
         "valueEur": 2556.4594059810925,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
-        "legalBasis": "РЕВ.КРЕДИТ-16%",
+        "legalBasis": "РЕВ.КРЕДИТ-17.13%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "КРЕДИТНА КАРТА",
+        "description": "КРЕДИТНА КАРТА (НЕИЗПОЛЗВАН ЛИМИТ)",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -144,41 +168,10 @@
         "valueEur": 2556.4594059810925,
         "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
         "isSpouse": false,
-        "legalBasis": "РЕВ.КРЕДИТ-16%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 13070,
-        "valueEur": 6682.584887234576,
-        "holderName": "МИТКО СТЕЛИЯНОВ ПЕТРОВ",
-        "isSpouse": false,
-        "legalBasis": "ПОТР.КРЕДИТ 8.69%",
+        "legalBasis": "РЕВ.КРЕДИТ-16.2%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "НЕДВИЖИМ ИМОТ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2607588.594100714,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

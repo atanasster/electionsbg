@@ -5,6 +5,80 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г8778",
+    "controlHash": "DEBF841C",
+    "sourceUrl": "https://register.cacbg.bg/2026/A1B175D1-4EE7-4BB2-AA3E-A4C6B9BBC56D233314.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37345.270294452996,
+        "amountEurSpouse": 9324.430037375436
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2446.020359642709,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение, освободено от облагане на основание чл. 24, ал. 2, т. 8 от ЗДДФЛ",
+        "amountEurDeclarant": 12172.83710751957,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4 лимузина",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Владимир Пенчев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата, обезщетение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79296,
+        "valueEur": 40543.40101133534,
+        "holderName": "Владимир Пенчев Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, обезщетение"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vladimir-penchev-ivanov-1dddfa",
+    "declarantName": "Владимир Пенчев Иванов",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

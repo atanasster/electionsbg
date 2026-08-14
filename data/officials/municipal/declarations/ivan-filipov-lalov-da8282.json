@@ -4,29 +4,48 @@
     "declarantName": "Иван Филипов Лалов",
     "institution": "Панагюрище",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10833",
-    "controlHash": "2CB796C4",
-    "sourceUrl": "https://register.cacbg.bg/2025/1DD891E7-E830-4DAD-9718-899DA6DE98FA213942.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г12070",
+    "controlHash": "3CF206E1",
+    "sourceUrl": "https://register.cacbg.bg/2026/1DD891E7-E830-4DAD-9718-899DA6DE98FA237173.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16809.743178088076,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 22907.410153234177,
+        "amountEurSpouse": 2607.588594100714
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 17254.05582284759,
+        "amountEurDeclarant": 17276.552665620224,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит1",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10440,
+        "valueEur": 5337.887239688521,
+        "holderName": "Иван Филипов Лалов",
+        "isSpouse": false,
+        "legalBasis": "Заем с лихва 4.46",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -4,25 +4,25 @@
     "declarantName": "Зорница Евгениева Якимова",
     "institution": "Разград",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13901",
-    "controlHash": "FC6ECAF5",
-    "sourceUrl": "https://register.cacbg.bg/2025/933AECB6-DD43-4569-BDE7-064272099591217162.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11091",
+    "controlHash": "615E5A21",
+    "sourceUrl": "https://register.cacbg.bg/2026/933AECB6-DD43-4569-BDE7-064272099591235927.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28375.165530746537,
+        "amountEurDeclarant": 36678.03438949193,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 674.9052831790084,
+        "amountEurDeclarant": 1135.0679762556051,
         "amountEurSpouse": null
       },
       {
@@ -35,7 +35,7 @@
     "assets": [
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "кредит - потребителски",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,11 +44,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Зорница Евгениева Якимова",
         "isSpouse": false,
-        "legalBasis": "Договор FL1466532/6,09%",
+        "legalBasis": "договор // 4,8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Зорница Евгениева Якимова",
+        "isSpouse": false,
+        "legalBasis": "договор/ 18,9%",
         "fundsOrigin": null
       }
     ],

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г12205",
+    "controlHash": "DDC3F054",
+    "sourceUrl": "https://register.cacbg.bg/2026/E2D93E6E-850A-4880-8B67-F29EA003C980237386.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24141.66875444185,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6209,
+        "valueEur": 6209.128605246878,
+        "holderName": "Елена Лозанова Върбанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2668,
+        "valueEur": 2667.409744200672,
+        "holderName": "Веселин Петров Върбанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-lozanova-vrbanova-603b81",
+    "declarantName": "Елена Лозанова Върбанова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

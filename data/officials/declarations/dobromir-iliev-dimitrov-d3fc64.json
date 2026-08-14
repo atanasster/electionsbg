@@ -5,6 +5,68 @@
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г6550",
+    "controlHash": "CE315AC2",
+    "sourceUrl": "https://register.cacbg.bg/2026/E850B8C3-AE6A-442F-AB92-6350CDE5FE04230879.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21275.366468455846,
+        "amountEurSpouse": 59176.41103776913
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лека кола",
+        "detail": "Тойота СН R",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78000,
+        "valueEur": 39880.76673330504,
+        "holderName": "Светра Рускова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27152,
+        "valueEur": 13882.597158239725,
+        "holderName": "Добромир Илиев Димитров",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dobromir-iliev-dimitrov-d3fc64",
+    "declarantName": "Добромир Илиев Димитров",
+    "institution": "ОДБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

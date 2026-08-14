@@ -1,6 +1,74 @@
 [
   {
     "slug": "anatoli-stanilov-atansov-826d22",
+    "declarantName": "АНАТОЛИ СТАНИЛОВ АТАНАСОВ",
+    "institution": "Търговски дружества",
+    "positionTitle": "Представител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13505",
+    "controlHash": "6F9E55A5",
+    "sourceUrl": "https://register.cacbg.bg/2026/D19CF02A-B242-45C2-8B80-99A47922958C239027.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8017.056697156706,
+        "amountEurSpouse": 15683.878455694003
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 820.6234693199307,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дражево",
+        "municipality": "Тунджа",
+        "areaSqm": 3000,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Росица Коева Станилова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследство"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Росица Коева Станилова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследство"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anatoli-stanilov-atansov-826d22",
     "declarantName": "Анатоли Станилов Атанасов",
     "institution": "Търговски дружества",
     "positionTitle": "Представител",

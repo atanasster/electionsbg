@@ -4,20 +4,81 @@
     "declarantName": "Елин Асенов Радев",
     "institution": "Доспат",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2332",
-    "controlHash": "4CC7F79F",
-    "sourceUrl": "https://register.cacbg.bg/2025/9208F6FD-C1F8-4064-B5A7-84016C5CAC24204953.xml",
-    "ownershipStakes": [],
+    "filedAt": null,
+    "entryNumber": "Г1905",
+    "controlHash": "1455657A",
+    "sourceUrl": "https://register.cacbg.bg/2026/9208F6FD-C1F8-4064-B5A7-84016C5CAC24225875.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ТЪРГОВСКО ДРУЖЕСТВО",
+        "shareSize": "100%",
+        "companyName": "ГАРАНТ-99 ЕООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 2556.4594059810925,
+        "holderName": "АИДА КИТАНОВА РАДЕВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ТЪРГОВСКО ДРУЖЕСТВО",
+        "shareSize": "100%",
+        "companyName": "ВЕВА ГРУП ЕООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 2556.4594059810925,
+        "holderName": "АИДА КИТАНОВА РАДЕВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ТЪРГОВСКО ДРУЖЕСТВО",
+        "shareSize": "100%",
+        "companyName": "СЕВА 3 ЕООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 36813.015446127734,
+        "holderName": "АИДА КИТАНОВА РАДЕВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ТЪРГОВСКО ДРУЖЕСТВО",
+        "shareSize": "100%",
+        "companyName": "СЕВ ТРЕЙД ЕООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 61356.048327308614,
+        "holderName": "АИДА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕДНОЛИЧЕН ТЪРГОВЕЦ",
+        "shareSize": "100%",
+        "companyName": "ЕТ ЕЛИТ АИДА РАДЕВА",
+        "registeredOffice": "Смолян",
+        "valueEur": 51.12918811962185,
+        "holderName": "АИДА КИТАНОВА РАДЕВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 48973.581548498594,
-        "amountEurSpouse": 130348.75219216394
+        "amountEurDeclarant": 52891.09994222402,
+        "amountEurSpouse": 135104.27797916997
       }
     ],
     "assets": [
@@ -32,8 +93,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 116000,
-        "valueEur": 59309.85821876134,
+        "amount": 172791,
+        "valueEur": 88346.63544377578,
         "holderName": "Елин Асенов Радев",
         "isSpouse": false,
         "legalBasis": null,
@@ -50,12 +111,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 463000,
-        "valueEur": 236728.14099384917,
+        "amount": 345569,
+        "valueEur": 176686.62409309603,
         "holderName": "Аида Китанова Радева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -68,8 +129,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 160,
-        "valueEur": 81.80670099139496,
+        "amount": 39154,
+        "valueEur": 20019.122316356737,
         "holderName": "Елин Асенов Радев",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,8 +147,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 101975,
-        "valueEur": 52138.98958498438,
+        "amount": 62358,
+        "valueEur": 31883.139127633793,
         "holderName": "Аида Китанова Радева",
         "isSpouse": true,
         "legalBasis": null,
@@ -113,7 +174,7 @@
       },
       {
         "category": "receivable",
-        "description": "Дивидент",
+        "description": "ДИВИДЕНТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -126,12 +187,12 @@
         "valueEur": 10941.646257599075,
         "holderName": "Елин Асенов Радев",
         "isSpouse": false,
-        "legalBasis": "Протокол от 2013г.",
+        "legalBasis": "протокол от 2013 г.",
         "fundsOrigin": null
       },
       {
         "category": "receivable",
-        "description": "Заем",
+        "description": "ЗАЕМ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -149,7 +210,7 @@
       },
       {
         "category": "receivable",
-        "description": "Заем",
+        "description": "ЗАЕМ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -220,6 +281,60 @@
         "fundsOrigin": null
       },
       {
+        "category": "receivable",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 181135,
+        "valueEur": 92612.85490047703,
+        "holderName": "Аида Китанова Радева",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 93259,
+        "valueEur": 47682.56954847814,
+        "holderName": "Аида Китанова Радева",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37420,
+        "valueEur": 19132.542194362497,
+        "holderName": "Аида Китанова Радева",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
         "category": "debt",
         "description": "ЗАЕМ",
         "detail": "BGN",
@@ -238,6 +353,103 @@
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 492,
+        "builtAreaSqm": 492,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 266,
+        "builtAreaSqm": 266,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 384,
+        "builtAreaSqm": 384,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 489,
+        "builtAreaSqm": 489,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 492,
+        "builtAreaSqm": 492,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 266,
+        "builtAreaSqm": 266,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 384,
+        "builtAreaSqm": 384,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Доспат, м.Чинлий",
+        "municipality": "Доспат",
+        "areaSqm": 489,
+        "builtAreaSqm": 489,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

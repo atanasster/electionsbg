@@ -4,18 +4,18 @@
     "declarantName": "НИЯЗИ РАШИД АКБУЮК",
     "institution": "Завет",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5406",
-    "controlHash": "651887C5",
-    "sourceUrl": "https://register.cacbg.bg/2025/B1328AF2-2DE1-45B5-A489-9F3D56E2D12D208331.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11382",
+    "controlHash": "E1C45442",
+    "sourceUrl": "https://register.cacbg.bg/2026/B1328AF2-2DE1-45B5-A489-9F3D56E2D12D236285.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "дялове",
+        "itemType": "Дялове",
         "shareSize": "100%",
         "companyName": "\"РАЙН АГРО\" ЕООД",
         "registeredOffice": "с. Острово",
@@ -29,17 +29,35 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5313.345229391102,
-        "amountEurSpouse": 6054.207165244423
+        "amountEurDeclarant": 5317.946856321869,
+        "amountEurSpouse": 6778.707760899465
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 627.8664301089563
+        "amountEurSpouse": 992.41754140186
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Острово",
+        "municipality": "Завет",
+        "areaSqm": 14,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ниязи Рашид Акбуюк",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
       {
         "category": "bank",
         "description": null,
@@ -51,12 +69,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Ниязи Рашид Акбуюк",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата и земеделие"
       }
     ],
     "events": []

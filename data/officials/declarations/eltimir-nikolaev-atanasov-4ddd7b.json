@@ -5,6 +5,81 @@
     "institution": "Общински предприятия",
     "positionTitle": "Ликвидатор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4567",
+    "controlHash": "224EEA98",
+    "sourceUrl": "https://register.cacbg.bg/2026/57B808B9-DA2A-40F5-BD30-9BAEE7B73820228770.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6912.666233772874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ ВЕКТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 730,
+        "valueEur": 373.2430732732395,
+        "holderName": "ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9530,
+        "valueEur": 4872.611627799962,
+        "holderName": "ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР - 6.91%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АТОМОБИЛ",
+        "detail": "ОПЕЛ АСТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 495.95312476033195,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "eltimir-nikolaev-atanasov-4ddd7b",
+    "declarantName": "ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Ликвидатор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

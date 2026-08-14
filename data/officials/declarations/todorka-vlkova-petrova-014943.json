@@ -5,6 +5,56 @@
     "institution": "Селскостопанска академия",
     "positionTitle": "Директор",
     "category": "agri_academy",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7267",
+    "controlHash": "C03D7E60",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE6233AD-A326-4B13-B81B-1B7E9B63FEF3231671.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33740.662532019654,
+        "amountEurSpouse": 9794.818568075958
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1762.4231144833652,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Отпусната възмездна помощ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17366,
+        "valueEur": 8879.09480885353,
+        "holderName": "Тодорка Вълкова Петрова",
+        "isSpouse": false,
+        "legalBasis": "възмездна помощ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todorka-vlkova-petrova-014943",
+    "declarantName": "Тодорка Вълкова Петрова",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

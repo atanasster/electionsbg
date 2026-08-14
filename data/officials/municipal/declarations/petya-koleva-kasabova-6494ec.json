@@ -4,25 +4,67 @@
     "declarantName": "Петя Колева Касабова",
     "institution": "Чепеларе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3681",
+    "controlHash": "2B51620A",
+    "sourceUrl": "https://register.cacbg.bg/2026/96B444CE-9BBC-4400-9CD7-94BA37187686227831.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение \"Младежка олганизация за гражданска активност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение \"Младежка организация за гражданска активност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "petya-koleva-kasabova-6494ec",
+    "declarantName": "Петя Колева Касабова",
+    "institution": "Чепеларе",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11829",
-    "controlHash": "0CDDC471",
-    "sourceUrl": "https://register.cacbg.bg/2025/96B444CE-9BBC-4400-9CD7-94BA37187686214981.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3678",
+    "controlHash": "51D9AC14",
+    "sourceUrl": "https://register.cacbg.bg/2026/96B444CE-9BBC-4400-9CD7-94BA37187686227828.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6076.704008017056,
+        "amountEurDeclarant": 7251.652751005967,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3891.953799665615,
+        "amountEurDeclarant": 4630.2592761129545,
         "amountEurSpouse": null
       }
     ],
@@ -38,11 +80,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 51863,
-        "valueEur": 26517.130834479478,
+        "amount": 45473,
+        "valueEur": 23249.975713635642,
         "holderName": "Петя Колева Касабова",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит; 5,10 %",
+        "legalBasis": "5,10",
         "fundsOrigin": null
       }
     ],

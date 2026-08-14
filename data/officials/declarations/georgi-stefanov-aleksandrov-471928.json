@@ -5,6 +5,81 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Заместник-директор",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г5748",
+    "controlHash": "1BA4F0C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/BC6E6443-E45A-454B-A258-168FCEA85AEE230013.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 73376.00916235051,
+        "amountEurSpouse": 5880.879217518905
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 126616,
+        "valueEur": 64737.7328295404,
+        "holderName": "Георги Стефанов Александров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "декларирани от предходни години и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19186,
+        "valueEur": 9809.646032630648,
+        "holderName": "Десислава Славчова Александрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "декларирани от предходни години и заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земя",
+        "detail": null,
+        "location": "Благоевград, кв. Баларбаши",
+        "municipality": "Благоевград",
+        "areaSqm": 952,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "georgi-stefanov-aleksandrov-471928",
+    "declarantName": "Георги Стефанов Александров",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

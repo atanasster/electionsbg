@@ -4,25 +4,25 @@
     "declarantName": "Кръстинка Иванова Ботева",
     "institution": "Перник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г5128",
-    "controlHash": "2923A2AA",
-    "sourceUrl": "https://register.cacbg.bg/2025/824A5E2C-BA5E-4A59-B2A4-104F4F11DA61208025.xml",
+    "filedAt": null,
+    "entryNumber": "Г10113",
+    "controlHash": "4CE54F95",
+    "sourceUrl": "https://register.cacbg.bg/2026/824A5E2C-BA5E-4A59-B2A4-104F4F11DA61234804.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6322.635402872438,
+        "amountEurDeclarant": 7187.229973975243,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10472.280310660946,
+        "amountEurDeclarant": 16295.894837485876,
         "amountEurSpouse": null
       }
     ],
@@ -31,7 +31,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "перник",
+        "location": "Перник",
         "municipality": "Перник",
         "areaSqm": 65,
         "builtAreaSqm": 65,
@@ -46,19 +46,6 @@
         "fundsOrigin": "наследяване"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "с. Усойка",
-        "municipality": "Дупница",
-        "areaSqm": 707,
-        "builtAreaSqm": 100,
-        "currency": "BGN",
-        "valueEur": 3067.751287177311,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

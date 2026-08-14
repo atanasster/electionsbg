@@ -5,6 +5,68 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9098",
+    "controlHash": "6811A704",
+    "sourceUrl": "https://register.cacbg.bg/2026/B7824297-5BFB-4419-AC45-18F654F9BDD5233662.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11523.496418400373,
+        "amountEurSpouse": 4349.560033336231
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Водно",
+        "municipality": "Дулово",
+        "areaSqm": 83,
+        "builtAreaSqm": 118,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Гюнер Хайреден Мехмед",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2001,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
+        "holderName": "Айнур Мехмед Мехмед",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gyuner-hairedin-mehmed-34ec8f",
+    "declarantName": "Гюнер Хайредин Мехмед",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

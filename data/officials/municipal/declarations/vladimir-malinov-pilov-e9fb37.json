@@ -1,41 +1,59 @@
 [
   {
     "slug": "vladimir-malinov-pilov-e9fb37",
-    "declarantName": "ВЛАДИМИР МАЛИНОВ ПИЛЬОВ",
+    "declarantName": "Владимир Малинов Пильов",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12825",
-    "controlHash": "EDCBA741",
-    "sourceUrl": "https://register.cacbg.bg/2025/DEEF93E7-75AD-4239-980B-34226170ADBB216002.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13397",
+    "controlHash": "303DCD5A",
+    "sourceUrl": "https://register.cacbg.bg/2026/DEEF93E7-75AD-4239-980B-34226170ADBB238904.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5670.226962466063,
-        "amountEurSpouse": 11043.90463383832
+        "amountEurDeclarant": 4617.988270964245,
+        "amountEurSpouse": 16124.612057285143
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 36668.8311356304,
+        "amountEurDeclarant": 39112.29503586712,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "обезщетения и помощи по част първа от Кодекса на труда за социално осигуряване, изплатени на основание чл. 40 ал. 5 от същия кодекс",
+        "category": "Обезщетение и помощи по част първа от Кодекса за социално осигуряване изплатени на основание чл.40, ал.5 от същия кодекс",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 31.700096634165547
+        "amountEurSpouse": 313.4219231732819
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "НИСАН КАШКАЙ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Владимир Малинов Пильов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "Банков заем",
+        "description": "Банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,16 +62,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70780,
-        "valueEur": 36189.23935106835,
+        "amount": 4620,
+        "valueEur": 2362.1684911265293,
         "holderName": "Владимир Малинов Пильов",
         "isSpouse": false,
-        "legalBasis": "Договор за банков кредит, 4,74%",
+        "legalBasis": "Договор за банков кредит 6,5%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Банков заем",
+        "description": "Банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,14 +80,81 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5477,
-        "valueEur": 2800.3456333116887,
+        "amount": 11400,
+        "valueEur": 5828.7274456368905,
         "holderName": "Владимир Малинов Пильов",
         "isSpouse": false,
-        "legalBasis": "договор за банков кредит, 6,44%",
+        "legalBasis": "Договор за банков кредит 4,6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63943,
+        "valueEur": 32693.5367593298,
+        "holderName": "Владимир Малинов Пильов",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков кредит 4,8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4811,
+        "valueEur": 2459.8252404350073,
+        "holderName": "Станимира Георгиева Пильова",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков кредит 8,25%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50236,
+        "valueEur": 25685.25894377323,
+        "holderName": "Станимира Георгиева Пильова",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков кредит 6,01%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ 330 ХД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2914.3637228184452,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -1,6 +1,68 @@
 [
   {
     "slug": "vanya-nedelcheva-hristova-284b6c",
+    "declarantName": "Ваня Неделчева Христова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г11138",
+    "controlHash": "FDEACB1D",
+    "sourceUrl": "https://register.cacbg.bg/2026/227648DD-25B3-4D22-A2E5-97295ED63941235981.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32146.96573833104,
+        "amountEurSpouse": 10960.05276532214
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59729,
+        "valueEur": 30538.952771968936,
+        "holderName": "Ваня Неделчева Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75729,
+        "valueEur": 38719.62287110843,
+        "holderName": "Тодор Йорданов Христов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vanya-nedelcheva-hristova-284b6c",
     "declarantName": "ВАНЯ НЕДЕЛЧЕВА ХРИСТОВА",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

@@ -5,6 +5,68 @@
     "institution": "Служба “Военна полиция\" към МО",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8586",
+    "controlHash": "A8AAB82C",
+    "sourceUrl": "https://register.cacbg.bg/2026/873364DE-1F25-4703-8D02-280CC99A7B5E233102.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47332.33460985873,
+        "amountEurSpouse": 15021.244177663702
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 243254,
+        "valueEur": 124373.79526850494,
+        "holderName": "Мариана Велчева Стоянова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и продажба"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4396,
+        "valueEur": 4396.087594525086,
+        "holderName": "Мариана Велчева Стоянова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumen-nikolov-stoyanov-52b24b",
+    "declarantName": "Румен Николов Стоянов",
+    "institution": "Служба “Военна полиция\" към МО",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

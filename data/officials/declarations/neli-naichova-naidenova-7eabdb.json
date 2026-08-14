@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7069",
+    "controlHash": "BA86FA87",
+    "sourceUrl": "https://register.cacbg.bg/2026/A74DC73D-A315-4AE9-BF2E-F2EEC0526467231459.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23194.75619046645,
+        "amountEurSpouse": 11248.421386316806
+      },
+      {
+        "parent": null,
+        "category": "Пенсия ТЕЛК",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3313.171390151496
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57000,
+        "valueEur": 29143.637228184452,
+        "holderName": "Нели Найчова Найденова",
+        "isSpouse": false,
+        "legalBasis": "4,61",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-naichova-naidenova-7eabdb",
+    "declarantName": "Нели Найчова Найденова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

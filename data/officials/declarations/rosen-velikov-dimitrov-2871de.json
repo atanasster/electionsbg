@@ -5,6 +5,56 @@
     "institution": "МБАЛ - Силистра АД",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г4995",
+    "controlHash": "4438C2B4",
+    "sourceUrl": "https://register.cacbg.bg/2026/96FE3B62-8C55-46C3-8022-AC47E29B4C34229237.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31329.921312179486,
+        "amountEurSpouse": 3949.2184903595917
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 57612.880465071095
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53095,
+        "valueEur": 27147.04243211322,
+        "holderName": "Румяна Руменова Русева",
+        "isSpouse": true,
+        "legalBasis": "5,99%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rosen-velikov-dimitrov-2871de",
+    "declarantName": "Росен Великов Димитров",
+    "institution": "МБАЛ - Силистра АД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

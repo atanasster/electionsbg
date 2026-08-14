@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-02-27",
+    "entryNumber": "Г229",
+    "controlHash": "80DC7D27",
+    "sourceUrl": "https://register.cacbg.bg/2026/465B9C85-666B-40A1-B609-606413E04C5C223235.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19381.541340505053,
+        "amountEurSpouse": 80000.30677512872
+      },
+      {
+        "parent": null,
+        "category": "Спестявания на съпруг, преведени по банковата ми сметка",
+        "amountEurDeclarant": 17895.215841867648,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41100,
+        "valueEur": 41100.19786995802,
+        "holderName": "Дияна Златева Янева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diyana-zlateva-yaneva-785ceb",
+    "declarantName": "Дияна Златева Янева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

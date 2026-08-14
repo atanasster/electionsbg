@@ -1,73 +1,55 @@
 [
   {
     "slug": "ahmed-yumer-hak-dfe254",
-    "declarantName": "АХМЕД ЮМЕР ХАКЪ",
+    "declarantName": "Ахмед Юмер Хакъ",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г5059",
-    "controlHash": "507CAD50",
-    "sourceUrl": "https://register.cacbg.bg/2025/25031E84-75DB-433E-97EF-07EE4FE62C21207946.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г9068",
+    "controlHash": "E9FD5501",
+    "sourceUrl": "https://register.cacbg.bg/2026/25031E84-75DB-433E-97EF-07EE4FE62C21233628.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5047.984743050265,
-        "amountEurSpouse": 12290.4342401947
+        "amountEurDeclarant": 5119.054314536539,
+        "amountEurSpouse": 12880.976362976333
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4393.019843237909,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 5523.997484443945,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "ТЕЛК",
-        "amountEurDeclarant": 3558.5914931256807,
+        "category": "пенсия",
+        "amountEurDeclarant": 2162.7646574600044,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "ситроен берлинго",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "СИО",
-        "currency": "BGN",
-        "amount": 1800,
-        "valueEur": 920.3253861531933,
-        "holderName": "Ахмед Юмер Хакъ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "ФОРД КУГА",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "СИО",
-        "currency": "BGN",
-        "amount": 17900,
-        "valueEur": 9152.12467341231,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9693,
+        "valueEur": 9692.560191836714,
         "holderName": "Невин Османова Хакъ",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
       },
       {
         "category": "debt",
@@ -80,11 +62,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38935,
-        "valueEur": 19907.149394374766,
+        "amount": 34514,
+        "valueEur": 17646.727987606286,
         "holderName": "Невин Османова Хакъ",
         "isSpouse": true,
-        "legalBasis": "договор за кредит - 4,5%",
+        "legalBasis": "договор за банков кредит, 4,50 %",
         "fundsOrigin": null
       }
     ],

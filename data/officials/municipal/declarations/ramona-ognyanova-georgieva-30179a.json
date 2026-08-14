@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "ramona-ognyanova-georgieva-30179a",
+    "declarantName": "Рамона Огнянова Георгиева",
+    "institution": "Район \"Северен\" - Пловдив",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г14019",
+    "controlHash": "699698BB",
+    "sourceUrl": "https://register.cacbg.bg/2026/86A33D16-C648-44ED-A1C9-F079FC4357DF239702.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3536.6059422342432,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11201.89382512795,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1656.585695075748,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУБСИДИЯ",
+        "amountEurDeclarant": 1249.597357643558,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУБСИЯДИЯ ОТ ЕВРОПЕЙСКА ПРОГРАМА МАЛКО ЗЕМЕДЕЛСКО СТОПАНСТВО",
+        "amountEurDeclarant": 4999.923306217821,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8370,
+        "valueEur": 8306.959193794963,
+        "holderName": "Рамона Огнянова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25000,
+        "valueEur": 25000.639114851496,
+        "holderName": "Рамона Огнянова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "4",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,23 +1,42 @@
 [
   {
     "slug": "miroslav-mitkov-yanchev-1e7fb7",
-    "declarantName": "МИРОСЛАВ МИТКОВ ЯНЧЕВ",
+    "declarantName": "Мирослав Митков Янчев",
     "institution": "Златоград",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13225",
-    "controlHash": "C2042788",
-    "sourceUrl": "https://register.cacbg.bg/2025/FC1D9EBD-14F8-4F92-8517-A14E9313E73E216422.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12758",
+    "controlHash": "8495FFBB",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC1D9EBD-14F8-4F92-8517-A14E9313E73E238091.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове покупка",
+        "shareSize": "100",
+        "companyName": "КОРЕКТ ООД",
+        "registeredOffice": "гр. Златоград",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Нели Андреева Янчева",
+        "legalBasis": "покупко продажба",
+        "fundsOrigin": "заплата, дивиденти"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31951.14094783289,
-        "amountEurSpouse": 11020.385207303294
+        "amountEurDeclarant": 34122.08627539203,
+        "amountEurSpouse": 19111.067935352254
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6913.688817535266
       }
     ],
     "assets": [
@@ -32,8 +51,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39000,
-        "valueEur": 19940.38336665252,
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
         "holderName": "Мирослав Митков Янчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -50,12 +69,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 7800,
+        "valueEur": 3988.076673330504,
         "holderName": "Нели Андреева Янчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплате, дивиденти"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2000,
+        "valueEur": 2000.1738392396067,
+        "holderName": "Нели Андреева Янчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "запалта, дивиденти"
       },
       {
         "category": "bank",
@@ -68,8 +105,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15429,
-        "valueEur": 7888.722434976455,
+        "amount": 146,
+        "valueEur": 74.6486146546479,
         "holderName": "Мирослав Митков Янчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,12 +123,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8962,
-        "valueEur": 4582.19783928051,
+        "amount": 31629,
+        "valueEur": 16171.650910355194,
         "holderName": "Нели Андреева Янчева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата, дивиденти"
       },
       {
         "category": "receivable",
@@ -108,6 +145,24 @@
         "valueEur": 455049.77426463447,
         "holderName": "Нели Андреева Янчева",
         "isSpouse": true,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "пердоставен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Мирослав Митков Янчев",
+        "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
@@ -140,14 +195,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31933,
-        "valueEur": 16327.083642238846,
+        "amount": 37125,
+        "valueEur": 18981.71108940961,
         "holderName": "Мирослав Митков Янчев",
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22897,
+        "valueEur": 11707.050203749815,
+        "holderName": "Мирослав Митков Янчев",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "крединта карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Мирослав Митков Янчев",
+        "isSpouse": false,
+        "legalBasis": "карта",
+        "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "заповед за командировка в чужбина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 358.92690059974535,
+        "legalBasis": null
+      }
+    ]
   }
 ]

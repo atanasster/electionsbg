@@ -4,26 +4,20 @@
     "declarantName": "Емил Тенчев Милошев",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6258",
-    "controlHash": "D6819A30",
-    "sourceUrl": "https://register.cacbg.bg/2025/E361DA60-D2BA-4205-AEE6-C077BD93DCC9209213.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13396",
+    "controlHash": "64608207",
+    "sourceUrl": "https://register.cacbg.bg/2026/E361DA60-D2BA-4205-AEE6-C077BD93DCC9238903.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8899.546484101378,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5981.092426233364,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 16471.26795273618,
+        "amountEurSpouse": 8037.508372404554
       }
     ],
     "assets": [
@@ -33,8 +27,8 @@
         "detail": null,
         "location": "гр. Стамболийски",
         "municipality": "Стамболийски",
-        "areaSqm": 110,
-        "builtAreaSqm": 110,
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
         "acquiredYear": 1998,
         "share": "1",
         "currency": "BGN",
@@ -42,13 +36,13 @@
         "valueEur": 0,
         "holderName": "Емил Тенчев Милошев",
         "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "vehicle",
-        "description": "лека кола",
-        "detail": "PT CRYSLER",
+        "description": "лек автомобил",
+        "detail": "pt cruiser",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -66,15 +60,15 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 10000,
+        "currency": "EUR",
+        "amount": 5013,
         "valueEur": 5112.918811962185,
         "holderName": "Емил Тенчев Милошев",
         "isSpouse": false,
@@ -82,22 +76,22 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "currency": "EUR",
+        "amount": 6136,
+        "valueEur": 6135.502574354622,
         "holderName": "Емил Тенчев Милошев",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "legalBasis": "кредит с 5,4% лихва",
+        "fundsOrigin": null
       }
     ],
     "events": []

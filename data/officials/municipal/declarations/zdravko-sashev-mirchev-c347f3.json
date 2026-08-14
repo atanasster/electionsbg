@@ -4,41 +4,72 @@
     "declarantName": "Здравко Сашев Мирчев",
     "institution": "Баните",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10558",
-    "controlHash": "B85F22D6",
-    "sourceUrl": "https://register.cacbg.bg/2025/2C36A678-0330-4464-8A8E-EFFF322E36C6213654.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11014",
+    "controlHash": "86E6203E",
+    "sourceUrl": "https://register.cacbg.bg/2026/2C36A678-0330-4464-8A8E-EFFF322E36C6235845.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3415.4297663907396,
-        "amountEurSpouse": 13518.557338828017
+        "amountEurDeclarant": 3487.01062975821,
+        "amountEurSpouse": 15706.886590347833
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5190.123886022814,
+        "amountEurDeclarant": 6325.191862278419,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "дивиденти",
-        "amountEurDeclarant": 69975.40686051446,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "командировъчни",
-        "amountEurDeclarant": 5521.95231691916,
+        "amountEurDeclarant": 191300.36864144634,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 300,
+        "valueEur": 153.38756435886555,
+        "holderName": "Здравко Сашев Мирчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "тойота хилукс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5900,
+        "valueEur": 3016.622099057689,
+        "holderName": "Здравко Сашев Мирчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

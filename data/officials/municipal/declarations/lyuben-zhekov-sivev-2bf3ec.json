@@ -4,76 +4,76 @@
     "declarantName": "ЛЮБЕН ЖЕКОВ СИВЕВ",
     "institution": "Кайнарджа",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г8744",
-    "controlHash": "697364A0",
-    "sourceUrl": "https://register.cacbg.bg/2025/D42A7446-30C6-45D8-9E65-4689E18A5DDD211769.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9015",
+    "controlHash": "B80D2996",
+    "sourceUrl": "https://register.cacbg.bg/2026/D42A7446-30C6-45D8-9E65-4689E18A5DDD233566.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 34088.34101123308,
+        "amountEurDeclarant": 37410.71565524611,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 426.92872079884245
-      },
-      {
-        "parent": null,
-        "category": "Ренти",
-        "amountEurDeclarant": 15081.065327763661,
-        "amountEurSpouse": 29930.004141464236
       },
       {
         "parent": null,
         "category": "Дивиденти",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": 223920.27936988388
+        "amountEurSpouse": 209752.38134193668
+      },
+      {
+        "parent": null,
+        "category": "Ренти",
+        "amountEurDeclarant": 14299.300041414643,
+        "amountEurSpouse": 30808.40359335934
       },
       {
         "parent": null,
         "category": "Пенсии",
-        "amountEurDeclarant": 9557.067843319715,
-        "amountEurSpouse": 1205.114963979487
+        "amountEurDeclarant": 10745.821467100925,
+        "amountEurSpouse": 3926.721647586958
       },
       {
         "parent": null,
-        "category": "Обезщетения от НОИ (болнични)",
+        "category": "Обезщетения НОИ (болнични)",
         "amountEurDeclarant": 0,
-        "amountEurSpouse": 2073.799870131862
+        "amountEurSpouse": 2614.235388556265
       },
       {
         "parent": null,
-        "category": "Финансова подкрепа по ЗХУ",
-        "amountEurDeclarant": 224.96842772633613,
-        "amountEurSpouse": 121.17617584350378
+        "category": "Финансова подкрепа ЗХУ",
+        "amountEurDeclarant": 269.96211327160336,
+        "amountEurSpouse": 578.7824095141193
+      },
+      {
+        "parent": null,
+        "category": "Командировки",
+        "amountEurDeclarant": 874.3091168455336,
+        "amountEurSpouse": 0
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "ситроен берлинго",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Голеш",
+        "municipality": "Кайнарджа",
+        "areaSqm": 13,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "100%",
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
-        "holderName": "Даниела Костадинова Сивева",
+        "amount": 23423,
+        "valueEur": 11975.989733259026,
+        "holderName": "Даниела Костадинова Сивева и Любен Жеков Сивев-СИО",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дивиденти и ренти"
+        "fundsOrigin": "дивиденти, ренти и пенсии"
       },
       {
         "category": "bank",
@@ -86,12 +86,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 159543,
-        "valueEur": 81573.04060168829,
+        "amount": 186966,
+        "valueEur": 95594.19785973219,
         "holderName": "Любен Жеков Сивев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии и рента"
+        "fundsOrigin": "заплати, пенсии и ренти"
       },
       {
         "category": "bank",
@@ -104,8 +104,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 588666,
-        "valueEur": 300980.14653625316,
+        "amount": 705919,
+        "valueEur": 360930.6534821534,
         "holderName": "Даниела Костадинова Сивева",
         "isSpouse": true,
         "legalBasis": null,
@@ -135,48 +135,60 @@
         "kind": "disposal_property",
         "description": "парцел",
         "detail": null,
-        "location": "с.Зарник",
+        "location": "с.Добруджанка",
         "municipality": "Кайнарджа",
-        "areaSqm": 590,
+        "areaSqm": 3915,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Зарник",
-        "municipality": "Кайнарджа",
-        "areaSqm": 515,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "с.Ценович",
-        "municipality": "Силистра",
-        "areaSqm": 384,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1192.8439588307776,
+        "valueEur": 1252.6651089307352,
         "legalBasis": "възмездно"
       },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "ситроен берлинго",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Добруджанка",
+        "municipality": "Кайнарджа",
+        "areaSqm": 3915,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 357.90431683735295,
+        "valueEur": 843.6316039737605,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.Добруджанка",
+        "municipality": "Кайнарджа",
+        "areaSqm": 385,
+        "builtAreaSqm": 385,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Добруджанка",
+        "municipality": "Кайнарджа",
+        "areaSqm": 83,
+        "builtAreaSqm": 83,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Добруджанка",
+        "municipality": "Кайнарджа",
+        "areaSqm": 83,
+        "builtAreaSqm": 83,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
         "legalBasis": "възмездно"
       }
     ]

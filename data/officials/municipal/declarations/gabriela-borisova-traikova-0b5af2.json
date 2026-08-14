@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "gabriela-borisova-traikova-0b5af2",
+    "declarantName": "Габриела Борисова Трайкова",
+    "institution": "Костинброд",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8648",
+    "controlHash": "A570143F",
+    "sourceUrl": "https://register.cacbg.bg/2026/4EA1346C-2C9C-4FF6-89EF-8C19292EC584233174.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32317.737226650577,
+        "amountEurSpouse": 25618.27970733653
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90703,
+        "valueEur": 46375.707500140605,
+        "holderName": "Габриела Борисова Трайкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Габриела Борисова Трайкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно-Сватба и спестявания"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19240,
+        "valueEur": 9837.255794215243,
+        "holderName": "Габриела Борисова Трайкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата-ДЗПО"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолтсваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Годишна среща на местната власт НСОРБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 823.1799287259117,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проект Бъдещо сътрудничество по проект \"Къща за 1 евро\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 823.1799287259117,
+        "legalBasis": null
+      }
+    ]
+  }
+]

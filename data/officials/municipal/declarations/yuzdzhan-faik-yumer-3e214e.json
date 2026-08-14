@@ -4,89 +4,76 @@
     "declarantName": "Юзджан Фаик Юмер",
     "institution": "Айтос",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г7917",
-    "controlHash": "3F17818F",
-    "sourceUrl": "https://register.cacbg.bg/2025/56C69CE8-6CC8-4A38-8530-F7A33C2AA852210922.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дял",
-        "shareSize": "33%",
-        "companyName": "Сън енерджи АА ООД",
-        "registeredOffice": "Бургас",
-        "valueEur": 25.564594059810926,
-        "holderName": "Юзджан Фаик Юмер",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": null,
+    "entryNumber": "Г2769",
+    "controlHash": "2927154F",
+    "sourceUrl": "https://register.cacbg.bg/2026/56C69CE8-6CC8-4A38-8530-F7A33C2AA852226852.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7863.669132797841,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 9764.65234708538,
+        "amountEurSpouse": 5212.620728795448
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
-        "amountEurSpouse": 7260.856004867499
+        "amountEurDeclarant": 16151.710526988541,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1006.7337140753542,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1089.0517069479454,
+        "amountEurDeclarant": null,
         "amountEurSpouse": 153.38756435886555
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 7669.378217943277,
-        "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "нива",
+        "description": "магазин",
         "detail": null,
-        "location": "Чеменлията",
+        "location": "гр.Айтос",
         "municipality": "Айтос",
-        "areaSqm": 3,
-        "builtAreaSqm": 3319,
-        "acquiredYear": 2024,
+        "areaSqm": 30,
+        "builtAreaSqm": 33,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
+        "amount": 19500,
+        "valueEur": 9970.19168332626,
         "holderName": "Юзджан Фаик Юмер",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания и заплата"
       },
       {
         "category": "real_estate",
-        "description": "нива",
+        "description": "магазин",
         "detail": null,
-        "location": "Чеменлията",
+        "location": "гр.Айтос",
         "municipality": "Айтос",
-        "areaSqm": 3,
-        "builtAreaSqm": 3319,
-        "acquiredYear": 2024,
+        "areaSqm": 30,
+        "builtAreaSqm": 33,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 500,
-        "valueEur": 255.64594059810923,
+        "amount": 19500,
+        "valueEur": 9970.19168332626,
         "holderName": "Джемиле Хюсню Юмер",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания и заплата"
       },
       {
         "category": "cash",
@@ -99,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9540,
-        "valueEur": 4877.724546611925,
+        "amount": 9650,
+        "valueEur": 4933.966653543508,
         "holderName": "Юзджан Фаик Юмер",
         "isSpouse": false,
         "legalBasis": null,
@@ -109,16 +96,16 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 5250,
-        "valueEur": 2684.282376280147,
+        "currency": "EUR",
+        "amount": 3260,
+        "valueEur": 3260,
         "holderName": "Джемиле Хюсню Юмер",
         "isSpouse": true,
         "legalBasis": null,
@@ -135,8 +122,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2117,
-        "valueEur": 1082.4049124923945,
+        "amount": 50753,
+        "valueEur": 25949.596846351677,
         "holderName": "Юзджан Фаик Юмер",
         "isSpouse": false,
         "legalBasis": null,
@@ -153,27 +140,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 351,
-        "valueEur": 179.46345029987268,
+        "amount": 2250,
+        "valueEur": 1150.4067326914917,
         "holderName": "Джемиле Хюсню Юмер",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "парцел",
-        "detail": null,
-        "location": "гр.Айтос",
-        "municipality": "Айтос",
-        "areaSqm": 736,
-        "builtAreaSqm": 736,
-        "currency": "BGN",
-        "valueEur": 7669.378217943277,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

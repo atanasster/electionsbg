@@ -5,6 +5,81 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-26",
+    "entryNumber": "Г686",
+    "controlHash": "82C6759D",
+    "sourceUrl": "https://register.cacbg.bg/2026/EFA04B3C-6194-4B8F-BF9C-07B956634F89224171.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28466.175485599466,
+        "amountEurSpouse": 11368.063686516722
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1293,
+        "valueEur": 661.1004023867105,
+        "holderName": "Елка Росенова Каменова",
+        "isSpouse": false,
+        "legalBasis": "договор с л. % 7.99 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48676,
+        "valueEur": 24887.64360910713,
+        "holderName": "Златко Александров Каменов",
+        "isSpouse": true,
+        "legalBasis": "договор с л. % 4.99 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 933.1076831830987,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "elka-rosenova-kamenova-f0d608",
+    "declarantName": "ЕЛКА РОСЕНОВА КАМЕНОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

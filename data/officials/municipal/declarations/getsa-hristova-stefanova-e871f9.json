@@ -4,15 +4,22 @@
     "declarantName": "Геца Христова Стефанова",
     "institution": "Карлово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-02-16",
-    "entryNumber": "В140",
-    "controlHash": "CC4B4916",
-    "sourceUrl": "https://register.cacbg.bg/2025/F80CD8BC-BCAA-4E69-B505-29FF5E3E4E37201894.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8800",
+    "controlHash": "9B3B7467",
+    "sourceUrl": "https://register.cacbg.bg/2026/F80CD8BC-BCAA-4E69-B505-29FF5E3E4E37233337.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8462.903217559808,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -29,8 +36,26 @@
         "valueEur": 1533.8756435886555,
         "holderName": "Геца Христова Стефанова",
         "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10677,
+        "valueEur": 5459.063415532025,
+        "holderName": "Геца Христова Стефанова",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "по Таблица 12 - ръчно - заплата, пенсия"
       },
       {
         "category": "bank",
@@ -43,56 +68,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11820,
-        "valueEur": 6043.470035739302,
+        "amount": 10677,
+        "valueEur": 5459.063415532025,
         "holderName": "Геца Христова Стефанова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "по Таблица 12 - ръчно - заплата, пенсия"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "getsa-hristova-stefanova-e871f9",
-    "declarantName": "Геца Христова Стефанова",
-    "institution": "Карлово",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-02-25",
-    "entryNumber": "В142",
-    "controlHash": "A2B26E23",
-    "sourceUrl": "https://register.cacbg.bg/2025/F80CD8BC-BCAA-4E69-B505-29FF5E3E4E37201896.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛЕН СЪВЕТ - секретар",
-        "companyName": "„Национална културна платформа“",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "11",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "УПРАВИТЕЛЕН СЪВЕТ - секретар",
-        "companyName": "„Национална културна платформа“",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

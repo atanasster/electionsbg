@@ -5,6 +5,68 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3109",
+    "controlHash": "3F4E835E",
+    "sourceUrl": "https://register.cacbg.bg/2026/7A25FF2E-9212-4CC4-891F-D67FC7F0AE87227208.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25315.08362178717,
+        "amountEurSpouse": 6673.381633373044
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 209729,
+        "valueEur": 107232.73495140171,
+        "holderName": "Минка Георгиева Еремиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 114562,
+        "valueEur": 58574.620493601185,
+        "holderName": "Минка Георгиева Еремиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "minka-georgieva-eremieva-b95f10",
+    "declarantName": "Минка Георгиева Еремиева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

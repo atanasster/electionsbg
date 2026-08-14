@@ -1,63 +1,39 @@
 [
   {
     "slug": "vanya-krasimirova-ivanova-08be6e",
-    "declarantName": "Ваня Красимирова Иванова",
+    "declarantName": "Ваня Красимирова Иванов",
     "institution": "Ботевград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13962",
-    "controlHash": "14A88D12",
-    "sourceUrl": "https://register.cacbg.bg/2025/66282EDD-A870-4676-8B44-E2E38FCDC687217224.xml",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11232",
+    "controlHash": "10FEB8D5",
+    "sourceUrl": "https://register.cacbg.bg/2026/66282EDD-A870-4676-8B44-E2E38FCDC687236103.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2478.2317481580712,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 3707.3774305537804,
+        "amountEurSpouse": 12651.40630831923
       }
     ],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "real_estate",
-        "description": "къща с двор",
+        "kind": "disposal_property",
+        "description": "таванско помещение",
         "detail": null,
-        "location": "с.Елов дол",
+        "location": "гр. Ботевград, ул. \"Цар Иван Шишман\" №17Б, вх. Б, ет. 2, ап. 7",
         "municipality": "Ботевград",
-        "areaSqm": 1989,
-        "builtAreaSqm": 100,
-        "acquiredYear": 2024,
-        "share": "1/1",
+        "areaSqm": 25,
+        "builtAreaSqm": 25,
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "ВАНЯ КРАСИМИРВА ИВАНОВА",
-        "isSpouse": true,
-        "legalBasis": "дарение",
-        "fundsOrigin": "х"
-      },
-      {
-        "category": "debt",
-        "description": "кредитна крата",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
-        "holderName": "Ваня Красимирова Иванова",
-        "isSpouse": false,
-        "legalBasis": "договор кр.карта 18.9%",
-        "fundsOrigin": null
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

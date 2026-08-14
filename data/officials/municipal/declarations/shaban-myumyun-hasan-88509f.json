@@ -4,29 +4,42 @@
     "declarantName": "Шабан Мюмюн Хасан",
     "institution": "Джебел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г11134",
-    "controlHash": "5A899143",
-    "sourceUrl": "https://register.cacbg.bg/2025/0181B16D-2505-4CE1-BF9B-BCF9E878DEFA214259.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г5660",
+    "controlHash": "AFD49E36",
+    "sourceUrl": "https://register.cacbg.bg/2026/0181B16D-2505-4CE1-BF9B-BCF9E878DEFA229924.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2050.280443596836,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 7669.378217943277
+        "amountEurDeclarant": 1609.0355501244997,
+        "amountEurSpouse": 6607.936272579927
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Шабан Мюмюн Хасан",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

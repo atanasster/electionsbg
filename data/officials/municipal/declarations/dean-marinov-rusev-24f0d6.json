@@ -4,32 +4,32 @@
     "declarantName": "Деан Маринов Русев",
     "institution": "Попово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2987",
-    "controlHash": "CFEA3E0A",
-    "sourceUrl": "https://register.cacbg.bg/2025/D2F9FD02-0DE7-4937-8C7D-B6A1388702CB205702.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г5691",
+    "controlHash": "649F6402",
+    "sourceUrl": "https://register.cacbg.bg/2026/D2F9FD02-0DE7-4937-8C7D-B6A1388702CB229955.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4489.142716902798,
+        "amountEurDeclarant": 4572.483293537782,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12034.277007715395,
-        "amountEurSpouse": 1225.5666392273358
+        "amountEurDeclarant": 15855.672527775932,
+        "amountEurSpouse": 6518.971485251785
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 8652.592505483606
+        "amountEurSpouse": 2441.9300245931395
       },
       {
         "parent": null,
@@ -39,6 +39,24 @@
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ФОРД ФИЕСТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 580,
+        "valueEur": 296.54929109380674,
+        "holderName": "Деан Маринов Русев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -50,8 +68,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 780,
-        "valueEur": 398.8076673330504,
+        "amount": 15570,
+        "valueEur": 7960.814590225122,
         "holderName": "Деан Маринов Русев",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 21210,
-        "valueEur": 10844.500800171794,
+        "amount": 49000,
+        "valueEur": 25053.302178614707,
         "holderName": "Виктория Любомирова Русева",
         "isSpouse": true,
         "legalBasis": null,

@@ -4,48 +4,54 @@
     "declarantName": "Снежка Николова Делииванова",
     "institution": "Ивайловград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г9487",
-    "controlHash": "C9D55697",
-    "sourceUrl": "https://register.cacbg.bg/2025/2A35DEE6-B5DB-4886-929D-C9608C070528212528.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г9152",
+    "controlHash": "0A376F1B",
+    "sourceUrl": "https://register.cacbg.bg/2026/2A35DEE6-B5DB-4886-929D-C9608C070528233729.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18334.926859696396,
-        "amountEurSpouse": 24174.391434838406
+        "amountEurDeclarant": 20620.912860524688,
+        "amountEurSpouse": 27533.067802416364
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2586.114335090473,
+        "amountEurDeclarant": 2615.2579723186577,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 825.2250962506967
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 6048.071662670069
+        "amountEurSpouse": 6880.966137138708
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 13977,
-        "valueEur": 7146.326623479546,
+        "currency": "EUR",
+        "amount": 13850,
+        "valueEur": 13850.385769724362,
         "holderName": "Снежка Николова Делииванова",
         "isSpouse": false,
         "legalBasis": null,

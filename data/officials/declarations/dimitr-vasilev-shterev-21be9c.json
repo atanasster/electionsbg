@@ -5,6 +5,116 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4432",
+    "controlHash": "FB9FA03B",
+    "sourceUrl": "https://register.cacbg.bg/2026/53F89473-E329-4676-8CAB-BA83821E5911228632.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39066.278766559466,
+        "amountEurSpouse": 20397.47830844194
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10884.3815669051,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 287.857329113471,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента",
+        "amountEurDeclarant": 1288.4555406144707,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия-ИОЗ",
+        "amountEurDeclarant": 10763.205391061596,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Помощ по чл.70, т.1 от ЗХУ",
+        "amountEurDeclarant": 269.96211327160336,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж - строеж, Акт 15",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Василев Щерев",
+        "isSpouse": false,
+        "legalBasis": "учредено право на строеж",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88500,
+        "valueEur": 45249.33148586534,
+        "holderName": "Димитър Василев Щерев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, пенсии, рента, соц. помощи"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 149993,
+        "valueEur": 76690.2031362644,
+        "holderName": "Димитър Василев Щерев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, пенсии, рента, соц. помощи"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-vasilev-shterev-21be9c",
+    "declarantName": "Димитър Василев Щерев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

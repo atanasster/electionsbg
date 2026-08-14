@@ -4,35 +4,72 @@
     "declarantName": "Малина Златкова Ешекова",
     "institution": "Белене",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3217",
-    "controlHash": "F2E3B397",
-    "sourceUrl": "https://register.cacbg.bg/2025/682BD5B6-F0FA-465B-8B2B-41CD073E1E4C205951.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г3330",
+    "controlHash": "239CAA5C",
+    "sourceUrl": "https://register.cacbg.bg/2026/682BD5B6-F0FA-465B-8B2B-41CD073E1E4C227455.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20767.653630428,
-        "amountEurSpouse": 7909.6854021055
+        "amountEurDeclarant": 20374.47017378811,
+        "amountEurSpouse": 26207.28795447457
       },
       {
         "parent": null,
-        "category": "Обезщетения от временна неработоспособност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 11052.08530393746
-      },
-      {
-        "parent": null,
-        "category": "Направени от работодателя социални разходи за вноски/премии за допълнително доброволно осигуряване, доброволно здравно осигуряване и/или застраховка \"Живот\", освободени от облагане на основание чл.24, ал.2, т.12 от ЗДДФЛ",
+        "category": "Направени от работодателя социални разходи за вноски за допълнително доброволно здравно осигуряване освободени от облагане на основание чл 24, ал. 2 т.12 от ЗДДФЛ",
         "amountEurDeclarant": null,
         "amountEurSpouse": 368.1301544612773
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалидност поради общо заболяване",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 578.2711176329232
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2463,
+        "valueEur": 2462.8929917221844,
+        "holderName": "Малина Златкова Ешекова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4438,
+        "valueEur": 4437.502236901981,
+        "holderName": "Бисер Иванов Ешеков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

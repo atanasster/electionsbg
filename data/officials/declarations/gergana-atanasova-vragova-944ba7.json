@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-01",
+    "entryNumber": "Г3841",
+    "controlHash": "F8B4C5AC",
+    "sourceUrl": "https://register.cacbg.bg/2026/54A71AB9-F386-44EF-8501-9F92B2C876D4228010.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25692.928321991174,
+        "amountEurSpouse": 47422.83327283046
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65648,
+        "valueEur": 33565.28941676935,
+        "holderName": "Атанас Петров Врагов",
+        "isSpouse": true,
+        "legalBasis": "4,2 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-atanasova-vragova-944ba7",
+    "declarantName": "Гергана Атанасова Врагова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

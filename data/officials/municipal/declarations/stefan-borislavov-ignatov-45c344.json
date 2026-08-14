@@ -4,91 +4,61 @@
     "declarantName": "Стефан Бориславов Игнатов",
     "institution": "Белослав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11527",
-    "controlHash": "1600F504",
-    "sourceUrl": "https://register.cacbg.bg/2025/EEE32075-FE2B-4D18-8CBC-F3C457119B9F214671.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9545",
+    "controlHash": "58D07DA7",
+    "sourceUrl": "https://register.cacbg.bg/2026/EEE32075-FE2B-4D18-8CBC-F3C457119B9F234172.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялово участие",
+        "shareSize": "5%",
+        "companyName": "КТВ-Белослав ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 255.64594059810923,
+        "holderName": "Стефан Бориславов Игнатов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10769.852185517146,
-        "amountEurSpouse": 3959.444327983516
+        "amountEurDeclarant": 12200.958160985361,
+        "amountEurSpouse": 4385.350465019966
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1821.2216808209303,
+        "amountEurDeclarant": 6036.8232412837515,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 1725,
-        "valueEur": 881.9784950634769,
+        "amount": 38300,
+        "valueEur": 19582.479049815167,
         "holderName": "Стефан Бориславов Игнатов",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Хюндай",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 1725,
-        "valueEur": 881.9784950634769,
-        "holderName": "Саша Чанева Игнатова",
-        "isSpouse": true,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Нисан",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Нисан",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,35 +4,54 @@
     "declarantName": "Севинч Рамадан Смаил",
     "institution": "Руен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4575",
-    "controlHash": "96D4CF9C",
-    "sourceUrl": "https://register.cacbg.bg/2025/4FCE5D2B-D71E-4495-AF85-648F7F0A065F207434.xml",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г2318",
+    "controlHash": "242F520E",
+    "sourceUrl": "https://register.cacbg.bg/2026/4FCE5D2B-D71E-4495-AF85-648F7F0A065F226358.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4907.379475721305,
+        "amountEurDeclarant": 5959.618167223122,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7509.855151010057,
+        "amountEurDeclarant": 7265.457631798265,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "доходи  на съпруга по трудови правоотношения от чужбина",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3067.751287177311
+        "amountEurSpouse": 12782.297029905461
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шевролет матиз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1056,
+        "valueEur": 539.9242265432067,
+        "holderName": "Севинч Рамадан  Смаил, Реджеб Мустафа Смаил",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

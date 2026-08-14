@@ -4,32 +4,50 @@
     "declarantName": "Силвия Чавдарова Иванова",
     "institution": "Братя Даскалови",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г6100",
-    "controlHash": "3E222761",
-    "sourceUrl": "https://register.cacbg.bg/2025/6D85AE30-51CC-47A2-A796-74F9C2799274209051.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г8426",
+    "controlHash": "4A0DC463",
+    "sourceUrl": "https://register.cacbg.bg/2026/6D85AE30-51CC-47A2-A796-74F9C2799274232932.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6560.38612762868,
-        "amountEurSpouse": 9543.774254408614
+        "amountEurDeclarant": 6202.481810791326,
+        "amountEurSpouse": 9114.800366084986
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6476.5342591125,
+        "amountEurDeclarant": 6551.182873767148,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ц220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2 СИО",
+        "currency": "BGN",
+        "amount": 6600,
+        "valueEur": 3374.526415895042,
+        "holderName": "Силвия Чавдарова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,14 +56,63 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Силвия Чавдаров Иванова",
+        "isSpouse": true,
+        "legalBasis": "договор - 6,04%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Силвия Чавдаров Иванова",
+        "isSpouse": true,
+        "legalBasis": "договор - 12,50%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
         "holderName": "Стоян Атанасов Иванов",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 6,04%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Ц220ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

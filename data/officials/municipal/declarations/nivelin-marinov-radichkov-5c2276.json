@@ -4,25 +4,37 @@
     "declarantName": "Нивелин Маринов Радичков",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8055",
-    "controlHash": "7CC0DE20",
-    "sourceUrl": "https://register.cacbg.bg/2025/CE75548E-3D61-4033-936D-EFF2EE41D768211064.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7913",
+    "controlHash": "5D9B7812",
+    "sourceUrl": "https://register.cacbg.bg/2026/CE75548E-3D61-4033-936D-EFF2EE41D768232375.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13977.69744814222,
-        "amountEurSpouse": 14835.645224789476
+        "amountEurDeclarant": 16529.04393531135,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6280.709468614348,
+        "amountEurDeclarant": 5914.624481677855,
+        "amountEurSpouse": 14588.691246171702
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 552.195231691916,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента от земи",
+        "amountEurDeclarant": 664.679445555084,
         "amountEurSpouse": null
       }
     ],
@@ -38,16 +50,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 55000,
-        "valueEur": 28121.053465792018,
+        "amount": 76822,
+        "valueEur": 39278.46489725589,
         "holderName": "Нивелин Маринов Радичков",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "кредит",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,11 +68,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6850,
-        "valueEur": 3502.3493861940965,
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
         "holderName": "Нивелин Маринов Радичков",
         "isSpouse": false,
-        "legalBasis": "договор за кредит",
+        "legalBasis": null,
+        "fundsOrigin": "рента"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Нивелин Маринов Радичков",
+        "isSpouse": false,
+        "legalBasis": "покупка на автомобил",
         "fundsOrigin": null
       }
     ],

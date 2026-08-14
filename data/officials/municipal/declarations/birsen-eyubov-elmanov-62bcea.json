@@ -4,45 +4,32 @@
     "declarantName": "Бирсен Еюбов Елманов",
     "institution": "Върбица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11149",
-    "controlHash": "3793FE3C",
-    "sourceUrl": "https://register.cacbg.bg/2025/50F19DF1-BCC6-4541-B539-A9B751726C39214274.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "ЕТ",
-        "shareSize": "100",
-        "companyName": "Б ЕНД Б - ТАТ- Бирсен Еюбов",
-        "registeredOffice": "Върбица",
-        "valueEur": 0,
-        "holderName": "Бирсен Еюбов Елманов",
-        "legalBasis": "други",
-        "fundsOrigin": "0"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7960",
+    "controlHash": "90221C33",
+    "sourceUrl": "https://register.cacbg.bg/2026/50F19DF1-BCC6-4541-B539-A9B751726C39232427.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5100.136514932279,
-        "amountEurSpouse": 11187.06636057326
+        "amountEurDeclarant": 5809.809646032631,
+        "amountEurSpouse": 279.6766590143315
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2486.4124182572104,
+        "amountEurDeclarant": 2894.423339451793,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "ЗАЕМ",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -51,8 +38,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60657,
-        "valueEur": 31013.431637719026,
+        "amount": 101449,
+        "valueEur": 51870.05005547517,
+        "holderName": "Бирсен Еюбов Елманов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53347,
+        "valueEur": 27275.88798617467,
         "holderName": "Бирсен Еюбов Елманов",
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",

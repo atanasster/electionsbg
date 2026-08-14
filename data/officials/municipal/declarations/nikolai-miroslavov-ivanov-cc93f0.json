@@ -4,32 +4,38 @@
     "declarantName": "Николай Мирославов Иванов",
     "institution": "Мизия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г4224",
-    "controlHash": "C17A9C43",
-    "sourceUrl": "https://register.cacbg.bg/2025/74C2AE57-5A5A-4CBF-8F51-D9CB00B171CA207065.xml",
+    "filedAt": null,
+    "entryNumber": "Г11660",
+    "controlHash": "65A1829C",
+    "sourceUrl": "https://register.cacbg.bg/2026/74C2AE57-5A5A-4CBF-8F51-D9CB00B171CA236617.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2992.591380641467,
+        "amountEurDeclarant": 4516.752478487394,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 7013.390734368529,
+        "amountEurDeclarant": 639.1148514952731,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Земеделски производител",
+        "amountEurDeclarant": 6297.070808812627,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "заем",
+        "description": "Лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,16 +44,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6270,
-        "valueEur": 3205.80009510029,
-        "holderName": "Николай Мирославов Иваноов",
-        "isSpouse": true,
-        "legalBasis": "земеделски заем, 6,61%",
+        "amount": 53990,
+        "valueEur": 27604.648665783836,
+        "holderName": "Николай Мирославов Иванов",
+        "isSpouse": false,
+        "legalBasis": "лизинг, 3,08%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "лизинг",
+        "description": "Земеделски заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,32 +62,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 66800,
-        "valueEur": 34154.2976639074,
-        "holderName": "Никколай Мирославов Иванов",
-        "isSpouse": true,
-        "legalBasis": "лизинг, 2,99%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "кредитна карта",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 7400,
-        "valueEur": 3783.5599208520166,
-        "holderName": "Николай Мирославов Иваноов",
-        "isSpouse": true,
-        "legalBasis": "кредитна карта",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Николай Мирославов Иванов",
+        "isSpouse": false,
+        "legalBasis": "заем, 5,3%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "ВМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

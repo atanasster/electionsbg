@@ -4,32 +4,32 @@
     "declarantName": "Тунчай Февзи Акиф",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6555",
-    "controlHash": "E03C9721",
-    "sourceUrl": "https://register.cacbg.bg/2025/2F86E35D-2244-496E-91A5-8220FBD63163209516.xml",
+    "filedAt": null,
+    "entryNumber": "Г4293",
+    "controlHash": "65232548",
+    "sourceUrl": "https://register.cacbg.bg/2026/2F86E35D-2244-496E-91A5-8220FBD63163228490.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5743.341701477122,
-        "amountEurSpouse": 7943.941958145647
+        "amountEurDeclarant": 7212.794568035054,
+        "amountEurSpouse": 4562.2574559138575
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3835.2004008528347,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 1324.757264179402,
+        "amountEurSpouse": 2622.4160586554044
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,14 +38,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27844,
-        "valueEur": 14236.411140027507,
+        "amount": 24658,
+        "valueEur": 12607.435206536356,
         "holderName": "Севназ Неждет Акиф",
         "isSpouse": true,
-        "legalBasis": "договор  - 4.19%",
+        "legalBasis": "договор - 4,19%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1033.3208918975577,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1048.659648333444,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

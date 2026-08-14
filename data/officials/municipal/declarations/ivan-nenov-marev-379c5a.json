@@ -1,28 +1,28 @@
 [
   {
     "slug": "ivan-nenov-marev-379c5a",
-    "declarantName": "Иван Ненов Марев",
+    "declarantName": "ИВАН НЕНОВ МАРЕВ",
     "institution": "Дряново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12770",
-    "controlHash": "BAB9C3F0",
-    "sourceUrl": "https://register.cacbg.bg/2025/4FC1FAE1-7085-4C56-8CAA-9771E313C243215945.xml",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г2097",
+    "controlHash": "8C4B8C37",
+    "sourceUrl": "https://register.cacbg.bg/2026/4FC1FAE1-7085-4C56-8CAA-9771E313C243226081.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6571.634549014996,
+        "amountEurDeclarant": 6155.442957721274,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4305.077639672159,
+        "amountEurDeclarant": 10791.837736408585,
         "amountEurSpouse": null
       }
     ],
@@ -38,11 +38,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 27596,
-        "valueEur": 14109.610753490846,
+        "amount": 23828,
+        "valueEur": 12183.062945143494,
         "holderName": "Иван Ненов Марев",
         "isSpouse": false,
-        "legalBasis": "кредит",
+        "legalBasis": "Кредит - 5,29 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3599,
+        "valueEur": 1840.1394804251904,
+        "holderName": "Иван Ненов Марев",
+        "isSpouse": false,
+        "legalBasis": "Кредит - 18,90 %",
         "fundsOrigin": null
       }
     ],

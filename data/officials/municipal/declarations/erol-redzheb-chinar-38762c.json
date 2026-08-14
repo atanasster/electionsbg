@@ -4,48 +4,60 @@
     "declarantName": "Ерол Реджеб Чинар",
     "institution": "Златоград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11047",
-    "controlHash": "92EF732F",
-    "sourceUrl": "https://register.cacbg.bg/2025/EAAED1F1-20F3-4038-8DF1-FB9C8A68826F214169.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г10699",
+    "controlHash": "03A7C2C7",
+    "sourceUrl": "https://register.cacbg.bg/2026/EAAED1F1-20F3-4038-8DF1-FB9C8A68826F235486.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35937.17245363861,
-        "amountEurSpouse": 19130.49702683771
+        "amountEurDeclarant": 42388.1421186913,
+        "amountEurSpouse": 22257.558172233785
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 21474.259010241178
+        "amountEurSpouse": 36097.71810433422
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 7400.4386884340665,
+        "category": "Доходи от лихви по влогове освободени от облагане чл.1, ал.1, т.8 от ЗДДФЛ",
+        "amountEurDeclarant": 9.203253861531932,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от обезщетения и помощи по чл.40, ал.5 от КТ",
+        "amountEurDeclarant": 232.1265140630832,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти и ликвидационни дялове по чл.38, ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15500.32467034456
       }
     ],
     "assets": [
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
+        "currency": "EUR",
+        "amount": 105010,
+        "valueEur": 105009.63785196055,
         "holderName": "Ерол Реджеб Чинар",
         "isSpouse": false,
         "legalBasis": null,
@@ -54,16 +66,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
+        "currency": "EUR",
+        "amount": 77214,
+        "valueEur": 77213.76602260933,
         "holderName": "Албена Здравкова Чинарева",
         "isSpouse": true,
         "legalBasis": null,

@@ -4,59 +4,29 @@
     "declarantName": "Васил Александров Терзиев",
     "institution": "Столична община",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9526",
-    "controlHash": "62DBECD4",
-    "sourceUrl": "https://register.cacbg.bg/2025/DFE357DB-3B61-42BF-B376-6923F6395A66212571.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5337",
+    "controlHash": "1C5497F3",
+    "sourceUrl": "https://register.cacbg.bg/2026/DFE357DB-3B61-42BF-B376-6923F6395A66229589.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 56473.21086188473,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 8712.413655583563,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 6299.627268218608,
+        "amountEurDeclarant": 79193.99947848228,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 23223.899827694637,
+        "amountEurDeclarant": 269.96211327160336,
         "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "Магазин-СОС 68134.1006.755.3.7",
-        "detail": null,
-        "location": "гр. София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 64,
-        "builtAreaSqm": 64,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 143000,
-        "valueEur": 73114.73901105924,
-        "holderName": "Васил Александров Терзиев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и изплатен дивидент"
-      },
       {
         "category": "cash",
         "description": null,
@@ -68,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 120550,
-        "valueEur": 61636.23627820414,
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "продажба на недв. имот"
+        "fundsOrigin": "продажба на недвижим имот"
       },
       {
         "category": "bank",
@@ -86,30 +56,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 225984,
-        "valueEur": 115543.78448024624,
+        "amount": 16333,
+        "valueEur": 8350.930295577837,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на недв. имот и акции"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "USD",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "USD",
-        "amount": 83,
-        "valueEur": 73.62603089225546,
+        "currency": "BGN",
+        "amount": 27019,
+        "valueEur": 13814.595338040628,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата+продажба на недвижим имот"
       },
       {
         "category": "bank",
@@ -131,7 +101,7 @@
       },
       {
         "category": "receivable",
-        "description": "ЗАЕМ",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -142,9 +112,9 @@
         "currency": "BGN",
         "amount": 68484,
         "valueEur": 35015.31319184183,
-        "holderName": "ТРАЙБЪЛ ХАУС ООД",
-        "isSpouse": true,
-        "legalBasis": "заем",
+        "holderName": "Васил Александров Терзиев",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
       {
@@ -158,11 +128,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 60282,
-        "valueEur": 30821.697182270444,
+        "amount": 18775,
+        "valueEur": 9599.505069459003,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
-        "legalBasis": "договор; лихва 2% годишно",
+        "legalBasis": "кредитна карта - 15.75% годишна лихва",
         "fundsOrigin": null
       },
       {
@@ -176,43 +146,43 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 90000,
-        "valueEur": 46016.26930765966,
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
-        "legalBasis": "договор; лихва 2% годишно",
+        "legalBasis": "договор за заем, лихва 2% годишно",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "15.75% годишна лихва",
-        "detail": "BGN",
+        "description": "заем",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 19746,
-        "valueEur": 10095.96948610053,
+        "currency": "EUR",
+        "amount": 891152,
+        "valueEur": 891152.0939958994,
         "holderName": "Васил Александров Терзиев",
         "isSpouse": false,
-        "legalBasis": "договор за кредитна карта",
+        "legalBasis": "ипотечен кредит към банка",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_property",
-        "description": "Магазин-СОС 68134.1006.755.3.7",
+        "description": "апартамент",
         "detail": null,
         "location": "гр. София",
         "municipality": "София-град (Столична)",
-        "areaSqm": 64,
-        "builtAreaSqm": 64,
+        "areaSqm": 118,
+        "builtAreaSqm": 126,
         "currency": "BGN",
-        "valueEur": 149999.7443540594,
+        "valueEur": 345000.3323397228,
         "legalBasis": "възмездно"
       }
     ]

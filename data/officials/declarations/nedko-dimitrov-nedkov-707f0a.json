@@ -5,6 +5,92 @@
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2533",
+    "controlHash": "03AFCEB1",
+    "sourceUrl": "https://register.cacbg.bg/2026/876D6769-B248-4A19-831D-08BE3A863A84226590.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40949.366765005136,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3773.3340832280924,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия по чл.69 КСО",
+        "amountEurDeclarant": 17195.257256510024,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия от задължително доп.пенсионно осигуряване",
+        "amountEurDeclarant": 1959.2704887439093,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия по чл.68 КСО",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14031.89438754902
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18070,
+        "valueEur": 9239.044293215667,
+        "holderName": "Недко Димитров Недков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53159,
+        "valueEur": 27179.76511250978,
+        "holderName": "Адрияна Дантева Андреева-Недкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nedko-dimitrov-nedkov-707f0a",
+    "declarantName": "Недко Димитров Недков",
+    "institution": "Инспекторати",
+    "positionTitle": "Ръководител",
+    "category": "inspectorate",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "РДНСК",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10164",
+    "controlHash": "CFDB88AB",
+    "sourceUrl": "https://register.cacbg.bg/2026/94FE121F-DB4D-4664-8060-5A2960828958234858.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19362.1122490196,
+        "amountEurSpouse": 3275.3357909429756
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 84905,
+        "valueEur": 43411.23717296493,
+        "holderName": "Диян Иванов Катранджиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "работна заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41239,
+        "valueEur": 21085.165888650856,
+        "holderName": "Елена Димова Бодурова – Катранджиева",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diyan-ivanov-katrandzhiev-31a835",
+    "declarantName": "Диян Иванов Катранджиев",
+    "institution": "РДНСК",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2024,
     "fiscalYear": null,
     "declarationType": "Other",

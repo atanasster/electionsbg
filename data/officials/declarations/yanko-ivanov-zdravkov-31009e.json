@@ -5,6 +5,56 @@
     "institution": "МБАЛ \"Лозенец\"",
     "positionTitle": "Независим член",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г5523",
+    "controlHash": "DDE7ACDD",
+    "sourceUrl": "https://register.cacbg.bg/2026/8D388DBF-3DEF-4E05-ADCB-26123A88C77A229786.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30057.827111763294,
+        "amountEurSpouse": 26354.54001625908
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4294.851802048235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент и ид.ч. от УПИ, заедно с разпределено ползване на две тераси с площ от 204 кв.м. и три външни паркоместа с площ от 36 кв.м.",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 112,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Янко Иванов Здравков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дивиденти, декларирани във встъпителна декларация"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yanko-ivanov-zdravkov-31009e",
+    "declarantName": "Янко Иванов Здравков",
+    "institution": "МБАЛ \"Лозенец\"",
+    "positionTitle": "Независим член",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

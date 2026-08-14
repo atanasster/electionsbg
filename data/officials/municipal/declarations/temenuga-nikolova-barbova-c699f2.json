@@ -4,25 +4,31 @@
     "declarantName": "ТЕМЕНУГА НИКОЛОВА БАРБОВА",
     "institution": "Малко Търново",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-05",
-    "entryNumber": "Г14990",
-    "controlHash": "3810DA1F",
-    "sourceUrl": "https://register.cacbg.bg/2025/8E39AEFE-8F0F-40DA-A51E-96B4848B3128218549.xml",
+    "filedAt": "2026-03-12",
+    "entryNumber": "Г263",
+    "controlHash": "301F3043",
+    "sourceUrl": "https://register.cacbg.bg/2026/8E39AEFE-8F0F-40DA-A51E-96B4848B3128223334.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11206.495452058716,
+        "amountEurDeclarant": 9496.224109457366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5058.210580674189,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 140.60526732896008,
+        "amountEurDeclarant": 272.5185726775845,
         "amountEurSpouse": null
       },
       {
@@ -30,20 +36,87 @@
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
         "amountEurDeclarant": 3589.269005997454,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба н имот",
+        "amountEurDeclarant": 68001.82019909706,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент от Бюро Онли ООД",
+        "amountEurDeclarant": 63360.82379347899,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 147000,
+        "valueEur": 75159.90653584411,
+        "holderName": "ТЕМЕНУГА НИКОЛОВА БАРБОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "лични спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43000,
+        "valueEur": 21985.550891437397,
+        "holderName": "ТЕМЕНУГА НИКОЛОВА БАРБОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "лични спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 104000,
+        "valueEur": 53174.35564440672,
+        "holderName": "ТЕМЕНУГА НИКОЛОВА БАРБОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "лични спестявания"
+      }
+    ],
     "events": [
       {
         "kind": "disposal_property",
-        "description": "парцел",
+        "description": "земя",
         "detail": null,
         "location": "м. Буджака, гр. Созопол",
         "municipality": "Созопол",
-        "areaSqm": 2533,
-        "builtAreaSqm": 2533,
+        "areaSqm": 2078,
+        "builtAreaSqm": 2078,
         "currency": "BGN",
-        "valueEur": 10480.460980760086,
+        "valueEur": 68001.82019909706,
         "legalBasis": "възмездно"
       }
     ]

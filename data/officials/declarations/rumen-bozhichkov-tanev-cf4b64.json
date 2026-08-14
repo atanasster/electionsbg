@@ -5,6 +5,43 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г4454",
+    "controlHash": "0BE1F8E3",
+    "sourceUrl": "https://register.cacbg.bg/2026/B3B7487A-03C4-439A-A2DC-1B1EB99447C4228654.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14320.263008543687,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 843.6316039737605,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от пенсия",
+        "amountEurDeclarant": 4294.851802048235,
+        "amountEurSpouse": 12000.020451675247
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "rumen-bozhichkov-tanev-cf4b64",
+    "declarantName": "Румен Божичков Танев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

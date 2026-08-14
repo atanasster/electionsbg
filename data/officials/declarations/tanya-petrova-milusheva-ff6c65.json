@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10816",
+    "controlHash": "D2553DE6",
+    "sourceUrl": "https://register.cacbg.bg/2026/998ADB6D-270A-4FFB-940D-91EA675F36AB235611.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19974.639922692666,
+        "amountEurSpouse": 7505.764815960488
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67329,
+        "valueEur": 34424.771069060196,
+        "holderName": "Любен Георгиев Милушев",
+        "isSpouse": true,
+        "legalBasis": "2.69%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53421,
+        "valueEur": 27313.723585383188,
+        "holderName": "Любен Георгиев Милушев",
+        "isSpouse": true,
+        "legalBasis": "4.39%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tanya-petrova-milusheva-ff6c65",
+    "declarantName": "Таня Петрова Милушева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

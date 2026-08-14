@@ -4,26 +4,38 @@
     "declarantName": "Цветелина Ангелова Джелепова",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6521",
-    "controlHash": "49E88657",
-    "sourceUrl": "https://register.cacbg.bg/2025/CD112F30-573C-4FED-94CC-037A12A88FE9209482.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13769",
+    "controlHash": "FB683795",
+    "sourceUrl": "https://register.cacbg.bg/2026/CD112F30-573C-4FED-94CC-037A12A88FE9239368.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7270.05925872903,
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6340.0193268331095,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Издръжка за непълнолетни деца",
+        "amountEurDeclarant": 5248.922452360379,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "Кредит",
+        "description": "Заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -36,7 +48,7 @@
         "valueEur": 25564.594059810923,
         "holderName": "Цветелина Ангелова Джелепова",
         "isSpouse": false,
-        "legalBasis": "няма",
+        "legalBasis": null,
         "fundsOrigin": null
       }
     ],

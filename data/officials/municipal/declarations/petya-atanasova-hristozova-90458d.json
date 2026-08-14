@@ -4,36 +4,72 @@
     "declarantName": "Петя Атанасова Христозова",
     "institution": "Любимец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г4623",
-    "controlHash": "83181C88",
-    "sourceUrl": "https://register.cacbg.bg/2025/F4A8C495-C034-4C42-A554-744E2EEAE70D207492.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г10383",
+    "controlHash": "7AA8CDF8",
+    "sourceUrl": "https://register.cacbg.bg/2026/F4A8C495-C034-4C42-A554-744E2EEAE70D235123.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6619.695985847441,
+        "amountEurDeclarant": 6920.335611990818,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6546.581246836382,
+        "amountEurDeclarant": 7428.048450018662,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Продажба на лек автомобил",
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 715.8086336747059
+        "amountEurSpouse": 19040.509655747177
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 113500,
+        "valueEur": 58031.6285157708,
+        "holderName": "Диан Андонов Илчев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ипотечен кредит"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 113500,
+        "valueEur": 58031.6285157708,
+        "holderName": "Петя Атанасова Христозова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ипотечен кредит"
+      },
+      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -44,8 +80,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5072,
-        "valueEur": 2593.2724214272203,
+        "amount": 15514,
+        "valueEur": 7932.182244878134,
         "holderName": "Петя Атанасова Христозова",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,12 +98,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3053,
-        "valueEur": 1560.974113292055,
+        "amount": 1941,
+        "valueEur": 992.41754140186,
         "holderName": "Андон Илчев Христозов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "debt",
@@ -80,11 +116,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 170000,
-        "valueEur": 86919.61980335714,
+        "amount": 164579,
+        "valueEur": 84147.90651539245,
         "holderName": "Петя Атанасова Христозова",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 2.56 лих.%",
         "fundsOrigin": null
       },
       {
@@ -98,27 +134,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 37726,
-        "valueEur": 19288.99751000854,
+        "amount": 33097,
+        "valueEur": 16922.227391951244,
         "holderName": "Андон Илчев Христозов",
         "isSpouse": true,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 4.75лих.%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "шкода",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 715.8086336747059,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -5,6 +5,68 @@
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-20",
+    "entryNumber": "Г443",
+    "controlHash": "5CB44AA7",
+    "sourceUrl": "https://register.cacbg.bg/2026/7EFACB7F-58A8-4B9C-B6E0-78BC51A7B092223754.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30663.196699099615,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33250,
+        "valueEur": 17000.455049774264,
+        "holderName": "АТАНАС СТОЙЧЕВ СТОЙНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19560,
+        "valueEur": 10000.869196198033,
+        "holderName": "АТАНАС СТОЙЧЕВ СТОЙНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "НАСЛЕДЯВАНЕ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanas-stoichev-stoinev-f3221b",
+    "declarantName": "АТАНАС СТОЙЧЕВ СТОЙНЕВ",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

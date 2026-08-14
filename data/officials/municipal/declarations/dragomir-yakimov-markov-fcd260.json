@@ -4,46 +4,46 @@
     "declarantName": "Драгомир Якимов Марков",
     "institution": "Ябланица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-11",
-    "entryNumber": "Г2315",
-    "controlHash": "E77E1A2A",
-    "sourceUrl": "https://register.cacbg.bg/2025/86FF93AE-813B-4F17-9D47-EDD4A93BE90E204934.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г9750",
+    "controlHash": "D123DF2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/86FF93AE-813B-4F17-9D47-EDD4A93BE90E234396.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6380.411385447611,
+        "amountEurDeclarant": 6476.5342591125,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 3785.6050883768016,
+        "category": "Дивидент и ликвидационни дялове",
+        "amountEurDeclarant": 4858.806747007664,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай Кона",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "amount": 7404,
-        "valueEur": 3785.6050883768016,
+        "amount": 68500,
+        "valueEur": 35023.493861940966,
         "holderName": "Драгомир Якимов Марков",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -56,14 +56,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16258,
-        "valueEur": 8312.58340448812,
+        "amount": 31971,
+        "valueEur": 16346.512733724301,
         "holderName": "Драгомир Якимов Марков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9503,
+        "valueEur": 4858.806747007664,
+        "holderName": "Драгомир Якимов Марков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 5008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

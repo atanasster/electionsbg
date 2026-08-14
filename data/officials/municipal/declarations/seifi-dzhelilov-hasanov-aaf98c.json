@@ -4,23 +4,55 @@
     "declarantName": "Сейфи Джелилов Хасанов",
     "institution": "Търговище",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6101",
-    "controlHash": "3F4CBDAC",
-    "sourceUrl": "https://register.cacbg.bg/2025/BA3F09E7-FE05-4F9D-9FB4-F013FA1A619D209052.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8073",
+    "controlHash": "97AC51F7",
+    "sourceUrl": "https://register.cacbg.bg/2026/BA3F09E7-FE05-4F9D-9FB4-F013FA1A619D232551.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "товарен автомобил",
+        "shareSize": "100",
+        "companyName": "АГРОСЕЙФ ЕООД",
+        "registeredOffice": "Търговище",
+        "valueEur": 429.4851802048235,
+        "holderName": "Сейфи Джелилов Хасанов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5946.8358701932175,
-        "amountEurSpouse": 15622.523429950455
+        "amountEurDeclarant": 6754.677042483242,
+        "amountEurSpouse": 14608.631629538355
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14734,
+        "valueEur": 7533.374577545083,
+        "holderName": "Хатидже Мехмедова Исмаилова",
+        "isSpouse": true,
+        "legalBasis": "4.1",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

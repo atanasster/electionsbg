@@ -4,29 +4,66 @@
     "declarantName": "Петьо Веселинов Костов",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8620",
-    "controlHash": "A6A2D990",
-    "sourceUrl": "https://register.cacbg.bg/2025/11545B8D-744F-4C96-A97B-AF7670758ABA211642.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г10570",
+    "controlHash": "6710044A",
+    "sourceUrl": "https://register.cacbg.bg/2026/11545B8D-744F-4C96-A97B-AF7670758ABA235333.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15804.54333965631,
+        "amountEurDeclarant": 6210.15118900927,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 817.5557180327534,
+        "amountEurDeclarant": 1806.39421626624,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9584,
+        "valueEur": 4900.221389384558,
+        "holderName": "Петьо Веселинов Костов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20039,
+        "valueEur": 10245.778007291023,
+        "holderName": "Петьо Веселинов Костов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

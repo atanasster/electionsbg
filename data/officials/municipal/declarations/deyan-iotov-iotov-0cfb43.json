@@ -1,19 +1,39 @@
 [
   {
     "slug": "deyan-iotov-iotov-0cfb43",
-    "declarantName": "Деян Йотов Йотов",
+    "declarantName": "ДЕЯН ЙОТОВ ЙОТОВ",
     "institution": "Малко Търново",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10730",
-    "controlHash": "F78730F2",
-    "sourceUrl": "https://register.cacbg.bg/2025/8E800282-FEA9-490C-B28E-4D32E2C9E609213835.xml",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г815",
+    "controlHash": "C390A97F",
+    "sourceUrl": "https://register.cacbg.bg/2026/8E800282-FEA9-490C-B28E-4D32E2C9E609224394.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30317.052095529776,
+        "amountEurSpouse": 4478.916879278874
+      }
+    ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК",
+        "detail": "ОПЕЛ АСТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

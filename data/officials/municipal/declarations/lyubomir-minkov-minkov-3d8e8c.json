@@ -4,38 +4,44 @@
     "declarantName": "Любомир Минков Минков",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11763",
-    "controlHash": "B1220400",
-    "sourceUrl": "https://register.cacbg.bg/2025/B261881C-E1C6-4ECD-BE95-FE2EBFE519D5214915.xml",
+    "filedAt": null,
+    "entryNumber": "Г9802",
+    "controlHash": "1EF3A29D",
+    "sourceUrl": "https://register.cacbg.bg/2026/B261881C-E1C6-4ECD-BE95-FE2EBFE519D5234462.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6646.79445555084,
-        "amountEurSpouse": 16431.89847788407
+        "amountEurDeclarant": 8080.968182306233,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 46596.074300936176,
+        "amountEurDeclarant": 47762.33108194475,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 31221.016141484688,
+        "amountEurDeclarant": 11149.23076136474,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13293.58891110168
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "кредит",
+        "description": "Кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,16 +50,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75000,
-        "valueEur": 38346.89108971639,
-        "holderName": "ЛюбомирМинковМинков",
-        "isSpouse": true,
+        "amount": 23243,
+        "valueEur": 11883.957194643706,
+        "holderName": "Любомир Минков Минков",
+        "isSpouse": false,
         "legalBasis": "договор с 6.09%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "лизингавтомобил",
+        "description": "лизинг",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,27 +68,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28816,
-        "valueEur": 14733.386848550232,
-        "holderName": "ЛюбомирМинковМинков",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Джина Любомир Минкова",
         "isSpouse": true,
-        "legalBasis": "договор за лизинг",
+        "legalBasis": "договор с 0.4%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "Тойота",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4959.53124760332,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

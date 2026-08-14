@@ -4,25 +4,25 @@
     "declarantName": "Веселин Милованов Лахчев",
     "institution": "Бобошево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г4887",
-    "controlHash": "55EE5587",
-    "sourceUrl": "https://register.cacbg.bg/2025/21B8C834-50B5-4A37-BA03-CCA7A1D12BD8207767.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3390",
+    "controlHash": "13B2216C",
+    "sourceUrl": "https://register.cacbg.bg/2026/21B8C834-50B5-4A37-BA03-CCA7A1D12BD8227521.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4752.969327600047,
+        "amountEurDeclarant": 5336.353364044932,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12328.26983940322,
+        "amountEurDeclarant": 15180.255952715726,
         "amountEurSpouse": null
       }
     ],
@@ -40,24 +40,6 @@
         "currency": null,
         "amount": null,
         "valueEur": null,
-        "holderName": "Веселин Милованов Лахчев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "ВАЗ 2107",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2023,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
         "holderName": "Веселин Милованов Лахчев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -154,6 +136,19 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ВАЗ 2107",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

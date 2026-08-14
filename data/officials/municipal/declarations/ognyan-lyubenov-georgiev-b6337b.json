@@ -1,26 +1,100 @@
 [
   {
     "slug": "ognyan-lyubenov-georgiev-b6337b",
-    "declarantName": "Огнян Любенов Георгиев",
+    "declarantName": "ОГНЯН ЛЮБЕНОВ ГЕОРГИЕВ",
     "institution": "Грамада",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3978",
-    "controlHash": "19B99390",
-    "sourceUrl": "https://register.cacbg.bg/2025/0426F816-AAFC-469E-A8AD-A38FA8479779206802.xml",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г3221",
+    "controlHash": "E3D28267",
+    "sourceUrl": "https://register.cacbg.bg/2026/0426F816-AAFC-469E-A8AD-A38FA8479779227341.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13545.14451665022,
-        "amountEurSpouse": 6840.062786643011
+        "amountEurDeclarant": 8624.471452017813,
+        "amountEurSpouse": 3941.5491121416485
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3888.374756497242,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ШКОДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3520,
+        "valueEur": 1799.747421810689,
+        "holderName": "ОГНЯН ЛЮБЕНОВ ГЕОРГИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "ЛИЧНИ ДОХОДИ"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7337,
+        "valueEur": 3751.348532336655,
+        "holderName": "ТАТЯНА ВАНЬОВА ГЕОРГИЕВА",
+        "isSpouse": true,
+        "legalBasis": "4.59%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ТАТЯНА ВАНЬОВА ГЕОРГИЕВА",
+        "isSpouse": true,
+        "legalBasis": "18%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Срацимирово",
+        "municipality": "Грамада",
+        "areaSqm": 2035,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": 1891.7799604260083,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

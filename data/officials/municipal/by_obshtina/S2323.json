@@ -1,16 +1,16 @@
 {
   "obshtina": "S2323",
   "registryName": "Район Панчарево",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 0,
     "councillor": 0,
-    "chief_architect": 1,
+    "chief_architect": 0,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Панчарево",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "",
@@ -34,13 +35,24 @@
       }
     },
     {
+      "slug": "anzhelina-lyubenova-toteva-dc023e",
+      "name": "Анжелина Любенова Тотева",
+      "normalizedName": "АНЖЕЛИНА ЛЮБЕНОВА ТОТЕВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Панчарево",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "georgi-plamenov-amzin-335af7",
       "name": "Георги Пламенов Амзин",
       "normalizedName": "ГЕОРГИ ПЛАМЕНОВ АМЗИН",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Панчарево",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "tsvetan-grigorov-todorov-e1d10f",
@@ -49,16 +61,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Панчарево",
-      "latestDeclarationYear": 2025
-    },
-    {
-      "slug": "rumen-liberov-nestorov-ae49a9",
-      "name": "Румен Либеров Несторов",
-      "normalizedName": "РУМЕН ЛИБЕРОВ НЕСТОРОВ",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Район Панчарево",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2025,
+      "descriptorYear": 2026
     }
   ]
 }

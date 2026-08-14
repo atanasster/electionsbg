@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6848",
+    "controlHash": "9F344F90",
+    "sourceUrl": "https://register.cacbg.bg/2026/62BEA352-C156-41DE-A56C-2A4C9013C7A2231203.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20525.81257062219,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33943,
+        "valueEur": 17354.780323443243,
+        "holderName": "Катерина Николова Маринова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 4,09%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "katerina-nikolova-marinova-331c21",
+    "declarantName": "Катерина Николова Маринова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

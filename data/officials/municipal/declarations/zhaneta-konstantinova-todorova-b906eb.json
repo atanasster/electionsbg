@@ -1,49 +1,73 @@
 [
   {
     "slug": "zhaneta-konstantinova-todorova-b906eb",
-    "declarantName": "Жанета Константинова Тодорова",
+    "declarantName": "Жанета Констатнтинова Тодорова",
     "institution": "Божурище",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6674",
-    "controlHash": "4068FA48",
-    "sourceUrl": "https://register.cacbg.bg/2025/9C417C14-8273-4B1F-B22B-4C1EF2DE0588209640.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г9619",
+    "controlHash": "BB8E7E27",
+    "sourceUrl": "https://register.cacbg.bg/2026/9C417C14-8273-4B1F-B22B-4C1EF2DE0588234257.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7635.632953784327,
+        "amountEurDeclarant": 7907.6402345807155,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 485.72728713640754,
+        "amountEurDeclarant": 1696.977753690249,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на имот",
+        "amountEurDeclarant": 4601.626930765967,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Хераково",
+        "municipality": "Божурище",
+        "areaSqm": 423,
+        "builtAreaSqm": 423,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 23144,
-        "valueEur": 11833.33929840528,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Жанета Константинова Тодорова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата и спесявания"
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Хераково",
+        "municipality": "Божурище",
+        "areaSqm": 1064,
+        "builtAreaSqm": 1064,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Жанета Константинова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
       },
       {
         "category": "bank",
@@ -56,26 +80,62 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 8437,
-        "valueEur": 8437,
+        "amount": 13653,
+        "valueEur": 13652.515811701425,
         "holderName": "Жанета Константинова Тодорова",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
-      }
-    ],
-    "events": [
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Волво 850 ГЛТ",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13000,
+        "valueEur": 13000.107371295051,
+        "holderName": "Жанета Константинова Тодорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 306.7751287177311,
-        "legalBasis": "предаден за вторични суровини"
+        "amount": 7229,
+        "valueEur": 3696.1290091674637,
+        "holderName": "Жанета Константинова Тодорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Хераково",
+        "municipality": "Божурище",
+        "areaSqm": 423,
+        "builtAreaSqm": 423,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
       }
     ]
   }

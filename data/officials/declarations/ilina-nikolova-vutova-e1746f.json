@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11980",
+    "controlHash": "F8E2BC21",
+    "sourceUrl": "https://register.cacbg.bg/2026/B1AD16E0-65F5-4D1F-8D5E-0D416C68C15B237050.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19464.88191714004,
+        "amountEurSpouse": 13108.50125010865
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Мотор",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1300,
+        "valueEur": 664.679445555084,
+        "holderName": "Илина Николова Вутова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ilina-nikolova-vutova-e1746f",
+    "declarantName": "Илина Николова Вутова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

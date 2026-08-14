@@ -4,23 +4,42 @@
     "declarantName": "Румен Стенли Александров",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г9551",
-    "controlHash": "FBFC92F5",
-    "sourceUrl": "https://register.cacbg.bg/2025/915F1199-A35A-4D09-B539-BAA8DF203CDD212596.xml",
+    "filedAt": "2026-06-11",
+    "entryNumber": "Г10890",
+    "controlHash": "093BD73B",
+    "sourceUrl": "https://register.cacbg.bg/2026/915F1199-A35A-4D09-B539-BAA8DF203CDD235700.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31904.613386644032,
+        "amountEurDeclarant": 35790.431683735296,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Гр.Банкя с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 110,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "3.36%",
+        "currency": "BGN",
+        "amount": 531986,
+        "valueEur": 272000.1227100515,
+        "holderName": "Румен Стенли Александров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
     "events": []
   }
 ]

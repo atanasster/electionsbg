@@ -5,6 +5,92 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4076",
+    "controlHash": "DF5909F4",
+    "sourceUrl": "https://register.cacbg.bg/2026/261A3703-6DB5-43A5-931E-8A9BD8D5F8F8228270.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19170.88908545221,
+        "amountEurSpouse": 7105.934564865044
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 961.740028530087,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 7967.972676561869,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "интеграционни АСП",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 140.09397544776385
+      },
+      {
+        "parent": null,
+        "category": "инвалидна пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3868.434373130589
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70200,
+        "valueEur": 35892.690059974535,
+        "holderName": "Мая Донкова Дончовска-Марковска",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит 2,97%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Мая Донкова Дончовска-Марковска",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит5,76%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-donkova-donchovska-markovska-badc86",
+    "declarantName": "Мая Донкова Дончовска-Марковска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

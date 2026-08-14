@@ -5,6 +5,56 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г12568",
+    "controlHash": "1E928D98",
+    "sourceUrl": "https://register.cacbg.bg/2026/D5CC4B4D-4DDE-435C-85B5-526D83213A54237877.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19349.841243870887,
+        "amountEurSpouse": 21827.561700147762
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалидност",
+        "amountEurDeclarant": 4937.034404830686,
+        "amountEurSpouse": 9700.229570054657
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Петлино",
+        "municipality": "Кърджали",
+        "areaSqm": 1.2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Кериме Юсеин Вели",
+        "isSpouse": false,
+        "legalBasis": "покупка- продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kerime-yusein-veli-baad60",
+    "declarantName": "Кериме Юсеин Вели",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,35 +4,59 @@
     "declarantName": "Димитър Георгиев Чолаков",
     "institution": "Марица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г6531",
-    "controlHash": "079B48C0",
-    "sourceUrl": "https://register.cacbg.bg/2025/96672AC4-1F3A-4D80-9986-319352674F11209492.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9508",
+    "controlHash": "9BDABB12",
+    "sourceUrl": "https://register.cacbg.bg/2026/96672AC4-1F3A-4D80-9986-319352674F11234133.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8978.796725686792,
-        "amountEurSpouse": 16090.355501244996
+        "amountEurDeclarant": 11269.384353445852,
+        "amountEurSpouse": 18714.816727425186
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22386.915018176427,
+        "amountEurDeclarant": 25045.121508515567,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 117085.84079393404,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2553.9029465751114,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 470.8998225817172,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "с. Войводиново",
+        "municipality": "Марица",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Димитър Георгиев Чолаков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -44,12 +68,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 70000,
-        "valueEur": 35790.431683735296,
+        "amount": 216938,
+        "valueEur": 110918.63812294525,
         "holderName": "Димитър Георгиев Чолаков",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "security",
+        "description": "Акции",
+        "detail": "InteractiveBrokers",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "903",
+        "currency": "BGN",
+        "amount": 57093,
+        "valueEur": 29191.1873731357,
+        "holderName": "Димитър Георгиев Чолаков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

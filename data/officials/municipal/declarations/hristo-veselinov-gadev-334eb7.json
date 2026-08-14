@@ -4,53 +4,128 @@
     "declarantName": "Христо Веселинов Гадев",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г13247",
-    "controlHash": "E52BA5EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/6837585E-AC03-4B83-9E8C-22B2FDAE3D50216448.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г8835",
+    "controlHash": "0790BE31",
+    "sourceUrl": "https://register.cacbg.bg/2026/6837585E-AC03-4B83-9E8C-22B2FDAE3D50233376.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "фирма",
-        "shareSize": "100 %",
-        "companyName": "Христо - Трейд ЕООД",
+        "itemType": "Дружествени дялове",
+        "shareSize": "30",
+        "companyName": "Грийн Агро Груп ООД",
         "registeredOffice": "София (столица)",
-        "valueEur": 2556.4594059810925,
+        "valueEur": 766.9378217943278,
         "holderName": "Христо Веселинов Гадев",
         "legalBasis": "други",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "фирма",
-        "shareSize": "100 %",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
         "companyName": "Халиф ЕООД",
         "registeredOffice": "София (столица)",
         "valueEur": 2556.4594059810925,
         "holderName": "Христо Веселинов Гадев",
         "legalBasis": "други",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "заплата"
       },
       {
         "table": "10",
         "stakeKind": "share",
-        "itemType": "фирма",
-        "shareSize": "30 %",
-        "companyName": "Грий Агро Груп ООД",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "Христо - Трейд ЕООД",
         "registeredOffice": "София (столица)",
-        "valueEur": 766.9378217943278,
+        "valueEur": 2556.4594059810925,
         "holderName": "Христо Веселинов Гадев",
         "legalBasis": "други",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
-    "assets": [],
-    "events": []
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36652.46979543212,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "България",
+        "municipality": "Пордим",
+        "areaSqm": 700,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Христо Веселинов Гадев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес S450",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
+        "holderName": "Христо Веселинов Гадев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Христо Веселинов Гадев",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем, 3 процента лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес S320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

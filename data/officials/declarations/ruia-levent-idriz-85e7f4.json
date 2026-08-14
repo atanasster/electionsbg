@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г12312",
+    "controlHash": "E4DE43FD",
+    "sourceUrl": "https://register.cacbg.bg/2026/DDE6C877-17FA-4AC4-AEAC-D1F98AE183ED237515.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "66,66",
+        "companyName": "Булкрис - 83",
+        "registeredOffice": "с. Суходол",
+        "valueEur": 2607.588594100714,
+        "holderName": "Айхан Тахир Идриз",
+        "legalBasis": "договор",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15151.112315487542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3044.743152523481,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2208.780926767664
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ruia-levent-idriz-85e7f4",
+    "declarantName": "Руйа Левент Идриз",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

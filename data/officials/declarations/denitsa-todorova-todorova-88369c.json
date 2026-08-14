@@ -5,6 +5,87 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г3998",
+    "controlHash": "69C59E51",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E4649E1-8E91-46B1-BAAE-F43B7C88BE5B228180.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35925.412740371095,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5726.469069397647,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Заем (лихвата се приспада от заема)",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16200,
+        "valueEur": 8282.92847537874,
+        "holderName": "Деница Тодорова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "Договор, в т.1. лихва: 1,83%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Договор за кредит 014LD-R-021767",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65643,
+        "valueEur": 33562.73295736337,
+        "holderName": "Деница Тодорова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "Договор, в т.1. лихва: 4,40%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работна среща  по проект COAST CRAFT /02-04 октомври/ в Мюнхен, Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 429.4851802048235,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "denitsa-todorova-todorova-88369c",
+    "declarantName": "ДЕНИЦА ТОДОРОВА ТОДОРОВА",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

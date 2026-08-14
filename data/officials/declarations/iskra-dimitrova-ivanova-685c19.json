@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г3475",
+    "controlHash": "71DCCD7A",
+    "sourceUrl": "https://register.cacbg.bg/2026/2E07D64A-D2DD-4C07-BFD7-13D0EB1D8CC0227610.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40508.633163414,
+        "amountEurSpouse": 28133.835762821924
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Жилищен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 213650,
+        "valueEur": 109237.51041757208,
+        "holderName": "Искра Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "2,57",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iskra-dimitrova-ivanova-685c19",
+    "declarantName": "Искра Димитрова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

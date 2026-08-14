@@ -4,25 +4,25 @@
     "declarantName": "Ива Радкова Радкова",
     "institution": "Перник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-10",
-    "entryNumber": "Г10744",
-    "controlHash": "C01413B0",
-    "sourceUrl": "https://register.cacbg.bg/2025/E09D3889-C5C5-4648-B086-B199D8C985F7213849.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г11718",
+    "controlHash": "C9FA7F76",
+    "sourceUrl": "https://register.cacbg.bg/2026/E09D3889-C5C5-4648-B086-B199D8C985F7236681.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6655.997709412372,
+        "amountEurDeclarant": 7862.646549035448,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16795.42700541458,
+        "amountEurDeclarant": 19106.466308421488,
         "amountEurSpouse": null
       }
     ],
@@ -30,7 +30,7 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "volkswagen",
+        "detail": "Volkswagen",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -47,8 +47,8 @@
       },
       {
         "category": "vehicle",
-        "description": "Мотоциклед",
-        "detail": "Piaggio",
+        "description": "Мотоциклет",
+        "detail": "Piagiio",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -61,7 +61,7 @@
         "holderName": "Ива Радкова Радкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -74,11 +74,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 69419,
-        "valueEur": 35493.37110076029,
+        "amount": 66404,
+        "valueEur": 33951.826078953694,
         "holderName": "Ива Радкова Радкова",
         "isSpouse": false,
-        "legalBasis": "200LD-R-00785?11.04.2025; 6,00%",
+        "legalBasis": "договор за потребителски кредит-6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2937,
+        "valueEur": 1501.6642550732938,
+        "holderName": "Ива Радкова Радкова",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит-47,50%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Стоков дредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1661,
+        "valueEur": 849.2558146669189,
+        "holderName": "Ива Радкова Радкова",
+        "isSpouse": false,
+        "legalBasis": "договор за стоков кредит- 0%",
         "fundsOrigin": null
       }
     ],

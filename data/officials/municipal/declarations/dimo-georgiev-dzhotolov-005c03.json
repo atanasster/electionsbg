@@ -4,64 +4,58 @@
     "declarantName": "Димо Георгиев Джотолов",
     "institution": "Район Кремиковци",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-01",
-    "entryNumber": "Г7302",
-    "controlHash": "C28D9117",
-    "sourceUrl": "https://register.cacbg.bg/2025/BEE07E49-B009-4E4C-8A26-C55DDAE5603E210290.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г7587",
+    "controlHash": "4E493B72",
+    "sourceUrl": "https://register.cacbg.bg/2026/BEE07E49-B009-4E4C-8A26-C55DDAE5603E232005.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3772.8227913468963,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5414.5810218679535,
+        "amountEurDeclarant": 27353.093060235296,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "апартамент",
+        "description": "ателие",
         "detail": null,
-        "location": "ул. Цветан Минков 10",
+        "location": "гр. София",
         "municipality": "София-град (Столична)",
-        "areaSqm": 45,
-        "builtAreaSqm": 45,
+        "areaSqm": 41,
+        "builtAreaSqm": null,
         "acquiredYear": 2010,
-        "share": "1/1",
+        "share": "100",
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 42246,
+        "valueEur": 21600.036813015446,
         "holderName": "Димо Георгиев Джотолов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарение по права линия"
       },
       {
         "category": "real_estate",
         "description": "ателие",
         "detail": null,
-        "location": "ул. Павел Генадиев 10",
+        "location": "гр. София",
         "municipality": "София-град (Столична)",
-        "areaSqm": 29,
-        "builtAreaSqm": 29,
-        "acquiredYear": 2023,
-        "share": "1/1",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/3",
         "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
+        "amount": 556,
+        "valueEur": 284.2782859450975,
         "holderName": "Димо Георгиев Джотолов",
         "isSpouse": false,
-        "legalBasis": "учередяване право строеж",
-        "fundsOrigin": "дарения"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарение по права линия"
       },
       {
         "category": "vehicle",
@@ -72,14 +66,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2023,
-        "share": "1/1",
+        "share": "100",
         "currency": "BGN",
         "amount": 9900,
         "valueEur": 5061.789623842563,
-        "holderName": "Димо Георгиев Джолов",
-        "isSpouse": true,
+        "holderName": "Димо Георгиев Джотолов",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "дарение по права"
       },
       {
         "category": "vehicle",
@@ -89,17 +83,48 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2018,
-        "share": "1/1",
+        "acquiredYear": 2025,
+        "share": "100",
         "currency": "BGN",
-        "amount": 9900,
-        "valueEur": 5061.789623842563,
-        "holderName": "Димо Георгиев Джолов",
-        "isSpouse": true,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Димо Георгиев Джотолов",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Димо Георгиев Джотолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

@@ -4,20 +4,20 @@
     "declarantName": "Мирослав Пламенов Русев",
     "institution": "Район Красно село",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г8708",
-    "controlHash": "394031EF",
-    "sourceUrl": "https://register.cacbg.bg/2025/B8EE25FB-0A76-4410-A8E7-AB2570DB20FA211732.xml",
+    "filedAt": null,
+    "entryNumber": "Г11430",
+    "controlHash": "212A78DD",
+    "sourceUrl": "https://register.cacbg.bg/2026/B8EE25FB-0A76-4410-A8E7-AB2570DB20FA236345.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 25711.33482971424,
-        "amountEurSpouse": 17583.327794337954
+        "amountEurDeclarant": 26902.64491290143,
+        "amountEurSpouse": 26963.488646763777
       }
     ],
     "assets": [
@@ -50,9 +50,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6500,
-        "valueEur": 3579.0431683735296,
-        "holderName": "Мира Мирославова Русева",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Мира Миролсавова Русева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"
@@ -86,10 +86,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 48206,
-        "valueEur": 24647.336424944908,
-        "holderName": "Мирослав Пламенов Русев",
-        "isSpouse": false,
+        "amount": 76534,
+        "valueEur": 39131.212835471386,
+        "holderName": "Мирослав Пламенова Русев",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -106,10 +106,10 @@
         "currency": "CHF",
         "amount": 14103,
         "valueEur": 14998.236043009872,
-        "holderName": "Мирослав Пламенов Русев",
-        "isSpouse": false,
+        "holderName": "Мирослав Пламенова Русев",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "съдебно решение по гр. дело, чл.55 ЗЗД"
+        "fundsOrigin": "съдебно решение по гр. дело"
       },
       {
         "category": "bank",
@@ -122,8 +122,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12634,
-        "valueEur": 6459.661627033024,
+        "amount": 15948,
+        "valueEur": 8154.082921317293,
         "holderName": "Галина Русева Алексова",
         "isSpouse": true,
         "legalBasis": null,
@@ -131,7 +131,7 @@
       },
       {
         "category": "debt",
-        "description": "Ипотечен кредит",
+        "description": "ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -140,11 +140,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 50287,
-        "valueEur": 25711.33482971424,
+        "amount": 46778,
+        "valueEur": 23917.21161859671,
         "holderName": "Мирослав Пламенов Русев",
         "isSpouse": false,
-        "legalBasis": "банков договор, 2,8%",
+        "legalBasis": "договор, ДЛП 2,8%",
         "fundsOrigin": null
       }
     ],

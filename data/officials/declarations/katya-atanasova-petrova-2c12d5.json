@@ -5,6 +5,105 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11412",
+    "controlHash": "480CB77C",
+    "sourceUrl": "https://register.cacbg.bg/2026/BB2C175A-B995-42AC-A236-393861AD67A1236321.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20591.769223296502,
+        "amountEurSpouse": 12117.106292469181
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6958.682503080534,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за ИВС",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2863.2345346988236
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12408,
+        "valueEur": 6344.109661882679,
+        "holderName": "Катя Атанасова Петрова",
+        "isSpouse": false,
+        "legalBasis": "кредит   5,79%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11425,
+        "valueEur": 5841.509742666796,
+        "holderName": "Катя Атанасова Петрова",
+        "isSpouse": false,
+        "legalBasis": "кредит   6,00%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Стражица",
+        "municipality": "Стражица",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Стражица",
+        "municipality": "Стражица",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "katya-atanasova-petrova-2c12d5",
+    "declarantName": "Катя Атанасова Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

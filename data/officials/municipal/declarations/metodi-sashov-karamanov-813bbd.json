@@ -4,33 +4,51 @@
     "declarantName": "Методи Сашов Караманов",
     "institution": "Ракитово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г3788",
-    "controlHash": "4D69ADE3",
-    "sourceUrl": "https://register.cacbg.bg/2025/E2C3BBC5-141A-41E2-846E-6E10D71EDC17206603.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10547",
+    "controlHash": "86FFC4E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/E2C3BBC5-141A-41E2-846E-6E10D71EDC17235308.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7183.65093080687,
-        "amountEurSpouse": 2103.966091122439
+        "amountEurDeclarant": 8398.99173241028,
+        "amountEurSpouse": 2916.4088903432303
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2899.024966382559,
+        "amountEurDeclarant": 2914.3637228184452,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "Пежо",
-        "detail": "Боксел",
+        "description": "ФОЛКСВАГЕН",
+        "detail": "ТУАРЕГ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Методи Сашов Караманов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ПЕЖО",
+        "detail": "БОКСЕР",
         "location": null,
         "municipality": null,
         "areaSqm": null,

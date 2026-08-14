@@ -4,29 +4,60 @@
     "declarantName": "Мария Костова Пиронкова",
     "institution": "Калояново",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12550",
-    "controlHash": "C2F9D75D",
-    "sourceUrl": "https://register.cacbg.bg/2025/78E2C2F7-59FA-4771-98A8-150C6926C65C215719.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5374",
+    "controlHash": "D77EFAA3",
+    "sourceUrl": "https://register.cacbg.bg/2026/78E2C2F7-59FA-4771-98A8-150C6926C65C229629.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 14795.76445805617,
-        "amountEurSpouse": 4701.840139480425
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 5624.210693158403
+        "amountEurDeclarant": 190200.57980499326,
+        "amountEurSpouse": 6607.936272579927
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 72040,
+        "valueEur": 72040.0034767848,
+        "holderName": "Мария Костова Пиронкова",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит 3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67000,
+        "valueEur": 17515.325974138857,
+        "holderName": "Николай Стоянов Пиронков",
+        "isSpouse": true,
+        "legalBasis": "Лизинг 3,73%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

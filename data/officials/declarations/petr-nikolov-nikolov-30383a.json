@@ -5,6 +5,74 @@
     "institution": "СОБАЛ Ралчовски ЕООД, гр. Враца",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г1862",
+    "controlHash": "884B50D4",
+    "sourceUrl": "https://register.cacbg.bg/2026/7597129E-5A38-4D51-BE03-1E99F594760A225829.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21397.053936180546,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Лична пенсия за придобита група инвалидност",
+        "amountEurDeclarant": 6337.462867427128,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37076,
+        "valueEur": 18956.657787230997,
+        "holderName": "Петър Николов Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20051,
+        "valueEur": 10251.913509865377,
+        "holderName": "Петър Николов Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-nikolov-nikolov-30383a",
+    "declarantName": "ПЕТЪР НИКОЛОВ НИКОЛОВ",
+    "institution": "СОБАЛ Ралчовски ЕООД, гр. Враца",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

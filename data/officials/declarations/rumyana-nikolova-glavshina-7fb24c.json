@@ -5,6 +5,99 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г5231",
+    "controlHash": "C93790DA",
+    "sourceUrl": "https://register.cacbg.bg/2026/8F04130D-D3B2-4C23-A5A8-16C6F2A51817229482.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10897.163863935004,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Наследствена пенсия",
+        "amountEurDeclarant": 2873.460372322748,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Болнични",
+        "amountEurDeclarant": 7133.544326449641,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Проект BG05SFPR001-1.003-0001  \"Силен старт\"",
+        "amountEurDeclarant": 217.81034138958907,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1100,
+        "valueEur": 562.4210693158403,
+        "holderName": "Румяна Николова Главшина",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16743,
+        "valueEur": 8560.559966868286,
+        "holderName": "Румяна Николова Главшина",
+        "isSpouse": false,
+        "legalBasis": "Договор, 5,42%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
+  },
+  {
+    "slug": "rumyana-nikolova-glavshina-7fb24c",
+    "declarantName": "Румяна Николова Главшина",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

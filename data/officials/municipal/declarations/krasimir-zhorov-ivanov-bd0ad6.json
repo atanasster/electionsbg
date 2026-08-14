@@ -4,32 +4,32 @@
     "declarantName": "Красимир Жоров Иванов",
     "institution": "Георги Дамяново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11909",
-    "controlHash": "D89D3CD2",
-    "sourceUrl": "https://register.cacbg.bg/2025/A477EBF5-07E4-40B8-B988-47674E5A9772215063.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г4926",
+    "controlHash": "5441C94D",
+    "sourceUrl": "https://register.cacbg.bg/2026/A477EBF5-07E4-40B8-B988-47674E5A9772229157.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5659.489832960942,
-        "amountEurSpouse": 14254.306355869376
+        "amountEurDeclarant": 7326.812657541811,
+        "amountEurSpouse": 16147.108900057776
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19407.105934564865,
+        "amountEurDeclarant": 18964.838457330137,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 399.83025109544286,
-        "amountEurSpouse": 1891.7799604260083
+        "amountEurDeclarant": 500.04345980990166,
+        "amountEurSpouse": 3532.004315303477
       },
       {
         "parent": null,
@@ -46,6 +46,24 @@
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Копиловци",
+        "municipality": "Георги Дамяново",
+        "areaSqm": 477,
+        "builtAreaSqm": 99,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Красимир Жоров Иванов - СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
         "description": "Ипотечен кредит",
         "detail": "BGN",
@@ -56,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 24477,
-        "valueEur": 12514.891376039839,
+        "amount": 22923,
+        "valueEur": 11720.343792660917,
         "holderName": "Красимир Жоров Иванов",
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 2.74%  лихва",
@@ -66,37 +84,19 @@
       {
         "category": "debt",
         "description": "Потребителски кредит",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 9512,
-        "valueEur": 4863.4083739384305,
+        "currency": "EUR",
+        "amount": 14880,
+        "valueEur": 14880.127618453547,
         "holderName": "Красимир Жоров Иванов",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит - 5.18%  лихва",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 4924,
-        "valueEur": 2517.6012230101796,
-        "holderName": "Красимир Жоров Иванов",
-        "isSpouse": false,
-        "legalBasis": "Договор за кредит - 4.89%  лихва",
+        "legalBasis": "Договор за кредит - 4.45%  лихва",
         "fundsOrigin": null
       },
       {
@@ -128,27 +128,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13623,
-        "valueEur": 6965.329297536085,
+        "amount": 9739,
+        "valueEur": 4979.471630969972,
         "holderName": "Зарина Георгиева Иванова",
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 5.56%  лихва",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Форд Галакси",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 562.4210693158403,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

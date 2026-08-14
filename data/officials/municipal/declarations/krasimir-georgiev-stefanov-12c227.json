@@ -4,25 +4,25 @@
     "declarantName": "КРАСИМИР ГЕОРГИЕВ СТЕФАНОВ",
     "institution": "Малко Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-04",
-    "entryNumber": "Г1737",
-    "controlHash": "7CC58C6C",
-    "sourceUrl": "https://register.cacbg.bg/2025/196ECCBC-3DCB-4C7F-9F05-665204F9DBA8204267.xml",
+    "filedAt": "2026-03-11",
+    "entryNumber": "Г205",
+    "controlHash": "D60FC587",
+    "sourceUrl": "https://register.cacbg.bg/2026/196ECCBC-3DCB-4C7F-9F05-665204F9DBA8223194.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10737.129505120589,
-        "amountEurSpouse": 9714.54574272815
+        "amountEurDeclarant": 11248.421386316806,
+        "amountEurSpouse": 13293.58891110168
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11248.421386316806,
+        "amountEurDeclarant": 12271.005148709244,
         "amountEurSpouse": null
       },
       {
@@ -44,12 +44,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 36000,
-        "valueEur": 18406.507723063867,
+        "amount": 103000,
+        "valueEur": 52663.063763210506,
         "holderName": "КРАСИМИР ГЕОРГИЕВ СТЕФАНОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94000,
+        "valueEur": 48061.43683244454,
+        "holderName": "ПАУЛИНА ИВАНОВА ЕДРЕВА - СТЕФАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
       }
     ],
     "events": []

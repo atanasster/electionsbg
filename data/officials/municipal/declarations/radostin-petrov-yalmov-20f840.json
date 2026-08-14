@@ -4,45 +4,32 @@
     "declarantName": "Радостин Петров Ялъмов",
     "institution": "Сливница",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4684",
-    "controlHash": "1FA9E160",
-    "sourceUrl": "https://register.cacbg.bg/2025/E3C03876-94D5-4D3A-B32D-B724345FAD97207555.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г5692",
+    "controlHash": "1C4B26A3",
+    "sourceUrl": "https://register.cacbg.bg/2026/E3C03876-94D5-4D3A-B32D-B724345FAD97229956.xml",
     "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 20740.043868843408,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3916.4958099630335
-      }
-    ],
+    "income": [],
     "assets": [
       {
         "category": "debt",
-        "description": "ипотека",
-        "detail": "BGN",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 160840,
-        "valueEur": 82236.18617159978,
+        "currency": "EUR",
+        "amount": 77842,
+        "valueEur": 77841.63245271829,
         "holderName": "Радостин Петров Ялъмов",
         "isSpouse": false,
-        "legalBasis": "договор за кредит, лихва 2,4%",
+        "legalBasis": "договор за кредит, лп 2,6%",
         "fundsOrigin": null
       }
     ],

@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-20",
+    "entryNumber": "Г2703",
+    "controlHash": "1734BDDA",
+    "sourceUrl": "https://register.cacbg.bg/2026/84F5BCB2-F455-4456-B179-ADA125956F4F226782.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28275.463613913274,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "РАСЕН ИСАЕВ ГАЙДАРСКИ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rosen-isaev-gaidarski-e5ea04",
+    "declarantName": "РОСЕН ИСАЕВ ГАЙДАРСКИ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

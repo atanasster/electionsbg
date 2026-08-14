@@ -4,66 +4,29 @@
     "declarantName": "Красимира Дамянова Бунова",
     "institution": "Нови пазар",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13856",
-    "controlHash": "977B2F56",
-    "sourceUrl": "https://register.cacbg.bg/2025/DB78DACA-A78A-41B2-BCD0-26842240C193217114.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10491",
+    "controlHash": "06DBC3B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/DB78DACA-A78A-41B2-BCD0-26842240C193235249.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5372.655087609864,
+        "amountEurDeclarant": 6150.841330790508,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 38383.70410516251,
-        "amountEurSpouse": 28962.639902240993
+        "amountEurDeclarant": 43942.469437527805,
+        "amountEurSpouse": 3858.2085355066647
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Шкода",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 9500,
-        "valueEur": 4857.272871364075,
-        "holderName": "Красимира Дамянова Бунова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Красимира Дамянова Бунова",
-        "isSpouse": false,
-        "legalBasis": "потребитерски кредит",
-        "fundsOrigin": null
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

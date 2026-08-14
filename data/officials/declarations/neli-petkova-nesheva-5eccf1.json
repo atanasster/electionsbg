@@ -1,6 +1,92 @@
 [
   {
     "slug": "neli-petkova-nesheva-5eccf1",
+    "declarantName": "НЕЛИ ПЕТКОВА НЕШЕВА",
+    "institution": "МБАЛ - Христо Ботев\" АД, гр.Враца",
+    "positionTitle": "Независим член",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г7159",
+    "controlHash": "B98D1F99",
+    "sourceUrl": "https://register.cacbg.bg/2026/18099FCF-CC4B-403D-8BE5-B47C71D57961231551.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27368.431816671182,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5716.243231773723,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2205,
+        "valueEur": 1127.3985980376617,
+        "holderName": "НЕЛИ ПЕТКОВА НЕШЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15002,
+        "valueEur": 7670.400801705669,
+        "holderName": "НЕЛИ ПЕТКОВА НЕШЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 50302,
+        "valueEur": 50301.91785584637,
+        "holderName": "НЕЛИ ПЕТКОВА НЕШЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-petkova-nesheva-5eccf1",
     "declarantName": "Нели Петкова Нешева",
     "institution": "МБАЛ - Христо Ботев\" АД, гр.Враца",
     "positionTitle": "Независим член",

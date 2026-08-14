@@ -1,6 +1,68 @@
 [
   {
     "slug": "stanislav-sashkov-stanchev-7cea40",
+    "declarantName": "Станислав Сашков Станчев",
+    "institution": "РИОСВ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г3378",
+    "controlHash": "437C6BEE",
+    "sourceUrl": "https://register.cacbg.bg/2026/26AF9597-9F9C-4582-84C7-1E7DB50D1E65227509.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33064.223373197055,
+        "amountEurSpouse": 13155.028811297505
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "WV",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
+        "holderName": "Станислав Сашков Станчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Станилсав Сашков Станчев",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stanislav-sashkov-stanchev-7cea40",
     "declarantName": "СТАНИСЛАВ САШКОВ СТАНЧЕВ",
     "institution": "РИОСВ",
     "positionTitle": "Директор",

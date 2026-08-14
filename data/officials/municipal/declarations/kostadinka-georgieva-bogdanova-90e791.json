@@ -4,96 +4,42 @@
     "declarantName": "Костадинка Георгиева Богданова",
     "institution": "Гоце Делчев",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-17",
-    "entryNumber": "Г3053",
-    "controlHash": "5FE04449",
-    "sourceUrl": "https://register.cacbg.bg/2025/925FBCBA-F755-4FBD-88FE-ABD4A249DE95205770.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1333",
+    "controlHash": "00DF0CDB",
+    "sourceUrl": "https://register.cacbg.bg/2026/925FBCBA-F755-4FBD-88FE-ABD4A249DE95225164.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5324.5936507774195,
-        "amountEurSpouse": 21227.816323504598
+        "amountEurDeclarant": 5426.852027016663,
+        "amountEurSpouse": 31471.03787138964
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 5760.214333556598,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8807.002653604863,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 3186.8822954960297,
-        "amountEurSpouse": 1700.0455049774264
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3727.317813920433,
+        "amountEurSpouse": 2300.8134653829834
       },
       {
         "parent": null,
-        "category": "Пенсия за осигурителен стаж и възраст",
+        "category": "Доходи от пенсия за осигурителен стаж и възраст",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 11307.219952654372
+        "amountEurSpouse": 12649.361140794446
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "Апартамент",
-        "detail": null,
-        "location": "София",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 32,
-        "builtAreaSqm": 32,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Костадинка Георгиева Богданова",
-        "isSpouse": false,
-        "legalBasis": "дарение от дъщеря",
-        "fundsOrigin": "безвъзмездно"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3000,
-        "valueEur": 1533.8756435886555,
-        "holderName": "Костадинка Георгиева Богданова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "адвокатски хонорари, наеми"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 5563,
-        "valueEur": 5547.51691097897,
-        "holderName": "Костадинка Георгиева Богданова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплати, адвокатски хонорари"
-      },
-      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -104,12 +50,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46750,
-        "valueEur": 23902.895445923215,
+        "amount": 85444,
+        "valueEur": 43686.82349692969,
         "holderName": "Костадинка Георгиева Богданова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, адвокатски хонорари, наеми"
+        "fundsOrigin": "заплати, адвокатски хонорар, наем"
       },
       {
         "category": "investment",
@@ -122,12 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35011,
-        "valueEur": 17900.840052560805,
+        "amount": 36924,
+        "valueEur": 18878.94142128917,
         "holderName": "Костадинка Георгиева Богданова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "адвокатски хонорари, наеми"
+        "fundsOrigin": "заплати, адвокатски хонорари"
       }
     ],
     "events": []

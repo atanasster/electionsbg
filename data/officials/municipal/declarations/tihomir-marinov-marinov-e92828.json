@@ -4,61 +4,29 @@
     "declarantName": "Тихомир Маринов Маринов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г3816",
-    "controlHash": "E59043C8",
-    "sourceUrl": "https://register.cacbg.bg/2025/611C9362-484A-4112-9C8F-3A606EA001DE206631.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г6695",
+    "controlHash": "C9DDC5EC",
+    "sourceUrl": "https://register.cacbg.bg/2026/611C9362-484A-4112-9C8F-3A606EA001DE231038.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13977.69744814222,
+        "amountEurDeclarant": 18773.615293762752,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12386.045821978392,
+        "amountEurDeclarant": 13501.684706748541,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 6600,
-        "valueEur": 3374.526415895042,
-        "holderName": "Тихомир Маринов Маринов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Товарен автомобил",
-        "detail": "Пежо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 460.16269307659667,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "assets": [],
+    "events": []
   }
 ]

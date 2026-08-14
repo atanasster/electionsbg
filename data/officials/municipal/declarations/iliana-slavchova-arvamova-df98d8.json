@@ -4,19 +4,25 @@
     "declarantName": "Илиана Славчова Аврамова",
     "institution": "Разлог",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-12-05",
-    "entryNumber": "Г11254",
-    "controlHash": "6C89D279",
-    "sourceUrl": "https://register.cacbg.bg/2025/E8C42F4E-E8AE-468B-A24F-1EC0EFDF9362214388.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г12606",
+    "controlHash": "67C590F0",
+    "sourceUrl": "https://register.cacbg.bg/2026/E8C42F4E-E8AE-468B-A24F-1EC0EFDF9362237924.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18.406507723063864,
+        "amountEurDeclarant": 20.96296712904496,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0.5112918811962185,
         "amountEurSpouse": null
       }
     ],
@@ -56,24 +62,6 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 108,
-        "valueEur": 55.219523169191596,
-        "holderName": "Илиана Славчова Аврамова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
       }
     ],
     "events": []

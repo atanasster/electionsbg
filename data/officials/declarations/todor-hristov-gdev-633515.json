@@ -5,6 +5,74 @@
     "institution": "ИА по сортоизпитване апробация и семеконтрол",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4669",
+    "controlHash": "C9D71743",
+    "sourceUrl": "https://register.cacbg.bg/2026/08109250-BB7D-45CA-8B9C-5B3DB7ECBCF6228888.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26539.627677252112,
+        "amountEurSpouse": 11050.040136412674
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": 15984.006789956182,
+        "amountEurSpouse": 5571.036337513997
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Тодор Христов Гъдев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Тодор Христов Гъдев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todor-hristov-gdev-633515",
+    "declarantName": "Тодор Христов Гъдев",
+    "institution": "ИА по сортоизпитване апробация и семеконтрол",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

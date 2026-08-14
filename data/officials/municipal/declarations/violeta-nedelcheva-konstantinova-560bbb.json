@@ -4,13 +4,13 @@
     "declarantName": "Виолета Неделчева Константинова",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12937",
-    "controlHash": "CE78226A",
-    "sourceUrl": "https://register.cacbg.bg/2025/EBBD99CC-A75A-4341-AD68-7A8C499E12CB216117.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10400",
+    "controlHash": "A92F3AE5",
+    "sourceUrl": "https://register.cacbg.bg/2026/EBBD99CC-A75A-4341-AD68-7A8C499E12CB235148.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,28 +21,15 @@
         "registeredOffice": "Пловдив",
         "valueEur": 5.624210693158403,
         "holderName": "Виолета Неделчева Константинова",
-        "legalBasis": "друго",
+        "legalBasis": "други",
         "fundsOrigin": "заеми"
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "100",
-        "companyName": "Беловица Гардънс ЕООД",
-        "registeredOffice": "Пловдив",
-        "valueEur": 5.112918811962185,
-        "holderName": null,
-        "transfereeName": "Виолета Неделчева Константинова",
-        "legalBasis": "възмездно",
-        "fundsOrigin": null
       }
     ],
     "income": [
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1349.8105663580168,
+        "amountEurDeclarant": 4159.870745412433,
         "amountEurSpouse": null
       }
     ],
@@ -60,14 +47,14 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Виолета Неделчева Kонстантинова",
+        "holderName": "Виолета Неделччева Константинова",
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
-        "description": "апартамент",
+        "description": "апартаамент",
         "detail": null,
         "location": "Пловдив",
         "municipality": "Пловдив",
@@ -78,10 +65,10 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Виолета Неделчева Kонстантинова",
+        "holderName": "Виолета Неделччева Константинова",
         "isSpouse": true,
         "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследство"
       },
       {
         "category": "real_estate",
@@ -121,21 +108,57 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
+        "description": "Лек автомобил",
         "detail": "BMV",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
-        "share": null,
+        "share": "1/1",
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
         "holderName": "Виолета Неделчева Константинова",
         "isSpouse": false,
         "legalBasis": "други",
-        "fundsOrigin": "безвъзмездно развод"
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20543,
+        "valueEur": 10503.469115413916,
+        "holderName": "Виолета Неделчева Константинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "адвокатска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36960,
+        "valueEur": 18897.347929012234,
+        "holderName": "Виолета Неделчева Константинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

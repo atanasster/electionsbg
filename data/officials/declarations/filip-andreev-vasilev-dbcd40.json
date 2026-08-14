@@ -5,6 +5,104 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3251",
+    "controlHash": "7FD78568",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC629141-5D26-40F3-B871-9ED661964836227372.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 128178.82944836719,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12104.323995439276
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия за изнвалидност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5385.948676520966
+      },
+      {
+        "parent": null,
+        "category": "Доход от рента на земя",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 46,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 52885,
+        "valueEur": 27039.671137062014,
+        "holderName": "Светлана Георгиева Минчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 и спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 958728,
+        "valueEur": 490189.84267548815,
+        "holderName": "Филип Андреев Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 и спестявания от предишни години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 249806,
+        "valueEur": 127723.77967410255,
+        "holderName": "Светлана Георгиева Минчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 и спестявания от предишни години"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "filip-andreev-vasilev-dbcd40",
+    "declarantName": "Филип Андреев Василев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

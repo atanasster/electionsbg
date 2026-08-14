@@ -4,23 +4,48 @@
     "declarantName": "Гълъбина Александрова Йосифова",
     "institution": "Трекляно",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г11422",
-    "controlHash": "A1226A07",
-    "sourceUrl": "https://register.cacbg.bg/2025/AA4925CD-34B8-4901-B083-4746FF886B00214559.xml",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2943",
+    "controlHash": "42373D30",
+    "sourceUrl": "https://register.cacbg.bg/2026/AA4925CD-34B8-4901-B083-4746FF886B00227038.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6007.679604055567,
+        "amountEurDeclarant": 6951.524416743787,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 332.339722777542,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "панда -фиат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2000,
+        "share": "1/3",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Гълъбина Александрова Йосифова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследство"
+      }
+    ],
     "events": []
   }
 ]

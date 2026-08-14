@@ -4,16 +4,42 @@
     "declarantName": "ГЕРАСИМ СЛАВЧЕВ ПЕТКОВ",
     "institution": "Плевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-05",
-    "entryNumber": "Г231",
-    "controlHash": "28A79BF6",
-    "sourceUrl": "https://register.cacbg.bg/2025/6FA08D2E-BE5F-4231-BE5E-B825A29740AA202013.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9204",
+    "controlHash": "264E7AF0",
+    "sourceUrl": "https://register.cacbg.bg/2026/6FA08D2E-BE5F-4231-BE5E-B825A29740AA233792.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20165.863086260055,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5694.7689727634815,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПОЗЕМЛЕН ИМОТ",
+        "detail": null,
+        "location": "С.КОИЛОВЦИ",
+        "municipality": "ПЛЕВЕН",
+        "areaSqm": 2362,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА"
+      }
+    ]
   }
 ]

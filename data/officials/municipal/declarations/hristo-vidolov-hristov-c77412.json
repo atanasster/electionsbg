@@ -4,46 +4,46 @@
     "declarantName": "Христо Видолов Христов",
     "institution": "Район \"Младост\" - Варна",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9003",
-    "controlHash": "ABBC8BA7",
-    "sourceUrl": "https://register.cacbg.bg/2025/76261511-0F02-4C9B-A1EB-BF601C962815212032.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г4773",
+    "controlHash": "85FFDA11",
+    "sourceUrl": "https://register.cacbg.bg/2026/76261511-0F02-4C9B-A1EB-BF601C962815228998.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 35014.290608079435,
+        "amountEurDeclarant": 32900.098679333074,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 26746.189597255387,
-        "amountEurSpouse": 10225.83762392437
+        "amountEurDeclarant": 30417.77659612543,
+        "amountEurSpouse": 11350.67976255605
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "БМВ",
+        "detail": "Мерцедес",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
         "holderName": "Христо Видолов Христов",
         "isSpouse": false,
-        "legalBasis": "замяна",
-        "fundsOrigin": "безвъзмездно"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -53,30 +53,35 @@
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 50000,
-        "valueEur": 25564.594059810923,
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
         "holderName": "Христо Видолов Христов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Мерцедес",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 15338.756435886555,
-        "legalBasis": "възмездно"
+        "amount": 30804,
+        "valueEur": 15749.835108368314,
+        "holderName": "Христо Видолов Христов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

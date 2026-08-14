@@ -4,24 +4,60 @@
     "declarantName": "Илия Атанасов Илиев",
     "institution": "Любимец",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10593",
-    "controlHash": "843A6E10",
-    "sourceUrl": "https://register.cacbg.bg/2025/9032027B-EEFF-4C5E-9AFA-32722193D2C8213691.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11650",
+    "controlHash": "B7C3C227",
+    "sourceUrl": "https://register.cacbg.bg/2026/9032027B-EEFF-4C5E-9AFA-32722193D2C8236604.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24534.340919200546,
-        "amountEurSpouse": 11175.306647305748
+        "amountEurDeclarant": 29127.78717986737,
+        "amountEurSpouse": 12748.040473865316
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Януша Петрова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Семейни спестявания по табл. 4 и 5  от предходна декл. И заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Илия Атанасов Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -32,30 +68,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
-        "holderName": "Януша Петрова Илиева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "Остатък по табл.4 от предходна декл."
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 9000,
-        "valueEur": 4601.626930765967,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Илия Атанасов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Остатък по табл.4 от предходна декл."
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -68,12 +86,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 8001,
+        "valueEur": 4090.8463414509442,
         "holderName": "Януша Петрова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Депозит отразен по декл.от2022г"
+        "fundsOrigin": "Депозит отразен по  декл.от 2023г"
       },
       {
         "category": "bank",
@@ -86,12 +104,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9317,
-        "valueEur": 4763.706457105168,
+        "amount": 8863,
+        "valueEur": 4531.579943042085,
         "holderName": "Януша Петрова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Остатък по декл за 2023г и заплата"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -104,45 +122,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13280,
-        "valueEur": 6789.956182285781,
+        "amount": 25509,
+        "valueEur": 13042.544597434338,
         "holderName": "Илия Атанасов Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "Остатък по декл за 2023г и заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "Петър Илиев Илиев",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "Депозит отразен в табл.5 по декл за 2023г."
+        "fundsOrigin": "Остатък от предходна декл.и заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2812.1053465792015,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

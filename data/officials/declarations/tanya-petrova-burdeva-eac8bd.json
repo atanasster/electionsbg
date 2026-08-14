@@ -5,6 +5,74 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г4104",
+    "controlHash": "D7AB6527",
+    "sourceUrl": "https://register.cacbg.bg/2026/F7384047-0712-4968-9515-DC553B86AD92228300.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18559.895287422733,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2025.2271414182214,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41266,
+        "valueEur": 21098.970769443153,
+        "holderName": "ТАНЯ ПЕТРОВА БУРДЕВА",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ - 5.92% ГЛП",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47211,
+        "valueEur": 24138.601003154672,
+        "holderName": "ТАНЯ ПЕТРОВА БУРДЕВА",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ - 4.3% ГЛП",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tanya-petrova-burdeva-eac8bd",
+    "declarantName": "ТАНЯ ПЕТРОВА БУРДЕВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

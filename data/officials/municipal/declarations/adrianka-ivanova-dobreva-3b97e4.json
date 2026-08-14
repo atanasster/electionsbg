@@ -4,66 +4,35 @@
     "declarantName": "Адрианка Иванова Добрева",
     "institution": "Угърчин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г11090",
-    "controlHash": "3E94EEA5",
-    "sourceUrl": "https://register.cacbg.bg/2025/D4106C77-DB89-4F4B-A9AC-40DC5C3BA8AF214215.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9727",
+    "controlHash": "E6B503C0",
+    "sourceUrl": "https://register.cacbg.bg/2026/D4106C77-DB89-4F4B-A9AC-40DC5C3BA8AF234373.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6363.0274614869395,
+        "amountEurDeclarant": 7195.410644074383,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 1382.0219548733785,
+        "amountEurDeclarant": 1818.153929533753,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 7858.044922104682,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Ловеч",
-        "municipality": "Ловеч",
-        "areaSqm": 65,
-        "builtAreaSqm": 65,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Адрианка Иванова Добрева",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Лада Нива",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Адрианка Иванова Добрева",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

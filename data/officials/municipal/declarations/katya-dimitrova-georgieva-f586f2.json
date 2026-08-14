@@ -4,28 +4,15 @@
     "declarantName": "КАТЯ ДИМИТРОВА ГЕОРГИЕВА",
     "institution": "Асеновград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2435",
-    "controlHash": "71747250",
-    "sourceUrl": "https://register.cacbg.bg/2025/6BFC5056-CA92-4C3F-BFB5-4647655450F3205082.xml",
+    "filedAt": null,
+    "entryNumber": "Г735",
+    "controlHash": "269BE31A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6BFC5056-CA92-4C3F-BFB5-4647655450F3224259.xml",
     "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9496.224109457366,
-        "amountEurSpouse": 14602.496126964
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5529.110403255907,
-        "amountEurSpouse": null
-      }
-    ],
+    "income": [],
     "assets": [
       {
         "category": "vehicle",
@@ -66,7 +53,7 @@
       {
         "category": "vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ФОЛКСФАГЕН МУЛТИВАН",
+        "detail": "ФОЛЦВАГЕН",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -76,6 +63,24 @@
         "currency": "BGN",
         "amount": 7000,
         "valueEur": 3579.0431683735296,
+        "holderName": "СТИЛИЯН ЙОРДАНОВ ГЕОРГИЕВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "СП.АВТОМОБИЛ",
+        "detail": "ФИАТ ДУКАТО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9700,
+        "valueEur": 4959.53124760332,
         "holderName": "СТИЛИЯН ЙОРДАНОВ ГЕОРГИЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",

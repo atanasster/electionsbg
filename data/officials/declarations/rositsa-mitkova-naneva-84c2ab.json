@@ -5,6 +5,50 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-27",
+    "entryNumber": "Г14192",
+    "controlHash": "78F3ED2D",
+    "sourceUrl": "https://register.cacbg.bg/2026/91BAA7EB-DAC0-4A42-B76E-E29523E3AB45239922.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7158.086336747059,
+        "amountEurSpouse": 15338.756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолсфаген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "да",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Росица Миткова Нанева",
+        "isSpouse": false,
+        "legalBasis": "лична упатреба",
+        "fundsOrigin": "от заплати"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rositsa-mitkova-naneva-84c2ab",
+    "declarantName": "Росица Миткова Нанева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

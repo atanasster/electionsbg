@@ -4,75 +4,26 @@
     "declarantName": "Мария Колева Жекова",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-28",
-    "entryNumber": "Г13873",
-    "controlHash": "56FA547D",
-    "sourceUrl": "https://register.cacbg.bg/2025/6C1BCFFA-5013-424F-871A-573440935A08217131.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дял в ООД",
-        "shareSize": "26",
-        "companyName": "Ате пласт ООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 39880.76673330504,
-        "holderName": "Мария Колева Жекова",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дял в ООД",
-        "shareSize": "26",
-        "companyName": "Ате пласт ООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 39880.76673330504,
-        "holderName": "Живко Желязков Жеков",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дял в ЕООД",
-        "shareSize": "100",
-        "companyName": "Мери ЕООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 2556.4594059810925,
-        "holderName": "Мария Колева Жекова",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дял в ООД",
-        "shareSize": "24",
-        "companyName": "Алт пак ООД",
-        "registeredOffice": "Стара Загора",
-        "valueEur": 613.5502574354622,
-        "holderName": "Мария Колева Жекова",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9689",
+    "controlHash": "4A61485A",
+    "sourceUrl": "https://register.cacbg.bg/2026/6C1BCFFA-5013-424F-871A-573440935A08234333.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8146.413543099349,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 10012.11761758435,
+        "amountEurSpouse": 111768.40522949336
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 121602.08198054023,
-        "amountEurSpouse": 121602.08198054023
+        "amountEurDeclarant": 111768.40522949336,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -87,8 +38,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12036,
-        "valueEur": 6153.9090820776855,
+        "amount": 21546,
+        "valueEur": 11016.294872253724,
+        "holderName": "Мария Колева Жекова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5223,
+        "valueEur": 2670.477495487849,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
         "legalBasis": null,
@@ -127,7 +96,7 @@
         "valueEur": 7000.097145457427,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "банков договор, 17,9%",
+        "legalBasis": "банков договор 17,9%",
         "fundsOrigin": null
       },
       {
@@ -145,7 +114,7 @@
         "valueEur": 2045.1675247848739,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "банков договор, 16,0%",
+        "legalBasis": "банков договор 16,0%",
         "fundsOrigin": null
       },
       {
@@ -163,7 +132,7 @@
         "valueEur": 599998.9774162376,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , тримесечен Euribor + 1,6%",
+        "legalBasis": "солидарен длъжник, тримесечен Euribor+1,6%",
         "fundsOrigin": null
       },
       {
@@ -181,7 +150,7 @@
         "valueEur": 3865366.6218434116,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , 0,1% по европрограма",
+        "legalBasis": "солидарен длъжник, 0,1%",
         "fundsOrigin": null
       },
       {
@@ -199,7 +168,7 @@
         "valueEur": 5465000.025564594,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , едномесечен Euribor + 1,7%",
+        "legalBasis": "солидарен длъжник, Euribor+1,8%",
         "fundsOrigin": null
       },
       {
@@ -214,28 +183,10 @@
         "share": null,
         "currency": "BGN",
         "amount": 4000000,
-        "valueEur": 2045167.524784874,
+        "valueEur": 204516.75247848738,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , СДИ БДСК + 3,5%",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "инвестиционен кредит",
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 500000,
-        "valueEur": 500000,
-        "holderName": "Мария Колева Жекова",
-        "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , шестмесечен Euribor + 1,7%",
+        "legalBasis": "солидарен длъжник, СДИ+3,5%",
         "fundsOrigin": null
       },
       {
@@ -249,11 +200,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 4000000,
-        "valueEur": 4000000,
+        "amount": 4300000,
+        "valueEur": 4300000,
         "holderName": "Мария Колева Жекова",
         "isSpouse": false,
-        "legalBasis": "солидарен длъжник, , шестмесечен Euribor + 1,7%",
+        "legalBasis": "солидарен длъжник, Euribor+1,25%",
         "fundsOrigin": null
       }
     ],

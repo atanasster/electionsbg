@@ -4,25 +4,31 @@
     "declarantName": "ВАСИЛ ДИМИТРОВ КЪРЧЕВ",
     "institution": "Бяла/Русе/",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-06-11",
-    "entryNumber": "Г14964",
-    "controlHash": "032A7A7C",
-    "sourceUrl": "https://register.cacbg.bg/2025/C9560DC9-1771-4C6D-BB16-D74370988A9B218514.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3540",
+    "controlHash": "BE0CA22C",
+    "sourceUrl": "https://register.cacbg.bg/2026/C9560DC9-1771-4C6D-BB16-D74370988A9B227675.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 5674.317297515633,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4508.060516507058,
+        "amountEurDeclarant": 6607.936272579927,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 89.98737109053445,
         "amountEurSpouse": null
       }
     ],
@@ -38,45 +44,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 56341,
-        "valueEur": 28806.695878476145,
-        "holderName": "Васил Димитров Кърчев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на зем.земи"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 149,
-        "valueEur": 76.18249029823656,
+        "amount": 38855,
+        "valueEur": 19866.24604387907,
         "holderName": "Васил Димитров Кърчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Нива",
-        "detail": null,
-        "location": "Карайсен",
-        "municipality": "Павликени",
-        "areaSqm": 23,
-        "builtAreaSqm": 23,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

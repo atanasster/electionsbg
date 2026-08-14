@@ -1,16 +1,16 @@
 {
   "obshtina": "HKV09",
   "registryName": "Димитровград",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 32,
-    "chief_architect": 2,
+    "councillor": 31,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -40,7 +41,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "yasho-dimitrov-minkov-cdd201",
@@ -49,7 +51,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "",
@@ -67,7 +70,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -78,22 +82,32 @@
       }
     },
     {
-      "slug": "elisaveta-georgieva-georgieva-0561b9",
-      "name": "Елисавета Георгиева Георгиева",
-      "normalizedName": "ЕЛИСАВЕТА ГЕОРГИЕВА ГЕОРГИЕВА",
-      "role": "chief_architect",
-      "roleRaw": "Главен архитект",
-      "municipality": "Димитровград",
-      "latestDeclarationYear": 2025
-    },
-    {
       "slug": "sarandi-valentinov-sarandiev-2fe5f4",
       "name": "Саранди Валентинов Сарандиев",
       "normalizedName": "САРАНДИ ВАЛЕНТИНОВ САРАНДИЕВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "aleksandr-dyankov-dimitrov-5349a5",
+      "name": "Александър Дянков Димитров",
+      "normalizedName": "АЛЕКСАНДЪР ДЯНКОВ ДИМИТРОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Димитровград",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 103,
+        "prefVotes": 117,
+        "isElected": false
+      }
     },
     {
       "slug": "angel-panchev-angelov-dc3aff",
@@ -102,7 +116,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БЪЛГАРИЯ НА РЕГИОНИТЕ",
@@ -119,7 +134,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -136,7 +152,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -153,7 +170,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -170,7 +188,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -187,7 +206,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -204,7 +224,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -221,7 +242,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -238,7 +260,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ВЪЗРАЖДАНЕ",
@@ -249,30 +272,14 @@
       }
     },
     {
-      "slug": "gabriela-venialinova-busheva-39796c",
-      "name": "Габриела Вениалинова Бушева",
-      "normalizedName": "ГАБРИЕЛА ВЕНИАЛИНОВА БУШЕВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
-        "partyCanonicalId": null,
-        "listPos": 103,
-        "prefVotes": 138,
-        "isElected": true
-      }
-    },
-    {
       "slug": "galina-dimitrova-chingarova-dc58a0",
       "name": "Галина Димитрова Чингарова",
       "normalizedName": "ГАЛИНА ДИМИТРОВА ЧИНГАРОВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -289,7 +296,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -306,7 +314,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -325,7 +334,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -342,7 +352,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -359,7 +370,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -376,7 +388,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -393,7 +406,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -410,7 +424,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -421,47 +436,14 @@
       }
     },
     {
-      "slug": "ivan-kostov-evlogiev-601989",
-      "name": "Иван Костов Евлогиев",
-      "normalizedName": "ИВАН КОСТОВ ЕВЛОГИЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
-        "partyCanonicalId": null,
-        "listPos": 102,
-        "prefVotes": 58,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "kaloyan-donchev-dobrev-4bb573",
-      "name": "Калоян Дончев Добрев",
-      "normalizedName": "КАЛОЯН ДОНЧЕВ ДОБРЕВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
-        "partyCanonicalId": "p_6",
-        "listPos": 101,
-        "prefVotes": 58,
-        "isElected": true
-      }
-    },
-    {
       "slug": "kircho-zhekov-kirev-f3e4cd",
       "name": "Кирчо Жеков Кирев",
       "normalizedName": "КИРЧО ЖЕКОВ КИРЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -478,7 +460,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -495,7 +478,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -512,7 +496,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -529,7 +514,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -546,7 +532,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -563,7 +550,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -580,7 +568,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -597,7 +586,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -614,7 +604,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
@@ -631,7 +622,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Димитровград",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -639,6 +631,24 @@
         "listPos": 103,
         "prefVotes": 134,
         "isElected": true
+      }
+    },
+    {
+      "slug": "tsanko-nikolov-stalev-d7e013",
+      "name": "Цанко Николов Сталев",
+      "normalizedName": "ЦАНКО НИКОЛОВ СТАЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Димитровград",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ” (Коалиция „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ”; ПП „БЪЛГАРСКИ ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ”; ПП „ДВИЖЕНИЕ БЪЛГАРИЯ НА ГРАЖДАНИТЕ”; ПП „ДВИЖЕНИЕ ГЕРГЬОВДЕН”; ПП „КОНСЕРВАТИВНО ОБЕДИНЕНИЕ НА ДЕСНИЦАТА”; ПП „СВОБОДА”; ПП „СЪЮЗ НА ДЕМОКРАТИЧНИТЕ СИЛИ”; ПП „СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ”)",
+        "partyCanonicalId": null,
+        "listPos": 109,
+        "prefVotes": 155,
+        "isElected": false
       }
     }
   ]

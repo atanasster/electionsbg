@@ -4,13 +4,13 @@
     "declarantName": "Васил Петров Симеонов",
     "institution": "Правец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г8766",
-    "controlHash": "0E06E584",
-    "sourceUrl": "https://register.cacbg.bg/2025/9D2A7EB1-160C-4994-A9B0-46494A23EC9A211791.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11541",
+    "controlHash": "D90187B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/9D2A7EB1-160C-4994-A9B0-46494A23EC9A236476.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -22,11 +22,53 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15297.853085390858,
+        "amountEurDeclarant": 17850.733448203577,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6387.0581799031615
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Терано 2",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Васил Петров Симеонов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9727,
+        "valueEur": 4973.336128395617,
+        "holderName": "Васил Петров Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "debt",
         "description": "ипотечен кредит",
@@ -39,13 +81,26 @@
         "share": null,
         "currency": "EUR",
         "amount": 150000,
-        "valueEur": 153387.56435886555,
+        "valueEur": 150230.3369924789,
         "holderName": "Васил Петров Симеонов",
         "isSpouse": false,
-        "legalBasis": null,
+        "legalBasis": "2,25 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с допълнителни постройки и двор",
+        "detail": null,
+        "location": "гр. Ботевград, УПИ-1540, кв.106",
+        "municipality": "Ботевград",
+        "areaSqm": 376,
+        "builtAreaSqm": 230,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

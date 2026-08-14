@@ -1,66 +1,60 @@
 [
   {
     "slug": "katerina-slavchova-nikolova-618fea",
-    "declarantName": "КАТЕРИНА СЛАВЧОВА АЛЕКСАНДРОВА",
+    "declarantName": "Катерина Славчова Александрова",
     "institution": "Разлог",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г11740",
-    "controlHash": "81F50999",
-    "sourceUrl": "https://register.cacbg.bg/2025/F099B3AC-FCE4-421D-AF0F-3945E34695DF214892.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12546",
+    "controlHash": "3F1F0499",
+    "sourceUrl": "https://register.cacbg.bg/2026/F099B3AC-FCE4-421D-AF0F-3945E34695DF237851.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4347.003573930249,
-        "amountEurSpouse": 12273.561608115226
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 757.2232760515996,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7929.6257854721525,
+        "amountEurSpouse": 15950.261525797232
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "фолксваген",
+        "description": "Лек автомобил",
+        "detail": "VW GOLF 5",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2021,
-        "share": "1",
+        "share": null,
         "currency": "BGN",
         "amount": 1380,
         "valueEur": 705.5827960507816,
         "holderName": "Александър Йорданов Александров",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
-        "description": "банков кредит",
-        "detail": "BGN",
+        "description": "Потребителски кредит",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 30000,
+        "currency": "EUR",
+        "amount": 15339,
         "valueEur": 15338.756435886555,
         "holderName": "Александър Йорданов Александров",
         "isSpouse": true,
-        "legalBasis": "5,99%.",
+        "legalBasis": "5,9%",
         "fundsOrigin": null
       }
     ],

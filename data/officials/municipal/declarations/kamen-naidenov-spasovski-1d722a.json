@@ -1,49 +1,49 @@
 [
   {
     "slug": "kamen-naidenov-spasovski-1d722a",
-    "declarantName": "КАМЕН НАЙДЕНОВ СПАСОВСКИ",
+    "declarantName": "Камен Найденов Спасовски",
     "institution": "Троян",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г8955",
-    "controlHash": "0B6D15DB",
-    "sourceUrl": "https://register.cacbg.bg/2025/8F380DAD-7244-47C1-B48A-2F7E93ADD2A2211984.xml",
+    "filedAt": null,
+    "entryNumber": "Г14430",
+    "controlHash": "3BE5094E",
+    "sourceUrl": "https://register.cacbg.bg/2026/8F380DAD-7244-47C1-B48A-2F7E93ADD2A2240209.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6975.043843278812,
-        "amountEurSpouse": 6723.488237730273
+        "amountEurDeclarant": 7596.263478932218,
+        "amountEurSpouse": 7492.982518930582
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4399.1553458122635,
+        "amountEurDeclarant": 9023.79041123206,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "Кредитна карта",
-        "detail": "BGN",
+        "category": "vehicle",
+        "description": "Лека кола",
+        "detail": "Дачия Сандеро",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
+        "acquiredYear": 2025,
+        "share": "100%",
         "currency": "BGN",
-        "amount": 2900,
-        "valueEur": 1482.7464554690337,
+        "amount": 30492,
+        "valueEur": 15590.312041435094,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16.2",
-        "fundsOrigin": null
+        "legalBasis": "лизинг",
+        "fundsOrigin": "трудови доходи и финансов лизинг"
       },
       {
         "category": "debt",
@@ -60,25 +60,7 @@
         "valueEur": 1022.5837623924369,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16.2",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1900,
-        "valueEur": 971.4545742728151,
-        "holderName": "Камен Найденов Спасовски",
-        "isSpouse": false,
-        "legalBasis": "договор 18",
+        "legalBasis": "договор, 18.5%",
         "fundsOrigin": null
       },
       {
@@ -96,7 +78,7 @@
         "valueEur": 511.29188119621847,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 18",
+        "legalBasis": "договор, 18.5%",
         "fundsOrigin": null
       },
       {
@@ -114,7 +96,7 @@
         "valueEur": 511.29188119621847,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16.2",
+        "legalBasis": "договор, 18.5%",
         "fundsOrigin": null
       },
       {
@@ -132,7 +114,7 @@
         "valueEur": 511.29188119621847,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16.2",
+        "legalBasis": "договор, 18.5%",
         "fundsOrigin": null
       },
       {
@@ -150,7 +132,7 @@
         "valueEur": 511.29188119621847,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16.2",
+        "legalBasis": "договор, 18.5%",
         "fundsOrigin": null
       },
       {
@@ -164,16 +146,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18650,
-        "valueEur": 9535.593584309474,
+        "amount": 17600,
+        "valueEur": 8998.737109053445,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 4",
+        "legalBasis": "договор, 3.65%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Лизинг телефон",
+        "description": "Кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -182,11 +164,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1196,
-        "valueEur": 611.5050899106773,
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
         "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
-        "legalBasis": "договор 16",
+        "legalBasis": "договор, 19%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28200,
+        "valueEur": 14418.43104973336,
+        "holderName": "Камен Найденов Спасовски",
+        "isSpouse": false,
+        "legalBasis": "договор,4%",
         "fundsOrigin": null
       },
       {
@@ -200,12 +200,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15446,
-        "valueEur": 7897.41439695679,
-        "holderName": "КАМЕН НАЙДЕНОВ СПАСОВСКИ",
+        "amount": 15150,
+        "valueEur": 7746.07200012271,
+        "holderName": "Камен Найденов Спасовски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "трудови доходи"
       }
     ],
     "events": []

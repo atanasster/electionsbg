@@ -1,6 +1,86 @@
 [
   {
     "slug": "vladimir-rusev-rusev-652648",
+    "declarantName": "Владимир Русев Русев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-03-12",
+    "entryNumber": "Г415",
+    "controlHash": "AD76AB82",
+    "sourceUrl": "https://register.cacbg.bg/2026/FC2CF1AC-7C83-4BEB-8F34-5974081B3FC1223682.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4804.098515719669,
+        "amountEurSpouse": 23172.770639575014
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Асен",
+        "municipality": "Павел баня",
+        "areaSqm": 1440,
+        "builtAreaSqm": 450,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Владимир Русев Русев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Гранд Чироки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Владимир Русев Русев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Гранд Чироки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Даниела Якова Русева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vladimir-rusev-rusev-652648",
     "declarantName": "ВЛАДИМИР РУСЕВ РУСЕВ",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",

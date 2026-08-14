@@ -1,6 +1,208 @@
 [
   {
     "slug": "momchil-zhivkov-dermendzhiev-55ffd8",
+    "declarantName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+    "institution": "РДНСК",
+    "positionTitle": "Началник",
+    "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4878",
+    "controlHash": "9D4B5F30",
+    "sourceUrl": "https://register.cacbg.bg/2026/03BB658A-6AC1-4265-AD8E-4C17E6F6D1AA229109.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "Ж.Дерменджиев-Пласт Еоод",
+        "registeredOffice": "Шумен",
+        "valueEur": 1.022583762392437,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "М.Дерменджиев-Пласт Еоод",
+        "registeredOffice": "Шумен",
+        "valueEur": 1.022583762392437,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "66,6",
+        "companyName": "Полекс ООД",
+        "registeredOffice": "Шумен",
+        "valueEur": 1702.6019643834077,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "66,6",
+        "companyName": "Полекс пласт ООД",
+        "registeredOffice": "Шумен",
+        "valueEur": 1702.6019643834077,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20829.008656171547,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 10225.83762392437,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 140,
+        "builtAreaSqm": 280,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "МОМЧИЛ ЖИВКОВ ДЕРМЕНДЖИЕВ",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50170,
+        "valueEur": 25651.513679614283,
+        "holderName": "Момчил Живков Дерменджиев",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 14,
+        "builtAreaSqm": 14,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "momchil-zhivkov-dermendzhiev-55ffd8",
     "declarantName": "Момчил Живков Дерменджиев",
     "institution": "РДНСК",
     "positionTitle": "Началник",

@@ -5,6 +5,62 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2053",
+    "controlHash": "3C317D8A",
+    "sourceUrl": "https://register.cacbg.bg/2026/4A239E55-24F6-4718-937C-870180DA8BE7226036.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16270.841535307261,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 398.2963754518542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "инвалидна пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3599.494843621378
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7000,
+        "valueEur": 7032.3085339727895,
+        "holderName": "Елфиде Али Фаик",
+        "isSpouse": false,
+        "legalBasis": "договор за банков кредит, 5,08 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elfide-ali-faik-e4693b",
+    "declarantName": "Елфиде Али Фаик",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

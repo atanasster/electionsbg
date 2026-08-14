@@ -4,50 +4,50 @@
     "declarantName": "ЗЕЛИХА ТУРГАЙ МАРЕМ",
     "institution": "Каспичан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11264",
-    "controlHash": "FAA078B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/DD016FCD-5587-4342-99C3-18EE6041B213214398.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13037",
+    "controlHash": "7541BF15",
+    "sourceUrl": "https://register.cacbg.bg/2026/DD016FCD-5587-4342-99C3-18EE6041B213238425.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7044.579539121499,
+        "amountEurDeclarant": 7902.016023887557,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7700.05573081505,
+        "amountEurDeclarant": 10430.354376402856,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "ОБЕЩЕТЕНИЯ ЗА МАЙЧИНСТВО",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3900,
-        "valueEur": 1994.038336665252,
-        "holderName": "ЗЕЛИХА ТУРГАЙ МАРЕМ",
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Каспичан",
+        "municipality": "Каспичан",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Зелиха Тургай Марем",
         "isSpouse": false,
-        "legalBasis": "ОБЕЩЕТЕНИЕ ОТ НОИ",
-        "fundsOrigin": null
+        "legalBasis": "делба",
+        "fundsOrigin": "безвъзмездно"
       },
       {
-        "category": "receivable",
-        "description": "ВЪЗНАГРАЖДЕНИЕ ПО ТРУДОВО ПРАВООТНОШЕНИЕ",
+        "category": "debt",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -56,32 +56,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1560,
-        "valueEur": 797.6153346661008,
-        "holderName": "ЗЕЛИХА ТУРГАЙ МАРЕМ",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Зелиха Тургай Марем",
         "isSpouse": false,
-        "legalBasis": "ЗАПЛАТИ",
-        "fundsOrigin": null
-      },
-      {
-        "category": "receivable",
-        "description": "ВЪЗНАГРАЖДЕНИЕ ПО ТРУДОВО ПРАВООТНОШЕНИЕ",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 9600,
-        "valueEur": 4908.4020594836975,
-        "holderName": "ЗЕЛИХА ТУРГАЙ МАРЕМ",
-        "isSpouse": false,
-        "legalBasis": "ЗАПЛАТИ",
+        "legalBasis": "6% лихва",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Каспичан",
+        "municipality": "Каспичан",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

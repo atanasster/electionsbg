@@ -4,26 +4,32 @@
     "declarantName": "Нина Вълкова Иванова",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г3705",
-    "controlHash": "2113C7B4",
-    "sourceUrl": "https://register.cacbg.bg/2025/22060070-0425-4BD2-A9F7-6101AFBA49BC206505.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г7363",
+    "controlHash": "E52227D9",
+    "sourceUrl": "https://register.cacbg.bg/2026/22060070-0425-4BD2-A9F7-6101AFBA49BC231772.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4584.243006805295,
-        "amountEurSpouse": 20712.43410725881
+        "amountEurDeclarant": 7340.617538334109,
+        "amountEurSpouse": 22127.178742528748
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18189.208673555473,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 7947.52100131402
+        "amountEurSpouse": 10628.224334425793
       },
       {
         "parent": null,
@@ -35,11 +41,83 @@
         "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 3437.415317282177
+        "amountEurSpouse": 3357.142491934371
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Нина Вълкова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Милен Атанасов Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Колесен трактор и челен товарач",
+        "detail": "lambordgini,hauer rom",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Нина Вълкова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Колесен трактор и челен товарач",
+        "detail": "lambordgini,hauer rom",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Милен Атанасов Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -50,8 +128,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 6500,
+        "valueEur": 3323.39722777542,
         "holderName": "Нина Вълкова Иванова",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,12 +146,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 24000,
-        "valueEur": 12271.005148709244,
+        "amount": 21000,
+        "valueEur": 10737.129505120589,
         "holderName": "Милен Атанасов Иванов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "друга стопанска дейност"
       },
       {
         "category": "bank",
@@ -86,8 +164,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2337,
-        "valueEur": 1194.8891263555627,
+        "amount": 1710,
+        "valueEur": 874.3091168455336,
         "holderName": "Нина Вълкова Иванова",
         "isSpouse": false,
         "legalBasis": null,
@@ -104,14 +182,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45623,
-        "valueEur": 23326.669495815077,
+        "amount": 32870,
+        "valueEur": 16806.1641349197,
+        "holderName": "Милен Атанасов Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "друга стопанска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19835,
+        "valueEur": 10141.474463526994,
         "holderName": "Милен Атанасов Иванов",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25455,
+        "valueEur": 13014.934835849741,
+        "holderName": "Милен Атанасов Иванов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "доходи от други източници"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Горно поле",
+        "municipality": "Маджарово",
+        "areaSqm": 1020,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Горно поле",
+        "municipality": "Маджарово",
+        "areaSqm": 1020,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

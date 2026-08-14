@@ -5,6 +5,63 @@
     "institution": "Областни отдели \"Автомобилна администрация\"",
     "positionTitle": "Началник",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г3555",
+    "controlHash": "8F5BB66A",
+    "sourceUrl": "https://register.cacbg.bg/2026/715C9F95-A0F1-4FD5-818F-1FBF29F3D1E1227690.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13975.652280617436,
+        "amountEurSpouse": 17375.23199869109
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай и30",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6846,
+        "valueEur": 3500.304218669312,
+        "holderName": "Борислав Николаев Велков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "хюндай их35",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4192.593425808992,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "borislav-nikolaev-velkov-d8af94",
+    "declarantName": "Борислав Николаев Велков",
+    "institution": "Областни отдели \"Автомобилна администрация\"",
+    "positionTitle": "Началник",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

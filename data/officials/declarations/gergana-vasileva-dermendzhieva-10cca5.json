@@ -1,6 +1,116 @@
 [
   {
     "slug": "gergana-vasileva-dermendzhieva-10cca5",
+    "declarantName": "Гергана Василева Григорова",
+    "institution": "СБАЛАГ \"Майчин дом” ЕАД, гр.София",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г1749",
+    "controlHash": "FC0519CF",
+    "sourceUrl": "https://register.cacbg.bg/2026/B458BC73-DDC6-4117-B8F8-D5425A7F3E5A225702.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27909.37862697678,
+        "amountEurSpouse": 92967.18017414602
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 29147.216271352827,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8628.050495186188,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21245,
+        "valueEur": 21244.688955584075,
+        "holderName": "Гергана Василева Григорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 21245,
+        "valueEur": 21244.688955584075,
+        "holderName": "Гергана Василева Григорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13671,
+        "valueEur": 13670.92231942449,
+        "holderName": "Гергана Василева Григорова",
+        "isSpouse": false,
+        "legalBasis": "4.58% договор за потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31354,
+        "valueEur": 31353.952030595705,
+        "holderName": "Гергана Василева Григорова",
+        "isSpouse": false,
+        "legalBasis": "4.38% договор за потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gergana-vasileva-dermendzhieva-10cca5",
     "declarantName": "ГЕРГАНА ВАСИЛЕВА ДЕРМЕНДЖИЕВА",
     "institution": "СБАЛАГ \"Майчин дом” ЕАД, гр.София",
     "positionTitle": "Член на СД",

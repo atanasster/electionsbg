@@ -5,6 +5,68 @@
     "institution": "СДВР",
     "positionTitle": "Директор",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г14831",
+    "controlHash": "E42DC6A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/7C23B008-F053-4932-A9BA-DEAD0F0EA813241144.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42887.67428662,
+        "amountEurSpouse": 17106.803761063078
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 96400,
+        "valueEur": 49288.53734731546,
+        "holderName": "Любомир Тодоров Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35048,
+        "valueEur": 17919.757852165065,
+        "holderName": "Любомир Тодоров Николов",
+        "isSpouse": false,
+        "legalBasis": "ипотека - 3,7",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-todorov-nikolov-811d6f",
+    "declarantName": "Любомир Тодоров Николов",
+    "institution": "СДВР",
+    "positionTitle": "Директор",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

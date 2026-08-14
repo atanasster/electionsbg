@@ -4,29 +4,48 @@
     "declarantName": "Ива Иванова Стамова",
     "institution": "Мъглиж",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-08",
-    "entryNumber": "Г2223",
-    "controlHash": "13D6EE8C",
-    "sourceUrl": "https://register.cacbg.bg/2025/120358C7-158B-4DF9-BC7B-330227B96684204833.xml",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г13616",
+    "controlHash": "69208969",
+    "sourceUrl": "https://register.cacbg.bg/2026/120358C7-158B-4DF9-BC7B-330227B96684239177.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2918.9653497492113,
-        "amountEurSpouse": 22093.433478369796
+        "amountEurDeclarant": 3218.5823921301953,
+        "amountEurSpouse": 23252.532173041625
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 4231.451608779904,
+        "amountEurDeclarant": 4908.913351364894,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Стамо Андреев Стамов",
+        "isSpouse": true,
+        "legalBasis": "потр. Кредит  8%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

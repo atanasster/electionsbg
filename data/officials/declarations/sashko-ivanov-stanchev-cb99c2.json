@@ -5,6 +5,92 @@
     "institution": "Областни дирекции \"Земеделие\" - МЗХ",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2484",
+    "controlHash": "7A5891FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/0C2B2D36-D379-4D17-845A-FD1D84DFA26A226533.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32217.52401793612,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8242.025124883043,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "интеграционни добавки",
+        "amountEurDeclarant": 273.5411564399769,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия по инвалидност",
+        "amountEurDeclarant": 9154.681132818292,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6458.639043270632
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 165045,
+        "valueEur": 84386.16853202989,
+        "holderName": "Сашко Иванов Станчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия, интеграционни добавки"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 92024,
+        "valueEur": 47051.12407520081,
+        "holderName": "Цеца Маринова Станчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наличност от минали години и дивиденти"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sashko-ivanov-stanchev-cb99c2",
+    "declarantName": "Сашко Иванов Станчев",
+    "institution": "Областни дирекции \"Земеделие\" - МЗХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

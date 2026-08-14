@@ -1,6 +1,62 @@
 [
   {
     "slug": "dimitr-georgiev-karakashev-7f486e",
+    "declarantName": "ДИМИТЪР ГЕОРГИЕВ КАРАКАШЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4521",
+    "controlHash": "4161F823",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5638C97-84B5-4F28-A94C-1778D4951BDF228721.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12673.903151091863,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 976.5674930847773,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДРУГИ - КАРАКАШЕВ ГРУП ЕООД",
+        "amountEurDeclarant": 460.16269307659667,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44500,
+        "valueEur": 22752.488713231724,
+        "holderName": "ДИМИТЪР ГЕОРГИЕВ КАРАКАШЕВ",
+        "isSpouse": false,
+        "legalBasis": "3.33",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-georgiev-karakashev-7f486e",
     "declarantName": "Димитър Георгиев Каракашев",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

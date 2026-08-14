@@ -1,6 +1,74 @@
 [
   {
     "slug": "mariya-kirilova-koleva-ivanova-e38178",
+    "declarantName": "Мария Кирилова Колева-Иванова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9017",
+    "controlHash": "550FE277",
+    "sourceUrl": "https://register.cacbg.bg/2026/75FDE183-3FE7-4565-9326-483941126041233568.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29689.696957302014,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2092.7176697361224,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2018,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мария Кирилова Колева-Иванова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "Къща",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "acquiredYear": 2018,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мария Кирилова Колева-Иванова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariya-kirilova-koleva-ivanova-e38178",
     "declarantName": "Мария Кирилова Колева - Иванова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

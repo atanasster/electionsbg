@@ -5,6 +5,74 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Управител",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-03",
+    "entryNumber": "Г1094",
+    "controlHash": "BCADF420",
+    "sourceUrl": "https://register.cacbg.bg/2026/B32BE98F-06E1-41B3-B8D4-7BFD0BEB8ED8224793.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24030.71841622227,
+        "amountEurSpouse": 24030.71841622227
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение от ДЗИ",
+        "amountEurDeclarant": 86919.61980335714,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Таня Иванова Мегданова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 88000,
+        "valueEur": 86919.61980335714,
+        "holderName": "Таня Иванова Мегданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tanya-ivanova-megdanova-01b4e1",
+    "declarantName": "Таня Иванова Мегданова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

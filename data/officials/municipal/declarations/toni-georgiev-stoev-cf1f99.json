@@ -4,29 +4,42 @@
     "declarantName": "Тони Георгиев Стоев",
     "institution": "Симитли",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-16",
-    "entryNumber": "Г2730",
-    "controlHash": "2876E392",
-    "sourceUrl": "https://register.cacbg.bg/2025/1F99D968-7F2C-438F-B0DB-2FF389AA9B24205422.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г13486",
+    "controlHash": "A018FC63",
+    "sourceUrl": "https://register.cacbg.bg/2026/1F99D968-7F2C-438F-B0DB-2FF389AA9B24238999.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1089.5629988291416,
-        "amountEurSpouse": 5726.469069397647
+        "amountEurDeclarant": 1188.753623781208,
+        "amountEurSpouse": 4387.906924425947
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13068.109191494148,
+        "amountEurDeclarant": 15629.170224406007,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

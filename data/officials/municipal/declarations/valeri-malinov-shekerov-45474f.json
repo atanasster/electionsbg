@@ -4,35 +4,72 @@
     "declarantName": "ВАЛЕРИ МАЛИНОВ ШЕКЕРОВ",
     "institution": "Сатовча",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г7492",
-    "controlHash": "5563F2D8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3F22CC8D-C68F-44EC-844A-D415F6580850210487.xml",
+    "entryNumber": "Г13915",
+    "controlHash": "E95B99D2",
+    "sourceUrl": "https://register.cacbg.bg/2026/3F22CC8D-C68F-44EC-844A-D415F6580850239571.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4250.369408384165,
+        "amountEurDeclarant": 4294.340510167039,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 2127.996809538661,
+        "amountEurDeclarant": 5597.6235153362,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 3988.076673330504,
+        "amountEurDeclarant": 4046.8752396680693,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ИНВЕСТИЦИОНЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 173824,
+        "valueEur": 88874.79995705148,
+        "holderName": "ВАЛЕРИ ШЕКЕРОВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ 2,35%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68041,
+        "valueEur": 34788.810888471904,
+        "holderName": "ВАЛЕРИ ШЕКЕРОВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ 2,8%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -5,6 +5,74 @@
     "institution": "Държавна комисия по сигурността на информацията",
     "positionTitle": "Председател",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4704",
+    "controlHash": "39AA9D04",
+    "sourceUrl": "https://register.cacbg.bg/2026/A63B0F56-EC9D-4BA7-86A9-C203BF16C47B228925.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 96327.90170924876,
+        "amountEurSpouse": 20673.064632406702
+      },
+      {
+        "parent": null,
+        "category": "Пенсия от НОИ",
+        "amountEurDeclarant": 12776.161527331107,
+        "amountEurSpouse": 10150.677717388526
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 173000,
+        "valueEur": 88453.4954469458,
+        "holderName": "Петър Стоянов Грошлев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "Галя Димитрова Грошлева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-stoyanov-groshlev-17edf6",
+    "declarantName": "ПЕТЪР СТОЯНОВ ГРОШЛЕВ",
+    "institution": "Държавна комисия по сигурността на информацията",
+    "positionTitle": "Председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

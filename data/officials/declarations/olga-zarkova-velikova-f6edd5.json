@@ -1,6 +1,68 @@
 [
   {
     "slug": "olga-zarkova-velikova-f6edd5",
+    "declarantName": "ОЛГА ЗАРКОВА ВЕЛИКОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-31",
+    "entryNumber": "Г12965",
+    "controlHash": "5DAB61F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/5C453DB0-A0A5-4B76-970B-7CC0C6B04847238346.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23178.906142149368,
+        "amountEurSpouse": 7881.564348639708
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ФИАТ",
+        "detail": "МУЛТИПЛА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1700,
+        "valueEur": 869.1961980335715,
+        "holderName": "ОЛГА ЗАРКОВА ВЕЛИКОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "МАЗДА",
+        "detail": "6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3300,
+        "valueEur": 1687.263207947521,
+        "holderName": "ОЛГА ЗАРКОВА ВЕЛИКОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "olga-zarkova-velikova-f6edd5",
     "declarantName": "Олга Заркова Великова",
     "institution": "Училища",
     "positionTitle": "Директор",

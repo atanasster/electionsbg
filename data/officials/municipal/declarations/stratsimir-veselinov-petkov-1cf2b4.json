@@ -1,28 +1,28 @@
 [
   {
     "slug": "stratsimir-veselinov-petkov-1cf2b4",
-    "declarantName": "Страцимир Веселинов Петков",
+    "declarantName": "СТРАЦИМИР ВЕСЕЛИНОВ ПЕТКОВ",
     "institution": "Ловеч",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-12",
-    "entryNumber": "Г549",
-    "controlHash": "C4CB14A5",
-    "sourceUrl": "https://register.cacbg.bg/2025/A116BF9F-9493-4599-90EB-73D997B9D8A9202630.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г11125",
+    "controlHash": "7E866F6E",
+    "sourceUrl": "https://register.cacbg.bg/2026/A116BF9F-9493-4599-90EB-73D997B9D8A9235964.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32659.791495170848,
+        "amountEurDeclarant": 36205.089399385426,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 5023.4427327528465,
+        "amountEurDeclarant": 5675.339881278025,
         "amountEurSpouse": null
       }
     ],
@@ -137,7 +137,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Мерцедес",
         "location": null,
         "municipality": null,
@@ -155,7 +155,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Пикап",
+        "description": "пикап",
         "detail": "Мазда",
         "location": null,
         "municipality": null,
@@ -182,8 +182,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45000,
-        "valueEur": 23008.13465382983,
+        "amount": 137790,
+        "valueEur": 70450.90831002695,
+        "holderName": "Страцимир Веселинов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1859,
+        "valueEur": 950.4916071437701,
         "holderName": "Страцимир Веселинов Петков",
         "isSpouse": false,
         "legalBasis": null,
@@ -200,14 +218,75 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 92839,
-        "valueEur": 47467.82695837573,
+        "amount": 89111,
+        "valueEur": 45561.73082527622,
         "holderName": "Страцимир Веселинов Петков",
         "isSpouse": false,
-        "legalBasis": "заем",
+        "legalBasis": "договор - 2,9%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "В Севиля, Испания - Обучение по Еразъм +",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1023.6063461548295,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Италия, Сан бенедето",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 322.1138851536177,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Полша, Калиш",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 533.2774320876559,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Германия, Ерфурт",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 623.7760950593865,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 436.1319746603744,
+        "legalBasis": null
+      }
+    ]
   }
 ]

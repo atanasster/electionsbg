@@ -4,37 +4,37 @@
     "declarantName": "Георги Петров Дракалиев",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г9984",
-    "controlHash": "69F3C995",
-    "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED213053.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7490",
+    "controlHash": "341CE716",
+    "sourceUrl": "https://register.cacbg.bg/2026/FCCC4680-B952-4C55-B064-CB32334E86ED231904.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13731.254761405644,
+        "amountEurDeclarant": 13227.120966546172,
         "amountEurSpouse": 19275.703921097436
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 383.9802027783601,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 314.9557988168706,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 29723.953513342163,
+        "amountEurDeclarant": 31018.544556530986,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "cash",
+        "category": "bank",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -44,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 920,
-        "valueEur": 470.388530700521,
+        "amount": 30224,
+        "valueEur": 15453.285817274507,
         "holderName": "Георги Петров Дракалиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,93 +62,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31050,
-        "valueEur": 15875.612911142583,
-        "holderName": "Георги Петров Дракалиев",
+        "amount": 12876,
+        "valueEur": 6583.394262282509,
+        "holderName": "Георги петров Дракалиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "bank",
+        "category": "investment",
         "description": null,
-        "detail": "BGN",
+        "detail": "USD",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 17046,
-        "valueEur": 8715.48140687074,
-        "holderName": "Георги Петров Дракалиев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 21414,
-        "valueEur": 10948.804343935823,
+        "currency": "USD",
+        "amount": 60000,
+        "valueEur": 50873.54217902374,
         "holderName": "Георги Петров Дракалиев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "Мерцедес МЛ 250",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 11146.163010077564,
-        "legalBasis": "възмездно"
-      }
-    ]
-  },
-  {
-    "slug": "georgi-petrov-drakaliev-a1cdf3",
-    "declarantName": "ГЕОРГИ ПЕТРОВ ДРАКАЛИЕВ",
-    "institution": "Бургас",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-02-13",
-    "entryNumber": "Г14376",
-    "controlHash": "8677DE25",
-    "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED217669.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "ЧЛЕН",
-        "companyName": "ФОНДАЦИЯ ВМРО",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

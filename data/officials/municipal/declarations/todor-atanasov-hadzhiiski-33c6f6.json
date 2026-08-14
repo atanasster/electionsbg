@@ -4,56 +4,50 @@
     "declarantName": "ТОДОР АТАНАСОВ ХАДЖИЙСКИ",
     "institution": "Омуртаг",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-26",
-    "entryNumber": "Г4284",
-    "controlHash": "EE9BBC88",
-    "sourceUrl": "https://register.cacbg.bg/2025/77584248-DE4D-49E7-BDFB-DF6046A72AE0207131.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г3301",
+    "controlHash": "A11394E8",
+    "sourceUrl": "https://register.cacbg.bg/2026/77584248-DE4D-49E7-BDFB-DF6046A72AE0227424.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6178.451092375104,
+        "amountEurDeclarant": 7029.2407826856115,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 12369.684481780114
+        "amountEurSpouse": 16999.432466011873
       },
       {
         "parent": null,
-        "category": "НАЕМИ ОТ ЗЕМЕДЕЛСКА ЗЕМЯ",
-        "amountEurDeclarant": 869.1961980335715,
-        "amountEurSpouse": 152.36498059647312
+        "category": "НАЕМИ ОТ ЗЕМЕДЕЛСКИ ЗЕМИ",
+        "amountEurDeclarant": 766.9378217943278,
+        "amountEurSpouse": 152.87627247766932
       },
       {
         "parent": null,
-        "category": "ЛИХВИ ПО БАНКОВИ СМЕТКИ",
+        "category": "ДИВИДЕНТИ ОТ АКЦИИ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 0.5112918811962185
-      },
-      {
-        "parent": null,
-        "category": "ДИВИДЕНТ ОТ АКЦИИ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 56.753398812780254
+        "amountEurSpouse": 44.48239366407101
       },
       {
         "parent": null,
         "category": "ПОМОЩИ И ДОБАВКИ ОТ СОЦИАЛНО ПОДПОМАГАНЕ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 224.96842772633613
+        "amountEurSpouse": 274.05244832117313
       },
       {
         "parent": null,
         "category": "ПЕНСИИ",
-        "amountEurDeclarant": 16670.160494521508,
-        "amountEurSpouse": 9934.912543523722
+        "amountEurDeclarant": 18317.542935735724,
+        "amountEurSpouse": 10902.276782746967
       }
     ],
     "assets": [
@@ -68,12 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43605,
-        "valueEur": 22294.882479561107,
+        "amount": 58119,
+        "valueEur": 29715.772843243023,
         "holderName": "ТОДОР АТАНАСОВ ХАДЖИЙСКИ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "пенсия и заплата"
+        "fundsOrigin": "Пенсия и заплата"
       },
       {
         "category": "bank",
@@ -86,12 +80,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35127,
-        "valueEur": 17960.149910779568,
+        "amount": 64017,
+        "valueEur": 32731.37235853832,
         "holderName": "МАРИЯНА БОРИСОВА БИЖЕВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия и свободна професия"
+      },
+      {
+        "category": "security",
+        "description": "акции",
+        "detail": "Софарма АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "330",
+        "currency": "BGN",
+        "amount": 5,
+        "valueEur": 2.5564594059810926,
+        "holderName": "Марияна Борисова Бижева",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "масова приватизация"
+      },
+      {
+        "category": "security",
+        "description": "акции",
+        "detail": "Балкан фарма Троян АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "5",
+        "currency": "BGN",
+        "amount": 5,
+        "valueEur": 2.5564594059810926,
+        "holderName": "Марияна Борисова Бижева",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "масова приватизация"
       }
     ],
     "events": []

@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г6268",
+    "controlHash": "59755A7C",
+    "sourceUrl": "https://register.cacbg.bg/2026/86884831-2D2D-4DA7-85C2-27BC136D9376230569.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23838.983960773687,
+        "amountEurSpouse": 24867.19193385928
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19587,
+        "valueEur": 10014.674076990332,
+        "holderName": "Стоян Тодоров Кънев",
+        "isSpouse": true,
+        "legalBasis": "договор за заедм, 4,9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivelina-stoyanova-kneva-0aeedc",
+    "declarantName": "Ивелина Стоянова Кънева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

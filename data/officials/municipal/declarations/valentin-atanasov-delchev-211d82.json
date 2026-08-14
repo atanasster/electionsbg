@@ -1,56 +1,50 @@
 [
   {
     "slug": "valentin-atanasov-delchev-211d82",
-    "declarantName": "Валентин Атанасов Делчев",
+    "declarantName": "Валнетин Атанасов Делчев",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2024-04-19",
-    "entryNumber": "Г5566",
-    "controlHash": "7BDA038B",
-    "sourceUrl": "https://register.cacbg.bg/2025/6195782B-01F2-403A-A918-91E5DCEB345B208495.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г6524",
+    "controlHash": "64586F42",
+    "sourceUrl": "https://register.cacbg.bg/2026/6195782B-01F2-403A-A918-91E5DCEB345B230850.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7881.053056758512,
+        "amountEurDeclarant": 12557.839894060322,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 4901.755265028147,
+        "amountEurDeclarant": 5004.524933148587,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 1840.6507723063867,
+        "amountEurDeclarant": 1687.263207947521,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 52499.96165310891,
+        "amountEurSpouse": 52499.96165310891
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсии",
+        "amountEurDeclarant": 9524.856454804354,
+        "amountEurSpouse": 3157.7386582678455
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Костинброд",
-        "municipality": "Костинброд",
-        "areaSqm": 62,
-        "builtAreaSqm": 62,
-        "acquiredYear": 1995,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 7300,
-        "valueEur": 3732.430732732395,
-        "holderName": "Валентин Атанасов Делчев",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
       {
         "category": "real_estate",
         "description": "къща",
@@ -119,7 +113,7 @@
         "amount": 1338,
         "valueEur": 684.1085370405403,
         "holderName": "Валентин Атанасов Делчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -137,7 +131,7 @@
         "amount": 12000,
         "valueEur": 6135.502574354622,
         "holderName": "Валентин Атанасов Делчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -152,10 +146,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 5874,
-        "valueEur": 3003.3285101465876,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Валентин Атанасов Делчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -170,10 +164,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 98182,
-        "valueEur": 50172.04971802253,
+        "amount": 170988,
+        "valueEur": 87424.776181979,
         "holderName": "Валентин Атанасов Делчев",
-        "isSpouse": false,
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -188,8 +182,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9457,
-        "valueEur": 4835.287320472638,
+        "amount": 207979,
+        "valueEur": 106337.97415930833,
+        "holderName": "Валентин Атанасов Делчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19482,
+        "valueEur": 9960.988429464729,
         "holderName": "Зоя Любомирова Делчева",
         "isSpouse": true,
         "legalBasis": null,

@@ -4,46 +4,46 @@
     "declarantName": "Таня Георгиева Станкова",
     "institution": "Любимец",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12108",
-    "controlHash": "76BFF1FD",
-    "sourceUrl": "https://register.cacbg.bg/2025/4AF90F00-FA81-46A2-BCC7-53A7E49D47E7215265.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12534",
+    "controlHash": "4652E44E",
+    "sourceUrl": "https://register.cacbg.bg/2026/4AF90F00-FA81-46A2-BCC7-53A7E49D47E7237837.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21130.15957419612,
+        "amountEurDeclarant": 28748.919895900974,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 6131.412239305052,
+        "amountEurDeclarant": 9299.888027078017,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Ауди",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Любимец",
+        "municipality": "Любимец",
+        "areaSqm": 620,
+        "builtAreaSqm": 620,
+        "acquiredYear": 2025,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 28000,
-        "valueEur": 14316.172673494118,
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
         "holderName": "Таня Георгиева Станкова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "cash",
@@ -56,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 38000,
-        "valueEur": 19429.0914854563,
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
         "holderName": "Таня Георгиева Станкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно от предходна декларация"
+        "fundsOrigin": "заплата, наем, предходна декларация"
       },
       {
         "category": "cash",
@@ -79,7 +79,7 @@
         "holderName": "Таня Георгиева Станкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно, наем"
+        "fundsOrigin": "предходна декларация"
       },
       {
         "category": "bank",
@@ -92,56 +92,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39000,
-        "valueEur": 19940.38336665252,
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
         "holderName": "Таня Георгиева Станкова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "заплата, остатък от предходна декларация"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "tanya-georgieva-stankova-3ed8bb",
-    "declarantName": "Таня Георгиева Станкова",
-    "institution": "Любимец",
-    "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "Г12112",
-    "controlHash": "B483F8A3",
-    "sourceUrl": "https://register.cacbg.bg/2025/4AF90F00-FA81-46A2-BCC7-53A7E49D47E7215269.xml",
-    "ownershipStakes": [
+    "events": [
       {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в търговско дружество",
-        "shareSize": "50% дялово участие - размер на капитала 1000 лв.",
-        "companyName": "Комваст ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "не съм управител",
-        "companyName": "Комваст ООД",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
-    ],
-    "income": [],
-    "assets": [],
-    "events": []
+    ]
   }
 ]

@@ -4,19 +4,19 @@
     "declarantName": "Георги Павлов Николов",
     "institution": "Бойчиновци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г10005",
-    "controlHash": "8852A995",
-    "sourceUrl": "https://register.cacbg.bg/2025/06FDD620-CBFD-4ED2-805A-718ED9C1182E213075.xml",
+    "filedAt": "2026-04-23",
+    "entryNumber": "Г2779",
+    "controlHash": "5D210B26",
+    "sourceUrl": "https://register.cacbg.bg/2026/06FDD620-CBFD-4ED2-805A-718ED9C1182E226863.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12873.818276639586,
+        "amountEurDeclarant": 14412.806839040202,
         "amountEurSpouse": null
       }
     ],
@@ -58,6 +58,55 @@
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Громшин",
+        "municipality": "Бойчиновци",
+        "areaSqm": 1030,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Громшин",
+        "municipality": "Бойчиновци",
+        "areaSqm": 1030,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Громшин",
+        "municipality": "Бойчиновци",
+        "areaSqm": 764,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Громшин",
+        "municipality": "Бойчиновци",
+        "areaSqm": 764,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

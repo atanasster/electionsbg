@@ -4,51 +4,38 @@
     "declarantName": "Теодор Найденов Радев",
     "institution": "Попово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г14096",
-    "controlHash": "5CE4D3B0",
-    "sourceUrl": "https://register.cacbg.bg/2025/DB961AC5-6E16-46E3-A735-00A727B81100217360.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "Участие в капитала",
-        "shareSize": "5",
-        "companyName": "Отбрани 2024 ООД",
-        "registeredOffice": "Попово",
-        "valueEur": 2.5564594059810926,
-        "holderName": "Теодор Найденов Радев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г11604",
+    "controlHash": "8923B274",
+    "sourceUrl": "https://register.cacbg.bg/2026/DB961AC5-6E16-46E3-A735-00A727B81100236542.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5109.851060675008,
+        "amountEurDeclarant": 4391.997259475517,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 7417.822612394738,
+        "amountEurDeclarant": 6433.585741092017,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 11759.713267513025,
+        "amountEurDeclarant": 21607.194899352195,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "Потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -57,11 +44,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 66296,
-        "valueEur": 33896.6065557845,
+        "amount": 60677,
+        "valueEur": 31023.65747534295,
         "holderName": "Теодор Найденов Радев",
         "isSpouse": false,
-        "legalBasis": "договор за потребителски кредит",
+        "legalBasis": "Договор; 5.39% лихва",
         "fundsOrigin": null
       }
     ],

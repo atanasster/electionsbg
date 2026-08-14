@@ -1,26 +1,45 @@
 [
   {
     "slug": "dimitr-ivanov-vlahov-53ef7f",
-    "declarantName": "ДИМИТЪР ИВАНОВ ВЛАХОВ",
+    "declarantName": "Димитър Иванов Влахов",
     "institution": "Лесичево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4872",
-    "controlHash": "D857370D",
-    "sourceUrl": "https://register.cacbg.bg/2025/B6EA277A-7CB1-4A30-9D6C-86C7C048D7D7207752.xml",
+    "filedAt": "2026-04-27",
+    "entryNumber": "Г11024",
+    "controlHash": "126B2D9E",
+    "sourceUrl": "https://register.cacbg.bg/2026/B6EA277A-7CB1-4A30-9D6C-86C7C048D7D7235855.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4772.3984190855035,
-        "amountEurSpouse": 5065.368667010936
+        "amountEurDeclarant": 4578.618796112137,
+        "amountEurSpouse": 5748.454620289084
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Димитър Иванов Влахов",
+        "isSpouse": false,
+        "legalBasis": "лихвен процент-6,82",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

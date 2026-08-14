@@ -4,32 +4,26 @@
     "declarantName": "Иван Христов Барзин",
     "institution": "Вълчедръм",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г8799",
-    "controlHash": "1B32F2C0",
-    "sourceUrl": "https://register.cacbg.bg/2025/73760300-3962-42D6-A714-EC668074464D211824.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г9784",
+    "controlHash": "93185858",
+    "sourceUrl": "https://register.cacbg.bg/2026/73760300-3962-42D6-A714-EC668074464D234441.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31789.572713374884,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 1585.0048317082774,
+        "amountEurDeclarant": 31790.08400525608,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсии",
-        "amountEurDeclarant": 11915.145999396676,
-        "amountEurSpouse": 4251.903284027753
+        "amountEurDeclarant": 12613.57070911071,
+        "amountEurSpouse": 4434.434485614803
       }
     ],
     "assets": [
@@ -44,12 +38,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 187295,
-        "valueEur": 95762.41288864575,
+        "amount": 286652,
+        "valueEur": 146562.84032865844,
         "holderName": "Иван Христов Барзин",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии, приходи от земеделска продукция"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -67,7 +61,7 @@
         "holderName": "Иван Христов Барзин",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии, приходи от земеделска продукция"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -80,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 216621,
-        "valueEur": 110756.55859660605,
+        "amount": 215506,
+        "valueEur": 110186.46814907226,
         "holderName": "Диана Иванова Барзина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
         "category": "bank",
@@ -98,14 +92,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 79926,
-        "valueEur": 79925.65816047406,
+        "amount": 79902,
+        "valueEur": 79901.62744205784,
         "holderName": "Диана Иванова Барзина",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати, пенсии"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке за лек автомобил",
+        "detail": "Уесттрайлер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

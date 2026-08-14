@@ -4,29 +4,113 @@
     "declarantName": "Исмаил Недрет Ибрям",
     "institution": "Никола Козлево",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г14013",
-    "controlHash": "2C6344E5",
-    "sourceUrl": "https://register.cacbg.bg/2025/1CD53C16-1D7B-410E-9F80-58A97E1F577A217275.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г12153",
+    "controlHash": "0F32B29D",
+    "sourceUrl": "https://register.cacbg.bg/2026/1CD53C16-1D7B-410E-9F80-58A97E1F577A237299.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26107.586037641307,
+        "amountEurDeclarant": 23877.330851863404,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 4216.624144225214
+        "amountEurSpouse": 5816.967732369378
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 445.3352285219063,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": 1022.5837623924369
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Леон Х Периенс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Исмаил Недрет Ибрям",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания от предходни години"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Леон Х Периенс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Атче Неджмедин Ибрям",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания от предходни години"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9950,
+        "valueEur": 5087.354217902374,
+        "holderName": "Исмаил Недрет Ибрям",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания от предходни години"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9950,
+        "valueEur": 5087.354217902374,
+        "holderName": "Атче Неджмедин Ибрям",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания от предходни години"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,14 +122,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 58500,
-        "valueEur": 29910.575049978783,
+        "amount": 61200,
+        "valueEur": 31291.06312920857,
         "holderName": "Исмаил Недрет Ибрям",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходни години и заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Леон Х Периенс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Леон Х Периенс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,32 +4,68 @@
     "declarantName": "ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
     "institution": "Горна Малина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г9647",
-    "controlHash": "D59D3EB2",
-    "sourceUrl": "https://register.cacbg.bg/2025/6F5A3CE7-FBBC-4C47-AC0D-5B8F34DD7714212696.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г5801",
+    "controlHash": "20947EEC",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F5A3CE7-FBBC-4C47-AC0D-5B8F34DD7714230070.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18722.997397524327,
-        "amountEurSpouse": 13760.909690515024
+        "amountEurDeclarant": 24133.48808434271,
+        "amountEurSpouse": 19362.1122490196
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3354.5860325283893,
+        "amountEurDeclarant": 5293.40484602445,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Горна Малина",
+        "municipality": "Горна Малина",
+        "areaSqm": 885,
+        "builtAreaSqm": 76,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Димитър Георгиев Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "КРЕДИТ - 3.70%",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18372,
+        "valueEur": 18372.762458904916,
+        "holderName": "ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР-3.70",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,27 +74,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40463,
-        "valueEur": 20688.403388842587,
+        "amount": 500,
+        "valueEur": 255.64594059810923,
         "holderName": "ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
         "isSpouse": false,
-        "legalBasis": "КРЕДИТ",
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Горна Малина",
-        "municipality": "Горна Малина",
-        "areaSqm": 584,
-        "builtAreaSqm": 71,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

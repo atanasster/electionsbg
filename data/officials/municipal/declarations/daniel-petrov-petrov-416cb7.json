@@ -1,32 +1,50 @@
 [
   {
     "slug": "daniel-petrov-petrov-416cb7",
-    "declarantName": "Даниел Петров Петров",
+    "declarantName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
     "institution": "Сливен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г9703",
-    "controlHash": "F01E3CE9",
-    "sourceUrl": "https://register.cacbg.bg/2025/2CBF2349-C6A9-4D3F-95CC-2E5CEAAB2C04212752.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13274",
+    "controlHash": "006DAD7D",
+    "sourceUrl": "https://register.cacbg.bg/2026/2CBF2349-C6A9-4D3F-95CC-2E5CEAAB2C04238774.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9676.198851638435,
-        "amountEurSpouse": 57348.03127061146
+        "amountEurDeclarant": 9231.88620687892,
+        "amountEurSpouse": 60187.235086894056
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 20251.248830419823,
+        "amountEurDeclarant": 12548.125348317593,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ленд Роувър Дискавъри",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2940,
+        "valueEur": 1503.1981307168824,
+        "holderName": "Даниел Петров Петров",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10000,
-        "valueEur": 5112.918811962185,
-        "holderName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Даниел Петров Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "Спестявания и заплати"
       },
       {
         "category": "cash",
@@ -58,10 +76,10 @@
         "currency": "EUR",
         "amount": 5000,
         "valueEur": 5006.570100673372,
-        "holderName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+        "holderName": "Даниел Петров Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "Спедтявания"
       },
       {
         "category": "bank",
@@ -74,9 +92,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33572,
-        "valueEur": 17165.091035519446,
-        "holderName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+        "amount": 39368,
+        "valueEur": 20128.53877893273,
+        "holderName": "Даниел Петров Петров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -92,12 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 7000,
-        "valueEur": 8080.968182306233,
-        "holderName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+        "amount": 10401,
+        "valueEur": 10400.699447293477,
+        "holderName": "Даниел Петров Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -110,12 +128,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 1771,
-        "valueEur": 1561.4854051732514,
-        "holderName": "ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+        "amount": 1760,
+        "valueEur": 1542.056313687795,
+        "holderName": "Даниел Петров Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "спестявания"
       },
       {
         "category": "bank",
@@ -128,12 +146,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 110000,
-        "valueEur": 110138.91800412102,
-        "holderName": "РАДОСТИНА ВАСИЛЕВА ПЕТРОВА",
+        "amount": 185000,
+        "valueEur": 185000.23008134653,
+        "holderName": "Радостина Василева Петрова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Заплата"
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

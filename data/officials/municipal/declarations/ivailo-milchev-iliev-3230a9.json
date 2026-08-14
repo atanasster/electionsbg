@@ -4,47 +4,125 @@
     "declarantName": "Ивайло Милчев Илиев",
     "institution": "Шумен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-25",
-    "entryNumber": "Г852",
-    "controlHash": "A599FFA6",
-    "sourceUrl": "https://register.cacbg.bg/2025/3ADD2755-E7BD-4913-B1D7-1EEF9ABD0F33203100.xml",
+    "filedAt": "2026-03-30",
+    "entryNumber": "Г653",
+    "controlHash": "02ECDB12",
+    "sourceUrl": "https://register.cacbg.bg/2026/3ADD2755-E7BD-4913-B1D7-1EEF9ABD0F33224133.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9817.826702729788,
+        "amountEurDeclarant": 9765.674930847774,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 5241.253074142436,
-        "amountEurSpouse": 4060.168828579171
+        "amountEurDeclarant": 4042.273612737303,
+        "amountEurSpouse": 3792.2518828323527
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 138.048807922979,
+        "amountEurDeclarant": 414.146423768937,
         "amountEurSpouse": 2760.97615845958
       },
       {
         "parent": null,
-        "category": "Рента/наем на земеделска земя",
+        "category": "Доходи от разпределен дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 26640.863469728964
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента",
         "amountEurDeclarant": 382.4463271347714,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Възнаграждения като прецедател на ОИК",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 99.7019168332626
+        "category": "Доходи от предадено желязо",
+        "amountEurDeclarant": 65.44536079311597,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Осмар",
+        "municipality": "Велики Преслав",
+        "areaSqm": 800,
+        "builtAreaSqm": 160,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Ивайло Милчев Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Осмар",
+        "municipality": "Велики Преслав",
+        "areaSqm": 800,
+        "builtAreaSqm": 160,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Диана Стефкова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дивидент"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Хонда ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5750,
+        "valueEur": 2939.9283168782563,
+        "holderName": "Ивайло Милчев Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Хонда ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5750,
+        "valueEur": 2939.9283168782563,
+        "holderName": "Диава Стефкова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -56,12 +134,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 33646,
-        "valueEur": 17021.929308784507,
+        "amount": 29990,
+        "valueEur": 15333.643517074592,
         "holderName": "Ивайло Милчев Илиев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата и продажба на недв.имущество"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2755,
+        "valueEur": 1408.609132695582,
+        "holderName": "Диана Стефкова Илиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "приходи от дялво участие и възнаграждения за труд"
       },
       {
         "category": "bank",
@@ -74,12 +170,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "GBP",
-        "amount": 4500,
+        "amount": 4490,
         "valueEur": 5153.822162457883,
         "holderName": "Диана Стефкова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Приходи от дялово участие"
+        "fundsOrigin": "приходи от дялво участие"
       },
       {
         "category": "bank",
@@ -92,32 +188,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 5500,
-        "valueEur": 5000.4345980990165,
+        "amount": 5480,
+        "valueEur": 4660.936788984728,
         "holderName": "Диана Стефкова Илиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "Приходи от дялово участие"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 4072,
-        "valueEur": 2081.9805402310017,
-        "holderName": "Диана Стефкова Илиева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "Приходи от дялово участие и трудова дейност"
+        "fundsOrigin": "приходи от дялово участие"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Дибич",
+        "municipality": "Шумен",
+        "areaSqm": 877,
+        "builtAreaSqm": 292,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Дибич",
+        "municipality": "Шумен",
+        "areaSqm": 877,
+        "builtAreaSqm": 292,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

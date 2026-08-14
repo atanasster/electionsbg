@@ -5,6 +5,37 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9049",
+    "controlHash": "388EDA64",
+    "sourceUrl": "https://register.cacbg.bg/2026/5DF42435-E0F7-407F-8F70-1E506A6D092A233607.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19511.409478328893,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8691.961980335715
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "darina-ivanova-stoyanova-d2de7a",
+    "declarantName": "Дарина Иванова Стоянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

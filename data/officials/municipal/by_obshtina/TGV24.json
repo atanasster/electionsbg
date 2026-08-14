@@ -1,13 +1,13 @@
 {
   "obshtina": "TGV24",
   "registryName": "Попово",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 20,
     "chief_architect": 1,
@@ -21,7 +21,26 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
+      "slug": "dimitr-petkov-petkov-cdb93a",
+      "name": "Димитър Петков Петков",
+      "normalizedName": "ДИМИТЪР ПЕТКОВ ПЕТКОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Попово",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 105,
+        "prefVotes": 21,
+        "isElected": false
+      }
     },
     {
       "slug": "iordanka-stefanova-georgieva-1b2b95",
@@ -30,7 +49,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "",
@@ -49,7 +69,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "georgi-petrov-georgiev-1a8078",
@@ -58,7 +79,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -77,7 +99,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "andrei-stefanov-petkov-9d03a1",
@@ -86,7 +109,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -103,7 +127,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -114,13 +139,32 @@
       }
     },
     {
+      "slug": "veneta-rusanova-misirdzhieva-4c9f34",
+      "name": "Венета Русанова Мисирджиева",
+      "normalizedName": "ВЕНЕТА РУСАНОВА МИСИРДЖИЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Попово",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Граждани за Общината",
+        "partyCanonicalId": null,
+        "listPos": 110,
+        "prefVotes": 75,
+        "isElected": false
+      }
+    },
+    {
       "slug": "venetka-ivanova-koleva-adda26",
       "name": "Венетка Иванова Колева",
       "normalizedName": "ВЕНЕТКА ИВАНОВА КОЛЕВА",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -137,7 +181,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -148,30 +193,14 @@
       }
     },
     {
-      "slug": "goran-ivanov-tsvetkov-26e615",
-      "name": "Горан Иванов Цветков",
-      "normalizedName": "ГОРАН ИВАНОВ ЦВЕТКОВ",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Попово",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Граждани за Общината",
-        "partyCanonicalId": null,
-        "listPos": 106,
-        "prefVotes": 76,
-        "isElected": true
-      }
-    },
-    {
       "slug": "dean-marinov-rusev-24f0d6",
       "name": "Деан Маринов Русев",
       "normalizedName": "ДЕАН МАРИНОВ РУСЕВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -188,7 +217,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -205,7 +235,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -222,7 +253,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -239,7 +271,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -250,13 +283,32 @@
       }
     },
     {
+      "slug": "iliyan-stanchev-iliev-079084",
+      "name": "Илиян Станчев Илиев",
+      "normalizedName": "ИЛИЯН СТАНЧЕВ ИЛИЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Попово",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ЛЕВИЦАТА!",
+        "partyCanonicalId": "p_48",
+        "listPos": 104,
+        "prefVotes": 106,
+        "isElected": false
+      }
+    },
+    {
       "slug": "naiden-ivanov-ivanov-443fc6",
       "name": "Найден Иванов Иванов",
       "normalizedName": "НАЙДЕН ИВАНОВ ИВАНОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -273,7 +325,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП ЗА БЪЛГАРИЯ",
@@ -290,7 +343,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -307,7 +361,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -318,20 +373,21 @@
       }
     },
     {
-      "slug": "petr-kirilov-kirilov-523960",
-      "name": "Петър Кирилов Кирилов",
-      "normalizedName": "ПЕТЪР КИРИЛОВ КИРИЛОВ",
+      "slug": "rumen-dobrev-dimitrov-aa5256",
+      "name": "Румен Добрев Димитров",
+      "normalizedName": "РУМЕН ДОБРЕВ ДИМИТРОВ",
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
-        "partyName": "ЛЕВИЦАТА!",
-        "partyCanonicalId": "p_48",
-        "listPos": 108,
-        "prefVotes": 133,
-        "isElected": true
+        "partyName": "Граждани за Общината",
+        "partyCanonicalId": null,
+        "listPos": 109,
+        "prefVotes": 73,
+        "isElected": false
       }
     },
     {
@@ -341,7 +397,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Граждани за Общината",
@@ -358,7 +415,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
@@ -375,7 +433,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
@@ -392,30 +451,14 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Попово",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ЛЕВИЦАТА!",
         "partyCanonicalId": "p_48",
         "listPos": 106,
         "prefVotes": 135,
-        "isElected": true
-      }
-    },
-    {
-      "slug": "yurmyuz-envyarova-ahmedova-9dc203",
-      "name": "Юрмюз Енвярова Ахмедова",
-      "normalizedName": "ЮРМЮЗ ЕНВЯРОВА АХМЕДОВА",
-      "role": "councillor",
-      "roleRaw": "Общински съветник",
-      "municipality": "Попово",
-      "latestDeclarationYear": 2025,
-      "candidateLink": {
-        "cycle": "2023_10_29_mi",
-        "partyName": "Граждани за Общината",
-        "partyCanonicalId": null,
-        "listPos": 115,
-        "prefVotes": 203,
         "isElected": true
       }
     }

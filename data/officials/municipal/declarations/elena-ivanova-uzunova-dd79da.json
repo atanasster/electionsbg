@@ -4,26 +4,26 @@
     "declarantName": "Елена Иванова Узунова",
     "institution": "Раковски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-14",
-    "entryNumber": "Г2644",
-    "controlHash": "9B81B843",
-    "sourceUrl": "https://register.cacbg.bg/2025/521A95A2-8C61-4AA3-86AB-F5DA8187FA64205328.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11532",
+    "controlHash": "E4C3D370",
+    "sourceUrl": "https://register.cacbg.bg/2026/521A95A2-8C61-4AA3-86AB-F5DA8187FA64236464.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8479.264557758088,
-        "amountEurSpouse": 15338.756435886555
+        "amountEurDeclarant": 7960.303298343925,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5547.51691097897,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7839.127122500422,
+        "amountEurSpouse": 15600.026587177823
       }
     ],
     "assets": [
@@ -42,17 +42,17 @@
         "valueEur": 0,
         "holderName": "Елена Иванова Узунова",
         "isSpouse": false,
-        "legalBasis": "1/2",
+        "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
-        "description": "къща с двор",
+        "description": "апартамент",
         "detail": null,
         "location": "Маноле",
         "municipality": "Марица",
-        "areaSqm": 73,
-        "builtAreaSqm": 40,
+        "areaSqm": 81,
+        "builtAreaSqm": 81,
         "acquiredYear": 2023,
         "share": "1/2",
         "currency": "BGN",
@@ -60,7 +60,43 @@
         "valueEur": 0,
         "holderName": "Елена Иванова Узунова",
         "isSpouse": false,
-        "legalBasis": "1/2",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "Маноле",
+        "municipality": "Марица",
+        "areaSqm": 39,
+        "builtAreaSqm": 39,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Елена Иванова Узунова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "Маноле",
+        "municipality": "Марица",
+        "areaSqm": 37,
+        "builtAreaSqm": 37,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Елена Иванова Узунова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       },
       {
@@ -119,7 +155,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Мотоциклет",
+        "description": "мотоциклет",
         "detail": "Сузуки ГСХ-Р 1000",
         "location": null,
         "municipality": null,
@@ -134,6 +170,42 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "товарен автомобил",
+        "detail": "Форд Рейнджър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
+        "holderName": "Елена Иванова Узунова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "КТМ-125",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
+        "holderName": "Елена Иванова Узунова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -236,8 +308,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Елена Иванова Узунова",
         "isSpouse": false,
         "legalBasis": null,
@@ -273,10 +345,10 @@
         "share": null,
         "currency": "BGN",
         "amount": 20000,
-        "valueEur": 7004.698772388193,
+        "valueEur": 10225.83762392437,
         "holderName": "Елена Иванова Узунова",
         "isSpouse": false,
-        "legalBasis": "Договор за кредит",
+        "legalBasis": "Договор за кредит-6,090",
         "fundsOrigin": null
       },
       {
@@ -291,44 +363,13 @@
         "share": null,
         "currency": "BGN",
         "amount": 10000,
-        "valueEur": 4090.3350495697478,
+        "valueEur": 5112.918811962185,
         "holderName": "Пламен Пенков Узунов",
         "isSpouse": true,
-        "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "Кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Райна Иванова Петрова- Стойкова",
-        "isSpouse": true,
-        "legalBasis": "Поръчител",
+        "legalBasis": "Договор за кредит-8,32%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Мотоциклет",
-        "detail": "Сузуки ГЦХ-Р",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4090.3350495697478,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

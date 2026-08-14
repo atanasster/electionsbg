@@ -1,35 +1,23 @@
 [
   {
     "slug": "yusein-shaban-mehmed-88d3bb",
-    "declarantName": "Юсеин Шабан Мехмед",
+    "declarantName": "ЮСЕИН ШАБАН МЕХМЕД",
     "institution": "Черноочене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г12194",
-    "controlHash": "C9E2EC99",
-    "sourceUrl": "https://register.cacbg.bg/2025/C3A52CD3-915F-4BDA-87E1-568CDD9701CE215353.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г13819",
+    "controlHash": "5094E6CA",
+    "sourceUrl": "https://register.cacbg.bg/2026/C3A52CD3-915F-4BDA-87E1-568CDD9701CE239428.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4904.311724434127,
-        "amountEurSpouse": 6481.135886043266
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2383.6427501367707,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 4613.38664403348,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 8446.54187736153,
+        "amountEurSpouse": 6548.1151224799705
       },
       {
         "parent": null,
@@ -39,12 +27,43 @@
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 30580.367414345827,
+        "category": "ДРУГА СТОПАНСКА ДЕЙНОСТ ЧЛ.29 ОТ ЗДДФЛ",
+        "amountEurDeclarant": 624.2873869405828,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЗЩЕТЕНИЯ -ЧЛ.24,АЛ.2,Т.14 ЗДДФЛ",
+        "amountEurDeclarant": 47.55014495124832,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ ЧЛ.38, АЛ.1 ЗДДФЛ",
+        "amountEurDeclarant": 383468.91089716385,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50204,
+        "valueEur": 25668.897603574955,
+        "holderName": "ЮСЕИН ШАБАН МЕХМЕД",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ДИВИДЕНТИ"
+      }
+    ],
     "events": []
   }
 ]

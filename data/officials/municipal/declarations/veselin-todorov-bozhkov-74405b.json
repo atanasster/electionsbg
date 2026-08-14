@@ -1,28 +1,34 @@
 [
   {
     "slug": "veselin-todorov-bozhkov-74405b",
-    "declarantName": "ВЕСЕЛИН ТОДОРОВ БОЖКОВ",
+    "declarantName": "Веселин Тодоров Божков",
     "institution": "Карлово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г7390",
-    "controlHash": "7B609A34",
-    "sourceUrl": "https://register.cacbg.bg/2025/7DDD0A11-3E44-41DA-9C5F-F14A2AEB1C3E210378.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г9989",
+    "controlHash": "2A4D1444",
+    "sourceUrl": "https://register.cacbg.bg/2026/7DDD0A11-3E44-41DA-9C5F-F14A2AEB1C3E234666.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7414.754861107561,
-        "amountEurSpouse": 7520.080988633981
+        "amountEurDeclarant": 8000.184065077231,
+        "amountEurSpouse": 8690.939396573322
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10837.854005716243,
+        "amountEurDeclarant": 10556.643471058323,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3188.9274630208147,
         "amountEurSpouse": null
       }
     ],
@@ -38,9 +44,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16628,
-        "valueEur": 8501.76140053072,
-        "holderName": "ВЕСЕЛИН ТОДОРОВ БОЖКОВ",
+        "amount": 7545,
+        "valueEur": 3857.6972436254687,
+        "holderName": "Веселин Тодоров Божков",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -56,30 +62,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23122,
-        "valueEur": 11822.090877018964,
-        "holderName": "ТАНЯ ТОДОРОВА БОЖКОВА",
+        "amount": 8370,
+        "valueEur": 4279.513045612349,
+        "holderName": "Таня Тодорова Божкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "БАНКОВ ЗАЕМ - 4.45 лихвен %",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 34212,
-        "valueEur": 17492.317839485026,
-        "holderName": "ВЕСЕЛИН ТОДОРОВ БОЖКОВ",
-        "isSpouse": false,
-        "legalBasis": "ДОГОВОР",
-        "fundsOrigin": null
       }
     ],
     "events": []

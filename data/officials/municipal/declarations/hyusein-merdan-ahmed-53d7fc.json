@@ -4,48 +4,79 @@
     "declarantName": "Хюсеин Мердан Ахмед",
     "institution": "Завет",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-26",
-    "entryNumber": "Г13739",
-    "controlHash": "BAA27DF2",
-    "sourceUrl": "https://register.cacbg.bg/2025/CF43C51B-A3CF-4875-8B6A-2AC892AD7829216989.xml",
+    "filedAt": "2026-07-15",
+    "entryNumber": "Г14184",
+    "controlHash": "956C18ED",
+    "sourceUrl": "https://register.cacbg.bg/2026/CF43C51B-A3CF-4875-8B6A-2AC892AD7829239909.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5313.411697335658,
+        "amountEurDeclarant": 5145.130200477547,
         "amountEurSpouse": null
       },
       {
         "parent": "II. Други доходи, извън посочените в т. I.",
         "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 32738.607138657248,
+        "amountEurDeclarant": 31499.158924855434,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Брестовене",
+        "municipality": "Завет",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Данаил Георгиев Димитров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 90000,
-        "valueEur": 46016.26930765966,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 20000,
         "holderName": "Хюсеин Мердан Ахмед",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "селскостопанска продъкция и субсидии"
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,35 +4,48 @@
     "declarantName": "Сали Ибрамов Бинбашиев",
     "institution": "Никопол",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11482",
-    "controlHash": "954DA74D",
-    "sourceUrl": "https://register.cacbg.bg/2025/7138274E-2FE9-4DC5-BD6B-A9C1A4C2D921214622.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12382",
+    "controlHash": "EB8A6889",
+    "sourceUrl": "https://register.cacbg.bg/2026/7138274E-2FE9-4DC5-BD6B-A9C1A4C2D921237621.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3922.631312537388,
+        "amountEurDeclarant": 3971.715333132225,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2699.6211327160336,
+        "amountEurDeclarant": 2833.0683137082465,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 3704.8209711477994,
+        "amountEurDeclarant": 6063.9217109871515,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Никопол, ул. Димитър Благоев 47",
+        "municipality": "Никопол",
+        "areaSqm": 640,
+        "builtAreaSqm": 556,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

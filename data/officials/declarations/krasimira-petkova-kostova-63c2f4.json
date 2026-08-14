@@ -5,6 +5,68 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7898",
+    "controlHash": "541468AE",
+    "sourceUrl": "https://register.cacbg.bg/2026/B088A24A-EDCE-421E-893D-E3D9CC3C3643232359.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17843.575361866828,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1580.4032047775113,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8695.029731622892,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи от трудови правоотношения - изплатени суми за транспортни разходи от местоживеенето до работното място",
+        "amountEurDeclarant": 717.8538011994907,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43719,
+        "valueEur": 22353.169754017475,
+        "holderName": "Красимира Петкова Костова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплати и извънтрудови правоотношения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimira-petkova-kostova-63c2f4",
+    "declarantName": "Красимира Петкова Костова",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

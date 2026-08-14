@@ -4,13 +4,13 @@
     "declarantName": "Анелия Недялкова Велева",
     "institution": "Костинброд",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11463",
-    "controlHash": "63CE6585",
-    "sourceUrl": "https://register.cacbg.bg/2025/8E1223B4-3F76-4C08-A7D3-31DFADCFE9EB214603.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г10826",
+    "controlHash": "B8F6B173",
+    "sourceUrl": "https://register.cacbg.bg/2026/8E1223B4-3F76-4C08-A7D3-31DFADCFE9EB235627.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,7 +29,7 @@
         "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "100",
-        "companyName": "Нова Мода 2018 ЕООД",
+        "companyName": "НОВА МОДА 2018 ЕООД",
         "registeredOffice": "Костинброд",
         "valueEur": 1.022583762392437,
         "holderName": "Анелия Недялкова Велева",
@@ -41,7 +41,7 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 15069.305614496148,
+        "amountEurDeclarant": 19697.00843120312,
         "amountEurSpouse": null
       }
     ],
@@ -50,7 +50,7 @@
         "category": "real_estate",
         "description": "ливада",
         "detail": null,
-        "location": "с.Рибарица",
+        "location": "с. Рибарица",
         "municipality": "Етрополе",
         "areaSqm": 2086,
         "builtAreaSqm": null,
@@ -68,7 +68,7 @@
         "category": "real_estate",
         "description": "ливада",
         "detail": null,
-        "location": "с.Рибарица",
+        "location": "с. Рибарица",
         "municipality": "Етрополе",
         "areaSqm": 2086,
         "builtAreaSqm": null,
@@ -86,7 +86,7 @@
         "category": "real_estate",
         "description": "ливада",
         "detail": null,
-        "location": "с.Рибарица",
+        "location": "с. Рибарица",
         "municipality": "Етрополе",
         "areaSqm": 2086,
         "builtAreaSqm": null,
@@ -121,20 +121,20 @@
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Ауди А4",
+        "detail": "БМВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2018,
+        "acquiredYear": 2022,
         "share": null,
         "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 2045.1675247848739,
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
         "holderName": "Анелия Недялкова Велева",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заеми"
       },
       {
         "category": "vehicle",
@@ -153,24 +153,6 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "БМВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2022,
-        "share": null,
-        "currency": "BGN",
-        "amount": 2300,
-        "valueEur": 1175.9713267513025,
-        "holderName": "Анелия Недялкова Велева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
       },
       {
         "category": "debt",
@@ -205,7 +187,7 @@
         "valueEur": 10532.6127526421,
         "holderName": "Анелия Недялкова Велева",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 9,99%",
+        "legalBasis": "Потребителски кредит 9.99%",
         "fundsOrigin": null
       },
       {
@@ -223,7 +205,7 @@
         "valueEur": 8691.961980335715,
         "holderName": "Анелия Недялкова Велева",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 8,96%",
+        "legalBasis": "Потребителски кредит 8.96%",
         "fundsOrigin": null
       },
       {
@@ -241,7 +223,7 @@
         "valueEur": 5112.918811962185,
         "holderName": "Анелия Недялкова Велева",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 13,94%",
+        "legalBasis": "Потребителски кредит 13.94%",
         "fundsOrigin": null
       },
       {
@@ -259,10 +241,23 @@
         "valueEur": 5266.30637632105,
         "holderName": "Анелия Недялкова Велева",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит 11,75%",
+        "legalBasis": "Потребителски кредит 11.75%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

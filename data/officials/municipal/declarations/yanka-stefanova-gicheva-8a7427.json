@@ -4,29 +4,84 @@
     "declarantName": "Янка Стефанова Гичева",
     "institution": "Девня",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г9578",
-    "controlHash": "155AAD82",
-    "sourceUrl": "https://register.cacbg.bg/2025/E912987F-D682-493D-9979-E8855AA008D6212624.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3900",
+    "controlHash": "87F588E7",
+    "sourceUrl": "https://register.cacbg.bg/2026/E912987F-D682-493D-9979-E8855AA008D6228076.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4584.754298686491,
+        "amountEurDeclarant": 5217.222355726213,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14180.68032497712,
+        "amountEurDeclarant": 11763.803602562595,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Девня",
+        "municipality": "Девня",
+        "areaSqm": 2,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Янка Стефанова Гичева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Баново",
+        "municipality": "Суворово",
+        "areaSqm": 15,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2025,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Янка Стефанова Гичева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Янка Стефанова Гичева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
     "events": []
   }
 ]

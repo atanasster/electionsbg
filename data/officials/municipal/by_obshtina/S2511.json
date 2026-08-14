@@ -1,13 +1,13 @@
 {
   "obshtina": "S2511",
   "registryName": "Район Красна поляна",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 0,
     "councillor": 0,
     "chief_architect": 1,
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Район Красна поляна",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ПРОДЪЛЖАВАМЕ ПРОМЯНАТА- ДЕМОКРАТИЧНА БЪЛГАРИЯ(СПАСИ СОФИЯ)",
@@ -32,13 +33,24 @@
       }
     },
     {
+      "slug": "boyana-milcheva-popova-648589",
+      "name": "Бояна Милчева Попова",
+      "normalizedName": "БОЯНА МИЛЧЕВА ПОПОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Район Красна поляна",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "daniela-dimitrova-velichkova-e2b761",
       "name": "Даниела Димитрова Величкова",
       "normalizedName": "ДАНИЕЛА ДИМИТРОВА ВЕЛИЧКОВА",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Красна поляна",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "lidiya-petrova-vladimirova-7ec455",
@@ -47,7 +59,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Район Красна поляна",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "МК ПРОДЪЛЖАВАМЕ ПРОМЯНАТА- ДЕМОКРАТИЧНА БЪЛГАРИЯ(СПАСИ СОФИЯ)",
@@ -64,7 +77,8 @@
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Район Красна поляна",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     }
   ]
 }

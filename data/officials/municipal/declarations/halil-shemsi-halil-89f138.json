@@ -4,23 +4,48 @@
     "declarantName": "ХАЛИЛ ШЕМСИ ХАЛИЛ",
     "institution": "Велики Преслав",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-21",
-    "entryNumber": "Г925",
-    "controlHash": "520A4C06",
-    "sourceUrl": "https://register.cacbg.bg/2025/DC0904AA-8C39-4AA8-A25D-FF3FD4A842CA203212.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г4907",
+    "controlHash": "3F59C94D",
+    "sourceUrl": "https://register.cacbg.bg/2026/DC0904AA-8C39-4AA8-A25D-FF3FD4A842CA229138.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5898.7744333607725,
-        "amountEurSpouse": 1657.0969869569442
+        "amountEurDeclarant": 6530.731198519299,
+        "amountEurSpouse": 6994.984226645465
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ГР. ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 350,
+        "builtAreaSqm": 350,
+        "currency": "BGN",
+        "valueEur": 11504.067326914916,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ГР. ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 350,
+        "builtAreaSqm": 350,
+        "currency": "BGN",
+        "valueEur": 11504.067326914916,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

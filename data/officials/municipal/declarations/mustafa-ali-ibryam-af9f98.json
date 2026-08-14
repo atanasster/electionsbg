@@ -4,20 +4,20 @@
     "declarantName": "МУСТАФА АЛИ ИБРЯМ",
     "institution": "Провадия",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г1155",
-    "controlHash": "9571CA17",
-    "sourceUrl": "https://register.cacbg.bg/2025/3A67A61B-932E-401B-B7F5-A90FDF20844C203523.xml",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г10072",
+    "controlHash": "D3F5FAAF",
+    "sourceUrl": "https://register.cacbg.bg/2026/3A67A61B-932E-401B-B7F5-A90FDF20844C234762.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6483.181053568051,
-        "amountEurSpouse": 11000.444823936641
+        "amountEurDeclarant": 6917.26786070364,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -52,7 +52,7 @@
         "currency": "BGN",
         "amount": 37000,
         "valueEur": 18917.799604260083,
-        "holderName": "НУРИХАН ДЖАВДЕТ ИБРЯМ",
+        "holderName": "НУРИХАН ДЖЕВДЕТ ИБРЯМ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
@@ -79,7 +79,7 @@
         "category": "real_estate",
         "description": "магазин",
         "detail": null,
-        "location": "ГР.ПРОВАДИЯ",
+        "location": "ГР.ПРОВДАДИЯ",
         "municipality": "Провадия",
         "areaSqm": 105,
         "builtAreaSqm": 105,
@@ -106,7 +106,7 @@
         "currency": "BGN",
         "amount": 23000,
         "valueEur": 11759.713267513025,
-        "holderName": "НУРИХАН ДЖАВДЕТ ИБРЯМ",
+        "holderName": "НУРИХАН ДЖЕВДЕТ ИБРЯМ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
@@ -142,7 +142,7 @@
         "currency": "BGN",
         "amount": 33000,
         "valueEur": 16872.63207947521,
-        "holderName": "НУРИХАН ДЖАВДЕТ ИБРЯМ",
+        "holderName": "НУРИХАН ДЖЕВДЕТ ИБРЯМ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
@@ -160,15 +160,15 @@
         "currency": "BGN",
         "amount": 1200,
         "valueEur": 613.5502574354622,
-        "holderName": "НУРИХАН ДЖАВДЕТ ИБРЯМ",
-        "isSpouse": true,
+        "holderName": "МУСТАФА АЛИ ИБРЯМ",
+        "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "АВТОМОБИЛ",
-        "detail": "АУДИ А4 3.0 ТДИ",
+        "detail": "АУДИ А4 3,0 ТДИ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -178,8 +178,8 @@
         "currency": "BGN",
         "amount": 1200,
         "valueEur": 613.5502574354622,
-        "holderName": "МУСТАФА АЛИ ИБРЯМ",
-        "isSpouse": false,
+        "holderName": "НУРИХАН ДЖЕВДЕТ ИБРЯМ",
+        "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       },
@@ -194,8 +194,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 13359,
-        "valueEur": 6830.348240900283,
+        "amount": 33772,
+        "valueEur": 17267.349411758692,
         "holderName": "МУСТАФА АЛИ ИБРЯМ",
         "isSpouse": false,
         "legalBasis": null,
@@ -212,12 +212,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40817,
-        "valueEur": 20869.40071478605,
+        "amount": 25984,
+        "valueEur": 13285.408241002542,
         "holderName": "НУРИХАН ДЖЕВДЕТ ИБРЯМ",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и сума при пенсиониране"
+        "fundsOrigin": "сума при пенсиониране и пенсии"
       }
     ],
     "events": []

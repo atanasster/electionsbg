@@ -4,20 +4,32 @@
     "declarantName": "Стефан Иванов Каменовски",
     "institution": "Мизия",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г4199",
-    "controlHash": "481FC49B",
-    "sourceUrl": "https://register.cacbg.bg/2025/B7689712-9F53-4A5B-AE6F-0D5B69329CE5207038.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г11662",
+    "controlHash": "77B75611",
+    "sourceUrl": "https://register.cacbg.bg/2026/B7689712-9F53-4A5B-AE6F-0D5B69329CE5236620.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24115.59286850084,
-        "amountEurSpouse": 5733.627155734394
+        "amountEurDeclarant": 30275.63745315288,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия за осигурителен стаж и възраст - НОИ",
+        "amountEurDeclarant": 11214.676122157856,
+        "amountEurSpouse": 5688.633470189127
+      },
+      {
+        "parent": null,
+        "category": "Доходи от универсален пенсионен фонд Алианц",
+        "amountEurDeclarant": 3562.6818281752503,
+        "amountEurSpouse": 3562.6818281752503
       }
     ],
     "assets": [
@@ -121,9 +133,9 @@
         "builtAreaSqm": 64,
         "acquiredYear": 1986,
         "share": "1/2",
-        "currency": "BGN",
-        "amount": 11000,
-        "valueEur": 5624.210693158403,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
         "holderName": "Елка Йорданова Каменовска",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -139,9 +151,9 @@
         "builtAreaSqm": 150,
         "acquiredYear": 1997,
         "share": "1/2",
-        "currency": "BGN",
-        "amount": 3500,
-        "valueEur": 1789.5215841867648,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
         "holderName": "Елка Йорданова Каменовска",
         "isSpouse": true,
         "legalBasis": "договор за гледане",
@@ -150,7 +162,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "С 250 ТД",
+        "detail": "Мерцедес С 250ТД",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -166,8 +178,8 @@
         "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "потребителски заем",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -176,12 +188,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
+        "amount": 32084,
+        "valueEur": 16404.288716299474,
         "holderName": "Стефан Иванов Каменовски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10318,
+        "valueEur": 5275.509630182582,
+        "holderName": "Елка Йорданова Каменовска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

@@ -4,29 +4,134 @@
     "declarantName": "Мирослав Боянов Георгиев",
     "institution": "Аврен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г6770",
-    "controlHash": "7C2014C4",
-    "sourceUrl": "https://register.cacbg.bg/2025/C755B0B7-2E3C-45EC-9819-129288433250209744.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8210",
+    "controlHash": "FEF5ECA7",
+    "sourceUrl": "https://register.cacbg.bg/2026/C755B0B7-2E3C-45EC-9819-129288433250232697.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4785.692007996605,
+        "amountEurDeclarant": 6488.293972380013,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи по чл.38 от ЗДДФЛ - дивиденти от дялово участие",
-        "amountEurDeclarant": 3579.0431683735296,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5766.349836130952,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от дивидент",
+        "amountEurDeclarant": 15272.288491331046,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61936,
+        "valueEur": 31667.373953768987,
+        "holderName": "Мирослав Боянов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба апартамент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Близнаци",
+        "municipality": "Аврен",
+        "areaSqm": 92,
+        "builtAreaSqm": 92,
+        "currency": "BGN",
+        "valueEur": 62999.851725354456,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "miroslav-boyanov-georgiev-741b50",
+    "declarantName": "Мирослав Боянов Георгиев",
+    "institution": "Аврен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-06-23",
+    "entryNumber": "Ф845",
+    "controlHash": "D29BCB29",
+    "sourceUrl": "https://register.cacbg.bg/2026/C755B0B7-2E3C-45EC-9819-129288433250239086.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "поземлени имоти и сгради",
+        "shareSize": "50%",
+        "companyName": "\"ЕЛ ЕС ЕМ\" ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 523.0515944637315,
+        "holderName": "Мирослав Боянов Георгиев",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "дворно място",
+        "detail": null,
+        "location": "с. о. Ален мак\"",
+        "municipality": "Варна",
+        "areaSqm": 808,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2020,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мирослав Боянов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 12680,
+        "valueEur": 6483.181053568051,
+        "holderName": "Мирослав Боянов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

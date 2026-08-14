@@ -4,15 +4,22 @@
     "declarantName": "Гергана Николова Иванова",
     "institution": "Елин Пелин",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г13360",
-    "controlHash": "726FC10F",
-    "sourceUrl": "https://register.cacbg.bg/2025/26989AFE-2E71-4B85-84E5-51EBCA3F2C82216567.xml",
+    "entryNumber": "Г13520",
+    "controlHash": "18D24067",
+    "sourceUrl": "https://register.cacbg.bg/2026/26989AFE-2E71-4B85-84E5-51EBCA3F2C82239051.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6790.467474166978,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -30,13 +37,13 @@
         "holderName": "Гергана Николова Иванова",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "ззаем"
+        "fundsOrigin": "заем"
       },
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр. Елин Пелин",
+        "location": "гр.Елин Пелин",
         "municipality": "Елин Пелин",
         "areaSqm": 57,
         "builtAreaSqm": 57,
@@ -125,16 +132,16 @@
       {
         "category": "bank",
         "description": null,
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 110000,
-        "valueEur": 56242.106931584036,
+        "currency": "EUR",
+        "amount": 70000,
+        "valueEur": 70046.98772388193,
         "holderName": "Гергана Николова Иванова",
         "isSpouse": false,
         "legalBasis": null,

@@ -4,27 +4,27 @@
     "declarantName": "Нели Ивайлова Минева",
     "institution": "Мездра",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г10807",
-    "controlHash": "11290675",
-    "sourceUrl": "https://register.cacbg.bg/2025/6A650A31-41DE-4279-8F4A-F7FF732880EC213913.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8536",
+    "controlHash": "34103578",
+    "sourceUrl": "https://register.cacbg.bg/2026/6A650A31-41DE-4279-8F4A-F7FF732880EC233049.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30376.873245629733,
-        "amountEurSpouse": 8307.981777557354
+        "amountEurDeclarant": 24623.305706528685,
+        "amountEurSpouse": 9263.07501163189
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Нисан Алмера Тино",
+        "detail": "Нисан алмера тино",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -37,12 +37,12 @@
         "holderName": "Иван Русев Минев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
         "description": "Лек автомобил",
-        "detail": "Нисан Микра",
+        "detail": "Нисан микра",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -55,7 +55,25 @@
         "holderName": "Иван Русев Минев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Спестявания"
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потреботелски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48003,
+        "valueEur": 24543.544173062077,
+        "holderName": "Нели Ивайлова Минева",
+        "isSpouse": false,
+        "legalBasis": "4,99",
+        "fundsOrigin": null
       }
     ],
     "events": []

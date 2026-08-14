@@ -1,6 +1,86 @@
 [
   {
     "slug": "sabrie-mehmedova-vehova-5b5220",
+    "declarantName": "САБРИЕ МЕХМЕДОВА ВЕХОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г8999",
+    "controlHash": "05591251",
+    "sourceUrl": "https://register.cacbg.bg/2026/104565C9-FF9E-42CF-BF8B-DEFBBD0C387C233550.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16212.042968969696,
+        "amountEurSpouse": 13082.425364167642
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЗАЕМ - 2,9 % ИК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "САБРИЕ МЕХМЕДОВА ВЕХОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ - 7 % ПК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67000,
+        "valueEur": 34256.556040146635,
+        "holderName": "САБРИЕ МЕХМЕДОВА ВЕХОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ - 5 % ПК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "ИБРАХИМ РЕДЖЕПОВ ВЕХОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sabrie-mehmedova-vehova-5b5220",
     "declarantName": "Сабрие Мехмедова Вехова",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

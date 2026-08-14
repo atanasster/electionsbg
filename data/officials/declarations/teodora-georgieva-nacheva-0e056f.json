@@ -5,6 +5,98 @@
     "institution": "ЦКОДУХЗ",
     "positionTitle": "Директор",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-13",
+    "entryNumber": "Г1801",
+    "controlHash": "007404AB",
+    "sourceUrl": "https://register.cacbg.bg/2026/FF444E7B-B4CE-4006-86A2-FE87D961B076225762.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30220.41792998369,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсии (по чл. 68 и чл. 84 от КСО)",
+        "amountEurDeclarant": 14392.866455673551,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ваучери храна",
+        "amountEurDeclarant": 191.73445544858194,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5500,
+        "valueEur": 5499.966766027722,
+        "holderName": "Теодора Георгиева Начева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 259616,
+        "valueEur": 132739.55302863746,
+        "holderName": "Теодора Георгиева Начева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, обезщетения, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74802,
+        "valueEur": 38245.65529723954,
+        "holderName": "Теодора Георгиева Начева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия, ДПФ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-georgieva-nacheva-0e056f",
+    "declarantName": "Теодора Георгиева Начева",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": "Директор",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

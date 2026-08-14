@@ -4,32 +4,50 @@
     "declarantName": "Станислав Владимиров Горов",
     "institution": "Кочериново",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г10183",
-    "controlHash": "7F08635C",
-    "sourceUrl": "https://register.cacbg.bg/2025/71A0BCF7-3A2F-482C-ACB6-7E51232AF28C213258.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12218",
+    "controlHash": "19F15DFF",
+    "sourceUrl": "https://register.cacbg.bg/2026/71A0BCF7-3A2F-482C-ACB6-7E51232AF28C237400.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21565.268965094103,
-        "amountEurSpouse": 13880.55199071494
+        "amountEurDeclarant": 25211.802661785532,
+        "amountEurSpouse": 16766.283368186396
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 3038.6076499491264,
+        "amountEurDeclarant": 2800.3456333116887,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "debt",
-        "description": "потребителски кредит",
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Лииф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 14669,
+        "valueEur": 7500.140605267329,
+        "holderName": "Анелия Димитрова Горова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,27 +56,50 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 45500,
-        "valueEur": 23263.780594427943,
-        "holderName": "Станислав Владимиров Горов",
-        "isSpouse": false,
-        "legalBasis": "4,39",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
+        "amount": 12149,
+        "valueEur": 6211.685064652858,
+        "holderName": "Станислав Владмиров Горов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "автомобил",
-        "detail": "Фиат Крома",
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 255.64594059810923,
-        "legalBasis": "възмездно"
+        "amount": 40484,
+        "valueEur": 20699.14051834771,
+        "holderName": "Станислав Владимиров Горов",
+        "isSpouse": false,
+        "legalBasis": "Договор за ПК, 4,37%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Станислав Владимиров Горов",
+        "isSpouse": false,
+        "legalBasis": "Договор за КК, 14,30 %",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

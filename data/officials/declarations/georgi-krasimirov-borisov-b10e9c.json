@@ -5,6 +5,68 @@
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г1047",
+    "controlHash": "3E81AEB1",
+    "sourceUrl": "https://register.cacbg.bg/2026/99208B33-970C-4A78-B9DC-32213EFBB408224719.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34730.01232213434,
+        "amountEurSpouse": 11657.454891273781
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 62,
+        "builtAreaSqm": 71,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 76800,
+        "valueEur": 39267.21647586958,
+        "holderName": "Георги Красимиров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил - Лизинг 5 г. (до 2030г.)",
+        "detail": "Киа Спортидж",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82115,
+        "valueEur": 41984.73282442748,
+        "holderName": "Георги Красимиров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-krasimirov-borisov-b10e9c",
+    "declarantName": "Георги Красимиров Борисов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,43 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4410",
+    "controlHash": "FD6DA612",
+    "sourceUrl": "https://register.cacbg.bg/2026/DF5CED2C-3CEB-4EC9-906B-DDF1CFA505F5228608.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19857.554081898732,
+        "amountEurSpouse": 1492.972293092958
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4034.092942638164
+      },
+      {
+        "parent": null,
+        "category": "Обещетения за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4763.706457105168
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "mariya-yancheva-radeva-199773",
+    "declarantName": "Мария Янчева Радева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

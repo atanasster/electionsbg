@@ -4,38 +4,38 @@
     "declarantName": "Мирослав Недев Игнатов",
     "institution": "Добрич",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г12356",
-    "controlHash": "EFCFCC70",
-    "sourceUrl": "https://register.cacbg.bg/2025/B86679CB-7C68-4AAA-8FF1-DA23EC87AD6E215520.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9281",
+    "controlHash": "E5598B66",
+    "sourceUrl": "https://register.cacbg.bg/2026/B86679CB-7C68-4AAA-8FF1-DA23EC87AD6E233885.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30113.55792681368,
+        "amountEurDeclarant": 43510.939089798194,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 9714.54574272815
+        "amountEurSpouse": 11043.90463383832
       },
       {
         "parent": null,
         "category": "Рента",
-        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurDeclarant": 2249.6842772633613,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "real_estate",
-        "description": "Апартамент",
+        "description": "апартамент",
         "detail": null,
         "location": "Добрич",
         "municipality": "Добрич",
@@ -53,7 +53,7 @@
       },
       {
         "category": "real_estate",
-        "description": "Апартамент",
+        "description": "апартамент",
         "detail": null,
         "location": "Добрич",
         "municipality": "Добрич",
@@ -71,7 +71,7 @@
       },
       {
         "category": "real_estate",
-        "description": "Апартамент",
+        "description": "апартамент",
         "detail": null,
         "location": "Добрич",
         "municipality": "Добрич",
@@ -89,7 +89,7 @@
       },
       {
         "category": "real_estate",
-        "description": "Апартамент",
+        "description": "апартамент",
         "detail": null,
         "location": "Добрич",
         "municipality": "Добрич",
@@ -115,9 +115,9 @@
         "builtAreaSqm": 110,
         "acquiredYear": 2007,
         "share": "1/2",
-        "currency": "BGN",
-        "amount": 85000,
-        "valueEur": 43459.80990167857,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
         "holderName": "Мария Димитрова Игнатова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -233,7 +233,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Фолксваген",
         "location": null,
         "municipality": null,
@@ -251,7 +251,7 @@
       },
       {
         "category": "vehicle",
-        "description": "Лек автомобил",
+        "description": "лек автомобил",
         "detail": "Шкода Кодиак",
         "location": null,
         "municipality": null,
@@ -269,7 +269,7 @@
       },
       {
         "category": "debt",
-        "description": "Кредит 3,877 %",
+        "description": "Кредит 3,94 % лихва",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -278,16 +278,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8700,
-        "valueEur": 4448.2393664071005,
+        "amount": 5288,
+        "valueEur": 2703.711467765603,
         "holderName": "Мария Димитрова Игнатова",
         "isSpouse": true,
-        "legalBasis": "банков кредит",
+        "legalBasis": "банков кредит - 3,94 % лихва",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "кредит 4,81 %",
+        "description": "кредит 4,87 % лихва",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -296,11 +296,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 90000,
-        "valueEur": 46016.26930765966,
+        "amount": 73877,
+        "valueEur": 37772.710307133035,
         "holderName": "Мирослав Недев Игнатов",
         "isSpouse": false,
-        "legalBasis": "банков кредит",
+        "legalBasis": "банков кредит - 4,87 % лихва",
         "fundsOrigin": null
       }
     ],

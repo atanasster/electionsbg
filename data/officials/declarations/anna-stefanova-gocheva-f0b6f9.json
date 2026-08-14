@@ -5,6 +5,87 @@
     "institution": "СБРДЦП \"Св. София\" ЕООД - София",
     "positionTitle": "Контрольор",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г14874",
+    "controlHash": "A002EB2A",
+    "sourceUrl": "https://register.cacbg.bg/2026/4A68A2CE-64CE-44FD-A0BD-A0B43108C91B241241.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14340.20339191034,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19359.555789613616,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7612,
+        "valueEur": 3891.953799665615,
+        "holderName": "Анна Стефанова Гочева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 238,
+        "valueEur": 121.6874677247,
+        "holderName": "Анна Стефанова Гочева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Горна Малина",
+        "municipality": "Горна Малина",
+        "areaSqm": 1400,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "anna-stefanova-gocheva-f0b6f9",
+    "declarantName": "Анна Стефанова Гочева",
+    "institution": "СБРДЦП \"Св. София\" ЕООД - София",
+    "positionTitle": "Контрольор",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

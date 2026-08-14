@@ -5,6 +5,104 @@
     "institution": "Фонд \"Научни изследвания\"",
     "positionTitle": "Член",
     "category": "agency_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8090",
+    "controlHash": "1D2C4696",
+    "sourceUrl": "https://register.cacbg.bg/2026/E679DA18-13E0-4D6B-B48B-18611F99555B232568.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5448.837577908101,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": 3407.2490962916
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 40825.63412975566,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 20860.708752805713,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 95,
+        "builtAreaSqm": null,
+        "acquiredYear": 1992,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24400,
+        "valueEur": 12475.52190118773,
+        "holderName": "Веселин Стоянов Дренски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 282000,
+        "valueEur": 144184.31049733362,
+        "holderName": "Веселин Стоянов Дренски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от предишни години, хонорари, пенсия, 203 ПМС от 1996"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Евгения Лвовна Акиншина",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от предишни години, хонорари"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "veselin-stoyanov-drenski-15951a",
+    "declarantName": "Веселин Стоянов Дренски",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": "Член",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

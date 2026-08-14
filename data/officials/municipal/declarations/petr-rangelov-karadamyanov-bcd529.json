@@ -4,64 +4,64 @@
     "declarantName": "ПЕТЪР РАНГЕЛОВ КАРАДАМЯНОВ",
     "institution": "Калояново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г14020",
-    "controlHash": "8249B58A",
-    "sourceUrl": "https://register.cacbg.bg/2025/260B5182-4D6F-49BB-8BC4-B8CA5F6AC5E3217282.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5293",
+    "controlHash": "2B6056A6",
+    "sourceUrl": "https://register.cacbg.bg/2026/260B5182-4D6F-49BB-8BC4-B8CA5F6AC5E3229544.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6041.936160095714,
-        "amountEurSpouse": 1038.945102590716
+        "amountEurDeclarant": 6482.158469805658,
+        "amountEurSpouse": 5639.54944959429
       },
       {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 243226.6608038531,
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 43204.16396108046,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "vehicle",
-        "description": "плуг",
-        "detail": "OVLAC LF",
+        "description": "Товарен автомобил",
+        "detail": "Mercedes Vito",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 28511,
-        "valueEur": 14577.442824785385,
+        "amount": 30600,
+        "valueEur": 15645.531564604285,
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "стопанска дейност"
       },
       {
         "category": "vehicle",
-        "description": "косачка",
-        "detail": "ROSTSELMASH",
+        "description": "Трактор",
+        "detail": "CLAAS AXION 870",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": null,
         "currency": "BGN",
-        "amount": 25800,
-        "valueEur": 13191.330534862436,
+        "amount": 170400,
+        "valueEur": 87124.13655583563,
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "стопанска дейност"
       },
       {
         "category": "cash",
@@ -74,12 +74,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 127695,
-        "valueEur": 65289.41676935112,
-        "holderName": "Петър Рангелов Карадамянов",
-        "isSpouse": false,
+        "amount": 52950,
+        "valueEur": 27072.90510933977,
+        "holderName": "Петър Рангелов Кардамянов",
+        "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "стопанска дейност, субсидии и фактури"
+        "fundsOrigin": "стопанска дейност"
       },
       {
         "category": "debt",
@@ -92,11 +92,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 65350,
+        "valueEur": 33412.92443617288,
         "holderName": "Петър Рангелов Карадамянов",
         "isSpouse": false,
-        "legalBasis": "овърдрафт",
+        "legalBasis": "инвестиционен кредит-3,35%",
         "fundsOrigin": null
       },
       {
@@ -110,45 +110,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 359861,
-        "valueEur": 183994.00765915238,
-        "holderName": "Петър Рангелов Карадамянов",
-        "isSpouse": false,
-        "legalBasis": "инвестиционен кредит",
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 52175,
-        "valueEur": 26676.6539014127,
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
         "holderName": "Таня Петкова Карадамянова",
         "isSpouse": true,
-        "legalBasis": "потребителски",
+        "legalBasis": "потребителски-4,82%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "трактор",
-        "detail": "CLASS",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 51129.188119621846,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

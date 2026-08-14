@@ -1,6 +1,56 @@
 [
   {
     "slug": "teodora-ivanova-bogdanova-litova-dd4d7b",
+    "declarantName": "Теодора Иванова Богданова - Литова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2377",
+    "controlHash": "C6D6EF20",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BDBD0E4-2251-4EEA-BE1B-FA6B9D7A50BC226424.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36659.11658988767,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12271.005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79576,
+        "valueEur": 40686.56273807028,
+        "holderName": "Теодора Иванова Богданова - Литова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "teodora-ivanova-bogdanova-litova-dd4d7b",
     "declarantName": "Теодора Иванова Богданова-Литова",
     "institution": "Училища",
     "positionTitle": "Директор",

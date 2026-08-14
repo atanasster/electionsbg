@@ -5,6 +5,99 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Директор",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13604",
+    "controlHash": "C2412B0E",
+    "sourceUrl": "https://register.cacbg.bg/2026/6B33753A-8BCE-4705-9772-62337B978966239158.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Трима",
+        "registeredOffice": "Шумен",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ирена Андреева Малева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Продакшън ТВ",
+        "registeredOffice": "Шумен",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ирена Андреева Малева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17292.402713937307,
+        "amountEurSpouse": 10332.186335213184
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 19429.0914854563
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 71000,
+        "valueEur": 36301.72356493151,
+        "holderName": "Ирена Андреева Малева",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48712,
+        "valueEur": 24906.050116830196,
+        "holderName": "Даниел Малчев Малев",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит 7,9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniel-malchev-malev-f529ce",
+    "declarantName": "Даниел Малчев Малев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Директор",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

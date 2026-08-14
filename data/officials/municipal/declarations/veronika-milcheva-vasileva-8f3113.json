@@ -4,29 +4,47 @@
     "declarantName": "Вероника Милчева Василева",
     "institution": "Бяла Слатина",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5040",
-    "controlHash": "8BE1AE9A",
-    "sourceUrl": "https://register.cacbg.bg/2025/A1DA321C-03BF-46F4-A777-D163843513AD207927.xml",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г7018",
+    "controlHash": "E1665053",
+    "sourceUrl": "https://register.cacbg.bg/2026/A1DA321C-03BF-46F4-A777-D163843513AD231403.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6398.306601289478,
-        "amountEurSpouse": 13474.586237045141
+        "amountEurDeclarant": 7945.475833789235,
+        "amountEurSpouse": 18304.24934682462
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13059.92852139501,
+        "amountEurDeclarant": 16361.340198278991,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Вероника Милчева Василева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -38,12 +56,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43000,
-        "valueEur": 21985.550891437397,
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
         "holderName": "Вероника Милчева Василева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "Заплата"
       }
     ],
     "events": []

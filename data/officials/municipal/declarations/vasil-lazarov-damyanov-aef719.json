@@ -4,66 +4,29 @@
     "declarantName": "ВАСИЛ ЛАЗАРОВ ДАМЯНОВ",
     "institution": "Лесичево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г13568",
-    "controlHash": "F31BEEC4",
-    "sourceUrl": "https://register.cacbg.bg/2025/0D6E70E6-28CA-40F1-A444-AB1626772173216795.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г13146",
+    "controlHash": "75FA6149",
+    "sourceUrl": "https://register.cacbg.bg/2026/0D6E70E6-28CA-40F1-A444-AB1626772173238567.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5083.775174734001,
+        "amountEurDeclarant": 4818.925980274359,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 27908.867335095587,
+        "amountEurDeclarant": 19602.41943318182,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "ПАМИДОВО",
-        "municipality": "Лесичово",
-        "areaSqm": 2,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 300,
-        "valueEur": 153.38756435886555,
-        "holderName": "ВАСИЛ ЛАЗАРОВ ДАМЯНОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 58900,
-        "valueEur": 30115.091802457267,
-        "holderName": "ВАСИЛ ЛАЗАРОВ ДАМЯНОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заеми"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

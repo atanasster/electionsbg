@@ -4,20 +4,20 @@
     "declarantName": "Кирил Георгиев Стоев",
     "institution": "Радомир",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-27",
-    "entryNumber": "Г3668",
-    "controlHash": "107551C3",
-    "sourceUrl": "https://register.cacbg.bg/2025/29DA0BE9-8012-498E-ADDC-814E8343BDAF206467.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г6109",
+    "controlHash": "77ED9E3B",
+    "sourceUrl": "https://register.cacbg.bg/2026/29DA0BE9-8012-498E-ADDC-814E8343BDAF230409.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31149.946569998414,
-        "amountEurSpouse": 8719.57174192031
+        "amountEurDeclarant": 29000.98679333071,
+        "amountEurSpouse": 10254.981261152554
       }
     ],
     "assets": [
@@ -238,6 +238,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "vehicle",
+        "description": "лек",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Кирил Георгиев Стоев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "cash",
         "description": null,
         "detail": "BGN",
@@ -266,8 +284,26 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 1093,
+        "valueEur": 558.8420261474668,
+        "holderName": "Кирил Георгиев Стоев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18605,
+        "valueEur": 9512.585449655646,
         "holderName": "Мартина Емилова Стоева",
         "isSpouse": true,
         "legalBasis": null,
@@ -284,39 +320,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43000,
-        "valueEur": 21985.550891437397,
+        "amount": 39726,
+        "valueEur": 20311.581272400977,
         "holderName": "Кирил Георгиев Стоев",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек",
-        "detail": "Мерцедес",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1278.2297029905462,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек",
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 460.16269307659667,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,20 +4,20 @@
     "declarantName": "Марио Рашков Асьов",
     "institution": "Якоруда",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-02-05",
-    "entryNumber": "Г13",
-    "controlHash": "94543554",
-    "sourceUrl": "https://register.cacbg.bg/2025/6F9363CF-A502-4AC9-99D0-8AA8F14796D4201513.xml",
+    "filedAt": "2026-03-24",
+    "entryNumber": "Г561",
+    "controlHash": "723F4F19",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F9363CF-A502-4AC9-99D0-8AA8F14796D4223996.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "50 %",
-        "companyName": "Кил Мар",
+        "companyName": "КилМар",
         "registeredOffice": "Якоруда",
         "valueEur": 51.12918811962185,
         "holderName": "Вергиния Ангелова Асьова",
@@ -35,59 +35,53 @@
         "holderName": "Вергиния Ангелова Асьова",
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ООД",
+        "shareSize": "33,3 %",
+        "companyName": "Став Енерджи",
+        "registeredOffice": "Якоруда",
+        "valueEur": 5112.918811962185,
+        "holderName": "Вергиния Ангелова Асьова",
+        "legalBasis": "инвестиционно намерение",
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7138.145953380406,
-        "amountEurSpouse": 10166.527765705609
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6220.88831851439,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 17223.889601857012,
+        "amountEurSpouse": 11644.16130236268
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12782.297029905461
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 97000,
+        "valueEur": 49595.31247603319,
+        "holderName": "Марио Рашков Асьов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и спестявания"
+      },
       {
         "category": "bank",
         "description": null,
@@ -99,12 +93,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 11657,
+        "valueEur": 5960.129459104319,
         "holderName": "Марио Рашков Асьов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 27418.027129147216,
+        "holderName": "Вергиния Ангелова Асьова",
+        "isSpouse": true,
+        "legalBasis": "4,59 % лихвен процент",
+        "fundsOrigin": null
       }
     ],
     "events": []

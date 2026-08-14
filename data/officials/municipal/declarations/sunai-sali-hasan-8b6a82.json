@@ -4,42 +4,84 @@
     "declarantName": "СУНАЙ САЛИ ХАСАН",
     "institution": "Минерални Бани",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г4678",
-    "controlHash": "8F5B09EB",
-    "sourceUrl": "https://register.cacbg.bg/2025/D7BC7811-DF33-44FA-A53B-B04E6BC4A619207549.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7067",
+    "controlHash": "3A39E21D",
+    "sourceUrl": "https://register.cacbg.bg/2026/D7BC7811-DF33-44FA-A53B-B04E6BC4A619231456.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1300.7265457631797,
-        "amountEurSpouse": 16020.308513521113
+        "amountEurDeclarant": 12672.369275448274,
+        "amountEurSpouse": 18285.33154722036
       },
       {
         "parent": null,
-        "category": "СУБСИДИИ ОТ ДФЗ",
-        "amountEurDeclarant": 848.2332309045265,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 253.08948119212815,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_vehicle",
-        "description": "ТОВАРЕН АВТОМОБИЛ",
-        "detail": "СИТРОЕН",
+        "category": "vehicle",
+        "description": "МОТОЦИКЛЕТ",
+        "detail": "МЗ 125 С2",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
         "currency": "BGN",
-        "valueEur": 1431.6172673494118,
-        "legalBasis": "възмездно"
+        "amount": 550,
+        "valueEur": 281.21053465792016,
+        "holderName": "СУНАЙ САЛИ ХАСАН",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8382,
+        "valueEur": 8382.119100330807,
+        "holderName": "СУНАЙ САЛИ ХАСАН",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "овърдрафт",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1534,
+        "valueEur": 1533.8756435886555,
+        "holderName": "сунай сали хасан",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

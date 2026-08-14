@@ -4,26 +4,26 @@
     "declarantName": "Станислав Максимов Станоев",
     "institution": "Монтана",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13811",
-    "controlHash": "DB966B86",
-    "sourceUrl": "https://register.cacbg.bg/2025/5D72455E-B13C-44A4-BF14-9B2CC87C42A3217063.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г9926",
+    "controlHash": "DBED626F",
+    "sourceUrl": "https://register.cacbg.bg/2026/5D72455E-B13C-44A4-BF14-9B2CC87C42A3234602.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23555.72825859098,
-        "amountEurSpouse": 1596.2532530945941
+        "amountEurDeclarant": 26359.652935071044,
+        "amountEurSpouse": 5713.6867723677415
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 686.1537045653253
+        "amountEurSpouse": 2003.241590526784
       }
     ],
     "assets": [
@@ -92,12 +92,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 65000,
-        "valueEur": 33233.972277754205,
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
         "holderName": "Станислав Максимов Станоев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "доходи оредишни години"
+        "fundsOrigin": "доходи предишни години"
       },
       {
         "category": "receivable",
@@ -114,7 +114,7 @@
         "valueEur": 31188.80475296933,
         "holderName": "Станислав Максимов Станоев",
         "isSpouse": false,
-        "legalBasis": "договор за ааем",
+        "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
       {
@@ -132,7 +132,7 @@
         "valueEur": 16105.694257680883,
         "holderName": "Станислав Максимов Станоев",
         "isSpouse": false,
-        "legalBasis": "договор за ааем",
+        "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
       {
@@ -150,12 +150,12 @@
         "valueEur": 63911.48514952731,
         "holderName": "Станислав Максимов Станоев",
         "isSpouse": false,
-        "legalBasis": "договор за ааем",
+        "legalBasis": "договор за заем",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "банков заем - 2,4% год.лихва",
+        "description": "банков заем - 2,71% год.лихва",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -164,51 +164,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 304425,
-        "valueEur": 155650.03093315882,
+        "amount": 284866,
+        "valueEur": 145649.67302884196,
         "holderName": "Станислав Максимов Станоев",
         "isSpouse": false,
-        "legalBasis": "банков кредит-2.4% год.лихва",
+        "legalBasis": "банков кредит-2.71% год.лихва",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "гори",
-        "detail": null,
-        "location": "Дълги Дел",
-        "municipality": "Монтана",
-        "areaSqm": 3000,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "гори",
-        "detail": null,
-        "location": "Дълги Дел",
-        "municipality": "Монтана",
-        "areaSqm": 56000,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "гори",
-        "detail": null,
-        "location": "Дълги Дел",
-        "municipality": "Монтана",
-        "areaSqm": 18000,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

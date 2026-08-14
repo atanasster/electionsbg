@@ -4,29 +4,48 @@
     "declarantName": "Калина Димитрова Червенкова",
     "institution": "Стамболийски",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г5001",
-    "controlHash": "7BBECFCF",
-    "sourceUrl": "https://register.cacbg.bg/2025/73A8F4C1-5AFB-49FF-A81A-4F89207703F7207885.xml",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г13388",
+    "controlHash": "639C20B4",
+    "sourceUrl": "https://register.cacbg.bg/2026/73A8F4C1-5AFB-49FF-A81A-4F89207703F7238894.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13559.460689323714,
+        "amountEurDeclarant": 14719.070675876737,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 503.111211097079,
+        "amountEurDeclarant": 397.785083570658,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Калина Дивитрова Червенкова",
+        "isSpouse": true,
+        "legalBasis": "7.09 %",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

@@ -4,35 +4,54 @@
     "declarantName": "Веско Петков Манолов",
     "institution": "Белене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г1387",
-    "controlHash": "5B93F392",
-    "sourceUrl": "https://register.cacbg.bg/2025/7DFB47FB-D658-4F23-B5DC-9E755AC9E665203847.xml",
+    "filedAt": null,
+    "entryNumber": "Г1317",
+    "controlHash": "3D97FA31",
+    "sourceUrl": "https://register.cacbg.bg/2026/7DFB47FB-D658-4F23-B5DC-9E755AC9E665225138.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4555.09936957711,
+        "amountEurDeclarant": 5583.818634543902,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 6377.343634160433,
+        "amountEurDeclarant": 7501.163189029721,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "доход от рента",
+        "category": "рента от земеделска земя",
         "amountEurDeclarant": 3067.751287177311,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Веско Петков Манолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      }
+    ],
     "events": []
   }
 ]

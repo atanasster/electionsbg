@@ -4,38 +4,38 @@
     "declarantName": "Стефка Пейкова Савова",
     "institution": "Карлово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г9995",
-    "controlHash": "AEFF6BF0",
-    "sourceUrl": "https://register.cacbg.bg/2025/4579BD17-4093-4CDD-AFF2-1D5E5E8C1A02213065.xml",
+    "filedAt": "2026-08-03",
+    "entryNumber": "Г14981",
+    "controlHash": "A46945AA",
+    "sourceUrl": "https://register.cacbg.bg/2026/4579BD17-4093-4CDD-AFF2-1D5E5E8C1A02241451.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8451.143504292295,
-        "amountEurSpouse": 77405.5004780579
+        "amountEurDeclarant": 8019.101864681491,
+        "amountEurSpouse": 69237.61267594832
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10817.402330468394,
+        "amountEurDeclarant": 19173.445544858194,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Дивиденти",
-        "amountEurDeclarant": 143161.72673494118,
+        "amountEurDeclarant": 80730.43158147692,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
         "category": "debt",
-        "description": "ЗАЕМ",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,11 +44,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 84875,
-        "valueEur": 43395.898416529046,
+        "amount": 62372,
+        "valueEur": 31890.297213970538,
         "holderName": "Стефка Пейкова Савова",
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62372,
+        "valueEur": 31890.297213970538,
+        "holderName": "Стефка Пейкова Савова",
+        "isSpouse": false,
+        "legalBasis": "годишен лихвен%2.8",
         "fundsOrigin": null
       }
     ],

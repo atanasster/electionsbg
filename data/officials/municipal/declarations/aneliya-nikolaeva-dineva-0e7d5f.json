@@ -4,38 +4,50 @@
     "declarantName": "Анелия Николаева Динева",
     "institution": "Николаево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г13878",
-    "controlHash": "65F0CAE5",
-    "sourceUrl": "https://register.cacbg.bg/2025/8C0C87E6-587A-4DC5-98D6-C8C5295B7386217136.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г9579",
+    "controlHash": "33421270",
+    "sourceUrl": "https://register.cacbg.bg/2026/8C0C87E6-587A-4DC5-98D6-C8C5295B7386234211.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16174.207369761176,
+        "amountEurDeclarant": 6111.983147819596,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9432.312624307839,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 664.679445555084,
+        "amountEurDeclarant": 16469.73407709259,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
+        "holderName": "Станимир Минчев Динев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "debt",
-        "description": "потребителски кредит",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -44,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 24000,
-        "valueEur": 12271.005148709244,
+        "amount": 19732,
+        "valueEur": 10088.811399763783,
         "holderName": "Анелия Николаева Динева",
         "isSpouse": false,
         "legalBasis": "7.6",
@@ -53,7 +65,7 @@
       },
       {
         "category": "debt",
-        "description": "Жилищен кредит",
+        "description": "заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -62,26 +74,44 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 93000,
-        "valueEur": 47550.144951248316,
+        "amount": 89836,
+        "valueEur": 45932.417439143486,
         "holderName": "Анелия Николаева Динева",
         "isSpouse": false,
         "legalBasis": "2.5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36329,
+        "valueEur": 18574.72275197742,
+        "holderName": "Станимир Минчев Динев",
+        "isSpouse": true,
+        "legalBasis": "6.7",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "disposal_vehicle",
-        "description": "Лек автомобил",
-        "detail": "Сузуки",
+        "description": "лек автомобил",
+        "detail": "Ауди 4",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 664.679445555084,
-        "legalBasis": "продажба"
+        "valueEur": 558.8420261474668,
+        "legalBasis": "възмездно"
       }
     ]
   }

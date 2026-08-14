@@ -1,6 +1,56 @@
 [
   {
     "slug": "rosen-rosenov-ibishev-5005f5",
+    "declarantName": "Росен Росенов Ибишев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г6013",
+    "controlHash": "1E60BA74",
+    "sourceUrl": "https://register.cacbg.bg/2026/C7C2887A-217B-4DAF-844C-91F42A3DC60C230302.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27555.564645189,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Допълнителен пенсионен фонд",
+        "amountEurDeclarant": 1772.6489521072895,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54446,
+        "valueEur": 27837.797763609313,
+        "holderName": "Росен Росенов Ибишев",
+        "isSpouse": false,
+        "legalBasis": "5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rosen-rosenov-ibishev-5005f5",
     "declarantName": "РОСЕН РОСЕНОВ ИБИШЕВ",
     "institution": "Училища",
     "positionTitle": "Директор",

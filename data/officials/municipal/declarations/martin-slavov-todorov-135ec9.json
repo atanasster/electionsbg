@@ -4,25 +4,25 @@
     "declarantName": "Мартин Славов Тодоров",
     "institution": "Дулово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г1891",
-    "controlHash": "F1725BA7",
-    "sourceUrl": "https://register.cacbg.bg/2025/8250A767-1C05-4190-B386-2E569D96061E204456.xml",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г11543",
+    "controlHash": "848E7E2F",
+    "sourceUrl": "https://register.cacbg.bg/2026/8250A767-1C05-4190-B386-2E569D96061E236478.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6385.0130123783765,
+        "amountEurDeclarant": 7212.794568035054,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи от дивиденти  по чл.38, ал.1 от ЗДДФЛ",
-        "amountEurDeclarant": 109999.84661243565,
+        "category": "Доходи от дивиденти по чл.38 ЗДДФЛ",
+        "amountEurDeclarant": 140903.3504956975,
         "amountEurSpouse": null
       }
     ],
@@ -38,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8191,
-        "valueEur": 4187.991798878225,
+        "amount": 20961,
+        "valueEur": 10717.189121753936,
         "holderName": "Мартин Славов Тодоров",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,12 +56,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 85690,
-        "valueEur": 85689.45153719904,
+        "amount": 9819,
+        "valueEur": 9819.360578373376,
         "holderName": "Мартин Славов Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - дивиденти"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 84181,
+        "valueEur": 84181.1404876702,
+        "holderName": "Мартин Славов Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - дивиденти"
       },
       {
         "category": "debt",
@@ -74,11 +92,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 102800,
-        "valueEur": 52560.80538697126,
+        "amount": 83365,
+        "valueEur": 42623.847675922756,
         "holderName": "Мартин Славов Тодоров",
         "isSpouse": false,
-        "legalBasis": "договор",
+        "legalBasis": "договор - 4,5%",
         "fundsOrigin": null
       },
       {
@@ -92,12 +110,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32412,
-        "valueEur": 16571.992453331834,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Мартин Славов Тодоров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
+        "fundsOrigin": "по Таблица 12 - дивиденти"
       }
     ],
     "events": []

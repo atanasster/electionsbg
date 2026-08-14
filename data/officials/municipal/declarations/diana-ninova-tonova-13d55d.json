@@ -4,20 +4,20 @@
     "declarantName": "Диана Нинова Тонова",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г8508",
-    "controlHash": "4E6F1F56",
-    "sourceUrl": "https://register.cacbg.bg/2025/FBC9F93A-313B-481B-B434-21536FBD4905211530.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7045",
+    "controlHash": "B260AF9D",
+    "sourceUrl": "https://register.cacbg.bg/2026/FBC9F93A-313B-481B-B434-21536FBD4905231433.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "10",
-        "companyName": "Ди енд ди транс флауърс консулт ЕООД",
+        "companyName": "Ди енд ди транс флауърс консулт",
         "registeredOffice": "София (столица)",
         "valueEur": 51.12918811962185,
         "holderName": "Димитър Христов Тонов",
@@ -29,13 +29,13 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 26020.66641783795,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 35808.83819145836,
+        "amountEurSpouse": 16831.728728979513
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 690.244039614895,
+        "amountEurDeclarant": 3711.979057484546,
         "amountEurSpouse": null
       }
     ],
@@ -60,7 +60,7 @@
       },
       {
         "category": "vehicle",
-        "description": "лек автомобил",
+        "description": "автомобил",
         "detail": "Нисан",
         "location": null,
         "municipality": null,
@@ -87,8 +87,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
         "holderName": "Диана Нинова Тонова",
         "isSpouse": false,
         "legalBasis": null,
@@ -105,8 +105,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6000,
-        "valueEur": 3067.751287177311,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Диана Нинова Тонова",
         "isSpouse": false,
         "legalBasis": null,
@@ -115,35 +115,40 @@
       {
         "category": "debt",
         "description": "лизингов договор",
-        "detail": "EUR",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "EUR",
+        "currency": "BGN",
         "amount": 56200,
-        "valueEur": 56200,
+        "valueEur": 28734.60372322748,
         "holderName": "Диана Нинова Тонова",
         "isSpouse": false,
-        "legalBasis": "договор за лизинг; лихвен процент-4.2%",
+        "legalBasis": "договор за лизинг, лихвен процент-4.2%",
         "fundsOrigin": null
-      }
-    ],
-    "events": [
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Опел",
+        "category": "debt",
+        "description": "договор за банков кредит",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 3864.8553299622154,
-        "legalBasis": "възмездно"
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Диана Нинова Тонова",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит; лихва-5.2627 пункта",
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -5,6 +5,74 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-04",
+    "entryNumber": "Г3822",
+    "controlHash": "9C7E930D",
+    "sourceUrl": "https://register.cacbg.bg/2026/7B4CC6EB-264C-4164-B39D-E05631B8AD74227988.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20717.547026070773,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия НОИ",
+        "amountEurDeclarant": 7866.225592203821,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12017,
+        "valueEur": 6144.194536334958,
+        "holderName": "Надя Георгиева Коюмджийска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10554,
+        "valueEur": 5396.17451414489,
+        "holderName": "Димитър Здравков Коюмджийски",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, обезщетения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nadya-georgieva-koyumdzhiiska-a516f7",
+    "declarantName": "Надя Георгиева Коюмджийска",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

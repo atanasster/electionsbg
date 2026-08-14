@@ -4,13 +4,13 @@
     "declarantName": "Десислава Миткова Калоянова",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г7474",
-    "controlHash": "CEDB2FD6",
-    "sourceUrl": "https://register.cacbg.bg/2025/5D6E7E8E-220D-4F5B-B40B-C7A062243940210469.xml",
+    "filedAt": "2026-04-26",
+    "entryNumber": "Г11667",
+    "controlHash": "B3B83222",
+    "sourceUrl": "https://register.cacbg.bg/2026/5D6E7E8E-220D-4F5B-B40B-C7A062243940236625.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,43 +29,49 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9794.818568075958,
+        "amountEurDeclarant": 10012.11761758435,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Издръжка деца",
-        "amountEurDeclarant": 3655.7369505529623,
+        "amountEurDeclarant": 3885.8182970912603,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Детски надбавки",
-        "amountEurDeclarant": 674.9052831790084,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Стипендия ученик",
-        "amountEurDeclarant": 178.95215841867648,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Помощ ученик",
-        "amountEurDeclarant": 153.38756435886555,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Продажба на лични вещи",
-        "amountEurDeclarant": 707.1166716943702,
+        "amountEurDeclarant": 618.6631762474244,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Дарение от родител",
-        "amountEurDeclarant": 4397.110178287479,
+        "amountEurDeclarant": 2661.2742416263172,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Данъчно облекчение за деца",
+        "amountEurDeclarant": 613.5502574354622,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Стипендия за ученик",
+        "amountEurDeclarant": 51.12918811962185,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Помощ ученик",
+        "amountEurDeclarant": 76.69378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба лични вещи",
+        "amountEurDeclarant": 53.174355644406724,
         "amountEurSpouse": null
       }
     ],
@@ -74,7 +80,7 @@
         "category": "real_estate",
         "description": "право на строеж",
         "detail": null,
-        "location": "ул. \"Хр. Смирненски\" 86",
+        "location": "ул. Хр. Смирненски 86",
         "municipality": "Стара Загора",
         "areaSqm": 111,
         "builtAreaSqm": 78,
@@ -92,7 +98,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Ул. \"Хр. Смирненски\" 86, ет. 4, ап. 6",
+        "location": "ул. Хр. Смирненски 86, ет. 4, ап. 6",
         "municipality": "Стара Загора",
         "areaSqm": 103,
         "builtAreaSqm": 71,
@@ -107,19 +113,6 @@
         "fundsOrigin": "дарение от родител"
       }
     ],
-    "events": [
-      {
-        "kind": "third_party_expense",
-        "description": "Египет",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

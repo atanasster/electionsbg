@@ -4,32 +4,50 @@
     "declarantName": "Христо Йорданов Аргилов",
     "institution": "Исперих",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13392",
-    "controlHash": "BA98ED7F",
-    "sourceUrl": "https://register.cacbg.bg/2025/53B009A7-A660-4439-BD3D-D24A51BD11E9216599.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г13156",
+    "controlHash": "F33860CF",
+    "sourceUrl": "https://register.cacbg.bg/2026/53B009A7-A660-4439-BD3D-D24A51BD11E9238618.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4597.0253038352,
+        "amountEurDeclarant": 5272.953170776601,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6594.642683668826,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6303.206311386982,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди ку 7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "христо йорданов аргилов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "потребителски кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -38,16 +56,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34500,
-        "valueEur": 17639.569901269537,
-        "holderName": "Христо Йорданов Аргилов",
+        "amount": 28400,
+        "valueEur": 14520.689425972605,
+        "holderName": "христо йорданов аргилов",
         "isSpouse": false,
-        "legalBasis": "Договор- 4,95 %",
+        "legalBasis": "договор за кредит",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Кредитна карта",
+        "description": "кредитна карта",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -58,12 +76,25 @@
         "currency": "BGN",
         "amount": 5000,
         "valueEur": 2556.4594059810925,
-        "holderName": "Христо Йорданов Аргилов",
+        "holderName": "христо йорданов аргилов",
         "isSpouse": false,
-        "legalBasis": "Договор",
+        "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "село Малък Поровец",
+        "municipality": "Исперих",
+        "areaSqm": 2400,
+        "builtAreaSqm": 160,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

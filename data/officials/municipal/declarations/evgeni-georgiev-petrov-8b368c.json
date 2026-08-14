@@ -4,38 +4,31 @@
     "declarantName": "Евгени Георгиев Петров",
     "institution": "Айтос",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г6364",
-    "controlHash": "71AB3289",
-    "sourceUrl": "https://register.cacbg.bg/2025/A45109F6-38B8-4FD4-998A-E6A2D7650FBB209320.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дялово участие",
-        "shareSize": "20%",
-        "companyName": "Среброви ООД",
-        "registeredOffice": "с. Люляково",
-        "valueEur": 511.29188119621847,
-        "holderName": "Евгени Георгиев Петров",
-        "legalBasis": "дружествен договор",
-        "fundsOrigin": "дивидент"
-      }
-    ],
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8213",
+    "controlHash": "9690243C",
+    "sourceUrl": "https://register.cacbg.bg/2026/A45109F6-38B8-4FD4-998A-E6A2D7650FBB232701.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6749.052831790084,
-        "amountEurSpouse": 6135.502574354622
+        "amountEurDeclarant": 9014.075865489333,
+        "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8691.961980335715,
+        "amountEurDeclarant": 9203.253861531934,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 11299.039282555232,
         "amountEurSpouse": null
       }
     ],
@@ -51,14 +44,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
         "holderName": "Евгени Георгиев Петров",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплати и дивидент"
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 107,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

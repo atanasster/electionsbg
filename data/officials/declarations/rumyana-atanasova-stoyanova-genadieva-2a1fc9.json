@@ -5,6 +5,128 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1077",
+    "controlHash": "F74CF2FF",
+    "sourceUrl": "https://register.cacbg.bg/2026/B8FBD0A2-D6E1-4077-947D-B0B5C7085BC7224761.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24333.914501771626,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 982.1917037779357,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения по КСО",
+        "amountEurDeclarant": 409.544796838171,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи от разпор.с фин.инструменти",
+        "amountEurDeclarant": 256.6685243605017,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "състезания и конкурси",
+        "amountEurDeclarant": 28.632345346988235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88000,
+        "valueEur": 44993.685545267224,
+        "holderName": "Румяна Атанасова Стоянова-Генадиева",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит 2,8",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24489,
+        "valueEur": 12521.026878614195,
+        "holderName": "Румяна Атанасова Стоянова-Генадиева",
+        "isSpouse": false,
+        "legalBasis": "потребителски 4,0",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Румяна Атанасова Стоянова-Генадиева",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта 17,7",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Румяна Атанасова Стоянова-Генадиева",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт 15,5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumyana-atanasova-stoyanova-genadieva-2a1fc9",
+    "declarantName": "Румяна Атанасова Стоянова-Генадиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,41 +4,47 @@
     "declarantName": "АХТЕР СЮЛЕЙМАНОВ ВЕЛИЕВ",
     "institution": "Завет",
     "positionTitle": "Кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г8451",
-    "controlHash": "4BE624CA",
-    "sourceUrl": "https://register.cacbg.bg/2025/5EBD2E49-A659-4CA3-B8BE-870D0564EC88211472.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4615",
+    "controlHash": "CCB2B391",
+    "sourceUrl": "https://register.cacbg.bg/2026/5EBD2E49-A659-4CA3-B8BE-870D0564EC88228832.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31419.90868327002,
-        "amountEurSpouse": 20506.89477101793
+        "amountEurDeclarant": 32988.552174780016,
+        "amountEurSpouse": 20854.57325023136
       },
       {
         "parent": null,
         "category": "Доходи от аренда на възмездно предоставена земя",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 1184.6632887316382
-      },
-      {
-        "parent": null,
-        "category": "Застраховка АЛИАНЦ БЪЛГАРИЯ ЖИВОТ АД",
-        "amountEurDeclarant": 2719.561516082686,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Застраховка АЛИАНЦ БЪЛГАРИЯ ЖИВОТ АД",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 2719.561516082686
+        "amountEurSpouse": 868.6849061523752
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 0,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 78351,
+        "valueEur": 40060.230183604916,
+        "holderName": "Гюлджан Джеферова Велиева",
+        "isSpouse": true,
+        "legalBasis": "Предварителен договор за строителство и продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -50,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 6957,
-        "valueEur": 3557.057617482092,
+        "amount": 4606,
+        "valueEur": 2355.0104047897826,
         "holderName": "Ахтер Сюлейманов Велиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -68,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 1521,
-        "valueEur": 777.6749512994484,
+        "amount": 18490,
+        "valueEur": 9453.78688331808,
         "holderName": "Гюлджан Джеферова Велиева",
         "isSpouse": true,
         "legalBasis": null,
@@ -86,12 +92,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 67930,
-        "valueEur": 67727.76775077589,
+        "amount": 35879,
+        "valueEur": 35878.88517918224,
         "holderName": "Гюлджан Джеферова Велиева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Предварителен договор за строителство и покупка",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15670,
+        "valueEur": 8011.943778344744,
+        "holderName": "Гюлджан Джеферова Велиева",
+        "isSpouse": true,
+        "legalBasis": "Договор с 0% лихва",
+        "fundsOrigin": null
       }
     ],
     "events": []

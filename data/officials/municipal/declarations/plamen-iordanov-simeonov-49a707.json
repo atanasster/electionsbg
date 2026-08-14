@@ -4,45 +4,45 @@
     "declarantName": "ПЛАМЕН ЙОРДАНОВ СИМЕОНОВ",
     "institution": "Борово",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г6112",
-    "controlHash": "8382C6A3",
-    "sourceUrl": "https://register.cacbg.bg/2025/F60B7EFE-9E1F-49C9-9752-E8D7E3CB70DF209063.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г10860",
+    "controlHash": "C81A9A9E",
+    "sourceUrl": "https://register.cacbg.bg/2026/F60B7EFE-9E1F-49C9-9752-E8D7E3CB70DF235670.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6517.437609608197,
-        "amountEurSpouse": 6838.528910999422
+        "amountEurDeclarant": 6587.484597332079,
+        "amountEurSpouse": 8522.724367659766
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 23888.57927324972,
+        "amountEurDeclarant": 25543.63109268188,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ХОНДА ЦРВ",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 31746,
+        "valueEur": 16231.472060455153,
         "holderName": "ПЛАМЕН ЙОРДАНОВ СИМЕОНОВ",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
+        "legalBasis": null,
         "fundsOrigin": "заплата"
       },
       {
@@ -56,27 +56,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 25984,
-        "valueEur": 13285.408241002542,
+        "amount": 5458,
+        "valueEur": 2790.6310875689605,
         "holderName": "ПЛАМЕН ЙОРДАНОВ СИМЕОНОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ХОНДА ЦРВ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2306.948967957338,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

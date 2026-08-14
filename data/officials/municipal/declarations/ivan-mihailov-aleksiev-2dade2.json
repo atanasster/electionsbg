@@ -4,13 +4,13 @@
     "declarantName": "Иван Михайлов Алексиев",
     "institution": "Столична община",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г9090",
-    "controlHash": "7B4E96EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/E7898E12-D584-45CC-B9E0-9E18F28877AF212122.xml",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Entry",
+    "filedAt": "2026-07-09",
+    "entryNumber": "В2305",
+    "controlHash": "685830B2",
+    "sourceUrl": "https://register.cacbg.bg/2026/E7898E12-D584-45CC-B9E0-9E18F28877AF241023.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -21,24 +21,11 @@
         "registeredOffice": "София (столица)",
         "valueEur": 0.5112918811962185,
         "holderName": "Стела Георгиева Маринкова",
-        "legalBasis": "други",
-        "fundsOrigin": "дарения"
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24285.341773057986,
-        "amountEurSpouse": 12084.383612072625
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 7533.88586942628
-      }
-    ],
+    "income": [],
     "assets": [
       {
         "category": "real_estate",
@@ -48,15 +35,274 @@
         "municipality": "София-град (Столична)",
         "areaSqm": 88,
         "builtAreaSqm": 88,
-        "acquiredYear": 2021,
-        "share": "1/8",
+        "acquiredYear": 2026,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
         "holderName": "Иван Михайлов Алексиев",
         "isSpouse": false,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "acquiredYear": 2026,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Киряево",
+        "municipality": "Макреш",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 73,
+        "valueEur": 37.32430732732395,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Киряево",
+        "municipality": "Макреш",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 36,
+        "valueEur": 18.406507723063864,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Киряево",
+        "municipality": "Макреш",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 36,
+        "valueEur": 18.406507723063864,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Киряево",
+        "municipality": "Макреш",
+        "areaSqm": 7,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 255,
+        "valueEur": 130.3794297050357,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Киряево",
+        "municipality": "Макреш",
+        "areaSqm": 10,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 365,
+        "valueEur": 186.62153663661974,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомибил",
+        "detail": "Ауди 80",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2004,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1278,
+        "valueEur": 653.4310241687672,
+        "holderName": "Иван Михайлов Алексиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомибил",
+        "detail": "Ауди 100",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 971,
+        "valueEur": 496.46441664152815,
+        "holderName": "Иван Михайлов Алексиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомибил",
+        "detail": "Ленд Роувър Фрилендър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 767,
+        "valueEur": 392.16087287749957,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5754,
+        "valueEur": 2941.9734844030413,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-mihailov-aleksiev-2dade2",
+    "declarantName": "Иван Михайлов Алексиев",
+    "institution": "Столична община",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2026-07-09",
+    "entryNumber": "В2306",
+    "controlHash": "F4532A43",
+    "sourceUrl": "https://register.cacbg.bg/2026/E7898E12-D584-45CC-B9E0-9E18F28877AF241024.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "role",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Обществен съвет София",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ivan-mihailov-aleksiev-2dade2",
+    "declarantName": "Иван Михайлов Алексиев",
+    "institution": "Столична община",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": "2026-01-13",
+    "entryNumber": "Ф1058",
+    "controlHash": "45945113",
+    "sourceUrl": "https://register.cacbg.bg/2026/E7898E12-D584-45CC-B9E0-9E18F28877AF241021.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Желан Дом ЕОД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 0.5112918811962185,
+        "holderName": "Стела Георгиева Маринкова",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "acquiredYear": 2025,
+        "share": "3/8",
+        "currency": "BGN",
+        "amount": 43022,
+        "valueEur": 21996.79931282371,
+        "holderName": "Иван Михайлов Алексиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "real_estate",
@@ -73,8 +319,8 @@
         "valueEur": 73.11473901105924,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "real_estate",
@@ -91,8 +337,8 @@
         "valueEur": 36.301723564931514,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "real_estate",
@@ -109,8 +355,8 @@
         "valueEur": 36.301723564931514,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "real_estate",
@@ -127,8 +373,8 @@
         "valueEur": 255.64594059810923,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "real_estate",
@@ -145,8 +391,8 @@
         "valueEur": 365.57369505529624,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "vehicle",
@@ -163,8 +409,8 @@
         "valueEur": 1278.2297029905462,
         "holderName": "Иван Михайлов Алексиев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "vehicle",
@@ -181,8 +427,8 @@
         "valueEur": 971.4545742728151,
         "holderName": "Иван Михайлов Алексиев",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "vehicle",
@@ -199,8 +445,8 @@
         "valueEur": 766.9378217943278,
         "holderName": "Стела Георгиева Маринкова",
         "isSpouse": true,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "bank",
@@ -213,27 +459,32 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 43787,
-        "valueEur": 22387.93760193882,
-        "holderName": "Стела Георгиева Маринкова",
-        "isSpouse": true,
+        "amount": 38216,
+        "valueEur": 19539.530531794684,
+        "holderName": "Иван Михайлов Алексиев",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, дивидент"
-      }
-    ],
-    "events": [
+        "fundsOrigin": null
+      },
       {
-        "kind": "disposal_vehicle",
-        "description": "Лек Автомобил",
-        "detail": "BMW 320",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 460.16269307659667,
-        "legalBasis": "покупко-продажба"
+        "amount": 48787,
+        "valueEur": 24944.39700791991,
+        "holderName": "Стела Георгиева Маринкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

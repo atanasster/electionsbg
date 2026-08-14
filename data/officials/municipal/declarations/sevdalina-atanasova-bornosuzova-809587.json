@@ -4,66 +4,67 @@
     "declarantName": "СЕВДАЛИНА АТАНАСОВА БОРНОСУЗОВА",
     "institution": "Нова Загора",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г2911",
-    "controlHash": "6F21E7B3",
-    "sourceUrl": "https://register.cacbg.bg/2025/E88E2CEF-6FBB-464E-8EF6-30CF566614E7205624.xml",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г8934",
+    "controlHash": "61F05DDC",
+    "sourceUrl": "https://register.cacbg.bg/2026/E88E2CEF-6FBB-464E-8EF6-30CF566614E7233483.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6501.587561291114,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 7528.261658733121,
+        "amountEurSpouse": 12286.855197026327
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18408.55289058865,
-        "amountEurSpouse": 11196.78090631599
+        "amountEurDeclarant": 20729.81803121948,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2594.806297070809
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "производствени помещения",
-        "detail": null,
-        "location": "С.СЪДИЕВО",
-        "municipality": "НОВА ЗАГОРА",
-        "areaSqm": 120,
-        "builtAreaSqm": 120,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 35640,
-        "valueEur": 18222.442645833227,
-        "holderName": "ВАСИЛ НИКОЛОВ БОРНОСУЗОВ",
-        "isSpouse": true,
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ДАЧИЯ ДЪСТЪР",
+        "description": "КАРАВАНА",
+        "detail": "АДРИЯ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1/2",
         "currency": "BGN",
-        "amount": 4500,
-        "valueEur": 2300.8134653829834,
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
         "holderName": "ВАСИЛ НИКОЛОВ БОРНОСУЗОВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ МЕРИВА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

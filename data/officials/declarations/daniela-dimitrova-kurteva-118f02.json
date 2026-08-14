@@ -5,6 +5,56 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-22",
+    "entryNumber": "Г2290",
+    "controlHash": "200190E0",
+    "sourceUrl": "https://register.cacbg.bg/2026/B3DB9574-382F-46E8-9A5B-5E1269FD66AD226317.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30796.132588210632,
+        "amountEurSpouse": 20514.564149235874
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 169.23761267594833,
+        "amountEurSpouse": 2153.561403598472
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25278,
+        "valueEur": 12924.436172878011,
+        "holderName": "Станимир Дибрев Куртев",
+        "isSpouse": true,
+        "legalBasis": "договор за финансов лизинг с 3,73% лихна",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-dimitrova-kurteva-118f02",
+    "declarantName": "Даниела Димитрова Куртева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

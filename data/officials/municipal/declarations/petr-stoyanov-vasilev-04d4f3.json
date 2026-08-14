@@ -4,25 +4,44 @@
     "declarantName": "Петър Стоянов Василев",
     "institution": "Самуил",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11614",
-    "controlHash": "4AAC8509",
-    "sourceUrl": "https://register.cacbg.bg/2025/F1AF864A-CD33-40E8-8E89-5B7ACFBC848B214761.xml",
-    "ownershipStakes": [],
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г13871",
+    "controlHash": "7D5DF87B",
+    "sourceUrl": "https://register.cacbg.bg/2026/F1AF864A-CD33-40E8-8E89-5B7ACFBC848B239523.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Еднолично дружество с ограничена отговорност",
+        "shareSize": "100",
+        "companyName": "Станмор Сълюшънс",
+        "registeredOffice": "Разград",
+        "valueEur": 25.564594059810926,
+        "holderName": "Петър Стоянов Василев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата, пенсия, наеми, рента"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32160.259327242144,
+        "amountEurDeclarant": 4808.188850769238,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 28127.70026024757,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 11228.99229483135,
+        "amountEurDeclarant": 11082.762816809232,
         "amountEurSpouse": null
       },
       {
@@ -33,8 +52,14 @@
       },
       {
         "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
         "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 10737.129505120589,
+        "amountEurDeclarant": 6776.1513014934835,
         "amountEurSpouse": null
       }
     ],
@@ -55,7 +80,7 @@
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,пенсия,заем"
+        "fundsOrigin": "заплата, пенсия, заем"
       },
       {
         "category": "real_estate",
@@ -73,7 +98,7 @@
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,пенсия,заем"
+        "fundsOrigin": "заплата, пенсия, заем"
       },
       {
         "category": "real_estate",
@@ -145,7 +170,7 @@
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,пенсия,заем"
+        "fundsOrigin": "заплата, пенсия, заем"
       },
       {
         "category": "real_estate",
@@ -163,7 +188,7 @@
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата,заем"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -222,7 +247,7 @@
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Тойота Рав 4",
+        "detail": "Тойота Раф 4",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -248,12 +273,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата, пенсия,рента,наем"
+        "fundsOrigin": "заплата, пенсия, рента, наеми"
       },
       {
         "category": "investment",
@@ -271,33 +296,39 @@
         "holderName": "Петър Стоянов Василев",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата,пенсия,наем,рента"
+        "fundsOrigin": "заплата, пенсия, наем, рента"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Петър Стоянов Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия, наем, рента"
       }
     ],
     "events": [
       {
-        "kind": "disposal_vehicle",
-        "description": "лек авомобил",
-        "detail": "Пежо 405",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Разград",
+        "municipality": "Разград",
+        "areaSqm": 2,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 511.29188119621847,
-        "legalBasis": "бракувано"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек авомобил",
-        "detail": "Тойота Корола",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "бракувано"
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
       }
     ]
   }

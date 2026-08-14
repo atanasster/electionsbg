@@ -4,66 +4,48 @@
     "declarantName": "Семир Севдалинов Сираков",
     "institution": "Рудозем",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-27",
-    "entryNumber": "Г1627",
-    "controlHash": "66445F77",
-    "sourceUrl": "https://register.cacbg.bg/2025/7184B14A-3A28-4AC4-A3D7-C495D78B6D88204141.xml",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г10714",
+    "controlHash": "88F68ED8",
+    "sourceUrl": "https://register.cacbg.bg/2026/7184B14A-3A28-4AC4-A3D7-C495D78B6D88235502.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 501.0660435722941,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 1363.1041552691186,
+        "amountEurSpouse": 1650.4501925013933
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 24369.704933455363,
+        "amountEurDeclarant": 28544.914435303683,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "майчинство",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 5471.845712561931
+        "amountEurSpouse": 2394.379879641891
       }
     ],
     "assets": [
       {
-        "category": "real_estate",
-        "description": "поземлем имот пл.№276",
-        "detail": null,
-        "location": "с. Грамаде",
-        "municipality": "Рудозем",
-        "areaSqm": 2333,
-        "builtAreaSqm": 126,
-        "acquiredYear": 2024,
-        "share": "100",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Семир Севдалинов Сираков",
-        "isSpouse": false,
-        "legalBasis": "дарение",
-        "fundsOrigin": "няма"
-      },
-      {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "toyota rav 4",
+        "detail": "тойота ярис",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "100",
         "currency": "BGN",
-        "amount": 9604,
-        "valueEur": 4910.4472270084825,
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Семир Севдалинов Сираков",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
@@ -80,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
         "holderName": "Семир Севдалинов Сираков",
         "isSpouse": false,
         "legalBasis": null,
@@ -98,14 +80,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
+        "amount": 35569,
+        "valueEur": 18186.140922268296,
         "holderName": "Семир Севдалинов Сираков",
         "isSpouse": false,
-        "legalBasis": "договор, 4.6 % лихва",
+        "legalBasis": "договор, 4.6 %",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1482.7464554690337,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

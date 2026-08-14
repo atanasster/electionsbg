@@ -1,16 +1,16 @@
 {
   "obshtina": "VAR08",
   "registryName": "Ветрино",
-  "generatedAt": "2026-08-03T15:15:02.242Z",
+  "generatedAt": "2026-08-14T20:04:31.391Z",
   "years": [
-    2025
+    2026
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 12,
-    "chief_architect": 1,
+    "chief_architect": 2,
     "other": 0
   },
   "entries": [
@@ -21,7 +21,8 @@
       "role": "mayor",
       "roleRaw": "Кмет",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -39,7 +40,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "penka-zhekova-iordanova-404e01",
@@ -48,7 +50,8 @@
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "denitsa-dimcheva-dimova-839ffe",
@@ -57,7 +60,8 @@
       "role": "council_chair",
       "roleRaw": "Председател на ОбС",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -68,13 +72,24 @@
       }
     },
     {
+      "slug": "georgi-totev-mitev-3d6477",
+      "name": "Георги Тотев Митев",
+      "normalizedName": "ГЕОРГИ ТОТЕВ МИТЕВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Ветрино",
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
+    },
+    {
       "slug": "nikolai-krasimirov-kutsarov-61c453",
       "name": "Николай Красимиров Куцаров",
       "normalizedName": "НИКОЛАЙ КРАСИМИРОВ КУЦАРОВ",
       "role": "chief_architect",
       "roleRaw": "Главен архитект",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026
     },
     {
       "slug": "ahmed-ridvanov-kemilov-2916e7",
@@ -83,7 +98,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -100,7 +116,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -117,7 +134,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "Движение за права и свободи – ДПС",
@@ -134,7 +152,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",
@@ -151,7 +170,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",
@@ -168,7 +188,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",
@@ -185,7 +206,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП за България ( БСП за България,ИТН,ОНБ)",
@@ -202,7 +224,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",
@@ -219,7 +242,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",
@@ -236,7 +260,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ГЕРБ",
@@ -253,7 +278,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "БСП за България ( БСП за България,ИТН,ОНБ)",
@@ -270,7 +296,8 @@
       "role": "councillor",
       "roleRaw": "Общински съветник",
       "municipality": "Ветрино",
-      "latestDeclarationYear": 2025,
+      "latestDeclarationYear": 2026,
+      "descriptorYear": 2026,
       "candidateLink": {
         "cycle": "2023_10_29_mi",
         "partyName": "ПП ВЕЛИЧИЕ",

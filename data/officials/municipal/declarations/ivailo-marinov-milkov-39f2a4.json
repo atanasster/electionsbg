@@ -1,26 +1,63 @@
 [
   {
     "slug": "ivailo-marinov-milkov-39f2a4",
-    "declarantName": "Ивайло Маринов милков",
+    "declarantName": "Ивайло Маринов Милков",
     "institution": "Априлци",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2733",
-    "controlHash": "84DBB62E",
-    "sourceUrl": "https://register.cacbg.bg/2025/DBC7BE03-4FEB-4767-AE5A-F9457EA3494F205425.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г11247",
+    "controlHash": "DCA987B5",
+    "sourceUrl": "https://register.cacbg.bg/2026/DBC7BE03-4FEB-4767-AE5A-F9457EA3494F236127.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5519.907149394375,
-        "amountEurSpouse": 10601.63715660359
+        "amountEurDeclarant": 6001.544101481212,
+        "amountEurSpouse": 12340.029552670734
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Peugeot 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 847,
+        "valueEur": 433.0642233731971,
+        "holderName": "Вероника Христова Христова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Мотопед",
+        "detail": "Generic BN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 400,
+        "valueEur": 204.5167524784874,
+        "holderName": "Ивайло Маринов Милков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

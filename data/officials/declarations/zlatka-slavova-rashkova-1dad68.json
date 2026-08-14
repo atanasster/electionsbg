@@ -5,6 +5,56 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г11370",
+    "controlHash": "7BEA6F41",
+    "sourceUrl": "https://register.cacbg.bg/2026/29D38795-6969-4012-BEE6-A4850872BCE5236268.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35960.18058829244,
+        "amountEurSpouse": 28116.963130742446
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 110.43904633838319,
+        "amountEurSpouse": 4496.812095120742
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Златка Славова Рашкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, обезщетения"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zlatka-slavova-rashkova-1dad68",
+    "declarantName": "Златка Славова Рашкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,48 +4,67 @@
     "declarantName": "ХРИСТО ГЕОРГИЕВ КИРЕВ",
     "institution": "Садово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г8100",
-    "controlHash": "8C4D75B9",
-    "sourceUrl": "https://register.cacbg.bg/2025/02CF13B9-11D9-41EF-8478-09E236D015FB211109.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13721",
+    "controlHash": "6B3194DE",
+    "sourceUrl": "https://register.cacbg.bg/2026/02CF13B9-11D9-41EF-8478-09E236D015FB239314.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2745.637402023693,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1185.6858724940307,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 3129.1063129208574,
+        "amountEurSpouse": 3035.028606780753
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "БМВ 320",
+        "detail": "БМВ 320 Д",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
+        "acquiredYear": 2025,
         "share": "1",
         "currency": "BGN",
-        "amount": 1500,
-        "valueEur": 766.9378217943278,
+        "amount": 9600,
+        "valueEur": 4908.4020594836975,
         "holderName": "ХРИСТО ГЕОРГИЕВ КИРЕВ, СИО",
         "isSpouse": true,
-        "legalBasis": "ПОКУПКО-ПРОДАЖБА",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ 320 Д",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ 320 И",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

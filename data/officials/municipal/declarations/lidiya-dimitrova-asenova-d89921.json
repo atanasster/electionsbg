@@ -4,29 +4,84 @@
     "declarantName": "Лидия Димитрова Асенова",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-23",
-    "entryNumber": "Г3288",
-    "controlHash": "7376047D",
-    "sourceUrl": "https://register.cacbg.bg/2025/106DE102-75A3-4C65-B88D-B04682275E4D206042.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2369",
+    "controlHash": "FCE39AE3",
+    "sourceUrl": "https://register.cacbg.bg/2026/106DE102-75A3-4C65-B88D-B04682275E4D226416.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9214.502282918249,
-        "amountEurSpouse": 9006.917779152585
+        "amountEurDeclarant": 10685.48902511977,
+        "amountEurSpouse": 9342.325253217305
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20682.77917814943,
+        "amountEurDeclarant": 21282.013262911398,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 750,
+        "valueEur": 383.4689108971639,
+        "holderName": "Валентин Петров Асенов",
+        "isSpouse": true,
+        "legalBasis": "покупка",
+        "fundsOrigin": "трудови възнаграждения"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10025,
+        "valueEur": 5125.701108992091,
+        "holderName": "Лидия Димитрова Асенова",
+        "isSpouse": false,
+        "legalBasis": "5,23",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "задължение",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22378,
+        "valueEur": 11441.689717408977,
+        "holderName": "Валентин Петров Асенов",
+        "isSpouse": true,
+        "legalBasis": "0",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

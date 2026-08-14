@@ -1,6 +1,68 @@
 [
   {
     "slug": "zamfira-andreeva-rumenova-c8fe79",
+    "declarantName": "Замфира Андреева Руменова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13287",
+    "controlHash": "CC9D5A2B",
+    "sourceUrl": "https://register.cacbg.bg/2026/8B57B947-4AD3-4C26-AD71-94BA7D5B6DE9238787.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17578.21487552599,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Михайлово",
+        "municipality": "Хайредин",
+        "areaSqm": 500,
+        "builtAreaSqm": 1000,
+        "acquiredYear": 2019,
+        "share": "500",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Замфира Андреева Руменова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 29999.539837306922,
+        "holderName": "Замфира Андреева Руменова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zamfira-andreeva-rumenova-c8fe79",
     "declarantName": "Замфир Андреева Руменова",
     "institution": "Училища",
     "positionTitle": "Директор",

@@ -4,23 +4,48 @@
     "declarantName": "КРАСИМИР АЛБЕНОВ ПЕНДЕВ",
     "institution": "Гърмен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-07",
-    "entryNumber": "Г2009",
-    "controlHash": "5CB6DE75",
-    "sourceUrl": "https://register.cacbg.bg/2025/2B1B1BFA-F52F-4614-8B49-629E1A125287204590.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г6806",
+    "controlHash": "D7268E7B",
+    "sourceUrl": "https://register.cacbg.bg/2026/2B1B1BFA-F52F-4614-8B49-629E1A125287231158.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 29100.688710163973,
-        "amountEurSpouse": 15124.013845784142
+        "amountEurDeclarant": 27177.719944984994,
+        "amountEurSpouse": 21021.765695382524
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6936.1856603079,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ САНТА ФЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "БИЛЯНА САМУИЛОВА ПЕНДЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
     "events": []
   }
 ]

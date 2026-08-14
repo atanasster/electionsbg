@@ -4,19 +4,19 @@
     "declarantName": "Янислав Георгиев Костов",
     "institution": "Ябланица",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г1191",
-    "controlHash": "49C4758A",
-    "sourceUrl": "https://register.cacbg.bg/2025/BA0773F4-52C6-4729-A473-FAF1EDB8C7A9203578.xml",
+    "filedAt": "2026-04-09",
+    "entryNumber": "Г1671",
+    "controlHash": "18C81432",
+    "sourceUrl": "https://register.cacbg.bg/2026/BA0773F4-52C6-4729-A473-FAF1EDB8C7A9225609.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6694.344600502089,
+        "amountEurDeclarant": 5771.974046824111,
         "amountEurSpouse": null
       }
     ],
@@ -32,14 +32,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 32080,
-        "valueEur": 16402.243548774688,
+        "amount": 16349,
+        "valueEur": 8359.110965676977,
         "holderName": "Янислав Георгиев Костов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 7 ЕР РЕИХЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 7 ЕР РЕИХЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

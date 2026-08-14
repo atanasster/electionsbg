@@ -1,6 +1,68 @@
 [
   {
     "slug": "sonya-milkova-nikolova-b96973",
+    "declarantName": "Соня Милкова Николова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3288",
+    "controlHash": "DF932AC5",
+    "sourceUrl": "https://register.cacbg.bg/2026/929F9DB3-9FE6-4433-810C-A6836C2025AD227411.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37757.88284257834,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16322,
+        "valueEur": 16321.970723426883,
+        "holderName": "Соня Милкова Николова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73222,
+        "valueEur": 37437.81412494951,
+        "holderName": "Соня Милкова Николова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sonya-milkova-nikolova-b96973",
     "declarantName": "СОНЯ МИЛКОВА НИКОЛОВА",
     "institution": "Училища",
     "positionTitle": "Директор",

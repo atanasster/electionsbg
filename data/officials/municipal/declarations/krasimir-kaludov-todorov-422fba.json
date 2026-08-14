@@ -4,38 +4,25 @@
     "declarantName": "Красимир Калудов Тодоров",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г11606",
-    "controlHash": "6AB23B98",
-    "sourceUrl": "https://register.cacbg.bg/2025/5D296049-0E00-46B4-A325-C8890003BAA6214753.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "100 %",
-        "companyName": "Проадвайсис ЕООД",
-        "registeredOffice": "Бургас",
-        "valueEur": 2556.4594059810925,
-        "holderName": "Красимир Калудов Тодоров",
-        "legalBasis": "учредяване",
-        "fundsOrigin": "спестявания"
-      }
-    ],
+    "filedAt": "2026-07-10",
+    "entryNumber": "Г14065",
+    "controlHash": "8E3EFBE9",
+    "sourceUrl": "https://register.cacbg.bg/2026/5D296049-0E00-46B4-A325-C8890003BAA6239753.xml",
+    "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
         "amountEurDeclarant": 13731.254761405644,
-        "amountEurSpouse": 10017.230536396313
+        "amountEurSpouse": 13482.766907144282
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3932.857150161313,
+        "amountEurDeclarant": 4387.906924425947,
         "amountEurSpouse": null
       }
     ],
@@ -44,7 +31,7 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Бургас, ул Вардар 1, вх. 6, ет. 3, ап. 102",
+        "location": "гр. Бургас, ул. Вардар 1, вх. Е, ет. 3, ап. 102",
         "municipality": "Бургас",
         "areaSqm": 100,
         "builtAreaSqm": 100,
@@ -56,13 +43,13 @@
         "holderName": "Красимир Калудов Тодоров",
         "isSpouse": false,
         "legalBasis": "покупка",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестяваниу"
       },
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Бургас, ул Вардар 1, вх. 6, ет. 3, ап. 102",
+        "location": "гр. Бургас, ул. Вардар 1, вх. Е, ет. 3, ап. 102",
         "municipality": "Бургас",
         "areaSqm": 100,
         "builtAreaSqm": 100,
@@ -71,16 +58,16 @@
         "currency": "BGN",
         "amount": 102000,
         "valueEur": 52151.77188201428,
-        "holderName": "Антонаета Стойчева Тодорова",
+        "holderName": "Антоанета Стойчева Тодорова",
         "isSpouse": true,
         "legalBasis": "покупка",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестяваниу"
       },
       {
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "Бургас, жк Славейков 66, ет. 17, ап. 71",
+        "location": "гр. Бургас, жк Славейков бл. 66, ет. 17, ап. 71",
         "municipality": "Бургас",
         "areaSqm": 38,
         "builtAreaSqm": 38,
@@ -89,15 +76,15 @@
         "currency": "BGN",
         "amount": 0,
         "valueEur": 0,
-        "holderName": "Антонаета Стойчева Тодорова",
+        "holderName": "Антоанета Стойчева Тодорова",
         "isSpouse": true,
         "legalBasis": "дарение",
-        "fundsOrigin": "дарения"
+        "fundsOrigin": "дарение"
       },
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "рено клио",
+        "detail": "рено Клио симбол",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -107,15 +94,15 @@
         "currency": "BGN",
         "amount": 16500,
         "valueEur": 8436.316039737605,
-        "holderName": "Антон Калудов Тодоров",
-        "isSpouse": true,
-        "legalBasis": "покупка",
+        "holderName": "Красимир Калудов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       },
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "рено клио",
+        "detail": "рено Клио симбол",
         "location": null,
         "municipality": null,
         "areaSqm": null,
@@ -127,7 +114,7 @@
         "valueEur": 8436.316039737605,
         "holderName": "Антоанета Стойчева Тодорова",
         "isSpouse": true,
-        "legalBasis": "покупка",
+        "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
     ],

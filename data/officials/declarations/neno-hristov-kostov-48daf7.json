@@ -1,6 +1,86 @@
 [
   {
     "slug": "neno-hristov-kostov-48daf7",
+    "declarantName": "Нено Христов Костов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г14217",
+    "controlHash": "DEAD90F2",
+    "sourceUrl": "https://register.cacbg.bg/2026/251EC130-FBB5-4B7F-9120-294DCCC10200239953.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26645.46509665973,
+        "amountEurSpouse": 22048.951084705724
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "КИЯ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34813,
+        "valueEur": 17799.604260083954,
+        "holderName": "НЕНО ХРИСТОВ КОСТОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "ЛИЧНИ СРЕДСТВА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1000,
+        "valueEur": 1000,
+        "holderName": "НЕНО ХРИСТОВ КОСТОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТИ"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7844,
+        "valueEur": 7844.751333193581,
+        "holderName": "НЕНО ХРИСТОВ КОСТОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neno-hristov-kostov-48daf7",
     "declarantName": "НЕНО ХРИСТОВ КОСТОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",

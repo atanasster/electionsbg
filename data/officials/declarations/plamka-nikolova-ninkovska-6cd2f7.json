@@ -5,6 +5,68 @@
     "institution": "СБР - \"Национален комплекс\" ЕАД, София",
     "positionTitle": "Представител на Държавата",
     "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5481",
+    "controlHash": "66129440",
+    "sourceUrl": "https://register.cacbg.bg/2026/E8FEEAF3-41A7-446C-8214-9193A0FEB24C229741.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43638.25076821605,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 81349,
+        "valueEur": 41593.08324343118,
+        "holderName": "Пламка Николова Нинковска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Пламка Николова Нинковска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "plamka-nikolova-ninkovska-6cd2f7",
+    "declarantName": "Пламка Никлова Нинковска",
+    "institution": "СБР - \"Национален комплекс\" ЕАД, София",
+    "positionTitle": "Представител на Държавата",
+    "category": "hospital_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3560",
+    "controlHash": "B9F62E79",
+    "sourceUrl": "https://register.cacbg.bg/2026/DBDFCA6B-0CE4-4DFA-9C4E-C9AF384B7758227695.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23084.31714412807,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8348,
+        "valueEur": 4268.264624226032,
+        "holderName": "Надежда Пенева Коева",
+        "isSpouse": false,
+        "legalBasis": "4,40",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11546,
+        "valueEur": 5903.376060291539,
+        "holderName": "Надежда Пенева Коева",
+        "isSpouse": false,
+        "legalBasis": "3,91",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nadezhda-peneva-koeva-ff6811",
+    "declarantName": "Надежда Пенева Коева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

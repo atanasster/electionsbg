@@ -4,52 +4,100 @@
     "declarantName": "Денчо Стойков Желев",
     "institution": "Каспичан",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г2869",
-    "controlHash": "EC50CF6E",
-    "sourceUrl": "https://register.cacbg.bg/2025/2C25B5E6-E9EC-47D3-9021-58A8FB1D6588205582.xml",
+    "filedAt": null,
+    "entryNumber": "Г6731",
+    "controlHash": "172D1240",
+    "sourceUrl": "https://register.cacbg.bg/2026/2C25B5E6-E9EC-47D3-9021-58A8FB1D6588231076.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7345.219165264874,
-        "amountEurSpouse": 11858.903892465092
+        "amountEurDeclarant": 7846.796500718365,
+        "amountEurSpouse": 7167.800882489787
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10191.069776003027,
-        "amountEurSpouse": 916.7463429848198
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 415.68029941252564
+        "amountEurDeclarant": 13183.149864763298,
+        "amountEurSpouse": 4177.254669373105
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "лек автомобил",
-        "detail": "Хонда CRV",
+        "detail": "Хонда СРВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": 2025,
+        "share": "1/2",
         "currency": "BGN",
-        "amount": 7200,
-        "valueEur": 3681.3015446127733,
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
         "holderName": "Денчо Стойков Желев",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда СРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Кристина Живкова Желева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "товарно ремарке",
+        "detail": "Понгратц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Денчо Стойков Желев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "товарно ремарке",
+        "detail": "Понгратц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Кристина Живкова Желева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "debt",
@@ -62,39 +110,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 3406,
-        "valueEur": 1741.4601473543203,
+        "amount": 29885,
+        "valueEur": 15279.957869548989,
         "holderName": "Денчо Стойков Желев",
         "isSpouse": false,
-        "legalBasis": "договор, 6,5%",
+        "legalBasis": "договор, 5,79%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Хонда Сивик",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1533.8756435886555,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Ауди А4",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1278.2297029905462,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

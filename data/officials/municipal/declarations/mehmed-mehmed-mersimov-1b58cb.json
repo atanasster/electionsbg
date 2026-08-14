@@ -4,32 +4,26 @@
     "declarantName": "МЕХМЕД МЕХМЕДОВ МЕРСИМОВ",
     "institution": "Гоце Делчев",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г6957",
-    "controlHash": "993F498E",
-    "sourceUrl": "https://register.cacbg.bg/2025/D35774E9-560B-4957-815F-BF8D430AAE78209944.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г3838",
+    "controlHash": "6E8CAA52",
+    "sourceUrl": "https://register.cacbg.bg/2026/D35774E9-560B-4957-815F-BF8D430AAE78228007.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4959.53124760332,
+        "amountEurDeclarant": 5002.991057504998,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5635.970406425917,
-        "amountEurSpouse": 5635.970406425917
-      },
-      {
-        "parent": null,
-        "category": "ДАНЪЧНО ОБЛЕКЧЕНИЕ ДЕТЕ",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 306.7751287177311
+        "amountEurDeclarant": 6423.871195349289,
+        "amountEurSpouse": 7610.579651605713
       }
     ],
     "assets": [
@@ -82,25 +76,7 @@
         "currency": "BGN",
         "amount": 15000,
         "valueEur": 7669.378217943277,
-        "holderName": "МЕХМЕД МЕХМЕДОВ МЕРСИМОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "стари суми"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1000,
-        "valueEur": 511.29188119621847,
-        "holderName": "КИМИЛЕ САИК МЕРСИМОВА",
+        "holderName": "МЕХМЕД МЕХМЕД МЕРСИМОВ",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стари суми"
@@ -118,8 +94,26 @@
         "currency": "EUR",
         "amount": 32000,
         "valueEur": 32000.224968427727,
-        "holderName": "МЕХМЕД МЕХМЕДОВ МЕРСИМОВ",
-        "isSpouse": false,
+        "holderName": "МЕХМЕД МЕХМЕД МЕРСИМОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "стари суми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "КИМИЛЕ САИД МЕРСИМОВА",
+        "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стари суми"
       }

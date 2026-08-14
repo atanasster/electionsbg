@@ -4,35 +4,90 @@
     "declarantName": "Росен Емилов Пещенски",
     "institution": "Кнежа",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г11298",
-    "controlHash": "B2E0A23F",
-    "sourceUrl": "https://register.cacbg.bg/2025/507A3B85-26F6-4EC3-8951-24AEC0512143214433.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г11901",
+    "controlHash": "F35F3643",
+    "sourceUrl": "https://register.cacbg.bg/2026/507A3B85-26F6-4EC3-8951-24AEC0512143236951.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4581.175255518117,
+        "amountEurDeclarant": 4144.531988976547,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6146.750995740938,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "пенсия",
-        "amountEurDeclarant": 3170.0096634165548,
+        "amountEurDeclarant": 3119.903059059325,
         "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "обезщетения за безработица",
-        "amountEurDeclarant": 4601.626930765967,
-        "amountEurSpouse": 3374.526415895042
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6123,
+        "valueEur": 6123.231569205913,
+        "holderName": "Росен Емилов Пещенски",
+        "isSpouse": false,
+        "legalBasis": "12.78%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2461,
+        "valueEur": 1258.2893196238938,
+        "holderName": "Биляна Георгиева Цанкова - Пещенска",
+        "isSpouse": true,
+        "legalBasis": "10.00%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14402,
+        "valueEur": 7363.625672987939,
+        "holderName": "Биляна Георгиева Цанкова - Пещенска",
+        "isSpouse": true,
+        "legalBasis": "13.79%",
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

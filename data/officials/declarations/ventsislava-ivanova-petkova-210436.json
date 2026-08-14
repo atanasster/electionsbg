@@ -5,6 +5,74 @@
     "institution": "Национална агенция за приходи",
     "positionTitle": "Заместник-изпълнителен директор",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г5302",
+    "controlHash": "A2F3BA65",
+    "sourceUrl": "https://register.cacbg.bg/2026/575E22EC-2E07-4F40-A136-BA737AAB82C4229553.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 75717.214686348,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Инвалидна пенсия по решение на ТЕЛК",
+        "amountEurDeclarant": 11211.097078989484,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 184835,
+        "valueEur": 94504.63486090304,
+        "holderName": "Венцислава Иванова Петкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4622,
+        "valueEur": 4622.078606013815,
+        "holderName": "Венцислава Иванова петкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislava-ivanova-petkova-210436",
+    "declarantName": "Венцислава Иванова Петкова",
+    "institution": "Национална агенция за приходи",
+    "positionTitle": "Заместник-изпълнителен директор",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

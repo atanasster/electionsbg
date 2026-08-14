@@ -4,37 +4,37 @@
     "declarantName": "Румен Хърсев Чанков",
     "institution": "Средец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-06",
-    "entryNumber": "Г8474",
-    "controlHash": "BA0B26EC",
-    "sourceUrl": "https://register.cacbg.bg/2025/9587ED28-545E-4B93-BF86-C0963799A881211495.xml",
+    "filedAt": null,
+    "entryNumber": "Г13407",
+    "controlHash": "CCCA057F",
+    "sourceUrl": "https://register.cacbg.bg/2026/9587ED28-545E-4B93-BF86-C0963799A881238919.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5647.7301196934295,
+        "amountEurDeclarant": 6470.910048419341,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 11196.78090631599,
-        "amountEurSpouse": 14972.671448950063
+        "amountEurDeclarant": 12353.323141581835,
+        "amountEurSpouse": 15748.301232724725
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 967.3642392232454,
+        "amountEurDeclarant": 857.9477766472546,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 435.10939089798194,
+        "amountEurDeclarant": 56.24210693158403,
         "amountEurSpouse": null
       }
     ],
@@ -43,19 +43,37 @@
         "category": "real_estate",
         "description": "апартамент",
         "detail": null,
-        "location": "гр.Сливен",
-        "municipality": "Сливен",
-        "areaSqm": 82,
-        "builtAreaSqm": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
         "acquiredYear": 2025,
-        "share": "1/3",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 176025,
+        "valueEur": 90000.15338756437,
+        "holderName": "Румен Хърсев Чанков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Суходол",
+        "municipality": "Средец",
+        "areaSqm": 3398,
+        "builtAreaSqm": 64,
+        "acquiredYear": 2025,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 7160,
+        "valueEur": 3660.8498693649244,
         "holderName": "Янка Иванова Чанкова",
         "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
@@ -68,8 +86,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 93760,
-        "valueEur": 47938.72678095745,
+        "amount": 23841,
+        "valueEur": 12189.709739599046,
         "holderName": "Румен Хърсев Чанков",
         "isSpouse": false,
         "legalBasis": null,
@@ -86,14 +104,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 87595,
-        "valueEur": 44786.612333382756,
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
         "holderName": "Янка Иванова Чанкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ХОНДА ХР-В",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

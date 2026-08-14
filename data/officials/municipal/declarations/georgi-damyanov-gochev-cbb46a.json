@@ -4,15 +4,28 @@
     "declarantName": "Георги Дамянов Гочев",
     "institution": "Район Люлин",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г8699",
-    "controlHash": "84452206",
-    "sourceUrl": "https://register.cacbg.bg/2025/B0BBBC07-D85A-4E08-96AB-56860097CEAD211723.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г7148",
+    "controlHash": "66610945",
+    "sourceUrl": "https://register.cacbg.bg/2026/B0BBBC07-D85A-4E08-96AB-56860097CEAD231540.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39564.277058844586,
+        "amountEurSpouse": 7442.364622692156
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11263.760142752693
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -51,6 +64,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к.Лагера, вх.Д, ет.2, ап.4",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 369580,
+        "valueEur": 188963.25345249844,
+        "holderName": "Георги Дамянов Гочев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
         "category": "vehicle",
         "description": "Автомобил",
         "detail": "Алфа ромео 147",
@@ -71,53 +102,58 @@
       {
         "category": "debt",
         "description": "Ипотечен кредит",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 145000,
-        "valueEur": 74137.32277345168,
+        "currency": "EUR",
+        "amount": 183504,
+        "valueEur": 183504.1900369664,
         "holderName": "Георги Дамянов Гочев",
         "isSpouse": false,
-        "legalBasis": "Ипотечен кредит",
+        "legalBasis": "2.26",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 117772,
+        "valueEur": 117772.50579038056,
+        "holderName": "Георги Дамянов Гочев",
+        "isSpouse": false,
+        "legalBasis": "2.48",
         "fundsOrigin": null
       },
       {
         "category": "debt",
         "description": "Потребителски кредит",
-        "detail": "BGN",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 60000,
-        "valueEur": 30677.51287177311,
+        "currency": "EUR",
+        "amount": 27051,
+        "valueEur": 27050.91955844833,
         "holderName": "Георги Дамянов Гочев",
         "isSpouse": false,
-        "legalBasis": "Потребителски кредит",
+        "legalBasis": "4.33",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "Автомобил",
-        "detail": "Алфа ромео 159",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1022.5837623924369,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

@@ -4,31 +4,43 @@
     "declarantName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г14263",
-    "controlHash": "3F918135",
-    "sourceUrl": "https://register.cacbg.bg/2025/53865A95-90D5-4794-9067-9F9D5B488D56217545.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г5345",
+    "controlHash": "0388F912",
+    "sourceUrl": "https://register.cacbg.bg/2026/53865A95-90D5-4794-9067-9F9D5B488D56229597.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5327.1501101834,
+        "amountEurDeclarant": 6359.9597101997615,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Пенсии 6864лв. и 10680 GBP/24778 лв. общо за 2024 г. 31642",
-        "amountEurDeclarant": 16178.297704810746,
+        "category": "Пенсии 6864лв. и 10684 GBP/23934 лв. общо за 2025 г. 30798",
+        "amountEurDeclarant": 15746.767357081137,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Печалба от Тото 6 от 42",
-        "amountEurDeclarant": 100213.20871445883,
+        "amountEurDeclarant": 100315.46709069806,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на Апартамент 128000 лв. и обзавеждане 28466 лв. общо 156466 лв.",
+        "amountEurDeclarant": 79999.79548324752,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Кредит ЦКБ",
+        "amountEurDeclarant": 30677.51287177311,
         "amountEurSpouse": null
       }
     ],
@@ -38,18 +50,18 @@
         "description": "къща с двор",
         "detail": null,
         "location": "с.НИКОЛОВО",
-        "municipality": "Русе",
+        "municipality": "РУСЕ",
         "areaSqm": 1,
         "builtAreaSqm": 72,
         "acquiredYear": 2024,
         "share": "1/1",
         "currency": "BGN",
-        "amount": 72366,
-        "valueEur": 37000.148274645544,
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
         "isSpouse": false,
         "legalBasis": "Н.А. дв.вх.рег.4180/24 г.",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "няма"
       },
       {
         "category": "bank",
@@ -62,10 +74,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 23346,
-        "valueEur": 11936.620258406916,
-        "holderName": "ТОДОР БОГОМИЛОВ СТАНЧЕВ",
-        "isSpouse": true,
+        "amount": 10272,
+        "valueEur": 5251.990203647556,
+        "holderName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -80,10 +92,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "GBP",
-        "amount": 84000,
-        "valueEur": 99640.56180751906,
-        "holderName": "ТОДОР БОГОМИЛОВ СТАНЧЕВ",
-        "isSpouse": true,
+        "amount": 88608,
+        "valueEur": 101482.23516358784,
+        "holderName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       },
@@ -98,14 +110,45 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 196000,
-        "valueEur": 100213.20871445883,
-        "holderName": "ТОДОР БОГОМИЛОВ СТАНЧЕВ",
-        "isSpouse": true,
+        "amount": 196200,
+        "valueEur": 100315.46709069806,
+        "holderName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
+        "isSpouse": false,
         "legalBasis": "печалба",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "БОГОМИЛ СТАНЧЕВ ТОДОРОВ",
+        "isSpouse": false,
+        "legalBasis": "договор",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "РУСЕ",
+        "municipality": "РУСЕ",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 65445.360793115964,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

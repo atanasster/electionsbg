@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "ivan-tonov-glavchev-aa38b5",
+    "declarantName": "ИВАН ТОНОВ ГЛАВЧЕВ",
+    "institution": "СБАЛАГ \"Торакс Д-р Сава Бояджиев\" ЕООД, гр. Пловдив",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-30",
+    "entryNumber": "Г4726",
+    "controlHash": "B7991AE2",
+    "sourceUrl": "https://register.cacbg.bg/2026/33C0BC22-1D72-44FB-A3D7-349DBAC10119228948.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 75598.08367802927,
+        "amountEurSpouse": 20251.248830419823
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50730,
+        "valueEur": 25937.837133084166,
+        "holderName": "ИВАН ТОНОВ ГЛАВЧЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
+        "holderName": "ИВАН ТОНОВ ГЛАВЧЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30677,
+        "valueEur": 30677.51287177311,
+        "holderName": "ИВАН ТОНОВ ГЛАВЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "4.4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

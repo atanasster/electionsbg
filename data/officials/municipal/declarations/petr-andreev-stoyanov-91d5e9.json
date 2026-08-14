@@ -1,16 +1,16 @@
 [
   {
     "slug": "petr-andreev-stoyanov-91d5e9",
-    "declarantName": "Петър Андреев Стовноя",
+    "declarantName": "Петър Андреев Стоянов",
     "institution": "Хасково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г12528",
-    "controlHash": "E84BFC9B",
-    "sourceUrl": "https://register.cacbg.bg/2025/F443DE70-AF42-44A5-BCE6-B86BE3981294215697.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г7940",
+    "controlHash": "DAAE39C9",
+    "sourceUrl": "https://register.cacbg.bg/2026/F443DE70-AF42-44A5-BCE6-B86BE3981294232402.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,13 +29,19 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1970.518910130226,
+        "amountEurDeclarant": 7050.2037498146565,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 18744.982948415764,
+        "amountEurDeclarant": 20542.685202701665,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 153.38756435886555,
         "amountEurSpouse": null
       }
     ],
@@ -51,10 +57,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 64619,
-        "valueEur": 33039.170071018445,
+        "amount": 58896,
+        "valueEur": 30113.046634932485,
         "holderName": "Петър Андреев Стоянов",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
       },
@@ -69,10 +75,10 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 46159,
-        "valueEur": 23600.72194413625,
+        "amount": 40791,
+        "valueEur": 20856.107125874947,
         "holderName": "Петър Андреев Стоянов",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
       },
@@ -87,27 +93,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 21465,
-        "valueEur": 21464.54446449845,
+        "amount": 13308,
+        "valueEur": 13307.905083775175,
         "holderName": "Петър Андреев Стоянов",
-        "isSpouse": true,
+        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Хасково",
-        "municipality": "Хасково",
-        "areaSqm": 79,
-        "builtAreaSqm": 79,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
+    "events": []
   }
 ]

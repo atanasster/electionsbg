@@ -1,38 +1,57 @@
 [
   {
     "slug": "krasimir-shterev-rumenov-482929",
-    "declarantName": "Красимир Щерев Руменов",
+    "declarantName": "КРАСИМИР ЩЕРЕВ РУМЕНОВ",
     "institution": "Тетевен",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г8345",
-    "controlHash": "50C8AC5F",
-    "sourceUrl": "https://register.cacbg.bg/2025/1420B224-1D5C-4081-B4D6-FAADF440938D211364.xml",
+    "filedAt": null,
+    "entryNumber": "Г14258",
+    "controlHash": "DA7BFF1E",
+    "sourceUrl": "https://register.cacbg.bg/2026/1420B224-1D5C-4081-B4D6-FAADF440938D240002.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7789.5318100243885,
-        "amountEurSpouse": 6481.135886043266
+        "amountEurDeclarant": 8458.81288251024,
+        "amountEurSpouse": 7276.706053184582
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 256875.08628050494,
+        "amountEurDeclarant": 9937.980294810899,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
         "amountEurDeclarant": 636.558392089292,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "СЕЛО ГРАДЕЖНИЦА",
+        "municipality": "Тетевен",
+        "areaSqm": 720,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "КРАСИМИР ЩЕРЕВ РУМЕНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

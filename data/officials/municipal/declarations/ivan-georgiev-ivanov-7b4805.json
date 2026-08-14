@@ -4,23 +4,60 @@
     "declarantName": "Иван Георгиев Иванов",
     "institution": "Асеновград",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-03-20",
-    "entryNumber": "Г619",
-    "controlHash": "900C1425",
-    "sourceUrl": "https://register.cacbg.bg/2025/7BA8DDAC-6D4A-4253-8DD3-9DDC3BA81FBD202750.xml",
+    "filedAt": "2026-01-12",
+    "entryNumber": "Г12",
+    "controlHash": "395A9D6B",
+    "sourceUrl": "https://register.cacbg.bg/2026/7BA8DDAC-6D4A-4253-8DD3-9DDC3BA81FBD222633.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 42561.47006641681,
-        "amountEurSpouse": 2434.7719382563923
+        "amountEurDeclarant": 44901.653006651904,
+        "amountEurSpouse": 19911.23972942434
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "фолцваген тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "фолцваген тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Елина Георгиева Иванова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

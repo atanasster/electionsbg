@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "martin-ivov-ivanov-fab409",
+    "declarantName": "Мартин Ивов Иванов",
+    "institution": "Национална агенция за приходи",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-28",
+    "entryNumber": "Г3407",
+    "controlHash": "FFDEEAA4",
+    "sourceUrl": "https://register.cacbg.bg/2026/F2705114-0962-41FA-B92E-5003A914036C227538.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25043.07634099078,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11081,
+        "valueEur": 11081.228941165644,
+        "holderName": "Мартин Ивов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 144,
+        "valueEur": 122.71005148709244,
+        "holderName": "Мартин Ивов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 44777,
+        "valueEur": 44776.89778764003,
+        "holderName": "Мартин Ивов Иванов",
+        "isSpouse": false,
+        "legalBasis": "Договор за ипотечен кредит с договорен лихвен процент от 3.9%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

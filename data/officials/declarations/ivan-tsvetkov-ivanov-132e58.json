@@ -5,6 +5,56 @@
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1193",
+    "controlHash": "B2C69439",
+    "sourceUrl": "https://register.cacbg.bg/2026/DE130C83-B174-443C-870D-70A08C7F18F0224956.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35050.592331644366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за временна нетрудоспособност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2322.2877243932244
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14196,
+        "valueEur": 7258.2995454615175,
+        "holderName": "Иван Цветков Иванов",
+        "isSpouse": false,
+        "legalBasis": "Договор с лихвен процент 4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-tsvetkov-ivanov-132e58",
+    "declarantName": "Иван Цветков Иванов",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

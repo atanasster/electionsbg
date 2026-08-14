@@ -5,6 +5,68 @@
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г10048",
+    "controlHash": "B1ABBBEF",
+    "sourceUrl": "https://register.cacbg.bg/2026/59F53FC9-F1C0-4206-B152-8EFEAC431F46234734.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26054.9229738781,
+        "amountEurSpouse": 22055.597879161276
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39785,
+        "valueEur": 20341.74749339155,
+        "holderName": "Стефан Калинов Калинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18349,
+        "valueEur": 18348.731740488693,
+        "holderName": "Стефан Калинов Калинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплани и пенси"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefan-kalinov-kalinov-762d4a",
+    "declarantName": "Стефан Калинов Калинов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

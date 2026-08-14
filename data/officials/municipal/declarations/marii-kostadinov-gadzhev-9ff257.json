@@ -4,23 +4,42 @@
     "declarantName": "Марий Костадинов Гаджев",
     "institution": "Куклен",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12710",
-    "controlHash": "6C457069",
-    "sourceUrl": "https://register.cacbg.bg/2025/3BEB0236-C262-42F0-81C4-577EBE501D04215885.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г11916",
+    "controlHash": "7A4A5625",
+    "sourceUrl": "https://register.cacbg.bg/2026/3BEB0236-C262-42F0-81C4-577EBE501D04236969.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 16301.519048179034,
+        "amountEurDeclarant": 17943.27727870009,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 469.8772388193248,
         "amountEurSpouse": null
       }
     ],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Езерово",
+        "municipality": "Първомай",
+        "areaSqm": 697,
+        "builtAreaSqm": 98,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

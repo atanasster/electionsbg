@@ -4,60 +4,29 @@
     "declarantName": "ДРАГОМИР КИРОВ ИВАНОВ",
     "institution": "Ситово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-11",
-    "entryNumber": "Г13179",
-    "controlHash": "67639D1F",
-    "sourceUrl": "https://register.cacbg.bg/2025/A0E2E3F0-30F1-4E06-B61E-E2F0B34FCDC2216374.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13890",
+    "controlHash": "B54DE060",
+    "sourceUrl": "https://register.cacbg.bg/2026/A0E2E3F0-30F1-4E06-B61E-E2F0B34FCDC2239543.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7772.659177944914,
+        "amountEurDeclarant": 6286.333679307506,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10446.715716601137,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "АУДИ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 8089,
-        "valueEur": 4135.840026996211,
-        "holderName": "ДРАГОМИР КИРОВ ИВАНОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "vehicle",
-        "description": "РЕМАРКЕ ЗА ЛЕК АВТОМОБИЛ",
-        "detail": "РКР500",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/1",
-        "currency": "BGN",
-        "amount": 1200,
-        "valueEur": 613.5502574354622,
-        "holderName": "ДРАГОМИР КИРОВ ИВАНОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

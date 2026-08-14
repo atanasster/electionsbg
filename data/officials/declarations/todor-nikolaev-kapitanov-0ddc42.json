@@ -5,6 +5,74 @@
     "institution": "Национален осигурителен институт",
     "positionTitle": "Член на Надзорния съвет",
     "category": "social_fund",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г6867",
+    "controlHash": "D9818987",
+    "sourceUrl": "https://register.cacbg.bg/2026/6DA81E2F-9416-4B81-8405-8D2C71CF0D74231223.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 34349.09987064316,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4205.375722838897,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12600,
+        "valueEur": 6442.277703072353,
+        "holderName": "Тодор Николаев Капитанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12600,
+        "valueEur": 6442.277703072353,
+        "holderName": "Тодор Николаев Капитанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "todor-nikolaev-kapitanov-0ddc42",
+    "declarantName": "Тодор Николаев Капитанов",
+    "institution": "Национален осигурителен институт",
+    "positionTitle": "Член на Надзорния съвет",
+    "category": "social_fund",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

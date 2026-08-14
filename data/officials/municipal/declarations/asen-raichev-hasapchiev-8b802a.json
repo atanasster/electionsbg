@@ -4,32 +4,26 @@
     "declarantName": "Асен Райчев Хасапчиев",
     "institution": "Златоград",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13223",
-    "controlHash": "B68BED12",
-    "sourceUrl": "https://register.cacbg.bg/2025/3BE39B48-93C8-45E7-9C94-171624BF181F216420.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г12767",
+    "controlHash": "19434125",
+    "sourceUrl": "https://register.cacbg.bg/2026/3BE39B48-93C8-45E7-9C94-171624BF181F238100.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7400.4386884340665,
-        "amountEurSpouse": 16627.211976501025
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2377.507247562416,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 6994.984226645465,
+        "amountEurSpouse": 16334.241728575593
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 1592.6742099262206
+        "amountEurDeclarant": 1999.1512554772144,
+        "amountEurSpouse": 2723.651851132256
       }
     ],
     "assets": [
@@ -44,12 +38,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 31230,
-        "valueEur": 15967.645449757903,
+        "amount": 23378,
+        "valueEur": 11952.981598605196,
+        "holderName": "Асен Райчев Хасапчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53077,
+        "valueEur": 27137.83917825169,
         "holderName": "Милена Христова Хасапчиева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49950,
+        "valueEur": 25539.029465751115,
+        "holderName": "Асен Райчев Хасапчиев",
+        "isSpouse": false,
+        "legalBasis": "3,92% лихвен процент",
+        "fundsOrigin": null
       }
     ],
     "events": []

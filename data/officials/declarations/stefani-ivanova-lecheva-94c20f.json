@@ -5,6 +5,56 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г7182",
+    "controlHash": "086628C2",
+    "sourceUrl": "https://register.cacbg.bg/2026/5BFCB295-22AB-4C00-BC1B-BBAD0D62E6C6231581.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21002.336603897067,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи от рента на земеделски земи",
+        "amountEurDeclarant": 1667.3228245808684,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "СТЕФАНИ ИВАНОВА ЛЕЧЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefani-ivanova-lecheva-94c20f",
+    "declarantName": "СТЕФАНИ ИВАНОВА ЛЕЧЕВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

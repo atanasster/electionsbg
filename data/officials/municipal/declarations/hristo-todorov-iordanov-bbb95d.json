@@ -4,20 +4,20 @@
     "declarantName": "Христо Тодоров Йорданов",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-15",
-    "entryNumber": "Г9806",
-    "controlHash": "D751BFE2",
-    "sourceUrl": "https://register.cacbg.bg/2025/AE808984-38E7-4070-9BF3-50665A468C8A212863.xml",
+    "filedAt": "2026-05-14",
+    "entryNumber": "Г6190",
+    "controlHash": "80AF2196",
+    "sourceUrl": "https://register.cacbg.bg/2026/AE808984-38E7-4070-9BF3-50665A468C8A230491.xml",
     "ownershipStakes": [
       {
         "table": "10",
         "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "50",
-        "companyName": "\"ДРИЙМ ФИНАНС\" ЕООД",
+        "companyName": "\"ДРИЙМ ФИНАНС\" ООД",
         "registeredOffice": "Пловдив",
         "valueEur": 25.564594059810926,
         "holderName": "Христо Тодоров Йорданов",
@@ -52,18 +52,6 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "дружествени дялове",
-        "shareSize": "20",
-        "companyName": "\"Биоуеб\" ООД",
-        "registeredOffice": "Ивайловград",
-        "valueEur": 10.22583762392437,
-        "holderName": "Христо Тодоров Йорданов",
-        "legalBasis": "учредителен капитал",
-        "fundsOrigin": "спестявания от преди датата на встъпване в длъжност"
-      },
-      {
-        "table": "10",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
         "shareSize": "250",
         "companyName": "\"Куикзо\" ООД",
         "registeredOffice": "Пловдив",
@@ -76,10 +64,10 @@
         "table": "10",
         "stakeKind": "share",
         "itemType": "дружествени дялове",
-        "shareSize": "50",
+        "shareSize": "250",
         "companyName": "\"Куикзо\" ООД",
         "registeredOffice": "Пловдив",
-        "valueEur": 25.564594059810926,
+        "valueEur": 127.82297029905462,
         "holderName": "Пепа Стоянова Йорданова",
         "legalBasis": "учредителен капитал",
         "fundsOrigin": "спестявания от заплати"
@@ -90,24 +78,11 @@
         "itemType": "дружествени дялове",
         "shareSize": "100",
         "companyName": "QUICKZO LTD",
-        "registeredOffice": "Лондон, Англия",
+        "registeredOffice": "Лондон, Великобритания",
         "valueEur": 51.12918811962185,
         "holderName": "Пепа Стоянова Йорданова",
         "legalBasis": "учредителен капитал",
         "fundsOrigin": "спестявания от заплати"
-      },
-      {
-        "table": "11",
-        "stakeKind": "share",
-        "itemType": "дружествени дялове",
-        "shareSize": "50",
-        "companyName": "\"ДРИЙМ ФИНАНС\" ЕООД",
-        "registeredOffice": "Пловдив",
-        "valueEur": 25.564594059810926,
-        "holderName": null,
-        "transfereeName": "Христо Тодоров Йорданов",
-        "legalBasis": "продажба дружествени дялове",
-        "fundsOrigin": null
       }
     ],
     "income": [
@@ -121,7 +96,13 @@
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2912.3185552936607
+        "amountEurSpouse": 10640.495339574503
+      },
+      {
+        "parent": null,
+        "category": "Ваучери за храна, получени в размера и по реда на ЗКПО",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 409.0335049569748
       }
     ],
     "assets": [
@@ -144,24 +125,6 @@
         "fundsOrigin": "спестявания, от преди датата на встъпване в длъжност"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 578,
-        "valueEur": 295.5267073314143,
-        "holderName": "Христо Тодоров Йорданов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
         "category": "debt",
         "description": "паричен заем",
         "detail": "BGN",
@@ -172,11 +135,29 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 59000,
-        "valueEur": 30166.22099057689,
+        "amount": 54240,
+        "valueEur": 27732.47163608289,
         "holderName": "Христо Тодоров Йорданов",
         "isSpouse": false,
         "legalBasis": "договор за банков кредит, 4,59% - лихвен процент",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "задължение по кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10021,
+        "valueEur": 5123.655941467306,
+        "holderName": "Христо Тодоров Йорданов",
+        "isSpouse": false,
+        "legalBasis": "договор за банков кредит (кредитна карта), 9,90% -лихвен процент",
         "fundsOrigin": null
       },
       {

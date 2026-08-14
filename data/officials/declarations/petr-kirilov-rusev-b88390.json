@@ -5,6 +5,81 @@
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Заместник-директор на териториална дирекция",
     "category": "revenue_agency",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5823",
+    "controlHash": "D076F2CB",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6B96443-47A7-4E47-A767-EF9806E95B3D230095.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "Дружествени дялове",
+        "shareSize": "5 бр.дялове",
+        "companyName": "\"ЕН ТРЕЙТД ГРУП\"ООД",
+        "registeredOffice": "Стара Загора",
+        "valueEur": 25.564594059810926,
+        "holderName": "Диана Цонева Русева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28957.52698342903,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28715,
+        "valueEur": 14681.746368549413,
+        "holderName": "Петър Кирилов Русев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108050,
+        "valueEur": 55245.08776325141,
+        "holderName": "Петър Кирилов Русев",
+        "isSpouse": false,
+        "legalBasis": "Ипотека, 2,8%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-kirilov-rusev-b88390",
+    "declarantName": "Петър Кирилов Русев",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

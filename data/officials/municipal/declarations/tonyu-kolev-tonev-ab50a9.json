@@ -4,36 +4,48 @@
     "declarantName": "ТОНЮ КОЛЕВ ТОНЕВ",
     "institution": "Карнобат",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г12511",
-    "controlHash": "DF40C72B",
-    "sourceUrl": "https://register.cacbg.bg/2025/B0E2C7D5-B85B-4DA7-A417-0ED723E50EAD215680.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г12514",
+    "controlHash": "A16A79B3",
+    "sourceUrl": "https://register.cacbg.bg/2026/B0E2C7D5-B85B-4DA7-A417-0ED723E50EAD237817.xml",
     "ownershipStakes": [],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5980.581134352167,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 45818.91064151793,
+        "amountEurDeclarant": 55355.0155177086,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": [
+    "assets": [
       {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "КАРНОБАТ",
-        "municipality": "КАРНОБАТ",
-        "areaSqm": 68,
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АЛФА РОМЕО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
         "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": null,
         "currency": "BGN",
-        "valueEur": 12782.297029905461,
-        "legalBasis": "ПРОДАЖБА"
+        "amount": 9616,
+        "valueEur": 4916.582729582837,
+        "holderName": "ТОВЮ КОЛЕВ ТОНЕВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -4,29 +4,53 @@
     "declarantName": "Веселин Атанасов Петков",
     "institution": "Гоце Делчев",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-30",
-    "entryNumber": "Г8135",
-    "controlHash": "2A5DD060",
-    "sourceUrl": "https://register.cacbg.bg/2025/3ABC4890-F7CC-4A21-BE72-C87A8415A74F211146.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г4940",
+    "controlHash": "272CE39F",
+    "sourceUrl": "https://register.cacbg.bg/2026/3ABC4890-F7CC-4A21-BE72-C87A8415A74F229171.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10144.030922932974,
-        "amountEurSpouse": 16199.26067193979
+        "amountEurDeclarant": 6870.740299514784,
+        "amountEurSpouse": 20289.084429628343
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 20003.783559920852,
+        "amountEurDeclarant": 47260.75374649126,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 35.79043168373529,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Веселин Атанасов Петков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,8 +62,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 53300,
-        "valueEur": 27251.857267758445,
+        "amount": 50852,
+        "valueEur": 26000.214742590102,
         "holderName": "Веселин Атанасов Петков",
         "isSpouse": false,
         "legalBasis": null,
@@ -56,12 +80,30 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 28000,
-        "valueEur": 14316.172673494118,
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Веселин Атанасов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44984,
+        "valueEur": 22999.95398373069,
         "holderName": "Елена Георгиева Петкова",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване/заплата"
       }
     ],
     "events": []

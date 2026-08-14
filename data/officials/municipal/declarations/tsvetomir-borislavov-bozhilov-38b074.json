@@ -4,15 +4,22 @@
     "declarantName": "Цветомир Бориславов Божилов",
     "institution": "Район Връбница",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
+    "declarationYear": 2026,
     "fiscalYear": 2025,
-    "declarationType": "Entry",
-    "filedAt": "2025-05-14",
-    "entryNumber": "В908",
-    "controlHash": "FC14A8F8",
-    "sourceUrl": "https://register.cacbg.bg/2025/97014D6F-3B17-4D7A-965E-7D9DF2CCD586213542.xml",
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г7434",
+    "controlHash": "E859DE7E",
+    "sourceUrl": "https://register.cacbg.bg/2026/97014D6F-3B17-4D7A-965E-7D9DF2CCD586231843.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34138.95890747151,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "bank",
@@ -25,31 +32,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 16000,
-        "valueEur": 8180.6700991394955,
+        "amount": 64000,
+        "valueEur": 32722.680396557982,
         "holderName": "Цветомир Бориславов Божилов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "tsvetomir-borislavov-bozhilov-38b074",
-    "declarantName": "Цветомир Бориславов Божилов",
-    "institution": "Район Връбница",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-14",
-    "entryNumber": "В909",
-    "controlHash": "F7C56455",
-    "sourceUrl": "https://register.cacbg.bg/2025/97014D6F-3B17-4D7A-965E-7D9DF2CCD586213543.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
     "events": []
   }
 ]

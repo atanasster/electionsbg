@@ -1,6 +1,86 @@
 [
   {
     "slug": "ivo-nikolov-radkov-05b5db",
+    "declarantName": "ИВО НИКОЛОВ РАДКОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2973",
+    "controlHash": "0F7A9A6A",
+    "sourceUrl": "https://register.cacbg.bg/2026/3D99B75C-8047-4022-9D11-7AC5796C3C10227068.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27389.906075681425,
+        "amountEurSpouse": 16133.304019265479
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ИВО НИКОЛОВ РАДКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "МАРИЯ ГЕОРГИЕВА РАДКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37849,
+        "valueEur": 19351.886411395673,
+        "holderName": "ИВО НИКОЛОВ РАДКОВ",
+        "isSpouse": false,
+        "legalBasis": "1,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivo-nikolov-radkov-05b5db",
     "declarantName": "Иво Николов Радков",
     "institution": "Училища",
     "positionTitle": "Директор",

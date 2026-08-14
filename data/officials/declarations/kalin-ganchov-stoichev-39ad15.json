@@ -5,6 +5,93 @@
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9248",
+    "controlHash": "203F7DFD",
+    "sourceUrl": "https://register.cacbg.bg/2026/8093D299-267B-4D9E-8AC4-D97137F53717233846.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15361.764570540385,
+        "amountEurSpouse": 25053.302178614707
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1073.7129505120588,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 9714.54574272815,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек",
+        "detail": "нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "4/4",
+        "currency": "BGN",
+        "amount": 48750,
+        "valueEur": 24925.47920831565,
+        "holderName": "калин ганчов Стойчев",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49000,
+        "valueEur": 25053.302178614707,
+        "holderName": "Калин Ганчов Стойчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наем , пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "сащ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "kalin-ganchov-stoichev-39ad15",
+    "declarantName": "Калин Ганчов Стойчев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

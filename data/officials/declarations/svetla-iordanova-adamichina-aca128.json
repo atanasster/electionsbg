@@ -1,6 +1,63 @@
 [
   {
     "slug": "svetla-iordanova-adamichina-aca128",
+    "declarantName": "Светла  Йорданова Адамичина",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г11565",
+    "controlHash": "2FD32C1B",
+    "sourceUrl": "https://register.cacbg.bg/2026/3A36ED66-58AF-431B-8A2B-7A1B01072F7A236500.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33501.88922350102,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30080,
+        "valueEur": 15379.659786382252,
+        "holderName": "Светла Йорданова Адамичина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Пунто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "slug": "svetla-iordanova-adamichina-aca128",
     "declarantName": "Светла Йорданова Адамичина",
     "institution": "Училища",
     "positionTitle": "Директор",

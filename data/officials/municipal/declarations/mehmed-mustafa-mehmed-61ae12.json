@@ -1,28 +1,28 @@
 [
   {
     "slug": "mehmed-mustafa-mehmed-61ae12",
-    "declarantName": "Мехмед Мустафа Мехмед",
+    "declarantName": "МЕХМЕД МУСТАФА МЕХМЕД",
     "institution": "Стамболово",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-15",
-    "entryNumber": "Г3005",
-    "controlHash": "DB39C51D",
-    "sourceUrl": "https://register.cacbg.bg/2025/0E2DAFC3-0DCF-4F82-B047-1577E346229F205720.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г13285",
+    "controlHash": "576D0BB5",
+    "sourceUrl": "https://register.cacbg.bg/2026/0E2DAFC3-0DCF-4F82-B047-1577E346229F238785.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6571.1232571338,
+        "amountEurDeclarant": 5402.310016719244,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 5724.423901872862,
+        "amountEurDeclarant": 6749.052831790084,
         "amountEurSpouse": null
       },
       {
@@ -32,7 +32,44 @@
         "amountEurSpouse": 6135.502574354622
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "МЕХМЕД МУСТАФА МЕХМЕД И ЗЕЛИЕ ХАСАН МЕХМЕД",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "МЕХМЕД МУСТАФА МЕХМЕД",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

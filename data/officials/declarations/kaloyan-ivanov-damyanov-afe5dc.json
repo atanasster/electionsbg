@@ -1,6 +1,74 @@
 [
   {
     "slug": "kaloyan-ivanov-damyanov-afe5dc",
+    "declarantName": "Калоян Иванов Дамянов",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-24",
+    "entryNumber": "Г5920",
+    "controlHash": "2B61D55F",
+    "sourceUrl": "https://register.cacbg.bg/2026/78E9AE48-F434-44BD-85F1-09CA2A6F2EE9230199.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 72287.98003916496,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 48359.51999918193,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16463,
+        "valueEur": 8417.398240133345,
+        "holderName": "Калоян Иванов Дамянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36035,
+        "valueEur": 18424.402938905732,
+        "holderName": "Калоян Иванов Дамянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kaloyan-ivanov-damyanov-afe5dc",
     "declarantName": "КАЛОЯН ИВАНОВ ДАМЯНОВ",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

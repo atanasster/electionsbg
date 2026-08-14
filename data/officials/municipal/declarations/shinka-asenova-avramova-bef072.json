@@ -4,55 +4,31 @@
     "declarantName": "Шинка Асенова Аврамова",
     "institution": "Ардино",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5755",
-    "controlHash": "4B76DF34",
-    "sourceUrl": "https://register.cacbg.bg/2025/72BE99AF-D1BE-483D-A4EA-FC146B605A20208699.xml",
+    "filedAt": "2026-04-29",
+    "entryNumber": "Г4450",
+    "controlHash": "6D92FD30",
+    "sourceUrl": "https://register.cacbg.bg/2026/72BE99AF-D1BE-483D-A4EA-FC146B605A20228650.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 2902.092717669736,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 2657.1839065767476,
+        "amountEurSpouse": 4267.24204046364
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 14292.653246959091,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Доходи от участие в проект \"Бъдеще за децата на Ардино\"",
-        "amountEurDeclarant": 858.970360409647,
+        "amountEurDeclarant": 20022.701359525112,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "\"Фолксваген Голф\"",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 2000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Шинка Асенова Аврамова",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -62,8 +38,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 30000,
-        "valueEur": 15338.756435886555,
+        "amount": 42349,
+        "valueEur": 21652.699876778657,
         "holderName": "Шинка Асенова Аврамова",
         "isSpouse": false,
         "legalBasis": null,
@@ -71,7 +47,7 @@
       },
       {
         "category": "debt",
-        "description": "Банков кредит",
+        "description": "Ипотечен кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,11 +56,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 110101,
-        "valueEur": 56293.74741158485,
+        "amount": 101083,
+        "valueEur": 51682.917226957354,
         "holderName": "Шинка Асенова Аврамова",
         "isSpouse": false,
-        "legalBasis": "договор, 2,690 %",
+        "legalBasis": "Договор за заем, 2,690%",
         "fundsOrigin": null
       }
     ],

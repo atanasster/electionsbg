@@ -5,6 +5,68 @@
     "institution": "Комисия за регулиране на съобщенията",
     "positionTitle": "Член",
     "category": "regulator",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г4927",
+    "controlHash": "11B065B3",
+    "sourceUrl": "https://register.cacbg.bg/2026/A4407403-950B-47ED-8ACB-F194F40E5695229158.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 55941.97859732185,
+        "amountEurSpouse": 18944.38678208229
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Петър Василев Мутафчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
+        "holderName": "Петър Василев Мутафчиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petr-vasilev-mutafchiev-292498",
+    "declarantName": "Петър Василев Мутафчиев",
+    "institution": "Комисия за регулиране на съобщенията",
+    "positionTitle": "Член",
+    "category": "regulator",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

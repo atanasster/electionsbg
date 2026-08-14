@@ -4,35 +4,91 @@
     "declarantName": "Георги Кръстев Марков",
     "institution": "Велико Търново",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-08",
-    "entryNumber": "Г12667",
-    "controlHash": "29CF26A8",
-    "sourceUrl": "https://register.cacbg.bg/2025/3DC01889-6564-4FFB-9008-6B55343F8374215840.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г7507",
+    "controlHash": "1E894322",
+    "sourceUrl": "https://register.cacbg.bg/2026/3DC01889-6564-4FFB-9008-6B55343F8374231921.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7202.057438529933,
-        "amountEurSpouse": 2618.325723605835
+        "amountEurDeclarant": 8533.972789046084,
+        "amountEurSpouse": 3533.0268990658697
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 1301.237837644376,
-        "amountEurSpouse": 204.5167524784874
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 1022.5837623924369,
-        "amountEurSpouse": 1022.5837623924369
+        "amountEurDeclarant": 1756.2876119090106,
+        "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "debt",
+        "description": "договор за лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10225,
+        "valueEur": 10224.815040161977,
+        "holderName": "Георги Кръстев Марков",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг, 5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12500,
+        "valueEur": 6391.148514952731,
+        "holderName": "Георги Кръстев Марков",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит, 18%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

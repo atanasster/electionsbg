@@ -4,29 +4,66 @@
     "declarantName": "Юлияна Иванова Агушева",
     "institution": "Угърчин",
     "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-10",
-    "entryNumber": "Г1865",
-    "controlHash": "F5B66320",
-    "sourceUrl": "https://register.cacbg.bg/2025/6F1BD3E3-057A-4C21-8E91-69DFAC2BA937204427.xml",
+    "filedAt": "2026-04-21",
+    "entryNumber": "Г2227",
+    "controlHash": "6F19265C",
+    "sourceUrl": "https://register.cacbg.bg/2026/6F1BD3E3-057A-4C21-8E91-69DFAC2BA937226239.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6385.0130123783765,
+        "amountEurDeclarant": 10131.759917784266,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 8724.684660732273,
+        "amountEurDeclarant": 7078.324803280449,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18730,
+        "valueEur": 18729.644191979874,
+        "holderName": "Юлияна Иванова Агушева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудова дейност, рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19277,
+        "valueEur": 19277.749088622222,
+        "holderName": "Юлияна Иванова Агушева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудова дейност, пенсия"
+      }
+    ],
     "events": []
   }
 ]

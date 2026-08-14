@@ -4,23 +4,42 @@
     "declarantName": "Георги Любенов Мичов",
     "institution": "Бобошево",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-24",
-    "entryNumber": "Г9956",
-    "controlHash": "7D493E76",
-    "sourceUrl": "https://register.cacbg.bg/2025/015675E7-945B-4B3C-994B-746CC2FDD744213025.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г10705",
+    "controlHash": "CCA1FE8C",
+    "sourceUrl": "https://register.cacbg.bg/2026/015675E7-945B-4B3C-994B-746CC2FDD744235492.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5093.4897204767285,
-        "amountEurSpouse": 6876.875802089138
+        "amountEurDeclarant": 5902.353476529146,
+        "amountEurSpouse": 7014.413318130922
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12500,
+        "valueEur": 6391.148514952731,
+        "holderName": "Георги Любенов Мичов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
     "events": []
   }
 ]

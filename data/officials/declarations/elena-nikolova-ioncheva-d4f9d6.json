@@ -5,6 +5,111 @@
     "institution": "Европейски парламент",
     "positionTitle": "Член",
     "category": "mep",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-06-15",
+    "entryNumber": "Г11420",
+    "controlHash": "605B28F6",
+    "sourceUrl": "https://register.cacbg.bg/2026/77FBBBE0-2E3C-49D3-8039-F13D7634C273236330.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 132624.0010634871,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 8301.334983101804,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на автомобил",
+        "amountEurDeclarant": 21999.867064110887,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продажба на наследствен апартамент",
+        "amountEurDeclarant": 589999.6420956831,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Елена Николова Йончева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 590000,
+        "valueEur": 589999.6420956831,
+        "holderName": "Елена Николова Йончева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Продажба на наследствен имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент - наследствен",
+        "detail": null,
+        "location": "София, ул. Дечко Йорданов 64",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 250,
+        "builtAreaSqm": 250,
+        "currency": "BGN",
+        "valueEur": 589999.6420956831,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ 1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 21999.867064110887,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "elena-nikolova-ioncheva-d4f9d6",
+    "declarantName": "Елена Николова Йончева",
+    "institution": "Европейски парламент",
+    "positionTitle": "Член",
+    "category": "mep",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

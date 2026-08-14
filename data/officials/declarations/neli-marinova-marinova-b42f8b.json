@@ -5,6 +5,62 @@
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-05",
+    "entryNumber": "Г11192",
+    "controlHash": "F9A89CF9",
+    "sourceUrl": "https://register.cacbg.bg/2026/2ADE8DAE-67F2-4D5D-A9FF-21A9729353C8236053.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37324.30732732395,
+        "amountEurSpouse": 5112.918811962185
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11759.713267513025,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1022.5837623924369
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Нели Маринова Маринова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-marinova-marinova-b42f8b",
+    "declarantName": "Нели Маринова Маринова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -4,25 +4,25 @@
     "declarantName": "Мустафа Юсуф Мустафа",
     "institution": "Сърница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4617",
-    "controlHash": "D9AB1A31",
-    "sourceUrl": "https://register.cacbg.bg/2025/34C325D2-853E-4387-8256-B7CEC9CEF4AE207486.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г12662",
+    "controlHash": "E4452E9B",
+    "sourceUrl": "https://register.cacbg.bg/2026/34C325D2-853E-4387-8256-B7CEC9CEF4AE237980.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 1826.3345996328924,
-        "amountEurSpouse": 5438.611740284176
+        "amountEurDeclarant": 2104.9886748848317,
+        "amountEurSpouse": 12411.610416038204
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 10175.73101956714,
+        "amountEurDeclarant": 11647.740345531054,
         "amountEurSpouse": null
       },
       {
@@ -34,24 +34,73 @@
     ],
     "assets": [
       {
-        "category": "vehicle",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Мустафа Юсуф Мустафа",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Юлия Събинова Дурлева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45002,
+        "valueEur": 23009.157237592226,
+        "holderName": "Мустафа Юсуф Мустафа",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит с 4,4 лих. %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
         "description": "автомобил",
         "detail": "БМВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
         "currency": "BGN",
-        "amount": 9500,
-        "valueEur": 4857.272871364075,
-        "holderName": "Мустафа Юсуф Мустафа",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "valueEur": 12271.005148709244,
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

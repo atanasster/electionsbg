@@ -5,6 +5,104 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г6585",
+    "controlHash": "8AC249BD",
+    "sourceUrl": "https://register.cacbg.bg/2026/B895EBD8-F660-431E-8BE1-7B35C1767CF4230919.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15581.620079454759,
+        "amountEurSpouse": 8289.063977953094
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4357.74070343537,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1672.4357433928308,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7730.733243686824,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6000,
+        "valueEur": 6000.010225837624,
+        "holderName": "ЛЮБОМИР БОЯНОВ ТАУШАНСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ, НАЕМИ И ДР.ДОХОДИ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46431,
+        "valueEur": 23739.79333582162,
+        "holderName": "ЛЮБОМИР БОЯНОВ ТАУШАНСКИ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ, НАЕМИ И ДР.ДОХОДИ"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54978,
+        "valueEur": 28109.8050444057,
+        "holderName": "ЛЮБОМИР БОЯНОВ ТАУШАНСКИ",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ, 5.07%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-boyanov-taushanski-b28a27",
+    "declarantName": "ЛЮБОМИР БОЯНОВ ТАУШАНСКИ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",

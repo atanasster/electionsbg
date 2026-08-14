@@ -1,6 +1,81 @@
 [
   {
     "slug": "milena-iordanova-andonova-8871fa",
+    "declarantName": "МИЛЕНА ЙОРДАНОВА АНДОНОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-17",
+    "entryNumber": "Г1589",
+    "controlHash": "6BB1C9A0",
+    "sourceUrl": "https://register.cacbg.bg/2026/79E964D7-4EBB-4883-A542-AA3F38454901225504.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30083.9029977043,
+        "amountEurSpouse": 24273.070767909277
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СУБАРУ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 600,
+        "valueEur": 306.7751287177311,
+        "holderName": "АПОСТОЛ ПАНАЙОТОВ АНДОНОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11856,
+        "valueEur": 6061.8765434623665,
+        "holderName": "МИЛЕНА ЙОРДАНОВА АНДОНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СУБАРУ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "milena-iordanova-andonova-8871fa",
     "declarantName": "Милена Йорданова Андонова",
     "institution": "Училища",
     "positionTitle": "Директор",

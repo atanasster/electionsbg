@@ -5,6 +5,98 @@
     "institution": "Музеи",
     "positionTitle": "Директор",
     "category": "regional_director",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-09",
+    "entryNumber": "Г4727",
+    "controlHash": "1FA840C8",
+    "sourceUrl": "https://register.cacbg.bg/2026/0575DB01-5B34-4E41-857D-8B8E5BC2AC9D228949.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21307.066565090012,
+        "amountEurSpouse": 22931.952163531594
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8465.970968846987
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 258.20240000409035
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16000,
+        "valueEur": 15999.856838273265,
+        "holderName": "Светлана Велидонкова Антова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит 5.99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитен лимит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 511,
+        "valueEur": 511.29188119621847,
+        "holderName": "Светлана Велидонкова Антова",
+        "isSpouse": true,
+        "legalBasis": "кредитен лимит 12%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитен лимит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1533,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Светлана Велидонкова Антова",
+        "isSpouse": true,
+        "legalBasis": "кредитен лимит 17.20%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivailo-tsankov-krumov-6ca564",
+    "declarantName": "Ивайло Цанков Крумов",
+    "institution": "Музеи",
+    "positionTitle": "Директор",
+    "category": "regional_director",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

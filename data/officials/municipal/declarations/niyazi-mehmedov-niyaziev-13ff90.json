@@ -4,35 +4,47 @@
     "declarantName": "Ниязи Мехмедов Ниязиев",
     "institution": "Лозница",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4947",
-    "controlHash": "05D7BCA0",
-    "sourceUrl": "https://register.cacbg.bg/2025/39249CD6-6934-4239-B6D7-2CB977F932B2207827.xml",
+    "filedAt": null,
+    "entryNumber": "Г6659",
+    "controlHash": "85CA0049",
+    "sourceUrl": "https://register.cacbg.bg/2026/39249CD6-6934-4239-B6D7-2CB977F932B2231002.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6991.916475358288,
-        "amountEurSpouse": 17444.256402652583
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22861.393883926517,
+        "amountEurDeclarant": 30372.271618698967,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Доходи от отдадена под наем земеделска земя (рента)",
-        "amountEurDeclarant": 997.019168332626,
+        "amountEurDeclarant": 690.244039614895,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 83,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 139000,
+        "valueEur": 71069.57148627438,
+        "holderName": "Ниязи Мехмедов Ниязиев",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "заеми"
+      },
       {
         "category": "cash",
         "description": null,
@@ -44,8 +56,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Ниязи Мехмедов Ниязиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -62,8 +74,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "USD",
-        "amount": 10000,
-        "valueEur": 8691.961980335715,
+        "amount": 11000,
+        "valueEur": 9561.158178369285,
         "holderName": "Ниязи Мехмедов Ниязиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -71,7 +83,7 @@
       },
       {
         "category": "debt",
-        "description": "Ипотечен заем-лихвен процент 2,6%",
+        "description": "Ипотечен заем",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -80,14 +92,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 251599,
-        "valueEur": 128640.52601708738,
+        "amount": 109891,
+        "valueEur": 56186.37611653365,
         "holderName": "Ниязи Мехмедов Ниязиев",
         "isSpouse": false,
-        "legalBasis": "нотариален акт",
+        "legalBasis": "нотариален акт 2,86%",
         "fundsOrigin": null
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Разград",
+        "municipality": "Разград",
+        "areaSqm": 123,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7435.206536355409,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

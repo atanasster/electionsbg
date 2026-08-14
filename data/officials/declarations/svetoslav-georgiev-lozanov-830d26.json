@@ -1,6 +1,74 @@
 [
   {
     "slug": "svetoslav-georgiev-lozanov-830d26",
+    "declarantName": "СВетослав Георгиев Лозанов",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3218",
+    "controlHash": "E73F2FCF",
+    "sourceUrl": "https://register.cacbg.bg/2026/47916B90-FFCC-4305-93BD-4146776C4F1E227338.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25251.683428518838,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от печалба от български спортен тотализатор",
+        "amountEurDeclarant": 102258.37623924369,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Светослав Георгиев Лозанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Светослав Георгиев Лозанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svetoslav-georgiev-lozanov-830d26",
     "declarantName": "Светослав Георгиев Лозанов",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",

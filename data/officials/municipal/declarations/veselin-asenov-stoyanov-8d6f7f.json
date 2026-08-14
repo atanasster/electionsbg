@@ -4,26 +4,26 @@
     "declarantName": "Веселин Асенов Стоянов",
     "institution": "Кирково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-05",
-    "entryNumber": "Г10034",
-    "controlHash": "B7862DE9",
-    "sourceUrl": "https://register.cacbg.bg/2025/78D5F012-94BD-424E-AEA1-42D5D08C77DF213105.xml",
+    "filedAt": "2026-05-11",
+    "entryNumber": "Г8188",
+    "controlHash": "496C7875",
+    "sourceUrl": "https://register.cacbg.bg/2026/78D5F012-94BD-424E-AEA1-42D5D08C77DF232675.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4660.936788984728,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 4445.68290700112,
+        "amountEurSpouse": 19151.459993966757
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12702.535496438852,
-        "amountEurSpouse": 18857.467162278932
+        "amountEurDeclarant": 13226.609674664976,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
@@ -61,7 +61,7 @@
         "holderName": "Веселин Асенов Стоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -132,8 +132,26 @@
         "valueEur": 153.89885624006178,
         "holderName": "Валентина Андреева Стоянова",
         "isSpouse": true,
-        "legalBasis": "наследство",
+        "legalBasis": "замяна",
         "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Шумнатица",
+        "municipality": "Кирково",
+        "areaSqm": 350,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2025,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Валентина Андреева Стоянова",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -142,7 +160,7 @@
         "location": "с. Шумнатица",
         "municipality": "Кирково",
         "areaSqm": 6,
-        "builtAreaSqm": 6000,
+        "builtAreaSqm": 0,
         "acquiredYear": 2015,
         "share": "1",
         "currency": "BGN",
@@ -160,7 +178,7 @@
         "location": "с. Домище",
         "municipality": "Кирково",
         "areaSqm": 3,
-        "builtAreaSqm": 3000,
+        "builtAreaSqm": 0,
         "acquiredYear": 2015,
         "share": "1",
         "currency": "BGN",
@@ -236,16 +254,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 15191,
+        "valueEur": 7767.034967251755,
         "holderName": "Веселин Асенов Стоянов",
         "isSpouse": false,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор л.п. 3,7%",
         "fundsOrigin": null
       },
       {
         "category": "debt",
-        "description": "Потребителски кредит",
+        "description": "Банков кредит",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -254,11 +272,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18000,
-        "valueEur": 9203.253861531934,
+        "amount": 6083,
+        "valueEur": 3110.188513316597,
         "holderName": "Валентина Андреева Стоянова",
         "isSpouse": true,
-        "legalBasis": "Догговор",
+        "legalBasis": "Договор л.п. 3,9%",
         "fundsOrigin": null
       }
     ],

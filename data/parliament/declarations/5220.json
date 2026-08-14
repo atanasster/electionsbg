@@ -2,6 +2,110 @@
   {
     "mpId": 5220,
     "declarantName": "Красимир Митков Събев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г11292",
+    "controlHash": "B00C7ABA",
+    "sourceUrl": "https://register.cacbg.bg/2026/D2520B6D-CEDD-4C0B-B4CF-6D1A1BB5056D236180.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "дялове",
+        "shareSize": "51%",
+        "companyName": "Райковски ливади ООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 65189.714852517856,
+        "holderName": "Красимир Митков Събев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Райковски-ливади-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 89149.87498913505,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 33499.33276409504,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Парични средства по чл. 11 от ПОДНС",
+        "amountEurDeclarant": 31614.71089000578,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент със складово помещение от 20 кв.м.",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 133910,
+        "valueEur": 68467.09581098561,
+        "holderName": "Красимир Митков Събев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 29,
+        "builtAreaSqm": 29,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 17400,
+        "valueEur": 8896.478732814201,
+        "holderName": "Красимир Митков Събев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94187,
+        "valueEur": 48157.04841422823,
+        "holderName": "Красимир Митков Събев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 5220,
+    "declarantName": "Красимир Митков Събев",
     "institution": "51-во Народно събрание",
     "declarationYear": 2025,
     "fiscalYear": 2024,

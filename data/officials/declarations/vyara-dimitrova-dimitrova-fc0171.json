@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1080",
+    "controlHash": "279A7D8E",
+    "sourceUrl": "https://register.cacbg.bg/2026/C37C3605-7E3A-40C9-BCE0-F54B1AF1B65E224764.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19620.825940904884,
+        "amountEurSpouse": 13061.973688919794
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14614,
+        "valueEur": 7472.019551801537,
+        "holderName": "Вяра Димитрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Трудово възнаграждение"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vyara-dimitrova-dimitrova-fc0171",
+    "declarantName": "Вяра Димитрова Димитрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

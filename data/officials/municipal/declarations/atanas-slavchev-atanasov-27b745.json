@@ -1,32 +1,116 @@
 [
   {
     "slug": "atanas-slavchev-atanasov-27b745",
-    "declarantName": "АТАНАС СЛАВЧЕВ АТАНАСОВ",
+    "declarantName": "Атанас Славчев Атанасов",
     "institution": "Гурково",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г5473",
-    "controlHash": "15EDDAFD",
-    "sourceUrl": "https://register.cacbg.bg/2025/5A670D71-2139-44BA-9A9D-0B80B828603D208401.xml",
+    "filedAt": "2026-04-07",
+    "entryNumber": "Г3116",
+    "controlHash": "9E2B961B",
+    "sourceUrl": "https://register.cacbg.bg/2026/5A670D71-2139-44BA-9A9D-0B80B828603D227217.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4559.18970462668,
-        "amountEurSpouse": 7419.867779919523
+        "amountEurDeclarant": 6226.001237326353,
+        "amountEurSpouse": 10057.622595010815
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 21636.338536580377,
+        "amountEurDeclarant": 23442.73275284662,
         "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обещетение за болест",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 306.2638368365349
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 141.6278510913525
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Брестова",
+        "municipality": "Гурково",
+        "areaSqm": 904,
+        "builtAreaSqm": 205,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Ирина Желева Тодорова - Атанасова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Брестова",
+        "municipality": "Гурково",
+        "areaSqm": 904,
+        "builtAreaSqm": 205,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ирина Желева Тодорова - Атанасова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "учредено право на строеж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 189716,
+        "valueEur": 97000.25053302178,
+        "holderName": "Ирина Желева Тодорова - Атанасова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "средства от кредит"
+      },
+      {
+        "category": "real_estate",
+        "description": "учредено право на строеж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 189716,
+        "valueEur": 97000.25053302178,
+        "holderName": "Атанас Славчев Атанасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "средства от кредит"
+      },
       {
         "category": "bank",
         "description": null,
@@ -38,12 +122,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 15000,
-        "valueEur": 7669.378217943277,
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
         "holderName": "Атанас Славчев Атанасов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "кредит и заплата"
       },
       {
         "category": "debt",
@@ -56,44 +140,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 61929,
-        "valueEur": 31663.794910600616,
+        "amount": 233680,
+        "valueEur": 119478.68679793234,
         "holderName": "Атанас Славчев Атанасов",
         "isSpouse": false,
-        "legalBasis": "договор - 2,99%",
+        "legalBasis": "договор 2,5%",
         "fundsOrigin": null
       }
     ],
     "events": []
-  },
-  {
-    "slug": "atanas-slavchev-atanasov-27b745",
-    "declarantName": "АТАНАС СЛАВЧЕВ АТАНАСОВ",
-    "institution": "Гурково",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-03",
-    "entryNumber": "Г5487",
-    "controlHash": "05889CF5",
-    "sourceUrl": "https://register.cacbg.bg/2025/5A670D71-2139-44BA-9A9D-0B80B828603D208415.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
-      {
-        "kind": "early_repayment",
-        "description": "частично погасяване на ипотечен кредит към Банка ДСК АД",
-        "detail": "Атанас Славчев Атанасов",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 10225.83762392437,
-        "legalBasis": "заплати"
-      }
-    ]
   }
 ]

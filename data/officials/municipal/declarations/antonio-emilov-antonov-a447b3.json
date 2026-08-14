@@ -4,48 +4,35 @@
     "declarantName": "Антонио Емилов Антонов",
     "institution": "Радомир",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г8927",
-    "controlHash": "7924F50A",
-    "sourceUrl": "https://register.cacbg.bg/2025/B5957215-CCC9-4AD0-B4FD-806139C29D72211955.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г9575",
+    "controlHash": "22BE76E4",
+    "sourceUrl": "https://register.cacbg.bg/2026/B5957215-CCC9-4AD0-B4FD-806139C29D72234207.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5732.093280090806,
-        "amountEurSpouse": 0
+        "amountEurDeclarant": 14458.823108347862,
+        "amountEurSpouse": 6313.432149010906
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 12980.166987928398,
+        "amountEurDeclarant": 6255.656166435733,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 340.0091009954853,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Сеат Леон",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2019,
-        "share": "1",
-        "currency": "BGN",
-        "amount": 12000,
-        "valueEur": 6135.502574354622,
-        "holderName": "Антонио Емилов Антонов",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "assets": [],
     "events": []
   }
 ]

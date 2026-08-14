@@ -1,6 +1,86 @@
 [
   {
     "slug": "nikolai-lilyanov-kolev-68d2ca",
+    "declarantName": "НИКОЛАЙ ЛИЛЯНОВ КОЛЕВ",
+    "institution": "Североизточно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10596",
+    "controlHash": "C3A22311",
+    "sourceUrl": "https://register.cacbg.bg/2026/D393016C-96A7-40D7-ABB6-CD9CA26E3BCF235369.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32789.14834111349,
+        "amountEurSpouse": 5639.54944959429
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 49639,
+        "valueEur": 49638.77228593487,
+        "holderName": "НИКОЛАЙ ЛИЛЯНОВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 3 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ОВЪРДРАФТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2806,
+        "valueEur": 2805.969844004847,
+        "holderName": "НИКОЛАЙ ЛИЛЯНОВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 7,07 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2585,
+        "valueEur": 2584.5804594468846,
+        "holderName": "НИКОЛАЙ ЛИЛЯНОВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 12 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-lilyanov-kolev-68d2ca",
     "declarantName": "Николай Лилянов Колев",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор",

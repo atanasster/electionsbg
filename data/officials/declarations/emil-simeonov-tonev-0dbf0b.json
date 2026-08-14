@@ -1,6 +1,117 @@
 [
   {
     "slug": "emil-simeonov-tonev-0dbf0b",
+    "declarantName": "Емил Сименонов Тонев",
+    "institution": "Национална служба за охрана ",
+    "positionTitle": "Директор",
+    "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8696",
+    "controlHash": "C8B34FCE",
+    "sourceUrl": "https://register.cacbg.bg/2026/0848C771-1333-4CF9-8480-0D067B180C79233229.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 59079.77687222305,
+        "amountEurSpouse": 11310.798995822746
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Емил Симеонов Тонев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Нели Петкова Тонева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Финансов лизинг - остатък от главницата, ведно с дължимите лихви",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10317,
+        "valueEur": 5274.998338301386,
+        "holderName": "Емил Симеонов Тонев",
+        "isSpouse": true,
+        "legalBasis": "Финансов лизинг при лихвен процент в размер от 7,06",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 96882,
+        "valueEur": 49534.98003405204,
+        "holderName": "Емил Симеонов Тонев",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит с лихвен процент в размер от 4,00",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "emil-simeonov-tonev-0dbf0b",
     "declarantName": "Емил Симеонов Тонев",
     "institution": "Национална служба за охрана ",
     "positionTitle": "Директор",

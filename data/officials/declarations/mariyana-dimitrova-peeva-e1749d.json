@@ -1,6 +1,56 @@
 [
   {
     "slug": "mariyana-dimitrova-peeva-e1749d",
+    "declarantName": "МАРИЯНА ДИМИТРОВА ПЕЕВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г8304",
+    "controlHash": "10DAC518",
+    "sourceUrl": "https://register.cacbg.bg/2026/7274FA8E-F42D-48B2-84C0-A0F3E898663D232798.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40006.033244198115,
+        "amountEurSpouse": 7558.4278797236975
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7682.160514973183,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108939,
+        "valueEur": 55699.62624563485,
+        "holderName": "МАРИЯНА ДИМИТРОВА ПЕЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "mariyana-dimitrova-peeva-e1749d",
     "declarantName": "Марияна Димитрова Пеева",
     "institution": "Училища",
     "positionTitle": "Директор",

@@ -4,13 +4,13 @@
     "declarantName": "Хатидже Мустафа Байрям",
     "institution": "Джебел",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г7861",
-    "controlHash": "BBD1CAAF",
-    "sourceUrl": "https://register.cacbg.bg/2025/D1F7836F-8F10-4C9E-A75A-C93D7DE9C094210865.xml",
+    "filedAt": "2026-04-08",
+    "entryNumber": "Г1375",
+    "controlHash": "1DDA3699",
+    "sourceUrl": "https://register.cacbg.bg/2026/D1F7836F-8F10-4C9E-A75A-C93D7DE9C094225208.xml",
     "ownershipStakes": [],
     "income": [
       {
@@ -22,11 +22,79 @@
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 13368.748817637525,
+        "amountEurDeclarant": 15383.750121431822,
         "amountEurSpouse": null
       }
     ],
-    "assets": [],
-    "events": []
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Казаците",
+        "municipality": "Джебел",
+        "areaSqm": 111,
+        "builtAreaSqm": 212,
+        "acquiredYear": 2025,
+        "share": "1/2СИО",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Хатидже Мустафа Байрям/ Ерол Ахмед Байрям",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/2СИО",
+        "currency": "BGN",
+        "amount": 6200,
+        "valueEur": 3170.0096634165548,
+        "holderName": "Ерол Ахмед Байрям/ Хатидже Мустафа Байрям",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Хатидже Байрям Мустафа",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

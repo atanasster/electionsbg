@@ -1,6 +1,68 @@
 [
   {
     "slug": "irina-markova-cholakova-34e648",
+    "declarantName": "Ирина Маркова Чолакова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г6950",
+    "controlHash": "1383A462",
+    "sourceUrl": "https://register.cacbg.bg/2026/D6D2A45C-9A74-480A-97B9-11F3B8F8B341231330.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40392.61592265176,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "KIA CEED",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 36500,
+        "valueEur": 18662.153663661975,
+        "holderName": "Ирина Маркова Чолакова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ирина Маркова Чолакова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "irina-markova-cholakova-34e648",
     "declarantName": "ИРИНА МАРКОВА ЧОЛАКОВА",
     "institution": "Училища",
     "positionTitle": "Директор",

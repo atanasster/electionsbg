@@ -5,6 +5,44 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-16",
+    "entryNumber": "Г1701",
+    "controlHash": "BBB08AA3",
+    "sourceUrl": "https://register.cacbg.bg/2026/D9C93969-F3BA-41AF-8F7B-391D0570F1CC225646.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9988.08689916813,
+        "amountEurSpouse": 21509.538150043714
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "rumen-kostadinov-stoyanov-010a25",
+    "declarantName": "Румен Костадинов Стоянов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

@@ -5,6 +5,74 @@
     "institution": "Държавна агенция \"Национална сигурност\"",
     "positionTitle": "Директор на дирекция",
     "category": "security_service",
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": "2026-04-15",
+    "entryNumber": "Г1791",
+    "controlHash": "F4C30468",
+    "sourceUrl": "https://register.cacbg.bg/2026/00393BEB-8782-4CB9-B489-55C929A3415A225751.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 63250.384747140604,
+        "amountEurSpouse": 27156.75697785595
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 357.90431683735295
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41775,
+        "valueEur": 21359.218336972026,
+        "holderName": "Любомир Георгиев Вълков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63290,
+        "valueEur": 32359.66316090867,
+        "holderName": "Албена Любомирова Вълкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "lyubomir-georgiev-vlkov-82d7ad",
+    "declarantName": "Любомир Георгиев Вълков",
+    "institution": "Държавна агенция \"Национална сигурност\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "security_service",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",

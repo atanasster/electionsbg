@@ -1,43 +1,61 @@
 [
   {
     "slug": "sabit-ismail-gagm-7d2cae",
-    "declarantName": "Сабит Исмаил Гагъм",
+    "declarantName": "САБИТ ИСМАИЛ ГАГЪМ",
     "institution": "Белица",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г13978",
-    "controlHash": "586EC3FE",
-    "sourceUrl": "https://register.cacbg.bg/2025/EBB33612-F4A8-43B4-9E5D-FEDA8CB9957E217240.xml",
+    "filedAt": "2026-05-12",
+    "entryNumber": "Г10543",
+    "controlHash": "29E352FB",
+    "sourceUrl": "https://register.cacbg.bg/2026/EBB33612-F4A8-43B4-9E5D-FEDA8CB9957E235303.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 24256.709427710997,
+        "amountEurDeclarant": 26424.587003982964,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "БМВ",
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив, р-н Западен",
+        "municipality": "Пловдив",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2025,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Сабит Исмаил Гагъм",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотека",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1",
+        "acquiredYear": null,
+        "share": null,
         "currency": "BGN",
-        "amount": 9497,
-        "valueEur": 4855.738995720487,
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
         "holderName": "Сабит Исмаил Гагъм",
         "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "legalBasis": "2,55%",
+        "fundsOrigin": null
       }
     ],
     "events": []

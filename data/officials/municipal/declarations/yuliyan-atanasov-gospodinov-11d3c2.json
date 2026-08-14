@@ -4,65 +4,71 @@
     "declarantName": "Юлиян Атанасов Господинов",
     "institution": "Белене",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-20",
-    "entryNumber": "Г4009",
-    "controlHash": "3262B357",
-    "sourceUrl": "https://register.cacbg.bg/2025/D3B46DA6-A33D-4CDA-9897-5884B99E5C2B206834.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г9415",
+    "controlHash": "3AFED48F",
+    "sourceUrl": "https://register.cacbg.bg/2026/D3B46DA6-A33D-4CDA-9897-5884B99E5C2B234035.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4476.871711754089,
+        "amountEurDeclarant": 5413.558438105561,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16078.595787977483,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 18952.05616030023,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 2729.276061825414,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 0,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": "II. Други доходи, извън посочените в т. I.",
-        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "amountEurDeclarant": 0,
+        "amountEurDeclarant": 7001.631021101016,
         "amountEurSpouse": null
       }
     ],
     "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "град Белене",
+        "municipality": "Белене",
+        "areaSqm": 655,
+        "builtAreaSqm": 153,
+        "acquiredYear": 2025,
+        "share": "1/2 ид.ч.",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Юлиян Атанасов Господинов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1 ид.ч.",
+        "currency": "BGN",
+        "amount": 7200,
+        "valueEur": 3681.3015446127733,
+        "holderName": "Юлиян Атанасов Господинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
       {
         "category": "cash",
         "description": null,
@@ -82,6 +88,24 @@
         "fundsOrigin": "заплата"
       },
       {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1500,
+        "valueEur": 1500.130379429705,
+        "holderName": "Юлиян Атанасов Господинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
         "category": "bank",
         "description": null,
         "detail": "BGN",
@@ -92,8 +116,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 10912,
-        "valueEur": 5579.217007613136,
+        "amount": 11743,
+        "valueEur": 6004.100560887194,
         "holderName": "Юлиян Атанасов Господинов",
         "isSpouse": false,
         "legalBasis": null,
@@ -110,14 +134,27 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 2457,
-        "valueEur": 2457.2687810290263,
+        "amount": 753,
+        "valueEur": 753.1329410020298,
         "holderName": "Юлиян Атанасов Господинов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -4,68 +4,38 @@
     "declarantName": "Антоанета Кирилова Богданова",
     "institution": "Благоевград",
     "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г7602",
-    "controlHash": "2B92336C",
-    "sourceUrl": "https://register.cacbg.bg/2025/A70ED2C4-FCA7-4C50-9826-678FBF97981C210599.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "stakeKind": "role",
-        "itemType": "Управител или член на орган на управление",
-        "shareSize": "Член на управителен съвет",
-        "companyName": "Национална асоциация на председателите на общински съвети",
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": null,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "income": [],
-    "assets": [],
-    "events": []
-  },
-  {
-    "slug": "antoaneta-kirilova-bogdanova-c233f1",
-    "declarantName": "Антоанета Кирилова Богданова",
-    "institution": "Благоевград",
-    "positionTitle": "Председател на ОбС",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11297",
-    "controlHash": "9F7337E6",
-    "sourceUrl": "https://register.cacbg.bg/2025/A70ED2C4-FCA7-4C50-9826-678FBF97981C214432.xml",
+    "filedAt": "2026-05-13",
+    "entryNumber": "Г6100",
+    "controlHash": "06891E50",
+    "sourceUrl": "https://register.cacbg.bg/2026/A70ED2C4-FCA7-4C50-9826-678FBF97981C230400.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 11374.710480972273,
-        "amountEurSpouse": 67056.44151076525
+        "amountEurDeclarant": 40191.12090519115,
+        "amountEurSpouse": 66461.29776105285
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 7900.482148243968,
+        "amountEurDeclarant": 1511.3788008160218,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Доходи,  получени от парични и предметни печалби, получени от участие в хазартни игри, организирани с лиценз, издаден по реда на Закона за\nхазарта или съгласно законодателството на друга държава - членка на Европейския съюз, или държава - страна по\nСпоразумението за Европейското икономическо пространство, освободени от облагане съгласно чл. 13, ал. 1, т. 20 от\nЗДДФЛ",
+        "category": "Парични и предметни печалби, получени от участие в хазартни игри, организирани с лиценз, издаден по реда на Закона захазарта или съгласно законодателството на друга държава - членка на Европейския съюз, или държава - страна поСпоразумението за Европейското икономическо пространство, освободени от облагане съгласно чл. 13, ал. 1, т. 20 отЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 27693.10216123078
+        "amountEurSpouse": 21687.4677247
       },
       {
         "parent": null,
         "category": "Доходи от дивиденти и ликвидационни дялове по чл. 38, ал. 1 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 18198.411927417004
+        "amountEurSpouse": 92652.22437532914
       }
     ],
     "assets": [
@@ -80,16 +50,16 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 215000,
-        "valueEur": 109927.75445718698,
+        "amount": 245000,
+        "valueEur": 125266.51089307353,
         "holderName": "Марио Ванчов Богданов",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       },
       {
-        "category": "debt",
-        "description": "Потребителски кредит",
+        "category": "bank",
+        "description": null,
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -98,11 +68,47 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 39850,
-        "valueEur": 20374.981465669305,
+        "amount": 26100,
+        "valueEur": 13344.718099221303,
+        "holderName": "Антоанета Кирилова Богданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 512,
+        "valueEur": 261.78144317246387,
         "holderName": "Марио Ванчов Богданов",
         "isSpouse": true,
-        "legalBasis": "Договор",
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32745,
+        "valueEur": 16742.252649770173,
+        "holderName": "Марио Ванчов Богданов",
+        "isSpouse": true,
+        "legalBasis": "Договор, 4,95%",
         "fundsOrigin": null
       },
       {
@@ -116,39 +122,14 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 40108,
-        "valueEur": 20506.89477101793,
+        "amount": 36470,
+        "valueEur": 18646.81490722609,
         "holderName": "Марио Ванчов Богданов",
         "isSpouse": true,
-        "legalBasis": "Договор",
+        "legalBasis": "Договор, 17,95%",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Благоевград",
-        "municipality": "Благоевград",
-        "areaSqm": 80,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 17383.92396067143,
-        "legalBasis": "възмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Благоевград",
-        "municipality": "Благоевград",
-        "areaSqm": 80,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 17383.92396067143,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

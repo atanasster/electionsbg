@@ -4,31 +4,44 @@
     "declarantName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
     "institution": "Любимец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
     "filedAt": null,
-    "entryNumber": "Г10599",
-    "controlHash": "80409123",
-    "sourceUrl": "https://register.cacbg.bg/2025/C5AC7860-E986-4FE3-BF5F-6347051E358A213697.xml",
-    "ownershipStakes": [],
+    "entryNumber": "Г13824",
+    "controlHash": "5FF44624",
+    "sourceUrl": "https://register.cacbg.bg/2026/C5AC7860-E986-4FE3-BF5F-6347051E358A239441.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "stakeKind": "share",
+        "itemType": "ДРУЖЕСТВЕН",
+        "shareSize": "2500",
+        "companyName": "ВБ КОМЕРС ООД",
+        "registeredOffice": "ЛЮБИМЕЦ",
+        "valueEur": 1278.2297029905462,
+        "holderName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      }
+    ],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 6602.823353767965,
-        "amountEurSpouse": 8947.607920933824
+        "amountEurDeclarant": 7959.280714581533,
+        "amountEurSpouse": 9760.050720154615
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 9584.677604904311,
+        "amountEurDeclarant": 19826.87656902696,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "bank",
+        "category": "cash",
         "description": null,
         "detail": "BGN",
         "location": null,
@@ -38,12 +51,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 49081,
-        "valueEur": 25094.716820991598,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "дарения"
       },
       {
         "category": "bank",
@@ -56,12 +69,48 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 87368,
-        "valueEur": 44670.54907635121,
+        "amount": 57000,
+        "valueEur": 29143.637228184452,
         "holderName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "СПЕСТЯВАНИЯ"
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49000,
+        "valueEur": 25053.302178614707,
+        "holderName": "ВЛАДИМИР НИКОЛОВ БАМБАЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
       }
     ],
     "events": []

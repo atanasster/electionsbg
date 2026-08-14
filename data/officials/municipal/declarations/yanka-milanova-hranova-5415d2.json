@@ -4,47 +4,29 @@
     "declarantName": "Янка Миланова Хранова",
     "institution": "Брезник",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г7809",
-    "controlHash": "6FF7F223",
-    "sourceUrl": "https://register.cacbg.bg/2025/C16AFAA7-A03D-4F97-AB26-C48F27AC7D00210813.xml",
+    "filedAt": null,
+    "entryNumber": "Г10529",
+    "controlHash": "0B6F8136",
+    "sourceUrl": "https://register.cacbg.bg/2026/C16AFAA7-A03D-4F97-AB26-C48F27AC7D00235288.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 5124.167233348502,
+        "amountEurDeclarant": 5845.08878583517,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 4317.859936702065,
-        "amountEurSpouse": 39635.34663033086
+        "amountEurDeclarant": 2684.7936681613432,
+        "amountEurSpouse": 38564.701431105976
       }
     ],
     "assets": [
-      {
-        "category": "debt",
-        "description": "Потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 4000,
-        "valueEur": 1022.5837623924369,
-        "holderName": "Янка Миланова Хранова",
-        "isSpouse": false,
-        "legalBasis": "Потребителски кредит",
-        "fundsOrigin": null
-      },
       {
         "category": "debt",
         "description": "Потребителски Кредит",
@@ -56,25 +38,25 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 2045.1675247848739,
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Борис Янков Хранов",
         "isSpouse": true,
-        "legalBasis": "Потребителски кредитОББ Банка",
+        "legalBasis": "5.7",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
         "kind": "third_party_expense",
-        "description": "Китай - Япония",
+        "description": "Нова Заландия-Австралия",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 1533.8756435886555,
+        "valueEur": 2556.4594059810925,
         "legalBasis": null
       },
       {
@@ -87,18 +69,6 @@
         "builtAreaSqm": null,
         "currency": "BGN",
         "valueEur": 1278.2297029905462,
-        "legalBasis": null
-      },
-      {
-        "kind": "third_party_expense",
-        "description": "Барселона",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 610.4825061482849,
         "legalBasis": null
       }
     ]

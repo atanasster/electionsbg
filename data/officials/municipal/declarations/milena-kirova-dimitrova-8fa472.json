@@ -4,13 +4,13 @@
     "declarantName": "МИЛЕНА КИРОВА ДИМИТРОВА",
     "institution": "Кърджали",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12883",
-    "controlHash": "EBB61E39",
-    "sourceUrl": "https://register.cacbg.bg/2025/BE39FFDF-7EF1-45BA-A2C5-E858CB689888216063.xml",
+    "filedAt": "2026-05-15",
+    "entryNumber": "Г13129",
+    "controlHash": "B40C664E",
+    "sourceUrl": "https://register.cacbg.bg/2026/BE39FFDF-7EF1-45BA-A2C5-E858CB689888238543.xml",
     "ownershipStakes": [
       {
         "table": "10",
@@ -29,42 +29,42 @@
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 8335.080247260754,
-        "amountEurSpouse": 7262.3898805110875
+        "amountEurDeclarant": 9896.565652434005,
+        "amountEurSpouse": 8792.68648093137
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 15653.712234703426,
+        "amountEurDeclarant": 15897.087170152825,
         "amountEurSpouse": null
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 707.1166716943702,
-        "amountEurSpouse": 437.1545584227668
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 690.244039614895,
+        "amountEurSpouse": 479.59178456205296
       },
       {
         "parent": null,
         "category": "ПЕНСИЯ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 2709.846970339958
+        "amountEurSpouse": 1822.7555564645188
       }
     ],
     "assets": [
       {
         "category": "vehicle",
         "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ХОНДА CR-V",
+        "detail": "ФОЛКСВАГЕН ГОЛФ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "100%",
+        "acquiredYear": 2025,
+        "share": "1/1",
         "currency": "BGN",
-        "amount": 3500,
-        "valueEur": 1789.5215841867648,
+        "amount": 920,
+        "valueEur": 470.388530700521,
         "holderName": "НИКОЛАЙ ЧЕРНЕВ КОЛЕВ",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
@@ -81,8 +81,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 19843,
-        "valueEur": 10145.564798576563,
+        "amount": 34984,
+        "valueEur": 17887.035171768508,
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
@@ -99,8 +99,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 14475,
-        "valueEur": 7400.949980315263,
+        "amount": 16096,
+        "valueEur": 8229.754119734333,
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
         "legalBasis": null,
@@ -108,7 +108,7 @@
       },
       {
         "category": "debt",
-        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "description": "ПОТРЕБИЪЕЛСКИ КРЕДИТ",
         "detail": "BGN",
         "location": null,
         "municipality": null,
@@ -117,11 +117,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 2660,
-        "valueEur": 1360.0364039819412,
+        "amount": 940,
+        "valueEur": 480.61436832444537,
         "holderName": "МИЛЕНА КИРОВА ДИМИТРОВА",
         "isSpouse": false,
-        "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ 5.55%",
+        "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ - 5.55%",
         "fundsOrigin": null
       },
       {
@@ -135,11 +135,11 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 9238,
-        "valueEur": 4723.3143984906665,
+        "amount": 5300,
+        "valueEur": 2709.846970339958,
         "holderName": "НИКОЛАЙ ЧЕРНЕВ КОЛЕВ",
         "isSpouse": true,
-        "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ 6.30%",
+        "legalBasis": "ДОГОВОР-ДОГОВОРЕН ЛИХВЕН ПРОЦЕНТ - 6.30%",
         "fundsOrigin": null
       },
       {
@@ -161,19 +161,6 @@
         "fundsOrigin": "наследяване"
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "ЛЕК АВТОМОБИЛ",
-        "detail": "ХОНДА CR-V",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1789.5215841867648,
-        "legalBasis": "възмездно"
-      }
-    ]
+    "events": []
   }
 ]

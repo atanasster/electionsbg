@@ -4,35 +4,84 @@
     "declarantName": "Ергин Салифов Дурмушев",
     "institution": "Черноочене",
     "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г12214",
-    "controlHash": "3D6C3900",
-    "sourceUrl": "https://register.cacbg.bg/2025/69B2AE5E-7D6B-4883-916C-06F13D4124F1215374.xml",
+    "filedAt": "2026-05-07",
+    "entryNumber": "Г13829",
+    "controlHash": "6E7B83E1",
+    "sourceUrl": "https://register.cacbg.bg/2026/69B2AE5E-7D6B-4883-916C-06F13D4124F1239450.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 18553.24849296718,
-        "amountEurSpouse": 13811.016294872254
+        "amountEurDeclarant": 27044.784055873977,
+        "amountEurSpouse": 14518.64425844782
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 4731.495068589806,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
         "amountEurDeclarant": null,
-        "amountEurSpouse": 145207.91684348843
+        "amountEurSpouse": 128737.67147451466
       }
     ],
-    "assets": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 41000,
+        "valueEur": 20962.96712904496,
+        "holderName": "Ергин Салифов Дурмушев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ergin-salifov-durmushev-3f8594",
+    "declarantName": "Ергин Салифов Дурмушев",
+    "institution": "Черноочене",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2026,
+    "fiscalYear": 2026,
+    "declarationType": "Vacate",
+    "filedAt": "2026-07-15",
+    "entryNumber": "Ф891",
+    "controlHash": "2F99D5D1",
+    "sourceUrl": "https://register.cacbg.bg/2026/69B2AE5E-7D6B-4883-916C-06F13D4124F1239835.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ергин Салифов Дурмушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "events": []
   }
 ]

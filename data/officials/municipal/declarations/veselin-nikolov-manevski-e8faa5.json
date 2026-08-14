@@ -4,89 +4,35 @@
     "declarantName": "Веселин Николов Маневски",
     "institution": "Пловдив",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г5810",
-    "controlHash": "76838579",
-    "sourceUrl": "https://register.cacbg.bg/2025/5A4E998C-6349-4757-8955-050D876B4864208754.xml",
+    "filedAt": "2026-05-10",
+    "entryNumber": "Г12115",
+    "controlHash": "B2C5E9F8",
+    "sourceUrl": "https://register.cacbg.bg/2026/5A4E998C-6349-4757-8955-050D876B4864237230.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10933.976879381133,
+        "amountEurDeclarant": 15362.27586242158,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Пенсия",
-        "amountEurDeclarant": 18190.74254919906,
-        "amountEurSpouse": 8410.240153796598
+        "amountEurDeclarant": 19870.336378928638,
+        "amountEurSpouse": 9228.818455591743
       },
       {
         "parent": null,
-        "category": "Наследство",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3594.381924809416
+        "category": "Продажба на имот",
+        "amountEurDeclarant": 38000.23519426535,
+        "amountEurSpouse": null
       }
     ],
     "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "Пловдив",
-        "municipality": "Пловдив",
-        "areaSqm": 83,
-        "builtAreaSqm": 88,
-        "acquiredYear": 2024,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Теменужка Георгиева Маневска",
-        "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Дачия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 10800,
-        "valueEur": 5521.95231691916,
-        "holderName": "Веселин Николов Маневски",
-        "isSpouse": false,
-        "legalBasis": "СИО",
-        "fundsOrigin": "спестявания"
-      },
-      {
-        "category": "vehicle",
-        "description": "лек автомобил",
-        "detail": "Дачия",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 10800,
-        "valueEur": 5521.95231691916,
-        "holderName": "Теменужка Георгиева Маневска",
-        "isSpouse": true,
-        "legalBasis": "СИО",
-        "fundsOrigin": "спестявания"
-      },
       {
         "category": "cash",
         "description": null,
@@ -98,8 +44,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15500,
-        "valueEur": 15499.813378463363,
+        "amount": 15000,
+        "valueEur": 14999.769918653461,
         "holderName": "Веселин Николов Маневски",
         "isSpouse": false,
         "legalBasis": null,
@@ -117,7 +63,7 @@
         "share": null,
         "currency": "USD",
         "amount": 5000,
-        "valueEur": 4812.790477700005,
+        "valueEur": 4243.722613928613,
         "holderName": "Веселин Николов Маневски",
         "isSpouse": false,
         "legalBasis": null,
@@ -134,12 +80,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 8000,
-        "valueEur": 4090.3350495697478,
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Веселин Николов Маневски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни трудови доходи"
+        "fundsOrigin": "спестяване от трудови доходи и пенсия"
       },
       {
         "category": "cash",
@@ -170,12 +116,12 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 15028,
-        "valueEur": 15027.890972119254,
+        "amount": 46000,
+        "valueEur": 45999.90796746138,
         "holderName": "Веселин Николов Маневски",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни трудови доходи"
+        "fundsOrigin": "спестявания от предходни трудови доходи и продажба на имот"
       },
       {
         "category": "bank",
@@ -188,8 +134,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 18726,
-        "valueEur": 9574.451767280387,
+        "amount": 48803,
+        "valueEur": 24952.57767801905,
         "holderName": "Веселин Николов Маневски",
         "isSpouse": false,
         "legalBasis": null,
@@ -206,14 +152,39 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 11720,
-        "valueEur": 5992.340847619681,
+        "amount": 17792,
+        "valueEur": 9096.90515024312,
         "holderName": "Теменужка Георгиева Маневска",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "пенсия и наследство"
+        "fundsOrigin": "пенсия"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Ягодово",
+        "municipality": "Куклен",
+        "areaSqm": 632,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38000.23519426535,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Ягодово",
+        "municipality": "Куклен",
+        "areaSqm": 632,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38000.23519426535,
+        "legalBasis": "продажба"
+      }
+    ]
   }
 ]

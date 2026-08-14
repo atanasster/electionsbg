@@ -1,28 +1,22 @@
 [
   {
     "slug": "emiliya-marinova-tsaikova-8a6fc3",
-    "declarantName": "ЕМИЛИЯ МАРИНОВА ЦАЙКОВА",
+    "declarantName": "Емилия Маринова Цайкова",
     "institution": "Правец",
     "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
+    "declarationYear": 2026,
+    "fiscalYear": 2025,
     "declarationType": "Annualy",
-    "filedAt": "2025-05-09",
-    "entryNumber": "Г12951",
-    "controlHash": "FFDF6371",
-    "sourceUrl": "https://register.cacbg.bg/2025/9A77543E-5CAC-4CAE-8889-2EDB2D9FD181216131.xml",
+    "filedAt": "2026-05-08",
+    "entryNumber": "Г11955",
+    "controlHash": "B069E9A2",
+    "sourceUrl": "https://register.cacbg.bg/2026/9A77543E-5CAC-4CAE-8889-2EDB2D9FD181237020.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 3612.277140651284,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 19582.479049815167,
+        "amountEurDeclarant": 23375.242224528716,
         "amountEurSpouse": null
       }
     ],
@@ -30,22 +24,35 @@
       {
         "category": "cash",
         "description": null,
-        "detail": "BGN",
+        "detail": "GBP",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "BGN",
-        "amount": 70000,
-        "valueEur": 35790.431683735296,
-        "holderName": "ЕМИЛИЯ МАРИНОВА ЦАЙКОВА",
+        "currency": "GBP",
+        "amount": 33750,
+        "valueEur": null,
+        "holderName": "Емилия Маринова Цайкова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
     ],
-    "events": []
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "дарение на дъщеря ми Камелия Цайкова",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33745.26415895042,
+        "legalBasis": null
+      }
+    ]
   }
 ]
