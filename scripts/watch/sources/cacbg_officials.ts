@@ -15,16 +15,10 @@ import { fetchText, sha256Short } from "../fingerprint";
 import {
   REGISTER_ROOT,
   latestRegisterYear,
+  registerListXml,
   extractDeclarationXmlFiles,
 } from "../../lib/cacbg_register";
 import { CATEGORY_MAP } from "../../officials/categorise";
-
-// The year is discovered from the register root on every run rather than
-// pinned — a pinned constant kept fingerprinting the previous cycle's
-// list.xml after a new folder went live, so the new filings read as
-// "unchanged" until someone bumped it by hand. Shared with cacbg_local.ts
-// and scripts/officials/index.ts, which resolves the same way.
-const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
 // Derived from the ingest's own CATEGORY_MAP rather than restated here. The
 // watcher has to fingerprint exactly the set the ingest would process — a
@@ -52,7 +46,11 @@ export const cacbgOfficials: WatchSource = {
   label: "Сметна палата declarations — executive (officials)",
   // Static, for the data map — the probed URL is resolved per run.
   url: REGISTER_ROOT,
-  cadence: "weekly",
+  // Daily, and `irregular` rather than `annual` — see the cadence note in
+  // cacbg_declarations.ts. The three slices read one memoised list.xml, so
+  // probing all three daily costs one download a day, not three.
+  cadence: "daily",
+  publishes: "irregular",
 
   async fingerprint(): Promise<Fingerprint> {
     // register.cacbg.bg serves an incomplete TLS chain; same workaround as
@@ -60,8 +58,9 @@ export const cacbgOfficials: WatchSource = {
     const year = await latestRegisterYear((u) =>
       fetchText(u, { insecureTls: true }),
     );
-    const xml = await fetchText(listUrl(year), { insecureTls: true });
-    if (!xml) throw new Error(`empty officials list.xml for ${year}`);
+    const xml = await registerListXml(year, (u) =>
+      fetchText(u, { insecureTls: true }),
+    );
     const files = extractXmlFiles(xml);
     if (files.length === 0) {
       throw new Error(

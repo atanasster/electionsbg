@@ -11,7 +11,7 @@ vi.mock("../fingerprint", async (importActual) => {
 });
 
 import { fetchText } from "../fingerprint";
-import { __resetRegisterYearCache } from "../../lib/cacbg_register";
+import { __resetRegisterCaches } from "../../lib/cacbg_register";
 import { cacbgOfficials } from "./cacbg_officials";
 import { cacbgLocal } from "./cacbg_local";
 import { cacbgDeclarations } from "./cacbg_declarations";
@@ -67,7 +67,7 @@ const state = (
 
 beforeEach(() => {
   mockedFetchText.mockReset();
-  __resetRegisterYearCache();
+  __resetRegisterCaches();
 });
 
 describe("cacbgOfficials.fingerprint", () => {
@@ -100,7 +100,7 @@ describe("cacbgOfficials.fingerprint", () => {
   it("is order-independent — shuffled upstream emission hashes the same", async () => {
     wire([2025], listXml([{ name: EXEC_CATEGORY, files: ["a.xml", "b.xml"] }]));
     const first = await cacbgOfficials.fingerprint();
-    __resetRegisterYearCache();
+    __resetRegisterCaches();
     wire([2025], listXml([{ name: EXEC_CATEGORY, files: ["b.xml", "a.xml"] }]));
     const second = await cacbgOfficials.fingerprint();
     expect(second.value).toBe(first.value);
@@ -199,7 +199,7 @@ describe("cacbgDeclarations.fingerprint", () => {
   it("flips when a declaration is added", async () => {
     wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml"] }]));
     const before = await cacbgDeclarations.fingerprint();
-    __resetRegisterYearCache();
+    __resetRegisterCaches();
     wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml", "b.xml"] }]));
     const after = await cacbgDeclarations.fingerprint();
     expect(after.value).not.toBe(before.value);
@@ -208,7 +208,7 @@ describe("cacbgDeclarations.fingerprint", () => {
   it("is stable when upstream only reorders the same declarations", async () => {
     wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml", "b.xml"] }]));
     const one = await cacbgDeclarations.fingerprint();
-    __resetRegisterYearCache();
+    __resetRegisterCaches();
     wire([2025], listXml([{ name: MP_CATEGORY, files: ["b.xml", "a.xml"] }]));
     const two = await cacbgDeclarations.fingerprint();
     expect(two.value).toBe(one.value);
@@ -239,5 +239,75 @@ describe("cacbgDeclarations.fingerprint", () => {
       curr,
     );
     expect(line).toMatch(/\+1 MP declarations in scope \(1 → 2\)/);
+  });
+});
+
+// The three slices differ only in which categories they keep out of ONE
+// upstream file, and that file is 5.7 MB. Downloading it once per source is
+// what made a daily cadence look expensive; the memo is what makes it cheap,
+// so it is a property worth pinning rather than an implementation detail.
+describe("list.xml is fetched once per run across all three slices", () => {
+  const ALL_THREE = listXml([
+    { name: MP_CATEGORY, files: ["mp1.xml"] },
+    { name: EXEC_CATEGORY, files: ["e1.xml"] },
+    { name: LOCAL_CATEGORY, files: ["m1.xml"] },
+  ]);
+
+  const listFetches = (): string[] =>
+    mockedFetchText.mock.calls
+      .map(([url]) => url as string)
+      .filter((url) => url.endsWith("/list.xml"));
+
+  it("downloads the year listing a single time", async () => {
+    wire([2026], ALL_THREE);
+    await cacbgDeclarations.fingerprint();
+    await cacbgOfficials.fingerprint();
+    await cacbgLocal.fingerprint();
+    expect(listFetches()).toEqual(["https://register.cacbg.bg/2026/list.xml"]);
+  });
+
+  it("still gives each slice its own count off the shared file", async () => {
+    wire(
+      [2026],
+      listXml([
+        { name: MP_CATEGORY, files: ["mp1.xml", "mp2.xml"] },
+        { name: EXEC_CATEGORY, files: ["e1.xml"] },
+        { name: LOCAL_CATEGORY, files: ["m1.xml", "m2.xml", "m3.xml"] },
+      ]),
+    );
+    expect((await cacbgDeclarations.fingerprint()).meta?.count).toBe(2);
+    expect((await cacbgOfficials.fingerprint()).meta?.count).toBe(1);
+    expect((await cacbgLocal.fingerprint()).meta?.count).toBe(3);
+  });
+
+  // A cached rejection would take one transient upstream failure and turn it
+  // into three failed sources for the rest of the run — and, worse, would make
+  // the two later slices report a failure they never actually attempted.
+  it("does not cache a failed fetch — the next slice retries", async () => {
+    let listCalls = 0;
+    mockedFetchText.mockImplementation(async (url: string) => {
+      if (!url.endsWith("/list.xml")) return rootHtml([2026]);
+      listCalls++;
+      if (listCalls === 1) throw new Error("HTTP 503");
+      return ALL_THREE;
+    });
+    await expect(cacbgDeclarations.fingerprint()).rejects.toThrow(/503/);
+    await expect(cacbgOfficials.fingerprint()).resolves.toMatchObject({
+      meta: { count: 1, year: 2026 },
+    });
+    expect(listCalls).toBe(2);
+  });
+
+  // An empty body is a distinct failure from a thrown fetch: fetchText resolves
+  // null on a 200-with-no-content, and the memo has to reject rather than cache
+  // "" — a cached empty string would surface as "zero declarations in scope",
+  // which reads as an upstream schema change rather than a transient blip.
+  it("rejects an empty listing instead of caching it", async () => {
+    mockedFetchText.mockImplementation(async (url: string) =>
+      url.endsWith("/list.xml") ? null : rootHtml([2026]),
+    );
+    await expect(cacbgDeclarations.fingerprint()).rejects.toThrow(
+      /empty register list\.xml for 2026/,
+    );
   });
 });

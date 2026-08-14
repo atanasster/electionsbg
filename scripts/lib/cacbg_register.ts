@@ -55,9 +55,9 @@ export const parseRegisterYears = (html: string): number[] => {
   return Array.from(years).sort((a, b) => a - b);
 };
 
-// Memoised across the process: the watcher probes two cacbg sources in one
-// run and the register root is the same page for both. Cleared by
-// __resetRegisterYearCache() so tests stay independent.
+// Memoised across the process: the watcher probes three cacbg sources in one
+// run and the register root is the same page for all three. Cleared by
+// __resetRegisterCaches() so tests stay independent.
 let cached: Promise<number> | null = null;
 
 export const latestRegisterYear = async (
@@ -84,8 +84,47 @@ export const latestRegisterYear = async (
   return cached;
 };
 
-export const __resetRegisterYearCache = (): void => {
+// The per-year listing URL. One definition rather than a private copy in each
+// of the three watch sources: they must probe the same URL the memo below is
+// keyed on, or the memo is bypassed and nothing says so.
+export const registerListUrl = (year: number): string =>
+  `${REGISTER_ROOT}${year}/list.xml`;
+
+// Memoised per year, for the same reason as the root above and with a much
+// larger prize: the three cacbg watch sources (MP / executive / municipal) all
+// fingerprint the SAME list.xml, differing only in which categories they filter
+// out of it. That file is 5.7 MB as of the 2026 folder, so an unmemoised run
+// pulled it three times. This is what makes a daily cadence on all three cost
+// one download a day instead of three.
+const listCache = new Map<number, Promise<string>>();
+
+export const registerListXml = async (
+  year: number,
+  fetchXml: (url: string) => Promise<string | null>,
+): Promise<string> => {
+  const hit = listCache.get(year);
+  if (hit) return hit;
+  const pending = (async () => {
+    const xml = await fetchXml(registerListUrl(year));
+    if (!xml) throw new Error(`empty register list.xml for ${year}`);
+    return xml;
+  })().catch((e) => {
+    // Don't cache a failure — the next source in the run should retry rather
+    // than inherit a rejected promise. Same rule as the root fetch above.
+    listCache.delete(year);
+    throw e;
+  });
+  listCache.set(year, pending);
+  return pending;
+};
+
+// Clears BOTH memos. Deliberately one function rather than two: a test that
+// re-wires its fetch mock mid-case has to reset every cache or it silently
+// re-reads the previous fixture, and a per-cache reset makes forgetting one the
+// default outcome.
+export const __resetRegisterCaches = (): void => {
   cached = null;
+  listCache.clear();
 };
 
 // The register folder year a declaration came from, recovered from its

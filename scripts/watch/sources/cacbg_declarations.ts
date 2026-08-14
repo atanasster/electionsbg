@@ -20,14 +20,15 @@ import { fetchText, sha256Short } from "../fingerprint";
 import {
   REGISTER_ROOT,
   latestRegisterYear,
+  registerListXml,
   extractDeclarationXmlFiles,
 } from "../../lib/cacbg_register";
 
 // The year is discovered from the register root on every run rather than
 // pinned — a pinned constant kept fingerprinting the previous cycle's list.xml
 // after a new folder went live, so the new filings read as "unchanged" until
-// someone bumped it by hand. Shared with cacbg_officials.ts / cacbg_local.ts.
-const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
+// someone bumped it by hand. Shared with cacbg_officials.ts / cacbg_local.ts,
+// as is the memoised list.xml fetch (registerListXml) all three read.
 
 // Substring match against the verbatim `Category Name` in list.xml. Must stay
 // in sync with fetchYearListing in scripts/declarations/index.ts, which filters
@@ -43,7 +44,18 @@ export const cacbgDeclarations: WatchSource = {
   label: "Сметна палата declarations — MPs",
   // Static, for the data map — the probed URL is resolved per run.
   url: REGISTER_ROOT,
-  cadence: "weekly",
+  // A BURST upstream: one drop a year carrying the entire cohort, and the press
+  // reads it the same day. That is why the Nyquist rule in ../cadence cannot be
+  // the guide here — "irregular" exempts this source from it, and against the
+  // MEAN release interval (annual) even a monthly probe would pass while being
+  // useless. What decides the cadence is the cost of being late, and it is a
+  // measured cost: the 2026 folder became discoverable at 2026-08-14T11:57Z,
+  // the watcher ran at 15:05Z that day and skipped all three cacbg sources as
+  // off-cadence (last probed 08-11T06:09Z, next due 08-17T06:09Z), so a whole
+  // new register year — 18,570 declarations, 727 of them MPs — would have gone
+  // unnoticed for three days while it was front-page news.
+  cadence: "daily",
+  publishes: "irregular",
 
   async fingerprint(): Promise<Fingerprint> {
     // register.cacbg.bg serves an incomplete TLS chain that Node rejects but
@@ -52,8 +64,9 @@ export const cacbgDeclarations: WatchSource = {
     const year = await latestRegisterYear((u) =>
       fetchText(u, { insecureTls: true }),
     );
-    const xml = await fetchText(listUrl(year), { insecureTls: true });
-    if (!xml) throw new Error(`empty MP list.xml for ${year}`);
+    const xml = await registerListXml(year, (u) =>
+      fetchText(u, { insecureTls: true }),
+    );
     const files = extractDeclarationXmlFiles(xml, categoryMatches);
     if (files.length === 0) {
       throw new Error(

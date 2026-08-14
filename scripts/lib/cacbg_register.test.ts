@@ -7,7 +7,7 @@ import {
   parseRegisterYears,
   latestRegisterYear,
   extractDeclarationXmlFiles,
-  __resetRegisterYearCache,
+  __resetRegisterCaches,
   registerFolderYear,
 } from "./cacbg_register";
 
@@ -57,7 +57,7 @@ describe("parseRegisterYears", () => {
 });
 
 describe("latestRegisterYear", () => {
-  beforeEach(() => __resetRegisterYearCache());
+  beforeEach(() => __resetRegisterCaches());
 
   it("resolves the newest plain year from the root", async () => {
     const fetchHtml = vi.fn().mockResolvedValue(ROOT_HTML);

@@ -22,13 +22,9 @@ import { fetchText, sha256Short } from "../fingerprint";
 import {
   REGISTER_ROOT,
   latestRegisterYear,
+  registerListXml,
   extractDeclarationXmlFiles,
 } from "../../lib/cacbg_register";
-
-// The year is discovered from the register root on every run rather than
-// pinned — see the note in cacbg_officials.ts. Shared with that source and
-// with scripts/officials/index.ts, which resolves the same way.
-const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
 // Substring match against the verbatim Category Name in list.xml. Every
 // municipal-tier category label begins with "Кметове" (e.g. "Кметове, и
@@ -58,7 +54,12 @@ export const cacbgLocal: WatchSource = {
   label: "Сметна палата declarations — municipal (mayors & councillors)",
   // Static, for the data map — the probed URL is resolved per run.
   url: REGISTER_ROOT,
-  cadence: "weekly",
+  // Daily, and `irregular` rather than `annual` — see the cadence note in
+  // cacbg_declarations.ts. This is the largest of the three slices (6,499 of
+  // the 2026 folder's 18,570 filings), so it is also the one whose staleness
+  // reaches the most /person pages.
+  cadence: "daily",
+  publishes: "irregular",
 
   async fingerprint(): Promise<Fingerprint> {
     // register.cacbg.bg serves an incomplete TLS chain; same workaround as
@@ -66,8 +67,9 @@ export const cacbgLocal: WatchSource = {
     const year = await latestRegisterYear((u) =>
       fetchText(u, { insecureTls: true }),
     );
-    const xml = await fetchText(listUrl(year), { insecureTls: true });
-    if (!xml) throw new Error(`empty municipal list.xml for ${year}`);
+    const xml = await registerListXml(year, (u) =>
+      fetchText(u, { insecureTls: true }),
+    );
     const files = extractXmlFiles(xml);
     if (files.length === 0) {
       throw new Error(
