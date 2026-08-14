@@ -20,7 +20,10 @@
 //   - budget (annual): the tax-funded bodies whose tile fronts a budget seat.
 //     Two shapes, same basis + caption (бюджет <year>):
 //       * first-level ПРБ — defense (МО), security (МВР), justice (ВСС/съдебна
-//         власт), culture (Min. Culture), edu (МОН), tourism (МТ), social (МТСП).
+//         власт), culture (Min. Culture), edu (МОН), tourism (МТ), social (МТСП),
+//         regional (МРРБ), environment (МОСВ). The last two are PASS-THROUGH
+//         ministries: they control far more than they procure, so a procurement
+//         headline buries the sector's own thesis (see BUDGET_SECTOR_NODE).
 //         Value = that PRB's enacted expenditure from
 //         data/budget/ministries/<node>.json (execution is null there;
 //         `expenditure` = приет по ЗДБРБ). Procurement alone understated these
@@ -42,8 +45,8 @@
 //     (agri_payloads) — transfers, not contracts.
 //   - procurement (windowed): the operational/commercial seats whose real spend
 //     IS their tender flow, not a tiny ministry line — roads (АПИ), water (ВиК),
-//     transport (МТС rail/ports group), energy (БЕХ group). Summed per scope
-//     from `contracts`.
+//     transport (МТС rail/ports group), energy (the state energy sector under
+//     the Minister of Energy). Summed per scope from `contracts`.
 //   - score (annual): schools = national mean ДЗИ-по-БЕЛ success
 //     (indicators.json series.dzi) — schools have no single procurement seat, so
 //     the tile carries an outcome number instead of a €.
@@ -74,7 +77,7 @@ import { API_EIK } from "../../../src/lib/roadAttributes";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
-import { ENV_SECTOR_EIKS } from "../../../src/lib/environmentReferenceData";
+import { MOSV_BUDGET_NODE } from "../../../src/lib/environmentReferenceData";
 import { ministryYearSeriesEur } from "../../../src/data/budget/ministrySeries";
 
 const ROOT = path.resolve(
@@ -99,7 +102,9 @@ const SECTOR_EIKS: Record<string, string[]> = {
   water: WATER_SECTOR_EIKS,
   transport: TRANSPORT_SECTOR_EIKS, // МТС group (rail/ports/aviation/road-reg — АПИ roads excluded)
   energy: [...ENERGY_SECTOR_EIKS],
-  environment: ENV_SECTOR_EIKS, // МОСВ group (ministry + ИАОС + ПУДООС + parks + НИМХ + basins + 16 РИОСВ)
+  // ⚠️ `environment` is NOT here — see BUDGET_SECTOR_NODE below. ENV_SECTOR_EIKS
+  // is still the source of truth for the /sector/environment dashboard, its
+  // browse pack and the group model; only the hub HEADLINE changed basis.
 };
 
 // Budget-basis sectors, first-level: id → the first-level budget org (ПРБ) node
@@ -119,6 +124,27 @@ const BUDGET_SECTOR_NODE: Record<string, string> = {
   // headline (~€213M for the whole group) understates the sector and buries its
   // own thesis — the honest headline is the enacted expenditure of this node.
   regional: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
+  // Околна среда — moved off procurement 2026-08-13, same reason as регионално
+  // but sharper. The 27-EIK МОСВ group's own tender flow is €256.7M over the
+  // WHOLE corpus and €1.81M in the current parliament, so on the hub's default
+  // scope the sector rendered at €1.8M beside — same scope — Енергетика €274.0M,
+  // Води €157.0M and Пътища €115.7M: arithmetically exact and two orders of
+  // magnitude out as a statement about the size of GF05. The ministry's own
+  // enacted line is €77.8M (2026), and ОП „Околна среда" is a €3.19bn envelope.
+  //
+  // The ОПОС billions stay OUT of this headline deliberately: they are
+  // disbursed BY municipalities and ВиК, so crediting them to МОСВ would
+  // double-count against /water and the governance dashboards. The budget node
+  // is what МОСВ itself is appropriated, which is the comparable figure beside
+  // the other budget-basis tiles.
+  //
+  // Consequence worth knowing: the МОСВ node's series starts at FY2018 while the
+  // generator mints a `y:<year>` scope from 2011, so `y:2011`–`y:2017` now carry
+  // `unavailable: true` and the tile shows „няма данни за <year>" where it used
+  // to show that year's real procurement €. Same behaviour as every other
+  // budget-basis sector on those scopes, and a no-data notice beats a 2026
+  // figure captioned 2011 — but it IS a visible change on 7 of 30 scopes.
+  environment: MOSV_BUDGET_NODE,
 };
 
 // Budget-basis sectors, second-level: id → the agency budget file under
@@ -204,7 +230,7 @@ const budgetSeries = (m: BudgetFile): Record<number, number> => {
   return byYear;
 };
 // ⚠️ data/budget/ministries/ is GITIGNORED (.gitignore:263) — the update-budget
-// ingest writes those 55 node files and a fresh clone has NONE of them. The eight
+// ingest writes those 55 node files and a fresh clone has NONE of them. The nine
 // reads below therefore have to be absent-tolerant now that this generator runs
 // inside the &&-chained db:refresh. They used to sit at MODULE level, which made
 // the failure worse than a normal missing input: the ENOENT fired at IMPORT time,
@@ -222,7 +248,7 @@ const loadBudgetSeries = (): string[] => {
     return [path.relative(ROOT, MINISTRIES_DIR) + "/"];
   // A present-but-partial tree is the half-finished-ingest case: emitting it
   // would silently drop whole sectors from the committed artifact, so report the
-  // gap and let main() skip rather than write eight zeroed tiles.
+  // gap and let main() skip rather than write nine zeroed tiles.
   const missing = Object.values(BUDGET_SECTOR_NODE)
     .map((node) => `data/budget/ministries/${node}.json`)
     .filter((rel) => !existsSync(path.join(ROOT, rel)));

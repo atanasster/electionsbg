@@ -57,7 +57,38 @@ group model — only the hub HEADLINE changes basis.
 **Depends on Tier 2** (the МОСВ 2024 series is a different scope; without that fix the
 `y:2024` scope publishes €104,230,071 instead of €60,325,488).
 
-## Tier 2 — The МОСВ budget SERIES mixes two scopes across years
+**What each of the 30 scopes publishes after the change** — three groups, not two:
+
+- **Correct (23)**: `all`, all 13 `ns:*`, `y:2018`–`y:2023`, `y:2025`, `y:2026`. These
+  resolve to a real МОСВ enacted year; `all` and every `ns:*` take the latest (2026 →
+  €77,774,100).
+- **`y:2011`–`y:2017` (7) — a real € becomes „няма данни за &lt;year&gt;".** The МОСВ node's
+  series starts at FY2018 while the generator mints a `y:<year>` scope from 2011, so
+  `annual()` sets `unavailable: true` and `formatSectorMetric` renders `"—"`. This is
+  **not** a defect — `defense`, `culture` and `regional` already behave this way on those
+  scopes, and a no-data notice beats a 2026 figure captioned 2011 — but it replaces the
+  real per-year procurement € the tile shows today, so it is the one change a reader can
+  notice, and it is now declared here and at the `BUDGET_SECTOR_NODE` call site.
+- **`y:2024` (1) — ⚠️ KNOWN GAP, needs an operator action.** Tier 2's fix is INERT until
+  `data/budget/ministries/` is re-minted: 0 of the 55 files carry `expenditureLaw` yet, so
+  `ministryYearSeriesEur`'s `??` falls back to `expenditure` and this scope publishes
+  **€104,230,071** instead of €60,325,488. It cannot be closed from this session —
+  `npm run budget:ingest` dies at `data.egov.bg` with **HTTP 403** (the known egress-IP
+  issue) — and prod reads the BUCKET copy regardless, so the close is:
+
+```bash
+npm run budget:ingest                                              # host with egov access — re-mints the tree
+npm run budget:ingest -- --upload                                  # ministries/*.json → the bucket (the SPA reads it there)
+npm run db:gen-sector-stats                                        # rewrites the committed sector_stats.json
+npm run bucket:sync:paths -- procurement/derived/sector_stats.json # ⬅ the artifact is bucket-served, NOT hosted
+npm run db:load:budget:pg                                          # (+ :cloud) picks up planned_law_eur
+```
+
+The fallback value is a real appropriation on a wider scope, not a fabricated one, so the
+failure mode is "one scope reads consolidated" rather than a wrong number — but it is a
+scope a reader can select, so it is a gap and not a nit.
+
+## Tier 2 — The МОСВ budget SERIES mixes two scopes across years  ✅ LANDED (2f851fd3fa)
 
 ⚠️ **This is NOT a precedence bug in `reconcile.ts`.** Preferring the отчет's own „Закон"
 column over `law_html.ts`'s ЗДБ value is deliberate, documented, and МОСВ 2024 is the
@@ -94,7 +125,7 @@ Then:
 - `EnvironmentBudgetTile` + `BudgetMinistryScreen`'s year bars plot the same,
   and the ministry screen keeps rendering `expenditure` in its reconciliation table.
 
-## Tier 3 — Budget-law parser emits heading rows as programmes (systemic)
+## Tier 3 — Budget-law parser emits heading rows as programmes (systemic)  ✅ LANDED (0de88e2ad0)
 
 `parseProgramTable` (`scripts/budget/law_html.ts`) accepts any row with a line code and a
 name, so a GROUPING row is emitted as a sibling of its own children. When the group has
@@ -114,12 +145,20 @@ duplicated метеорология line. ДА „Държавен резерв"
 (a perfect double). Renders on `/budget/ministry/<node>` as both a list row and a band of
 the stacked `ProgramTrendChart`, and lands in `budget_program_fact` (migration 153).
 
-**Change** — in `parseProgramTable`, drop a row that is a heading for the rows beneath it:
-its name ends in `:` or contains `в т.ч.` / `(общо)` **and** its amount equals the sum of
-the immediately-following rows at a deeper code level. Require BOTH — the name shape alone
-would drop a legitimately-named programme, and the amount alone would drop a real
-programme that happens to tie. Unit-test with a МОСВ-2026 and a ДА-„Държавен резерв"
-fixture (the 1-child and n-child cases).
+**Change, AS SHIPPED** — the name+amount rule this plan first proposed was dropped for a
+purely STRUCTURAL one, which is exact rather than heuristic: the table is hierarchical
+(`"3"` above `"3.1"`), so `parseProgramTable` emits only the LEAVES — any row with a
+descendant is a subtotal. A name test cannot see a parent the law happened to name plainly,
+and amount equality would keep a parent whose children fail to sum. Measured: 53
+over-counting unit-years → 0, across every cached law.
+
+Because the law's programme registry is ALSO the execution-report join key
+(`execution_facts.ts` → `findProgramNode` matches by NAME and drops a miss with a bare
+`continue`), dropping a subtotal deleted a name an отчет resolved through — МОСВ 2024
+reports „Други бюджетни програми" at €14.31m executed and never names the leaf. So
+`ParsedLawProgram` gained `aliases`: a subtotal with exactly ONE leaf beneath it folds its
+name onto that leaf; a subtotal over SEVERAL leaves gets none, since its figure cannot be
+attributed to one child.
 
 Outputs are gitignored (`data/budget/{ministries,facts,reconciliation}` — 0 tracked
 files each), so this commits CODE only; re-run `npm run budget:ingest` locally to verify
@@ -128,15 +167,16 @@ files each), so this commits CODE only; re-run `npm run budget:ingest` locally t
 ## Tier 4 — Sector-screen fixes
 
 **4a. CPV division 50 falls into the „Друго" sink** (`src/lib/environmentAttributes.ts`).
-€8,338,646 / **3.25%** / 191 contracts — the largest classifiable block in `other`, bigger
-than the €8,638,383 genuinely-uncoded residue. Div 50 is „Услуги по ремонт и поддръжка";
-the sibling transport classifier already maps it (`transportAttributes.ts:58`). Add `50`
-and `48` (software, beside 72) to `services`, and mirror both into `CATEGORY_CPV_DIVS` so
-the category deep-link keeps reproducing the split exactly. Cuts `other` 14.2% → ~10%.
+€8,338,646 / **3.25%** / 191 contracts — the largest CLASSIFIABLE block in `other`. (The
+€8,638,383 of genuinely uncoded rows is larger still, but nothing can be done about it:
+those contracts carry no CPV at all.) Div 50 is „Услуги по ремонт и поддръжка"; the
+sibling transport classifier already maps it (`transportAttributes.ts:58`). Add `50` and
+`48` (software, beside 72) to `services`, and mirror both into `CATEGORY_CPV_DIVS` so the
+category deep-link keeps reproducing the split exactly. Cuts `other` 14.2% → ~10%.
 
-**4b. Stale CPV-coverage comments** in three files —
-`src/lib/environmentReferenceData.ts`, `src/lib/environmentAttributes.ts:7`,
-`src/screens/components/procurement/environment/EnvironmentCategoryTile.tsx:5`. All state
+**4b. Stale CPV-coverage comments** in two files —
+`src/lib/environmentAttributes.ts:7` and
+`src/screens/components/procurement/environment/EnvironmentCategoryTile.tsx:5`. Both state
 coverage is ~40% of € and that „Друго" is "the LARGEST bucket by design". Measured
 2026-08-13: **96.6% of € and 99.2% of rows carry a CPV; „Друго" is 14.2%**, the 5th bucket.
 Nothing user-facing is wrong (the tile computes `cpvKnown` live) — but the comments now
@@ -192,19 +232,29 @@ attribution is by principal, which no name regex can confirm.
 
 ## Tier 6 — Regression tests
 
-Extend `scripts/db/tests/sector_stats.data.test.ts` (bands and inequalities only —
-the corpus reloads fortnightly and budgets gain years):
+Write them in a **NEW** file, `scripts/db/tests/sector_stats_environment.data.test.ts`,
+rather than extending `sector_stats.data.test.ts` — a concurrent session has uncommitted
+work in that file (the ДП РАО energy attribution), and a path-scoped commit would carry it
+under this change's message. Bands and inequalities only: the corpus reloads fortnightly
+and budgets gain years.
 
 1. **EIK-set lockstep** — `SECTOR_DASHBOARDS.environment.members.map(m => m.eik)`,
    `SECTOR_BROWSE_PACKS.environment.eiks` and `ENV_SECTOR_EIKS` are the same set.
-   (The generator's `SECTOR_EIKS` no longer carries `environment` after Tier 1 — assert
-   that too, so a later revert cannot silently restore a procurement headline.)
+   ⚠️ The generator's `SECTOR_EIKS` **cannot** be asserted directly: it is module-private,
+   and `sector_stats.ts` self-executes `main()` (Postgres + `process.exit(0)`) on import,
+   which would kill the vitest worker. Assert the OUTPUT instead — item 4's
+   `basis === 'budget'` is that guard, and it also catches a stale artifact, which a
+   source-level check would not.
 2. **Anti-allowlist** — `131218471` (ДП РАО), `000804161` (Шипка-Бузлуджа museum) and
    `121486802` (ИА по горите) are absent from `ENV_ENTITIES`.
 3. **Signature members present with spend > floor** — `MOSV_EIK`, `IAOS_EIK`,
    `PUDOOS_EIK`, and the new НДЕФ `121155866`.
-4. **Basis + value band** — `sector_stats.json.all.environment.basis === 'budget'`, and
-   `value` within a band of the МОСВ node's resolved-year `expenditureLaw ?? expenditure`.
+4. **Basis + value band** — `sector_stats.json.all.environment.basis === 'budget'`
+   **unconditionally** (it reads only the committed artifact, and an unregenerated
+   artifact is exactly the state it exists to catch), plus `value` within a band of the
+   МОСВ node's resolved-year `expenditureLaw ?? expenditure`. The band half reads the
+   GITIGNORED ministries tree, so gate that half with `existsSync` → `test.skipIf`, the
+   same absent-tolerance `loadBudgetSeries` uses.
 5. **Failure mode O** — Σ of `awarder_group_model`'s per-contractor rollup for a scope
    equals its `totalEur` (both halves are individually correct, so no other gate sees a
    basis split).
@@ -221,9 +271,26 @@ Do NOT pin a beneficiary's rank or a contractor's absolute €.
 
 - `npm run budget:ingest` (Tier 3 output) → confirm Σprograms ≤ total everywhere and
   that МОСВ 2024 carries both scopes.
-- `npm run db:gen-sector-stats` → diff old vs new `sector_stats.json`; ONLY `environment`
-  may move (procurement € → budget €, basis + year fields appear), every other sector
-  byte-identical.
+- `npm run db:gen-sector-stats` → then a SEMANTIC diff. A textual one is useless here:
+  the artifact is written with `JSON.stringify(out, null, 0)`, so all 46 KB is one line,
+  and moving `environment` between the procurement and budget blocks reorders keys in all
+  30 scope objects even where values are identical. Compare per (scope, sector):
+
+  ```bash
+  git show HEAD:data/procurement/derived/sector_stats.json > /tmp/ss_before.json
+  npm run db:gen-sector-stats
+  node -e '
+    const a=require("/tmp/ss_before.json"), b=require("./data/procurement/derived/sector_stats.json");
+    for (const scope of Object.keys(b))
+      for (const s of Object.keys(b[scope]))
+        if (s !== "environment" && JSON.stringify(a[scope]?.[s]) !== JSON.stringify(b[scope][s]))
+          console.log("UNEXPECTED", scope, s, a[scope]?.[s], "->", b[scope][s]);
+    console.log("done");'
+  ```
+
+  Expect `environment` to move on every scope (procurement € → budget €, `basis`/`year`
+  appear, and `unavailable: true` on `y:2011`–`y:2017`) and nothing else — **except** the
+  `energy` entries, if the concurrent ДП РАО change is still uncommitted when this runs.
 - Gates: `npx tsc -b`, `npm run lint`, the touched vitest suites,
   `npx vitest run scripts/db/tests/sector_stats.data.test.ts`.
 - Live-check `/governance/sectors` (the tile's number + caption reads „бюджет 2026") and
