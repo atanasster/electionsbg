@@ -50,6 +50,19 @@ export interface ParsedLawProgram {
   code: string; // "1.", "2." — the leading numbered label
   nameBg: string;
   amount: Money | null;
+  /** Names of grouping rows folded into this leaf (see parseProgramTable).
+   *
+   *  The law's programme registry is ALSO the execution-report join key —
+   *  `execution_facts.ts` → `findProgramNode` matches each отчет row to a law
+   *  node by normalised NAME, and drops an unmatched row with a bare
+   *  `continue`. An отчет may name the SUBTOTAL rather than the leaf: МОСВ
+   *  2024 reports „Други бюджетни програми" with €15,551,192 amended /
+   *  €14,312,398 executed, and its only leaf („Дейности по метеорология…")
+   *  is named nowhere in that отчет. Without the alias the subtotal row this
+   *  parser now drops takes that execution overlay with it, silently — the
+   *  reconciliation row flips `exact` → `missing` and `/budget/ministry`
+   *  renders a plan-only programme. */
+  aliases?: string[];
 }
 
 export interface ParsedLawUnit {
@@ -183,6 +196,30 @@ const isProgramTable = (rows: string[][]): boolean =>
   );
 
 // Parse a program-budget table's rows into [code, name, amount] entries.
+//
+// ⚠ The table is HIERARCHICAL and only its LEAVES are programmes. A row whose
+// code has children beneath it ("3" above "3.1") is a GROUPING SUBTOTAL, not a
+// programme of its own:
+//
+//   МОСВ 2026        "3"   19 497 900  Други бюджетни програми:
+//                    "3.1" 19 497 900  Бюджетна програма „Дейности по метеорология…“
+//   ДА „Държавен     "1"   78 232 200  Политика … (общо), в т.ч.:
+//    резерв“ 2026    "1.1" 69 928 000  Бюджетна програма „Държавни резерви…“
+//                    "1.2"  8 304 200  Бюджетна програма „Запаси за извънредни…“
+//
+// Emitting both halves double-counts the subtotal: measured 2026-08-13, МОСВ's
+// programmes summed to €97,272,000 against a €77,774,100 unit total (+25.1%,
+// exactly the duplicated метеорология line) and ДА „Държавен резерв“ was +100.0%
+// in every year 2018-2026. That reaches `/budget/ministry/<node>` (both the
+// programme list and the stacked ProgramTrendChart) and `budget_program_fact`.
+//
+// The discriminator is the CODE DEPTH, never the wording. A name test
+// (trailing ":", „в т.ч.", „(общо)") would be both loose — it cannot see a
+// parent the law happened to name plainly — and unsafe, since a real programme
+// may carry any of those strings. Amount equality is likewise not required: a
+// parent whose children fail to sum exactly (rounding, a child the parser
+// missed) is still a subtotal, and keeping it would be the double-count this
+// exists to prevent.
 const parseProgramTable = (
   rows: string[][],
   currency: LawCurrency,
@@ -198,7 +235,28 @@ const parseProgramTable = (
       amount: cellToMoney(row[row.length - 1], currency),
     });
   }
-  return programs;
+  // Keep the leaves. `startsWith(code + ".")` matches any DESCENDANT, so a
+  // malformed table carrying "1" and "1.1.1" without the intermediate "1.1"
+  // still drops the subtotal rather than counting it twice; and the dot makes
+  // "11" a sibling of "1", not its child.
+  const descendantsOf = (code: string): ParsedLawProgram[] =>
+    programs.filter((o) => o.code.startsWith(`${code}.`));
+  const leaves = programs.filter((p) => descendantsOf(p.code).length === 0);
+
+  // Carry a dropped subtotal's NAME onto its leaf, so the execution matcher can
+  // still resolve an отчет that reports at the grouping level (see
+  // ParsedLawProgram.aliases). Only an unambiguous 1:1 fold qualifies — a
+  // subtotal with exactly ONE leaf beneath it IS that leaf's money, whatever
+  // the depth of the chain between them. A subtotal over SEVERAL leaves (ДА
+  // „Държавен резерв“: "1" over "1.1"+"1.2") is deliberately left unaliased:
+  // its отчет row cannot be attributed to any single leaf, and guessing one
+  // would trade a silent loss for a silent misattribution, which is worse.
+  for (const p of programs) {
+    const kids = descendantsOf(p.code).filter((o) => leaves.includes(o));
+    if (kids.length === 1)
+      kids[0].aliases = [...(kids[0].aliases ?? []), p.nameBg];
+  }
+  return leaves;
 };
 
 // Parse one unit table's rows into the I…IV section structure.

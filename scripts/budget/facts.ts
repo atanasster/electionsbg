@@ -283,6 +283,12 @@ export const buildProgramData = (
             sourceName: program.nameBg,
           });
         }
+        // Union across years — a grouping row the law drops in a later year
+        // must keep resolving the отчет of an earlier one.
+        for (const alias of program.aliases ?? []) {
+          if (!node.aliases) node.aliases = [];
+          if (!node.aliases.includes(alias)) node.aliases.push(alias);
+        }
         if (!program.amount) continue;
         facts.push({
           key: programFactKey(year, id),

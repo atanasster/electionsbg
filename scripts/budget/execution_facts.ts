@@ -17,11 +17,11 @@
 // keeps the trail like-with-like; the reconciler prefers it when present, and
 // `documentId: exec-…` (vs `law-…`) makes the provenance explicit.
 //
-// Program-grain facts are NOT emitted yet: the report's programmes are keyed
-// by the МФ classification code, which has no crosswalk to the law's program
-// registry (keyed by programme name) — that crosswalk is a separate increment.
-// The parser still captures `unit.programs`; this builder just doesn't fact
-// them until the join exists.
+// Program-grain facts ARE emitted, joined to the law's program registry by
+// normalised programme NAME (the report's own МФ classification codes have no
+// crosswalk to it). A report row that matches no law node is dropped — see
+// findProgramNode and ParsedLawProgram.aliases for the grouping-subtotal case
+// that fold exists to keep alive.
 
 import { createHash } from "crypto";
 import { LAW_PROMULGATION } from "./facts";
@@ -53,7 +53,15 @@ const findProgramNode = (
   const want = slugify(normaliseProgramName(programName), "prog");
   for (const n of registry.nodes) {
     if (n.ownerAdminId !== adminId) continue;
-    if (slugify(normaliseProgramName(n.nameBg), "prog") === want) return n.id;
+    // `aliases` are the grouping-subtotal names folded into this leaf by
+    // law_html.ts. An отчет that reports at the grouping level resolves through
+    // them; without that it matches nothing and is dropped by the `continue`
+    // below (МОСВ 2024: €14.3m executed).
+    const names = [n.nameBg, ...(n.aliases ?? [])];
+    if (
+      names.some((name) => slugify(normaliseProgramName(name), "prog") === want)
+    )
+      return n.id;
   }
   return null;
 };
@@ -209,10 +217,14 @@ export const buildExecutionFacts = (
   );
 
   // Program-grain — match by normalised programme name against the law's
-  // program registry. The law has no individual budget programmes, only
-  // policy areas, so only the отчет's .00 (policy-area) rows match; the rest
-  // are skipped here. (If/when the law parser starts capturing budget
-  // programmes too, those will also flow.)
+  // program registry. That registry holds only the LEAVES of the law's
+  // hierarchical programme table (law_html.ts → parseProgramTable), which are
+  // policy areas for most units and individual budget programmes where the law
+  // breaks one down (МОСВ's метеорология at code "3.1", ДА „Държавен резерв“'s
+  // two at "1.1"/"1.2"). An отчет row naming a GROUPING subtotal resolves via
+  // ParsedLawProgram.aliases, which folds a 1:1 parent's name onto its leaf;
+  // a subtotal over SEVERAL leaves carries no alias by design and is skipped
+  // here, since its figure cannot be attributed to any single one.
   for (const p of unit.programs) {
     const programId = findProgramNode(programRegistry, adminId, p.nameBg);
     if (!programId) continue;

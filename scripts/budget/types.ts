@@ -325,6 +325,12 @@ export interface ClassificationNode {
   nameEn: string;
   parentId: string | null;
   ownerAdminId?: string; // program nodes: which ministry owns it
+  /** program nodes: additional source names that resolve to this node — the
+   *  grouping-subtotal rows folded into it by law_html.ts's parseProgramTable.
+   *  Execution reports match by NAME (execution_facts.ts → findProgramNode) and
+   *  an отчет may report at the grouping level, so without these the отчет row
+   *  matches nothing and its amended/executed facts are dropped silently. */
+  aliases?: string[];
   eik?: string; // admin nodes: ministry EIK — the Phase 4 procurement join key
   history: Array<{
     fiscalYear: number;
