@@ -452,6 +452,12 @@ const budgetRoutes = () => ({
     ]).catch(budgetMiss("law", { rows: [], obsCategoriesPresent: null }));
     return { body: rows[0]?.r ?? { rows: [] } };
   },
+  "budget-personnel": async (dbRows) => {
+    const rows = await dbRows("SELECT budget_personnel_series() AS r").catch(
+      budgetMiss("personnel", { points: [] }),
+    );
+    return { body: rows[0]?.r ?? { points: [] } };
+  },
   "budget-municipal": async (dbRows, q) => {
     const rows = await dbRows(
       "SELECT budget_muni_list($1::int, $2::text, $3::int) AS r",

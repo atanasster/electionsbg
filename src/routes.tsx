@@ -766,6 +766,11 @@ const BudgetFunctionalScreen = lazy(() =>
     default: m.BudgetFunctionalScreen,
   })),
 );
+const BudgetPersonnelScreen = lazy(() =>
+  import("./screens/budget/BudgetPersonnelScreen").then((m) => ({
+    default: m.BudgetPersonnelScreen,
+  })),
+);
 const BudgetMinistryScreen = lazy(() =>
   import("./screens/BudgetMinistryScreen").then((m) => ({
     default: m.BudgetMinistryScreen,
@@ -3010,6 +3015,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <BudgetFunctionalScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/personnel"
+            element={
+              <LayoutScreen>
+                <BudgetPersonnelScreen />
               </LayoutScreen>
             }
           />

@@ -6175,5 +6175,19 @@
   "budget_func_empty": "No functional breakdown for this year.",
   "budget_func_empty_coverage": "Eurostat's functional data runs to {{year}}; later years are not published yet.",
   "budget_func_source": "Source: {{source}} (Eurostat), general government (S13).",
-  "budget_func_see_all": "Every function, across the years"
+  "budget_func_see_all": "Every function, across the years",
+  "budget_staff_title": "How many people the administration employs",
+  "budget_staff_description": "Budgeted posts in the state administration — approved, filled and vacant — over time, from the annual report on the state of the administration.",
+  "budget_staff_intro": "Every year the government reports how many posts the administration has, how many are filled and how many stand empty. These are those figures over time.",
+  "budget_staff_total": "Approved posts",
+  "budget_staff_filled": "Filled",
+  "budget_staff_vacant": "Vacant",
+  "budget_staff_vacancy_rate": "Vacancies are {{pct}}% of the establishment in {{fy}} — the share the report itself publishes, not a difference between two different sources.",
+  "budget_staff_trend_h": "The establishment over time",
+  "budget_staff_nsi_h": "The NSI figure (employees on the payroll)",
+  "budget_staff_nsi_note": "The same report also contains a separate NSI table of employees on the payroll at December. It does NOT include the interior and defence ministries, but it does include people engaged outside the approved establishment — under Council of Ministers decrees 66/1996 and 212/1993 and employment programmes. Neither figure is therefore a subset of the other, and the report itself states the two are not comparable. They are not subtracted: vacant posts are a separate number, published directly.",
+  "budget_staff_empty": "No establishment data.",
+  "budget_staff_source": "Source: the annual report on the state of the administration (Council of Ministers). The report publishes no payroll, so there are no money figures here.",
+  "budget_staff_see_all": "The establishment over time",
+  "budget_staff_axis_note": "The bars do not start at zero — the establishment moves within a narrow range, and otherwise every year looks identical."
 }

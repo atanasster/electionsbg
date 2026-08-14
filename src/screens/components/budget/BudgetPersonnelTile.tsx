@@ -270,7 +270,13 @@ export const BudgetPersonnelTile: FC<{ fiscalYear: number }> = ({
           {t("personnel_section_title")}
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          {t("personnel_section_subtitle")}
+          {t("personnel_section_subtitle")}{" "}
+          {/* This tile is the latest year in depth; /budget/personnel is the
+              whole series, with the НСИ table beside it and the reason the two
+              are not comparable. */}
+          <Link to="/budget/personnel" className="text-primary hover:underline">
+            {t("budget_staff_see_all")}
+          </Link>
         </p>
       </CardHeader>
       <CardContent className="grid gap-6 lg:grid-cols-[1fr_1.5fr]">

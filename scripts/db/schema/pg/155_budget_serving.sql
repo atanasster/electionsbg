@@ -422,6 +422,40 @@ CREATE OR REPLACE FUNCTION budget_variance(
       ) r), '[]'::jsonb));
 $$;
 
+-- ── 8b. The administration's establishment ────────────────────────────────
+--
+-- One row per year, national, from the Доклад за състоянието на администрацията.
+--
+-- TWO HEADCOUNTS THAT ARE NOT COMPARABLE, and the whole reason this function
+-- returns both rather than one. `positions_*` are budgeted POSTS (щатни
+-- бройки) in the bodies the Доклад covers; `nsi_headcount` is НСИ's count of
+-- PERSONS EMPLOYED at December, from a separate table inside the same
+-- document. It EXCLUDES МВР and МО and INCLUDES staff engaged outside the
+-- approved establishment, so neither series is a subset of the other — the
+-- Доклад itself calls them несъпоставими. They differ by ~35 000 on every recent
+-- year. Subtracting them yields nothing — it is not „unfilled posts", which is
+-- `positions_vacant`, a number the source publishes directly.
+CREATE OR REPLACE FUNCTION budget_personnel_series()
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  SELECT jsonb_build_object(
+    -- The BASIS of each series, in the payload, so a consumer cannot present
+    -- one as the other.
+    'positionsBasis', 'Щатни бройки по Доклада за състоянието на администрацията',
+    'headcountBasis', 'НСИ, наети лица (списъчен брой) към декември — отделна справка в същия доклад',
+    'points', coalesce((
+      SELECT jsonb_agg(to_jsonb(r) ORDER BY r."fiscalYear")
+        FROM (SELECT fiscal_year AS "fiscalYear",
+                     positions_total  AS "positionsTotal",
+                     positions_filled AS "positionsFilled",
+                     positions_vacant AS "positionsVacant",
+                     nsi_headcount    AS "nsiHeadcount",
+                     payroll_eur      AS "payrollEur"
+                FROM budget_personnel
+               -- National only. `node_id` is NULL on every row today; a
+               -- per-body arm would double every national figure if folded in.
+               WHERE node_id IS NULL) r), '[]'::jsonb));
+$$;
+
 -- ── 9. The legislative path ───────────────────────────────────────────────
 CREATE OR REPLACE FUNCTION budget_documents(
   p_fy int DEFAULT NULL
@@ -523,6 +557,7 @@ DO $$ BEGIN
     GRANT EXECUTE ON FUNCTION budget_cofog_list(int, text)                  TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_variance(int, int)                     TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_documents(int)                         TO app_readonly;
+    GRANT EXECUTE ON FUNCTION budget_personnel_series()                     TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_list(int, text, int)              TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_detail(text, int)                 TO app_readonly;
   END IF;
