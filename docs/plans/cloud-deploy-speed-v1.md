@@ -885,13 +885,28 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
   npm run prices -- --backfill --from 2026-08-11 --to 2026-08-13
 ```
 
-This generalises F5 ("deploy automation must not pipe"): every `:cloud` script in
-`package.json` is a nesting wrapper, so **no `:cloud` alias can forward a flag**.
-Any step in an automated chain that needs one must be written as the
-`DATABASE_URL=… npm run <inner>` form. Note also that `--force` is the wrong
-override here even where it does reach the script — on the daily path it re-loads
-**all 14 advertised days**, where `--backfill --from/--to` touches only the
-pending ones.
+This generalises F5 ("deploy automation must not pipe"), but **only for the nested
+majority — the split is measurable and matters**. Of the 65 `:cloud` scripts:
+
+| shape | count | forwards `-- <flag>`? |
+|---|--:|---|
+| nested (`DATABASE_URL=… npm run <inner>`) | 58 | **no** — the outer npm eats it |
+| direct (`DATABASE_URL=… tsx scripts/…`) | 7 | **yes** |
+
+The seven that DO forward are `db:proxy:cloud`, `db:load:funds:pg:cloud`,
+`db:load:interreg:pg:cloud`, `db:load:declarations:pg:cloud`, `db:dump:cloud`,
+`db:restore:cloud`, `db:sync:cloud`. That is why CLAUDE.md's
+`npm run db:load:declarations:pg:cloud -- --resolve` works as written, and why
+`npm run db:load:funds:pg:cloud -- --full` works too — while the same shape
+against any of the other 58 silently drops the flag.
+
+So the rule is per-script, not global: **read the script body before assuming a
+flag reaches it.** A step needing a flag from a nested alias must be spelled
+`DATABASE_URL=… npm run <inner> -- <flags>`.
+
+Note also that `--force` is the wrong override for prices even where it does reach
+the script — on the daily path it re-loads **all 14 advertised days**, where
+`--backfill --from/--to` touches only the pending ones.
 
 ### F29 — the deploy's precondition is a single point of failure whose symptom reads as a data error
 
@@ -990,6 +1005,75 @@ Related, and worth stating because it is invisible in `git status`:
 `data/procurement/contracts/` is **gitignored** (`.gitignore:141`), so the shard
 rewrites this run made — the annex fold and the cross-source reconcile — reach
 production only through `db:load:pg:cloud`. There is no commit that carries them.
+
+### F33 — the two steps the plan calls droppable are 35.4 min, measured together for the first time
+
+F20 argued `db:load:procurement-scopes:pg:cloud` can be dropped; F25 argued
+`db:load:awarder-seats:pg:cloud` can too, and the 2026-08-12 run dropped both
+**without timing either**. This run ran both, so the saving they represent is now
+a number rather than an inference:
+
+| step | this run | prior evidence |
+|---|--:|---|
+| `awarder-seats` | **855 s** (14.3 min) | never timed — dropped in 2026-08-12 |
+| `procurement-scopes` | **1264 s** (21.1 min) | estimated only, as "46 s locally, minutes on Cloud SQL" |
+| combined | **2119 s (35.4 min)** | |
+
+Against the 8 steps that completed before the chain halted (7,944 s / 132.4 min),
+that is **26.7% of the elapsed publish**, in two steps the plan already believes
+are unnecessary. `procurement-scopes` alone is the **second-largest step in the
+run**, behind only `contracts` — and its "minutes on Cloud SQL" estimate
+understates it by roughly an order of magnitude.
+
+This is the best-evidenced saving in the plan and needs no change to `contracts`,
+which F24 shows has no volume-proportional component left to optimise. Whoever
+actions F20/F25 should treat 35.4 min as the floor of the benefit, not a guess.
+
+Two smaller corrections to the cost model from the same run:
+
+- **The three crosswalk maps are not one cheap category.** `transport-project`
+  **222 s**, `water-operator` **3 s**, `mvr-directorate` **12 s** — a 74× spread,
+  with `transport-project` alone accounting for 94% of the group. The runbook
+  lists them as an interchangeable trio; a cost model must not.
+- **`contracts` is less reproducible than F24 implies.** 4,297 s here against
+  5,005 s (2026-08-09) and 4,982 s (2026-08-12), on a comparable delta (138 rows
+  vs 135). That is **−13.7%**, a wider spread than F24's "~83 min regardless"
+  framing suggests, and it strengthens F26 rather than F24.
+
+### F34 — `db:load:funds:pg:cloud` refuses to guess its scope, and the runbook omits the flag
+
+The chain **halted at step 9** because the funds loader exits 1 in 0 s with:
+
+```
+Refusing to guess the scope of a Cloud SQL load.
+  --payloads-only   rebuild fund_payloads only (stage-merged, seconds, …)
+  --full            also reload fund_beneficiaries + fund_projects. ~4.5
+                    minutes during which /api/db/fund-contract and
+                    /api/db/fund-beneficiary return 500. Required after an
+                    ИСУН re-ingest, when those tables actually moved.
+```
+
+This is a *good* guard — the two scopes differ by ~4.5 min of 500s on two live
+routes, so guessing is a real cost either way — but **every runbook that names
+this step omits the flag**, including this plan's own command lists, the
+`update-funds` skill's Step 4, and the `process-watch-report` step-8 table. An
+automated chain built from any of them halts here.
+
+The correct scope is not constant: `--full` after an ИСУН re-ingest (which is
+when `fund_beneficiaries` / `fund_projects` actually move), `--payloads-only`
+otherwise. On this run the re-export moved `fund_beneficiaries` 46,164 → 46,171,
+so `--full` was required.
+
+Two consequences worth carrying into Phase 4:
+
+- The halt is **fail-safe but expensive in position**: it fired *after* the 132 min
+  of procurement steps, so the whole publish stalled at 8/14 for a flag. A chain
+  should validate every step's argv up front, the way this run validated that all
+  14 script names existed before starting.
+- It is the counter-example to F28's nested-wrapper trap: `db:load:funds:pg:cloud`
+  is one of the 7 DIRECT scripts, so `npm run db:load:funds:pg:cloud -- --full`
+  does reach `load_funds_pg.ts`. The flag works; only the documentation was
+  missing it.
 
 ---
 
