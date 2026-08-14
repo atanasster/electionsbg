@@ -842,6 +842,157 @@ ordering in it is relied upon.
 
 ---
 
+## Measured deploy profile (2026-08-14) — the PRECONDITIONS, not the publish
+
+Fourth profile in this series, and the first whose findings are all about what has
+to be true *before* the chain starts. The publish itself is the procurement +
+funds subset (contracts, annexes, tenders, awarder-seats, scopes, the three
+crosswalk maps, funds, funds-fit, persons-browse, person-search, graph,
+tr-company-place); `tr`, `agri`, `admin-services` and `open-calls` are absent
+because nothing moved in them.
+
+Ingest published: ЦАИС ЕОП self-heal +138 contracts / 63 buyers, tenders
+re-index to 237,457, the annex fold at +€2,272.2 m net, and an ИСУН
+re-export (53,115 beneficiaries / 82,103 contracts / €18.00 bn paid).
+
+Cloud baselines before the run: `contracts` 408,967 · `tenders` 237,386 ·
+`fund_beneficiaries` 46,164 · `price_grid_days` max 2026-08-10.
+
+**Step timings for this run are not recorded here.** The four findings below were
+all established before or independently of the chain, and none of them depends on
+it; a timing table should be added by whoever next runs a complete publish.
+
+### F28 — `prices:ingest:cloud` cannot publish a guard-rejected day, and the wrapper cannot pass the override
+
+Two independent halves, and the second is the one that bites.
+
+**The guard fires on cloud exactly as on local.** `price_grid_days` max was
+**2026-08-10 on BOTH** databases, so the 2026-08-11 archive — 980,428 rows against
+1,401,947, a 30% drop caused by 17 chain CSVs vanishing upstream — trips
+`load_day`'s `SANITY_DROP` on the cloud publish for the same reason it tripped
+locally. A deploy chain that includes `prices:ingest:cloud` therefore halts on any
+day the feed thins by >20%, which is a property of the upstream, not of the
+deploy.
+
+**The wrapper cannot carry the documented override.** `prices:ingest:cloud` is
+`DATABASE_URL=… npm run prices` — a *nested* `npm run`. So
+`npm run prices:ingest:cloud -- --backfill --from … --to …` does not reach
+`ingest.ts`: the outer npm consumes the arguments. The publish has to be spelled
+with the inner script directly, the same shape the agri publish uses:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npm run prices -- --backfill --from 2026-08-11 --to 2026-08-13
+```
+
+This generalises F5 ("deploy automation must not pipe"): every `:cloud` script in
+`package.json` is a nesting wrapper, so **no `:cloud` alias can forward a flag**.
+Any step in an automated chain that needs one must be written as the
+`DATABASE_URL=… npm run <inner>` form. Note also that `--force` is the wrong
+override here even where it does reach the script — on the daily path it re-loads
+**all 14 advertised days**, where `--backfill --from/--to` touches only the
+pending ones.
+
+### F29 — the deploy's precondition is a single point of failure whose symptom reads as a data error
+
+`db:refresh` must succeed before any `:cloud` loader is meaningful, since the
+loaders read the shards it validates. On this run it died at **step 6 of 57**
+(`db:load:pg`) with:
+
+```
+Error: Connection terminated unexpectedly
+    at Client._handleErrorEvent (node_modules/pg/lib/client.js:417:10)
+```
+
+which reads as a Postgres or corpus fault and is neither. The host volume had
+filled (134 MiB free of 460 GiB); Docker's engine crashed trying to **rotate its
+own log** (`rename …/log/vm/init.log …: no space left on device`), raised a
+blocking always-on-top error dialog, and shut the backend down. The container was
+gone, so every open connection dropped at once.
+
+Two consequences for anyone reading a failed deploy:
+
+- **`ps` is misleading during this state.** `com.docker.backend` processes stay
+  resident holding the Electron error dialog, so Docker looks alive while the VM
+  is down and `~/.docker/run/docker.sock` does not exist. `open -a Docker` is a
+  no-op until the dialog is dismissed; recovery is a force-kill plus relaunch.
+- **An early abort leaves the chain unverified.** `db:refresh`'s only verification
+  is its **last** step, so a failure at step 6 means `test:data` — including
+  `pg_roundtrip.data.test.ts`, which is what would catch a corpus that a loader
+  failed to update — never runs at all. CLAUDE.md already says this; this run is
+  the instance. After any aborted `db:refresh`, run `npm run test:data` before
+  assuming only the failing loader's table is affected.
+
+### F30 — `test:data`, the chain's only gate, has at least two load-flaky files
+
+The completed re-run finished **2 failed / 1025 passed / 20 skipped (1047)**, and
+**both failures pass in isolation**:
+
+| file | assertion | in-suite | alone |
+|---|---|--:|--:|
+| `tr_company_place.data.test.ts` | `place_companies('68134')` under 400 ms | 713 ms, FAIL | 5/5 pass |
+| `migration_drop_dependents.data.test.ts` | 003 re-applies without dropping its three dependents | FAIL | 3/3 pass |
+
+The first is a wall-clock assertion and so flaky by construction under a full
+suite. The second is a *correctness* gate, which makes it the more interesting
+one — it is not obviously timing-sensitive, and a green re-run is weaker evidence
+than a direct check. Verifying the invariant itself is cheap and decisive:
+
+```sql
+select count(*) from person_browse_table;        -- 135,720
+select count(*) from declaration_stake_company;  --   2,434
+select count(*) from company_officer_counts;     -- 415,500
+```
+
+All three present and populated, i.e. 003 had not taken them with it.
+
+The operational rule (already recorded as `reference_test_data_flaky_under_load`)
+is therefore load-bearing for deploys specifically: **a red `test:data` is not a
+publish blocker until the red file has been re-run alone**, and for a correctness
+gate the invariant should be checked directly rather than inferred from a second
+green run.
+
+### F31 — host disk is an unmodelled deploy dependency, and the repo is most of it
+
+The cost model in this plan is entirely about Cloud SQL time. This run failed on
+the **local host**, and the repo is the largest contributor:
+
+| path | size |
+|---|--:|
+| `~/Library/Containers/com.docker.docker/Data` | 37 G |
+| `raw_data/tr` | 16 G |
+| `data/` | 15 G |
+| `~/Library/Caches` | 5.8 G |
+| `raw_data/prices` | 4.9 G |
+
+`raw_data/prices` looks like the obvious reap, because the ingest cold-archives
+every ZIP to `gs://naiasno-archive-prices/`. **It is not safe wholesale**:
+measured this run, the archive held **189 objects against 224 local ZIPs**, and
+kolkostruva.bg advertises only ~14 days, so deleting the directory would
+permanently lose ~35 days. A reap must be per-file against the archive listing.
+
+A full `db:refresh` is what exhausted the volume, so headroom is a precondition of
+the publish in the same way the proxy is.
+
+### F32 — a data.egov.bg 403 changes which commands the publish runs
+
+`data.egov.bg` returned **403 to this host** for the org listing and
+`getResourceData` alike, which 403s eight watcher sources and makes
+`procurement:ingest` (Step 1, which walks that listing) unusable. The publish
+still completed because the offline path exists — `rebuild_from_cache.ts` plus
+`contract_index.ts` — but a chain hard-coded to `procurement:ingest` would have
+halted on an upstream block that has nothing to do with the data being published.
+The block is intermittent and egress-dependent (see
+`reference_egov_api_endpoints`), so an automated chain needs the offline path as a
+fallback rather than as a documented manual alternative.
+
+Related, and worth stating because it is invisible in `git status`:
+`data/procurement/contracts/` is **gitignored** (`.gitignore:141`), so the shard
+rewrites this run made — the annex fold and the cross-source reconcile — reach
+production only through `db:load:pg:cloud`. There is no commit that carries them.
+
+---
+
 ## Root causes
 
 ### RC1 — Five caches are built twice per load, the first time against stale data
