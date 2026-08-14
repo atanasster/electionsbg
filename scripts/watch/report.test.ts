@@ -133,7 +133,7 @@ describe("renderReport — manual downloads", () => {
     expect(i).toBeGreaterThan(-1);
     expect(lines.slice(i + 1, i + 4)).toEqual([
       "- **Source mf**: Q3-2025 is due.",
-      "  Save from https://example.test/810 into `data/_cache/x`:",
+      "  Save from [https://example.test/810](https://example.test/810) into `data/_cache/x`:",
       "  - `a.xlsx`",
     ]);
   });
