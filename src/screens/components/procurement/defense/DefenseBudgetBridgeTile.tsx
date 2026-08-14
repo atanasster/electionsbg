@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
-import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
+import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { MO_BUDGET_NODE } from "@/lib/defenseReferenceData";
 
 export const DefenseBudgetBridgeTile: FC<{
@@ -32,10 +32,7 @@ export const DefenseBudgetBridgeTile: FC<{
   const { data } = useBudgetMinistryRollup(MO_BUDGET_NODE);
   // `expenditure` is null for law/shell years with no figure — drop those before
   // the bridge maths so a null year can't crash the whole pack.
-  const years = (data?.years ?? [])
-    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
-    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
-    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const years = ministryEurSeries(data?.years);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];

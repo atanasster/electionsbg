@@ -17,7 +17,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
-import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
+import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { MVR_BUDGET_NODE } from "@/lib/securityReferenceData";
 
 // МВР is ~85–90% payroll (2025 salaries ≈ 3.82bn лв of ~4.14bn лв total; capital
@@ -36,10 +36,7 @@ export const MvrBudgetBridgeTile: FC<{
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useBudgetMinistryRollup(MVR_BUDGET_NODE);
-  const years = (data?.years ?? [])
-    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
-    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
-    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const years = ministryEurSeries(data?.years);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];

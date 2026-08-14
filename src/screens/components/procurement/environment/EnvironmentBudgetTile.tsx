@@ -13,7 +13,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
-import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
+import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { MOSV_BUDGET_NODE } from "@/lib/environmentReferenceData";
 
 export const EnvironmentBudgetTile: FC = () => {
@@ -25,10 +25,7 @@ export const EnvironmentBudgetTile: FC = () => {
   // rather than `expenditure` — МОСВ's 2024 отчет restates the appropriation at
   // a consolidated scope 72.8% above the ЗДБ, which plots as the chart's
   // tallest bar and a phantom spike. See ministrySeries.ts.
-  const years = (data?.years ?? [])
-    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
-    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
-    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const years = ministryEurSeries(data?.years);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];

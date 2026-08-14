@@ -18,7 +18,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
-import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
+import { ministryEurSeries } from "@/data/budget/ministrySeries";
 import { TRANSPORT_BUDGET_NODE } from "@/lib/transportReferenceData";
 
 export const TransportBudgetTile: FC = () => {
@@ -26,10 +26,7 @@ export const TransportBudgetTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useBudgetMinistryRollup(TRANSPORT_BUDGET_NODE);
-  const years = (data?.years ?? [])
-    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
-    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
-    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+  const years = ministryEurSeries(data?.years);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];
