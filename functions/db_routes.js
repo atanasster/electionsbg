@@ -472,6 +472,12 @@ const budgetRoutes = () => ({
     ).catch(budgetMiss("municipal-ipop", { rows: [] }));
     return { body: rows[0]?.r ?? { rows: [] } };
   },
+  "budget-municipal-capital": async (dbRows, q) => {
+    const rows = await dbRows("SELECT budget_muni_capital($1::int) AS r", [
+      budgetFy(q),
+    ]).catch(budgetMiss("municipal-capital", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
   "budget-municipality": async (dbRows, q) => {
     const code = s(q, "obshtina");
     if (!code) return { status: 400, body: { error: "obshtina is required" } };

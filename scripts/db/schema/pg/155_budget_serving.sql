@@ -613,6 +613,67 @@ CREATE OR REPLACE FUNCTION budget_muni_ipop(
       ) r), '[]'::jsonb));
 $$;
 
+-- ── 10c. Municipal capital programmes (поименни списъци) ───────────────────
+--
+-- ⚠️ COVERAGE IS THE HEADLINE, NOT A FOOTNOTE. This is not a national return:
+-- it is whichever municipalities published a поименен списък and had it
+-- parsed. Measured — 2022: 9 of 265. 2023: 9. 2024: 13. 2025: 24. 2026: 1.
+-- A national total from a 9% sample is the defect this function exists to
+-- prevent, so `municipalityCount` travels with every figure and there is no
+-- „national" block at all.
+CREATE OR REPLACE FUNCTION budget_muni_capital(
+  p_fy int DEFAULT NULL
+) RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH scoped AS (
+    -- Aliased `muni_name`, not `name_bg`: the project table has a `name_bg` of
+    -- its own (the PROJECT's name), so `c.*` already carries one and the CTE
+    -- would expose two columns under one label.
+    SELECT c.*, coalesce(p.name_bg, c.obshtina) AS muni_name, p.name_en AS muni_name_en
+      FROM budget_muni_capital_project c
+      LEFT JOIN place_dim p ON p.code = c.obshtina AND p.kind = 'obshtina'
+     WHERE p_fy IS NULL OR c.fiscal_year = p_fy
+  )
+  SELECT jsonb_build_object(
+    'fiscalYear', p_fy,
+    'yearsAvailable', (SELECT array_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
+                         FROM budget_muni_capital_project),
+    -- The denominator every figure below must be read against.
+    'totalMunicipalities', (SELECT count(*) FROM obshtina_population),
+    'covered', jsonb_build_object(
+      'municipalityCount', (SELECT count(DISTINCT obshtina) FROM scoped),
+      'projectCount',      (SELECT count(*) FROM scoped),
+      'totalEur',          (SELECT sum(total_eur) FROM scoped)),
+    -- The funding mix, and ITS OWN much smaller coverage. Only two
+    -- municipalities in the whole corpus (Бургас, Столична) publish any source
+    -- breakdown at all, so on FY2023 a mix labelled „за 9 общини" is Бургас
+    -- alone — €41.8m of €589.4m, 7.1% of the money — printed above a list
+    -- topped by Столична, which contributes nothing to it. The mix therefore
+    -- carries its own denominators and never borrows the page's.
+    'sources', (SELECT jsonb_build_object(
+        'stateSubsidyEur', sum(state_subsidy_eur), 'ownFundsEur', sum(own_funds_eur),
+        'debtEur', sum(debt_eur), 'euFundsEur', sum(eu_funds_eur),
+        'otherEur', sum(other_eur), 'carryOverEur', sum(carry_over_eur),
+        'municipalityCount', count(DISTINCT obshtina),
+        'projectCount', count(*),
+        'totalEur', sum(total_eur))
+      FROM scoped
+      -- Rows that actually carry a breakdown.
+     WHERE coalesce(state_subsidy_eur,0) + coalesce(own_funds_eur,0)
+         + coalesce(debt_eur,0) + coalesce(eu_funds_eur,0)
+         + coalesce(other_eur,0) + coalesce(carry_over_eur,0) > 0),
+    'rows', coalesce((
+      SELECT jsonb_agg(to_jsonb(r) ORDER BY r."totalEur" DESC NULLS LAST) FROM (
+        SELECT obshtina, muni_name AS "nameBg", muni_name_en AS "nameEn",
+               count(*) AS "projectCount", sum(total_eur) AS "totalEur",
+               sum(state_subsidy_eur) AS "stateSubsidyEur",
+               sum(own_funds_eur) AS "ownFundsEur", sum(debt_eur) AS "debtEur",
+               sum(eu_funds_eur) AS "euFundsEur", sum(other_eur) AS "otherEur",
+               sum(carry_over_eur) AS "carryOverEur"
+          FROM scoped GROUP BY obshtina, muni_name, muni_name_en
+         ORDER BY sum(total_eur) DESC NULLS LAST
+      ) r), '[]'::jsonb));
+$$;
+
 CREATE OR REPLACE FUNCTION budget_muni_detail(
   p_obshtina text,
   p_fy       int DEFAULT NULL
@@ -664,6 +725,7 @@ DO $$ BEGIN
     GRANT EXECUTE ON FUNCTION budget_personnel_series()                     TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_list(int, text, int)              TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_ipop(text, int)                   TO app_readonly;
+    GRANT EXECUTE ON FUNCTION budget_muni_capital(int)                      TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_detail(text, int)                 TO app_readonly;
   END IF;
 END $$;
