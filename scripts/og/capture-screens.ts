@@ -733,13 +733,23 @@ const captures: Capture[] = [
   {
     slug: "parliament-attendance",
     routePath: "parliament/attendance",
-    // Per-MP attendance ranking (surfaced from the parliament hub). The anchor
-    // wraps the tall list from the top, so top-align (no centerOnAnchor) to keep
-    // the clip inside the viewport and lead with the heading + first rows.
-    waitFor: '[data-og="attendance"]',
-    anchor: '[data-og="attendance"]',
-    leftAlign: true,
+    // Per-MP attendance ranking (surfaced from the parliament hub). Anchored on
+    // `h1` and top-aligned, the clip reads title → intro → the by-group bar
+    // chart, which is the page's argument in one picture.
+    //
+    // It used to anchor on `[data-og="attendance"]` with leftAlign, i.e. on the
+    // MP list — a card of eight names with every percentage clipped off the
+    // right edge, so the share image carried no number at all. The bar chart is
+    // both the better visual and self-contained.
+    //
+    // `waitFor` names an `li` inside the chart: the section renders only when
+    // the attendance file has loaded and folds to at least one group, so the
+    // capture cannot photograph the skeleton.
+    waitFor: '[data-og="attendance-groups"] li',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
   },
 
   // ---------------------------------------------------------------------------

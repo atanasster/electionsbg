@@ -10,6 +10,7 @@ import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlF
 import { useMps } from "@/data/parliament/useMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { AttendanceByGroup } from "@/screens/components/votes/AttendanceByGroup";
 import { titleCaseName } from "@/lib/utils";
 import type { AttendanceEntry } from "@/data/parliament/votes/types";
 
@@ -100,6 +101,20 @@ export const ParliamentAttendanceScreen: FC = () => {
           {t("attendance_intro") ||
             "Share of roll-call items where each MP cast a vote (yes / no / abstain). The denominator is items where the MP appears in the roll-call at all, so the metric scopes to each MP's seated window. MPs with fewer than 30 items are excluded to suppress noise from short tenures."}
         </p>
+
+        {/* The group summary reads the SAME eligible set as the list below and
+            resolves each MP's party the same way, so a reader can add the rows
+            up to the bar. It keeps its own best-first order — the toggle beneath
+            it governs the MP list, not this chart. */}
+        {!isLoading && (
+          <AttendanceByGroup
+            rows={ordered.map((e) => ({
+              party: partyOf(e.mpId, e.partyShort),
+              presentCount: e.presentCount,
+              totalItems: e.totalItems,
+            }))}
+          />
+        )}
 
         <div className="flex items-center gap-2 text-xs">
           <button
