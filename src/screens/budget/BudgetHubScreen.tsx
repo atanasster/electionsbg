@@ -191,7 +191,11 @@ export const BudgetHubScreen: FC = () => {
       };
 
     return out;
-  }, [stats, t, nf]);
+    // `moneyLocale` is read directly above, so exhaustive-deps wants it. It
+    // changes nothing at runtime — `nf` is memoized on the same value and was
+    // already in this list, so a language switch always recomputed. Listed for
+    // the rule, not for a bug.
+  }, [stats, t, nf, moneyLocale]);
 
   const sections: TileHubSection[] = useMemo(
     () =>
@@ -269,6 +273,34 @@ export const BudgetHubScreen: FC = () => {
           „what does this cost ME". It renders the €100 average until a salary
           is entered, so a reader who types nothing still gets an answer. */}
       <BudgetReceiptCard stats={stats} locale={moneyLocale} className="mt-5" />
+
+      {/* THE EU CONTRIBUTION (T9.5). One of the four figures the
+          pre-migration screen led with, and the only one the hub migration
+          left on NO surface: revenue, expenditure and the balance all became
+          tile metrics, and this one owns no page so it can own no tile.
+
+          NOT a tile secondary, which is where it went first. `InfographicTile`
+          renders `metricSecondary` inside a `hidden … sm:flex` cluster and its
+          mobile arm carries `metric` + `metricCaption` ONLY — so below 640px
+          that placement put the figure back on no surface at all, which is the
+          exact condition this step exists to end. jsdom applies no CSS, so the
+          unit tests passed at every viewport.
+
+          As a line it also escapes the slot's `truncate max-w-[13rem]`, which
+          is what forced the copy down to „отделно:" — a word that never named
+          what the figure is separate FROM. It says so now, in the hub's own
+          idiom (cf. the municipal line below, „Отделно от държавния бюджет"). */}
+      {stats?.euContributionExecutedEur != null ? (
+        <p className="mt-4 max-w-3xl rounded-xl border bg-muted/40 px-3 py-2 text-sm">
+          {t("budget_hub_eu_contribution", {
+            amount: formatEurCompact(
+              stats.euContributionExecutedEur,
+              moneyLocale,
+            ),
+            defaultValue: "",
+          })}
+        </p>
+      ) : null}
 
       {/* THE NATIONAL MUNICIPAL LINE (§8.4). One line, beside the state
           deficit — never added to it. A different debtor with a different
