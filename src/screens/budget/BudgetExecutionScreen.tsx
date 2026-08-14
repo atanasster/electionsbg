@@ -43,6 +43,8 @@ import {
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import { useBudgetSeries } from "@/data/budget/useBudgetSeries";
 import { BudgetTrendChart } from "./BudgetTrendChart";
+import { buildSamePoint } from "./budgetSamePoint";
+import { BudgetSamePointPanels } from "./BudgetSamePointPanels";
 
 /** The identity's terms, in the order they appear in it. `financing` is
  *  deliberately absent — it is `-balance` and gets its own note. */
@@ -127,6 +129,20 @@ export const BudgetExecutionScreen: FC = () => {
   const trendMonths = useMemo(
     () => new Set(trendPoints.map((p) => p.period)).size,
     [trendPoints],
+  );
+
+  /** „At this point in the year" — every fiscal year cut at the month the
+   *  current one has reached. Built from the WHOLE corpus, unlike the trend,
+   *  because the comparison IS the other years. */
+  const samePoint = useMemo(
+    () =>
+      buildSamePoint(allSeries?.points ?? [], [
+        "revenue",
+        "expenditure",
+        "balance",
+        "euContribution",
+      ]),
+    [allSeries],
   );
 
   const band = stats?.peerBands?.B9 ?? null;
@@ -333,6 +349,27 @@ export const BudgetExecutionScreen: FC = () => {
                 <BudgetTrendChart
                   points={trendPoints}
                   allPoints={allSeries?.points ?? []}
+                />
+              </div>
+            ) : null}
+
+            {/* IS THIS YEAR UNUSUAL, or does it only look unusual because it
+                is half-finished? The trend above shows the shape; this answers
+                the question the shape raises. T9.3 — the pre-migration screen
+                had it and no page in the migrated module did. */}
+            {samePoint ? (
+              <div className="rounded-xl border bg-card p-3 shadow-sm sm:p-4">
+                <h2 className="mb-1 text-sm font-semibold">
+                  {t("budget_samepoint_h")}
+                </h2>
+                <BudgetSamePointPanels
+                  data={samePoint}
+                  labels={{
+                    revenue: "budget_series_revenue",
+                    expenditure: "budget_series_expenditure",
+                    balance: "budget_series_balance",
+                    euContribution: "budget_series_euContribution",
+                  }}
                 />
               </div>
             ) : null}

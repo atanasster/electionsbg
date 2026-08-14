@@ -6345,5 +6345,10 @@
   "budget_trend_projected": "projected",
   "budget_trend_cumulative_note": "КФП reporting is cumulative from the start of the year and resets each January, so the series climbs within a year and starts over.",
   "budget_trend_projection_note": "The dashed tail is a projection: the previous complete year's seasonal shape, scaled by how far ahead or behind the current year is at the same month. It is not a plan and not a commitment.",
-  "budget_trend_h": "How the budget moves through the year"
+  "budget_trend_h": "How the budget moves through the year",
+  "budget_samepoint_h": "Compared with the same point in the year",
+  "budget_samepoint_intro": "Every year is cut at the end of {{month}} — the point {{fy}} has reached. КФП figures accumulate from the start of the year, so comparing against previous Decembers shows a collapse every time.",
+  "budget_samepoint_verdict": "{{label}}: {{delta}} against the prior years' median.",
+  "budget_samepoint_note": "The percentage on the right is execution against the year's statutory plan, which neutralises nominal growth. It is absent for a year running on an interim law with no adopted plan. The comparison is on MAGNITUDE: a deficit that doubled is +100%, not −100%. The median is computed from the prior years only, excluding the current one.",
+  "budget_samepoint_signmismatch": "{{label}}: this year has the opposite sign to the prior ones — a magnitude comparison would mean nothing, so none is shown."
 }
