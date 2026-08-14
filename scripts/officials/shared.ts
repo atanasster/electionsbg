@@ -269,3 +269,20 @@ export const writeJson = (file: string, obj: unknown): void => {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(obj, null, 2) + "\n", "utf-8");
 };
+
+/** Read a JSON artifact this ingest previously wrote, or fall back.
+ *
+ *  Lives here rather than in ./index.ts because BOTH rosters accumulate and so
+ *  both must read their own prior output — and ./index.ts calls run() at import,
+ *  so nothing can import from it. */
+export const readJsonOr = <T>(file: string, fallback: T): T => {
+  if (!fs.existsSync(file)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
+  } catch {
+    // A truncated file from an interrupted run shouldn't wedge the pipeline —
+    // treat it as absent and let this run rewrite it.
+    console.warn(`  [warn] unreadable ${file} — treating as empty`);
+    return fallback;
+  }
+};

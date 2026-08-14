@@ -742,17 +742,40 @@ export type MunicipalIndexEntry = {
    *  ordinary obshtina officials. Additive field; older consumers ignore. */
   district?: string;
   latestDeclarationYear: number;
+  /** The REGISTER FOLDER year of the newest run that saw this official listed —
+   *  distinct from `latestDeclarationYear`, which is parsed out of the filing.
+   *  It is what marks the current bench: an official the newest listing does not
+   *  name has left office (or stopped filing), whatever year their last
+   *  declaration claims. Optional because rows written before the roster started
+   *  accumulating carry none; treat a missing value as older than any run. */
+  descriptorYear?: number;
   /** Optional local-election + parliament join — see OfficialCandidateLink. */
   candidateLink?: OfficialCandidateLink;
 };
 
 export type MunicipalIndexFile = {
   generatedAt: string;
-  /** Year(s) of declarations included in this snapshot. */
+  /** Every register folder year this roster has ever ingested, ascending. */
   years: number[];
+  /** ALL entries, every year — matches `entries.length`. The roster ACCUMULATES;
+   *  see `current` for the sitting bench. */
   total: number;
-  /** Count per role bucket. */
+  /** Count per role bucket over ALL entries. Use `current.byRole` for the bench. */
   byRole: Record<MunicipalOfficialRole, number>;
+  /** The sitting bench — entries the newest register listing still names.
+   *  Split out rather than filtered in place because the two answer different
+   *  questions and a single number cannot serve both: the my-area roster tiles
+   *  need "who represents me NOW", while the person layer, the council-vote
+   *  join and the search index all need everyone who ever served — a councillor
+   *  who left in 2025 still cast the votes the minutes record, and their
+   *  /person URL must not 404. Absent on files written before the roster
+   *  accumulated (they were a single-year snapshot, so `total` WAS the bench). */
+  current?: {
+    /** max(years) — the register folder the bench is defined by. */
+    year: number;
+    total: number;
+    byRole: Record<MunicipalOfficialRole, number>;
+  };
   entries: MunicipalIndexEntry[];
 };
 

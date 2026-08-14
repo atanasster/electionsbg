@@ -25,6 +25,7 @@ import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type { PoolClient } from "pg";
 import { exec, withClient, getPool, end } from "../db/lib/pg";
+import { buildResolver } from "../officials/municipality_join";
 import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 
@@ -72,6 +73,9 @@ type OfficialEntry = {
   slug: string;
   role?: string;
   category?: string;
+  /** Municipal entries only — the registry's prose institution name, resolved to an
+   *  obshtina code below for officials the sitting-bench shards no longer carry. */
+  municipality?: string;
 };
 type OfficialsIndexFile = { entries?: OfficialEntry[] };
 type OfficialLinksFile = {
@@ -226,8 +230,25 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       const j = JSON.parse(
         readFileSync(OFFICIALS_MUNI, "utf8"),
       ) as OfficialsIndexFile;
-      for (const e of j.entries ?? [])
+      // The shards carry only the SITTING BENCH (build_municipal_shards.currentBench),
+      // while this roster is the whole accumulated index — so a retained official is in
+      // no shard and would land with a NULL obshtina, which is the one field the
+      // /governance municipal surfaces and person_role's typed place both key on.
+      // Measured on the 2025→2026 rollover: 334 rows. Resolve those the way the shard
+      // build would have, through the SAME alias-aware join, rather than leaving a hole
+      // that no row count reveals.
+      const resolveMunicipality = buildResolver();
+      for (const e of j.entries ?? []) {
+        if (e.slug && !obshtinaBySlug.has(e.slug) && e.municipality) {
+          const m = resolveMunicipality(e.municipality);
+          if (m) {
+            obshtinaBySlug.set(e.slug, m.code);
+            if (m.isDistrict && (m.district ?? e.municipality))
+              districtBySlug.set(e.slug, m.district ?? e.municipality);
+          }
+        }
         add(e.name, e.slug, e.role ?? e.category ?? null, "municipal");
+      }
     }
     if (existsSync(OFFICIALS_LINKS)) {
       const j = JSON.parse(

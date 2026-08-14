@@ -54,6 +54,34 @@ const rosterSort = (a: MunicipalIndexEntry, b: MunicipalIndexEntry): number => {
   return a.name.localeCompare(b.name, "bg");
 };
 
+/** The sitting bench — the officials the NEWEST register listing still names.
+ *
+ *  The roster index ACCUMULATES (see the note in ./municipal.ts), because
+ *  `official_roster`, the council-vote join and the header search index all need
+ *  every official who ever served. The shards are the one consumer that must
+ *  not: they answer "who represents me now" on the my-area and governance
+ *  tiles, and a councillor who left last year rendered beside the sitting ones
+ *  is simply wrong.
+ *
+ *  Keyed on `descriptorYear` — the register folder a run last saw the official
+ *  in — NOT on `latestDeclarationYear`, which is parsed out of the filing and
+ *  lags it (a 2026 listing carries annuals declaring FY2025).
+ *
+ *  A file written before the roster accumulated has no `descriptorYear` on any
+ *  entry and no `current` block; it WAS a single-year snapshot, so every entry
+ *  is the bench and this returns all of them rather than nothing. */
+export const currentBench = (
+  index: MunicipalIndexFile,
+): { year: number; entries: MunicipalIndexEntry[] } => {
+  const year = index.current?.year ?? index.years[index.years.length - 1] ?? 0;
+  const dated = index.entries.filter((e) => e.descriptorYear != null);
+  if (dated.length === 0) return { year, entries: index.entries };
+  return {
+    year,
+    entries: index.entries.filter((e) => e.descriptorYear === year),
+  };
+};
+
 export type ShardEmitResult = {
   shardsWritten: number;
   unmatched: MunicipalIndexEntry[];
@@ -160,11 +188,18 @@ const cmd = command({
     const index: MunicipalIndexFile = JSON.parse(
       fs.readFileSync(INDEX_PATH, "utf-8"),
     );
+    const bench = currentBench(index);
     const result = emitShards(
-      index.entries,
-      { generatedAt: index.generatedAt, years: index.years },
+      bench.entries,
+      { generatedAt: index.generatedAt, years: [bench.year] },
       { dryRun },
     );
+    if (bench.entries.length !== index.entries.length) {
+      console.log(
+        `bench: ${bench.entries.length} sitting official(s) for ${bench.year}; ` +
+          `${index.entries.length - bench.entries.length} retained from earlier year(s), not sharded`,
+      );
+    }
     console.log(
       `${dryRun ? "[dry-run] " : ""}shards: ${result.shardsWritten}, ` +
         `unmatched: ${result.unmatched.length}, ` +

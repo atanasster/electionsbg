@@ -6,8 +6,6 @@
 // Kept out of ./index.ts on purpose: that module calls run() at import time, so
 // it cannot be imported from a test.
 
-import type { OfficialIndexEntry } from "../../src/data/dataTypes";
-
 export {
   folderFromSourceUrl,
   mergeDeclarations,
@@ -28,17 +26,28 @@ export {
 //
 // A `--year 2015` backfill still cannot clobber 2025 descriptors, which is the
 // property the original rule was reaching for.
-export const mergeIndexEntries = (
-  existing: OfficialIndexEntry[],
-  incoming: OfficialIndexEntry[],
-): OfficialIndexEntry[] => {
-  const bySlug = new Map<string, OfficialIndexEntry>();
+// Generic over the entry shape because the MUNICIPAL roster needs the identical
+// rule and must not carry a second copy of it: the municipal index was a
+// single-year snapshot until 2026-08-14, so the register's first councillor
+// turnover deleted 334 officials from the roster, orphaned 408 of their filings
+// (person_id NULL) and left 321 /person URLs resolving to nobody. Same defect
+// the magistrate roster had, same fix — accumulate, and let the consumer that
+// needs the sitting bench filter on descriptorYear.
+export const mergeIndexEntries = <
+  T extends { slug: string; name: string; descriptorYear?: number },
+>(
+  existing: T[],
+  incoming: T[],
+): T[] => {
+  const bySlug = new Map<string, T>();
   for (const e of existing) bySlug.set(e.slug, e);
   for (const e of incoming) {
     const prior = bySlug.get(e.slug);
     // A row predating this field has no descriptorYear; treat it as older than
-    // anything a current run produces so the first re-derive replaces it.
-    if (!prior || e.descriptorYear >= (prior.descriptorYear ?? 0)) {
+    // anything a current run produces so the first re-derive replaces it. The
+    // `>=` on the incoming side is what makes a re-run of the SAME year update
+    // descriptors in place rather than no-op.
+    if (!prior || (e.descriptorYear ?? 0) >= (prior.descriptorYear ?? 0)) {
       bySlug.set(e.slug, e);
     }
   }

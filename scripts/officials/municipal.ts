@@ -49,7 +49,9 @@ import {
   fetchText,
   fetchDeclaration,
   writeJson,
+  readJsonOr,
 } from "./shared";
+import { mergeIndexEntries, mergeYears } from "./merge";
 import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuid } from "./slug_identity";
 import { emitShards } from "./build_municipal_shards";
@@ -270,6 +272,10 @@ const cmd = command({
             roleRaw: entry.roleRaw,
             municipality: entry.municipality,
             latestDeclarationYear: decl.declarationYear,
+            // The folder this run targeted, NOT the parsed declaration year —
+            // it is what says "the newest listing still names this person", and
+            // the two disagree (a 2026 listing carries annuals for FY2025).
+            descriptorYear: targetYear,
           });
         }
       } catch (err) {
@@ -348,40 +354,85 @@ const cmd = command({
     console.log(`  wrote ${filesWritten} per-official file(s) to ${DECL_DIR}`);
 
     // 2. Roster index — one row per official with role + municipality.
-    const indexEntries = [...indexBySlug.values()].sort((a, b) =>
-      a.name.localeCompare(b.name, "bg"),
+    //
+    // ⚠️ IT ACCUMULATES. This used to write `years: [targetYear]` over whatever
+    // was there, which made the roster a snapshot of one register folder — and
+    // `official_roster` (the table db:resolve:persons reads) is loaded from this
+    // file, so the register's first councillor turnover deleted every official
+    // who stopped filing. Measured on the 2025 → 2026 rollover, the run that
+    // caught it: 334 officials dropped, 408 of their filings left person_id
+    // NULL, and 321 /person URLs that had been served resolved to nobody. The
+    // magistrate roster had the identical defect and took the identical fix.
+    // Per-official declaration shards were never the problem — they are one
+    // file each and additive; only the index forgot people.
+    const priorIndex = readJsonOr<MunicipalIndexFile | null>(
+      path.join(OUT_DIR, "index.json"),
+      null,
     );
-    const byRole: Record<MunicipalOfficialRole, number> = {
-      mayor: 0,
-      deputy_mayor: 0,
-      council_chair: 0,
-      councillor: 0,
-      chief_architect: 0,
-      other: 0,
+    const indexEntries = mergeIndexEntries(priorIndex?.entries ?? [], [
+      ...indexBySlug.values(),
+    ]);
+    const years = mergeYears(priorIndex?.years ?? [], targetYear);
+    const countRoles = (
+      rows: MunicipalIndexEntry[],
+    ): Record<MunicipalOfficialRole, number> => {
+      const acc: Record<MunicipalOfficialRole, number> = {
+        mayor: 0,
+        deputy_mayor: 0,
+        council_chair: 0,
+        councillor: 0,
+        chief_architect: 0,
+        other: 0,
+      };
+      for (const e of rows) acc[e.role]++;
+      return acc;
     };
-    for (const e of indexEntries) byRole[e.role]++;
+    // The sitting bench: officials the NEWEST listing still names. Keyed on the
+    // register folder rather than the parsed declaration year — see the note on
+    // descriptorYear. A backfill run (`--year 2019`) therefore cannot redefine
+    // the bench, because max(years) stays at the newest folder ingested.
+    const currentYear = years[years.length - 1];
+    const currentEntries = indexEntries.filter(
+      (e) => (e.descriptorYear ?? 0) === currentYear,
+    );
+    const byRole = countRoles(indexEntries);
+    const currentByRole = countRoles(currentEntries);
     const indexFile: MunicipalIndexFile = {
       generatedAt: new Date().toISOString(),
-      years: [targetYear],
+      years,
       total: indexEntries.length,
       byRole,
+      current: {
+        year: currentYear,
+        total: currentEntries.length,
+        byRole: currentByRole,
+      },
       entries: indexEntries,
     };
     writeJson(path.join(OUT_DIR, "index.json"), indexFile);
     console.log(
-      `  wrote index.json (${indexEntries.length} official(s): ` +
-        `${byRole.mayor} mayors, ${byRole.deputy_mayor} dep. mayors, ` +
-        `${byRole.council_chair} chairs, ${byRole.councillor} councillors, ` +
-        `${byRole.chief_architect} architects, ${byRole.other} other)`,
+      `  wrote index.json (${currentEntries.length} sitting official(s) for ${currentYear}: ` +
+        `${currentByRole.mayor} mayors, ${currentByRole.deputy_mayor} dep. mayors, ` +
+        `${currentByRole.council_chair} chairs, ${currentByRole.councillor} councillors, ` +
+        `${currentByRole.chief_architect} architects, ${currentByRole.other} other; ` +
+        `${indexEntries.length - currentEntries.length} retained from earlier year(s), ` +
+        `${indexEntries.length} total across ${years.join(", ")})`,
     );
 
     // 3. Per-obshtina shards. The SPA's municipality page fetches only its
     //    own slice — never the 2.2 MB global index.json above — so each
     //    shard ships ~1-3 KB gzipped. See ./build_municipal_shards.ts for
     //    the same routine, invokable standalone after an alias-map edit.
-    const shardResult = emitShards(indexEntries, {
+    //
+    //    CURRENT BENCH ONLY. This is the one consumer that must not see the
+    //    retained rows: it answers "who represents me now" on the my-area and
+    //    governance tiles, where a councillor who left in 2025 sitting beside
+    //    the current ones is simply wrong. Every other reader of the index
+    //    (official_roster, the council-vote roster join, the header search
+    //    index, company_links) wants the full history and gets it.
+    const shardResult = emitShards(currentEntries, {
       generatedAt: indexFile.generatedAt,
-      years: indexFile.years,
+      years: [currentYear],
     });
 
     // Fail loud at the same threshold as the parse-failure guard above —

@@ -66,6 +66,7 @@ import {
   fetchDeclaration,
   readCachedDeclarationXml,
   writeJson,
+  readJsonOr,
 } from "./shared";
 
 // The collision report's employer line reads each filing's XML back out of the
@@ -132,18 +133,6 @@ const warnCollisions = (collisions: SlugCollisions): void => {
 // Share of a year's listed declarations that may be missing upstream before
 // the run is treated as broken rather than merely incomplete.
 const MAX_MISSING_RATE = 0.05;
-
-const readJsonOr = <T>(file: string, fallback: T): T => {
-  if (!fs.existsSync(file)) return fallback;
-  try {
-    return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
-  } catch {
-    // A truncated file from an interrupted run shouldn't wedge the pipeline —
-    // treat it as absent and let this run rewrite it.
-    console.warn(`  [warn] unreadable ${file} — treating as empty`);
-    return fallback;
-  }
-};
 
 type DirectoryEntry = {
   declarantName: string;

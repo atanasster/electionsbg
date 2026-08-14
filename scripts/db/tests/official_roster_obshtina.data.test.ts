@@ -28,6 +28,10 @@ const SHARD_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   "../../../data/officials/municipal/by_obshtina",
 );
+const INDEX_PATH = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../../data/officials/municipal/index.json",
+);
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -109,11 +113,23 @@ test.skipIf(skip || !haveShards)(
   },
 );
 
-// Full set parity against the shards, both directions. This is the assertion that would
-// have caught a name→code join regression: an official silently filed under the wrong
-// municipality shows up here as one missing and one extra.
+// Set parity against the shards. This is the assertion that would have caught a name→code
+// join regression: an official silently filed under the wrong municipality shows up here as
+// one missing AND one extra, and both halves are still checked.
+//
+// ⚠️ IT IS NO LONGER SYMMETRIC, and the asymmetry is the point. The roster index accumulates
+// while the shards carry only the sitting bench (scripts/officials/build_municipal_shards.ts
+// `currentBench`), so `person_role` legitimately holds a municipal role for every official
+// who has left since the register's first municipal year. Asserting equality would force the
+// roster back to a snapshot — the state that, on the 2025→2026 rollover, dropped 334
+// officials, orphaned 408 filings and 404'd their /person URLs.
+//
+// So: `missing` must still be EMPTY (a shard row absent from PG, or filed under another
+// code, is the original defect), and every `extra` must be a departed official — present in
+// the municipal index, absent from the bench. An extra that is in NO index at all is a real
+// failure, and so is a count that drifts from the index's own retained figure.
 test.skipIf(skip || !haveShards)(
-  "the per-obshtina membership matches the shards exactly",
+  "every shard row is in Postgres under the same code, and the extras are exactly the departed",
   async () => {
     const rows = await allRows<{ place_code: string; ref: string }>(
       `SELECT place_code, ref FROM person_role
@@ -148,9 +164,40 @@ test.skipIf(skip || !haveShards)(
       `only ${jsonSlugs} shard slugs — shards look truncated`,
     );
     assert.deepEqual(
-      { missing: missing.slice(0, 5), extra: extra.slice(0, 5) },
-      { missing: [], extra: [] },
-      `obshtina membership drifted from the shards (${missing.length} missing, ${extra.length} extra)`,
+      missing.slice(0, 5),
+      [],
+      `${missing.length} shard row(s) are absent from person_role, or filed under a different obshtina — the name→code join regressed`,
+    );
+
+    // Every extra must be an official the register's newest listing no longer names.
+    const index = JSON.parse(readFileSync(INDEX_PATH, "utf8")) as {
+      total: number;
+      current?: { total: number };
+      entries: { slug: string; descriptorYear?: number }[];
+    };
+    const benchYear = Math.max(
+      0,
+      ...index.entries.map((e) => e.descriptorYear ?? 0),
+    );
+    const departed = new Set(
+      index.entries
+        .filter((e) => (e.descriptorYear ?? 0) !== benchYear)
+        .map((e) => e.slug),
+    );
+    const unexplained = extra.filter((s) => !departed.has(s.split("/")[1]));
+    assert.deepEqual(
+      unexplained.slice(0, 5),
+      [],
+      `${unexplained.length} person_role municipal row(s) are in no shard AND not a departed official — the roster gained someone from nowhere`,
+    );
+    // Pinned against the index's own figure so a roster that quietly stops accumulating —
+    // or one that starts retaining people the index does not — fails here rather than
+    // silently shrinking the person layer again.
+    const retained = index.total - (index.current?.total ?? index.total);
+    assert.equal(
+      extra.length,
+      retained,
+      `${extra.length} departed official(s) in person_role but ${retained} retained in the index — the two disagree about who has left`,
     );
   },
 );
