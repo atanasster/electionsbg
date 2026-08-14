@@ -6166,5 +6166,14 @@
   "budget_exec_col_projected": "Projection",
   "budget_exec_gdp_note_projected": "Projected for the full year, against GDP of {{gdp}}. The outturn so far covers part of the year and is not divided by a full-year GDP — that would halve the figure.",
   "budget_exec_partial_projection": "The year has not closed — the outturn is as of {{asOf}}. It has no full appropriation voted in an act, so the comparison is against the projection for the whole year.",
-  "budget_exec_col_share": "Realised so far"
+  "budget_exec_col_share": "Realised so far",
+  "budget_func_title": "What the money goes on — by function",
+  "budget_func_description": "General-government spending by function: social protection, health, education, defence and the rest, on Eurostat's basis.",
+  "budget_func_intro": "Here spending is grouped by WHAT IT IS FOR rather than by who spends it. The classification is COFOG — the international standard countries are compared on.",
+  "budget_func_perimeter": "Note: this is the WHOLE general-government sector — the state, municipalities and the social funds, consolidated: {{total}} for the year. The other pages in this section show the state budget alone, which is considerably smaller. The two totals neither add up nor contradict each other: the perimeter differs, and so does the method — this is accrual on the European basis, that is cash execution.",
+  "budget_func_not_ministries": "A function is not a body. „Health“ covers all health spending at every level of government — state, municipalities and the health fund — not the Ministry of Health's budget.",
+  "budget_func_empty": "No functional breakdown for this year.",
+  "budget_func_empty_coverage": "Eurostat's functional data runs to {{year}}; later years are not published yet.",
+  "budget_func_source": "Source: {{source}} (Eurostat), general government (S13).",
+  "budget_func_see_all": "Every function, across the years"
 }

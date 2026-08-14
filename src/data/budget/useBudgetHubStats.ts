@@ -59,6 +59,10 @@ export interface BudgetHubStats {
   latestDocumentOn: string | null;
   wireSource: string;
   yearsAvailable: number[] | null;
+  /** COFOG's OWN coverage — 2010-2024, NOT `yearsAvailable`, which reaches 2026
+   *  because the КФП feed does. A year picker on /budget/functional built from
+   *  the wrong list opens on a year with no breakdown. */
+  cofogYears?: number[] | null;
   peerBands: Record<string, BudgetPeerBand> | null;
 }
 

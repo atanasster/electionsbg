@@ -66,6 +66,7 @@ export const ENGLISH_STATIC_PAGES = [
   "budget/deviations",
   "budget/law",
   "budget/execution",
+  "budget/functional",
   "budget/tax-calculator",
   "budget/mod",
   "budget/simulator",
@@ -358,6 +359,10 @@ export const routeDefs = (year: string): RouteDefs => [
   },
   {
     path: "budget/execution",
+    file: `data/budget/index.json`,
+  },
+  {
+    path: "budget/functional",
     file: `data/budget/index.json`,
   },
   {

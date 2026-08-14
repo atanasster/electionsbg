@@ -10,6 +10,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
@@ -126,6 +127,17 @@ export const BudgetFunctionalTile: FC<{ fiscalYear?: number | null }> = ({
           {totalEur > 0
             ? ` · ${t("budget_total") || "total"} ${compactEur(totalEur)}`
             : null}
+          {/* The tile is one year's split. /budget/functional is the same
+              breakdown across every year Eurostat covers, on three bases, and
+              says out loud that its perimeter is S13 rather than the state
+              budget the rest of the module reports. */}
+          {" · "}
+          <Link
+            to="/budget/functional"
+            className="text-primary hover:underline"
+          >
+            {t("budget_func_see_all")}
+          </Link>
           {isFallback ? (
             <span className="ml-1 text-amber-700 dark:text-amber-400">
               {(
