@@ -75,13 +75,19 @@ describe("copies that cannot import the constant", () => {
       expect(l, `robots.txt: ${l}`).toContain(`${SITE_ORIGIN}/`);
   });
 
-  it("both GCS CORS configs allow the site origin", () => {
+  it("the GCS CORS config allows the site origin", () => {
     // Miss this and the new domain serves a perfectly indexed blank page.
-    for (const f of ["scripts/bucket_cors.json", "scripts/gcs-cors.json"]) {
-      const cfg = JSON.parse(read(f)) as { origin?: string[] }[];
-      const origins = cfg.flatMap((c) => c.origin ?? []);
-      expect(origins, `${f} must allow ${SITE_ORIGIN}`).toContain(SITE_ORIGIN);
-    }
+    //
+    // `scripts/bucket_cors.json` is the ONE config, applied by `npm run
+    // bucket:cors`. A second copy, `gcs-cors.json`, existed until 2026-08-14
+    // with no applier and a stale origin list missing both AI origins — so
+    // anyone who reached for it (the README pointed at it) would have removed
+    // two live origins and broken the AI chat's data fetches. Deleted. If a
+    // second config ever reappears, add it here too.
+    const f = "scripts/bucket_cors.json";
+    const cfg = JSON.parse(read(f)) as { origin?: string[] }[];
+    const origins = cfg.flatMap((c) => c.origin ?? []);
+    expect(origins, `${f} must allow ${SITE_ORIGIN}`).toContain(SITE_ORIGIN);
   });
 });
 

@@ -490,7 +490,10 @@ Bucket conventions:
 
 - Cache-Control: `public, max-age=3600, stale-while-revalidate=604800`
 - Content-Encoding: `gzip` for text via `gsutil cp -Z` / `rsync -j`
-- CORS: open `GET, HEAD` from all SPA origins (see `scripts/gcs-cors.json`)
+- CORS: `GET, HEAD` from the allowlisted SPA origins — `scripts/bucket_cors.json`,
+  applied with `npm run bucket:cors`. It is the ONLY CORS config; an origin missing
+  from it makes the site render blank from that origin with every page otherwise
+  correct, so `scripts/lib/siteOrigin.test.ts` gates it.
 
 ## Data sources
 

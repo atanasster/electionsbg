@@ -3,6 +3,9 @@
     "maxAgeSeconds": 3600,
     "method": ["GET", "HEAD"],
     "origin": [
+      "https://naiasno.bg",
+      "https://www.naiasno.bg",
+      "https://ai.naiasno.bg",
       "https://electionsbg.com",
       "https://www.electionsbg.com",
       "https://elections-bg.web.app",

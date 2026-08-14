@@ -402,7 +402,7 @@ Today `https://electionsbg.com` is a literal in at least these places:
 | `index.html` | canonical, `og:url`, `og:image`, `twitter:image` |
 | `public/robots.txt` | both `Sitemap:` lines |
 | `scripts/sitemap/` | every `<loc>` and the sitemap-index entries |
-| `scripts/bucket_cors.json`, `scripts/gcs-cors.json` | **see below** |
+| `scripts/bucket_cors.json` | **see below** |
 | `vite.config.ts`, `vite.config.ai.ts`, `ai/*` | build + AI app |
 
 > ## ✅ DONE 2026-08-14 — `src/lib/siteOrigin.ts` is the one definition
@@ -447,7 +447,7 @@ it is proven to be a no-op before it carries any risk.
 
 > ### ⚠️ The one that takes the site down, and no SEO test can see it
 >
-> `scripts/bucket_cors.json` / `scripts/gcs-cors.json` allowlist request origins on the
+> `scripts/bucket_cors.json` allowlists request origins on the
 > GCS bucket that serves **every JSON payload the app fetches**. React Query reads from
 > `storage.googleapis.com` on essentially every page.
 >
