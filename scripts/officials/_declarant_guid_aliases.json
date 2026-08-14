@@ -4,190 +4,425 @@
   "_howToAdd": "Run the officials ingest, or `npx vitest run scripts/officials/officials_slug.data.test.ts`. The corpus gate pins how many register people are still forked WITHIN one institution; when it rises, a new spelling has landed. Find it by grouping data/officials/declarations by the person-GUID in each filing's sourceUrl (scripts/officials/slug_identity.ts personGuid()), take the spelling from the most recent declaration year as `name`, list the ones it replaces in `folds`, and say why in `reason`. Prefer the newest spelling: it is the person's current legal name, and a marriage rename should not leave the profile under the maiden name. Do NOT strip a trailing digit as though it were noise — see _notListed and the TITLE_PREFIX note in scripts/officials/shared.ts.",
   "_notListed": {},
   "aliases": {
-    "3BBBBC01-1BF9-4AC7-A145-6833073BD930": {
-      "name": "Августина Кирилова Цветкова-Карабашева",
-      "folds": ["Августина Кирилова Цветкова"],
-      "reason": "name change — surname extended"
+    "0B76FFFA-2EDD-47A5-9141-079233F7A65A": {
+      "name": "Иван Димитров Пенков",
+      "folds": [
+        "Иван Димиртов Пенков"
+      ],
+      "reason": "register typo — transposed 'тр' in the patronymic in 2025"
     },
-    "EDDF7B29-447A-4C2B-A359-78366EFBAF43": {
-      "name": "Иван Георгиев Иванов",
-      "folds": ["Иван Георгиев Иванов1"],
-      "reason": "register digit-suffix noise, not a second person — the GUID is one man, ОУ 'Климент Охридски', forked across Училища/'Иван Георгиев Иванов' (2024) and Училища/'Иван Георгиев Иванов1' (2025). Safe to fold ONLY because 2E6D233C… (the директор of ОУ 'Д-р Петър Берон' who shared the digit-less slug) was split off to its own slug via _slug_collisions.json first; the digit-less name is kept as canonical because a '1' is the register's disambiguator, not a legal name (see the trailing-digit note in ./shared.ts), and it holds the already-published slug ivan-georgiev-ivanov-b85a89."
-    },
-    "75AB005B-9CED-48D9-9D69-18D4078F7E75": {
-      "name": "Айсел Исмаил Руфад",
-      "folds": ["Айсел Исмаил Руфат"],
-      "reason": "spelling drift — Руфат/Руфад"
-    },
-    "E0E23F39-808C-4A61-AA69-1A12958E11DE": {
-      "name": "Александър Алексиев Тодоров",
-      "folds": ["Алексансър Алексиев Тодоров"],
-      "reason": "register typo — Алексансър"
-    },
-    "A75E6AC8-9455-4868-8854-3A4BA664AAE7": {
-      "name": "Анна Иванова Младенова",
-      "folds": ["Анна Иванова Димитрова"],
-      "reason": "name change — Димитрова → Младенова"
-    },
-    "71DA5780-0B28-44FF-B8AC-D17600DF0DA0": {
-      "name": "Атанас Петров Атанасов",
-      "folds": ["Атанас Петров Атанасов1"],
-      "reason": "register disambiguation suffix on one person"
-    },
-    "F82F96F9-D9D0-4414-9348-11623D1BBD07": {
-      "name": "Борислав Райчев Димитрачков",
-      "folds": ["Борислав Райчев Димтрачков"],
-      "reason": "register typo — Димтрачков"
-    },
-    "337165AC-A1D6-4381-8242-EDF46DE18D76": {
-      "name": "Веселина Иванова Инкова",
-      "folds": ["Веселина Иванова Колева"],
-      "reason": "name change — Колева → Инкова"
-    },
-    "B2AEC1A5-5C07-4749-B3B2-48B64938D934": {
-      "name": "Виолета Андреева Андреева",
-      "folds": ["Виолета Андреева Дъчева"],
-      "reason": "name change — Дъчева → Андреева"
-    },
-    "F8462CC8-B546-4CDF-86F5-E09B2FD08A6C": {
-      "name": "Георги Христов Христов",
-      "folds": ["Георги Христов Христов1"],
-      "reason": "register disambiguation suffix on one person"
-    },
-    "66C87020-9F54-44B1-969B-21C808E919BC": {
-      "name": "Гинка Иванова Йорданова",
-      "folds": ["Гинка Иванова Чернева"],
-      "reason": "name change — Чернева → Йорданова"
-    },
-    "9992BCFD-BF52-4C77-AFD8-EFC668BADB1C": {
-      "name": "Денис Хюсеинов Шенгов",
-      "folds": ["Денислав Йосков Шенгов"],
-      "reason": "name change — given name and patronymic both changed"
-    },
-    "21B74EE4-CAB3-41B4-B57A-BCB9BECBBA42": {
-      "name": "Деница Антонова Величкова",
-      "folds": ["Деница Антонова Кирова"],
-      "reason": "name change — Кирова → Величкова"
-    },
-    "67B3D456-ECCE-494C-9DE0-1D85B538410F": {
-      "name": "Деян Георгиев Чолаков",
-      "folds": ["Деян Георгиев Чолкаов"],
-      "reason": "register typo — Чолкаов"
-    },
-    "BC7650BB-45FD-4300-AC81-091CC064BCB6": {
-      "name": "Драгомир Христов Златев",
-      "folds": ["Драгомир Златев Христов"],
-      "reason": "register field swap — patronymic and surname exchanged"
-    },
-    "E76BBFDF-A654-4EB6-98EA-0B18E2762C5B": {
-      "name": "Евгения Константинова Христова",
-      "folds": ["Енгения Константинова Христова"],
-      "reason": "register typo — Енгения"
-    },
-    "1E1DF65A-0074-4597-960E-10EB23C45A4C": {
-      "name": "Жулиета Дончева Нешкова",
-      "folds": ["Жулиета Дончевва Нешкова"],
-      "reason": "register typo — Дончевва"
+    "0DB457CE-69F3-498F-93B9-DC110955914B": {
+      "name": "Татяна Александрова Йовчева",
+      "folds": [
+        "Татаяна Александрова Йовчева"
+      ],
+      "reason": "register typo — inserted 'а' in the given name in 2025"
     },
     "1919D56E-30CD-4820-9848-A87F020D5B37": {
       "name": "Здравко Иванов Пехливанов",
-      "folds": ["Задравко Иванов Пехливанов"],
+      "folds": [
+        "Задравко Иванов Пехливанов"
+      ],
       "reason": "register typo — Задравко"
     },
-    "664FBE2A-F332-4EDD-BDAB-CA737B8D1D58": {
-      "name": "Златина Христова Димова",
-      "folds": ["Златина Христова Димова - Саманлиева"],
-      "reason": "name change — surname shortened"
-    },
-    "6D5049E9-B0B4-4A41-8E34-3F7CC991897A": {
-      "name": "Иван Любомиров Любомиров",
-      "folds": ["Иван Любомиров Христов"],
-      "reason": "name change — Христов → Любомиров"
-    },
-    "25917608-8E0F-4344-9E46-A2C2933F5B7E": {
-      "name": "Иваница Димитрова Дединска",
-      "folds": ["Иваница Димитрова Бояджиева"],
-      "reason": "name change — Бояджиева → Дединска"
-    },
-    "D9FC35A4-0917-40FF-BB80-A909535166D6": {
-      "name": "Ивилина Вергинова Алексиева-Робинсън",
-      "folds": ["Ивилина Вергинова Алексиева"],
-      "reason": "name change — surname extended"
-    },
-    "6333DB6C-8817-4E76-A033-2C1BA2042FD9": {
-      "name": "Йоана Георгиева Кръстева",
-      "folds": ["Йоана Георгиева Николова"],
-      "reason": "name change — Николова → Кръстева"
-    },
-    "F2222A19-6745-44E1-BA1C-6665931E9ECA": {
-      "name": "Клара Василева Каравасилева-Стоянова",
-      "folds": ["Клара Василева Каравасилева"],
-      "reason": "name change — surname extended"
-    },
-    "8B2A5B35-108A-442C-8658-410DCF980C20": {
-      "name": "Кремена Ангелова Алексиева",
-      "folds": ["Кремена Ангелова Пашкулова"],
-      "reason": "name change — Пашкулова → Алексиева"
+    "1A26A70E-8271-4A33-A9EA-01496965CA58": {
+      "name": "Никола Благоев Николов",
+      "folds": [
+        "Никола Благоев Николв"
+      ],
+      "reason": "register typo — dropped 'о' from the surname in 2025"
     },
     "1BBAD226-75DD-4983-8BDC-FD6F65BD5918": {
       "name": "Маргарита Георгиева Андонова",
-      "folds": ["Маргарига Георгиева Андонова"],
+      "folds": [
+        "Маргарига Георгиева Андонова"
+      ],
       "reason": "register typo — Маргарига"
-    },
-    "226B2E07-539A-4812-A6FA-96CC6B3BB94E": {
-      "name": "Мартин Руменов Ангелов",
-      "folds": ["Маритн Руменов Ангелов"],
-      "reason": "register typo — Маритн"
     },
     "1C354066-1493-434F-A2A2-72880DCCA014": {
       "name": "Мая Божидарова Манолова - Найденова",
-      "folds": ["Мая Божидарова Манолова"],
+      "folds": [
+        "Мая Божидарова Манолова"
+      ],
       "reason": "name change — surname extended"
     },
-    "7515A8D9-F3E5-476B-8979-41B288573F78": {
-      "name": "Наталия Василева Илиева",
-      "folds": ["Натгалия Василева Илиева"],
-      "reason": "register typo — Натгалия"
+    "1E1DF65A-0074-4597-960E-10EB23C45A4C": {
+      "name": "Жулиета Дончева Нешкова",
+      "folds": [
+        "Жулиета Дончевва Нешкова"
+      ],
+      "reason": "register typo — Дончевва"
     },
-    "9A23131C-31EC-42C7-A3C7-213D89C26863": {
-      "name": "Пенка Михайлова Стефанова",
-      "folds": ["Пенка Михаилова Стефанова"],
-      "reason": "orthography — Михаилова/Михайлова"
+    "21B74EE4-CAB3-41B4-B57A-BCB9BECBBA42": {
+      "name": "Деница Антонова Величкова",
+      "folds": [
+        "Деница Антонова Кирова"
+      ],
+      "reason": "name change — Кирова → Величкова"
     },
-    "DCEFB563-C727-46BD-BF0C-DA0C4BD22928": {
-      "name": "Петър Илиянов Кичашки",
-      "folds": ["Петър Илиянов Кирашки"],
-      "reason": "register typo — Кирашки/Кичашки"
+    "226B2E07-539A-4812-A6FA-96CC6B3BB94E": {
+      "name": "Мартин Руменов Ангелов",
+      "folds": [
+        "Маритн Руменов Ангелов"
+      ],
+      "reason": "register typo — Маритн"
+    },
+    "25917608-8E0F-4344-9E46-A2C2933F5B7E": {
+      "name": "Иваница Димитрова Дединска",
+      "folds": [
+        "Иваница Димитрова Бояджиева"
+      ],
+      "reason": "name change — Бояджиева → Дединска"
+    },
+    "337165AC-A1D6-4381-8242-EDF46DE18D76": {
+      "name": "Веселина Иванова Инкова",
+      "folds": [
+        "Веселина Иванова Колева"
+      ],
+      "reason": "name change — Колева → Инкова"
+    },
+    "3BBBBC01-1BF9-4AC7-A145-6833073BD930": {
+      "name": "Августина Кирилова Цветкова-Карабашева",
+      "folds": [
+        "Августина Кирилова Цветкова"
+      ],
+      "reason": "name change — surname extended"
+    },
+    "4A8FA5B0-C56D-40CF-9BA4-5D06CB12ECB9": {
+      "name": "Нина Спасова Стоименова",
+      "folds": [
+        "Нина Спасова Стойменова"
+      ],
+      "reason": "spelling variant — Стоименова/Стойменова are both well-formed Bulgarian, so this one rests on the newest-filing rule alone rather than on one form being wrong"
+    },
+    "4CCDEB66-3213-446E-9C66-1C3D0BA26AD6": {
+      "name": "Мария Христова Тороманова",
+      "folds": [
+        "Мария Христова Троманова"
+      ],
+      "reason": "register typo — dropped 'о' from the surname in 2025"
+    },
+    "4EA1346C-2C9C-4FF6-89EF-8C19292EC584": {
+      "name": "Габриела Борисова Трайкова",
+      "folds": [
+        "Габриела Борисова Георгиева"
+      ],
+      "reason": "name change — new surname; forked across BOTH trees (Детски градини… and обшина Костинброд)"
+    },
+    "5097195E-5180-40B3-9C34-1A355F3934C9": {
+      "name": "Цонка Атанасова Оджакова-Копчева",
+      "folds": [
+        "Цонка Атанасоова Оджакова-Копчева"
+      ],
+      "reason": "register typo — doubled 'о' in the patronymic in 2025"
+    },
+    "518A8161-9293-4275-A44F-3EE13E04EA58": {
+      "name": "Детелина Петрова Тараланска",
+      "folds": [
+        "Детелина Петрова Тараланска-Стоянова"
+      ],
+      "reason": "name change — compound surname reverted to the single form"
+    },
+    "5D2C9B37-BC3D-47DA-B41D-479E52A54041": {
+      "name": "Гюнай Сюлейманов Хюсеинов",
+      "folds": [
+        "Гюнай Сюлейманов Хюсеиннов"
+      ],
+      "reason": "register typo — doubled 'н' in the 2025 filing"
+    },
+    "62796CE7-6F52-4C98-AC89-EDE8B9F1FF67": {
+      "name": "Йорданка Теофилова Господинова",
+      "folds": [
+        "Йорданка Тофилова Господинова"
+      ],
+      "reason": "register typo — dropped 'е' from the patronymic in 2025"
+    },
+    "6333DB6C-8817-4E76-A033-2C1BA2042FD9": {
+      "name": "Йоана Георгиева Кръстева",
+      "folds": [
+        "Йоана Георгиева Николова"
+      ],
+      "reason": "name change — Николова → Кръстева"
+    },
+    "664FBE2A-F332-4EDD-BDAB-CA737B8D1D58": {
+      "name": "Златина Христова Димова",
+      "folds": [
+        "Златина Христова Димова - Саманлиева"
+      ],
+      "reason": "name change — surname shortened"
+    },
+    "66C87020-9F54-44B1-969B-21C808E919BC": {
+      "name": "Гинка Иванова Йорданова",
+      "folds": [
+        "Гинка Иванова Чернева"
+      ],
+      "reason": "name change — Чернева → Йорданова"
+    },
+    "67B3D456-ECCE-494C-9DE0-1D85B538410F": {
+      "name": "Деян Георгиев Чолаков",
+      "folds": [
+        "Деян Георгиев Чолкаов"
+      ],
+      "reason": "register typo — Чолкаов"
+    },
+    "6D5049E9-B0B4-4A41-8E34-3F7CC991897A": {
+      "name": "Иван Любомиров Любомиров",
+      "folds": [
+        "Иван Любомиров Христов"
+      ],
+      "reason": "name change — Христов → Любомиров"
+    },
+    "6F74C466-5065-46A9-8A11-B20DFF55889F": {
+      "name": "Антоанета Любенова Василева",
+      "folds": [
+        "Антоанета Василева Любенова"
+      ],
+      "reason": "patronymic and surname swapped in the 2025 filing"
     },
     "70FCF5BD-B99B-4DD7-8BAE-3C66DF610D4B": {
       "name": "Силвия Георгиева Александрова",
-      "folds": ["Силвия Георгиева Алексанрова"],
+      "folds": [
+        "Силвия Георгиева Алексанрова"
+      ],
       "reason": "register typo — Алексанрова"
+    },
+    "71DA5780-0B28-44FF-B8AC-D17600DF0DA0": {
+      "name": "Атанас Петров Атанасов",
+      "folds": [
+        "Атанас Петров Атанасов1"
+      ],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "7515A8D9-F3E5-476B-8979-41B288573F78": {
+      "name": "Наталия Василева Илиева",
+      "folds": [
+        "Натгалия Василева Илиева"
+      ],
+      "reason": "register typo — Натгалия"
+    },
+    "75AB005B-9CED-48D9-9D69-18D4078F7E75": {
+      "name": "Айсел Исмаил Руфад",
+      "folds": [
+        "Айсел Исмаил Руфат"
+      ],
+      "reason": "spelling drift — Руфат/Руфад"
     },
     "7E4AA41E-389B-4D70-B80A-0F2A02D0D30B": {
       "name": "Симеон Николов Николов",
-      "folds": ["Симееон Николов Николов"],
+      "folds": [
+        "Симееон Николов Николов"
+      ],
       "reason": "register typo — Симееон"
     },
-    "A8E2CBDD-4A27-4D57-864B-28A556845988": {
-      "name": "Снежанка Георгиева Дичева",
-      "folds": ["Снежанка Георгиева Дичев"],
-      "reason": "register typo — Дичев/Дичева"
+    "866EA20B-80E7-4EC3-B8EA-892FDA711C86": {
+      "name": "Саня Владимирова Кирилова",
+      "folds": [
+        "Саня Владимирова Иванова"
+      ],
+      "reason": "name change — new surname"
     },
-    "F7384047-0712-4968-9515-DC553B86AD92": {
-      "name": "Таня Петрова Бурдева",
-      "folds": ["Таня Бурдева Петрова"],
-      "reason": "register field swap — patronymic and surname exchanged"
-    },
-    "F06F3A1C-B845-4F01-8A5B-B2386CDDC19C": {
-      "name": "Христо Тотев Христов",
-      "folds": ["Христо Тотев Христов1"],
-      "reason": "register disambiguation suffix on one person"
+    "8B2A5B35-108A-442C-8658-410DCF980C20": {
+      "name": "Кремена Ангелова Алексиева",
+      "folds": [
+        "Кремена Ангелова Пашкулова"
+      ],
+      "reason": "name change — Пашкулова → Алексиева"
     },
     "8FFA96CC-28D2-4D54-BF5B-94393F000D23": {
       "name": "Цветанка Маринова Митева",
-      "folds": ["Цветанка Марнова Митева"],
+      "folds": [
+        "Цветанка Марнова Митева"
+      ],
       "reason": "register typo — Марнова"
+    },
+    "9992BCFD-BF52-4C77-AFD8-EFC668BADB1C": {
+      "name": "Денис Хюсеинов Шенгов",
+      "folds": [
+        "Денислав Йосков Шенгов"
+      ],
+      "reason": "name change — given name and patronymic both changed"
+    },
+    "99C769A6-B864-43F3-A64D-8EE6755CAB31": {
+      "name": "Христо Стефанов Стоянов",
+      "folds": [
+        "Христо Стоянов Стоянов"
+      ],
+      "reason": "register typo — the 2025 filing repeats the surname in the patronymic slot; forked across BOTH trees (Търговски дружества and обшина Сливен)"
+    },
+    "9A23131C-31EC-42C7-A3C7-213D89C26863": {
+      "name": "Пенка Михайлова Стефанова",
+      "folds": [
+        "Пенка Михаилова Стефанова"
+      ],
+      "reason": "orthography — Михаилова/Михайлова"
+    },
+    "9B4E13BD-0C28-47D7-BCBB-D68930A13568": {
+      "name": "Виктория Боянова Мъсърлиева",
+      "folds": [
+        "Виктория Боянова Конева"
+      ],
+      "reason": "name change — new surname"
+    },
+    "9E88453D-6020-4884-B5F3-7B833AEE184D": {
+      "name": "Петко Вълчев Петков",
+      "folds": [
+        "Петко Въълчев Петков"
+      ],
+      "reason": "register typo — doubled 'ъ' in the patronymic in 2025"
+    },
+    "A75E6AC8-9455-4868-8854-3A4BA664AAE7": {
+      "name": "Анна Иванова Младенова",
+      "folds": [
+        "Анна Иванова Димитрова"
+      ],
+      "reason": "name change — Димитрова → Младенова"
+    },
+    "A8E2CBDD-4A27-4D57-864B-28A556845988": {
+      "name": "Снежанка Георгиева Дичева",
+      "folds": [
+        "Снежанка Георгиева Дичев"
+      ],
+      "reason": "register typo — Дичев/Дичева"
+    },
+    "B2AEC1A5-5C07-4749-B3B2-48B64938D934": {
+      "name": "Виолета Андреева Андреева",
+      "folds": [
+        "Виолета Андреева Дъчева"
+      ],
+      "reason": "name change — Дъчева → Андреева"
+    },
+    "BC7650BB-45FD-4300-AC81-091CC064BCB6": {
+      "name": "Драгомир Христов Златев",
+      "folds": [
+        "Драгомир Златев Христов"
+      ],
+      "reason": "register field swap — patronymic and surname exchanged"
+    },
+    "C3024437-0455-4382-8418-6B09CF2408F8": {
+      "name": "Реджеб Ешреф Ешрефоглу",
+      "folds": [
+        "Реджеб Ешреф Вели"
+      ],
+      "reason": "name change — legal rename"
+    },
+    "C3345DCC-B404-45E4-93FA-47BFC661CB6D": {
+      "name": "Гюлсюм Сами Хабиб",
+      "folds": [
+        "Гюлсюм Сами Караосман"
+      ],
+      "reason": "name change — new surname"
+    },
+    "C9E52F5A-7578-436F-9502-BDA262788333": {
+      "name": "Станислава Красимирова Стоянова-Асенова",
+      "folds": [
+        "Станислава Красимирова Стоянова"
+      ],
+      "reason": "name change — surname extended"
+    },
+    "CF8C19B3-D7E6-4426-8906-6EE0AB05B2E1": {
+      "name": "Васил Йорданов Василев",
+      "folds": [
+        "Васил Йордавнов Василев"
+      ],
+      "reason": "register typo — stray 'в' in the patronymic in 2025"
+    },
+    "D9FC35A4-0917-40FF-BB80-A909535166D6": {
+      "name": "Ивилина Вергинова Алексиева-Робинсън",
+      "folds": [
+        "Ивилина Вергинова Алексиева"
+      ],
+      "reason": "name change — surname extended"
+    },
+    "DCEFB563-C727-46BD-BF0C-DA0C4BD22928": {
+      "name": "Петър Илиянов Кичашки",
+      "folds": [
+        "Петър Илиянов Кирашки"
+      ],
+      "reason": "register typo — Кирашки/Кичашки"
+    },
+    "E0E23F39-808C-4A61-AA69-1A12958E11DE": {
+      "name": "Александър Алексиев Тодоров",
+      "folds": [
+        "Алексансър Алексиев Тодоров"
+      ],
+      "reason": "register typo — Алексансър"
+    },
+    "E3853B8B-FDA7-4CE0-85B7-7A5BA3E2BD80": {
+      "name": "Петър Георгиев Вълов",
+      "folds": [
+        "Петър Георги Вълов"
+      ],
+      "reason": "register typo — patronymic filed in its short form in 2025"
+    },
+    "E76BBFDF-A654-4EB6-98EA-0B18E2762C5B": {
+      "name": "Евгения Константинова Христова",
+      "folds": [
+        "Енгения Константинова Христова"
+      ],
+      "reason": "register typo — Енгения"
+    },
+    "E81D5818-92B3-4FC0-91D5-B28ED56E101C": {
+      "name": "Костадин Георгиев Михайлов",
+      "folds": [
+        "Котадин Георгиев Михайлов"
+      ],
+      "reason": "register typo — dropped 'с' from the given name in 2025"
+    },
+    "EDDF7B29-447A-4C2B-A359-78366EFBAF43": {
+      "name": "Иван Георгиев Иванов",
+      "folds": [
+        "Иван Георгиев Иванов1"
+      ],
+      "reason": "register digit-suffix noise, not a second person — the GUID is one man, ОУ 'Климент Охридски', forked across Училища/'Иван Георгиев Иванов' (2024) and Училища/'Иван Георгиев Иванов1' (2025). Safe to fold ONLY because 2E6D233C… (the директор of ОУ 'Д-р Петър Берон' who shared the digit-less slug) was split off to its own slug via _slug_collisions.json first; the digit-less name is kept as canonical because a '1' is the register's disambiguator, not a legal name (see the trailing-digit note in ./shared.ts), and it holds the already-published slug ivan-georgiev-ivanov-b85a89."
+    },
+    "F06F3A1C-B845-4F01-8A5B-B2386CDDC19C": {
+      "name": "Христо Тотев Христов",
+      "folds": [
+        "Христо Тотев Христов1"
+      ],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "F2222A19-6745-44E1-BA1C-6665931E9ECA": {
+      "name": "Клара Василева Каравасилева-Стоянова",
+      "folds": [
+        "Клара Василева Каравасилева"
+      ],
+      "reason": "name change — surname extended"
+    },
+    "F7384047-0712-4968-9515-DC553B86AD92": {
+      "name": "Таня Петрова Бурдева",
+      "folds": [
+        "Таня Бурдева Петрова"
+      ],
+      "reason": "register field swap — patronymic and surname exchanged"
+    },
+    "F82F96F9-D9D0-4414-9348-11623D1BBD07": {
+      "name": "Борислав Райчев Димитрачков",
+      "folds": [
+        "Борислав Райчев Димтрачков"
+      ],
+      "reason": "register typo — Димтрачков"
+    },
+    "F8462CC8-B546-4CDF-86F5-E09B2FD08A6C": {
+      "name": "Георги Христов Христов",
+      "folds": [
+        "Георги Христов Христов1"
+      ],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "F8FE94B7-C10B-4FD8-BB72-0302DC47885E": {
+      "name": "Лейля Местан Юсеин",
+      "folds": [
+        "Лейля Местан Исмаил"
+      ],
+      "reason": "name change — new surname; forked across BOTH trees (Социални домове… and обшина Крумовград)"
+    },
+    "FAA664D3-DCFB-42C5-AFBE-1A5D96793393": {
+      "name": "Мирела Радославова Христова",
+      "folds": [
+        "Мирела Радославова Неделчева"
+      ],
+      "reason": "name change — new surname"
     }
   }
 }
