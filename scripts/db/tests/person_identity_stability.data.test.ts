@@ -75,7 +75,19 @@ test("5.9 — the active-person count did not step", async (t) => {
   // splitting people apart. That was a defect; see 008's header. This baseline is the
   // corpus AFTER that fix, so it must not be raised again to accommodate a resolved-count
   // drift.)
-  const BASELINE = 132_136;
+  // RE-BASELINED 2026-08-14, deliberately, for the second time and for a different reason
+  // than the first: the /2026/ register folder landed (18,570 filings — the годишни за
+  // 2025), so the corpus gained declarants rather than gaining owners. 132,136 → 133,721.
+  //
+  // The attribution, which is what makes this a step and not a merge: 6,989 people have
+  // their FIRST filing in the 2026 folder, and the active count rose by only 1,585. So the
+  // overwhelming majority of new declarants were matched to people the layer already knew
+  // (as candidates, MPs or TR owners) rather than minted — the identity layer working, and
+  // the opposite of the failure this gate exists for. Nothing dropped.
+  //
+  // The warning above still stands and is NOT relaxed by this: do not raise the baseline to
+  // absorb a resolved-count drift with no such attribution behind it.
+  const BASELINE = 133_721;
   const TOLERANCE = 500;
   assert.ok(
     Math.abs(persons - BASELINE) <= TOLERANCE,
