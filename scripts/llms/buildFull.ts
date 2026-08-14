@@ -189,6 +189,11 @@ const COPY = {
       `Всеки съд, прокуратура и следствен отдел има собствена страница на ${siteUrl}/court/{код}. „Постъпили" и „свършени" са ДЕЙСТВИТЕЛНА натовареност — брой дела на съдия на месец за последната публикувана от ВСС година. Тире значи, че ВСС не публикува натовареност за този орган: така е за всички прокуратури и следствени отдели, а от съдилищата — само за ВКС и ВАС. Тирето не бива да се чете като нула. „Магистрати" са лицата с имуществени декларации в ИВСС от този орган. Обзор: ${siteUrl}/judiciary.`,
     judiciaryTable:
       "| Орган | Вид | Ниво | Седалище | Съдии | Магистрати | Постъпили/съдия/мес. | Свършени/съдия/мес. | Година | URL |",
+    budgetHeading:
+      "Държавният бюджет — началото и четиринадесетте страници под него",
+    budgetIntro: (siteUrl: string) =>
+      `Модулът „Бюджет" (${siteUrl}/budget) е разделен на страници, всяка с една задача и една декларирана основа. КОЛОНАТА „ОСНОВА" Е НАЙ-ВАЖНАТА: числата на този сайт идват от ЧЕТИРИ различни периметъра, които не се събират помежду си. „Държавен бюджет" е касовият отчет по КФП на Министерството на финансите — 24,78 млрд. евро разходи за 2024 г. „Сектор S13" е Евростат: държава плюс общини плюс социални фондове — 41,06 млрд. евро за същата година. „Социални фондове" е касовият отчет на НОИ, а трансферът от държавния бюджет към ДОО (5,89 млрд. евро за 2024 г.) е ЕДНИ И СЪЩИ ПАРИ, видени от двата края — веднъж като „Трансфери (нето)" в разходите на държавния бюджет и веднъж като приход на фонда. „Общини" е трети периметър. Сборове през периметрите дават числа, които Министерството на финансите не публикува никъде.`,
+    budgetTable: "| Страница | На какво отговаря | Основа | Обхват | URL |",
     pensionsHeading:
       "Частни пенсионни фондове (КФН) — нетни активи и осигурени лица",
     pensionsIntro: (siteUrl: string) =>
@@ -245,6 +250,10 @@ const COPY = {
       `Every court, prosecution office and investigation service has its own page at ${siteUrl}/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means the Supreme Judicial Council publishes no workload for that body: that covers every prosecution office and investigation service, and among the courts only the two Supreme Courts. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: ${siteUrl}/en/judiciary.`,
     judiciaryTable:
       "| Body | Kind | Seat | Judges | Magistrates | Filed/judge/mo. | Resolved/judge/mo. | Year | URL |",
+    budgetHeading: "The state budget — the hub and the fourteen pages under it",
+    budgetIntro: (siteUrl: string) =>
+      `The budget module (${siteUrl}/en/budget) is split into pages, each with one job and one declared basis. THE "BASIS" COLUMN IS THE IMPORTANT ONE: the figures on this site come from FOUR different perimeters that do not add together. "State budget" is the Ministry of Finance КФП cash report — €24.78bn of expenditure in 2024. "Sector S13" is Eurostat: the state plus municipalities plus the social funds — €41.06bn for the same year. "Social funds" is the NSSI cash report, and the state budget's transfer to the pension fund (€5.89bn in 2024) is THE SAME MONEY seen from both ends — once as "Transfers (net)" in state budget expenditure and once as fund revenue. "Municipalities" is a third perimeter. Summing across perimeters produces figures the Ministry of Finance publishes nowhere.`,
+    budgetTable: "| Page | What it answers | Basis | Coverage | URL |",
     pensionsHeading:
       "Private pension funds (FSC) — net assets and insured persons",
     pensionsIntro: (siteUrl: string) =>
@@ -605,8 +614,266 @@ const buildCorpus = (
     lines.push("");
   }
 
+  // The budget module -----------------------------------------------------
+  // A list rather than a crawl of the pages, because the one fact a model
+  // needs here is NOT on any of them individually: which perimeter each figure
+  // belongs to. Without it the obvious operation — adding /budget/functional's
+  // €41.06bn to /budget/spending's €24.78bn — produces a number nobody
+  // publishes, and the social-funds transfer gets counted twice.
+  lines.push(`## ${t.budgetHeading}`);
+  lines.push("");
+  lines.push(t.budgetIntro(SITE_URL));
+  lines.push("");
+  lines.push(t.budgetTable);
+  lines.push(sep(["-", "-", "-", "-", "-"]));
+  for (const b of BUDGET_PAGES) {
+    const [name, answers, basis, coverage] = lang === "bg" ? b.bg : b.en;
+    lines.push(
+      `| ${cell(name)} | ${cell(answers)} | ${cell(basis)} | ${cell(coverage)} | ${SITE_URL}${langPrefix}/${b.path} |`,
+    );
+  }
+  lines.push("");
+
   return lines.join("\n");
 };
+
+/** The fourteen destinations the /budget hub fronts, with the ONE thing that
+ *  cannot be recovered from the page title: which perimeter each figure is on.
+ *  Static — this section has no source that can be absent, so unlike judiciary
+ *  and pensions it is deliberately NOT in REQUIRED_SECTIONS: that gate exists
+ *  to catch a DEGRADED build, and a hard-coded list can only disappear by
+ *  somebody deleting it on purpose. */
+const BUDGET_PAGES: Array<{
+  path: string;
+  bg: [string, string, string, string];
+  en: [string, string, string, string];
+}> = [
+  {
+    path: "budget",
+    bg: [
+      "Бюджетът — начало",
+      "Откъде идват и къде отиват парите на държавата",
+      "държавен бюджет",
+      "КФП 2021–2026",
+    ],
+    en: [
+      "Budget — hub",
+      "Where the state's money comes from and goes",
+      "state budget",
+      "КФП 2021–2026",
+    ],
+  },
+  {
+    path: "budget/revenue",
+    bg: [
+      "Откъде идват парите",
+      "Приходи по източник — данъчни, неданъчни, помощи",
+      "държавен бюджет",
+      "2021–2026",
+    ],
+    en: [
+      "Where the money comes from",
+      "Revenue by source — tax, non-tax, grants",
+      "state budget",
+      "2021–2026",
+    ],
+  },
+  {
+    path: "budget/spending",
+    bg: [
+      "За какво отиват парите",
+      "Разходи по вид; „Трансфери (нето)“ е 58% от раздела",
+      "държавен бюджет",
+      "2021–2026",
+    ],
+    en: [
+      "Where the money goes",
+      'Expenditure by type; "Transfers (net)" is 58% of the section',
+      "state budget",
+      "2021–2026",
+    ],
+  },
+  {
+    path: "budget/execution",
+    bg: [
+      "Изпълнение",
+      "План срещу отчет; приходи − разходи − вноска в ЕС = салдо",
+      "държавен бюджет",
+      "2021–2026",
+    ],
+    en: [
+      "Execution",
+      "Plan against outturn; revenue − expenditure − EU contribution = balance",
+      "state budget",
+      "2021–2026",
+    ],
+  },
+  {
+    path: "budget/functional",
+    bg: [
+      "По функции (COFOG)",
+      "За какво се харчи — здраве, образование, отбрана",
+      "сектор S13 (Евростат)",
+      "2010–2024",
+    ],
+    en: [
+      "By function (COFOG)",
+      "What it is spent on — health, education, defence",
+      "sector S13 (Eurostat)",
+      "2010–2024",
+    ],
+  },
+  {
+    path: "budget/ministries",
+    bg: [
+      "Разпоредители",
+      "Всяко ведомство с бюджет и обществени поръчки",
+      "държавен бюджет",
+      "по година",
+    ],
+    en: [
+      "Spending units",
+      "Each body with its budget and its procurement",
+      "state budget",
+      "by year",
+    ],
+  },
+  {
+    path: "budget/explorer",
+    bg: [
+      "Разгледай бюджета",
+      "Разбивка ниво по ниво, административно или функционално",
+      "и двата, по избор",
+      "по година",
+    ],
+    en: [
+      "Explore the budget",
+      "Level-by-level drill-down, admin or functional",
+      "either, selectable",
+      "by year",
+    ],
+  },
+  {
+    path: "budget/deviations",
+    bg: [
+      "План срещу отчет по разпоредители",
+      "Таван по закон, изменение и отчетено",
+      "държавен бюджет",
+      "по година",
+    ],
+    en: [
+      "Plan vs outturn by unit",
+      "Statutory ceiling, amendment and outturn",
+      "state budget",
+      "by year",
+    ],
+  },
+  {
+    path: "budget/investments",
+    bg: [
+      "Инвестиционна програма",
+      "ПЛАН, не похарчено — Приложение III, 3 065 обекта",
+      "държавен бюджет",
+      "2025",
+    ],
+    en: [
+      "Investment programme",
+      "A PLAN, not spending — Annex III, 3,065 projects",
+      "state budget",
+      "2025",
+    ],
+  },
+  {
+    path: "budget/personnel",
+    bg: [
+      "Администрация",
+      "Щат и заети; НЯМА пари — докладът не публикува заплати",
+      "щатни бройки + НСИ",
+      "2017–2025",
+    ],
+    en: [
+      "Administration",
+      "Posts and staff; NO money — the report publishes no payroll",
+      "establishment + NSI",
+      "2017–2025",
+    ],
+  },
+  {
+    path: "budget/social-funds",
+    bg: [
+      "Социални фондове",
+      "ДОО, Учителски пенсионен фонд и ФГВРС — не НЗОК; собствените вноски покриват 52,4% от ДОО",
+      "социални фондове (НОИ)",
+      "по година",
+    ],
+    en: [
+      "Social funds",
+      "State pension, Teachers' Pension and Guaranteed Employee Claims funds — NOT the health fund; own contributions cover 52.4% of the pension fund",
+      "social funds (NSSI)",
+      "by year",
+    ],
+  },
+  {
+    path: "budget/law",
+    bg: [
+      "Бюджетен процес",
+      "Кои от 8-те ключови документа са налични ТУК",
+      "покритие на сайта",
+      "по година",
+    ],
+    en: [
+      "Budget process",
+      "Which of the 8 key documents are available HERE",
+      "site coverage",
+      "by year",
+    ],
+  },
+  {
+    path: "budget/municipal",
+    bg: [
+      "Общините",
+      "Трансфери по чл. 53; София 564 €/жител, Трекляно 5 028 €",
+      "общини",
+      "2018–2026",
+    ],
+    en: [
+      "Municipalities",
+      "Article 53 transfers; Sofia €564/resident, Treklyano €5,028",
+      "municipalities",
+      "2018–2026",
+    ],
+  },
+  {
+    path: "budget/municipal/investments",
+    bg: [
+      "ИПОП",
+      "2,98 млрд. договорени срещу 0,99 млрд. изплатени, 3 492 проекта",
+      "общини",
+      "264 от 265 общини",
+    ],
+    en: [
+      "IPOP",
+      "€2.98bn agreed against €0.99bn paid, 3,492 projects",
+      "municipalities",
+      "264 of 265 municipalities",
+    ],
+  },
+  {
+    path: "budget/municipal/capital",
+    bg: [
+      "Капиталови програми",
+      "Какво строят общините и с чии пари; разбивка по източник има само от 2 от 24-те за 2025 г.",
+      "общини",
+      "9–24 от 265 по година",
+    ],
+    en: [
+      "Capital programmes",
+      "What municipalities build and with whose money; only 2 of the 24 covered in 2025 publish a funding split",
+      "municipalities",
+      "9–24 of 265 by year",
+    ],
+  },
+];
 
 // The headings whose disappearance means a DEGRADED build rather than a
 // content change — one per section fed by a source that can be absent.

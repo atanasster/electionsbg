@@ -3158,6 +3158,327 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/execution",
+    ogImage: "/og/budget-execution.png",
+    title: "Изпълнение на бюджета — план срещу отчет | electionsbg.com",
+    description:
+      "Мина ли бюджетната година така, както я разписа законът — приходи, разходи, вноската в ЕС, салдото и финансирането, план до отчет за всяка година.",
+    breadcrumbName: "Изпълнение",
+    bodyHtml: `
+<h1>Изпълнение на държавния бюджет</h1>
+<p>Останалите страници тук показват какви са били парите. Тази пита нещо друго: мина ли годината така, както я разписа Законът за държавния бюджет. За всяка от петте позиции се вижда планът, отчетеното и разликата между тях.</p>
+<h2>Едно тъждество, което държи страницата</h2>
+<p>приходи − разходи − вноска в ЕС = салдо. За 2024 г.: 22 263 692 630 − 24 775 124 952 − 814 052 657 = −3 325 484 979 евро. Показани поотделно, без тъждеството, четирите числа изглеждат несвързани.</p>
+<h2>Две неща, които лесно се разчитат погрешно</h2>
+<ul>
+<li><strong>Финансирането е салдото с обратен знак</strong>, а не втора независима величина. Двете съвпадат до няколко хиляди евро във всяка година от корпуса — остатък от закръгляване.</li>
+<li><strong>Вноската в ЕС е отделен ред.</strong> Ако я прибавим към разходите, тъждеството пак затваря — но така разходите стават число, което Министерството на финансите не публикува никъде.</li>
+</ul>
+<h2>Година по удължителен закон няма приет план</h2>
+<p>Година, която върви по удължителен закон, няма приет план по нито една позиция. Страницата показва прогнозата, а не празна колона, и я обозначава като прогноза.</p>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>, <a href="${SITE_URL}/budget/deviations">план срещу отчет по разпоредители</a> и <a href="${SITE_URL}/budget/law">бюджетния процес</a>.</p>`.trim(),
+    english: {
+      title: "Budget Execution — Plan Against Outturn | electionsbg.com",
+      description:
+        "Did the fiscal year go the way the law said it would — revenue, expenditure, the EU contribution, the balance and financing, plan against outturn for every year.",
+      breadcrumbName: "Execution",
+      bodyHtml: `
+<h1>State budget execution</h1>
+<p>The other pages here ask what the money was. This one asks something different: did the year go the way the State Budget Law said it would. For each of the five lines you see the plan, the outturn and the gap between them.</p>
+<h2>One identity holds the page together</h2>
+<p>revenue − expenditure − EU contribution = balance. For 2024: 22,263,692,630 − 24,775,124,952 − 814,052,657 = −3,325,484,979 euro. Shown separately, without the identity, the four figures look unrelated.</p>
+<h2>Two things that are easily misread</h2>
+<ul>
+<li><strong>Financing is the balance with its sign flipped</strong>, not a second independent quantity. The two agree to within a few thousand euro in every year of the corpus — a rounding residue.</li>
+<li><strong>The EU contribution is its own line.</strong> Folded into expenditure the identity still closes — but expenditure then becomes a number the Ministry of Finance publishes nowhere.</li>
+</ul>
+<h2>A year that has not been legislated has no plan</h2>
+<p>A year running on an interim budget law has no adopted plan on any line. The page shows the projection rather than an empty column, and labels it as a projection.</p>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a>, <a href="${SITE_URL}/en/budget/deviations">plan against outturn by spending unit</a> and the <a href="${SITE_URL}/en/budget/law">budget process</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/functional",
+    ogImage: "/og/budget-functional.png",
+    title: "За какво се харчат парите — по функции (COFOG) | electionsbg.com",
+    description:
+      "Разходите на сектор „Държавно управление“ по функция — здравеопазване, образование, отбрана, социална закрила — по класификацията COFOG на Евростат, 2010–2024.",
+    breadcrumbName: "По функции",
+    bodyHtml: `
+<h1>За какво се харчат парите</h1>
+<p>Тази страница разбива публичните разходи по <strong>функция</strong> — за какво се харчат парите, а не кой ги харчи. Класификацията е COFOG на Евростат: десет функции, от общи държавни служби до образование.</p>
+<h2>Обхватът тук е различен от останалите страници</h2>
+<p>Всички други страници в този раздел отчитат <strong>държавния бюджет</strong> — 24,78 млрд. евро разходи за 2024 г. Тази отчита сектор S13 на Евростат: „Държавно управление“, тоест държавата <em>плюс</em> общините <em>плюс</em> социалните фондове — 41,06 млрд. евро за същата година. Двете числа са верни и не са едно и също; затова не се събират и не се сравняват директно.</p>
+<h2>Функции, не институции</h2>
+<p>„Здравеопазване“ означава всички разходи за здраве на всяко ниво на управление — не бюджета на Министерството на здравеопазването. Ведомственият разрез е в <a href="${SITE_URL}/budget/ministries">разпоредителите</a>.</p>
+<h2>Редицата свършва по-рано</h2>
+<p>COFOG върви 2010–2024, докато касовият отчет по КФП стига до 2026 г. За най-новите години тук няма функционален разрез — това е обхват на източника, а не нулеви разходи.</p>
+<p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
+    english: {
+      title:
+        "What the Money Is Spent On — by Function (COFOG) | electionsbg.com",
+      description:
+        "General government expenditure by function — health, education, defence, social protection — on Eurostat's COFOG classification, 2010–2024.",
+      breadcrumbName: "By function",
+      bodyHtml: `
+<h1>What the money is spent on</h1>
+<p>This page breaks public spending down by <strong>function</strong> — what the money is spent on, rather than who spends it. The classification is Eurostat's COFOG: ten functions, from general public services to education.</p>
+<h2>The perimeter here is not the module's</h2>
+<p>Every other page in this section reports the <strong>state budget</strong> — €24.78bn of expenditure in 2024. This one reports Eurostat's S13 sector: general government, i.e. the state <em>plus</em> municipalities <em>plus</em> the social security funds — €41.06bn for the same year. Both figures are correct and they are not the same thing, so they are never summed or compared directly.</p>
+<h2>Functions, not institutions</h2>
+<p>"Health" means all health spending by every level of government — not the Ministry of Health's budget. For the institutional cut see <a href="${SITE_URL}/en/budget/ministries">spending units</a>.</p>
+<h2>The series ends earlier</h2>
+<p>COFOG runs 2010–2024 while the КФП cash feed reaches 2026. For the most recent years there is no functional breakdown here — that is the source's coverage, not zero spending.</p>
+<p>See also <a href="${SITE_URL}/en/budget/spending">where the money goes</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/personnel",
+    ogImage: "/og/budget-personnel.png",
+    title: "Държавната администрация — щат и заети | electionsbg.com",
+    description:
+      "Колко души работят в държавната администрация: утвърдени щатни бройки, заети и незаети, и отделно декемврийската численост на НСИ — 2017–2025, по Доклада за състоянието на администрацията.",
+    breadcrumbName: "Администрация",
+    bodyHtml: `
+<h1>Държавната администрация</h1>
+<p>Колко души работят за държавата. Източникът е годишният <strong>Доклад за състоянието на администрацията</strong> — една година на ред, 2017–2025.</p>
+<h2>Две числа, които не бива да се смесват</h2>
+<p>Един и същ доклад публикува две различни величини:</p>
+<ul>
+<li><strong>Щатни бройки</strong> — утвърдени места по щат. За 2025 г.: 145 623 утвърдени, 133 275 заети, 12 348 незаети.</li>
+<li><strong>Численост по НСИ</strong> — заети лица към декември, по методология на НСИ, от отделна таблица. За 2025 г.: 98 446.</li>
+</ul>
+<p>Разликата между 133 275 и 98 446 е 34 829 и <strong>не означава нищо</strong> — това не са „незаети места“. Незаетите са 12 348 и се публикуват отделно. Затова двете редици се показват една до друга с назована основа и между тях не се прави аритметика.</p>
+<h2>Тук няма пари</h2>
+<p>Докладът не публикува разходи за заплати, затова на тази страница няма нито едно число в евро. Показани като 0 те биха твърдели, че администрацията не струва нищо.</p>
+<p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/sector/administration">сектор „Администрация“</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's State Administration — Posts and Staff | electionsbg.com",
+      description:
+        "How many people work in the state administration: approved posts, filled and vacant, and separately the NSI December headcount — 2017–2025, from the annual Administration Report.",
+      breadcrumbName: "Administration",
+      bodyHtml: `
+<h1>The state administration</h1>
+<p>How many people work for the state. The source is the annual <strong>Report on the State of the Administration</strong> — one row per year, 2017–2025.</p>
+<h2>Two numbers that must not be mixed</h2>
+<p>The same report publishes two different quantities:</p>
+<ul>
+<li><strong>Establishment posts</strong> — approved positions. For 2025: 145,623 approved, 133,275 filled, 12,348 vacant.</li>
+<li><strong>NSI headcount</strong> — persons employed as at December, on NSI's own methodology, from a separate table. For 2025: 98,446.</li>
+</ul>
+<p>The gap between 133,275 and 98,446 is 34,829 and <strong>means nothing</strong> — it is not "unfilled posts". That figure is 12,348 and is published directly. So the two series are shown side by side with their bases named, and no arithmetic is done across them.</p>
+<h2>There is no money on this page</h2>
+<p>The report publishes no payroll, so not a single figure here is in euro. Rendered as €0 they would claim the administration costs nothing.</p>
+<p>See also <a href="${SITE_URL}/en/budget/spending">where the money goes</a> and the <a href="${SITE_URL}/en/sector/administration">administration sector</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/investments",
+    ogImage: "/og/budget-investments.png",
+    title: "Инвестиционна програма на държавата | electionsbg.com",
+    description:
+      "Проектите, за които Законът за държавния бюджет отпуска пари — Приложение III, 3 065 обекта за 2025 г. Това е план, не отчет за похарчено.",
+    breadcrumbName: "Инвестиции",
+    bodyHtml: `
+<h1>Инвестиционната програма</h1>
+<p>Списъкът с обектите, за които бюджетният закон отпуска средства — Приложение III към Закона за държавния бюджет.</p>
+<h2>Това е план, не похарчени пари</h2>
+<p>Всичко на тази страница е <strong>разпределение по закон</strong>. Нищо тук не казва, че обект е построен, започнат или че парите са напуснали хазната. Останалите страници в раздела съпоставят план и отчет; тази няма отчетна страна изобщо, защото източникът не публикува такава.</p>
+<h2>Една година и една класация</h2>
+<ul>
+<li><strong>Програмата съществува само за 2025 г.</strong> в този корпус, така че тук няма тренд и няма сравнение „спрямо миналата година“.</li>
+<li><strong>Показани са 50 от 3 065 обекта</strong> — 20,81% от парите. Това е класация, а не програмата; сборът на видимата колона е една пета от нея.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget/spending">за какво отиват парите</a> и <a href="${SITE_URL}/budget/municipal/capital">капиталовите програми на общините</a>.</p>`.trim(),
+    english: {
+      title: "Bulgaria's State Investment Programme | electionsbg.com",
+      description:
+        "The projects the State Budget Law appropriates money for — Annex III, 3,065 projects for 2025. This is a plan, not a record of money spent.",
+      breadcrumbName: "Investments",
+      bodyHtml: `
+<h1>The investment programme</h1>
+<p>The list of projects the budget act appropriates money for — Annex III to the State Budget Law.</p>
+<h2>This is a plan, not spending</h2>
+<p>Everything on this page is an <strong>appropriation in law</strong>. Nothing here says a project was built, started, or that the money left the treasury. The other pages in this section compare plan against outturn; this one has no outturn side at all, because the source publishes none.</p>
+<h2>One year, and a leaderboard</h2>
+<ul>
+<li><strong>The programme exists for 2025 only</strong> in this corpus, so there is no trend and no year-on-year claim to make.</li>
+<li><strong>50 of 3,065 projects are shown</strong> — 20.81% of the money. That is a leaderboard, not the programme; summing the visible column gives you a fifth of it.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/budget/spending">where the money goes</a> and <a href="${SITE_URL}/en/budget/municipal/capital">municipal capital programmes</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/social-funds",
+    ogImage: "/og/budget-social-funds.png",
+    title: "Социалните фондове — ДОО, Учителски и ФГВРС | electionsbg.com",
+    description:
+      "Приходи, разходи и салдо на трите фонда на НОИ — ДОО, Учителския пенсионен фонд и Фонда за гарантирани вземания — и колко от разходите им покрива трансферът от държавния бюджет.",
+    breadcrumbName: "Социални фондове",
+    bodyHtml: `
+<h1>Социалните фондове</h1>
+<p>Пенсиите и обезщетенията не се плащат от държавния бюджет направо, а през отделни фондове със собствени приходи. Тази страница показва приходите, разходите и салдото на трите фонда, за които НОИ публикува месечен касов отчет (справка B1): <strong>ДОО</strong>, <strong>Учителският пенсионен фонд</strong> и <strong>Фондът за гарантирани вземания на работниците и служителите</strong>. Здравната каса е отделен бюджет и не е в този корпус.</p>
+<h2>Тъждеството, без което числата изглеждат невъзможни</h2>
+<p>приходи − разходи + трансфери − вноска в ЕС = салдо. За ДОО, 2024 г.: 6 590 528 454 − 12 585 473 587 + 5 892 736 120 − 0 = −102 209 013 евро.</p>
+<h2>Собствените осигуровки покриват малко над половината</h2>
+<p>Приходите на ДОО от осигурителни вноски покриват <strong>52,4%</strong> от разходите му. Останалото — 5,89 млрд. евро, от които 99,97% идват от централния бюджет — е трансфер. Без него страницата показва шестмилиардна дупка до обявено салдо от −102 млн., и читателят заключава, че едно от двете е сгрешено.</p>
+<p>Същите 5,89 млрд. се виждат и от другата страна: те са част от „Трансфери (нето)“ на <a href="${SITE_URL}/budget/spending">разходната страница</a> — а този ред е 58% от разходите на държавния бюджет. Двете страници показват едни и същи пари от двата им края.</p>
+<h2>Годините с и без разбивка</h2>
+<p>Година получава разбивка по фондове едва след като НОИ публикува месечните си отчети. Дотогава се показва само годишният агрегат — три фонда с нули във всяка колона биха били невярно твърдение.</p>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/pensions">пенсиите</a>.</p>`.trim(),
+    english: {
+      title: "Bulgaria's Social Security Funds | electionsbg.com",
+      description:
+        "Revenue, expenditure and balance of the three NSSI funds — the state pension fund, the Teachers' Pension Fund and the Guaranteed Employee Claims Fund — and how much of their spending the state budget transfer covers.",
+      breadcrumbName: "Social funds",
+      bodyHtml: `
+<h1>The social security funds</h1>
+<p>Pensions and benefits are not paid out of the state budget directly but through separate funds with their own revenue. This page shows the revenue, expenditure and balance of the three funds for which the National Social Security Institute publishes a monthly cash report (return B1): the <strong>state pension fund (ДОО)</strong>, the <strong>Teachers' Pension Fund</strong> and the <strong>Guaranteed Employee Claims Fund</strong>. The health insurance fund is a separate budget and is not in this corpus.</p>
+<h2>The identity, without which the figures look impossible</h2>
+<p>revenue − expenditure + transfers − EU contribution = balance. For the pension fund (ДОО), 2024: 6,590,528,454 − 12,585,473,587 + 5,892,736,120 − 0 = −102,209,013 euro.</p>
+<h2>Own contributions cover a little over half</h2>
+<p>The pension fund's own contribution revenue covers <strong>52.4%</strong> of its spending. The rest — €5.89bn, of which 99.97% comes from the central budget — is a transfer in. Without it the page shows a six-billion hole next to a stated balance of −€102m, and a reader concludes one of the two is wrong.</p>
+<p>The same €5.89bn is visible from the other end: it is part of "Transfers (net)" on the <a href="${SITE_URL}/en/budget/spending">expenditure page</a>, which is 58% of state budget expenditure. The two pages are the same money seen from either side.</p>
+<h2>Years with and without a breakdown</h2>
+<p>A year gets a per-fund breakdown only once NSSI has published its monthly sheets. Until then only the annual aggregate is shown — three funds with zero in every column would be a false statement.</p>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> and <a href="${SITE_URL}/en/pensions">pensions</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/law",
+    ogImage: "/og/budget-law.png",
+    title: "Бюджетният процес и документите | electionsbg.com",
+    description:
+      "Кои от осемте ключови бюджетни документа по международния стандарт на Open Budget Survey са налични тук, и какво публикува конкретната бюджетна година.",
+    breadcrumbName: "Бюджетен процес",
+    bodyHtml: `
+<h1>Бюджетният процес</h1>
+<p>Бюджетът не е един документ, а поредица от тях — от средносрочната прогноза през внесения проект и приетия закон до годишния отчет. Международният стандарт на <a href="https://internationalbudget.org/open-budget-survey/" rel="nofollow noopener">Open Budget Survey</a> изброява осем ключови документа; тази страница показва кои от тях са налични тук.</p>
+<h2>Това е покритие на сайта, не оценка на държавата</h2>
+<p>„N от 8“ е изречение за <strong>този сайт</strong>, а не за България. Няколко от осемте нямат ингест тук изобщо, а „ние не събираме X“ не е „България не публикува X“. Единственото изключение, което модулът си позволява, е гражданският бюджет — защото това е точно каквото е този модул.</p>
+<h2>Два обхвата, държани разделени</h2>
+<p>Таблото за осемте документа е за целия сайт. Списъкът под него е за <strong>една</strong> бюджетна година. Двете нарочно се различават: месечният отчет по КФП например не носи бюджетна година, така че присъства в рамката и в списъка на нито една година.</p>
+<h2>Тук няма „кой как гласува“</h2>
+<p>Връзката между бюджетен документ и поименно гласуване не е налична в данните — нито един от документите не носи препратка към конкретно гласуване. Извеждането ѝ от заглавието би било предположение: заглавие, което съдържа „второ гласуване“ в процедурна позиция, е първо четене. Непостроена секция е по-добра от съчинена.</p>
+<p>Виж и <a href="${SITE_URL}/budget/execution">изпълнението</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+    english: {
+      title: "The Budget Process and Its Documents | electionsbg.com",
+      description:
+        "Which of the eight key budget documents in the international Open Budget Survey standard are available here, and what a given fiscal year actually published.",
+      breadcrumbName: "Budget process",
+      bodyHtml: `
+<h1>The budget process</h1>
+<p>A budget is not one document but a sequence of them — from the medium-term forecast through the tabled bill and the adopted act to the year-end report. The international <a href="https://internationalbudget.org/open-budget-survey/" rel="nofollow noopener">Open Budget Survey</a> standard lists eight key documents; this page shows which of them are available here.</p>
+<h2>This is coverage of the site, not a score for the country</h2>
+<p>"N of 8" is a sentence about <strong>this site</strong>, not about Bulgaria. Several of the eight have no ingest here at all, and "we do not collect X" is not "Bulgaria does not publish X". The one exception the module allows itself is the citizens budget — because that is exactly what this module is.</p>
+<h2>Two scopes, kept apart</h2>
+<p>The eight-document scorecard is site-wide. The list beneath it is for <strong>one</strong> fiscal year. The two differ deliberately: the monthly КФП report, for instance, carries no fiscal year, so it appears in the frame and in no year's list.</p>
+<h2>There is no "who voted for it" here</h2>
+<p>The link between a budget document and a recorded vote is not in the data — none of the documents carries a reference to a specific vote. Deriving it from the title would be a guess: a title carrying "second reading" in a procedural position is a first reading. An unbuilt section beats a fabricated one.</p>
+<p>See also <a href="${SITE_URL}/en/budget/execution">execution</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/municipal",
+    ogImage: "/og/budget-municipal.png",
+    title: "Какво държавата изпраща на общините | electionsbg.com",
+    description:
+      "Трансферите по чл. 53 от Закона за държавния бюджет — колко получава всяка от 265-те общини, общо и на жител, за всяка година от 2018 г. насам.",
+    breadcrumbName: "Общините",
+    bodyHtml: `
+<h1>Какво държавата изпраща на общините</h1>
+<p>Голяма част от местната власт се финансира от централния бюджет. Член 53 от бюджетния закон изброява колко получава всяка община — 265 реда всяка година, от 2018 г. насам. Тази страница показва таблицата и я подрежда по два начина.</p>
+<h2>Общо или на жител — и защо двете се разминават</h2>
+<p>Столична община получава 718 млн. евро, Трекляно — 2,2 млн. На жител това е 564 евро срещу 5 028 евро: класацията се обръща деветкратно. И двете са верни и нито едното не е цялата история — на община от 434 души все пак ѝ трябват кметство и училище, а тези разходи не намаляват с населението. Затова страницата предлага и двете основи и казва защо се различават.</p>
+<h2>Това не е дълг и не се събира с него</h2>
+<p>Отделно от тази страница сайтът показва какво общините <strong>дължат</strong> — поети ангажименти, задължения и просрочия по чл. 130г от Закона за публичните финанси. Това е различен корпус с различна зърнистост; събирането на двете дава число, което не означава нищо.</p>
+<p>Виж и <a href="${SITE_URL}/governance/municipal-finance">финансовото състояние на общините</a> и <a href="${SITE_URL}/budget/municipal/investments">общинската инвестиционна програма</a>.</p>`.trim(),
+    english: {
+      title: "What the State Sends Bulgaria's Municipalities | electionsbg.com",
+      description:
+        "Article 53 transfers from the State Budget Law — how much each of the 265 municipalities receives, in total and per resident, for every year since 2018.",
+      breadcrumbName: "Municipalities",
+      bodyHtml: `
+<h1>What the state sends the municipalities</h1>
+<p>Much of local government is financed from the central budget. Article 53 of the budget act lists how much each municipality receives — 265 rows a year, since 2018. This page shows that table and orders it two ways.</p>
+<h2>Total or per resident — and why the two disagree</h2>
+<p>Sofia receives €718m, Treklyano €2.2m. Per resident that is €564 against €5,028: the ranking inverts ninefold. Both are true and neither is the whole story — a municipality of 434 people still needs a mayor's office and a school, and those costs do not shrink with the population. So the page offers both bases and says why they differ.</p>
+<h2>This is not debt, and it is not added to it</h2>
+<p>Separately from this page the site shows what municipalities <strong>owe</strong> — commitments, liabilities and arrears under art. 130g of the Public Finance Act. That is a different corpus at a different grain; adding the two produces a number that means nothing.</p>
+<p>See also <a href="${SITE_URL}/en/governance/municipal-finance">municipal financial standing</a> and the <a href="${SITE_URL}/en/budget/municipal/investments">municipal investment programme</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/municipal/investments",
+    ogImage: "/og/budget-municipal-investments.png",
+    title: "ИПОП — общинската инвестиционна програма | electionsbg.com",
+    description:
+      "3 492 общински проекта в 264 общини: 2,98 млрд. евро договорени срещу 0,99 млрд. изплатени, с проектите под 5% плащане и колко от тях вече имат подадено искане.",
+    breadcrumbName: "ИПОП",
+    bodyHtml: `
+<h1>Общинската инвестиционна програма (ИПОП)</h1>
+<p>Инвестиционната програма за общински проекти — какво е договорено с общините и колко от него е стигнало до тях.</p>
+<h2>Две числа, които се четат заедно</h2>
+<p><strong>2,98 млрд. евро договорени срещу 0,99 млрд. изплатени</strong>, по 3 492 проекта в 264 общини. Само договореното се чете като „направена инвестиция“; двойката се чете като това, което е.</p>
+<h2>„Отбелязан“ е праг, не присъда</h2>
+<p>Проект се отбелязва при договор над 100 000 евро и под 5% изплатено. Това е праг, а не констатация за забавяне, и страницата го показва с доказателства, а не с уговорка:</p>
+<ul>
+<li><strong>Възрастта на проекта има значение.</strong> Идентификаторът носи година на приемане: при приетите през 2024 г. са изплатени 35,4% от договореното, при приетите през 2025 г. — 5,5%. 91 от 769-те отбелязани са от най-младата група, където под 5% е напълно очаквано.</li>
+<li><strong>306 от 769</strong> — с договори за 343,4 млн. евро — вече имат подадени или чакащи плащания. Тоест процесът е тръгнал, а данните за изплатено още не са го догонили.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget/municipal">трансферите към общините</a> и <a href="${SITE_URL}/budget/municipal/capital">капиталовите им програми</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's Municipal Investment Programme (IPOP) | electionsbg.com",
+      description:
+        "3,492 municipal projects across 264 municipalities: €2.98bn agreed against €0.99bn paid, with the projects under 5% paid and how many already have a claim in.",
+      breadcrumbName: "IPOP",
+      bodyHtml: `
+<h1>The municipal investment programme (IPOP)</h1>
+<p>The investment programme for municipal projects — what has been agreed with municipalities and how much of it has reached them.</p>
+<h2>Two numbers that should be read together</h2>
+<p><strong>€2.98bn agreed against €0.99bn paid</strong>, across 3,492 projects in 264 municipalities. The agreement figure alone reads as investment delivered; the pair reads as what it is.</p>
+<h2>"Flagged" is a threshold, not a verdict</h2>
+<p>A project is flagged when the agreement exceeds €100,000 and under 5% has been paid. That is a threshold, not a finding of delay, and the page shows it with evidence rather than a disclaimer:</p>
+<ul>
+<li><strong>A project's age matters.</strong> The project id carries an intake year: the 2024 cohort is 35.4% paid, the 2025 cohort 5.5%. 91 of the 769 flagged are the youngest cohort, where under 5% is entirely unremarkable.</li>
+<li><strong>306 of the 769</strong> — holding agreements worth €343.4m — already have payments submitted or awaiting settlement. The process has started; the paid column has not caught up with it.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/budget/municipal">transfers to municipalities</a> and their <a href="${SITE_URL}/en/budget/municipal/capital">capital programmes</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/municipal/capital",
+    ogImage: "/og/budget-municipal-capital.png",
+    title: "Капиталовите програми на общините | electionsbg.com",
+    description:
+      "Поименните списъци за капиталови разходи на общините, които ги публикуват — какво строят и с чии пари. Покритието е малка част от 265-те общини и се назовава на всяка страница.",
+    breadcrumbName: "Капиталови програми",
+    bodyHtml: `
+<h1>Капиталовите програми на общините</h1>
+<p>Какво строят общините със собствените си капиталови бюджети — обект по обект, от поименните списъци, които те приемат заедно с бюджета си.</p>
+<h2>Покритието е заглавието, не бележка под линия</h2>
+<p>Този корпус съдържа онези общини, които са публикували поименен списък и той е бил разчетен: <strong>9 от 265 за 2022 и за 2023 г., 13 за 2024 г., 24 за 2025 г. и една за 2026 г.</strong> Всяко число тук е сбор върху този набор, никога национален сбор. Затова броят на обхванатите общини стои пред всяка сума и никой сбор не е обозначен като национален.</p>
+<h2>За какво този корпус все пак върши работа</h2>
+<p>За <strong>източниците на финансиране</strong>. Поименният списък разделя всеки обект по произход на парите — държавна субсидия, собствени средства, дълг, европейски средства, преходен остатък — а това е разрез, който трансферите по чл. 53 не показват. Клопката е в знаменателя, и той е по-тесен, отколкото изглежда: разбивка по източник публикуват само част от вече малкото обхванати общини — <strong>2 от 24 за 2025 г.</strong>, една от 13 за 2024 г. и нито една за 2022 и 2026 г. Тоест делът на всеки източник се смята върху тези няколко общини, не върху обхванатите и още по-малко върху страната.</p>
+<p>Виж и <a href="${SITE_URL}/budget/municipal">трансферите към общините</a> и <a href="${SITE_URL}/budget/investments">държавната инвестиционна програма</a>.</p>`.trim(),
+    english: {
+      title: "Bulgarian Municipalities' Capital Programmes | electionsbg.com",
+      description:
+        "The itemised capital-spending lists of those municipalities that publish them — what they build and with whose money. Coverage is a small share of the 265 and is named on every figure.",
+      breadcrumbName: "Capital programmes",
+      bodyHtml: `
+<h1>Municipal capital programmes</h1>
+<p>What municipalities build with their own capital budgets — project by project, from the itemised lists they adopt alongside their budget.</p>
+<h2>Coverage is the headline, not a footnote</h2>
+<p>This corpus holds whichever municipalities published an itemised list that could be parsed: <strong>9 of 265 in 2022 and again in 2023, 13 in 2024, 24 in 2025 and one in 2026.</strong> Every figure here is a sum over that set, never a national one. So the covered count sits in front of every total, and no total is ever labelled national.</p>
+<h2>What this corpus is genuinely good for</h2>
+<p>The <strong>funding mix</strong>. An itemised list splits each project by where the money comes from — state subsidy, own funds, debt, EU funds, carry-over — a cut the article 53 transfers do not show. The trap is in the denominator, and it is narrower than it looks: only some of the already-few covered municipalities publish a split at all — <strong>2 of 24 in 2025</strong>, one of 13 in 2024, and none in 2022 or 2026. So each source's share is computed over those few, not over the covered set and certainly not over the country.</p>
+<p>See also <a href="${SITE_URL}/en/budget/municipal">transfers to municipalities</a> and the <a href="${SITE_URL}/en/budget/investments">state investment programme</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/methodology",
     ogImage: "/og/budget-methodology.png",
     title: "Методология — Държавен бюджет на България | electionsbg.com",

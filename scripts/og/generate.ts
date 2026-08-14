@@ -366,6 +366,144 @@ const main = async () => {
     "budget-deviations.png",
   );
 
+  // The nine /budget sub-pages T8 gave prerendered bodies. Rendered cards, not
+  // screenshots, and not for one reason but for two — every one of these pages
+  // fails at least one of the conditions capture-screens.ts needs:
+  //
+  //   * SIX ARE POSTGRES-BACKED (/api/db). A capture needs a loaded local
+  //     database, and `db:load:budget:pg` is a REFRESH_EXCLUSIONS member whose
+  //     input is gitignored, so on most machines the capture would photograph
+  //     an empty state and commit it as the share card.
+  //   * THE DEFAULT YEAR IS OFTEN EMPTY BY DESIGN. /budget/functional's COFOG
+  //     series ends in 2024 while the default fiscal year is 2026, and
+  //     /budget/investments exists for 2025 only — the same reason
+  //     budget-deviations.png above is a rendered card.
+  //
+  // The tiles carry the page's declared BASIS wherever the perimeter differs
+  // from the state budget, because that is the fact a share card most easily
+  // strips off a number.
+  renderStaticPageCard(
+    "Изпълнение на бюджета",
+    "План срещу отчет: приходи, разходи, вноска в ЕС, салдо",
+    [
+      { label: "тъждество", value: "П − Р − ЕС = салдо" },
+      { label: "основа", value: "държавен бюджет" },
+      { label: "източник", value: "МФ / КФП" },
+      { label: "период", value: "по година" },
+    ],
+    "budget-execution.png",
+  );
+
+  renderStaticPageCard(
+    "За какво се харчат парите",
+    "Публичните разходи по функция (COFOG)",
+    [
+      { label: "функции", value: "10" },
+      // Named on the card because this page is the module's one perimeter
+      // exception: S13 is the state PLUS municipalities PLUS the social funds.
+      { label: "основа", value: "сектор S13" },
+      { label: "източник", value: "Евростат" },
+      { label: "период", value: "2010–2024" },
+    ],
+    "budget-functional.png",
+  );
+
+  renderStaticPageCard(
+    "Държавната администрация",
+    "Щатни бройки, заети и незаети — и отделно численост по НСИ",
+    [
+      { label: "утвърдени", value: "145 623" },
+      { label: "заети", value: "133 275" },
+      { label: "незаети", value: "12 348" },
+      // No money tile: the Доклад publishes no payroll, and a €0 would claim
+      // the administration costs nothing.
+      { label: "период", value: "2017–2025" },
+    ],
+    "budget-personnel.png",
+  );
+
+  renderStaticPageCard(
+    "Инвестиционна програма",
+    "Обектите, за които законът отпуска пари",
+    [
+      { label: "обекти", value: "3 065" },
+      // The card has to carry this: „investment programme" over a €-figure
+      // reads as delivered investment, and this source has no outturn side.
+      { label: "вид", value: "план, не отчет" },
+      { label: "източник", value: "Прил. III към ЗДБРБ" },
+      { label: "година", value: "2025" },
+    ],
+    "budget-investments.png",
+  );
+
+  renderStaticPageCard(
+    "Социалните фондове (НОИ)",
+    "ДОО, Учителски пенсионен фонд и ФГВРС — не здравната каса",
+    [
+      { label: "собствени вноски", value: "52,4% от ДОО" },
+      { label: "трансфер", value: "5,89 млрд. €" },
+      { label: "основа", value: "касов отчет на НОИ" },
+      { label: "период", value: "по година" },
+    ],
+    "budget-social-funds.png",
+  );
+
+  renderStaticPageCard(
+    "Бюджетният процес",
+    "Кои ключови бюджетни документи са налични тук",
+    [
+      { label: "рамка", value: "8 документа" },
+      // „coverage of the site", never a score for the country — the page's
+      // own headline risk, so it leads the card too.
+      { label: "мери", value: "покритие тук" },
+      { label: "стандарт", value: "Open Budget Survey" },
+      { label: "обхват", value: "по година" },
+    ],
+    "budget-law.png",
+  );
+
+  renderStaticPageCard(
+    "Какво държавата изпраща на общините",
+    "Трансферите по чл. 53 — общо и на жител",
+    [
+      { label: "общини", value: "265" },
+      // Both bases on the card, because either alone is a different ranking:
+      // Столична leads on the total and is 9x behind per resident.
+      { label: "София", value: "564 €/жител" },
+      { label: "Трекляно", value: "5 028 €/жител" },
+      { label: "период", value: "2018–2026" },
+    ],
+    "budget-municipal.png",
+  );
+
+  renderStaticPageCard(
+    "ИПОП — общинската инвестиционна програма",
+    "Договорено срещу изплатено, проект по проект",
+    [
+      { label: "договорени", value: "2,98 млрд. €" },
+      { label: "изплатени", value: "0,99 млрд. €" },
+      { label: "проекти", value: "3 492" },
+      { label: "общини", value: "264" },
+    ],
+    "budget-municipal-investments.png",
+  );
+
+  renderStaticPageCard(
+    "Капиталовите програми на общините",
+    "Какво строят и с чии пари — по поименните списъци",
+    [
+      // Coverage first: every figure on that page is a sum over this set and
+      // never a national one.
+      { label: "обхванати", value: "24 от 265" },
+      { label: "за година", value: "2025" },
+      // The funding split — the reason this corpus is worth having — comes
+      // from a narrower set still, and the card must not imply all 24 report it.
+      { label: "с разрез по източник", value: "2 от 24" },
+      { label: "сбор", value: "не е национален" },
+    ],
+    "budget-municipal-capital.png",
+  );
+
   // /votes/between is a rendered card rather than a screenshot on purpose. It is
   // a PICKER whose body is the disagreements between two chosen groups, and the
   // corpus for the current parliament has none — so every framing of the live

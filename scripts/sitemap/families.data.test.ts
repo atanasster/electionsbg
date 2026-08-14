@@ -80,6 +80,22 @@ test("the sitemap names every gated family in both languages", () => {
     "no /pension-fund <loc> in the sitemap",
   );
   assert.ok(inFamily("/votes/").length > 0, "no /votes <loc> in the sitemap");
+  // NOT `inFamily("/budget/").length > 0` — that is satisfied by the dynamic
+  // /budget/ministry/* family alone (108 of the 144 budget <loc>s), so it would
+  // survive the loss of every one of the module's hand-listed sub-pages, which
+  // is exactly the regression the loop below documents. Count the STATIC ones.
+  const staticBudget = inFamily("/budget/").filter(
+    (p) => !p.includes("/budget/ministry/"),
+  );
+  // 36, not 38: the module routes 19 pages, but `inFamily` matches on the
+  // "/budget/" PREFIX, so the hub's own /budget and /en/budget are outside it.
+  // Counted as 38 this assertion fails on a perfectly correct sitemap.
+  assert.ok(
+    staticBudget.length >= 36,
+    `only ${staticBudget.length} static /budget/* <loc>s (expected 18 sub-pages x 2 ` +
+      "languages; the hub itself is not under the prefix) — route_defs.ts has lost " +
+      "entries, or the sitemap was minted before they landed",
+  );
   // The scored item pages, not just the 613 sitting pages. Their absence would mean the
   // shared reader stopped agreeing with the prerender.
   assert.ok(
@@ -101,6 +117,25 @@ for (const family of [
   "/pension-fund/",
   "/votes/",
   "/parliament/similarity/",
+  // /budget joins for a reason none of the others have: its <loc>s are hand-listed in
+  // route_defs.ts while the HTML comes from a separate `staticPage` entry in the
+  // prerender's own list, so the two sides are written in different files and nothing
+  // ties them. Every other family here is minted by ONE enumerator that feeds both.
+  //
+  // Measured 2026-08-14, and note WHICH way each half was broken, because they are
+  // different failures:
+  //
+  //   * LATENT — nine of the module's nineteen routed pages were in route_defs.ts with
+  //     no `staticPage` entry (/budget/law, /execution, /functional, /personnel,
+  //     /investments, /social-funds and the three /municipal*). The committed XML
+  //     predated those route_defs lines, so nothing was serving a soft-404 yet; the
+  //     next `npm run sitemap` would have published 18 <loc>s pointing at the SPA
+  //     shell — the homepage's title and canonical — at a 200.
+  //   * LIVE — the committed sitemap named
+  //     /budget/ministry/…-blago-ustroystvoto, a slug minted before a soft hyphen in
+  //     the 2019 budget law was fixed at source (5849c6cccd). That <loc> had no dist
+  //     file and was already being crawled. This gate is what found it.
+  "/budget/",
 ]) {
   test(`every ${family} <loc> has a dist/<path>/index.html`, (t) => {
     if (!haveDist) return t.skip();
