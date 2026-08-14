@@ -359,6 +359,88 @@ describe("parseDeclarationXml — declaration year end to end", () => {
   });
 });
 
+// The register switched form templates when Bulgaria adopted the euro on
+// 2026-01-01: the same column that read "Цена на придобиване /лв./" now reads
+// "/евро/". Tables 4-8 were never affected — they carry an explicit currency
+// CELL — but real estate, vehicles, securities and income state their unit ONLY
+// in the column header, and the parser hard-coded BGN. Every euro-template
+// filing therefore had those values divided by 1.95583.
+//
+// Measured when this was found (2026-08-14): 2,151 of 18,124 filings in the
+// 2026 register are on the euro template — 11,840 real-estate rows published at
+// EUR 129.8m against EUR 253.9m declared. It was invisible from inside: the
+// numbers were self-consistent, merely half. It surfaced only by checking our
+// EUR 4,230 for one car against the EUR 8,274 the press read off the same
+// filing.
+describe("form currency — the euro-template changeover", () => {
+  const vehicleForm = (
+    unit: "лв." | "евро",
+    price: string,
+  ): string => `<?xml version="1.0" encoding="UTF-8"?>
+<PublicPerson>
+  <Personal><Name>Тест Тестов Тестов</Name></Personal>
+  <DeclarationData><DeclarationType>Annualy</DeclarationType><Year>2025</Year></DeclarationData>
+  <Tables>
+    <Table Num="3" Description="Моторни сухопътни превозни средства" Declared="True">
+      <Row Num="1">
+        <Cell Num="1" Description="Ном. по ред">1.</Cell>
+        <Cell Num="2" Description="Вид на превозното средство">лек автомобил</Cell>
+        <Cell Num="3" Description="Марка на превозното средство">Шкода Октавия</Cell>
+        <Cell Num="4" Description="Цена на придобиване /${unit}/">${price}</Cell>
+        <Cell Num="5" Description="Година на придобиване">2025</Cell>
+        <Cell Num="6" Description="Име">Тест Тестов Тестов</Cell>
+      </Row>
+    </Table>
+  </Tables>
+</PublicPerson>`;
+
+  const vehicleOf = (xml: string) => {
+    const d = parseDeclarationXml({
+      xml,
+      mpId: 0,
+      institution: "Народно събрание",
+      sourceUrl: url("2026"),
+    });
+    return (d.assets ?? []).find((a) => a.category === "vehicle");
+  };
+
+  // THE regression, with the real numbers off Radev's two 2026 filings: the
+  // same car, declared 16000 on the lev form and 8274 on the euro one. Before
+  // the fix the euro row came out at EUR 4,230 — half — and the two documents
+  // disagreed by 2x about one vehicle.
+  it("reads a euro-denominated column as euro, not leva", () => {
+    const v = vehicleOf(vehicleForm("евро", "8274"));
+    expect(v?.currency).toBe("EUR");
+    expect(v?.amount).toBe(8274);
+    expect(Math.round(v?.valueEur ?? 0)).toBe(8274);
+  });
+
+  it("still reads a lev-denominated column at the locked peg", () => {
+    const v = vehicleOf(vehicleForm("лв.", "16000"));
+    expect(v?.currency).toBe("BGN");
+    expect(v?.amount).toBe(16000);
+    expect(Math.round(v?.valueEur ?? 0)).toBe(8181);
+  });
+
+  // The two filings describe one car. Agreement to within a few percent is the
+  // property that actually matters, and the one the bug destroyed.
+  it("values the same car consistently across the two templates", () => {
+    const euro = vehicleOf(vehicleForm("евро", "8274"))?.valueEur ?? 0;
+    const leva = vehicleOf(vehicleForm("лв.", "16000"))?.valueEur ?? 0;
+    expect(Math.abs(euro - leva) / leva).toBeLessThan(0.02);
+  });
+
+  // A form naming neither unit keeps the historical default. Every filing
+  // before 2018 is in this state, and so are the 1,247 of 18,124 in the 2026
+  // register whose tables are all empty.
+  it("defaults to leva when no header names a currency", () => {
+    const v = vehicleOf(
+      vehicleForm("лв.", "16000").replace("Цена на придобиване /лв./", "Цена"),
+    );
+    expect(v?.currency).toBe("BGN");
+  });
+});
+
 describe("pickEurValue — money-field separator typos", () => {
   // A bank/cash row: cell A (amount) and cell C (lev-equivalent) describe the
   // same sum, so they must agree up to the peg. A wildly larger equivalent is a

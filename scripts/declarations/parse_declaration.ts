@@ -328,6 +328,90 @@ const tableOf = (
   return t.length > 0 ? t : null;
 };
 
+/** The currency the form's money COLUMNS are denominated in.
+ *
+ *  ⚠️ THIS IS NOT ALWAYS BGN, and assuming it was is a defect that shipped.
+ *  Bulgaria adopted the euro on 2026-01-01, and register.cacbg.bg switched its
+ *  form template with it: the same column that used to read
+ *  `Цена на придобиване /лв./` now reads `Цена на придобиване /евро/`. Tables
+ *  4-8 (cash, bank, receivables …) were never affected because they carry an
+ *  explicit `Вид на валутата` CELL — but real estate, vehicles, securities and
+ *  income state their unit ONLY in the column header, and those were hard-coded
+ *  to "BGN". Every euro-template filing therefore had those values divided by
+ *  1.95583.
+ *
+ *  Measured on the 2026 register when this was found (2026-08-14): 2,151 of
+ *  18,124 filings use the euro template — 1,101 встъпителни and 1,041 финални,
+ *  but only 5 годишни, because the annual for 2025 is still a lev-denominated
+ *  form. So the damage was to the opening declarations of everyone seated after
+ *  the euro changeover: 11,840 real-estate rows published at €129.8m against
+ *  €253.9m declared, and 3,690 vehicle rows at €20.2m against €39.6m.
+ *
+ *  Found by checking our own €4,230 for Radev's Škoda against the €8,274 the
+ *  press reported from the same filing. The press was right. */
+export type FormCurrency = "BGN" | "EUR";
+
+// The unit as the register spells it in a column header. Tolerant of the
+// stray inner spacing the forms carry ("Цена на отчужда ването /лв./").
+const EURO_HEADER = /\/\s*евро\s*\//i;
+const LEVA_HEADER = /\/\s*лв\.?\s*\//i;
+// The "equivalent value" column flips with the template too ("Равностойност в
+// лв." → "в евро"), and it is the ONLY currency marker on a filing whose tables
+// are all money tables — those state their unit in a cell, not a header, so
+// they carry no /лв./ column at all. Measured on the 2026 corpus: this
+// identifies 133 euro forms the column headers alone miss, and matches ZERO
+// leva forms, so it is a safe one-way signal. Deliberately not mirrored for
+// leva: "лв" occurs in ordinary prose ("надвишава 10000 лв."), where matching
+// it would flip a euro form back by accident.
+const EURO_EQUIV_HEADER = /^Равностойност\s+в\s+евро/i;
+
+/** Which currencies a scope's column headers name. Both flags can be true on a
+ *  malformed form, which is why this returns the pair rather than a verdict. */
+const headerCurrencies = (
+  $: CheerioAPI,
+  scope: ReturnType<CheerioAPI>,
+): { euro: boolean; leva: boolean } => {
+  let euro = false;
+  let leva = false;
+  scope.find("[Description]").each((_, el) => {
+    const d = $(el).attr("Description") ?? "";
+    if (EURO_HEADER.test(d) || EURO_EQUIV_HEADER.test(d)) euro = true;
+    else if (LEVA_HEADER.test(d)) leva = true;
+  });
+  return { euro, leva };
+};
+
+/** The document's currency, from every column header in it.
+ *
+ *  BGN is the fallback for a form that names neither — pre-2018 filings, and
+ *  the 1,247 of 18,124 whose tables are all empty. It is the historical default
+ *  and the conservative direction: a form with no money columns has no value to
+ *  mis-convert. */
+export const documentFormCurrency = ($: CheerioAPI): FormCurrency => {
+  const { euro, leva } = headerCurrencies($, $.root());
+  if (euro && !leva) return "EUR";
+  return "BGN";
+};
+
+/** The currency for ONE table, preferring its own headers over the document's.
+ *
+ *  Per-table rather than per-document because the two disagreed on exactly one
+ *  filing in the 2026 corpus. That is rare enough to be a transcription slip
+ *  upstream and cheap enough to honour rather than average away. */
+const tableFormCurrency = (
+  $: CheerioAPI,
+  version: FormVersion,
+  logical: LogicalTable,
+  docCurrency: FormCurrency,
+): FormCurrency => {
+  const t = tableOf($, version, logical);
+  if (!t) return docCurrency;
+  const { euro, leva } = headerCurrencies($, t);
+  if (euro && !leva) return "EUR";
+  if (leva && !euro) return "BGN";
+  return docCurrency;
+};
+
 /** Non-empty rows of a logical table that the declarant actually filled in. */
 const rowsOfTable = (
   $: CheerioAPI,
@@ -346,6 +430,7 @@ const rowsOfTable = (
 const parseTable10Row = (
   row: ReturnType<CheerioAPI>,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpOwnershipStake => ({
   table: "10",
   // Table 10 is "Дялове в дружества с ограничена отговорност и командитни
@@ -356,8 +441,8 @@ const parseTable10Row = (
   shareSize: cellByNum(row, col(3)),
   companyName: cellByNum(row, col(4)),
   registeredOffice: cellByNum(row, col(5)),
-  // Cell 6 is the declared BGN value — convert to euros (locked peg).
-  valueEur: toEur(toNumber(cellByNum(row, col(6))), "BGN"),
+  // Cell 6 is the declared value in the FORM's currency — see FormCurrency.
+  valueEur: toEur(toNumber(cellByNum(row, col(6))), ccy),
   holderName: cellByNum(row, col(7)),
   legalBasis: cellByNum(row, col(9)),
   fundsOrigin: cellByNum(row, col(10)),
@@ -366,6 +451,7 @@ const parseTable10Row = (
 const parseTable11Row = (
   row: ReturnType<CheerioAPI>,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpOwnershipStake => ({
   table: "11",
   stakeKind: "share",
@@ -373,7 +459,7 @@ const parseTable11Row = (
   shareSize: cellByNum(row, col(3)),
   companyName: cellByNum(row, col(4)),
   registeredOffice: cellByNum(row, col(5)),
-  valueEur: toEur(toNumber(cellByNum(row, col(6))), "BGN"),
+  valueEur: toEur(toNumber(cellByNum(row, col(6))), ccy),
   holderName: null,
   transfereeName: cellByNum(row, col(7)),
   legalBasis: cellByNum(row, col(9)),
@@ -445,9 +531,13 @@ export const pickEurValue = (
   currency: string | null,
   bgnEquiv: number | null,
   pureMoney = false,
+  // The "Равностойност" column is denominated in the FORM's currency: leva
+  // before the changeover, euro after. Defaulted so the many call sites that
+  // predate the euro template keep their behaviour.
+  equivCurrency: FormCurrency = "BGN",
 ): number | null => {
   const fromEquiv =
-    bgnEquiv != null && bgnEquiv !== 0 ? toEur(bgnEquiv, "BGN") : null;
+    bgnEquiv != null && bgnEquiv !== 0 ? toEur(bgnEquiv, equivCurrency) : null;
   const fromAmount = toEur(amount, currency);
   if (fromEquiv == null) return fromAmount;
   if (
@@ -652,6 +742,7 @@ const parseTable1Row = (
   declarantName: string,
   sourceUrl: string,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpAsset => {
   const holder = cellByNum(row, col(8));
   const rawValue = toNumber(cellByNum(row, col(11)));
@@ -695,9 +786,9 @@ const parseTable1Row = (
     builtAreaSqm: toLooseNumber(cellByNum(row, col(6))),
     acquiredYear: toIntYear(cellByNum(row, col(7))),
     share: cellByNum(row, col(10)),
-    currency: value != null ? "BGN" : null,
+    currency: value != null ? ccy : null,
     amount: value,
-    valueEur: toEur(value, "BGN"),
+    valueEur: toEur(value, ccy),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, col(12)),
@@ -710,6 +801,7 @@ const parseTable3Row = (
   declarantName: string,
   sourceUrl: string,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpAsset => {
   const holder = cellByNum(row, col(6));
   const rawValue = toNumber(cellByNum(row, col(4)));
@@ -754,9 +846,9 @@ const parseTable3Row = (
     builtAreaSqm: null,
     acquiredYear,
     share: cellByNum(row, col(8)),
-    currency: value != null ? "BGN" : null,
+    currency: value != null ? ccy : null,
     amount: value,
-    valueEur: toEur(value, "BGN"),
+    valueEur: toEur(value, ccy),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, col(9)),
@@ -782,6 +874,7 @@ const parseMoneyRow = (
   category: MpAssetCategory,
   cells: MoneyCellMap,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpAsset => {
   const amount = toNumber(cellByNum(row, col(cells.amount)));
   const currency = cellByNum(row, col(cells.currency));
@@ -809,6 +902,7 @@ const parseMoneyRow = (
       currency,
       bgnEquiv,
       category === "bank" || category === "cash",
+      ccy,
     ),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
@@ -823,6 +917,7 @@ const parseTable9Row = (
   row: ReturnType<CheerioAPI>,
   declarantName: string,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpAsset => {
   const holder = cellByNum(row, col(8));
   const price = toNumber(cellByNum(row, col(7)));
@@ -836,9 +931,9 @@ const parseTable9Row = (
     builtAreaSqm: null,
     acquiredYear: null,
     share: cellByNum(row, col(3)), // count of securities — preserve raw text
-    currency: price != null ? "BGN" : null,
+    currency: price != null ? ccy : null,
     amount: price,
-    valueEur: toEur(price, "BGN"),
+    valueEur: toEur(price, ccy),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, col(10)),
@@ -897,6 +992,9 @@ const parseAssetTables = (
   version: FormVersion,
 ): MpAsset[] => {
   const out: MpAsset[] = [];
+  // The unit every header-only money column on this form is denominated in.
+  // Resolved per table below, with this as the fallback — see FormCurrency.
+  const docCcy = documentFormCurrency($);
 
   // Table 1 family — real estate. The cacbg form splits this into:
   //   1   = own real estate ("Право на собственост и ограничени вещни права")
@@ -908,8 +1006,9 @@ const parseAssetTables = (
   // estate and would inflate totals.
   for (const tn of ["realEstate", "agriLand", "foreignRealEstate"] as const) {
     const col = columnResolver(version, tn);
+    const ccy = tableFormCurrency($, version, tn, docCcy);
     for (const row of rowsOfTable($, version, tn)) {
-      out.push(parseTable1Row(row, declarantName, sourceUrl, col));
+      out.push(parseTable1Row(row, declarantName, sourceUrl, col, ccy));
     }
   }
 
@@ -929,8 +1028,9 @@ const parseAssetTables = (
     "foreignVehicles",
   ] as const) {
     const col = columnResolver(version, tn);
+    const ccy = tableFormCurrency($, version, tn, docCcy);
     for (const row of rowsOfTable($, version, tn)) {
-      out.push(parseTable3Row(row, declarantName, sourceUrl, col));
+      out.push(parseTable3Row(row, declarantName, sourceUrl, col, ccy));
     }
   }
 
@@ -950,6 +1050,7 @@ const parseAssetTables = (
           fundsOrigin: 7,
         },
         cashCol,
+        tableFormCurrency($, version, "cash", docCcy),
       ),
     );
   }
@@ -970,6 +1071,7 @@ const parseAssetTables = (
           fundsOrigin: 9,
         },
         bankCol,
+        tableFormCurrency($, version, "bank", docCcy),
       ),
     );
   }
@@ -991,6 +1093,7 @@ const parseAssetTables = (
           description: 2,
         },
         receivableCol,
+        tableFormCurrency($, version, "receivable", docCcy),
       ),
     );
   }
@@ -1012,6 +1115,7 @@ const parseAssetTables = (
           description: 2,
         },
         debtCol,
+        tableFormCurrency($, version, "debt", docCcy),
       ),
     );
   }
@@ -1032,6 +1136,7 @@ const parseAssetTables = (
           fundsOrigin: 9,
         },
         investmentCol,
+        tableFormCurrency($, version, "investment", docCcy),
       ),
     );
   }
@@ -1039,7 +1144,14 @@ const parseAssetTables = (
   // Table 9 — securities & financial instruments
   const securityCol = columnResolver(version, "security");
   for (const row of rowsOfTable($, version, "security")) {
-    out.push(parseTable9Row(row, declarantName, securityCol));
+    out.push(
+      parseTable9Row(
+        row,
+        declarantName,
+        securityCol,
+        tableFormCurrency($, version, "security", docCcy),
+      ),
+    );
   }
 
   return dedupeRealEstateRows(out, declarantName);
@@ -1048,12 +1160,14 @@ const parseAssetTables = (
 const parseIncomeRow = (
   row: ReturnType<CheerioAPI>,
   col: ColumnResolver,
+  ccy: FormCurrency,
 ): MpIncomeRecord => ({
   parent: row.attr("Parent") || null,
   category: cellByNum(row, col(2)),
-  // Income cells are declared in leva — convert to euros at the locked peg.
-  amountEurDeclarant: toEur(toNumber(cellByNum(row, col(3))), "BGN"),
-  amountEurSpouse: toEur(toNumber(cellByNum(row, col(4))), "BGN"),
+  // Income columns state their unit in the header only ("На декларатора /лв./"
+  // vs "/евро/"), so they follow the form's currency like the asset tables.
+  amountEurDeclarant: toEur(toNumber(cellByNum(row, col(3))), ccy),
+  amountEurSpouse: toEur(toNumber(cellByNum(row, col(4))), ccy),
 });
 
 // The register itself starts in 2005 (see MIN_PLAUSIBLE_YEAR in
@@ -1213,6 +1327,21 @@ const parseEventTables = (
 ): MpDeclarationEvent[] => {
   const out: MpDeclarationEvent[] = [];
   const rowsOf = (logical: LogicalTable) => rowsOfTable($, version, logical);
+  // Same header-only currency question as the asset tables — see FormCurrency.
+  const docCcy = documentFormCurrency($);
+  const propertyDisposalCcy = tableFormCurrency(
+    $,
+    version,
+    "propertyDisposal",
+    docCcy,
+  );
+  const vehicleDisposalCcy = tableFormCurrency(
+    $,
+    version,
+    "vehicleDisposal",
+    docCcy,
+  );
+  const guaranteeCcy = tableFormCurrency($, version, "guarantees", docCcy);
 
   // Table 2 — real estate transferred during the previous year.
   //
@@ -1245,8 +1374,8 @@ const parseEventTables = (
       municipality: cellByNum(row, propertyCol(4)),
       areaSqm,
       builtAreaSqm: toLooseNumber(cellByNum(row, propertyCol(6))),
-      currency: "BGN",
-      valueEur: toEur(corrected ?? rawValue, "BGN"),
+      currency: propertyDisposalCcy,
+      valueEur: toEur(corrected ?? rawValue, propertyDisposalCcy),
       legalBasis: cellByNum(row, propertyCol(11)),
     });
   }
@@ -1262,14 +1391,17 @@ const parseEventTables = (
       municipality: null,
       areaSqm: null,
       builtAreaSqm: null,
-      currency: "BGN",
-      valueEur: toEur(toNumber(cellByNum(row, vehicleCol(4))), "BGN"),
+      currency: vehicleDisposalCcy,
+      valueEur: toEur(
+        toNumber(cellByNum(row, vehicleCol(4))),
+        vehicleDisposalCcy,
+      ),
       legalBasis: cellByNum(row, vehicleCol(8)),
     });
   }
 
   // Table 13 — securities given / expenses made in the declarant's favour that
-  // they did not pay for. Amount is in leva; the form carries no currency cell.
+  // they did not pay for. No currency cell: the unit is the form's.
   const guaranteeCol = columnResolver(version, "guarantees");
   for (const row of rowsOf("guarantees")) {
     out.push({
@@ -1280,8 +1412,8 @@ const parseEventTables = (
       municipality: null,
       areaSqm: null,
       builtAreaSqm: null,
-      currency: "BGN",
-      valueEur: toEur(toNumber(cellByNum(row, guaranteeCol(3))), "BGN"),
+      currency: guaranteeCcy,
+      valueEur: toEur(toNumber(cellByNum(row, guaranteeCol(3))), guaranteeCcy),
       legalBasis: null,
     });
   }
@@ -1635,9 +1767,16 @@ export const parseDeclarationXml = ({
   }
 
   const version = detectFormVersion($);
+  // See FormCurrency: pre-2026 forms state these columns in leva, post-euro
+  // ones in euro, and nothing but the header says which.
+  const docCcy = documentFormCurrency($);
   const sharesCol = columnResolver(version, "shares");
   for (const row of rowsOfTable($, version, "shares")) {
-    const stake = parseTable10Row(row, sharesCol);
+    const stake = parseTable10Row(
+      row,
+      sharesCol,
+      tableFormCurrency($, version, "shares", docCcy),
+    );
     const k = dedupKey(stake);
     if (seen.has(k)) continue;
     seen.add(k);
@@ -1646,7 +1785,11 @@ export const parseDeclarationXml = ({
 
   const transferCol = columnResolver(version, "shareTransfer");
   for (const row of rowsOfTable($, version, "shareTransfer")) {
-    const stake = parseTable11Row(row, transferCol);
+    const stake = parseTable11Row(
+      row,
+      transferCol,
+      tableFormCurrency($, version, "shareTransfer", docCcy),
+    );
     const k = dedupKey(stake);
     if (seen.has(k)) continue;
     seen.add(k);
@@ -1662,8 +1805,9 @@ export const parseDeclarationXml = ({
   // the next form revision reintroduces exactly this class of bug.
   const income: MpIncomeRecord[] = [];
   const incomeCol = columnResolver(version, "income");
+  const incomeCcy = tableFormCurrency($, version, "income", docCcy);
   for (const row of rowsOfTable($, version, "income")) {
-    const rec = parseIncomeRow(row, incomeCol);
+    const rec = parseIncomeRow(row, incomeCol, incomeCcy);
     // Income table has many empty rows for unused categories; keep only
     // rows where at least one amount is set.
     if (rec.amountEurDeclarant != null || rec.amountEurSpouse != null) {
