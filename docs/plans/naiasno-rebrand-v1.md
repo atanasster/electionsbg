@@ -36,11 +36,37 @@ roughly half the prerendered surface, plus `llms-full.en.txt` for AI crawlers.
 | Registration friction | ID/company docs at a BG registrar | instant, any registrar |
 | Matches the FB-first, BG-language strategy | yes | yes |
 
-**Recommendation: `naiasno.bg` canonical, `naiasno.com` 301 → it — gated on one
-measurement.** Pull Search Console and check what share of clicks land on `/en/`
-paths. If EN is under ~5% of clicks, `.bg` is clearly right and the loss is noise. If
-EN is materially larger, flip the recommendation and make `.com` canonical with `.bg`
-redirecting to it.
+> ## ✅ D1 RESOLVED 2026-08-14 — `naiasno.bg` is canonical
+>
+> Measured from the 16-month Search Console export (`data-reports/seo-baseline-2026-08/`):
+>
+> | | clicks | share |
+> |---|---|---|
+> | **`/en/*` — the English mirror** | **45** | **0.69%** of ranked clicks (0.90% of impressions) |
+> | Bulgaria | 14,715 | 88.8% |
+> | everywhere else | 1,862 | 11.2% |
+>
+> The gate was "under ~5% and `.bg` is clearly right". It is **0.69%** — seven times
+> below the threshold. `naiasno.bg` is canonical; `naiasno.com` redirects to it.
+>
+> **The 11.2% from outside Bulgaria is not an argument for `.com`, and the data says
+> why.** It is Italy (270), Germany (263), Spain (241), the UK (212), Greece (78) — the
+> Bulgarian **diaspora**, searching in Bulgarian. The direct evidence: `/sections/IT`
+> (292 clicks) and `/sections/ES` (201) are the **#2 and #3 pages on the whole site**,
+> and a top query is „избирателни секции в италия". Bulgarians abroad looking up where
+> to vote, not an English-language international audience. A `.bg` ccTLD does bias
+> toward searchers *in* Bulgaria, so this cohort is a real second-order exposure — but
+> the queries are Bulgarian-language and country-specific, where language and query
+> signals dominate. **Watch Italy and Spain specifically after the flip.**
+>
+> **Separate finding, out of scope here:** at 0.69% of clicks, the English mirror is
+> roughly half of the ~248k prerendered files. Whether it earns that is worth asking on
+> its own, not as part of this migration.
+
+**Original gate, kept for the reasoning.** Pull Search Console and check what share of
+clicks land on `/en/` paths. If EN is under ~5% of clicks, `.bg` is clearly right and the
+loss is noise. If EN is materially larger, flip the recommendation and make `.com`
+canonical with `.bg` redirecting to it.
 
 **Rejected: splitting BG onto `.bg` and EN onto `.com`.** Cross-domain hreflang is a
 known footgun, it doubles the surface every sitemap/canonical/prerender gate has to
@@ -65,6 +91,54 @@ Not during an election period, and not in the week before a planned launch. The 
 ---
 
 ## 1. Step 0 — baseline, and why it blocks everything
+
+> ## ✅ DONE 2026-08-14 — `data-reports/seo-baseline-2026-08/`
+>
+> 16 months of Search Console, **2025-04-13 → 2026-08-12**: **16,577 clicks**,
+> **208,112 impressions**, CTR 7.97%. Saved as the raw export plus
+> `pages.csv`, `queries.csv`, `daily.csv`, `countries.csv` and
+> **`regression-urls.txt`** — the 1,000 ranked URLs with their clicks, which is the
+> list §7 step 14 replays against the old domain after the flip.
+>
+> **Traffic is far more concentrated than the 147k-URL surface suggests.** Three
+> families are 90% of ranked clicks:
+>
+> | family | clicks | share |
+> |---|---|---|
+> | `/candidate/*` | 3,679 | 56.6% |
+> | `/sections/*` | 1,130 | 17.4% |
+> | `/section/*` | 1,033 | 15.9% |
+> | `/` (homepage) | 361 | 5.6% |
+> | `/en/*` | 45 | 0.7% |
+>
+> Two consequences. The regression set that actually matters is small and named, so
+> flip-day verification is tractable rather than a 147k-URL crawl. And it confirms the
+> discovery gap independently: procurement, budget, funds and the rest of the broad-data
+> surface — the majority of the URLs — earn essentially no search clicks today. **The
+> migration is not risking that traffic, because it does not exist yet.**
+>
+> ### ⚠️ Timing — the curve is election-driven and currently decaying
+>
+> ```
+> 2026-02    275
+> 2026-03    962
+> 2026-04  1,743   ← 19 April 2026 election
+> 2026-05  3,196   ← peak
+> 2026-06  2,074
+> 2026-07  2,645
+> 2026-08  1,764   (partial month)
+> ```
+>
+> The site is on a post-election plateau that is **already falling**. That is the one
+> thing that makes a migration hard to judge: a flip during a natural decay produces a
+> decline that cannot be cleanly attributed, and the move gets blamed for it.
+>
+> There is no clean window, so pick the honest trade: **flip in the trough, not on the
+> way down and not during a recovery.** The absolute clicks at risk are smallest there,
+> and it buys the longest runway before the next election — which is the thing you most
+> want the migration to be finished and settled before. Compare against the *monthly*
+> table above rather than a week-over-week number; at these volumes weekly noise is
+> larger than any signal a migration would produce.
 
 **Nothing in §7 may start until this exists.** Without a baseline there is no way to
 tell a migration dip from ordinary seasonality, and the decision "roll back or wait"
@@ -331,12 +405,45 @@ Today `https://electionsbg.com` is a literal in at least these places:
 | `scripts/bucket_cors.json`, `scripts/gcs-cors.json` | **see below** |
 | `vite.config.ts`, `vite.config.ai.ts`, `ai/*` | build + AI app |
 
-**Introduce one exported constant with an environment override** (`SITE_ORIGIN`,
-defaulting to the current value) and have every one of the above read it. That is the
-"make the change easy, then make the easy change" step: it turns the flip into a
-one-line edit plus a rebuild, and — more importantly — turns a **rollback** into the
-same. Ship this refactor and deploy it while the value is still `electionsbg.com`, so it
-is proven to be a no-op before it carries any risk.
+> ## ✅ DONE 2026-08-14 — `src/lib/siteOrigin.ts` is the one definition
+>
+> `SITE_ORIGIN` now lives in `src/lib/siteOrigin.ts`, and everything under `scripts/`,
+> `src/` and `ai/` imports it — the `@/` alias is shared by all three, which is what
+> made one module reach all of them. Eleven separate literals became one.
+>
+> **The flip is now: edit that one line, run `npm run build`, deploy.**
+>
+> **Four copies cannot import it and keep their own**, because the alternative is worse:
+> `functions/site_origin.js` (a separate deploy package — bundling the app source into
+> the function deploy to save one string is a bad trade), `index.html`, `public/robots.txt`,
+> and the two GCS CORS JSONs.
+>
+> **`scripts/lib/siteOrigin.test.ts` is what makes that safe.** It reads all four and
+> fails when any disagrees. Mutation-checked: flipping the constant to `naiasno.bg`
+> turns it red on exactly those four, each naming the file and the value it still
+> carries — including the CORS config, which is the failure no SEO test can see.
+> So the flip-day procedure is *change the line, run the gate, fix what it names*.
+>
+> It also asserts no origin literal has crept back into the ten SEO-critical sources
+> (prerender, llms, sitemap, `SEO.tsx`, the two function files). Test **fixtures**
+> deliberately keep their literals — an expectation built from `SITE_ORIGIN` would be
+> tautological, and `functions/spa_page.test.js` passes URLs in as arguments anyway.
+>
+> **No environment override, deliberately.** The plan originally called for one; it buys
+> nothing. The origin is baked into ~248k prerendered files at build time, so both the
+> flip and the rollback need a full rebuild and redeploy regardless — an env var makes
+> neither faster than editing one line, and it adds a second source of truth the gate
+> cannot check.
+>
+> Not changed: `vite.config.ts`'s two dev-proxy targets. Those name where to proxy API
+> calls *during local dev*, which is a different concept from the site's canonical
+> origin, and they are already `VITE_*`-overridable.
+
+**Introduce one exported constant** (`SITE_ORIGIN`) and have every one of the above read
+it. That is the "make the change easy, then make the easy change" step: it turns the flip
+into a one-line edit plus a rebuild, and — more importantly — turns a **rollback** into
+the same. Ship this refactor and deploy it while the value is still `electionsbg.com`, so
+it is proven to be a no-op before it carries any risk.
 
 > ### ⚠️ The one that takes the site down, and no SEO test can see it
 >
