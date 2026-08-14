@@ -589,13 +589,86 @@ const fetchText = async (
 // walk pages 2…N. Without this the ingest only sees the most recent ~10
 // monthly resources, which silently truncates the КФП history to a few months
 // (and breaks the seasonal projection — no same-month prior-year anchor).
+/** A downloaded resource file: `egov-<uuid>.json.gz`. Deliberately strict, because
+ *  the same directory holds `law-*.html.gz`, `doklad-*.pdf` and the occasional
+ *  partial download, and counting one of those as a resource would inflate the
+ *  floor check below into a false alarm. */
+const EGOV_CACHE_ENTRY = /^egov-([0-9a-f-]{36})\.json\.gz$/i;
+
+/** The UUIDs already downloaded. Every resource is cached under its own uuid, so
+ *  the cache directory IS a resource list, just a possibly stale one. Sorted, so
+ *  the ingest's resource order never depends on `readdir`. */
+export const cachedEgovResourceUuids = (dir: string = CACHE_DIR): string[] =>
+  (fs.existsSync(dir) ? fs.readdirSync(dir) : [])
+    .map((f) => EGOV_CACHE_ENTRY.exec(f)?.[1])
+    .filter((u): u is string => !!u)
+    .sort();
+
+/** Why a live listing is not usable, or null when it is.
+ *
+ *  Pure and exported so the two silent failure modes can be tested without a
+ *  network: an ALL-OR-NOTHING break (zero uuids) and the likelier PARTIAL one —
+ *  if the `rpage` pagination strip stops matching, the walk collects page 1 alone,
+ *  about ten of ~300 monthly resources. That passes a `size === 0` check while
+ *  truncating the КФП history to a few months, and would then be preferred over a
+ *  cache that is strictly larger. The portal does not un-publish months, so a live
+ *  listing smaller than the cache is truncation rather than a retraction. */
+export const egovListingRefusal = (
+  liveCount: number,
+  cachedCount: number,
+): string | null => {
+  if (liveCount === 0)
+    return (
+      `egov budget dataset ${EGOV_DATASET_UUID} yielded zero resource UUIDs — ` +
+      `the page structure likely changed`
+    );
+  if (liveCount < cachedCount)
+    return (
+      `egov listing returned ${liveCount} uuid(s) but ${cachedCount} are already ` +
+      `cached in raw_data/budget/ — pagination likely broke; refusing to ` +
+      `truncate the КФП history. Re-run with --refresh-cache once the listing ` +
+      `is whole, or delete the stale cache entries if a resource was genuinely ` +
+      `withdrawn.`
+    );
+  return null;
+};
+
 export const fetchEgovResourceUuids = async (): Promise<string[]> => {
-  const firstHtml = await fetchText(EGOV_DATASET_URL);
-  if (!firstHtml) throw new Error("empty egov budget dataset page");
   const collect = (html: string): string[] =>
     Array.from(html.matchAll(/resourceView\/([0-9a-f-]{36})/gi)).map(
       (m) => m[1],
     );
+  // ⚠ THE ONLY UNCACHED CALL IN THE WHOLE INGEST. Every resource, every law
+  // document and every report is read from raw_data/budget/ when present — this
+  // discovery walk is not, so a data.egov.bg outage or a 403 blocks a run that
+  // needs no new bytes at all. That 403 is a standing condition rather than an
+  // incident: the portal refuses non-Bulgarian egress IPs, so a developer
+  // without a BG route cannot re-derive ANY budget artifact, including ones
+  // whose inputs are all on disk.
+  //
+  // So: fall back to the cache, and SAY SO LOUDLY. Never prefer it — a live
+  // listing is the only thing that can discover a NEW month, and a silent
+  // fallback would turn "the portal is down" into "no new data this month",
+  // which is the failure this repo's ingests are written to avoid.
+  let firstHtml: string | null;
+  try {
+    firstHtml = await fetchText(EGOV_DATASET_URL);
+  } catch (e) {
+    const cached = cachedEgovResourceUuids();
+    if (cached.length === 0) throw e;
+    console.warn(
+      `  ⚠ egov listing unreachable (${e instanceof Error ? e.message : e}) — ` +
+        `falling back to the ${cached.length} resource(s) already in ` +
+        `raw_data/budget/. NO NEW PERIOD CAN BE DISCOVERED THIS RUN; re-run ` +
+        `from a Bulgarian egress route to pick up a new month.`,
+    );
+    return cached;
+  }
+  // Deliberately OUTSIDE the catch. A 200 with an empty body is not an outage and
+  // not a 403 — it is the signature of a page-structure or CDN change, exactly the
+  // thing the cache must not paper over. Falling back here would turn "the portal
+  // changed shape" into a quiet, successful run.
+  if (!firstHtml) throw new Error("empty egov budget dataset page");
   const all = new Set<string>(collect(firstHtml));
   const pageNums = Array.from(firstHtml.matchAll(/[?&]rpage=(\d+)/g))
     .map((m) => parseInt(m[1], 10))
@@ -606,12 +679,11 @@ export const fetchEgovResourceUuids = async (): Promise<string[]> => {
     if (!html) continue;
     for (const uuid of collect(html)) all.add(uuid);
   }
-  if (all.size === 0) {
-    throw new Error(
-      `egov budget dataset ${EGOV_DATASET_UUID} yielded zero resource UUIDs — ` +
-        `the page structure likely changed`,
-    );
-  }
+  const refusal = egovListingRefusal(
+    all.size,
+    cachedEgovResourceUuids().length,
+  );
+  if (refusal) throw new Error(refusal);
   return [...all];
 };
 

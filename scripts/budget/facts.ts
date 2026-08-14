@@ -9,7 +9,8 @@
 // (merge drifted names, add ministry EIKs for the Phase 4 procurement link).
 
 import { createHash } from "crypto";
-import { slugify } from "./slug";
+import { slugify, stripInvisible } from "./slug";
+import { stripDefiniteArticle } from "../lib/normalize_name";
 import type { ParsedLawUnit } from "./law_html";
 import type {
   BudgetFact,
@@ -29,49 +30,49 @@ export const LAW_PROMULGATION: Record<number, string> = {
   2025: "2025-03-27", // ДВ бр. 26
 };
 
-// Bulgarian Cyrillic → Latin, for deriving a stable, human-readable node id.
-const TRANSLIT: Record<string, string> = {
-  а: "a",
-  б: "b",
-  в: "v",
-  г: "g",
-  д: "d",
-  е: "e",
-  ж: "zh",
-  з: "z",
-  и: "i",
-  й: "y",
-  к: "k",
-  л: "l",
-  м: "m",
-  н: "n",
-  о: "o",
-  п: "p",
-  р: "r",
-  с: "s",
-  т: "t",
-  у: "u",
-  ф: "f",
-  х: "h",
-  ц: "ts",
-  ч: "ch",
-  ш: "sh",
-  щ: "sht",
-  ъ: "a",
-  ь: "y",
-  ю: "yu",
-  я: "ya",
-};
+// One admin node id per spending-unit name. Delegates to the SHARED slugify —
+// this file used to carry its own copy of the transliteration table and the slug
+// body, which is why the soft-hyphen split documented in scripts/lib/slug.ts was a
+// two-site defect: fixing the shared helper alone repaired the PROGRAMME node ids
+// (they go through `slugify`) and left the ADMIN node — the МРРБ one, which orphans
+// FY2019 — still split.
+//
+// The one behavioural difference from the old local copy: a name that slugifies to
+// nothing yields `admin` rather than `admin-`. No unit name in the law is empty, and
+// a bare `admin-` was never a wanted id.
+const slugifyUnit = (name: string): string => slugify(name, "admin");
 
-const slugifyUnit = (name: string): string => {
-  const latin = [...name.toLowerCase()]
-    .map((ch) => TRANSLIT[ch] ?? ch)
-    .join("");
-  const slug = latin
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60);
-  return `admin-${slug}`;
+/** The name a node RENDERS under. `slugify` strips invisible marks from the
+ *  identity; this strips them from the label, so the two can never disagree about
+ *  what a unit is called. A node's `nameBg` is set from whichever spelling is seen
+ *  FIRST — years ascending, node created once — so today МРРБ reads cleanly only
+ *  because its earliest year (2018) happens to carry the clean spelling. Had the
+ *  soft-hyphen year come first, the ids would be right and the rendered name,
+ *  `UNIT_EN`'s lookup key and any future name-based join would all carry U+00AD.
+ *  `history[].sourceCode`/`sourceName` stay VERBATIM — those record what the
+ *  document literally said, which is exactly where the raw spelling belongs. */
+const displayName = (name: string): string => stripInvisible(name);
+
+/** The law parser strips the definite article from each spending unit's name
+ *  (law_html.ts → stripDefiniteArticle), so a `UNIT_EN` key written as
+ *  „Министерството на финансите" can never match the „Министерство на финансите"
+ *  that arrives. Measured before this: 6 of 54 admin nodes carried a `nameEn`, and
+ *  all 6 were the entries whose keys happen to survive the strip unchanged — every
+ *  ministry, МРРБ included, published `nameEn: ""`. It degrades to the Bulgarian
+ *  name on the frontend rather than breaking, which is why it went unnoticed.
+ *
+ *  Both sides are normalised through the parser's OWN rule rather than by guessing
+ *  the morphology here: the article is a suffix on the leading noun and differs by
+ *  gender („Министерството", „Агенцията", „Администрацията"), so a hand-written
+ *  „add -то" would fix the ministries and miss the rest. One rule, two callers. */
+const UNIT_EN_BY_STRIPPED = new Map<string, string>();
+const unitEn = (name: string): string => {
+  if (UNIT_EN_BY_STRIPPED.size === 0)
+    for (const [k, v] of Object.entries(UNIT_EN))
+      UNIT_EN_BY_STRIPPED.set(stripDefiniteArticle(k), v);
+  return (
+    UNIT_EN[name] ?? UNIT_EN_BY_STRIPPED.get(stripDefiniteArticle(name)) ?? ""
+  );
 };
 
 // Stable English label for the common first-level spending units. Anything
@@ -144,8 +145,8 @@ export const buildAdminRegistry = (
         node = {
           id,
           dimension: "admin",
-          nameBg: u.unitName,
-          nameEn: UNIT_EN[u.unitName] ?? "",
+          nameBg: displayName(u.unitName),
+          nameEn: unitEn(u.unitName),
           parentId: null,
           history: [],
         };
@@ -209,8 +210,6 @@ export const buildLawFacts = (
   );
 };
 
-export { slugifyUnit };
-
 // ---------------------------------------------------------------------------
 // Program grain — the policy-area / budget-program tables in the law.
 // ---------------------------------------------------------------------------
@@ -268,7 +267,7 @@ export const buildProgramData = (
           node = {
             id,
             dimension: "program",
-            nameBg: program.nameBg,
+            nameBg: displayName(program.nameBg),
             nameEn: "",
             parentId: ownerAdminId,
             ownerAdminId,

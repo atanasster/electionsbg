@@ -1,22 +1,7 @@
 {
   "dimension": "program",
-  "generatedAt": "2026-07-31T16:15:50.771Z",
+  "generatedAt": "2026-08-14T04:37:10.598Z",
   "nodes": [
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "3",
-          "sourceName": "Бюджетна програма „Администра­ция“"
-        }
-      ],
-      "id": "prog-byudzhetna-programa-administra-tsiya",
-      "nameBg": "Бюджетна програма „Администра­ция“",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-obrazovanieto-i-naukata",
-      "parentId": "admin-ministerstvo-na-obrazovanieto-i-naukata"
-    },
     {
       "dimension": "program",
       "history": [
@@ -666,6 +651,11 @@
           "sourceName": "Бюджетна програма „Администрация“"
         },
         {
+          "fiscalYear": 2019,
+          "sourceCode": "3",
+          "sourceName": "Бюджетна програма „Администра­ция“"
+        },
+        {
           "fiscalYear": 2020,
           "sourceCode": "3",
           "sourceName": "Бюджетна програма „Администрация“"
@@ -918,6 +908,9 @@
       "parentId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa"
     },
     {
+      "aliases": [
+        "Други бюджетни програми:"
+      ],
       "dimension": "program",
       "history": [
         {
@@ -1016,6 +1009,11 @@
           "sourceName": "Бюджетна програма „Ефективна администрация и координация“"
         },
         {
+          "fiscalYear": 2019,
+          "sourceCode": "5",
+          "sourceName": "Бюджетна програма „Ефективна администрация и координация“"
+        },
+        {
           "fiscalYear": 2020,
           "sourceCode": "5",
           "sourceName": "Бюджетна програма „Ефективна администрация и координация“"
@@ -1061,22 +1059,12 @@
       "dimension": "program",
       "history": [
         {
-          "fiscalYear": 2019,
-          "sourceCode": "5",
-          "sourceName": "Бюджетна програма „Ефективна администрация и координация“"
-        }
-      ],
-      "id": "prog-byudzhetna-programa-efektivna-administratsiya-i-koordinatsiy-2",
-      "nameBg": "Бюджетна програма „Ефективна администрация и координация“",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
           "fiscalYear": 2018,
+          "sourceCode": "4.1",
+          "sourceName": "Бюджетна програма „Ефективно управление на държавната собственост, държавното участие в търговските дружества и държавни предприятия и развитие на публично-частното партньорство и концесионирането“"
+        },
+        {
+          "fiscalYear": 2019,
           "sourceCode": "4.1",
           "sourceName": "Бюджетна програма „Ефективно управление на държавната собственост, държавното участие в търговските дружества и държавни предприятия и развитие на публично-частното партньорство и концесионирането“"
         },
@@ -1101,22 +1089,12 @@
       "dimension": "program",
       "history": [
         {
-          "fiscalYear": 2019,
-          "sourceCode": "4.1",
-          "sourceName": "Бюджетна програма „Ефективно управление на държавната собственост, държавното участие в търговските дружества и държавни предприятия и развитие на публично-частното партньорство и концесионирането“"
-        }
-      ],
-      "id": "prog-byudzhetna-programa-efektivno-upravlenie-na-darzhavnata-sobs-2",
-      "nameBg": "Бюджетна програма „Ефективно управление на държавната собственост, държавното участие в търговските дружества и държавни предприятия и развитие на публично-частното партньорство и концесионирането“",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
           "fiscalYear": 2018,
+          "sourceCode": "4.2",
+          "sourceName": "Бюджетна програма „Гражданска регистрация и административно обслужване на населението“"
+        },
+        {
+          "fiscalYear": 2019,
           "sourceCode": "4.2",
           "sourceName": "Бюджетна програма „Гражданска регистрация и административно обслужване на населението“"
         },
@@ -1138,21 +1116,9 @@
       "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"
     },
     {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "4.2",
-          "sourceName": "Бюджетна програма „Гражданска регистрация и административно обслужване на населението“"
-        }
+      "aliases": [
+        "Други бюджетни програми (общо), в т.ч.:"
       ],
-      "id": "prog-byudzhetna-programa-grazhdanska-registratsiya-i-administrati-2",
-      "nameBg": "Бюджетна програма „Гражданска регистрация и административно обслужване на населението“",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
-    },
-    {
       "dimension": "program",
       "history": [
         {
@@ -1301,176 +1267,6 @@
       "nameEn": "",
       "ownerAdminId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
       "parentId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2022,
-          "sourceCode": "3",
-          "sourceName": "Други бюджетни програми:"
-        },
-        {
-          "fiscalYear": 2023,
-          "sourceCode": "3",
-          "sourceName": "Други бюджетни програми:"
-        },
-        {
-          "fiscalYear": 2024,
-          "sourceCode": "3",
-          "sourceName": "Други бюджетни програми:"
-        },
-        {
-          "fiscalYear": 2025,
-          "sourceCode": "3",
-          "sourceName": "Други бюджетни програми:"
-        },
-        {
-          "fiscalYear": 2026,
-          "sourceCode": "3",
-          "sourceName": "Други бюджетни програми:"
-        }
-      ],
-      "id": "prog-drugi-byudzhetni-programi",
-      "nameBg": "Други бюджетни програми:",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
-      "parentId": "admin-ministerstvo-na-okolnata-sreda-i-vodite"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2018,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2020,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2021,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2022,
-          "sourceCode": "10",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2023,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2024,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2025,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2026,
-          "sourceCode": "7",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        }
-      ],
-      "id": "prog-drugi-byudzhetni-programi-obshto-v-t-ch",
-      "nameBg": "Други бюджетни програми (общо), в т.ч.:",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerskiya-savet",
-      "parentId": "admin-ministerskiya-savet"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2018,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2020,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2021,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2022,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2023,
-          "sourceCode": "5",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        }
-      ],
-      "id": "prog-drugi-byudzhetni-programi-obshto-v-t-ch-2",
-      "nameBg": "Други бюджетни програми (общо), в т.ч.:",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-finansite",
-      "parentId": "admin-ministerstvo-na-finansite"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2018,
-          "sourceCode": "4",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2020,
-          "sourceCode": "4",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2021,
-          "sourceCode": "4",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        }
-      ],
-      "id": "prog-drugi-byudzhetni-programi-obshto-v-t-ch-3",
-      "nameBg": "Други бюджетни програми (общо), в т.ч.:",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "4",
-          "sourceName": "Други бюджетни програми (общо), в т.ч.:"
-        }
-      ],
-      "id": "prog-drugi-byudzhetni-programi-obshto-v-t-ch-4",
-      "nameBg": "Други бюджетни програми (общо), в т.ч.:",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
     },
     {
       "dimension": "program",
@@ -1726,61 +1522,6 @@
       "nameEn": "",
       "ownerAdminId": "admin-ministerskiya-savet",
       "parentId": "admin-ministerskiya-savet"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2018,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2020,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2021,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2022,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2023,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2024,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2025,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        },
-        {
-          "fiscalYear": 2026,
-          "sourceCode": "1",
-          "sourceName": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:"
-        }
-      ],
-      "id": "prog-politika-v-oblastta-na-darzhavnite-rezervi-voennovremennite-",
-      "nameBg": "Политика в областта на държавните резерви, военновременните запаси и задължителните запаси от нефт и нефтопродукти (общо), в т.ч.:",
-      "nameEn": "",
-      "ownerAdminId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
-      "parentId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa"
     },
     {
       "dimension": "program",
@@ -2716,6 +2457,11 @@
           "sourceName": "Политика в областта на подобряване на инвестиционния процес чрез усъвършенстване на информационните системи на кадастъра и имотния регистър, подобряване качеството на превантивния и текущ контрол в строителството и на строителните продукти"
         },
         {
+          "fiscalYear": 2019,
+          "sourceCode": "3",
+          "sourceName": "Политика в областта на подобряване на инвестиционния процес чрез усъвършенстване на информационните системи на кадастъра и имотния регистър, подобряване качеството на превантивния и текущ контрол в строителството и на строителните продукти"
+        },
+        {
           "fiscalYear": 2020,
           "sourceCode": "3",
           "sourceName": "Политика в областта на подобряване на инвестиционния процес чрез усъвършенстване на информационните системи на кадастъра и имотния регистър, подобряване качеството на превантивния и текущ контрол в строителството и на строителните продукти"
@@ -2731,21 +2477,6 @@
       "nameEn": "",
       "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
       "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "3",
-          "sourceName": "Политика в областта на подобряване на инвестиционния процес чрез усъвършенстване на информационните системи на кадастъра и имотния регистър, подобряване качеството на превантивния и текущ контрол в строителството и на строителните продукти"
-        }
-      ],
-      "id": "prog-politika-v-oblastta-na-podobryavane-na-investitsionniya-prot-2",
-      "nameBg": "Политика в областта на подобряване на инвестиционния процес чрез усъвършенстване на информационните системи на кадастъра и имотния регистър, подобряване качеството на превантивния и текущ контрол в строителството и на строителните продукти",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
     },
     {
       "dimension": "program",
@@ -4671,6 +4402,11 @@
           "sourceName": "Политика за интегрирано развитие на регионите, ефективно и ефикасно използване на публичните финанси и финансовите инструменти за постигане на растеж и подобряване качеството на жизнената среда"
         },
         {
+          "fiscalYear": 2019,
+          "sourceCode": "1",
+          "sourceName": "Политика за интегрирано развитие на регионите, ефективно и ефикасно използване на публичните финанси и финансовите инструменти за постигане на растеж и подобряване качеството на жизнената среда"
+        },
+        {
           "fiscalYear": 2020,
           "sourceCode": "1",
           "sourceName": "Политика за интегрирано развитие на регионите, ефективно и ефикасно използване на публичните финанси и финансовите инструменти за постигане на растеж и подобряване качеството на жизнената среда"
@@ -4686,21 +4422,6 @@
       "nameEn": "",
       "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
       "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "1",
-          "sourceName": "Политика за интегрирано развитие на регионите, ефективно и ефикасно използване на публичните финанси и финансовите инструменти за постигане на растеж и подобряване качеството на жизнената среда"
-        }
-      ],
-      "id": "prog-politika-za-integrirano-razvitie-na-regionite-efektivno-i-ef-2",
-      "nameBg": "Политика за интегрирано развитие на регионите, ефективно и ефикасно използване на публичните финанси и финансовите инструменти за постигане на растеж и подобряване качеството на жизнената среда",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
     },
     {
       "dimension": "program",
@@ -4746,6 +4467,11 @@
           "sourceName": "Политика за поддържане, модернизация и изграждане на техническата инфраструктура, свързана с подобряване на транспортната достъпност и интегрираното управление на водните ресурси и геозащита"
         },
         {
+          "fiscalYear": 2019,
+          "sourceCode": "2",
+          "sourceName": "Политика за поддържане, модернизация и изграждане на техническата инфраструктура, свързана с подобряване на транспортната достъпност и интегрираното управление на водните ресурси и геозащита"
+        },
+        {
           "fiscalYear": 2020,
           "sourceCode": "2",
           "sourceName": "Политика за поддържане, модернизация и изграждане на техническата инфраструктура, свързана с подобряване на транспортната достъпност и интегрираното управление на водните ресурси и геозащита"
@@ -4761,21 +4487,6 @@
       "nameEn": "",
       "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
       "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"
-    },
-    {
-      "dimension": "program",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "2",
-          "sourceName": "Политика за поддържане, модернизация и изграждане на техническата инфраструктура, свързана с подобряване на транспортната достъпност и интегрираното управление на водните ресурси и геозащита"
-        }
-      ],
-      "id": "prog-politika-za-poddarzhane-modernizatsiya-i-izgrazhdane-na-tehn-2",
-      "nameBg": "Политика за поддържане, модернизация и изграждане на техническата инфраструктура, свързана с подобряване на транспортната достъпност и интегрираното управление на водните ресурси и геозащита",
-      "nameEn": "",
-      "ownerAdminId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "parentId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto"
     },
     {
       "dimension": "program",

@@ -1,6 +1,6 @@
 {
   "dimension": "admin",
-  "generatedAt": "2026-07-31T16:15:49.894Z",
+  "generatedAt": "2026-08-14T05:16:14.025Z",
   "nodes": [
     {
       "dimension": "admin",
@@ -54,7 +54,7 @@
       ],
       "id": "admin-administratsiya-na-prezidenta",
       "nameBg": "Администрация на президента",
-      "nameEn": "",
+      "nameEn": "Presidential Administration",
       "parentId": null
     },
     {
@@ -1066,7 +1066,7 @@
       ],
       "id": "admin-ministerstvo-na-elektronnoto-upravlenie",
       "nameBg": "Министерство на електронното управление",
-      "nameEn": "",
+      "nameEn": "Ministry of e-Governance",
       "parentId": null
     },
     {
@@ -1121,7 +1121,7 @@
       ],
       "id": "admin-ministerstvo-na-energetikata",
       "nameBg": "Министерство на енергетиката",
-      "nameEn": "",
+      "nameEn": "Ministry of Energy",
       "parentId": null
     },
     {
@@ -1176,7 +1176,7 @@
       ],
       "id": "admin-ministerstvo-na-finansite",
       "nameBg": "Министерство на финансите",
-      "nameEn": "",
+      "nameEn": "Ministry of Finance",
       "parentId": null
     },
     {
@@ -1235,7 +1235,7 @@
       ],
       "id": "admin-ministerstvo-na-ikonomikata-i-industriyata",
       "nameBg": "Министерство на икономиката и индустрията",
-      "nameEn": "",
+      "nameEn": "Ministry of Economy and Industry",
       "parentId": null
     },
     {
@@ -1279,7 +1279,7 @@
       ],
       "id": "admin-ministerstvo-na-inovatsiite-i-rastezha",
       "nameBg": "Министерство на иновациите и растежа",
-      "nameEn": "",
+      "nameEn": "Ministry of Innovation and Growth",
       "parentId": null
     },
     {
@@ -1334,7 +1334,7 @@
       ],
       "id": "admin-ministerstvo-na-kulturata",
       "nameBg": "Министерство на културата",
-      "nameEn": "",
+      "nameEn": "Ministry of Culture",
       "parentId": null
     },
     {
@@ -1389,7 +1389,7 @@
       ],
       "id": "admin-ministerstvo-na-mladezhta-i-sporta",
       "nameBg": "Министерство на младежта и спорта",
-      "nameEn": "",
+      "nameEn": "Ministry of Youth and Sports",
       "parentId": null
     },
     {
@@ -1444,7 +1444,7 @@
       ],
       "id": "admin-ministerstvo-na-obrazovanieto-i-naukata",
       "nameBg": "Министерство на образованието и науката",
-      "nameEn": "",
+      "nameEn": "Ministry of Education and Science",
       "parentId": null
     },
     {
@@ -1499,7 +1499,7 @@
       ],
       "id": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
       "nameBg": "Министерство на околната среда и водите",
-      "nameEn": "",
+      "nameEn": "Ministry of Environment and Water",
       "parentId": null
     },
     {
@@ -1554,7 +1554,7 @@
       ],
       "id": "admin-ministerstvo-na-otbranata",
       "nameBg": "Министерство на отбраната",
-      "nameEn": "",
+      "nameEn": "Ministry of Defence",
       "parentId": null
     },
     {
@@ -1609,21 +1609,7 @@
       ],
       "id": "admin-ministerstvo-na-pravosadieto",
       "nameBg": "Министерство на правосъдието",
-      "nameEn": "",
-      "parentId": null
-    },
-    {
-      "dimension": "admin",
-      "history": [
-        {
-          "fiscalYear": 2019,
-          "sourceCode": "Министерство на регионалното развитие и благо­устройството",
-          "sourceName": "Министерство на регионалното развитие и благо­устройството"
-        }
-      ],
-      "id": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
-      "nameBg": "Министерство на регионалното развитие и благо­устройството",
-      "nameEn": "",
+      "nameEn": "Ministry of Justice",
       "parentId": null
     },
     {
@@ -1634,6 +1620,11 @@
           "fiscalYear": 2018,
           "sourceCode": "Министерство на регионалното развитие и благоустройството",
           "sourceName": "Министерство на регионалното развитие и благоустройството"
+        },
+        {
+          "fiscalYear": 2019,
+          "sourceCode": "Министерство на регионалното развитие и благо­устройството",
+          "sourceName": "Министерство на регионалното развитие и благо­устройството"
         },
         {
           "fiscalYear": 2020,
@@ -1673,7 +1664,7 @@
       ],
       "id": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
       "nameBg": "Министерство на регионалното развитие и благоустройството",
-      "nameEn": "",
+      "nameEn": "Ministry of Regional Development and Public Works",
       "parentId": null
     },
     {
@@ -1708,7 +1699,7 @@
       ],
       "id": "admin-ministerstvo-na-transporta-i-saobshteniyata",
       "nameBg": "Министерство на транспорта и съобщенията",
-      "nameEn": "",
+      "nameEn": "Ministry of Transport and Communications",
       "parentId": null
     },
     {
@@ -1763,7 +1754,7 @@
       ],
       "id": "admin-ministerstvo-na-truda-i-sotsialnata-politika",
       "nameBg": "Министерство на труда и социалната политика",
-      "nameEn": "",
+      "nameEn": "Ministry of Labour and Social Policy",
       "parentId": null
     },
     {
@@ -1818,7 +1809,7 @@
       ],
       "id": "admin-ministerstvo-na-turizma",
       "nameBg": "Министерство на туризма",
-      "nameEn": "",
+      "nameEn": "Ministry of Tourism",
       "parentId": null
     },
     {
@@ -1873,7 +1864,7 @@
       ],
       "id": "admin-ministerstvo-na-vanshnite-raboti",
       "nameBg": "Министерство на външните работи",
-      "nameEn": "",
+      "nameEn": "Ministry of Foreign Affairs",
       "parentId": null
     },
     {
@@ -1928,7 +1919,7 @@
       ],
       "id": "admin-ministerstvo-na-vatreshnite-raboti",
       "nameBg": "Министерство на вътрешните работи",
-      "nameEn": "",
+      "nameEn": "Ministry of the Interior",
       "parentId": null
     },
     {
@@ -1983,7 +1974,7 @@
       ],
       "id": "admin-ministerstvo-na-zdraveopazvaneto",
       "nameBg": "Министерство на здравеопазването",
-      "nameEn": "",
+      "nameEn": "Ministry of Health",
       "parentId": null
     },
     {
@@ -1998,7 +1989,7 @@
       ],
       "id": "admin-ministerstvo-na-zemedelieto",
       "nameBg": "Министерство на земеделието",
-      "nameEn": "",
+      "nameEn": "Ministry of Agriculture",
       "parentId": null
     },
     {
@@ -2028,7 +2019,7 @@
       ],
       "id": "admin-ministerstvo-na-zemedelieto-i-hranite",
       "nameBg": "Министерство на земеделието и храните",
-      "nameEn": "",
+      "nameEn": "Ministry of Agriculture and Food",
       "parentId": null
     },
     {

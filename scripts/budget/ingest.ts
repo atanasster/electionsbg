@@ -1062,6 +1062,21 @@ const main = async (args: {
         `year(s):\n  ${municipalTransfersFailures.join("\n  ")}`,
     );
   }
+  // 4b. Prune orphan files from the regenerable shard dirs (a renamed node or
+  // a parser change can leave stale files behind — e.g. the old facts/law.json).
+  //
+  // ⚠ MINISTRIES_DIR IS PRUNED BEFORE buildAdminFlow(), NOT AFTER. That derivation
+  // reads the DIRECTORY rather than `ministryRollups`, so a retired node id is still
+  // a file on disk when it runs and the unit gets summed TWICE — once under each id.
+  // Measured 2026-08-14, when a slugify fix folded МРРБ's soft-hyphen node into the
+  // canonical one: FY2019's `plannedTotalEur` came out €4,991,621,668 against the
+  // true €4,727,440,425, over by exactly МРРБ's €264,181,243, with both nodes listed
+  // and every other year correct. Nothing failed; the file just shipped a unit twice.
+  let pruned = pruneDir(
+    MINISTRIES_DIR,
+    new Set(ministryRollups.map((r) => `${r.nodeId}.json`)),
+  );
+
   // Aggregated admin-grain spending flow — input for the admin view of the
   // budget-flow графика. Read from the just-written ministry rollup files so
   // it stays a one-shot derivation (no need to thread the rollups through).
@@ -1072,12 +1087,6 @@ const main = async (args: {
   // Single committed file; the frontend reads it via React Query.
   if (writeIfChanged(PERSONNEL_FILE, canonicalJson(personnel.file))) touched++;
 
-  // 4b. Prune orphan files from the regenerable shard dirs (a renamed node or
-  // a parser change can leave stale files behind — e.g. the old facts/law.json).
-  let pruned = pruneDir(
-    MINISTRIES_DIR,
-    new Set(ministryRollups.map((r) => `${r.nodeId}.json`)),
-  );
   const FACT_FILES = new Set(["admin.json", "economic.json", "program.json"]);
   const RECON_FILES = new Set([
     "by-admin.json",
