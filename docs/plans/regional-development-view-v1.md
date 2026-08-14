@@ -10,6 +10,14 @@ marked EXTERNAL.
 Shipped across 5 reviewed commits; **full `npm run build` passes** (data:map + `tsc -b` + vite +
 prerender of 62,220 routes), `eslint` clean, **AI regression 871/871**.
 
+> **Superseded 2026-08-14 — the governors roster is 28, not 27.** Every „27 областни
+> администрации" below is the roster as first curated, by MEASURING `contracts.awarder_eik`;
+> that method can only find a governor which has already awarded something, so Търговище
+> (БУЛСТАТ 125043455, still at zero contracts) was silently absent and the page asserted a
+> complete roster of 27 beside a convergence tile counting 28 oblasti. The set is now one
+> per oblast. ⚠ NOT every `27` here is stale: §the convergence scatter drops Sofia, so
+> „27 oblasts" there is 28 − 1 and is correct.
+
 | Phase | Commit | Delivered |
 |---|---|---|
 | 0 — config | `53e353001` | `regionalReferenceData.ts` (МРРБ + АГКК + ДНСК + 27 governors), new **`iris`** accent token (shipped as `iris` — `fern` collided with МОСВ's green, see below), `SECTOR_DASHBOARDS`/`sectorRegistry`(infra)/`SECTOR_SCENES`/`SECTOR_BROWSE_PACKS`, **budget-basis** hub headline (C1), bilingual SEO prerender copy, i18n |

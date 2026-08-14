@@ -2,9 +2,16 @@
 // the regional-development sector pack, mirroring src/lib/transportReferenceData.ts
 // / securityReferenceData.ts (a TS constant, not a generated crosswalk). The МРРБ
 // group: the ministry (principal owner) + the cadastre agency (АГКК), the national
-// building-control directorate (ДНСК), and the 27 областни администрации (regional
+// building-control directorate (ДНСК), and all 28 областни администрации (regional
 // governors, МРРБ-supervised — they give the per-oblast geography the choropleth
 // hero needs).
+//
+// ⚠ 28, ONE PER OBLAST — never "however many appear in the corpus". The set was
+// first curated by measuring `contracts.awarder_eik`, which finds a governor only
+// once it has awarded something, so Търговище (still at zero) was silently absent
+// and the dashboard asserted a complete roster of 27 next to a convergence tile
+// counting 28 oblasti. A zero-€ member costs nothing and is the difference between
+// a list of spenders and a list of institutions.
 //
 // ⚠ ROADS (АПИ) AND WATER (ВиК) ARE SEPARATE SECTORS. Агенция „Пътна
 // инфраструктура" (000695089, ~€6.33bn — ~63× the whole МРРБ group) lives in
@@ -42,17 +49,28 @@ export type RegionalUniverse =
   | "ministry" // Министерство на регионалното развитие и благоустройството (централа)
   | "cadastre" // Агенция по геодезия, картография и кадастър (АГКК)
   | "control" // Дирекция за национален строителен контрол (ДНСК)
-  | "governors"; // 27 × Областна администрация (regional governors)
+  | "governors"; // 28 × Областна администрация (regional governors)
 
 export interface RegionalEntity {
   eik: string;
   /** Canonical Bulgarian label (corpus carries spelling variants per EIK). */
   name: string;
   universe: RegionalUniverse;
-  /** For the 27 governors: the canonical oblast code (featureToCanon bucket) the
+  /** For the 28 governors: the canonical oblast code (featureToCanon bucket) the
    *  entity maps to — the OblastChoropleth / regional.json join key. Sofia city →
    *  SOFIA_CITY, Софийска област → SFO, Пловдив → PDV. Undefined for HQ/cadastre/control. */
   oblastCode?: string;
+  /** No `/awarder/:eik` page to land on. `institution_identity()` returns NULL for
+   *  an EIK with no contracts on either side and no `fund_beneficiaries` row, and
+   *  an областна администрация is a БУЛСТАТ registration so there is no
+   *  `tr_companies` row either — the page then renders „Няма фирма с ЕИК … в
+   *  базата.". Such a member stays in the awarders tile (the roster is the point)
+   *  but must NOT be a search destination: every row the members search offers has
+   *  to land. Same treatment as НФЦ in CultureSearchBox, and the flag RETIRES
+   *  ITSELF — sector_members_land.data.test.ts fails in both directions, so the
+   *  first contract this body awards turns the flag into a failure rather than
+   *  into an institution quietly hidden from search. */
+  noAwarderPage?: boolean;
 }
 
 // One row per distinct EIK, parent first. АПИ (roads) and ВиК (water) are
@@ -64,7 +82,7 @@ export const REGIONAL_ENTITIES: RegionalEntity[] = [
   { eik: "130362903", name: "Агенция по геодезия, картография и кадастър (АГКК)", universe: "cadastre" }, // prettier-ignore
   { eik: "130008993", name: "Дирекция за национален строителен контрол (ДНСК)", universe: "control" }, // prettier-ignore
 
-  // 27 × Областна администрация (regional governors) — parent МРРБ, the per-oblast
+  // 28 × Областна администрация (regional governors) — parent МРРБ, the per-oblast
   // backbone. oblastCode = the canonical featureToCanon bucket (choropleth join).
   { eik: "000093360", name: "Областна администрация — област Варна", universe: "governors", oblastCode: "VAR" }, // prettier-ignore
   { eik: "000056757", name: "Областна администрация — област Бургас", universe: "governors", oblastCode: "BGS" }, // prettier-ignore
@@ -93,7 +111,24 @@ export const REGIONAL_ENTITIES: RegionalEntity[] = [
   { eik: "118039613", name: "Областна администрация — област Силистра", universe: "governors", oblastCode: "SLS" }, // prettier-ignore
   { eik: "127070650", name: "Областна администрация — област Шумен", universe: "governors", oblastCode: "SHU" }, // prettier-ignore
   { eik: "119101402", name: "Областна администрация — област Сливен", universe: "governors", oblastCode: "SLV" }, // prettier-ignore
+  // ⚠ ZERO FOOTPRINT IN EVERY CORPUS — 0 contracts either side, no
+  // `fund_beneficiaries` row, no ТР row (an областна администрация is a БУЛСТАТ
+  // registration) — which is both why the corpus-measured curation could not see it
+  // and why it carries `noAwarderPage`. БУЛСТАТ 125043455 is published by the
+  // administration itself (tg.government.bg → „Данни за фактуриране"), the only
+  // source that can confirm it. It contributes €0 to every figure today and captures
+  // the first contract it ever awards.
+  { eik: "125043455", name: "Областна администрация — област Търговище", universe: "governors", oblastCode: "TGV", noAwarderPage: true }, // prettier-ignore
 ];
+
+/** How many областни администрации the roster holds — DERIVED, never typed into a
+ *  sentence. The count appears in prose on nine surfaces in two languages, and a
+ *  hand-written one desynced the moment the 28th governor landed: the Bulgarian
+ *  half of two bilingual pairs was updated and the English half was not, so the
+ *  site stated 27 and 28 for the same roster depending on the language. */
+export const REGIONAL_GOVERNOR_COUNT = REGIONAL_ENTITIES.filter(
+  (e) => e.universe === "governors",
+).length;
 
 const ENTITY_BY_EIK: Record<string, RegionalEntity> = Object.fromEntries(
   REGIONAL_ENTITIES.map((e) => [e.eik, e]),

@@ -1,5 +1,5 @@
-// The member finder for a group sector — МВР's 73 structures, МРРБ's 30, МОСВ's
-// 27, МТС's 11.
+// The member finder for a group sector — МВР's 74 structures, МРРБ's 31, МОСВ's
+// 28, МТС's 15.
 //
 // These render as an undifferentiated chip cloud in SectorAwardersTile: 73 chips
 // is a wall, not a list, and a reader looking for their own ОДМВР or РИОСВ has

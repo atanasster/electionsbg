@@ -10,7 +10,7 @@
 // construction & благоустройство (45), design/engineering/supervision (71 — the
 // ДНСК building-control + МРРБ проектиране core, and geodetic surveying 71.35),
 // maintenance (50), administrative/consulting/facility services (the regional-office
-// operations of the 27 governors), supplies/materials, fuel & utilities. Contracts
+// operations of the 28 governors), supplies/materials, fuel & utilities. Contracts
 // with no CPV fall to the "other" sink.
 
 import type { ProcurementContract } from "@/data/dataTypes";
@@ -56,7 +56,7 @@ export const categoryOfCpv = (cpv: string | undefined): RegionalCategory => {
   if (div === "50") return "maintenance";
   // Administrative, legal, consulting, cleaning/facility & business services
   // (79 business, 75 public admin, 90 cleaning/environmental, 98 other) — the
-  // regional-office operations of the 27 областни администрации.
+  // regional-office operations of the 28 областни администрации.
   if (startsWithAny(div, ["79", "75", "90", "98", "85"]))
     return "admin_services";
   // Construction materials (44), office supplies (30 already caught above → keep

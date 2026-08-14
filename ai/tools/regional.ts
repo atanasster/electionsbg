@@ -3,7 +3,7 @@
 // its own tenders, the rest leaving as capital transfers + EU-cohesion co-financing. So the
 // tools follow the money:
 //
-//   mrrbSpending        — the МРРБ group procurement (ministry + АГКК + ДНСК + 27 governors)
+//   mrrbSpending        — the МРРБ group procurement (ministry + АГКК + ДНСК + 28 governors)
 //                         by function + competition, the chat analog of the pack's tiles.
 //   cohesionAbsorption  — the two МРРБ regional OPs (ОПРР „Региони в растеж“ 2014-20 vs
 //                         „Развитие на регионите“ 2021-27): contracted / paid / absorption %,
@@ -99,8 +99,8 @@ export const mrrbSpending = async (
         ? `${topCon.name} (${fmtEurCompact(topCon.totalEur, ctx.lang)})`
         : "—",
       note: bg
-        ? "Това са само обществените поръчки на групата на МРРБ (министерство + АГКК + ДНСК + 27 областни администрации). Пътищата (АПИ, ~€6,3 млрд.) и ВиК са отделни сектори и не са тук."
-        : "This is only the МРРБ group's procurement (ministry + АГКК + ДНСК + 27 regional governors). Roads (АПИ, ~€6.3bn) and water (ВиК) are separate sectors and are not here.",
+        ? "Това са само обществените поръчки на групата на МРРБ (министерство + АГКК + ДНСК + 28 областни администрации). Пътищата (АПИ, ~€6,3 млрд.) и ВиК са отделни сектори и не са тук."
+        : "This is only the МРРБ group's procurement (ministry + АГКК + ДНСК + 28 regional governors). Roads (АПИ, ~€6.3bn) and water (ВиК) are separate sectors and are not here.",
     },
     provenance: ["db:awarder-group-model"],
   };

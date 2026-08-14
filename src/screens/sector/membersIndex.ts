@@ -11,7 +11,7 @@ import type { SectorDashboardConfig } from "./sectorDashboards";
  *  guessable full names.
  *
  *  ⚠ Energy DID grow, and this is what that looked like. The counts are now
- *  74 / 30 / 27 / 11 / 10 / 6 / 1×8: adding ДП РАО (2026-08-13) took energy from
+ *  74 / 31 / 28 / 15 / 10 / 6 / 1×8: adding ДП РАО (2026-08-13) took energy from
  *  9 to 10, so it crossed the floor and got a box for free — precisely the
  *  auto-mount this exists for (МВР went from a handful to 74). Its roster is the
  *  same shape as МТС's, acronyms a reader types (АЕЦ, ЕСО, НЕК, ДП РАО) behind
@@ -36,7 +36,11 @@ export const buildMembersIndex = (
   bg: boolean,
 ) =>
   buildEntityIndex(
-    members,
+    // RULE 1 — every row must LAND. A member with no servable /awarder page is a
+    // search result that dead-ends, so it is excluded here while staying in the
+    // awarders tile, which reads `config.members` directly. See SectorMember's
+    // `noAwarderPage` for why a member can be in that state and what retires it.
+    members.filter((m) => !m.noAwarderPage),
     (m) => ({
       id: m.eik,
       label: bg ? m.name.bg : m.name.en,

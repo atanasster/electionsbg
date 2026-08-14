@@ -43,6 +43,42 @@ describe("buildMembersIndex", () => {
     for (const r of idx.rows) expect(r.href).toBe(`/awarder/${r.id}`);
   });
 
+  it("keeps a member with no awarder page OUT of the index — rule 1", () => {
+    // The rule above was stated in this header and asserted nowhere: the
+    // existing `href` test only checks the link's SHAPE, not that its
+    // destination is servable, which is how a dead-end row shipped. Търговище is
+    // the live case — a БУЛСТАТ body with zero contracts either side, so
+    // `institution_identity()` is NULL and /awarder/125043455 renders "Няма
+    // фирма с ЕИК … в базата.".
+    const idx = buildMembersIndex(
+      [
+        ...members,
+        {
+          eik: "125043455",
+          name: {
+            bg: "Областна администрация — област Търговище",
+            en: "Областна администрация — област Търговище",
+          },
+          noAwarderPage: true,
+        },
+      ],
+      true,
+    );
+    expect(searchIndex(idx, "търговище")).toEqual([]);
+    // …and it did not take the rest of the roster with it.
+    expect(searchIndex(idx, "варна")).toHaveLength(2);
+  });
+
+  it("still lists that member in the awarders tile — the roster is the point", () => {
+    // The tile reads `config.members` directly rather than the index, so
+    // excluding a row from SEARCH must not remove it from the ROSTER. That
+    // separation is the whole reason the flag lives on the member instead of
+    // the row being deleted (НФЦ precedent, CultureSearchBox).
+    expect(SECTOR_DASHBOARDS.regional.members.map((m) => m.eik)).toContain(
+      "125043455",
+    );
+  });
+
   it("renders the reader's language", () => {
     expect(buildMembersIndex(members, false).rows[0].label).toBe(
       "ОДМВР — Varna",

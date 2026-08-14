@@ -2391,8 +2391,8 @@ export const TOOLS: ToolDef[] = [
     name: "mrrbSpending",
     domain: "fiscal",
     description: {
-      bg: "Обществените поръчки на групата на МРРБ (министерството, Агенцията по кадастър АГКК, ДНСК и 27-те областни администрации) по функция и конкуренция. Поръчките са ~€100 млн. — тънка част от ~€1,06 млрд. бюджет; останалото са трансфери и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.",
-      en: "The МРРБ group's procurement (the ministry, the cadastre agency АГКК, ДНСК and the 27 regional governors) by function and competition. Procurement is ~€100M — a thin slice of the ~€1.06bn budget; the rest is transfers and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.",
+      bg: "Обществените поръчки на групата на МРРБ (министерството, Агенцията по кадастър АГКК, ДНСК и 28-те областни администрации) по функция и конкуренция. Поръчките са ~€100 млн. — тънка част от ~€1,06 млрд. бюджет; останалото са трансфери и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.",
+      en: "The МРРБ group's procurement (the ministry, the cadastre agency АГКК, ДНСК and the 28 regional governors) by function and competition. Procurement is ~€100M — a thin slice of the ~€1.06bn budget; the rest is transfers and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.",
     },
     params: [],
     examples: [

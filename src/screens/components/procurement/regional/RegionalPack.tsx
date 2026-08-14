@@ -37,6 +37,7 @@ import {
 } from "@/lib/regionalAttributes";
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
+  REGIONAL_GOVERNOR_COUNT,
   REGIONAL_UNIVERSES,
   regionalUniverseLabel,
   type RegionalUniverse,
@@ -322,8 +323,11 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         groupOf={{ bg: "групата на МРРБ", en: "the МРРБ group" }}
         totalEur={groupTotalEur}
         detail={{
-          bg: "министерството, АГКК (кадастър), ДНСК (строителен контрол) и 27-те областни администрации",
-          en: "the ministry, АГКК (cadastre), ДНСК (building control) and the 27 regional-governor administrations",
+          // Both halves interpolate REGIONAL_GOVERNOR_COUNT. Typed by hand they
+          // desync: the bg line was updated to 28 and this en line stayed at 27,
+          // so the same footnote stated two roster sizes by language.
+          bg: `министерството, АГКК (кадастър), ДНСК (строителен контрол) и ${REGIONAL_GOVERNOR_COUNT}-те областни администрации`,
+          en: `the ministry, АГКК (cadastre), ДНСК (building control) and the ${REGIONAL_GOVERNOR_COUNT} regional-governor administrations`,
         }}
         excludes={{
           bg: "Пътищата (АПИ) и ВиК са отделни сектори и не са включени.",

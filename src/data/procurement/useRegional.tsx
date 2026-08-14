@@ -5,13 +5,13 @@
 //
 // CONSOLIDATED GROUP — Министерство на регионалното развитие и благоустройството
 // (831661388) is the principal of a group that also awards ЗОП through the cadastre
-// agency (АГКК), the building-control directorate (ДНСК) and the 27 областни
+// agency (АГКК), the building-control directorate (ДНСК) and the 28 областни
 // администрации (regional governors). A pack mounted on the ministry that reported
 // only the central EIK would understate the group (~€100M vs ~€213M), so on the
 // ministry's page we aggregate parent + every subordinate. Mounted on any other EIK
 // it stands alone.
 //
-// UNIVERSE FILTER — cadastre (АГКК) rivals the ministry, and the 27 governors are a
+// UNIVERSE FILTER — cadastre (АГКК) rivals the ministry, and the 28 governors are a
 // confound (regional-office operations, not МРРБ HQ procurement), so the pack lets the
 // reader isolate a universe (ministry / cadastre / control / governors). The active-
 // universe model is its own (cached) group-model call over that EIK subset; the whole-

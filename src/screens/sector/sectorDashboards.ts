@@ -55,6 +55,18 @@ export interface SectorMember {
   name: { bg: string; en: string };
   /** Optional sub-group label key for the awarders tile (e.g. defense universes). */
   group?: { bg: string; en: string };
+  /** This member has no servable `/awarder/:eik` page, so it is listed in the
+   *  awarders tile but kept OUT of the members search — every row the search
+   *  offers has to land somewhere (membersIndex.test.ts rule 1). The live case is
+   *  a БУЛСТАТ body with a zero procurement footprint: `institution_identity()`
+   *  returns NULL, there is no `tr_companies` row, and the page renders „Няма
+   *  фирма с ЕИК … в базата.". НФЦ is the precedent (CultureSearchBox).
+   *
+   *  ⚠ It must come OFF the moment the body awards its first contract, or a live
+   *  institution stays hidden from search for no reason — which nobody would
+   *  notice. `sector_members_land.data.test.ts` asserts the flag in BOTH
+   *  directions against the corpus, so the flag retires itself. */
+  noAwarderPage?: boolean;
 }
 
 export interface SectorDashboardConfig {
@@ -188,7 +200,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   // Регионално развитие — the МРРБ group: the ministry (pass-through principal —
   // it controls ~€1.06bn/year but procures only ~€100M; the rest leaves as capital
   // transfers to municipalities + EU-cohesion co-financing), the cadastre agency
-  // (АГКК), the building-control directorate (ДНСК) and the 27 областни
+  // (АГКК), the building-control directorate (ДНСК) and the 28 областни
   // администрации (regional governors — the per-oblast backbone). МРРБ leads; its
   // /awarder page renders the RegionalPack (registered under REGIONAL_EIK), and so
   // does this dashboard. ⚠ ROADS (АПИ) and WATER (ВиК) are SEPARATE sectors
@@ -206,6 +218,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       eik: e.eik,
       name: { bg: e.name, en: e.name },
       group: REGIONAL_UNIVERSE_LABEL[e.universe],
+      noAwarderPage: e.noAwarderPage,
     })),
   },
   // Социално подпомагане — the МТСП/АСП state social group: the ministry (policy

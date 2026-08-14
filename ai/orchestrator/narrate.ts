@@ -399,8 +399,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
     case "mrrbSpending":
       if (!env.facts.total_value) return env.title;
       return lang === "bg"
-        ? `Групата на МРРБ (министерство, АГКК, ДНСК, 27 областни администрации) е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора. Водеща функция: ${f(env, "top_function")}. Но това е тънка част от ~€1,06 млрд. бюджет — останалото са трансфери към общините и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.`
-        : `The МРРБ group (ministry, АГКК, ДНСК, 27 regional governors) has awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts. Top function: ${f(env, "top_function")}. But this is a thin slice of the ~€1.06bn budget — the rest is transfers to municipalities and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.`;
+        ? `Групата на МРРБ (министерство, АГКК, ДНСК, 28 областни администрации) е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора. Водеща функция: ${f(env, "top_function")}. Но това е тънка част от ~€1,06 млрд. бюджет — останалото са трансфери към общините и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.`
+        : `The МРРБ group (ministry, АГКК, ДНСК, 28 regional governors) has awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts. Top function: ${f(env, "top_function")}. But this is a thin slice of the ~€1.06bn budget — the rest is transfers to municipalities and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.`;
     case "cohesionAbsorption":
       if (!env.facts.opr_absorption) return env.title;
       return lang === "bg"

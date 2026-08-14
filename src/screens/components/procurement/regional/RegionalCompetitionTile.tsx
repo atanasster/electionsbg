@@ -5,7 +5,7 @@
 //
 // FRAMING: single-bid is a RISK SIGNAL, not a verdict — some МРРБ procurement is
 // legitimately sole-source (proprietary cadastre software, specialised geodesy). The
-// 27 regional-governor administrations, small buyers, are where local single-bid
+// 28 regional-governor administrations, small buyers, are where local single-bid
 // patterns tend to surface. "Worth a look."
 
 import { FC } from "react";
