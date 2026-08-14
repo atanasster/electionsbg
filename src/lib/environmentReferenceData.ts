@@ -2,8 +2,9 @@
 // environment sector pack, mirroring src/lib/transportReferenceData.ts /
 // securityReferenceData.ts (a TS constant, not a generated crosswalk). The МОСВ
 // system: the ministry (principal owner) + ИАОС (the air/monitoring agency) + the
-// ПУДООС environment fund + the 3 national-park directorates + НИМХ (meteo) + the 4
-// river-basin directorates + the 16 РИОСВ regional inspectorates.
+// ПУДООС environment fund + НДЕФ (the ЗООС чл. 67 trust fund) + the 3 national-park
+// directorates + НИМХ (meteo) + the 4 river-basin directorates + the 16 РИОСВ regional
+// inspectorates — 28 EIKs.
 //
 // ⚠ CURATE BY EIK ALLOWLIST, NEVER BY NAME REGEX. An "околна среда" / "парк" sweep
 // false-positives on the „Шипка — Бузлуджа" park-MUSEUM (000804161, a historical
@@ -16,15 +17,30 @@
 //
 // ⚠ ADJACENT-BUT-EXCLUDED (cross-link only, never in the rollup):
 //   • Forestry (МЗХ): ИА по горите 121486802 + 16 РДГ — agriculture universe.
+//   • ПРИРОДНИ паркове — 11 дирекции under ИА по горите (МЗХ), 311 contracts,
+//     €15.23M: Витоша 130044740, Българка 107554738, Шуменско плато 121017961,
+//     Русенски лом 117085508, Странджа 102664798, Персина 114546416, Сините
+//     камъни 119607289, Беласица 175544209, Врачански балкан 121148188, Златни
+//     пясъци 121148195, Рилски манастир 109514872. This is the sharpest trap in
+//     the whole set: a NATURE park is МЗХ, a NATIONAL park is МОСВ, the names
+//     read alike, and only the three national ones (Рила, Пирин, Централен
+//     Балкан) belong here. Listed in full so the next „парк" sweep can tell
+//     them apart without re-deriving the split.
 //   • ВиК / Напоителни — the /water view. Environment = pollution / waste / nature;
 //     water = water-supply utilities. The ОП „Околна среда" водни-цикъл projects
 //     belong to /water; environment claims the air / waste / nature slices.
 //   • Шипка — Бузлуджа park-museum 000804161 — keyword false-positive.
+//   • ДП „Радиоактивни отпадъци" 131218471 (€47.06M / 478 contracts) — „отпадъци"
+//     in the name, but it is a чл. 62 ал. 3 ТЗ state enterprise whose принципал is
+//     the MINISTER OF ENERGY (ЗБИЯЕ), so it belongs to the energy set, where it
+//     was added 2026-08-13. Radioactive-waste management is nuclear policy, not
+//     МОСВ waste policy.
 
 export const MOSV_EIK = "000697371"; // Министерство на околната среда и водите (МОСВ) — lead/principal
 export const ENV_LEAD_EIK = MOSV_EIK;
 export const IAOS_EIK = "831901762"; // ИАОС — Изпълнителна агенция по околна среда (air/monitoring)
 export const PUDOOS_EIK = "131045382"; // ПУДООС — Предприятие за управление на дейностите по опазване на околната среда
+export const NDEF_EIK = "121155866"; // НДЕФ — Национален доверителен екофонд (ЗООС чл. 67)
 
 /** The МОСВ node in the per-ministry budget tree (data/budget/ministries/<id>.json,
  *  written by update-budget) — the ministry expenditure series that carries the three
@@ -47,7 +63,7 @@ export const ENV_FUND_PROGRAM_CODES = [
 export type EnvUniverse =
   | "ministry" // Министерство на околната среда и водите (централа)
   | "agency" // ИАОС — air quality & monitoring
-  | "fund" // ПУДООС — the environment fund
+  | "fund" // ПУДООС + НДЕФ — the two environment funds
   | "parks" // Дирекции на националните паркове (Рила / Пирин / Централен Балкан)
   | "basin" // Басейнови дирекции (4 river-basin directorates)
   | "riosv" // Регионални инспекции по околната среда и водите (16)
@@ -66,6 +82,11 @@ export const ENV_ENTITIES: EnvEntity[] = [
   { eik: MOSV_EIK, name: "Министерство на околната среда и водите", universe: "ministry" }, // prettier-ignore
   { eik: IAOS_EIK, name: "Изпълнителна агенция по околна среда (ИАОС)", universe: "agency" }, // prettier-ignore
   { eik: PUDOOS_EIK, name: "ПУДООС — Предприятие за управление на дейностите по опазване на околната среда", universe: "fund" }, // prettier-ignore
+  // НДЕФ is a ЗООС чл. 67 trust fund rather than a second-level spending unit of
+  // МОСВ — its управителен съвет is chaired outside the ministry — but it exists
+  // solely to finance environmental protection, and its 17 contracts (€410k,
+  // 2013-2026) belong to no other sector. Included 2026-08-13 by the audit.
+  { eik: NDEF_EIK, name: "Национален доверителен екофонд (НДЕФ)", universe: "fund" }, // prettier-ignore
 
   // Национални паркове (national-park directorates)
   { eik: "101157692", name: "Дирекция „Национален парк Рила“", universe: "parks" }, // prettier-ignore
@@ -113,8 +134,13 @@ export const envEntityByEik = (eik: string): EnvEntity | undefined =>
 export const envUniverseOf = (eik: string): EnvUniverse | undefined =>
   ENTITY_BY_EIK[eik]?.universe;
 
-/** No alias-EIK duplicates for the core bodies today — kept for parity with the
- *  transport/security packs so callers can spread it unconditionally. */
+/** Every group EIK EXCEPT the lead — i.e. the 27 units `useEnvironment` spreads
+ *  after MOSV_EIK when the МОСВ awarder page consolidates its group
+ *  (`[MOSV_EIK, ...ENV_ALIAS_EIKS]`). Load-bearing, not a parity stub: adding an
+ *  entity to ENV_ENTITIES widens this too, and that is the intent. The name
+ *  matches the transport/security packs, where the same export ALSO carries
+ *  genuine alias EIKs (one body filed under two numbers); МОСВ has none today,
+ *  so here it is exactly "the group minus its lead". */
 export const ENV_ALIAS_EIKS: string[] = ENV_ENTITIES.filter(
   (e) => e.eik !== MOSV_EIK,
 ).map((e) => e.eik);
@@ -129,7 +155,7 @@ export const ENV_UNIVERSE_LABEL: Record<
 > = {
   ministry: { bg: "Министерство (централа)", en: "Ministry (HQ)" },
   agency: { bg: "ИАОС (мониторинг)", en: "ИАОС (monitoring)" },
-  fund: { bg: "ПУДООС (фонд)", en: "ПУДООС (fund)" },
+  fund: { bg: "Фондове (ПУДООС, НДЕФ)", en: "Funds (ПУДООС, НДЕФ)" },
   parks: { bg: "Национални паркове", en: "National parks" },
   basin: { bg: "Басейнови дирекции", en: "River-basin directorates" },
   riosv: { bg: "РИОСВ (инспекции)", en: "РИОСВ (inspectorates)" },

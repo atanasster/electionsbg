@@ -313,11 +313,14 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <PackFootnote
         unitCount={units.length}
-        groupOf={{ bg: "системата на МОСВ", en: "the МОСВ system" }}
+        groupOf={{
+          bg: "системата на МОСВ и двата екологични фонда",
+          en: "the МОСВ system and the two environmental funds",
+        }}
         totalEur={groupTotalEur}
         detail={{
-          bg: "министерството, ИАОС, ПУДООС, националните паркове, НИМХ, басейновите дирекции и 16-те РИОСВ",
-          en: "the ministry, ИАОС, ПУДООС, the national parks, НИМХ, the river-basin directorates and the 16 РИОСВ",
+          bg: "министерството, ИАОС, ПУДООС, НДЕФ, националните паркове, НИМХ, басейновите дирекции и 16-те РИОСВ",
+          en: "the ministry, ИАОС, ПУДООС, НДЕФ, the national parks, НИМХ, the river-basin directorates and the 16 РИОСВ",
         }}
         excludes={{
           bg: "Горите (ИА по горите, под МЗХ) и ВиК са отделни сектори и не са включени.",

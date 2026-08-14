@@ -125,7 +125,7 @@ const BUDGET_SECTOR_NODE: Record<string, string> = {
   // own thesis — the honest headline is the enacted expenditure of this node.
   regional: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
   // Околна среда — moved off procurement 2026-08-13, same reason as регионално
-  // but sharper. The 27-EIK МОСВ group's own tender flow is €256.7M over the
+  // but sharper. The 28-EIK МОСВ group's own tender flow is €257.1M over the
   // WHOLE corpus and €1.81M in the current parliament, so on the hub's default
   // scope the sector rendered at €1.8M beside — same scope — Енергетика €274.0M,
   // Води €157.0M and Пътища €115.7M: arithmetically exact and two orders of

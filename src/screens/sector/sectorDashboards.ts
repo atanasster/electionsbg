@@ -424,9 +424,9 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     })),
   },
   // Околна среда / МОСВ (sector id "environment") — the last untouched top-level
-  // COFOG function (GF05). `members` IS the whole ~27-EIK group (ministry + ИАОС +
-  // ПУДООС + 3 national parks + НИМХ + 4 river-basin directorates + 16 РИОСВ) so the
-  // awarders tile lists every unit grouped by universe. МОСВ leads; its /awarder page
+  // COFOG function (GF05). `members` IS the whole 28-EIK group (ministry + ИАОС +
+  // ПУДООС + НДЕФ + 3 national parks + НИМХ + 4 river-basin directorates + 16 РИОСВ)
+  // so the awarders tile lists every unit grouped by universe. МОСВ leads; its /awarder page
   // renders the EnvironmentPack (registered under MOSV_EIK), and so does this
   // dashboard (getSectorPack(leadEik) → EnvironmentPack becomes the content). The
   // signature finding: ИАОС — the agency that produces the PM10 series the pack maps —

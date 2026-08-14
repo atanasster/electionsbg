@@ -4,11 +4,11 @@
 // EnvModel (see useAwarderGroupModel). Mirrors useTransport.tsx / useMvr.tsx.
 //
 // CONSOLIDATED GROUP — Министерство на околната среда и водите (000697371) is the
-// principal of the МОСВ system: ИАОС (air/monitoring), the ПУДООС fund, the 3
-// national-park directorates, НИМХ (meteo), the 4 river-basin directorates and the 16
-// РИОСВ inspectorates. A pack mounted on the ministry that reported only the central
-// EIK would understate the group (~€88M vs ~€227M), so on the ministry's page we
-// aggregate parent + every subordinate. Mounted on any other EIK it stands alone.
+// principal of the МОСВ system: ИАОС (air/monitoring), the ПУДООС and НДЕФ funds, the
+// 3 national-park directorates, НИМХ (meteo), the 4 river-basin directorates and the 16
+// РИОСВ inspectorates — 28 EIKs. A pack mounted on the ministry that reported only the
+// central EIK would understate the group (~€99M vs ~€257M), so on the ministry's page
+// we aggregate parent + every subordinate. Mounted on any other EIK it stands alone.
 //
 // UNIVERSE FILTER — the agency (ИАОС) rivals the ministry, so the pack lets the reader
 // isolate a universe (ministry / agency / fund / parks / basin / riosv / meteo). The

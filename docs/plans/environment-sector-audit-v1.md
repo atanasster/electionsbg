@@ -3,13 +3,16 @@
 Audit of `/governance/sectors` tile `environment` + `/sector/environment`, run 2026-08-13
 against the live corpus (405,479 contracts). Method: `.claude/skills/audit-sectors`.
 
-## What was already right (no action — pinned by the Tier 5 tests)
+## What was already right (no action — pinned by the Tier 6 tests)
 
 - **Phase 1**: the hub headline reproduces from PG **exactly at all 30 scopes**
-  (`all` = €256,720,876 / 2,259 contracts; 16 year scopes; 13 parliament scopes).
+  (`all` = €256,720,876 / 2,259 contracts; 16 year scopes; 13 parliament scopes). Tier 5
+  then widens the group to €257,131,175 / 2,276 — the headline is budget-basis by then, so
+  only the /sector/environment rollup moves.
 - **Failure mode E**: all four EIK-set copies import `ENV_SECTOR_EIKS` — no copy
   hardcodes digits, so lockstep is structural.
-- **C / D**: all 27 EIKs are real, correctly named and carry spend. A free-text sweep
+- **C / D**: all 27 EIKs then in the set are real, correctly named and carry spend
+  (28 after Tier 5 adds НДЕФ). A free-text sweep
   (`околна среда|екофонд|парк|басейнова|РИОСВ|метеорология|хидрология|отпадъц|екологи`)
   over every non-member awarder surfaced no misattributed body. The header's exclusions
   hold: the Шипка-Бузлуджа park-MUSEUM (000804161), the 9 природни паркове (ИАГ/МЗХ)
@@ -24,7 +27,7 @@ against the live corpus (405,479 contracts). Method: `.claude/skills/audit-secto
 - **P / Q**: intra-group circulation €197,615 = **0.08%** (МОСВ→НИМХ only); **0**
   self-contracting rows.
 
-## Tier 1 — Basis: environment moves from `procurement` to `budget`
+## Tier 1 — Basis: environment moves from `procurement` to `budget`  ✅ LANDED (b54514e8ac)
 
 **Decision taken by the user 2026-08-13** (Phase 3 tier-3, editorial).
 
@@ -88,7 +91,7 @@ The fallback value is a real appropriation on a wider scope, not a fabricated on
 failure mode is "one scope reads consolidated" rather than a wrong number — but it is a
 scope a reader can select, so it is a gap and not a nit.
 
-## Tier 2 — The МОСВ budget SERIES mixes two scopes across years  ✅ LANDED (2f851fd3fa)
+## Tier 2 — The МОСВ budget SERIES mixes two scopes across years  ✅ LANDED (941bd2abce)
 
 ⚠️ **This is NOT a precedence bug in `reconcile.ts`.** Preferring the отчет's own „Закон"
 column over `law_html.ts`'s ЗДБ value is deliberate, documented, and МОСВ 2024 is the
@@ -190,7 +193,7 @@ sentence „доста под средното за ЕС" carry no year. 0.2pp t
 series lags. Fix: take the EU point at BG's latest year, falling back to the EU's own
 latest **with the year rendered** when that year is absent.
 
-## Tier 5 — Add НДЕФ to the EIK set
+## Tier 5 — Add НДЕФ to the EIK set  ✅ LANDED (this commit)
 
 **Decision taken by the user.** `Национален доверителен екофонд` — EIK `121155866`,
 17 contracts, €410,298, 2013-12-09 → 2026-02-09. An МОСВ-adjacent fund created by
@@ -233,9 +236,10 @@ attribution is by principal, which no name regex can confirm.
 ## Tier 6 — Regression tests
 
 Write them in a **NEW** file, `scripts/db/tests/sector_stats_environment.data.test.ts`,
-rather than extending `sector_stats.data.test.ts` — a concurrent session has uncommitted
-work in that file (the ДП РАО energy attribution), and a path-scoped commit would carry it
-under this change's message. Bands and inequalities only: the corpus reloads fortnightly
+rather than extending `sector_stats.data.test.ts` — a concurrent session had uncommitted
+work in that file when this was written (the ДП РАО energy attribution, since committed as
+dbff131d02), and a path-scoped commit would have carried it under this change's message.
+A separate file also keeps the environment gates readable as one block. Bands and inequalities only: the corpus reloads fortnightly
 and budgets gain years.
 
 1. **EIK-set lockstep** — `SECTOR_DASHBOARDS.environment.members.map(m => m.eik)`,
