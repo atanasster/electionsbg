@@ -16,6 +16,18 @@ import type {
   ReconciliationRow,
 } from "./types";
 
+/** Two appropriations are the SAME figure when the SOURCE says so, so compare
+ *  in the currency of record. `amountEur` is a conversion, and two byte-identical
+ *  BGN figures can land a euro apart after it — МТСП 2023 and 2024 are both
+ *  2 465 016 000 / 2 862 221 000 BGN in the law and in the отчет, and €1 apart in
+ *  euros. Publishing that €1 as `plannedLaw` would assert a scope restatement
+ *  that did not happen, which is precisely what the field exists NOT to say.
+ *  Across currencies there is no exact form, so fall back to sub-euro. */
+const sameAppropriation = (a: Money, b: Money): boolean =>
+  a.currency === b.currency
+    ? a.amount === b.amount
+    : Math.abs(a.amountEur - b.amountEur) < 1;
+
 const nodeName = (
   registry: ClassificationRegistry,
   nodeId: string,
@@ -41,6 +53,8 @@ export const buildAdminReconciliation = (
     nodeId: string;
     kind: FactKind;
     planned: Money | null;
+    /** The ЗДБ's own figure, kept when the отчет overwrites `planned` below. */
+    plannedLaw: Money | null;
     amended: Money | null;
     executed: Money | null;
     amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
@@ -56,6 +70,7 @@ export const buildAdminReconciliation = (
         nodeId: adminId,
         kind: fact.kind,
         planned: null,
+        plannedLaw: null,
         amended: null,
         executed: null,
         amendmentTrail: [],
@@ -65,6 +80,9 @@ export const buildAdminReconciliation = (
     return g;
   };
 
+  // MUST precede the executionFacts loop: the branch below identifies the ЗДБ
+  // figure as "whatever `planned` already holds", so swapping the two would
+  // store an отчет number in a field documented as the State Budget Law's own.
   for (const fact of lawFacts) {
     if (fact.version.stage !== "law") continue;
     const g = groupOf(fact);
@@ -79,6 +97,37 @@ export const buildAdminReconciliation = (
       // prefer it over law_html.ts's State-Budget-Law value when present so
       // the law→amended→executed trail is like-with-like (see the comment in
       // execution_facts.ts for the rationale + the МОСВ example).
+      //
+      // Preserve the ЗДБ figure it displaces, but only when the two actually
+      // differ — a `plannedLaw` that merely echoes `planned` would say "these
+      // scopes diverge here" on every reported ministry-year, which is the
+      // opposite of what a series consumer needs to know.
+      if (g.plannedLaw)
+        throw new Error(
+          `reconcile ${fiscalYear} ${g.nodeId} ${g.kind}: a second отчет law ` +
+            `fact (${fact.version.documentId}) — the comparison below would be ` +
+            `отчет-vs-отчет and plannedLaw would stop being the ЗДБ figure`,
+        );
+      if (!g.planned) {
+        // Nothing to displace, so `planned` silently becomes the отчет's
+        // (possibly consolidated) figure with no plannedLaw marking it — the
+        // very defect this field exists to expose, reached by another route.
+        // Usually a node-id split between the law's spelling of the ministry
+        // and canonicalExecutionAdminId's (Министерство на земеделието
+        // (-и-храните) 2023/24 today, where the two figures happen to agree).
+        console.warn(
+          `  ⚠ reconcile ${fiscalYear} ${g.nodeId} ${g.kind}: отчет law column ` +
+            `with no ЗДБ fact to compare — series basis unmarked`,
+        );
+      } else if (
+        // Only `expenditure` is read as a series (ministries.ts → pickLaw), so
+        // restricting the write keeps the corpus to rows something consumes and
+        // keeps "N divergent ministry-years" countable.
+        fact.kind === "expenditure" &&
+        !sameAppropriation(g.planned, fact.money)
+      ) {
+        g.plannedLaw = g.planned;
+      }
       g.planned = fact.money;
     } else if (fact.version.stage === "amendment") {
       g.amendmentTrail.push({
@@ -117,6 +166,7 @@ export const buildAdminReconciliation = (
       nodeNameEn: nameEn,
       kind: g.kind,
       planned: g.planned,
+      ...(g.plannedLaw ? { plannedLaw: g.plannedLaw } : {}),
       amendmentTrail: g.amendmentTrail,
       amended: g.amended,
       executed: g.executed,

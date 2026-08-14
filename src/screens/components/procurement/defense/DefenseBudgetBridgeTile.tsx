@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
+import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { MO_BUDGET_NODE } from "@/lib/defenseReferenceData";
 
 export const DefenseBudgetBridgeTile: FC<{
@@ -32,21 +33,16 @@ export const DefenseBudgetBridgeTile: FC<{
   // `expenditure` is null for law/shell years with no figure — drop those before
   // the bridge maths so a null year can't crash the whole pack.
   const years = (data?.years ?? [])
-    .filter(
-      (y): y is typeof y & { expenditure: NonNullable<typeof y.expenditure> } =>
-        y.expenditure != null,
-    )
+    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
+    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
     .sort((a, b) => a.fiscalYear - b.fiscalYear);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];
   const first = years[0];
-  const budget = latest.expenditure.amountEur;
-  const growth =
-    first.expenditure.amountEur > 0
-      ? budget / first.expenditure.amountEur
-      : null;
-  const maxBudget = Math.max(...years.map((y) => y.expenditure.amountEur), 1);
+  const budget = latest.eur;
+  const growth = first.eur > 0 ? budget / first.eur : null;
+  const maxBudget = Math.max(...years.map((y) => y.eur), 1);
 
   const proc = procEur ?? 0;
   const procShare = budget > 0 ? proc / budget : 0;
@@ -72,7 +68,7 @@ export const DefenseBudgetBridgeTile: FC<{
               : `МО budget, ${latest.fiscalYear}`}
           </span>
           {growth != null && growth >= 1.5 && (
-            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="text-xs font-medium text-muted-foreground">
               ×{growth.toLocaleString(lang, { maximumFractionDigits: 1 })}{" "}
               {bg ? `от ${first.fiscalYear}` : `since ${first.fiscalYear}`}
             </span>
@@ -85,7 +81,7 @@ export const DefenseBudgetBridgeTile: FC<{
             <div
               key={y.fiscalYear}
               className="flex-1"
-              title={`${y.fiscalYear}: ${formatEurCompact(y.expenditure.amountEur, lang)}`}
+              title={`${y.fiscalYear}: ${formatEurCompact(y.eur, lang)}`}
             >
               <div
                 className={`w-full rounded-t ${
@@ -94,7 +90,7 @@ export const DefenseBudgetBridgeTile: FC<{
                     : "bg-primary/35"
                 }`}
                 style={{
-                  height: `${Math.max(3, (y.expenditure.amountEur / maxBudget) * 44)}px`,
+                  height: `${Math.max(3, (y.eur / maxBudget) * 44)}px`,
                 }}
               />
             </div>

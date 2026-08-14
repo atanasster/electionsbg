@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS budget_admin_fact (
   -- which is constant BY CONSTRUCTION — the shard has only one.
   dimension     text NOT NULL,
   planned_eur   double precision,
+  planned_law_eur double precision,
   amended_eur   double precision,
   executed_eur  double precision,
   variance_eur  double precision,
@@ -83,7 +84,17 @@ CREATE TABLE IF NOT EXISTS budget_admin_fact (
 );
 
 COMMENT ON COLUMN budget_admin_fact.planned_eur IS
-  'The State Budget Law as ENACTED.';
+  'The appropriation on the SAME basis as executed_eur — the unit''s own Отчет '
+  '„Закон" column where a report exists, the ЗДБ otherwise. Right for THIS year''s '
+  'variance; see planned_law_eur before using it across years.';
+COMMENT ON COLUMN budget_admin_fact.planned_law_eur IS
+  'The ЗДБ''s own section II figure, non-NULL ONLY where the Отчет restated the '
+  'appropriation at a wider (usually consolidated) scope. Any CROSS-YEAR series or '
+  'multi-year SUM must read coalesce(planned_law_eur, planned_eur): only отчет-years '
+  'carry the wide scope, so planned_eur steps up in whichever years a report landed '
+  'and the step reads as budget growth. Measured 2026-08-13, exactly one ministry-year '
+  'diverges — МОСВ 2024, EUR 60,325,488 vs 104,230,071 (+72.8%). '
+  'See scripts/budget/reconcile.ts and src/data/budget/ministrySeries.ts.';
 COMMENT ON COLUMN budget_admin_fact.amended_eur IS
   'After any ЗИД. Distinct from planned_eur on purpose: „a ministry overspent its '
   'appropriation" and „parliament re-voted the appropriation" are different findings, and '
@@ -248,6 +259,7 @@ ALTER TABLE budget_admin_node
 
 ALTER TABLE budget_admin_fact
   ADD COLUMN IF NOT EXISTS planned_eur     double precision,
+  ADD COLUMN IF NOT EXISTS planned_law_eur double precision,
   ADD COLUMN IF NOT EXISTS amended_eur     double precision,
   ADD COLUMN IF NOT EXISTS executed_eur    double precision,
   ADD COLUMN IF NOT EXISTS variance_eur    double precision,

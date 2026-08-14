@@ -520,6 +520,12 @@ export interface ReconciliationRow {
   nodeNameEn: string;
   kind: FactKind;
   planned: Money | null;
+  /** The ЗДБ's own section II figure, written ONLY on `expenditure` rows where
+   *  the Отчет restated the appropriation at a wider scope (so `planned` holds
+   *  the Отчет's number instead). Any cross-year read must take
+   *  `plannedLaw ?? planned` — see scripts/budget/reconcile.ts and
+   *  src/data/budget/ministrySeries.ts. Absent on every other row. */
+  plannedLaw?: Money | null;
   amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
   amended: Money | null;
   executed: Money | null;
@@ -583,7 +589,18 @@ export interface MinistrySeriesExecution {
 export interface MinistryRollupYear {
   fiscalYear: number;
   revenue: Money | null;
+  /** The appropriation on the SAME basis as `execution` below — the отчет's
+   *  restated „Закон" column where a report exists, the ЗДБ otherwise. Use it
+   *  for THIS year's variance, never for a trend. */
   expenditure: Money | null;
+  /** The State Budget Law's own figure, present ONLY on years where it
+   *  disagrees with `expenditure`. Any cross-year series must read
+   *  `ministryYearSeriesEur` (below) rather than `expenditure`, or an
+   *  отчет-year is plotted on a wider scope than its neighbours and the step
+   *  reads as budget growth. Today МОСВ 2024 is the only such year
+   *  (€60,325,488 vs €104,230,071, +72.8%). Optional: written by the ingest
+   *  since 2026-08, so a bucket-served file minted before then omits it. */
+  expenditureLaw?: Money | null;
   balance: Money | null;
   execution: {
     revenue: MinistrySeriesExecution | null;

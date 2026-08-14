@@ -45,6 +45,11 @@ export const buildMinistryRollups = (
       );
       const pick = (kind: string): Money | null =>
         adminRows.find((r) => r.kind === kind)?.planned ?? null;
+      // The ЗДБ figure the отчет's restated „Закон" column displaced, present
+      // only where the two scopes disagree — what a cross-year series must read
+      // so an отчет-year isn't plotted on a wider basis than its neighbours.
+      const pickLaw = (kind: string): Money | null =>
+        adminRows.find((r) => r.kind === kind)?.plannedLaw ?? null;
       // Pull the execution side (amended / executed / variance) from the same
       // reconciliation row, when it exists for this unit/year.
       const pickExec = (kind: string): MinistrySeriesExecution | null => {
@@ -91,6 +96,7 @@ export const buildMinistryRollups = (
         fiscalYear: year,
         revenue: pick("revenue"),
         expenditure: pick("expenditure"),
+        expenditureLaw: pickLaw("expenditure"),
         balance: pick("balance"),
         execution,
         programs,

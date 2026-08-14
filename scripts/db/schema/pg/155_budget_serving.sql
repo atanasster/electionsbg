@@ -301,8 +301,12 @@ CREATE OR REPLACE FUNCTION budget_admin_list(
     -- ORDER BY *inside*, with the LIMIT. Ranking in the outer jsonb_agg while
     -- limiting here returns an ARBITRARY n, sorted — which looks like a
     -- leaderboard and is not one.
+    -- p_fy NULL sums ACROSS years, so the appropriation has to be read on one
+    -- basis: planned_eur carries the Отчет's consolidated restatement in
+    -- report-years only, which would inflate a unit's all-years total and its
+    -- rank in this very list (МОСВ by EUR 43.9m). See planned_law_eur's comment.
     SELECT n.node_id AS "nodeId", n.name_bg AS "nameBg", n.name_en AS "nameEn", n.eik,
-           sum(f.planned_eur) AS amount,
+           sum(coalesce(f.planned_law_eur, f.planned_eur)) AS amount,
            count(*) FILTER (WHERE f.executed_eur IS NOT NULL) > 0 AS "hasExecution"
       FROM budget_admin_node n
       LEFT JOIN budget_admin_fact f
@@ -312,7 +316,7 @@ CREATE OR REPLACE FUNCTION budget_admin_list(
         OR n.name_bg ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
         OR n.name_en ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
      GROUP BY n.node_id, n.name_bg, n.name_en, n.eik
-     ORDER BY sum(f.planned_eur) DESC NULLS LAST
+     ORDER BY sum(coalesce(f.planned_law_eur, f.planned_eur)) DESC NULLS LAST
      LIMIT greatest(1, least(coalesce(p_limit, 300), 1000))
   ) r;
 $$;
@@ -329,8 +333,14 @@ CREATE OR REPLACE FUNCTION budget_admin_detail(
     SELECT n.node_id AS "nodeId", n.name_bg AS "nameBg", n.name_en AS "nameEn", n.eik,
            coalesce((
              SELECT jsonb_agg(to_jsonb(f) ORDER BY f."fiscalYear" DESC, f.kind)
+               -- `plannedEur` stays same-basis with amendedEur/executedEur, so a
+               -- per-row variance is like-with-like. `seriesEur` is the one a
+               -- caller must plot across years — with p_fy NULL this array IS a
+               -- multi-year series. Same rule as ministrySeries.ts on the JSON side.
                FROM (SELECT fiscal_year AS "fiscalYear", kind,
-                            planned_eur AS "plannedEur", amended_eur AS "amendedEur",
+                            planned_eur AS "plannedEur",
+                            coalesce(planned_law_eur, planned_eur) AS "seriesEur",
+                            amended_eur AS "amendedEur",
                             executed_eur AS "executedEur", completeness
                        FROM budget_admin_fact a
                       WHERE a.node_id = n.node_id

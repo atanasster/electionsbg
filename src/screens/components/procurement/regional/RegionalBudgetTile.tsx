@@ -14,6 +14,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
+import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { REGIONAL_BUDGET_NODE } from "@/lib/regionalReferenceData";
 
 export const RegionalBudgetTile: FC = () => {
@@ -22,16 +23,14 @@ export const RegionalBudgetTile: FC = () => {
   const bg = lang === "bg";
   const { data } = useBudgetMinistryRollup(REGIONAL_BUDGET_NODE);
   const years = (data?.years ?? [])
-    .filter(
-      (y): y is typeof y & { expenditure: NonNullable<typeof y.expenditure> } =>
-        y.expenditure != null,
-    )
+    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
+    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
     .sort((a, b) => a.fiscalYear - b.fiscalYear);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];
-  const budget = latest.expenditure.amountEur;
-  const maxBudget = Math.max(...years.map((y) => y.expenditure.amountEur), 1);
+  const budget = latest.eur;
+  const maxBudget = Math.max(...years.map((y) => y.eur), 1);
 
   return (
     <Card id="regional-budget">
@@ -61,7 +60,7 @@ export const RegionalBudgetTile: FC = () => {
             <div
               key={y.fiscalYear}
               className="flex-1"
-              title={`${y.fiscalYear}: ${formatEurCompact(y.expenditure.amountEur, lang)}`}
+              title={`${y.fiscalYear}: ${formatEurCompact(y.eur, lang)}`}
             >
               <div
                 className={`w-full rounded-t ${
@@ -70,7 +69,7 @@ export const RegionalBudgetTile: FC = () => {
                     : "bg-primary/35"
                 }`}
                 style={{
-                  height: `${Math.max(3, (y.expenditure.amountEur / maxBudget) * 44)}px`,
+                  height: `${Math.max(3, (y.eur / maxBudget) * 44)}px`,
                 }}
               />
             </div>

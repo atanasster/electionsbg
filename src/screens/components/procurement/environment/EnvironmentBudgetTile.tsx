@@ -13,6 +13,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
+import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import { MOSV_BUDGET_NODE } from "@/lib/environmentReferenceData";
 
 export const EnvironmentBudgetTile: FC = () => {
@@ -20,22 +21,21 @@ export const EnvironmentBudgetTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useBudgetMinistryRollup(MOSV_BUDGET_NODE);
+  // Every figure here is a point on a TREND, so read the single-scope series
+  // rather than `expenditure` — МОСВ's 2024 отчет restates the appropriation at
+  // a consolidated scope 72.8% above the ЗДБ, which plots as the chart's
+  // tallest bar and a phantom spike. See ministrySeries.ts.
   const years = (data?.years ?? [])
-    .filter(
-      (y): y is typeof y & { expenditure: NonNullable<typeof y.expenditure> } =>
-        y.expenditure != null,
-    )
+    .map((y) => ({ fiscalYear: y.fiscalYear, eur: ministryYearSeriesEur(y) }))
+    .filter((y): y is { fiscalYear: number; eur: number } => y.eur != null)
     .sort((a, b) => a.fiscalYear - b.fiscalYear);
   if (!years.length) return null;
 
   const latest = years[years.length - 1];
   const first = years[0];
-  const budget = latest.expenditure.amountEur;
-  const growth =
-    first.expenditure.amountEur > 0
-      ? budget / first.expenditure.amountEur
-      : null;
-  const maxBudget = Math.max(...years.map((y) => y.expenditure.amountEur), 1);
+  const budget = latest.eur;
+  const growth = first.eur > 0 ? budget / first.eur : null;
+  const maxBudget = Math.max(...years.map((y) => y.eur), 1);
 
   return (
     <Card id="environment-budget">
@@ -56,7 +56,7 @@ export const EnvironmentBudgetTile: FC = () => {
               : `ministry budget, ${latest.fiscalYear}`}
           </span>
           {growth != null && growth >= 1.2 && (
-            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="text-xs font-medium text-muted-foreground">
               ×{growth.toLocaleString(lang, { maximumFractionDigits: 1 })}{" "}
               {bg ? `от ${first.fiscalYear}` : `since ${first.fiscalYear}`}
             </span>
@@ -69,7 +69,7 @@ export const EnvironmentBudgetTile: FC = () => {
             <div
               key={y.fiscalYear}
               className="flex-1"
-              title={`${y.fiscalYear}: ${formatEurCompact(y.expenditure.amountEur, lang)}`}
+              title={`${y.fiscalYear}: ${formatEurCompact(y.eur, lang)}`}
             >
               <div
                 className={`w-full rounded-t ${
@@ -78,7 +78,7 @@ export const EnvironmentBudgetTile: FC = () => {
                     : "bg-primary/35"
                 }`}
                 style={{
-                  height: `${Math.max(3, (y.expenditure.amountEur / maxBudget) * 44)}px`,
+                  height: `${Math.max(3, (y.eur / maxBudget) * 44)}px`,
                 }}
               />
             </div>

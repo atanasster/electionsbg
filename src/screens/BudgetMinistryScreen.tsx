@@ -45,6 +45,7 @@ import { MinistryPersonnelBlock } from "./components/budget/MinistryPersonnelBlo
 import { Sparkline } from "@/ux/Sparkline";
 import { formatEur } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
+import { ministryYearSeriesEur } from "@/data/budget/ministrySeries";
 import type {
   MinistryProcurement,
   MinistryRollupYear,
@@ -61,8 +62,14 @@ const compactEur = (v: number): string => {
   return formatEur(v);
 };
 
+// Every use of this is a point on a SERIES — the hero's YoY delta and
+// sparkline, the multi-year trend chart — so it reads the single-scope figure.
+// A year whose отчет restates the appropriation at a consolidated scope would
+// otherwise step above its neighbours and read as growth (МОСВ 2024: +72.8%).
+// The per-year reconciliation TABLE deliberately keeps `y.expenditure`, whose
+// basis has to match the amended / executed columns beside it.
 const expenditureOf = (y: MinistryRollupYear): number | null =>
-  y.expenditure?.amountEur ?? null;
+  ministryYearSeriesEur(y);
 const revenueOf = (y: MinistryRollupYear): number | null =>
   y.revenue?.amountEur ?? null;
 const executedExpOf = (y: MinistryRollupYear): number | null =>
@@ -155,6 +162,7 @@ const HeroStrip: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
     .map(expenditureOf)
     .filter((v): v is number => v != null);
 
+  const latestExp = expenditureOf(latest);
   const latestBal = balanceOf(latest);
   const priorBal = prior ? balanceOf(prior) : null;
   const deficit = latestBal != null && latestBal < 0;
@@ -193,7 +201,10 @@ const HeroStrip: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
         <div className="flex items-baseline gap-2">
           <Landmark className="h-5 w-5 text-rose-600 shrink-0" />
           <span className="text-xl font-bold tabular-nums break-words">
-            {latest.expenditure ? formatEur(latest.expenditure.amountEur) : "—"}
+            {/* Same basis as the delta and sparkline beneath it — showing the
+                отчет-restated figure over a ЗДБ-based delta would report a
+                jump the headline number does not contain. */}
+            {latestExp != null ? formatEur(latestExp) : "—"}
           </span>
         </div>
         <YoyDelta
@@ -271,7 +282,15 @@ const HeroStrip: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
 
 interface TrendDatum {
   fiscalYear: number;
+  /** The cross-year SERIES value (the ЗДБ where the отчет restated the scope) —
+   *  what the planned line PLOTS. */
   planned: number | null;
+  /** The отчет's own „Закон" column — the ratio denominator ONLY, never plotted.
+   *  `executed` is отчет-scope, so dividing it by the series value would compare
+   *  two different scopes: on МОСВ 2024 that reads 543.2% against the correct
+   *  314.4%. Null when no отчет exists, which is also when `executed` is null,
+   *  so the ratio simply does not render. */
+  plannedSameBasis: number | null;
   executed: number | null;
 }
 
@@ -288,6 +307,7 @@ const ExpenditureTrendChart: FC<{ years: MinistryRollupYear[] }> = ({
       years.map((y) => ({
         fiscalYear: y.fiscalYear,
         planned: expenditureOf(y),
+        plannedSameBasis: y.expenditure?.amountEur ?? null,
         executed: executedExpOf(y),
       })),
     [years],
@@ -362,9 +382,12 @@ const ExpenditureTrendChart: FC<{ years: MinistryRollupYear[] }> = ({
                         {t("budget_ministry_trend_executed") || "Executed"}:{" "}
                         {d.executed != null ? formatEur(d.executed) : "—"}
                       </div>
-                      {d.planned != null && d.executed != null
+                      {/* Same-basis denominator — see TrendDatum. */}
+                      {d.plannedSameBasis != null &&
+                      d.plannedSameBasis !== 0 &&
+                      d.executed != null
                         ? (() => {
-                            const pct = (d.executed / d.planned) * 100;
+                            const pct = (d.executed / d.plannedSameBasis) * 100;
                             return (
                               <div className="tabular-nums text-muted-foreground">
                                 {t("budget_ministry_trend_ratio") ||
@@ -425,7 +448,12 @@ const ExpenditureTrendChart: FC<{ years: MinistryRollupYear[] }> = ({
 // Executed expenditure, Execution %, Balance (surplus / deficit). Empty cells
 // are em-dashes — most ministries today have no execution data.
 const HistoryTable: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Where an отчет restated the appropriation, this table's "Planned" column and
+  // the hero card above it show two figures 72.8% apart for one year (МОСВ 2024).
+  // Both are right on their own basis; unexplained on the page they read as a
+  // contradiction, so name the split where the unusual basis is.
+  const scopeSplit = years.some((y) => y.expenditureLaw);
   if (years.length === 0) return null;
   return (
     <Card className="my-4" data-og="ministry-history">
@@ -499,6 +527,13 @@ const HistoryTable: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
             })}
           </tbody>
         </table>
+        {scopeSplit ? (
+          <p className="mt-2 text-[11px] text-muted-foreground/80">
+            {i18n.language === "bg"
+              ? "„Планиран разход“ е колоната „Закон“ на отчета, за да е съпоставима с уточнения план и отчета до нея. Където отчетът преизчислява разхода в консолидиран обхват (със средства от ЕС и трансфери), картата горе и графиката показват сумата по ЗДБ."
+              : "“Planned expenditure” is the отчет's own „Закон“ column, so it is comparable with the amended and executed columns beside it. Where the отчет restates the appropriation at a consolidated scope (EU funds and transfers included), the card above and the trend chart show the State Budget Law figure instead."}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );

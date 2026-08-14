@@ -75,6 +75,7 @@ import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
 import { ENV_SECTOR_EIKS } from "../../../src/lib/environmentReferenceData";
+import { ministryYearSeriesEur } from "../../../src/data/budget/ministrySeries";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -183,12 +184,21 @@ type BudgetFile = {
   years?: Array<{
     fiscalYear: number;
     expenditure?: { amountEur?: number | null };
+    expenditureLaw?: { amountEur?: number | null } | null;
   }>;
 };
+// This is a per-YEAR series — `?pscope=y:<year>` picks a point out of it and the
+// tile captions it „бюджет <year>" beside the other budget-basis sectors — so it
+// reads the single-scope figure via ministryYearSeriesEur. Using `expenditure`
+// would publish МОСВ's 2024 отчет-restated €104,230,071 where its ЗДБ line is
+// €60,325,488, a 72.8% step no other year in the series carries.
 const budgetSeries = (m: BudgetFile): Record<number, number> => {
   const byYear: Record<number, number> = {};
   for (const y of m.years ?? []) {
-    const v = y.expenditure?.amountEur;
+    const v = ministryYearSeriesEur(y);
+    // Truthiness, not `!= null`, on purpose: a €0 year is an un-appropriated
+    // shell rather than a real budget, and dropping it lets annual() fall back
+    // to the latest real year instead of captioning „бюджет 2024: €0".
     if (v) byYear[y.fiscalYear] = v;
   }
   return byYear;

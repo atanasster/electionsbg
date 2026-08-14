@@ -301,6 +301,21 @@ export interface ReconciliationRow {
   nodeNameEn: string;
   kind: FactKind;
   planned: Money | null;
+  /** The State Budget Law's OWN section II figure, when the отчет restated the
+   *  appropriation at a different (usually consolidated) scope and `planned`
+   *  therefore holds the отчет's number instead. Null when the two agree, or
+   *  when there is no отчет — so a non-null value marks exactly the rows where
+   *  the two scopes diverge.
+   *
+   *  `planned` is the right basis WITHIN a row (it keeps law→amended→executed
+   *  like-with-like — see execution_facts.ts). It is the wrong basis ACROSS
+   *  years: only отчет-years carry the consolidated scope, so a series built
+   *  from `planned` steps whenever a report lands. Measured 2026-08-13 over the
+   *  whole facts tree, exactly one ministry-year diverges — МОСВ 2024, ЗДБ
+   *  €60,325,488 vs отчет €104,230,071 (+72.8%) — and it is the tallest bar in
+   *  the МОСВ budget chart. Admin dimension only; nothing reads a programme
+   *  series across years. */
+  plannedLaw?: Money | null;
   amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
   amended: Money | null;
   executed: Money | null;
@@ -453,7 +468,18 @@ export interface MinistrySeriesExecution {
 export interface MinistryRollupYear {
   fiscalYear: number;
   revenue: Money | null;
+  /** The appropriation on the SAME basis as `execution` below — the отчет's
+   *  restated „Закон" column where a report exists, the ЗДБ otherwise. Correct
+   *  for this year's variance; NOT comparable across years (see
+   *  `expenditureLaw`). */
   expenditure: Money | null;
+  /** The State Budget Law's own figure, present only on the years where it
+   *  disagrees with `expenditure`. A cross-year SERIES must read
+   *  `expenditureLaw ?? expenditure` — otherwise an отчет-year is plotted on a
+   *  wider scope than its neighbours and the step reads as budget growth.
+   *  Measured 2026-08-13: МОСВ 2024 is the only such year in the whole tree
+   *  (€60,325,488 vs €104,230,071, +72.8%). */
+  expenditureLaw: Money | null; // always written; null means "no divergence"
   balance: Money | null;
   execution: {
     revenue: MinistrySeriesExecution | null;
