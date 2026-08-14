@@ -858,9 +858,35 @@ re-export (53,115 beneficiaries / 82,103 contracts / €18.00 bn paid).
 Cloud baselines before the run: `contracts` 408,967 · `tenders` 237,386 ·
 `fund_beneficiaries` 46,164 · `price_grid_days` max 2026-08-10.
 
-**Step timings for this run are not recorded here.** The four findings below were
-all established before or independently of the chain, and none of them depends on
-it; a timing table should be added by whoever next runs a complete publish.
+The chain **halted at step 9** (see F34) and was resumed with the correct flag, so
+the wall-clock spans two invocations; per-step times are unaffected.
+
+| # | step | seconds | | vs prior runs |
+|--:|---|--:|---|---|
+| 1 | `contracts` | **4297** | 71.6 min | 5005, 4982 → **−13.7%** |
+| 2 | `annexes` | 133 | | 61, 137 |
+| 3 | `tenders` | **1158** | 19.3 min | 1168, 1182 → −1% |
+| 4 | `awarder-seats` | **855** | 14.3 min | never timed |
+| 5 | `procurement-scopes` | **1264** | 21.1 min | never timed ("minutes") |
+| 6 | `transport-project` | 222 | | not in the model |
+| 7 | `water-operator` | 3 | | not in the model |
+| 8 | `mvr-directorate` | 12 | | not in the model |
+| 9 | `funds --full` | 184 | | F4 pattern; guard says "~4.5 min" |
+| 10 | `funds-fit` | 9 | | |
+| 11 | `persons-browse` | 174 | | 137, 640 |
+| 12 | `person-search` | 489 | 8.2 min | 505, 555 → −7% |
+| 13 | `graph` | 224 | | 201, 195 |
+| 14 | `tr-company-place` | 132 | | 78, 171 |
+| 15 | `prices` (backfill, 3 days) | **7218** | **120.3 min** | 5,377 (2026-08-09) → **+34%** |
+| 16 | `gcs` (8 paths) | ~40 | | 55, 180 |
+| | **total** | **~16,414** | **4 h 34 m** | |
+
+Verified afterwards, cloud vs local: `contracts` **409,097** (latest 2026-08-12) ·
+`tenders` **237,457** · `fund_beneficiaries` **46,171** · `procurement_annexes`
+24,185 · `tr_company_place` 324,039 · `price_grid_days` max **2026-08-13**,
+3,841,054 rows. All equal to local except `person_browse_table` (135,715 cloud vs
+135,720 local) — the expected consequence of deliberately omitting
+`db:resolve:persons:cloud`, since no people source moved this run.
 
 ### F28 — `prices:ingest:cloud` cannot publish a guard-rejected day, and the wrapper cannot pass the override
 
@@ -1039,6 +1065,37 @@ Two smaller corrections to the cost model from the same run:
   5,005 s (2026-08-09) and 4,982 s (2026-08-12), on a comparable delta (138 rows
   vs 135). That is **−13.7%**, a wider spread than F24's "~83 min regardless"
   framing suggests, and it strengthens F26 rather than F24.
+
+### F35 — `prices` is now the LARGEST step in the publish, at 2 h — F15 needs restating upward
+
+F15 recorded `prices` as "the second-largest step in the deploy and never in the
+cost model", at 5,377 s on 2026-08-09. This run measured **7,218 s — 120.3
+minutes — which is 68% longer than `contracts`** and **44% of the entire 4 h 34 m
+publish**. It is no longer second; it is the single biggest line item, and the
+one with the least attention paid to it.
+
+Three things make it worse than the raw number suggests:
+
+- **It cost 2 hours to publish 3 days.** The backfill window was
+  2026-08-11..2026-08-13. That is ~40 min per day of retail prices, against a
+  local run of the identical three days that took a few minutes — the sharpest
+  local-vs-cloud ratio anywhere in this plan, and a pure instance of RC3 (cloud
+  recomputes what local already computed).
+- **It is unavoidable on the current design, because the cloud ingest re-does the
+  whole pipeline.** `prices:ingest:cloud` is `DATABASE_URL=… npm run prices`, so
+  it re-parses the ZIPs, re-runs the SCD-2 delta, rebuilds the ~117k-product
+  catalogue, `build_product_days`, `build_payloads` and `export_slugs` **against
+  Cloud SQL** rather than shipping what local already built. Every other dataset
+  in this plan ships an artifact; prices re-derives one.
+- **It is a hard dependency of the daily cadence.** Unlike `tr` or `agri`, KZP
+  publishes every day, so this step is due every day — meaning the *routine*
+  publish carries a 2-hour item, not an occasional one.
+
+Any Phase-4 ordering that leaves `prices` untouched cannot get the publish under
+an hour, regardless of what it does to `contracts`. Combined with F33, the two
+largest available savings in this plan are now: `prices` (120.3 min, needs a
+ship-the-artifact redesign) and the two droppable procurement steps (35.4 min,
+needs only deletion).
 
 ### F34 — `db:load:funds:pg:cloud` refuses to guess its scope, and the runbook omits the flag
 
