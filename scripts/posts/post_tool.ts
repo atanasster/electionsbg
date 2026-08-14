@@ -6,9 +6,17 @@
  *   tsx scripts/posts/post_tool.ts save <spec.json> [--force]
  *   tsx scripts/posts/post_tool.ts pins [YYYY-MM-DD]
  *   tsx scripts/posts/post_tool.ts rm <slug>
+ *   tsx scripts/posts/post_tool.ts posted <slug> <channels...> [--at YYYY-MM-DD]
+ *   tsx scripts/posts/post_tool.ts unposted <slug> <channels...>
+ *   tsx scripts/posts/post_tool.ts status [channel]
  *
  * Post kinds: data (grounded stat) · feature (new feature/launch) · dataset (new data).
  * Feature/dataset posts default to pinned for 14 days; `pins` shows what to unpin.
+ *
+ * `postedTo` records where a card was ACTUALLY published — see postedTo.ts.
+ * Nothing in this tool publishes; the stamp is applied by hand afterwards, and
+ * `status <channel>` turns the registry into a worklist ("what is not on
+ * Instagram yet"). An unstamped post is UNRECORDED, not proven unpublished.
  *
  * Registry:  brand/posts/index.json   (append-only log; powers dup-check + pins)
  * Drafts:    brand/posts/drafts/<slug>.md
@@ -40,6 +48,17 @@ import {
   type TableCardSpec,
   type PlaceCardSpec,
 } from "./cardKit";
+import {
+  CHANNELS,
+  CHANNEL_LABEL,
+  formatPosted,
+  isPostedTo,
+  mergePosted,
+  parseChannels,
+  removePosted,
+  type Channel,
+  type Posted,
+} from "./postedTo";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,6 +82,10 @@ export type PostEntry = {
   image: string | null; // rendered card path, a referenced path, or null (link auto-preview)
   pin: boolean; // keep featured/pinned after launch
   pinUntil: string | null; // YYYY-MM-DD the pin window ends (null = no end date)
+  // Where this has ACTUALLY been published, stamped by hand after the fact —
+  // nothing here publishes. Optional because every entry written before the
+  // field existed lacks it; absent and [] both mean "never published".
+  postedTo?: Posted[];
 };
 
 type PostSpec = Omit<
@@ -272,6 +295,12 @@ const cmdSave = (specPath: string, force: boolean): void => {
   ].join("\n");
   writeFileSync(resolve(DRAFTS, `${spec.slug}.md`), md + "\n");
 
+  // ⚠️ A --force re-save rebuilds the entry from the spec, and the spec has no
+  // notion of publication — so the publication history has to be carried across
+  // explicitly or re-rendering a card would silently mark a published post as
+  // never published, which is worse than not recording it at all.
+  const prior = reg.find((e) => e.slug === spec.slug);
+
   const entry: PostEntry = {
     slug: spec.slug,
     date: spec.date,
@@ -285,6 +314,7 @@ const cmdSave = (specPath: string, force: boolean): void => {
     image,
     pin,
     pinUntil,
+    ...(prior?.postedTo?.length ? { postedTo: prior.postedTo } : {}),
   };
   const next = reg
     .filter((e) => e.slug !== spec.slug)
@@ -317,6 +347,102 @@ const cmdPins = (todayArg?: string): void => {
         : `EXPIRED ${e.pinUntil} — UNPIN now`;
     console.log(`  [${e.kind}] ${e.slug} — ${status}`);
   }
+};
+
+const saveRegistry = (reg: PostEntry[]): void => {
+  writeFileSync(REGISTRY, JSON.stringify(reg, null, 2) + "\n");
+};
+
+// Stamp a post as published on one or more channels. Nothing here publishes —
+// this records what the operator already did by hand.
+const cmdPosted = (
+  slug: string,
+  channelArgs: string[],
+  at: string | undefined,
+  overwrite: boolean,
+): void => {
+  const reg = loadRegistry();
+  const entry = reg.find((e) => e.slug === slug);
+  if (!entry) throw new Error(`slug "${slug}" not in registry`);
+  const channels = parseChannels(channelArgs);
+  const date = at ?? new Date().toISOString().slice(0, 10);
+  const { next, added, kept } = mergePosted(
+    entry.postedTo,
+    channels,
+    date,
+    overwrite,
+  );
+  entry.postedTo = next;
+  saveRegistry(reg);
+  if (added.length)
+    console.log(`stamped ${slug}: ${added.join(", ")} @ ${date}`);
+  for (const c of kept)
+    console.log(
+      `already recorded on ${c} (${entry.postedTo.find((p) => p.channel === c)?.at}) — kept; use --force to overwrite the date`,
+    );
+  console.log(`postedTo: ${formatPosted(entry.postedTo)}`);
+};
+
+// Undo a stamp — for when something was recorded against the wrong post.
+const cmdUnposted = (slug: string, channelArgs: string[]): void => {
+  const reg = loadRegistry();
+  const entry = reg.find((e) => e.slug === slug);
+  if (!entry) throw new Error(`slug "${slug}" not in registry`);
+  const { next, removed } = removePosted(
+    entry.postedTo,
+    parseChannels(channelArgs),
+  );
+  // Drop the key rather than leaving `[]` — absent and empty mean the same
+  // thing, and one of them keeps the registry diff quiet.
+  if (next.length) entry.postedTo = next;
+  else delete entry.postedTo;
+  saveRegistry(reg);
+  console.log(
+    removed.length
+      ? `removed ${removed.join(", ")} from ${slug}`
+      : `nothing to remove on ${slug}`,
+  );
+  console.log(`postedTo: ${formatPosted(entry.postedTo)}`);
+};
+
+// With a channel: what is still UNPUBLISHED there (the seeding worklist).
+// Without: a per-channel tally plus the posts that have never gone anywhere.
+const cmdStatus = (channelArg: string | undefined): void => {
+  const reg = loadRegistry();
+  if (reg.length === 0) {
+    console.log("Registry is empty.");
+    return;
+  }
+  if (channelArg) {
+    const [channel] = parseChannels([channelArg]);
+    const missing = reg
+      .filter((e) => !isPostedTo(e.postedTo, channel))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    console.log(
+      `${missing.length} of ${reg.length} not yet on ${CHANNEL_LABEL[channel]}:`,
+    );
+    for (const e of missing)
+      console.log(
+        `  ${e.date}  ${e.slug}${e.image ? "" : "  (no card)"}  — ${e.title.slice(0, 60)}`,
+      );
+    return;
+  }
+  const tally = new Map<Channel, number>();
+  for (const c of CHANNELS) tally.set(c, 0);
+  let never = 0;
+  for (const e of reg) {
+    if (!e.postedTo?.length) never++;
+    for (const p of e.postedTo ?? [])
+      tally.set(p.channel, (tally.get(p.channel) ?? 0) + 1);
+  }
+  console.log(`Registry: ${reg.length} posts`);
+  for (const c of CHANNELS)
+    console.log(`  ${CHANNEL_LABEL[c].padEnd(16)} ${tally.get(c)}`);
+  console.log(`  ${"(never posted)".padEnd(16)} ${never}`);
+  console.log(
+    `\nNote: absent history means UNRECORDED, not proven unpublished — the field\n` +
+      `was added on 2026-08-14 and everything before it is unstamped.`,
+  );
 };
 
 // Remove a draft from the registry + delete its rendered card and draft file.
@@ -360,10 +486,46 @@ const main = (): void => {
     cmdRemove(arg);
     return;
   }
+  const flagless = process.argv.slice(4).filter((a) => !a.startsWith("--"));
+  const atIdx = process.argv.indexOf("--at");
+  const at = atIdx > -1 ? process.argv[atIdx + 1] : undefined;
+  if (cmd === "posted" && arg) {
+    cmdPosted(
+      arg,
+      flagless.filter((a) => a !== at),
+      at,
+      force,
+    );
+    return;
+  }
+  if (cmd === "unposted" && arg) {
+    cmdUnposted(arg, flagless);
+    return;
+  }
+  if (cmd === "status") {
+    cmdStatus(arg && !arg.startsWith("--") ? arg : undefined);
+    return;
+  }
   console.error(
-    'usage:\n  post_tool.ts check "<keywords>"\n  post_tool.ts save <spec.json> [--force]\n  post_tool.ts pins [YYYY-MM-DD]\n  post_tool.ts rm <slug>',
+    "usage:\n" +
+      '  post_tool.ts check "<keywords>"\n' +
+      "  post_tool.ts save <spec.json> [--force]\n" +
+      "  post_tool.ts pins [YYYY-MM-DD]\n" +
+      "  post_tool.ts rm <slug>\n" +
+      "  post_tool.ts posted <slug> <channels...> [--at YYYY-MM-DD] [--force]\n" +
+      "  post_tool.ts unposted <slug> <channels...>\n" +
+      "  post_tool.ts status [channel]\n" +
+      `\nchannels: ${CHANNELS.join(", ")}`,
   );
   process.exit(1);
 };
 
-main();
+// A thrown Error here is operator-facing input validation ("unknown channel
+// …", "slug … not in registry"), not a crash. A Node stack trace buries the
+// one line that says what to do instead.
+try {
+  main();
+} catch (e) {
+  console.error(`error: ${e instanceof Error ? e.message : String(e)}`);
+  process.exit(1);
+}

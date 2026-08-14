@@ -256,6 +256,27 @@ Spec shape:
 `save` re-runs the dup guard, renders `brand/posts/<slug>.png`, writes
 `brand/posts/drafts/<slug>.md`, and appends to `brand/posts/index.json`.
 
+### After the operator publishes — stamp it
+
+The registry is a log of DRAFTS; nothing here publishes. Once a card has
+actually gone out, record where, so the next dup-check and the next
+back-catalogue seeding can tell "rendered" from "published":
+
+```bash
+node_modules/.bin/tsx scripts/posts/post_tool.ts posted <slug> fb-page,fb-group [--at YYYY-MM-DD]
+```
+
+Channels: `fb-page`, `fb-group`, `ig`, `li`, `x`, `pinterest`, `tg`. There is
+deliberately **no bare `fb`** — the Page and the Group are different audiences
+with different pin flows, and one value would make "already posted?"
+unanswerable. `--at` defaults to today; a channel already recorded keeps its
+original date unless you pass `--force`.
+
+`post_tool.ts status <channel>` lists what has NOT gone out there yet — that is
+the worklist for seeding a new channel from the back catalogue. **An unstamped
+post is UNRECORDED, not proven unpublished:** the field was added on
+2026-08-14 and every post before it is blank.
+
 **Infographic-card example** (preferred shape — a `bars` array is what triggers
 the `renderBarCard` renderer):
 ```json
