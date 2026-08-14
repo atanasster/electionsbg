@@ -126,17 +126,100 @@ rendered and waiting in `brand/videos/2026-08-09-election-risk-explainer/`.
 8. Record the channel URL and video ID; set `status: "published"` in
    `brand/videos/index.json`.
 
+### 3.1 Exact fields — YouTube Studio → Customisation
+
+Channel: **`youtube.com/@naiasno`** · ID `UC9OXGiUuYput9IRaQU5AlVA` (that is a lowercase
+`l` before `VA`, not a capital `I` — the two are the same glyph in most sans-serif fonts,
+which is exactly how the "This channel does not exist" scare happened. **Link the handle
+form, never the ID form.**)
+
+**Branding tab**
+
+| Field | File |
+|---|---|
+| Picture | `brand/channels/avatar_youtube_800.png` |
+| Banner image | `brand/channels/banner_youtube_2560x1440.png` |
+| Video watermark | skip for now |
+
+**Basic info tab — description** (721 chars of the 1000 allowed; the first line is 95
+chars, so it survives the truncated preview YouTube shows in search):
+
+```
+Наясно е платформа с отворени данни за България — изборите, парите и властта, обяснени с числа.
+
+Изборите от 2005 г. насам, държавният бюджет, обществените поръчки, еврофондовете, декларациите на политиците, гласуванията в парламента, съдебната власт, здравеопазването, земеделието, цените и училищата — по област, община и населено място.
+
+В този канал разглобяваме числата: откъде идват, какво показват и какво НЕ показват. Всяко твърдение стъпва на публичен източник и води до него.
+
+Без мнения. Само данни.
+
+Сайт: https://electionsbg.com
+Данни и източници: https://electionsbg.com/data
+Facebook: https://www.facebook.com/naiasno
+Групата „Наясно — данните за България": https://www.facebook.com/groups/1982841819785121
+```
+
+**Basic info tab — links** (title → URL; the first is the one shown on the banner):
+
+| Link title | URL |
+|---|---|
+| Наясно — сайтът | `https://electionsbg.com` |
+| Данни и източници | `https://electionsbg.com/data` |
+| Facebook | `https://www.facebook.com/naiasno` |
+| Групата | `https://www.facebook.com/groups/1982841819785121` |
+
+**Contact info:** optional, and it is a real trade — an address here is public and gets
+scraped, but a channel making claims about public money is more credible to a journalist
+with a way to reach it. If you add one, use a role address, never a personal inbox.
+
+⚠️ Every URL above is `electionsbg.com` **on purpose** — `naiasno.bg` is still
+mid-registration. These are among the links the domain flip has to revisit; the 301s will
+carry them in the meantime.
+
 ---
 
 ## 4. Instagram — cheapest reach in the set
 
-1. Create the account as **Professional → Business** (not Creator, not personal).
-2. Handle `naiasno`, name `Наясно`, avatar, short bio, website.
-3. **Link it to the existing Facebook Page in Meta Business Suite.** This is the whole
-   point: it is what turns Page→Instagram cross-posting into a settings toggle. A
-   personal account claims the handle and gets you none of the workflow.
-4. The square cards in `brand/posts/` are already 1080×1080 — the existing back catalogue
-   is postable as-is.
+**Do it on the web** (instagram.com), not the phone. The avatar is on the Mac, and the
+Business Suite step at the end is desktop anyway.
+
+1. **Sign up as a new account** — not a rename of a personal one. Use a **role email**,
+   not a personal inbox: it is the recovery path for a brand asset. Turn on 2FA in the
+   same sitting. Adding it to your account switcher afterwards is fine and convenient.
+2. **Username** `naiasno`.
+3. **Name** — `Наясно — данни за България` (26 of 30 chars).
+   ⚠️ **The Name field is SEARCHABLE and the username mostly is not.** This is the most
+   under-used discovery lever on Instagram: a Name of just "Наясно" is findable only by
+   people who already know the brand. Put the words a stranger would type.
+   ⚠️ It can only be changed **twice in any 14-day window**. Get it right the first time.
+4. **Avatar** → `brand/channels/avatar_instagram_1080.png`.
+5. **Bio** (124 of 150 chars, line breaks included):
+
+```
+Изборите, парите и властта — с отворени данни.
+Бюджет, поръчки, еврофондове, декларации, гласувания.
+Без мнения. Само данни.
+```
+
+6. **Links** — Instagram allows **up to 5**, but only the first is shown in the bio; the
+   rest sit behind a "..." menu. Order accordingly:
+
+   1. `https://electionsbg.com`
+   2. `https://www.youtube.com/@naiasno`
+   3. `https://electionsbg.com/data`
+   4. `https://www.facebook.com/groups/1982841819785121`
+
+7. **Switch to Professional → Business** (Settings → Account type and tools). **Business,
+   not Creator** — Business is what links cleanly to a Page. Category: a news/information
+   one such as „Информационен сайт".
+8. **Link it to the existing Facebook Page in Meta Business Suite**
+   (business.facebook.com). This is the whole point of the exercise: it is what turns
+   Page→Instagram cross-posting into a settings toggle. Claiming the handle without this
+   gets you the name and none of the workflow.
+9. **Seed the grid before telling anyone.** An Instagram profile is judged by its grid,
+   and a profile with zero posts reads as abandoned rather than new. The cards in
+   `brand/posts/` are already 1080×1080 — pick 6-9 of the strongest and post them, oldest
+   first so the newest sits top-left.
 
 ---
 
