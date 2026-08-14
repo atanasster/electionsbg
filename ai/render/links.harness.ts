@@ -14,8 +14,9 @@ import { muniLocator, oblastLocator, settlementLocator } from "../tools/geo";
 import { latestLocalCycle } from "../tools/localDataset";
 import { siteLinks } from "./links";
 import type { Domain, Envelope } from "../tools/types";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
-const SITE = "https://electionsbg.com";
+const SITE = SITE_ORIGIN;
 const CYCLE = latestLocalCycle(); // the cycle the generic local landing points at
 
 let failures = 0;

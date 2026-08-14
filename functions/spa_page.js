@@ -32,7 +32,8 @@
 const SEO_BLOCK = /<!-- SEO -->[\s\S]*?<!-- \/SEO -->/;
 const BODY_BLOCK = /<!-- BODY -->[\s\S]*?<!-- \/BODY -->/;
 
-const SITE_URL = "https://electionsbg.com";
+const { SITE_ORIGIN } = require("./site_origin");
+const SITE_URL = SITE_ORIGIN;
 
 /** ИСУН contract numbers are [-.0-9A-Z] by construction (verified at ingest). */
 const CONTRACT_NUMBER = /^[A-Za-z0-9.\-\s]{3,120}$/;

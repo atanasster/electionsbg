@@ -28,6 +28,7 @@ import {
 } from "@/lib/judicialKind";
 import { kfnFundName } from "@/lib/kfnFundSlug";
 import { kfnSharePct } from "@/lib/kfnPeriod";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +38,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 // site root (electionsbg.com/llms-full.txt).
 const DATA = path.join(PROJECT_ROOT, "data");
 const PUBLIC = path.join(PROJECT_ROOT, "public");
-const SITE_URL = "https://electionsbg.com";
+const SITE_URL = SITE_ORIGIN;
 
 type Lang = "bg" | "en";
 

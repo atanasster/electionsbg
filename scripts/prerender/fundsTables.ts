@@ -25,6 +25,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -342,7 +343,7 @@ export const beneficiaryItemList = (
   data: FundsTableRows,
   url: string,
   lang: "bg" | "en" = "bg",
-  siteUrl = "https://electionsbg.com",
+  siteUrl = SITE_ORIGIN,
 ): object[] => {
   const rows = (data.topBeneficiaries ?? [])
     .filter((b) => b?.beneficiaryName)

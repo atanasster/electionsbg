@@ -1,3 +1,4 @@
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 // Sector-pack institution catalogue — the high-profile public buyers whose
 // generic awarder dashboard (/awarder/:eik) grows a domain pack (roads / НОИ /
 // НЗОК) or an administering-agency card (ДФЗ). These are real SPA routes that
@@ -42,7 +43,7 @@ export type InstitutionPack = {
   ogSettleMs?: number;
 };
 
-const SITE = "https://electionsbg.com";
+const SITE = SITE_ORIGIN;
 
 export const INSTITUTION_PACKS: InstitutionPack[] = [
   {

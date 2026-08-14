@@ -19,6 +19,7 @@ import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
 import { readSessionFacts } from "../prerender/votesFacts";
 import { mostDivergentPairPath } from "@/screens/parliament/seeds";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
@@ -50,7 +51,7 @@ const regularLocalCycles: string[] = (
 // in sync. Fall back to a stable older one if elections.json is empty.
 const election = elections[0]?.name ?? "2024_10_27";
 
-const homePage = "https://electionsbg.com";
+const homePage = SITE_ORIGIN;
 const today = new Date().toISOString().slice(0, 10);
 // Election-data URLs (sections, settlements, candidates, parties, reports,
 // municipalities) only meaningfully change when a new election is added.

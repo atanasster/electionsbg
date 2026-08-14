@@ -127,7 +127,7 @@ const makeLlm = () => {
           headers: {
             Authorization: `Bearer ${OPENROUTER_API_KEY.value()}`,
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://electionsbg.com",
+            "HTTP-Referer": SITE_ORIGIN,
             "X-Title": "Naiasno AI",
           },
           body: JSON.stringify(payload),
@@ -494,7 +494,7 @@ let spaShellCachedAt = 0;
 const loadSpaShell = async () => {
   if (spaShellCache && Date.now() - spaShellCachedAt < SPA_SHELL_TTL_MS)
     return spaShellCache;
-  const r = await fetch("https://electionsbg.com/", {
+  const r = await fetch(`${SITE_ORIGIN}/`, {
     headers: { "User-Agent": "naiasno-spa-shell" },
     // Never let a CDN hand us the very stale copy the TTL exists to escape.
     cache: "no-store",
@@ -826,6 +826,7 @@ if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
 //   GET  /api/sql/schema           → { databases[], tables[] }
 //   POST /api/sql/query {sql,limit} → { columns, rows, rowCount, truncated, elapsedMs }
 const sqlLib = require("./sql_lib");
+const { SITE_ORIGIN } = require("./site_origin");
 
 // In-memory sliding-window rate limit, per instance. maxInstances is small so
 // this bounds abuse well enough without external state; the real caps are the

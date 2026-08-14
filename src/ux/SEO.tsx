@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 export const SEO: FC<{
   title: string;
@@ -34,7 +35,7 @@ export const SEO: FC<{
 
   // Dynamically inject canonical URL
   useEffect(() => {
-    const baseUrl = "https://electionsbg.com";
+    const baseUrl = SITE_ORIGIN;
     const canonicalUrl = canonical || `${baseUrl}${location.pathname}`;
 
     // Remove existing canonical link if present

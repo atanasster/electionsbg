@@ -29,13 +29,14 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prerenderRoutes } from "./routes";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const REPO = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
 const read = (p: string) => fs.readFileSync(path.join(REPO, p), "utf8");
-const ORIGIN = "https://electionsbg.com";
+const ORIGIN = SITE_ORIGIN;
 
 // ---------------------------------------------------------------------------
 

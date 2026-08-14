@@ -9,12 +9,13 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PUBLIC = path.join(PROJECT_ROOT, "public");
-const SITE_URL = "https://electionsbg.com";
+const SITE_URL = SITE_ORIGIN;
 
 type ArticleMeta = {
   slug: string;

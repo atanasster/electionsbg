@@ -12,8 +12,9 @@
 
 import { latestLocalCycle } from "../tools/localDataset";
 import type { Domain, Envelope } from "../tools/types";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
-const SITE = "https://electionsbg.com";
+const SITE = SITE_ORIGIN;
 
 export type SiteLink = { label: { bg: string; en: string }; href: string };
 

@@ -1,4 +1,5 @@
-const SITE_URL = "https://electionsbg.com";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
+const SITE_URL = SITE_ORIGIN;
 
 // Stable @id URIs so crawlers reconcile the WebSite + Organization nodes
 // across every prerendered page — the schema graph is one node referenced

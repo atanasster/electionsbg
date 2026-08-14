@@ -7,8 +7,9 @@ import {
   fundsThemeTableRows,
   topBeneficiaryNames,
 } from "./fundsTables";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
-const SITE = "https://electionsbg.com";
+const SITE = SITE_ORIGIN;
 const caps = { beneficiaries: 2, contracts: 2, munis: 2 };
 const names = (code: string) =>
   ({ S22: "София (столица)", BGS04: "Бургас" })[code];

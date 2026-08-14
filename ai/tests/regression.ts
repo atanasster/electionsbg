@@ -26,6 +26,7 @@ import type {
   Lang,
   ToolContext,
 } from "../tools/types";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 setFetcher(async (path: string) => {
   const rel = path.startsWith("/") ? path.slice(1) : path;
@@ -38,7 +39,7 @@ setFetcher(async (path: string) => {
 setDbFetcher(nodeDbFetcher);
 
 const LATEST = "2026_04_19";
-const SITE = "https://electionsbg.com";
+const SITE = SITE_ORIGIN;
 
 // A thunk lets a case defer its expected value to a live query (see kzk* below),
 // so DB-derived facts are cross-checked against Postgres at run time instead of

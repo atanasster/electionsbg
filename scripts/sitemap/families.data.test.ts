@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { dbReachable, end } from "../db/lib/pg";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -30,7 +31,7 @@ const PROJECT_ROOT = path.resolve(
 );
 const PUBLIC = path.join(PROJECT_ROOT, "public");
 const DIST = path.join(PROJECT_ROOT, "dist");
-const ORIGIN = "https://electionsbg.com";
+const ORIGIN = SITE_ORIGIN;
 
 /** Every <loc> across every committed shard, as site-relative paths. */
 const allLocs = (): string[] => {

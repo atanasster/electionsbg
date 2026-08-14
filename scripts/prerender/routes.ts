@@ -48,7 +48,7 @@ export type PrerenderRoute = {
   };
 };
 
-export const SITE_URL = "https://electionsbg.com";
+export const SITE_URL = SITE_ORIGIN;
 // The EN root is `/en`, NOT `/en/` — the one place the no-slash contract
 // inverts (the bare `/` keeps its slash; hosting 301s `/en/` to `/en`). Named
 // because it was hand-written as EN_HOME in 21 JSON-LD nodes, each of
@@ -99,6 +99,7 @@ import {
   topBeneficiaryNames,
   type FundsTableRows,
 } from "./fundsTables";
+import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
