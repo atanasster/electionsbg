@@ -2,10 +2,13 @@
 // functions (waste, wastewater, monitoring, nature, construction, services, supplies,
 // other). Mirrors TransportCategoryTile.
 //
-// ⚠ CPV COVERAGE IS LOW for this group (~40% of € carry a CPV — §0.5), so „Друго/Other"
-// (no-CPV contracts) is the largest bucket. The tile leads with the CPV-known coverage %
-// so the reader knows the functional split covers under half the money — not a data bug,
-// a source limitation.
+// The tile leads with the share of € this classifier could put in a NAMED function —
+// `1 − other`, computed live from the model rather than stated, so it stays true as the
+// corpus moves. That is NOT the same as CPV coverage: 96.6% of the group's € carries a
+// CPV, while 89.9% lands in a named function, the gap being divisions this classifier
+// does not name. It has moved a long way (the §0.5 measurement put the split at ~40%,
+// „Друго" the largest bucket; it is the fifth now). Keep the disclosure regardless — it
+// is what lets a reader tell "this function is small" from "this function is unnamed".
 
 import { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
