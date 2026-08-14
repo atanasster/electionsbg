@@ -41,6 +41,8 @@ import {
   type BudgetFigure,
 } from "@/data/budget/useBudgetYear";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { useBudgetSeries } from "@/data/budget/useBudgetSeries";
+import { BudgetTrendChart } from "./BudgetTrendChart";
 
 /** The identity's terms, in the order they appear in it. `financing` is
  *  deliberately absent — it is `-balance` and gets its own note. */
@@ -107,6 +109,25 @@ export const BudgetExecutionScreen: FC = () => {
     if (year?.complete === true) return pct(balance?.actual ?? null, gdp);
     return pct(balance?.projected ?? null, gdp);
   }, [gdp, year, balance]);
+
+  // EVERY series, one read — the trend needs revenue, expenditure and the
+  // balance drawn together, and the projection also reads the EU contribution.
+  const { series: allSeries } = useBudgetSeries(null);
+
+  /** The window this page draws: the selected fiscal year, month by month.
+   *  The projection anchors on the PRIOR year, so the chart is handed the whole
+   *  corpus separately rather than being asked to project from what it draws. */
+  const trendPoints = useMemo(
+    () => (allSeries?.points ?? []).filter((p) => p.fiscalYear === fy),
+    [allSeries, fy],
+  );
+  /** PERIODS, not rows. Each period carries five series rows, so a row count
+   *  clears any `> 1` threshold on a single month — and the chart itself bails
+   *  on fewer than two periods, so the heading rendered over an empty box. */
+  const trendMonths = useMemo(
+    () => new Set(trendPoints.map((p) => p.period)).size,
+    [trendPoints],
+  );
 
   const band = stats?.peerBands?.B9 ?? null;
 
@@ -298,6 +319,23 @@ export const BudgetExecutionScreen: FC = () => {
                 </tbody>
               </table>
             </div>
+
+            {/* HOW THE YEAR MOVED, not just where it ended. The table above is
+                one row per term at one instant; this is the same four terms
+                month by month, with the dashed tail on a year that has not
+                finished. T9.2 — the pre-migration screen led with it and the
+                hub migration shipped fourteen pages carrying no chart at all. */}
+            {trendMonths > 1 ? (
+              <div className="rounded-xl border bg-card p-3 shadow-sm sm:p-4">
+                <h2 className="mb-1 text-sm font-semibold">
+                  {t("budget_trend_h")}
+                </h2>
+                <BudgetTrendChart
+                  points={trendPoints}
+                  allPoints={allSeries?.points ?? []}
+                />
+              </div>
+            ) : null}
 
             {/* The identity, stated — and only claimed when it actually holds. */}
             <p className="max-w-3xl text-xs text-muted-foreground">

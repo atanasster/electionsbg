@@ -31,23 +31,25 @@ import { LineChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import type { KfpObservation } from "@/data/budget/types";
+// T9.2 — the projection arithmetic lives in ONE place now. It was copied here
+// and again on /budget/execution, and a chart that computes how the year ends
+// twice is a site that can disagree with itself about it.
+import {
+  BUDGET_EVENTS,
+  buildTrendData,
+  type TrendDatum as ChartDatum,
+  type TrendPoint,
+} from "@/screens/budget/budgetTrend";
 
-// Curated lifetime markers — events with a clear, dateable fiscal-execution
-// implication. Keep the list tight (≤ 10 entries lifetime) so the chart stays
-// a chart, not a timeline. Periods must match the chart's "YYYY-MM" tick
-// strings exactly or the ReferenceLine renders off-axis.
-const BUDGET_EVENTS: Array<{
-  period: string;
-  labelBg: string;
-  labelEn: string;
-}> = [
-  { period: "2020-03", labelBg: "COVID", labelEn: "COVID" },
-  { period: "2022-02", labelBg: "Война", labelEn: "Ukraine war" },
-  { period: "2024-06", labelBg: "Избори", labelEn: "Election" },
-  { period: "2024-10", labelBg: "Избори", labelEn: "Election" },
-  { period: "2026-01", labelBg: "Еврозона", labelEn: "Eurozone" },
-  { period: "2026-04", labelBg: "Избори", labelEn: "Election" },
-];
+/** The JSON feed's shape, reduced to what the shared builder takes. The PG
+ *  route already ships `executedEur`, so only this side needs an adapter. */
+const asTrendPoints = (obs: KfpObservation[]): TrendPoint[] =>
+  obs.map((o) => ({
+    fiscalYear: o.fiscalYear,
+    period: o.period,
+    series: o.series,
+    executedEur: o.executed.amountEur,
+  }));
 
 const compactEur = (v: number): string => {
   const abs = Math.abs(v);
@@ -55,163 +57,6 @@ const compactEur = (v: number): string => {
   if (abs >= 1_000_000) return `€${(v / 1_000_000).toFixed(0)}M`;
   if (abs >= 1_000) return `€${(v / 1_000).toFixed(0)}k`;
   return `€${v}`;
-};
-
-interface ChartDatum {
-  period: string;
-  revenue: number | null;
-  expenditure: number | null;
-  // Combined balance for the single bar series — actual on past months,
-  // projected on future months, distinguished by `isProjected` so the cell
-  // can dim the projected slice.
-  balanceBar: number | null;
-  // Line projection series — null on actual months, populated for projected
-  // months PLUS the join month (so the dashed line connects to the last
-  // solid line point without a visible gap).
-  revenueProj: number | null;
-  expenditureProj: number | null;
-  isProjected: boolean;
-}
-
-const fyOf = (period: string): number => parseInt(period.slice(0, 4), 10);
-const monthOf = (period: string): number => parseInt(period.slice(5, 7), 10);
-
-interface MonthlyValues {
-  revenue: number | null;
-  expenditure: number | null;
-  euContribution: number | null;
-  balance: number | null;
-}
-
-// Index a flat observation list by [fy, month] → series values. Projection
-// reads from this on prior-year months the in-progress year hasn't reached.
-const indexByFyMonth = (
-  observations: KfpObservation[],
-): Map<string, MonthlyValues> => {
-  const out = new Map<string, MonthlyValues>();
-  const key = (fy: number, m: number): string => `${fy}-${m}`;
-  for (const o of observations) {
-    const k = key(o.fiscalYear, monthOf(o.period));
-    let v = out.get(k);
-    if (!v) {
-      v = {
-        revenue: null,
-        expenditure: null,
-        euContribution: null,
-        balance: null,
-      };
-      out.set(k, v);
-    }
-    const amt = o.executed.amountEur;
-    if (o.series === "revenue") v.revenue = amt;
-    else if (o.series === "expenditure") v.expenditure = amt;
-    else if (o.series === "euContribution") v.euContribution = amt;
-    else if (o.series === "balance") v.balance = amt;
-  }
-  return out;
-};
-
-const emptyDatum = (period: string, isProjected: boolean): ChartDatum => ({
-  period,
-  revenue: null,
-  expenditure: null,
-  balanceBar: null,
-  revenueProj: null,
-  expenditureProj: null,
-  isProjected,
-});
-
-const buildData = (
-  observations: KfpObservation[],
-  allObservations: KfpObservation[],
-): ChartDatum[] => {
-  const byPeriod = new Map<string, ChartDatum>();
-  for (const o of observations) {
-    let d = byPeriod.get(o.period);
-    if (!d) {
-      d = emptyDatum(o.period, false);
-      byPeriod.set(o.period, d);
-    }
-    const amt = o.executed.amountEur;
-    if (o.series === "revenue") d.revenue = amt;
-    else if (o.series === "expenditure") d.expenditure = amt;
-    else if (o.series === "balance") d.balanceBar = amt;
-  }
-  const sorted = [...byPeriod.values()].sort((a, b) =>
-    a.period.localeCompare(b.period),
-  );
-  if (sorted.length === 0) return sorted;
-
-  // Determine in-progress FY from the latest displayed point. If it's already
-  // at month 12, the year is complete — nothing to project.
-  const last = sorted[sorted.length - 1];
-  const currentFy = fyOf(last.period);
-  const currentLatestMonth = monthOf(last.period);
-  if (currentLatestMonth >= 12) return sorted;
-
-  // Anchor: prior FY at the same calendar month + at December. Without both
-  // we have no seasonal scale (same constraint the headline projection uses).
-  const idx = indexByFyMonth(allObservations);
-  const priorFy = currentFy - 1;
-  const priorAtLatest = idx.get(`${priorFy}-${currentLatestMonth}`);
-  const priorAtDec = idx.get(`${priorFy}-12`);
-  if (!priorAtLatest || !priorAtDec) return sorted;
-
-  // Per-series ratio. Each scales independently — revenue and expenditure
-  // have different seasonal shapes (revenue is corporate-tax-backloaded;
-  // expenditure runs more linearly). Balance is the residual: project rev,
-  // exp, and EU contribution separately, then balance = rev − exp − EU.
-  const ratio = (
-    actual: number | null,
-    prior: number | null,
-  ): number | null => {
-    if (actual == null || prior == null || prior === 0) return null;
-    return actual / prior;
-  };
-  const ratioRev = ratio(last.revenue, priorAtLatest.revenue);
-  const ratioExp = ratio(last.expenditure, priorAtLatest.expenditure);
-  // EU contribution isn't displayed but feeds the balance projection. Use
-  // ratio=1 if either side is missing, since EU contribution is small enough
-  // that a stale prior estimate barely moves the balance bar.
-  const currentEu = idx.get(
-    `${currentFy}-${currentLatestMonth}`,
-  )?.euContribution;
-  const ratioEu = ratio(currentEu ?? null, priorAtLatest.euContribution) ?? 1;
-
-  // Connect the dashed line at the last actual point: copy line actuals into
-  // the projection keys for that single month so Recharts draws an unbroken
-  // path from solid → dashed. NOT for the balance bar — a bar is per-month
-  // discrete, so painting both `balance` and `balanceProj` here would render
-  // two stacked rects at the join (visible as a doubled, darker bar).
-  last.revenueProj = last.revenue;
-  last.expenditureProj = last.expenditure;
-
-  for (let m = currentLatestMonth + 1; m <= 12; m++) {
-    const priorMonth = idx.get(`${priorFy}-${m}`);
-    if (!priorMonth) continue;
-    const period = `${currentFy}-${String(m).padStart(2, "0")}`;
-    const projRev =
-      ratioRev != null && priorMonth.revenue != null
-        ? Math.round(priorMonth.revenue * ratioRev)
-        : null;
-    const projExp =
-      ratioExp != null && priorMonth.expenditure != null
-        ? Math.round(priorMonth.expenditure * ratioExp)
-        : null;
-    const projEu =
-      priorMonth.euContribution != null
-        ? Math.round(priorMonth.euContribution * ratioEu)
-        : 0;
-    const projBal =
-      projRev != null && projExp != null ? projRev - projExp - projEu : null;
-    const datum = emptyDatum(period, true);
-    datum.revenueProj = projRev;
-    datum.expenditureProj = projExp;
-    datum.balanceBar = projBal;
-    sorted.push(datum);
-  }
-
-  return sorted;
 };
 
 const ChartTooltip: FC<{
@@ -257,7 +102,10 @@ export const BudgetTrendTile: FC<{
 }> = ({ observations, allObservations }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const data = buildData(observations, allObservations);
+  const data = buildTrendData(
+    asTrendPoints(observations),
+    asTrendPoints(allObservations),
+  );
   const visibleEvents = useMemo(() => {
     const periods = new Set(data.map((d) => d.period));
     return BUDGET_EVENTS.filter((e) => periods.has(e.period));

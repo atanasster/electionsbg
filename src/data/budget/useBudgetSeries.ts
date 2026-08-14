@@ -21,9 +21,18 @@ export interface BudgetSeries {
   points: BudgetSeriesPoint[];
 }
 
-const fetchSeries = async (series: string): Promise<BudgetSeries | null> => {
+const fetchSeries = async (
+  series: string | null,
+): Promise<BudgetSeries | null> => {
   try {
-    const res = await fetch(`/api/db/budget-series?series=${series}`);
+    // No `series` means EVERY series, which is what the SQL already does with a
+    // NULL third argument. The trend chart needs revenue, expenditure, the EU
+    // contribution and the balance together — three separate calls would give
+    // it three independently-cached windows, and the projection is only
+    // coherent when all four come from one read.
+    const res = await fetch(
+      `/api/db/budget-series${series ? `?series=${encodeURIComponent(series)}` : ""}`,
+    );
     if (!res.ok) return null;
     return (await res.json()) as BudgetSeries | null;
   } catch {
@@ -31,9 +40,9 @@ const fetchSeries = async (series: string): Promise<BudgetSeries | null> => {
   }
 };
 
-export const useBudgetSeries = (series: string) => {
+export const useBudgetSeries = (series: string | null) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["budget-series", series] as const,
+    queryKey: ["budget-series", series ?? "all"] as const,
     queryFn: () => fetchSeries(series),
     staleTime: Infinity,
     refetchOnWindowFocus: false,
