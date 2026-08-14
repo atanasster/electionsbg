@@ -63,6 +63,9 @@ export interface BudgetHubStats {
    *  because the КФП feed does. A year picker on /budget/functional built from
    *  the wrong list opens on a year with no breakdown. */
   cofogYears?: number[] | null;
+  /** The чл. 53 transfer table's OWN coverage — 2018-2026, wider than
+   *  `yearsAvailable` (2021-2026, the КФП feed). */
+  muniYears?: number[] | null;
   peerBands: Record<string, BudgetPeerBand> | null;
 }
 

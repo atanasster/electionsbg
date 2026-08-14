@@ -504,12 +504,35 @@ CREATE OR REPLACE FUNCTION budget_muni_list(
     SELECT t.obshtina, coalesce(p.name_bg, t.name_bg) AS "nameBg", p.name_en AS "nameEn",
            t.fiscal_year AS "fiscalYear",
            t.delegated_eur AS "delegatedEur", t.equalization_eur AS "equalizationEur",
-           t.capital_eur AS "capitalEur", t.total_eur AS "totalEur"
+           t.capital_eur AS "capitalEur", t.winter_eur AS "winterEur",
+           t.other_targeted_eur AS "otherTargetedEur", t.total_eur AS "totalEur",
+           pop.population AS "population", pop.census_year AS "censusYear",
+           CASE WHEN pop.population > 0
+                THEN t.total_eur / pop.population END AS "totalPerCapitaEur"
       FROM budget_muni_transfer t
       LEFT JOIN place_dim p ON p.code = t.obshtina AND p.kind = 'obshtina'
+      -- ⚠️ THE CAPITAL IS KEYED DIFFERENTLY IN THE TWO TABLES. `budget_muni_transfer`
+      -- calls it SFO_CITY (the МФ denomination) and `obshtina_population` calls it
+      -- SOF00 (the census one), so a plain equi-join drops the LARGEST municipality —
+      -- EUR 718.26m and 1 274 290 residents — leaving Sofia as the one row on the page
+      -- with no per-resident figure, which is also the row every reader checks first.
+      -- Measured: exactly one of 265 rows fails the naive join, and it is that one.
+      --
+      -- Resolved through `place_dim.governance_code`, the declared canonical
+      -- crosswalk (the idiom 021 and 149 already use), NOT a CASE on the one
+      -- code that happens to differ today. Verified byte-equivalent across all
+      -- 2 385 rows.
+      LEFT JOIN obshtina_population pop
+             ON pop.obshtina = coalesce(p.governance_code, t.obshtina)
      WHERE (p_fy IS NULL OR t.fiscal_year = p_fy)
+       -- BOTH names. Matching name_bg alone made /en/budget/municipal?q=Plovdiv
+       -- render „No municipalities found" above a list containing Plovdiv: the
+       -- reader searches in the language the page is written in, and the server
+       -- was only ever looking at the other one.
        AND (p_q IS NULL OR p_q = ''
             OR coalesce(p.name_bg, t.name_bg) ILIKE
+               '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
+            OR p.name_en ILIKE
                '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%')
      -- Measured before this line existed: budget_muni_list(2026, NULL, 5)
      -- returned Бургас-01 at EUR 19.98m as #1 and omitted Столична (EUR 718.26m)

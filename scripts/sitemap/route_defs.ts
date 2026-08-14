@@ -70,6 +70,7 @@ export const ENGLISH_STATIC_PAGES = [
   "budget/personnel",
   "budget/investments",
   "budget/social-funds",
+  "budget/municipal",
   "budget/tax-calculator",
   "budget/mod",
   "budget/simulator",
@@ -379,6 +380,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "budget/social-funds",
     file: `data/budget/noi/funds.json`,
+  },
+  {
+    path: "budget/municipal",
+    file: `data/budget/index.json`,
   },
   {
     path: "budget/methodology",

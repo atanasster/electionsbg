@@ -177,6 +177,12 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
            -- has nothing else, which cannot happen — TOTAL rides with the ten.
            (SELECT array_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
               FROM budget_cofog)          AS "cofogYears",
+           -- The чл. 53 transfer table's OWN coverage: 2018-2026, against the
+           -- КФП feed's 2021-2026. A picker built from `yearsAvailable` omits
+           -- three years the corpus HAS, and leaves ?fy=2018 rendering
+           -- correctly with no chip selected.
+           (SELECT array_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
+              FROM budget_muni_transfer)  AS "muniYears",
            (SELECT jsonb_object_agg(b.na_item, jsonb_build_object(
                      'year', b.year, 'bgPctGdp', b.bg_pct_gdp,
                      'euAvgPctGdp', b.eu_avg_pct_gdp,
