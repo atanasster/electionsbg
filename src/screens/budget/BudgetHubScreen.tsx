@@ -20,6 +20,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Scale, ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
@@ -30,6 +31,7 @@ import { HubSearch } from "@/ux/search/HubSearch";
 import { BudgetReceiptCard } from "./BudgetReceiptCard";
 import { budgetSearchSources } from "./budgetSearch";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { usePreserveParams } from "@/ux/usePreserveParams";
 
 /** Whether the national municipal-commitments line has something true to say.
  *
@@ -58,6 +60,21 @@ export const BudgetHubScreen: FC = () => {
   const moneyLocale = i18n.language === "bg" ? "bg-BG" : "en-GB";
   const nf = useMemo(() => new Intl.NumberFormat(moneyLocale), [moneyLocale]);
   const { stats } = useBudgetHubStats();
+  // The ALLOWLIST form, not the raw `search` the pre-migration card passed on.
+  //
+  // NOT because the destination reads `?elections=` — it does not. Traced:
+  // /indicators/budgets is a fixed 2005→now cabinet-era series and references
+  // no election context at all. `elections` still has to survive the hop for
+  // two other reasons: it is the global ElectionContext param and has no
+  // localStorage fallback, so dropping it silently resets the header's
+  // election selector to the latest; and `IndicatorsNav` forwards the raw
+  // search onward to /indicators/compare, which DOES read it.
+  //
+  // `cabinet` is deliberately outside the allowlist. /budget mounts under
+  // `LayoutScreen`, not `CabinetAnchoredLayoutScreen`, so it never carries one
+  // — but a page that acquires an anchor must not export it to a series that
+  // spans every cabinet.
+  const preserved = usePreserveParams();
   const mc = stats?.municipalCommitments ?? null;
 
   const metrics = useMemo<Record<string, TileMetric>>(() => {
@@ -338,23 +355,60 @@ export const BudgetHubScreen: FC = () => {
         <TileHubGrid sections={sections} className="mt-6" />
       </div>
 
+      {/* ZOOM OUT (T9.12). The pre-migration screen carried this card between
+          its execution and composition sections, and the hub dropped it — which
+          left `/indicators/budgets` with NO inbound link from the budget module
+          at all. Every tile above answers a question inside one fiscal year;
+          this is the only one that asks who ran them.
+
+          It sits AFTER the grid rather than among the tiles on purpose: the
+          bands front this module's own pages, and a tile pointing out of it
+          would be the fifteenth destination in a registry whose gate says
+          fourteen. */}
+      <Link
+        to={{ pathname: "/indicators/budgets", search: preserved().toString() }}
+        className="mt-6 flex items-center justify-between gap-3 rounded-xl border bg-card p-4 shadow-sm transition-colors hover:bg-accent/10 focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <div className="flex items-start gap-3">
+          <Scale className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+          <div>
+            <h2 className="mb-0.5 text-base font-semibold">
+              {t("cabinet_budgets_heading")}
+            </h2>
+            <p className="max-w-2xl text-xs text-muted-foreground">
+              {t("cabinet_budgets_teaser")}
+            </p>
+          </div>
+        </div>
+        <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-sm text-primary">
+          {t("cabinet_budgets_open")}
+          <ArrowRight className="h-3.5 w-3.5" />
+        </span>
+      </Link>
+
       {/* The two pages the tile grid deliberately does not front, linked here
           so neither is an orphan. Moving /budget to the hub took the deep dive
           out of the router's front door AND took /budget/methodology with it —
           its only inbound link was ON the deep-dive page. */}
       <p className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-        <Link to="/budget/deep-dive" className="text-primary hover:underline">
-          {t("budget_hub_deep_dive")}
-        </Link>
-        <Link to="/budget/methodology" className="text-primary hover:underline">
-          {t("budget_methodology_link")}
-        </Link>
-        <Link
-          to="/budget/tax-calculator"
-          className="text-primary hover:underline"
-        >
-          {t("budget_hub_tax_calculator")}
-        </Link>
+        {/* Same preserved search as the card above. These dropped it, so
+            following one reset the reader's election to the latest — silently,
+            since ElectionContext has no localStorage fallback. */}
+        {(
+          [
+            ["/budget/deep-dive", "budget_hub_deep_dive"],
+            ["/budget/methodology", "budget_methodology_link"],
+            ["/budget/tax-calculator", "budget_hub_tax_calculator"],
+          ] as const
+        ).map(([to, key]) => (
+          <Link
+            key={to}
+            to={{ pathname: to, search: preserved().toString() }}
+            className="rounded text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t(key)}
+          </Link>
+        ))}
       </p>
 
       <p className="mt-3 text-[11px] text-muted-foreground/80">
