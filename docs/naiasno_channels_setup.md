@@ -225,13 +225,116 @@ Business Suite step at the end is desktop anyway.
 
 ## 5. LinkedIn — small effort, multiplier audience
 
-1. A **Company Page** requires a personal LinkedIn profile as its creator/admin.
-2. Page name `Наясно`, public URL `linkedin.com/company/naiasno`, logo
-   `avatar_linkedin_400.png`, cover `banner_linkedin_1128x191.png`.
-3. Industry: *Civic and Social Organization* or *Information Services*. Website, tagline,
-   long-form bio; add the English bio as the secondary locale.
-4. **Add a second admin immediately.** A page with one admin is one lost account away
-   from unrecoverable, and LinkedIn's recovery path for orphaned pages is slow.
+Create it from **desktop or the iOS app**; LinkedIn does not support Page creation on
+Android. It is created from your **personal** profile, which becomes the first admin.
+
+### 5.1 The email question — probably not a blocker, but have the fix ready
+
+Third-party guides state that LinkedIn rejects Gmail and demands an address on the
+company's own domain. **LinkedIn's own help page says no such thing** — it requires a
+LinkedIn account and that you confirm you have the right to act for the organisation, and
+is silent on email domains. So try with the role Gmail first.
+
+If it does ask for a domain address, the fix is 5 minutes and worth doing anyway now that
+`naiasno.bg` resolves: **Cloudflare Email Routing** (Email → Email Routing in the same
+zone) forwards `info@naiasno.bg` to an existing inbox, free, and writes its own MX and
+TXT records. Receive-only is enough for a verification mail.
+
+⚠️ **One SPF record per domain, ever.** `naiasno.bg`'s zone is empty so there is no
+conflict today — but this is exactly how `electionsbg.com`'s mail broke once, when a
+provider wizard added a second SPF beside the existing merged one and took both down.
+Whatever mail lands on `naiasno.bg` later has to merge into one record, not add another.
+
+### 5.2 Fields
+
+| Field | Value |
+|---|---|
+| Name | `Наясно` |
+| Public URL | `linkedin.com/company/naiasno` |
+| Website | `https://electionsbg.com` (until the flip) |
+| Industry | **Civic and Social Organizations** — closer to the truth than *Information Services*, which reads as a vendor |
+| Company size | `2-10 employees` |
+| Company type | **Self-Employed** — there is no registered legal entity, so *Nonprofit* and *Privately Held* would both be claims the paperwork does not support. Editable later if that changes. |
+| Logo | `brand/channels/avatar_linkedin_400.png` |
+
+⚠️ **The creation form takes the LOGO and the TAGLINE only.** There is no cover-image
+field and no About field on it — both come after the Page exists, via **Edit page**. Do
+not go looking for them on the setup screen.
+
+**Tagline** (70 of 120 chars):
+
+```
+Изборите, парите и властта — с отворени данни. Без мнения. Само данни.
+```
+
+**About** (952 of 2,000 chars — LinkedIn is the one channel where the long form is read,
+so it names the sources rather than gesturing at them):
+
+```
+Наясно е платформа с отворени данни за България.
+
+Какво покриваме: изборите от 2005 г. насам (парламентарни, местни, частични) по области, общини, населени места и секции; държавния бюджет и неговото изпълнение; обществените поръчки; еврофондовете; имуществените декларации на политици, магистрати и общински съветници; поименните гласувания в Народното събрание; съдебната власт; здравеопазването; земеделските субсидии; цените на потребителската кошница; училищата и матурите; демографията.
+
+Как работим: всяко число идва от публичен източник — ЦИК, Сметната палата, АОП и ЦАИС ЕОП, ИСУН, Министерството на финансите, НСИ, Евростат, НЗОК, ДФ „Земеделие", ВСС, Търговския регистър — и води обратно до него. Данните са предварително обработени и достъпни; кодът е отворен.
+
+За кого е: журналисти, изследователи, общински администрации, неправителствени организации и всеки, който иска да провери твърдение, вместо да го приеме.
+
+Без мнения. Само данни.
+```
+
+⚠️ **LinkedIn has NO Bulgarian locale, so there is exactly one description field.**
+Verified 2026-08-14 against the Languages dropdown: it offers Czech, Greek, Hungarian,
+Polish, Romanian, Russian, Turkish, Ukrainian and ~25 others, and **no Bulgarian**. The
+Page's single record is labelled `English (Default)`, and *Details → Description* and
+the *Languages* row are two views of the same field — edit one and the other changes.
+
+So the "BG primary, EN secondary locale" plan is not possible here, and the choice is
+binary. Put **Bulgarian first with a short English tail** in the one field: the audience
+is Bulgarian, but LinkedIn is also where an EU/institutional reader might arrive, and a
+compact English paragraph serves them without displacing the people the page is for. The
+`(Default)` label describes which locale RECORD it is, not what language the text must
+be in. 1,375 of 2,000 chars:
+
+### 5.3 After "Create page" — what the setup form did not ask for
+
+Land on the Page → **Edit page**. The tabs are `Page info · Buttons · Featured · Details
+· Workplace · Commitments · Locations · Languages`.
+
+⚠️ **There is no tab called "About".** The 2,000-character description lives under
+**Details**, not under any heading matching the word LinkedIn's own older documentation
+uses. Do not go hunting on Page info for it.
+
+| Tab | What |
+|---|---|
+| **Page info** | Logo + **Banner** (`brand/channels/banner_linkedin_1128x191.png`), name, public URL, tagline |
+| **Details** | the 952-char description, founded year (leave blank rather than guess), specialties |
+| **Locations** | your city, Bulgaria |
+| **Languages** | the English bio from §2 as a secondary locale |
+| **Buttons** | a custom button pointed at the website |
+
+The banner is the one to do first: the Page renders a grey placeholder band until it is
+set, which is the most obvious "nobody finished this" signal on LinkedIn.
+
+**Check the banner with "View as member"** (left sidebar) rather than trusting the admin
+editor. The edit screen crops it differently from the public page, so the tagline under
+the wordmark can look cut off in one and be fine in the other.
+
+⚠️ **Skip "Try Premium Page for $0" and "Redeem 1 month for $0".** They are a one-month
+trial that converts to a paid subscription, and the Page needs nothing in it. Same for
+"Verify with Premium" — page verification is not required for anything here.
+
+### 5.4 Immediately after
+
+**Add a second super admin.** A Page with one admin is one lost account away from
+unrecoverable, and LinkedIn's recovery path for orphaned Pages is slow and manual. Roles
+are Super admin (full control, can manage admins) and Content admin (post only).
+
+Then post 2-3 of the existing cards so the Page is not an empty shell — same argument as
+the Instagram grid, and the same source in `brand/posts/`. Stamp them afterwards:
+
+```bash
+node_modules/.bin/tsx scripts/posts/post_tool.ts posted <slug[,slug...]> li
+```
 
 ---
 
