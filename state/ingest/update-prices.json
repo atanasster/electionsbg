@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-11T07:57:49.580Z",
+  "lastSuccessfulIngest": "2026-08-14T05:44:44.577Z",
   "skill": "update-prices",
-  "summary": "loaded 2026-08-09 + 2026-08-10 via --backfill (chain roster 204→132 verified real: all majors present, СОФАРМАСИ + 76 small chains stopped reporting); 116,768 products, 638 payload blobs"
+  "summary": "backfilled 2026-08-11..13 (floor bypassed, drop verified upstream); 101 chains on 08-13 vs 134 on 08-10"
 }
