@@ -71,6 +71,26 @@ export interface BudgetHubStats {
    *  perimeter from `expenditureExecutedEur` on the same object. Keyed on
    *  COFOG's own latest year, which trails the КФП feed by two. */
   cofogShares?: { code: string; pct: number | null }[] | null;
+  /** The national municipal-commitments line (plan §8.4). NULL when migration
+   *  149 has never run on this database — the hub then shows no line, never a
+   *  zero. ⚠️ Its own object on purpose: municipal liabilities are a DIFFERENT
+   *  debtor from the state, so this must never be summed with
+   *  `balanceExecutedEur`, nor with the чл. 53 transfers, which are money the
+   *  state SENDS rather than money municipalities OWE.
+   *
+   *  The quarter is the latest one that actually carries the figure, which is
+   *  often not the latest quarter: МФ freezes the column and the ingest
+   *  withholds it rather than carrying it forward. */
+  municipalCommitments?: {
+    fiscalYear: number;
+    quarter: number;
+    commitmentsEur: number | null;
+    arrearsEur: number | null;
+    /** Of `municipalityCount`. A national total over a partial roster is a
+     *  smaller number pretending to be a complete one. */
+    filedCount: number;
+    municipalityCount: number;
+  } | null;
   peerBands: Record<string, BudgetPeerBand> | null;
 }
 

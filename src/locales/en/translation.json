@@ -6335,5 +6335,8 @@
   "budget_receipt_health": "Health insurance fund",
   "budget_receipt_upf": "Universal pension fund — your own private account, outside government",
   "budget_receipt_projected_h": "Income tax ({{amount}}), spread across functions",
-  "budget_receipt_projected_h_avg": "Per €100 of public spending"
+  "budget_receipt_projected_h_avg": "Per €100 of public spending",
+  "budget_hub_muni_commitments": "Separate from the state budget: municipalities have entered into commitments of {{amount}} as of {{fy}} Q{{q}}. These are the municipalities' obligations, not the state's, and a different thing from municipal debt — the two figures do not add up.",
+  "budget_hub_muni_partial": "(only {{filed}} of {{total}} municipalities filed)",
+  "budget_hub_muni_link": "see it by municipality →"
 }

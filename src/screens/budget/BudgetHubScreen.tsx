@@ -31,6 +31,19 @@ import { BudgetReceiptCard } from "./BudgetReceiptCard";
 import { budgetSearchSources } from "./budgetSearch";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
+/** Whether the national municipal-commitments line has something true to say.
+ *
+ *  A PURE predicate, exported, because the two ways this goes wrong are both
+ *  „renders when it should not": a database that never ran migration 149
+ *  (`mc` is null), and a quarter where МФ froze the column and the ingest
+ *  withheld it (`commitmentsEur` is null while every other column filed). Both
+ *  must yield NO LINE — „€0 поети ангажименти" is the healthiest figure in the
+ *  country and completely false. Gating the JSX alone left the property
+ *  untestable through the rendered tree. */
+export const showsMunicipalCommitments = (
+  mc: { commitmentsEur?: number | null } | null | undefined,
+): boolean => mc != null && mc.commitmentsEur != null;
+
 interface TileMetric {
   metric: string;
   caption: string;
@@ -45,6 +58,7 @@ export const BudgetHubScreen: FC = () => {
   const moneyLocale = i18n.language === "bg" ? "bg-BG" : "en-GB";
   const nf = useMemo(() => new Intl.NumberFormat(moneyLocale), [moneyLocale]);
   const { stats } = useBudgetHubStats();
+  const mc = stats?.municipalCommitments ?? null;
 
   const metrics = useMemo<Record<string, TileMetric>>(() => {
     if (!stats) return {};
@@ -255,6 +269,38 @@ export const BudgetHubScreen: FC = () => {
           „what does this cost ME". It renders the €100 average until a salary
           is entered, so a reader who types nothing still gets an answer. */}
       <BudgetReceiptCard stats={stats} locale={moneyLocale} className="mt-5" />
+
+      {/* THE NATIONAL MUNICIPAL LINE (§8.4). One line, beside the state
+          deficit — never added to it. A different debtor with a different
+          mandate, and no row count would show the error. Absent when migration
+          149 has not run: no line, never a zero. */}
+      {showsMunicipalCommitments(mc) && mc ? (
+        <p className="mt-4 max-w-3xl rounded-xl border bg-muted/40 px-3 py-2 text-sm">
+          {t("budget_hub_muni_commitments", {
+            amount: formatEurCompact(mc.commitmentsEur, moneyLocale),
+            fy: mc.fiscalYear,
+            q: mc.quarter,
+            defaultValue: "",
+          })}{" "}
+          {/* The roster, because a national total over a partial one is a
+              smaller number pretending to be complete. */}
+          {mc.filedCount < mc.municipalityCount ? (
+            <span className="text-muted-foreground">
+              {t("budget_hub_muni_partial", {
+                filed: mc.filedCount,
+                total: mc.municipalityCount,
+                defaultValue: "",
+              })}
+            </span>
+          ) : null}
+          <Link
+            to="/governance/municipal-finance"
+            className="ml-1 text-primary hover:underline"
+          >
+            {t("budget_hub_muni_link")}
+          </Link>
+        </p>
+      ) : null}
 
       <div data-og="budget-hub">
         <TileHubGrid sections={sections} className="mt-6" />

@@ -873,7 +873,21 @@ Three boundaries `municipal-fiscal-commitments-v1` sets, all now enforceable aga
   and note the shipped one has six layers and a year picker, so a thinner second map would also be
   a worse one.
 - **`/budget` takes the NATIONAL line only** (T10.3): municipal commitments beside the state
-  deficit, for the reader who came asking how big the deficit is. **[2026-08-13] Read it from the
+  deficit, for the reader who came asking how big the deficit is.
+
+  ⚠️ **[2026-08-14, T5.6] SHIPPED AS A THIRD PRODUCER, deliberately, and this records why.**
+  The rule below says read it from `macro.json` or `/api/db/municipal-fiscal-national` and do
+  not re-aggregate. Both named alternatives fail on measurement:
+  `municipal_fiscal_national()` resolves to the LATEST quarter, which is 2025 Q3 — the one that
+  SUPPRESSES `commitments` (МФ freezes the column and the ingest withholds it rather than
+  carrying it forward) — so it returns null for the one figure the line exists to show; and
+  `macro.json` is 184 KB decoded, which `/budget` deliberately no longer fetches at all.
+  `budget_muni_commitments_national()` in migration 156 therefore picks the latest quarter that
+  actually CARRIES the figure, and the hub stays at one request. The cost is that „newest
+  quarter carrying the figure" now exists twice — here in SQL and as `latestShared()` in
+  TypeScript — with nothing tying them; a gate against `macro.json` is the open follow-up.
+
+  **[2026-08-13] Read it from the
   `macro.json` series that already exist** — `municipalCommitments`, `municipalExpenseObligations`,
   `municipalArrears`, the three already behind `/indicators/fiscal` — or from
   `/api/db/municipal-fiscal-national`. Do not re-aggregate the corpus for one line. Note the macro

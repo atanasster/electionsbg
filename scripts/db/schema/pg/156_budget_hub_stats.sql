@@ -116,6 +116,79 @@ CREATE UNIQUE INDEX IF NOT EXISTS ux_budget_hub_stats_cache_fy
 -- HAS a headline figure, then fall back to the newest of any kind, because МФ
 -- freezes a column from time to time and a NULL then reads as „nothing
 -- collected".
+-- ── The national municipal-commitments line (plan §8.4 / T5.6) ────────────
+--
+-- ONE line on /budget: what municipalities have COMMITTED, beside the state
+-- deficit, for the reader who came asking how big the deficit is.
+--
+-- ⚠️ NEVER SUMMED WITH THE STATE'S OWN FIGURES, and never with the чл. 53
+-- transfers either. Different debtors, different mandates — and no row count
+-- would show the error. The payload therefore ships this as its own object
+-- with its own quarter label, never as a field beside `balanceExecutedEur`.
+--
+-- ⚠️ THE LATEST QUARTER OFTEN HAS NO COMMITMENTS. МФ freezes the column and the
+-- ingest withholds it rather than carrying it forward — 2025 Q3 reports
+-- `commitments` in `suppressed_fields` with all 265 municipalities filed on
+-- other columns. So this reads the latest quarter that actually CARRIES the
+-- figure and returns that quarter's label with it. Falling through to the
+-- newest quarter would render „€0 поети ангажименти", which is the healthiest
+-- number in the country and completely false.
+--
+-- plpgsql, not `LANGUAGE sql`, ON PURPOSE: a sql body is parsed at CREATE time,
+-- so naming `municipal_fiscal` would make 156 unappliable to any database that
+-- has not run 149 — a different loader entirely (see CLAUDE.md's note on 149's
+-- own 42P01). A plpgsql body records no dependency and the EXCEPTION arm turns
+-- an absent corpus into `null`, which the hub renders as „no line" rather than
+-- as zero.
+CREATE OR REPLACE FUNCTION budget_muni_commitments_national()
+RETURNS jsonb LANGUAGE plpgsql STABLE AS $fn$
+DECLARE r jsonb;
+BEGIN
+  EXECUTE $q$
+    -- The FULL roster, not the picked quarter's own count. Taking `count(*)`
+    -- inside the quarter makes a short-roster quarter report „N of N" and
+    -- suppress its own partial-roster notice — the one case the notice exists
+    -- for.
+    WITH roster AS (SELECT count(DISTINCT obshtina) AS total FROM municipal_fiscal)
+    SELECT jsonb_build_object(
+             'fiscalYear', m.fiscal_year,
+             'quarter',    m.quarter,
+             'commitmentsEur', m.c,
+             -- How many of the 265 actually filed the figure. A national total
+             -- over a partial roster is a smaller number pretending to be a
+             -- complete one.
+             'filedCount', m.n,
+             'municipalityCount', (SELECT total FROM roster),
+             'arrearsEur', m.a)
+      FROM (SELECT fiscal_year, quarter,
+                   sum(commitments_eur) AS c,
+                   count(commitments_eur) AS n,
+                   sum(arrears_eur) AS a
+              FROM municipal_fiscal
+             GROUP BY fiscal_year, quarter
+            -- A COVERAGE FLOOR, not merely „someone filed". Without it a single
+            -- filer in a newer quarter displaces a complete one, and the hub
+            -- publishes one municipality's commitments as the national figure.
+            HAVING count(commitments_eur) >= 0.5 * (SELECT total FROM roster)
+             ORDER BY fiscal_year DESC, quarter DESC
+             LIMIT 1) m
+  $q$ INTO r;
+  RETURN r;
+EXCEPTION
+  -- ⚠️ `insufficient_privilege` is NOT in this list, deliberately. A missing
+  -- GRANT on a plain table is permanent rather than a refresh artifact, and
+  -- 149's GRANT sits behind an `IF EXISTS (pg_roles)` guard — exactly how that
+  -- state arises — so swallowing it would serve „no municipal line" for ever
+  -- with nothing to notice. It propagates and the route 500s, per CLAUDE.md.
+  WHEN undefined_table OR undefined_column THEN
+    -- Said once, so an operator learns the loader never ran here. Silence is
+    -- what makes a degraded hub indistinguishable from a healthy one.
+    RAISE WARNING
+      'budget_muni_commitments_national: municipal_fiscal is absent — serving no national line. Run db:load:municipal-fiscal:pg:cloud.';
+    RETURN NULL;
+END;
+$fn$;
+
 CREATE OR REPLACE FUNCTION budget_hub_stats(
   p_fy int DEFAULT NULL
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -214,7 +287,9 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
                      'year', b.year, 'bgPctGdp', b.bg_pct_gdp,
                      'euAvgPctGdp', b.eu_avg_pct_gdp,
                      'rank', b.rank, 'total', b.total))
-              FROM budget_peer_band b)    AS "peerBands"
+              FROM budget_peer_band b)    AS "peerBands",
+           -- Its own object, never a field beside the state's balance.
+           budget_muni_commitments_national() AS "municipalCommitments"
       FROM pick p
   ) row;
 $$;
@@ -224,5 +299,6 @@ DO $$ BEGIN
     GRANT SELECT  ON budget_peer_band          TO app_readonly;
     GRANT SELECT  ON budget_hub_stats_cache    TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_hub_stats(int) TO app_readonly;
+    GRANT EXECUTE ON FUNCTION budget_muni_commitments_national() TO app_readonly;
   END IF;
 END $$;
