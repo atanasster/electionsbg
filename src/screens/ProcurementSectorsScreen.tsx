@@ -132,7 +132,12 @@ export const ProcurementSectorsScreen: FC = () => {
         {isLoading || !data ? (
           <div className="min-h-[600px]" aria-hidden />
         ) : (
-          <Card>
+          // The og capture's anchor, on the DATA-gated branch so it cannot
+          // photograph the placeholder. It used to wait for `tbody tr`, which
+          // stopped existing when this list became cards rather than a table —
+          // the capture then timed out on every run and the page kept serving
+          // its previous card, since a failed capture writes nothing.
+          <Card data-og="procurement-sectors">
             <CardContent className="p-3 md:p-4 space-y-2">
               {sectors.map((sct) => {
                 const name = cpvDivisionName(sct.division, lang);

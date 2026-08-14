@@ -126,12 +126,23 @@ const captures: Capture[] = [
   // per report type (the /og/reports-<slug>.png the report routes reference),
   // captured at the grain the hub tile links to. recount + flash-memory use a
   // cycle that actually has them (2024_10_27); the rest use the latest.
+  //
+  // All ten take `viewport: OG_CLIP_VIEWPORT` and NOT leftAlign, which is the
+  // opposite of what this table shape usually wants — and the exception is the
+  // whole point. `ReportTemplate` renders the shared columns and then appends
+  // `...extraColumns`, so the ONE column that distinguishes a report
+  // (voterTurnout, pctInvalidBallots, recount, pctSupportsNoOne …) is always the
+  // rightmost. leftAlign clips from the anchor's left edge and lets the trailing
+  // columns fall off "naturally" — which here throws away the column the card
+  // exists to show. Measured: reports-turnout carried ПАРТИЯ / ОБЛАСТ / ОБЩИНА /
+  // ОБЩО ГЛАСОВЕ / % and no turnout at all. At a 1200 viewport the table is
+  // 1182px wide, so a centred clip covers it end to end.
   {
     slug: "reports-concentrated",
     routePath: "reports/settlement/concentrated?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -139,7 +150,7 @@ const captures: Capture[] = [
     routePath: "reports/settlement/additional_voters?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -147,7 +158,7 @@ const captures: Capture[] = [
     routePath: "reports/settlement/supports_no_one?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -155,7 +166,7 @@ const captures: Capture[] = [
     routePath: "reports/municipality/turnout?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -163,7 +174,7 @@ const captures: Capture[] = [
     routePath: "reports/settlement/invalid_ballots?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -171,7 +182,7 @@ const captures: Capture[] = [
     routePath: "reports/municipality/top_gainers?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -179,7 +190,7 @@ const captures: Capture[] = [
     routePath: "reports/municipality/top_losers?elections=2026_04_19",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -187,7 +198,7 @@ const captures: Capture[] = [
     routePath: "reports/section/recount?elections=2024_10_27",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -195,7 +206,7 @@ const captures: Capture[] = [
     routePath: "reports/section/missing_flash_memory?elections=2024_10_27",
     waitFor: '[data-og="report-table"] table',
     anchor: '[data-og="report-table"]',
-    leftAlign: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -267,10 +278,18 @@ const captures: Capture[] = [
     routePath: "parliament/embedding",
     // UMAP scatter — the chart IS the page. Center the clip on the recharts
     // wrapper so all clusters land in frame.
+    //
+    // At the shared 1280 viewport the wrapper is 1230px, so a centred 1200 clip
+    // starts at x=40 — and the legend and the party pills both live hard against
+    // the chart's left edge, so both were sliced. At 1200 the wrapper is narrower
+    // than the clip, which pins clipX to 0 and keeps them whole. The pan/zoom
+    // pad is hidden: a still card cannot be panned, and it read as chart furniture.
     waitFor: ".recharts-surface",
     anchor: ".recharts-wrapper",
     centerOnAnchor: true,
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
+    extraCss: "[data-og-chrome]{display:none!important;}",
   },
   {
     slug: "parliament",
@@ -331,7 +350,12 @@ const captures: Capture[] = [
     slug: "procurement-sectors",
     routePath: "procurement/sectors",
     // DataTable renders tbody rows once the JSON is fetched.
-    waitFor: 'section[aria-label="procurement-sectors"] tbody tr',
+    // Was `tbody tr` until this list became cards rather than a table, which
+    // timed the capture out on every run — and a failed capture leaves the old
+    // card in place, so nothing surfaced it. `data-og` sits on the data-gated
+    // branch in ProcurementSectorsScreen, so it cannot catch the placeholder.
+    waitFor: '[data-og="procurement-sectors"]',
+    viewport: OG_CLIP_VIEWPORT,
     anchor: 'section[aria-label="procurement-sectors"]',
     settleMs: 1500,
   },
@@ -359,8 +383,13 @@ const captures: Capture[] = [
     // DataTable renders tbody rows once the corpus shard is fetched. Anchor on
     // the section so the clip leads with the summary strip (count / total /
     // EU% / flagged%) above the table.
-    waitFor: 'section[aria-label="Договори"] tbody tr',
-    anchor: 'section[aria-label="Договори"]',
+    // The section's aria-label was the Bulgarian "Договори" and is now the
+    // stable "contracts" — a rename that silently broke this capture (card
+    // frozen 22 June). Prefer the non-localized label: an aria-label that is
+    // display copy will drift again.
+    waitFor: 'section[aria-label="contracts"] tbody tr',
+    anchor: 'section[aria-label="contracts"]',
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 1800,
   },
   {
@@ -407,11 +436,19 @@ const captures: Capture[] = [
   {
     slug: "budget",
     routePath: "budget",
-    // BudgetFlowTile carries the most visual weight on the page — Sankey-like
-    // flow + balance bridge — and lives below the headline stat cards.
-    waitFor: '[data-og="budget-flow"]',
-    anchor: '[data-og="budget-flow"]',
-    centerOnAnchor: true,
+    // Was anchored on BudgetFlowTile's `budget-flow`, which LEFT this page when
+    // /budget became a tile hub — the anchor still exists in that component,
+    // just not here, so the capture timed out and the card stayed frozen at
+    // 15 May.
+    //
+    // Now the hub's own anchor, and top-aligned on `h1` rather than centred on
+    // the tile grid: centring on a 2,000px-tall hub lands the clip mid-grid,
+    // with the first tile column sliced off the left and the fourth off the
+    // right and no title anywhere in frame. Top-aligned it reads title → intro
+    // → the first band of tiles, which is what a hub is.
+    waitFor: '[data-og="budget-hub"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
   },
   {
@@ -488,13 +525,27 @@ const captures: Capture[] = [
   {
     slug: "indicators-compare",
     routePath: "indicators/compare",
-    // EU compare dashboard hero — the WGI radar. Recharts polygons settle
-    // after the data hook resolves; we wait for an SVG polygon (a Radar
-    // shape) to appear inside the WGI section, then anchor on the section
-    // itself so the radar + legend land in the clip.
-    waitFor: '[data-og="eu-compare-wgi"] svg path',
+    // EU compare dashboard hero — the WGI radar. Anchor on the section so the
+    // radar grid + legend land in the clip.
+    //
+    // The waitFor was `svg path`, which MATCHED 32 elements and picked the first
+    // — a `recharts-polar-grid-concentric-polygon` drawn at radius 0, i.e. a
+    // zero-area path that is never `visible`. So this capture timed out on every
+    // run since it was written, and because a failed capture leaves the previous
+    // file on disk, the card just kept serving: public/og/indicators-compare.png
+    // was dated 23 May while the rest of the directory had moved on, showing a
+    // section that is no longer even the anchor. A failing entry and a working
+    // one look identical from the outside — the only tell is the file's date.
+    //
+    // `.recharts-surface` inside the section is both visible and a data signal:
+    // EuCompareWgiSmallMultiples returns null while `rows.length === 0`.
+    waitFor: '[data-og="eu-compare-wgi"] .recharts-surface',
     anchor: '[data-og="eu-compare-wgi"]',
     centerOnAnchor: true,
+    // Same 1264-vs-1200 arithmetic as the h1 entries below: centred on a
+    // full-width section the clip loses 32px off each side, which took the
+    // explainer's first characters and a third of the last radar.
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
   },
   {
@@ -1163,15 +1214,31 @@ const main = async () => {
         .join(", ")}`,
     );
   }
+  const failed: string[] = [];
   for (const c of items) {
     try {
       await captureOne(page, c);
     } catch (err) {
       console.error(`failed: ${c.slug}`, err);
+      failed.push(c.slug);
       process.exitCode = 1;
     }
   }
   await browser.close();
+
+  // A failed capture leaves the PREVIOUS card on disk, so nothing downstream
+  // ever notices: the page keeps serving a share image, and a broken entry is
+  // indistinguishable from a working one unless you look at the file's date.
+  // indicators-compare sat like that from 23 May — its waitFor matched a
+  // zero-radius grid polygon that can never become visible, so every run since
+  // timed out into one line of stderr, 90 lines above the prompt. Say it last,
+  // and say which.
+  console.log(
+    `\n${items.length - failed.length}/${items.length} captured` +
+      (failed.length
+        ? `\n⚠ ${failed.length} FAILED — these still serve their PREVIOUS card:\n  ${failed.join("\n  ")}`
+        : ""),
+  );
 };
 
 main().catch((err) => {

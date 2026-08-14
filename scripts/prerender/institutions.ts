@@ -66,7 +66,13 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
 <h1>Road Infrastructure Agency — public procurement for roads</h1>
 <p>The Road Infrastructure Agency (АПИ, EIK 000695089) is the state agency that awards construction and maintenance of the national road network. This page collects all of its public procurement from the АОП register — total awarded value, contract and contractor counts — plus a road-specific breakdown: motorways and roads on a map, matched road segments, cost per kilometre, construction category and work components, the tender pipeline and repeat winners.</p>
 <p>It also shows competition versus the EU thresholds — the share of contracts with a single bid and with no prior call. See also the <a href="${SITE}/en/procurement">procurement overview</a> and the <a href="${SITE}/en/procurement/awarders">top awarders</a>.</p>`.trim(),
-    ogAnchor: '[data-og="roads-map"]',
+    // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
+    // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
+    // dashboard renders only the generic hero/KPIs/flow here. The old anchor
+    // still exists in the pack component, just not on this page, so the capture
+    // timed out on every run and the card stayed frozen at its June/July state.
+    // Same resolution as ДФЗ above: frame the money-flow Sankey this page does have.
+    ogAnchor: '[data-og="awarder-flow"]',
     ogSettleMs: 3500,
   },
   {
@@ -118,7 +124,13 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
       "<p>The largest lines are <strong>hospital care</strong> (~45%) and <strong>medicines, devices and foods</strong> (~25%), followed by specialist and primary outpatient care and dental care.</p>",
       `<p>The page shows the budget by line with cash-execution pace against an even plan, payments to hospitals by facility and by regional fund (total and per resident), their year-over-year momentum, drug reimbursement by active substance (INN) and ATC group with the fastest-rising molecules, and a two-hospital comparison. Data from nhif.bg. See also the <a href="${SITE}/en/budget">state budget</a>.</p>`,
     ].join(""),
-    ogAnchor: '[data-og="nzok-bridge"]',
+    // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
+    // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
+    // dashboard renders only the generic hero/KPIs/flow here. The old anchor
+    // still exists in the pack component, just not on this page, so the capture
+    // timed out on every run and the card stayed frozen at its June/July state.
+    // Same resolution as ДФЗ above: frame the money-flow Sankey this page does have.
+    ogAnchor: '[data-og="awarder-flow"]',
     ogSettleMs: 2500,
   },
   {
@@ -195,7 +207,13 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
 <p>The Ministry of Education and Science (МОН, EIK 000695114) runs Bulgaria's education policy. This page shows the ministry's public procurement from the АОП register — and something the ministry does not buy itself: the textbook market.</p>
 <p>The €51M of textbooks is procured by 606 schools, not centrally, via direct award to the copyright holder (art. 79 ЗОП). The market is a duopoly — Klett Bulgaria (which absorbed Anubis and Bulvest 2000) and the Prosveta group hold about 74%; the concentration index (HHI) is above 2,500 — a highly concentrated market. See also <a href="${SITE}/en/procurement">public procurement</a> and the <a href="${SITE}/en/budget">state budget</a>.</p>`.trim(),
     // Frame the textbook concentration tile (HHI gauge + publisher share bars).
-    ogAnchor: '[data-og="textbook-treemap"]',
+    // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
+    // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
+    // dashboard renders only the generic hero/KPIs/flow here. The old anchor
+    // still exists in the pack component, just not on this page, so the capture
+    // timed out on every run and the card stayed frozen at its June/July state.
+    // Same resolution as ДФЗ above: frame the money-flow Sankey this page does have.
+    ogAnchor: '[data-og="awarder-flow"]',
     ogCenter: true,
     ogSettleMs: 3000,
   },
@@ -245,7 +263,13 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
 <h1>National Revenue Agency — where Bulgaria's tax revenue comes from</h1>
 <p>The National Revenue Agency (НАП, EIK 131063188) administers tax collection in Bulgaria — VAT, personal income tax, corporate tax and excise. Unlike most state bodies НАП is a collector rather than a spender: this page shows where tax revenue comes from by type, sourced from the Ministry of Finance's Consolidated Fiscal Programme.</p>
 <p>It also shows the tax gap — how much of the VAT and personal income tax owed is actually collected against European Commission estimates. Bulgaria collects VAT better than the EU average. See also the <a href="${SITE}/en/budget">state budget</a> and the <a href="${SITE}/en/indicators/compare">EU comparison</a>.</p>`.trim(),
-    ogAnchor: '[data-og="nap-revenue"]',
+    // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
+    // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
+    // dashboard renders only the generic hero/KPIs/flow here. The old anchor
+    // still exists in the pack component, just not on this page, so the capture
+    // timed out on every run and the card stayed frozen at its June/July state.
+    // Same resolution as ДФЗ above: frame the money-flow Sankey this page does have.
+    ogAnchor: '[data-og="awarder-flow"]',
     ogSettleMs: 2500,
   },
   {
@@ -269,7 +293,13 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
 <h1>Customs Agency — where customs revenue comes from</h1>
 <p>The Bulgarian Customs Agency (EIK 000627597) collects over €7bn a year for the state budget. Its revenue is mostly excise (on fuels, tobacco and alcohol), import VAT, customs duties and fines. This page shows the composition of that revenue by year, the 2025 excise product split, and the top countries of origin by import duty collected.</p>
 <p>Figures are from the agency's annual "Митническа хроника" reports, converted to euro. See also the <a href="${SITE}/en/budget">state budget</a> and <a href="${SITE}/en/procurement">public procurement</a>.</p>`.trim(),
-    ogAnchor: '[data-og="customs-revenue"]',
+    // Its domain pack MOVED to /sector/:id — CompanyDbScreen computes
+    // `showPack = SectorPack && !sectorDash`, so an awarder that leads a sector
+    // dashboard renders only the generic hero/KPIs/flow here. The old anchor
+    // still exists in the pack component, just not on this page, so the capture
+    // timed out on every run and the card stayed frozen at its June/July state.
+    // Same resolution as ДФЗ above: frame the money-flow Sankey this page does have.
+    ogAnchor: '[data-og="awarder-flow"]',
     ogSettleMs: 2500,
   },
 ];

@@ -471,7 +471,10 @@ const ChartControls: FC<{
   const btn =
     "rounded border p-1.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors";
   return (
-    <div className="flex items-center gap-1">
+    // `data-og-chrome` marks this as an interactive control that the og capture
+    // hides: pan/zoom buttons are meaningless in a still share card, and they sat
+    // in the top-right of the frame reading as part of the chart.
+    <div data-og-chrome className="flex items-center gap-1">
       <button
         type="button"
         onClick={onPanLeft}
