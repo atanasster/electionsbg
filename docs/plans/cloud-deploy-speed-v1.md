@@ -2394,3 +2394,180 @@ court against local's 3124, because the cloud run did magistrates →
 `judicial-bodies` → resolve in that order while local's `judicial_body` table
 predates its last magistrate load. Local is the stale one; a local
 `db:load:judicial-bodies:pg` + re-resolve would close it.
+
+### F24 — two publish hazards that are not speed, found while publishing 2026-08-14
+
+A procurement-only publish (ЦАИС ЕОП self-heal +113 rows, annex fold, tenders,
+IPOP) after the daily watcher run. No person chain, no `prices`, so the shape is
+the *common* post-watch-report publish rather than F23's full one. Two findings
+below are independent of timing; the measurement follows in F25.
+
+**`bucket:sync:paths` reads the WORKING TREE, not the commit — so a scoped push is
+only as safe as the tree is clean.** `syncPaths` resolves each argument to
+`join(DATA_DIR, rel)` and hands the local directory to `gsutil rsync`; nothing
+consults git. This repo's tree is almost never clean at session start
+([[reference_concurrent_autocommitter]], and other sessions leave work in
+progress), so the natural top-level argument list publishes whatever else happens
+to be sitting there.
+
+Measured on this run: a concurrent session was mid-ingest on declarations, leaving
+**14,226 modified + 1,868 untracked files under `data/officials/`** and **1,185
+modified + 250 untracked under `data/parliament/`**. The obvious
+`bucket:sync:paths -- … officials …` would have published that session's
+half-written tree to the serving bucket. It is not hypothetical — `officials` was
+in the first path list drafted for this publish, and only a pre-flight
+`git status` caught it.
+
+Two things make this worse than it looks. The sync is **not** transactional and
+has no dry-run diff against the bucket's current contents beyond
+`gsutil rsync -n`, so a partial tree lands as a partial tree. And the commit that
+*is* clean gives false assurance: this publish's own commit (`77b761c47f`) named
+908 files by explicit pathspec and deliberately excluded the other session's work
+— none of which constrains what the sync then uploads.
+
+The mitigation is cheap and already supported: **`syncPaths` accepts nested
+paths.** `officials/derived` resolves and rsyncs to `gs://<bucket>/officials/derived/`,
+which is the subtree this publish actually changed. Prefer the narrowest path that
+covers the run's own diff over the top-level directory, and check
+`git status --porcelain <path>` for entries the run did not produce before pushing
+a shared tree. (`procurement/derived/hub_stats.json` and `sector_stats.json` are
+already forced into this shape by `isExcluded`, which allowlists them individually
+— the same discipline, arrived at for a different reason.)
+
+**`db:refresh`'s verification step can go red on a golden that a legitimate ingest
+just moved, and the failure is trivially maskable.** `test:data` is the chain's
+last link and the plan's stated gate. On this run **all 57 loaders succeeded** and
+the chain still exited non-zero, because `budget_municipal.data.test.ts:134`
+pins `ipop.stalled === 769` while the fresh МРРБ export legitimately moved it to
+**700** (more paid ⇒ fewer stalled; `munis` 264 and `projects` 3,492 still matched).
+That is a data-tracking golden inside the suite whose job is to verify the load —
+so a correct ingest of moving data turns the publish gate red, and the operator has
+to distinguish "the load broke" from "the number moved" by hand.
+
+Three of the four failures on this run were **not** the load either: `mp_party`
+(a surname change, plausibly the concurrent session's in-flight MP-roles work),
+`budget_serving` (a committed conflict between `156_budget_hub_stats.sql:152` and
+the T3 rule at `budget_serving.data.test.ts:283`), and `tr_company_place` — which
+**passed when re-run alone**, a load flake exactly as
+[[reference_test_data_flaky_under_load]] describes. Procurement's own gates
+(`pg_roundtrip`, `single_source_per_contract`, `risk_parity`,
+`procurement_payloads`) were 14/14 green. So on this run the gate's signal-to-noise
+was 0 of 4 relevant to what was being published.
+
+**And the exit code is easy to lose.** `npm run db:refresh 2>&1 | tail -120`
+reports **0** on a red chain — without `set -o pipefail` the pipeline's status is
+`tail`'s. Any wrapper that pipes a loader chain for readability must set it, or a
+failed publish gate reads as success. This one did, and the failure was only
+noticed by reading the output.
+
+### F25 — the procurement-only publish, measured: 2 h 56 m, and 22% of it is refreshing matviews twice
+
+F23 timed the *full* publish (5 h 34 m, 25 steps). This is the **common** shape —
+what a daily watcher run actually produces when only the procurement sources
+moved: no `db:resolve:persons`, no `prices`, no declarations. Run 2026-08-14,
+15 steps, every step `rc=0`.
+
+| step | s | share |
+|---|---:|---:|
+| `db:load:pg:cloud` (contracts) | **5370** | **50.8%** |
+| `db:load:procurement-scopes:pg:cloud` | **1421** | **13.4%** |
+| `db:load:tenders:pg:cloud` | 1152 | 10.9% |
+| `db:load:awarder-seats:pg:cloud` | 914 | 8.6% |
+| `db:load:person-search:pg:cloud` | 493 | 4.7% |
+| `db:load:transport-project-map:pg:cloud` | 334 | 3.2% |
+| `db:load:persons-browse:pg:cloud` | 214 | 2.0% |
+| `db:load:graph:pg:cloud` | 212 | 2.0% |
+| `db:load:annexes:pg:cloud` | 187 | 1.8% |
+| `db:load:tr-company-place:pg:cloud` | 128 | 1.2% |
+| `bucket:sync:paths` (12 paths) | 100 | 0.9% |
+| `db:load:budget-muni:pg:cloud` | 24 | 0.2% |
+| `db:load:mvr-directorate-map:pg:cloud` | 18 | 0.2% |
+| `db:load:budget-hub:pg:cloud` | 5 | 0.05% |
+| `db:load:water-operator-map:pg:cloud` | 3 | 0.03% |
+| **total** | **10575** | **2 h 56 m** |
+
+**Contracts alone is half the publish; the top four are 83.8%.** With the person
+chain and `prices` absent, `contracts` does not merely stay the whale — it becomes
+the publish. Four steps had never been timed before (budget-muni 24, mvr-map 18,
+budget-hub 5, water-map 3); all four are rounding error and need no further
+attention.
+
+**`contracts` has drifted again: 5370 s (89.5 min).** CLAUDE.md still says ~68 min
+and F23 re-baselined it to 5006 s / 83.4 min. Three measurements now trend one way
+on a growing corpus (409,200 rows today). The quoted figure in CLAUDE.md is now
+**22 minutes** optimistic and should be updated to ~90 min, not 68.
+
+#### The scoped matviews are refreshed twice and the first refresh is DISCARDED
+
+F23 observed the triple refresh and estimated "a large part is duplicated". The
+mechanism is worse than duplication, and this run isolates it.
+`load_procurement_scopes_pg.ts:104-111` `exec`s 119/122/123/124 — each of which
+**DROPs and recreates its matview `WITH NO DATA`** — and only then calls
+`refreshScopedPrecomputes()`. So whatever steps 1 and 4 refreshed is destroyed
+before step 5 rebuilds it from scratch. This is not a race or a missing guard;
+line 109's own comment records the plain-refresh path as "the normal state".
+
+The per-step guards are all working correctly in isolation, which is why nothing
+looks wrong in any single log:
+
+```
+[1/15] contracts        scoped precomputes: refreshing 6/6
+[4/15] awarder-seats    scoped precomputes: refreshing 4/4 (changed: awarder_seats)
+[5/15] procurement-scopes  scoped precomputes: refreshing 6/6
+                           procurement_settlement_rank: not populated — falling back to a
+                             PLAIN REFRESH (AccessExclusiveLock).          [× all six]
+```
+
+**Step 4 is the clean measurement of the waste**, because its own load is trivial:
+`loaded 3866 awarder seats + refreshed precomputes in 913.8s`. Writing 3,866 rows
+is seconds, so **~900 s of that 914 s is a refresh step 5 then threw away** — 8.5%
+of the entire publish, provably wasted, plus an unmeasured share of contracts'
+5370 s. Counting step 5's own 1421 s, **22.0% of this publish is scoped-matview
+refresh.**
+
+**It is also an availability window, which F23 did not cover.** A matview created
+`WITH NO DATA` cannot be refreshed `CONCURRENTLY`, so all six take the plain form
+under `AccessExclusiveLock` for the length of step 5 — **1421 s, 24 minutes**.
+Per CLAUDE.md the 123/124 routes degrade on `55P03` and fall back to the live
+aggregate, so `/procurement/by-settlement`, the settlement pages and the six
+dashboard routes get slow-but-correct. **`contractor_rank` (122) has no degrade
+path** — `/procurement/contractors` and `/api/db/contractor-scope-kpis` read it
+unconditionally — so those two block to `lock_timeout` and then error for the
+whole window. Prod was serving live traffic throughout (facet queries on
+`contracts`, `/product/:slug`, `person_by_name` all observed in
+`pg_stat_activity` during the run).
+
+**The fix is not "refresh once at the end" — it already is at the end.** The last
+refresh cannot reuse the earlier ones because it recreates the objects. Two
+options, cheapest first:
+
+1. **Skip the earlier refreshes when `procurement-scopes` will run in the same
+   publish** — a publish-level flag or env the contracts / awarder-seats loaders
+   consult. Recovers ~900 s immediately with no schema change and no risk to a
+   standalone `db:load:pg:cloud`, which must keep refreshing.
+2. **Stop 119/122/123/124 DROPping on every apply.** If the matviews survived, the
+   step-5 refresh could be `CONCURRENTLY` (no AccessExclusiveLock, no
+   `/procurement/contractors` outage) and the earlier refreshes would not be
+   destroyed. This is the 077/003 lesson applied to a third family: a
+   loader-applied migration that DROPs an object other steps have already
+   populated. Note 122's DROP is load-bearing today — CLAUDE.md explicitly warns
+   *not* to hand-apply it precisely because it blanks the page — which is the
+   same defect seen from the other side.
+
+#### Prod verified against local after the run
+
+All eight parity checks equal, queried on both databases immediately after:
+contracts **409,200**, tenders **237,526**, awarder_seats **3,866**,
+procurement_annexes **24,208**, budget_muni_ipop_project **3,492** (stalled
+**700**), contractor_rank **431,766** rows (populated — no empty-matview
+outage left behind), procurement_payloads **180**.
+
+#### Operational note confirmed
+
+The contracts loader is silent for ~90 minutes and its client sits at **0% CPU
+with ~4 MB RSS**, blocked on the socket while the server works. That is
+indistinguishable from a hang by `ps` alone and was briefly misread as one on this
+run. `pg_stat_activity` is the only reliable signal — it showed
+`SELECT rebuild_consortium()` active on `IO/DataFileRead` with a 1,012 s open
+transaction. Same shape F23 recorded for `prices`; it is worth stating that it
+applies to `contracts` too.
