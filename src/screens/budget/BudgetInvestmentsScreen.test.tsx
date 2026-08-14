@@ -29,7 +29,6 @@ vi.mock("react-i18next", () => ({
 }));
 
 const dict = bgDict as Record<string, string>;
-const sp = (v: string | null) => (v ?? "").replace(/ /g, " ");
 
 const eur = (amountEur: number) => ({
   amount: Math.round(amountEur * 1.95583),
