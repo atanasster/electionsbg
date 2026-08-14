@@ -1151,6 +1151,77 @@ Municipal last, after reading `municipal-fiscal-commitments-v1`.
   convention rather than adding a parallel mechanism, and note its per-language loop throws on the
   FIRST language over budget, so a regression in the second is invisible until the first is fixed.
 
+**[2026-08-14] SHIPPED. Measured on the dev server, budget-owned bytes only:**
+
+| | before (§1.1) | after |
+|---|---|---|
+| eager, above the fold | 1 202 KB / 4 requests | **1.7 KB / 1 request** |
+| full scroll | 1 752 KB / 16 requests | **1.7 KB / 1 request** |
+| page height | 25 215 px | **7 991 px** |
+
+Target was under 60 KB and under 6 requests; the hub makes ONE call,
+`/api/db/budget-hub-stats`. „Budget-owned" is §1.1's basis and has to stay declared: three JSON
+files ride the app shell on every route (`canonical_parties.json` 82 KB, `articles/index.json`
+21, `governments.json` 10 — identical on a 404 page), so an undeclared „page weight" reads 114 KB
+for a hub that fetches 1.7.
+
+**Two deviations, both because the plan's mechanism stopped matching the code:**
+
+- **T7.1 did NOT delete `BudgetScreen`, and the reason is that deleting it would buy the hub
+  nothing.** T7.1 was written assuming the hub would BE `BudgetScreen`; T5 instead added
+  `BudgetHubScreen` and moved the old page to `/budget/deep-dive`. Every screen in `routes.tsx` is
+  `lazy`, so that page's chunk and its four fetches are already paid only by a reader who opens
+  it — the eager measurement above is with it in the tree. What deleting it WOULD cost is real:
+  `BudgetFlowTile` + `BudgetFlowGraphic` + `BudgetFlowMobile` + `budgetFlowModel` + five
+  drilldowns, i.e. the Sankey. §5 routes that to `/budget/explorer`, and the explorer replaces the
+  four drilldown DESTINATIONS (`/budget/municipal`, `/budget/municipal/capital`,
+  `/budget/personnel`, `/budget/social-funds` each own theirs now) but deliberately not the
+  visualisation — §7.2's whole design is „one level per call", and a Sankey needs the tree that
+  retires. So the deep-dive stays, `budgetHubRegistry.test.ts` keeps its exemption, and
+  `routes.tsx` carries the reason at the `lazy()` site.
+
+  What IS still open: nine legacy tiles now have PG-backed twins on the sub-pages and only the
+  deep-dive imports them, so two implementations of the same figure exist. That is drift waiting
+  to happen and belongs in its own step — not hidden here.
+
+- **T7.3 pins the COUNT and the NAMES, not the KB — and the KB half could not have failed.**
+  Measured twice while writing the gate. The durable reason: the data files are served from
+  `storage.googleapis.com`, which sends no `Timing-Allow-Origin`, so every `decodedBodySize` is
+  0 — a 347 KB `kfp.json` reported 0.0 KB — and that holds wherever the bucket is the origin, not
+  only under Playwright. The local reason: from this machine the bucket answers the emulator's
+  fetches with a bare `vary: Origin` and no `access-control-allow-origin`, so they are CORS-blocked
+  and surface as `net::ERR_FAILED`, `page.on("response")` never fires, and a response-body
+  instrument collects an empty list. (The bucket is up — `curl` gets a 200. It is CORS, not
+  connectivity, and an earlier draft of this note said „no route", which was wrong.) A draft using
+  exactly that instrument PASSED when pointed at `/budget/deep-dive`, which fetches four of the
+  retired files.
+
+  The gate therefore counts (request log, deduped — `queryClient.ts` sets `retry: 1` and every
+  bucket fetch fails here) and names, in four layers: the stat call must be PRESENT (every ceiling
+  passes at zero requests, so without it a hub that renders nothing is green), the count ceiling,
+  **no static file at all** (the exact property — a deny-list can only name the sixteen §1.1
+  measured, and the seventeenth would sit inside the ceiling unnoticed), and the deny-list itself
+  as the layer that says WHY each name is retired.
+
+  The byte ceiling stays where Postgres is in the loop: `budget_hub_stats.data.test.ts`, 6 KB. Two
+  qualifiers, since that is now the only place it can be asserted — it is `skipIf` on an
+  unpopulated cache (the state loader is a `REFRESH_EXCLUSIONS` member), so it gates a machine
+  that has loaded the corpus rather than CI; and it was measuring `budget_hub_stats(2024)` with
+  `length()` while the hub sends no `fy` and downloads the NEWEST payload. Fixed here to
+  `octet_length(budget_hub_stats(NULL))` — 1,875 vs 1,895 bytes, so ~neutral today, but `length()`
+  counts characters and would under-count by ~2x the moment a Cyrillic label enters the payload.
+
+  Every assertion was mutation-checked: the ceiling and the deny-list each fire against
+  `/budget/deep-dive`, and the eager==full equality fires against an injected below-fold fetch —
+  it does NOT fire against the deep-dive, because with the bucket CORS-blocked its lazy tiles
+  never render and so never fetch.
+
+  **One finding the review caught that the mutation checks could not**: `budget/cofog.json` was in
+  the deny-list and can never match — `useCofog` fetches `dataUrl("/cofog.json")` at the data
+  ROOT, and §1.1's own list writes it unprefixed while every other budget entry carries `budget/`.
+  It is the likeliest regression on this page, since `BudgetReceiptCard` renders COFOG shares. A
+  deny-list mutation-checked on ONE name proves the mechanism, not the list.
+
 ### T8 — SEO
 
 14 `staticPage` entries in `scripts/prerender/routes.ts` with real BG + EN bodies; entries in

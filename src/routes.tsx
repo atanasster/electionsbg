@@ -716,11 +716,16 @@ const ContractDetailScreen = lazy(() =>
     default: m.ContractDetailScreen,
   })),
 );
-// /budget is the HUB now (T5.3). The old deep-dive screen'"'"'s content is
-// distributed across the fourteen sub-pages T6 shipped, and its eager
-// ~1.1 MB — kfp.json, macro_peers.json, index.json, documents.json — is
-// replaced by one ~1.1 KB stat call. The old screen stays in the tree only
-// because `/budget/deep-dive` still renders it; nothing else imports it.
+// /budget is the HUB now (T5.3). The old screen's content is distributed
+// across the fourteen sub-pages T6 shipped, and its eager ~1.1 MB — kfp.json,
+// macro_peers.json, index.json, documents.json — is replaced by one stat call.
+//
+// It is `lazy`, like every screen here, which is what makes keeping it free:
+// its chunk and its four fetches are paid only by a reader who opens
+// /budget/deep-dive. T7.1 planned to delete it; measured, that would cost the
+// Sankey flow and its five drilldowns — the one thing §5 routes to
+// /budget/explorer that the explorer does not reproduce, since it renders a
+// LEVEL rather than a tree — and save the hub nothing. See the plan's T7 note.
 const BudgetScreen = lazy(() =>
   import("./screens/BudgetScreen").then((m) => ({
     default: m.BudgetScreen,

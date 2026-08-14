@@ -208,8 +208,25 @@ test.skipIf(stateSkip)(
   async () => {
     // The whole point of T4: 1,202 KB across four eager requests becomes this.
     // The plan budgets ~6 KB.
+    //
+    // This is the ONLY place that budget can be asserted, so two things about
+    // its basis matter (T7.3 — tests/perf.spec.ts counts and names the hub's
+    // requests but cannot weigh them: the data bucket sends no
+    // `Timing-Allow-Origin`, so every `decodedBodySize` there is 0).
+    //
+    //   * NO `fy` — `useBudgetHubStats` omits the parameter unless a caller
+    //     asks for a year, so the payload the hub actually downloads is the
+    //     NEWEST one. Measured 2026-08-14: FY2024 is 1,875 bytes and the
+    //     newest (2026) is 1,895, so pinning 2024 would have been ~neutral
+    //     today and silently the wrong year the moment a fiscal year lands
+    //     with more content in it.
+    //   * `octet_length`, not `length` — `length()` counts CHARACTERS. They
+    //     agree today because the payload is all-ASCII, but the moment any
+    //     Cyrillic label enters it (a unit name, an МФ caption) a byte budget
+    //     asserted in characters under-counts by ~2x on exactly the part that
+    //     grew.
     const [r] = await allRows<{ bytes: number }>(
-      "SELECT length(budget_hub_stats(2024)::text) AS bytes",
+      "SELECT octet_length(budget_hub_stats(NULL)::text) AS bytes",
     );
     assert.ok(
       r.bytes < 6144,

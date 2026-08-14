@@ -816,3 +816,209 @@ test.describe("data preload hints", () => {
     }
   });
 });
+
+// The /budget hub's data payload — the T7.3 ceiling from budget-hub-v1.md.
+//
+// MEASURED on the dev server, 2026-08-14, budget-owned bytes only:
+//
+//   |                       | before (§1.1, 2026-08-13) | after      |
+//   |-----------------------|---------------------------|------------|
+//   | eager, above the fold | 1 202 KB / 4 requests     | 1.7 KB / 1 |
+//   | full scroll           | 1 752 KB / 16 requests    | 1.7 KB / 1 |
+//   | page height           | 25 215 px                 | 7 991 px   |
+//
+// „Budget-owned" is the basis §1.1 declared, and it has to be stated because
+// three JSON files ride the app SHELL on every route — canonical_parties.json
+// (82 KB), articles/index.json (21) and governments.json (10). Measured against
+// a 404 page they are identical, so counting them would report 114 KB for a hub
+// that fetches 1.7 and would move on changes that have nothing to do with
+// /budget.
+//
+// TWO figures, not one, because the old page fetched lazily below the fold: a
+// „page weight" number is ambiguous until the scroll state is declared. They are
+// now EQUAL, and that equality is itself pinned — a hub with a below-fold fetch
+// has stopped being a hub.
+//
+// ⚠️ THIS GATE COUNTS AND NAMES; IT DOES NOT WEIGH — the KB column above is
+// documentation here, not an assertion, because the bytes are not observable in
+// this environment. Two reasons, both measured rather than reasoned:
+//
+//   * The data files are served from `storage.googleapis.com`, which sends no
+//     `Timing-Allow-Origin`, so every `decodedBodySize` is 0 — a 347 KB
+//     kfp.json reported 0.0 KB. This is the durable reason: it holds wherever
+//     the bucket is the origin, including a browser with full network access.
+//   * On this machine the bucket also answers the emulator's own fetches with a
+//     bare `vary: Origin` and NO `access-control-allow-origin`, so the request
+//     is CORS-blocked, surfaces as `net::ERR_FAILED`, and `page.on("response")`
+//     never fires for it. (The bucket itself is up — curl gets a 200. It is
+//     CORS, not connectivity.) A draft of this gate used response bodies and
+//     PASSED when pointed at /budget/deep-dive, which fetches four of the
+//     retired files.
+//
+// The byte ceiling therefore lives where Postgres is in the loop:
+// scripts/db/tests/budget_hub_stats.data.test.ts. Note it is `skipIf` on an
+// unpopulated cache — the state loader is in REFRESH_EXCLUSIONS — so it is a
+// gate on a machine that has loaded the corpus, not in CI.
+//
+// `/api/db/**` is stubbed — the hosting emulator forwards un-emulated function
+// rewrites to the DEPLOYED function (see playwright.config.ts), so a live call
+// would measure production's corpus and cost ~11 s. It costs this gate nothing:
+// the regression it catches is a FILE fetch coming back, and a request is
+// counted whether it succeeds or not.
+test.describe("budget hub payload", () => {
+  // Shell-owned, fetched on every route including a 404. Excluded by basis, as
+  // a PATH SUFFIX: in the built app these come off the data bucket while the
+  // dev server serves them at the root, so a full-pathname list is right on one
+  // and silently counts 114 KB of app shell as budget payload on the other. A
+  // suffix rather than a bare `includes` because the exclusion runs before the
+  // URL is recorded — an over-matching entry would hide a budget file from the
+  // count AND from the deny-list below, which is the one failure here that
+  // would leave no trace.
+  const SHELL_JSON = [
+    "/canonical_parties.json",
+    "/articles/index.json",
+    "/governments.json",
+  ];
+
+  // Every budget-owned request §1.1 recorded on the old page, by the substring
+  // that identifies it. A hub that fetches any of these has un-done T6: each
+  // one now belongs to a sub-page that owns it. `macro_peers.json` is the
+  // headline — 794 KB read for three scalars.
+  //
+  // ⚠️ `cofog.json` is at the data ROOT, not under `budget/` — `useCofog`
+  // fetches `dataUrl("/cofog.json")` and `data/budget/cofog.json` does not
+  // exist. Written `budget/cofog.json` (as §1.1's own list implies, since every
+  // other entry there carries the prefix) the pattern matches nothing, and this
+  // is the likeliest regression on this page: BudgetReceiptCard renders COFOG
+  // shares, so a re-added `useCofog()` would clear the whole gate — two
+  // requests is still under the ceiling and the name would never match.
+  const RETIRED_FETCHES = [
+    "macro_peers.json",
+    "budget/kfp.json",
+    "budget/personnel.json",
+    "budget/documents.json",
+    "budget/index.json",
+    "cofog.json",
+    "budget/noi/",
+    "reconciliation/",
+    "investment_program/",
+    "derived/ministry_procurement",
+  ];
+
+  // The one call the hub is allowed to make. Asserted PRESENT as well as
+  // sufficient: every ceiling below passes at zero requests, so a render throw,
+  // a renamed hook or a re-pointed route would leave this whole describe green
+  // while the page showed nothing. Note what it proves — the hub ASKED. The
+  // request log records intent, so an aborted or 500ing call still satisfies
+  // it; what renders is the unit tests' job, not this file's.
+  const HUB_STAT_CALL = "/api/db/budget-hub-stats";
+
+  // 1 today. Two slots of headroom, not four: a second stat call is a
+  // defensible addition, a fourth is the hub growing a second job.
+  const BUDGET_MAX_REQUESTS = 3;
+
+  // The request log, deduped by URL. It is the one instrument that survives
+  // both facts above — a request is recorded whether the response arrives, is
+  // opaque, or fails. Deduping is deliberate: `queryClient.ts` sets `retry: 1`
+  // and every bucket fetch fails here, so raw events would count each file
+  // twice for a reason that has nothing to do with the page. Because the Set
+  // only grows, `full ⊇ eager` always holds and equal sizes do mean equal sets.
+  // A genuine double-download is a different concern, and the preload CORS-mode
+  // gate above is what covers it.
+  const collect = (page: Page) => {
+    const urls = new Set<string>();
+    page.on("request", (r) => {
+      const url = r.url();
+      if (!/\.json(\?|$)/.test(url) && !url.includes("/api/db/")) return;
+      const path = new URL(url).pathname;
+      if (SHELL_JSON.some((s) => path.endsWith(s))) return;
+      urls.add(url);
+    });
+    return () => [...urls];
+  };
+
+  const stubDb = async (page: Page) => {
+    await page.route("**/api/db/**", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        // Real `BudgetHubStats` keys — every money one names its basis, which
+        // is what budget_hub_stats.data.test.ts exists to enforce. An earlier
+        // draft used `revenueEur`/`expenditureEur`/`balanceEur`; those are not
+        // fields of the type, so the cards silently rendered nothing and the
+        // scroll height this gate walks was the empty-state one.
+        body: JSON.stringify({
+          fiscalYear: 2025,
+          asOf: "2025-12-31",
+          complete: true,
+          revenueExecutedEur: 1,
+          expenditureExecutedEur: 2,
+          euContributionExecutedEur: 1,
+          balanceExecutedEur: -1,
+          cofogShares: [],
+        }),
+      }),
+    );
+  };
+
+  const show = (urls: string[]) => urls.join(", ") || "(none)";
+
+  for (const path of ["/budget", "/en/budget"]) {
+    test(`${path} fetches no retired budget file, eagerly or on full scroll`, async ({
+      page,
+    }) => {
+      await stubDb(page);
+      const seen = collect(page);
+      await page.goto(path, { waitUntil: "networkidle" });
+
+      const eager = seen();
+      expect(
+        eager.find((u) => u.includes(HUB_STAT_CALL)),
+        `${path} never called ${HUB_STAT_CALL} — every ceiling below passes ` +
+          `at zero requests, so without this the gate is green on a hub that ` +
+          `renders nothing. Saw: ${show(eager)}`,
+      ).toBeDefined();
+      expect(eager.length, `eager: ${show(eager)}`).toBeLessThanOrEqual(
+        BUDGET_MAX_REQUESTS,
+      );
+
+      // Full scroll, in steps, so an IntersectionObserver-gated tile fires.
+      const height = await page.evaluate(() => document.body.scrollHeight);
+      for (let y = 0; y <= height; y += 600) {
+        await page.evaluate((to) => window.scrollTo(0, to), y);
+        await page.waitForTimeout(80);
+      }
+      await page.waitForTimeout(1500);
+
+      const full = seen();
+      expect(full.length, `after scroll: ${show(full)}`).toBeLessThanOrEqual(
+        BUDGET_MAX_REQUESTS,
+      );
+
+      // The hub has no below-fold fetches at all, which is why the two figures
+      // in the table above are equal. Pinned so they stay that way.
+      const added = full.filter((u) => !eager.includes(u));
+      expect(
+        full.length,
+        `scrolling added ${added.length}: ${show(added)}`,
+      ).toBe(eager.length);
+
+      // The exact property, not a proxy for it: the hub fetches NO FILE. The
+      // deny-list below names the sixteen §1.1 measured and explains each; this
+      // catches the seventeenth, which no list can anticipate — a brand-new
+      // heavy file would otherwise sit inside the ceiling of 3 unnoticed.
+      const files = full.filter((u) => !u.includes("/api/db/"));
+      expect(
+        files,
+        `the hub fetched ${files.length} file(s): ${show(files)}`,
+      ).toEqual([]);
+
+      for (const retired of RETIRED_FETCHES) {
+        expect(
+          full.find((u) => u.includes(retired)),
+          `${path} fetched ${retired} — that corpus belongs to a sub-page now`,
+        ).toBeUndefined();
+      }
+    });
+  }
+});
