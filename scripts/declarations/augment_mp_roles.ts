@@ -50,18 +50,64 @@ type MpRoleRow = {
   status: string | null;
   role: string;
   erased_at: Date | null;
+  /** Ordering projection — see MP_ROLES_SQL. Not emitted; `isCurrent` is derived from
+   *  `erased_at` at write time, so the two can never disagree. */
+  is_current: boolean;
   declared: boolean;
+};
+
+/** Is this failure the environment, or the code?
+ *
+ *  The distinction is load-bearing rather than tidy. This step degrades on a missing database
+ *  BY DESIGN (see the header) — a build machine without Postgres is normal. That made it the
+ *  perfect hiding place for a broken query: `ORDER BY (t.erased_at IS NULL) DESC` under SELECT
+ *  DISTINCT raised 0P000 on EVERY run from bffcdc5527 (2026-08-12) onward, the catch printed
+ *  "Postgres unreachable", and the operator read the one line they had been trained to ignore.
+ *  `mpRoles` therefore kept whatever vintage the retired shard-derived build had left, on a
+ *  step whose entire purpose was to stop reading those shards. Caught 2026-08-14 during the
+ *  2026 declaration-year ingest.
+ *
+ *  So: connection-class failures degrade, and anything else — a syntax error, a missing
+ *  column, a renamed table — throws. A malformed query is never a normal build-machine state,
+ *  and it is not a condition an operator can fix by ignoring it. */
+const isConnectionFailure = (e: unknown): boolean => {
+  const code = (e as { code?: string })?.code;
+  if (typeof code === "string") {
+    // libpq/socket-level names, then the SQLSTATE classes that mean "the server is there but
+    // will not talk to us": 08* connection exception, 57P03 starting up, 53300 out of slots,
+    // 3D000 no such database, 28* authentication.
+    if (/^E[A-Z]+$/.test(code))
+      return [
+        "ECONNREFUSED",
+        "ENOTFOUND",
+        "EHOSTUNREACH",
+        "ETIMEDOUT",
+        "ECONNRESET",
+        "EPIPE",
+      ].includes(code);
+    return /^(08|28)/.test(code) || ["57P03", "53300", "3D000"].includes(code);
+  }
+  // node-postgres surfaces a bare socket error with the name only in the message.
+  return /\b(ECONNREFUSED|ENOTFOUND|EHOSTUNREACH|ETIMEDOUT|ECONNRESET|EPIPE)\b/.test(
+    (e as Error)?.message ?? "",
+  );
 };
 
 /** The same set 150 serves, flattened across every MP. Joined on `name_fold` for the same
  *  reason 150 is: TR spells one person several ways across filings, and the fold is the key
  *  the person layer already uses. `split_part(ref, ':', 1)` because person_role carries BOTH
  *  a bare mpId and a per-term `mpId:ns` (reference_mp_id_not_person_key). */
-const MP_ROLES_SQL = `
+export const MP_ROLES_SQL = `
   SELECT DISTINCT split_part(pmp.ref, ':', 1)::int AS mp_id,
          pe.display_name AS mp_name,
          t.uic, c.name AS company_name, c.legal_form, c.seat, c.status,
          t.role, t.erased_at,
+         -- Projected ONLY so the ORDER BY below can name it. Postgres rejects an ORDER BY
+         -- EXPRESSION under SELECT DISTINCT even when every column it reads is selected, so
+         -- ordering on (t.erased_at IS NULL) directly raised 0P000 on every run and the catch
+         -- reported it as "Postgres unreachable" — see the note there. It adds no rows: it is
+         -- a function of erased_at, which is already in the DISTINCT key.
+         (t.erased_at IS NULL) AS is_current,
          (ba.uic IS NOT NULL) AS declared
     FROM person_role pmp
     JOIN person pe ON pe.person_id = pmp.person_id AND pe.status = 'active'
@@ -83,8 +129,9 @@ const MP_ROLES_SQL = `
    --
    -- Current-first matches 150's own (erased_at IS NULL) DESC, so the roles block on /person
    -- and the cross-reference built here cannot disagree about one company on one page.
-   -- Every column here is in the SELECT list, which DISTINCT requires.
-   ORDER BY mp_id, t.uic, t.role, (t.erased_at IS NULL) DESC, t.erased_at DESC`;
+   -- Every term here is a SELECT-list column or its alias, which DISTINCT requires — an
+   -- expression is not enough, however plainly its inputs are selected.
+   ORDER BY mp_id, t.uic, t.role, is_current DESC, t.erased_at DESC`;
 
 /** The floor a rebuild must clear, as a fraction of the committed index's pair count.
  *
@@ -133,6 +180,9 @@ export const augmentCompaniesIndexWithMpRoles = async ({
     await end();
   } catch (e) {
     await end().catch(() => {});
+    // A query that cannot run is a defect, not an environment — rethrow it rather than let it
+    // wear the warning an operator has learned to skip. See isConnectionFailure.
+    if (!isConnectionFailure(e)) throw e;
     // Leave the previous vintage rather than publishing an empty cross-reference — see the
     // header. A build machine without Postgres is a normal state; a retracted link set is not.
     console.warn(

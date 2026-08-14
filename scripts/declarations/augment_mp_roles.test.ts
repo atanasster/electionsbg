@@ -16,10 +16,14 @@ import path from "node:path";
 const rows = vi.hoisted(() => ({
   current: [] as Record<string, unknown>[],
   fail: false,
+  /** A specific error to throw, when the bare `fail` flag's ECONNREFUSED is not the point —
+   *  the module now discriminates connection failures from query failures. */
+  failWith: null as Error | null,
   ended: false,
 }));
 vi.mock("../db/lib/pg", () => ({
   allRows: async () => {
+    if (rows.failWith) throw rows.failWith;
     if (rows.fail) throw new Error("connect ECONNREFUSED");
     return rows.current;
   },
@@ -117,6 +121,7 @@ afterEach(() => {
     fs.rmSync(d, { recursive: true, force: true });
   rows.current = DEFAULT_ROWS;
   rows.fail = false;
+  rows.failWith = null;
   rows.ended = false;
 });
 rows.current = DEFAULT_ROWS;
@@ -293,6 +298,56 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
         confidence: "medium",
       },
     ]);
+  });
+
+  // ...but a QUERY error is not a degrade path. It hid a broken ORDER BY for two days behind
+  // the "Postgres unreachable" line, on the one step whose job is to stop reading the retired
+  // shards — so the set kept publishing a vintage nobody was regenerating.
+  it("throws on a query error instead of reporting it as an unreachable database", async () => {
+    const root = mkFixture();
+    rows.failWith = Object.assign(
+      new Error(
+        "for SELECT DISTINCT, ORDER BY expressions must appear in select list",
+      ),
+      { code: "0P000" },
+    );
+    await expect(
+      augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify }),
+    ).rejects.toThrow(/ORDER BY expressions/);
+    expect(rows.ended).toBe(true); // the pool is still closed before it propagates
+  });
+
+  it("still degrades on a socket failure carrying a code", async () => {
+    const root = mkFixture();
+    rows.failWith = Object.assign(new Error("connect failed"), {
+      code: "ECONNREFUSED",
+    });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    expect(
+      read(root).companies.find((c) => c.tr?.uic === "A100")!.mpRoles,
+    ).toEqual([
+      {
+        mpId: 9,
+        mpName: "STALE",
+        role: "x",
+        isCurrent: true,
+        confidence: "medium",
+      },
+    ]);
+  });
+
+  it("degrades on a server that is up but refusing connections (57P03)", async () => {
+    const root = mkFixture();
+    rows.failWith = Object.assign(
+      new Error("the database system is starting up"),
+      {
+        code: "57P03",
+      },
+    );
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    expect(
+      read(root).companies.find((c) => c.tr?.uic === "A100")!.mpRoles,
+    ).toHaveLength(1);
   });
 
   it("leaves mpRoles untouched when the person layer returns nothing", async () => {
