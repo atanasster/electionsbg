@@ -104,6 +104,21 @@ import { allRows, end } from "../lib/pg";
 import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import { NOI_EIK } from "@/lib/noiBenchmarks";
+import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
+import { API_EIK } from "@/lib/roadAttributes";
+// The pension gates read funds.json through the SAME accessors the generator
+// and /pensions use. Re-deriving "which year is complete" or "which fund is
+// ДОО" here would let a bug in that module satisfy its own gate.
+import {
+  dooPensionsEur,
+  isCompleteNoiYear,
+  latestCompleteNoiYear,
+} from "@/data/budget/noiYear";
+// The function /pensions renders from — invoked, not reproduced. See the
+// "ONE figure" test for why a hand-rolled equivalent would be worthless.
+import { flattenFundYear } from "@/data/procurement/useNoi";
+import type { NoiFundsFile as FrontendNoiFundsFile } from "@/data/budget/types";
 import {
   WATER_SECTOR_EIKS,
   VIK_HOLDING_SUB_EIKS,
@@ -165,6 +180,9 @@ type SectorStat = {
   value: number;
   year?: number;
   note?: string;
+  /** The selected y:<year> scope has no datum, so value/year are a fall-back to
+   *  the latest available year and the tile renders a no-data caption. */
+  unavailable?: boolean;
 };
 type SectorStats = Record<string, Record<string, SectorStat>>;
 type NzokHistory = {
@@ -174,6 +192,21 @@ type NzokHistory = {
     expenditureEur: number;
     backfilled?: boolean;
   }>;
+};
+
+/** Σ amount_eur over an EIK-set, whole corpus — the `all` scope's definition.
+ *  Declared above the first describe rather than between two of them: this
+ *  file's house style computes helpers at describe scope, and any consumer
+ *  hoisted that way would hit the TDZ at COLLECTION time — a whole-file load
+ *  failure rather than a test failure. */
+const sectorSum = async (eiks: readonly string[]): Promise<number> => {
+  const [r] = await allRows<{ eur: string }>(
+    `select coalesce(round(sum(amount_eur)),0)::text eur
+       from contracts
+      where tag='contract' and awarder_eik = any($1)`,
+    [[...eiks]],
+  );
+  return Number(r?.eur ?? 0);
 };
 
 describe("health sector (payout / НЗОК)", () => {
@@ -332,16 +365,253 @@ describe("health sector (payout / НЗОК)", () => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Σ amount_eur over an EIK-set, whole corpus — the `all` scope's definition. */
-const sectorSum = async (eiks: readonly string[]): Promise<number> => {
-  const [r] = await allRows<{ eur: string }>(
-    `select coalesce(round(sum(amount_eur)),0)::text eur
-       from contracts
-      where tag='contract' and awarder_eik = any($1)`,
-    [[...eiks]],
-  );
-  return Number(r?.eur ?? 0);
+/** funds.json's per-year shape, to the depth these gates read. */
+type NoiFundsFile = {
+  years: Array<{
+    fiscalYear: number;
+    complete?: boolean;
+    funds: Array<{ fundCode: string; pensionsBgn?: number | null }>;
+    totals: {
+      revenue: { amountEur: number };
+      pensions?: { amountEur?: number };
+    };
+  }>;
 };
+
+describe("pension sector (payout / ДОО)", () => {
+  const stats = () =>
+    readJson<SectorStats>("data/procurement/derived/sector_stats.json");
+  const funds = () => readJson<NoiFundsFile>("data/budget/noi/funds.json");
+
+  test.skipIf(skip)(
+    "hub headline is payout, in-band, reconciles to the latest COMPLETE year's ДОО line",
+    () => {
+      const s = stats();
+      const p = s["all"]?.pension;
+      assert.ok(p, "sector_stats.json['all'].pension must exist");
+      assert.equal(p.kind, "eur");
+      assert.equal(
+        p.basis,
+        "payout",
+        "pension must front the ДОО payout, not НОИ's thin ЗОП line (€130.6m, 1.2% of it)",
+      );
+
+      // Sanity band ONLY. It deliberately does not try to discriminate the
+      // three-fund rollup: the two are 0.47% apart, and a ceiling tight enough
+      // to separate them cannot survive ordinary indexation — ДОО grew 13.4%
+      // from 2023 (€9.77bn) to 2024 (€11.08bn), so a €11.2bn ceiling would red
+      // `test:data`, and with it the last link of db:refresh, on a correct
+      // figure at the next NOI ingest. No literal satisfies both jobs. The
+      // rollup guard is the relative assertion below.
+      assert.ok(
+        p.value > 8_000_000_000 && p.value < 20_000_000_000,
+        `pension payout €${p.value} out of expected band 8–20bn`,
+      );
+
+      // Reconcile to the declared source of truth, through the SAME accessor the
+      // generator and /pensions use. Recomputing the selection here would let a
+      // bug in noiYear.ts satisfy its own gate.
+      const latest = latestCompleteNoiYear(funds().years);
+      assert.ok(latest, "funds.json carries no complete year");
+      const expected = dooPensionsEur(latest);
+      assert.ok(
+        expected,
+        "the latest complete year carries no ДОО pension line",
+      );
+      assert.equal(
+        p.value,
+        expected,
+        "headline must be the ДОО fund alone — totals.pensions is the 3-fund rollup",
+      );
+      assert.equal(p.year, latest.fiscalYear);
+
+      // The rollup guard that actually discriminates, and that cannot go stale
+      // as the series grows: ДОО is strictly ONE of the three funds, so the
+      // headline must sit strictly below the rollup — at any scale, in any year.
+      const rollup = latest.totals.pensions?.amountEur;
+      assert.ok(
+        rollup,
+        "the latest complete year carries no three-fund rollup",
+      );
+      assert.ok(
+        p.value < rollup,
+        `headline €${p.value} is at or above the three-fund rollup €${rollup} — ` +
+          "the tile is publishing ДОО + УчПФ + ГВРС, not ДОО alone",
+      );
+
+      // Every scope must carry the key. The generator omits `pension` wholesale
+      // when the series is empty, so a PARTIAL emission (present on `all`,
+      // dropped from the ns:/y: scopes) is the one shape the per-scope loops in
+      // the tests below cannot see — each skips a missing key and stays green.
+      const withPension = Object.values(s).filter((sec) => sec.pension).length;
+      assert.equal(
+        withPension,
+        Object.keys(s).length,
+        `${Object.keys(s).length - withPension} scope(s) carry no pension stat — ` +
+          "the per-scope gates below silently skip those",
+      );
+    },
+  );
+
+  test.skipIf(skip)("no scope ever publishes the three-fund rollup", () => {
+    // ДОО + Учителски пенсионен фонд + ГВРС. €52,502,905 / 0.47% above the ДОО
+    // line on 2024, all of it УчПФ. The hub tile served this while /pensions —
+    // the page it links to — served ДОО, which is the defect this file gates.
+    const latest = latestCompleteNoiYear(funds().years);
+    assert.ok(latest);
+    const rollup = latest.totals.pensions?.amountEur;
+    const doo = dooPensionsEur(latest);
+    assert.ok(rollup && doo);
+    // Without this the gate goes vacuous the moment the two coincide (e.g. a
+    // year where only ДОО reported), and would then pass on the bug it exists for.
+    assert.notEqual(
+      rollup,
+      doo,
+      "rollup == ДОО this year — the gate below cannot discriminate; " +
+        "pin a year where they differ before trusting it",
+    );
+    for (const [key, sectors] of Object.entries(stats()))
+      if (sectors.pension)
+        assert.notEqual(
+          sectors.pension.value,
+          rollup,
+          `${key} publishes the three-fund rollup`,
+        );
+  });
+
+  test.skipIf(skip)("a SHELL year is never published as its own payout", () => {
+    // The B1 ingest publishes each new fiscal year mid-cycle as a shell:
+    // funds: [], revenue 0, and a totals.pensions that is really the pension
+    // YEARBOOK's grand total. This is the tripwire for the latent half of the
+    // audit — the day a 2025 shell lands, an un-guarded generator flips `all`
+    // and every ns: headline onto it while /pensions holds the last complete
+    // year. Asserting against the ARTIFACT (not a recomputation) is what makes
+    // a stale committed file fail too.
+    //
+    // ⚠ Today's only shell (2023) has `funds: []`, so dooPensionsEur already
+    // returns null for it and a guard-ONLY regression in the generator is
+    // absorbed upstream — a green run here is therefore NOT evidence that the
+    // isCompleteNoiYear call is load-bearing. What this test uniquely owns is
+    // the STAMPED shell: `complete: false` WITH real fund rows and a 5500
+    // snapshot, which the producer can now emit and which nothing else stops.
+    const s = stats();
+    const shells = funds().years.filter((y) => !isCompleteNoiYear(y));
+    for (const y of shells) {
+      const scope = s[`y:${y.fiscalYear}`];
+      if (!scope?.pension) continue;
+      assert.equal(
+        scope.pension.unavailable,
+        true,
+        `y:${y.fiscalYear} is a shell year — it must fall back with a no-data flag, ` +
+          "so the tile says no-data-for-that-year rather than a cross-basis figure",
+      );
+      assert.notEqual(
+        scope.pension.year,
+        y.fiscalYear,
+        `y:${y.fiscalYear} still resolves to the shell year itself`,
+      );
+      // The cross-basis arm — the yearbook grand total the shell carries in
+      // place of a B1 pensions line. Assert the figure EXISTS first: without
+      // that, `notEqual(<number>, undefined)` can never fail and the one arm
+      // naming the audited defect goes quiet on a shell of a different shape.
+      const yearbook = y.totals.pensions?.amountEur;
+      assert.ok(
+        yearbook,
+        `y:${y.fiscalYear} shell carries no totals.pensions — the cross-basis ` +
+          "arm below cannot discriminate; confirm the shell shape before trusting it",
+      );
+      assert.notEqual(
+        scope.pension.value,
+        yearbook,
+        `y:${y.fiscalYear} publishes the pension YEARBOOK grand total as a payout`,
+      );
+    }
+  });
+
+  test.skipIf(skip)("the hub tile and /pensions publish ONE figure", () => {
+    // INVOKE the page's own flattener rather than reproducing it. /pensions
+    // renders useNoiFundYear → flattenFundYear, so a change confined to the
+    // page's half — the exact audited defect, reintroduced there — fails here.
+    // A hand-rolled `funds.find(5500)` + fundPensionsEur would not: it would
+    // pin the shared accessor (already covered by noiYear.test.ts, with no
+    // database) while leaving the surface this test is named for unobserved.
+    const page = flattenFundYear(
+      readJson<FrontendNoiFundsFile>("data/budget/noi/funds.json"),
+    );
+    assert.ok(
+      page,
+      "/pensions would render nothing for the latest complete year",
+    );
+    const p = stats()["all"].pension;
+    assert.equal(
+      p.value,
+      page.pensionsEur,
+      "the hub tile and the page it links to publish different pension figures",
+    );
+    assert.equal(p.year, page.fiscalYear);
+  });
+
+  test.skipIf(skip)(
+    "pension is not a procurement sector, and НОИ leaks into no EIK-set",
+    async () => {
+      const s = stats();
+      for (const [key, sectors] of Object.entries(s))
+        if (sectors.pension)
+          assert.equal(
+            sectors.pension.basis,
+            "payout",
+            `${key}.pension flipped off the payout basis`,
+          );
+
+      // НОИ's own procurement is a browse pack, never a sector EIK-set.
+      assert.deepEqual(
+        [...SECTOR_BROWSE_PACKS.noi.eiks],
+        [NOI_EIK],
+        "SECTOR_BROWSE_PACKS.noi.eiks drifted from the single НОИ EIK",
+      );
+
+      // Exactly ONE browse pack may claim НОИ — the all-packs idiom this file
+      // already uses for ДП РАО. Unlike a hand-listed set this cannot silently
+      // under-cover: a pack added tomorrow is checked the day it lands.
+      const claiming = Object.values(SECTOR_BROWSE_PACKS)
+        .filter((pack) => pack.eiks.includes(NOI_EIK))
+        .map((pack) => pack.id)
+        .sort();
+      assert.deepEqual(
+        claiming,
+        ["noi"],
+        `НОИ is claimed by ${claiming.length} browse packs (${claiming.join(", ") || "none"})`,
+      );
+
+      // …and no sector EIK-set. `social` is the one the exclusion was actually
+      // written for — socialReferenceData.ts:16 carries the ⚠ — because folding
+      // НОИ in would double-count the whole pension system into a second tile.
+      // `roads` is the fourth member of the generator's SECTOR_EIKS.
+      for (const [id, eiks] of Object.entries({
+        water: WATER_SECTOR_EIKS,
+        transport: TRANSPORT_SECTOR_EIKS,
+        energy: ENERGY_SECTOR_EIKS,
+        social: SOCIAL_SECTOR_EIKS,
+        roads: [API_EIK],
+      }))
+        assert.ok(
+          !eiks.includes(NOI_EIK),
+          `НОИ ${NOI_EIK} leaked into the ${id} EIK-set`,
+        );
+
+      // A real awarder, so the EIK is not a typo — and orders below the payout,
+      // which is exactly why the tile fronts payout rather than procurement.
+      const eur = await sectorSum([NOI_EIK]);
+      assert.ok(eur > 50_000_000, `НОИ procurement €${eur} — EIK may be wrong`);
+      assert.ok(
+        eur < s["all"].pension.value / 10,
+        `НОИ procurement €${eur} is no longer negligible beside the payout`,
+      );
+    },
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 describe("water sector (procurement / ВиК)", () => {
   test.skipIf(skip)(

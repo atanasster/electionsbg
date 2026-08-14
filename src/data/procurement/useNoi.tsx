@@ -77,7 +77,14 @@ export interface NoiData {
 const bgnToEur = (bgn: number | null): number =>
   bgn == null ? 0 : Math.round(toEur(bgn, "BGN") ?? bgn);
 
-const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
+/** What /pensions actually renders its fund figures from. EXPORTED for the
+ *  sectors-hub gate (sector_stats.data.test.ts), which asserts the hub tile and
+ *  this page publish one figure — a hand-rolled reproduction of this path there
+ *  would stay green on exactly the divergence the gate exists to catch, since
+ *  the page's half would no longer be observed. */
+export const flattenFundYear = (
+  file: NoiFundsFile | null,
+): NoiFundYear | null => {
   if (!file || !file.years.length) return null;
   // Latest year carrying real fund detail. Taking the raw max would select the
   // mid-cycle shell and render adminEur/revenue = 0, i.e. a false "0% covered
