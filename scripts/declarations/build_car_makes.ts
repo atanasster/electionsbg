@@ -22,6 +22,7 @@ import type {
   MpCarsFile,
   MpDeclaration,
 } from "../../src/data/dataTypes";
+import { assetWeightedEur } from "../../src/lib/declarations";
 
 type MpIndexEntry = {
   id: number;
@@ -38,7 +39,7 @@ type ParliamentIndex = { mps: MpIndexEntry[] };
  * Bulgarian uses Cyrillic letters, which JS `\b` does NOT recognise as
  * word boundaries (it operates on ASCII \w). We just substring-match on
  * the lowercased description — false positives are negligible. */
-const isCarDescription = (description: string | null): boolean => {
+export const isCarDescription = (description: string | null): boolean => {
   if (!description) return false;
   const s = description.toLowerCase();
   return (
@@ -367,12 +368,25 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
         a.isSpouse ? "s" : "d",
       ].join("|");
       const make = detectMake(a.detail);
+      // Weighted by the declarant's ideal part BEFORE bucketing, because the bucket key
+      // includes isSpouse: a car held 1/2 by each spouse lands in TWO buckets and is
+      // emitted as two rows, each carrying the WHOLE car's price. That is the shape
+      // column 8 of the filing instructions produces, and summing it published
+      // €7,230,466 for €6,261,113 of cars (13.4%, 210 of 721 rows) while the same MP's
+      // vehicle subtotal on /candidate/:id/assets — weighted since 807c39095e — read the
+      // correct figure. See assetShareMultiplier.
+      //
+      // Weighting HERE rather than at rest in mp_cars_table is what makes the merge
+      // below correct too: two same-holder rows sum to a joined share ("1/2 + 1/2") that
+      // assetShareMultiplier deliberately maps to 1, so a multiplier applied afterwards
+      // would leave those rows doubled. Measured: 2 of the 5 merged rows.
+      const weightedEur = a.valueEur == null ? null : assetWeightedEur(a);
       const existing = buckets.get(key);
       if (existing) {
         existing.mergedCount++;
         if (a.share) existing.shares.push(a.share);
-        if (a.valueEur != null) {
-          existing.valueEurSum = (existing.valueEurSum ?? 0) + a.valueEur;
+        if (weightedEur != null) {
+          existing.valueEurSum = (existing.valueEurSum ?? 0) + weightedEur;
         }
       } else {
         buckets.set(key, {
@@ -385,7 +399,7 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
             detail: a.detail,
             description: a.description,
             acquiredYear: a.acquiredYear,
-            valueEur: a.valueEur,
+            valueEur: weightedEur,
             amount: a.amount,
             currency: a.currency,
             isSpouse: a.isSpouse,
@@ -395,7 +409,7 @@ export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
             sourceUrl: latest.sourceUrl,
           },
           shares: a.share ? [a.share] : [],
-          valueEurSum: a.valueEur,
+          valueEurSum: weightedEur,
           mergedCount: 1,
         });
       }

@@ -38,6 +38,7 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, end } from "../lib/pg";
 import { assetWeightedEur } from "../../../src/lib/declarations";
+import { isCarDescription } from "../../declarations/build_car_makes";
 
 const require_ = createRequire(import.meta.url);
 const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
@@ -82,6 +83,9 @@ afterAll(async () => {
 interface JsonAsset {
   category: string;
   valueEur: number | null;
+  // Read by the /mp-cars reconciliation below; `share` is what assetWeightedEur needs.
+  description?: string | null;
+  share?: string | null;
 }
 interface JsonStake {
   table: string;
@@ -932,3 +936,57 @@ test.skipIf(skip)(
     }
   },
 );
+
+// (N) /mp-cars is the other surface over the same vehicle rows, and it reaches them
+// through mp_cars_table rather than person_wealth_year — so nothing above covers it.
+// It shipped the spousal double-count for a full commit after the wealth totals were
+// fixed: €8,241,472 published against €7,109,059 of cars, because build_car_makes.ts
+// buckets on isSpouse and a car held 1/2 by each spouse becomes two rows each carrying
+// the WHOLE price. Re-derived here from the same shards the builder reads.
+test.skipIf(skip)("mp_cars_table totals are share-weighted", async () => {
+  const rows = await allRows<{ mp_id: number; total: string }>(
+    `SELECT mp_id, round(SUM(value_eur))::text AS total
+       FROM mp_cars_table WHERE ns = 'all' AND value_eur IS NOT NULL
+      GROUP BY mp_id`,
+  );
+  assert.ok(rows.length > 100, `only ${rows.length} MPs carry cars`);
+
+  let checked = 0;
+  const mismatches: string[] = [];
+  for (const row of rows) {
+    const file = path.join(
+      ROOT,
+      "data/parliament/declarations",
+      `${row.mp_id}.json`,
+    );
+    if (!existsSync(file)) continue;
+    const decls = JSON.parse(readFileSync(file, "utf8")) as JsonDeclaration[];
+    // The builder reads the same "latest filing that declares something" the rest of
+    // this file does; approximate it by the newest filing carrying a car row.
+    const withCars = decls.filter((d) =>
+      (d.assets ?? []).some(
+        (a) =>
+          a.category === "vehicle" && isCarDescription(a.description ?? null),
+      ),
+    );
+    if (withCars.length !== 1) continue; // ambiguous pick — not this test's subject
+    checked++;
+    const expected = (withCars[0].assets ?? [])
+      .filter(
+        (a) =>
+          a.category === "vehicle" && isCarDescription(a.description ?? null),
+      )
+      .reduce((s, a) => s + assetWeightedEur(a), 0);
+    if (Math.abs(expected - Number(row.total)) > 2) {
+      mismatches.push(
+        `mp ${row.mp_id}: shard weighted ${Math.round(expected)} vs mp_cars_table ${row.total}`,
+      );
+    }
+  }
+  assert.ok(checked > 50, `only ${checked} MPs were cross-checkable`);
+  assert.deepEqual(
+    mismatches.slice(0, 5),
+    [],
+    `${mismatches.length}/${checked} MPs' /mp-cars total is not the share-weighted one`,
+  );
+});

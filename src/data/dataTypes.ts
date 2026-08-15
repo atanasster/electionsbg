@@ -1197,7 +1197,10 @@ export type MpCarRow = {
    * style without us inventing a separate normalization. */
   description: string | null;
   acquiredYear: number | null;
-  /** Euro value (converted from the declared leva figure at the locked peg).
+  /** Euro value (converted from the declared leva figure at the locked peg), REDUCED to
+   * the declarant's ideal part — the register records the whole car's price on every
+   * co-owner's row and the bucket key splits on isSpouse, so the unweighted figure counts
+   * a jointly-held car once per co-owner. `amount` below keeps the raw declared figure.
    * null when the declarant left the value blank. */
   valueEur: number | null;
   /** Raw declared amount in the native currency, for the "originally" note. */
