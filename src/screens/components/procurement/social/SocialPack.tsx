@@ -29,6 +29,7 @@ import {
 } from "@/lib/socialAttributes";
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
+  SOCIAL_SECTOR_EIKS,
   SOCIAL_UNIVERSES,
   socialGroupDetail,
   socialUniverseLabel,
@@ -57,8 +58,15 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const bg = lang === "bg";
 
   const [universe, setUniverse] = useState<UniverseFilter>("all");
-  const { model, units, groupTotalEur, groupUnitCount, aspShare, isLoading } =
-    useSocial(eik, scopeWindow, universe);
+  const {
+    model,
+    units,
+    groupEiks: activeEiks,
+    groupTotalEur,
+    groupUnitCount,
+    aspShare,
+    isLoading,
+  } = useSocial(eik, scopeWindow, universe);
 
   // "Per year" divisor = the length of the SCOPE WINDOW (not the contract span),
   // so an edge gap year doesn't inflate the average — same rule as the МВР pack.
@@ -98,7 +106,15 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const location = useLocation();
   const contractsHref = (extra?: Record<string, string>) => {
     const p = new URLSearchParams(searchParams);
-    p.set("sector", "social");
+    // The tile the reader clicked from is UNIVERSE-FILTERED, so the browse has to
+    // carry that filter or the link opens a wider set than the bar it sits under
+    // (measured on „Заетост": an admin_services bar of €19.7M / 90 contracts
+    // linking to €79.8M / 425). `?sector` and `?awarder` are alternatives, not
+    // additive — ContractsBrowserDbScreen checks browsePack FIRST and returns, so
+    // sending both would silently discard the narrower scope.
+    if (activeEiks.length && activeEiks.length < SOCIAL_SECTOR_EIKS.length)
+      p.set("awarder", activeEiks.join(","));
+    else p.set("sector", "social");
     if (extra) for (const [k, v] of Object.entries(extra)) p.set(k, v);
     return `/procurement/contracts?${p.toString()}`;
   };

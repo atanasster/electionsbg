@@ -19,10 +19,11 @@ import {
 // Fixed colour per category (colour follows the entity, not its rank — dataviz
 // house rule). Status hues (red/green) are reserved for the single-bid signal.
 const CATEGORY_COLOR: Record<SocialCategory, string> = {
+  material_aid: "bg-rose-500",
   it_systems: "bg-violet-500",
   social_services: "bg-emerald-500",
   construction: "bg-stone-500",
-  consulting: "bg-amber-500",
+  admin_services: "bg-amber-500",
   supplies: "bg-cyan-600",
   other: "bg-muted-foreground/50",
 };
@@ -145,12 +146,17 @@ export const SocialCategoryTile: FC<{
           {bg
             ? "Категориите групират CPV-разделите на договорите в оперативни функции. Делът с една оферта се показва за категории с поне 3 договора с известен брой оферти."
             : "Categories group the contracts' CPV divisions into operating functions. Single-bid share is shown for categories with at least 3 bid-known contracts."}
+          {/* NOT „предимно договори без CPV код" — that was measurably false here
+              (no-CPV is 17.7% of the sink; медицински консумативи alone are more)
+              and it is the reason nobody noticed the sink had grown to a quarter of
+              the group. State what the bucket actually is, the way
+              EnvironmentCategoryTile does. */}
           {otherShare >= 0.1 && (
             <>
               {" "}
               {bg
-                ? `„Друго“ са предимно договори без CPV код (${Math.round(otherShare * 100)}% от стойността).`
-                : `"Other" is mostly contracts with no CPV code (${Math.round(otherShare * 100)}% of value).`}
+                ? `${Math.round((1 - otherShare) * 100)}% от стойността е класифицирана по функция; останалото е в „Друго“ (договори без CPV код или извън тези категории).`
+                : `${Math.round((1 - otherShare) * 100)}% of the value is classified by function; the rest sits in "Other" (contracts with no CPV code, or outside these categories).`}
             </>
           )}
         </p>
