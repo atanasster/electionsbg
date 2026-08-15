@@ -39,7 +39,15 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { exec, execEach, allRows, withClient, withTx, end } from "./lib/pg";
+import {
+  exec,
+  execEach,
+  allRows,
+  withClient,
+  withTx,
+  vacuumAfterReload,
+  end,
+} from "./lib/pg";
 import {
   createStageTable,
   addStagePrimaryKey,
@@ -456,9 +464,37 @@ const main = async (): Promise<void> => {
   });
 
   // The merge rewrote a large fraction of every table; the ego/global serving queries pick bad plans
-  // on stale stats.
-  await exec("ANALYZE graph_edge, graph_company_node, graph_person_node");
+  // on stale stats. VACUUM (ANALYZE) rather than the bare ANALYZE this used to be: the stats were
+  // only half of what the rewrite destroyed, and the half that was missing is invisible.
+  //
+  // A bare ANALYZE never touches the visibility map, so `graph_company_node` sat at 20 of 1,174
+  // pages (1.7%) with 6,087 dead tuples and `last_autovacuum` NULL — while `last_analyze` was
+  // stamped by this very line, which is precisely why it read as healthy. Its two siblings were
+  // fine (3,770/3,770 and 3,592/3,665) because autovacuum had happened to reach them, so the
+  // table that needed it most was the one that looked least suspicious. Measured 2026-08-15 on
+  // the top-N by money — the GLOBAL_COMPANY_CAP query this loader itself issues:
+  //
+  //   Index Only Scan using idx_graph_company_money … Heap Fetches: 208 … 170 buffers   (before)
+  //   Index Only Scan using idx_graph_company_money … Heap Fetches: 0   …   5 buffers   (after)
+  //
+  // i.e. the plan was named an Index Only Scan and read every tuple from the heap, which is the
+  // whole signature `reload_visibility_map.data.test.ts` exists to catch. Being STAGE-MERGED buys
+  // nothing here — see the same finding in load_interreg_pg.ts.
+  //
+  // `graph_payloads` joins the list even though the other three were the ones being analyzed: it
+  // is on a serving path (/api/db/connections-graph) and Postgres believed it had 0 pages and 0
+  // live rows against 4 dead ones, having never been vacuumed or analyzed at all. One row and a
+  // toasted blob, so it costs nothing to include and stops the planner working from that.
+  //
+  // Outside every transaction above, since VACUUM cannot run in one, and after dropStages() so the
+  // UNLOGGED twins are gone rather than being vacuumed on the way out.
   await dropStages();
+  await vacuumAfterReload(
+    "graph_edge",
+    "graph_company_node",
+    "graph_person_node",
+    "graph_payloads",
+  );
 
   const [s] = await allRows<{
     edges: string;

@@ -2094,6 +2094,16 @@ stale map rather than data growth, which is why no row count reported it. What `
 actually shows is that a big, continuously-autovacuumed table survives; size and traffic are
 doing that work, not the merge shape. Wire the call regardless of shape.
 
+**A bare `ANALYZE` is not half the fix — it is the disguise.** `db:load:graph:pg` ran
+`ANALYZE graph_edge, graph_company_node, graph_person_node` after its merge, which stamps
+`last_analyze` and never touches the visibility map, so `graph_company_node` sat at **20 of
+1,174 pages (1.7%)** with 6,087 dead tuples and `last_autovacuum` NULL while looking freshly
+maintained. Its two siblings were healthy (3,770/3,770 and 3,592/3,665) only because autovacuum
+had happened to reach them — so the one table that needed it was the one that looked least
+suspicious. Measured on the top-N by money the loader itself issues (`GLOBAL_COMPANY_CAP`, 150
+rows): `Index Only Scan … Heap Fetches: 208`, 170 buffers, 7.8 ms → `Heap Fetches: 0`, 5
+buffers, 0.18 ms. Use `vacuumAfterReload()`, never a bare ANALYZE, after a bulk rewrite.
+
 **Cloud SQL carries the same exposure, and `tenders` is the one that costs something.** Migration
 113 exists to make the `/procurement/tenders` browser's count+sum and its two facet GROUP BYs
 Index-Only Scans over `idx_tenders_order`, and `db_table.js` routes them at the base table rather
@@ -2109,7 +2119,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

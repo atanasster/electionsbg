@@ -106,6 +106,14 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   // SEE those call sites, and an unlisted vacuum is one nothing verifies took.
   { table: "budget_peer_band", loader: "db:load:budget-hub:pg" },
   { table: "tr_name_fold_people", loader: "db:load:tr-name-fold-people:pg" },
+  // Stage-merged, like the Interreg three. The loader ran a bare ANALYZE here for
+  // its stats, which stamps last_analyze and leaves the map untouched — so
+  // graph_company_node sat at 20/1174 pages (1.7%) while looking freshly maintained,
+  // and its two siblings were healthy only because autovacuum had reached them.
+  { table: "graph_edge", loader: "db:load:graph:pg" },
+  { table: "graph_company_node", loader: "db:load:graph:pg" },
+  { table: "graph_person_node", loader: "db:load:graph:pg" },
+  { table: "graph_payloads", loader: "db:load:graph:pg" },
 ];
 
 // Every loader, DERIVED rather than hand-listed, so the static check below reads
