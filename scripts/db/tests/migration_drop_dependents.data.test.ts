@@ -52,11 +52,13 @@ afterAll(async () => {
   await end();
 });
 
-// ── The three sanctioned DROP-with-foreign-dependent pairs ────────────────────────────────
+// ── The four sanctioned DROP-with-foreign-dependent pairs ─────────────────────────────────
 //
-// Each is a case where the recreate demonstrably rides the SAME path as the drop, which is
-// what the rule actually asks for. Keyed by dropped relation and listing the dependents by
-// name, so a NEW dependent appearing on one of these still fails.
+// The first three are cases where the recreate demonstrably rides the SAME path as the
+// drop, which is what the rule actually asks for. The fourth satisfies the rule's PURPOSE
+// by a different route and says so rather than being filed under the same heading. Keyed by
+// dropped relation and listing the dependents by name, so a NEW dependent appearing on one
+// of these still fails.
 const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
   person_wealth_year: {
     dependents: [
@@ -86,6 +88,25 @@ const SANCTIONED: Record<string, { dependents: string[]; why: string }> = {
       "removes it — 112's body documents this at length, including the second reader " +
       "(risk_parity.harness.ts) that reads upheld_ocids directly and must not be routed " +
       "through the view.",
+  },
+  municipal_officials_table: {
+    dependents: ["municipal_officials_current"],
+    why:
+      "THE ODD ONE OUT — sanctioned on the rule's purpose, not on same-path recreate, so " +
+      "read this before adding a fifth. 115 applies from resolve_persons.ts while 102 " +
+      "applies from load_declarations_pg.ts, so the two are NOT one applier the way 090/097 " +
+      "or 042/000 are. What makes it safe is that the dependent cannot be lost INDEPENDENTLY " +
+      "of its own base: municipal_officials_current is a bare `SELECT * … WHERE is_sitting` " +
+      "over the very matview being dropped, so 115's CASCADE destroys both and 102 recreates " +
+      "both, always together. The silent half-state this gate exists to catch — the loader " +
+      "exits 0 and a surface quietly serves nothing — has no room to happen here: with the " +
+      "view gone the matview is gone too, and the roster is equally dead either way. " +
+      "Two further limits keep it small. 115's DROP is wrapped in an existence check on the " +
+      "legacy person_role.place column, so it is one-time per database and a no-op on every " +
+      "migrated one; and the follow-up that repairs it is the one 115's own RAISE NOTICE " +
+      "names (`db:load:declarations:pg -- --resolve`), which both db:refresh and the cloud " +
+      "person sequence already run AFTER db:resolve:persons. The view is therefore in " +
+      "exactly the position the matview was already in, with the same remedy and no new one.",
   },
 };
 

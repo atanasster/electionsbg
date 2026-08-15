@@ -112,6 +112,20 @@ test.skipIf(skip)("the §6 privacy gate is applied", async () => {
 // Full membership + role parity against the shards, both directions. This is what would
 // catch an obshtina mis-assignment: one official filed under the wrong municipality shows
 // up as one missing and one extra.
+//
+// AGAINST THE BENCH VIEW, NOT THE MATVIEW, and the distinction is the point rather than a
+// convenience. The matview is the whole ACCUMULATED roster — the person layer, the
+// council-vote join and the two municipal-officials-*-index routes all need an official who
+// has left — while the shards carry only the sitting bench
+// (build_municipal_shards.currentBench) and `municipal_officials_current` is the half the
+// municipality page serves. So the shards' counterpart is the view.
+//
+// This test read the matview until the 2025→2026 rollover landed, when it reported 334
+// extra / 0 missing / 0 field mismatches. That was not a stale database: the roster had
+// just started accumulating and nothing on the serving side could tell the two cohorts
+// apart, so all 6,647 were published as sitting. Re-pointing it at the view is what makes
+// the assertion mean "the page shows the bench"; the retained cohort is asserted below
+// rather than dropped from the file, so neither half can go missing unnoticed.
 test.skipIf(skip || !haveShards)(
   "per-obshtina membership and roles match the shards exactly",
   async () => {
@@ -132,7 +146,7 @@ test.skipIf(skip || !haveShards)(
     const rows = await allRows<Row>(
       `SELECT obshtina, official_slug, role, role_raw, municipality,
               latest_declaration_year, district
-         FROM municipal_officials_table`,
+         FROM municipal_officials_current`,
     );
     const pg = new Map<string, Map<string, Row>>();
     for (const r of rows) {
@@ -204,3 +218,55 @@ test.skipIf(skip || !haveShards)(
     );
   },
 );
+
+// The other half of the split. The bench view is what a municipality page serves; the
+// matview is what the header search, the ChmiFeed name lookup and the person layer read,
+// and it must keep the officials the newest register listing no longer names.
+//
+// Without this, the parity test above is satisfiable by throwing the retention away —
+// `sitting = true` for the bench and the retained cohort simply deleted from the roster
+// would pass it. That is the exact defect the roster's accumulation exists to prevent
+// (scripts/officials/municipal_roster_retention.test.ts): on the 2025→2026 rollover the
+// single-year snapshot dropped 334 councillors, orphaned 408 of their filings with a NULL
+// person_id and 404'd 321 /person URLs that had been served. So both cohorts are asserted.
+test.skipIf(skip)("the retained cohort is excluded, not deleted", async () => {
+  const [c] = await allRows<{ total: string; bench: string }>(
+    `SELECT count(*) AS total, count(*) FILTER (WHERE is_sitting) AS bench
+       FROM municipal_officials_table`,
+  );
+  const total = Number(c.total);
+  const bench = Number(c.bench);
+
+  assert.ok(
+    bench > 5_000,
+    `only ${bench} sitting listings — the bench looks truncated`,
+  );
+
+  // A retained cohort of zero is legitimate ONLY before the first rollover: every entry
+  // carries the current descriptorYear, so currentBench returns all of them. Once the
+  // roster spans two register years the two counts must differ, or `sitting` is being
+  // written from something that cannot discriminate.
+  const [y] = await allRows<{ n: string }>(
+    `SELECT count(DISTINCT latest_declaration_year) n
+       FROM municipal_officials_table WHERE latest_declaration_year IS NOT NULL`,
+  );
+  if (Number(y.n) > 1) {
+    assert.ok(
+      total > bench,
+      `the roster spans ${y.n} declaration years but every one of its ${total} listings is ` +
+        `sitting — official_roster.sitting is not discriminating (did the loader run?)`,
+    );
+  }
+
+  // And the retained are REACHABLE: a person the bench excludes must still resolve, or the
+  // header search and the /person link that made retention worth doing are gone with them.
+  const [orphan] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM municipal_officials_table
+      WHERE NOT is_sitting AND person_slug IS NULL`,
+  );
+  assert.equal(
+    Number(orphan.n),
+    0,
+    "a retained listing has no person_slug — it is in the roster but reaches no /person page",
+  );
+});

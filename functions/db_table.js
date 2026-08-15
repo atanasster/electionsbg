@@ -1059,15 +1059,22 @@ const REGISTRY = {
     maxPageSize: 50,
   },
 
-  // Per-obshtina municipal roster (matview municipal_officials_table, migration 102) —
-  // replaces the by_obshtina/<code>.json shards and municipal/search_index.json.
+  // Per-obshtina municipal roster (view municipal_officials_current over the matview
+  // municipal_officials_table, migration 102) — replaces the by_obshtina/<code>.json shards.
   //
   // ONE ROW PER ROSTER LISTING, not per person: 46 people sit on more than one municipal
   // body, so person_slug is NOT unique here and official_slug is the key/tiebreak. Scope a
   // municipality page with obshtina; the cross-municipality name search the old
   // search_index.json served is the global `search` over name + municipality.
+  //
+  // THE BENCH VIEW, NOT THE MATVIEW — this is load-bearing. The roster index ACCUMULATES
+  // (the person layer, the council-vote join and the two municipal-officials-*-index routes
+  // below all need an official who has left), while these tiles answer "who represents me
+  // NOW". Reading the matview published the retained cohort as sitting: 334 of 6,647 on the
+  // 2025→2026 rollover, including a Царево deputy mayor who had left. The two index routes
+  // in db_routes.js deliberately keep reading the matview.
   municipal_officials: {
-    base: "municipal_officials_table",
+    base: "municipal_officials_current",
     scopeCols: ["obshtina"],
     columns: {
       official_slug: { type: "text", filter: "in" },

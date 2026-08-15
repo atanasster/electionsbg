@@ -71,11 +71,28 @@ CREATE TABLE IF NOT EXISTS official_roster (
   -- ('Район "<X>" - <CITY>') in the same pass — and it is load-bearing, not decorative:
   -- the /governance card uses "has no district" as the ONLY test for which of PDV22's
   -- seven mayors is the mayor of Plovdiv rather than of a район.
-  district text
+  district text,
+  -- TRUE when the newest register listing still names this MUNICIPAL official — the
+  -- "sitting bench". NULL for every other tier, which has no bench concept.
+  --
+  -- It is carried here for the same reason `obshtina` is: it cannot be derived in SQL.
+  -- The roster ACCUMULATES (data/officials/municipal/index.json keeps everyone who ever
+  -- served, because the person layer, the council-vote join and the header search index
+  -- all need them), while the by_obshtina shards carry only the bench. The rule that
+  -- splits the two is build_municipal_shards.currentBench() — keyed on `descriptorYear`
+  -- (the register folder a run last saw the official in) and NOT on
+  -- latestDeclarationYear, which lags it, with a documented fallback for pre-retention
+  -- index files. Re-deriving that in SQL would be a second source of truth, so the
+  -- loader calls the same function the shard build does and writes the answer here.
+  --
+  -- 102 reads it to serve municipal_officials_current, the roster a municipality page
+  -- shows. Measured on the 2025→2026 rollover: 6,313 sitting of 6,647.
+  sitting boolean
 );
 -- Older databases predate the columns; the loader writes them on every run.
 ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS obshtina text;
 ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS district text;
+ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS sitting boolean;
 CREATE INDEX IF NOT EXISTS idx_official_roster_fold
   ON official_roster (translit_bg_latin(name));
 

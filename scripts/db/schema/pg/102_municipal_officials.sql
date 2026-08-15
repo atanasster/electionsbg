@@ -97,6 +97,12 @@ SELECT
   ld.institution              AS municipality,
   ld.period_year              AS latest_declaration_year,
   o.district,
+  -- Is this listing on the SITTING BENCH? See municipal_officials_current below.
+  -- COALESCE to TRUE, deliberately: a listing with no official_roster row (the loader
+  -- never ran on this database, or the ingest broke) errs toward being SHOWN. That
+  -- degrades to the pre-column behaviour — everyone published — rather than blanking a
+  -- municipality page, and municipal_officials.data.test.ts is what reports it.
+  COALESCE(o.sitting, true)   AS is_sitting,
   (ld.listing_ref IS NOT NULL) AS has_declaration,
   -- candidateLink decoration (migration 108, T1.5): party / ballot / MP-photo enrichment
   -- the by_obshtina JSON shards carried. NULL for a listing with neither a local-election
@@ -145,3 +151,39 @@ CREATE INDEX idx_municipal_officials_name_trgm
   ON municipal_officials_table USING gin (name gin_trgm_ops);
 CREATE INDEX idx_municipal_officials_muni_trgm
   ON municipal_officials_table USING gin (municipality gin_trgm_ops);
+
+-- ---------------------------------------------------------------------------
+-- THE SITTING BENCH — what a municipality page actually serves.
+--
+-- The matview above is the WHOLE accumulated roster, and that is deliberate: two of its
+-- three consumers need every official who ever served. `municipal-officials-name-index`
+-- resolves a name out of a partial-election feed spanning earlier cycles, and
+-- `municipal-officials-search-index` is the header search — a councillor who left still
+-- cast the votes the minutes record, and still has a /person page to reach.
+--
+-- The third consumer must not. The `municipal_officials` db_table resource backs the
+-- Mayor / Composition / Roster tiles, which answer "who represents me NOW", and it
+-- replaced the by_obshtina shards — which carry only the bench (build_municipal_shards
+-- .currentBench). So the split the shards make on disk has to exist here too, and this
+-- view is where it lands: the resource reads it, the two index routes keep reading the
+-- matview.
+--
+-- WHY THIS IS A VIEW AND NOT A `WHERE` IN THE MATVIEW. Filtering the matview would take
+-- the retained cohort away from the other two consumers, which is the defect the roster's
+-- retention exists to prevent (scripts/officials/municipal_roster_retention.test.ts).
+-- Both facts have to be reachable; only one of them is the roster.
+--
+-- Measured on the 2025→2026 rollover: 6,647 listings, 6,313 sitting. Before this the
+-- resource served all 6,647, so 334 officials who had left were rendered as sitting —
+-- Царево published a departed deputy mayor beside its four real ones, and PAZ19 24 of them.
+CREATE OR REPLACE VIEW municipal_officials_current AS
+  SELECT * FROM municipal_officials_table WHERE is_sitting;
+
+-- The page query is now `obshtina = $1 AND is_sitting ORDER BY name, official_slug`, so the
+-- bench predicate belongs in the index or every municipality page filters after the seek.
+CREATE INDEX idx_municipal_officials_obshtina_bench
+  ON municipal_officials_table (obshtina, name, official_slug) WHERE is_sitting;
+-- The /governance city-wide seek (see idx_municipal_officials_citywide) with the same
+-- predicate — a departed mayor also has a NULL district and would otherwise win the pick.
+CREATE INDEX idx_municipal_officials_citywide_bench
+  ON municipal_officials_table (obshtina, role) WHERE district IS NULL AND is_sitting;

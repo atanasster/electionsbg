@@ -26,6 +26,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import type { PoolClient } from "pg";
 import { exec, withClient, getPool, end } from "../db/lib/pg";
 import { buildResolver } from "../officials/municipality_join";
+import { currentBench } from "../officials/build_municipal_shards";
+import type { MunicipalIndexFile } from "../../src/data/dataTypes";
 import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 
@@ -192,6 +194,10 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       }
     }
 
+    // Slugs the newest register listing still names. Filled from the municipal index
+    // below; every other tier stays absent, so `sitting` lands NULL for them — the tiers
+    // have no bench and 102 only ever reads the municipal rows.
+    const benchSlugs = new Set<string>();
     const seen = new Map<
       string,
       [
@@ -201,6 +207,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
         string | null,
         string | null,
         string | null,
+        boolean | null,
       ]
     >();
     const add = (
@@ -217,6 +224,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
           tier,
           obshtinaBySlug.get(slug) ?? null,
           districtBySlug.get(slug) ?? null,
+          tier === "municipal" ? benchSlugs.has(slug) : null,
         ]);
     };
     if (existsSync(OFFICIALS_EXEC)) {
@@ -237,6 +245,18 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       // Measured on the 2025→2026 rollover: 334 rows. Resolve those the way the shard
       // build would have, through the SAME alias-aware join, rather than leaving a hole
       // that no row count reveals.
+      //
+      // The same 334 are why `sitting` exists. They belong in this roster — the person
+      // layer, the council-vote join and the header search all need an official who has
+      // left — but NOT on a municipality page, which answers "who represents me now".
+      // Both facts have to reach Postgres or the serving side cannot tell them apart, and
+      // until this column it could not: all 6,647 were published as the sitting bench, so
+      // Царево listed a deputy mayor who left as one of its four. The bench is read from
+      // the SAME currentBench() the shard build calls (never a `descriptorYear = max()`
+      // re-derivation, which would miss its pre-retention fallback and disagree the first
+      // time an index file predates the split).
+      for (const e of currentBench(j as unknown as MunicipalIndexFile).entries)
+        if (e.slug) benchSlugs.add(e.slug);
       const resolveMunicipality = buildResolver();
       for (const e of j.entries ?? []) {
         if (e.slug && !obshtinaBySlug.has(e.slug) && e.municipality) {
@@ -266,7 +286,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       roster = await copyRows(
         c,
         "official_roster",
-        ["name", "slug", "role", "tier", "obshtina", "district"],
+        ["name", "slug", "role", "tier", "obshtina", "district", "sitting"],
         seen.values(),
       );
     });
