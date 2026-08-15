@@ -21,7 +21,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
-import { formatEur, toEur } from "@/lib/currency";
+import { formatEur, formatEurSigned, toEur } from "@/lib/currency";
+import { incomeTotals } from "@/lib/declarations";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -124,20 +125,15 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const showAllUnvalued = expandedFor === rollup.sourceUrl;
   // One id per card, so two of these on one page cannot both claim `#mp-assets-unvalued`.
   const unvaluedListId = `mp-assets-unvalued-${linkSlug ?? name}`;
+  const incomeHeadingId = `mp-income-heading-${linkSlug ?? name}`;
 
   // Income from Table 12 of the same declaration. Only rows where at least
   // one party (declarant or spouse) has a non-zero amount are kept.
-  const incomeRows = (latestDecl?.income ?? []).filter(
-    (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
-  );
-  const incomeTotalDeclarant = incomeRows.reduce(
-    (s, r) => s + (r.amountEurDeclarant ?? 0),
-    0,
-  );
-  const incomeTotalSpouse = incomeRows.reduce(
-    (s, r) => s + (r.amountEurSpouse ?? 0),
-    0,
-  );
+  const {
+    rows: incomeRows,
+    declarantEur: incomeTotalDeclarant,
+    spouseEur: incomeTotalSpouse,
+  } = incomeTotals(latestDecl?.income ?? []);
 
   const delta = rollup.previous
     ? {
@@ -255,23 +251,52 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
           <div className="mt-4 pt-3 border-t">
             <div className="text-xs font-medium mb-2 flex items-center gap-2">
               <Coins className="h-3.5 w-3.5" />
-              {t("mp_income_heading") || "Annual income"}
-              <span className="text-muted-foreground font-normal">
-                · {t("total") || "Total"}{" "}
-                {formatEur(incomeTotalDeclarant + incomeTotalSpouse, lang)}
+              <span id={incomeHeadingId}>
+                {t("mp_income_heading") || "Annual income"}
+              </span>
+              {/* NOT a single total. The two columns are two PEOPLE — summing them
+                  produced a „Общо" that reads as the declarant's own income: Йотова's
+                  card said EUR 163,255 where her declared income is EUR 104,975 and the
+                  rest is her spouse's. Name each side instead; the spouse only appears
+                  when there is spouse income to show. */}
+              <span
+                data-testid="income-totals"
+                className="text-muted-foreground font-normal"
+              >
+                · {t("mp_income_declarant") || "Declarant"}{" "}
+                {formatEur(incomeTotalDeclarant, lang)}
+                {/* `!== 0`, matching the row filter: a tax base can be negative, and a
+                    `> 0` guard hid the spouse here while the table below still showed
+                    them — the summary would contradict the rows it summarises. */}
+                {incomeTotalSpouse !== 0 && (
+                  <>
+                    {" · "}
+                    {t("mp_income_spouse") || "Spouse"}{" "}
+                    {formatEurSigned(incomeTotalSpouse, lang)}
+                  </>
+                )}
               </span>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
+              <table
+                className="w-full text-xs"
+                aria-labelledby={incomeHeadingId}
+              >
                 <thead className="text-muted-foreground">
                   <tr className="border-b">
-                    <th className="text-left font-normal py-1 pr-2">
+                    <th scope="col" className="text-left font-normal py-1 pr-2">
                       {t("mp_income_category") || "Category"}
                     </th>
-                    <th className="text-right font-normal py-1 px-2 tabular-nums">
+                    <th
+                      scope="col"
+                      className="text-right font-normal py-1 px-2 tabular-nums"
+                    >
                       {t("mp_income_declarant") || "Declarant"}
                     </th>
-                    <th className="text-right font-normal py-1 pl-2 tabular-nums">
+                    <th
+                      scope="col"
+                      className="text-right font-normal py-1 pl-2 tabular-nums"
+                    >
                       {t("mp_income_spouse") || "Spouse"}
                     </th>
                   </tr>

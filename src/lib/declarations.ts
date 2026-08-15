@@ -117,6 +117,41 @@ export const hasDeclaredIncome = (d: DeclarationLike | undefined): boolean =>
     (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
   );
 
+/** The income rows worth showing, and the two per-person totals.
+ *
+ *  ⚠️ THERE IS DELIBERATELY NO COMBINED TOTAL, and callers must not add the two together.
+ *  Table 12 of the declaration („Годишна данъчна основа") has one column for the declarant
+ *  and one for their spouse — two PEOPLE, not two halves of one figure. Both surfaces used
+ *  to print `declarant + spouse` as a single number, so Илияна Йотова's profile announced
+ *  EUR 163,255 where her declared income is EUR 104,975 and the balance is her spouse's; the
+ *  press quoted 104,975 off the same filing and was right. Returning the totals as separate
+ *  named fields, with no third field to reach for, makes the merge unrepresentable rather
+ *  than merely fixed.
+ *
+ *  Note assets are a different editorial choice: net worth IS published as a household
+ *  figure, disclosed by `mp_assets_source_note`. Only income is per-person.
+ *
+ *  The row filter is `!== 0`, matching `hasDeclaredIncome` above — a tax base can legitimately
+ *  be NEGATIVE for a sole trader or business owner, and a `> 0` test drops those rows while
+ *  the per-row table still renders them, so the summary would contradict the table beneath it. */
+export const incomeTotals = <
+  T extends {
+    amountEurDeclarant?: number | null;
+    amountEurSpouse?: number | null;
+  },
+>(
+  rows: readonly T[],
+): { rows: T[]; declarantEur: number; spouseEur: number } => {
+  const kept = rows.filter(
+    (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
+  );
+  return {
+    rows: kept,
+    declarantEur: kept.reduce((s, r) => s + (r.amountEurDeclarant ?? 0), 0),
+    spouseEur: kept.reduce((s, r) => s + (r.amountEurSpouse ?? 0), 0),
+  };
+};
+
 export const hasDeclaredStakes = (d: DeclarationLike | undefined): boolean =>
   (d?.ownershipStakes?.length ?? 0) > 0;
 

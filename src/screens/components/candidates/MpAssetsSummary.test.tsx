@@ -17,6 +17,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import type { MpAsset, MpAssetsRollup } from "@/data/dataTypes";
+import { formatEur, formatEurSigned } from "@/lib/currency";
 
 const mpAssets = vi.fn();
 const mpDeclarations = vi.fn();
@@ -204,5 +205,91 @@ describe("MpAssetsSummary — unvalued items", () => {
     expect(
       screen.getByRole("button", { name: "mp_assets_show_more:3" }),
     ).toHaveAttribute("aria-expanded", "false");
+  });
+});
+
+// The income block used to print `· Общо {declarant + spouse}`. Those two columns are two
+// PEOPLE, so the sum read as the declarant's own income: Йотова's card said EUR 163,255
+// where her declared income is EUR 104,975 and the balance is her spouse's — the figure the
+// press quoted, correctly, off the same filing. The fix is to name both sides and never
+// render a merged number.
+describe("income — declarant and spouse are never merged", () => {
+  const mockIncome = (declarant: number, spouse: number) => {
+    mockPerson(DEFAULT_NAME, 0);
+    mpDeclarations.mockReturnValue({
+      declarations: [
+        {
+          declarantName: DEFAULT_NAME,
+          sourceUrl: SOURCE_URL,
+          assets: [],
+          income: [
+            {
+              category: "Годишна данъчна основа от трудови доходи",
+              amountEurDeclarant: declarant,
+              amountEurSpouse: spouse,
+            },
+          ],
+          ownershipStakes: [],
+          events: [],
+        },
+      ],
+      isLoading: false,
+    });
+    return render(card());
+  };
+
+  // Queried by testid, not by walking up from the heading text: that walk only worked
+  // because the label is a direct text child, so wrapping it in a <span> for styling would
+  // have broken all of these with an assertion about euro figures.
+  const totals = () => screen.getByTestId("income-totals").textContent ?? "";
+
+  // THE regression, with Йотова's real figures. Asserted as fully formatted strings via the
+  // real formatEur, so a change to the formatter cannot silently un-anchor the test.
+  it("shows the declarant's own income, not the household sum", () => {
+    mockIncome(104975, 58280);
+    expect(totals()).toContain(formatEur(104975, "bg"));
+    expect(totals()).not.toContain(formatEur(163255, "bg")); // 104 975 + 58 280
+  });
+
+  it("names the spouse's income separately when there is one", () => {
+    mockIncome(104975, 58280);
+    expect(totals()).toContain("mp_income_declarant");
+    expect(totals()).toContain("mp_income_spouse");
+    expect(totals()).toContain(formatEur(58280, "bg"));
+  });
+
+  // A declarant with no spouse income should not get an empty "· Съпруг(а) €0" tail.
+  it("omits the spouse when there is no spouse income", () => {
+    mockIncome(104975, 0);
+    expect(totals()).toContain("mp_income_declarant");
+    expect(totals()).not.toContain("mp_income_spouse");
+  });
+
+  // „Годишна данъчна основа" is a TAX BASE and can be negative for a sole trader. The old
+  // `> 0` guard hid such a spouse from the header while the table below still rendered the
+  // row — the summary contradicting the rows it summarises.
+  it("shows a negative spouse total rather than hiding it", () => {
+    mockIncome(104975, -5000);
+    expect(totals()).toContain("mp_income_spouse");
+    expect(totals()).toContain(formatEurSigned(-5000, "bg"));
+  });
+
+  // The spouse-only filing: declarant zero, spouse non-zero. The row survives the filter,
+  // so the block renders and must still attribute the money to the spouse.
+  it("renders a spouse-only filing without attributing it to the declarant", () => {
+    mockIncome(0, 58280);
+    expect(totals()).toContain(formatEur(0, "bg"));
+    expect(totals()).toContain("mp_income_spouse");
+    expect(totals()).toContain(formatEur(58280, "bg"));
+  });
+
+  // The per-row table must keep the two columns apart too — a header-only guard would pass
+  // on a table that collapsed them.
+  it("keeps the two columns apart in the per-row table", () => {
+    mockIncome(104975, 58280);
+    const table = screen.getByRole("table");
+    expect(table.textContent).toContain(formatEur(104975, "bg"));
+    expect(table.textContent).toContain(formatEur(58280, "bg"));
+    expect(table.textContent).not.toContain(formatEur(163255, "bg"));
   });
 });

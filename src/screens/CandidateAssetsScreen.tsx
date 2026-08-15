@@ -20,7 +20,8 @@ import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
-import { formatEur } from "@/lib/currency";
+import { formatEur, formatEurSigned } from "@/lib/currency";
+import { incomeTotals } from "@/lib/declarations";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const CATEGORY_ICONS: Record<
@@ -269,17 +270,20 @@ const AssetTable: FC<{
   );
 };
 
-const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
+/** Exported for test only. This surface published the merged declarant+spouse figure and
+ *  had no test file at all, so the merge could have been reintroduced here with a green
+ *  suite — see `incomeTotals` for what must never be added together. */
+export const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
   decl,
   lang,
 }) => {
   const { t } = useTranslation();
-  const rows = decl.income.filter(
-    (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
-  );
+  const {
+    rows,
+    declarantEur: totalDecl,
+    spouseEur: totalSpouse,
+  } = incomeTotals(decl.income);
   if (rows.length === 0) return null;
-  const totalDecl = rows.reduce((s, r) => s + (r.amountEurDeclarant ?? 0), 0);
-  const totalSpouse = rows.reduce((s, r) => s + (r.amountEurSpouse ?? 0), 0);
   return (
     <div className="rounded-lg border bg-card mb-6">
       <div className="px-4 py-3 border-b flex items-center gap-3 bg-muted/30">
@@ -293,22 +297,46 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
             ? t("mp_income_row") || "row"
             : t("mp_income_rows") || "rows"}
         </span>
-        <span className="ml-auto font-mono tabular-nums">
-          {formatEur(totalDecl + totalSpouse, lang)}
+        {/* Two PEOPLE, never one figure — see `incomeTotals`. Both sides are labelled AT
+            the number, and the separator is a `·` rather than a `+`: an arithmetic operator
+            between the two operands invites exactly the sum this exists to stop publishing.
+            The bg label „Съпруг(а)" is already parenthesised, so wrapping it again rendered
+            „(Съпруг(а))". `!== 0` matches the row filter — a tax base can be negative. */}
+        <span
+          data-testid="income-totals"
+          className="ml-auto font-mono tabular-nums"
+        >
+          <span className="mr-1 font-sans text-xs text-muted-foreground">
+            {t("mp_income_declarant") || "Declarant"}
+          </span>
+          {formatEur(totalDecl, lang)}
+          {totalSpouse !== 0 && (
+            <>
+              <span className="mx-1 font-sans text-xs text-muted-foreground">
+                · {t("mp_income_spouse") || "Spouse"}
+              </span>
+              {formatEurSigned(totalSpouse, lang)}
+            </>
+          )}
         </span>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table
+          className="w-full text-sm"
+          aria-label={t("mp_income_heading") || "Annual income"}
+        >
           <thead className="text-[11px] text-muted-foreground uppercase tracking-wide">
             <tr className="border-b bg-muted/10">
-              <th className="text-left font-normal px-3 py-2 w-8">#</th>
-              <th className="text-left font-normal px-3 py-2">
+              <th scope="col" className="text-left font-normal px-3 py-2 w-8">
+                #
+              </th>
+              <th scope="col" className="text-left font-normal px-3 py-2">
                 {t("mp_income_category") || "Category"}
               </th>
-              <th className="text-right font-normal px-3 py-2">
+              <th scope="col" className="text-right font-normal px-3 py-2">
                 {t("mp_income_declarant") || "Declarant"} (€)
               </th>
-              <th className="text-right font-normal px-3 py-2">
+              <th scope="col" className="text-right font-normal px-3 py-2">
                 {t("mp_income_spouse") || "Spouse"} (€)
               </th>
             </tr>
