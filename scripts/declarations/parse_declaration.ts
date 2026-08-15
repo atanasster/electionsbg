@@ -785,9 +785,12 @@ const MIN_ANCHOR_SQM = 10;
  *  declares its plot as „0", so 662 valued building rows had no usable anchor at all.
  *
  *  ⚠️ It returns the first USABLE candidate, not the first PRESENT one, and that
- *  distinction is the whole reason this is a function. 47 column-6 cells in the corpus
- *  hold an ideal part rather than an area — 25×„1/1", 14×„1/2", 6×„1/2 - 1/2" — which
- *  `toLooseNumber` reduces to 1. Committing to a present-but-too-small building area and
+ *  distinction is the whole reason this is a function. 75 `Cell Num="6"` cells in the
+ *  corpus are fraction-shaped („1/1", „1/2", „1/2 - 1/2") — an ideal part typed where an
+ *  area belongs — which `toLooseNumber` reduces to 1. Most sit in tables whose column 6 is
+ *  not an area at all, so only 2 reach a table-1 built-area position today; the shape is
+ *  what matters, since one such cell is enough to stop checking a row. Committing to a
+ *  present-but-too-small building area and
  *  then rejecting it would SUPPRESS the plot fallback those rows used before, i.e. stop
  *  checking a row that used to be checked. `builtAreaFromCell` refuses the fraction shape
  *  at source; this keeps the fallback honest for everything it does not catch.

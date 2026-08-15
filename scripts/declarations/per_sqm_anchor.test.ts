@@ -24,10 +24,10 @@ describe("perSqmAnchor", () => {
     expect(perSqmAnchor(0, 41)).toBe(41);
   });
 
-  // The regression this function exists to prevent: 47 column-6 cells hold an ideal
-  // part, which toLooseNumber reduces to 1. Committing to a present-but-unusable
-  // building area would SUPPRESS the plot fallback and stop checking a row that used
-  // to be checked.
+  // The regression this function exists to prevent: a column-6 cell sometimes holds an
+  // ideal part rather than an area, which toLooseNumber reduces to 1. Committing to a
+  // present-but-unusable building area would SUPPRESS the plot fallback and stop checking
+  // a row that used to be checked.
   it("falls through to the plot when the building area is below the anchor floor", () => {
     expect(perSqmAnchor(980, 1)).toBe(980);
     expect(perSqmAnchor(980, 9)).toBe(980);
@@ -48,8 +48,8 @@ describe("builtAreaFromCell", () => {
   });
 
   // Column 6 is a m² figure. "1/2" is a share someone put in the wrong cell; taking its
-  // numerator as 1 m² makes any price look like a separator typo. The corpus carries 47
-  // of these — 25×"1/1", 14×"1/2", 6×"1/2 - 1/2".
+  // numerator as 1 m² makes any price look like a separator typo. 75 column-6 cells in
+  // the corpus are fraction-shaped; 2 sit in a table-1 built-area position.
   it("does not accept an ideal-part fraction as a built area", () => {
     expect(builtAreaFromCell("1/2")).toBeNull();
     expect(builtAreaFromCell("1/1")).toBeNull();

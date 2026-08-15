@@ -1995,7 +1995,9 @@ price-per-m² is measured against** — column 6 (сградата) first, colum
 fallback — shared by the parse-time separator-typo detector and
 `check_suspicious_values.ts`. Two anchors is exactly how a 36m² villa on a 980m² plot hid:
 423,558/m² of building, 15,559/m² of plot. It returns the first USABLE area, not the first
-present one, because 47 column-6 cells hold an ideal part rather than an area.
+present one, because a column-6 cell sometimes holds an ideal part rather than an area
+(75 are fraction-shaped corpus-wide, 2 of them in a table-1 built-area position) — and
+committing to one would suppress the plot fallback instead of using it.
 
 **`shlyo_query_fold()` (141) is one of these, with one difference: it is GENERATED.** It is the
 shliokavitsa half of search — the Latin-side spellings a Bulgarian actually types (`6umen`,

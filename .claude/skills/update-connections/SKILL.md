@@ -377,9 +377,10 @@ The filing instructions are explicit — „в колона 5 се посочв�
 36m² вила on a 980m² Sofia plot reads 423,558/m² of building but only 15,559/m² of
 plot, so it published at €15.2m and ranked #1 on `/officials/assets`; and an apartment
 declares its plot as „0", so 662 valued building rows had no usable anchor at all.
-It picks the first USABLE area, not the first present one — 47 column-6 cells hold an
-ideal part („1/2") rather than an area, and committing to those would suppress the plot
-fallback. `builtAreaFromCell` refuses the fraction shape at source.
+It picks the first USABLE area, not the first present one — a column-6 cell sometimes
+holds an ideal part („1/2") rather than an area (75 are fraction-shaped corpus-wide, 2 in
+a table-1 built-area position), and committing to those would suppress the plot fallback.
+`builtAreaFromCell` refuses the fraction shape at source.
 
 ⚠️ **A `/100` auto-correction is a rewrite of a published number, and Layer 2 cannot
 see it** — the flagger reads the parsed shards, where the raw value is gone. Worse, the
