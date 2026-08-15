@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-14T18:22:58.590Z",
+  "generatedAt": "2026-08-15T09:02:55.050Z",
   "nodes": [
     {
       "id": "src:water",
@@ -208,7 +208,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-15T06:07:57.069Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -241,21 +241,21 @@
           "label": "Сметна палата declarations — MPs",
           "url": "https://register.cacbg.bg/",
           "cadence": "daily",
-          "freshness": "2026-07-29T11:45:08.536Z"
+          "freshness": "2026-08-15T06:07:57.069Z"
         },
         {
           "id": "cacbg_officials",
           "label": "Сметна палата declarations — executive (officials)",
           "url": "https://register.cacbg.bg/",
           "cadence": "daily",
-          "freshness": "2026-07-29T11:45:08.536Z"
+          "freshness": "2026-08-15T06:07:57.069Z"
         },
         {
           "id": "cacbg_local",
           "label": "Сметна палата declarations — municipal (mayors & councillors)",
           "url": "https://register.cacbg.bg/",
           "cadence": "daily",
-          "freshness": "2026-07-29T11:45:08.536Z"
+          "freshness": "2026-08-15T06:07:57.069Z"
         }
       ],
       "x": 28,
@@ -586,7 +586,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-15T06:07:57.069Z",
       "skills": [
         "update-kzk-appeals"
       ],
@@ -603,7 +603,7 @@
           "label": "КЗК decisions register (решения и определения по ЗОП)",
           "url": "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2",
           "cadence": "weekly",
-          "freshness": "2026-08-02T22:15:14.695Z"
+          "freshness": "2026-08-15T06:07:57.069Z"
         }
       ],
       "x": 28,
@@ -1922,7 +1922,7 @@
       "url": "https://iisda.government.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-09T05:16:22.934Z",
+      "freshness": "2026-08-15T06:07:57.069Z",
       "skills": [
         "update-administration"
       ],
@@ -1932,7 +1932,7 @@
           "label": "Административен регистър — услуги (IISDA)",
           "url": "https://iisda.government.bg/adm_services/services/from_all_administrations",
           "cadence": "weekly",
-          "freshness": "2026-08-09T05:16:22.934Z"
+          "freshness": "2026-08-15T06:07:57.069Z"
         },
         {
           "id": "eurostat_egov",
