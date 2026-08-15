@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-14T20:56:45.976Z",
+  "lastSuccessfulIngest": "2026-08-15T17:13:43.546Z",
   "skill": "update-persons",
-  "summary": "db:resolve:persons: 65065 persons, 124442 roles (+29061 tr bridge-B), +68656 tier-V private owners minted; 23798 mention(s) keyed by the register person id (1052 aliased to an MP id); 76710 aliases (87 dup folds collapsed); 3444 review group(s) over 12809 person(s); 0 slug(s) retired to a redirect; 0 dead slug(s) with no redirect; 0 human override(s) applied (0 merge, 0 fold-split, 0 ref-split). person-elections load runs separately."
+  "summary": "full chain after the 2026 declaration-year flip: official_roster 22,756 → resolve (133,721 persons / 323,445 roles, idempotent) → declarations --resolve 0/61,743 NULL → candidate-links 5,561 → person-elections 67,065 → browse 136,861 → search 582,087 → graph 200,029 edges (Interreg arm live: 236 companies / €107.1m) → tr-company-place 99.6%"
 }

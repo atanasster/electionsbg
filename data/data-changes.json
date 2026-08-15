@@ -1,6 +1,64 @@
 {
-  "updatedAt": "2026-08-14T20:56:45.977Z",
+  "updatedAt": "2026-08-15T17:02:47.012Z",
   "entries": [
+    {
+      "timestamp": "2026-08-15T17:02:47.012Z",
+      "date": "2026-08-15",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 65 065 лица, 124 442 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-08-15T16:59:02.882Z",
+      "date": "2026-08-15",
+      "skill": "update-funds",
+      "summary": "Interreg: 1958 операции, 12 015 партньорства, 1494 български партньора (€401.77m); програма ROBG 2021-2027 преимпортирана",
+      "source": "keep.eu (INTERACT)"
+    },
+    {
+      "timestamp": "2026-08-15T16:05:02.262Z",
+      "date": "2026-08-15",
+      "skill": "update-administration",
+      "summary": "Административен регистър: 2671 услуги (една общинска услуга отпадна от регистъра)",
+      "source": "Административен регистър (ИИСДА)"
+    },
+    {
+      "timestamp": "2026-08-15T16:02:45.913Z",
+      "date": "2026-08-15",
+      "skill": "update-officials",
+      "summary": "Декларации 2026 на изпълнителната власт и общинските органи: 11 315 изпълнителни и 6 499 общински декларации; 121 липсващи преди това вече са налични",
+      "source": "Сметна палата (register.cacbg.bg)",
+      "links": [
+        {
+          "to": "/officials/assets",
+          "labelKey": "data_changes_link_officials"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-15T15:52:42.535Z",
+      "date": "2026-08-15",
+      "skill": "update-connections",
+      "summary": "Декларации: 289 връзки лице↔дружество вече показват декларираната сума в евро вместо разделена на 1.95583",
+      "source": "Сметна палата (register.cacbg.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-15T15:42:13.839Z",
+      "date": "2026-08-15",
+      "skill": "kzk_decisions",
+      "summary": "КЗК decisions register refreshed: +50 acts for 2026, outcomes now 3073 (tier-2 through 2026-08-06)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
     {
       "timestamp": "2026-08-14T20:56:45.977Z",
       "date": "2026-08-14",
