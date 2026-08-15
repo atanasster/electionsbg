@@ -86,3 +86,67 @@ describe("PersonCohortBenchmark", () => {
     expect(screen.getByText(/-€63|€-63/)).toBeInTheDocument();
   });
 });
+
+// Income is a SECOND measure with its own population and its own floor. The editorial
+// controls mirror the wealth row's and add one: a person who declared no income must get no
+// income row at all, because a zero is "reported nothing", not "earned nothing".
+describe("income row", () => {
+  it("renders the declarant's income, median and percentile", async () => {
+    stub(
+      data({
+        incomeEur: 27618,
+        incomePeers: 195,
+        incomeMedianEur: 99627,
+        incomePercentile: 1,
+      }),
+    );
+    render(<PersonCohortBenchmark slug="mp-4154" />);
+    await waitFor(() =>
+      expect(screen.getByText("pp_cohort_income")).toBeInTheDocument(),
+    );
+    expect(screen.getByText("pp_cohort_income_median")).toBeInTheDocument();
+    expect(screen.getByText("pp_cohort_income_percentile")).toBeInTheDocument();
+    expect(screen.getByText("1%")).toBeInTheDocument();
+  });
+
+  // THE guard: a zero income arrives as null, and no row may appear. Rendering "€0" beside
+  // a median would state that the person earned nothing, which the filing does not say.
+  it("renders no income row when the person declared none", async () => {
+    stub(data({ incomeEur: null, incomePeers: 0 }));
+    render(<PersonCohortBenchmark slug="mp-1588" />);
+    await waitFor(() =>
+      expect(screen.getByText("pp_cohort_declared")).toBeInTheDocument(),
+    );
+    expect(screen.queryByText("pp_cohort_income")).not.toBeInTheDocument();
+  });
+
+  // The income floor is INDEPENDENT of the wealth floor: wealth can clear 20 peers while
+  // income does not, and the income tiles must withhold on their own count.
+  it("withholds the income median and percentile below the income floor", async () => {
+    stub(
+      data({
+        incomeEur: 27618,
+        incomePeers: 4,
+        incomeMedianEur: null,
+        incomePercentile: null,
+        // wealth side stays computed, proving the two floors are separate
+        medianEur: 55576,
+        percentile: 97,
+      }),
+    );
+    render(<PersonCohortBenchmark slug="mp-4154" />);
+    await waitFor(() =>
+      expect(screen.getByText("pp_cohort_income")).toBeInTheDocument(),
+    );
+    expect(screen.getByText("97%")).toBeInTheDocument(); // wealth percentile still shown
+    expect(screen.getAllByText("pp_cohort_too_few").length).toBeGreaterThan(0);
+  });
+
+  it("states that the income figure excludes the spouse", async () => {
+    stub(data({ incomeEur: 27618, incomePeers: 195, incomeMedianEur: 99627, incomePercentile: 1 }));
+    render(<PersonCohortBenchmark slug="mp-4154" />);
+    await waitFor(() =>
+      expect(screen.getByText("pp_cohort_income_peers")).toBeInTheDocument(),
+    );
+  });
+});

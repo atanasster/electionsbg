@@ -117,7 +117,12 @@ SELECT w.person_id,
        -- number a reader sees is not the number they were ranked on — and with negative net
        -- worth in the corpus (debts exceeding assets is real: −€63,564 on one 2024 filing)
        -- the sub-euro tail is exactly where an off-by-one rank comes from.
-       round(w.net_eur) AS net_eur
+       round(w.net_eur) AS net_eur,
+       -- Rounded for the same reason as net_eur: the figure published, the median and the
+       -- rank must all be the same number. This is the DECLARANT's own income — 090 derives
+       -- income_eur from the declarant column alone, never the household sum, so a person is
+       -- never ranked on money their spouse declared.
+       round(w.income_eur) AS income_eur
   FROM person_wealth_year w
  WHERE person_cohort_key(w.person_id) IS NOT NULL
    -- Rule 0: only years with declared assets are wealth observations.
@@ -146,7 +151,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   -- The latest year the person has an asset-bearing filing in their cohort's tier. The
   -- matview already enforces both, so DESC here cannot land on an artefact year.
   mine AS (
-    SELECT cw.person_id, cw.cohort, cw.period_year, cw.net_eur
+    SELECT cw.person_id, cw.cohort, cw.period_year, cw.net_eur, cw.income_eur
       FROM person_cohort_wealth cw
       JOIN pick ON pick.person_id = cw.person_id
      ORDER BY cw.period_year DESC
@@ -156,10 +161,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   -- subtracting one from the denominator is what published "declared more than 100%" on 44
   -- profiles; with self out of the set, 100% means exactly "more than every peer".
   peers AS (
-    SELECT p.net_eur
+    SELECT p.net_eur, p.income_eur
       FROM person_cohort_wealth p
       JOIN mine ON mine.cohort = p.cohort AND mine.period_year = p.period_year
      WHERE p.person_id <> mine.person_id
+  ),
+  -- Income is counted over its OWN population and gets its OWN floor. Rule 0 above admits a
+  -- person-year on declared ASSETS; a filing can carry assets and no income (9,084 of 43,887
+  -- person-years declare zero), and ranking someone against peers who reported nothing would
+  -- read a blank Table 12 as poverty. Only years with declared income are income
+  -- observations — the same rule Rule 0 applies to wealth. 49 of 66 slices clear the floor
+  -- on income against 52 on wealth, so the two counts genuinely differ and one shared
+  -- `peers` count would publish a percentile over a population that never earned it.
+  income_peers AS (
+    SELECT income_eur FROM peers WHERE income_eur > 0
   )
   SELECT COALESCE((
     SELECT jsonb_build_object(
@@ -177,6 +192,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'percentile', CASE WHEN (SELECT count(*) FROM peers) >= 20 THEN
         round(100.0 * (SELECT count(*) FROM peers WHERE net_eur < m.net_eur)
                     / (SELECT count(*) FROM peers))
+      END,
+      -- The declarant's own declared income, and its place among peers who declared any.
+      -- NULL when they declared none: a zero is "no taxable income reported", which is not
+      -- the same claim as a figure and must not be rendered as one.
+      'incomeEur', CASE WHEN m.income_eur > 0 THEN m.income_eur END,
+      'incomePeers', (SELECT count(*) FROM income_peers),
+      'incomeMedianEur', CASE WHEN m.income_eur > 0
+                          AND (SELECT count(*) FROM income_peers) >= 20 THEN
+        (SELECT round(percentile_cont(0.5) WITHIN GROUP (ORDER BY income_eur))
+           FROM income_peers)
+      END,
+      'incomePercentile', CASE WHEN m.income_eur > 0
+                           AND (SELECT count(*) FROM income_peers) >= 20 THEN
+        round(100.0 * (SELECT count(*) FROM income_peers WHERE income_eur < m.income_eur)
+                    / (SELECT count(*) FROM income_peers))
       END
     )
     FROM mine m

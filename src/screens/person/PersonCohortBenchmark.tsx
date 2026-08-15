@@ -1,4 +1,11 @@
-// Declared wealth against peers in the same office (audit T3.9).
+// Declared wealth AND declared income against peers in the same office (audit T3.9).
+//
+// Income was added because it is the figure the coverage leads with — a nova card for a
+// vice-president is three lines and one of them is „Доход" — while on this page it sat only
+// inside the declaration detail. It is a separate row with its OWN peer count and its own
+// 20-peer floor: a filing can declare assets and no income, so the wealth population is not
+// the income population (49 of 66 slices clear the floor on income against 52 on wealth),
+// and one shared count would publish a percentile over a population that never earned it.
 //
 // A raw net-worth figure means little alone; the informative comparison is against people
 // holding the SAME kind of office in the SAME year — same filing rules, same form, same
@@ -81,6 +88,58 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
             {t("pp_cohort_peers", { count: b.peers, year: b.year })}{" "}
             {t("pp_cohort_caveat")}
           </p>
+
+          {/* Income is the figure the press leads with — nova's card for Йотова is three
+              lines and one of them is „Доход" — but it lived only inside the declaration
+              detail, below the fold. It is a FLOW, not a holding, so it is a second row here
+              rather than a band in the composition chart or a term in net worth.
+              Rendered only when the person declared income AND the slice clears its own
+              20-peer floor; `incomeEur` is null for a zero, because "reported nothing" is a
+              different statement from a number. */}
+          {b.incomeEur != null && (
+            <div className="mt-4 border-t pt-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <StatCard
+                  label={t("pp_cohort_income")}
+                  className="col-span-2 sm:col-span-1"
+                >
+                  <div className="text-xl font-bold text-foreground sm:text-2xl">
+                    {formatEurCompact(b.incomeEur, locale)}
+                  </div>
+                </StatCard>
+                <StatCard
+                  label={t("pp_cohort_income_median", { cohort: cohortLabel })}
+                >
+                  {b.incomeMedianEur != null ? (
+                    <div className="text-xl font-bold text-foreground sm:text-2xl">
+                      {formatEurCompact(b.incomeMedianEur, locale)}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-muted-foreground">
+                      {t("pp_cohort_too_few")}
+                    </div>
+                  )}
+                </StatCard>
+                <StatCard label={t("pp_cohort_income_percentile")}>
+                  {b.incomePercentile != null ? (
+                    <div className="text-xl font-bold text-foreground sm:text-2xl">
+                      {b.incomePercentile}%
+                    </div>
+                  ) : (
+                    <div className="text-sm text-muted-foreground">
+                      {t("pp_cohort_too_few")}
+                    </div>
+                  )}
+                </StatCard>
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {t("pp_cohort_income_peers", {
+                  count: b.incomePeers ?? 0,
+                  year: b.year,
+                })}
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </DashboardSection>

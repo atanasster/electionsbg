@@ -16,6 +16,16 @@ export type CohortBenchmark = {
   medianEur: number | null;
   /** Share of peers declaring strictly less. Null below 20 peers. */
   percentile: number | null;
+  /** The DECLARANT's own declared income for the same year — never the household sum, and
+   *  null when they declared none. A zero is "no taxable income reported", which is a
+   *  different claim from a figure and must not be rendered as one. */
+  incomeEur?: number | null;
+  /** Peers who declared ANY income that year. Counted separately from `peers`: a filing can
+   *  carry assets and no income, and ranking someone against peers who reported nothing
+   *  would read a blank income table as poverty. Its own 20-peer floor applies. */
+  incomePeers?: number;
+  incomeMedianEur?: number | null;
+  incomePercentile?: number | null;
 } | null;
 
 export const usePersonCohortBenchmark = (
