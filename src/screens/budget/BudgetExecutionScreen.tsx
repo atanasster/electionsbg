@@ -309,7 +309,7 @@ export const BudgetExecutionScreen: FC = () => {
                       {t("budget_exec_balance")}
                     </td>
                     <td className="px-4 py-2 text-right text-sm tabular-nums">
-                      {/* Signed: a deficit'"'"'s minus belongs in FRONT of the
+                      {/* Signed: a deficit's minus belongs in FRONT of the
                           symbol, not between it and the digits. */}
                       {comparator(balance) == null
                         ? "—"

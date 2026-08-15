@@ -70,6 +70,15 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
   // falling back would render the 2026 ЗБДОО under a "2019" heading on every
   // earlier budget year, which reads as a figure for that year rather than as
   // an unavailable one. Absent ⇒ the block is simply not drawn.
+  //
+  // ⚠️ /budget/social-funds DELIBERATELY DIFFERS: it falls back to the newest
+  // plan, because the two corpora do not overlap (B1 execution 2023-2024, one
+  // 2026 ЗБДОО) and an exact match therefore renders nowhere. It can afford to,
+  // because it prints the plan's own year in an <h2> and carries an amber
+  // warning naming the executed year; a compact tile has room for neither, and
+  // an unlabelled fallback is the mislabelling the rule exists to stop. So the
+  // hub can show nothing at fy=2024 while the page one click away shows the
+  // 2026 plan — one rule, two policies, both stated.
   const planYear = useMemo(
     () => selectFundPlanYear(planFile, fiscalYear),
     [planFile, fiscalYear],

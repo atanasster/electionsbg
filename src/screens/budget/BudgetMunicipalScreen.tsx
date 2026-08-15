@@ -164,7 +164,7 @@ export const BudgetMunicipalScreen: FC = () => {
             <h2 className="text-sm font-semibold text-muted-foreground">
               {/* „Сбор за 1 намерени общини" does not agree in Bulgarian, and
                   one result is the most common filtered state. The suffix is
-                  chosen here rather than left to i18next'"'"'s `count`, because the
+                  chosen here rather than left to i18next's `count`, because the
                   suite mocks `t` with a plain regex replace and would never see
                   a plural break. */}
               {t(

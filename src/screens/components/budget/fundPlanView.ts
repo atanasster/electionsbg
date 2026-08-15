@@ -18,7 +18,15 @@ import type {
  *  Deliberately no latest-year fallback: the plan is a per-year law, so falling
  *  back would print the 2026 ЗБДОО under a "2019" heading, which reads as a
  *  figure for 2019 rather than as one that does not exist. Absent ⇒ draw
- *  nothing. */
+ *  nothing.
+ *
+ *  THAT IS THIS FUNCTION'S RULE, NOT THE WHOLE POLICY. A caller MAY fall back
+ *  to the newest plan — `BudgetSocialFundsScreen` does, because the two corpora
+ *  do not overlap at all (B1 execution 2023-2024 against a single 2026 ЗБДОО),
+ *  so an exact match renders on no page — but only where the plan's OWN year is
+ *  in the heading and the gap is named. Without that label the fallback is
+ *  exactly the mislabelling this function refuses. `BudgetSocialFundsTile` has
+ *  no room for the caveat and therefore keeps the exact-match rule. */
 export const selectFundPlanYear = (
   file: NoiFundPlanFile | null | undefined,
   fiscalYear: number,

@@ -252,12 +252,13 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
            'kfp'                          AS "wireSource",
            (SELECT array_agg(fiscal_year ORDER BY fiscal_year)
               FROM budget_hub_stats_cache) AS "yearsAvailable",
-           -- COFOG'"'"'s OWN coverage, which is NOT `yearsAvailable`. Eurostat'"'"'s
+           -- COFOG's OWN coverage, which is NOT `yearsAvailable`. Eurostat's
            -- gov_10a_exp runs 2010-2024 while the КФП feed reaches 2026, so a
-           -- consumer that offers the module'"'"'s year list on /budget/functional
+           -- consumer that offers the module's year list on /budget/functional
            -- opens on a year with no breakdown at all and reads as „nothing was
-           -- spent on anything". Excludes the TOTAL row'"'"'s year only if that year
-           -- has nothing else, which cannot happen — TOTAL rides with the ten.
+           -- spent on anything". No filter is needed and none is applied: a year
+           -- could only be wrongly admitted if it carried nothing but the TOTAL
+           -- row, and TOTAL always rides with the ten.
            (SELECT array_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
               FROM budget_cofog)          AS "cofogYears",
            -- The FUNCTIONAL shares, for the hub's tax receipt (§7.5). Ten rows,

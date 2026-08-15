@@ -231,7 +231,7 @@ describe("BudgetExecutionScreen", () => {
   it("never divides a part-year balance by a full-year GDP", async () => {
     // The default year is OPEN. −1 914 405 872 / 128 155 604 775 = −1.5%, which
     // the untouched page printed four lines above „ЕС −3.1%". The corpus's own
-    // annual answer is the projection'"'"'s −2.7%.
+    // annual answer is the projection's −2.7%.
     payload = FY2026;
     renderIt(2026);
     await screen.findByText(dict.budget_exec_gdp_h);
