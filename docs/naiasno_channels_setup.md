@@ -20,10 +20,13 @@ does not resolve. Every "website" field below takes `https://electionsbg.com` to
 flip's 301s will carry those links afterwards, and the bios get updated in the same pass
 that changes the site.
 
-**Only three of the seven get staffed** — YouTube, Instagram and LinkedIn. TikTok waits
-for a batch of 4-6 shorts; Pinterest and X are handle reservations. Telegram is a channel
-shell. An empty, well-branded profile reads as "new"; a profile with three posts and then
-six months of silence reads as abandoned, which is worse than nothing.
+**Only three of the seven get staffed** — YouTube, Instagram and LinkedIn, all three live
+and seeded as of 2026-08-14. **TikTok, X and Pinterest are handle reservations and will
+not get content** (§6 records why, so it is not relitigated). Telegram is a channel shell.
+
+An empty, well-branded profile reads as "new"; a profile with three posts and then six
+months of silence reads as abandoned, which is worse than nothing. That asymmetry is the
+whole argument for reserving without staffing.
 
 ---
 
@@ -338,30 +341,58 @@ node_modules/.bin/tsx scripts/posts/post_tool.ts posted <slug[,slug...]> li
 
 ---
 
-## 6. TikTok — claim now, post later
+## 6. TikTok, X and Pinterest — reserve the name, do not staff the channel
 
-1. Claim `@naiasno`, set the avatar and the short bio. **The username can only be changed
-   once every 30 days**, so get it right first time.
-2. Switch to a **Business account** (Settings → Account → Switch to Business Account) —
-   it gives analytics and a bio link.
-3. **Then stop.** Per the plan, TikTok opens properly only once 4-6 shorts exist as a
-   batch, because the platform punishes irregular posting. One render from
-   `naiasno-video`'s SHORT format feeds TikTok, Instagram Reels, Facebook Reels and
-   YouTube Shorts.
+**Decision 2026-08-14: none of these three gets content.** The reasoning, so it is not
+relitigated every quarter:
+
+- **The content fits worst on TikTok of any platform here.** The asset is dense,
+  source-cited numbers; TikTok rewards face, voice and trend participation. What works
+  there is a talking-head explainer — a different production, not a re-cut of an existing
+  card. The `naiasno-video` SHORT format feeds Instagram Reels, Facebook Reels and
+  YouTube Shorts, which are all channels that already exist.
+- **Cadence is the cost, not production.** TikTok punishes irregular posting harder than
+  anything else, and a two-person project running four live channels plus YouTube is at
+  its limit.
+- **The measured audience is not there.** `data-reports/seo-baseline-2026-08/` is
+  journalists, diaspora voters looking up polling stations, and people checking municipal
+  figures. Nothing in it suggests latent short-form demand.
+- The original gate — 4-6 shorts existing as a batch — was never approached, and a gate
+  nobody moves toward is a decision already taken.
+
+**Claim the handles anyway. That part is not optional and it is not about brand vanity.**
+This project publishes about politicians. A platform where anyone can register `naiasno`
+and post political content under a name readers associate with non-partisan data is an
+impersonation vector, and it is unrecoverable once taken. Five minutes each against a name
+you can never get back.
+
+Verified free 2026-08-14: `tiktok.com/@naiasno`, `x.com/naiasno`,
+`pinterest.com/naiasno`.
+
+**TikTok** — sign up, username `naiasno`, name `Наясно`, avatar
+`brand/channels/avatar_tiktok_800.png`, the short bio from §2. ⚠️ **The username can only
+be changed once every 30 days**, so get it right first time. Do NOT bother switching to a
+Business account: that exists for analytics and a bio link, and there will be neither.
+
+**X** — handle `naiasno`, name `Наясно`, avatar `brand/channels/avatar_x_400.png`, header
+`brand/channels/banner_x_1500x500.png`, the short bio, website. Post nothing.
+
+**Pinterest** — a personal account is enough (Business exists for ads and analytics,
+neither of which applies). Username `naiasno`, avatar
+`brand/channels/avatar_pinterest_800.png`, the long bio. **Skip "Claim your website"** —
+it wants DNS verification for a domain that is mid-migration, and there is no benefit
+without content.
+
+**On all three, put the real site in the bio and link the channels that ARE staffed.** An
+unstaffed profile that says nothing is a dead end; one that points at the Facebook page,
+Instagram and the site is a signpost, which is the whole value of holding the name.
+
+**Revisit trigger:** if 4-6 shorts ever exist as a batch, TikTok is a 20-minute open —
+the handle, avatar and bio will already be in place.
 
 ---
 
-## 7. X and Pinterest — reservations
-
-**X:** claim `@naiasno`, set name, avatar, header, short bio, website. Post nothing.
-
-**Pinterest:** create a **Business** account, claim `naiasno`, avatar, long bio. Skip
-"Claim your website" for now — that wants a domain you control and the `.bg` is still
-mid-registration; revisit after the flip if Pinterest is ever staffed.
-
----
-
-## 8. Telegram — a channel, not an account
+## 7. Telegram — a channel, not an account
 
 1. In Telegram: **New Channel** (not a group, not your personal username).
 2. Name `Наясно`, description = long-form bio, photo `avatar_telegram_1280.png`.
@@ -373,7 +404,7 @@ mid-registration; revisit after the flip if Pinterest is ever staffed.
 
 ---
 
-## 9. After all seven exist
+## 8. After all seven exist
 
 - Record every URL in `src/lib/community.ts` (and its `ai/app/community.ts` twin), which
   is already the single source of truth for the Facebook destinations. Not inline in the
