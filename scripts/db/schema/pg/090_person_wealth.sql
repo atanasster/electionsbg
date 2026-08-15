@@ -21,6 +21,12 @@
 -- same run — that is the ONLY thing keeping a `--resolve` from leaving those serving
 -- surfaces missing. Adding a fifth dependent means adding it there too; the failure is
 -- silent in both directions (no error on the drop, and a matview that is simply absent).
+--
+-- That covers the LOADER. It does not cover apply_functions.ts, which is the documented
+-- hatch for shipping a body change in this file on its own and which recreates only what
+-- the caller names — applying 090 there alone deleted all four on prod on 2026-08-15. That
+-- script now carries a generic post-condition that reports any relation an apply dropped
+-- and did not recreate, so the hand-run path fails loudly instead; see its header.
 
 -- ---------------------------------------------------------------------------
 -- person_wealth_year — one row per (person_id, period_year).
