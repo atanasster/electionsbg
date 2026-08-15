@@ -307,11 +307,39 @@ CREATE OR REPLACE FUNCTION budget_admin_list(
     -- rank in this very list (МОСВ by EUR 43.9m). See planned_law_eur's comment.
     SELECT n.node_id AS "nodeId", n.name_bg AS "nameBg", n.name_en AS "nameEn", n.eik,
            sum(coalesce(f.planned_law_eur, f.planned_eur)) AS amount,
-           count(*) FILTER (WHERE f.executed_eur IS NOT NULL) > 0 AS "hasExecution"
+           count(*) FILTER (WHERE f.executed_eur IS NOT NULL) > 0 AS "hasExecution",
+           -- THE PROCUREMENT CROSS-LINK (T9.9). What the unit was appropriated
+           -- is one number; what it went out and bought is another, and the
+           -- second is where a reader can see who received the money.
+           --
+           -- PRECOMPUTED (157), never joined live: `contracts` costs 8,665
+           -- buffers for one year and 104,214 for all of them, on a call every
+           -- view of /budget/ministries makes. See 157's header.
+           --
+           -- SCOPED TO THE SAME `p_fy` AS THE APPROPRIATION BESIDE IT. The
+           -- retired artifact carried an all-time total, which put a €2.9bn
+           -- figure next to one year's budget line and invited exactly the
+           -- comparison it cannot support. `p_fy IS NULL` sums the years here
+           -- too, and reads the stored 'all' row rather than adding the year
+           -- rows — the money and the count sum, but the CONTRACTOR COUNT does
+           -- not: measured, МО is 8 distinct politician-linked contractors
+           -- against a naive per-year sum of 38, and 28 of 46 units differ.
+           max(ap.eur)                 AS "procurementEur",
+           max(ap.contract_count)      AS "procurementCount",
+           max(ap.mp_contractor_count) AS "mpContractorCount",
+           -- > 1 when this footprint belongs to an EIK more than one registry
+           -- node carries — „Министерство на земеделието" and „…и храните" are
+           -- one legal entity across a rename, and BOTH carry the same
+           -- appropriation in 2023 and 2024. The figure is right on each row;
+           -- what a reader must not do is add them.
+           max(ap.eik_node_count)      AS "eikNodeCount"
       FROM budget_admin_node n
       LEFT JOIN budget_admin_fact f
         ON f.node_id = n.node_id AND f.kind = 'expenditure'
        AND (p_fy IS NULL OR f.fiscal_year = p_fy)
+      LEFT JOIN budget_admin_procurement ap
+        ON ap.node_id = n.node_id
+       AND ap.scope = coalesce(p_fy::text, 'all')
      WHERE p_q IS NULL OR p_q = ''
         OR n.name_bg ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
         OR n.name_en ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'

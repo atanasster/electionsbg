@@ -17,6 +17,30 @@ export interface BudgetAdminRow {
    *  all in a year that has not closed, so its absence is the ministry's
    *  silence — or simply the calendar. */
   hasExecution: boolean;
+  /** What this unit AWARDED in the same fiscal year (migration 157) — contracts
+   *  SIGNED in the window, not money paid in it, since a contract signed in
+   *  2024 is paid over years.
+   *
+   *  ⚠️ NULL COVERS TWO DIFFERENT STATES and the consumer must separate them.
+   *  8 of 48 budgeted units have no row in a given year: 5 carry no `eik` —
+   *  unmatched to any awarder, so „bought nothing" is not something the name
+   *  match can assert — and 3 are matched with no award recorded in that window,
+   *  which IS a fact about the year. `eik` is the discriminator. */
+  procurementEur: number | null;
+  procurementCount: number | null;
+  /** DISTINCT contractors in that year present in `company_politicians`.
+   *
+   *  ⚠️ NOT summable across years, and not comparable with the figure the
+   *  retired `ministry_procurement.json` carried: that one counted only
+   *  contractors whose TRUNCATED `topAwarders` list named this buyer, so it was
+   *  a floor — 2 against 18 for Министерство на здравеопазването. */
+  mpContractorCount: number | null;
+  /** How many registry nodes carry this unit's EIK. > 1 means the footprint is
+   *  one legal entity's and appears on more than one row — „Министерство на
+   *  земеделието" and „Министерство на земеделието и храните" are one ministry
+   *  across a rename, and both carry the same appropriation in 2023 and 2024.
+   *  Each row's figure is right; what must not happen is a reader adding them. */
+  eikNodeCount: number | null;
 }
 
 const fetchList = async (

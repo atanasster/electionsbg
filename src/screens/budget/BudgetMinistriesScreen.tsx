@@ -18,6 +18,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Receipt, Users } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { formatEur } from "@/lib/currency";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,7 @@ import { useBudgetAdminList } from "@/data/budget/useBudgetAdminList";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
 export const BudgetMinistriesScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // ?q seeds the search box — the hub finder's „see all" lands here, and a
   // destination that ignores the param advertises a filtered page and delivers
   // an unfiltered one.
@@ -164,6 +165,82 @@ export const BudgetMinistriesScreen: FC = () => {
                     {r.amount == null ? "—" : formatEur(r.amount)}
                   </span>
                 </Link>
+                {/* THE PROCUREMENT CROSS-LINK (T9.9). The line above is what the
+                    law gave this unit; this is what it went out and bought, and
+                    it is the only place on the page where a reader can get from
+                    a spending unit to who received the money.
+
+                    Same fiscal year as the appropriation beside it — the retired
+                    artifact carried an all-time total, which put €2.9bn next to
+                    one year's budget line. „Подписани" rather than „похарчени":
+                    a contract signed in 2024 is paid over several years, so this
+                    is award activity in the window and never execution.
+
+                    ⚠️ TWO DIFFERENT ABSENCES, and collapsing them is what the
+                    first cut did. 8 of 48 budgeted units carry no footprint row
+                    for a year: 5 have no EIK at all — unmatched to any awarder,
+                    so „bought nothing" is a claim the name match cannot make and
+                    silence is the only honest render — while 3 ARE matched and
+                    the corpus simply records no award in that window, which is a
+                    fact about the year and gets said. `eik` is what separates
+                    them, and it is already in the payload. */}
+                {r.procurementEur != null && r.procurementCount != null ? (
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 px-4 pb-2 text-[11px] text-muted-foreground">
+                    <Link
+                      to={`/awarder/${r.eik}`}
+                      // „€165 643 366 по 115 договора" names no destination and
+                      // no subject, which is what a screen reader announces
+                      // without this.
+                      aria-label={`${r.nameBg || r.nodeId}: ${t(
+                        "budget_units_procurement",
+                        {
+                          eur: formatEur(r.procurementEur),
+                          n: r.procurementCount.toLocaleString(i18n.language),
+                          count: r.procurementCount,
+                          defaultValue: "",
+                        },
+                      )}`}
+                      className="inline-flex items-baseline gap-1 tabular-nums hover:text-foreground hover:underline"
+                    >
+                      <Receipt className="h-3 w-3 self-center" aria-hidden />
+                      {/* `n` is the RENDERED count and `count` is i18next's
+                          plural selector. Interpolating `count` directly put an
+                          ungrouped 5771 beside a grouped €165 643 366, and with
+                          no _one/_other pair the base key rendered „по 1
+                          договора" on the 42 rows that have exactly one. */}
+                      {t("budget_units_procurement", {
+                        eur: formatEur(r.procurementEur),
+                        n: r.procurementCount.toLocaleString(i18n.language),
+                        count: r.procurementCount,
+                        defaultValue: "",
+                      })}
+                    </Link>
+                    {/* Amber, and only when there IS one — a „0 politically
+                        linked" chip on 30 rows turns the signal into furniture
+                        and makes the two units that have one harder to see. */}
+                    {r.mpContractorCount ? (
+                      <span className="inline-flex items-baseline gap-1 tabular-nums text-amber-700 dark:text-amber-400">
+                        <Users className="h-3 w-3 self-center" aria-hidden />
+                        {t("budget_units_mp_linked", {
+                          count: r.mpContractorCount,
+                          defaultValue: "",
+                        })}
+                      </span>
+                    ) : null}
+                    {/* One legal entity under two registry names. Земеделието
+                        appears twice across a rename and BOTH rows carry the
+                        same appropriation in 2023 and 2024 — so both carry the
+                        same footprint too. Each figure is right; said out loud
+                        so nobody adds them. */}
+                    {(r.eikNodeCount ?? 1) > 1 ? (
+                      <span>{t("budget_units_shared_eik")}</span>
+                    ) : null}
+                  </div>
+                ) : r.eik ? (
+                  <div className="px-4 pb-2 text-[11px] text-muted-foreground">
+                    {t("budget_units_no_contracts")}
+                  </div>
+                ) : null}
               </li>
             ))}
           </ul>

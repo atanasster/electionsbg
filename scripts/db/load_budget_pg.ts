@@ -75,6 +75,10 @@ const REPO = resolve(__dirname, "../..");
 const DATA = resolve(REPO, "data");
 const SCHEMA_KFP = resolve(__dirname, "schema/pg/152_budget_kfp.sql");
 const SCHEMA_ADMIN = resolve(__dirname, "schema/pg/153_budget_admin.sql");
+const SCHEMA_PROC = resolve(
+  __dirname,
+  "schema/pg/157_budget_admin_procurement.sql",
+);
 
 /** The gitignored trees, REPO-relative — so they read the same way in a warning,
  *  in `.gitignore` and in the plan. Resolve them against REPO, never DATA. */
@@ -729,6 +733,10 @@ export const loadBudgetPg = async (): Promise<{
 }> => {
   await exec(readFileSync(SCHEMA_KFP, "utf8"));
   await exec(readFileSync(SCHEMA_ADMIN, "utf8"));
+  // 157 AFTER 153: the cross-link table keys on budget_admin_node. It creates
+  // empty and its rebuild is a guarded no-op where `contracts` is absent, so it
+  // applies on a database that has never seen the procurement corpus.
+  await exec(readFileSync(SCHEMA_PROC, "utf8"));
 
   // Parsed ONCE and threaded through: the first cut read index.json twice per
   // run, and two reads of one file are two chances to disagree.
@@ -825,6 +833,25 @@ export const loadBudgetPg = async (): Promise<{
     });
   });
 
+  // The procurement cross-link (157). Rebuilt here because the admin dimension
+  // it keys on has just been reloaded — a node that gained or lost its EIK
+  // changes its whole footprint. It returns 0 without touching anything when
+  // `contracts` is absent, which is the fresh-clone and budget-only case.
+  //
+  // ⚠️ THE OTHER TRIGGER IS A CONTRACTS RELOAD, and it is not this loader's to
+  // fire: `load_pg.ts` calls the same function for that reason. Without it a
+  // procurement re-ingest leaves every ministry's footprint on the previous
+  // corpus at a 200 — the staleness shape this file's own header warns about.
+  const procRows = await allRows<{ n: string }>(
+    "SELECT rebuild_budget_admin_procurement()::text AS n",
+  );
+  const procN = Number(procRows[0]?.n ?? 0);
+  console.log(
+    procN > 0
+      ? `  admin↔procurement: ${procN} row(s)`
+      : "  admin↔procurement: skipped (no contracts corpus)",
+  );
+
   // Outside the transaction — VACUUM cannot run in one. The stage merges keep
   // their visibility maps, but budget_personnel is DELETE + COPY, which is the
   // shape that leaves relallvisible = 0 for ever.
@@ -835,6 +862,10 @@ export const loadBudgetPg = async (): Promise<{
     "budget_kfp_snapshot_section",
     "budget_kfp_snapshot_line",
     "budget_personnel",
+    // TRUNCATE + INSERT in one transaction inside the rebuild, so its map is
+    // permanently unmarked without this. Skipped by vacuumAfterReload's own
+    // existence check on a database where 157 never applied.
+    "budget_admin_procurement",
   );
 
   return {

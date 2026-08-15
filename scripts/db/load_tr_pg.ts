@@ -17,6 +17,7 @@ import {
   exec,
   getPool,
   refreshMatviewConcurrently,
+  vacuumAfterReload,
   withClient,
   withTx,
 } from "./lib/pg";
@@ -540,6 +541,23 @@ export const loadTrPg = async (): Promise<{
     // Guarded because a TR-only database may predate the migrations; refreshScopedPrecomputes
     // already skips a matview that does not exist, so this only has to survive the call.
     await refreshScopedPrecomputes(["company_politicians", "tr_companies"]);
+    // Same reason, different precompute: budget_admin_procurement (157) counts
+    // DISTINCT politician-linked contractors per spending unit, straight out of
+    // the company_politicians this loader just replaced. Without it every
+    // ministry row on /budget/ministries keeps the previous link set's flag at a
+    // 200 — the third trigger, after the budget loader (its own dimension) and
+    // load_pg (the contracts corpus). Guarded on the FUNCTION, since that is
+    // what is called; a database with the table and no function raises 42883.
+    const hasAdminProc = await getPool()
+      .query(
+        "SELECT to_regprocedure('public.rebuild_budget_admin_procurement()') AS t",
+      )
+      .then((r) => r.rows[0]?.t != null)
+      .catch(() => false);
+    if (hasAdminProc) {
+      await exec("SELECT rebuild_budget_admin_procurement()");
+      await vacuumAfterReload("budget_admin_procurement");
+    }
     // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
     // only when both are present too — a TR-only DB (before an ИСУН / funding
     // load) skips it cleanly. load_ngo_funding_pg.ts re-refreshes after funding.

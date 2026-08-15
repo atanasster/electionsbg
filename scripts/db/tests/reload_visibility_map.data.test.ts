@@ -79,6 +79,14 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "budget_kfp_snapshot_section", loader: "db:load:budget:pg" },
   { table: "budget_kfp_snapshot_line", loader: "db:load:budget:pg" },
   { table: "budget_personnel", loader: "db:load:budget:pg" },
+  // TRUNCATE + INSERT inside the rebuild's own transaction (157), which is the
+  // shape that loses the map for good — unlike the stage-merged rows above, this
+  // one genuinely needs the call rather than carrying it defensively.
+  {
+    table: "budget_admin_procurement",
+    loader:
+      "db:load:budget:pg (also db:load:pg + db:load:tr:pg — all three rebuild it)",
+  },
   // The municipal corpus — all four stage-merged, carrying the call for the
   // same reason as the state ones above.
   { table: "budget_muni_transfer", loader: "db:load:budget-muni:pg" },

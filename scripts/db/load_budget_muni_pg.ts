@@ -72,6 +72,16 @@ const SCHEMA_FILES = [
   "152_budget_kfp.sql",
   "153_budget_admin.sql",
   "154_budget_municipal.sql",
+  // ⚠️ BEFORE 155, and not optional. `budget_admin_list` LEFT JOINs
+  // `budget_admin_procurement`, and a `LANGUAGE sql` body is validated at CREATE
+  // time — so applying 155 to a database without 157 fails the whole file with
+  // 42P01. 157's other applier is `load_budget_pg.ts`, a REFRESH_EXCLUSIONS
+  // member, so on a fresh clone THIS is the only path that ever creates it: the
+  // 081→082 trap, and without this line `db:refresh` dies at db:load:budget-muni
+  // and so does the documented `apply_functions.ts 155_budget_serving.sql`
+  // hatch. It creates empty and its rebuild is a guarded no-op, so applying it
+  // here costs nothing on a database with no procurement corpus.
+  "157_budget_admin_procurement.sql",
   "155_budget_serving.sql",
 ].map((f) => resolve(__dirname, "schema/pg", f));
 

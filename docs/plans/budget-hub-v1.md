@@ -1260,7 +1260,7 @@ migration. Two items need schema work and are marked.
 | T9.6 | **Revenue donut** — the composition page ranks with `<div>` bars and no chart | `BudgetRevenueCompositionTile` → `/budget/revenue` | UI |
 | T9.7 | **Personnel sparkline** (2017-2025) — `budget_personnel_series()` already returns every point | `BudgetPersonnelTile` → `/budget/personnel` | UI |
 | T9.8 | **Personnel detail: central / territorial / общински split, „незаети > 6 мес.", the 581 administrative structures, and top ministries by personnel spend with headcount and €/yr** | `BudgetPersonnelTile` → `/budget/personnel` | ⚠️ SCHEMA — `budget_personnel` has only `positions_total/filled/vacant`, `nsi_headcount`, `payroll_eur`; the split and the per-ministry breakdown are in the JSON and were never loaded |
-| T9.9 | **Ministry rows lost their procurement footprint and MP-connected flag** — the Phase-4 cross-link from a spending unit to what it buys | `BudgetMinistriesTile` → `/budget/ministries` | ⚠️ SCHEMA — `budget_admin_list` returns `amount, eik, hasExecution, nameBg, nameEn, nodeId` and nothing else |
+| T9.9 ✅ | **Ministry rows lost their procurement footprint and MP-connected flag** — the Phase-4 cross-link from a spending unit to what it buys | `BudgetMinistriesTile` → `/budget/ministries` | SHIPPED — migration 157 + `budget_admin_list` now returns `procurementEur` / `procurementCount` / `mpContractorCount` / `eikNodeCount` |
 | T9.10 | **ЗБДОО per-fund plan**, rendered adjacent to the B1 actuals and deliberately never netted against them | `BudgetSocialFundsTile` → `/budget/social-funds` | UI |
 | T9.11 ✅ | **The budget-journey timeline** — per fiscal year: the law, the КФП snapshots published so far, and the Сметна палата audit once it lands. `/budget/law` has the eight-document scorecard and a per-year document list, which is a different object | `BudgetJourneyTile` → `/budget/law` | UI |
 | T9.12 | **The „Бюджети по кабинети" cross-link card** to `/indicators/budgets` — one link, and the only path from the budget module to the cross-cabinet fiscal view | `BudgetScreen` → hub | UI, trivial |
@@ -1311,6 +1311,46 @@ list — it adds a SECOND overload — so a warm database would keep both and ev
 Reproduced in a rolled-back transaction. It is invisible on the machine that
 writes the change, whose old copy has already been dropped by hand; the same
 rule cost migration 144 its `funds_wire`.
+
+### T9.9 — a new table, and its refresh trigger is a DIFFERENT corpus
+
+Migration 157 (`budget_admin_procurement`) is a precompute, not a join: measured,
+joining `contracts` inside `budget_admin_list` costs **8,665 buffers for one year
+and 104,214 for all of them**, on a call every view of `/budget/ministries` makes,
+against the ~2,000 a per-view call may spend on a db-g1-small. Precomputed it is
+615 rows and the serving call is 1,878 / 2,888.
+
+Cloud publish, in order — nothing here is automatic:
+
+```bash
+npm run db:load:budget:pg:cloud        # applies 157 and rebuilds it
+npm run db:load:budget-muni:pg:cloud   # applies 155, which now reads it
+npm run deploy:db                      # nothing changed under functions/, so optional
+```
+
+Two things about it are easy to get backwards:
+
+- **155 now READS 157, so 157 must be applied first EVERYWHERE 155 is.**
+  `budget_admin_list` is `LANGUAGE sql` and its body is validated at CREATE time,
+  so out of order it is `42P01` and `exec()` rolls the whole file back — the
+  081→082 trap. 157's other applier is `load_budget_pg.ts`, a
+  `REFRESH_EXCLUSIONS` member, so on a fresh clone the ONLY path that creates it
+  is `load_budget_muni_pg.ts`'s `SCHEMA_FILES`, where it sits directly ahead of
+  155. Without that line `db:refresh` dies at `db:load:budget-muni:pg` and so
+  does the documented `apply_functions.ts 155_budget_serving.sql` hatch.
+- **THREE staleness triggers, and only one of them is the budget corpus.** The
+  table is built from `budget_admin_node` × `contracts` × `company_politicians`,
+  so it is rebuilt by `db:load:budget:pg` (its own dimension), by `db:load:pg`
+  (a contracts reload — `load_pg.ts` calls it, guarded on the FUNCTION existing,
+  since a procurement-only machine may have the table from a partial apply) and
+  by `db:load:tr:pg` (which TRUNCATEs `company_politicians`, the whole basis of
+  `mp_contractor_count`). Skipping any of them leaves every ministry's footprint
+  on the previous vintage at a 200.
+
+The MP-connected count is a **wider basis** than the `ministry_procurement.json`
+it replaces: that artifact counted only contractors whose TRUNCATED `topAwarders`
+list named this buyer, so it was a floor — 2 against 18 for Министерство на
+здравеопазването.
 
 ### T9.11 — a function-body change with no loader behind it
 

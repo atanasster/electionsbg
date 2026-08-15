@@ -599,6 +599,31 @@ export const loadPg = async (): Promise<{
     console.log(`  risk-grade scoped: ${n} scopes precomputed`);
   }
 
+  // The spending unit → procurement cross-link (157) is computed FROM this
+  // corpus, so a contract reload must refresh it or every ministry row on
+  // /budget/ministries keeps the previous vintage's footprint at a 200. Guarded
+  // on the function existing: the budget loader is a REFRESH_EXCLUSIONS member,
+  // so a procurement-only machine may never have applied 157 at all.
+  // The FUNCTION, not the table: they are what is called, and a database with
+  // the table and no function (a partial apply) would raise 42883 and abort the
+  // contracts load.
+  const hasAdminProc = await getPool()
+    .query(
+      "SELECT to_regprocedure('public.rebuild_budget_admin_procurement()') AS t",
+    )
+    .then((r) => r.rows[0]?.t != null);
+  if (hasAdminProc) {
+    const n = await getPool()
+      .query("SELECT rebuild_budget_admin_procurement()::text AS n")
+      .then((r) => Number(r.rows[0]?.n ?? 0));
+    console.log(`  admin↔procurement: ${n} row(s)`);
+    // The rebuild is TRUNCATE + INSERT inside one transaction, so it leaves
+    // relallvisible = 0 permanently — the same shape documented for
+    // budget_personnel. The budget loader vacuums after its own call; this path
+    // has to do it too, or a contracts reload silently undoes it.
+    await vacuumAfterReload("budget_admin_procurement");
+  }
+
   // NOTE: appealed_ocids / upheld_ocids (042) are NOT refreshed here — they are
   // defined over tenders × kzk_appeals (not contracts), so a contract reload
   // cannot change their contents. They're kept fresh by load_tenders_pg (which

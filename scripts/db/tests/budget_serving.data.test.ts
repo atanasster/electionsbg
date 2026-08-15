@@ -16,7 +16,16 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, dbReachable, end } from "../lib/pg";
+import { allRows, dbReachable, end, withTx } from "../lib/pg";
+
+/** Only the fields the T9.9 gate reads. `budget_admin_list` returns more; a
+ *  narrow local view keeps this test honest about what it depends on. */
+interface BudgetAdminRow {
+  nodeId: string;
+  procurementEur: number | null;
+  procurementCount: number | null;
+  mpContractorCount: number | null;
+}
 
 const haveDb = await dbReachable();
 const applied = haveDb
@@ -102,6 +111,148 @@ test.skipIf(stateSkip)("every serving function answers", async () => {
     `only ${n.n} budget_* functions exist; expected at least ${CALLS.length + 1}`,
   );
 });
+
+test.skipIf(stateSkip)(
+  "budget_admin_list carries the procurement cross-link (T9.9)",
+  async () => {
+    // ── the precompute reconciles with its source ───────────────────────────
+    // Money and count are additive across the year rows; the CONTRACTOR COUNT
+    // is not, which is the whole reason 'all' is stored rather than derived.
+    // Measured: МО is 8 distinct politician-linked contractors against a naive
+    // per-year sum of 38, and 28 of 46 units differ.
+    const [recon] = await allRows<{
+      nodes: string;
+      eur_bad: string;
+      cnt_bad: string;
+      mp_over: string;
+    }>(
+      `WITH y AS (SELECT node_id, sum(eur) e, sum(contract_count) n,
+                         sum(mp_contractor_count) mps
+                    FROM budget_admin_procurement WHERE scope <> 'all'
+                   GROUP BY node_id),
+            a AS (SELECT node_id, eur e, contract_count n, mp_contractor_count mps
+                    FROM budget_admin_procurement WHERE scope = 'all')
+       SELECT count(*)::text nodes,
+              count(*) FILTER (WHERE abs(y.e - a.e) > 0.01)::text eur_bad,
+              count(*) FILTER (WHERE y.n <> a.n)::text            cnt_bad,
+              count(*) FILTER (WHERE y.mps > a.mps)::text         mp_over
+         FROM y JOIN a USING (node_id)`,
+    );
+    assert.ok(Number(recon.nodes) > 0, "budget_admin_procurement is empty");
+    assert.equal(recon.eur_bad, "0", "year rows do not sum to the 'all' money");
+    assert.equal(recon.cnt_bad, "0", "year rows do not sum to the 'all' count");
+    // …and the non-additivity is REAL in this corpus, so the stored 'all' row
+    // is doing work rather than duplicating a sum.
+    assert.ok(
+      Number(recon.mp_over) > 0,
+      "no unit has a contractor active in two years — the 'all' row is untested",
+    );
+
+    // ── it is the SAME money the awarder page shows ─────────────────────────
+    // The figure links to /awarder/:eik, so it has to be that page's sum: a
+    // cross-link a reader cannot check is worse than none.
+    const [drift] = await allRows<{ n: string }>(
+      `SELECT count(*)::text n
+         FROM budget_admin_procurement ap
+         JOIN LATERAL (
+           SELECT coalesce(sum(c.amount_eur), 0) eur, count(*) n
+             FROM contracts c
+            WHERE c.awarder_eik = ap.eik AND c.tag = 'contract'
+              AND c.date ~ '^\\d{4}-'
+              AND (ap.scope = 'all' OR left(c.date, 4) = ap.scope)
+         ) live ON true
+        WHERE abs(ap.eur - live.eur) > 0.01 OR ap.contract_count <> live.n`,
+    );
+    assert.equal(drift.n, "0", "the precompute has drifted from `contracts`");
+
+    // ── the serving function returns it, scoped to ITS year ─────────────────
+    const [fy] = await allRows<{ y: number }>(
+      `SELECT max(scope::int) AS y FROM budget_admin_procurement
+        WHERE scope <> 'all'`,
+    );
+    const [served] = await allRows<{ r: { rows: BudgetAdminRow[] } }>(
+      `SELECT budget_admin_list($1::int, NULL, 300) AS r`,
+      [fy.y],
+    );
+    const withProc = served.r.rows.filter((r) => r.procurementEur != null);
+    assert.ok(withProc.length > 0, `no row carried a footprint for FY${fy.y}`);
+    // Scoped, NOT all-time. The retired artifact carried an all-time total,
+    // which put a €2.9bn figure beside one year's budget line.
+    const [stored] = await allRows<{ eur: number }>(
+      `SELECT eur FROM budget_admin_procurement WHERE node_id = $1 AND scope = $2`,
+      [withProc[0].nodeId, String(fy.y)],
+    );
+    assert.ok(
+      Math.abs((withProc[0].procurementEur ?? 0) - stored.eur) < 0.01,
+      "the served figure is not the year's stored one",
+    );
+
+    // ── and it stays cheap ──────────────────────────────────────────────────
+    // This call fires on every /budget/ministries view. Joining `contracts`
+    // live was 8,665 buffers for one year and 104,214 for all of them, against
+    // the ~2,000 a per-view call may spend on a db-g1-small.
+    // ⚠️ The column is "QUERY PLAN", not `line`. Read as `line` every row is
+    // `undefined`, every regex misses, and the sum is 0 — which passes any
+    // "under N buffers" assertion for the wrong reason.
+    const plan = await allRows<Record<string, string>>(
+      `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT) SELECT budget_admin_list($1::int, NULL, 300)`,
+      [fy.y],
+    );
+    // ⚠️ THE ROOT NODE'S LINE, NOT A SUM OF ALL OF THEM. Per-node `Buffers:` are
+    // CUMULATIVE — a parent already includes its children — so summing every
+    // line double-counts the moment the plan grows a second node, against a
+    // fixed ceiling, and reads as a performance regression that is not one.
+    // Everything after the `Planning:` marker is catalog I/O that varies with
+    // backend cache warmth and was never part of the live-join comparison.
+    const lines = plan.map((p) => p["QUERY PLAN"] ?? "");
+    const planningAt = lines.findIndex((l) => /^Planning:/.test(l));
+    const execLines = planningAt >= 0 ? lines.slice(0, planningAt) : lines;
+    const root = execLines
+      .map((l) => /shared hit=(\d+)(?: read=(\d+))?/.exec(l))
+      .find((m): m is RegExpExecArray => m != null);
+    const buffers = root ? Number(root[1]) + Number(root[2] ?? 0) : 0;
+    assert.ok(
+      buffers > 0,
+      'parsed 0 buffers — the EXPLAIN column is "QUERY PLAN", and any ' +
+        "ceiling assertion passes vacuously when the parse misses",
+    );
+    // The ceiling is against the NON-SARGABLE live-join form (17,331 buffers),
+    // which is what this table primarily replaced for the one-year path — NOT
+    // against a sargable live join, which measures about the same as reading
+    // this table. The headline justification is the non-summable distinct count
+    // above, not this number. See 157's header.
+    assert.ok(
+      buffers < 6000,
+      `budget_admin_list touched ${buffers} buffers (non-sargable live join was 17,331)`,
+    );
+  },
+);
+
+test.skipIf(stateSkip)(
+  "rebuild_budget_admin_procurement is a no-op without a contracts corpus",
+  async () => {
+    // The budget loader applies 157 and calls this, and it knows nothing about
+    // whether the procurement corpus was ever loaded. Rolled back, so the real
+    // table survives.
+    await withTx(async (c) => {
+      await c.query("ALTER TABLE contracts RENAME TO contracts__hidden");
+      const r = await c.query("SELECT rebuild_budget_admin_procurement() AS n");
+      assert.equal(
+        String(r.rows[0].n),
+        "0",
+        "the rebuild did not skip a missing contracts table",
+      );
+      throw new Error("rollback");
+    }).catch((e: Error) => {
+      if (e.message !== "rollback") throw e;
+    });
+    // …and the table is untouched afterwards.
+    const [after] = await allRows<{ n: string }>(
+      "SELECT count(*)::text n FROM budget_admin_procurement",
+    );
+    assert.ok(Number(after.n) > 0, "the rollback lost the table's contents");
+  },
+);
 
 test.skipIf(stateSkip)(
   "budget_documents carries the year's OWN КФП coverage (T9.11)",
