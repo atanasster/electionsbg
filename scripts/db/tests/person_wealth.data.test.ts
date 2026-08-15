@@ -48,9 +48,11 @@ afterAll(async () => {
 // belongs to neither side. Written as an explicit exclusion rather than `<> 'debt'`,
 // because that is precisely the shape that silently banked Йотова's EUR 20,000 limit as
 // EUR 20,000 of assets when the category was introduced.
-test.skipIf(skip)("net_eur equals holdings minus debt, with limits on neither side", async () => {
-  const bad = await allRows<{ person_id: string; period_year: number }>(
-    `SELECT w.person_id, w.period_year
+test.skipIf(skip)(
+  "net_eur equals holdings minus debt, with limits on neither side",
+  async () => {
+    const bad = await allRows<{ person_id: string; period_year: number }>(
+      `SELECT w.person_id, w.period_year
        FROM person_wealth_year w
        JOIN LATERAL (
          SELECT
@@ -69,9 +71,10 @@ test.skipIf(skip)("net_eur equals holdings minus debt, with limits on neither si
          OR round(w.debts_eur)  <> round(t.d)
          OR round(w.net_eur)    <> round(t.a - t.d)
       LIMIT 5`,
-  );
-  assert.equal(bad.length, 0, `net worth mismatch: ${JSON.stringify(bad)}`);
-});
+    );
+    assert.equal(bad.length, 0, `net worth mismatch: ${JSON.stringify(bad)}`);
+  },
+);
 
 // One row per (person, year): the matview must collapse multiple filings in a year
 // to the single representative snapshot, not emit one row per filing.
