@@ -141,13 +141,38 @@ describe("no sediment in the budget module", () => {
   });
 
   it("keeps every LEGACY tile reachable too, or deleted", () => {
-    // `src/screens/components/budget/` holds the 26 tiles the migration
-    // replaced. They are alive on purpose — `/budget/deep-dive` still serves
+    // `src/screens/components/budget/` holds 39 non-test files (measured
+    // 2026-08-15, site-hygiene-v1 §0.9 — this comment said „26" and understated
+    // it by 13). They are alive on purpose — `/budget/deep-dive` still serves
     // the Sankey and its five drilldowns, which none of the fourteen sub-pages
     // reproduces — and `routes.tsx` says so at the lazy import. This gate exists
     // so that whenever that page IS retired, the tiles do not quietly become
-    // 26 unreachable files instead of a deletion.
+    // unreachable files instead of a deletion.
+    //
+    // ⚠️ „THE LEGACY TILES" IS NOT ONE UNIT OF WORK, which is the thing to know
+    // before acting on this gate. Running the walk below twice — once from the
+    // router, once with the `routes.tsx → screens/BudgetScreen.tsx` edge severed
+    // — puts only **17** of the 39 behind `/budget/deep-dive` alone; the other
+    // **22** (`BudgetTaxCalculator`, `BudgetPolicySimulator` and its four policy
+    // components, `BudgetSummaryTile`, `BudgetPeerComparisonTile`,
+    // `BudgetRevenueCompositionTile`, `budgetFormat.ts`, …) are load-bearing for
+    // the migrated sub-pages. So retiring the deep dive would delete 18 files
+    // (the 17 plus `BudgetScreen.tsx`), not this directory.
     expect(deadIn("screens/components/budget")).toEqual([]);
+  });
+
+  it("pins the legacy-tile count the comment above states", () => {
+    // ⚠️ THE COMMENT ABOVE IS THE PRODUCT HERE, and the assertion beside it —
+    // `deadIn(...) === []` — is insensitive to the count, which is exactly how
+    // „26" survived the directory growing to 39. Pin the number so the prose
+    // cannot drift again without something going red.
+    const legacy = readdirSync(join(SRC, "screens/components/budget")).filter(
+      (f) => /\.tsx?$/.test(f) && !f.includes(".test."),
+    );
+    expect(
+      legacy.length,
+      "the comment above states 39 files (17 deep-dive-only + 22 shared) — re-derive BOTH halves before changing this, by running the reachability walk with the routes.tsx → BudgetScreen.tsx edge severed",
+    ).toBe(39);
   });
 
   it("does not count a COMMENTED-OUT import as an edge", () => {
