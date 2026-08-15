@@ -424,6 +424,12 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'institution', d.institution,
     'positionTitle', d.position_title,
     'filedAt', d.filed_at,
+    -- The register's own reference for this filing. A journalist citing a figure needs to
+    -- name the document, not just link it: „вх. № Г4937, подадена 04.05.2026". Both were
+    -- already in the row payload (mp_declarations) and missing here, so the expanded detail
+    -- — the place a reader actually reads the numbers — could not be cited from.
+    'entryNumber', d.entry_number,
+    'controlHash', d.control_hash,
     'sourceUrl', d.source_url,
     'assets', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(

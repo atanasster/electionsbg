@@ -6405,5 +6405,10 @@
   "budget_staff_units_coverage": "Only ministries whose report has been parsed: {{units}} for {{fy}}. Together they spend {{unitsEur}} of the state budget's {{stateEur}} — {{pct}}%.",
   "budget_staff_units_empty": "No programme-budget report has been parsed for this year.",
   "budget_staff_chart_vacant_pct": "vacant",
-  "budget_staff_chart_legend": "The bars are filled posts, the solid line the approved total, the dashed line the vacancy rate (right-hand scale). The left scale does not start at zero: the establishment moves in a narrow band and every year would otherwise look identical."
+  "budget_staff_chart_legend": "The bars are filled posts, the solid line the approved total, the dashed line the vacancy rate (right-hand scale). The left scale does not start at zero: the establishment moves in a narrow band and every year would otherwise look identical.",
+  "pp_decl_cite_period": "Declaration for {{year}}",
+  "pp_decl_cite_entry": "entry no. {{entry}}",
+  "pp_decl_cite_filed": "filed {{date}}",
+  "pp_decl_cite_register": "register {{year}}",
+  "pp_decl_cite_source": "original at the Court of Audit"
 }

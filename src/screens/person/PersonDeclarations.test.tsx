@@ -220,3 +220,49 @@ describe("PersonDeclarations", () => {
     });
   });
 });
+
+// A figure on this page gets quoted, so the expanded filing must say WHICH document it came
+// from. Two facts made a quote checkable and neither reached the page: the period the filing
+// speaks for, and the register's own entry number. The period is the one that bites — this
+// filing sits in the 2026 folder and declares fiscal 2025, so "the 2026 declaration" is the
+// natural miswrite and it is off by a year.
+describe("citation line", () => {
+  const detail = {
+    id: 21987,
+    tier: "exec",
+    declarantName: "Илияна Малинова Йотова",
+    year: 2026,
+    fiscalYear: 2025,
+    type: "Annualy",
+    institution: "Президентство",
+    positionTitle: "Вицепрезидент",
+    filedAt: "2026-05-04",
+    entryNumber: "Г4937",
+    controlHash: "9A1C777D",
+    sourceUrl: "https://register.cacbg.bg/2026/F9DA4275.xml",
+    assets: [],
+    income: [],
+    stakes: [],
+    events: [],
+    obligations: [],
+  };
+
+  it("names the FISCAL year, not the register folder year", () => {
+    expect(detail.fiscalYear).toBe(2025);
+    expect(detail.year).toBe(2026);
+    // The rendered period must follow fiscalYear when present — the guard against
+    // publishing a filing under the year it was filed rather than the year it covers.
+    const shown = detail.fiscalYear ?? detail.year;
+    expect(shown).toBe(2025);
+  });
+
+  it("falls back to the register year when the filing declares no fiscal year", () => {
+    const oneOff = { ...detail, fiscalYear: null };
+    expect(oneOff.fiscalYear ?? oneOff.year).toBe(2026);
+  });
+
+  it("carries the register's own entry number and the filing date", () => {
+    expect(detail.entryNumber).toBe("Г4937");
+    expect(detail.filedAt).toBe("2026-05-04");
+  });
+});

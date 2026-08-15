@@ -79,6 +79,11 @@ export type DeclarationDetail = {
   institution: string | null;
   positionTitle: string | null;
   filedAt: string | null;
+  /** The register's own reference for this filing („вх. № Г4937"), and its control hash.
+   *  Citation anchors: a reporter naming a figure needs to name the document it came from,
+   *  not only link to it. */
+  entryNumber: string | null;
+  controlHash: string | null;
   sourceUrl: string;
   assets: {
     category: string;

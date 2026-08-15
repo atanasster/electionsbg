@@ -309,6 +309,39 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
 
   return (
     <div className="space-y-2 bg-muted/20 px-9 py-3 text-xs">
+      {/* CITATION LINE. The numbers below are quoted by reporters, and the two facts that
+          make a quote checkable were only in the XML: WHICH period the filing speaks for,
+          and WHICH document it is. The period matters most — this filing sits in the
+          register's 2026 folder but declares fiscal 2025, so "the 2026 declaration" is the
+          natural miswrite and it is off by a year. Both years are named, then the register's
+          own entry number, the filing date, and the link. */}
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 border-b border-border pb-2 text-[11px] text-muted-foreground">
+        <span className="font-medium text-foreground">
+          {t("pp_decl_cite_period", {
+            year: detail.fiscalYear ?? detail.year,
+          })}
+        </span>
+        {detail.entryNumber && (
+          <span>{t("pp_decl_cite_entry", { entry: detail.entryNumber })}</span>
+        )}
+        {detail.filedAt && (
+          <span>
+            {t("pp_decl_cite_filed", {
+              date: new Date(detail.filedAt).toLocaleDateString(locale),
+            })}
+          </span>
+        )}
+        <span>{t("pp_decl_cite_register", { year: detail.year })}</span>
+        <a
+          href={detail.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-primary hover:underline"
+        >
+          {t("pp_decl_cite_source")}
+          <ExternalLink className="h-3 w-3" />
+        </a>
+      </div>
       {detail.assets.length > 0 && (
         <div>
           {detail.assets.map((a, i) => (
