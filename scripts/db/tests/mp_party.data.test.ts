@@ -41,19 +41,50 @@ afterAll(async () => {
   await end();
 });
 
-// The three benign name disagreements in the corpus — same person, different
+// The four benign name disagreements in the corpus — same person, different
 // spelling. Anything else that disagrees is a DIFFERENT PERSON, which is what
 // this file exists to catch, so keep this list short and justify every entry.
 //
 //   3238:44  Радостин Радослaвов Танев — a Latin `a` homoglyph in the person row
 //   5095     Деница Евгениева Сачева-Атанасова vs Сачева (married name)
 //   5334:52  Галя Стоянова Желязкова vs Василева (married name)
+//   4594:47  Небие Исмет Църенска vs КАБАК (surname change) — and :48, :49
 //
 // `5095` is keyed by REF ALONE, deliberately: she sits in NS 46-52 and the
 // registry name differs in all of them, so a per-NS key would need a new entry
 // every parliament. The cost is that it also excuses a future genuine mismatch
 // on that id — acceptable because 5.0 and 5.3 still cover her rows.
-const BENIGN_NAME_VARIANTS = new Set(["3238:44", "5095", "5334:52"]);
+//
+// 4594 is the one entry here that is NOT one profile spelled two ways — it is TWO
+// parliament.bg profiles for one human, which is why it reads like the wrong-person
+// defect this file exists to catch and is not. data/parliament/index.json has both:
+//
+//   4594  Небие Исмет Кабак     nsFolders 47,48,49    ДПС
+//   4769  Небие Исмет Църенска  nsFolders 47,48,49,50 ДПС – Ново начало
+//
+// Same birthDate (1997-03-16), same seatedRegion (13 ПАЗАРДЖИК), same given name and
+// patronymic; the electedWith difference is the ДПС split, not a different member. The
+// resolver merges them into one person (37155) and takes the newer profile's surname as
+// the display name, while mp_seat records her NS 47-49 seats under the older profile — so
+// the two disagree on all three of her seats and only on the surname. Keyed per-NS, unlike
+// 5095, because profile 4594 is CLOSED (isCurrent false, nsFolders ends at 49; her NS 50
+// listing is on 4769), so this can never need a new entry.
+//
+// DELIBERATELY NOT SOLVED WITH person_alias, which would retire this list entirely: all
+// four of these seat names ARE recorded aliases of that person_id, and an alias arm would
+// excuse only 12 of the bare join's 319 cross-person pairs, so it is not obviously too
+// weak. It is rejected because it is CIRCULAR — person_alias is written by the resolver
+// from the same merge decisions this gate checks, so a wrong merge would supply its own
+// excuse. The list stays hand-verified for that reason: keep it short, and put the
+// evidence that settled it in the comment.
+const BENIGN_NAME_VARIANTS = new Set([
+  "3238:44",
+  "5095",
+  "5334:52",
+  "4594:47",
+  "4594:48",
+  "4594:49",
+]);
 
 test("5.0 — no MP row carries another person's seat", async (t) => {
   if (!haveDb || !haveRoles || !haveSeats) return t.skip();
