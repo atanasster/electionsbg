@@ -143,7 +143,14 @@ describe("income row", () => {
   });
 
   it("states that the income figure excludes the spouse", async () => {
-    stub(data({ incomeEur: 27618, incomePeers: 195, incomeMedianEur: 99627, incomePercentile: 1 }));
+    stub(
+      data({
+        incomeEur: 27618,
+        incomePeers: 195,
+        incomeMedianEur: 99627,
+        incomePercentile: 1,
+      }),
+    );
     render(<PersonCohortBenchmark slug="mp-4154" />);
     await waitFor(() =>
       expect(screen.getByText("pp_cohort_income_peers")).toBeInTheDocument(),
