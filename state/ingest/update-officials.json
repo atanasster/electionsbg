@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-29T12:29:28.872Z",
+  "lastSuccessfulIngest": "2026-08-15T16:02:45.481Z",
   "skill": "update-officials",
-  "summary": "executive 10,430 filings/9,189 officials (no on-disk change — 07-24 run already had this cohort); municipal 6,671 filings/6,391 officials, 205 declaration files + 288 shards refreshed; PG re-resolved 47,983/47,983"
+  "summary": "declarations 2026 both legs: executive 11,315/11,317 processed (9,486 officials; only 2 missing upstream, was 121), municipal 6,499/6,499 (6,313 sitting: 298 mayors, 700 dep-mayors, 258 chairs, 4,750 councillors, 307 architects, 0 other), 288 shards; company_links rebuilt"
 }
