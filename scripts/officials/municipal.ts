@@ -36,6 +36,7 @@ import type {
 } from "../../src/data/dataTypes";
 import {
   parseDeclarationXml,
+  reportAutoCorrections,
   unknownRootTally,
 } from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
@@ -464,6 +465,11 @@ const cmd = command({
     // across 276 of the 288 shards, and the only visible symptom was the
     // council tiles quietly falling back to grey initials.
     decorateCandidateLinks();
+
+    // A /100 rewrite is a change to a published number; surface the batch so an
+    // operator sees it, since check_suspicious_values.ts reads the parsed shards
+    // and can no longer see that a value was rewritten. See reportAutoCorrections.
+    reportAutoCorrections();
   },
 });
 

@@ -21,7 +21,11 @@ import path from "path";
 import { load } from "cheerio";
 import { Agent } from "undici";
 import type { MpDeclaration } from "../../src/data/dataTypes";
-import { parseDeclarationXml, unknownRootTally } from "./parse_declaration";
+import {
+  parseDeclarationXml,
+  reportAutoCorrections,
+  unknownRootTally,
+} from "./parse_declaration";
 import {
   buildCompanyIndex,
   annotatePerMpDeclarationsWithSlugs,
@@ -456,6 +460,11 @@ export const parseFinancialDeclarations = async ({
   // vehicle table. Cheap; reads the same files build_assets_rankings
   // already touched.
   buildCarMakes({ publicFolder });
+
+  // A /100 rewrite is a change to a published number; surface the batch so an
+  // operator sees it, since check_suspicious_values.ts reads the parsed shards
+  // and can no longer see that a value was rewritten. See reportAutoCorrections.
+  reportAutoCorrections();
 
   // Per-NS provenance footnote (declaration year window + filing rate).
   buildDataProvenance({ publicFolder });

@@ -22,6 +22,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import type { MpAsset } from "../../src/data/dataTypes";
 import { BGN_PER_EUR } from "../../src/lib/currency";
+import { perSqmAnchor } from "./parse_declaration";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -143,16 +144,20 @@ const scanDeclaration = (
           `${asset.description ?? "(no description)"} | ${asset.location ?? "?"}` +
             ` | ${asset.areaSqm ?? "?"} m² | acquired ${asset.acquiredYear ?? "?"}`,
         );
-      } else if (
-        asset.areaSqm != null &&
-        asset.areaSqm > 0 &&
-        bgn / asset.areaSqm > THRESHOLDS.realEstateBgnPerSqm
-      ) {
-        flagOne(
-          `real-estate ${formatBgn(bgn / asset.areaSqm)} BGN/m² > ${formatBgn(THRESHOLDS.realEstateBgnPerSqm)}`,
-          `${asset.description ?? "(no description)"} | ${asset.location ?? "?"}` +
-            ` | ${asset.areaSqm} m² | acquired ${asset.acquiredYear ?? "?"}`,
-        );
+      } else {
+        // Same anchor as the parse-time detector — column 6 (сградата) first, column 5
+        // (парцела) as the fallback. Reading areaSqm alone left 1,321 valued rows with no
+        // anchor at all, 1,150 of which carry a perfectly usable built area, and gave the
+        // two layers different definitions of "price per m²": exactly how a villa on a
+        // big plot passed both.
+        const anchor = perSqmAnchor(asset.areaSqm, asset.builtAreaSqm);
+        if (anchor != null && bgn / anchor > THRESHOLDS.realEstateBgnPerSqm) {
+          flagOne(
+            `real-estate ${formatBgn(bgn / anchor)} BGN/m² > ${formatBgn(THRESHOLDS.realEstateBgnPerSqm)}`,
+            `${asset.description ?? "(no description)"} | ${asset.location ?? "?"}` +
+              ` | ${anchor} m² | acquired ${asset.acquiredYear ?? "?"}`,
+          );
+        }
       }
     } else if (asset.category === "vehicle") {
       const age =

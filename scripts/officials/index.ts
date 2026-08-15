@@ -33,6 +33,7 @@ import type {
 } from "../../src/data/dataTypes";
 import {
   parseDeclarationXml,
+  reportAutoCorrections,
   unknownRootTally,
 } from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
@@ -515,6 +516,11 @@ const cmd = command({
     // with ./remerge_collision_slugs.ts, which rebuilds them without a fetch.
     const rankingEntries = buildRankingEntries(indexEntries);
     writeRankings(rankingEntries, years);
+
+    // A /100 rewrite is a change to a published number; surface the batch so an
+    // operator sees it, since check_suspicious_values.ts reads the parsed shards
+    // and can no longer see that a value was rewritten. See reportAutoCorrections.
+    reportAutoCorrections();
 
     console.log(
       `  wrote assets-rankings.json (top: ${rankingEntries

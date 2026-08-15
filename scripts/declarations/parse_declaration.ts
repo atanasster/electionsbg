@@ -774,6 +774,41 @@ const MAX_PLAUSIBLE_BGN_PER_SQM = 100_000;
 // cellars, mis-entered units), so per-m² cannot anchor the check.
 const MIN_ANCHOR_SQM = 10;
 
+/** The area a price-per-m² means anything against: column 6 (сградата) for a built
+ *  property, column 5 (парцела) as the fallback.
+ *
+ *  „Когато се декларира дворно място и постройка, в колона 5 се посочва площта на
+ *  парцела, а в колона 6 - на сградата" — so anchoring on column 5 is wrong in both
+ *  directions. A villa on a big plot dilutes its own per-m² past detection (Георги
+ *  Касчиев's 36m² вила on a 980m² Sofia plot: 423,558/m² of building, 15,559/m² of
+ *  plot — it published at €15.2m and ranked #1 on /officials/assets), and an apartment
+ *  declares its plot as „0", so 662 valued building rows had no usable anchor at all.
+ *
+ *  ⚠️ It returns the first USABLE candidate, not the first PRESENT one, and that
+ *  distinction is the whole reason this is a function. 47 column-6 cells in the corpus
+ *  hold an ideal part rather than an area — 25×„1/1", 14×„1/2", 6×„1/2 - 1/2" — which
+ *  `toLooseNumber` reduces to 1. Committing to a present-but-too-small building area and
+ *  then rejecting it would SUPPRESS the plot fallback those rows used before, i.e. stop
+ *  checking a row that used to be checked. `builtAreaFromCell` refuses the fraction shape
+ *  at source; this keeps the fallback honest for everything it does not catch.
+ *
+ *  Shared by the parse-time detector and check_suspicious_values.ts — two anchors is how
+ *  a villa on a big plot hid in the first place. */
+export const perSqmAnchor = (
+  areaSqm: number | null,
+  builtAreaSqm: number | null,
+): number | null =>
+  [builtAreaSqm, areaSqm].find(
+    (a): a is number => a != null && a >= MIN_ANCHOR_SQM,
+  ) ?? null;
+
+/** Column 6 as an AREA. `toLooseNumber` takes the leading integer of anything, so an
+ *  ideal part typed into the built-area cell („1/2") becomes 1 m² — and since this value
+ *  now drives a price rewrite rather than a display field, that is a bogus anchor rather
+ *  than a cosmetic wrong number. A m² figure never contains a slash. */
+export const builtAreaFromCell = (raw: string | null): number | null =>
+  raw != null && raw.includes("/") ? null : toLooseNumber(raw);
+
 /** Generic detector for the dominant separator typo: a declarant entered a
  * value like "177309,00" and the decimal comma was dropped in digitisation,
  * leaving a figure 100× too high. Returns the /100 correction when the row
@@ -782,6 +817,52 @@ const MIN_ANCHOR_SQM = 10;
  * value for the manual table above or the suspicious-value report. Never
  * touches land, tiny-area rows, or values that /100 does not fully resolve
  * (those need a human — they may be /1000 typos or a wrong area). */
+export type AutoCorrection = {
+  sourceUrl: string;
+  declarantName: string | null;
+  description: string | null;
+  rawValue: number;
+  correctedValue: number;
+  anchorSqm: number;
+};
+
+const autoCorrections: AutoCorrection[] = [];
+
+/** Drain the auto-correction log accumulated since the last call.
+ *
+ *  A /100 rewrite is a change to a published number and deserves the operator gate a
+ *  `> 5M` row gets — but `check_suspicious_values.ts` reads the PARSED shards, where the
+ *  raw value no longer exists, so it can never flag one. Worse, the two layers interact:
+ *  a /1000 typo that used to fail the per-m² test (plot anchor diluted it) and get caught
+ *  by the absolute arm now fires, lands under 5M, and the flagger goes quiet — the
+ *  corrected figure still 10× too high. Касчиев's row is the worked case: 15,248,104 →
+ *  152,481 silently, where the honest answer is 15,248.
+ *
+ *  So the trail has to leave the parser. Every entry point that runs the parser drains
+ *  this and prints it; the values are still auto-applied, but no longer invisibly. */
+export const takeAutoCorrections = (): AutoCorrection[] =>
+  autoCorrections.splice(0);
+
+/** Print the drained log as an operator-facing section. No-op when nothing fired. */
+export const reportAutoCorrections = (): AutoCorrection[] => {
+  const rows = takeAutoCorrections();
+  if (rows.length === 0) return rows;
+  console.warn(
+    `\n=== AUTO-CORRECTED (verify) — ${rows.length} real-estate value(s) rewritten /100 ===\n` +
+      `A /1000 typo corrected /100 is still 10x too high and no longer trips the >5M\n` +
+      `flagger. Check each against the declarant's other rows; add a\n` +
+      `REAL_ESTATE_VALUE_OVERRIDES entry where /100 is the wrong divisor.\n`,
+  );
+  for (const r of rows) {
+    console.warn(
+      `  ${r.declarantName ?? "?"} — ${r.description ?? "?"} ` +
+        `${r.anchorSqm}m² | ${r.rawValue} -> ${r.correctedValue} ` +
+        `(${Math.round(r.correctedValue / r.anchorSqm)}/m²) | ${r.sourceUrl}`,
+    );
+  }
+  return rows;
+};
+
 const correctRealEstateSeparatorTypo = (
   rawValue: number | null,
   areaSqm: number | null,
@@ -791,23 +872,8 @@ const correctRealEstateSeparatorTypo = (
   if (rawValue == null) return null;
   const desc = description?.toLowerCase() ?? "";
   if (!BUILDING_TYPE_TOKENS.some((tok) => desc.includes(tok))) return null;
-  // Anchor on the BUILDING, not the plot. The filing instructions are explicit for a
-  // house-plus-yard row: „в колона 5 се посочва площта на парцела, а в колона 6 - на
-  // сградата" — so for a built property column 6 is the area the price per m² means
-  // anything against. Anchoring on column 5 was wrong in both directions:
-  //
-  //   • a villa on a big plot diluted its own per-m² past detection. Георги Касчиев's
-  //     36m² вила on a 980m² Sofia plot was declared at 15,248,104 — 423,558/m² of
-  //     building, but only 15,559/m² of plot, so it sailed under the threshold and
-  //     published as €15.2m (his own 2011 Sofia parcel is €12/m²). It ranked #1 on
-  //     /officials/assets.
-  //   • an apartment declares its plot as "0" (площ 0, РЗП 41), so 662 valued building
-  //     rows had NO usable anchor at all and were never checked.
-  //
-  // Falls back to the plot only when there is no built area to use.
-  const anchor =
-    builtAreaSqm != null && builtAreaSqm > 0 ? builtAreaSqm : areaSqm;
-  if (anchor == null || anchor < MIN_ANCHOR_SQM) return null;
+  const anchor = perSqmAnchor(areaSqm, builtAreaSqm);
+  if (anchor == null) return null;
   if (rawValue / anchor <= MAX_PLAUSIBLE_BGN_PER_SQM) return null;
   const corrected = rawValue / 100;
   if (corrected / anchor > MAX_PLAUSIBLE_BGN_PER_SQM) return null;
@@ -868,7 +934,7 @@ const parseTable1Row = (
   const rawValue = toNumber(cellByNum(row, col(11)));
   const location = cellByNum(row, col(3));
   const areaSqm = toLooseNumber(cellByNum(row, col(5)));
-  const builtAreaSqm = toLooseNumber(cellByNum(row, col(6)));
+  const builtAreaSqm = builtAreaFromCell(cellByNum(row, col(6)));
   const description = cellByNum(row, col(2));
   let value = rawValue;
   let overridden = false;
@@ -899,6 +965,14 @@ const parseTable1Row = (
           `${description ?? "?"} ${areaSqm}m² ${rawValue} → ${auto} BGN ` +
           `(${sourceUrl})`,
       );
+      autoCorrections.push({
+        sourceUrl,
+        declarantName,
+        description,
+        rawValue: rawValue as number,
+        correctedValue: auto,
+        anchorSqm: perSqmAnchor(areaSqm, builtAreaSqm) as number,
+      });
       value = auto;
     }
   }
@@ -1478,6 +1552,7 @@ const parseEventTables = (
   $: CheerioAPI,
   version: FormVersion,
   declarantName: string,
+  sourceUrl: string,
 ): MpDeclarationEvent[] => {
   const out: MpDeclarationEvent[] = [];
   const rowsOf = (logical: LogicalTable) => rowsOfTable($, version, logical);
@@ -1509,17 +1584,26 @@ const parseEventTables = (
     const description = cellByNum(row, propertyCol(2));
     const areaSqm = toLooseNumber(cellByNum(row, propertyCol(5)));
     const rawValue = toNumber(cellByNum(row, propertyCol(10)));
+    const builtAreaSqm = builtAreaFromCell(cellByNum(row, propertyCol(6)));
     const corrected = correctRealEstateSeparatorTypo(
       rawValue,
       areaSqm,
       description,
-      toLooseNumber(cellByNum(row, propertyCol(6))),
+      builtAreaSqm,
     );
     if (corrected != null) {
       console.warn(
         `[parse] auto-corrected disposal value — ${declarantName}: ` +
           `${description ?? "?"} ${areaSqm}m² ${rawValue} → ${corrected} BGN`,
       );
+      autoCorrections.push({
+        sourceUrl,
+        declarantName,
+        description,
+        rawValue: rawValue as number,
+        correctedValue: corrected,
+        anchorSqm: perSqmAnchor(areaSqm, builtAreaSqm) as number,
+      });
     }
     out.push({
       kind: "disposal_property",
@@ -1528,7 +1612,7 @@ const parseEventTables = (
       location: cellByNum(row, propertyCol(3)),
       municipality: cellByNum(row, propertyCol(4)),
       areaSqm,
-      builtAreaSqm: toLooseNumber(cellByNum(row, propertyCol(6))),
+      builtAreaSqm,
       currency: propertyDisposalCcy,
       valueEur: toEur(corrected ?? rawValue, propertyDisposalCcy),
       legalBasis: cellByNum(row, propertyCol(11)),
@@ -1952,7 +2036,7 @@ export const parseDeclarationXml = ({
   }
 
   const assets = parseAssetTables($, declarantName, sourceUrl, version);
-  const events = parseEventTables($, version, declarantName);
+  const events = parseEventTables($, version, declarantName, sourceUrl);
 
   // The income table's layout is identical in both forms — it never gained the
   // ЕГН column — so its resolver is the identity function. It still goes

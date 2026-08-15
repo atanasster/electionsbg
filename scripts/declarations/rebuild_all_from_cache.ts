@@ -19,7 +19,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { parseDeclarationXml } from "./parse_declaration";
+import {
+  parseDeclarationXml,
+  reportAutoCorrections,
+} from "./parse_declaration";
 import {
   buildCompanyIndex,
   annotatePerMpDeclarationsWithSlugs,
@@ -144,6 +147,11 @@ const main = async () => {
 
   console.log("[rebuild-all] phase 8 — buildDataProvenance");
   buildDataProvenance({ publicFolder: DATA });
+
+  // A /100 rewrite is a change to a published number; surface the batch so an
+  // operator sees it, since check_suspicious_values.ts reads the parsed shards
+  // and can no longer see that a value was rewritten. See reportAutoCorrections.
+  reportAutoCorrections();
 
   console.log("[rebuild-all] done");
 };

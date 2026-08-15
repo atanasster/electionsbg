@@ -13,7 +13,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { parseDeclarationXml } from "./parse_declaration";
+import {
+  parseDeclarationXml,
+  reportAutoCorrections,
+} from "./parse_declaration";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { compactJson } from "./formats";
 import type { MpDeclaration } from "../../src/data/dataTypes";
@@ -90,6 +93,11 @@ const main = () => {
   console.log(
     `[rebuild-assets] re-parsed ${declsReparsed} declaration(s) across ${mpsTouched} MP file(s); ${missingCache} cache miss(es)`,
   );
+
+  // A /100 rewrite is a change to a published number; surface the batch so an
+  // operator sees it, since check_suspicious_values.ts reads the parsed shards
+  // and can no longer see that a value was rewritten. See reportAutoCorrections.
+  reportAutoCorrections();
 
   buildAssetsRankings({ publicFolder: DATA });
 };
