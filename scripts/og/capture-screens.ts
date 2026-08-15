@@ -604,6 +604,13 @@ const captures: Capture[] = [
     // declared net-worth column. Anchor on the page root so the clip leads with
     // the title and the top-ranked avatar rows; extra settle for the photos.
     // (Was a rendered text card — job removed from generate.ts.)
+    //
+    // SINCE THE GROUP CHART LANDED, the top of that clip is the per-party bars
+    // rather than the first table rows — the same trade /parliament/attendance
+    // makes deliberately, and the better thumbnail. `waitFor` deliberately stays
+    // on the table: the chart renders only for the CURRENT parliament (see
+    // AssetsByGroup), so waiting on it would turn "the pinned election is no
+    // longer the sitting one" into a failed capture instead of the previous card.
     waitFor: '[data-og="mp-assets-og"] tbody tr',
     anchor: '[data-og="mp-assets-og"]',
     leftAlign: true,

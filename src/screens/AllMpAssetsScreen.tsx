@@ -25,6 +25,7 @@ import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
 import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
+import { AssetsByGroup } from "@/screens/components/declarations/AssetsByGroup";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 // MPs by declared assets, served from Postgres (matview mp_assets_rankings_table, migration
@@ -77,6 +78,14 @@ export const AllMpAssetsScreen: FC = () => {
     () => mpAssetsIdFilters(regionMpIds, partyMpIds),
     [regionMpIds, partyMpIds],
   );
+  // The same restriction the table gets, in the chart route's shape: `null` = unscoped, and a
+  // scoped-but-empty set keeps the `[-1]` impossible id rather than becoming `[]` — an empty
+  // list would be sent as no restriction at all and the chart would show the whole chamber
+  // beside a table showing nobody (the regression mpAssetsIdFilters documents, one route on).
+  const chartMpIds = useMemo<number[] | null>(() => {
+    const f = extraFilters[0];
+    return f ? (f.value as number[]) : null;
+  }, [extraFilters]);
 
   const columns = useMemo<DataTableColumnDef<MpAssetsRankingRow, unknown>[]>(
     () => [
@@ -291,6 +300,13 @@ export const AllMpAssetsScreen: FC = () => {
         currentKey="mp_assets_link_label"
         className="mt-5"
       />
+
+      {/* The group summary reads the SAME matview slice the table pages through — the ns
+          bucket plus the region/party mp-id restriction — so a reader can add the rows up to
+          the bars. It orders itself by the active metric; the table's own sort is separate. */}
+      <div className="mt-5">
+        <AssetsByGroup ns={dbScope.val} mpIds={chartMpIds} />
+      </div>
 
       <DbDataTable<MpAssetsRankingRow>
         resource="mp_assets_rankings"

@@ -164,6 +164,19 @@ export const useCanonicalParties = () => {
       : party.displayName;
   };
 
+  // The COLOUR twin of partyGroupShortLabel, and it exists for the same reason that
+  // function does: `colorFor` resolves a nickname, while parliament.bg hands us a group
+  // label („ПГ на ГЕРБ – СДС", `ПГ "Прогресивна България"`). Strip the prefix and quotes
+  // through the shared helper FIRST, then take the canonical colour — a call site doing
+  // that itself is the drift parliamentGroupAliases.ts's header argues against.
+  const partyGroupShortColor = (
+    partyGroupShort: string | null | undefined,
+  ): string | undefined => {
+    if (!partyGroupShort) return undefined;
+    const stripped = stripGroupPrefix(partyGroupShort);
+    return colorFor(stripped || partyGroupShort);
+  };
+
   return {
     data,
     byId,
@@ -175,5 +188,6 @@ export const useCanonicalParties = () => {
     displayNameFor,
     displayNameForId,
     partyGroupShortLabel,
+    partyGroupShortColor,
   };
 };

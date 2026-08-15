@@ -472,3 +472,94 @@ test("car-makes: unwraps rows[0].r and degrades a missing migration to []", asyn
     );
   }
 });
+
+// ─── mp-assets-by-party (the /mp-assets group chart) ───────────────────────────────────────
+// One contract dominates this route: it must never hand back a group breakdown for a
+// parliament whose party labels it cannot trust. The matview's party column is the group the
+// MP sits in TODAY, so an older bucket's rows are either ungrouped or filed under a party the
+// MP joined afterwards — and `applicable` is what tells the two apart. The SQL decides it
+// (a comparison against mp_roster_meta.current_ns), so these tests pin the JS half: the
+// short-circuits that must not issue SQL, the bound-parameter contract, and the object shape
+// a caller can rely on when the database has never seen migration 105.
+test("mp-assets-by-party: no ns → the inapplicable shape, without a DB call", async () => {
+  const db = mockDb([{ r: { applicable: true, groups: [{ party: "X" }] } }]);
+  const res = await DB_ROUTES["mp-assets-by-party"](db, { ns: "" });
+  assert.deepEqual(res.body, {
+    ns: "",
+    applicable: false,
+    groups: [],
+    ungrouped: null,
+  });
+  assert.equal(db.calls.length, 0, "no ns must not issue SQL");
+});
+
+test("mp-assets-by-party: an all-junk mpIds set short-circuits to zero groups", async () => {
+  const db = mockDb([{ r: { applicable: true, groups: [{ party: "X" }] } }]);
+  const res = await DB_ROUTES["mp-assets-by-party"](db, {
+    ns: "52",
+    mpIds: "abc",
+  });
+  assert.deepEqual(res.body.groups, []);
+  assert.equal(db.calls.length, 0, "an empty scope must not issue SQL");
+});
+
+test("mp-assets-by-party: the mp-id scope is a bound int[], never spliced into SQL", async () => {
+  const db = mockDb([{ r: { applicable: true, groups: [] } }]);
+  await DB_ROUTES["mp-assets-by-party"](db, { ns: "52", mpIds: "-1,5100" });
+  assert.equal(db.calls.length, 1);
+  assert.deepEqual(db.calls[0].params, ["52", [-1, 5100]]);
+  assert.ok(!db.calls[0].sql.includes("5100"), "id text never in the SQL string");
+});
+
+test("mp-assets-by-party: an unscoped call binds NULL, not an empty array", async () => {
+  // [] would be `mp_id = ANY('{}')` — zero rows — where the caller meant "the whole bucket".
+  const db = mockDb([{ r: { applicable: true, groups: [] } }]);
+  await DB_ROUTES["mp-assets-by-party"](db, { ns: "all" });
+  assert.deepEqual(db.calls[0].params, ["all", null]);
+});
+
+test("mp-assets-by-party: the applicability gate is asked of the roster, not of coverage", async () => {
+  // The trap this pins: for the 51st, 88 of 90 rows DO carry a group — the group those MPs
+  // sit in now — so any "enough rows are labelled" test would pass and publish a chart
+  // attributing their wealth to parties they joined later. The gate has to be an identity
+  // comparison against the roster's own current parliament.
+  const db = mockDb([{ r: { applicable: false, groups: [] } }]);
+  await DB_ROUTES["mp-assets-by-party"](db, { ns: "51" });
+  const sql = db.calls[0].sql;
+  assert.ok(/mp_roster_meta/.test(sql), "applicability reads mp_roster_meta");
+  assert.ok(
+    /current_ns/.test(sql) && /\$1/.test(sql),
+    "and compares it to the requested bucket",
+  );
+});
+
+test("mp-assets-by-party: unwraps rows[0].r and degrades a missing migration", async () => {
+  const body = {
+    ns: "52",
+    applicable: true,
+    groups: [{ party: "ПГ на ДПС", mps: 21, declared: 21, totalNetEur: 11560382 }],
+    ungrouped: { mps: 0, declared: 0, totalNetEur: 0 },
+  };
+  assert.deepEqual(
+    (await DB_ROUTES["mp-assets-by-party"](mockDb([{ r: body }]), { ns: "52" }))
+      .body,
+    body,
+  );
+  for (const code of MIGRATION_CODES) {
+    // Object-shaped, not the [] sentinel: the caller reads `.groups`, and an array here
+    // would make `applicable` undefined — falsy, but for the wrong reason.
+    assert.deepEqual(
+      (
+        await DB_ROUTES["mp-assets-by-party"](mockDb(migrationMissing(code)), {
+          ns: "52",
+        })
+      ).body,
+      { ns: "52", applicable: false, groups: [], ungrouped: null },
+      `mp-assets-by-party @ ${code}`,
+    );
+  }
+  const boom = Object.assign(new Error("connection reset"), { code: "08006" });
+  await assert.rejects(() =>
+    DB_ROUTES["mp-assets-by-party"](mockDb(boom), { ns: "52" }),
+  );
+});

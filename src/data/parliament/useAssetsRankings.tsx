@@ -91,3 +91,66 @@ export const toScopedMpIds = (
   if (ids == null) return null;
   return ids.length ? ids : [-1];
 };
+
+/** One parliamentary group's declared-wealth roll-up, as /api/db/mp-assets-by-party returns
+ *  it. Money is jsonb-numeric → a JS number here (whole euros; the route rounds), unlike the
+ *  row type above where node-pg hands the column back as text.
+ *
+ *  `mps` counts the group's MPs in the scope; `declared` those with a valued filing. The two
+ *  differ (121 of 131 in the 52nd's largest group), so every per-MP figure states its own
+ *  denominator rather than borrowing the seat count. */
+export interface MpAssetsPartyGroup {
+  party: string;
+  mps: number;
+  declared: number;
+  totalNetEur: number;
+  totalAssetsEur: number;
+  totalDebtsEur: number;
+  /** null when no MP in the group has a valued filing. */
+  medianNetEur: number | null;
+  meanNetEur: number | null;
+}
+
+export interface MpAssetsByParty {
+  ns: string;
+  /** False → `groups` is EMPTY BY DESIGN, not by absence of data. The matview's party column
+   *  is the group the MP sits in TODAY, so it labels the current parliament's rows correctly
+   *  and misfiles every other bucket's (a 51st-parliament MP re-elected into another group
+   *  would carry today's). The route refuses to attribute rather than degrade — see its
+   *  header — and the UI says so instead of drawing a chart. */
+  applicable: boolean;
+  groups: MpAssetsPartyGroup[];
+  /** MPs in the scope with no group at all. Non-zero means the bars do not sum to the table. */
+  ungrouped: { mps: number; declared: number; totalNetEur: number } | null;
+}
+
+/** Declared wealth folded per parliamentary group for one ns bucket — the chart above the
+ *  /mp-assets table. Same scope arguments as `useMpAssetsTopRows`, so the bars and the rows
+ *  beneath them read the same slice: `mpIds` null = unscoped, the [-1] sentinel = zero rows. */
+export const useMpAssetsByParty = (opts: {
+  ns: string;
+  mpIds?: number[] | null;
+  enabled?: boolean;
+}): { data: MpAssetsByParty | null; isLoading: boolean } => {
+  const { ns, mpIds, enabled = true } = opts;
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      "mp_assets_by_party",
+      ns,
+      mpIds ? [...mpIds].sort((a, b) => a - b) : null,
+    ] as const,
+    queryFn: async (): Promise<MpAssetsByParty | null> => {
+      const params = new URLSearchParams({ ns });
+      if (mpIds) params.set("mpIds", mpIds.join(","));
+      const r = await fetch(`/api/db/mp-assets-by-party?${params.toString()}`);
+      if (!r.ok) throw new Error(`mp-assets-by-party: ${r.status} ${r.url}`);
+      const body = (await r.json()) as MpAssetsByParty | null;
+      return body && typeof body === "object" && !Array.isArray(body)
+        ? body
+        : null;
+    },
+    enabled: enabled && !!ns,
+    staleTime: Infinity,
+  });
+  return { data: data ?? null, isLoading };
+};

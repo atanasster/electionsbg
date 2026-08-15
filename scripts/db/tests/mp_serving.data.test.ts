@@ -35,7 +35,19 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import { createRequire } from "node:module";
 import { allRows, end } from "../lib/pg";
+
+const require_ = createRequire(import.meta.url);
+const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
+  DB_ROUTES: Record<
+    string,
+    (
+      dbRows: (sql: string, params: unknown[]) => Promise<unknown[]>,
+      q: Record<string, string>,
+    ) => Promise<{ status?: number; body: unknown }>
+  >;
+};
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -773,5 +785,138 @@ test.skipIf(skip)(
       Number(c.n),
       "cohort still present for a null rank",
     );
+  },
+);
+
+// mp-assets-by-party route SQL — the group chart above the /mp-assets table. Two separate
+// contracts, and the second is the one that cannot be checked by looking at a number.
+//
+//   RECONCILIATION. The bars must add up to the table beneath them: the groups' MP counts
+//   plus the ungrouped bucket are the ns slice, and their summed net worth is the slice's
+//   sum. A group-by that silently drops NULL-worth MPs (or double-counts the fan-out) shows
+//   a plausible chart over the wrong denominator.
+//
+//   THE REFUSAL, AND THAT IT DISCRIMINATES. The matview's party column is the group the MP
+//   sits in TODAY. Outside the current parliament that is either absent or WRONG — measured
+//   2026-08: 88 of the 51st's 90 rows carry a group, because those MPs were re-elected — so
+//   the route returns no groups at all for such a bucket. The test therefore asserts both
+//   that the route refuses AND that a naive group-by over the same bucket would have
+//   returned rows; without the second half the assertion passes on an empty table.
+interface ByPartyGroup {
+  party: string;
+  mps: number;
+  declared: number;
+  totalNetEur: number;
+  medianNetEur: number | null;
+  meanNetEur: number | null;
+}
+interface ByPartyBody {
+  ns: string;
+  applicable: boolean;
+  groups: ByPartyGroup[];
+  ungrouped: { mps: number; declared: number; totalNetEur: number } | null;
+}
+
+const byParty = async (ns: string): Promise<ByPartyBody> =>
+  (await DB_ROUTES["mp-assets-by-party"](allRows, { ns })).body as ByPartyBody;
+
+const currentNsFolder = async (): Promise<string | null> => {
+  const [r] = await allRows<{ ns: string | null }>(
+    "SELECT substring(current_ns from '^[0-9]+') AS ns FROM mp_roster_meta LIMIT 1",
+  );
+  return r?.ns ?? null;
+};
+
+test.skipIf(skip)(
+  "mp-assets-by-party: the current parliament's groups reconcile to its ns slice",
+  async () => {
+    const ns = await currentNsFolder();
+    assert.ok(ns, "mp_roster_meta carries no current parliament");
+    const body = await byParty(ns as string);
+    assert.equal(
+      body.applicable,
+      true,
+      `ns ${ns} is the roster's current parliament`,
+    );
+    assert.ok(
+      body.groups.length > 1,
+      "the current parliament has several groups",
+    );
+
+    const [slice] = await allRows<{
+      rows: string;
+      declared: string;
+      net: string;
+    }>(
+      `SELECT count(*) AS rows,
+              count(net_worth_eur) AS declared,
+              round(COALESCE(sum(net_worth_eur), 0))::text AS net
+         FROM mp_assets_rankings_table WHERE ns = $1`,
+      [ns],
+    );
+    const ung = body.ungrouped ?? { mps: 0, declared: 0, totalNetEur: 0 };
+    const sum = (f: (g: ByPartyGroup) => number) =>
+      body.groups.reduce((a, g) => a + f(g), 0);
+
+    assert.equal(
+      sum((g) => g.mps) + ung.mps,
+      Number(slice.rows),
+      "the bars plus the ungrouped bucket are not the ns slice",
+    );
+    assert.equal(
+      sum((g) => g.declared) + ung.declared,
+      Number(slice.declared),
+      "the declaration denominators do not add up to the slice's filed MPs",
+    );
+    assert.equal(
+      sum((g) => g.totalNetEur) + ung.totalNetEur,
+      Number(slice.net),
+      "the group totals do not add up to the slice's declared net worth",
+    );
+
+    // numeric-in-jsonb must deserialise as a JS number; as a node-pg numeric STRING every
+    // money cell in the chart would render blank while the payload looked correct.
+    const first = body.groups[0];
+    assert.equal(typeof first.totalNetEur, "number");
+    assert.equal(typeof first.medianNetEur, "number");
+    // The median is the figure the per-MP bar is drawn from and the mean rides beside it —
+    // if the two ever became the same expression, the skew the pair exists to show is gone.
+    assert.ok(
+      body.groups.some((g) => g.medianNetEur !== g.meanNetEur),
+      "median and mean agree for every group — one of them is not being computed",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "mp-assets-by-party: refuses to attribute outside the current parliament",
+  async () => {
+    const current = await currentNsFolder();
+    // The dangerous bucket is not the empty one — it is an OLDER parliament whose rows are
+    // labelled, because those labels are today's groups.
+    const [worst] = await allRows<{ ns: string; labelled: string }>(
+      `SELECT ns, count(*) FILTER (WHERE party_group_short IS NOT NULL)::text AS labelled
+         FROM mp_assets_rankings_table
+        WHERE ns <> 'all' AND ns <> $1
+        GROUP BY ns
+        HAVING count(*) FILTER (WHERE party_group_short IS NOT NULL) > 0
+        ORDER BY 2 DESC LIMIT 1`,
+      [current],
+    );
+    assert.ok(
+      worst && Number(worst.labelled) > 0,
+      "no older bucket carries a group label — the misattribution risk this refusal " +
+        "exists for cannot be demonstrated, so the gate may now be vacuous",
+    );
+
+    for (const ns of [worst.ns, "all"]) {
+      const body = await byParty(ns);
+      assert.equal(body.applicable, false, `ns ${ns} must not be attributable`);
+      assert.deepEqual(
+        body.groups,
+        [],
+        `ns ${ns} returned groups built from present-day party labels`,
+      );
+    }
   },
 );
