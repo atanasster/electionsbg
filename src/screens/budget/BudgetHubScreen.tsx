@@ -32,19 +32,7 @@ import { BudgetReceiptCard } from "./BudgetReceiptCard";
 import { budgetSearchSources } from "./budgetSearch";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 import { usePreserveParams } from "@/ux/usePreserveParams";
-
-/** Whether the national municipal-commitments line has something true to say.
- *
- *  A PURE predicate, exported, because the two ways this goes wrong are both
- *  „renders when it should not": a database that never ran migration 149
- *  (`mc` is null), and a quarter where МФ froze the column and the ingest
- *  withheld it (`commitmentsEur` is null while every other column filed). Both
- *  must yield NO LINE — „€0 поети ангажименти" is the healthiest figure in the
- *  country and completely false. Gating the JSX alone left the property
- *  untestable through the rendered tree. */
-export const showsMunicipalCommitments = (
-  mc: { commitmentsEur?: number | null } | null | undefined,
-): boolean => mc != null && mc.commitmentsEur != null;
+import { showsMunicipalCommitments } from "./budgetHubMunicipal";
 
 interface TileMetric {
   metric: string;

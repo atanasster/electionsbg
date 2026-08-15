@@ -62,7 +62,9 @@ export const BudgetMuniCapitalScreen: FC = () => {
 
   const { capital, isLoading } = useBudgetMuniCapital(fy);
 
-  const rows = capital?.rows ?? [];
+  // Memoised: a bare `?? []` mints a new array every render, so `peak` below
+  // recomputes on each one and any consumer keyed on it never settles.
+  const rows = useMemo(() => capital?.rows ?? [], [capital]);
   const covered = capital?.covered ?? null;
   const total = capital?.totalMunicipalities ?? null;
   const sources = capital?.sources ?? null;

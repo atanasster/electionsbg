@@ -17,7 +17,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import bgDict from "@/locales/bg/translation.json";
-import { BudgetHubScreen, showsMunicipalCommitments } from "./BudgetHubScreen";
+import { BudgetHubScreen } from "./BudgetHubScreen";
+import { showsMunicipalCommitments } from "./budgetHubMunicipal";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({

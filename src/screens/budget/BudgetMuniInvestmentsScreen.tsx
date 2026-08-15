@@ -36,7 +36,9 @@ export const BudgetMuniInvestmentsScreen: FC = () => {
   const [q, setQ] = useSearchParam("q", { replace: true });
   const { ipop, isLoading } = useBudgetMuniIpop(q);
 
-  const rows = ipop?.rows ?? [];
+  // Memoised: a bare `?? []` mints a new array every render, so `peak` below
+  // recomputes on each one and any consumer keyed on it never settles.
+  const rows = useMemo(() => ipop?.rows ?? [], [ipop]);
   const nat = ipop?.national ?? null;
   const rule = ipop?.stalledRule ?? null;
   const cohorts = ipop?.national?.cohorts ?? [];

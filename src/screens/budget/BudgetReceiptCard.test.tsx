@@ -15,11 +15,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import bgDict from "@/locales/bg/translation.json";
 import enDict from "@/locales/en/translation.json";
-import {
-  BudgetReceiptCard,
-  parseSalary,
-  annualDirectTax,
-} from "./BudgetReceiptCard";
+import { BudgetReceiptCard } from "./BudgetReceiptCard";
+import { parseSalary, annualDirectTax } from "./budgetReceipt";
 import type { BudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
 let uiLanguage = "bg";

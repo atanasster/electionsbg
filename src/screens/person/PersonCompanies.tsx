@@ -31,7 +31,8 @@
 import { FC, Fragment, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { LinkBasisMark, isNameMatch } from "@/screens/components/LinkBasisMark";
+import { LinkBasisMark } from "@/screens/components/LinkBasisMark";
+import { isNameMatch } from "@/screens/components/linkBasis";
 import { Building2, ExternalLink } from "lucide-react";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import {

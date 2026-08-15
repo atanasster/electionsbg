@@ -10,23 +10,10 @@
 // already live: PersonCompanies carried this inline while the roles block still showed a
 // high/medium confidence badge minted by a different rule entirely.
 //
-// The server decides the basis, not the client — `linkBasis` comes from
-// `person_company_bridge_a` (148) through both 082 and 150, so the two blocks read one view.
+// The rule that decides WHICH links get the mark is `isNameMatch`, in ./linkBasis.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-
-/** The server's basis for a person↔company link, as 082 and 150 both emit it. */
-export type LinkBasis = "declared" | "name_match";
-
-/** Absent linkBasis is treated as a name match, never as declared.
- *
- *  A cloud database still serving a 082/150 older than tr-attribution-basis-v1 omits the
- *  field, and the two ways to be wrong are not symmetric: calling a curated link a name match
- *  costs a caveat nobody needed, while calling a name match "declared" tells a reader we
- *  confirmed a company belongs to a named person when we did not. */
-export const isNameMatch = (linkBasis?: string | null): boolean =>
-  linkBasis !== "declared";
 
 export const LinkBasisMark: FC<{
   /** Tooltip text — the surface supplies it, since the surrounding sentence differs. */

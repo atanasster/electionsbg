@@ -41,54 +41,18 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { formatEur } from "@/lib/currency";
 import {
-  computeLabourTax,
-  capMonths,
   SSC_EMPLOYEE_RATE,
   HEALTH_EMPLOYEE_RATE,
   UPF_EMPLOYEE_RATE,
   DOO_EMPLOYEE_RATE,
 } from "@/lib/bgTax";
 import { cofogLabelKey } from "@/lib/cofog";
+import { parseSalary, annualDirectTax } from "./budgetReceipt";
 import type { BudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
 /** How many functional lines the ДДФЛ block itemises. The rest folds into one
  *  row so the block always sums to the whole income tax. */
 const SHOWN = 6;
-
-/** Parse a salary a human typed. „2,000" and „2 000" are thousands, „2,5" is a
- *  decimal — treating every comma as a decimal point turned „2,000" into €2 and
- *  rendered „€5 данък и осигуровки за година" on the English card, where a
- *  comma IS the thousands separator. */
-export const parseSalary = (raw: string): number | null => {
-  const cleaned = raw.replace(/[\s\u00a0]/g, "");
-  if (!cleaned) return null;
-  // A comma with exactly three digits after it and more to come is a grouping
-  // separator; anything else is a decimal comma.
-  const normalised = /,\d{3}(\D|$)/.test(cleaned)
-    ? cleaned.replace(/,/g, "")
-    : cleaned.replace(",", ".");
-  const n = Number(normalised);
-  return Number.isFinite(n) && n > 0 ? n : null;
-};
-
-/** Annual direct tax, priced month by month against the cap actually in force.
- *  `× 12` at one cap costs €163.52/yr for anyone above €2 111.64 in 2026,
- *  because the МОД stepped from €2 111.64 to €2 300 on 1 August. */
-export const annualDirectTax = (monthlyGross: number, year: number) => {
-  let ssc = 0;
-  let pit = 0;
-  for (const { capEur, months } of capMonths(year)) {
-    const r = computeLabourTax({
-      monthlyGross,
-      mod: capEur,
-      profile: "employee",
-      children: 0,
-    });
-    ssc += r.ssc * months;
-    pit += r.pit * months;
-  }
-  return { ssc, pit, total: ssc + pit };
-};
 
 export const BudgetReceiptCard: FC<{
   stats: BudgetHubStats | null;

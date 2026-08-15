@@ -4,7 +4,8 @@ import { ShieldCheck, ExternalLink, CheckCircle2, Circle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import type { MpManagementRole } from "@/data/dataTypes";
-import { LinkBasisMark, isNameMatch } from "@/screens/components/LinkBasisMark";
+import { LinkBasisMark } from "@/screens/components/LinkBasisMark";
+import { isNameMatch } from "@/screens/components/linkBasis";
 
 const trStatusLabel = (status: string, t: (k: string) => string): string => {
   switch (status) {
