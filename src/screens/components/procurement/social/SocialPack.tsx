@@ -30,6 +30,7 @@ import {
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
   SOCIAL_UNIVERSES,
+  socialGroupDetail,
   socialUniverseLabel,
   type SocialUniverse,
 } from "@/lib/socialReferenceData";
@@ -56,11 +57,8 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const bg = lang === "bg";
 
   const [universe, setUniverse] = useState<UniverseFilter>("all");
-  const { model, units, groupTotalEur, aspShare, isLoading } = useSocial(
-    eik,
-    scopeWindow,
-    universe,
-  );
+  const { model, units, groupTotalEur, groupUnitCount, aspShare, isLoading } =
+    useSocial(eik, scopeWindow, universe);
 
   // "Per year" divisor = the length of the SCOPE WINDOW (not the contract span),
   // so an edge gap year doesn't inflate the average — same rule as the МВР pack.
@@ -324,13 +322,19 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* No bidCaveat: this pack's story is disbursement, not competition — the
           register caveat that matters here is that the household benefits aren't in
           it at all. */}
+      {/* `detail` is DERIVED from the allowlist so it can never name fewer bodies
+          than exist. `unitCount` is deliberately NOT the allowlist size: the
+          sentence pairs it with groupTotalEur, so it must be the whole-group count
+          of units that actually contracted in scope (the prop's own contract) —
+          otherwise a narrow scope reads „по 8 структури (€25,6 млн.)" above a
+          StatCard saying four. Both are filter-invariant, like the total. */}
       <PackFootnote
-        unitCount={6}
+        unitCount={groupUnitCount}
         groupOf={{ bg: "социалната политика", en: "social policy" }}
         totalEur={groupTotalEur}
         detail={{
-          bg: "МТСП, АСП, Агенцията по заетостта, ГИТ, АХУ, АКСУ",
-          en: "МТСП, АСП, the Employment Agency, ГИТ, АХУ, АКСУ",
+          bg: socialGroupDetail("bg"),
+          en: socialGroupDetail("en"),
         }}
         excludes={{
           bg: "Помощите, които АСП изплаща на домакинствата (~€2–3 млрд./год.), не са обществени поръчки и не са в този регистър — виж бюджета по вид помощ горе. Пенсиите (НОИ) са отделен изглед.",

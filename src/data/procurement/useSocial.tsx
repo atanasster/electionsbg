@@ -4,10 +4,12 @@
 // the identical SocialModel (see useAwarderGroupModel). Mirrors useMvr.tsx.
 //
 // CONSOLIDATED GROUP — Министерство на труда и социалната политика (000695395) is
-// one of 6 social budget units that award ЗОП contracts (АСП, АЗ, ГИТ, АХУ, АКСУ).
-// A pack mounted on the ministry that reported only the central EIK would understate
-// the group (€82M vs ~€285M — АСП alone is €125M). So on the ministry's page we
-// aggregate the parent + every subordinate. Mounted on any other EIK it stands alone.
+// one of the 8 social bodies that award ЗОП contracts (АСП, АЗ, ГИТ, АХУ, АКСУ,
+// НИПА, ДАЗД — see SOCIAL_ENTITIES, and its header for why ДАЗД is in the set
+// despite budgeting through the МС). A pack mounted on the ministry that reported
+// only the central EIK would understate the group (€86M vs ~€325M — АСП alone is
+// €144M). So on the ministry's page we aggregate the parent + every subordinate.
+// Mounted on any other EIK it stands alone.
 //
 // UNIVERSE FILTER — the pack passes an active `universe` (ministry / assistance /
 // employment / …); the active-universe model is its own (cached) group-model call
@@ -52,6 +54,14 @@ export interface SocialData {
   groupEiks: string[];
   /** Whole-group € (all universes) — for the АСП-share footnote / denominator. */
   groupTotalEur: number;
+  /** Whole-group units WITH contracts in scope — filter-invariant, exactly like
+   *  groupTotalEur, because the footnote pairs the two in one sentence („по N
+   *  структури … (€X)"). `units.length` is the wrong source: it is
+   *  universe-FILTERED, so it would make the count follow the picker while the €
+   *  stayed whole-group. The allowlist size is wrong too — no single year has all
+   *  eight bodies contracting (2023: four), so it would state a group four units
+   *  larger than the one that produced the total beside it. */
+  groupUnitCount: number;
   /** АСП's share of the whole group's € (filter-invariant); null if no total. */
   aspShare: number | null;
   isLoading: boolean;
@@ -118,6 +128,10 @@ export const useSocial = (
   // whole-group per-unit rollup (active when universe="all", else the dedicated call).
   const wholeUnits = isAll ? active.byUnit : whole.byUnit;
   const groupTotalEur = isAll ? active.groupTotalEur : whole.groupTotalEur;
+  const groupUnitCount = useMemo(
+    () => wholeUnits.filter((u) => u.contractCount > 0).length,
+    [wholeUnits],
+  );
   const aspShare = useMemo(() => {
     if (groupTotalEur <= 0) return null;
     const asp = wholeUnits.find((u) => u.eik === ASP_EIK);
@@ -129,6 +143,7 @@ export const useSocial = (
     units,
     groupEiks: activeEiks,
     groupTotalEur,
+    groupUnitCount,
     aspShare,
     isLoading: active.isLoading || (!isAll && whole.isLoading),
   };
