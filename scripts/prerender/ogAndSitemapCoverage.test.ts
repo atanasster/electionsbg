@@ -29,6 +29,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prerenderRoutes } from "./routes";
+import { readIndexableProcedures } from "../funds/procedures_index";
 import { ENGLISH_STATIC_PAGES, routeDefs } from "../sitemap/route_defs";
 import { SITE_ORIGIN } from "@/lib/siteOrigin";
 
@@ -59,10 +60,39 @@ describe("every prerendered page has an og:image of its own", () => {
   });
 
   it("the scan is not vacuous", () => {
-    expect(prerenderRoutes.length).toBeGreaterThan(500);
+    // ⚠️ THE FLOOR IS THE COMMITTED SET, NOT THE FULL ONE. On a machine that has
+    // run the funds pipeline this list is 1,197 routes — but 1,034 of them are
+    // the `/funds/procedure/*` and `/funds/programme/*` families, enumerated
+    // from `data/funds/projects/by-procedure/` and `by-program/`, and BOTH are
+    // gitignored. A clean checkout has 163. So a floor calibrated on a
+    // developer's disk is a gate on that disk: `> 500` passed locally and
+    // failed on CI, where the number it was measuring cannot exist.
+    expect(prerenderRoutes.length).toBeGreaterThan(150);
     expect(prerenderRoutes.filter((r) => r.ogImage).length).toBeGreaterThan(
-      500,
+      150,
     );
+
+    // Where the catalogue IS on disk, assert the property the old floor was
+    // accidentally standing in for — one page per indexable procedure. Read
+    // through the shared reader, so this cannot drift from what routes.ts
+    // enumerated. Dropping it with the floor would leave 82% of the prerender
+    // ungated on the only machines that can see it.
+    const procedures = readIndexableProcedures();
+    if (procedures.length > 0) {
+      const prefix = "funds/procedure/";
+      const pages = new Set(
+        prerenderRoutes
+          .filter((r) => r.path.startsWith(prefix))
+          .map((r) => r.path.slice(prefix.length)),
+      );
+      const missing = procedures
+        .map((p) => p.procedureCode.trim())
+        .filter((code) => !pages.has(code));
+      expect(
+        missing,
+        `catalogued but not prerendered — the sitemap enumerates the same set, so each is a <loc> with no HTML behind it:\n${missing.join("\n")}`,
+      ).toEqual([]);
+    }
   });
 });
 

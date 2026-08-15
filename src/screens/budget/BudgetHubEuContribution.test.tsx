@@ -135,11 +135,20 @@ describe("the EU contribution on /budget", () => {
   it("formats the amount in the reader's locale", async () => {
     // The hub already shipped one locale bug of exactly this shape: money
     // formatted bg-BG on /en, so „€12,8 млрд." appeared beside English counts.
+    //
+    // ⚠️ THE COMPACT SUFFIX MAY NOT BE PINNED — it is CLDR-versioned. This hub
+    // formats `en-GB`, and CLDR 47 flipped that locale's compact suffixes from
+    // „k/m/bn" to „K/M/B": the same figure renders „€14.2bn" on the ICU in CI's
+    // Node 22 and „€14.2B" on the ICU 77 a current macOS ships. Pinning „€14.2B"
+    // made this a gate on the runtime's CLDR — green locally, red on CI. The
+    // DECIMAL MARK is what carries the locale (bg-BG: „€14,2 млрд."), so pin
+    // that and leave the suffix to the runtime. Same reasoning in
+    // BudgetPersonnelScreen.test.tsx.
     lang = "en";
     renderHub();
-    await screen.findAllByText(/€14\.2B/);
+    await screen.findAllByText(/€14\.2\s?b/i);
     const body = nb(document.body.textContent);
-    expect(body).toContain("€560.3M");
+    expect(body).toMatch(/€560\.3\s?[Mm]/);
     expect(body).toContain("Outside state budget expenditure");
     expect(body).not.toContain("млн.");
   });

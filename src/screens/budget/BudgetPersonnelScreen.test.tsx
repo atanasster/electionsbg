@@ -326,11 +326,22 @@ describe("BudgetPersonnelScreen", () => {
   it("formats the ministry money in the reader's locale", async () => {
     // The hub already shipped this defect once: money formatted bg-BG on /en,
     // so „€278,8 млн." appeared beside English labels.
+    //
+    // ⚠️ THE COMPACT SUFFIX MAY NOT BE PINNED — it is CLDR-versioned. Every
+    // English money string on this site formats `en-GB` (82 files), and CLDR 47
+    // flipped that locale's compact suffixes from „k/m/bn" to „K/M/B": the same
+    // figure renders „€278.8m" on the ICU in CI's Node 22 and „€278.8M" on the
+    // ICU 77 a current macOS ships. A literal „€278.8M" is therefore a gate on
+    // the runtime's CLDR rather than on the page — it passed locally and failed
+    // on CI, which is exactly the shape it was written to catch, inverted.
+    //
+    // What actually carries the locale here is the DECIMAL MARK — bg-BG renders
+    // „€278,8 млн." — so pin that and leave the suffix to the runtime.
     lang = "en";
     renderIt();
     await screen.findByText(enDict.budget_staff_units_h);
     const body = sp(document.body.textContent);
-    expect(body).toContain("€278.8M");
+    expect(body).toMatch(/€278\.8\s?[Mm]/);
     expect(body).not.toContain("млн.");
   });
 });

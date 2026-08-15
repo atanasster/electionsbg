@@ -1081,8 +1081,8 @@ Five things about it are easy to get backwards:
   independently on the official чл. 130д recovery list.
 
 `interreg_programmes` / `interreg_operations` / `interreg_partners` (migration 137,
-`db:load:interreg:pg`) are the Interreg cross-border corpus — 1,954 operations, 12,141
-partnerships, 1,493 Bulgarian partner rows, €396.39m — from keep.eu (INTERACT), which is
+`db:load:interreg:pg`) are the Interreg cross-border corpus — 1,958 operations, 12,015
+partnerships, 1,494 Bulgarian partner rows, €401.77m — from keep.eu (INTERACT), which is
 where Interreg lives because it runs on **Jems** and not on ИСУН. That is why
 `fund_projects` holds zero Interreg rows: the gap is a system boundary, not a filter.
 In `db:refresh`; on the cloud side:
@@ -1298,7 +1298,7 @@ npm run db:load:funds-fit:pg:cloud
   grants. They are never summed: an ИСУН figure is a contract's own value, an Interreg figure one
   partner's published budget. `funds_fit_basis()` returns the declaration IN THE PAYLOAD so a
   consumer cannot render one arm as the whole corpus.
-- **Only the ИСУН arm is a matview.** `funds_fit_interreg()` is a plain function — 1,954 operations
+- **Only the ИСУН arm is a matview.** `funds_fit_interreg()` is a plain function — 1,958 operations
   against 82,011 contracts, which any index scan answers live. So an Interreg reload does NOT need
   a `funds-fit` refresh.
 - **The Interreg arm is reached through a BG→EN query bridge** (`functions/interreg_topics.js`).

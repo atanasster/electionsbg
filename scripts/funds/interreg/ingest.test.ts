@@ -162,16 +162,22 @@ describe("the committed corpus", () => {
   // The plan's headline figures, pinned against the artifact rather than a
   // throwaway script (plan §5.1).
   it("reproduces the T0 gate's measured totals", () => {
-    expect(index.operationCount).toBe(1954);
-    expect(index.partnerCount).toBe(12141);
-    expect(index.bgPartnerCount).toBe(1493);
+    // Re-measured 2026-08-15 against the keep.eu re-import (ccae86938c), which
+    // moved every one of these and left them unpinned: 1,954 → 1,958 operations,
+    // 12,141 → 12,015 partnerships, 1,493 → 1,494 BG rows, €396.39m → €401.77m.
+    // The pins are DELIBERATELY exact — a re-import that moves the headline
+    // figures should have to say so here — so update them with the vintage when
+    // the corpus is rebuilt, rather than widening them into a band.
+    expect(index.operationCount).toBe(1958);
+    expect(index.partnerCount).toBe(12015);
+    expect(index.bgPartnerCount).toBe(1494);
     const bgMoney = partners
       .filter(isBulgarianPartner)
       .reduce(
         (a: number, p: { budgetEur: number | null }) => a + (p.budgetEur ?? 0),
         0,
       );
-    expect(bgMoney / 1e6).toBeCloseTo(396.39, 1);
+    expect(bgMoney / 1e6).toBeCloseTo(401.77, 1);
   });
 
   it("splits the money the way §5.1 records — Tier P is the larger half", () => {
@@ -405,16 +411,35 @@ describe("the committed artifact, against plan §9's checkable gates", () => {
     }
   });
 
-  it("every operation has partner rows, and its partnerCount is honest", () => {
+  it("partnerCount matches the rows, and only the source's own gaps are empty", () => {
+    // ⚠️ THIS ASSERTED `partnerCount > 0` FOR EVERY OPERATION, and the
+    // 2026-08-15 re-import made that false AT THE SOURCE. keep.eu publishes
+    // DRP0200217 (keepId 29501, Danube 2021-2027) with `partnerships: []` — the
+    // raw payload in raw_data/interreg/keep/29501.json carries no partner list
+    // at all, so a corpus that records 0 is faithful. Not a dropped fetch and
+    // not an ingest bug, so the assertion was the thing that was wrong.
+    //
+    // It becomes a CEILING rather than a prohibition, because the failure still
+    // worth catching is a crawl that quietly stopped returning partner lists —
+    // and that moves this count by hundreds, not by one.
     const counted = new Map<number, number>();
     for (const p of partners)
       counted.set(p.keepId, (counted.get(p.keepId) ?? 0) + 1);
-    for (const o of operations) {
-      expect(counted.get(o.keepId), `operation ${o.keepId}`).toBe(
+    // `?? 0`: an operation with no rows has no map entry, and `undefined` is not
+    // `0` to `toBe` — which is how the source gap first surfaced, as a type
+    // mismatch rather than as the data fact it is.
+    for (const o of operations)
+      expect(counted.get(o.keepId) ?? 0, `operation ${o.keepId}`).toBe(
         o.partnerCount,
       );
-      expect(o.partnerCount, `operation ${o.keepId}`).toBeGreaterThan(0);
-    }
+    const empty = operations
+      .filter((o: { partnerCount: number }) => o.partnerCount === 0)
+      .map((o: { keepId: number }) => o.keepId);
+    // 1 as measured 2026-08-15.
+    expect(
+      empty.length,
+      `operations keep.eu publishes with no partner list: ${empty.join(", ")}`,
+    ).toBeLessThanOrEqual(5);
   });
 
   it("is written one row per line, so a one-row change is a one-line diff", () => {
