@@ -21,18 +21,12 @@ import type {
   BudgetIndex,
   BudgetYearCoverage,
 } from "@/data/budget/types";
-
-const STAGE_ORDER: Record<BudgetDocument["kind"], number> = {
-  law: 0,
-  "interim-law": 1,
-  // The fund budgets (ЗБДОО / ЗБНЗОК) pass as one package with the ЗДБРБ, so
-  // they sit directly after it and before any mid-year amendment.
-  "fund-law": 2,
-  amendment: 3,
-  "execution-report": 4,
-  "audit-report": 5,
-  "kfp-feed": 6,
-};
+// ONE definition of the chain, shared with /budget/law. Both surfaces render
+// the same year from the same corpus, and while each kept its own copy they
+// already disagreed: this tile tie-broke on `seq`, which is 0 for BOTH FY2026
+// fund laws, so their order was whatever the array order happened to be —
+// against the screen's stable order by id.
+import { orderJourney, packageProgress } from "@/screens/budget/budgetJourney";
 
 const ROLE_PRIORITY: BudgetDocumentSource["role"][] = [
   "promulgated",
@@ -58,8 +52,13 @@ const DocRow: FC<{ doc: BudgetDocument }> = ({ doc }) => {
   const [expanded, setExpanded] = useState(false);
   const primary = pickPrimary(doc.sources);
   const extras = primary ? doc.sources.filter((s) => s !== primary) : [];
-  const kindLabel =
-    t(`budget_doc_kind_${doc.kind.replace("-", "_")}`) || doc.kind;
+  // /g, and `defaultValue` rather than `|| doc.kind`: i18next returns the KEY
+  // on a miss, which is truthy, so the old fallback was dead. Both bugs were
+  // invisible because every kind has exactly one hyphen and all seven keys
+  // exist — a `mid-year-report` would have resolved on neither.
+  const kindLabel = t(`budget_doc_kind_${doc.kind.replace(/-/g, "_")}`, {
+    defaultValue: doc.kind,
+  });
   if (!primary) return null;
   return (
     <li className="flex items-start gap-2 py-1.5">
@@ -125,41 +124,6 @@ const DocRow: FC<{ doc: BudgetDocument }> = ({ doc }) => {
   );
 };
 
-/** How much of a fiscal year's LAW PACKAGE has been promulgated.
- *
- *  A Bulgarian budget year is three laws, not one — the ЗДБРБ (state budget)
- *  plus the ЗБДОО and ЗБНЗОК fund budgets — and they do not have to arrive
- *  together. FY2026 is the case that makes this worth showing: the fund halves
- *  were promulgated on 28 July 2026 while the state budget is still pending, so
- *  the year is running its state side on a bridging law. Rendering the
- *  documents as a flat list makes a two-thirds year look complete.
- *
- *  `fund-law` entries carry the fund in their id (`fund-law-doo-2026-0`), which
- *  is how the two halves are told apart without a new field. */
-const packageProgress = (
-  docs: BudgetDocument[],
-): { have: number; total: number; missing: string[] } | null => {
-  const hasStateLaw = docs.some((d) => d.kind === "law");
-  const funds = ["doo", "nzok"] as const;
-  const haveFund = funds.filter((f) =>
-    docs.some((d) => d.kind === "fund-law" && d.id.includes(`-${f}-`)),
-  );
-  const have = (hasStateLaw ? 1 : 0) + haveFund.length;
-  // Only meaningful for a year we actually CATALOGUE fund laws for.
-  // FUND_BUDGET_LAWS starts at 2026, so every earlier year has zero fund-law
-  // documents — not because none was passed, but because none was recorded.
-  // Without this guard FY2018–2025 each rendered an amber "1 of 3 laws — still
-  // pending: ЗБДОО, ЗБНЗОК" for eight long-closed years: a completeness meter
-  // measuring our own catalogue and presenting it as the state's.
-  if (haveFund.length === 0) return null;
-  if (have === 0) return null;
-  const missing: string[] = [];
-  if (!hasStateLaw) missing.push("ЗДБРБ");
-  if (!haveFund.includes("doo")) missing.push("ЗБДОО");
-  if (!haveFund.includes("nzok")) missing.push("ЗБНЗОК");
-  return { have, total: 3, missing };
-};
-
 const YearGroup: FC<{
   year: number;
   docs: BudgetDocument[];
@@ -167,7 +131,10 @@ const YearGroup: FC<{
 }> = ({ year, docs, coverage }) => {
   const { t } = useTranslation();
   const months = coverage?.kfpPeriods.length ?? 0;
-  const pkg = packageProgress(docs);
+  // `id` here, `documentId` on the screen — the shared helper reads the latter.
+  const pkg = packageProgress(
+    docs.map((d) => ({ kind: d.kind, documentId: d.id })),
+  );
   return (
     <div className="py-3 border-b border-border/50 last:border-b-0">
       <div className="flex items-baseline justify-between gap-2">
@@ -204,14 +171,18 @@ const YearGroup: FC<{
         ) : null}
       </div>
       <ul className="mt-1">
-        {[...docs]
-          .sort(
-            (a, b) =>
-              STAGE_ORDER[a.kind] - STAGE_ORDER[b.kind] || a.seq - b.seq,
-          )
-          .map((d) => (
-            <DocRow key={d.id} doc={d} />
-          ))}
+        {orderJourney(
+          // The shard corpus dates a document by promulgation or by report,
+          // depending on kind; `seq` was the old tie-break and is 0 for both
+          // FY2026 fund laws, so it decided nothing between them.
+          docs.map((d) => ({
+            ...d,
+            documentId: d.id,
+            publishedOn: d.promulgationDate ?? d.reportDate ?? null,
+          })),
+        ).map((d) => (
+          <DocRow key={d.id} doc={d} />
+        ))}
       </ul>
     </div>
   );

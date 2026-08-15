@@ -1262,7 +1262,7 @@ migration. Two items need schema work and are marked.
 | T9.8 | **Personnel detail: central / territorial / общински split, „незаети > 6 мес.", the 581 administrative structures, and top ministries by personnel spend with headcount and €/yr** | `BudgetPersonnelTile` → `/budget/personnel` | ⚠️ SCHEMA — `budget_personnel` has only `positions_total/filled/vacant`, `nsi_headcount`, `payroll_eur`; the split and the per-ministry breakdown are in the JSON and were never loaded |
 | T9.9 | **Ministry rows lost their procurement footprint and MP-connected flag** — the Phase-4 cross-link from a spending unit to what it buys | `BudgetMinistriesTile` → `/budget/ministries` | ⚠️ SCHEMA — `budget_admin_list` returns `amount, eik, hasExecution, nameBg, nameEn, nodeId` and nothing else |
 | T9.10 | **ЗБДОО per-fund plan**, rendered adjacent to the B1 actuals and deliberately never netted against them | `BudgetSocialFundsTile` → `/budget/social-funds` | UI |
-| T9.11 | **The budget-journey timeline** — per fiscal year: the law, the КФП snapshots published so far, and the Сметна палата audit once it lands. `/budget/law` has the eight-document scorecard and a per-year document list, which is a different object | `BudgetJourneyTile` → `/budget/law` | UI |
+| T9.11 ✅ | **The budget-journey timeline** — per fiscal year: the law, the КФП snapshots published so far, and the Сметна палата audit once it lands. `/budget/law` has the eight-document scorecard and a per-year document list, which is a different object | `BudgetJourneyTile` → `/budget/law` | UI |
 | T9.12 | **The „Бюджети по кабинети" cross-link card** to `/indicators/budgets` — one link, and the only path from the budget module to the cross-cabinet fiscal view | `BudgetScreen` → hub | UI, trivial |
 
 **The Sankey is NOT on that list, and that is a decision rather than an omission** — §5 routes
@@ -1311,6 +1311,35 @@ list — it adds a SECOND overload — so a warm database would keep both and ev
 Reproduced in a rolled-back transaction. It is invisible on the machine that
 writes the change, whose old copy has already been dropped by hand; the same
 rule cost migration 144 its `funds_wire`.
+
+### T9.11 — a function-body change with no loader behind it
+
+`budget_documents()` gained a `coverage` object (the year's КФП months, whether
+it has closed, and the period range) so the journey's middle stage rides the call
+`/budget/law` already makes rather than a second route. Nothing else changed on
+the serving side — `functions/db_routes.js` passes the jsonb straight through —
+so **`npm run deploy:db` is NOT part of this step**, and the cloud publish is the
+one command the "applied, never loaded" rule prescribes:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 155_budget_serving.sql
+```
+
+`npm run db:load:budget-muni:pg:cloud` applies 155 as well (`load_budget_muni_pg.ts`),
+so a municipal reload carries this change; the line above is for shipping the body
+change on its own, which is the usual case.
+
+**Skipping it is the quiet half of this step, not a broken page.** The journey's
+ordering, the stage labels and the three-law package badge are all client-side
+over rows the payload already carried, so they appear on prod the moment hosting
+ships — while `coverage` stays `undefined`, the screen's `coverage ? … : null`
+renders nothing, and the year's execution simply drops out of the chain with
+every document still listed and nothing red. `budget_serving.data.test.ts`
+asserts the field against local Postgres; nothing checks the cloud.
+
+There is one ordering constraint and it is the reverse of T9.8's: this is a
+`CREATE OR REPLACE` with an UNCHANGED argument list, so it needs no DROP and can
+be applied to a warm database at any time, before or after the hosting deploy.
 
 ### Parallel track, NOT a tier — the execution-report parser
 

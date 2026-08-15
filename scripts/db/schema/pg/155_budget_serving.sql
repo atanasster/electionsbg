@@ -582,7 +582,40 @@ CREATE OR REPLACE FUNCTION budget_documents(
     -- page's claim is „N от 8", so the denominator is the frame, not the corpus.
     'obsCategoriesPresent', coalesce((
       SELECT jsonb_agg(DISTINCT obs_category) FROM budget_document
-       WHERE obs_category IS NOT NULL), '[]'::jsonb));
+       WHERE obs_category IS NOT NULL), '[]'::jsonb),
+    -- THE YEAR'S КФП COVERAGE (T9.11). The budget-journey timeline's middle
+    -- stage is „how much of this year has been reported", and without it the
+    -- chain reads law → audit with an eight-document hole where the execution
+    -- is. One row from a six-row table on a call the page already makes, so it
+    -- costs nothing beside a second route.
+    --
+    -- `complete` is what lets the page tell „the year is still running" from
+    -- „the year closed and the rest is missing" — the first is a fact about the
+    -- calendar, the second a claim about МФ. Never inferred from „is this the
+    -- newest year", which disagrees every January.
+    --
+    -- ⚠️ `monthsAvailable` COUNTS OBSERVATIONS CAPTURED, NOT MONTHS COVERED, and
+    -- 152's COMMENT ON COLUMN puts it plainly: „rendering this as coverage is
+    -- false about a complete year". FY2021 is complete with SIX, because the
+    -- КФП feed is cumulative year-to-date and its December row IS the whole
+    -- year. It is shipped for the not-yet-closed case, where „6 monthly
+    -- snapshots" is a progress signal; the question „how far is this year
+    -- reported" is answered by `lastPeriod`, exactly, and that is what the page
+    -- leads with.
+    --
+    -- Dates ride out as jsonb, i.e. serialized by POSTGRES to ISO-8601 — not by
+    -- node-postgres, whose PG-`date` conversion uses the server process's
+    -- timezone and is off by a day under TZ=Europe/Sofia (migration 144's
+    -- `funds_wire` is the worked example).
+    'coverage', (
+      SELECT to_jsonb(c)
+        FROM (SELECT y.months_available AS "monthsAvailable",
+                     y.complete,
+                     y.first_period    AS "firstPeriod",
+                     y.last_period     AS "lastPeriod",
+                     y.as_of           AS "asOf"
+                FROM budget_fiscal_year y
+               WHERE y.fiscal_year = p_fy) c));
 $$;
 
 -- ── 10-11. The municipal tier ─────────────────────────────────────────────

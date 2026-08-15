@@ -58,6 +58,79 @@ const THIN_YEAR = {
   ],
 };
 
+/** FY2026's SHAPE — a synthetic ordering probe, not a transcript. The corpus
+ *  differs in three ways worth naming, since this page's whole discipline is
+ *  saying which corpus a number came from: `law-2026` has no `published_on` at
+ *  all, `interim-law-2026-0` is 2025-12-23, and FY2026 has no execution report
+ *  yet. What is real is the STRUCTURE — the three-law package plus a bridging
+ *  law — and the dates are chosen so a date-only sort produces a visibly wrong
+ *  answer: the July fund laws above an August ЗДБРБ, and the execution report
+ *  above the law it executes. */
+const FULL_YEAR = {
+  fiscalYear: 2026,
+  obsCategoriesPresent: THIN_YEAR.obsCategoriesPresent,
+  coverage: {
+    monthsAvailable: 6,
+    complete: false,
+    firstPeriod: "2026-01",
+    lastPeriod: "2026-06",
+    asOf: "2026-06-30",
+  },
+  rows: [
+    {
+      documentId: "exec-2026-06",
+      fiscalYear: 2026,
+      kind: "execution-report",
+      titleBg: "Информация за изпълнението към юни 2026",
+      publishedOn: "2026-07-31",
+      url: "https://example.invalid/exec-2026-06",
+      obsCategory: "in-year-report",
+      adoptedByItemId: null,
+    },
+    {
+      documentId: "law-2026",
+      fiscalYear: 2026,
+      kind: "law",
+      titleBg: "Закон за държавния бюджет на Република България за 2026 г.",
+      publishedOn: "2026-08-01",
+      url: "https://example.invalid/zdbrb-2026",
+      obsCategory: "enacted-budget",
+      adoptedByItemId: null,
+    },
+    {
+      documentId: "fund-law-doo-2026-0",
+      fiscalYear: 2026,
+      kind: "fund-law",
+      titleBg:
+        "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+      publishedOn: "2026-07-28",
+      url: "https://example.invalid/zbdoo-2026",
+      obsCategory: null,
+      adoptedByItemId: null,
+    },
+    {
+      documentId: "fund-law-nzok-2026-0",
+      fiscalYear: 2026,
+      kind: "fund-law",
+      titleBg: "Закон за бюджета на НЗОК за 2026 г.",
+      publishedOn: "2026-07-28",
+      url: "https://example.invalid/zbnzok-2026",
+      obsCategory: null,
+      adoptedByItemId: null,
+    },
+    {
+      documentId: "interim-law-2026-0",
+      fiscalYear: 2026,
+      kind: "interim-law",
+      titleBg: "Закон за събирането на приходи и извършването на разходи",
+      publishedOn: "2026-01-05",
+      url: "https://example.invalid/interim-2026",
+      obsCategory: null,
+      adoptedByItemId: null,
+    },
+  ],
+};
+
 let payload: unknown = THIN_YEAR;
 
 beforeEach(() => {
@@ -79,14 +152,14 @@ beforeEach(() => {
   );
 });
 
-const renderIt = () =>
+const renderIt = (search = "?fy=2025") =>
   render(
     <QueryClientProvider
       client={
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <MemoryRouter initialEntries={["/budget/law?fy=2025"]}>
+      <MemoryRouter initialEntries={[`/budget/law${search}`]}>
         <BudgetLawScreen />
       </MemoryRouter>
     </QueryClientProvider>,
@@ -223,6 +296,176 @@ describe("BudgetLawScreen", () => {
     await screen.findByText(/Закон за държавния бюджет/);
     const body = document.body.textContent!;
     expect(body).not.toMatch(/без гласуване|не е гласуван|no recorded vote/i);
+  });
+
+  // ── T9.11 · the journey ───────────────────────────────────────────────────
+  it("renders the year as a chain, not newest-first", async () => {
+    // The whole point of the step. Sorted by publication date the execution
+    // report for June lands above the law it executes and the bridging law that
+    // governed the year until August sits below the budget act — a filing
+    // cabinet rather than a sequence.
+    payload = FULL_YEAR;
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    // Scoped to the document list. `li a` across the page also catches the
+    // breadcrumb, which would put „Управление" at the head of the chain and
+    // make the assertion about navigation rather than about ordering.
+    const list = [...document.querySelectorAll("ul")].find((ul) =>
+      (ul.textContent ?? "").includes("Закон за държавния бюджет"),
+    )!;
+    const titles = [...list.querySelectorAll("a")]
+      .map((a) => a.textContent ?? "")
+      .filter((x) => x.length > 0);
+    expect(titles).toEqual([
+      // The bridging law governed the year UNTIL the budget act passed, so it
+      // heads the chain — in this fixture by seven months.
+      "Закон за събирането на приходи и извършването на разходи",
+      "Закон за държавния бюджет на Република България за 2026 г.",
+      // The fund budgets pass as one package with the ЗДБРБ…
+      "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+      "Закон за бюджета на НЗОК за 2026 г.",
+      // …and the execution follows the laws it executes.
+      "Информация за изпълнението към юни 2026",
+    ]);
+  });
+
+  it("resolves a stage label for EVERY kind the corpus has", async () => {
+    // The key is built as `budget_doc_kind_${kind.replace(/-/g, "_")}`, and a
+    // miss renders the raw slug („execution-report") rather than failing. The
+    // sibling tile uses `replace("-", "_")` — first occurrence only — which is
+    // correct today only because every kind has exactly one hyphen.
+    for (const kind of [
+      "law",
+      "interim-law",
+      "fund-law",
+      "amendment",
+      "execution-report",
+      "audit-report",
+      "kfp-feed",
+    ]) {
+      const key = `budget_doc_kind_${kind.replace(/-/g, "_")}`;
+      expect(dict[key], `no label for ${kind}`).toBeTruthy();
+      expect(dict[key]).not.toBe(key);
+    }
+  });
+
+  it("names each row's stage", async () => {
+    // „Закон за изменение и допълнение на Закона за държавния бюджет" is an
+    // amendment that reads like a law, so without the eyebrow the chain's order
+    // is something the reader has to infer from the titles.
+    payload = FULL_YEAR;
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    const body = document.body.textContent!;
+    expect(body).toContain(dict.budget_doc_kind_law);
+    expect(body).toContain(dict.budget_doc_kind_fund_law);
+    expect(body).toContain(dict.budget_doc_kind_interim_law);
+    expect(body).toContain(dict.budget_doc_kind_execution_report);
+  });
+
+  it("says how far the year is reported, and that it is not over", async () => {
+    // The journey's middle stage. Without it the chain reads law → audit with
+    // the execution missing.
+    payload = FULL_YEAR;
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    const body = document.body.textContent!;
+    // The PERIOD leads — „reported through June" is the exact answer…
+    expect(body).toContain("Изпълнението е отчетено до 2026-06");
+    // …and the snapshot count rides in the not-closed clause, where it cannot
+    // be read as a year's worth.
+    expect(body).toContain("6 месечни снимки, годината не е приключила");
+  });
+
+  it("⚠️ never renders the snapshot count as coverage of a CLOSED year", async () => {
+    // FY2021, verbatim: `complete` with SIX snapshots, because the КФП feed is
+    // cumulative year-to-date and its December row is the whole year. 152's
+    // COMMENT ON COLUMN says outright that rendering this as coverage is false
+    // about a complete year — and the first cut did exactly that, printing
+    // „Отчетени 6 мес. по КФП" for a year that was fully reported. That is this
+    // page under-reporting the state, on the page whose subject is the gap
+    // between our coverage and the state's record.
+    payload = {
+      ...FULL_YEAR,
+      coverage: {
+        monthsAvailable: 6,
+        complete: true,
+        firstPeriod: "2021-06",
+        lastPeriod: "2021-12",
+        asOf: "2021-12-31",
+      },
+    };
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    const body = document.body.textContent!;
+    expect(body).toContain("Изпълнението е отчетено до 2021-12");
+    // No „6" anywhere in the coverage line, and no not-closed clause.
+    expect(body).not.toContain("6 месечни снимки");
+    expect(body).not.toContain("годината не е приключила");
+  });
+
+  it("does not render a coverage line with no period to name", async () => {
+    // `last_period` is nullable in 152. Ungated, the line renders
+    // „Изпълнението е отчетено до " and stops.
+    payload = {
+      ...FULL_YEAR,
+      coverage: { ...FULL_YEAR.coverage, lastPeriod: null },
+    };
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    expect(document.body.textContent).not.toContain(
+      "Изпълнението е отчетено до",
+    );
+  });
+
+  it("says nothing about coverage for a year the КФП feed does not reach", async () => {
+    // `budget_fiscal_year` starts at 2021 while the documents start at 2018, so
+    // a null coverage means „the execution feed has no such year" — NOT that
+    // nothing was executed. Rendering a zero there would say the second.
+    payload = { ...FULL_YEAR, coverage: null };
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    const body = document.body.textContent!;
+    expect(body).not.toContain("Изпълнението е отчетено");
+    expect(body).not.toContain("годината не е приключила");
+    expect(body).not.toMatch(/0 месечни снимки/);
+  });
+
+  it("scores the three-law package, and NOT for a year without fund laws", async () => {
+    // ⚠️ The guard that matters. Fund budgets are catalogued from 2026, so
+    // scoring FY2025 against the package reported „1 от 3 закона — още не са
+    // приети: ЗБДОО, ЗБНЗОК" for a year whose fund budgets were passed and
+    // simply not collected: a meter reading our own catalogue, captioned as the
+    // state's.
+    payload = FULL_YEAR;
+    const full = renderIt("?fy=2026");
+    await screen.findByText(/Закон за държавния бюджет/);
+    expect(document.body.textContent).toContain("3 от 3 закона");
+    full.unmount();
+
+    payload = THIN_YEAR;
+    renderIt();
+    await screen.findByText(/Закон за държавния бюджет/);
+    expect(document.body.textContent).not.toMatch(/от 3 закона/);
+  });
+
+  it("names WHICH laws are pending, in visible text", async () => {
+    // The amber branch, which today's corpus cannot reach — 2026 is the only
+    // fund-law year and its package is complete — so nothing else would catch a
+    // regression in it. „1 от 3 закона" alone says a package is short without
+    // saying which part; that half was reachable only by hovering a native
+    // `title`, i.e. not at all on touch or with a screen reader.
+    payload = {
+      ...FULL_YEAR,
+      rows: FULL_YEAR.rows.filter((r) => r.documentId !== "law-2026"),
+    };
+    renderIt("?fy=2026");
+    await screen.findByText(/Закон за бюджета на НЗОК/);
+    const body = document.body.textContent!;
+    expect(body).toContain("2 от 3 закона");
+    expect(body).toContain("ЗДБРБ");
+    // Visible text, not a title attribute nobody can reach.
+    expect(body).toContain("Още не са приети");
   });
 
   it("links each document to its source and opens it safely", async () => {

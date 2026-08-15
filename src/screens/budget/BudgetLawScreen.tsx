@@ -29,6 +29,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { OBS_BUDGET_DOCS, OBS_DOC_COUNT } from "@/lib/obsBudgetDocs";
 import { useBudgetLawDocuments } from "@/data/budget/useBudgetLawDocuments";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { orderJourney, packageProgress } from "./budgetJourney";
 
 export const BudgetLawScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -66,7 +67,12 @@ export const BudgetLawScreen: FC = () => {
   // ever fixed this page — `budget_document`, the hub ledger's document counts
   // and the OGP coverage score all read the same corpus and none of them
   // dedupe — so the invariant belongs upstream, where it now is.
-  const rows = documents?.rows ?? [];
+  // ORDERED AS A CHAIN, not newest-first (T9.11). An execution report for
+  // January is published months after the law it executes, so a date sort puts
+  // the reports above the law and the year reads backwards.
+  const rows = useMemo(() => orderJourney(documents?.rows ?? []), [documents]);
+  const pkg = useMemo(() => packageProgress(rows), [rows]);
+  const coverage = documents?.coverage ?? null;
   const title = t("budget_law_title");
 
   return (
@@ -143,9 +149,88 @@ export const BudgetLawScreen: FC = () => {
 
         {/* 2. THE YEAR'S OWN DOCUMENTS. */}
         <div>
-          <h2 className="mb-2 text-sm font-semibold">
-            {t("budget_law_year_h", { fy, defaultValue: "" })}
-          </h2>
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="text-sm font-semibold">
+              {t("budget_law_year_h", { fy, defaultValue: "" })}
+              {/* HOW MUCH OF THE THREE-LAW PACKAGE IS PASSED. A Bulgarian
+                  budget year is the ЗДБРБ plus the ЗБДОО and ЗБНЗОК fund
+                  budgets, and they need not arrive together — rendering the
+                  documents as one flat list makes a two-thirds year look
+                  complete. Null for every year before the fund-law catalogue
+                  begins, so the meter never reports our own collection gap as
+                  a law the state has not passed. */}
+              {pkg ? (
+                <span
+                  className={cn(
+                    "ml-2 rounded px-1.5 py-0.5 align-middle text-[10px] font-medium",
+                    pkg.have === pkg.total
+                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
+                      : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+                  )}
+                >
+                  {t("budget_journey_package", {
+                    have: pkg.have,
+                    total: pkg.total,
+                    defaultValue: "",
+                  })}
+                </span>
+              ) : null}
+              {/* WHICH laws are pending, as visible text. It was a native
+                  `title=` — invisible on touch, unannounced on a
+                  non-interactive span, unreachable by keyboard — and it is the
+                  substantive half: „1 от 3 закона" without it says a package is
+                  short and not which part of it. */}
+              {pkg && pkg.missing.length > 0 ? (
+                <span className="ml-2 align-middle text-[11px] font-normal text-muted-foreground">
+                  {t("budget_journey_package_missing", {
+                    laws: pkg.missing.join(", "),
+                    defaultValue: "",
+                  })}
+                </span>
+              ) : null}
+            </h2>
+            {/* THE MIDDLE STAGE OF THE JOURNEY. Without it the chain reads law
+                → audit with the execution missing, and nothing distinguishes a
+                year still being reported from one whose reports never came.
+
+                ⚠️ IT LEADS WITH `lastPeriod`, AND `monthsAvailable` IS NOT A
+                COVERAGE FIGURE. That column counts КФП observations CAPTURED;
+                152's `COMMENT ON COLUMN` adds „rendering this as coverage is
+                false about a complete year", and FY2021 is the live proof —
+                `complete` with SIX, because the feed is cumulative and its
+                December row is the whole year. „Отчетени 6 мес. по КФП" for 2021
+                is this page under-reporting the state, on the one page whose
+                subject is the difference between our coverage and the state's
+                record. `lastPeriod` answers the question exactly: 2021-12 means
+                reported through December.
+
+                The count survives only inside the not-complete branch, where the
+                year is openly unfinished and „6 monthly snapshots" cannot be
+                read as a year's worth — the same gate `BudgetScreen` uses. And
+                „not closed" is asserted from `complete` alone, a fact about the
+                calendar; „the report is missing" would be a claim about МФ this
+                corpus cannot make.
+
+                Gated on `lastPeriod`, which 152 declares nullable: without it
+                the line renders „Изпълнението е отчетено до " and stops. */}
+            {coverage?.lastPeriod ? (
+              <span className="text-[11px] text-muted-foreground">
+                {t("budget_law_coverage", {
+                  last: coverage.lastPeriod,
+                  defaultValue: "",
+                })}
+                {coverage.complete ? null : (
+                  <>
+                    {" · "}
+                    {t("budget_law_coverage_running", {
+                      months: coverage.monthsAvailable,
+                      defaultValue: "",
+                    })}
+                  </>
+                )}
+              </span>
+            ) : null}
+          </div>
           {stats?.yearsAvailable?.length ? (
             <div className="mb-2 flex flex-wrap items-center gap-1.5">
               {stats.yearsAvailable.map((y) => (
@@ -176,6 +261,15 @@ export const BudgetLawScreen: FC = () => {
             <ul className="divide-y rounded-xl border bg-card shadow-sm">
               {rows.map((r) => (
                 <li key={r.documentId} className="px-4 py-2.5">
+                  {/* THE STAGE, as an eyebrow. Without it the chain's order is
+                      information the reader has to infer from the titles — and
+                      „Закон за изменение и допълнение на Закона за държавния
+                      бюджет" is an amendment that reads like a law. */}
+                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                    {t(`budget_doc_kind_${r.kind.replace(/-/g, "_")}`, {
+                      defaultValue: r.kind,
+                    })}
+                  </div>
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                     {r.url ? (
                       <a

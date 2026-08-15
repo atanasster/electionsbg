@@ -104,6 +104,82 @@ test.skipIf(stateSkip)("every serving function answers", async () => {
 });
 
 test.skipIf(stateSkip)(
+  "budget_documents carries the year's OWN КФП coverage (T9.11)",
+  async () => {
+    // The journey's middle stage. It rides this call rather than a second route
+    // because the page already makes it — but that means a payload change here
+    // reaches production only through `apply_functions.ts`, with no loader and
+    // no row count to notice its absence.
+    const [open] = await allRows<{ r: Record<string, unknown> | null }>(
+      `SELECT budget_documents(y.fiscal_year)->'coverage' AS r
+         FROM budget_fiscal_year y WHERE y.complete = false
+        ORDER BY y.fiscal_year DESC LIMIT 1`,
+    );
+    assert.ok(open?.r, "an open year returned no coverage object");
+    const cov = open.r as Record<string, unknown>;
+    assert.equal(cov.complete, false);
+    assert.ok(
+      typeof cov.monthsAvailable === "number" && cov.monthsAvailable > 0,
+      `monthsAvailable was ${JSON.stringify(cov.monthsAvailable)}`,
+    );
+
+    // ⚠️ THE COUNT IS READ, NEVER DERIVED — and it is a count of КФП
+    // observations CAPTURED, which 152's COMMENT ON COLUMN says outright is
+    // false to render as coverage. FY2021 is `complete` with SIX, because the
+    // feed is cumulative year-to-date and its December row IS the whole year.
+    // Asserted against the table so the function cannot start computing it.
+    const rows = await allRows<{
+      fy: number;
+      months: number;
+      complete: boolean;
+      payload: number;
+    }>(
+      `SELECT y.fiscal_year AS fy, y.months_available AS months, y.complete,
+              (budget_documents(y.fiscal_year)->'coverage'->>'monthsAvailable')::int AS payload
+         FROM budget_fiscal_year y ORDER BY y.fiscal_year`,
+    );
+    assert.ok(rows.length > 0, "budget_fiscal_year is empty");
+    for (const r of rows) {
+      assert.equal(r.payload, r.months, `FY${r.fy} month count drifted`);
+    }
+    // …and the corpus really does contain the year that makes the rule
+    // non-trivial. `months < 12` alone is satisfied by the OPEN year too, where
+    // `12 − months` is an ordinary „how much is left" and nothing is at stake;
+    // only a CLOSED year with a partial feed can catch the misreading.
+    assert.ok(
+      rows.some((r) => r.complete && r.months < 12),
+      "no COMPLETE year with a partial feed — the read-not-derive rule is untested",
+    );
+
+    // A DOCUMENT YEAR THE FEED DOES NOT REACH RETURNS NULL, not a zero. The
+    // documents start at 2018 and `budget_fiscal_year` at 2021, so a zero here
+    // would say „nothing was executed in 2018" on a page whose subject is what
+    // was published.
+    const [early] = await allRows<{ fy: number; cov: unknown }>(
+      `SELECT d.fiscal_year AS fy, budget_documents(d.fiscal_year)->'coverage' AS cov
+         FROM budget_document d
+        WHERE d.fiscal_year IS NOT NULL
+          AND NOT EXISTS (SELECT 1 FROM budget_fiscal_year y
+                           WHERE y.fiscal_year = d.fiscal_year)
+        ORDER BY d.fiscal_year LIMIT 1`,
+    );
+    if (early) {
+      assert.equal(early.cov, null, `FY${early.fy} invented a coverage object`);
+    }
+
+    // Dates are serialized by POSTGRES (ISO-8601), not by node-postgres, whose
+    // PG-`date` conversion uses the server process's timezone and lands a day
+    // early under TZ=Europe/Sofia — migration 144's `funds_wire` is the worked
+    // example, and there the fix was to leave the type as text.
+    const asOf = cov.asOf;
+    assert.ok(
+      typeof asOf === "string" && /^\d{4}-\d{2}-\d{2}$/.test(asOf),
+      `asOf was ${JSON.stringify(asOf)}`,
+    );
+  },
+);
+
+test.skipIf(stateSkip)(
   "the basis control divides by the right denominator",
   async () => {
     // Applied ONCE, server-side, and each basis over its own denominator. A

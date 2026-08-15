@@ -25,12 +25,29 @@ export interface BudgetDocumentRow {
   adoptedByItemId: string | null;
 }
 
+/** The requested year's КФП reporting coverage — the journey's middle stage.
+ *  NULL for a year the feed does not reach: `budget_fiscal_year` starts at 2021
+ *  while the document corpus starts at 2018, so „no coverage" means the
+ *  execution feed has no such year, NOT that nothing was executed. */
+export interface BudgetDocumentCoverage {
+  monthsAvailable: number;
+  /** Whether the year has CLOSED. The one absence the page may assert — „the
+   *  year is still running" is a fact about the calendar, where „the report is
+   *  missing" would be a claim about МФ. */
+  complete: boolean;
+  firstPeriod: string | null;
+  lastPeriod: string | null;
+  asOf: string | null;
+}
+
 export interface BudgetDocuments {
   fiscalYear?: number | null;
   rows: BudgetDocumentRow[];
   /** Distinct non-null `obs_category` across EVERY year, not the requested
    *  one. Absent on the route's degraded sentinel. */
   obsCategoriesPresent?: string[] | null;
+  /** Absent on the degraded sentinel, and null for a pre-2021 year. */
+  coverage?: BudgetDocumentCoverage | null;
 }
 
 /** The route is `budget-law`, NOT `budget-documents` — it is named for the page
