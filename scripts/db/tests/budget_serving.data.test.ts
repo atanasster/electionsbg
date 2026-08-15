@@ -16,7 +16,12 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, end, withTx } from "../lib/pg";
+
+const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 /** Only the fields the T9.9 gate reads. `budget_admin_list` returns more; a
  *  narrow local view keeps this test honest about what it depends on. */
@@ -224,6 +229,61 @@ test.skipIf(stateSkip)(
     assert.ok(
       buffers < 6000,
       `budget_admin_list touched ${buffers} buffers (non-sargable live join was 17,331)`,
+    );
+  },
+);
+
+test.skipIf(stateSkip)(
+  "budget_admin_node.eik has not drifted from the artifact that stamps it",
+  async () => {
+    // ⚠️ THE FOURTH STALENESS TRIGGER, and the only one no loader covers.
+    // Migration 157's entire footprint joins `contracts` on this column, and the
+    // column is NOT derived in Postgres: `load_budget_pg.ts` copies it from the
+    // committed `data/budget/derived/ministry_procurement.json`, which
+    // `crossReferenceProcurement` writes offline during `npm run budget:ingest`
+    // by NAME-MATCHING each unit against the awarders index.
+    //
+    // So a procurement ingest that adds, renames or re-EIKs an awarder moves the
+    // right answer while this column stays put — and 157 then attributes
+    // contracts to the wrong unit, or drops them, with every row count
+    // reconciling. Nothing else can see that.
+    const raw = readFileSync(
+      resolve(REPO, "data/budget/derived/ministry_procurement.json"),
+      "utf8",
+    );
+    const artifact = JSON.parse(raw) as {
+      entries: Array<{ nodeId: string; eik: string | null }>;
+    };
+    const byNode = new Map(
+      artifact.entries.map((e) => [e.nodeId, e.eik ?? null]),
+    );
+    const rows = await allRows<{ node_id: string; eik: string | null }>(
+      "SELECT node_id, eik FROM budget_admin_node",
+    );
+    assert.ok(rows.length > 0, "budget_admin_node is empty");
+
+    const drift = rows
+      .filter((r) => (byNode.get(r.node_id) ?? null) !== (r.eik ?? null))
+      .map(
+        (r) =>
+          `${r.node_id}: artifact=${byNode.get(r.node_id) ?? "—"} db=${r.eik ?? "—"}`,
+      );
+    assert.deepEqual(
+      drift,
+      [],
+      `EIK drift — re-run \`npm run budget:ingest\` then \`db:load:budget:pg\`:\n${drift.join("\n")}`,
+    );
+
+    // Not vacuous: the artifact really does carry the EIKs, and they really are
+    // what 157 keys on.
+    const withEik = rows.filter((r) => r.eik).length;
+    assert.ok(withEik > 40, `only ${withEik} nodes carry an EIK`);
+    const [joined] = await allRows<{ n: string }>(
+      `SELECT count(DISTINCT node_id)::text n FROM budget_admin_procurement`,
+    );
+    assert.ok(
+      Number(joined.n) > 0 && Number(joined.n) <= withEik,
+      `${joined.n} nodes have a footprint but only ${withEik} carry an EIK`,
     );
   },
 );

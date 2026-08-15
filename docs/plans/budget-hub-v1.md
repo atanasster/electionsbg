@@ -1420,6 +1420,25 @@ Two things about it are easy to get backwards:
   `mp_contractor_count`). Skipping any of them leaves every ministry's footprint
   on the previous vintage at a 200.
 
+**A FOURTH TRIGGER, and it is not a loader.** Every row joins on
+`budget_admin_node.eik`, and that column is stamped from the COMMITTED
+`data/budget/derived/ministry_procurement.json` — the artifact T7 retired as a
+browser fetch, still load-bearing as an ingest input. It is written offline by
+`crossReferenceProcurement` during `npm run budget:ingest`, which NAME-MATCHES
+each budget unit against the awarders index. Postgres *could* express that match
+— `contracts.awarder_name` is populated on 409,200 rows — but nothing does, so
+the artifact is the only producer. A procurement ingest that adds, renames or
+re-EIKs an awarder therefore leaves the map stale, and this table then attributes
+contracts to the wrong unit — or omits them — with every row count reconciling.
+
+The repair is two steps, not one: `budget:ingest` moves the artifact and
+`db:load:budget:pg` moves the column. **And the ingest needs
+`data/procurement/awarders/`, which is gitignored** — run it without them and it
+matches nothing and writes `entries: []`, which would blank the cross-link
+entirely. `assertProcurementArtifactUsable` refuses that load, and
+`budget_serving.data.test.ts` fails on any drift between the artifact and the
+column.
+
 The MP-connected count is a **wider basis** than the `ministry_procurement.json`
 it replaces: that artifact counted only contractors whose TRUNCATED `topAwarders`
 list named this buyer, so it was a floor — 2 against 18 for Министерство на

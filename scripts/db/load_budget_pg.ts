@@ -457,6 +457,17 @@ const loadAdmin = (
   }
 
   const eikByNode = new Map<string, string | null>();
+  // ⚠️ THIS IS WHERE `budget_admin_node.eik` COMES FROM, and migration 157's
+  // whole procurement footprint joins `contracts` on that column — so this
+  // committed artifact is a load-bearing INPUT even though T7 retired it as a
+  // browser fetch. It is written offline by `crossReferenceProcurement` during
+  // `npm run budget:ingest`, which NAME-MATCHES each budget unit against the
+  // awarders index. Postgres COULD express that match — `contracts.awarder_name`
+  // is populated on 409,200 rows — but nothing does, so the artifact is the only
+  // producer. A procurement ingest that moves the awarder set therefore stales
+  // this map, and 157 then attributes contracts to the wrong unit with every row
+  // count reconciling. See 157's header for the full trigger list, and
+  // `assertProcurementArtifactUsable` for the empty-artifact case.
   const proc = readJson<MinistryProcurementFile>(
     "budget/derived/ministry_procurement.json",
   );
@@ -544,6 +555,45 @@ const loadAdmin = (
   }
 
   return { nodes: [...nodes.values()], facts, programs };
+};
+
+/**
+ * Refuse to load an EMPTY procurement artifact over a populated `eik` column.
+ *
+ * ⚠️ NEITHER EXISTING GUARD SEES THIS. `crossReferenceProcurement`'s own input,
+ * `data/procurement/awarders/`, is GITIGNORED — 0 tracked against 4,415 files on
+ * a machine that has run the pipeline — so on a fresh clone `npm run
+ * budget:ingest` finds no awarders, matches nothing and writes `entries: []`
+ * unguarded. The next load then stamps NULL over all 46 EIKs and migration 157
+ * rebuilds to ZERO rows, while `merge()`'s shrink floor and `mergeFromStage`'s
+ * parity check both pass: they compare NODE counts (54, unchanged), not EIKs.
+ * That is the class `merge()`'s own docblock warns about, one level down at the
+ * column.
+ *
+ * Refusing is right rather than defensive — the artifact is COMMITTED, so an
+ * empty one beside a populated table means the ingest ran without its input, not
+ * that the state genuinely has no procurement match. A FIRST load has nothing to
+ * protect, so the guard asks the table rather than assuming.
+ */
+const assertProcurementArtifactUsable = async (): Promise<void> => {
+  const proc = readJson<MinistryProcurementFile>(
+    "budget/derived/ministry_procurement.json",
+  );
+  const matched = (proc?.entries ?? []).filter((e) => e.eik).length;
+  if (matched > 0) return;
+  const prior = await allRows<{ n: string }>(
+    "SELECT count(*)::text n FROM budget_admin_node WHERE eik IS NOT NULL",
+  ).catch(() => [{ n: "0" }]);
+  const had = Number(prior[0]?.n ?? 0);
+  if (had === 0) return;
+  throw new Error(
+    `ministry_procurement.json matched no spending unit, but ${had} already ` +
+      "carry an EIK. Loading it would blank the procurement cross-link " +
+      "(migration 157) with every row count reconciling. That is what " +
+      "`npm run budget:ingest` writes when data/procurement/awarders/ is " +
+      "absent — it is gitignored, so a fresh clone has none. Restore the " +
+      "awarders index and re-run the ingest, or `git checkout` the artifact.",
+  );
 };
 
 const loadPersonnel = (): unknown[][] => {
@@ -731,6 +781,10 @@ export const loadBudgetPg = async (): Promise<{
   adminFacts: number | null;
   documents: number;
 }> => {
+  // BEFORE any DDL or COPY: this refuses rather than degrades, so it must fire
+  // while the corpus is still the previous good one.
+  await assertProcurementArtifactUsable();
+
   await exec(readFileSync(SCHEMA_KFP, "utf8"));
   await exec(readFileSync(SCHEMA_ADMIN, "utf8"));
   // 157 AFTER 153: the cross-link table keys on budget_admin_node. It creates

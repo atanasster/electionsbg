@@ -38,6 +38,46 @@
 -- with no `fy` — the page always passes one — so nothing on screen depends on
 -- it today.
 --
+-- ── WHERE THE EIK COMES FROM, WHICH IS NOT THIS FILE ──────────────────────
+--
+-- ⚠️ EVERY ROW HERE IS A JOIN ON `budget_admin_node.eik`, AND THAT COLUMN IS
+-- NOT DERIVED IN POSTGRES. It is stamped by `load_budget_pg.ts` from the
+-- COMMITTED artifact `data/budget/derived/ministry_procurement.json` — 46 of the
+-- 54 admin nodes carry one — which is itself written offline by
+-- `crossReferenceProcurement` (scripts/budget/cross_reference.ts) during
+-- `npm run budget:ingest`, by NAME-MATCHING each budget unit against the
+-- procurement awarders index.
+--
+-- So the artifact T7 retired as a browser FETCH is still load-bearing as an
+-- INGEST INPUT, and the T9.9 note that this table's MP count is „a wider basis
+-- than the ministry_procurement.json it replaces" is true of the COUNT and false
+-- of the match: the match is still that file's.
+--
+-- Postgres COULD express that match — `contracts.awarder_name` is populated on
+-- 409,200 rows — but nothing does, so the artifact is the only producer.
+--
+-- That gives this table a FOURTH staleness trigger the three loaders do not
+-- cover. The other three (a budget reload, a contracts reload, a TR reload) all
+-- rebuild rows from an EIK that is already correct. This one changes WHICH EIK a
+-- unit has, and it takes BOTH steps: `budget:ingest` moves the artifact,
+-- `db:load:budget:pg` moves the column.
+--
+--     a procurement re-ingest that adds, renames or re-EIKs an awarder
+--       → the name match is stale
+--       → a unit keeps its old EIK, or a newly-matchable unit keeps none
+--       → this table attributes contracts to the wrong unit, or omits them,
+--         with every row count reconciling.
+--
+-- Re-run `npm run budget:ingest` after a procurement ingest that moves the
+-- awarder set, then `db:load:budget:pg`.
+--
+-- ⚠️ THE INGEST NEEDS `data/procurement/awarders/`, WHICH IS GITIGNORED — 0
+-- tracked against 4,415 files on a machine that has run the pipeline. Run it
+-- without them and it matches nothing and writes `entries: []`, which would
+-- blank this whole table on the next load; `assertProcurementArtifactUsable`
+-- in `load_budget_pg.ts` refuses that, and `budget_serving.data.test.ts` fails
+-- on any drift between the artifact and the column.
+
 -- ── WHY A TABLE AND NOT A MATERIALIZED VIEW ───────────────────────────────
 --
 -- A matview resolves its query at CREATE time, so it could only be created on a
