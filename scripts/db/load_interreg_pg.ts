@@ -31,7 +31,7 @@ import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { PoolClient } from "pg";
-import { exec, withTx, allRows, end } from "./lib/pg";
+import { exec, withTx, allRows, vacuumAfterReload, end } from "./lib/pg";
 import { copyRows, pgTextArray } from "./lib/copy";
 import {
   createStageTable,
@@ -546,6 +546,41 @@ export const loadInterregPg = async (): Promise<{
       "interreg: funds_hub_stats_cache absent — run db:load:funds-fit:pg to apply migration 145.",
     );
   }
+
+  // ── Fill the visibility map the reload leaves short ──────────────────────────
+  //
+  // LAST, and outside every `withTx` above: VACUUM cannot run in a transaction block,
+  // and running it while this loader still held a snapshot open would make it mark
+  // nothing (see `vacuumAfterReload`, which reads the map back and warns rather than
+  // throwing when that happens).
+  //
+  // These three are STAGE-MERGED, so this is not the TRUNCATE shape `contracts` is the
+  // counter-example to — and yet the map still ends up short, which is the part worth
+  // knowing. The merge's anti-join DELETE and its UPDATEs leave dead tuples behind, and
+  // neither autovacuum threshold reaches them: the dead-tuple one is a 20% fraction that
+  // a few hundred rows out of twelve thousand never crosses, and the insert-threshold one
+  // fires mid-`db:refresh` where a concurrent step holds back the xmin horizon, so it
+  // marks nothing, resets `n_ins_since_vacuum`, and never returns. Being stage-merged
+  // buys a table nothing here; only a vacuum on this path does.
+  //
+  // Measured 2026-08-15, after an ordinary reload: `interreg_partners` at 130 of 474
+  // pages (27%), 651 dead tuples, and `last_vacuum`/`last_autovacuum` both NULL —
+  // `interreg_operations` happened to get autovacuumed and `interreg_partners` did not.
+  // That broke a committed gate rather than merely costing time: `funds_fit.data.test.ts`'s
+  // "the resolver stays cheap enough to serve live" failed at 6,251 buffers for one whole
+  // request against its 6,000 ceiling, of which the Interreg arm was 1,024; the same test
+  // passes after this vacuum with nothing else changed. Note the corpus SHRANK across that
+  // reload (12,141 → 12,015 partnerships), so the extra buffers were bloat and a stale map,
+  // not data growth — which is exactly why no row count reported it.
+  //
+  // `interreg_programmes` is one page, i.e. below the floor `visibilityMapShort` can ever
+  // report on, and is here for its ANALYZE and so a future growth in that table cannot
+  // silently land outside this call.
+  await vacuumAfterReload(
+    "interreg_operations",
+    "interreg_partners",
+    "interreg_programmes",
+  );
 
   return {
     programmes: INTERREG_PROGRAMMES.length,

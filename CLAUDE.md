@@ -2056,10 +2056,20 @@ insert-threshold autovacuum that fires afterwards runs mid-`db:refresh` where a 
 holds back the xmin horizon — it marks nothing, resets `n_ins_since_vacuum` to 0, and with
 `n_dead_tup` also 0 never revisits the table. The fix is `vacuumAfterReload()`
 (`scripts/db/lib/pg.ts`), called after the load's COMMIT — never inside `withTx`, since VACUUM
-cannot run in a transaction block. Nine tables across five loaders are wired to it, listed in
+cannot run in a transaction block. The wired tables are listed in
 `reload_visibility_map.data.test.ts` — which reads the loaders' own call sites and fails if any
 vacuumed table is missing from that list, so the two cannot drift. `shipTable()` vacuums its
 destination itself, so a new `TRUNCATE_SQL` entry is covered without touching its caller.
+
+**That gate checks ONE direction, and the other one is the hole this keeps falling through.**
+It asserts "every table a loader vacuums is listed here", so a loader that vacuums NOTHING
+contributes no names and is invisible to it — which is exactly how `db:load:interreg:pg` went
+unnoticed. Its file list is now derived from a glob over `scripts/db/load_*.ts` rather than
+hand-maintained (that alone surfaced two more unlisted call sites, `budget_peer_band` and
+`tr_name_fold_people`), but deriving it does not close the converse: asserting that needs an
+independent source of "this table is bulk-reloaded", and a whole-database sweep for short maps
+reports 22 tables today, mostly a few pages each where no index-only scan is worth planning. So
+when adding a loader, check the call by hand — nothing will fail if you forget it.
 
 **This is the rare defect that is invisible from every angle a reviewer normally checks**: row
 counts reconcile, the corpus is correct, the migration is untouched, and the plan is still
@@ -2067,6 +2077,22 @@ counts reconcile, the corpus is correct, the migration is untouched, and the pla
 so far were found by accident, and the first was initially read as a function-body regression in
 a file nobody had edited. `contracts` is the counter-example that locates the cause: it is
 stage-MERGEd rather than truncated, and its map survives a reload intact.
+
+⚠️ **Do NOT read that counter-example as "stage-merged tables are safe" — they are not, and
+`interreg_partners` is the proof.** All three Interreg tables are stage-merged, and the map
+still ends up short: the merge's anti-join DELETE and its UPDATEs leave dead tuples, and
+neither autovacuum threshold reaches them — the dead-tuple one is a 20% fraction a few hundred
+rows out of twelve thousand never crosses, and the insert-threshold one fires mid-`db:refresh`
+under a held-back xmin horizon, marks nothing, resets `n_ins_since_vacuum` and never returns.
+Measured 2026-08-15 after an ordinary `db:load:interreg:pg`: `interreg_partners` at **130 of
+474 pages (27%)**, 651 dead tuples, `last_vacuum` and `last_autovacuum` both NULL, while
+`interreg_operations` happened to get autovacuumed and so looked fine. That broke a committed
+gate rather than merely costing time — `funds_fit.data.test.ts`'s "the resolver stays cheap
+enough to serve live" failed at **6,251 buffers against its 6,000 ceiling** — and the corpus had
+SHRUNK across that reload (12,141 → 12,015 partnerships), so the extra buffers were bloat and a
+stale map rather than data growth, which is why no row count reported it. What `contracts`
+actually shows is that a big, continuously-autovacuumed table survives; size and traffic are
+doing that work, not the merge shape. Wire the call regardless of shape.
 
 **Cloud SQL carries the same exposure, and `tenders` is the one that costs something.** Migration
 113 exists to make the `/procurement/tenders` browser's count+sum and its two facet GROUP BYs
@@ -2083,7 +2109,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

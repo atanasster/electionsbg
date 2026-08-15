@@ -29,7 +29,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -93,23 +93,39 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "budget_muni_ipop_project", loader: "db:load:budget-muni:pg" },
   { table: "budget_muni_capital_project", loader: "db:load:budget-muni:pg" },
   { table: "budget_muni_execution", loader: "db:load:budget-muni:pg" },
+  // Stage-merged, and the map still went short — see the block comment at the
+  // vacuum call in load_interreg_pg.ts. Measured 2026-08-15: interreg_partners at
+  // 130/474 pages with both vacuum timestamps NULL, which failed funds_fit's live
+  // buffer ceiling (6,251 against 6,000) on a reload where the corpus SHRANK.
+  { table: "interreg_operations", loader: "db:load:interreg:pg" },
+  { table: "interreg_partners", loader: "db:load:interreg:pg" },
+  { table: "interreg_programmes", loader: "db:load:interreg:pg" },
+  // Both TRUNCATE + COPY in one transaction — the canonical shape. They were
+  // already vacuumed correctly and already carried the explanation at their call
+  // site; they are here because deriving LOADER_FILES is what first let this file
+  // SEE those call sites, and an unlisted vacuum is one nothing verifies took.
+  { table: "budget_peer_band", loader: "db:load:budget-hub:pg" },
+  { table: "tr_name_fold_people", loader: "db:load:tr-name-fold-people:pg" },
 ];
 
-// Every loader that vacuums, so the static check below can read their call
-// sites. This list is an ALLOWLIST, so a new loader is invisible to the check
-// until it is added here — which is a hole in the check itself, not in the
-// loader: `load_municipal_fiscal_pg.ts` had a RELOADED entry and no entry here,
-// so nothing was reading its call site.
-const LOADER_FILES = [
-  "load_pg.ts",
-  "load_tenders_pg.ts",
-  "load_annexes_pg.ts",
-  "load_nzok_activities_pg.ts",
-  "load_funds_pg.ts",
-  "load_municipal_fiscal_pg.ts",
-  "load_budget_pg.ts",
-  "load_budget_muni_pg.ts",
-];
+// Every loader, DERIVED rather than hand-listed, so the static check below reads
+// all of their call sites. It used to be an allowlist of eight filenames, which
+// made a loader invisible to the check until somebody added it — a hole in the
+// check itself, not in the loader. It bit twice: `load_municipal_fiscal_pg.ts`
+// had a RELOADED entry and no entry here, so nothing was reading its call site;
+// and `load_interreg_pg.ts` vacuumed nothing at all while being absent from both
+// lists, so there was no direction from which this file could see it.
+//
+// Deriving it closes only ONE of the two directions, and the remaining gap is
+// worth stating plainly: this still checks "every table a loader vacuums is
+// listed", so a loader that vacuums NOTHING contributes no names and stays
+// invisible. Asserting the converse needs an independent source of "this table
+// is bulk-reloaded" — a whole-database sweep for short maps reports 22 tables
+// today, most of them a few pages where no index-only scan is worth planning,
+// so it is not yet a gate that could be green.
+const LOADER_FILES = readdirSync(path.join(REPO, "db"))
+  .filter((f) => /^load_.*\.ts$/.test(f) && !f.endsWith(".test.ts"))
+  .sort();
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
