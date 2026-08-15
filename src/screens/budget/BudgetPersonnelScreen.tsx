@@ -23,6 +23,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
+import { formatEurCompact } from "@/lib/currency";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetPersonnel } from "@/data/budget/useBudgetPersonnel";
 
@@ -30,7 +31,11 @@ const num = (v: number | null): string =>
   v == null ? "—" : new Intl.NumberFormat("bg-BG").format(v);
 
 export const BudgetPersonnelScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const bg = i18n.language === "bg";
+  // ONE locale for money, like the hub. Omitted, /en renders „€279 млн."
+  // beside English labels — a defect this module has already shipped once.
+  const moneyLocale = bg ? "bg-BG" : "en-GB";
   const { personnel, isLoading } = useBudgetPersonnel();
 
   const points = useMemo(() => personnel?.points ?? [], [personnel]);
@@ -38,6 +43,27 @@ export const BudgetPersonnelScreen: FC = () => {
 
   /** Vacancy as a share of the ESTABLISHMENT — the one derived figure the
    *  source supports, because both terms come from the same table. */
+  const units = personnel?.units ?? [];
+  const cov = personnel?.unitsCoverage ?? null;
+  /** The coverage sentence, or NULL when it cannot be stated honestly. It is
+   *  built here rather than inline because the SHARE needs both halves: with
+   *  no §II figure there is no denominator, and a leaderboard captioned „7
+   *  ministries" without one reads as „the 7 that matter". */
+  const coverageLine =
+    cov && cov.unitsExpenditureEur != null && cov.stateExpenditureEur
+      ? t("budget_staff_units_coverage", {
+          units: cov.units,
+          fy: personnel?.unitsFiscalYear ?? "",
+          unitsEur: formatEurCompact(cov.unitsExpenditureEur, moneyLocale),
+          stateEur: formatEurCompact(cov.stateExpenditureEur, moneyLocale),
+          pct: (
+            (cov.unitsExpenditureEur / cov.stateExpenditureEur) *
+            100
+          ).toFixed(1),
+          defaultValue: "",
+        })
+      : null;
+
   const vacancyPct =
     latest?.positionsVacant != null &&
     latest?.positionsTotal != null &&
@@ -119,11 +145,93 @@ export const BudgetPersonnelScreen: FC = () => {
               </div>
             ) : null}
 
+            {/* T9.8 — WHERE those posts are. „145 623 щатни бройки" without
+                this is a number nobody can place: 74% of it is central and the
+                municipal slice is a PART of the territorial one, not a peer. */}
+            {latest?.positionsCentral != null ? (
+              <div>
+                <h2 className="mb-2 text-sm font-semibold">
+                  {t("budget_staff_split_h")}
+                </h2>
+                <ul className="divide-y rounded-xl border bg-card shadow-sm">
+                  {[
+                    {
+                      k: "budget_staff_central",
+                      v: latest.positionsCentral,
+                      indent: false,
+                    },
+                    {
+                      k: "budget_staff_territorial",
+                      v: latest.positionsTerritorial,
+                      indent: false,
+                    },
+                    {
+                      k: "budget_staff_municipal",
+                      v: latest.positionsMunicipal,
+                      indent: true,
+                    },
+                    {
+                      k: "budget_staff_municipal_own",
+                      v: latest.positionsMunicipalOwnRevenue,
+                      indent: true,
+                    },
+                  ]
+                    .filter((r) => r.v != null)
+                    .map((r) => (
+                      <li
+                        key={r.k}
+                        className={cn(
+                          "flex items-baseline justify-between gap-3 px-4 py-2 text-sm",
+                          // The subsets are INDENTED and muted, because a flat
+                          // list of four invites adding them up.
+                          r.indent && "pl-8 text-muted-foreground",
+                        )}
+                      >
+                        <span>{t(r.k)}</span>
+                        <span className="shrink-0 tabular-nums">
+                          {num(r.v)}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+                <p className="mt-1 text-[11px] text-muted-foreground/80">
+                  {t("budget_staff_split_note")}
+                </p>
+              </div>
+            ) : null}
+
             {vacancyPct != null && latest ? (
               <p className="text-sm">
                 {t("budget_staff_vacancy_rate", {
                   pct: vacancyPct.toFixed(1),
                   fy: latest.fiscalYear,
+                  defaultValue: "",
+                })}
+              </p>
+            ) : null}
+
+            {/* Two facts the Доклад publishes that a headcount alone hides:
+                how LONG the vacancies have been open, and how many separate
+                bodies the establishment is spread across. */}
+            {latest?.positionsVacantOverSixMonths != null &&
+            latest.positionsVacant != null ? (
+              <p className="text-sm">
+                {t("budget_staff_vacant_long", {
+                  n: num(latest.positionsVacantOverSixMonths),
+                  total: num(latest.positionsVacant),
+                  defaultValue: "",
+                })}
+              </p>
+            ) : null}
+            {/* `structuresTotal` is summed server-side so it is NULL when
+                either half is — 2017-2020 publish none, and „0 структури"
+                would be a claim about a state that has none. */}
+            {latest?.structuresTotal != null ? (
+              <p className="text-sm text-muted-foreground">
+                {t("budget_staff_structures", {
+                  total: num(latest.structuresTotal),
+                  central: num(latest.structuresCentral),
+                  territorial: num(latest.structuresTerritorial),
                   defaultValue: "",
                 })}
               </p>
@@ -203,6 +311,70 @@ export const BudgetPersonnelScreen: FC = () => {
               <p className="mt-1 text-[11px] text-muted-foreground/80">
                 {personnel?.headcountBasis ?? ""}
               </p>
+            </div>
+
+            {/* 4. THE PER-MINISTRY LEADERBOARD (T9.8) — a THIRD publisher, and
+                   the one most easily mistaken for the two above. It counts
+                   EXECUTED FTE inside one ministry from that ministry's own
+                   programme-budget report; the national series counts щатни
+                   бройки across the whole administration. They are never summed
+                   and never compared, which is why this sits below the НСИ
+                   block rather than beside the headline cards.
+
+                   THE COVERAGE LINE IS NOT OPTIONAL. Seven ministries out of
+                   ~48 first-level units is a fragment, and a leaderboard reads
+                   as a ranking of everything unless it says otherwise. */}
+            <div>
+              <h2 className="mb-1 text-sm font-semibold">
+                {t("budget_staff_units_h")}
+              </h2>
+              {units.length === 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  {t("budget_staff_units_empty")}
+                </p>
+              ) : (
+                <>
+                  {coverageLine ? (
+                    <p className="mb-2 max-w-3xl rounded-xl border border-amber-300 bg-amber-50 p-3 text-xs dark:border-amber-800 dark:bg-amber-950/30">
+                      {coverageLine}
+                    </p>
+                  ) : null}
+                  <ul className="divide-y rounded-xl border bg-card shadow-sm">
+                    {units.map((u) => (
+                      <li
+                        key={u.nodeId}
+                        className="flex items-baseline justify-between gap-3 px-4 py-2 text-sm"
+                      >
+                        <span className="min-w-0 flex-1 truncate">
+                          {(bg ? u.nameBg : u.nameEn) || u.nameBg || u.nodeId}
+                        </span>
+                        <span className="w-20 shrink-0 text-right tabular-nums text-muted-foreground">
+                          {num(u.headcount)}{" "}
+                          <span className="text-[10px]">
+                            {t("budget_staff_units_col_headcount")}
+                          </span>
+                        </span>
+                        <span className="w-24 shrink-0 text-right tabular-nums">
+                          {u.personnelEur == null
+                            ? "—"
+                            : formatEurCompact(u.personnelEur, moneyLocale)}
+                        </span>
+                        <span className="w-24 shrink-0 text-right tabular-nums text-muted-foreground">
+                          {u.avgCostPerFteEur == null
+                            ? "—"
+                            : `${formatEurCompact(u.avgCostPerFteEur, moneyLocale)}/${t("budget_staff_units_col_avg")}`}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {/* The LOCALISED basis, not the payload's. `unitBasis` comes
+                      from SQL and is Bulgarian-only, so /en was showing a
+                      Bulgarian caption under an English table. */}
+                  <p className="mt-1 text-[11px] text-muted-foreground/80">
+                    {t("budget_staff_units_basis")}
+                  </p>
+                </>
+              )}
             </div>
           </>
         )}

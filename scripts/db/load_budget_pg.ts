@@ -544,7 +544,9 @@ const loadAdmin = (
 
 const loadPersonnel = (): unknown[][] => {
   const p = readRequired<PersonnelFile>("budget/personnel.json");
-  return Object.entries(p.national).map(([year, d]) => {
+
+  // ── the NATIONAL grain: the annual Доклад ────────────────────────────────
+  const national = Object.entries(p.national).map(([year, d]) => {
     // NSI publishes nothing before 2021, and the shard renders that as an EMPTY
     // breakdown summed to 0 — four of the nine years on file. A stored 0 is a
     // claim ("98k in 2021, none in 2020"); NULL is the truth. This is the
@@ -554,16 +556,69 @@ const loadPersonnel = (): unknown[][] => {
     const nsiPublished =
       Object.keys(nsi?.central ?? {}).length > 0 ||
       Object.keys(nsi?.territorial ?? {}).length > 0;
+    const pos = d.positions;
+    // The Доклад publishes structure counts as a MAP of body-kind → count, and
+    // the page shows their sums (114 + 467 = 581 in FY2025). Summed here rather
+    // than in SQL because a missing map must stay NULL: `sum({})` is 0, and „0
+    // administrative structures" is a claim about a state with none.
+    const sumCounts = (
+      m: Record<string, number> | undefined,
+    ): number | null => {
+      const vals = Object.values(m ?? {});
+      return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
+    };
     return [
       Number(year),
       null, // the national row
-      d.positions?.total ?? null,
-      d.positions?.filled ?? null,
-      d.positions?.vacant ?? null,
+      pos?.total ?? null,
+      pos?.filled ?? null,
+      pos?.vacant ?? null,
       nsiPublished ? (nsi?.total ?? null) : null,
-      null,
+      null, // payroll_eur — the Доклад publishes none at this grain
+      pos?.central ?? null,
+      pos?.territorial ?? null,
+      pos?.municipal ?? null,
+      pos?.municipalOwnRevenue ?? null,
+      pos?.vacantOverSixMonths ?? null,
+      sumCounts(d.structureCounts?.central),
+      sumCounts(d.structureCounts?.territorial),
+      null, // headcount_executed — unit grain only
+      null, // avg_cost_per_fte_eur — unit grain only
     ];
   });
+
+  // ── the UNIT grain: each ministry's own programme-budget report ───────────
+  //
+  // A DIFFERENT PUBLISHER from the Доклад above, which is why these land on
+  // their own rows rather than widening the national ones: the Доклад counts
+  // щатни бройки across the whole administration, a programme-budget report
+  // counts executed FTE inside one ministry. Summing the units does not give
+  // the national figure and is not meant to.
+  //
+  // `adminId` is `budget_admin_node.node_id` — verified against all nine — so
+  // names are joined at serve time rather than duplicated here.
+  const units = Object.values(p.byMinistry).flatMap((list) =>
+    list.map((m) => [
+      m.fiscalYear,
+      m.adminId,
+      null, // positions_* are the Доклад's grain, not this one
+      null,
+      null,
+      null,
+      m.totalPersonnel?.executed?.amountEur ?? null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      m.totalHeadcount?.executed ?? null,
+      m.avgAnnualCostPerFte?.amountEur ?? null,
+    ]),
+  );
+
+  return [...national, ...units];
 };
 
 const loadCofog = (): unknown[][] => {
@@ -720,10 +775,15 @@ export const loadBudgetPg = async (): Promise<{
   const docs = loadDocuments();
   await merge(DOCUMENT, docs);
 
-  // Personnel is a plain replace: ~9 national rows, no serving path yet, and the
+  // Personnel is a plain replace: ~9 national rows plus ~14 unit rows, and the
   // annual Доклад can retract a year, which a merge would silently keep.
+  //
+  // ⚠️ THE DELETE IS UNSCOPED NOW. It used to be `WHERE node_id IS NULL`, which
+  // was right while the loader only wrote national rows — but T9.8 added the
+  // per-ministry grain, and a delete that skips those would let a ministry
+  // dropped from the source live on for ever, rendered beside current ones.
   await withTx(async (c) => {
-    await c.query("DELETE FROM budget_personnel WHERE node_id IS NULL");
+    await c.query("DELETE FROM budget_personnel");
     await copyRows(
       c,
       "budget_personnel",
@@ -735,6 +795,15 @@ export const loadBudgetPg = async (): Promise<{
         "positions_vacant",
         "nsi_headcount",
         "payroll_eur",
+        "positions_central",
+        "positions_territorial",
+        "positions_municipal",
+        "positions_municipal_own_rev",
+        "positions_vacant_over_6m",
+        "structures_central",
+        "structures_territorial",
+        "headcount_executed",
+        "avg_cost_per_fte_eur",
       ],
       loadPersonnel(),
     );

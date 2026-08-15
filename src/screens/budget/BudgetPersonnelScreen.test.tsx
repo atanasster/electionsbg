@@ -14,19 +14,22 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import bgDict from "@/locales/bg/translation.json";
+import enDict from "@/locales/en/translation.json";
 import { BudgetPersonnelScreen } from "./BudgetPersonnelScreen";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
-    i18n: { language: "bg" },
+    i18n: { language: lang },
     t: (k: string, o?: Record<string, unknown>) => {
-      const raw = (bgDict as Record<string, string>)[k] ?? k;
+      const raw =
+        ((lang === "bg" ? bgDict : enDict) as Record<string, string>)[k] ?? k;
       return o ? raw.replace(/{{(\w+)}}/g, (_, n) => String(o[n] ?? "")) : raw;
     },
   }),
 }));
 
 const dict = bgDict as Record<string, string>;
+let lang = "bg";
 const sp = (v: string | null) => (v ?? "").replace(/\u00a0/g, " ");
 
 /** Verbatim from `budget_personnel_series()`. */
@@ -50,13 +53,51 @@ const PAYLOAD = {
       positionsVacant: 12348,
       nsiHeadcount: 98446,
       payrollEur: null,
+      // T9.8 — verbatim from budget_personnel_series() on the live corpus.
+      positionsCentral: 108387,
+      positionsTerritorial: 37236,
+      positionsMunicipal: 28663,
+      positionsMunicipalOwnRevenue: 5839,
+      positionsVacantOverSixMonths: 5729,
+      structuresCentral: 114,
+      structuresTerritorial: 467,
+      structuresTotal: 581,
     },
   ],
+  unitBasis:
+    "Отчет за изпълнението на програмния бюджет на съответното министерство — изпълнени щатни бройки",
+  unitsFiscalYear: 2024,
+  unitYears: [2022, 2023, 2024],
+  units: [
+    {
+      nodeId: "admin-ministerstvo-na-zdraveopazvaneto",
+      nameBg: "Министерство на здравеопазването",
+      nameEn: "Ministry of Health",
+      headcount: 12842,
+      personnelEur: 278788670,
+      avgCostPerFteEur: 21709,
+    },
+    {
+      nodeId: "admin-ministerstvo-na-turizma",
+      nameBg: "Министерство на туризма",
+      nameEn: "Ministry of Tourism",
+      headcount: 105,
+      personnelEur: 2819565,
+      avgCostPerFteEur: 26853,
+    },
+  ],
+  unitsCoverage: {
+    units: 7,
+    personnelEur: 659108655,
+    unitsExpenditureEur: 2267820590,
+    stateExpenditureEur: 24775124952,
+  },
 };
 
 let payload: unknown = PAYLOAD;
 
 beforeEach(() => {
+  lang = "bg";
   payload = PAYLOAD;
   vi.stubGlobal(
     "fetch",
@@ -120,12 +161,26 @@ describe("BudgetPersonnelScreen", () => {
     expect(note.textContent).toMatch(/несъпоставими/);
   });
 
-  it("shows no money at all, because the source publishes none", async () => {
+  it("puts no money on the NATIONAL figures, because the Доклад publishes none", async () => {
+    // `payrollEur` is NULL on every national row and „€0" would assert the
+    // administration costs nothing.
+    //
+    // Since T9.8 the page does carry money — on the per-ministry rows, which
+    // come from a different publisher that DOES report personnel spend. So
+    // this asserts the boundary rather than the absence: every € on the page
+    // is inside the unit list.
     renderIt();
-    await screen.findByText(dict.budget_staff_nsi_h);
-    // `payrollEur` is NULL on every row. „€0" would assert the administration
-    // costs nothing.
-    expect(document.body.textContent).not.toContain("€");
+    const unitsHeading = await screen.findByText(dict.budget_staff_units_h);
+    // Everything ABOVE the ministry heading is the national grain, and none of
+    // it may carry a €. Below it, three things legitimately do: the rows, the
+    // coverage sentence and the footer that names their source.
+    const all = sp(document.body.textContent);
+    const cut = all.indexOf(dict.budget_staff_units_h);
+    expect(cut, "the ministry heading is not on the page").toBeGreaterThan(0);
+    expect(all.slice(0, cut)).not.toContain("€");
+    // …and the boundary is not vacuous: money really is below it.
+    expect(all.slice(cut)).toContain("€");
+    expect(unitsHeading).toBeTruthy();
   });
 
   it("uses the LATEST year for the headline, not the first", async () => {
@@ -154,5 +209,123 @@ describe("BudgetPersonnelScreen", () => {
     );
     expect(screen.queryByText(dict.budget_staff_total)).toBeNull();
     expect(screen.queryByText(/Незаетите са/)).toBeNull();
+  });
+
+  // ── T9.8 · the detail the loader used to drop ─────────────────────────────
+  it("shows where the posts are, with the subsets marked as subsets", async () => {
+    renderIt();
+    await screen.findByText(dict.budget_staff_split_h);
+    const body = sp(document.body.textContent);
+    expect(body).toContain("108 387");
+    expect(body).toContain("37 236");
+    // …and the note that stops a reader adding the four together. `municipal`
+    // is INSIDE territorial: 108 387 + 37 236 + 28 663 = 174 286, which is
+    // 28 663 more than the establishment.
+    expect(body).toContain("не трети дял");
+    expect(body).not.toContain("174 286");
+  });
+
+  it("says how long the vacancies have been open", async () => {
+    renderIt();
+    await screen.findByText(dict.budget_staff_split_h);
+    const body = sp(document.body.textContent);
+    // 5 729 of 12 348 — a SUBSET, phrased as one.
+    // bg-BG groups from FIVE digits, so 5729 renders ungrouped while 12 348
+    // does not — the same rule every 4-digit figure on the site follows.
+    expect(body).toMatch(/5729 от 12 348/);
+  });
+
+  it("labels the structure count as bodies, never as people", async () => {
+    renderIt();
+    await screen.findByText(dict.budget_staff_split_h);
+    const body = sp(document.body.textContent);
+    expect(body).toContain("581 административни структури");
+    expect(body).toContain("114");
+    expect(body).toContain("467");
+  });
+
+  it("withholds the structure line when the year publishes none", async () => {
+    // 2017-2020 publish no structure counts. `structuresTotal` is summed
+    // server-side so it is NULL rather than 0 — „0 административни структури"
+    // would be a claim about a state that has none.
+    payload = {
+      ...PAYLOAD,
+      points: PAYLOAD.points.map((p) => ({
+        ...p,
+        structuresCentral: null,
+        structuresTerritorial: null,
+        structuresTotal: null,
+      })),
+    };
+    renderIt();
+    await screen.findByText(dict.budget_staff_split_h);
+    expect(sp(document.body.textContent)).not.toContain(
+      "административни структури",
+    );
+  });
+
+  it("ranks the ministries and states how small a slice they are", async () => {
+    renderIt();
+    await screen.findByText(dict.budget_staff_units_h);
+    const body = sp(document.body.textContent);
+    expect(body).toContain("Министерство на здравеопазването");
+    // The coverage sentence is the point: 7 ministries, €2,3 млрд. of
+    // €24,8 млрд. — 9.2%. A leaderboard without it reads as a ranking of
+    // everything.
+    expect(body).toContain("9.2%");
+    expect(body).toContain("Само министерствата");
+  });
+
+  it("never presents the unit figures on the national basis", async () => {
+    renderIt();
+    await screen.findByText(dict.budget_staff_units_h);
+    const body = sp(document.body.textContent);
+    // The unit list must carry ITS OWN basis line — the third publisher on
+    // this page, and the one most easily read as the establishment.
+    // The LOCALISED basis, not the payload's — `unitBasis` comes from SQL and
+    // is Bulgarian-only, so asserting that string would pass on /en while the
+    // page showed a Bulgarian caption under an English table.
+    expect(body).toContain(dict.budget_staff_units_basis);
+    // And the two must never be summed: 145 623 + 12 842 = 158 465.
+    expect(body).not.toContain("158 465");
+  });
+
+  it("says so when no report has been parsed for the year", async () => {
+    payload = { ...PAYLOAD, units: [], unitsCoverage: null };
+    renderIt();
+    await screen.findByText(dict.budget_staff_units_h);
+    const body = sp(document.body.textContent);
+    expect(body).toContain(dict.budget_staff_units_empty);
+    // …and NOT a coverage sentence over an empty list.
+    expect(body).not.toContain("Само министерствата");
+  });
+
+  it("marks the subset rows as subsets, visually as well as in words", async () => {
+    // The note says „not a third share"; the LAYOUT has to agree, or a reader
+    // skimming four equal rows adds them and overshoots by 28 663. Asserted on
+    // the class because that is the only place the distinction exists — the
+    // text of the two subset rows is otherwise a peer of the two above them.
+    renderIt();
+    await screen.findByText(dict.budget_staff_split_h);
+    const row = (label: string) =>
+      [...document.querySelectorAll("li")].find((li) =>
+        (li.textContent ?? "").includes(label),
+      );
+    const parent = row(dict.budget_staff_territorial);
+    const child = row(dict.budget_staff_municipal);
+    expect(parent && child).toBeTruthy();
+    expect(child!.className).toMatch(/pl-8/);
+    expect(parent!.className).not.toMatch(/pl-8/);
+  });
+
+  it("formats the ministry money in the reader's locale", async () => {
+    // The hub already shipped this defect once: money formatted bg-BG on /en,
+    // so „€278,8 млн." appeared beside English labels.
+    lang = "en";
+    renderIt();
+    await screen.findByText(enDict.budget_staff_units_h);
+    const body = sp(document.body.textContent);
+    expect(body).toContain("€278.8M");
+    expect(body).not.toContain("млн.");
   });
 });

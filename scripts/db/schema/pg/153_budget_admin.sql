@@ -169,7 +169,20 @@ CREATE TABLE IF NOT EXISTS budget_personnel (
   positions_filled   int,
   positions_vacant   int,
   nsi_headcount      int,
-  payroll_eur        double precision
+  payroll_eur        double precision,
+  -- T9.8 — the detail the Доклад publishes and the loader was dropping.
+  -- NATIONAL grain (node_id IS NULL):
+  positions_central              int,
+  positions_territorial          int,
+  positions_municipal            int,
+  positions_municipal_own_rev    int,
+  positions_vacant_over_6m       int,
+  structures_central             int,
+  structures_territorial         int,
+  -- UNIT grain (node_id IS NOT NULL), from each ministry's own programme-budget
+  -- report rather than from the Доклад:
+  headcount_executed             int,
+  avg_cost_per_fte_eur           double precision
 );
 
 COMMENT ON COLUMN budget_personnel.positions_total IS
@@ -303,6 +316,44 @@ ALTER TABLE budget_document
   ADD COLUMN IF NOT EXISTS url                text,
   ADD COLUMN IF NOT EXISTS obs_category       text,
   ADD COLUMN IF NOT EXISTS adopted_by_item_id bigint;
+
+-- T9.8. `CREATE TABLE IF NOT EXISTS` is a no-op on a warm database, so the
+-- columns above reach a fresh clone and nothing else. Every column is written
+-- twice in this file on purpose; tr_search_shape.test.ts documents the same
+-- rule for 003.
+ALTER TABLE budget_personnel
+  ADD COLUMN IF NOT EXISTS positions_central           int,
+  ADD COLUMN IF NOT EXISTS positions_territorial       int,
+  ADD COLUMN IF NOT EXISTS positions_municipal         int,
+  ADD COLUMN IF NOT EXISTS positions_municipal_own_rev int,
+  ADD COLUMN IF NOT EXISTS positions_vacant_over_6m    int,
+  ADD COLUMN IF NOT EXISTS structures_central          int,
+  ADD COLUMN IF NOT EXISTS structures_territorial      int,
+  ADD COLUMN IF NOT EXISTS headcount_executed          int,
+  ADD COLUMN IF NOT EXISTS avg_cost_per_fte_eur        double precision;
+
+-- COMMENTS BELOW THE ALTER, never above it. `exec()` sends this file as ONE
+-- transaction, so a COMMENT on a column that does not exist yet aborts the
+-- whole migration on every warm database — measured on this very file in T1.
+COMMENT ON COLUMN budget_personnel.positions_central IS
+  'Щатни бройки in CENTRAL administration. central + territorial = total; `municipal` is '
+  'a SUBSET of territorial, not a third peer, so the three never sum to the total.';
+COMMENT ON COLUMN budget_personnel.positions_municipal_own_rev IS
+  'The slice of municipal positions funded from the municipality own revenue rather than '
+  'from the state transfer. A SUBSET of positions_municipal.';
+COMMENT ON COLUMN budget_personnel.positions_vacant_over_6m IS
+  'Vacancies open longer than six months — a SUBSET of positions_vacant, never a peer of '
+  'it. 5 729 of 12 348 in FY2025.';
+COMMENT ON COLUMN budget_personnel.structures_central IS
+  'COUNT OF ADMINISTRATIVE BODIES, not of people. 114 central + 467 territorial = 581 in '
+  'FY2025. Rendered beside headcounts, an unlabelled 581 reads as a headcount.';
+COMMENT ON COLUMN budget_personnel.headcount_executed IS
+  'UNIT grain only (node_id IS NOT NULL): executed FTE from that ministry own '
+  'programme-budget report — a DIFFERENT publisher from the Доклад the national row comes '
+  'from. Never summed with, or compared against, positions_total.';
+COMMENT ON COLUMN budget_personnel.avg_cost_per_fte_eur IS
+  'The SOURCE report own average annual cost per FTE, not payroll_eur / headcount_executed. '
+  'They agree to the euro today; storing the published figure keeps one producer.';
 
 DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'budget_admin_fact_completeness') THEN

@@ -29,11 +29,35 @@ const FIT_MIN_QUERY = 3;
 // list had a typo („VidIN") and a missing code (RAZ), which is the argument for the gate rather
 // than for care.
 const OBLAST_CODES = new Set([
-  "BGS", "BLG", "DOB", "GAB", "HKV", "JAM", "KNL", "KRZ", "LOV", "MON",
-  "PAZ", "PDV", "PER", "PVN", "RAZ", "RSE", "SFO", "SHU", "SLS", "SLV",
-  "SML", "SOFIA_CITY", "SZR", "TGV", "VAR", "VID", "VRC", "VTR",
+  "BGS",
+  "BLG",
+  "DOB",
+  "GAB",
+  "HKV",
+  "JAM",
+  "KNL",
+  "KRZ",
+  "LOV",
+  "MON",
+  "PAZ",
+  "PDV",
+  "PER",
+  "PVN",
+  "RAZ",
+  "RSE",
+  "SFO",
+  "SHU",
+  "SLS",
+  "SLV",
+  "SML",
+  "SOFIA_CITY",
+  "SZR",
+  "TGV",
+  "VAR",
+  "VID",
+  "VRC",
+  "VTR",
 ]);
-
 
 const clampInt = (v, def, lo, hi) => {
   // trunc so a fractional query param (?limit=12.5) becomes a valid int rather
@@ -184,7 +208,6 @@ const missingMigrationEmpty = (e) =>
 // price-verdict returns `{r:[]}` and the tile computes NaN%).
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
-
 
 // SHLIOKAVITSA — the second needle. Returns the folded query REWRITTEN into the spellings a
 // Bulgarian actually types (6umen, 4erven, sofiq), or null when the query has no rewrite.
@@ -398,7 +421,10 @@ const budgetRoutes = () => ({
     // ministry spent nothing" instead of "no such view".
     const dim = s(q, "dimension") || "admin";
     if (!["admin", "functional"].includes(dim))
-      return { status: 400, body: { error: "dimension must be admin|functional" } };
+      return {
+        status: 400,
+        body: { error: "dimension must be admin|functional" },
+      };
     const rows = await dbRows(
       "SELECT budget_explorer($1::int, $2::text, $3::text, $4::text) AS r",
       [fy, dim, s(q, "parent") || null, budgetBasis(q)],
@@ -442,7 +468,11 @@ const budgetRoutes = () => ({
       // The sentinel carries NULL coverage, not 0/0. A degraded payload reading
       // "0 of 0 units reported" is a claim about the corpus; null is the truth,
       // and the page renders "not loaded" from it.
-      budgetMiss("variance", { rows: [], coveredUnits: null, totalUnits: null }),
+      budgetMiss("variance", {
+        rows: [],
+        coveredUnits: null,
+        totalUnits: null,
+      }),
     );
     return { body: rows[0]?.r ?? { rows: [] } };
   },
@@ -452,10 +482,14 @@ const budgetRoutes = () => ({
     ]).catch(budgetMiss("law", { rows: [], obsCategoriesPresent: null }));
     return { body: rows[0]?.r ?? { rows: [] } };
   },
-  "budget-personnel": async (dbRows) => {
-    const rows = await dbRows("SELECT budget_personnel_series() AS r").catch(
-      budgetMiss("personnel", { points: [] }),
-    );
+  "budget-personnel": async (dbRows, q) => {
+    // `fy` selects which year the per-ministry breakdown is for. NULL means the
+    // newest year that HAS one — which is not the newest year of the national
+    // series: the Доклад runs to 2025 while the programme-budget reports reach
+    // 2024, so defaulting to the national latest would show an empty list.
+    const rows = await dbRows("SELECT budget_personnel_series($1::int) AS r", [
+      budgetFy(q),
+    ]).catch(budgetMiss("personnel", { points: [] }));
     return { body: rows[0]?.r ?? { points: [] } };
   },
   "budget-municipal": async (dbRows, q) => {
@@ -1313,10 +1347,12 @@ const DB_ROUTES = {
     // `.catch(() => [null])` swallowed 57014 (the pool's own timeout) and 42501 (a permanent
     // missing GRANT), so the route would render a resolver with no declared basis instead of
     // failing once and loudly.
-    const [basis] = await dbRows(`SELECT * FROM funds_fit_basis()`).catch((e) => {
-      if (FIT_DEGRADE.includes(e?.code)) return [null];
-      throw e;
-    });
+    const [basis] = await dbRows(`SELECT * FROM funds_fit_basis()`).catch(
+      (e) => {
+        if (FIT_DEGRADE.includes(e?.code)) return [null];
+        throw e;
+      },
+    );
     const basisBody = basis
       ? {
           isunProjects: basis.isun_projects,
@@ -1450,35 +1486,35 @@ const DB_ROUTES = {
 
     const [calls, upcoming, indicative, consultations, crawl, totalRows] =
       await Promise.all([
-      group("open", "call"),
-      group("upcoming", "call"),
-      group("indicative", "call"),
-      group("consultation", "consultation"),
-      dbRows(
-        `SELECT source, crawled_at AS "crawledAt", rows_seen AS "rowsSeen", ok, note
+        group("open", "call"),
+        group("upcoming", "call"),
+        group("indicative", "call"),
+        group("consultation", "consultation"),
+        dbRows(
+          `SELECT source, crawled_at AS "crawledAt", rows_seen AS "rowsSeen", ok, note
          FROM open_calls_crawl ORDER BY source`,
-      ),
-      totalsQuery,
-    ]).catch((e) => {
-      // 42883 FIRST, and it is the one that matters: the four group queries call
-      // open_calls_list(), a FUNCTION, so a database without migration 142 raises
-      // 42883 undefined_function — never 42P01. Only the crawl-stamp query reads a table
-      // directly, and with the pool at max 4 it has not even been dispatched when the first
-      // 42883 returns. Omitting 42883 therefore made this whole branch UNREACHABLE in exactly
-      // the case it exists for (first cloud deploy, loader not yet run). The repo's own
-      // missingMigrationEmpty pairs the two codes for this reason.
-      if (["42883", "42P01", "55000", "55P03"].includes(e?.code)) {
-        logMissOnce(
-          "oc:not-built",
-          "open_calls is absent, empty or locked — serving an empty page. Run db:load:open-calls:pg (and :cloud on prod).",
-        );
-        // One empty array per destructured position — four groups, the crawl stamps and the
-        // totals row. A short array would leave `totalRows` undefined and throw on `[0]`,
-        // turning the degrade path into the 500 it exists to avoid.
-        return [[], [], [], [], [], []];
-      }
-      throw e;
-    });
+        ),
+        totalsQuery,
+      ]).catch((e) => {
+        // 42883 FIRST, and it is the one that matters: the four group queries call
+        // open_calls_list(), a FUNCTION, so a database without migration 142 raises
+        // 42883 undefined_function — never 42P01. Only the crawl-stamp query reads a table
+        // directly, and with the pool at max 4 it has not even been dispatched when the first
+        // 42883 returns. Omitting 42883 therefore made this whole branch UNREACHABLE in exactly
+        // the case it exists for (first cloud deploy, loader not yet run). The repo's own
+        // missingMigrationEmpty pairs the two codes for this reason.
+        if (["42883", "42P01", "55000", "55P03"].includes(e?.code)) {
+          logMissOnce(
+            "oc:not-built",
+            "open_calls is absent, empty or locked — serving an empty page. Run db:load:open-calls:pg (and :cloud on prod).",
+          );
+          // One empty array per destructured position — four groups, the crawl stamps and the
+          // totals row. A short array would leave `totalRows` undefined and throw on `[0]`,
+          // turning the degrade path into the 500 it exists to avoid.
+          return [[], [], [], [], [], []];
+        }
+        throw e;
+      });
 
     const tot = totalRows[0] ?? {};
     return {
@@ -1845,7 +1881,8 @@ const DB_ROUTES = {
       throw e;
     }
     // Not one of ours: refuse rather than sign it. This is the open-redirect gate.
-    if (!known.length) return { status: 404, body: { error: "unknown document" } };
+    if (!known.length)
+      return { status: 404, body: { error: "unknown document" } };
 
     const cached = SIGNED_URL_CACHE.get(raw);
     if (cached && cached.until > Date.now()) return { redirect: cached.url };
@@ -2916,7 +2953,9 @@ const DB_ROUTES = {
       Promise.allSettled(groupQueries(term)),
       shlyoAlt(dbRows, term),
     ]);
-    const groups = settled.map((r) => (r.status === "fulfilled" ? r.value : []));
+    const groups = settled.map((r) =>
+      r.status === "fulfilled" ? r.value : [],
+    );
     if (alt) {
       // Same six groups, same order, so the merge below can pair them by index. Each group
       // keeps every row it already had; the rewrite only extends the tail.
@@ -3509,7 +3548,7 @@ const DB_ROUTES = {
   // One judicial body's page (/court/:bodyCode). Covers all 283 bodies — the
   // ~97 prosecution/investigation ones return load: null, which the page NAMES
   // rather than rendering an empty chart.
-  "court": async (dbRows, q) => {
+  court: async (dbRows, q) => {
     const code = s(q, "code");
     if (!code) return { status: 400, body: { error: "missing code" } };
     const rows = await dbRows("SELECT judicial_body_detail($1) AS r", [
@@ -3842,9 +3881,10 @@ const DB_ROUTES = {
     // clampInt, not orNull: a raw string bound to an ::int arg raises 22P02 and
     // the catch below rethrows it as a 500. `?year=abc`, `?year=2024.5` and a
     // duplicated `?year=` (which stringifies to "2024,2025") all take that path.
-    const year = q.year == null || s(q, "year") === ""
-      ? null
-      : clampInt(q.year, 0, 2000, 2100) || null;
+    const year =
+      q.year == null || s(q, "year") === ""
+        ? null
+        : clampInt(q.year, 0, 2000, 2100) || null;
     const rows = await dbRows(
       "SELECT municipal_fiscal_by_obshtina($1, $2::int) AS r",
       [obshtina, year],
@@ -3870,9 +3910,10 @@ const DB_ROUTES = {
   // separately — a suppressed column must be legible as unknown rather than as
   // a collapse to zero.
   "municipal-fiscal-national": async (dbRows, q) => {
-    const year = q.year == null || s(q, "year") === ""
-      ? null
-      : clampInt(q.year, 0, 2000, 2100) || null;
+    const year =
+      q.year == null || s(q, "year") === ""
+        ? null
+        : clampInt(q.year, 0, 2000, 2100) || null;
     // An out-of-range quarter must 400, not serve a 200 whose met/below/unknown
     // are all 0 — that is the composed claim („no município meets the чл. 130а
     // threshold") that migration 149 splits those three counts precisely to
@@ -3930,9 +3971,10 @@ const DB_ROUTES = {
     // `Number(...) || 300` sent ?limit=0 to 300 rather than to the floor of 1,
     // and ?limit=12.5 straight to a 22P02.
     const limit = clampInt(q.limit, 300, 1, 1000);
-    const year = q.year == null || s(q, "year") === ""
-      ? null
-      : clampInt(q.year, 0, 2000, 2100) || null;
+    const year =
+      q.year == null || s(q, "year") === ""
+        ? null
+        : clampInt(q.year, 0, 2000, 2100) || null;
     const rows = await dbRows(
       "SELECT * FROM municipal_fiscal_ranking($1::int, $2::int)",
       [year, limit],
@@ -4300,13 +4342,16 @@ const DB_ROUTES = {
   // Includes the superseded re-votes, unlike every aggregate: an item put to the floor
   // twice IS a fact about the day, and this route is the day's record rather than a
   // statistic over it. `superseded_by` is returned so the page can say so.
-  "session": async (dbRows, q) => {
+  session: async (dbRows, q) => {
     const date = s(q, "date");
     // Shape AND validity. The regex alone admits 2026-13-45, which Postgres rejects with
     // 22007 — a 500 on a malformed query string rather than an empty day.
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return { body: null };
     const parsed = new Date(`${date}T00:00:00Z`);
-    if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) {
+    if (
+      Number.isNaN(parsed.getTime()) ||
+      parsed.toISOString().slice(0, 10) !== date
+    ) {
       return { body: null };
     }
     const rows = await dbRows(
@@ -4347,7 +4392,8 @@ const DB_ROUTES = {
     // negative and for junk, so `?item=0` served item 1's per-MP votes under someone else's
     // heading.
     const raw = Number(s(q, "item"));
-    if (!Number.isInteger(raw) || raw < 1 || raw > 100000000) return { body: [] };
+    if (!Number.isInteger(raw) || raw < 1 || raw > 100000000)
+      return { body: [] };
     const itemId = raw;
     const rows = await dbRows(
       `SELECT c.mp_id, c.vote, s.name, p.short AS party
@@ -4476,8 +4522,13 @@ const DB_ROUTES = {
     ).catch(tableRows("vote_item", "db:load:rollcall:pg"));
     const anchor = rows[0]?.anchor ?? null;
     const strip = (r) => ({
-      date: r.date, item: r.item_no, slug: r.slug, title: r.title,
-      topic: r.topic, contestScore: r.contest, outcome: r.outcome,
+      date: r.date,
+      item: r.item_no,
+      slug: r.slug,
+      title: r.title,
+      topic: r.topic,
+      contestScore: r.contest,
+      outcome: r.outcome,
       tally: { yes: r.yes, no: r.no, abstain: r.abstain },
     });
     return {
@@ -5200,6 +5251,100 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
+  // Declared wealth folded to one row per parliamentary group → the AssetsByGroup chart on
+  // /mp-assets (the assets twin of AttendanceByGroup). Reads the same matview slice the table
+  // beneath it pages through (mp_assets_rankings_table, ns bucket + the optional region/party
+  // mp-id set), so the bars and the rows reconcile.
+  //
+  // IT REFUSES TO ATTRIBUTE RATHER THAN DEGRADE, and that is the whole design. The matview's
+  // party column is mp_profile.current_party_group_short — the group the MP sits in TODAY, the
+  // only group parliament.bg's roster carries. In the current parliament's bucket that is the
+  // right label for every row (measured: 240/240 grouped at ns 52). In ANY OTHER bucket it is
+  // either absent (1,882 of the 2,122 'all' rows) or, worse, present and WRONG — 88 of the
+  // 51st's 90 rows carry a group, because those MPs were re-elected, so a 51st-parliament
+  // chart would file their wealth under the party they joined afterwards. Coverage cannot tell
+  // those two apart, so the gate is identity: `applicable` is true only for the roster's own
+  // current_ns, and the groups array is EMPTY otherwise — a consumer cannot render a
+  // misattributed chart by ignoring a flag.
+  //
+  // mp_seat (134) does carry a per-ns party and is deliberately NOT joined here: its mp_id is
+  // the roll-call CSV's id, which agrees with the roster's only for the current parliament
+  // (ns 51: 90 of 309 seats match on name). A per-ns party split is a corpus change, not a
+  // route change.
+  //
+  // Money is summed over the MP's LATEST filing, the same figure the table's row shows;
+  // `declared` is the count that actually carries one, so a group's median has a denominator
+  // the caption can state.
+  "mp-assets-by-party": async (dbRows, q) => {
+    const ns = s(q, "ns");
+    const empty = { ns, applicable: false, groups: [], ungrouped: null };
+    if (!ns) return { body: empty };
+    const raw = s(q, "mpIds");
+    // null = unscoped (the whole ns); [] = a scope was asked for and is empty → zero groups.
+    const mpIds = raw
+      ? raw
+          .split(",")
+          .map((x) => parseInt(x, 10))
+          .filter(Number.isFinite)
+      : null;
+    if (mpIds && mpIds.length === 0) return { body: empty };
+    const rows = await dbRows(
+      `WITH scope AS (
+         SELECT party_group_short AS party, net_worth_eur,
+                total_assets_eur, total_debts_eur
+         FROM mp_assets_rankings_table
+         WHERE ns = $1 AND ($2::int[] IS NULL OR mp_id = ANY($2))
+       ),
+       app AS (
+         -- current_ns is the display label ("52-ро Народно събрание"); the matview's bucket
+         -- is the bare folder code, so compare on the leading digits.
+         SELECT EXISTS (
+           SELECT 1 FROM mp_roster_meta
+           WHERE substring(current_ns from '^[0-9]+') = $1
+         ) AS ok
+       ),
+       g AS (
+         SELECT party,
+                count(*)::int              AS mps,
+                count(net_worth_eur)::int  AS declared,
+                round(COALESCE(sum(net_worth_eur), 0))    AS total_net,
+                round(COALESCE(sum(total_assets_eur), 0)) AS total_assets,
+                round(COALESCE(sum(total_debts_eur), 0))  AS total_debts,
+                -- Median, not the mean, is what the chart's per-MP mode shows: one MP at
+                -- €10.07m is 46% of his group's total here, so a mean describes him rather
+                -- than the group. Both ship; the caption names which is which.
+                round(percentile_cont(0.5) WITHIN GROUP (ORDER BY net_worth_eur)) AS median_net,
+                round(avg(net_worth_eur))  AS mean_net
+         FROM scope WHERE party IS NOT NULL GROUP BY party
+       ),
+       u AS (
+         SELECT count(*)::int AS mps, count(net_worth_eur)::int AS declared,
+                round(COALESCE(sum(net_worth_eur), 0)) AS total_net
+         FROM scope WHERE party IS NULL
+       )
+       SELECT jsonb_build_object(
+         'ns', $1::text,
+         'applicable', (SELECT ok FROM app),
+         'groups', CASE WHEN (SELECT ok FROM app) THEN (
+             SELECT COALESCE(jsonb_agg(jsonb_build_object(
+               'party', party,
+               'mps', mps,
+               'declared', declared,
+               'totalNetEur', total_net,
+               'totalAssetsEur', total_assets,
+               'totalDebtsEur', total_debts,
+               'medianNetEur', median_net,
+               'meanNetEur', mean_net
+             ) ORDER BY total_net DESC, party), '[]'::jsonb) FROM g)
+           ELSE '[]'::jsonb END,
+         'ungrouped', (SELECT jsonb_build_object(
+             'mps', mps, 'declared', declared, 'totalNetEur', total_net) FROM u)
+       ) AS r`,
+      [ns, mpIds],
+    ).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) || !r ? empty : r };
   },
   // "Top car makes" — distinct MPs per make within one parliament's car slice (mp_cars_table,
   // ns bucket), optionally restricted to a region/party mp-id set → CarMakesTile /

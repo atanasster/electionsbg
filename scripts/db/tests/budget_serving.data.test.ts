@@ -279,7 +279,21 @@ test.skipIf(skip)(
         WHERE ns.nspname = 'public' AND p.proname LIKE 'budget\\_%'`,
     );
     assert.ok(bodies.length > 0, "no budget_* functions found");
+    // ONE deliberate exception, named rather than pattern-matched. T5.6 added
+    // `budget_muni_commitments_national()` to put the LIABILITY figure on the
+    // /budget hub — as its own line, beside the state deficit and explicitly
+    // never added to it. It is the one function whose job is to read that
+    // corpus, and it was tripping this gate from the day it shipped: the suite
+    // went red at T5.6 and stayed red, because the steps after it ran the
+    // budget SCREEN tests and this file's siblings but never this file.
+    const ALLOWED = new Set(["budget_muni_commitments_national"]);
+    assert.ok(
+      bodies.some((b) => ALLOWED.has(b.proname)),
+      "the allowlisted function is gone — drop it from ALLOWED rather than " +
+        "leaving an entry that exempts nothing",
+    );
     for (const b of bodies) {
+      if (ALLOWED.has(b.proname)) continue;
       assert.ok(
         !/municipal_fiscal/i.test(b.def),
         `${b.proname} reads municipal_fiscal — that corpus is what municipalities OWE ` +

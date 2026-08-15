@@ -445,13 +445,32 @@ $$;
 -- Доклад itself calls them несъпоставими. They differ by ~35 000 on every recent
 -- year. Subtracting them yields nothing — it is not „unfilled posts", which is
 -- `positions_vacant`, a number the source publishes directly.
-CREATE OR REPLACE FUNCTION budget_personnel_series()
+-- ⚠️ DROP THE ZERO-ARG FORM FIRST. T9.8 gave this function a parameter, and
+-- `CREATE OR REPLACE` cannot change an argument list — it creates a SECOND
+-- overload beside the old one. Every warm database (Cloud SQL, CI, any other
+-- machine) would then answer `budget_personnel_series()` with
+-- „42725 function … is not unique", which the route degrades to an empty page
+-- at a 200. Reproduced in a rolled-back transaction; invisible on the machine
+-- that wrote the change, because its old copy had already been dropped by hand.
+--
+-- Same rule as migration 144's `funds_wire`, and the same reason: a signature
+-- change is a DROP, never a REPLACE.
+DROP FUNCTION IF EXISTS budget_personnel_series();
+
+CREATE OR REPLACE FUNCTION budget_personnel_series(
+  p_fy int DEFAULT NULL
+)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT jsonb_build_object(
     -- The BASIS of each series, in the payload, so a consumer cannot present
     -- one as the other.
     'positionsBasis', 'Щатни бройки по Доклада за състоянието на администрацията',
     'headcountBasis', 'НСИ, наети лица (списъчен брой) към декември — отделна справка в същия доклад',
+    -- T9.8. A THIRD basis, and the one most easily mistaken for the other two:
+    -- the unit rows come from each ministry's own programme-budget report, a
+    -- different publisher counting executed FTE inside one body. They do not
+    -- sum to the national figure and are never compared against it.
+    'unitBasis', 'Отчет за изпълнението на програмния бюджет на съответното министерство — изпълнени щатни бройки',
     'points', coalesce((
       SELECT jsonb_agg(to_jsonb(r) ORDER BY r."fiscalYear")
         FROM (SELECT fiscal_year AS "fiscalYear",
@@ -459,11 +478,90 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                      positions_filled AS "positionsFilled",
                      positions_vacant AS "positionsVacant",
                      nsi_headcount    AS "nsiHeadcount",
-                     payroll_eur      AS "payrollEur"
+                     payroll_eur      AS "payrollEur",
+                     positions_central           AS "positionsCentral",
+                     positions_territorial       AS "positionsTerritorial",
+                     positions_municipal         AS "positionsMunicipal",
+                     positions_municipal_own_rev AS "positionsMunicipalOwnRevenue",
+                     positions_vacant_over_6m    AS "positionsVacantOverSixMonths",
+                     structures_central          AS "structuresCentral",
+                     structures_territorial      AS "structuresTerritorial",
+                     -- Summed HERE rather than in the consumer, because the two
+                     -- parts can be NULL independently (2017-2020 publish
+                     -- neither) and `a + b` is NULL if either is — which is the
+                     -- honest answer. A consumer doing `(a ?? 0) + (b ?? 0)`
+                     -- would print „0 административни структури".
+                     structures_central + structures_territorial AS "structuresTotal"
                 FROM budget_personnel
-               -- National only. `node_id` is NULL on every row today; a
-               -- per-body arm would double every national figure if folded in.
-               WHERE node_id IS NULL) r), '[]'::jsonb));
+               -- National only. The unit rows below are a different publisher
+               -- and a different grain; folded in here they would double every
+               -- national figure.
+               WHERE node_id IS NULL) r), '[]'::jsonb),
+    -- The per-ministry breakdown for ONE year. Ordered by spend, which is what
+    -- „Топ министерства по разходи за персонал" ranks on.
+    'unitsFiscalYear', (
+      SELECT coalesce(p_fy, max(fiscal_year))
+        FROM budget_personnel WHERE node_id IS NOT NULL),
+    'units', coalesce((
+      SELECT jsonb_agg(to_jsonb(u) ORDER BY u."personnelEur" DESC NULLS LAST)
+        FROM (SELECT p.node_id AS "nodeId",
+                     n.name_bg AS "nameBg",
+                     n.name_en AS "nameEn",
+                     p.headcount_executed   AS "headcount",
+                     p.payroll_eur          AS "personnelEur",
+                     p.avg_cost_per_fte_eur AS "avgCostPerFteEur"
+                FROM budget_personnel p
+                LEFT JOIN budget_admin_node n ON n.node_id = p.node_id
+               WHERE p.node_id IS NOT NULL
+                 AND p.fiscal_year = (SELECT coalesce(p_fy, max(fiscal_year))
+                                        FROM budget_personnel
+                                       WHERE node_id IS NOT NULL)) u),
+      '[]'::jsonb),
+    'unitYears', coalesce((
+      SELECT jsonb_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
+        FROM budget_personnel WHERE node_id IS NOT NULL), '[]'::jsonb),
+    -- ⚠️ COVERAGE, and it is the caption the units cannot be shown without:
+    -- only ministries whose programme-budget report has been ingested are here.
+    --
+    -- THE DENOMINATOR IS §II OF THE STATE BUDGET, not the executed expenditure
+    -- recorded in `budget_admin_fact`. That looked like the natural comparison
+    -- and is nearly meaningless: only 8 of 48 first-level units carry an
+    -- executed figure for FY2024 (the plan's §2.3 ingest gap), so „55% of
+    -- executed expenditure" is 7 units measured against 8. §II is a complete,
+    -- published figure — €24.78bn on FY2024 — so €2.27bn against it is a share
+    -- a reader can check.
+    'unitsCoverage', (
+      SELECT jsonb_build_object(
+               'units', (SELECT count(*) FROM budget_personnel
+                          WHERE node_id IS NOT NULL AND fiscal_year = uy.fy),
+               -- What the LIST sums to: the personnel cost of the covered set.
+               'personnelEur', (SELECT sum(payroll_eur) FROM budget_personnel
+                                 WHERE node_id IS NOT NULL AND fiscal_year = uy.fy),
+               -- What those ministries spend IN TOTAL — the numerator of the
+               -- coverage share…
+               'unitsExpenditureEur', (
+                 -- `dimension` is constant today and 153's own header says it
+                 -- will not stay so. Without it this sums every dimension's
+                 -- copy of the same money the day a second one lands.
+                 SELECT sum(f.executed_eur)
+                   FROM budget_admin_fact f
+                  WHERE f.fiscal_year = uy.fy
+                    AND f.kind = 'expenditure'
+                    AND f.dimension = 'admin'
+                    AND f.node_id IN (SELECT node_id FROM budget_personnel
+                                       WHERE node_id IS NOT NULL
+                                         AND fiscal_year = uy.fy)),
+               -- …over the whole state budget's expenditure section.
+               'stateExpenditureEur', (
+                 SELECT amount_eur FROM budget_fiscal_year_figure
+                  WHERE fiscal_year = uy.fy
+                    AND series = 'expenditure'
+                    AND basis = 'actual'))
+        -- The year comes from a derived table rather than a CROSS JOIN: with
+        -- one, `uy.fy` sits inside an aggregate context and Postgres rejects
+        -- the whole function with „subquery uses ungrouped column".
+        FROM (SELECT coalesce(p_fy, max(fiscal_year)) AS fy
+                FROM budget_personnel WHERE node_id IS NOT NULL) uy));
 $$;
 
 -- ── 9. The legislative path ───────────────────────────────────────────────
@@ -727,7 +825,7 @@ DO $$ BEGIN
     GRANT EXECUTE ON FUNCTION budget_cofog_list(int, text)                  TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_variance(int, int)                     TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_documents(int)                         TO app_readonly;
-    GRANT EXECUTE ON FUNCTION budget_personnel_series()                     TO app_readonly;
+    GRANT EXECUTE ON FUNCTION budget_personnel_series(int)                  TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_list(int, text, int)              TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_ipop(text, int)                   TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_capital(int)                      TO app_readonly;

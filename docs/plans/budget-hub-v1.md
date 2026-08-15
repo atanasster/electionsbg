@@ -1284,6 +1284,34 @@ Order: **T9.4, T9.5, T9.12 first** (three small UI fixes that put context back o
 reader lands on), then **T9.2, T9.3, T9.6, T9.7** (the charts, all UI-only), then **T9.8 and
 T9.9** (the two that need 153/155 columns and a loader pass), then T9.10 and T9.11.
 
+### T9.8 — the cloud deploy order, which is NOT the usual one
+
+`budget_personnel_series()` gained a parameter, and that makes this the one T9
+step with a deploy ordering that can break a working page:
+
+```bash
+# 1. the schema + the rows (153's nine new columns, and the loader that fills them)
+npm run db:load:budget:pg:cloud
+# 2. the serving function — 155 is applied by db:load:budget-muni:pg, NOT by the
+#    loader above, so the two halves ship through DIFFERENT commands
+npm run db:load:budget-muni:pg:cloud
+# 3. only now the route, which calls the one-argument form
+npm run deploy:db
+```
+
+**Deploying the function before the columns** is `42703` inside the function
+body. **Deploying the route before the function** is `42883`, which
+`BUDGET_DEGRADE` catches — so `/budget/personnel` serves an EMPTY page at a
+200, losing the 2017-2025 series that works today, not merely the new detail.
+
+**155 carries a `DROP FUNCTION IF EXISTS budget_personnel_series();` above the
+CREATE, and it is load-bearing.** `CREATE OR REPLACE` cannot change an argument
+list — it adds a SECOND overload — so a warm database would keep both and every
+`budget_personnel_series()` call would raise `42725 function … is not unique`.
+Reproduced in a rolled-back transaction. It is invisible on the machine that
+writes the change, whose old copy has already been dropped by hand; the same
+rule cost migration 144 its `funds_wire`.
+
 ### Parallel track, NOT a tier — the execution-report parser
 
 §2.3: 8 of 48 spending units carry an executed figure in the best year, and none at all in six of
