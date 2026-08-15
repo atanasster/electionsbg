@@ -283,7 +283,11 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "an exit filing represents the year it covers, not the annual lodged after it",
   async () => {
-    const SLUG = "luchiya-aleksandrova-dobreva-674c5b";
+    // Re-pointed 2026-08-15: a person re-resolve moved this declarant from -674c5b to
+    // -3eaee8. The pinned shape is unchanged and verified — Vacate covering 2025 (filed
+    // 2025-02-18) beside the fiscal-2024 annual (filed 2025-06-13). The slug suffix is a
+    // resolve artifact, so expect to re-point again rather than to treat it as a finding.
+    const SLUG = "luchiya-aleksandrova-dobreva-3eaee8";
     const filings = await allRows<{
       declaration_type: string;
       period_year: number;
