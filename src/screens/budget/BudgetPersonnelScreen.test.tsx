@@ -185,17 +185,22 @@ describe("BudgetPersonnelScreen", () => {
 
   it("uses the LATEST year for the headline, not the first", async () => {
     renderIt();
-    const card = (await screen.findByText(dict.budget_staff_total)).closest(
-      "div",
-    )!;
+    // `<p>`, not any element: since T9.7 the chart carries a visually-hidden
+    // table whose column headers reuse these same labels, so an unscoped
+    // `findByText` matches the headline card AND the `<th>`. That table is the
+    // accessibility tree the `<ul>` it replaced used to provide, so the fix is
+    // to name the card's own element rather than to drop the labels.
+    const card = (
+      await screen.findByText(dict.budget_staff_total, { selector: "p" })
+    ).closest("div")!;
     // Asserted on the CARD. Against the whole body this passed either way: the
     // trend list below renders EVERY year's total, so „145 623" is present even
     // when the headline shows 2024's.
     expect(sp(card.textContent)).toContain("145 623");
     expect(sp(card.textContent)).not.toContain("145 802");
-    const filled = (await screen.findByText(dict.budget_staff_filled)).closest(
-      "div",
-    )!;
+    const filled = (
+      await screen.findByText(dict.budget_staff_filled, { selector: "p" })
+    ).closest("div")!;
     expect(sp(filled.textContent)).toContain("133 275");
     const line = await screen.findByText(/Незаетите са/);
     expect(line.textContent).toContain("2025");

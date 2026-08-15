@@ -6206,7 +6206,6 @@
   "budget_staff_empty": "No establishment data.",
   "budget_staff_source": "Source: the annual report on the state of the administration (Council of Ministers). That report publishes no payroll — the amounts in the ranking above come from the ministries' own programme-budget reports and are on a different basis.",
   "budget_staff_see_all": "The establishment over time",
-  "budget_staff_axis_note": "The bars do not start at zero — the establishment moves within a narrow range, and otherwise every year looks identical.",
   "budget_inv_title": "The state investment programme",
   "budget_inv_description": "The projects the budget act appropriates capital funds for — by type and by province.",
   "budget_inv_intro": "Each budget act comes with a named list of the projects capital funds are set aside for: roads, schools, water, hospitals. This is that list, summarised by type and by province.",
@@ -6383,5 +6382,7 @@
   "budget_staff_units_col_avg": "avg/yr",
   "budget_staff_units_basis": "A different source from the figures above: each ministry's own programme-budget report, executed posts — not the establishment posts from the Доклад. The two are neither summed nor compared.",
   "budget_staff_units_coverage": "Only ministries whose report has been parsed: {{units}} for {{fy}}. Together they spend {{unitsEur}} of the state budget's {{stateEur}} — {{pct}}%.",
-  "budget_staff_units_empty": "No programme-budget report has been parsed for this year."
+  "budget_staff_units_empty": "No programme-budget report has been parsed for this year.",
+  "budget_staff_chart_vacant_pct": "vacant",
+  "budget_staff_chart_legend": "The bars are filled posts, the solid line the approved total, the dashed line the vacancy rate (right-hand scale). The left scale does not start at zero: the establishment moves in a narrow band and every year would otherwise look identical."
 }

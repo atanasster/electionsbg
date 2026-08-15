@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
 import { formatEurCompact } from "@/lib/currency";
+import { BudgetPersonnelChart } from "./BudgetPersonnelChart";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetPersonnel } from "@/data/budget/useBudgetPersonnel";
 
@@ -77,16 +78,6 @@ export const BudgetPersonnelScreen: FC = () => {
   // `BudgetPersonnelTile` fixed exactly this the same way. The floor is stated
   // beneath the chart, because a non-zero baseline exaggerates change and a
   // reader must be told the axis does not start at zero.
-  const { peak, floor } = useMemo(() => {
-    const vals = points.map((p) => p.positionsTotal ?? 0).filter((v) => v > 0);
-    if (!vals.length) return { peak: 1, floor: 0 };
-    const hi = Math.max(...vals);
-    const lo = Math.min(...vals);
-    // 5% of the range below the minimum, so the smallest year is visible
-    // rather than a zero-width sliver.
-    const pad = Math.max((hi - lo) * 0.25, hi * 0.01);
-    return { peak: hi, floor: Math.max(0, lo - pad) };
-  }, [points]);
 
   const title = t("budget_staff_title");
 
@@ -242,43 +233,15 @@ export const BudgetPersonnelScreen: FC = () => {
               <h2 className="mb-2 text-sm font-semibold">
                 {t("budget_staff_trend_h")}
               </h2>
-              <ul className="space-y-1 rounded-xl border bg-card p-4 shadow-sm">
-                {points.map((p) => (
-                  <li
-                    key={p.fiscalYear}
-                    className="flex items-center gap-3 text-sm"
-                  >
-                    <span className="w-12 shrink-0 tabular-nums text-muted-foreground">
-                      {p.fiscalYear}
-                    </span>
-                    <span
-                      className="h-2 flex-1 rounded bg-primary/15"
-                      aria-hidden
-                    >
-                      <span
-                        className="block h-2 rounded bg-primary"
-                        style={{
-                          width: `${Math.min(
-                            100,
-                            Math.max(
-                              0,
-                              (((p.positionsTotal ?? 0) - floor) /
-                                Math.max(1, peak - floor)) *
-                                100,
-                            ),
-                          )}%`,
-                        }}
-                      />
-                    </span>
-                    <span className="w-24 shrink-0 text-right tabular-nums">
-                      {num(p.positionsTotal)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {/* T9.7 — an AXED chart, not the div-bars this replaced and not
+                  the „sparkline" the plan names: three series on two scales,
+                  every tick labelled. The bars carried no vacancy rate at all,
+                  which is the one series in this corpus that actually moves. */}
+              <div className="rounded-xl border bg-card p-4 shadow-sm">
+                <BudgetPersonnelChart points={points} />
+              </div>
               <p className="mt-1 text-[11px] text-muted-foreground/80">
                 {personnel?.positionsBasis ?? ""}
-                {floor > 0 ? ` · ${t("budget_staff_axis_note")}` : ""}
               </p>
             </div>
 
