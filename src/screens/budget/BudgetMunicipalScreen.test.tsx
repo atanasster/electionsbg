@@ -139,6 +139,59 @@ describe("BudgetMunicipalScreen", () => {
     expect(row.textContent).not.toContain("—");
   });
 
+  // ── §11 · the declared-basis clauses ──────────────────────────────────────
+  it("defaults to the TOTAL basis, never to per-resident", async () => {
+    // ⚠️ THE `08bd7a6185` CLASS. A per-resident default ranks 265 municipalities
+    // by a figure whose denominator most readers never see, and the smallest
+    // places win — which reads as privilege and is mostly arithmetic. The page
+    // says exactly that in `budget_muni_capita_note`, and it only says it
+    // because the reader ASKED for the basis.
+    renderIt();
+    await screen.findByText(/Столична община/);
+    const body = nb(document.body.textContent);
+    // The per-resident explainer is the tell: it renders only on that basis.
+    expect(body).not.toContain("Подредено на жител");
+    // …and the largest município leads, which per-resident inverts.
+    const first = document.querySelectorAll("ul.divide-y > li")[0];
+    expect(first.textContent).toContain("Столична община");
+  });
+
+  it("renders no per-resident figure with no census vintage to name", async () => {
+    // The caption is gated on `censusYear`, which is recovered from the rows —
+    // so a payload without one previously rendered the DIVIDED figures with the
+    // denominator's vintage nowhere on the page. That is precisely the
+    // uncaptioned-denominator state §11 forbids, and every other fixture here
+    // sets censusYear: 2021, so the null branch was untested.
+    payload = {
+      fiscalYear: 2026,
+      rows: [SOFIA, TREKLYANO].map((r) => ({ ...r, censusYear: null })),
+    };
+    renderIt("?basis=capita");
+    await waitFor(() =>
+      expect(document.querySelectorAll("ul.divide-y > li").length).toBe(2),
+    );
+    const body = nb(document.body.textContent);
+    expect(body).toContain("Подредено на жител");
+    // ⚠️ NOT `/Преброяване/` — `budget_muni_source`, the line at the foot,
+    // contains that word on every basis, so matching it made this gate vacuous
+    // and it passed against the very state it was written for. The caption slot
+    // has to say something SPECIFIC about the vintage: either the year, or that
+    // the year is unknown.
+    expect(body).toMatch(/годината му не е публикувана/);
+  });
+
+  it("names the census YEAR beside the ranking when it has one", async () => {
+    // The counterpart: with a vintage, the year itself is on the page next to
+    // the division rather than only in the source line at the foot. A 2026
+    // transfer over a 2021 census is a real approximation and the reader is the
+    // one doing the comparing.
+    renderIt("?basis=capita");
+    await waitFor(() =>
+      expect(document.querySelectorAll("ul.divide-y > li").length).toBe(2),
+    );
+    expect(nb(document.body.textContent)).toMatch(/Преброяване 2021/);
+  });
+
   it("says when the envelope is a filtered sum, not the national one", async () => {
     payload = { fiscalYear: 2026, rows: [TREKLYANO] };
     renderIt("?q=Трек");

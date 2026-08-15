@@ -960,27 +960,49 @@ as links to a filtered page that delivered an unfiltered one.
 |---|---|---|
 | Every tile id has a scene | `budgetHubRegistry.test.ts` | white screen (`InfographicTile` renders `<Scene />` unguarded) |
 | Every `to` is absolute AND in a literal routed list | `budgetHubRegistry.test.ts` | dead links |
-| Every `/budget/*` sub-page is a hub destination | `budgetHubCoverage.test.ts` | orphans |
+| Every `/budget/*` sub-page is a hub destination | `budgetHubRegistry.test.ts` ("fronts every /budget sub-page the router serves") | orphans |
 | No accent twice on the page | `budgetHubRegistry.test.ts` | „these two are the same kind of thing" — 14 from 21 tokens, this will fire |
-| No unimported file in `src/screens/budget/` | `budgetHubCoverage.test.ts` | half-finished moves left as sediment (the `/funds` step-8 lesson) |
+| No unimported file in `src/screens/budget/` **or `src/screens/components/budget/`** | `budgetHubCoverage.test.ts` | half-finished moves left as sediment (the `/funds` step-8 lesson) |
 | Stat call under its byte budget (~6 KB) | `budget_hub_stats.data.test.ts` | regrowth to the full artifact |
 | Every headline figure re-derived from its **declared** basis | `budget_hub_stats.data.test.ts` | the six-of-six class |
-| `months_available` never rendered as coverage | grep gate | §2.2 |
+| `months_available` never rendered as coverage | `budgetBasis.test.ts` (a reader must register) **+ `BudgetLawScreen.test.tsx`** (a CLOSED year with 6 months renders no count) | §2.2 |
 | `budget_variance` returns coverage with every ranking | `budget_serving.data.test.ts` | §2.3 |
-| Every `basis` is resolved server-side; no money division in `src/screens/budget/` | grep gate | §7.1's two-places-drift |
-| `capita` is never the default basis, and always captioned with `population_basis` | `budgetBasis.test.ts` | the `08bd7a6185` denominator error |
+| No division by a BASIS denominator (population, GDP) and no client-side BGN↔EUR in `src/screens/budget/` | `budgetBasis.test.ts` | §7.1's two-places-drift |
+| `capita` is never the default basis, and always captioned with its census vintage | `budgetBasis.test.ts` | the `08bd7a6185` denominator error |
 | Municipal tiles declare a coverage matching the table | `budget_municipal.data.test.ts` | „26 of 265" rendered as national |
 | No surface sums state debt with municipal commitments, **or transfers with liabilities** | `budget_municipal.data.test.ts` | §8.1 / §8.4 |
 | **[2026-08-13]** `/budget/municipal` peers come from `municipal_fiscal_ranking()`, not a local ranker | `budget_municipal.data.test.ts` | two orderings of the same 265 places, visible to any reader who opens both pages |
 | **[2026-08-13]** No second `obshtina_population`; no second choropleth over `municipal_fiscal` | grep gate | duplicating 149 |
 | **[2026-08-13]** A withheld figure renders as „не е публикувано", never as 0 | `budget_serving.data.test.ts` | §2.2's fifth trap — 2025-Q3 is the live instance |
-| `adopted_by_item_id` filters `superseded_by IS NULL`; no title-regex inference | `budget_law.data.test.ts` | §7.4 |
+| No title-regex inference of what adopted a document | `BudgetLawScreen.test.tsx` ("never claims a document was adopted without a vote") | §7.4 |
+| `adopted_by_item_id` filters `superseded_by IS NULL` | ⛔ **NOT COVERED, and not yet coverable** — the column is NULL on all 33 rows, so there is no join to filter. It becomes a real gate the day the roll-call edge is resolved; until then this row is a reminder, not a claim. | §7.4 |
 | A scoped search source returns out-of-scope rows for a query that has them | `budgetSearch.test.ts` | scope silently filtering |
 | Each search group's cap is independent | `budgetSearch.test.ts` | in-scope group eating the out-of-scope budget |
 | Every see-all param is read by its destination | `budgetSearch.test.ts` | filtered link, unfiltered page |
 | Every `<loc>` in `sitemap_budget.xml` has `dist/<path>/index.html` | `scripts/sitemap/families.data.test.ts` (extend) | a committed sitemap outliving a build |
 | No `DROP` in 152–156 read by another migration's stored query | `migration_drop_dependents.data.test.ts` (already generic) | the 077 / 003 class |
 | Vacuumed tables listed | `reload_visibility_map.data.test.ts` | the permanent `relallvisible = 0` class |
+
+**[2026-08-15] Four of these were specified and never written**, and the file names above
+were aspirational rather than descriptive — `budgetHubCoverage.test.ts`, `budgetBasis.test.ts`
+and `budget_law.data.test.ts` did not exist, and the two "grep gate" rows had no code at all.
+The table now names the file that actually holds each clause. The cost was not hypothetical:
+T9.11 shipped `/budget/law` rendering „Отчетени 6 мес. по КФП" for FY2021 — a fully-reported
+year — which is precisely what the §2.2 row exists to stop, and it was caught in review rather
+than by the repo.
+
+**A row that names no file is better than a row that names the wrong one.** The
+`superseded_by` half above is marked ⛔ rather than attributed, because the two files
+that check the *other* half of its original row mention `superseded_by` nowhere — and a
+table row reading as covered when it is not is the same „aspirational rather than
+descriptive" failure this section documents, only harder to see.
+
+**One row's clause is split across two files on purpose.** „`months_available` never rendered
+as coverage" cannot be checked from source alone: „the file mentions `complete`" stays true of
+the broken version, and a mutation moving the count out of the not-complete arm passed that
+check. `budgetBasis.test.ts` therefore only enumerates the READERS — so a new one has to come
+and declare itself — while the render-a-closed-year-with-six-months proof lives beside the
+screen. Deleting either half fails the other.
 
 **Then check each gate can fail.** Break every clause and watch it fire. Two gates in this
 pattern's history read as real tests and were vacuous: one asserted `max(id) >= count(*)` (true of

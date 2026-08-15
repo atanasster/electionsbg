@@ -236,13 +236,21 @@ export const BudgetMunicipalScreen: FC = () => {
           {/* The denominator's vintage, beside the division rather than only in
               the source line at the foot: a 2026 transfer over a 2021 census is
               a real approximation and the reader is doing the comparing. */}
-          {basis === "capita" && censusYear ? (
+          {basis === "capita" ? (
             <>
               {" "}
-              {t("budget_muni_census_note", {
-                year: censusYear,
-                defaultValue: "",
-              })}
+              {/* ⚠️ THE SLOT IS NEVER EMPTY ON THIS BASIS. `censusYear` is
+                  recovered from the rows, so a payload without one used to
+                  render the DIVIDED figures with the denominator's vintage
+                  nowhere on the page — an uncaptioned per-resident ranking,
+                  which is the one thing §11 forbids here. Not knowing the
+                  vintage is a fine thing to say; not saying anything is not. */}
+              {censusYear
+                ? t("budget_muni_census_note", {
+                    year: censusYear,
+                    defaultValue: "",
+                  })
+                : t("budget_muni_census_note_unknown")}
             </>
           ) : null}
         </p>
