@@ -3124,6 +3124,53 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/deep-dive",
+    // ⚠️ SHARES THE HUB'S CARD, which is a compromise rather than a choice. The
+    // card this page deserves is the Sankey — and `budget-flow`, the anchor that
+    // captured it, is exactly what LEFT /budget for this page when the hub
+    // shipped (see the note on the `budget` entry in scripts/og/capture-screens.ts).
+    // So the picture a reader shares of „the deep dive" is the tile grid of the
+    // page it tells them it is not. Fixing it means a new capture entry anchored
+    // on `[data-og="budget-flow"]`; declaring one before it is captured is worse
+    // than sharing, because an uncaptured ogImage 404s — the /funds/calls defect
+    // this file's coverage gate was written for.
+    ogImage: "/og/budget.png",
+    title: "Бюджетът на едно място — потокът на парите | electionsbg.com",
+    description:
+      "Целият държавен бюджет в една страница: откъде идват парите, къде отиват и колко е изпълнено — с диаграма на потока и разбивки по приходи, персонал, капиталови разходи, общини и осигурителни фондове.",
+    breadcrumbName: "Бюджетът на едно място",
+    bodyHtml: `
+<h1>Бюджетът на едно място</h1>
+<p>Тази страница показва целия държавен бюджет наведнъж — диаграма на потока от приходите през бюджета до разходите, и под нея разбивките, които го обясняват.</p>
+<h2>Потокът и петте му разклонения</h2>
+<p>Диаграмата води парите от източника до похарчването им. Пет от клоновете ѝ се отварят надолу: приходите по вид отляво, а отдясно разходите за персонал, капиталовите разходи, трансферите към общините и осигурителните фондове.</p>
+<h2>Какво още има тук</h2>
+<ul>
+<li><strong>Изпълнение и отклонения</strong> — как върви годината спрямо закона и кои разпоредители се отклоняват най-много.</li>
+<li><strong>Разпоредители и функции</strong> — кой харчи и за какво, включително по функционална класификация.</li>
+<li><strong>Пътят на бюджета</strong> — законът, отчетите и одитът за всяка година.</li>
+</ul>
+<p><strong>Това е дълбокото гмуркане, не входът.</strong> Ако търсиш конкретно число, започни от <a href="${SITE_URL}/budget">държавния бюджет</a> — там всяка тема има собствена страница и се зарежда много по-бързо. Виж и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+    english: {
+      title: "The Budget on One Page — the Flow of the Money | electionsbg.com",
+      description:
+        "The whole state budget in a single page: where the money comes from, where it goes and how much is executed — with a flow diagram and breakdowns by revenue, personnel, capital, municipalities and the social funds.",
+      breadcrumbName: "The budget on one page",
+      bodyHtml: `
+<h1>The budget on one page</h1>
+<p>This page shows the entire state budget at once — a flow diagram carrying the money from revenue through the budget to expenditure, and beneath it the breakdowns that explain it.</p>
+<h2>The flow and its five branches</h2>
+<p>The diagram traces the money from source to spending. Five of its branches open up further: revenue by type on the left, and on the right personnel costs, capital expenditure, transfers to municipalities and the social-security funds.</p>
+<h2>What else is here</h2>
+<ul>
+<li><strong>Execution and deviations</strong> — how the year is running against the act, and which spending units deviate most.</li>
+<li><strong>Spending units and functions</strong> — who spends and on what, including by functional classification.</li>
+<li><strong>The budget journey</strong> — the law, the reports and the audit for each year.</li>
+</ul>
+<p><strong>This is the deep dive, not the front door.</strong> If you are after one figure, start from the <a href="${SITE_URL}/en/budget">state budget</a> — every topic has its own page there and loads far faster. See also <a href="${SITE_URL}/en/budget/explorer">explore the budget</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/explorer",
     ogImage: "/og/budget-explorer.png",
     title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",

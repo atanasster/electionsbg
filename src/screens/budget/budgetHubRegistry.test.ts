@@ -82,6 +82,14 @@ describe("budget hub registry", () => {
     expect(orphans).toEqual([]);
   });
 
+  // NOTE: „every routed page is declared for prerender AND for the sitemap" is
+  // NOT here. It lives in `scripts/prerender/ogAndSitemapCoverage.test.ts`,
+  // which already owns „a page ships three artifacts" and already reads both
+  // declaration files — and the defect it catches is not budget-specific:
+  // `/procurement/tenders`, `/sofia/companies` and
+  // `/sector/administration/services` are in the same state today. A per-hub
+  // copy would be five implementations of one rule on a weaker primitive.
+
   it("uses a distinct accent for every tile on the page", () => {
     const accents = BUDGET_TILES.map((t) => t.accent);
     expect(new Set(accents).size).toBe(accents.length);

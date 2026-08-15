@@ -58,6 +58,12 @@ export const ENGLISH_STATIC_PAGES = [
   "indicators/society",
   "indicators/compare",
   "budget",
+  // The pre-migration single-page view, kept for the money-flow Sankey and its
+  // five drilldowns — the one thing the fourteen sub-pages do not reproduce.
+  // Listed here because it is ROUTED and linked; a reachable page with no
+  // sitemap entry and no prerendered head is served the homepage's title and
+  // canonical, which is the duplicate-content shape, not a quiet omission.
+  "budget/deep-dive",
   "budget/methodology",
   "budget/explorer",
   "budget/ministries",
@@ -339,6 +345,20 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/indicators/IndicatorsCompareScreen.tsx`,
   },
   { path: "budget", file: `data/budget/index.json` },
+  {
+    // The pre-migration single-page view, kept for the money-flow Sankey and its
+    // five drilldowns. ⚠️ THIS LIST AND `ENGLISH_STATIC_PAGES` ARE BOTH
+    // REQUIRED — the file's own Sofia note records the last time only one of
+    // them was filled, and the sitemap then named /en/… without the canonical.
+    // ⚠️ THE `file` IS NOT REALLY A LASTMOD — `safeFileMod` floors every entry
+    // to today, so no `file` choice here changes the emitted date. What it
+    // actually controls is whether the <loc> is emitted at ALL: an unreadable
+    // path drops the page silently. The screen is the honest choice anyway,
+    // since unlike its siblings this page renders no single artifact but
+    // thirteen tiles.
+    path: "budget/deep-dive",
+    file: `src/screens/BudgetScreen.tsx`,
+  },
   {
     path: "budget/explorer",
     file: `data/budget/index.json`,
