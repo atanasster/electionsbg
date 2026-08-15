@@ -29,6 +29,8 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { cofogLabelKey } from "@/lib/cofog";
 import { useBudgetFunctional } from "@/data/budget/useBudgetFunctional";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
+import { BudgetFunctionalChart } from "./BudgetFunctionalChart";
+import { functionalBars } from "./budgetFunctionalBars";
 
 /** Server-resolved bases.
  *
@@ -81,11 +83,8 @@ export const BudgetFunctionalScreen: FC = () => {
   const availableBases = BASES.filter((b) => b !== "gdp" || gdpAvailable);
 
   const { functional, isLoading } = useBudgetFunctional(fy, basis);
-  // Sorted HERE by share, not trusted from the server. `budget_cofog_list`
-  // orders by `amount DESC NULLS LAST`, so on any basis that cannot resolve
-  // every amount ties at null and the list silently falls back to code order —
-  // „Общи държавни служби 7,5%" above „Социална закрила 36,8%", with both
-  // percentages correct. `pctOfTotal` is basis-independent and always present.
+  // Sorted HERE by share, not trusted from the server — the reason is stated
+  // once, on `functionalBars`, which applies the same rule to the chart's rows.
   const rows = useMemo(
     () =>
       [...(functional?.rows ?? [])].sort(
@@ -101,9 +100,25 @@ export const BudgetFunctionalScreen: FC = () => {
   };
 
   const title = t("budget_func_title");
-  const peak = useMemo(
-    () => Math.max(...rows.map((r) => r.pctOfTotal ?? 0), 1),
-    [rows],
+
+  // The chart's rows. `pctOfTotal` is basis-independent, so the bar length is
+  // the same on both bases and only the label beside it changes — which is what
+  // lets the axis stay a fixed 0-100%.
+  const bars = useMemo(
+    () =>
+      functionalBars(
+        rows,
+        (code) => {
+          const key = cofogLabelKey(code);
+          return key ? t(key) : code;
+        },
+        renderAmount,
+      ),
+    // `basis` rather than `renderAmount`: the formatter is redefined on every
+    // render, so listing it would rebuild the bars each time. It reads nothing
+    // but `basis`, which IS listed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [rows, basis, t],
   );
 
   return (
@@ -188,40 +203,39 @@ export const BudgetFunctionalScreen: FC = () => {
               : null}
           </p>
         ) : (
-          <ul className="divide-y rounded-xl border bg-card shadow-sm">
-            {rows.map((r) => (
-              <li key={r.code} className="px-4 py-2.5">
-                <div className="flex items-baseline justify-between gap-3 text-sm">
-                  <span>
-                    {/* Labelled from `@/lib/cofog`: the corpus's own name
+          <>
+            <BudgetFunctionalChart bars={bars} className="mb-3" />
+            <ul className="divide-y rounded-xl border bg-card shadow-sm">
+              {rows.map((r) => (
+                <li key={r.code} className="px-4 py-2.5">
+                  <div className="flex items-baseline justify-between gap-3 text-sm">
+                    <span>
+                      {/* Labelled from `@/lib/cofog`: the corpus's own name
                         columns are NULL on every row of every year. */}
-                    {(() => {
-                      const key = cofogLabelKey(r.code);
-                      return key ? t(key) : r.code;
-                    })()}
-                  </span>
-                  <span className="shrink-0 tabular-nums">
-                    {renderAmount(r.amount)}
-                    {r.pctOfTotal != null ? (
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        {r.pctOfTotal.toFixed(1)}%
-                      </span>
-                    ) : null}
-                  </span>
-                </div>
-                {r.pctOfTotal != null ? (
-                  <div className="mt-1 h-1 rounded bg-primary/20" aria-hidden>
-                    <div
-                      className="h-1 rounded bg-primary"
-                      style={{
-                        width: `${Math.min(100, (r.pctOfTotal / peak) * 100)}%`,
-                      }}
-                    />
+                      {(() => {
+                        const key = cofogLabelKey(r.code);
+                        return key ? t(key) : r.code;
+                      })()}
+                    </span>
+                    <span className="shrink-0 tabular-nums">
+                      {renderAmount(r.amount)}
+                      {r.pctOfTotal != null ? (
+                        <span className="ml-2 text-xs text-muted-foreground">
+                          {r.pctOfTotal.toFixed(1)}%
+                        </span>
+                      ) : null}
+                    </span>
                   </div>
-                ) : null}
-              </li>
-            ))}
-          </ul>
+                  {/* NO BAR HERE ANY MORE. It was scaled to the LARGEST share
+                    rather than to the whole, so „Социална закрила" filled its
+                    row at 36.8% and every other function was drawn as a
+                    fraction of it — a ranking encoding on a page about how a
+                    total divides. The chart above carries the shares against a
+                    fixed 0-100% axis; this list carries the figures. */}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
         {/* Functions, not institutions — the misreading this page most invites. */}

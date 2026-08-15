@@ -1252,7 +1252,7 @@ migration. Two items need schema work and are marked.
 
 | # | What is missing | Where it was | Cost |
 |---|---|---|---|
-| T9.1 | **Charts, as a class** — pick the shape per page rather than defaulting to a table | everywhere | UI |
+| T9.1 ✅ | **Charts, as a class** — pick the shape per page rather than defaulting to a table | everywhere | UI |
 | T9.2 | **Monthly execution trend + dashed projection to December**, with the Еврозона / Избори reference lines | `BudgetTrendTile` → `/budget/execution` | UI — `budget_series()` already returns the points |
 | T9.3 | **„Сравнение спрямо същия период"** — cumulative-to-month-M bars per fiscal year, „% от плана" badge, verdict vs the 5-year median. Gone entirely; no new page has it | `BudgetSamePointTile` → `/budget/execution` | UI |
 | T9.4 | **Maastricht 3%-of-GDP badge.** The locale keys still exist and the payload already carries `gdpEur` + `peerBands.B9` | the deficit card → `/budget/execution` | UI, small |
@@ -1311,6 +1311,57 @@ list — it adds a SECOND overload — so a warm database would keep both and ev
 Reproduced in a rolled-back transaction. It is invisible on the machine that
 writes the change, whose old copy has already been dropped by hand; the same
 rule cost migration 144 its `funds_wire`.
+
+### T9.1 — the chart-class sweep, and what it decided NOT to change
+
+The audit's systemic finding was that the migrated module rendered **zero
+charts** where the legacy tiles carried four. T9.2 / T9.6 / T9.7 put three back;
+this step swept the remaining eleven screens and asked, per page, whether the
+shape answers the page's question — so that „a table" is a recorded decision
+rather than a default.
+
+**One page was wrong and is fixed. `/budget/functional`** ranked ten COFOG
+functions with a `<div>` bar per row scaled to the **largest share**, not to the
+whole — so „Социална закрила" filled its row at 36.8% and every other function
+was drawn as a fraction *of it*. That is a ranking encoding on the one page whose
+entire subject is how a total divides. It now leads with a horizontal bar chart
+on a fixed **0-100%** axis, and the list beneath keeps the figures.
+
+**A BAR CHART, NOT THE COMPOSITION DONUT**, and the reason is the category count:
+the donut collapses everything past seven slices into „Други", and the bottom
+three here are Жилищно строителство (2.6%), Култура, отдих и религия (1.8%)
+and Опазване
+на околната среда (1.6%) — 6.0% between them, and three policy areas a reader may
+have come specifically to find. Length encodes the share, so ten bars need no
+colour vocabulary and nothing has to be hidden. The chart is `aria-hidden` with
+**no `sr-only` twin**, unlike the personnel chart: that one REPLACED its list,
+while this one sits above a list that is still there, so a second copy would make
+a screen reader read all ten functions twice.
+
+**The other ten pages keep their shape, and each for a stated reason:**
+
+| Page | Shape | Why not a chart |
+|---|---|---|
+| `/budget` | tiles | The hub. A chart here competes with the tiles it is meant to introduce. |
+| `/budget/revenue`, `/budget/spending` | donut + ranked list | Already charted — both delegate to `BudgetCompositionScreen` (T9.6). |
+| `/budget/execution` | trend + same-point panels | Already charted (T9.2 / T9.3). |
+| `/budget/personnel` | two-axis chart | Already charted (T9.7). |
+| `/budget/deviations` | table | ⚠️ **A dumbbell would destroy the page's point.** Its header states that „a ministry overspent" and „parliament re-voted the appropriation" are different findings that a single „отклонение" collapses — and a plan→executed dumbbell is exactly that collapse, drawn. Three columns and two named deltas is the shape. |
+| `/budget/ministries` | ranked list | A picker with a search box; the reader is looking for one row, not a distribution. Now carries the T9.9 procurement line per row. |
+| `/budget/investments` | ranked list + peak-scaled bars | ⚠️ **The row that carries the sweep's actual rule.** It keeps peak-scaled bars and that is CORRECT: its list is a top-N of investment programmes, not a partition of a total, so „the largest is the reference" is the honest reading. The COFOG page had the same bars over a set that DOES sum to the whole, which is what made them wrong there. Peak-scaling is a shape, not a defect — the question is always what the denominator is. |
+| `/budget/explorer` | tree | A drill-down. Each level is 3-10 rows and the question is „what is inside this", not „how does it divide". |
+| `/budget/law` | stage-ordered chain | Documents, not quantities (T9.11). |
+| `/budget/social-funds` | per-fund cards + list | Three to four funds, each with its own revenue/expenditure/balance identity — and the ЗБДОО plan is deliberately a LIST, since the two sides are on different accounting bases (T9.10). |
+| `/budget/municipal`, `/municipal/capital`, `/municipal/investments` | ranked tables | 265 municipalities. A chart of 265 categories is a texture, not a finding; the reader arrives looking for one município. |
+
+**The data layer is extracted (`budgetFunctionalBars.ts`) for the reason every
+chart in this module is**: `ResponsiveContainer` renders nothing at width 0 and
+the headless environment reports exactly that, so a chart is only ever testable
+at its data layer. Inline in the screen, both properties that matter — that
+nothing is collapsed and that the bars are shares of the WHOLE — are satisfied by
+the ranked `<ul>` beside the chart whatever the chart does. Measured: with the
+derivation inline, a mutation that sliced the bars to seven left the whole suite
+green.
 
 ### T9.9 — a new table, and its refresh trigger is a DIFFERENT corpus
 

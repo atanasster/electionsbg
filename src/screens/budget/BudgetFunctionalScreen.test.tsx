@@ -31,6 +31,22 @@ vi.mock("react-i18next", () => ({
 }));
 
 const dict = bgDict as Record<string, string>;
+
+/** ⚠️ WHAT THE SCREEN HANDS THE CHART, captured — because nothing else can see
+ *  it. `ResponsiveContainer` is 0-wide under the ResizeObserver stub so the
+ *  chart renders nothing, and the ranked `<ul>` beside it carries all ten
+ *  labels whatever the chart was given. Measured: without this, a mutation
+ *  slicing the bar set to seven at the CALL SITE left all twenty tests green —
+ *  the exact gap the data-layer extraction was supposed to close and did not,
+ *  because the screen is where the call happens. */
+let chartBars: Array<{ code: string; label: string; pct: number }> = [];
+
+vi.mock("./BudgetFunctionalChart", () => ({
+  BudgetFunctionalChart: (props: { bars: typeof chartBars }) => {
+    chartBars = props.bars;
+    return <div data-testid="functional-chart" />;
+  },
+}));
 const sp = (v: string | null) => (v ?? "").replace(/\u00a0/g, " ");
 
 /** FY2024, verbatim shape from `budget_cofog_list(2024,'eur')`: ten rows,
@@ -69,6 +85,7 @@ const FY2024 = {
 let payload: unknown = FY2024;
 
 beforeEach(() => {
+  chartBars = [];
   payload = FY2024;
   vi.stubGlobal(
     "fetch",
@@ -213,5 +230,86 @@ describe("BudgetFunctionalScreen", () => {
     await screen.findByText(dict.cofog_GF07);
     const note = screen.getByText(dict.budget_func_not_ministries);
     expect(note.textContent).toMatch(/Министерството на здравеопазването/);
+  });
+
+  // ── T9.1 · the chart ──────────────────────────────────────────────────────
+  it("hands the chart every function, collapsing none", async () => {
+    // The reason this page got a BAR chart rather than the composition donut:
+    // the donut collapses its tail past seven slices, and on the real corpus
+    // the bottom three are Жилищно строителство, Култура, отдих и религия and
+    // на околната среда — 6.0% between them and three policy areas a reader may
+    // have come specifically to find.
+    //
+    // Ten rows, so the collapse threshold is genuinely crossed: with seven the
+    // assertion would pass under either shape.
+    const codes = [
+      "GF10",
+      "GF04",
+      "GF07",
+      "GF09",
+      "GF01",
+      "GF03",
+      "GF02",
+      "GF06",
+      "GF08",
+      "GF05",
+    ];
+    payload = {
+      ...FY2024,
+      rows: codes.map((code, i) => ({
+        code,
+        nameBg: null,
+        nameEn: null,
+        amount: (10 - i) * 1_000_000_000,
+        pctOfTotal: (10 - i) * 1.8,
+      })),
+    };
+    renderIt();
+    await screen.findByText(dict.cofog_GF10);
+    // ⚠️ ASSERTED ON WHAT THE CHART RECEIVED, not on the page text: the <ul>
+    // carries all ten labels whatever the chart was handed, so a page-text
+    // assertion here cannot fail.
+    expect(chartBars.map((b) => b.code)).toEqual(codes);
+    // …and the labels are resolved, not raw COFOG codes.
+    expect(chartBars[0].label).toBe(dict.cofog_GF10);
+    // Every division is named on the page too, none folded into an „other".
+    for (const code of codes) {
+      expect(
+        screen.queryAllByText(dict[`cofog_${code}`]).length,
+        `${code} is missing from the page`,
+      ).toBeGreaterThan(0);
+    }
+    expect(sp(document.body.textContent)).not.toContain("Други");
+  });
+
+  it("draws the chart, and draws it ABOVE the list", async () => {
+    // Removing `<BudgetFunctionalChart>` leaves every other gate on this page
+    // green — the <ul> still carries all ten labels and figures — so its
+    // presence has to be asserted directly. And „above" is not decoration: the
+    // chart is the shape, the list is the detail, and a chart under its own
+    // table is a footnote.
+    renderIt();
+    await screen.findByText(dict.cofog_GF10);
+    const chart = screen.getByTestId("functional-chart");
+    const list = [...document.querySelectorAll("ul")].find((ul) =>
+      (ul.textContent ?? "").includes(dict.cofog_GF10),
+    )!;
+    expect(
+      chart.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("draws no peak-scaled bar beside the figures", async () => {
+    // ⚠️ THE DEFECT THE CHART REPLACED. Each row carried a `<div>` whose width
+    // was the share divided by the LARGEST share, so „Социална закрила" filled
+    // its row at 36.8% and every other function was drawn as a fraction of it —
+    // a ranking encoding on a page whose subject is how a total divides. The
+    // chart above the list carries the shares against a fixed 0-100% axis.
+    renderIt();
+    await screen.findByText(dict.cofog_GF10);
+    const list = [...document.querySelectorAll("ul")].find((ul) =>
+      (ul.textContent ?? "").includes(dict.cofog_GF10),
+    )!;
+    expect(list.querySelector("[style*='width']")).toBeNull();
   });
 });
