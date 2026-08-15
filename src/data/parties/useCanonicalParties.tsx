@@ -23,6 +23,49 @@ const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
   return response.json();
 };
 
+/** Old ballot name → canonical party id, or `null` when the name belongs to more than one
+ *  lineage.
+ *
+ *  ⚠️ COLOUR ONLY. Do not resolve a LABEL or a `/party/<slug>` through this. The register's
+ *  own words have to survive on the chip: turning `КП "Коалиция за България"` into the
+ *  lineage's CURRENT nickname would tell an MP elected in 2005 that they stood for a
+ *  coalition formed twenty years later. `findCanonicalNickName` is the label path and
+ *  deliberately does not consult this index.
+ *
+ *  Keyed under BOTH folds a caller might have applied — the raw case-fold that `colorFor`
+ *  uses, and `stripGroupPrefix`'s, which `partyGroupShortColor` applies before it delegates.
+ *  One index reached through two different folds is the failure parliamentGroupAliases.ts's
+ *  header argues against ("share the matching rule, not just the table"), and it is not
+ *  hypothetical here: stripGroupPrefix removes the trailing quote from
+ *  `КП "Коалиция за България"`, so 105 of the 240 names — every quoted and every
+ *  en-dash-spelled one — were unreachable through that entry point.
+ *
+ *  Exported and pure so the ambiguity rule can be tested without standing up the hook. */
+export const buildHistoryNameIndex = (
+  parties: CanonicalPartiesIndex["parties"] | undefined,
+): Map<string, string | null> => {
+  const seen = new Map<string, string | null>();
+  // One ambiguity rule, applied to every key: a name two lineages share resolves to NOTHING
+  // rather than to a guess. Colouring one party's chip with another's is worse than grey.
+  const put = (key: string, id: string) => {
+    if (!key) return;
+    const prev = seen.get(key);
+    if (prev === undefined) seen.set(key, id);
+    else if (prev !== id) seen.set(key, null);
+  };
+  for (const p of parties ?? []) {
+    for (const h of p.history ?? []) {
+      // Interior whitespace collapsed too — the real file carries
+      // „политическа партия  общество за нова българия" with a double space.
+      const raw = (h.name ?? "").replace(/\s+/g, " ").trim();
+      if (!raw) continue;
+      put(raw.toLocaleLowerCase("bg"), p.id);
+      put(stripGroupPrefix(raw).toLocaleLowerCase("bg"), p.id);
+    }
+  }
+  return seen;
+};
+
 // Replaces useAllPartyColors with a single fetch (one canonical_parties.json
 // covers all elections). Adds canonical lineage IDs so cross-election views
 // like the bubble timeline can connect bubbles belonging to the same party.
@@ -45,6 +88,22 @@ export const useCanonicalParties = () => {
     data?.parties.forEach((p) => map.set(p.id, p));
     return map;
   }, [data]);
+
+  // Historical BALLOT names → canonical id. `byNickName` carries only the nicknames a
+  // party is known by TODAY (`БСП`, `БСП-ОЛ`), so a label printed on an old ballot —
+  // `КП "Коалиция за България"`, `БСП лява България` — resolved to nothing, and an MP
+  // elected under it got a grey pill even though canonical_parties.json records that name
+  // under `bsp` all along. Used for COLOUR ONLY (see colorFor): the displayed label must
+  // stay the register's own words, because resolving it to the current nickname would tell
+  // an MP elected in 2005 they stood for a coalition formed twenty years later.
+  //
+  // A name used by more than one lineage maps to nothing rather than to a guess — 5 of the
+  // 240 historical names collide (`ВОЛЯ`, `ПП Глас Народен`, …), and colouring one party's
+  // chip with another's is worse than leaving it grey.
+  const byHistoryName = useMemo(
+    () => buildHistoryNameIndex(data?.parties),
+    [data],
+  );
 
   // The case-insensitive fold that used to live here moved into
   // parliamentGroupAliases.ts, where it is memoised per byNickName object and
@@ -70,8 +129,19 @@ export const useCanonicalParties = () => {
     const direct = byId.get(input)?.color;
     if (direct) return direct;
     const id = resolveCanonicalId(input);
-    if (!id) return undefined;
-    return byId.get(id)?.color;
+    // Read the colour rather than returning on the id: a resolvable lineage that carries no
+    // colour would otherwise dead-end here and never reach the tier below.
+    const viaNickName = id ? byId.get(id)?.color : undefined;
+    if (viaNickName) return viaNickName;
+    // Last resort: an old ballot name the nickname index does not know. Deliberately NOT
+    // folded into resolveCanonicalId — findCanonicalNickName reads that, and it must keep
+    // returning undefined here so the LABEL stays as the ballot printed it. The nickname
+    // tier above always wins; 32 folded history names are also nicknames and one
+    // („новото време") names a different lineage in each index.
+    const viaHistory = byHistoryName.get(
+      input.replace(/\s+/g, " ").trim().toLocaleLowerCase("bg"),
+    );
+    return viaHistory ? byId.get(viaHistory)?.color : undefined;
   };
 
   const canonicalIdFor = (nickName: string): string | undefined =>
@@ -169,6 +239,10 @@ export const useCanonicalParties = () => {
   // label („ПГ на ГЕРБ – СДС", `ПГ "Прогресивна България"`). Strip the prefix and quotes
   // through the shared helper FIRST, then take the canonical colour — a call site doing
   // that itself is the drift parliamentGroupAliases.ts's header argues against.
+  // ⚠️ NOT symmetric with partyGroupShortLabel any more: this inherits colorFor's
+  // historical-ballot-name tier and the label twin deliberately must not — see
+  // buildHistoryNameIndex. The index is keyed under this function's own fold too, so its
+  // reach is the full set rather than the 135 of 240 names stripGroupPrefix leaves intact.
   const partyGroupShortColor = (
     partyGroupShort: string | null | undefined,
   ): string | undefined => {

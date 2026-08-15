@@ -34,9 +34,15 @@ vi.mock("@/data/parties/usePartyInfo", () => ({
   usePartyInfo: () => ({ findParty }),
 }));
 // Mirrors the REAL fold's behaviour on the real corpus, measured against the committed
-// canonical_parties.json: "ГЕРБ" resolves (85 MPs carry it) and "Коалиция за България" does
-// not (no key, no alias, no normalised nickname). An earlier version of this mock invented
-// the opposite and pinned a mapping production never makes.
+// canonical_parties.json. An earlier version of this mock invented the opposite and pinned
+// a mapping production never makes.
+//
+// The two halves now differ, which is the point of the split: "Коалиция за България" has no
+// nickname key, no alias and no normalised nickname, so findCanonicalNickName still returns
+// undefined and the LABEL stays as the ballot printed it — but colorFor DOES resolve it via
+// the historical-ballot-name index (see buildHistoryNameIndex), so the chip is coloured БСП
+// red. This mock keeps colorFor narrow because these tests are about the label tiers; the
+// colour fallback has its own gate in useCanonicalParties.colorFallback.test.tsx.
 vi.mock("@/data/parties/useCanonicalParties", () => ({
   useCanonicalParties: () => ({
     findCanonicalNickName: (s: string) => (s === "ГЕРБ" ? "ГЕРБ" : undefined),
