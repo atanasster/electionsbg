@@ -4636,6 +4636,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "procurement/tenders",
+    title: "Обявени обществени поръчки (процедури) | electionsbg.com",
+    description:
+      "Обявените процедури по обществени поръчки от ЦАИС ЕОП — възложител, предмет, вид процедура, прогнозна стойност и обособени позиции. Прогнозна, а не разходвана стойност.",
+    breadcrumbName: "Поръчки (процедури)",
+    ogImage: "/og/procurement-tenders.png",
+    bodyHtml: `
+<h1>Обявени обществени поръчки (процедури)</h1>
+<p>Пълна, сортируема и филтрируема таблица с обявените процедури за обществени поръчки — по възложител, предмет, вид процедура (открита, състезателна, събиране на оферти, пряко договаряне), прогнозна стойност, брой обособени позиции и статус.</p>
+<p><strong>Прогнозна, а не разходвана стойност.</strong> Тук е това, което възложителят е обявил, че възнамерява да похарчи. Какво е договорено в крайна сметка — стойността при сключване и текущата след анексите — се вижда при <a href="${SITE_URL}/procurement/contracts">договорите</a>, които се свързват с процедурата по уникалния номер (УНП).</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/appeals">жалбите пред КЗК</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
+    english: {
+      title: "Announced Public-Procurement Procedures | electionsbg.com",
+      description:
+        "Announced public-procurement procedures from the ЦАИС ЕОП register — buyer, subject, procedure type, estimated value and lots. Estimated value, not money spent.",
+      breadcrumbName: "Tenders (procedures)",
+      bodyHtml: `
+<h1>Announced public-procurement procedures</h1>
+<p>A full, sortable and filterable table of announced public-procurement procedures — by buyer, subject, procedure type (open, competitive, request for quotations, direct / no notice), estimated value, number of lots and status.</p>
+<p><strong>Estimated value, not money spent.</strong> This is what the buyer announced it intended to spend. What was actually contracted — the at-signing value and the current value after annexes — appears under <a href="${SITE_URL}/en/procurement/contracts">contracts</a>, which join to the procedure by its unique procedure number (UNP).</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a>, the <a href="${SITE_URL}/en/procurement/appeals">КЗК appeals</a> and the <a href="${SITE_URL}/en/procurement/flags">red flags</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "procurement/appeals",
     title: "Жалби по обществени поръчки (КЗК) | electionsbg.com",
     description:

@@ -411,6 +411,22 @@ const captures: Capture[] = [
     settleMs: 1800,
   },
   {
+    slug: "procurement-tenders",
+    routePath: "procurement/tenders?pscope=all",
+    // The tenders browser. It DOES carry `section[aria-label="tenders"]` like its
+    // siblings below, but anchoring there would start the clip at the table and
+    // drop the title, the scope chip and all four KPIs, which sit above it. So
+    // this is a top-aligned `h1` clip like
+    // the /budget hub: title → scope chip → the four KPIs (прогнозна стойност,
+    // процедури, пряко/без обявление, ЕС-финансирани) → the procedure-type bar →
+    // the first table rows. Centring instead would land mid-table with the KPIs
+    // — the only figures on the page — cut off above the frame.
+    waitFor: 'section[aria-label="tenders"] tbody tr',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
     slug: "procurement-appeals",
     routePath: "procurement/appeals?pscope=all",
     // КЗК appeals browser — DbDataTable renders tbody rows once the first page

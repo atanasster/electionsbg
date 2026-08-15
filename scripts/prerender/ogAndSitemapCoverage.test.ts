@@ -300,7 +300,8 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // grows, someone added a page in the same half-finished state; if it shrinks,
     // this bound should come down with it.
     //
-    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), and the number is the
+    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 11 — T1a declared
+    // `procurement/tenders`. The number is the
     // POINT OF THAT PLAN rather than an incidental update. The bound read 67
     // — a figure that was never right — because all three inputs above were read
     // too narrowly, each independently: one level of router nesting, a top-level
@@ -316,18 +317,14 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     expect(
       undeclared.length,
       `undeclared routed pages:\n${undeclared.map((p) => `  ${p}: ${gapsFor(p).join(", ")}`).join("\n")}`,
-    ).toBe(12);
+    ).toBe(11);
     // Of the three the previous comment named as „LINKED from prerendered copy",
-    // only the first is: measured over every `${SITE_URL}/…` href in
-    // `scripts/prerender/`, `procurement/tenders` has 2 (routes.ts:4649, BG+EN)
-    // and the other two have 0. Kept anyway — they are still undeclared, and the
-    // sibling argument stands (`sofia/companies`' four siblings are declared;
-    // `sector/administration/services`' parent is).
-    for (const p of [
-      "procurement/tenders",
-      "sofia/companies",
-      "sector/administration/services",
-    ]) {
+    // only the first was: measured over every `${SITE_URL}/…` href in
+    // `scripts/prerender/`, `procurement/tenders` had 2 (BG+EN) and the other
+    // two had 0. It is now declared — 12 → 11 — and the remaining two are kept
+    // on the sibling argument instead (`sofia/companies`' four siblings are
+    // declared; `sector/administration/services`' parent is).
+    for (const p of ["sofia/companies", "sector/administration/services"]) {
       expect(routed, `${p} is no longer routed — update this list`).toContain(
         p,
       );
