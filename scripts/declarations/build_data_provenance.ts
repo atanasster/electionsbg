@@ -16,6 +16,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "./formats";
 import type {
   DataProvenanceFile,
   DataProvenanceScope,
@@ -57,12 +58,10 @@ const pickLatestYear = (decls: MpDeclaration[]): number | null => {
 
 export type BuildDataProvenanceArgs = {
   publicFolder: string;
-  stringify: (o: object) => string;
 };
 
 export const buildDataProvenance = ({
   publicFolder,
-  stringify,
 }: BuildDataProvenanceArgs): void => {
   const declDir = path.join(publicFolder, "parliament", "declarations");
   const indexPath = path.join(publicFolder, "parliament", "index.json");
@@ -159,7 +158,7 @@ export const buildDataProvenance = ({
   };
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "data-provenance.json"),
-    stringify(out),
+    compactJson(out),
     "utf-8",
   );
   const nsCount = Object.keys(byNs).length;

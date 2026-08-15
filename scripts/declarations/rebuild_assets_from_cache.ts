@@ -15,6 +15,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { parseDeclarationXml } from "./parse_declaration";
 import { buildAssetsRankings } from "./build_assets_rankings";
+import { compactJson } from "./formats";
 import type { MpDeclaration } from "../../src/data/dataTypes";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -81,7 +82,7 @@ const main = () => {
     });
 
     if (changed) {
-      fs.writeFileSync(filePath, JSON.stringify(updated, null, 0), "utf-8");
+      fs.writeFileSync(filePath, compactJson(updated), "utf-8");
       mpsTouched++;
     }
   }
@@ -90,10 +91,7 @@ const main = () => {
     `[rebuild-assets] re-parsed ${declsReparsed} declaration(s) across ${mpsTouched} MP file(s); ${missingCache} cache miss(es)`,
   );
 
-  buildAssetsRankings({
-    publicFolder: DATA,
-    stringify: (o) => JSON.stringify(o, null, 0),
-  });
+  buildAssetsRankings({ publicFolder: DATA });
 };
 
 main();

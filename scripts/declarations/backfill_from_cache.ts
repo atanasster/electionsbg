@@ -56,7 +56,6 @@ const main = async () => {
     await parseFinancialDeclarations({
       publicFolder: PUBLIC,
       dataFolder: RAW,
-      stringify: (o) => JSON.stringify(o, null, 0),
       // The company-index / TR / connections chain reads the finished per-MP
       // files; running it once after the last folder is both correct and far
       // cheaper than running it per folder.

@@ -38,26 +38,41 @@ The pipeline has six phases. Pick the entry point based on what changed upstream
 | Intent | Command | Time | Network |
 |---|---|---|---|
 | **Refresh declarations only** (new filing year, e.g. 2026 filings appear) | `npm run data -- --declarations` | ~3-15 min | per-MP XML, ~1 req/150 ms |
-| **Refresh declarations + rebuild graph** (default — declarations script chains into phases 2/5/6) | `npm run data -- --declarations` | same | same |
+| **Refresh one filing year** (the usual incremental case) | `DECL_YEARS=2026 npm run data -- --declarations` | ~3-5 min | that folder only |
 | **Refresh TR snapshot** (do this every few months — TR changes daily) | see "TR refresh playbook" below | ~30-60 min | one ~540 MB zip + replay |
-| **Rebuild graph only** (after editing build script — no upstream fetch) | inline tsx invocation, see below | <30 s | none |
+| **Rebuild every artifact from disk** (after editing a build script — no upstream fetch) | `npx tsx scripts/declarations/rebuild_all_from_cache.ts` | ~2-4 min | none |
 | **First-time bring-up** (fresh clone, no data) | TR bulk + reconstruct, then `--declarations` | ~1-2 h | full set |
 
-**`npm run data -- --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs phases 2 (companies-index), 5 (TR integrate), and 6 (graph + rankings) every time. If the TR SQLite is missing, phases 5/6 run with reduced output and log a warning — `npm run prod` still succeeds.
+**`npm run data -- --declarations` is the safe default.** It fetches register.cacbg.bg incrementally (XML files cached in `raw_data/declarations/{year}/`), then re-runs phases 2 (companies-index), 5 (TR integrate), and 6 (rankings) every time. If the TR SQLite is missing, phases 5/6 run with reduced output and log a warning — `npm run prod` still succeeds.
 
-To rebuild only the derived files without re-fetching declarations:
+**`--prod` makes no difference to anything this skill writes, and that is deliberate.** Every
+other builder in `scripts/` takes its JSON formatter from `main.ts`'s single `stringify`, which
+pretty-prints unless `--prod` is passed. These artifacts are COMMITTED, so their format is part
+of the file's identity in git — `scripts/declarations/formats.ts` fixes one per family
+(compact for the parliament tree, pretty/2-space for the officials `company_links.json`) and no
+caller passes a formatter in. Until 2026-08-15 the global one WAS threaded through, and because
+the two families need different formats it could not be right for both at once: plain
+`--declarations` pretty-printed the parliament tree (1,438 files, ~892k insertions of pure
+whitespace) while `--declarations --prod` flipped `company_links.json` to compact (~928k
+deletions, also pure whitespace). There was no invocation that produced a clean diff. Both forms
+now produce byte-identical output; a refresh that changes nothing substantive touches only the
+`generatedAt` stamps. `scripts/declarations/formats.test.ts` is the gate — do NOT re-add a
+`stringify` parameter to a builder, and do NOT mass-reformat either family to unify them (each
+would be a ~million-line no-op diff and a full re-upload of the trees that ship).
+
+To rebuild the derived files without re-fetching declarations, use the runner rather than a
+hand-rolled one-liner — it sequences the phases correctly (`buildCompanyIndex` FIRST, since the
+augment *appends* `mpRoles` and would duplicate them against an already-augmented index) and
+writes through the fixed formatters:
 ```bash
-npx tsx -e '
-import { buildCompanyIndex } from "./scripts/declarations/build_company_index";
-import { integrateTr } from "./scripts/declarations/tr/integrate";
-import { buildConnectionsGraph } from "./scripts/declarations/build_connections_graph";
-const stringify = (o) => JSON.stringify(o, null, 2);
-buildCompanyIndex({ publicFolder: "./public", stringify });
-integrateTr({ publicFolder: "./public", rawFolder: "./raw_data", stringify });
-buildConnectionsGraph({ publicFolder: "./public", rawFolder: "./raw_data", stringify });
-'
+npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
 ```
-Use this after editing any of the three scripts — it keeps the per-MP `declarations/{mpId}.json` files (the slow-to-fetch part) untouched and just regenerates the aggregates.
+`--skip-reparse` drops the whole-corpus XML re-parse, which nothing downstream of the TR
+integration depends on — use it when the edit is to `tr/integrate.ts` or `augment_mp_roles.ts`
+rather than to the declaration parser. Drop the flag after editing `parse_declaration.ts`.
+Either way the per-MP `declarations/{mpId}.json` files (the slow-to-fetch part) are never
+re-fetched. To rebuild ONLY the officials cross-reference:
+`npx tsx scripts/run-officials-links-only.ts`.
 
 ## Inputs
 
@@ -160,20 +175,27 @@ npx tsx scripts/declarations/tr/cli.ts --incremental
 # Auto-detects zip mode vs raw_data/tr/daily/*.json
 npx tsx scripts/declarations/tr/cli.ts --reconstruct
 
-# Then rebuild every connections aggregate from disk (NO upstream fetch):
-# companies-index → integrateTr → connections graph → company-connections →
-# companies-by-ekatte/obshtina → officials bridge. Use this whenever the link
-# logic changed (e.g. the TR-namesake fix) but cacbg/data.egov is unreachable.
-npx tsx scripts/run-connections-rebuild.ts
+# Then rebuild every declarations aggregate from disk (NO upstream fetch):
+# re-parse cached XML → companies-index → integrateTr → officials bridge →
+# mpRoles augment → re-enrich → rankings/car-makes/provenance. Use this
+# whenever the link logic changed (e.g. the TR-namesake fix) but
+# cacbg/data.egov is unreachable.
+npx tsx scripts/declarations/rebuild_all_from_cache.ts
 ```
 
-> The runner runs `buildCompanyIndex` FIRST on purpose: the graph builder
-> *appends* `mpRoles`, so running it against an already-graphed
-> `companies-index.json` duplicates roles. It also keeps the committed formats
-> (compact for the parliament artifacts, pretty/2-space for the officials
-> `connections.json` + `company_links.json`) — don't hand-roll a
-> `buildConnectionsGraph(...)` one-liner with pretty stringify or `./public`
-> (the data root is `./data`), or you churn the whole file.
+> The runner runs `buildCompanyIndex` FIRST on purpose: the augment *appends*
+> `mpRoles`, so running it against an already-augmented `companies-index.json`
+> duplicates roles. Formats are no longer its problem — each builder owns its
+> own (`scripts/declarations/formats.ts`), so no caller can churn a file by
+> passing the wrong `stringify`. Note the data root is `./data`, not
+> `./public`.
+>
+> (This replaced `scripts/run-connections-rebuild.ts`, which was deleted
+> without updating this doc. The per-EIK `company-connections/` and the
+> retired `companies-by-ekatte`/`-obshtina` shard builders are NOT in this
+> runner: the first rides the full `--declarations` pipeline, and the second
+> pair is gone — `/settlement/:id/companies` is served live from Postgres,
+> migration 151.)
 
 Use `--limit N` on `--reconstruct` for a smoke test (replays N days only).
 

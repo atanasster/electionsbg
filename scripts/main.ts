@@ -413,7 +413,6 @@ const app = command({
       await parseFinancialDeclarations({
         publicFolder,
         dataFolder: inFolder,
-        stringify,
       });
     }
     if (flows || all) {

@@ -19,6 +19,7 @@
 
 import fs from "fs";
 import path from "path";
+import { prettyJson } from "./formats";
 import { pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import type {
@@ -105,11 +106,7 @@ const loadRoster = (): RosterEntry[] => {
 
 type TrRecord = { uic: string; role: string; share: number | null };
 
-export const buildOfficialsCompanyLinks = ({
-  stringify,
-}: {
-  stringify: (o: object) => string;
-}): void => {
+export const buildOfficialsCompanyLinks = (): void => {
   const roster = loadRoster();
   if (roster.length === 0) {
     console.log(
@@ -272,7 +269,7 @@ export const buildOfficialsCompanyLinks = ({
   };
 
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, stringify(payload) + "\n", "utf-8");
+  fs.writeFileSync(OUT, prettyJson(payload) + "\n", "utf-8");
 
   console.log(
     `[officials-links] ${total} link(s) for ${payload.officialsWithLinks}/${roster.length} officials` +
@@ -289,7 +286,5 @@ export const buildOfficialsCompanyLinks = ({
 // company_links.json stale, which then quietly feeds stale input to
 // funds/political_links.ts. Same guard idiom as scripts/db/load_funds_pg.ts.
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
-  buildOfficialsCompanyLinks({
-    stringify: (o) => JSON.stringify(o, null, 2),
-  });
+  buildOfficialsCompanyLinks();
 }

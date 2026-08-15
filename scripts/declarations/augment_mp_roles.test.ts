@@ -148,11 +148,9 @@ const read = (root: string) =>
   };
 
 describe("augmentCompaniesIndexWithMpRoles", () => {
-  const stringify = (o: object) => JSON.stringify(o, null, 0);
-
   it("re-derives mpRoles from the person layer onto the matching declared company", async () => {
     const root = mkFixture();
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     const alpha = out.companies.find((c) => c.tr?.uic === "A100")!;
     // Stale mpRoles cleared + re-derived: MP 1 is a manager here (confidence low→medium coerced).
@@ -169,7 +167,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
 
   it("adds a registry-only company the MP holds but never declared", async () => {
     const root = mkFixture();
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     const gamma = out.companies.find((c) => c.tr?.uic === "C300");
     expect(gamma, "TR-only company C300 should be appended").toBeTruthy();
@@ -188,7 +186,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
 
   it("keeps declared-stake-only companies and drops nothing MP-linked", async () => {
     const root = mkFixture();
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     // BETA has a stake but no TR role → kept with empty mpRoles.
     const beta = out.companies.find((c) => c.slug === "beta")!;
@@ -201,12 +199,12 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
   it("is idempotent — a second run reproduces the first byte-for-byte (no re-appended TR-only)", async () => {
     const root = mkFixture();
     const p = path.join(root, "parliament", "companies-index.json");
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const first = fs.readFileSync(p, "utf-8");
     const gammaSlug = read(root).companies.find(
       (c) => c.tr?.uic === "C300",
     )!.slug;
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     expect(fs.readFileSync(p, "utf-8")).toBe(first);
     // The TR-only company keeps its base slug on re-run (byUic re-finds it — no `-2`).
     expect(read(root).companies.find((c) => c.tr?.uic === "C300")!.slug).toBe(
@@ -233,7 +231,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
         declared: false,
       },
     ];
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     const declaredAlpha = out.companies.find((c) => c.tr?.uic === "A100")!;
     const trOnlyAlpha = out.companies.find((c) => c.tr?.uic === "Z900")!;
@@ -270,7 +268,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
         declared: false,
       },
     ];
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     expect(out.companies.find((c) => c.tr?.uic === "N000")).toBeUndefined();
     expect(out.companies.find((c) => c.tr?.uic === "N001")).toBeUndefined();
@@ -284,7 +282,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
   it("leaves mpRoles untouched when Postgres is unreachable", async () => {
     const root = mkFixture();
     rows.fail = true;
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     expect(rows.ended).toBe(true); // the pool is closed on the failure path too
     const out = read(root);
     const alpha = out.companies.find((c) => c.tr?.uic === "A100")!;
@@ -312,7 +310,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
       { code: "0P000" },
     );
     await expect(
-      augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify }),
+      augmentCompaniesIndexWithMpRoles({ publicFolder: root }),
     ).rejects.toThrow(/ORDER BY expressions/);
     expect(rows.ended).toBe(true); // the pool is still closed before it propagates
   });
@@ -322,7 +320,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     rows.failWith = Object.assign(new Error("connect failed"), {
       code: "ECONNREFUSED",
     });
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     expect(
       read(root).companies.find((c) => c.tr?.uic === "A100")!.mpRoles,
     ).toEqual([
@@ -344,7 +342,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
         code: "57P03",
       },
     );
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     expect(
       read(root).companies.find((c) => c.tr?.uic === "A100")!.mpRoles,
     ).toHaveLength(1);
@@ -353,7 +351,7 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
   it("leaves mpRoles untouched when the person layer returns nothing", async () => {
     const root = mkFixture();
     rows.current = [];
-    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root });
     const out = read(root);
     expect(
       out.companies.find((c) => c.tr?.uic === "A100")!.mpRoles,

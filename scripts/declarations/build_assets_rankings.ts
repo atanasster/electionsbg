@@ -21,6 +21,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "./formats";
 import type {
   MpAsset,
   MpAssetCategory,
@@ -152,12 +153,10 @@ const buildEntry = (
 
 export type BuildAssetsRankingsArgs = {
   publicFolder: string;
-  stringify: (o: object) => string;
 };
 
 export const buildAssetsRankings = ({
   publicFolder,
-  stringify,
 }: BuildAssetsRankingsArgs): void => {
   const declDir = path.join(publicFolder, "parliament", "declarations");
   if (!fs.existsSync(declDir)) {
@@ -244,7 +243,7 @@ export const buildAssetsRankings = ({
 
     fs.writeFileSync(
       path.join(outDir, `${mp.id}.json`),
-      stringify(rollup),
+      compactJson(rollup),
       "utf-8",
     );
     written++;
@@ -277,7 +276,7 @@ export const buildAssetsRankings = ({
 
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "assets-rankings.json"),
-    stringify(rankings),
+    compactJson(rankings),
     "utf-8",
   );
 
@@ -298,7 +297,7 @@ export const buildAssetsRankings = ({
   };
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "assets-rankings-top.json"),
-    stringify(rankingsTop),
+    compactJson(rankingsTop),
     "utf-8",
   );
 

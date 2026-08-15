@@ -286,7 +286,6 @@ const main = async (): Promise<void> => {
       const result = integrateTr({
         publicFolder: tmpPublic,
         rawFolder: tmpRaw,
-        stringify: (o) => JSON.stringify(o, null, 2),
       });
       assert(
         result !== null,

@@ -22,6 +22,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "../formats";
 import { DatabaseSync } from "node:sqlite";
 import type {
   CompaniesIndexFile,
@@ -223,7 +224,6 @@ const toOfficer = (r: PersonRow, matchedMpId?: number): TrCompanyOfficer => ({
 export type IntegrateTrArgs = {
   publicFolder: string;
   rawFolder: string;
-  stringify: (o: object) => string;
 };
 
 export type IntegrateTrResult = {
@@ -249,7 +249,6 @@ type CompanyRow = {
 export const integrateTr = ({
   publicFolder,
   rawFolder,
-  stringify,
 }: IntegrateTrArgs): IntegrateTrResult | null => {
   const sqlitePath = path.join(rawFolder, "tr", "state.sqlite");
   if (!fs.existsSync(sqlitePath)) {
@@ -392,7 +391,7 @@ export const integrateTr = ({
   // Rewrite companies-index.json with enrichment in place.
   fs.writeFileSync(
     companiesIndexPath,
-    stringify({ ...companiesIndex, generatedAt: new Date().toISOString() }),
+    compactJson({ ...companiesIndex, generatedAt: new Date().toISOString() }),
     "utf-8",
   );
   console.log(

@@ -12,6 +12,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "./formats";
 import { normaliseOrgName } from "../lib/normalize_name";
 import {
   buildSettlementIndex,
@@ -320,7 +321,6 @@ export const enrichWithFinancing = (
 
 export type BuildCompanyIndexArgs = {
   publicFolder: string;
-  stringify: (o: object) => string;
 };
 
 /** Quality ranking used to pick the best office match per company. */
@@ -416,7 +416,6 @@ export const enrichWithEkatteHQ = (
  * the file back. */
 export const reEnrichCompaniesIndex = ({
   publicFolder,
-  stringify,
 }: BuildCompanyIndexArgs): void => {
   const indexPath = path.join(
     publicFolder,
@@ -431,7 +430,7 @@ export const reEnrichCompaniesIndex = ({
     (c) => c.ekatteHQ && c.ekatteHQ.length > 0,
   ).length;
   const { matched, total } = enrichWithEkatteHQ(file.companies);
-  fs.writeFileSync(indexPath, stringify(file), "utf-8");
+  fs.writeFileSync(indexPath, compactJson(file), "utf-8");
   console.log(
     `[declarations] re-enrich pass: ${matched}/${total} now resolved ` +
       `(+${matched - before} via TR-seat fallback)`,
@@ -440,7 +439,6 @@ export const reEnrichCompaniesIndex = ({
 
 export const buildCompanyIndex = ({
   publicFolder,
-  stringify,
 }: BuildCompanyIndexArgs): void => {
   const dir = path.join(publicFolder, "parliament", "declarations");
   if (!fs.existsSync(dir)) {
@@ -548,7 +546,7 @@ export const buildCompanyIndex = ({
     companies,
   };
   const outPath = path.join(publicFolder, "parliament", "companies-index.json");
-  fs.writeFileSync(outPath, stringify(out), "utf-8");
+  fs.writeFileSync(outPath, compactJson(out), "utf-8");
   console.log(
     `[declarations] wrote ${companies.length} companies to ${outPath}`,
   );
@@ -566,7 +564,6 @@ export const buildCompanyIndex = ({
  */
 export const annotatePerMpDeclarationsWithSlugs = ({
   publicFolder,
-  stringify,
 }: BuildCompanyIndexArgs): void => {
   const dir = path.join(publicFolder, "parliament", "declarations");
   const indexPath = path.join(
@@ -607,7 +604,7 @@ export const annotatePerMpDeclarationsWithSlugs = ({
       }
     }
     if (changed) {
-      fs.writeFileSync(filePath, stringify(decls), "utf-8");
+      fs.writeFileSync(filePath, compactJson(decls), "utf-8");
       rewrote++;
     }
   }

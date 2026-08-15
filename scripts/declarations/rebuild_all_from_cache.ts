@@ -30,6 +30,8 @@ import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
+import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
+import { compactJson } from "./formats";
 import type { MpDeclaration } from "../../src/data/dataTypes";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,8 +39,6 @@ const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
 const DATA = path.join(REPO, "data");
 const RAW = path.join(REPO, "raw_data");
-
-const stringify = (o: object): string => JSON.stringify(o, null, 0);
 
 const cachePathFromSourceUrl = (sourceUrl: string): string | null => {
   const m = sourceUrl.match(/cacbg\.bg\/([^/]+)\/([^/]+\.xml)$/);
@@ -87,7 +87,7 @@ const reparseAll = () => {
       };
     });
     if (changed) {
-      fs.writeFileSync(fp, JSON.stringify(updated, null, 0));
+      fs.writeFileSync(fp, compactJson(updated));
       touched++;
     }
   }
@@ -107,16 +107,23 @@ const main = async () => {
   }
 
   console.log("[rebuild-all] phase 2 — buildCompanyIndex");
-  buildCompanyIndex({ publicFolder: DATA, stringify });
+  buildCompanyIndex({ publicFolder: DATA });
 
   console.log("[rebuild-all] phase 3 — annotatePerMpDeclarationsWithSlugs");
-  annotatePerMpDeclarationsWithSlugs({ publicFolder: DATA, stringify });
+  annotatePerMpDeclarationsWithSlugs({ publicFolder: DATA });
 
   console.log("[rebuild-all] phase 4 — integrateTr");
-  integrateTr({ publicFolder: DATA, rawFolder: RAW, stringify });
+  integrateTr({ publicFolder: DATA, rawFolder: RAW });
+
+  // Mirrors declarations/index.ts, which runs the officials bridge between
+  // integrateTr and the augment. Without it this runner rebuilt every
+  // parliament artifact and left data/officials/derived/company_links.json on
+  // the previous vintage — half of what an edit to the link logic moves.
+  console.log("[rebuild-all] phase 4a — buildOfficialsCompanyLinks");
+  buildOfficialsCompanyLinks();
 
   console.log("[rebuild-all] phase 5 — augmentCompaniesIndexWithMpRoles");
-  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
+  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA });
 
   // Phases 5a–5c mirror the tail of the real pipeline (declarations/index.ts).
   // Without them a change to integrateTr / augment_mp_roles lands in
@@ -124,19 +131,19 @@ const main = async () => {
   // HQ'd here" tile keep serving the PREVIOUS MP↔company set — the file this
   // script exists to keep in sync is only half of what those edits move.
   console.log("[rebuild-all] phase 5a — reEnrichCompaniesIndex");
-  reEnrichCompaniesIndex({ publicFolder: DATA, stringify });
+  reEnrichCompaniesIndex({ publicFolder: DATA });
 
   // phases 5b/5c (the per-settlement and per-municipality shard builders) are GONE —
   // /settlement/:id/companies is served live from Postgres (migration 151).
 
   console.log("[rebuild-all] phase 6 — buildAssetsRankings");
-  buildAssetsRankings({ publicFolder: DATA, stringify });
+  buildAssetsRankings({ publicFolder: DATA });
 
   console.log("[rebuild-all] phase 7 — buildCarMakes");
-  buildCarMakes({ publicFolder: DATA, stringify });
+  buildCarMakes({ publicFolder: DATA });
 
   console.log("[rebuild-all] phase 8 — buildDataProvenance");
-  buildDataProvenance({ publicFolder: DATA, stringify });
+  buildDataProvenance({ publicFolder: DATA });
 
   console.log("[rebuild-all] done");
 };

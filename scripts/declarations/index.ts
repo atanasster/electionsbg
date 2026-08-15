@@ -38,6 +38,7 @@ import { buildDataProvenance } from "./build_data_provenance";
 // scripts/lib/cacbg_register.ts for why this must not be redeclared.
 import { REGISTER_BASE, latestRegisterYear } from "../lib/cacbg_register";
 import { mergeDeclarations } from "../lib/declaration_merge";
+import { compactJson } from "./formats";
 
 const UA = "electionsbg.com data pipeline";
 
@@ -209,7 +210,6 @@ const buildMpLookup = (idx: ParliamentIndex) => {
 export type ParseFinancialDeclarationsArgs = {
   publicFolder: string;
   dataFolder: string;
-  stringify: (o: object) => string;
   /** Parse and write the per-MP declaration files, then stop — skipping the
    *  company-index / TR / connections chain that normally follows. Used by the
    *  cache backfill (./backfill_from_cache.ts), which restores filing history
@@ -220,7 +220,6 @@ export type ParseFinancialDeclarationsArgs = {
 export const parseFinancialDeclarations = async ({
   publicFolder,
   dataFolder,
-  stringify,
   declarationsOnly = false,
 }: ParseFinancialDeclarationsArgs): Promise<void> => {
   const indexPath = path.join(publicFolder, "parliament", "index.json");
@@ -398,7 +397,7 @@ export const parseFinancialDeclarations = async ({
     }
     fs.writeFileSync(
       out,
-      stringify(mergeDeclarations(existing, decls, targetFolders)),
+      compactJson(mergeDeclarations(existing, decls, targetFolders)),
       "utf-8",
     );
     written++;
@@ -407,24 +406,24 @@ export const parseFinancialDeclarations = async ({
 
   if (declarationsOnly) return;
 
-  buildCompanyIndex({ publicFolder, stringify });
+  buildCompanyIndex({ publicFolder });
 
   // Phase 2.5: stamp the resolved companies-index slug onto each ownership
   // stake in the per-MP declaration files. Required so MpFinancialDeclarations
   // can link to the right /mp/company/{slug} when two companies disambiguate
   // via the `-2`/`-3` suffix.
-  annotatePerMpDeclarationsWithSlugs({ publicFolder, stringify });
+  annotatePerMpDeclarationsWithSlugs({ publicFolder });
 
   // Phase 5: enrich companies-index + emit per-MP management roles from
   // raw_data/tr/state.sqlite. No-ops with a warning if SQLite isn't present
   // (the user has not yet run `tr/cli.ts --bulk --reconstruct`).
-  integrateTr({ publicFolder, rawFolder: dataFolder, stringify });
+  integrateTr({ publicFolder, rawFolder: dataFolder });
 
   // Officials → company cross-reference. Joins executive + municipal officials
   // to companies (declared stakes + TR officer/owner name match). Feeds the
   // councillor-conflicts + company-connections passes. No-ops if data/officials/
   // has not been ingested.
-  buildOfficialsCompanyLinks({ stringify });
+  buildOfficialsCompanyLinks();
 
   // Augment companies-index with `mpRoles` + the registry-only company entries an MP holds but
   // never declared. Re-derived from POSTGRES (the gated person_role tr/ngo set), not from the
@@ -432,7 +431,7 @@ export const parseFinancialDeclarations = async ({
   // made them a build-time input rather than merely a serving artifact. Sole writer of
   // `mpRoles`. Needs db:resolve:persons to have run; degrades to leaving the previous vintage
   // when Postgres is unreachable. See docs/plans/mp-tr-edges-pg-v1.md §4 Tier 3.
-  await augmentCompaniesIndexWithMpRoles({ publicFolder, stringify });
+  await augmentCompaniesIndexWithMpRoles({ publicFolder });
 
   // Phase 7: per-EIK Commerce-Registry connections to people in power,
   // consumed by the /company/:eik page. Reads state.sqlite + the parliament
@@ -442,7 +441,7 @@ export const parseFinancialDeclarations = async ({
 
   // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
   // entry, fall back to it for companies with no declared office string.
-  reEnrichCompaniesIndex({ publicFolder, stringify });
+  reEnrichCompaniesIndex({ publicFolder });
 
   // The per-settlement and per-municipality shard builders that used to run here are GONE:
   // /settlement/:id/companies is served live from Postgres (place_mp_companies, migration 151).
@@ -450,14 +449,14 @@ export const parseFinancialDeclarations = async ({
 
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
   // home/party/candidate "MPs by declared assets" tiles.
-  buildAssetsRankings({ publicFolder, stringify });
+  buildAssetsRankings({ publicFolder });
 
   // Dashboard "Top car makes" rollup — purely cosmetic but works as a
   // sanity check that the declarations parser is still picking up the
   // vehicle table. Cheap; reads the same files build_assets_rankings
   // already touched.
-  buildCarMakes({ publicFolder, stringify });
+  buildCarMakes({ publicFolder });
 
   // Per-NS provenance footnote (declaration year window + filing rate).
-  buildDataProvenance({ publicFolder, stringify });
+  buildDataProvenance({ publicFolder });
 };

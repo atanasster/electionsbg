@@ -13,6 +13,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "./formats";
 import type {
   CarMakeEntry,
   CarMakesFile,
@@ -304,13 +305,9 @@ type CarRowAccum = MpCarRow;
 
 export type BuildCarMakesArgs = {
   publicFolder: string;
-  stringify: (o: object) => string;
 };
 
-export const buildCarMakes = ({
-  publicFolder,
-  stringify,
-}: BuildCarMakesArgs): void => {
+export const buildCarMakes = ({ publicFolder }: BuildCarMakesArgs): void => {
   const declDir = path.join(publicFolder, "parliament", "declarations");
   const indexPath = path.join(publicFolder, "parliament", "index.json");
   if (!fs.existsSync(declDir) || !fs.existsSync(indexPath)) {
@@ -453,7 +450,7 @@ export const buildCarMakes = ({
   };
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "mp-cars.json"),
-    stringify(mpCarsOut),
+    compactJson(mpCarsOut),
     "utf-8",
   );
 
@@ -517,7 +514,7 @@ export const buildCarMakes = ({
 
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "car-makes.json"),
-    stringify(out),
+    compactJson(out),
     "utf-8",
   );
 

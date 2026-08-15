@@ -31,6 +31,7 @@
 
 import fs from "fs";
 import path from "path";
+import { compactJson } from "./formats";
 import type {
   CompaniesIndexFile,
   CompanyIndexEntry,
@@ -157,11 +158,10 @@ const countMpRolePairs = (indexPath: string): number => {
   }
 };
 
-type Args = { publicFolder: string; stringify: (o: object) => string };
+type Args = { publicFolder: string };
 
 export const augmentCompaniesIndexWithMpRoles = async ({
   publicFolder,
-  stringify,
 }: Args): Promise<void> => {
   const parliamentDir = path.join(publicFolder, "parliament");
   const companiesIndexPath = path.join(parliamentDir, "companies-index.json");
@@ -309,7 +309,7 @@ export const augmentCompaniesIndexWithMpRoles = async ({
 
   fs.writeFileSync(
     companiesIndexPath,
-    stringify({
+    compactJson({
       generatedAt: idx.generatedAt,
       total: kept.length,
       companies: kept,
