@@ -978,10 +978,15 @@ for each against 24 and 55 files on a machine that has run the pipeline. The loa
 
 Four things about it are easy to get backwards:
 
-- **It is currently the ONLY applier of 152/153**, so a database that has never run it has no
-  budget tables at all — not empty ones. `budget_pg_roundtrip.data.test.ts` probes `pg_class`
-  and SKIPS on that, rather than 42P01-ing `db:refresh` at its final step (the migration-144
-  class). T4's `db:load:budget-hub:pg` will apply the DDL in-chain and close it.
+- **It is NOT the only applier of 152/153.** `db:load:budget-muni:pg` is in the chain and
+  applies `152 → 153 → 154 → 157 → 155` in that order (155's `LANGUAGE sql` bodies are
+  validated at CREATE, so anything else 42P01s and rolls the file back). A fresh clone
+  therefore HAS the budget tables, EMPTY — this excluded loader is what fills them, both the
+  gitignored admin/programme grain and the committed КФП half. `budget_pg_roundtrip.data.test.ts`
+  skips on that empty state; its `pg_class` probe covers the narrower case of a hand-built or
+  partial database with no tables at all. `refresh_coverage.test.ts` holds the in-chain applier
+  and its order. (This bullet claimed the opposite until 2026-08-15, having been written before
+  T2/T3 shipped the second applier.)
 - **The merges REFUSE a >5% shrink** (`--allow-shrink` overrides). `mergeFromStage`'s delete is
   an unscoped anti-join and its parity guard compares counts AFTER that delete, so an empty
   stage wipes the corpus and passes 0 == 0. Measured: an empty admin stage removes 55 nodes,

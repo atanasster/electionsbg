@@ -42,14 +42,22 @@ const haveDb = await dbReachable();
 
 /** Whether 152/153 have been applied here AT ALL.
  *
- *  This guard is the difference between a skip and a stack trace, and it exists
- *  because `db:load:budget:pg` is the ONLY applier and it is in
- *  REFRESH_EXCLUSIONS. On a fresh clone `db:refresh` starts Postgres — so
- *  `dbReachable()` is true — and never applies these migrations, so the first
- *  `SELECT … FROM budget_fiscal_year` raises 42P01 and the test ERRORS rather
- *  than skipping, failing the chain at its final step. That is the migration-144
- *  defect class. (T4's `db:load:budget-hub:pg` will apply the DDL in-chain; this
- *  guard stays correct either way.) */
+ *  This guard is the difference between a skip and a stack trace: without it the
+ *  first `SELECT … FROM budget_fiscal_year` raises 42P01 and the test ERRORS
+ *  rather than skipping, failing `db:refresh` at its final step — the
+ *  migration-144 defect class.
+ *
+ *  ⚠️ IT NO LONGER FIRES ON A COMPLETE `db:refresh`, and the reason it used to
+ *  has been retracted. This docstring said „`db:load:budget:pg` is the ONLY
+ *  applier and it is in REFRESH_EXCLUSIONS", which stopped being true when T3
+ *  shipped `load_budget_muni_pg.ts` into the chain applying 152→153→154→157→155.
+ *  So a chain run reaches this test with the tables PRESENT and empty, and it is
+ *  `stateSkip` — the row count below — that skips it, on the „applied is not
+ *  loaded" distinction.
+ *
+ *  The probe stays because APPLIED is still not guaranteed: a database built by
+ *  hand, by `apply_functions.ts`, or by a partial chain can legitimately have no
+ *  `budget_fiscal_year` at all, and 42P01 is not a useful way to learn that. */
 const tablesApplied = haveDb
   ? Number(
       (
@@ -65,8 +73,8 @@ const tablesApplied = haveDb
 const skip = !haveDb
   ? "Postgres unreachable"
   : !tablesApplied
-    ? "152/153 not applied here — their only applier (db:load:budget:pg) is in " +
-      "REFRESH_EXCLUSIONS, so a fresh clone legitimately has no budget tables"
+    ? "152/153 not applied here — a complete db:refresh applies them via " +
+      "db:load:budget-muni:pg, so this means a partial or hand-built database"
     : false;
 
 /**

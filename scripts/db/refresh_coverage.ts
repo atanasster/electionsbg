@@ -67,12 +67,15 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
       "data/budget/ministries/, both gitignored (bulky regenerable shards, " +
       "bucket-shipped only) — measured, git ls-files returns 0 for each against 24 " +
       "and 55 files on a machine that has run the pipeline. NOT excluded on cost: " +
-      "the corpus is ~2 MB and the load is seconds. NOTE this is currently the ONLY " +
-      "applier of 152/153, so a fresh clone has no budget tables at all — " +
-      "budget_pg_roundtrip.data.test.ts skips on that rather than erroring. When T4's " +
-      "db:load:budget-hub:pg ships it will apply the DDL in-chain, and the tables will " +
-      "then exist wherever the serving layer does and be EMPTY where the shards were " +
-      "never available (the 147_tender_search_text shape).",
+      "the corpus is ~2 MB and the load is seconds. NOTE it is NOT the only applier " +
+      "of 152/153 — db:load:budget-muni:pg is in the chain and applies " +
+      "152→153→154→157→155 — so a fresh clone HAS the budget tables and they are " +
+      "EMPTY, including the committed KFP half, because this excluded loader is " +
+      "the only thing that fills either (the 147_tender_search_text shape). " +
+      "budget_pg_roundtrip.data.test.ts skips on that empty state rather than " +
+      "erroring. refresh_coverage.test.ts holds the in-chain applier and its " +
+      "order. (This note claimed the opposite until 2026-08-15, having been " +
+      "written before T2/T3 shipped the second applier.)",
   },
 };
 

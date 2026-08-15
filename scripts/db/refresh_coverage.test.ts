@@ -482,3 +482,86 @@ test("every db:gen-* script is either registered or a --write-gated verifier", (
     )} — register them (and add them to db:refresh) or gate their write behind --write like the parity verifiers`,
   );
 });
+
+/**
+ * The budget DDL reaches a fresh clone through the CHAIN, not through the
+ * excluded loader — and in an order 155 depends on.
+ *
+ * ⚠️ THIS EXISTS BECAUSE THE COMMENT DESCRIBING IT WENT STALE FOR TWO TIERS.
+ * `load_budget_pg.ts`'s header and this file's own `REFRESH_EXCLUSIONS` note
+ * both said „THIS FILE IS THE ONLY APPLIER of 152/153, so a fresh clone has no
+ * budget tables at all" — written while T4 was still ahead, and left standing
+ * after T2/T3 shipped `load_budget_muni_pg.ts` into the chain. A reader acting
+ * on it would have concluded the opposite of the truth. Prose cannot hold an
+ * invariant the code can move; this can.
+ *
+ * The ORDER is the load-bearing half: 155's bodies are `LANGUAGE sql` and are
+ * validated at CREATE time, so applying it before 152/153/154/157 raises 42P01
+ * and `exec()` rolls the whole file back. Measured on a virgin database
+ * 2026-08-15: 152→153→154→155 fails at 155's line 350 with
+ * `relation "budget_admin_procurement" does not exist`.
+ */
+test("an IN-CHAIN loader applies the budget DDL, 155 last", () => {
+  const chainAppliers = localLoaders.filter((s) => refreshChain.includes(s));
+  /** The APPLIED list, not the file. Reading the whole source and comparing
+   *  `indexOf` positions is comment-dependent: a prose line naming
+   *  `155_budget_serving.sql` above the array made this gate report the correct
+   *  order as wrong. So the migration names are taken from the string-literal
+   *  array the loader actually iterates, with comments stripped. */
+  const appliedList = (src: string): string[] => {
+    // Comments FIRST. Stripping after the capture lets a `]` inside an array
+    // comment truncate it — and the array in question carries a nine-line
+    // comment block today.
+    const clean = src
+      .replace(/\/\/[^\n]*/g, "")
+      .replace(/\/\*[\s\S]*?\*\//g, "");
+    // Anchored on the declaration, so an earlier `OTHER_SCHEMA_FILES` cannot
+    // claim the match.
+    const m = /\bconst\s+SCHEMA_FILES\s*=\s*\[([\s\S]*?)\]/.exec(clean);
+    const body = m?.[1] ?? clean;
+    // Both idioms: a bare `"157_x.sql"` and the path-prefixed
+    // `"schema/pg/157_x.sql"` that five of the eight schema-applying loaders
+    // use — including the two other budget ones. Matching only the bare form
+    // yields [] for those, which is a SILENT pass, not a red test.
+    return [...body.matchAll(/"(?:[\w/.-]*\/)?(\d{3}_[a-z_]+\.sql)"/g)].map(
+      (x) => x[1],
+    );
+  };
+
+  const hits = chainAppliers
+    .map((s) => ({ script: s, ...readEntrySource(s) }))
+    .map((h) => ({ ...h, applied: appliedList(h.src) }))
+    .filter(({ applied }) => applied.includes("155_budget_serving.sql"));
+
+  // ⚠️ THE ARRAY IS NOT THE APPLY LOOP. This gate reads the declared order; a
+  // `[...SCHEMA_FILES].reverse()` or a conditional `continue` in the loop would
+  // keep it green with the 42P01 live. What makes that acceptable is that the
+  // loop is three lines beside the array and the array is the thing people edit
+  // — but it is a stated limit, not a covered case.
+  assert.ok(
+    hits.length > 0,
+    "no loader in db:refresh applies 155_budget_serving.sql — a fresh clone " +
+      "would have no budget serving layer, and every /api/db/budget-* route " +
+      "would 42883 against a corpus that looks fully loaded",
+  );
+
+  for (const { script, applied } of hits) {
+    const at = (f: string) => applied.indexOf(f);
+    for (const dep of [
+      "152_budget_kfp.sql",
+      "153_budget_admin.sql",
+      "154_budget_municipal.sql",
+      "157_budget_admin_procurement.sql",
+    ]) {
+      assert.ok(
+        at(dep) !== -1,
+        `${script} applies 155 without ${dep} — 155's LANGUAGE sql bodies are ` +
+          "validated at CREATE time and 42P01 against it",
+      );
+      assert.ok(
+        at(dep) < at("155_budget_serving.sql"),
+        `${script} applies ${dep} AFTER 155 — the same 42P01, just later in the file`,
+      );
+    }
+  }
+});

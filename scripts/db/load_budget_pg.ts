@@ -19,19 +19,30 @@
 // five loaders that were once mis-sorted by cost when the operative constraint
 // was the input.
 //
-// ── THE DDL WILL GET A SECOND APPLIER; TODAY IT HAS ONLY THIS ONE ─────────
+// ── THE DDL HAS A SECOND APPLIER, AND IT IS THE ONE IN THE CHAIN ──────────
 //
-// ⚠️ NOT YET TRUE — stated here as the intent, not as the state of the tree.
-// Because this loader is excluded, `db:load:budget-hub:pg` (T4, which WILL be
-// in the chain) must also apply 152 + 153 before its own 155 + 156, or 155's
-// `LANGUAGE sql` bodies — validated at CREATE time — 42P01 on a fresh clone and
-// roll back. The tables will then EXIST wherever the serving layer does and be
-// EMPTY where the shards were never available: the 147_tender_search_text shape.
+// This file is NOT the only applier of 152/153, and has not been since T2/T3.
+// `load_budget_muni_pg.ts` (`db:load:budget-muni:pg`, IN `db:refresh`) applies
+// 152 → 153 → 154 → 157 → 155 in that order, because 155's `LANGUAGE sql`
+// bodies are validated at CREATE time and would 42P01 against any of the four.
 //
-// Until that ships, THIS FILE IS THE ONLY APPLIER, and it is out of the chain —
-// so a fresh clone has no budget tables at all. `budget_pg_roundtrip.data.test.ts`
-// skips on exactly that state rather than erroring, which is why its skip guard
-// probes pg_class and not just the shard tree.
+// So a fresh clone DOES get the budget tables — created by the chain, and EMPTY.
+// Empty in FULL, not just in the gitignored grain: this excluded loader is the
+// only thing that fills either half, so the committed КФП series is absent there
+// too. That is the 147_tender_search_text shape.
+//
+// `budget_pg_roundtrip.data.test.ts` has TWO guards for that and they are not
+// interchangeable: `stateSkip` (a row count) is the „applied is not loaded" one
+// and is what a chain run hits, while the `pg_class` probe covers the narrower
+// case of a hand-built or partial database with no tables at all — its own
+// docstring says it exists so the first SELECT does not 42P01.
+//
+// This file also applies 157, which the chain applier does too.
+//
+// (The header above said the opposite until 2026-08-15 — „NOT YET TRUE" and
+// „THIS FILE IS THE ONLY APPLIER" were written when T4 was still ahead, and
+// outlived it. A reader acting on them would conclude a fresh clone has no
+// budget tables at all.)
 //
 // ── SKIP-AND-WARN vs THROW ────────────────────────────────────────────────
 //
