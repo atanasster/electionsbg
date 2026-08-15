@@ -1653,7 +1653,7 @@ them; the routes no longer read them.
 
 **The tombstone only fires when the file is APPLIED, so the cloud side needs one command** —
 `deploy:db` ships function code only, and the only other cloud path that applies 025/031 is a
-~68-minute full contracts reload. Without this, prod keeps two orphan matviews for ever:
+~90-minute full contracts reload. Without this, prod keeps two orphan matviews for ever:
 
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 025_procurement_overview.sql 031_procurement_rankings.sql
@@ -2073,9 +2073,9 @@ db-g1-small reading cold over the proxy under a 10 s `statement_timeout`, so it 
 Every `:cloud` loader run now vacuums — including the ones that publish by `shipTable()`, whose
 `company_founded` was the one destination no caller covered and which no LOCAL gate can ever see,
 because the local copy of that table is upserted rather than truncated. But a database loaded
-before this shipped stays in the bad state until its next reload, and a contracts or tenders
-reload is ~68 min. Repair it directly instead (safe any time, and the tenders one is ~2.5 s per
-42k pages):
+before this shipped stays in the bad state until its next reload, and that reload is ~90 min for
+contracts, ~20 for tenders. Repair it directly instead (safe any time, and the tenders one is
+~2.5 s per 42k pages):
 
 ```bash
 psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded;"
