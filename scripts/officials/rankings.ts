@@ -20,6 +20,7 @@ import type {
   OfficialIndexEntry,
 } from "../../src/data/dataTypes";
 import {
+  assetWeightedEur,
   byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
@@ -59,7 +60,10 @@ export const aggregateAssets = (
   let realEstateCount = 0;
   let realEstateUnvalued = 0;
   for (const a of assets) {
-    const v = a.valueEur ?? 0;
+    // The declared amount is the WHOLE property; `share` is this declarant's ideal part,
+    // and a co-owned property is filed once PER CO-OWNER. Summing raw valueEur counted a
+    // spouse-held property twice. See assetShareMultiplier.
+    const v = assetWeightedEur(a);
     // Skip implausible rows, exactly as person_wealth_year does — the JSON this builds is
     // still what the prerendered /officials/<slug> pages and the officialsAssetsTop AI tool
     // read, so leaving it uncapped keeps publishing the €3.58bn artifact from a second

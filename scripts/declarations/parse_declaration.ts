@@ -724,6 +724,27 @@ const REAL_ESTATE_VALUE_OVERRIDES: Array<{
     correctedValue: 18347,
     note: "Corrected: declarant misplaced separator (source value 18,347,000 BGN for a 28m² restituted нива in Иванча, applied to every filing year that includes the row).",
   },
+  {
+    // Георги Стефанов Касчиев 2026 (В889) — a 36m² вила on a 980m² Sofia plot,
+    // acquired 1999, declared at 15,248,104 EUR. That row alone made him #1 on
+    // /officials/assets, and it is declared TWICE (his 1/2 and his spouse's 1/2),
+    // so it published at 2× again — €30.85m of a €30.89m "net worth".
+    //
+    // /1000, not the detector's /100. His own comparable Sofia rows put land at
+    // €12/m² (40m² parcel, 2011, €490) and a 128m² flat at €15,288 (2001).
+    // /100 would leave €152,481 — €156/m² of plot, an order of magnitude past
+    // anything else he declares and past 1999 Sofia villa-zone prices. /1000
+    // gives €15,248, i.e. €15.6/m² of plot, consistent with both.
+    //
+    // Both rows share one match key, so this single entry covers the declarant's
+    // and the spouse's copy. Only the В889 filing carries assets (В890 has none).
+    sourceUrlContains: "AF943490-BBF9-4CE1-86F8-77B86DD2F3B3",
+    location: "гр. София",
+    areaSqm: 980,
+    rawValue: 15248104,
+    correctedValue: 15248,
+    note: "Corrected: declarant misplaced separator (source value 15,248,104 EUR for a 36m² вила on a 980m² Sofia plot).",
+  },
 ];
 
 // Property-type tokens whose declared floor area reliably bounds the
@@ -765,15 +786,31 @@ const correctRealEstateSeparatorTypo = (
   rawValue: number | null,
   areaSqm: number | null,
   description: string | null,
+  builtAreaSqm: number | null = null,
 ): number | null => {
-  if (rawValue == null || areaSqm == null || areaSqm < MIN_ANCHOR_SQM) {
-    return null;
-  }
+  if (rawValue == null) return null;
   const desc = description?.toLowerCase() ?? "";
   if (!BUILDING_TYPE_TOKENS.some((tok) => desc.includes(tok))) return null;
-  if (rawValue / areaSqm <= MAX_PLAUSIBLE_BGN_PER_SQM) return null;
+  // Anchor on the BUILDING, not the plot. The filing instructions are explicit for a
+  // house-plus-yard row: „в колона 5 се посочва площта на парцела, а в колона 6 - на
+  // сградата" — so for a built property column 6 is the area the price per m² means
+  // anything against. Anchoring on column 5 was wrong in both directions:
+  //
+  //   • a villa on a big plot diluted its own per-m² past detection. Георги Касчиев's
+  //     36m² вила on a 980m² Sofia plot was declared at 15,248,104 — 423,558/m² of
+  //     building, but only 15,559/m² of plot, so it sailed under the threshold and
+  //     published as €15.2m (his own 2011 Sofia parcel is €12/m²). It ranked #1 on
+  //     /officials/assets.
+  //   • an apartment declares its plot as "0" (площ 0, РЗП 41), so 662 valued building
+  //     rows had NO usable anchor at all and were never checked.
+  //
+  // Falls back to the plot only when there is no built area to use.
+  const anchor =
+    builtAreaSqm != null && builtAreaSqm > 0 ? builtAreaSqm : areaSqm;
+  if (anchor == null || anchor < MIN_ANCHOR_SQM) return null;
+  if (rawValue / anchor <= MAX_PLAUSIBLE_BGN_PER_SQM) return null;
   const corrected = rawValue / 100;
-  if (corrected / areaSqm > MAX_PLAUSIBLE_BGN_PER_SQM) return null;
+  if (corrected / anchor > MAX_PLAUSIBLE_BGN_PER_SQM) return null;
   return corrected;
 };
 
@@ -831,6 +868,7 @@ const parseTable1Row = (
   const rawValue = toNumber(cellByNum(row, col(11)));
   const location = cellByNum(row, col(3));
   const areaSqm = toLooseNumber(cellByNum(row, col(5)));
+  const builtAreaSqm = toLooseNumber(cellByNum(row, col(6)));
   const description = cellByNum(row, col(2));
   let value = rawValue;
   let overridden = false;
@@ -849,7 +887,12 @@ const parseTable1Row = (
   }
   // No hand-curated override → run the generic separator-typo detector.
   if (!overridden) {
-    const auto = correctRealEstateSeparatorTypo(rawValue, areaSqm, description);
+    const auto = correctRealEstateSeparatorTypo(
+      rawValue,
+      areaSqm,
+      description,
+      builtAreaSqm,
+    );
     if (auto != null) {
       console.warn(
         `[parse] auto-corrected real-estate value — ${declarantName}: ` +
@@ -866,7 +909,7 @@ const parseTable1Row = (
     location,
     municipality: cellByNum(row, col(4)),
     areaSqm,
-    builtAreaSqm: toLooseNumber(cellByNum(row, col(6))),
+    builtAreaSqm,
     acquiredYear: toIntYear(cellByNum(row, col(7))),
     share: cellByNum(row, col(10)),
     currency: value != null ? ccy : null,
@@ -1470,6 +1513,7 @@ const parseEventTables = (
       rawValue,
       areaSqm,
       description,
+      toLooseNumber(cellByNum(row, propertyCol(6))),
     );
     if (corrected != null) {
       console.warn(

@@ -38,6 +38,10 @@ afterAll(async () => {
 // net_eur = (every non-debt category) − debt, exactly as src/lib/declarations.ts
 // declarationTotals computes it. Re-derive from the child rows and compare.
 //
+// The re-derivation applies asset_share_multiplier() and asset_row_ceiling_eur() because
+// the matview does. The declared amount is the WHOLE property and a co-owned one is filed
+// once PER CO-OWNER, so an unweighted re-derivation here would demand the matview reproduce
+// the double-count it exists to remove — see asset_share_multiplier in 090.
 // The re-derivation applies asset_row_ceiling_eur() because the matview does (T1.2).
 // Nothing sits above the ceiling today — the €3.58bn "security" it was built for turned
 // out to be a whole declaration FORM read against the wrong table map, and is fixed at
@@ -56,9 +60,10 @@ test.skipIf(skip)(
        FROM person_wealth_year w
        JOIN LATERAL (
          SELECT
-           COALESCE(SUM(value_eur) FILTER (
+           COALESCE(SUM(value_eur * asset_share_multiplier(share, category)) FILTER (
              WHERE category NOT IN ('debt', 'credit_limit')), 0) a,
-           COALESCE(SUM(value_eur) FILTER (WHERE category =  'debt'), 0) d
+           COALESCE(SUM(value_eur * asset_share_multiplier(share, category))
+                      FILTER (WHERE category =  'debt'), 0) d
            FROM declaration_asset
           WHERE declaration_id = w.declaration_id
             -- Assets only, matching the implementation: a debt is never capped, because

@@ -552,7 +552,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         SELECT c.cat,
                count(a.declaration_id)                 AS cnt,
                count(a.value_eur)                      AS valued,
-               COALESCE(round(SUM(a.value_eur)), 0)    AS total
+               -- Weighted: the declared amount is the WHOLE property and a co-owned
+               -- one is filed once per co-owner. See asset_share_multiplier (090).
+               COALESCE(round(SUM(a.value_eur
+                 * asset_share_multiplier(a.share, a.category))), 0) AS total
         FROM unnest(ARRAY['real_estate','vehicle','cash','bank',
                           'receivable','debt','credit_limit','investment','security']) AS c(cat)
         -- LEFT so a category the declarant left empty still emits its zero row.

@@ -205,6 +205,34 @@ Sanity:
 - `byCategory.regional_governor` ≈ 60 (28 oblasts × deputies).
 - Top-3 net worths within an order of magnitude of last run.
 
+**Net worth is share-weighted, and that is not a bug to "fix".** A co-owned
+property is filed once PER CO-OWNER, each row repeating the WHOLE property's
+price — the Сметна палата instructions for table 1 column 11 say so in as many
+words: „Посочва се цената на придобиване на имота/правото В ЦЯЛОСТ, както е по
+съответния документ, БЕЗ ДА СЕ ДЕЛИ МЕЖДУ СЪСОБСТВЕНИЦИТЕ", with column 8
+requiring each co-owner's part „самостоятелно на отделен ред". So every total
+multiplies by the declarant's ideal part (`assetShareMultiplier` in
+`src/lib/declarations.ts`, `asset_share_multiplier()` in
+`090_person_wealth.sql`, kept in lockstep by
+`scripts/db/tests/asset_share_multiplier.data.test.ts`).
+
+Summing the rows raw double-counts every jointly-held home. Measured 2026-08-15,
+before the fix: the executive tier over-stated by €202m (14.9%), municipal by
+19.0%, MPs by 12.5% — and the #1 official on `/officials/assets` published
+€30,850,036 against a real €311,695, since his villa was BOTH double-counted and
+carrying a `/1000` separator typo.
+
+Two things follow for this step:
+- A tier total dropping ~15-19% against a pre-2026-08-15 run is the fix, not a
+  regression.
+- `security` rows are never weighted — that column is a COUNT of дялове, not a
+  fraction. Do not "extend" the rule to them.
+
+Roughly 19% of declarants divide the price among co-owners anyway, contrary to
+the instruction; weighting under-states those. That is the deliberate choice —
+it is the safe direction for a public wealth ranking, and it is undetectable on
+a single-row holding.
+
 Scan for mistyped declared values (officials + MPs + municipal, one shared
 report):
 
@@ -216,6 +244,13 @@ A new `FLAG` line for an executive official means a likely separator typo is
 inflating the ranking — add a narrow entry to `REAL_ESTATE_VALUE_OVERRIDES`
 (or `VEHICLE_VALUE_OVERRIDES`) in `scripts/declarations/parse_declaration.ts`,
 then re-run Step 1. Genuinely large holdings keep flagging — that is expected.
+
+The generic detector anchors price-per-m² on the BUILDING (`builtAreaSqm`),
+falling back to the plot only when there is none — column 6 is the сграда and
+column 5 the парцел. Anchoring on the plot both diluted a villa on a large plot
+past detection and left every apartment (which declares площ „0") with no anchor
+at all, i.e. 662 valued rows never checked. It corrects `/100`; a `/1000` typo
+still needs a hand entry, which is why Касчиев's villa has one.
 
 Check the diff:
 

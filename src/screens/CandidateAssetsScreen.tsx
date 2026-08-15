@@ -22,7 +22,7 @@ import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 import { formatEur, formatEurSigned } from "@/lib/currency";
-import { incomeTotals } from "@/lib/declarations";
+import { assetWeightedEur, incomeTotals } from "@/lib/declarations";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const CATEGORY_ICONS: Record<
@@ -112,7 +112,12 @@ const AssetTable: FC<{
   const isRealEstate = category === "real_estate";
   const isVehicle = category === "vehicle";
 
-  const totalEur = rows.reduce((s, r) => s + (r.valueEur ?? 0), 0);
+  // Weighted by the declarant's ideal part, like every other surface that totals these
+  // rows (assetShareMultiplier / asset_share_multiplier). The declared amount is the WHOLE
+  // property, so an unweighted subtotal here would disagree with the net worth shown above
+  // it on this same page. The "Share" column below is what explains the difference between
+  // this figure and a naive sum of the value column.
+  const totalEur = rows.reduce((s, r) => s + assetWeightedEur(r), 0);
   const categoryTitle =
     t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category];
 

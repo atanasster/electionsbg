@@ -32,6 +32,7 @@ import type {
   MpDeclaration,
 } from "../../src/data/dataTypes";
 import {
+  assetWeightedEur,
   byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
@@ -77,7 +78,10 @@ const totalsForDeclaration = (decl: MpDeclaration): DeclarationTotals => {
     bucket.count++;
     if (a.valueEur != null) {
       bucket.valuedCount++;
-      bucket.totalEur += a.valueEur;
+      // The declared amount is the WHOLE property; `share` is this declarant's ideal
+      // part, and a co-owned property is filed once PER CO-OWNER. See
+      // assetShareMultiplier — summing raw valueEur double-counted spousal holdings.
+      bucket.totalEur += assetWeightedEur(a);
     }
   }
   // Treat the declarant's company shares (table 10) as a category too so

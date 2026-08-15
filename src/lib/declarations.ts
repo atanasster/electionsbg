@@ -84,6 +84,78 @@ export const withinAssetCeiling = (a: {
 }): boolean =>
   a.category === "debt" || (a.valueEur ?? 0) <= ASSET_ROW_CEILING_EUR;
 
+/** Categories whose `share` column is an IDEAL PART (идеална част) of the thing valued.
+ *
+ *  `security` is deliberately absent and must stay absent: on the table-9/10 forms that
+ *  column is a COUNT of дялове ("369 476"), not a fraction of anything. Weighting by it
+ *  would multiply a shareholding by its own share count. */
+const SHARE_WEIGHTED_CATEGORIES = new Set(["real_estate", "vehicle"]);
+
+/** The declarant's fraction of an asset row, per the Сметна палата filing instructions.
+ *
+ *  ⚠️ THE DECLARED AMOUNT IS THE WHOLE PROPERTY, NOT THE DECLARANT'S SLICE. Column 11 of
+ *  table 1: „Посочва се цената на придобиване на имота/правото В ЦЯЛОСТ, както е по
+ *  съответния документ, БЕЗ ДА СЕ ДЕЛИ МЕЖДУ СЪСОБСТВЕНИЦИТЕ." Column 8 then requires each
+ *  co-owner's part to be filed „самостоятелно на отделен ред" — its own row, repeating that
+ *  same whole-property price — and only HOUSEHOLD members get a row (declarant, spouse,
+ *  cohabiting partner, minor children). Tables 1.1/1.2 and the vehicle tables 3–3.4 all say
+ *  „идентични с тези за Таблица 1", so the same rule governs them.
+ *
+ *  So `Σ valueEur` counts a jointly-held property once PER CO-OWNER. Measured 2026-08-15,
+ *  before this: a villa declared by two spouses at 1/2 each put €30.85m on /officials/assets
+ *  for a €15.4m holding, and the executive tier over-stated by €202m (14.9%). Weighting is
+ *  right in all three configurations the form produces — 1/2 + 1/2 recovers the whole once,
+ *  1/1 is unchanged, and a 1/2 held with a NON-household co-owner (who gets no row, so
+ *  nothing else can restore the other half) correctly contributes half.
+ *
+ *  Returns 1 for anything not an unambiguous proper fraction, which is the pre-2026-08-15
+ *  behaviour and the safe direction — the column is free text with ~3,200 distinct literals.
+ *  „СИО" (marital community: the household owns the whole), „по 1/2", „1/2-1/2" and „1/2+1/2"
+ *  (both co-owners' halves written on ONE row) all correctly land here rather than halving a
+ *  row that already represents the whole. Bare integers are refused too: „50" is unreadable
+ *  as either a percentage or an ideal part, and „0" would zero a real asset.
+ *
+ *  Keep this equal to asset_share_multiplier() in 090_person_wealth.sql — see
+ *  declarations.share.test.ts, which runs both over the corpus. */
+export const assetShareMultiplier = (a: {
+  category: string;
+  share?: string | null;
+}): number => {
+  if (!SHARE_WEIGHTED_CATEGORIES.has(a.category)) return 1;
+  const raw = a.share;
+  if (typeof raw !== "string") return 1;
+  const t = raw
+    .toLowerCase()
+    .replace(/ид\.\s*ч\.|идеална\s+част/g, "")
+    .trim();
+
+  const frac = /^(\d+)\s*\/\s*(\d+)$/.exec(t);
+  if (frac) {
+    const n = Number(frac[1]);
+    const d = Number(frac[2]);
+    return d > 0 && n > 0 && n < d ? n / d : 1;
+  }
+  const pct = /^(\d+(?:[.,]\d+)?)\s*%$/.exec(t);
+  if (pct) {
+    const v = Number(pct[1].replace(",", "."));
+    return v > 0 && v < 100 ? v / 100 : 1;
+  }
+  const dec = /^0[.,](\d+)$/.exec(t);
+  if (dec) {
+    const v = Number(`0.${dec[1]}`);
+    return v > 0 && v < 1 ? v : 1;
+  }
+  return 1;
+};
+
+/** An asset row's contribution to a wealth total: its value, reduced to the declarant's
+ *  ideal part. Use this instead of reading `valueEur` directly wherever rows are summed. */
+export const assetWeightedEur = (a: {
+  category: string;
+  share?: string | null;
+  valueEur: number | null;
+}): number => (a.valueEur ?? 0) * assetShareMultiplier(a);
+
 export const latestDeclarationWith = <T extends DeclarationLike>(
   declarations: readonly T[],
   carries: (d: T) => boolean,

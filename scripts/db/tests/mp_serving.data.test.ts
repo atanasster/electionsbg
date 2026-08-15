@@ -37,6 +37,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { allRows, end } from "../lib/pg";
+import { assetWeightedEur } from "../../../src/lib/declarations";
 
 const require_ = createRequire(import.meta.url);
 const { DB_ROUTES } = require_("../../../functions/db_routes.js") as {
@@ -139,12 +140,20 @@ test.skipIf(skip)(
       if (!d) continue;
       checked++;
 
+      // Weighted on BOTH sides, because person_wealth_year is: the declared amount is
+      // the WHOLE property and a co-owned one is filed once per co-owner, so an
+      // unweighted re-derivation here would demand PG reproduce the double-count
+      // asset_share_multiplier exists to remove. See 090.
+      // „non-debt" is NOT „everything else": a credit_limit row is an undrawn credit
+      // line and belongs to neither side, which is how 090 computes it. Written as an
+      // explicit exclusion rather than `!== "debt"` — that shape is exactly what banked
+      // an undrawn EUR 10,226 limit as EUR 10,226 of assets on 36 filings here.
       const assets = (d.assets ?? [])
-        .filter((a) => a.category !== "debt")
-        .reduce((s, a) => s + (a.valueEur ?? 0), 0);
+        .filter((a) => a.category !== "debt" && a.category !== "credit_limit")
+        .reduce((s, a) => s + assetWeightedEur(a), 0);
       const debts = (d.assets ?? [])
         .filter((a) => a.category === "debt")
-        .reduce((s, a) => s + (a.valueEur ?? 0), 0);
+        .reduce((s, a) => s + assetWeightedEur(a), 0);
       if ((d.ownershipStakes ?? []).some((x) => x.table === "10")) {
         stakeBearing++;
       }
@@ -420,6 +429,9 @@ test.skipIf(skip)(
       "bank",
       "receivable",
       "debt",
+      // Zero-filled like the rest: an undrawn credit line is neither an asset nor a
+      // debt, but mp_assets() still emits its bucket so the composition is complete.
+      "credit_limit",
       "investment",
       "security",
     ];

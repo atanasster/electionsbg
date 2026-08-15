@@ -164,6 +164,65 @@
 CREATE OR REPLACE FUNCTION asset_row_ceiling_eur()
 RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT 100000000::numeric $$;
 
+-- THE DECLARED AMOUNT IS THE WHOLE PROPERTY, NOT THE DECLARANT'S SLICE.
+--
+-- Сметна палата filing instructions, table 1 column 11: „Посочва се цената на придобиване
+-- на имота/правото В ЦЯЛОСТ, както е по съответния документ, БЕЗ ДА СЕ ДЕЛИ МЕЖДУ
+-- СЪСОБСТВЕНИЦИТЕ." Column 8 then requires each co-owner's part to be filed „самостоятелно
+-- на отделен ред" — its own row, repeating that same whole-property price — and only
+-- HOUSEHOLD members get a row (declarant, spouse, cohabiting partner, minor children).
+-- Tables 1.1/1.2 and vehicle tables 3–3.4 are „идентични с тези за Таблица 1".
+--
+-- So a bare SUM(value_eur) counts a jointly-held property once PER CO-OWNER. Measured
+-- 2026-08-15: a villa declared by two spouses at 1/2 each published €30.85m for a €15.4m
+-- holding, and the executive tier over-stated by €202m (14.9%).
+--
+-- 'security' is deliberately NOT weighted and must stay that way: on the table-9/10 forms
+-- that column is a COUNT of дялове ("369 476"), not a fraction of anything.
+--
+-- Returns 1 for anything not an unambiguous proper fraction — the column is free text with
+-- ~3,200 distinct literals, and 1 is both the pre-2026-08-15 behaviour and the safe
+-- direction. „СИО", „по 1/2", „1/2-1/2" and „1/2+1/2" land here correctly: each already
+-- represents the household's whole holding on one row. Bare integers are refused too —
+-- „50" is unreadable as either a percentage or an ideal part, and „0" would zero a real
+-- asset.
+--
+-- APPLIED AT EVERY SITE THAT SUMS, exactly like asset_row_ceiling_eur() above: the three
+-- totals below, the by_category breakdown, person_declarations()'s per-filing totals, and
+-- mp_assets()'s byCategory in 105. Keep equal to assetShareMultiplier() in
+-- src/lib/declarations.ts — declarations.share.test.ts runs both over the corpus.
+CREATE OR REPLACE FUNCTION asset_share_multiplier(p_share text, p_category text)
+RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  WITH norm AS (
+    SELECT CASE
+             WHEN p_category IS NULL
+               OR p_category NOT IN ('real_estate', 'vehicle')
+               OR p_share IS NULL THEN NULL
+             ELSE btrim(regexp_replace(lower(p_share),
+                                       'ид\.\s*ч\.|идеална\s+част', '', 'g'))
+           END AS s
+  ), parsed AS (
+    SELECT CASE
+      WHEN s ~ '^[0-9]+\s*/\s*[0-9]+$' THEN
+        CASE WHEN btrim(split_part(s, '/', 2))::numeric > 0
+              AND btrim(split_part(s, '/', 1))::numeric > 0
+              AND btrim(split_part(s, '/', 1))::numeric
+                < btrim(split_part(s, '/', 2))::numeric
+             THEN btrim(split_part(s, '/', 1))::numeric
+                / btrim(split_part(s, '/', 2))::numeric END
+      WHEN s ~ '^[0-9]+([.,][0-9]+)?\s*%$' THEN
+        CASE WHEN replace(rtrim(s, '% '), ',', '.')::numeric > 0
+              AND replace(rtrim(s, '% '), ',', '.')::numeric < 100
+             THEN replace(rtrim(s, '% '), ',', '.')::numeric / 100 END
+      WHEN s ~ '^0[.,][0-9]+$' THEN
+        CASE WHEN replace(s, ',', '.')::numeric > 0
+              AND replace(s, ',', '.')::numeric < 1
+             THEN replace(s, ',', '.')::numeric END
+    END AS m FROM norm
+  )
+  SELECT COALESCE(m, 1::numeric) FROM parsed
+$$;
+
 DROP MATERIALIZED VIEW IF EXISTS person_wealth_year CASCADE;
 CREATE MATERIALIZED VIEW person_wealth_year AS
 WITH ranked AS (
@@ -225,7 +284,7 @@ SELECT
   -- out at each site rather than pushed into the join, because the LEFT JOIN must still
   -- produce a row for a filing whose ONLY valued asset is excluded — dropping it there
   -- would delete the person's whole year instead of zeroing one line of it.
-  COALESCE(SUM(a.value_eur) FILTER (
+  COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
     WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0) AS assets_eur,
   -- No ceiling on the debt arm — see the header: excluding a debt would OVERSTATE net
   -- worth, which is the one direction this must never fail in.
@@ -233,10 +292,10 @@ SELECT
   -- nor money owed here. Excluded from BOTH sides deliberately — a `<> 'debt'` assets
   -- filter would otherwise sweep it in as an asset, which is how it first showed up
   -- (Йотова's EUR 20,000 limit turned into EUR 20,000 of assets).
-  COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
-  COALESCE(SUM(a.value_eur) FILTER (
+  COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
+  COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
     WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0)
-    - COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
+    - COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
   -- Not a silent cap: how many rows this filing had excluded, so a consumer can caveat a
   -- total it knows is incomplete instead of presenting it as the whole picture.
   count(*) FILTER (
@@ -253,7 +312,7 @@ SELECT
         -- Rounded HERE like every other figure in this payload. Leaving it raw made
         -- by_category the one field a consumer had to round itself, which is exactly the
         -- client-side arithmetic the rest of this migration removes.
-        SELECT a2.category AS cat, round(SUM(a2.value_eur)) AS total
+        SELECT a2.category AS cat, round(SUM(a2.value_eur * asset_share_multiplier(a2.share, a2.category))) AS total
           FROM declaration_asset a2
          WHERE a2.declaration_id = rep.declaration_id
            -- Same ceiling as the totals above. A category breakdown that included the
@@ -355,23 +414,23 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- €3.58bn next to a chart reading €0 — the contradiction the comment below has
       -- always promised cannot happen. Assets are capped, debts are not (see the header).
       'assetsEur', round(COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (
+        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
                   WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       'debtsEur', round(COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
+        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       -- net is computed HERE, on the same basis as person_wealth_year, so the
       -- declaration block and the wealth chart cannot publish different net worths
       -- for one person-year.
       'netEur', round(COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (
+        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
                   WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
         - COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
+        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       -- How many rows this filing had excluded, so the block can caveat a total it
       -- knows is incomplete rather than presenting it as whole ("no silent caps").
