@@ -65,6 +65,9 @@ export const aggregateAssets = (
     // read, so leaving it uncapped keeps publishing the €3.58bn artifact from a second
     // source after the PG surfaces stopped. See ASSET_ROW_CEILING_EUR.
     if (!withinAssetCeiling(a)) continue;
+    // credit_limit is neither: an undrawn credit line is not money owed, and the `else`
+    // here would otherwise bank it as an ASSET. Same rule as 090_person_wealth.sql.
+    if (a.category === "credit_limit") continue;
     if (a.category === "debt") totalDebtsEur += v;
     else totalAssetsEur += v;
     if (a.category === "real_estate") {

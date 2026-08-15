@@ -554,7 +554,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                count(a.value_eur)                      AS valued,
                COALESCE(round(SUM(a.value_eur)), 0)    AS total
         FROM unnest(ARRAY['real_estate','vehicle','cash','bank',
-                          'receivable','debt','investment','security']) AS c(cat)
+                          'receivable','debt','credit_limit','investment','security']) AS c(cat)
         -- LEFT so a category the declarant left empty still emits its zero row.
         -- The ceiling matches 090's: these header figures come from person_wealth_year,
         -- which excludes implausible asset rows, so a composition summed without it would
@@ -566,7 +566,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                                      -- COUNTED. `NULL <= n` is NULL, not true, so omitting
                                      -- this drops every unvalued item from `count` — it
                                      -- reported 3 properties where the declarant filed 4.
-                                     AND (a.category = 'debt'
+                                     AND (a.category IN ('debt', 'credit_limit')
                                           OR a.value_eur IS NULL
                                           OR a.value_eur <= asset_row_ceiling_eur())
         GROUP BY c.cat

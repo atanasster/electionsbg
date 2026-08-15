@@ -183,7 +183,7 @@ WITH ranked AS (
                     -- defect rankings_selection.test.ts exists to prevent, through a
                     -- different door.
                     AND a.value_eur > 0
-                    AND (a.category = 'debt'
+                    AND (a.category IN ('debt', 'credit_limit')
                          OR a.value_eur <= asset_row_ceiling_eur()))) DESC,
         (EXISTS (SELECT 1 FROM declaration_asset a
                   WHERE a.declaration_id = d.declaration_id)) DESC,
@@ -220,17 +220,21 @@ SELECT
   -- produce a row for a filing whose ONLY valued asset is excluded — dropping it there
   -- would delete the person's whole year instead of zeroing one line of it.
   COALESCE(SUM(a.value_eur) FILTER (
-    WHERE a.category <> 'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0) AS assets_eur,
+    WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0) AS assets_eur,
   -- No ceiling on the debt arm — see the header: excluding a debt would OVERSTATE net
   -- worth, which is the one direction this must never fail in.
+  -- 'debt' only: a credit_limit row is an undrawn line, so it is neither a holding above
+  -- nor money owed here. Excluded from BOTH sides deliberately — a `<> 'debt'` assets
+  -- filter would otherwise sweep it in as an asset, which is how it first showed up
+  -- (Йотова's EUR 20,000 limit turned into EUR 20,000 of assets).
   COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
   COALESCE(SUM(a.value_eur) FILTER (
-    WHERE a.category <> 'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0)
+    WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0)
     - COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
   -- Not a silent cap: how many rows this filing had excluded, so a consumer can caveat a
   -- total it knows is incomplete instead of presenting it as the whole picture.
   count(*) FILTER (
-    WHERE a.category <> 'debt' AND a.value_eur > asset_row_ceiling_eur())::int
+    WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur > asset_row_ceiling_eur())::int
     AS excluded_asset_rows,
   COALESCE((
     SELECT SUM(COALESCE(i.eur_declarant, 0))
@@ -252,7 +256,7 @@ SELECT
            -- IS NULL first, for the same reason 105's byCategory needs it: `NULL <= n`
            -- is NULL, so without it a category holding only unvalued rows disappears from
            -- the breakdown instead of reporting its zero.
-           AND (a2.category = 'debt' OR a2.value_eur IS NULL
+           AND (a2.category IN ('debt', 'credit_limit') OR a2.value_eur IS NULL
                 OR a2.value_eur <= asset_row_ceiling_eur())
          GROUP BY a2.category
       ) c
@@ -346,7 +350,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- always promised cannot happen. Assets are capped, debts are not (see the header).
       'assetsEur', round(COALESCE(
         (SELECT SUM(a.value_eur) FILTER (
-                  WHERE a.category <> 'debt'
+                  WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       'debtsEur', round(COALESCE(
@@ -357,7 +361,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- for one person-year.
       'netEur', round(COALESCE(
         (SELECT SUM(a.value_eur) FILTER (
-                  WHERE a.category <> 'debt'
+                  WHERE a.category NOT IN ('debt', 'credit_limit')
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
         - COALESCE(
@@ -367,7 +371,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- knows is incomplete rather than presenting it as whole ("no silent caps").
       'excludedAssetRows', (SELECT count(*) FROM declaration_asset a
                               WHERE a.declaration_id = d.declaration_id
-                                AND a.category <> 'debt'
+                                AND a.category NOT IN ('debt', 'credit_limit')
                                 AND a.value_eur > asset_row_ceiling_eur()),
       'assetCount', (SELECT count(*) FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id),

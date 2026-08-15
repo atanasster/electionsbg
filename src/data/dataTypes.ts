@@ -897,6 +897,11 @@ export type MpAssetCategory =
   | "bank" // Table 5 (bank accounts / deposits)
   | "receivable" // Table 6
   | "debt" // Table 7 (liability)
+  // Table 7 as well, but an available credit LINE rather than money owed — see
+  // `creditLimitRow` in scripts/declarations/parse_declaration.ts. Split out so it is
+  // excluded from every `category = 'debt'` net-worth filter automatically; it is a
+  // liability nobody has drawn, and netting it off asserts a debt nobody declared.
+  | "credit_limit"
   | "investment" // Table 8 (funds, crypto)
   | "security"; // Table 9 (shares & financial instruments)
 

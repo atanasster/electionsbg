@@ -26,6 +26,10 @@ const ASSET_CATEGORIES = [
   "bank",
   "receivable",
   "debt",
+  // Table 7 like `debt`, but an available credit LINE rather than money owed. On neither
+  // side of the balance sheet: excluded from assets AND from debts, so a `<> 'debt'`
+  // assets filter must not sweep it in. See creditLimitRow in parse_declaration.ts.
+  "credit_limit",
   "investment",
   "security",
 ] as const;

@@ -101,9 +101,13 @@ ALTER TABLE declaration ADD COLUMN IF NOT EXISTS declaration_year int;
 CREATE TABLE IF NOT EXISTS declaration_asset (
   declaration_id bigint NOT NULL REFERENCES declaration (declaration_id) ON DELETE CASCADE,
   seq            int NOT NULL,        -- position within the declaration, for stable order
+  -- 'credit_limit' is Table 7 like 'debt', but an available credit LINE rather than money
+  -- owed — see creditLimitRow in scripts/declarations/parse_declaration.ts. Separate so the
+  -- `category = 'debt'` filters in 090/105 exclude it without restating the rule: a declared
+  -- limit is what the holder COULD draw, and subtracting it asserts a debt nobody declared.
   category       text NOT NULL CHECK (category IN (
                    'real_estate', 'vehicle', 'cash', 'bank',
-                   'receivable', 'debt', 'investment', 'security')),
+                   'receivable', 'debt', 'credit_limit', 'investment', 'security')),
   description    text,
   detail         text,
   location       text,
@@ -243,3 +247,21 @@ ALTER TABLE declaration_event ADD CONSTRAINT declaration_event_kind_check
                   'interest_contract', 'related_person', 'early_repayment'));
 CREATE INDEX IF NOT EXISTS idx_declaration_event_kind
   ON declaration_event (kind);
+
+-- Reconcile the category CHECK on a warm database: CREATE TABLE IF NOT EXISTS above is a
+-- no-op once the table exists, so a running database would keep the pre-credit_limit
+-- vocabulary and the loader's first credit_limit row would abort the whole COPY.
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM pg_constraint
+     WHERE conrelid = 'declaration_asset'::regclass
+       AND conname  = 'declaration_asset_category_check'
+       AND pg_get_constraintdef(oid) NOT LIKE '%credit_limit%'
+  ) THEN
+    ALTER TABLE declaration_asset DROP CONSTRAINT declaration_asset_category_check;
+    ALTER TABLE declaration_asset ADD CONSTRAINT declaration_asset_category_check
+      CHECK (category IN ('real_estate', 'vehicle', 'cash', 'bank',
+                          'receivable', 'debt', 'credit_limit', 'investment', 'security'));
+  END IF;
+END $$;

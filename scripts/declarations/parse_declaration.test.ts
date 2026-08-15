@@ -564,6 +564,70 @@ describe("money amounts with an inline note", () => {
   });
 });
 
+// Table 7 holds two different things and only one of them is money owed. A credit card
+// declared by its LIMIT is an available line — Илияна Йотова's only Table 7 rows are two
+// cards totalling EUR 20,000, and subtracting them published a net worth 8% below her
+// filing. 2,654 rows across 1,421 people in the 2026 register are this shape.
+describe("Table 7 — credit limits are not debts", () => {
+  const debtForm = (
+    description: string,
+  ): string => `<?xml version="1.0" encoding="UTF-8"?>
+<PublicPerson>
+  <Personal><Name>Тест Тестов Тестов</Name></Personal>
+  <DeclarationData><DeclarationType>Annualy</DeclarationType><Year>2025</Year></DeclarationData>
+  <Tables>
+    <Table Num="7" Description="Задължения" Declared="True">
+      <Row Num="1">
+        <Cell Num="1" Description="Ном. по ред">1.</Cell>
+        <Cell Num="2" Description="Вид на задължението">${description}</Cell>
+        <Cell Num="3" Description="Размер">15000</Cell>
+        <Cell Num="4" Description="Вид на валутата">EUR</Cell>
+        <Cell Num="6" Description="Име">Тест Тестов Тестов</Cell>
+      </Row>
+    </Table>
+  </Tables>
+</PublicPerson>`;
+
+  const categoryOf = (description: string) => {
+    const d = parseDeclarationXml({
+      xml: debtForm(description),
+      mpId: 0,
+      institution: "Народно събрание",
+      sourceUrl: url("2026"),
+    });
+    return (d.assets ?? [])[0]?.category;
+  };
+
+  // THE regression, in the declarant's own words off Йотова's filing.
+  it("classifies a declared limit as a credit line, not a debt", () => {
+    expect(categoryOf("кредитна карта - лимит")).toBe("credit_limit");
+  });
+
+  it.each([
+    "Кредитна карта, лимит 15 000",
+    "кредитен лимит",
+    "овърдрафт лимит",
+  ])("treats %s as a credit line", (desc) => {
+    expect(categoryOf(desc)).toBe("credit_limit");
+  });
+
+  // Deliberately narrow. A card with no limit wording CAN carry a drawn balance, and
+  // mislabelling a real debt as a credit line INFLATES net worth — the more damaging
+  // direction, so the ambiguous case stays a debt.
+  it.each([
+    "кредитна карта",
+    "ипотечен кредит",
+    "потребителски кредит",
+    "заем от физическо лице",
+  ])("leaves %s as a debt", (desc) => {
+    expect(categoryOf(desc)).toBe("debt");
+  });
+
+  it("leaves a row with no description as a debt", () => {
+    expect(categoryOf("")).toBe("debt");
+  });
+});
+
 describe("pickEurValue — money-field separator typos", () => {
   // A bank/cash row: cell A (amount) and cell C (lev-equivalent) describe the
   // same sum, so they must agree up to the peg. A wildly larger equivalent is a

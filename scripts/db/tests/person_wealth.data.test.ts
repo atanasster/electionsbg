@@ -44,20 +44,26 @@ afterAll(async () => {
 // source — but the two must stay in step, or the next artifact would make this test demand
 // that the matview reproduce it. The exclusion itself is asserted separately below, so
 // dropping the ceiling here would not go unnoticed.
-test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
+// „non-debt" is NOT „everything else": a credit_limit row is an undrawn credit line and
+// belongs to neither side. Written as an explicit exclusion rather than `<> 'debt'`,
+// because that is precisely the shape that silently banked Йотова's EUR 20,000 limit as
+// EUR 20,000 of assets when the category was introduced.
+test.skipIf(skip)("net_eur equals holdings minus debt, with limits on neither side", async () => {
   const bad = await allRows<{ person_id: string; period_year: number }>(
     `SELECT w.person_id, w.period_year
        FROM person_wealth_year w
        JOIN LATERAL (
          SELECT
-           COALESCE(SUM(value_eur) FILTER (WHERE category <> 'debt'), 0) a,
+           COALESCE(SUM(value_eur) FILTER (
+             WHERE category NOT IN ('debt', 'credit_limit')), 0) a,
            COALESCE(SUM(value_eur) FILTER (WHERE category =  'debt'), 0) d
            FROM declaration_asset
           WHERE declaration_id = w.declaration_id
             -- Assets only, matching the implementation: a debt is never capped, because
             -- dropping one would inflate net worth. Passes either way today (no debt row
             -- is over the ceiling), so it is written to match rather than to happen to.
-            AND (category = 'debt' OR value_eur <= asset_row_ceiling_eur())
+            AND (category IN ('debt', 'credit_limit')
+                 OR value_eur <= asset_row_ceiling_eur())
        ) t ON true
       WHERE round(w.assets_eur) <> round(t.a)
          OR round(w.debts_eur)  <> round(t.d)

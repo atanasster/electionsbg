@@ -47,7 +47,7 @@
         "fundsOrigin": "заплата ,наем и наследяване"
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "лимит по кредитна карта",
         "detail": "BGN",
         "location": null,
@@ -301,7 +301,7 @@
         "fundsOrigin": "заплата ,наем и наследяване"
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "лимит по кредитна карта",
         "detail": "BGN",
         "location": null,
@@ -442,7 +442,7 @@
         "fundsOrigin": "заеми"
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "лимит по кредитна карта",
         "detail": "BGN",
         "location": null,
@@ -546,7 +546,7 @@
         "fundsOrigin": null
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "лимит по кредитна карта",
         "detail": "EUR",
         "location": null,

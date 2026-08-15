@@ -2,20 +2,21 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Wallet,
-  Home as HomeIcon,
-  Car,
-  Banknote,
-  Landmark,
-  TrendingUp,
-  FileText,
-  HandCoins,
   AlertCircle,
-  ExternalLink,
-  ArrowUp,
   ArrowDown,
   ArrowRight,
+  ArrowUp,
+  Banknote,
+  Car,
   Coins,
+  CreditCard,
+  ExternalLink,
+  FileText,
+  HandCoins,
+  Home as HomeIcon,
+  Landmark,
+  TrendingUp,
+  Wallet,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
@@ -36,6 +37,7 @@ const CATEGORY_ICONS: Record<
   bank: Landmark,
   receivable: HandCoins,
   debt: AlertCircle,
+  credit_limit: CreditCard,
   investment: TrendingUp,
   security: FileText,
 };
@@ -47,6 +49,7 @@ const CATEGORY_KEYS: Record<MpAssetCategory, string> = {
   bank: "asset_category_bank",
   receivable: "asset_category_receivable",
   debt: "asset_category_debt",
+  credit_limit: "asset_category_credit_limit",
   investment: "asset_category_investment",
   security: "asset_category_security",
 };
@@ -58,6 +61,7 @@ const CATEGORY_FALLBACKS: Record<MpAssetCategory, string> = {
   bank: "Bank accounts",
   receivable: "Receivables",
   debt: "Debts",
+  credit_limit: "Credit limits",
   investment: "Investments",
   security: "Securities & shares",
 };
@@ -120,7 +124,10 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   // unique per filing.
   const latestDecl = declarations.find((d) => d.sourceUrl === rollup.sourceUrl);
   const unvaluedItems: MpAsset[] = (latestDecl?.assets ?? []).filter(
-    (a) => a.category !== "debt" && a.valueEur == null,
+    (a) =>
+      a.category !== "debt" &&
+      a.category !== "credit_limit" &&
+      a.valueEur == null,
   );
   const showAllUnvalued = expandedFor === rollup.sourceUrl;
   // One id per card, so two of these on one page cannot both claim `#mp-assets-unvalued`.

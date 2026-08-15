@@ -473,7 +473,7 @@
         "fundsOrigin": null
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "кредитна карта (одобрен лимит)",
         "detail": "EUR",
         "location": null,
@@ -1028,7 +1028,7 @@
         "fundsOrigin": "заплата, наем, дивидент"
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "кредитна карта (лимит към 31.12.2024)",
         "detail": "EUR",
         "location": null,
@@ -1723,7 +1723,7 @@
         "fundsOrigin": null
       },
       {
-        "category": "debt",
+        "category": "credit_limit",
         "description": "кредитна карта (одобрен лимит към 31.12.2023)- лихвен процент 18,9 %",
         "detail": "EUR",
         "location": null,

@@ -1072,6 +1072,18 @@ const dedupeRealEstateRows = (
   return out;
 };
 
+/** Is this Table 7 row an available credit LINE rather than money owed?
+ *
+ *  Keyed on the declarant's own words in the description cell. „лимит" alone is the
+ *  reliable marker — it is what makes the figure a ceiling rather than a balance — and a
+ *  bare „кредитна карта" with no limit wording is left as debt, since a card CAN carry a
+ *  drawn balance and we cannot tell which was meant.
+ *
+ *  Deliberately narrow: mislabelling a real debt as a credit line inflates net worth, which
+ *  is the more damaging direction of the two. */
+export const creditLimitRow = (description: string | null): boolean =>
+  /лимит/i.test(description ?? "");
+
 const parseAssetTables = (
   $: CheerioAPI,
   declarantName: string,
@@ -1185,14 +1197,26 @@ const parseAssetTables = (
     );
   }
 
-  // Table 7 — debts > 10k BGN
+  // Table 7 — debts > 10k BGN.
+  //
+  // ⚠️ NOT EVERY ROW HERE IS MONEY OWED. Declarants routinely list a credit card by its
+  // LIMIT — „кредитна карта - лимит", 2,654 rows across 1,421 people in the 2026 filings —
+  // and a limit is what they COULD draw, not what they have. Subtracting it from net worth
+  // asserts a debt nobody declared: Илияна Йотова's only Table 7 rows are two cards
+  // totalling EUR 20,000, so her published net worth was 8% below the filing. The press
+  // reports the figure as its own line („Кредитни карти – лимит – 20 000 евро") beside the
+  // assets, never netted off, and that is the honest reading.
+  //
+  // Split at PARSE time rather than filtered at each aggregate: `category = 'debt'` is
+  // tested in 090_person_wealth.sql, 105_mp_serving.sql, officials/rankings.ts and the two
+  // asset screens, and a rule restated in six places is one somebody misses.
   const debtCol = columnResolver(version, "debt");
   for (const row of rowsOfTable($, version, "debt")) {
     out.push(
       parseMoneyRow(
         row,
         declarantName,
-        "debt",
+        creditLimitRow(cellByNum(row, debtCol(2))) ? "credit_limit" : "debt",
         {
           amount: 3,
           currency: 4,

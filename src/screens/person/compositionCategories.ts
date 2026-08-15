@@ -1,9 +1,12 @@
 // The asset categories the portfolio-composition stack draws, in a fixed order so a band
 // keeps its position and colour as the reader moves between people.
 //
-// This must stay EXACTLY 089's asset-category CHECK minus `debt`. Debt is a liability:
-// stacking it with holdings would make the bands sum to something that is not the
-// portfolio, and the trajectory chart already plots it as its own line. An UNLISTED
+// This must stay EXACTLY 089's asset-category CHECK minus `debt` and `credit_limit`.
+// Both are liabilities:
+// stacking them with holdings would make the bands sum to something that is not the
+// portfolio, and the trajectory chart already plots debt as its own line. A credit LIMIT
+// is not even money owed — see creditLimitRow — so it belongs in neither the bands nor the
+// debt line. An UNLISTED
 // category is the silent failure — it would contribute to the assets line above but to no
 // band here, with nothing failing. PersonPortfolioComposition.test.tsx pins this list
 // against the CHECK's vocabulary; declarations_schema.data.test.ts pins the CHECK itself.

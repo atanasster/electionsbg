@@ -2,16 +2,17 @@ import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Home as HomeIcon,
-  Car,
+  AlertCircle,
   Banknote,
-  Landmark,
-  TrendingUp,
+  Car,
+  Coins,
+  CreditCard,
+  ExternalLink,
   FileText,
   HandCoins,
-  AlertCircle,
-  ExternalLink,
-  Coins,
+  Home as HomeIcon,
+  Landmark,
+  TrendingUp,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
@@ -34,6 +35,7 @@ const CATEGORY_ICONS: Record<
   bank: Landmark,
   receivable: HandCoins,
   debt: AlertCircle,
+  credit_limit: CreditCard,
   investment: TrendingUp,
   security: FileText,
 };
@@ -45,6 +47,7 @@ const CATEGORY_KEYS: Record<MpAssetCategory, string> = {
   bank: "asset_category_bank",
   receivable: "asset_category_receivable",
   debt: "asset_category_debt",
+  credit_limit: "asset_category_credit_limit",
   investment: "asset_category_investment",
   security: "asset_category_security",
 };
@@ -56,6 +59,7 @@ const CATEGORY_FALLBACKS: Record<MpAssetCategory, string> = {
   bank: "Bank accounts",
   receivable: "Receivables",
   debt: "Debts",
+  credit_limit: "Credit limits",
   investment: "Investments",
   security: "Securities & shares",
 };
