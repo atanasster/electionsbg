@@ -370,6 +370,26 @@ Each entry corrects exactly one declared value; the parser swaps in the
 match keys are intentionally narrow — heuristic clamps ("anything over 100k
 BGN/m² must be wrong") would silently rewrite legitimate luxury holdings.
 
+**The per-m² anchor is the BUILDING (column 6), not the plot (column 5).**
+`perSqmAnchor` in `parse_declaration.ts` is the one definition, shared with Layer 2.
+The filing instructions are explicit — „в колона 5 се посочва площта на парцела, а в
+колона 6 - на сградата" — and anchoring on the plot was wrong in both directions: a
+36m² вила on a 980m² Sofia plot reads 423,558/m² of building but only 15,559/m² of
+plot, so it published at €15.2m and ranked #1 on `/officials/assets`; and an apartment
+declares its plot as „0", so 662 valued building rows had no usable anchor at all.
+It picks the first USABLE area, not the first present one — 47 column-6 cells hold an
+ideal part („1/2") rather than an area, and committing to those would suppress the plot
+fallback. `builtAreaFromCell` refuses the fraction shape at source.
+
+⚠️ **A `/100` auto-correction is a rewrite of a published number, and Layer 2 cannot
+see it** — the flagger reads the parsed shards, where the raw value is gone. Worse, the
+two layers interact: a `/1000` typo that used to fail the per-m² test and get caught by
+the `> 5M` absolute arm now fires, lands under 5M, and goes unflagged while still 10×
+too high. Every entry point that runs the parser therefore prints an
+`AUTO-CORRECTED (verify)` section (`reportAutoCorrections`). **Read it.** Where `/100`
+is the wrong divisor, add a `REAL_ESTATE_VALUE_OVERRIDES` entry — Касчиев's villa is the
+worked case, where the honest value is `/1000`.
+
 **Persistent vs per-filing source URLs**: register.cacbg.bg URLs share a
 UUID prefix that's the declarant's persistent identifier, with a 6-digit
 trailing suffix per filing year. If the same MP files the same erroneous
@@ -377,6 +397,25 @@ row across multiple years, match by the **persistent prefix only** so one
 override covers every year. Concrete example —
 `D6FB7B43-A7B9-496A-BEA5-05040F3EB514` (Hakkı's prefix) covers his 2022,
 2023, and 2024 filings of the same VW Golf row.
+
+### Ideal-part weighting — why MP net worth dropped ~13%
+
+Since 2026-08-15 every wealth total counts a co-owned holding at the declarant's
+**идеална част**. The register records the WHOLE property's acquisition price on each
+co-owner's row („БЕЗ ДА СЕ ДЕЛИ МЕЖДУ СЪСОБСТВЕНИЦИТЕ", table 1 col 11) and requires each
+co-owner on a separate row (col 8), so summing raw counted a jointly-held home twice.
+
+**A one-time drop against a pre-2026-08-15 baseline is the FIX, not a regression** —
+measured: MPs −13.3%, executive −16.1%, municipal −19.9%. `/mp-cars` moved too
+(€8,241,472 → €7,109,059): vehicles are weighted on the same rule.
+
+The rule lives twice — `assetShareMultiplier()` in `src/lib/declarations.ts` and
+`asset_share_multiplier()` in `090_person_wealth.sql` — because a route cannot import TS.
+`scripts/db/tests/asset_share_multiplier.data.test.ts` runs both over every
+`(share, category)` literal in the corpus. Two things it deliberately does NOT do:
+`security` is never weighted (that cell is a COUNT of дялове, not a fraction), and
+anything not an unambiguous proper fraction returns 1 — „СИО", „по 1/2" and „1/2-1/2"
+each already state the household's whole holding on one row.
 
 ### Layer 2 — automated flagging of unhandled rows
 
@@ -395,7 +434,7 @@ Current thresholds (`THRESHOLDS` constant in the script — keep narrow):
 
 | Category | Threshold |
 |---|---|
-| Real estate | > 5M BGN absolute, OR > 100k BGN/m² when area is present |
+| Real estate | > 5M BGN absolute, OR > 100k BGN/m² on the `perSqmAnchor` area (building first, plot as fallback — shared with Layer 1) |
 | Vehicle | > 500k BGN absolute, OR > 150k BGN for cars > 15 years old |
 | Bank / cash | > 50M BGN per row |
 | Receivable | > 100M BGN per row (Peevski's 19M legitimate row sits well below) |

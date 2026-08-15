@@ -22,7 +22,11 @@ import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 import { formatEur, formatEurSigned } from "@/lib/currency";
-import { assetWeightedEur, incomeTotals } from "@/lib/declarations";
+import {
+  assetShareMultiplier,
+  assetWeightedEur,
+  incomeTotals,
+} from "@/lib/declarations";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const CATEGORY_ICONS: Record<
@@ -105,19 +109,26 @@ const AssetTable: FC<{
   category: MpAssetCategory;
   rows: MpAsset[];
   lang: string;
-}> = ({ category, rows, lang }) => {
+  /** The rollup's own figure for this category. Passed in rather than re-derived so one
+   *  producer owns it: build_assets_rankings.ts applies BOTH the ideal-part weighting and
+   *  withinAssetCeiling, and a local reduce would silently drop the second — a
+   *  ceiling-excluded row would make this subtotal disagree with the header on the same
+   *  page. Falls back to a weighted local sum when the rollup has no bucket. */
+  totalEur: number | null;
+}> = ({ category, rows, lang, totalEur: rollupTotalEur }) => {
   const { t } = useTranslation();
   const Icon = CATEGORY_ICONS[category];
   const isDebt = category === "debt";
   const isRealEstate = category === "real_estate";
   const isVehicle = category === "vehicle";
+  const isSecurity = category === "security";
 
-  // Weighted by the declarant's ideal part, like every other surface that totals these
-  // rows (assetShareMultiplier / asset_share_multiplier). The declared amount is the WHOLE
-  // property, so an unweighted subtotal here would disagree with the net worth shown above
-  // it on this same page. The "Share" column below is what explains the difference between
-  // this figure and a naive sum of the value column.
-  const totalEur = rows.reduce((s, r) => s + assetWeightedEur(r), 0);
+  const totalEur =
+    rollupTotalEur ?? rows.reduce((s, r) => s + assetWeightedEur(r), 0);
+  // Whether ANY row here is counted at less than its declared value — the subtotal then
+  // reads lower than the € column above it, and on an accountability page an unexplained
+  // half-of-the-visible-number looks like a bug. Drives the note below.
+  const hasWeightedRow = rows.some((r) => assetShareMultiplier(r) !== 1);
   const categoryTitle =
     t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category];
 
@@ -191,7 +202,14 @@ const AssetTable: FC<{
       },
       {
         accessorKey: "share",
-        header: t("mp_assets_col_share") || "Share",
+        // Two different facts under one header. On real_estate/vehicle this is the
+        // идеална част the subtotal weights by (SHARE_WEIGHTED_CATEGORIES in
+        // src/lib/declarations.ts); on the table-9/10 securities form the same cell is a
+        // COUNT of дялове ("369 476") and the subtotal is correctly unweighted. Labelling
+        // both "Share" implies an arithmetic the securities column does not have.
+        header: isSecurity
+          ? t("mp_assets_col_units") || "Units"
+          : t("mp_assets_col_share") || "Share",
         enableSorting: false,
         cell: ({ row }) => (
           <div className="text-right text-xs">{row.original.share ?? "—"}</div>
@@ -247,7 +265,7 @@ const AssetTable: FC<{
         ),
       },
     ],
-    [t, isDebt, isRealEstate, isVehicle, lang],
+    [t, isDebt, isRealEstate, isVehicle, isSecurity, lang],
   );
 
   return (
@@ -269,6 +287,12 @@ const AssetTable: FC<{
           {totalEur > 0 ? formatEur(totalEur, lang) : "—"}
         </span>
       </div>
+      {hasWeightedRow && (
+        <p className="px-4 pt-3 text-xs text-muted-foreground">
+          {t("mp_assets_share_weighted_note") ||
+            "The subtotal counts each row at its declared share (идеална част): the register records the whole property's acquisition price on every co-owner's row, so a half share is counted once rather than twice."}
+        </p>
+      )}
       <DataTable<MpAsset, unknown>
         title={categoryTitle}
         pageSize={25}
@@ -499,6 +523,7 @@ export const CandidateAssetsScreen: FC = () => {
           category={s.category}
           rows={s.rows}
           lang={lang}
+          totalEur={rollup.byCategory?.[s.category]?.totalEur ?? null}
         />
       ))}
 

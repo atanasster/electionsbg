@@ -1959,6 +1959,44 @@ therefore leaves the whole suite unrun, so the corpus that a loader failed to up
 checked. When a loader aborts, run `npm run test:data` before assuming only that loader's
 table is affected.
 
+**`asset_share_multiplier()` (090) is another, and it is the one whose absence is
+INVISIBLE.** A declared property's price is the WHOLE property — Сметна палата filing
+instructions, table 1 col 11: „Посочва се цената на придобиване на имота/правото В ЦЯЛОСТ
+… БЕЗ ДА СЕ ДЕЛИ МЕЖДУ СЪСОБСТВЕНИЦИТЕ" — and col 8 requires each co-owner on a SEPARATE
+row repeating that same price, with only household members getting one. So a bare
+`SUM(value_eur)` counts a jointly-held home once per co-owner. The rule lives twice
+because a route cannot import TS: `assetShareMultiplier()` in `src/lib/declarations.ts`
+(the JSON rollups behind `/officials/assets`, `/mp-cars` and the MP pages) and
+`asset_share_multiplier()` in `090_person_wealth.sql` (`person_wealth_year` and the four
+matviews over it). `asset_share_multiplier.data.test.ts` runs both over EVERY
+`(share, category)` literal in the corpus rather than a hand-picked list — the column is
+free text with ~3,200 spellings.
+
+Three things about it are easy to get backwards:
+
+- **A one-time 13–20% drop is the FIX, not a regression.** Measured 2026-08-15: executive
+  −16.1%, municipal −19.9%, MPs −13.3%, `/mp-cars` €8,241,472 → €7,109,059. Both skills'
+  troubleshooting tables name it, because `update-officials` previously told an operator
+  that a >20% drop meant a category-filter regression.
+- **`security` is NEVER weighted.** On the table-9/10 forms that cell is a COUNT of дялове
+  („369 476"), not a fraction; weighting it would multiply a shareholding by its own share
+  count. Nor are `debt` rows — the multiplier is a constant 1 there and is deliberately
+  written out rather than applied for symmetry.
+- **Anything not an unambiguous proper fraction returns 1**, which is the safe direction.
+  „СИО", „по 1/2", „1/2-1/2" and „1/2+1/2" each already state the household's WHOLE
+  holding on one row; a bare „50" is unreadable as either a percentage or an ideal part;
+  „0" would zero a real asset. ~19% of declarants divide the price among co-owners anyway,
+  against the instruction, and are therefore UNDER-stated — kept deliberately, since it is
+  undetectable on a single-row holding.
+
+Related, and the same shape one layer down: **`perSqmAnchor()`
+(`scripts/declarations/parse_declaration.ts`) is the one definition of what a
+price-per-m² is measured against** — column 6 (сградата) first, column 5 (парцела) as the
+fallback — shared by the parse-time separator-typo detector and
+`check_suspicious_values.ts`. Two anchors is exactly how a 36m² villa on a 980m² plot hid:
+423,558/m² of building, 15,559/m² of plot. It returns the first USABLE area, not the first
+present one, because 47 column-6 cells hold an ideal part rather than an area.
+
 **`shlyo_query_fold()` (141) is one of these, with one difference: it is GENERATED.** It is the
 shliokavitsa half of search — the Latin-side spellings a Bulgarian actually types (`6umen`,
 `4erven`, `sofiq`), which `translit_bg_latin()` alone cannot reach, so before it „Jelqzkov"

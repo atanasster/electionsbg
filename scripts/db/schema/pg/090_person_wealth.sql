@@ -187,9 +187,18 @@ RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT 100000000::num
 -- „50" is unreadable as either a percentage or an ideal part, and „0" would zero a real
 -- asset.
 --
--- APPLIED AT EVERY SITE THAT SUMS, exactly like asset_row_ceiling_eur() above: the three
--- totals below, the by_category breakdown, person_declarations()'s per-filing totals, and
--- mp_assets()'s byCategory in 105. Keep equal to assetShareMultiplier() in
+-- APPLIED AT EVERY SITE THAT SUMS AN ASSET, exactly like asset_row_ceiling_eur() above:
+-- the assets and net totals below, the by_category breakdown, person_declarations()'s
+-- per-filing totals, and mp_assets()'s byCategory in 105. NOT on the debt arms — see there.
+--
+-- PERFORMANCE. The CTE form below blocks PostgreSQL's SQL-function inlining, so every row
+-- pays a function call plus up to three regex evaluations: measured whole-corpus,
+-- SUM(value_eur) is 39.8 ms against 1,613.6 ms with the multiplier (40x). Irrelevant at
+-- every call site today — all are declaration_id-scoped, and person_declarations() on the
+-- heaviest declarant in the corpus (844 asset rows) is 39 ms / 1,349 buffers — and the
+-- matview build pays it once. If a corpus-wide aggregate is ever added, rewrite this as a
+-- single-SELECT CASE (no CTEs) so it inlines, rather than rediscovering the cost under a
+-- slow query. Keep equal to assetShareMultiplier() in
 -- src/lib/declarations.ts — declarations.share.test.ts runs both over the corpus.
 CREATE OR REPLACE FUNCTION asset_share_multiplier(p_share text, p_category text)
 RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
@@ -198,8 +207,13 @@ RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
              WHEN p_category IS NULL
                OR p_category NOT IN ('real_estate', 'vehicle')
                OR p_share IS NULL THEN NULL
+             -- btrim() with no charset strips ASCII SPACE only, and PostgreSQL's
+             -- [[:space:]] excludes U+00A0 — while JS .trim() handles all of them. An
+             -- Excel- or Word-sourced cell carries exactly NBSP. Zero such rows exist
+             -- today; the lockstep gate would fail on the load that introduced one.
              ELSE btrim(regexp_replace(lower(p_share),
-                                       'ид\.\s*ч\.|идеална\s+част', '', 'g'))
+                                       'ид\.\s*ч\.|идеална\s+част', '', 'g'),
+                        E' \t\n\r' || U&'\00A0')
            END AS s
   ), parsed AS (
     SELECT CASE
@@ -286,16 +300,20 @@ SELECT
   -- would delete the person's whole year instead of zeroing one line of it.
   COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
     WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0) AS assets_eur,
+  -- No multiplier on the debt arm either: the rule covers real_estate/vehicle only, so
+  -- asset_share_multiplier is a constant 1 here. Written out rather than applied for
+  -- symmetry, because a multiplier on this line reads as if a debt could be an ideal
+  -- part — the same misreading the `security` note exists to prevent.
   -- No ceiling on the debt arm — see the header: excluding a debt would OVERSTATE net
   -- worth, which is the one direction this must never fail in.
   -- 'debt' only: a credit_limit row is an undrawn line, so it is neither a holding above
   -- nor money owed here. Excluded from BOTH sides deliberately — a `<> 'debt'` assets
   -- filter would otherwise sweep it in as an asset, which is how it first showed up
   -- (Йотова's EUR 20,000 limit turned into EUR 20,000 of assets).
-  COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
+  COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
   COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (
     WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur <= asset_row_ceiling_eur()), 0)
-    - COALESCE(SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
+    - COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
   -- Not a silent cap: how many rows this filing had excluded, so a consumer can caveat a
   -- total it knows is incomplete instead of presenting it as the whole picture.
   count(*) FILTER (
@@ -419,7 +437,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       'debtsEur', round(COALESCE(
-        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt')
+        (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       -- net is computed HERE, on the same basis as person_wealth_year, so the
       -- declaration block and the wealth chart cannot publish different net worths
@@ -430,7 +448,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                     AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
         - COALESCE(
-        (SELECT SUM(a.value_eur * asset_share_multiplier(a.share, a.category)) FILTER (WHERE a.category = 'debt')
+        (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       -- How many rows this filing had excluded, so the block can caveat a total it
       -- knows is incomplete rather than presenting it as whole ("no silent caps").
