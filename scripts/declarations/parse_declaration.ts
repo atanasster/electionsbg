@@ -27,7 +27,7 @@ import type {
   MpIncomeRecord,
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
-import { toEur } from "../../src/lib/currency";
+import { isEurConvertible, toEur } from "../../src/lib/currency";
 import { registerFolderYear } from "../lib/cacbg_register";
 
 const text = ($: CheerioAPI, sel: string): string | null => {
@@ -46,6 +46,92 @@ const toNumber = (raw: string | null): number | null => {
   if (cleaned === "" || !/^-?\d+(\.\d+)?$/.test(cleaned)) return null;
   const n = Number(cleaned);
   return Number.isFinite(n) ? n : null;
+};
+
+// 2.5, not 20. Cell A and cell C are the same sum in two currencies, so the
+// honest ratio is the FX rate (1.96 for EUR, 1.0 for BGN) — anything past ~2.5
+// is already unexplainable. A looser 20x let a clean 72-row cluster sitting at
+// exactly ~10x through, seven of them over EUR 500k and one at EUR 3.63M
+// ranking 14th nationally. The nearest genuine survivor is 19.56x.
+const MONEY_EQUIV_TYPO_FACTOR = 2.5;
+
+/** A money amount whose cell carries an inline note: `98000 - дебитна карта`.
+ *
+ *  `toNumber` above is deliberately all-or-nothing, and that is right for most cells — but
+ *  in the money tables it silently drops REAL BALANCES. Йотова's 2026 filing declares seven
+ *  bank accounts and the seventh reads `98000 - дебитна карта`; we published six of them and
+ *  a „1 позиция без стойност" note, understating her accounts by EUR 50,107 (EUR 220,829
+ *  against the EUR 270,936 the filing actually adds up to).
+ *
+ *  Extracting a leading number generally would be far worse than the bug. The same shape in
+ *  this corpus also covers things that are NOT money:
+ *
+ *      369 476 дяла        — a count of company shares
+ *      2.1 Bitcoin         — a coin balance
+ *      19 унции злато      — ounces of gold
+ *      1/2 Ипотечен кредит — an ideal-part fraction, not an amount of 1
+ *
+ *  ⚠️ THE CURRENCY CELL DOES NOT SEPARATE THOSE. An earlier version of this comment claimed
+ *  it did — that a coin or gold row "names its unit in the currency cell" — and the corpus
+ *  says the opposite: declarants put the UNIT in the amount cell and a fiat code in the
+ *  currency cell, which is what the form asks for. All 31 unit-count rows in
+ *  `raw_data/declarations/` carry BGN or EUR, so `isEurConvertible` rejects none of them.
+ *  Two gates therefore do the work, and neither is the currency:
+ *
+ *   1. The note must be DELIMITED — a dash, an opening parenthesis, or a spaced `/`. The unit
+ *      counts above run the unit straight on, so they do not parse. `/` is in because it is
+ *      the Bulgarian bracket the form's own headers use (`Цена на придобиване /лв./`) and four
+ *      money rows turn on it; the required leading whitespace is what keeps `1/2 Ипотечен
+ *      кредит` out, and no cell in the corpus writes a fraction with spaces around the slash.
+ *   2. The declarant's own lev-equivalent must not CONTRADICT the parse, on the same
+ *      `MONEY_EQUIV_TYPO_FACTOR` the money rows already use. This is the independent gate:
+ *      every unit-count row carries an equivalent (`2.1 Bitcoin` / eq 377 866), while most
+ *      genuine annotated balances carry none, and where they do it agrees. Without it a
+ *      delimited `2.1 - Bitcoin` would not merely add a stray number — `pickEurValue`'s
+ *      `pureMoney` branch would treat the true equivalent as the typo and publish EUR 1.07
+ *      in place of EUR 193,199, logging a warning that reads like the correction working.
+ *
+ *  Undelimited notes (`41222 дебитна карта`, 12 rows) stay REFUSED on purpose: they are
+ *  indistinguishable from `369476 ДЯЛА` without reading the words. Positive amounts only —
+ *  a leading `-` beside a dash delimiter is ambiguous, so `-500 - овърдрафт` is refused where
+ *  bare `-500` parses.
+ *
+ *  Area cells use `toLooseNumber` (below), which is ungated leading-number extraction; it is
+ *  right for an area and wrong for money, for every reason above.
+ *
+ *  Measured 2026-08 over `raw_data/declarations/2026/` + `raw_data/officials/2026/`:
+ *  44,188 money-amount cells, 109 of which fail `toNumber` while starting with a digit. */
+const toAnnotatedNumber = (
+  raw: string | null,
+  currency: string | null,
+  bgnEquiv: number | null,
+): number | null => {
+  const strict = toNumber(raw);
+  if (strict != null) return strict;
+  if (raw == null || !isEurConvertible(currency)) return null;
+  // The capture must END in a digit so it cannot share whitespace with the `\s*` that
+  // follows: overlapping quantifiers made this O(n²) on a long interior space run (2.1 s at
+  // 64 KB of untrusted register XML), and this accepts exactly the same strings.
+  const m = raw
+    .trim()
+    .replace(/,/g, ".")
+    .match(/^(\d(?:[\d\s]*\d)?(?:\.\d+)?)(?:\s*[-−–—(]|\s+\/)/);
+  if (!m) return null;
+  const n = Number(m[1].replace(/\s+/g, ""));
+  if (!Number.isFinite(n)) return null;
+  // Gate 2 — see the header. A loose parse is a guess; the declarant's own equivalent wins.
+  if (bgnEquiv != null && bgnEquiv !== 0 && n !== 0) {
+    const ratio = Math.abs(bgnEquiv) / Math.abs(n);
+    // 2.5 already allows the honest spread: a BGN row's equivalent equals the amount
+    // (ratio 1) and an EUR row's is the peg (1.96). Either direction disqualifies.
+    if (
+      ratio > MONEY_EQUIV_TYPO_FACTOR ||
+      1 / ratio > MONEY_EQUIV_TYPO_FACTOR
+    ) {
+      return null;
+    }
+  }
+  return n;
 };
 
 // ISO-format a "dd.MM.yyyy" date.
@@ -475,6 +561,9 @@ const toIntYear = (raw: string | null): number | null => {
 // Extract the leading number from a free-text cell. Used for area fields
 // where declarants commonly append the unit ("917 кв.м.", "350 м²") even
 // though the form already labels the column unit.
+// Area fields ONLY — ungated leading-number extraction. For a money cell use
+// `toAnnotatedNumber` above, which gates on a delimiter and the declarant's lev-equivalent;
+// the counter-examples there explain why this one would be wrong on money.
 const toLooseNumber = (raw: string | null): number | null => {
   if (raw == null) return null;
   const m = raw.replace(/,/g, ".").match(/^-?\d+(\.\d+)?/);
@@ -519,12 +608,6 @@ const isSpouseHolder = (
  * leaderboard). Distrust it and value the row from the amount instead. NOT
  * applied to investment/security, where cell A can legitimately be a share count
  * far smaller than the market value in cell C. */
-// 2.5, not 20. Cell A and cell C are the same sum in two currencies, so the
-// honest ratio is the FX rate (1.96 for EUR, 1.0 for BGN) — anything past ~2.5
-// is already unexplainable. A looser 20x let a clean 72-row cluster sitting at
-// exactly ~10x through, seven of them over EUR 500k and one at EUR 3.63M
-// ranking 14th nationally. The nearest genuine survivor is 19.56x.
-const MONEY_EQUIV_TYPO_FACTOR = 2.5;
 
 export const pickEurValue = (
   amount: number | null,
@@ -876,9 +959,13 @@ const parseMoneyRow = (
   col: ColumnResolver,
   ccy: FormCurrency,
 ): MpAsset => {
-  const amount = toNumber(cellByNum(row, col(cells.amount)));
   const currency = cellByNum(row, col(cells.currency));
   const bgnEquiv = toNumber(cellByNum(row, col(cells.bgnEquiv)));
+  const amount = toAnnotatedNumber(
+    cellByNum(row, col(cells.amount)),
+    currency,
+    bgnEquiv,
+  );
   const holder = cellByNum(row, col(cells.holder));
   return {
     category,

@@ -441,6 +441,129 @@ describe("form currency — the euro-template changeover", () => {
   });
 });
 
+// A money cell that carries an inline note — `98000 - дебитна карта`. The strict parser
+// dropped these silently: Йотова's 2026 filing lists seven bank accounts and we published
+// six plus a „без стойност" note, EUR 220,829 against the EUR 270,936 the filing adds to.
+// The rule needs both a DELIMITED note and a fiat currency, because the same shape in this
+// corpus also covers share counts, ounces of gold and ideal-part fractions, none of which
+// are amounts of money.
+describe("money amounts with an inline note", () => {
+  const bankForm = (
+    amountCell: string,
+    currency: string,
+    equiv = "",
+  ): string => `<?xml version="1.0" encoding="UTF-8"?>
+<PublicPerson>
+  <Personal><Name>Тест Тестов Тестов</Name></Personal>
+  <DeclarationData><DeclarationType>Annualy</DeclarationType><Year>2025</Year></DeclarationData>
+  <Tables>
+    <Table Num="5" Description="Банкови сметки" Declared="True">
+      <Row Num="1">
+        <Cell Num="1" Description="Ном. по ред">1.</Cell>
+        <Cell Num="2" Description="Размер на средствата">${amountCell}</Cell>
+        <Cell Num="3" Description="Вид на валутата">${currency}</Cell>
+        <Cell Num="4" Description="Равностойност в лв.">${equiv}</Cell>
+        <Cell Num="5" Description="Име">Тест Тестов Тестов</Cell>
+      </Row>
+    </Table>
+  </Tables>
+</PublicPerson>`;
+
+  const bankOf = (amountCell: string, currency = "BGN", equiv = "") => {
+    const d = parseDeclarationXml({
+      xml: bankForm(amountCell, currency, equiv),
+      mpId: 0,
+      institution: "Народно събрание",
+      sourceUrl: url("2026"),
+    });
+    return (d.assets ?? []).find((a) => a.category === "bank");
+  };
+
+  // THE regression, with the real cell off Йотова's filing.
+  it("reads the amount when a dash-delimited note follows it", () => {
+    expect(bankOf("98000 - дебитна карта")?.amount).toBe(98000);
+  });
+
+  it("reads the amount when the note is parenthesised", () => {
+    expect(bankOf("35000 (годишна вноска 2 756)")?.amount).toBe(35000);
+  });
+
+  it("still reads a plain number", () => {
+    expect(bankOf("102000")?.amount).toBe(102000);
+  });
+
+  // The four shapes a leading-number parse would get WRONG. None is money.
+  it.each([
+    ["369 476 дяла", "a count of company shares"],
+    ["19 унции злато", "ounces of gold"],
+    ["159.21 ARB", "a token balance"],
+    ["1/2 Ипотечен кредит", "an ideal-part fraction"],
+  ])("refuses %s (%s)", (cell) => {
+    expect(bankOf(cell)?.amount ?? null).toBeNull();
+  });
+
+  // The currency cell is NOT a gate on the shapes that matter — every unit-count row in the
+  // corpus carries BGN or EUR. It only catches a unit named in the currency cell itself.
+  it("refuses a delimited note when the currency is not fiat", () => {
+    expect(bankOf("19 - унции", "злато")?.amount ?? null).toBeNull();
+  });
+
+  // Space thousands separators — the corpus writes them ("18 560-от продажба…"), and the
+  // capture carries the spaces through to Number(), so stripping them on the way out is
+  // load-bearing. Without this the `[\d\s]` branch is untested.
+  it("reads a space-separated thousands amount with a note", () => {
+    expect(bankOf("18 560-от продажба на недвижим имот")?.amount).toBe(18560);
+    expect(bankOf("1 234 567 - заем")?.amount).toBe(1234567);
+  });
+
+  // Comma decimals — the Bulgarian convention this whole parser is built on.
+  it("reads a comma decimal with a note", () => {
+    expect(bankOf("63 215,89 - дебитна карта")?.amount).toBeCloseTo(
+      63215.89,
+      2,
+    );
+  });
+
+  // Word processors autocorrect " - " to an en/em dash, and some to U+2212.
+  it.each(["5000 – note", "5000 — note", "5000 − note"])(
+    "accepts the dash variant %s",
+    (cell) => {
+      expect(bankOf(cell)?.amount).toBe(5000);
+    },
+  );
+
+  // `/…/` is the Bulgarian bracket — the form's own headers use it ("Цена на придобиване
+  // /лв./") and four money rows in the corpus turn on it.
+  it("reads an amount bracketed with a spaced slash", () => {
+    expect(bankOf("774894 / взаимен фонд /", "EUR")?.amount).toBe(774894);
+  });
+
+  // …but the leading space is what keeps an ideal-part fraction out.
+  it("still refuses an unspaced fraction", () => {
+    expect(bankOf("1/2 Ипотечен кредит")?.amount ?? null).toBeNull();
+  });
+
+  // THE destructive case, and the regression gate for the lev-equivalent guard. A unit count
+  // that slipped past the delimiter would not merely add a stray number: pickEurValue's
+  // pureMoney branch would treat the TRUE equivalent as the typo and publish EUR 1.07 where
+  // the filing says EUR 193,199.
+  it("does not let an annotated unit count overrule the lev-equivalent", () => {
+    const a = bankOf("2.1 - Bitcoin", "BGN", "377866");
+    expect(a?.amount ?? null).toBeNull();
+    expect(a?.valueEur).toBeCloseTo(377866 / 1.95583, 0);
+  });
+
+  // The guard must not fire on a genuine annotated balance whose equivalent agrees.
+  it("keeps an annotated balance whose lev-equivalent agrees", () => {
+    expect(bankOf("20000 - дебитна карта", "BGN", "20000")?.amount).toBe(20000);
+  });
+
+  // Undelimited notes stay refused on purpose — indistinguishable from "369476 ДЯЛА".
+  it("refuses an undelimited note, deliberately", () => {
+    expect(bankOf("41222 дебитна карта")?.amount ?? null).toBeNull();
+  });
+});
+
 describe("pickEurValue — money-field separator typos", () => {
   // A bank/cash row: cell A (amount) and cell C (lev-equivalent) describe the
   // same sum, so they must agree up to the peg. A wildly larger equivalent is a
