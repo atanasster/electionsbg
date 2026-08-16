@@ -25,6 +25,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/preferences",
   "sofia/flash-memory",
   "sofia/recount",
+  "sofia/companies",
   "about",
   "sverka",
   "local/chmi",
@@ -168,6 +169,13 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "sofia/preferences", file: `data/${year}/region_votes.json` },
   { path: "sofia/flash-memory", file: `data/${year}/region_votes.json` },
   { path: "sofia/recount", file: `data/${year}/region_votes.json` },
+  // NOT an election sub-tab like the four above, so it is not keyed on
+  // region_votes.json — the list comes from the person layer (tr_company_place
+  // ⨝ person_role), so its freshness follows that screen.
+  {
+    path: "sofia/companies",
+    file: `src/screens/SettlementCompaniesScreen.tsx`,
+  },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },
   { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },

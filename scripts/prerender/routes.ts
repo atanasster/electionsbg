@@ -5437,6 +5437,35 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>See also the <a href="${SITE_URL}/en/votes">archive of roll-call votes</a> and the <a href="${SITE_URL}/en/connections">business-connections graph</a>.</p>`.trim(),
     },
   }),
+  staticPage({
+    path: "sofia/companies",
+    title:
+      "София — фирми и организации, свързани с публични лица | electionsbg.com",
+    description:
+      "Фирми и организации с регистриран адрес в София, при които публично лице — избрано, назначено или кандидатирало се — има вписана роля в Търговския регистър или в регистъра на ЮЛНЦ.",
+    breadcrumbName: "фирми и организации, свързани с публични лица",
+    ogImage: "/og/sofia-companies.png",
+    bodyHtml: `
+  <h1>София — фирми и организации, свързани с публични лица</h1>
+  <p>Фирми и организации с <strong>регистриран адрес в София</strong>, при които поне едно публично лице има вписана роля — управител, собственик, член на съвет или борд — в Търговския регистър или в регистъра на юридическите лица с нестопанска цел. Затова в списъка има и сдружения, фондации и читалища, а не само търговски дружества.</p>
+  <p><strong>„Публично лице" тук е по-широко от „заемал длъжност".</strong> Включва народни представители, кметове, общински съветници, магистрати и ръководители в администрацията, но също и хора, които само са се <em>кандидатирали</em> за изборна длъжност. Близо половината от имената в този списък не са заемали публична длъжност.</p>
+  <p><strong>Това е регистърен факт, не твърдение за нарушение.</strong> Връзката е роля в Търговския регистър, а не оценка на нея; съвпадение по име не е достатъчно — когато регистърът записва едно име за повече от един човек, връзката не се публикува.</p>
+  <p>Виж и <a href="${SITE_URL}/sofia">резултатите за София</a>, <a href="${SITE_URL}/connections">графа на свързаните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>.</p>`.trim(),
+    english: {
+      title:
+        "Sofia — Companies and Organisations Linked to People in Public Life | electionsbg.com",
+      description:
+        "Companies and organisations registered in Sofia where someone in public life — elected, appointed or standing for office — holds a role recorded in the Commerce Registry or the non-profit register.",
+      breadcrumbName:
+        "companies and organisations linked to people in public life",
+      bodyHtml: `
+  <h1>Sofia — companies and organisations linked to people in public life</h1>
+  <p>Companies and organisations with a <strong>registered address in Sofia</strong> where at least one person in public life holds a recorded role — manager, owner, or member of a board — in the Commerce Registry or in the register of non-profit legal entities. That is why the list also contains associations, foundations and community centres, not only trading companies.</p>
+  <p><strong>"In public life" here is broader than "held office".</strong> It covers MPs, mayors, municipal councillors, magistrates and senior officials, but also people who merely <em>stood</em> for elected office. Close to half the names in this list have never held public office.</p>
+  <p><strong>This is a registry fact, not an allegation.</strong> The link is a role in the Commerce Registry, not a judgement about it; a name match alone is not enough — where the registry records one name for more than one person, the link is not published.</p>
+  <p>See also the <a href="${SITE_URL}/en/sofia">Sofia results</a>, the <a href="${SITE_URL}/en/connections">connections graph</a> and the <a href="${SITE_URL}/en/persons">directory of public figures</a>.</p>`.trim(),
+    },
+  }),
 ];
 
 const sofiaSubTabs: Array<{

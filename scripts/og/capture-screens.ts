@@ -411,6 +411,23 @@ const captures: Capture[] = [
     settleMs: 1800,
   },
   {
+    slug: "sofia-companies",
+    routePath: "sofia/companies",
+    // Companies registered in Sofia holding a gated registry link to a public
+    // figure. Top-aligned on `h1` so the clip reads title → the sentence that
+    // states the basis (a manager/owner role in the Commerce Registry) → the
+    // first company cards. That sentence is the whole point of the card: without
+    // it a grid of names beside people's names reads as an accusation.
+    //
+    // Waits on a /company/ link rather than the `h1`: the heading and the lede
+    // render before the fetch resolves, so anchoring the wait on chrome would
+    // shoot the six-card skeleton on a slow response.
+    waitFor: 'a[href^="/company/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+  },
+  {
     slug: "procurement-tenders",
     routePath: "procurement/tenders?pscope=all",
     // The tenders browser. It DOES carry `section[aria-label="tenders"]` like its
