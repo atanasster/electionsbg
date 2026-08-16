@@ -411,6 +411,19 @@ const captures: Capture[] = [
     settleMs: 1800,
   },
   {
+    slug: "subsidies-browse",
+    routePath: "subsidies/browse",
+    // The ДФЗ payments table. Scoped to the section like its DbDataTable
+    // siblings, and to a DATA row (`tr.group`) — the error and empty branches
+    // render a TableRow too. Top-aligned on `h1` so the card carries the title,
+    // the basis line („изплатени … сумите са в евро"), the scope controls and
+    // the row count before the first payments.
+    waitFor: 'section[aria-label="subsidies"] tbody tr.group',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
     slug: "sector-administration-services",
     routePath: "sector/administration/services",
     // The ИИСДА services catalogue — a long table with no KPI row, so the card

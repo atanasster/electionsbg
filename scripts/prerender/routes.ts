@@ -5438,6 +5438,37 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "subsidies/browse",
+    title:
+      "Земеделски субсидии — пълна таблица по получател, схема и година | electionsbg.com",
+    description: `Изплатените субсидии от ДФ „Земеделие" за финансови години ${AGRI_YEAR_RANGES} — по получател, област, схема на подпомагане и година, в евро. Сортируема и филтрируема таблица.`,
+    breadcrumbName: "Данни",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-browse.png",
+    bodyHtml: `
+<h1>Земеделски субсидии — данни</h1>
+<p>Таблицата на изплатените от ДФ „Земеделие" суми — по <strong>получател, област, схема на подпомагане и финансова година</strong>, сортируема и филтрируема. Сумите са в евро. Обхванатите финансови години са ${AGRI_YEAR_RANGES}: 2018-2020 липсват в източника.</p>
+<p><strong>Изплатено, не договорено.</strong> Тук е това, което Фондът е превел за съответната финансова година; редът е плащане по схема, а не годишен доход на стопанството — един получател може да има няколко реда за една година.</p>
+<p>Сред получателите има и <strong>държавни структури</strong>, не само земеделски стопани — напоителни дружества, самият Фонд по мерките за техническа помощ, консултантски служби. Затова най-големите суми в класацията не описват непременно най-големите ферми.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies">общия преглед на земеделските субсидии</a> и <a href="${SITE_URL}/sector/agri">сектор „Земеделие"</a>.</p>`.trim(),
+    english: {
+      title:
+        "Farm Subsidies — Full Table by Recipient, Scheme and Year | electionsbg.com",
+      description: `Subsidies paid out by the State Fund Agriculture (ДФ „Земеделие") for financial years ${AGRI_YEAR_RANGES} — by recipient, oblast, support scheme and year, in euro. Sortable and filterable.`,
+      breadcrumbName: "Data",
+      bodyHtml: `
+<h1>Farm subsidies — the data</h1>
+<p>The table of payments made by the State Fund Agriculture (ДФ „Земеделие") — by <strong>recipient, oblast, support scheme and financial year</strong>, sortable and filterable. Amounts are in euro. The financial years covered are ${AGRI_YEAR_RANGES}: 2018-2020 are absent from the source.</p>
+<p><strong>Paid, not contracted.</strong> This is what the Fund actually transferred in the given financial year; a row is one payment under one scheme, not a farm's annual income — one recipient can hold several rows for a single year.</p>
+<p>The recipients include <strong>state bodies</strong>, not only farmers — irrigation companies, the Fund itself under technical-assistance measures, advisory services. So the largest amounts in the ranking do not necessarily describe the largest farms.</p>
+<p>See also the <a href="${SITE_URL}/en/subsidies">farm-subsidies overview</a> and the <a href="${SITE_URL}/en/sector/agri">agriculture sector</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "sector/administration/services",
     title:
       "Административни услуги — регистър ИИСДА | Държавна администрация | electionsbg.com",

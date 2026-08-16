@@ -282,7 +282,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
   // census with every other `:param` family. What covers them is
   // `SECTOR_DASHBOARD_IDS` — routes.ts throws at build time if a graduated
   // sector has no prerender copy — not this list.
-  const ENFORCED = ["budget", "sofia", "sector"];
+  const ENFORCED = ["budget", "sofia", "sector", "subsidies"];
 
   it("declares every routed page of an ENFORCED family in all three places", () => {
     const missing = routed
@@ -306,9 +306,9 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // grows, someone added a page in the same half-finished state; if it shrinks,
     // this bound should come down with it.
     //
-    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 9 — T1a-T1c declared
+    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 8 — T1a-T1d declared
     // `procurement/tenders`, `sofia/companies` and
-    // `sector/administration/services`. The number is the
+    // `sector/administration/services` and `subsidies/browse`. The number is the
     // POINT OF THAT PLAN rather than an incidental update. The bound read 67
     // — a figure that was never right — because all three inputs above were read
     // too narrowly, each independently: one level of router nesting, a top-level
@@ -324,7 +324,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     expect(
       undeclared.length,
       `undeclared routed pages:\n${undeclared.map((p) => `  ${p}: ${gapsFor(p).join(", ")}`).join("\n")}`,
-    ).toBe(9);
+    ).toBe(8);
     // Of the three the previous comment named as „LINKED from prerendered copy",
     // only the first was: measured over every `${SITE_URL}/…` href in
     // `scripts/prerender/`, `procurement/tenders` had 2 (BG+EN) and the other

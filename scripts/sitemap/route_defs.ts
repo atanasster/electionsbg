@@ -27,6 +27,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/recount",
   "sofia/companies",
   "sector/administration/services",
+  "subsidies/browse",
   "about",
   "sverka",
   "local/chmi",
@@ -182,6 +183,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "sector/administration/services",
     file: `src/screens/administration/AdminServicesBrowseScreen.tsx`,
+  },
+  {
+    path: "subsidies/browse",
+    file: `src/screens/dev/SubsidiesBrowserDbScreen.tsx`,
   },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },
@@ -580,9 +585,11 @@ export const routeDefs = (year: string): RouteDefs => [
   },
 
   // Farm subsidies — ДФЗ corpus. The data lives only in Postgres (no JSON
-  // artifact to stamp lastmod from), so the screen file stands in. The
-  // /subsidies/browse table and the per-recipient /farm/:eik pages are left out
-  // of the sitemap — same bounded-URL discipline as the procurement browsers.
+  // artifact to stamp lastmod from), so the screen file stands in.
+  // The per-recipient /farm/:eik pages are left out of the sitemap — same
+  // bounded-URL discipline as the procurement browsers. /subsidies/browse is IN
+  // (site-hygiene-v1 T1d): it is one bounded URL, and while undeclared it served
+  // crawlers the homepage's title and canonical.
   { path: "subsidies", file: `src/screens/SubsidiesDashboardScreen.tsx` },
 
   // EU funds — ИСУН 2020 corpus.
