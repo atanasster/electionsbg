@@ -130,6 +130,7 @@ export const ENGLISH_STATIC_PAGES = [
   "procurement",
   "procurement/contracts",
   "procurement/tenders",
+  "procurement/overview",
   "procurement/appeals",
   "procurement/ngos",
   "procurement/sectors",
@@ -546,6 +547,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "procurement/tenders",
     file: `src/screens/dev/TendersBrowserDbScreen.tsx`,
+  },
+  {
+    path: "procurement/overview",
+    file: `src/screens/procurement/ProcurementOverviewScreen.tsx`,
   },
   {
     path: "procurement/appeals",

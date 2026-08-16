@@ -235,6 +235,56 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     enSet?: Set<string>;
   };
 
+  /** ⚠️ THE EIGHT ROUTED PAGES THAT LEGITIMATELY HAVE NO STATIC PAGE, each with
+   *  the reason — the shape §11 of budget-hub-v1 asks for („a row that names no
+   *  file is better than a row that names the wrong one").
+   *
+   *  An entry here is a DECISION, not a silencer. It says: this page is routed,
+   *  a human can use it, and it should NOT be prerendered or listed in the
+   *  sitemap. Two of the eight are marked UNDECIDED rather than given a reason,
+   *  because they need a call this gate is not the place to make — recording the
+   *  question is honest; inventing a reason is the „aspirational rather than
+   *  descriptive" failure the /budget audit found.
+   *
+   *  A page whose reason is „browser-local" must ALSO tell a crawler so. All
+   *  four such pages call `useNoindex()`; without it the exemption asserts
+   *  something no robots directive backs. */
+  const NO_STATIC_PAGE: Record<string, string> = {
+    // ── browser-local: the content lives in localStorage, so there is nothing
+    //    stable to index and every reader's page differs.
+    following: "browser-local watchlist feed; useNoindex()",
+    "procurement/watchlist": "browser-local watchlist; useNoindex()",
+    "procurement/projects": "browser-local saved project files; useNoindex()",
+    // ── a query BUILDER. Note the noindex here is CONDITIONAL and does not
+    //    cover this bare path: ProjectFileScreen noindexes a RESOLVED DIY file
+    //    (`shouldNoindex = !!spec`) so one reader's search cannot read as a
+    //    Наясно editorial finding, and its own comment says „The empty on-ramp
+    //    stays indexable". What exempts the bare path is that it is an empty
+    //    form — no query, no content — not a robots directive.
+    "procurement/project":
+      "empty query-builder on-ramp; a RESOLVED file noindexes itself, this path has no content",
+    // ── an entry point, not a destination. /my-area resolves the reader's place
+    //    and forwards into /governance/:id, which is prerendered per place.
+    "my-area": "place-resolver on-ramp; its destinations are prerendered",
+    // ── a developer tool.
+    // ⚠️ NOT „a developer tool" — the screen's own first line says „Public SQL
+    //    browser" and Footer.tsx:36 links it from EVERY page. It is exempt
+    //    because a query console has no stable content to index, which is the
+    //    same reason as the three above, and it carries the same useNoindex().
+    db: "public SQL console; content is whatever the reader typed; useNoindex()",
+
+    // ── ⚠️ UNDECIDED — routed, undeclared, and not exempt on merit. It needs a
+    //    decision from the module that owns it, which is not a hygiene call.
+    //    Listed so the tripwire has a stable floor without implying anybody
+    //    signed it off. It suppresses nothing today: `consumption` is not in
+    //    ENFORCED. (`procurement/overview` was the second entry here and is now
+    //    DECLARED instead — review found it is the /procurement hub's first
+    //    tile, so „unlinked" was false and exempting it would have hidden the
+    //    one procurement page that most needed a head.)
+    "consumption/basket":
+      "UNDECIDED: the only /consumption sub-page not declared, and its eleven siblings are — but /consumption is an in-flight module (project_consumption_view), so declaring a page there may conflict with work in progress",
+  };
+
   const gapsFor = (p: string, sets: Sets = {}): string[] => {
     const pages = sets.pages ?? prerendered;
     const bgSet = sets.bgSet ?? bg;
@@ -268,21 +318,31 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     return gaps;
   };
 
-  // ⚠️ ENFORCED FOR /budget ONLY, and that is a scope decision rather than a
-  // belief that the rest is clean. Measured 2026-08-15: 30 routed paths across
-  // the site are undeclared somewhere. Most are almost certainly deliberate —
-  // report sub-views, redirect components, server-driven browsers — but NOTHING
-  // RECORDS WHICH, and turning that into 30 exemptions I cannot justify would be
-  // a worse artifact than a scoped gate that says so. The machinery above is
-  // family-agnostic; widening it is adding a family to this list after deciding
-  // its pages one at a time.
+  // ⚠️ ENFORCED IS FIVE FAMILIES NOW, and the machinery is family-agnostic —
+  // widening it is adding a family here after deciding its pages one at a time.
+  // It stood at /budget alone because „30 routed paths are undeclared somewhere"
+  // was true and nothing recorded WHICH, so a list of exemptions nobody could
+  // justify would have been the worse artifact. NO_STATIC_PAGE above is that
+  // record, which is what let the other four families join.
   // ⚠️ `sector` here is TWO pages, not fifteen. Only `sector/administration`
   // and `sector/administration/services` are statically routed; the other 13
   // dashboards come from `<Route path="sector/:id">` and are dropped by the
   // census with every other `:param` family. What covers them is
   // `SECTOR_DASHBOARD_IDS` — routes.ts throws at build time if a graduated
   // sector has no prerender copy — not this list.
-  const ENFORCED = ["budget", "sofia", "sector", "subsidies"];
+
+  const ENFORCED = [
+    "budget",
+    "sofia",
+    "sector",
+    "subsidies",
+    // `procurement` could only join once T2 wrote NO_STATIC_PAGE: four of its
+    // routed paths are not meant to be prerendered at all, and before the table
+    // existed there was nowhere to say so. Enforcement now means „a NEW
+    // /procurement page is declared, or its absence is a recorded decision" —
+    // which is the property worth having.
+    "procurement",
+  ];
 
   it("declares every routed page of an ENFORCED family in all three places", () => {
     const missing = routed
@@ -292,6 +352,11 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
       // today. `budget/ministries` is correctly NOT matched (the strings
       // diverge at index 14) and is enforced with the other budget pages.
       .filter((p) => !p.startsWith("budget/ministry/"))
+      // A page with a recorded reason for having no static page is not a gap.
+      // The „accounts for every undeclared page" clause is what stops this
+      // becoming a silencer: every key here must still BE undeclared, and every
+      // undeclared page must still have a key.
+      .filter((p) => NO_STATIC_PAGE[p] === undefined)
       .map((p) => ({ p, gaps: gapsFor(p) }))
       .filter(({ gaps }) => gaps.length)
       .map(({ p, gaps }) => `${p}: ${gaps.join(", ")}`);
@@ -306,7 +371,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // grows, someone added a page in the same half-finished state; if it shrinks,
     // this bound should come down with it.
     //
-    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 8 — T1a-T1d declared
+    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 7 — T1a-T1d + T2 declared
     // `procurement/tenders`, `sofia/companies` and
     // `sector/administration/services` and `subsidies/browse`. The number is the
     // POINT OF THAT PLAN rather than an incidental update. The bound read 67
@@ -324,7 +389,7 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     expect(
       undeclared.length,
       `undeclared routed pages:\n${undeclared.map((p) => `  ${p}: ${gapsFor(p).join(", ")}`).join("\n")}`,
-    ).toBe(8);
+    ).toBe(7);
     // Of the three the previous comment named as „LINKED from prerendered copy",
     // only the first was: measured over every `${SITE_URL}/…` href in
     // `scripts/prerender/`, `procurement/tenders` had 2 (BG+EN) and the other
@@ -341,6 +406,99 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
         p,
       );
     }
+  });
+
+  it("accounts for every undeclared page — the table is the whole list", () => {
+    // The tripwire below is a NUMBER; this is the names behind it. Together they
+    // say „these eight, and nothing else". A ninth undeclared page fails here
+    // with its own path rather than as an off-by-one on a count.
+    const undeclared = routed.filter((p) => gapsFor(p).length > 0);
+    const unexplained = undeclared.filter(
+      (p) => NO_STATIC_PAGE[p] === undefined,
+    );
+    expect(
+      unexplained,
+      `routed, undeclared and with no entry in NO_STATIC_PAGE — decide it, then add it there with its reason:\n${unexplained.join("\n")}`,
+    ).toEqual([]);
+    // …and the converse: an entry for a page that is no longer undeclared is
+    // dead weight that would hide the next one.
+    const stale = Object.keys(NO_STATIC_PAGE).filter(
+      (p) => !undeclared.includes(p),
+    );
+    expect(
+      stale,
+      `in NO_STATIC_PAGE but no longer undeclared — drop the entry:\n${stale.join("\n")}`,
+    ).toEqual([]);
+  });
+
+  it("keeps every exempt page out of INDEXABLE reach", () => {
+    // ⚠️ THE CLAUSE THAT WOULD HAVE CAUGHT BOTH OF T2's FALSE REASONS, and the
+    // reason it exists. A page is safe to leave undeclared only if a crawler is
+    // not walked into it — otherwise „no static page" means „the homepage's
+    // <title> and canonical, served to whoever followed that link".
+    //
+    // Two rows failed this when it was written. `procurement/overview` was
+    // exempted as „a second, UNLINKED overview" while being the /procurement
+    // hub's FIRST TILE (ProcurementScreen.tsx:50) — it is now declared instead.
+    // `db` was exempted as „a developer tool" while Footer.tsx:36 links it from
+    // every page on the site — it now carries useNoindex(), which is the other
+    // way to satisfy this.
+    //
+    // The rule: an exempt page must EITHER tell crawlers not to index it, OR not
+    // be linked from anywhere they reach. Prerendered bodies are checked because
+    // that is the copy a non-JS crawler reads; the site chrome is checked
+    // because it is on every page.
+    const NOINDEXED = new Set([
+      "following",
+      "procurement/watchlist",
+      "procurement/projects",
+      "db",
+    ]);
+    const prerenderSrc =
+      read("scripts/prerender/routes.ts") +
+      read("scripts/prerender/dynamicRoutes.ts");
+    const chrome = fs
+      .readdirSync(path.join(REPO, "src/layout"))
+      .filter((f) => /\.tsx?$/.test(f) && !f.includes(".test."))
+      .map((f) => read(`src/layout/${f}`))
+      .join("\n");
+    const reachable = Object.keys(NO_STATIC_PAGE)
+      .filter((p) => !NOINDEXED.has(p))
+      .filter(
+        (p) =>
+          prerenderSrc.includes(`SITE_URL}/${p}"`) ||
+          chrome.includes(`"/${p}"`),
+      );
+    expect(
+      reachable,
+      `exempt from the declaration gate, NOT noindexed, and linked from copy a crawler reaches — declare it or noindex it:\n${reachable.join("\n")}`,
+    ).toEqual([]);
+  });
+
+  it("makes every browser-local exemption true with a noindex", () => {
+    // An exemption reading „nothing stable to index" is a claim
+    // about what a crawler is told. Before T2, two of these pages said it in a
+    // comment and set nothing — and FollowingScreen's header asserted it while
+    // the call sat one file away. The durable guard is not prerendering the
+    // route; this is the belt.
+    const SCREENS: Record<string, string> = {
+      following: "src/screens/person/FollowingScreen.tsx",
+      "procurement/watchlist": "src/screens/ProcurementWatchlistScreen.tsx",
+      "procurement/projects":
+        "src/screens/procurement/MyProjectFilesScreen.tsx",
+    };
+    const missing = Object.entries(SCREENS)
+      .filter(([, file]) => !read(file).includes("useNoindex()"))
+      .map(([p, file]) => `${p} -> ${file}`);
+    expect(
+      missing,
+      `exempt as „browser-local" but nothing tells a crawler so — call useNoindex():\n${missing.join("\n")}`,
+    ).toEqual([]);
+    // ProjectFileScreen sets the meta inline (conditionally, so useNoindex() does
+    // not fit) — assert the mechanism it actually uses.
+    expect(read("src/screens/procurement/ProjectFileScreen.tsx")).toContain(
+      '"noindex, follow"',
+    );
   });
 
   it("keeps a prerendered page's English mirror declared with it", () => {

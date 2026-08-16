@@ -4636,6 +4636,37 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "procurement/overview",
+    title: "Обществени поръчки — обзор | electionsbg.com",
+    description:
+      "Обзор на обществените поръчки за избрания парламент — брой договори, общо възложена сума, изпълнители и възложители, и парите, стигнали до фирми, свързани с публични лица.",
+    breadcrumbName: "Обзор",
+    breadcrumbParent: {
+      name: "Обществени поръчки",
+      nameEn: "Public procurement",
+      path: "procurement",
+    },
+    ogImage: "/og/procurement-overview.png",
+    bodyHtml: `
+<h1>Обществени поръчки — обзор</h1>
+<p>Обзорът на обществените поръчки за <strong>избрания парламент</strong>: колко договора са сключени, каква сума е възложена по тях, колко изпълнители са ги получили и от колко държавни възложители.</p>
+<p><strong>Броят договори включва и анексите.</strong> Допълнителните споразумения се броят отделно от основните договори, защото един анекс може да промени стойността — затова тук се показват и двете числа, а не само сборът.</p>
+<p>Отделен ред следи парите, стигнали до фирми, свързани с народни представители и длъжностни лица. Връзката е роля в Търговския регистър, а не твърдение за нарушение.</p>
+<p>Виж и <a href="${SITE_URL}/procurement/contracts">договорите</a>, <a href="${SITE_URL}/procurement/tenders">обявените процедури</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
+    english: {
+      title: "Public Procurement — Overview | electionsbg.com",
+      description:
+        "An overview of public procurement for the selected parliament — contract count, total awarded, contractors and buyers, and the money reaching companies linked to people in public life.",
+      breadcrumbName: "Overview",
+      bodyHtml: `
+<h1>Public procurement — overview</h1>
+<p>The procurement overview for the <strong>selected parliament</strong>: how many contracts were signed, how much was awarded under them, how many contractors received them and from how many public buyers.</p>
+<p><strong>The contract count includes annexes.</strong> Amendments are counted separately from base contracts, because an annex can change a contract's value — so both figures are shown rather than only their sum.</p>
+<p>A separate line tracks money reaching companies linked to MPs and officials. The link is a role in the Commerce Registry, not an allegation of wrongdoing.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement/contracts">contracts</a>, the <a href="${SITE_URL}/en/procurement/tenders">announced procedures</a> and the <a href="${SITE_URL}/en/procurement/flags">red flags</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "procurement/tenders",
     title: "Обявени обществени поръчки (процедури) | electionsbg.com",
     description:

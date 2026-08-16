@@ -23,6 +23,7 @@ import { sql, PostgreSQL } from "@codemirror/lang-sql";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNoindex } from "@/lib/useNoindex";
 
 interface IndexInfo {
   name: string;
@@ -290,6 +291,10 @@ const useDarkMode = (): boolean => {
 // ---------------------------------------------------------------------------
 
 export const SqlBrowserScreen = () => {
+  // Public and linked from the footer on every page, but there is nothing
+  // stable to index: the body is a query console whose content is whatever the
+  // reader typed. Not prerendered, not in the sitemap (site-hygiene-v1 T2).
+  useNoindex();
   const [schema, setSchema] = useState<SchemaResponse | null>(null);
   const [sqlText, setSqlText] = useState(SAMPLES[0].sql);
   const [limit, setLimit] = useState(1000);

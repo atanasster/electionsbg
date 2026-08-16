@@ -33,6 +33,7 @@ import { Title } from "@/ux/Title";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import { Card, CardContent } from "@/ux/Card";
+import { useNoindex } from "@/lib/useNoindex";
 import {
   formatEur,
   formatEurCompact,
@@ -92,6 +93,10 @@ const contractsWord = (t: (k: string) => string, n: number): string =>
 
 export const ProcurementWatchlistScreen: FC = () => {
   const { t } = useTranslation();
+  // Browser-local: the watchlist lives in localStorage, so this page has no
+  // stable content to index and is deliberately absent from the prerender and
+  // the sitemap (site-hygiene-v1 T2).
+  useNoindex();
   const items = useWatchlist();
   const { activities, newCount } = useWatchlistActivity();
   const [sort, setSort] = useState<SortKey>("activity");

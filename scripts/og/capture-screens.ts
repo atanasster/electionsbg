@@ -411,6 +411,17 @@ const captures: Capture[] = [
     settleMs: 1800,
   },
   {
+    slug: "procurement-overview",
+    routePath: "procurement/overview",
+    // The hub's „Обзор" tile destination — a KPI dashboard, so the card is
+    // title → scope chip → the four headline figures. Waits on the KPI text
+    // rather than a table row: this page has no table.
+    waitFor: 'section[aria-label="Обществени поръчки — обзор"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3000,
+  },
+  {
     slug: "subsidies-browse",
     routePath: "subsidies/browse",
     // The ДФЗ payments table. Scoped to the section like its DbDataTable

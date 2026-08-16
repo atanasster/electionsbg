@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
+import { useNoindex } from "@/lib/useNoindex";
 import {
   listProjects,
   deleteProject,
@@ -15,6 +16,10 @@ import {
 export const MyProjectFilesScreen = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  // Browser-local: the saved files live in localStorage, so this page has no
+  // stable content to index and is deliberately absent from the prerender and
+  // the sitemap (site-hygiene-v1 T2).
+  useNoindex();
   // Read once on mount; refresh explicitly after a delete.
   const [visible, setVisible] = useState(listProjects);
 
