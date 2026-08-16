@@ -27,6 +27,12 @@ export interface BenefitPoint {
   /** Computed from amountBgn / eurRate at load. */
   amountEur: number;
   perHouseholdMonthlyBgn?: number;
+  /** Computed from perHouseholdMonthlyBgn / eurRate at load, for the same reason
+   *  amountEur is: the site has been euro-only since 2026-01-01, and this figure
+   *  rendered „121,34 лв." beside a „€110 млн." total inside one tile. The source
+   *  (Наредба РД-07-5) still sets the monthly amount in leva, so the conversion
+   *  belongs here rather than in the ingest, which keeps the published figure. */
+  perHouseholdMonthlyEur?: number;
 }
 
 export interface BenefitFamily {
@@ -36,7 +42,19 @@ export interface BenefitFamily {
   recipientNoun: Bilingual;
   unit: BenefitUnit;
   meansTestBgn?: number;
+  /** Computed from meansTestBgn / eurRate at load — the same treatment as
+   *  amountEur and perHouseholdMonthlyEur. Nothing renders it yet; it is derived
+   *  here so that the first surface which does cannot reach for the leva field. */
+  meansTestEur?: number;
   series: BenefitPoint[];
+  /** ⚠ UN-CONVERTED PROSE. These sentences are copied from the АСП report and still
+   *  quote LEVA — „760 лв./член", „157,80 лв./мес.", „606,70 лв. общо (121,34
+   *  лв./мес.)" across three of the four families. The site has been euro-only
+   *  since 2026-01-01, so rendering `note` as-is would put leva back on the page,
+   *  which is exactly the defect the 2026-08-15 audit removed from the heating tile
+   *  (§8). A number can be converted at load; prose cannot — it has to be re-tabled
+   *  in euro by the update-social ingest first. DO NOT render this field until it
+   *  has been. */
   note: Bilingual;
 }
 
@@ -53,10 +71,14 @@ export interface SocialBenefitsPayload {
   families: BenefitFamily[];
 }
 
-interface RawPoint extends Omit<BenefitPoint, "amountEur"> {
+interface RawPoint extends Omit<
+  BenefitPoint,
+  "amountEur" | "perHouseholdMonthlyEur"
+> {
   amountEur?: number;
+  perHouseholdMonthlyEur?: number;
 }
-interface RawFamily extends Omit<BenefitFamily, "series"> {
+interface RawFamily extends Omit<BenefitFamily, "series" | "meansTestEur"> {
   series: RawPoint[];
 }
 interface RawPayload extends Omit<SocialBenefitsPayload, "families"> {
@@ -75,9 +97,17 @@ export const useSocialBenefits = () =>
         ...raw,
         families: raw.families.map((f) => ({
           ...f,
+          meansTestEur:
+            f.meansTestBgn != null ? f.meansTestBgn / rate : undefined,
           series: f.series.map((p) => ({
             ...p,
             amountEur: Math.round(p.amountBgn / rate),
+            // NOT rounded to whole euro — it is a ~€62 monthly rate, and rounding
+            // would drop the stotinki that make it a rate rather than an estimate.
+            perHouseholdMonthlyEur:
+              p.perHouseholdMonthlyBgn != null
+                ? p.perHouseholdMonthlyBgn / rate
+                : undefined,
           })),
         })),
       };

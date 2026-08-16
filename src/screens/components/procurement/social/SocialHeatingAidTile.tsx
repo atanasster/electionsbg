@@ -8,7 +8,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Flame } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEurCompact, formatCount } from "@/lib/currency";
+import { formatEur, formatEurCompact, formatCount } from "@/lib/currency";
 import {
   useSocialBenefits,
   benefitFamily,
@@ -94,12 +94,14 @@ export const SocialHeatingAidTile: FC = () => {
               </span>{" "}
               домакинства получиха целева помощ за отопление за сезон{" "}
               {latest.season}
-              {latest.perHouseholdMonthlyBgn ? (
+              {latest.perHouseholdMonthlyEur ? (
                 <>
                   {" "}
                   — по{" "}
                   <span className="font-semibold tabular-nums">
-                    {formatCount(latest.perHouseholdMonthlyBgn, loc, 2)} лв.
+                    {formatEur(latest.perHouseholdMonthlyEur, loc, {
+                      decimals: 2,
+                    })}
                   </span>{" "}
                   на месец за 5 месеца
                 </>
@@ -114,11 +116,14 @@ export const SocialHeatingAidTile: FC = () => {
               </span>{" "}
               households received targeted heating aid for the {latest.season}{" "}
               season
-              {latest.perHouseholdMonthlyBgn ? (
+              {latest.perHouseholdMonthlyEur ? (
                 <>
                   {" "}
-                  — {formatCount(latest.perHouseholdMonthlyBgn, loc, 2)}{" "}
-                  BGN/month for 5 months
+                  —{" "}
+                  {formatEur(latest.perHouseholdMonthlyEur, loc, {
+                    decimals: 2,
+                  })}
+                  /month for 5 months
                 </>
               ) : null}
               . No per-oblast breakdown is published.
