@@ -113,7 +113,7 @@ import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { ScopeControl } from "../components/ScopeControl";
-import { scopeYear, useScope } from "@/data/scope/useScope";
+import { scopeYear, useScope, useScopedHref } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useHashScroll } from "@/ux/useHashScroll";
@@ -465,6 +465,45 @@ export const CompanyDbScreen: FC = () => {
   // institution's own ЗОП financials. Suppress the pack here and cross-link.
   const sectorDash = useMemo(() => sectorDashboardForLeadEik(eik), [eik]);
   const showPack = SectorPack && !sectorDash;
+  // Both cross-links out of this page land on `?pscope`-reading destinations
+  // (/sector/:id and /subsidies each mount their own ScopeControl), so a bare
+  // pathname would silently re-anchor the reader to the default window — the same
+  // heading answering for a different period.
+  const scopedHref = useScopedHref();
+
+  // Cross-link up to the sector dashboard, rendered by BOTH branches below —
+  // deliberately not inside the „Като възложител" section, which is gated on
+  // `awarderRollup`, the SCOPE-FILTERED rollup, so it vanishes whenever the entity
+  // awarded nothing in the selected window and used to take this link with it.
+  // Belonging to a sector is an identity fact, true whether or not this body signed
+  // a contract this parliament, so it consults neither the scope nor the corpus.
+  //
+  // Today it is keyed on LEAD, i.e. the 14 sector leads — 13 of which already had
+  // the link at the default `ns` scope, so hoisting it out adds exactly one page,
+  // /awarder/831373560 (БЕХ, the only lead with no contracts in that window). The
+  // 160-member figures (98 with an empty default window) arrive when this is
+  // re-keyed to sectorDashboardForMemberEik.
+  //
+  // `isAwarderRoute` keeps it off /company/<lead-eik>, which is a change: the old
+  // site was route-blind. That page is the TR record, not the institution, so the
+  // sector trail belongs with the awarder breadcrumb it now sits under.
+  const sectorCrossLink =
+    isAwarderRoute && sectorDash ? (
+      <Link
+        to={scopedHref(`/sector/${sectorDash.id}`)}
+        className="flex items-center justify-between rounded-xl border bg-muted/20 px-4 py-3 text-sm hover:border-primary/50"
+      >
+        <span>
+          {i18n.language === "bg"
+            ? "Разпределените средства и детайлите по сектора са в таблото на сектора"
+            : "The disbursed funds and sector detail are on the sector dashboard"}
+        </span>
+        <span className="inline-flex items-center gap-1 font-medium text-primary">
+          {i18n.language === "bg" ? "Към таблото" : "Open dashboard"}
+          <ArrowRight className="h-4 w-4" />
+        </span>
+      </Link>
+    ) : null;
 
   // Deep links into a pack band (e.g. /awarder/121858220#nzok-drugs) must scroll
   // once the page settles. The generic awarder tiles above the pack load async
@@ -787,8 +826,16 @@ export const CompanyDbScreen: FC = () => {
         </div>
       )}
       {!loading && !error && !company && !institution && !hasProcurement && (
-        <div className="text-sm text-muted-foreground">
-          Няма фирма с ЕИК {eik} в базата.
+        // The sector trail rides along here too. A member with no TR record, no
+        // institution_identity and no contracts is the ONE page in the set that is
+        // otherwise a pure dead end — regional 125043455 (Областна администрация —
+        // Търговище, the `noAwarderPage` member) is exactly that — and „не е в
+        // базата" plus a route onward beats „не е в базата" alone.
+        <div className="space-y-4">
+          <div className="text-sm text-muted-foreground">
+            Няма фирма с ЕИК {eik} в базата.
+          </div>
+          {sectorCrossLink}
         </div>
       )}
 
@@ -826,6 +873,7 @@ export const CompanyDbScreen: FC = () => {
           ) : (
             SectorPack && <SectorBreadcrumb current={displayName} />
           )}
+          {sectorCrossLink}
           {/* Entity-graph identity — this EIK is a school (schools.eik join).
               Self-hides unless the EIK matched a school; links to its report
               card on /school/:id. */}
@@ -1074,7 +1122,7 @@ export const CompanyDbScreen: FC = () => {
                     : "The State Fund Agriculture is the CAP paying agency — it disburses the direct payments and rural-development measures to farmers."}
                 </p>
                 <Link
-                  to="/subsidies"
+                  to={scopedHref("/subsidies")}
                   className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
                 >
                   {i18n.language === "bg"
@@ -1190,22 +1238,6 @@ export const CompanyDbScreen: FC = () => {
                 >
                   <SectorPack eik={eik} scopeWindow={packWindow} />
                 </Suspense>
-              )}
-              {sectorDash && (
-                <Link
-                  to={`/sector/${sectorDash.id}`}
-                  className="flex items-center justify-between rounded-xl border bg-muted/20 px-4 py-3 text-sm hover:border-primary/50"
-                >
-                  <span>
-                    {i18n.language === "bg"
-                      ? "Разпределените средства и детайлите по сектора са в таблото на сектора"
-                      : "The disbursed funds and sector detail are on the sector dashboard"}
-                  </span>
-                  <span className="inline-flex items-center gap-1 font-medium text-primary">
-                    {i18n.language === "bg" ? "Към таблото" : "Open dashboard"}
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
               )}
               <div className="grid gap-4 lg:grid-cols-2">
                 <CompanyTopContractsTile
