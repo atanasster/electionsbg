@@ -122,6 +122,7 @@ import {
   MZ_EIK,
   HEALTH_SECTOR_EIKS,
 } from "@/lib/healthReferenceData";
+import { NZOK_SUPPLIER_CONTEXT } from "@/lib/nzokBenchmarks";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
 import { API_EIK } from "@/lib/roadAttributes";
@@ -253,11 +254,20 @@ type NzokHistory = {
  *  file's house style computes helpers at describe scope, and any consumer
  *  hoisted that way would hit the TDZ at COLLECTION time — a whole-file load
  *  failure rather than a test failure. */
-const sectorSum = async (eiks: readonly string[]): Promise<number> => {
+const sectorSum = async (
+  eiks: readonly string[],
+  /** Extra SQL predicate, ANDed on (and PARENTHESISED — an unwrapped `OR`
+   *  escapes the awarder_eik filter entirely, measured at €740,338 → €4,605,408).
+   *  For narrowing to, or away from, the rows 061_awarder_group_model.sql's
+   *  `sup` CTE excludes from the leaderboard. Test-local literals only; never
+   *  interpolate a value from the corpus. */
+  opts?: { extra?: string },
+): Promise<number> => {
   const [r] = await allRows<{ eur: string }>(
     `select coalesce(round(sum(amount_eur)),0)::text eur
        from contracts
-      where tag='contract' and awarder_eik = any($1)`,
+      where tag='contract' and awarder_eik = any($1)
+        ${opts?.extra ? `and (${opts.extra})` : ""}`,
     [[...eiks]],
   );
   return Number(r?.eur ?? 0);
@@ -616,6 +626,334 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
       assert.ok(
         eur < 1_000_000_000,
         `НЗОК own procurement €${eur} suspiciously high`,
+      );
+    },
+  );
+
+  // ── beneficiary side ──────────────────────────────────────────────────────
+  // Everything above audits the BUYER side. These five cover who the money
+  // reaches, which no other gate in this file looks at. Shares and agreement,
+  // never a rank or an absolute € — a leaderboard is SUPPOSED to reorder on
+  // every fortnightly reload, and that is the one thing about it that is not a
+  // defect.
+
+  test.skipIf(skip)(
+    "the top health beneficiary stays a share, not the whole window",
+    async () => {
+      const rows = await allRows<{ eik: string; name: string; eur: string }>(
+        `select contractor_eik eik, min(contractor_name) name,
+                coalesce(round(sum(amount_eur)),0)::text eur
+           from contracts
+          where tag='contract' and awarder_eik = any($1)
+          group by 1 order by sum(amount_eur) desc nulls last limit 1`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      const top = rows[0];
+      assert.ok(top, "no beneficiaries for the health EIK-set");
+      const total = await sectorSum(HEALTH_SECTOR_EIKS);
+      const pct = (100 * Number(top.eur)) / total;
+      // 8.42% measured 2026-08-16 (Санита Трейдинг, a pharma distributor).
+      //
+      // A BROAD sanity ceiling only: it catches a leaderboard that has collapsed
+      // onto one supplier — a bad EIK fold, a scope that shrank to one contract.
+      // It is deliberately NOT the consortium-double-count gate, and an earlier
+      // draft of this comment wrongly claimed it was: measured, crediting every
+      // member the full value moves this share 8.420% → 8.239%, i.e. DOWN, since
+      // the mutation inflates the denominator too and the whole consortium
+      // corpus is 1.5% of the sector. That defect is caught directly by the next
+      // test. 15% rather than 25% so this can fire before a collapse completes.
+      assert.ok(
+        pct < 15,
+        `top health beneficiary ${top.name} holds ${pct.toFixed(1)}% of the sector — has the leaderboard collapsed onto one supplier?`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "consortium members carry €0 — the money sits once, on the carrier",
+    async () => {
+      // The consortium double-count, asserted directly — the ceiling above
+      // CANNOT see it (see its note: the mutation moves that share down), so
+      // this is the only gate that covers it. МЗ buys through обединения (41 contracts, €43.6m); each is
+      // stored as N zero-valued `member` rows plus ONE `carrier` row holding the
+      // full value. If members ever start carrying money, every consortium
+      // contract counts (N+1)× and the sector total inflates with no row count
+      // moving. НЗОК alone has no consortium rows at all, so this arrived with
+      // the МЗ widening.
+      const rows = await allRows<{ role: string; n: string; eur: string }>(
+        `select consortium_role role, count(*)::text n,
+                coalesce(round(sum(amount_eur)),0)::text eur
+           from contracts
+          where tag='contract' and awarder_eik = any($1)
+            and consortium_eik is not null
+          group by 1`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      const eurByRole = Object.fromEntries(
+        rows.map((r) => [r.role, Number(r.eur)]),
+      );
+      const nByRole = Object.fromEntries(
+        rows.map((r) => [r.role, Number(r.n)]),
+      );
+
+      // Prove the SUBJECT is still there before measuring it — this file's own
+      // header (see the energy note) forbids a gate over an expected-empty
+      // thing, and measured, `member ?? 0` read an absent key as a pass: with
+      // every member row deleted, all three assertions below went green.
+      assert.ok(
+        (nByRole.member ?? 0) > 0,
+        "no consortium `member` rows in the health set — this gate has gone vacuous (has the consortium split stopped emitting members?)",
+      );
+      assert.ok(
+        (nByRole.carrier ?? 0) > 0,
+        "no consortium `carrier` rows in the health set — this gate has gone vacuous",
+      );
+      assert.equal(
+        eurByRole.member,
+        0,
+        "consortium member rows carry money — the sector total is double-counting",
+      );
+      assert.ok(
+        eurByRole.carrier > 0,
+        "consortium carriers hold no money — has the split changed shape?",
+      );
+
+      // …and each consortium CONTRACT's rows sum to exactly its full value.
+      // contract_id is nullable and 13 consortium rows corpus-wide carry NULL,
+      // which GROUP BY would collapse into one bucket — so assert the key
+      // separately, and let a NULL in EITHER money column FAIL rather than pass
+      // (a NULL makes the HAVING expression NULL, i.e. "not bad" — measured,
+      // €11.9m of amount_eur could be dropped with every assertion green).
+      const [k] = await allRows<{ nulls: string }>(
+        `select count(*)::text nulls from contracts
+          where tag='contract' and awarder_eik = any($1)
+            and consortium_eik is not null and contract_id is null`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      assert.equal(
+        Number(k?.nulls ?? -1),
+        0,
+        "consortium rows with a NULL contract_id — the per-contract grouping below cannot be trusted",
+      );
+      const [m] = await allRows<{ bad: string }>(
+        `select count(*)::text bad from (
+           select contract_id
+             from contracts
+            where tag='contract' and awarder_eik = any($1)
+              and consortium_eik is not null
+            group by contract_id
+           having count(consortium_full_eur) <> count(*)
+               or count(amount_eur) <> count(*)
+               or abs(sum(amount_eur) - min(consortium_full_eur)) > 1) t`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      assert.equal(
+        Number(m?.bad ?? -1),
+        0,
+        "a consortium contract's rows do not sum to its full value (or the full value is NULL)",
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "the supplier leaderboard and the awarder total differ only by the three documented exclusions",
+    async () => {
+      // Failure mode O — the leaderboard and the headline drifting onto
+      // different bases — which is invisible to every other gate here because
+      // both halves stay individually correct.
+      //
+      // ⚠ TWO earlier drafts of this test were tautologies, so read this before
+      // simplifying it. The first compared two queries it wrote itself with the
+      // SAME predicate (`Σ_groups Σ_rows ≡ Σ_rows`). The second split the rows
+      // on 061's `sup` predicates and asserted the halves summed to the whole —
+      // but those halves are exact COMPLEMENTS and `contractor_eik` is NOT NULL,
+      // so `Σ_P + Σ_¬P ≡ Σ_all` was provable arithmetic over any corpus. Both
+      // restated 061's predicates rather than reading them, which is why a
+      // change to the function itself — the actual subject — moved nothing.
+      //
+      // So this calls `awarder_group_model()`, the function /awarder/:eik and
+      // the sector dashboards actually render, and reconciles ITS OWN two
+      // outputs: the suppliers it lists against the total it reports. They do
+      // NOT agree, by design — the `sup` CTE drops blank-EIK, consortium
+      // `member` and self-award rows from `suppliers` while keeping their € in
+      // the headline, because the money really was spent. Measured 2026-08-16:
+      // totalEur 2,922,420,337 over 864 suppliers summing to 2,921,680,003, a
+      // €740,337 gap. The invariant is that every euro of that gap is one of
+      // the three documented exclusions and nothing else.
+      const [g] = await allRows<{ total: string; supp: string; n: string }>(
+        `with m as (select awarder_group_model($1::text[]) j)
+         select (j->>'totalEur') total,
+                (select coalesce(round(sum((x->>'totalEur')::double precision)),0)::text
+                   from jsonb_array_elements(j->'suppliers') x) supp,
+                (select count(*)::text from jsonb_array_elements(j->'suppliers') x) n
+           from m`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      assert.ok(
+        g?.total,
+        "awarder_group_model returned no model for the health set",
+      );
+      const excluded = await sectorSum(HEALTH_SECTOR_EIKS, {
+        extra: `contractor_eik = '' or consortium_role = 'member'
+                or contractor_eik = awarder_eik`,
+      });
+      // 061 rounds PER SUPPLIER and then sums, so the slack is proportional to
+      // the supplier COUNT rather than a flat ±1 (measured δ = 3 over 864). A
+      // flat tolerance sat exactly on its own boundary and would flip red on an
+      // ordinary reload.
+      //
+      // What that tolerance can and cannot see, stated rather than assumed:
+      // dropping the blank-EIK exclusion moves €740,146 — 856× the slack, so it
+      // fires loudly. Dropping the SELF-AWARD exclusion moves €191, which is
+      // under it; that arm is covered on the COUNT side by the next test, not
+      // here. No single gate covers all three.
+      assert.ok(
+        Math.abs(Number(g.supp) + excluded - Number(g.total)) <= Number(g.n),
+        `awarder_group_model's suppliers + documented exclusions ≠ its own totalEur (${g.supp} + ${excluded} vs ${g.total}) — an unexplained residual means the leaderboard and the headline have stopped sharing a basis`,
+      );
+      // The exclusions must be NON-EMPTY, or the reconciliation degenerates into
+      // the identity it replaced.
+      assert.ok(
+        excluded > 0,
+        "no excluded rows — this reconciliation has gone vacuous",
+      );
+      // The tag filter this block leans on must still discriminate: €32.1m of
+      // amendments today. (This catches amendments DISAPPEARING, not a partial
+      // leak — `tag='contract'` is in every query here, so a retagged row enters
+      // every term at once and reconciles. A partial leak is out of reach of
+      // this gate and the comment must not claim otherwise.)
+      const [amend] = await allRows<{ eur: string }>(
+        `select coalesce(round(sum(amount_eur)),0)::text eur from contracts
+          where tag='contractAmendment' and awarder_eik = any($1)`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      assert.ok(
+        Number(amend?.eur ?? 0) > 0,
+        "no amendments in the health set — the tag='contract' filter no longer discriminates, so every basis assertion in this block has gone vacuous",
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "consortium members don't inflate the distinct-supplier count",
+    async () => {
+      // The COUNT side of the same split, and the reason the `member` exclusion
+      // exists at all: dropping it adds 15 phantom zero-euro suppliers to the
+      // leaderboard and to the HHI denominator while moving NO money, so every
+      // money gate above stays green. (15, not 116 — 116 is the member ROW
+      // count, folding onto 29 EIKs of which 15 appear nowhere else. Quoting a
+      // row count as a supplier count is the exact conflation this gate exists
+      // to catch, and an earlier draft of this comment made it.)
+      //
+      // Each arm is asserted SEPARATELY. Folded into one inequality, any single
+      // exclusion could die while the other two held it green — measured,
+      // renaming consortium_role 'member' → 'participant' gave 879 vs 881 and
+      // PASSED, and deleting every member row gave 864 vs 866 and PASSED.
+      const [r] = await allRows<{
+        withAll: string;
+        noMember: string;
+        noBlank: string;
+        noSelf: string;
+        memberOnly: string;
+      }>(
+        `select count(distinct contractor_eik)::text as "withAll",
+                count(distinct contractor_eik) filter (
+                  where consortium_role is distinct from 'member')::text as "noMember",
+                count(distinct contractor_eik) filter (
+                  where contractor_eik <> '')::text as "noBlank",
+                count(distinct contractor_eik) filter (
+                  where contractor_eik <> awarder_eik)::text as "noSelf",
+                (select count(*)::text from (
+                   select contractor_eik from contracts
+                    where tag='contract' and awarder_eik = any($1)
+                      and consortium_role = 'member'
+                   except
+                   select contractor_eik from contracts
+                    where tag='contract' and awarder_eik = any($1)
+                      and consortium_role is distinct from 'member') z) as "memberOnly"
+           from contracts
+          where tag='contract' and awarder_eik = any($1)`,
+        [[...HEALTH_SECTOR_EIKS]],
+      );
+      assert.ok(r, "no supplier-count row for the health set");
+      // Prove the SUBJECT exists before measuring it: EIKs that appear ONLY as
+      // consortium members are what the exclusion removes from the count.
+      assert.ok(
+        Number(r.memberOnly) > 0,
+        "no member-only contractor EIKs — this gate has gone vacuous (has the consortium split stopped emitting members, or been renamed?)",
+      );
+      // …and each exclusion narrows the count on its own.
+      assert.ok(
+        Number(r.noMember) < Number(r.withAll),
+        `the consortium-member exclusion no longer narrows the supplier count (${r.noMember} vs ${r.withAll}) — the HHI denominator has stopped being guarded`,
+      );
+      assert.ok(
+        Number(r.noBlank) < Number(r.withAll),
+        `the blank-EIK exclusion no longer narrows the supplier count (${r.noBlank} vs ${r.withAll})`,
+      );
+      assert.ok(
+        Number(r.noSelf) < Number(r.withAll),
+        `the self-award exclusion no longer narrows the supplier count (${r.noSelf} vs ${r.withAll})`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "Информационно обслужване is still recognisable as a state body",
+    async () => {
+      // ИО АД takes €35.6m of this sector (measured 2026-08-16) under чл. 7с
+      // ЗЕУ, which designates it the state's systems integrator — so its
+      // single-bid awards are a legal monopoly rather than a competition
+      // failure, and the money never leaves government. It was 21.8% of the
+      // sector before МЗ was added and 1.22% after, so nothing here pins a
+      // share. For its ownership, see the annotation beside the same EIK in
+      // SOCIAL_STATE_BODY_CONTRACTORS — stated once, there, not restated here.
+      //
+      // What IS pinned is the CURATED artifact, because that is the only thing
+      // a source change can break: NZOK_SUPPLIER_CONTEXT is what
+      // NzokProcurementLensTile renders the чл. 7с ЗЕУ chip from. Drop the entry
+      // or mistype its key and the chip vanishes, leaving exactly the "apparent
+      // market award" this gate exists to prevent — while every corpus fact
+      // below stays true.
+      //
+      // ⚠ Do NOT swap this for the derived probe "is this contractor an awarder
+      // elsewhere?". socialReferenceData.ts documents why that over-captures —
+      // ЗОП's utilities regime makes private regulated companies contracting
+      // authorities — and on THIS sector it also returns Овергаз, ЕВН, Ситигаз
+      // and Аресгаз, none of them public bodies.
+      // Addressed by KEY, not positionally: "831641791" is an array-index-like
+      // string, so JS would order a numerically smaller second entry (НЗОК's own
+      // 121858220 being the likeliest addition) ahead of it and fail with
+      // "ИО is gone" on a change that did not touch ИО.
+      const ioEik = "831641791";
+      const ioCtx = NZOK_SUPPLIER_CONTEXT[ioEik];
+      assert.ok(
+        ioCtx,
+        "NZOK_SUPPLIER_CONTEXT no longer keys ИО — its single-bid awards now read as a competition failure rather than a чл. 7с ЗЕУ designation",
+      );
+      assert.ok(
+        /ЗЕУ|systems integrator/i.test(`${ioCtx.bg} ${ioCtx.en}`),
+        "the ИО context chip no longer states the statutory basis",
+      );
+      // `kind` is a single-inhabitant literal type, so asserting it is vacuous.
+      // What is worth pinning is the artifact's EXTENT: the tile is calibrated
+      // for exactly this one statutory supplier, so a silent second entry is a
+      // claim about a company nobody reviewed.
+      assert.deepEqual(
+        Object.keys(NZOK_SUPPLIER_CONTEXT),
+        [ioEik],
+        "NZOK_SUPPLIER_CONTEXT gained or lost an entry — each one asserts a statutory basis for a supplier's lack of competition and needs its own review",
+      );
+
+      // Narrower tripwires: the EIK is still real and still in this sector.
+      const [h] = await allRows<{ eur: string }>(
+        `select coalesce(round(sum(amount_eur)),0)::text eur from contracts
+          where tag='contract' and awarder_eik = any($1) and contractor_eik = $2`,
+        [[...HEALTH_SECTOR_EIKS], ioEik],
+      );
+      assert.ok(
+        Number(h?.eur ?? 0) > 0,
+        "ИО no longer appears as a health-sector contractor — did the EIK change?",
       );
     },
   );
