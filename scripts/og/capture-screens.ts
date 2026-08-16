@@ -411,6 +411,20 @@ const captures: Capture[] = [
     settleMs: 1800,
   },
   {
+    slug: "sector-administration-services",
+    routePath: "sector/administration/services",
+    // The ИИСДА services catalogue — a long table with no KPI row, so the card
+    // is title → breadcrumb → the filter row carrying the total → the first
+    // services. Waits on a DATA row (`tr.group`), not the `h1` and not a bare
+    // `tbody tr`: the heading renders before the fetch resolves, and DbDataTable
+    // puts a TableRow in its error and empty branches too, so the looser
+    // selector would shoot „Could not load data." and report success.
+    waitFor: "tbody tr.group",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
     slug: "sofia-companies",
     routePath: "sofia/companies",
     // Companies registered in Sofia holding a gated registry link to a public
@@ -437,7 +451,9 @@ const captures: Capture[] = [
     // the /budget hub: title → scope chip → the four KPIs (прогнозна стойност,
     // процедури, пряко/без обявление, ЕС-финансирани) → the procedure-type bar →
     // the first table rows. Centring instead would land mid-table with the KPIs
-    // — the only figures on the page — cut off above the frame.
+    // — the only figures on the page — cut off above the frame. The wait is on a
+    // DATA row (`tr.group`); DbDataTable renders a TableRow in its error and
+    // empty branches too, so a bare `tbody tr` would accept a failed fetch.
     waitFor: 'section[aria-label="tenders"] tbody tr',
     anchor: "h1",
     viewport: OG_CLIP_VIEWPORT,

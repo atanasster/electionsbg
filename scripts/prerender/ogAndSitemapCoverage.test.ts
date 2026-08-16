@@ -276,7 +276,13 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
   // a worse artifact than a scoped gate that says so. The machinery above is
   // family-agnostic; widening it is adding a family to this list after deciding
   // its pages one at a time.
-  const ENFORCED = ["budget", "sofia"];
+  // ⚠️ `sector` here is TWO pages, not fifteen. Only `sector/administration`
+  // and `sector/administration/services` are statically routed; the other 13
+  // dashboards come from `<Route path="sector/:id">` and are dropped by the
+  // census with every other `:param` family. What covers them is
+  // `SECTOR_DASHBOARD_IDS` — routes.ts throws at build time if a graduated
+  // sector has no prerender copy — not this list.
+  const ENFORCED = ["budget", "sofia", "sector"];
 
   it("declares every routed page of an ENFORCED family in all three places", () => {
     const missing = routed
@@ -300,8 +306,9 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     // grows, someone added a page in the same half-finished state; if it shrinks,
     // this bound should come down with it.
     //
-    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 10 — T1a declared
-    // `procurement/tenders` and T1b `sofia/companies`. The number is the
+    // ⚠️ 12 as measured 2026-08-15 (site-hygiene-v1 §0.1), now 9 — T1a-T1c declared
+    // `procurement/tenders`, `sofia/companies` and
+    // `sector/administration/services`. The number is the
     // POINT OF THAT PLAN rather than an incidental update. The bound read 67
     // — a figure that was never right — because all three inputs above were read
     // too narrowly, each independently: one level of router nesting, a top-level
@@ -317,14 +324,19 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     expect(
       undeclared.length,
       `undeclared routed pages:\n${undeclared.map((p) => `  ${p}: ${gapsFor(p).join(", ")}`).join("\n")}`,
-    ).toBe(10);
+    ).toBe(9);
     // Of the three the previous comment named as „LINKED from prerendered copy",
     // only the first was: measured over every `${SITE_URL}/…` href in
     // `scripts/prerender/`, `procurement/tenders` had 2 (BG+EN) and the other
-    // two had 0. Both it and `sofia/companies` are now declared (12 → 10);
-    // the last of the three is kept here on the sibling argument instead — its
-    // parent `sector/administration` is declared and it is not.
-    for (const p of ["sector/administration/services"]) {
+    // two had 0; the other two were kept on a sibling argument instead. All
+    // three are now declared (12 → 9), so the canaries below pin that they are
+    // still ROUTED — if one is deleted, its declaration is dead weight and this
+    // says so rather than the count silently improving.
+    for (const p of [
+      "procurement/tenders",
+      "sofia/companies",
+      "sector/administration/services",
+    ]) {
       expect(routed, `${p} is no longer routed — update this list`).toContain(
         p,
       );

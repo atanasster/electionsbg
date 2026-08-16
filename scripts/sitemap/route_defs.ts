@@ -26,6 +26,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/flash-memory",
   "sofia/recount",
   "sofia/companies",
+  "sector/administration/services",
   "about",
   "sverka",
   "local/chmi",
@@ -175,6 +176,12 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "sofia/companies",
     file: `src/screens/SettlementCompaniesScreen.tsx`,
+  },
+  // The one sector sub-page. Every other /sector/<id> is generated from
+  // SECTOR_DASHBOARD_IDS; this catalogue hangs off `administration` alone.
+  {
+    path: "sector/administration/services",
+    file: `src/screens/administration/AdminServicesBrowseScreen.tsx`,
   },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },

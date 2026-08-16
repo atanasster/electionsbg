@@ -5438,6 +5438,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "sector/administration/services",
+    title:
+      "Административни услуги — регистър ИИСДА | Държавна администрация | electionsbg.com",
+    description:
+      "Пълният регистър на административните услуги в България по ИИСДА — услуга, номер и ниво на администрацията, която я предоставя (централна, областна, общинска, специализирана териториална).",
+    breadcrumbName: "Административни услуги",
+    ogImage: "/og/sector-administration-services.png",
+    bodyHtml: `
+<h1>Административни услуги</h1>
+<p>Пълният регистър на административните услуги, които българската държава предоставя — по <strong>Интегрираната информационна система на държавната администрация (ИИСДА)</strong>. За всяка услуга: уникален номер, наименование и нивото на администрацията, която я предоставя — централна, областна, общинска или специализирана териториална.</p>
+<p><strong>Това е каталог на услугите, не оценка на тях.</strong> Регистърът казва каква услуга съществува и на какво ниво се предоставя — не коя точно администрация я извършва, нито колко време отнема, колко струва или колко пъти е заявена.</p>
+<p>Виж и <a href="${SITE_URL}/sector/administration">сектор „Държавна администрация"</a> и <a href="${SITE_URL}/governance/sectors">всички държавни сектори</a>.</p>`.trim(),
+    english: {
+      title:
+        "Administrative Services — the ИИСДА Register | Public Administration | electionsbg.com",
+      description:
+        "The full register of Bulgaria's administrative services from ИИСДА — service, number and the tier of administration that provides it (central, regional, municipal, specialised territorial).",
+      breadcrumbName: "Administrative services",
+      bodyHtml: `
+<h1>Administrative services</h1>
+<p>The full register of the administrative services the Bulgarian state provides, from the <strong>Integrated Information System of the Public Administration (ИИСДА)</strong>. For each service: its unique number, its name, and the tier of administration that provides it — central, regional, municipal or specialised territorial.</p>
+<p><strong>This is a catalogue of services, not an assessment of them.</strong> The register says which service exists and at which tier it is provided — not which individual administration performs it, nor how long one takes, what it costs, or how often it is requested.</p>
+<p>See also the <a href="${SITE_URL}/en/sector/administration">public-administration sector</a> and <a href="${SITE_URL}/en/governance/sectors">all state sectors</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "sofia/companies",
     title:
       "София — фирми и организации, свързани с публични лица | electionsbg.com",
