@@ -173,12 +173,30 @@ which is how this note came to exist.
 the warm function served AFTER hosting purged the CDN gets written back into it and pinned
 — `x-cache: HIT`. The function's TTL then self-heals while the edge does not.
 
-The order that avoids it, when the bundle hash changes and no NEW `/api/db` route is
-involved: `npm run deploy` first, then `npm run deploy:db`. When a new route IS involved,
-the `deploy:db` → `deploy` rule above still holds — but follow it with a SECOND
-`deploy:db` and then a re-release of hosting: the function redeploy gives fresh instances
-that fetch the current shell, and the hosting release purges the edge entries the stale
-instances repopulated. Verify with
+**THREE steps, always, and the third is not optional — an earlier draft of this note said
+two and was wrong twice over.** No two-step order can avoid the window, because the
+function can only fetch the new shell AFTER hosting is live, and only a HOSTING RELEASE
+purges the edge. So whichever of the first two comes first, warm instances repopulate the
+CDN with stale HTML in between, and it stays pinned for `s-maxage`:
+
+```bash
+npm run deploy                          # 1. hosting live with the new bundle
+npm run deploy:db                       # 2. fresh instances fetch the CURRENT shell
+SKIP_PREDEPLOY=1 npm run deploy         # 3. purge the edge entries step 2 could not
+```
+
+Step 3 takes `SKIP_PREDEPLOY=1` deliberately: `dist/` is already the tree step 1 built and
+validated, and the goal is a new RELEASE (which purges) rather than a rebuild — without it
+the predeploy re-runs lint, both test suites and a ~10-minute build for nothing. When a NEW
+`/api/db` route is involved the function must lead, so the order becomes
+`deploy:db` → `deploy` → `deploy:db` → `SKIP_PREDEPLOY=1 deploy`.
+
+Measured twice on 2026-08-16, once per deploy: after step 1 the homepage served
+`index-pCBzDm2m.js` while `/person/mp-3643` still served the deleted `index-Zcb7Mede.js`,
+and after step 2 the function was correct on a cache-busted request while the plain URL
+stayed stale until step 3. `/company/**` and `/funds/contract/**` recovered at step 2 both
+times and `/person/**` did not — do not read one family as evidence for the others. Verify
+with
 
 ```bash
 curl -s https://electionsbg.com/person/mp-3643 | grep -oE '/assets/index-[^"]+\.js'
