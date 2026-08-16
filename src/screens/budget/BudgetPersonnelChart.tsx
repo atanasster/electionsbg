@@ -93,7 +93,13 @@ export const BudgetPersonnelChart: FC<{
 
   return (
     <div className={className}>
-      <div style={{ height: 200, width: "100%" }}>
+      {/* ARIA-HIDDEN, and this is the chart that most needs it — the opposite
+          way round from the sibling COFOG chart's note. Recharts renders axis
+          ticks as real SVG <text>, so without this a screen reader reads every
+          year and tick value off the plot AND then the same nine rows again off
+          the table below, which exists precisely because the SVG does not
+          expose the pairs. One reading, from the table. */}
+      <div aria-hidden="true" style={{ height: 200, width: "100%" }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={data}
@@ -177,30 +183,42 @@ export const BudgetPersonnelChart: FC<{
       {/* THE NUMBERS, FOR ANYTHING THAT CANNOT SEE THE CHART. The `<ul>` this
           replaced put every year and value in the accessibility tree; an SVG
           of paths and rects does not, so the nine pairs would simply have gone
-          missing for a screen reader. Visually hidden, semantically a table. */}
-      <table className="sr-only">
-        <caption>{t("budget_staff_trend_h")}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{t("budget_comp_asof")}</th>
-            <th scope="col">{t("budget_staff_total")}</th>
-            <th scope="col">{t("budget_staff_filled")}</th>
-            <th scope="col">{t("budget_staff_chart_vacant_pct")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((d) => (
-            <tr key={d.year}>
-              <th scope="row">{d.year}</th>
-              <td>{d.total ?? "—"}</td>
-              <td>{d.filled ?? "—"}</td>
-              <td>
-                {d.vacantPct == null ? "—" : `${d.vacantPct.toFixed(1)}%`}
-              </td>
+          missing for a screen reader. Visually hidden, semantically a table.
+
+          ⚠️ THE `sr-only` IS ON A WRAPPING <div>, NOT ON THE <table>, and that is
+          a layout fix rather than a style preference. CSS `width` on a table is
+          a MINIMUM, not a maximum — a table lays out at min-content regardless —
+          so `sr-only`'s `width:1px` did not shrink it, and although
+          `position:absolute` took it out of flow it still contributed to the
+          document's scrollable overflow. Measured at a 375px viewport:
+          scrollWidth 514 against clientWidth 375, i.e. 139px of empty sideways
+          scroll on every phone, from an element nobody can see. A block wrapper
+          honours the 1px and its `overflow:hidden` contains the table. */}
+      <div className="sr-only">
+        <table>
+          <caption>{t("budget_staff_trend_h")}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t("budget_comp_asof")}</th>
+              <th scope="col">{t("budget_staff_total")}</th>
+              <th scope="col">{t("budget_staff_filled")}</th>
+              <th scope="col">{t("budget_staff_chart_vacant_pct")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((d) => (
+              <tr key={d.year}>
+                <th scope="row">{d.year}</th>
+                <td>{d.total ?? "—"}</td>
+                <td>{d.filled ?? "—"}</td>
+                <td>
+                  {d.vacantPct == null ? "—" : `${d.vacantPct.toFixed(1)}%`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* A legend in words, because three series on two axes cannot be told
           apart from their colours alone at this size. */}
       <p className="mt-1 text-[11px] text-muted-foreground/80">
