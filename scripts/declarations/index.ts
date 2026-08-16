@@ -32,7 +32,6 @@ import {
   reEnrichCompaniesIndex,
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
-import { buildCompanyConnections } from "./tr/build_company_connections";
 import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildAssetsRankings } from "./build_assets_rankings";
@@ -425,8 +424,7 @@ export const parseFinancialDeclarations = async ({
 
   // Officials → company cross-reference. Joins executive + municipal officials
   // to companies (declared stakes + TR officer/owner name match). Feeds the
-  // councillor-conflicts + company-connections passes. No-ops if data/officials/
-  // has not been ingested.
+  // councillor-conflicts pass. No-ops if data/officials/ has not been ingested.
   buildOfficialsCompanyLinks();
 
   // Augment companies-index with `mpRoles` + the registry-only company entries an MP holds but
@@ -436,12 +434,6 @@ export const parseFinancialDeclarations = async ({
   // `mpRoles`. Needs db:resolve:persons to have run; degrades to leaving the previous vintage
   // when Postgres is unreachable. See docs/plans/mp-tr-edges-pg-v1.md §4 Tier 3.
   await augmentCompaniesIndexWithMpRoles({ publicFolder });
-
-  // Phase 7: per-EIK Commerce-Registry connections to people in power,
-  // consumed by the /company/:eik page. Reads state.sqlite + the parliament
-  // roster + officials indexes. Skips with a warning if state.sqlite is
-  // absent (same contract as integrateTr).
-  buildCompanyConnections();
 
   // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
   // entry, fall back to it for companies with no declared office string.

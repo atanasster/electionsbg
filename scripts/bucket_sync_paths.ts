@@ -20,8 +20,8 @@
 // SAFETY: procurement/ (except roads.json + derived/mp_party.json), funds/ and
 // _cache/ are served from Cloud SQL or are local-only PG load sources;
 // parliament/company-connections/ is refused for a DIFFERENT reason — it is a
-// RETIRED tree whose local copy is still written on every TR refresh, see its
-// branch below. `bucket:sync` excludes them by regex; here we
+// RETIRED tree whose builder is deleted but whose local copy survives on every
+// machine that ever ran it, see its branch below. `bucket:sync` excludes them by regex; here we
 // REFUSE them outright rather than silently upload — a scoped sync that quietly
 // pushed the procurement tree would re-publish a PG-served corpus to GCS.
 //
@@ -65,8 +65,8 @@ export const isExcluded = (rel: string): string | null => {
   // ⚠️ [2026-08-16] THE DECISION THIS BRANCH RECORDED AS OPEN HAS BEEN TAKEN: the tool moved
   // to Postgres and the bucket tree is GONE (`gsutil -m rm -r` on the same day; `gsutil ls`
   // returns „matched no objects"). It is kept as an exclusion, not deleted, so a stale local
-  // `data/parliament/company-connections/` — the builder still writes it, see below — cannot
-  // silently re-upload 19,232 objects on the next full sync.
+  // `data/parliament/company-connections/` cannot silently re-upload 19,232 objects on the
+  // next full sync.
   //
   // The history, because the failure mode is the reusable part. This branch used to say the
   // tree was „PG-served". It was not: the AI chat's `companyConnections` tool fetched
@@ -81,10 +81,17 @@ export const isExcluded = (rel: string): string | null => {
   // roster by name; the function reads the gated `person_role` tr/ngo set and refuses a name
   // the Commerce Registry records for more than one human.
   //
-  // ⚠️ `scripts/declarations/tr/build_company_connections.ts` STILL WRITES the local tree on
-  // every `tr:daily-refresh` and `--declarations` run — 19,232 files, 83 MB, gitignored. It
-  // has no reader now. Left in place deliberately (it is the only path that could reconstruct
-  // the removed objects) and flagged in its own header; retiring it is a separate call.
+  // ⚠️ THE EXCLUSION NOW GUARDS RESIDUE, WHICH IS WHY IT OUTLIVES ITS PRODUCER.
+  // `scripts/declarations/tr/build_company_connections.ts` was DELETED on 2026-08-16 (it was
+  // retained for a day on the theory that it was the only path able to reconstruct the removed
+  // objects — untrue twice over: it was a git-TRACKED file, so `git show <sha>:<path>` restores
+  // it, and its 19,232-file output was still on disk). Nothing writes the tree any more.
+  //
+  // But nothing DELETES it either, and it is gitignored — so those 19,232 files (83 MB) sit on
+  // every machine that ever ran a `tr:daily-refresh` or `--declarations`, frozen at whatever
+  // vintage that machine last built, for ever. A retired producer makes this branch MORE
+  // load-bearing, not less: while the builder ran the tree was at least current, and a
+  // re-upload would merely have been pointless. Now it would republish a dead snapshot.
   //
   // Anchored to the DIRECTORY. Without the trailing slash this also swallowed
   // `parliament/company-connections-stats.json` — a different artifact, with no
@@ -187,13 +194,16 @@ export const isExcluded = (rel: string): string | null => {
   // FROZEN UNDER parliament/ TODAY, so the mechanism is live rather than
   // historical (measured 2026-08-16):
   //
-  //   · company-connections/  16,609 objects — ⚠️ DO NOT rm. It has a LIVE
-  //     READER (the AI chat's companyConnections tool), so removing it 404s a
-  //     shipped feature and versioning is Suspended, i.e. no undo. Its problem
-  //     is the opposite one: it is serving a 2026-07-29 snapshot, and the fix is
-  //     a decision about which side moves — see its branch above.
   //   · the eight site-hygiene-v1 T6b families — 12,533 objects, 52.5 MB, none
   //     with a reader. These are the ones an `rm` would be right for.
+  //
+  // company-connections/ was a ninth entry here until 2026-08-16, listed as
+  // „⚠️ DO NOT rm — it has a LIVE READER". That was true when written and false
+  // by the time it was read: the reader moved to Postgres and the 16,609 objects
+  // were removed the same day, while this list went on saying otherwise a few
+  // dozen lines below the branch that recorded the removal. Two descriptions of
+  // one tree in one file is how that happens — when a family leaves this list,
+  // check its isExcluded branch says the same thing.
   //
   // („Frozen" here is scoped to parliament/ on purpose: funds/ and procurement/
   // are excluded too and far larger — funds/ alone is 182,075 objects and
@@ -295,10 +305,12 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // `bucket:sync:paths -- parliament` (needed for photos/ + votes/) recursively uploaded
   // all ~16.8k per-EIK shards to the bucket.
   //
-  // ⚠️ THIS TWIN IS NOW THE LOAD-BEARING HALF. The bucket objects were removed 2026-08-16
-  // and the tree has no reader, but `build_company_connections.ts` still writes 19,232 local
-  // files on every TR refresh — so without this entry the next `bucket:sync:paths -- parliament`
-  // would re-create the whole retired tree in the bucket.
+  // ⚠️ THIS TWIN IS NOW THE LOAD-BEARING HALF. The bucket objects were removed 2026-08-16 and
+  // `build_company_connections.ts` was deleted with them — but deleting the producer does not
+  // delete its output. The 19,232 gitignored local files stay on every machine that ever ran a
+  // TR refresh, unread and un-rewritten, so without this entry the next
+  // `bucket:sync:paths -- parliament` would re-create the whole retired tree in the bucket from
+  // a snapshot that no longer has anything regenerating it.
   { path: "parliament/company-connections", isDir: true },
   // The T6b set. Each needs its twin here as well as the isExcluded branch,
   // because that branch only guards a DIRECT argument and the push anyone

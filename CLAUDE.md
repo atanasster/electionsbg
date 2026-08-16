@@ -708,11 +708,26 @@ Three things about that move are worth carrying, because the next retirement wil
   count per name fold (`tr_name_fold_people`, 148) decides, an unmeasured fold is REFUSED, and
   there is no confidence grade. Per EIK that is sometimes fewer links; corpus-wide it is wider
   on both arms (9,982 companies with a direct link vs 3,843; 26,047 answerable vs 19,232).
-- **`scripts/declarations/tr/build_company_connections.ts` still writes the LOCAL tree** on
-  every `tr:daily-refresh`, 19,232 files / 83 MB, now with no reader. Kept deliberately — the
-  bucket had versioning Suspended, so it is the only path that could reconstruct what was
-  removed — and the exclusion stays in `bucket_sync_paths.ts` so that stale local tree cannot
-  re-upload itself. Retiring the builder is a separate call.
+- **`scripts/declarations/tr/build_company_connections.ts` is DELETED (2026-08-16), and its
+  output is not.** The builder was retained for a day on the theory that it was the only path
+  able to reconstruct the removed objects. That was wrong twice over: it was a **git-tracked
+  source file** (so `git show <sha>:<path>` restores it — the versioning-Suspended argument
+  applies to bucket objects, which have no history, never to code in git), and its 19,232-file
+  output was still sitting on disk. Both call sites are gone (`scripts/declarations/index.ts`
+  phase 7, `scripts/declarations/tr/daily_refresh.ts`) along with the
+  `tr:build-company-connections` npm script, so a TR refresh no longer writes 83 MB nothing
+  reads.
+
+  ⚠️ **Deleting the producer did NOT delete the tree, and the sync guards therefore STAY.**
+  `data/parliament/company-connections/` is gitignored, so its 19,232 files persist on every
+  machine that ever ran a `tr:daily-refresh` or `--declarations`, with nothing left to refresh
+  or remove them. Both halves in `scripts/bucket_sync_paths.ts` — the `isExcluded` branch and
+  the `CHILD_EXCLUDES` twin — plus the `-x` arms in `bucket:sync` / `bucket:sync:dry` are what
+  stop the next `bucket:sync:paths -- parliament` from re-creating the retired tree in the
+  bucket. Retiring a builder makes those guards MORE load-bearing, not less: while it ran, a
+  stray re-upload was merely pointless; now it would republish a permanently frozen snapshot.
+  "Nothing writes this any more, so the exclusion is dead config" is the one inference to
+  refuse here.
 
 (Scoped to `parliament/` deliberately: `funds/` and `procurement/` are excluded too and far
 larger — `funds/` alone is 182,075 objects and 560 MB — but those are PG-served by design, not

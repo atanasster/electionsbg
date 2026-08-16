@@ -95,7 +95,7 @@ All under `public/parliament/`:
 | `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
 | `connections-rankings.json` | 791 KB / 74 KB / 55 KB | Top-MPs / top-companies for the dashboard tile + `/connections` rankings card. **Loaded on every dashboard view** — keep it lean. |
 | `companies-by-{ekatte,obshtina}/…` *(NO LONGER WRITTEN)* | Retired by mp-tr-edges-pg-v1 — `/api/db/place-mp-companies` (migration 151) serves these from the gated person layer, covering 1,332 settlements against the shards' 176. Both builders are deleted |
-| `company-connections/{eik}.json` × ~6,900 (gitignored — `data/parliament/`) + `company-connections-stats.json` | ~25 MB total / 350 B | Per-EIK Commerce-Registry connections to people in power — read by `/company/:eik`. Lists the company's officers who personally hold public office (direct) and politicians reached one company-hop away (bridged). Built by `scripts/declarations/tr/build_company_connections.ts` from `state.sqlite` + `connections-search.json` + the executive & municipal officials indexes. The per-EIK dir is a regenerable build artifact (uploaded via `bucket:sync`); the stats summary IS committed. |
+| `company-connections/{eik}.json` *(NO LONGER WRITTEN)* | Retired 2026-08-16 — `/api/db/company-connections` (migration 158 `company_political_links`) serves this from the gated `person_role` tr/ngo set. The builder is deleted. Its reader was never `/company/:eik` as this row long claimed, but the AI chat's `companyConnections` tool. NOT a port: the shards name-matched TR officers against a power roster and graded the result `medium`/`low`; 158 lets the registry's own people-count per name fold (`tr_name_fold_people`, 148) decide and refuses an unmeasured fold. Corpus-wide that is wider — 9,982 companies with a direct link vs 3,843, 26,047 answerable vs 19,232. ⚠️ The 19,232 gitignored local files are NOT deleted and nothing rewrites them; the `bucket_sync_paths.ts` exclusions must stay so they cannot re-upload |
 
 The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
 
@@ -128,16 +128,13 @@ public/parliament/declarations/         [Phase 4] state.sqlite
               connections.json
               mp-connections/{mpId}.json
               connections-rankings.json
-              connections-search.json ──┐
-                                        │
-                  [Phase 7] buildCompanyConnections (+ state.sqlite
-                            + officials + officials/municipal indexes)
-                                        ▼
-                                  company-connections/{eik}.json
-                                  company-connections-stats.json
+              connections-search.json
+
+              (Phase 7, buildCompanyConnections → company-connections/{eik}.json,
+               was REMOVED 2026-08-16 — served from Postgres, migration 158)
 ```
 
-Phases 1, 2, 5, 6, 7 chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phase 7 skips with a warning when `raw_data/tr/state.sqlite` is absent — same graceful-degradation contract as phases 5 and 6. Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
+Phases 1, 2, 5, 6 chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
 
 ## TR refresh playbook
 
@@ -193,9 +190,8 @@ npx tsx scripts/declarations/rebuild_all_from_cache.ts
 > (This replaced `scripts/run-connections-rebuild.ts`, which was deleted
 > without updating this doc. The per-EIK `company-connections/` and the
 > retired `companies-by-ekatte`/`-obshtina` shard builders are NOT in this
-> runner: the first rides the full `--declarations` pipeline, and the second
-> pair is gone — `/settlement/:id/companies` is served live from Postgres,
-> migration 151.)
+> runner, and both are now gone outright — `/company` political links are
+> served by migration 158 and `/settlement/:id/companies` by migration 151.)
 
 Use `--limit N` on `--reconstruct` for a smoke test (replays N days only).
 
@@ -335,7 +331,7 @@ The `/connections` page has a "high confidence only" filter; the dashboard tile 
 **TR-namesake guard (name-collision fix).** On top of the tiers above, every officer→power-person name match is gated on the name being **unique to a single TR company**. A name spread across multiple companies is almost always several distinct people (common Bulgarian names recur thousands of times), so attributing all those companies to one MP/official is a false positive. Three code paths enforce this, all keyed off the same idea:
 - `build_connections_graph.ts` phase-3 — attributes a TR officer row to an MP only when the name maps to one company; otherwise it becomes a plain (non-MP) person node.
 - `build_officials_company_links.ts` — a TR link is `high` only when unique among officials AND `trNamesakeCount === 1` (see `/update-officials`).
-- `tr/build_company_connections.ts` — drops direct/bridged matches whose name maps to >1 TR company (the per-EIK `company-connections/` files behind `/company/:eik`), rather than grading them low.
+- ~~`tr/build_company_connections.ts`~~ — **deleted 2026-08-16.** Its successor, `company_political_links` (migration 158), enforces the same idea from a stronger source: rather than counting TR *companies* per name, it reads `tr_name_fold_people` (148) — the registry's own count of how many PEOPLE a name fold covers — and refuses any fold it has not measured. A company count was only ever a proxy, and it erred in both directions: it dropped a rare-name official's whole set behind one busy registered agent, and passed a name held by two people with several companies each.
 
 This is what keeps a Горна Малина councillor off Софарма Трейдинг's billions and a Чирпан deputy-mayor off "Автомагистрали". The procurement side mirrors it in `scripts/procurement/cross_reference.ts` (see `/update-procurement`).
 
@@ -521,7 +517,6 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 | `scripts/declarations/tr/cli.ts` | Phase 3 + 4 entry. Bulk + incremental + reconstruct subcommands. |
 | `scripts/declarations/tr/integrate.ts` | Phase 5. Joins TR SQLite into companies-index + emits mp-management/. |
 | `scripts/declarations/build_connections_graph.ts` | Phase 6. Builds graph + per-MP neighbourhoods + rankings. Defines `nsFoldersForMp` backfill. |
-| `scripts/declarations/tr/build_company_connections.ts` | Phase 7. Per-EIK company → people-in-power connections (direct officers + one-hop bridges) consumed by `/company/:eik`. Standalone via `npm run tr:build-company-connections`; also chained from `parseFinancialDeclarations` after phase 6. |
 | `src/data/parliament/useCompanyIndex.tsx` | React Query hook for companies-index. Defines `CompanyIndexStake` mirror. |
 | `src/data/parliament/useConnectionsGraph.tsx` | RQ hook for connections.json. |
 | `src/data/parliament/useConnectionsRankings.tsx` | RQ hook for rankings (dashboard tile). |

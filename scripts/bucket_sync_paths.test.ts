@@ -143,8 +143,18 @@ describe("isExcluded — parliament PG-served families (T2.1b/T2.3/T2.4)", () =>
     expect(hit("mp-assets/5100.json")).toBe(true);
     // company-connections/ was refused as a DIRECT argument but had no child
     // exclude, so `bucket:sync:paths -- parliament` (the natural way to push
-    // photos/ + votes/) uploaded all ~16.8k per-EIK shards to a bucket nothing
-    // reads them from — /company/:eik is served from Cloud SQL.
+    // photos/ + votes/) uploaded all ~16.8k per-EIK shards to the bucket. The
+    // reader was the AI chat's `companyConnections` tool, NOT the /company/:eik
+    // page — an earlier version of this comment said the page, which is the same
+    // src/-only grep that made the tree look readerless in the first place.
+    //
+    // ⚠️ Both this and the direct-argument guard below outlive their producer:
+    // `build_company_connections.ts` was deleted 2026-08-16, and the natural
+    // inference — „nothing writes the tree, so the guards are dead config" — is
+    // backwards. Deleting a builder does not delete 19,232 gitignored files it
+    // already wrote; they sit on every machine that ever ran a TR refresh with
+    // nothing to refresh or remove them. Drop these guards and the next
+    // parliament-scoped sync republishes a dead snapshot.
     expect(hit("company-connections/000014441.json")).toBe(true);
     // …but never the photos that stay on the bucket.
     expect(hit("photos/5100.webp")).toBe(false);

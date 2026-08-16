@@ -46,7 +46,6 @@ import {
 } from "./fetch_dataset_index";
 import { fetchAllDailyResilient } from "./fetch_daily";
 import { reconstructState } from "./reconstruct_state";
-import { buildCompanyConnections } from "./build_company_connections";
 import { CrDeedsStore } from "./cr_deeds_store";
 import { CR_DEEDS_DB } from "./fetch_cr_deeds";
 import { projectCrDeedsToState } from "./project_cr_deeds";
@@ -129,7 +128,7 @@ const main = async (): Promise<void> => {
 
   // Fold in the CR Deeds captures (the pre-2021 owner backfill). reconstructState
   // rewrites state.sqlite from scratch every run, so this MUST re-run here after it,
-  // before buildCompanyConnections (which reads company_persons) and the PG load.
+  // before the PG load.
   // Skipped cleanly when no crawl has run yet (no cr_deeds.sqlite). The founding-date
   // fold to PG is a separate step (db:load:cr-founding:pg) — Postgres isn't up here.
   if (fs.existsSync(CR_DEEDS_DB)) {
@@ -144,8 +143,6 @@ const main = async (): Promise<void> => {
       store.close();
     }
   }
-
-  buildCompanyConnections();
 
   console.log(
     `[tr/daily-refresh] done in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
