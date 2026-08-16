@@ -6,8 +6,9 @@
  *   npx tsx scripts/person/compare_declarations.ts --a <slug|name> --b <slug|name> \
  *     [--year N] [--class annual|inventory] [--total net|assets] [--out <path>]
  *
- * Plan: docs/plans/person-compare-post-v1.md. Exit 1 means the pair is NOT comparable
- * and the reason is printed — that is a normal outcome, not a crash.
+ * Plan: docs/plans/person-compare-post-v1.md. Exit 2 means the pair is NOT comparable, or a
+ * flag was misused, and the reason is printed — a normal outcome, not a crash. Exit 1 means
+ * the tool itself broke.
  *
  * ── WHY A GATE AT ALL ───────────────────────────────────────────────────────────────
  *
@@ -63,6 +64,7 @@
  */
 
 import fs from "node:fs";
+import { pathToFileURL } from "node:url";
 import { allRows, end } from "../db/lib/pg";
 import {
   VERSUS_METRICS,
@@ -88,7 +90,7 @@ const NOT_A_METRIC = new Set(["credit_limit"]);
  *  the two are close, so filings are mostly either fine or badly affected, and any cut in
  *  that gap separates the same two groups. Below it, the shortfall is reported as a caveat
  *  rather than acted on. `--max-unvalued-pct` overrides; 100 disables the drop. */
-const MAX_UNVALUED_SHARE = 0.2;
+export const MAX_UNVALUED_SHARE = 0.2;
 
 type Availability = {
   slug: string;
@@ -206,17 +208,35 @@ const resolvePerson = async (needle: string): Promise<string> => {
   return rows[0].slug;
 };
 
-const main = async (): Promise<void> => {
-  const rawA = arg("--a");
-  const rawB = arg("--b");
-  if (!rawA || !rawB)
-    throw new Usage("need --a and --b (a person slug or name)");
-  const totalBasis = (arg("--total") ?? "net") as "net" | "assets";
-  if (totalBasis !== "net" && totalBasis !== "assets")
-    throw new Usage("--total must be `net` or `assets`");
+export type CompareOptions = {
+  /** Already-resolved person slugs — see {@link resolvePerson}. */
+  slugA: string;
+  slugB: string;
+  /** Force a (year, class) instead of taking the gate's newest common pair. */
+  year?: number;
+  klass?: VersusFormClass;
+  /** Which figure heads the card. Default `net`. */
+  totalBasis?: "net" | "assets";
+  /** 0..1; default {@link MAX_UNVALUED_SHARE}. */
+  maxUnvaluedShare?: number;
+};
 
-  const slugA = await resolvePerson(rawA);
-  const slugB = await resolvePerson(rawB);
+/** The gate's reasoning, and the card it licenses. */
+export type CompareResult = {
+  gate: Record<string, unknown>;
+  card: VersusCardSpec;
+};
+
+/** The gate and the card build, with no argv and no file IO, so it is drivable from a test.
+ *  Throws {@link Usage} whenever the pair cannot honestly be compared. */
+export const compareDeclarations = async (
+  opts: CompareOptions,
+): Promise<CompareResult> => {
+  const { slugA, slugB } = opts;
+  const totalBasis = opts.totalBasis ?? "net";
+  const wantYear = opts.year;
+  const wantClass = opts.klass;
+  const maxUnvalued = opts.maxUnvaluedShare ?? MAX_UNVALUED_SHARE;
   if (slugA === slugB)
     throw new Usage(`--a and --b resolve to the same person (${slugA})`);
   const slugs = [slugA, slugB];
@@ -250,20 +270,6 @@ const main = async (): Promise<void> => {
         (x.klass === y.klass ? 0 : x.klass === "annual" ? -1 : 1),
     );
 
-  const rawYear = arg("--year");
-  const wantYear = rawYear === undefined ? undefined : Number(rawYear);
-  if (wantYear !== undefined && !Number.isInteger(wantYear))
-    throw new Usage(`--year must be a year, got "${rawYear}"`);
-  const rawClass = arg("--class");
-  if (
-    rawClass !== undefined &&
-    rawClass !== "annual" &&
-    rawClass !== "inventory"
-  )
-    throw new Usage(
-      `--class must be \`annual\` or \`inventory\`, got "${rawClass}"`,
-    );
-  const wantClass = rawClass as VersusFormClass | undefined;
   const picked = common.find(
     (c) =>
       (wantYear === undefined || c.year === wantYear) &&
@@ -362,25 +368,6 @@ const main = async (): Promise<void> => {
   // comparable as MONEY only where both sides actually stated one; where they did not, the
   // sum is a floor over an unknown remainder, and a bar drawn from it makes a claim the
   // filing does not.
-  const rawMaxUnvalued = arg("--max-unvalued-pct");
-  // Validated rather than coerced: `Number("abc")/100` is NaN, every `share > NaN` is false,
-  // and the entire unpriced-row gate turns itself off while reporting `dropped: []`. That
-  // republished the fixture's 428x phantom property gap with a clean-looking basis line.
-  if (
-    rawMaxUnvalued !== undefined &&
-    !(
-      Number.isFinite(Number(rawMaxUnvalued)) &&
-      Number(rawMaxUnvalued) >= 0 &&
-      Number(rawMaxUnvalued) <= 100
-    )
-  )
-    throw new Usage(
-      `--max-unvalued-pct must be a number 0-100, got "${rawMaxUnvalued}"`,
-    );
-  const maxUnvalued =
-    rawMaxUnvalued === undefined
-      ? MAX_UNVALUED_SHARE
-      : Number(rawMaxUnvalued) / 100;
   const unvalued = detail
     .filter((r) => r.category && r.n > 0 && r.unvalued > 0)
     .map((r) => ({
@@ -678,42 +665,115 @@ const main = async (): Promise<void> => {
   const finalCard = preflight(card);
   out.card = finalCard;
 
-  const json = JSON.stringify(out, null, 2);
+  return out;
+};
+
+const main = async (): Promise<void> => {
+  const rawA = arg("--a");
+  const rawB = arg("--b");
+  if (!rawA || !rawB)
+    throw new Usage("need --a and --b (a person slug or name)");
+
+  const totalBasis = (arg("--total") ?? "net") as "net" | "assets";
+  if (totalBasis !== "net" && totalBasis !== "assets")
+    throw new Usage("--total must be `net` or `assets`");
+
+  const rawYear = arg("--year");
+  const year = rawYear === undefined ? undefined : Number(rawYear);
+  if (year !== undefined && !Number.isInteger(year))
+    throw new Usage(`--year must be a year, got "${rawYear}"`);
+
+  const rawClass = arg("--class");
+  if (
+    rawClass !== undefined &&
+    rawClass !== "annual" &&
+    rawClass !== "inventory"
+  )
+    throw new Usage(
+      `--class must be \`annual\` or \`inventory\`, got "${rawClass}"`,
+    );
+
+  // Validated rather than coerced: `Number("abc")/100` is NaN, every `share > NaN` is false,
+  // and the whole unpriced-row gate turns itself off while reporting `dropped: []` — which
+  // republished the fixture's 428x phantom property gap under a clean-looking basis line.
+  const rawMax = arg("--max-unvalued-pct");
+  const maxNum = Number(rawMax);
+  if (
+    rawMax !== undefined &&
+    !(Number.isFinite(maxNum) && maxNum >= 0 && maxNum <= 100)
+  )
+    throw new Usage(
+      `--max-unvalued-pct must be a number 0-100, got "${rawMax}"`,
+    );
+
+  const { gate, card } = await compareDeclarations({
+    slugA: await resolvePerson(rawA),
+    slugB: await resolvePerson(rawB),
+    year,
+    klass: rawClass as VersusFormClass | undefined,
+    totalBasis,
+    maxUnvaluedShare: rawMax === undefined ? undefined : maxNum / 100,
+  });
+
+  const json = JSON.stringify({ gate, card }, null, 2);
   const dest = arg("--out");
   if (dest) fs.writeFileSync(dest, `${json}\n`);
   else console.log(json);
 
-  if (dropped.size)
-    console.error(
-      `total excludes ${[...dropped].join(", ")} (unpriced) — ` +
-        slugs.map((sl) => `${sl} ${eur(excludedEur[sl])}`).join(", "),
-    );
-  if (inTotalNotShown.length)
-    console.error(`in the total but not a row: ${inTotalNotShown.join(", ")}`);
-  if (droppedMetrics.length)
+  const g = gate as {
+    picked: { year: number; klass: string };
+    isLatestForBoth: boolean;
+    droppedMetrics: {
+      metric: string;
+      slug: string;
+      unvalued: number;
+      rows: number;
+    }[];
+    inTotalNotShown: string[];
+    excludedEur: Record<string, number>;
+    totals: Record<
+      string,
+      { assetsEur: number; debtsEur: number; netEur: number }
+    >;
+  };
+  const money = (n: number): string =>
+    `${Math.round(n).toLocaleString("bg-BG").replace(/\s/g, "\u00a0")}\u00a0€`;
+  if (g.droppedMetrics.length)
     console.error(
       "dropped for unpriced rows: " +
-        droppedMetrics
+        g.droppedMetrics
           .map((u) => `${u.metric} (${u.slug} ${u.unvalued}/${u.rows})`)
+          .join(", ") +
+        " — total excludes " +
+        Object.entries(g.excludedEur)
+          .map(([sl, v]) => `${sl} ${money(v)}`)
           .join(", "),
     );
+  if (g.inTotalNotShown.length)
+    console.error(
+      `in the total but not a row: ${g.inTotalNotShown.join(", ")}`,
+    );
   console.error(
-    `gate: ${picked.year} / ${picked.klass}` +
-      `${isLatestForBoth ? "" : "  (NOT the latest year for both — the card says so)"}\n` +
-      slugs
-        .map((s) => {
-          const t = totals[s];
-          return `  ${s}  активи ${eur(t.assetsEur)} · задължения ${eur(t.debtsEur)} · нетно ${eur(t.netEur)}`;
-        })
+    `gate: ${g.picked.year} / ${g.picked.klass}` +
+      `${g.isLatestForBoth ? "" : "  (NOT the latest year for both — the card says so)"}\n` +
+      Object.entries(g.totals)
+        .map(
+          ([sl, t]) =>
+            `  ${sl}  активи ${money(t.assetsEur)} · задължения ${money(t.debtsEur)} · нетно ${money(t.netEur)}`,
+        )
         .join("\n"),
   );
 };
 
-main()
-  .catch((e) => {
-    console.error(
-      `compare_declarations: ${e instanceof Error ? e.message : e}`,
-    );
-    process.exitCode = 1;
-  })
-  .finally(() => end());
+// Only when run as the CLI — importing this module (the data test does) must not execute it.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main()
+    .catch((e) => {
+      console.error(
+        `compare_declarations: ${e instanceof Error ? e.message : e}`,
+      );
+      // 2 = a verdict about the data or a misuse of the flags; 1 = the tool broke.
+      process.exitCode = e instanceof Usage ? 2 : 1;
+    })
+    .finally(() => end());
+}
