@@ -6,7 +6,7 @@ import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { ALL_ELECTIONS } from "./dataset";
 import { matchParty } from "./matchParty";
-import type { CompanyConnections } from "../../src/data/parliament/useCompanyConnections";
+import { officeLabel } from "./officeLabel";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- MP declared assets -----------------------------------------------------
@@ -679,14 +679,72 @@ export const partyFinance = async (
   };
 };
 
-// ---- company -> people-in-power connections (by EIK) ------------------------
-// Reads parliament/company-connections/{eik}.json (Commerce Registry, GCS-only).
-// Surfaces officers who hold public office (direct) + officers one company-hop
-// from a politician (bridged). Name-match only — identity is never asserted.
+// ---- company -> people in public office (by EIK) ---------------------------
+// Reads /api/db/company-connections (migration 158, company_political_links) — the gated
+// person layer, live from Postgres.
+//
+// ⚠️ IT USED TO READ `parliament/company-connections/{eik}.json`, AND THAT FILE WAS FROZEN.
+// `bucket_sync_paths.ts` excluded the tree from sync, and `gsutil rsync -x` excludes a match
+// from DELETION as well as upload — so the 16,609 bucket objects sat at their 2026-07-29
+// vintage and this tool answered company questions from that snapshot at a 200, for weeks,
+// with nothing red anywhere. „Has a reader" and „is being maintained" are separate facts.
+//
+// ⚠️ THE ANSWER CHANGED WITH THE MOVE, AND THE COPY BELOW SAYS SO. The shards matched a TR
+// officer to a power roster BY NAME, keeping the match only if the name appeared in exactly
+// one company, and graded it `medium`/`low` on whether the name had three parts — a name-shape
+// test wearing the word confidence. There is no confidence column here. The direct arm is
+// `person_role` at source tr/ngo, which refuses a name the Commerce Registry records for more
+// than one human (and refuses an UNMEASURED fold too), and each row states its basis:
+// „деклариран регистър" or „съвпадение по име". Per-EIK that means fewer links sometimes;
+// corpus-wide it is wider on both arms (9,982 direct vs 3,843; 26,047 answerable vs 19,232).
+//
+// The two arms stay in SEPARATE table sections and never merge into one ranked list: a bridged
+// row is a second-degree lead („an officer here also sits at a company where X sits"), and the
+// single merged, confidence-graded list is exactly how the shards let that read as a finding.
 
-const CONF_LABEL: Record<string, { bg: string; en: string }> = {
-  medium: { bg: "средна", en: "medium" },
-  low: { bg: "ниска", en: "low" },
+type PoliticalLinkRow = {
+  slug: string;
+  name: string;
+  office: string;
+  officeSource: string;
+  officeRole: string;
+};
+type DirectLinkRow = PoliticalLinkRow & {
+  roles: string[];
+  linkBasis: "declared" | "name_match";
+};
+type BridgedLinkRow = PoliticalLinkRow & {
+  bridgeName: string;
+  bridgeCompanies: number;
+  viaEik: string;
+  viaCompany: string | null;
+  pathCount: number;
+};
+type CompanyPoliticalLinks = {
+  eik: string;
+  name: string | null;
+  legalForm: string | null;
+  status: string | null;
+  officerRowCount: number;
+  directCount: number;
+  bridgedCount: number;
+  bridgedPathCount: number;
+  bridgeMaxCompanies: number;
+  bridgeFoldsSuppressed: number;
+  directTruncated: boolean;
+  bridgedTruncated: boolean;
+  direct: DirectLinkRow[];
+  bridged: BridgedLinkRow[];
+} | null;
+
+const PROV = ["company_political_links (158_company_political_links.sql)"];
+
+// The two words 082, 150 and 158 all use, so one company cannot be „declared" on the profile
+// and „name match" in the chat. `declared` = a curated register put this COMPANY on this
+// person; it is NOT a confirmed identity (148 §0.2), which is why neither wording claims one.
+const BASIS_LABEL: Record<string, { bg: string; en: string }> = {
+  declared: { bg: "деклариран регистър", en: "declared register" },
+  name_match: { bg: "съвпадение по име", en: "name match" },
 };
 
 export const companyConnections = async (
@@ -706,85 +764,95 @@ export const companyConnections = async (
         : "Provide the company's EIK (9 or 13 digits)",
       viz: "none",
       facts: { query: raw },
-      provenance: ["parliament/company-connections/{eik}.json"],
+      provenance: PROV,
     };
   }
-  let data: CompanyConnections | null = null;
+  let data: CompanyPoliticalLinks = null;
   try {
-    data = await fetchData<CompanyConnections>(
-      `/parliament/company-connections/${eik}.json`,
-    );
+    data = await fetchDb<CompanyPoliticalLinks>("company-connections", { eik });
   } catch {
     data = null;
   }
   const coLabel = data?.name || eik;
-  if (
-    !data ||
-    (data.directLinks.length === 0 && data.bridgedLinks.length === 0)
-  ) {
+  if (!data || (data.directCount === 0 && data.bridgedCount === 0)) {
+    // „Nothing found" and „nothing traversable" are different answers and the payload can tell
+    // them apart, so say which. A company whose every officer sits on scores of boards was not
+    // examined and found clean — the bridge simply refuses a registered agent as a link.
+    const busy = data?.bridgeFoldsSuppressed ?? 0;
+    const cap = data?.bridgeMaxCompanies ?? 0;
     return {
       tool: "companyConnections",
       domain: "people",
       kind: "scalar",
       title: bg
-        ? `Няма открити политически връзки за ЕИК ${eik}`
-        : `No political connections on record for EIK ${eik}`,
-      subtitle: bg
-        ? "Никой служител не заема публична длъжност, нито е на една фирмена стъпка от такъв (по търговския регистър)."
-        : "No officer holds public office, nor is one company-hop from someone who does (per the Commerce Registry).",
+        ? `Няма открити връзки с публични длъжности за ЕИК ${eik}`
+        : `No links to public office on record for EIK ${eik}`,
+      subtitle: busy
+        ? bg
+          ? `Никой в регистъра на лицата не заема публична длъжност в тази фирма. ${busy} от служителите ѝ участват в над ${cap} фирми всеки — през тях не се търсят връзки от 2-ра степен.`
+          : `Nobody in the resolved person layer holds public office at this company. ${busy} of its officers sit in more than ${cap} companies each — second-degree links are not traced through them.`
+        : bg
+          ? "Никой служител не заема публична длъжност, нито е на една фирмена стъпка от такъв (по търговския регистър)."
+          : "No officer holds public office, nor is one company-hop from someone who does (per the Commerce Registry).",
       viz: "none",
-      facts: { eik, company: coLabel },
-      provenance: [`parliament/company-connections/${eik}.json`],
+      facts: {
+        eik,
+        company: coLabel,
+        officer_rows: data?.officerRowCount ?? 0,
+        bridges_too_busy: busy,
+      },
+      provenance: PROV,
     };
   }
-  const roleWord = (kind: string): string =>
-    kind === "mp" ? (bg ? "депутат" : "MP") : bg ? "служител" : "official";
-  const conf = (c: string): string => CONF_LABEL[c]?.[ctx.lang] ?? c;
+  const basis = (b: string): string => BASIS_LABEL[b]?.[ctx.lang] ?? b;
   const rows: Row[] = [];
-  for (const d of data.directLinks)
+  for (const d of data.direct)
     rows.push({
-      person: d.power.name,
-      office: d.power.roleLabel || roleWord(d.power.kind),
+      person: d.name,
+      office: officeLabel(d.officeSource, d.officeRole, d.office, bg),
       link: bg ? "пряко (служител)" : "direct (officer)",
-      confidence: conf(d.confidence),
+      basis: basis(d.linkBasis),
     });
-  for (const b of data.bridgedLinks)
+  for (const b of data.bridged)
     rows.push({
-      person: b.power.name,
-      office: b.power.roleLabel || roleWord(b.power.kind),
+      person: b.name,
+      office: officeLabel(b.officeSource, b.officeRole, b.office, bg),
+      // The bridge person's whole footprint rides in the cell, because it IS the reader's
+      // tightness signal: a 2-company bridge is a tie, a 25-company one is barely one.
       link: bg
-        ? `чрез ${b.bridgeName} → ${b.viaCompany ?? b.viaEik}`
-        : `via ${b.bridgeName} → ${b.viaCompany ?? b.viaEik}`,
-      confidence: conf(b.confidence),
+        ? `чрез ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} фирми) → ${b.viaCompany ?? b.viaEik}`
+        : `via ${b.bridgeName} (${fmtInt(b.bridgeCompanies, ctx.lang)} companies) → ${b.viaCompany ?? b.viaEik}`,
+      basis: bg ? "2-ра степен" : "second-degree",
     });
-  const first =
-    data.directLinks[0]?.power.name ?? data.bridgedLinks[0]?.power.name ?? "—";
+  const first = data.direct[0]?.name ?? data.bridged[0]?.name ?? "—";
   return {
     tool: "companyConnections",
     domain: "people",
     kind: "table",
     title: bg
-      ? `Политически връзки — ${coLabel}`
-      : `Political connections — ${coLabel}`,
+      ? `Връзки с публични длъжности — ${coLabel}`
+      : `Links to public office — ${coLabel}`,
+    // Names the basis and the limit of each arm in one line, because the table itself cannot:
+    // a „пряко" row rests on a resolved identity, a „2-ра степен" row on a shared officer.
     subtitle: bg
-      ? "Съвпадение по име — самоличността не е потвърдена"
-      : "Name match — identity not verified",
+      ? "Преките връзки идват от регистъра на лицата — име, което търговският регистър приписва на повече от един човек, се отказва. Връзките от 2-ра степен са следа, не доказателство."
+      : "Direct links come from the resolved person layer — a name the Commerce Registry records for more than one human is refused. Second-degree links are a lead, not proof.",
     columns: [
       { key: "person", label: bg ? "Лице" : "Person" },
       { key: "office", label: bg ? "Длъжност" : "Office" },
       { key: "link", label: bg ? "Връзка" : "Link" },
-      { key: "confidence", label: bg ? "Сигурност" : "Confidence" },
+      { key: "basis", label: bg ? "Основание" : "Basis" },
     ],
     rows: rows.slice(0, 15),
     viz: "none",
     facts: {
       eik,
       company: coLabel,
-      officers: data.officers.length,
-      direct_links: data.directLinks.length,
-      bridged_links: data.bridgedLinks.length,
+      officer_rows: data.officerRowCount,
+      direct_links: data.directCount,
+      bridged_links: data.bridgedCount,
       first_connection: first,
     },
-    provenance: [`parliament/company-connections/${eik}.json`],
+    provenance: PROV,
   };
 };

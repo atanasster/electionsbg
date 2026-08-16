@@ -2858,6 +2858,40 @@ const DB_ROUTES = {
     );
     return { body: { eik, entries } };
   },
+  // A company's links to people in public OFFICE (migration 158) → the AI chat's
+  // `companyConnections` tool. Replaces the `parliament/company-connections/{eik}.json` shard
+  // family, which `bucket_sync_paths.ts` had excluded from sync — and since `gsutil rsync -x`
+  // excludes a match from DELETION as well as upload, the 16,609 objects were FROZEN at their
+  // 2026-07-29 vintage and the tool answered from that snapshot at a 200.
+  //
+  // Not the same question as `company-politicians` above, and the two must not be conflated.
+  // That one reads `company_politicians` (008), which is built from the procurement-side
+  // mp_connected/pep_connected joins and is therefore MONEY-restricted — 347 EIKs. This reads
+  // the gated person layer and covers 26,047, most of which never signed a public contract.
+  //
+  // TWO ARMS, DELIBERATELY SEPARATE ARRAYS. `direct` is an office-holder personally on this
+  // company's registry filings; `bridged` is one hop further out (an officer here also sits at
+  // a company where an office-holder sits) and is a second-degree lead, never a first-degree
+  // finding. Merging them behind one confidence column is how the shards let a coincidence read
+  // as a claim.
+  //
+  // Degrades to a shaped empty on a database predating 158 rather than 500ing — the tool asks
+  // per EIK and "no links on record" is its ordinary answer, so a missing migration must not
+  // become an error page. It is the NON-logging `missingMigration` variant, like mp-management
+  // and place-mp-companies: a premature deploy therefore reads as "no political links" until
+  // the migration lands, with nothing in the logs. Apply 158 to the serving database BEFORE the
+  // deploy:db that ships this route (CLAUDE.md's ordering rule).
+  "company-connections": async (dbRows, q) => {
+    // 9 digits (ЕИК) or 13 (клон/поделение). Anything else is a null body rather than a bind
+    // error; the function itself is safe on an unknown eik and returns an empty answer.
+    const eik = s(q, "eik");
+    if (!/^\d{9}(\d{4})?$/.test(eik)) return { body: null };
+    const rows = await dbRows("SELECT company_political_links($1, $2) AS r", [
+      eik,
+      clampInt(q.limit, 25, 1, 200),
+    ]).catch(missingMigration(null));
+    return { body: rows[0]?.r ?? null };
+  },
   // Contractor name search for the procurement dashboard tile — any firm that
   // signed a public contract, deduped to one row per eik (best-matching name).
   "company-search": async (dbRows, q) => {

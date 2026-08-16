@@ -1,4 +1,24 @@
 /**
+ * ⚠️ [2026-08-16] THIS BUILDER'S OUTPUT HAS NO READER. Retained, not retired — read on.
+ *
+ * `data/parliament/company-connections/` (19,232 files, 83 MB, gitignored) was read by exactly
+ * one consumer, the AI chat's `companyConnections` tool, and that tool now reads Postgres —
+ * `/api/db/company-connections`, migration 158 `company_political_links`. The bucket copy has
+ * been removed. This still runs on every `tr:daily-refresh` and `npm run data -- --declarations`
+ * (scripts/declarations/index.ts, tr/daily_refresh.ts) and writes the tree to disk each time.
+ *
+ * It is kept for one reason: the bucket had versioning SUSPENDED, so this is the only path that
+ * could reconstruct what was removed. Deleting it is a separate decision, not a consequence of
+ * the migration.
+ *
+ * ⚠️ AND 158 IS NOT A PORT OF WHAT IS BELOW — do not treat this file as its specification. The
+ * join here is a NAME match against a power roster, kept only when `isUniqueName` says the name
+ * appears in exactly one company, and graded `medium`/`low` on whether the name has three parts.
+ * 158 reads the gated `person_role` tr/ngo set instead: the Commerce Registry's own people count
+ * per name fold (`tr_name_fold_people`, 148) decides, an unmeasured fold is refused, and there
+ * is no confidence grade at all. Corpus-wide that is WIDER, not narrower — 9,982 companies with
+ * a direct link against 3,843 here, 26,047 answerable against 19,232.
+ *
  * Build the company → people-in-power connection files (PRD "Stage 2").
  *
  * Reads the reconstructed TR state (raw_data/tr/state.sqlite) plus the curated

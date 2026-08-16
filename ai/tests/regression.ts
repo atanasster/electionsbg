@@ -135,6 +135,26 @@ const kzkCounts = (eik: string) => {
     );
   return kzkByEik.get(eik)!;
 };
+// Office-holders with a registry role AT one company — the DIRECT arm of company_political_links
+// (158), re-derived here so the regression case is checked against Postgres rather than against a
+// frozen number that moves with every TR / person-layer reload.
+const directLinkCount = (eik: string) => async () => {
+  const r = await allRows<{ n: string }>(
+    `SELECT count(DISTINCT r.person_id) AS n
+       FROM person_role r
+       JOIN person p ON p.person_id = r.person_id
+      WHERE r.ref = $1 AND r.source IN ('tr','ngo')
+        AND r.confidence IN ('exact_id','high','manual')
+        AND p.status = 'active'
+        AND (p.is_public_figure OR p.identity_confidence IN ('verified','shared_name'))
+        AND EXISTS (SELECT 1 FROM person_role o
+                     WHERE o.person_id = r.person_id
+                       AND o.confidence IN ('exact_id','high','manual')
+                       AND person_role_is_office(o.source, o.role))`,
+    [eik],
+  );
+  return { num: Number(r[0].n) };
+};
 const kzkAppeals = (eik: string) => async () => (await kzkCounts(eik)).appeals;
 const kzkUpheld = (eik: string) => async () => (await kzkCounts(eik)).upheld;
 
@@ -2879,9 +2899,17 @@ const CASES: Case[] = [
     facts: { total_income: /€/ },
   },
   {
+    // companyConnections now reads /api/db/company-connections (migration 158) instead of the
+    // frozen parliament/company-connections bucket shards. The old case asserted only that the
+    // EIK echoed back, which the tool's "no links on record" SCALAR also satisfies — so it
+    // would have stayed green through the whole outage this move fixes, and through a route
+    // that degrades to null. It now asserts the table shape and cross-checks the direct-link
+    // count against Postgres at run time rather than freezing a number that drifts on reload.
     q: "Какви политически връзки има фирмата с ЕИК 831646048?",
     tool: "companyConnections",
-    facts: { eik: /831646048/ },
+    kind: "table",
+    minRows: 5,
+    facts: { eik: /831646048/, direct_links: directLinkCount("831646048") },
   },
   {
     q: "Кои са най-големите изпълнители по обществени поръчки?",

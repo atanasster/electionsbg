@@ -13,6 +13,7 @@
 
 import { isOfficialSource } from "../../src/lib/officialSources";
 import { fetchDb } from "./dataClient";
+import { officeLabel } from "./officeLabel";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
 
 type ProfileRole = {
@@ -65,13 +66,6 @@ type ConnectionsPayload = {
   }[];
   disclaimer: string;
 } | null;
-
-// Localized labels for the office ROLE (not just the source) so a mayor doesn't narrate as
-// the generic "Местни кандидати и съветници". Unknown roles fall back to the source label.
-const ROLE_LABEL: Record<string, { bg: string; en: string }> = {
-  mayor: { bg: "Кмет", en: "Mayor" },
-  councillor: { bg: "Общински съветник", en: "Municipal councillor" },
-};
 
 const notFound = (
   query: string,
@@ -126,18 +120,12 @@ export const personProfile = async (
     p.roles.filter((r) => r.source === "donor").map((r) => r.ref.split(":")[0]),
   ).size;
 
-  // Distinct office labels — for local (mayor/councillor) the ROLE carries the signal, so
-  // use it; other offices fall back to the person_source label. Verbatim, no free text.
+  // Distinct office labels — for local the ROLE carries the signal (the source is labelled
+  // „Местни кандидати и съветници", which lumps a sitting mayor in with someone who merely
+  // ran), so `officeLabel` overrides there. Verbatim from the payload, no free text.
   const officeLabels = [
     ...new Set(
-      offices.map((r) => {
-        const rl = ROLE_LABEL[r.role];
-        return r.source === "local" && rl
-          ? bg
-            ? rl.bg
-            : rl.en
-          : r.sourceLabel;
-      }),
+      offices.map((r) => officeLabel(r.source, r.role, r.sourceLabel, bg)),
     ),
   ];
   const companyNames = p.companies
