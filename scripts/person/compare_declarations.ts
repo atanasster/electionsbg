@@ -177,23 +177,41 @@ const REP_CTE = `
 
 /** Resolve a slug or a name to exactly one active public figure. */
 const resolvePerson = async (needle: string): Promise<string> => {
-  // `%` and `_` are LIKE wildcards, so an unescaped needle lets `--a "%"` match the whole
-  // register. And the count must come from a window, not from `rows.length` — that is capped
-  // by the LIMIT, so "Иван" reported "matches 25 people" against an actual 8,631.
+  // Every whitespace-separated needle token must match a WHOLE WORD of the display name.
+  //
+  // Token-wise rather than one substring, because Bulgarian registers spell a full
+  // three-part name („Иван Петев Демерджиев") while anyone typing a comparison writes first
+  // + last („Иван Демерджиев"), which no single substring can match across the patronymic.
+  //
+  // WHOLE-WORD rather than substring-per-token, because Bulgarian given names are prefixes
+  // of the surnames derived from them: „Георги" is inside „Георгиев" and „Бойко" inside
+  // „Бойкова", so a substring test returned 5,584 candidates for „Георги Георгиев", none of
+  // them actually called that, and buried the 41 real matches past the LIMIT. Splitting on
+  // hyphens too, since „Рашкова-Цековска" is two words.
+  //
+  // It also removes every LIKE wildcard concern: nothing is a pattern here, so `--a "%"`
+  // simply matches no word rather than the whole register.
+  const tokens = needle.trim().split(/\s+/).filter(Boolean);
+  if (!tokens.length) throw new Usage("empty person name");
   const rows = await allRows<{
     slug: string;
     display_name: string;
     total: string;
   }>(
-    `SELECT slug, display_name, count(*) OVER () AS total FROM person
+    `SELECT slug, display_name, count(*) OVER () AS total FROM person p
       WHERE status = 'active' AND is_public_figure
         AND (slug = $1
-             OR display_name ILIKE '%' || replace(replace(replace($1, '\\', '\\\\'),
-                                                          '%', '\\%'),
-                                                  '_', '\\_') || '%' ESCAPE '\\')
-      ORDER BY (slug = $1) DESC, display_name
+             OR (SELECT bool_and(EXISTS (
+                   SELECT 1
+                     FROM unnest(regexp_split_to_array(lower(p.display_name), '[\\s-]+')) AS w
+                    WHERE w = lower(t)))
+                   FROM unnest($2::text[]) AS t))
+      -- An exact full-name hit ranks first, or the person actually named „Иван Петев
+      -- Демерджиев" sorts below everyone whose name merely contains those three words.
+      ORDER BY (slug = $1) DESC, (lower(display_name) = lower($1)) DESC,
+               length(display_name), display_name
       LIMIT 25`,
-    [needle],
+    [needle, tokens],
   );
   if (!rows.length)
     throw new Usage(`no active public figure matches "${needle}"`);
@@ -203,7 +221,10 @@ const resolvePerson = async (needle: string): Promise<string> => {
     throw new Usage(
       `"${needle}" matches ${total} people — pass a slug:\n` +
         rows.map((r) => `  ${r.slug}  ${r.display_name}`).join("\n") +
-        (total > rows.length ? `\n  … and ${total - rows.length} more` : ""),
+        (total > rows.length
+          ? `\n  … and ${total - rows.length} more. Add a middle name to narrow it, or ` +
+            `look the person up on /persons and pass their slug.`
+          : ""),
     );
   return rows[0].slug;
 };
