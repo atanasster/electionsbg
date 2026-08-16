@@ -60,8 +60,57 @@ export const isExcluded = (rel: string): string | null => {
   // path nothing reads, i.e. a spare serving surface free to go stale.
   if (rel === "opencalls" || rel.startsWith("opencalls/"))
     return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
-  if (rel.startsWith("parliament/company-connections"))
-    return "parliament/company-connections/ is PG-served";
+  // ⚠️ „PG-served" IS NOT TRUE OF THIS ONE, and the exclusion is doing harm
+  // rather than nothing. Measured 2026-08-16 (site-hygiene-v1 T6b): the AI
+  // chat's `companyConnections` tool — registered in ai/tools/registry.ts,
+  // routed in ai/orchestrator/router.ts, regression-tested — fetches
+  // `/parliament/company-connections/{eik}.json` from THIS BUCKET at runtime.
+  // Nothing serves it from Postgres.
+  //
+  // Because `gsutil rsync -x` excludes a match from DELETION as well as upload,
+  // the 16,609 objects have been frozen at their 2026-07-29 vintage ever since,
+  // and the tool answers from that snapshot at a 200.
+  //
+  // Left excluded rather than quietly re-enabled: turning it back on is a
+  // ~30 MB upload and the real question is which of the two should move — the
+  // tool onto a PG route (matching this comment's original claim), or the tree
+  // back into sync. Recorded here so the next person picks, instead of reading
+  // „PG-served" and believing it.
+  // Anchored to the DIRECTORY. Without the trailing slash this also swallowed
+  // `parliament/company-connections-stats.json` — a different artifact, with no
+  // reader — and told the operator „an AI tool still reads it", which is false
+  // of that file. It is handled by the retired-artifact arm below.
+  if (
+    rel === "parliament/company-connections" ||
+    rel.startsWith("parliament/company-connections/")
+  )
+    return "parliament/company-connections/ is FROZEN, not PG-served — an AI tool still reads it; see the note above";
+  // Retired connections artifacts with NO reader anywhere — checked across src/,
+  // ai/, scripts/ and functions/. `ai/` is the one that matters and the one a
+  // grep of the first three misses: it is where company-connections and both
+  // connections-rankings files turned out to be live, so absence here was
+  // established the same way their presence was.
+  //
+  // NOT in this list, deliberately: `connections.json` (a published dataset on
+  // /data — scripts/prerender/routes.ts:1018 offers it for download in both
+  // languages), and `connections-rankings{,-top}.json` (fetched by the AI's
+  // mpConnectionsTop and per-party rollup tools).
+  if (
+    rel.startsWith("parliament/mp-connections") ||
+    rel.startsWith("parliament/official-connections") ||
+    rel === "parliament/connections-search.json" ||
+    rel === "parliament/connections-top-pairs.json" ||
+    rel === "parliament/connections-stats.json" ||
+    rel === "parliament/connections-party-matrix.json" ||
+    rel === "parliament/company-connections-stats.json"
+  )
+    return "retired connections artifact — no reader in src/, ai/, scripts/ or functions/";
+  // The per-MP roster shards, retired by persons-pg-retirement-v1 T2.1 in favour
+  // of /api/db/mp-entry (mp_profile, migration 105). The DISK copy stays — it is
+  // the parity reference mp_serving.data.test.ts reads and build_mp_by_id.ts
+  // still writes it — but the 2,123 bucket objects have no reader at all.
+  if (rel.startsWith("parliament/by-id"))
+    return "parliament/by-id/ is PG-served (/api/db/mp-entry); the disk copy is a parity reference, never upload it";
   // Per-município quarterly fiscal indicators: served from Cloud SQL
   // (municipal_fiscal, migration 149, db:load:municipal-fiscal:pg:cloud). The
   // committed data/budget/municipal_fiscal/*.json is the LOADER'S SOURCE, never
@@ -214,6 +263,19 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // all ~16.8k per-EIK shards to the bucket, where nothing reads them: /company/:eik is
   // served from Cloud SQL.
   { path: "parliament/company-connections", isDir: true },
+  // The T6b set. Each needs its twin here as well as the isExcluded branch,
+  // because that branch only guards a DIRECT argument and the push anyone
+  // actually runs is `bucket:sync:paths -- parliament` (needed for photos/ and
+  // votes/) — which recurses straight past it. That is the exact shape that put
+  // ~16.8k company-connection shards on the bucket in the first place.
+  { path: "parliament/mp-connections", isDir: true },
+  { path: "parliament/official-connections", isDir: true },
+  { path: "parliament/by-id", isDir: true },
+  { path: "parliament/connections-search.json", isDir: false },
+  { path: "parliament/connections-top-pairs.json", isDir: false },
+  { path: "parliament/connections-stats.json", isDir: false },
+  { path: "parliament/connections-party-matrix.json", isDir: false },
+  { path: "parliament/company-connections-stats.json", isDir: false },
   // Under the still-served budget/ parent (kfp.json, ministries/, noi/ …), so a
   // scoped `bucket:sync:paths -- budget` must not re-upload this PG load source.
   // Without it the isExcluded branch above is dead for the only push anyone

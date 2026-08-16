@@ -184,3 +184,126 @@ describe("childExcludeRegexes (FINDING-001: parent-scoped dir sync)", () => {
     expect(childExcludeRegexes("prices")).toEqual([]);
   });
 });
+
+// ── The retired connections artifacts (site-hygiene-v1 T6b) ──────────────────
+//
+// Eight families with no reader in src/, ai/, scripts/ or functions/, and three
+// deliberate NON-members. The non-members are the point of this describe: two
+// rounds of this work established a live reader in `ai/` that a grep over the
+// other three directories reports as absent, so „retired" here is a claim that
+// has been wrong twice and is pinned rather than trusted.
+describe("retired connections artifacts", () => {
+  const T6B_RETIRED = [
+    "parliament/mp-connections/2258.json",
+    "parliament/official-connections/abc.json",
+    "parliament/by-id/2258.json",
+    "parliament/connections-search.json",
+    "parliament/connections-top-pairs.json",
+    "parliament/connections-stats.json",
+    "parliament/connections-party-matrix.json",
+    "parliament/company-connections-stats.json",
+  ];
+
+  it("is refused by isExcluded, at the directory and at a file inside it", () => {
+    for (const rel of T6B_RETIRED) {
+      expect(isExcluded(rel), rel).toBeTruthy();
+    }
+    expect(isExcluded("parliament/mp-connections")).toBeTruthy();
+    expect(isExcluded("parliament/official-connections")).toBeTruthy();
+    expect(isExcluded("parliament/by-id")).toBeTruthy();
+  });
+
+  it("is in the -x regex of BOTH bucket:sync and bucket:sync:dry", () => {
+    for (const arm of [
+      "mp-connections",
+      "official-connections",
+      "by-id",
+      "connections-search",
+      "connections-top-pairs",
+      "connections-stats",
+      "connections-party-matrix",
+      "company-connections-stats",
+    ]) {
+      expect(pkg["bucket:sync"], `bucket:sync is missing ${arm}`).toContain(
+        arm,
+      );
+      expect(
+        pkg["bucket:sync:dry"],
+        `bucket:sync:dry is missing ${arm}`,
+      ).toContain(arm);
+    }
+  });
+
+  it("a parliament-scoped dir sync cannot re-upload them", () => {
+    // isExcluded guards only a DIRECT argument; the push anyone actually runs is
+    // `bucket:sync:paths -- parliament` (needed for photos/ and votes/), which
+    // recurses straight past it without the CHILD_EXCLUDES twin. That is the
+    // shape that put ~16.8k company-connection shards on the bucket.
+    const hit = (child: string) =>
+      childExcludeRegexes("parliament").some((re) =>
+        new RegExp(re).test(child),
+      );
+    expect(hit("mp-connections/2258.json")).toBe(true);
+    expect(hit("official-connections/abc.json")).toBe(true);
+    expect(hit("by-id/2258.json")).toBe(true);
+    expect(hit("connections-search.json")).toBe(true);
+    expect(hit("connections-top-pairs.json")).toBe(true);
+    expect(hit("connections-stats.json")).toBe(true);
+    expect(hit("connections-party-matrix.json")).toBe(true);
+    expect(hit("company-connections-stats.json")).toBe(true);
+  });
+
+  it("SPARES the three that still have readers", () => {
+    // ⚠️ THE CLAUSE THAT MATTERS. Each of these was on the retirement list until
+    // someone looked in `ai/`:
+    //   · connections.json — a PUBLISHED dataset, offered for download on /data
+    //     in both languages (scripts/prerender/routes.ts).
+    //   · connections-rankings.json / -top.json — fetched by the AI chat's
+    //     per-party rollup and mpConnectionsTop tools (ai/tools/people.ts).
+    // Excluding any of them breaks a live surface, silently.
+    expect(isExcluded("parliament/connections.json")).toBeNull();
+    expect(isExcluded("parliament/connections-rankings.json")).toBeNull();
+    expect(isExcluded("parliament/connections-rankings-top.json")).toBeNull();
+    // …and neither is EXCLUDED BY the -x regexes. ⚠️ Asserted by RUNNING them,
+    // not by substring: `not.toContain("|connections)")` was the first cut and
+    // is positional — it only sees `connections` as a group's final arm, so
+    // moving it anywhere else leaves the suite green while the published
+    // dataset stops syncing. Same class as asserting an arm is PRESENT by
+    // substring, which cannot tell the directory group from the .json group.
+    const xArg = (cmd: string) => {
+      const m = /rsync[^']*'([^']+)'/.exec(cmd);
+      if (!m) throw new Error("could not read the -x regex out of: " + cmd);
+      return new RegExp(m[1]);
+    };
+    for (const cmd of [pkg["bucket:sync"], pkg["bucket:sync:dry"]]) {
+      const re = xArg(cmd);
+      for (const rel of [
+        "parliament/connections.json",
+        "parliament/connections-rankings.json",
+        "parliament/connections-rankings-top.json",
+      ]) {
+        expect(
+          re.test(rel),
+          `${rel} has a live reader and must NOT be excluded from sync`,
+        ).toBe(false);
+      }
+      // …and the retired ones ARE matched, by the same executed regex — so an
+      // arm moved into the wrong group fails here rather than passing on a
+      // substring.
+      for (const rel of [
+        "parliament/mp-connections/2258.json",
+        "parliament/official-connections/abc.json",
+        "parliament/by-id/2258.json",
+        "parliament/connections-search.json",
+        "parliament/connections-top-pairs.json",
+        "parliament/connections-stats.json",
+        "parliament/connections-party-matrix.json",
+        "parliament/company-connections-stats.json",
+      ]) {
+        expect(re.test(rel), `${rel} is retired and must be excluded`).toBe(
+          true,
+        );
+      }
+    }
+  });
+});

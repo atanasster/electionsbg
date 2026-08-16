@@ -50,7 +50,15 @@ const GLOBAL_FILES = [
   // partyMps AI tool read mp_profile + mp_roster_meta via /api/db/mp-roster, so the roster is no
   // longer served or gzip-uploaded. It stays on disk as the loader source + for the build scripts.
   "parliament/connections.json",
-  "parliament/connections-search.json",
+  // parliament/connections-search.json retired from the bucket (site-hygiene-v1
+  // T6b): no reader in src/, ai/, scripts/ or functions/. Removed from HERE as
+  // well as from the rsync -x list, because `gsutil cp -Z` takes no -x — leaving
+  // it would have defeated the exclusion entirely, and `bucket:sync:all` runs
+  // bucket:gz AFTER the sync, so this path wins. Same removal the two
+  // retirements commented above made.
+  //
+  // ⚠️ parliament/connections.json STAYS: it is a published dataset, offered for
+  // download on /data in both languages (scripts/prerender/routes.ts).
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
   // officials/municipal/search_index.json retired from the bucket (persons-pg-retirement-v1
