@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-15T09:02:55.050Z",
+  "generatedAt": "2026-08-16T15:45:47.759Z",
   "nodes": [
     {
       "id": "src:water",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-16T06:08:41.791Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-08-16T06:08:41.791Z"
         }
       ],
       "x": 28,
@@ -1259,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-16T06:08:41.791Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1271,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-08-16T06:08:41.791Z"
         },
         {
           "id": "eurostat_policy",
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-16T06:08:41.791Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-08-16T06:08:41.791Z"
         }
       ],
       "x": 28,
