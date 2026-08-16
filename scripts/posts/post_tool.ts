@@ -39,6 +39,7 @@ import {
   renderMapCard,
   renderTableCard,
   renderPlaceCard,
+  renderVersusCard,
   loadBulgariaGeo,
   type StatCardSpec,
   type AnnounceCardSpec,
@@ -47,6 +48,7 @@ import {
   type MapCardSpec,
   type TableCardSpec,
   type PlaceCardSpec,
+  type VersusCardSpec,
 } from "./cardKit";
 import {
   CHANNELS,
@@ -101,12 +103,20 @@ type PostSpec = Omit<
   image?: string | null; // reference an existing image (e.g. ai/assets/og.png) or null for link auto-preview
   bg: string; // BG post body
   en?: string; // optional EN body
+  // Every renderer cardKit exposes, so the dispatcher's `as` casts stay honest.
+  // LineCardSpec/PlaceCardSpec were missing until 2026-08-16 and compiled only
+  // because they happen to overlap a listed member; VersusCardSpec does not, so
+  // adding it is what surfaced the gap. Omit `card` to rely on the link's
+  // og:image preview.
   card?:
     | StatCardSpec
     | AnnounceCardSpec
     | BarCardSpec
+    | LineCardSpec
     | MapCardSpec
-    | TableCardSpec; // omit to rely on the link's og:image preview
+    | TableCardSpec
+    | PlaceCardSpec
+    | VersusCardSpec;
 };
 
 const loadRegistry = (): PostEntry[] => {
@@ -222,25 +232,46 @@ const cmdSave = (specPath: string, force: boolean): void => {
     // than carried in the spec JSON — the polygons are ~2.8MB.
     const isMap = "points" in spec.card || "regionTones" in spec.card;
     const buf =
-      // `place` first: a settlement profile carries zones that themselves hold
-      // bars/shares, so it must not fall through to the bar renderer — that is
-      // exactly the mix-up that published a school ranking as a place profile.
-      "place" in spec.card
-        ? renderPlaceCard(spec.card as PlaceCardSpec)
-        : "bars" in spec.card
-          ? renderBarCard(spec.card as BarCardSpec)
-          : "series" in spec.card
-            ? renderLineCard(spec.card as LineCardSpec)
-            : "rows" in spec.card
-              ? renderTableCard(spec.card as TableCardSpec)
-              : isMap
-                ? renderMapCard({
-                    ...(spec.card as MapCardSpec),
-                    geo: loadBulgariaGeo(ROOT),
-                  })
-                : kind === "data"
-                  ? renderStatCard(spec.card as StatCardSpec)
-                  : renderAnnounceCard(spec.card as AnnounceCardSpec);
+      // `versus` first, for the same reason `place` comes before `bars`: each
+      // of its two sides carries its own `rows` array, so a composite spec must
+      // be claimed by its own discriminator before the generic ones are tried.
+      "versus" in spec.card
+        ? renderVersusCard(spec.card)
+        : // `place` next: a settlement profile carries zones that themselves hold
+          // bars/shares, so it must not fall through to the bar renderer — that is
+          // exactly the mix-up that published a school ranking as a place profile.
+          "place" in spec.card
+          ? renderPlaceCard(spec.card)
+          : "bars" in spec.card
+            ? renderBarCard(spec.card as BarCardSpec)
+            : "series" in spec.card
+              ? renderLineCard(spec.card as LineCardSpec)
+              : "rows" in spec.card
+                ? renderTableCard(spec.card as TableCardSpec)
+                : isMap
+                  ? renderMapCard({
+                      ...(spec.card as MapCardSpec),
+                      geo: loadBulgariaGeo(ROOT),
+                    })
+                  : // The stat/announce fallback is gated on the keys it actually
+                    // reads. Ungated, a card whose discriminator is misspelled —
+                    // `versos`, or `plaсe` with a Cyrillic „с", which a codebase
+                    // this full of Cyrillic makes a live hazard — matched nothing,
+                    // fell through here and died inside renderStatCard on
+                    // `spec.label.split` of undefined, naming neither the slug nor
+                    // the card. Every member added to the union above makes that
+                    // fall-through likelier, not rarer.
+                    "value" in spec.card || "title" in spec.card
+                    ? kind === "data"
+                      ? renderStatCard(spec.card as StatCardSpec)
+                      : renderAnnounceCard(spec.card as AnnounceCardSpec)
+                    : (() => {
+                        throw new Error(
+                          `post ${spec.slug}: spec.card matches no renderer ` +
+                            `(keys: ${Object.keys(spec.card).join(", ")}). ` +
+                            `Check the discriminator spelling.`,
+                        );
+                      })();
     writeFileSync(resolve(ROOT, image), buf);
   } else {
     image = null;

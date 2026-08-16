@@ -9,11 +9,20 @@ import {
   renderMapCard,
   renderTableCard,
   renderPlaceCard,
+  renderVersusCard,
+  VERSUS_METRICS,
+  VERSUS_SIDE_INK,
+  THEME,
   placeInt,
   safeColor,
   type GeoFeature,
   type TableCardSpec,
   type PlaceCardSpec,
+  type VersusCardSpec,
+  type VersusRow,
+  type VersusSide,
+  type VersusFormClass,
+  type VersusMetricKey,
 } from "./cardKit";
 
 const ROOT = resolve(__dirname, "../..");
@@ -777,5 +786,446 @@ describe("safeColor", () => {
     // is defensive for older parsers; it is not fixing a live defect, and no
     // data change is needed in data/*/cik_parties.json.
     expect(safeColor("rgba(190, 0, 52)", "#fff")).toBe("rgb(190, 0, 52)");
+  });
+});
+
+describe("renderVersusCard", () => {
+  /** A minimal legal annual-class side. `rows` must carry exactly `metrics`. */
+  const side = (
+    name: string,
+    formClass: VersusFormClass,
+    rows: VersusRow[],
+    role = "министър",
+  ): VersusSide => ({
+    name,
+    role,
+    formLabel:
+      formClass === "annual"
+        ? "годишна декларация"
+        : "декларация при напускане",
+    formClass,
+    rows,
+    total: { label: "активи", value: "475 114 €" },
+  });
+
+  const annualRows: VersusRow[] = [
+    { key: "bank", value: "160 060 €", magnitude: 160060 },
+    { key: "income", value: "77 684 €", magnitude: 77684 },
+  ];
+  const base: VersusCardSpec = {
+    versus: {
+      left: side("Бойко Рашков", "annual", annualRows),
+      right: side("Иван Демерджиев", "annual", [
+        { key: "bank", value: "0 €", magnitude: 0 },
+        { key: "income", value: "104 189 €", magnitude: 104189 },
+      ]),
+    },
+    year: 2022,
+    basis: "Активи = декларираното без задълженията.",
+    metrics: ["bank", "income"],
+    source: "Източник: Сметна палата",
+  };
+
+  it("renders portrait at 1080×1350, in both themes", () => {
+    for (const theme of ["dark", "light"] as const) {
+      const png = renderVersusCard({ ...base, theme });
+      expect(png.readUInt32BE(16)).toBe(1080);
+      expect(png.readUInt32BE(20)).toBe(1350);
+    }
+  });
+
+  it("refuses two sides filed on different forms", () => {
+    // An annual carries income and ~1.4 property rows; an entry/vacate carries
+    // ~6.3 property rows and no income table at all. Comparing them prints two
+    // false sentences at once.
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: base.versus.left,
+          right: side("Иван Демерджиев", "inventory", [
+            { key: "bank", value: "0 €", magnitude: 0 },
+            { key: "income", value: "0 €", magnitude: 0 },
+          ]),
+        },
+      }),
+    ).toThrow(/different forms/);
+  });
+
+  it("refuses `real_estate` on an annual card — 50.7% of them show a false zero", () => {
+    // Measured over the 3,090 person-years where the same person filed both
+    // forms for one period: the annual shows zero properties while the inventory
+    // shows some in 1,568 of them.
+    const rows: VersusRow[] = [
+      { key: "real_estate", value: "0 €", magnitude: 0 },
+      { key: "bank", value: "0 €", magnitude: 0 },
+    ];
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        metrics: ["real_estate", "bank"],
+        versus: {
+          left: side("А", "annual", rows),
+          right: side("Б", "annual", rows),
+        },
+      }),
+    ).toThrow(/not measurable on a annual filing/);
+  });
+
+  it("refuses `income` on an inventory card — no such filing carries the table", () => {
+    const rows: VersusRow[] = [
+      { key: "bank", value: "0 €", magnitude: 0 },
+      { key: "income", value: "0 €", magnitude: 0 },
+    ];
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: side("А", "inventory", rows),
+          right: side("Б", "inventory", rows),
+        },
+      }),
+    ).toThrow(/not measurable on a inventory filing/);
+  });
+
+  it("has no `credit_limit` metric — a declared credit line is not a debt", () => {
+    expect(VERSUS_METRICS).not.toHaveProperty("credit_limit");
+  });
+
+  it("refuses a row that is not in `metrics`, which would render on one side only", () => {
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: {
+            ...base.versus.left,
+            rows: [...annualRows, { key: "cash", value: "5 €", magnitude: 5 }],
+          },
+          right: base.versus.right,
+        },
+      }),
+    ).toThrow(/not in `metrics`/);
+  });
+
+  it("refuses a side that omits a declared metric rather than inferring a zero", () => {
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: { ...base.versus.left, rows: [annualRows[0]] },
+          right: base.versus.right,
+        },
+      }),
+    ).toThrow(/missing metric "income"/);
+  });
+
+  it("refuses a negative or non-finite magnitude", () => {
+    for (const magnitude of [-1, NaN, Infinity]) {
+      expect(() =>
+        renderVersusCard({
+          ...base,
+          versus: {
+            left: {
+              ...base.versus.left,
+              rows: [{ key: "bank", value: "x", magnitude }, annualRows[1]],
+            },
+            right: base.versus.right,
+          },
+        }),
+      ).toThrow(/magnitude/);
+    }
+  });
+
+  it("refuses an empty `value`, which draws a bar with no number beside it", () => {
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: {
+            ...base.versus.left,
+            rows: [{ key: "bank", value: "", magnitude: 1 }, annualRows[1]],
+          },
+          right: base.versus.right,
+        },
+      }),
+    ).toThrow(/empty `value`/);
+  });
+
+  it("refuses a non-integer year — a JSON spec is not type-checked", () => {
+    expect(() =>
+      renderVersusCard({ ...base, year: "2022" as unknown as number }),
+    ).toThrow(/`year` must be an integer/);
+  });
+
+  it("refuses a flow-only metric list, which would drop both totals", () => {
+    // `total` is required and the basis line explains it, but the total band is
+    // drawn from the stock rows — so a flow-only card silently omits a figure
+    // the caller computed while keeping the sentence that defines it.
+    const rows: VersusRow[] = [{ key: "income", value: "1 €", magnitude: 1 }];
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        metrics: ["income"],
+        versus: {
+          left: side("А", "annual", rows),
+          right: side("Б", "annual", rows),
+        },
+      }),
+    ).toThrow(/no stock row/);
+  });
+
+  it("refuses sides that disagree on the total's label, which is drawn once", () => {
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        versus: {
+          left: base.versus.left,
+          right: {
+            ...base.versus.right,
+            total: { label: "нетно", value: "0 €" },
+          },
+        },
+      }),
+    ).toThrow(/disagree on the total's label/);
+  });
+
+  it("refuses a duplicate metric", () => {
+    expect(() =>
+      renderVersusCard({ ...base, metrics: ["bank", "bank", "income"] }),
+    ).toThrow(/duplicate metric/);
+  });
+
+  it("counts the WRAPPED basis against the content box, not one line of it", () => {
+    // The basis block grows upward from a fixed baseline, so each extra wrapped
+    // line eats into the rows' space. Sizing the box against a one-line basis is
+    // how a 3-line one printed itself through the last row's label and values,
+    // at exit 0. A full annual metric set leaves little slack by design.
+    const keys: VersusMetricKey[] = [
+      "bank",
+      "cash",
+      "vehicle",
+      "investment",
+      "security",
+      "receivable",
+      "debt",
+      "income",
+    ];
+    const rows: VersusRow[] = keys.map((key) => ({
+      key,
+      value: "0 €",
+      magnitude: 0,
+    }));
+    const stuffed = {
+      ...base,
+      metrics: keys,
+      versus: {
+        left: side("А", "annual", rows),
+        right: side("Б", "annual", rows),
+      },
+    };
+    expect(() =>
+      renderVersusCard({ ...stuffed, basis: "Активи." }),
+    ).not.toThrow();
+    expect(() =>
+      renderVersusCard({
+        ...stuffed,
+        basis:
+          "Активи = декларираното без задълженията и кредитните лимити; " +
+          "стойностите са както са декларирани, а съсобственият имот се " +
+          "брои веднъж, не по веднъж на съсобственик.",
+      }),
+    ).toThrow(/px are free/);
+  });
+
+  it("keeps two full three-part register names clear of the centred separator", async () => {
+    // VersusSide.name's contract requires the register's own spelling, and the
+    // cacbg register spells full three-part Bulgarian names. `fitText` shrinks a
+    // name to fit its column, so an unmeasured separator does not merely risk a
+    // collision — it guarantees the name lands exactly on one.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    const sepStrip = async (a: string, b: string) => {
+      const png = renderVersusCard({
+        ...base,
+        versus: {
+          left: { ...base.versus.left, name: a },
+          right: { ...base.versus.right, name: b },
+        },
+      });
+      const img = await loadImage(png);
+      const cx = createCanvas(1080, 1350).getContext("2d");
+      cx.drawImage(img, 0, 0);
+      return Buffer.from(cx.getImageData(496, 196, 88, 40).data);
+    };
+    const short = await sepStrip("Бойко Рашков", "Иван Демерджиев");
+    const long = await sepStrip(
+      "Христо Александров Проданов",
+      "Десислава Атанасова Танева",
+    );
+    // Identical pixels means both names stayed out of the separator's box.
+    expect(long.equals(short)).toBe(true);
+    // …and the box is not blank, or the assertion above proves nothing.
+    expect(short.some((b) => b > 90)).toBe(true);
+  });
+
+  it("draws a small declared sum as a bar, not as the declared-zero mark", async () => {
+    // The bar is the encoding the card leads with. Branching on the drawn LENGTH
+    // rather than the magnitude painted anything under ~0.5% of the band max in
+    // the same grey as a true zero, collapsing "declared €1,200" and "declared
+    // nothing" into one mark. Value text is held identical so only the bar can
+    // differ between the two renders.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    const render = async (magnitude: number) => {
+      const png = renderVersusCard({
+        ...base,
+        metrics: ["bank", "cash"],
+        versus: {
+          left: side("А", "annual", [
+            { key: "bank", value: "315 054 €", magnitude: 315054 },
+            { key: "cash", value: "1 200 €", magnitude },
+          ]),
+          right: side("Б", "annual", [
+            { key: "bank", value: "0 €", magnitude: 0 },
+            { key: "cash", value: "0 €", magnitude: 0 },
+          ]),
+        },
+      });
+      const img = await loadImage(png);
+      const cx = createCanvas(1080, 1350).getContext("2d");
+      cx.drawImage(img, 0, 0);
+      return Buffer.from(cx.getImageData(0, 0, 1080, 1350).data);
+    };
+    expect((await render(1200)).equals(await render(0))).toBe(false);
+  });
+});
+
+describe("card ink contrast", () => {
+  /** WCAG relative luminance of a #rrggbb string. */
+  const lum = (hex: string): number => {
+    const ch = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    const lin = ch.map((c) =>
+      c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4,
+    );
+    return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+  };
+  const ratio = (a: string, b: string): number => {
+    const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+    return (x + 0.05) / (y + 0.05);
+  };
+
+  // WCAG 1.4.11: a graphical object carrying information needs 3:1 against its
+  // surface. This codifies the rule the LINE_SERIES comment states in prose —
+  // and which the versus card's first cut broke by reaching past that fix to the
+  // raw brand coral, giving one named person weaker bars than the other.
+  it("every side-bar ink clears 3:1 against its own surface", () => {
+    for (const theme of ["dark", "light"] as const) {
+      for (const ink of VERSUS_SIDE_INK[theme]) {
+        expect(ratio(ink, THEME[theme].bg)).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
+
+  it("the two sides' inks are within 1.5x of each other, so neither reads as favoured", () => {
+    for (const theme of ["dark", "light"] as const) {
+      const [a, b] = VERSUS_SIDE_INK[theme].map((ink) =>
+        ratio(ink, THEME[theme].bg),
+      );
+      expect(Math.max(a, b) / Math.min(a, b)).toBeLessThan(1.5);
+    }
+  });
+});
+
+describe("refusal-guard contract", () => {
+  // Every renderer that can be over-stuffed carries a "refuse rather than emit
+  // garbage" guard, and each was tested only inside its own describe — so the
+  // newest renderer shipped with no guard test at all. This table is the one
+  // place that answers "does every renderer refuse an over-stuffed spec?", the
+  // question that goes unasked on the day another is added.
+  //
+  // The four here are the ones whose over-stuffed spec is cheap to build.
+  // renderMapCard and renderPlaceCard are guarded too and are covered in their
+  // own describes above (/map area/ and /do not fit/) — their fixtures need the
+  // base geometry and a full zone set respectively, so they are referenced
+  // rather than rebuilt. A new renderer belongs in this table.
+  //
+  // A card is published as an image: an overrun is not a layout wobble but a
+  // euro figure with a caveat line struck through it, at exit 0.
+  const overStuffed: [string, () => unknown][] = [
+    [
+      "renderBarCard",
+      () =>
+        renderBarCard({
+          title: "Заглавие",
+          bars: Array.from({ length: 14 }, (_, i) => ({
+            label: `ред ${i}`,
+            value: 10 - i,
+          })),
+          source: "Източник: тест",
+          footnote: "Бележка. ".repeat(40),
+        }),
+    ],
+    [
+      "renderLineCard",
+      () =>
+        renderLineCard({
+          title: "Много дълго заглавие, ".repeat(12),
+          labels: ["2020", "2021", "2022"],
+          series: [{ label: "БГ", values: [1, 2, 3] }],
+          source: "Източник: тест",
+          footnote: "Бележка. ".repeat(40),
+        }),
+    ],
+    [
+      "renderTableCard",
+      () =>
+        renderTableCard({
+          title: "Заглавие",
+          columns: ["община", "2021", "2023"],
+          rows: Array.from({ length: 6 }, (_, i) => ({
+            label: `община ${i}`,
+            sub: "подзаглавие",
+            cells: [{ value: "27,7%" }, { value: "31,2%" }],
+          })),
+          source: "Източник: тест",
+          footnote: "Бележка. ".repeat(40),
+        }),
+    ],
+    [
+      "renderVersusCard",
+      () => {
+        const keys: VersusMetricKey[] = [
+          "bank",
+          "cash",
+          "vehicle",
+          "investment",
+          "security",
+          "receivable",
+          "debt",
+          "income",
+        ];
+        const rows: VersusRow[] = keys.map((key) => ({
+          key,
+          value: "0 €",
+          magnitude: 0,
+        }));
+        const s = (name: string): VersusSide => ({
+          name,
+          formLabel: "годишна декларация",
+          formClass: "annual",
+          rows,
+          total: { label: "активи", value: "0 €" },
+        });
+        return renderVersusCard({
+          versus: { left: s("А"), right: s("Б") },
+          year: 2022,
+          basis: "Активи = декларираното без задълженията. ".repeat(4),
+          metrics: keys,
+          source: "Източник: тест",
+        });
+      },
+    ],
+  ];
+
+  it.each(overStuffed)("%s refuses an over-stuffed spec", (_name, build) => {
+    expect(build).toThrow();
   });
 });

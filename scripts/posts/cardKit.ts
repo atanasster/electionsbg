@@ -2253,3 +2253,588 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
 
   return canvas.toBuffer("image/png");
 };
+
+// ---------------------------------------------------------------------------
+// Versus card — two people's declared estate, side by side.
+//
+// Built for `person-compare-post` (docs/plans/person-compare-post-v1.md). The
+// whole point of this renderer is that a comparison card is a SENTENCE about
+// two named living people, so the shapes that would make it a false sentence
+// are throws rather than warnings.
+// ---------------------------------------------------------------------------
+
+/** Which declaration form a side was filed on.
+ *
+ *  `annual` = Annualy; `inventory` = Entry | Vacate. They are different
+ *  instruments, not variants: measured over the whole corpus, an annual carries
+ *  1.41 real-estate rows and 93.3% carry an income table, while an
+ *  entry/vacate carries 6.27-6.38 real-estate rows and **0%** carry income. A
+ *  card mixing them prints "17 имота срещу 0" and "€66 015 срещу —", both of
+ *  which are artifacts of the form. */
+export type VersusFormClass = "annual" | "inventory";
+
+/** The metric table — the ONE definition of which row is legal on which form,
+ *  and which scale band it belongs to. A renderer-side copy of the gate's rule,
+ *  deliberately: the gate can be bypassed by a hand-written spec, and this is
+ *  the last place before a PNG that a false row can be stopped.
+ *
+ *  `real_estate` is `inventory`-only, and that is the single most load-bearing
+ *  entry here. Measured over the 3,090 person-years where the same person filed
+ *  BOTH forms for the same period, the annual shows ZERO properties while the
+ *  inventory shows some in 1,568 of them — 50.7%. On an annual card "0 имота"
+ *  is a coin flip, published about a named person.
+ *
+ *  `income` is `annual`-only for the mirror reason: no inventory filing in the
+ *  corpus carries an income table, so a "—" there would read as "declared no
+ *  income" rather than "this form has no such table".
+ *
+ *  `credit_limit` is deliberately ABSENT. A declared credit LINE is what the
+ *  holder could draw, not money owed (089's own note), and the serving SQL
+ *  excludes it from both the asset and the debt arm. Naming it here would let
+ *  a caller render it as one or the other.
+ *
+ *  `band` selects the scale group, and its consequences reach further than the
+ *  name suggests. `stock` rows (money held, money owed) share one scale and are
+ *  the rows the total band sums; `flow` rows (a year's income) share another and
+ *  are NOT in the total — drawing €475,114 of assets and €77,684 of income on one
+ *  scale would invite the reader to subtract them. Each band draws its own
+ *  caption. Note a one-row band is self-normalising: `income` is the only `flow`
+ *  metric today, so the larger side's income bar is always full-length by
+ *  construction and carries no information beyond the number beside it. */
+export const VERSUS_METRICS = {
+  real_estate: { label: "имоти", classes: ["inventory"], band: "stock" },
+  bank: {
+    label: "банкови сметки",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  cash: {
+    label: "пари в брой",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  vehicle: {
+    label: "автомобили",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  investment: {
+    label: "инвестиции",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  security: {
+    label: "ценни книжа",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  receivable: {
+    label: "вземания",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  debt: {
+    label: "задължения",
+    classes: ["annual", "inventory"],
+    band: "stock",
+  },
+  income: { label: "деклариран доход", classes: ["annual"], band: "flow" },
+} as const satisfies Record<
+  string,
+  { label: string; classes: readonly VersusFormClass[]; band: "stock" | "flow" }
+>;
+
+/** A key of {@link VERSUS_METRICS}. TypeScript callers (the gate CLI) get a
+ *  compile-time check; the runtime throws stay as they are, because the JSON
+ *  path through `post_tool.ts` parses an unchecked file. */
+export type VersusMetricKey = keyof typeof VERSUS_METRICS;
+
+type VersusMetricDef = {
+  label: string;
+  classes: readonly VersusFormClass[];
+  band: "stock" | "flow";
+};
+
+/** Widened lookup into {@link VERSUS_METRICS}.
+ *
+ *  Two reasons it exists rather than a bare index. The spec reaching the
+ *  renderer may come from a JSON file (`post_tool.ts` parses one and casts), so
+ *  the key must be treated as `string` at runtime however it is typed at the
+ *  boundary — that is what the "unknown metric" throw is for. And `as const`
+ *  gives each entry its own literal tuple type, under which
+ *  `classes.includes(klass)` narrows the argument to `never` and fails to
+ *  compile. */
+const versusMetric = (key: string): VersusMetricDef | undefined =>
+  (VERSUS_METRICS as Record<string, VersusMetricDef>)[key];
+
+export type VersusRow = {
+  key: VersusMetricKey;
+  /** Pre-formatted for display — the caller owns € vs count vs "0". */
+  value: string;
+  /** Muted second line, e.g. "17 имота". */
+  note?: string;
+  /** Drives the bar length. Always a magnitude (>= 0), never signed: a debt is
+   *  drawn as its size, and the basis line says how it enters the total. */
+  magnitude: number;
+};
+
+export type VersusSide = {
+  /** As the register spells it — never a normalised or shortened form. */
+  name: string;
+  /** Position/institution AT THE TIME OF FILING, not today's. */
+  role?: string;
+  /** Human label for the form ("годишна декларация"). */
+  formLabel: string;
+  formClass: VersusFormClass;
+  rows: VersusRow[];
+  total: { label: string; value: string };
+};
+
+export type VersusCardSpec = {
+  /** Discriminator: the presence of `versus` routes a spec to this renderer. */
+  versus: { left: VersusSide; right: VersusSide };
+  year: number;
+  /** Shown when the year is not either person's latest — see the gate. */
+  yearNote?: string;
+  /** e.g. "активи = всичко без задължения и кредитни лимити". */
+  basis: string;
+  /** The row order, SHARED by both sides. Both sides must carry EXACTLY these
+   *  keys — see the throw below for why a missing row may not be inferred. */
+  metrics: VersusMetricKey[];
+  source: string;
+  cta?: string;
+  theme?: Theme;
+};
+
+/** Canvas width. Module-scope so the derived geometry below cannot drift from
+ *  the `W` the renderer uses — it reads this constant rather than its own copy. */
+const VERSUS_W = 1080;
+/** Canvas height. Portrait only — see renderVersusCard's header for why. */
+const VERSUS_H = 1350;
+const VERSUS_PAD = 56;
+/** Half-width of the centre gutter that holds the metric label. */
+const VERSUS_GUT = 134;
+/** Outer column reserved for the value text, per side. */
+const VERSUS_VALUE_COL = 150;
+/** Longest a bar may grow from the gutter edge. */
+const VERSUS_BAR_MAX =
+  VERSUS_W / 2 - VERSUS_GUT - (VERSUS_PAD + VERSUS_VALUE_COL + 16);
+const VERSUS_ROW_H = 76;
+const VERSUS_BAND_CAPTION_H = 40;
+const VERSUS_TOTAL_H = 90;
+/** Bar ink per side, theme-resolved. The light-theme LEFT ink is NOT `pal.accent`:
+ *  the brand coral scores 2.81:1 on the cream surface, under WCAG 1.4.11's 3:1 for
+ *  graphical objects, and `LINE_SERIES.light[0]` is the darker coral this file
+ *  already adopted for exactly that reason. On a two-sided card the asymmetry is
+ *  the sharper problem — one named person's bars rendering weaker than the other's
+ *  is an editorial thumb on the scale in a renderer whose premise is even-handedness. */
+export const VERSUS_SIDE_INK: Record<Theme, [string, string]> = {
+  dark: [THEME.dark.accent, THEME.dark.cool],
+  light: [LINE_SERIES.light[0], THEME.light.cool],
+};
+
+/** Baseline of the rule under the two headers; the content box starts below it. */
+const VERSUS_HEAD_RULE_Y = 336;
+/** Drawn centred between the two names; its measured width is reserved out of
+ *  each side's name budget rather than assumed — see the header layout. */
+const VERSUS_SEP = "срещу";
+/** Line pitch of the wrapped basis block, which grows UPWARD from `basisY`. */
+const VERSUS_BASIS_LINE_H = 30;
+
+/**
+ * 1080×1350 butterfly comparison of two declarations.
+ *
+ * PORTRAIT ONLY, with no `format` knob. Facebook's tallest uncropped feed ratio
+ * is 4:5, and a versus card carries two headers, up to nine rows, a total band
+ * and a basis line — offering a square variant would just move the overflow
+ * throw below from "never fires" to "fires on the common case".
+ *
+ * Position is the identity encoding: a side's bars always grow away from the
+ * centre on that side's half, so who-is-who survives greyscale and a thumbnail
+ * without depending on the accent/cool hue pair.
+ *
+ * THE TWO BANDS ARE SCALED SEPARATELY, and that is not a cosmetic choice.
+ * `stock` rows (money held, money owed) and `flow` rows (a year's income) are
+ * different quantities; drawing €475,114 of assets and €77,684 of income on one
+ * scale invites the reader to subtract them. Each band carries its own caption
+ * naming what it measures.
+ */
+export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
+  const W = VERSUS_W;
+  const H = VERSUS_H;
+  const pal = THEME[spec.theme ?? "dark"];
+  const { left, right } = spec.versus;
+
+  // ---- validation: every check here is a false sentence, not a layout bug ----
+  if (left.formClass !== right.formClass)
+    throw new Error(
+      `renderVersusCard: sides are on different forms (${left.formClass} vs ` +
+        `${right.formClass}). An annual and an entry/vacate filing measure ` +
+        `different things — see VERSUS_METRICS.`,
+    );
+  const klass = left.formClass;
+  // The total's label is drawn once, in the centre gutter, so it speaks for both
+  // sides. Two different labels would silently publish the left side's basis
+  // over the right side's number.
+  if (left.total.label !== right.total.label)
+    throw new Error(
+      `renderVersusCard: sides disagree on the total's label ` +
+        `("${left.total.label}" vs "${right.total.label}"); it is rendered once ` +
+        `for both.`,
+    );
+
+  if (!Number.isInteger(spec.year))
+    throw new Error(
+      `renderVersusCard: \`year\` must be an integer, got ${JSON.stringify(spec.year)} ` +
+        `— a spec parsed from JSON is not type-checked, and this reaches the card ` +
+        `as "ДЕКЛАРАЦИИ ЗА NaN".`,
+    );
+  if (!spec.metrics.length)
+    throw new Error("renderVersusCard: `metrics` is empty");
+  const seen = new Set<string>();
+  for (const key of spec.metrics) {
+    if (seen.has(key))
+      throw new Error(`renderVersusCard: duplicate metric "${key}"`);
+    seen.add(key);
+    const def = versusMetric(key);
+    if (!def)
+      throw new Error(
+        `renderVersusCard: unknown metric "${key}". Known: ` +
+          `${Object.keys(VERSUS_METRICS).join(", ")}.`,
+      );
+    if (!def.classes.includes(klass))
+      throw new Error(
+        `renderVersusCard: metric "${key}" (${def.label}) is not measurable on ` +
+          `a ${klass} filing — legal on: ${def.classes.join(", ")}.`,
+      );
+  }
+
+  // Both sides must carry EXACTLY the declared metric set. A missing row is
+  // never inferred as zero: within one form class the caller is the only party
+  // that knows whether a category is absent because nothing was declared or
+  // because its query did not ask, and those render identically.
+  for (const [who, side] of [
+    ["left", left],
+    ["right", right],
+  ] as const) {
+    const keys = side.rows.map((r) => r.key);
+    const dup = keys.find((k, i) => keys.indexOf(k) !== i);
+    if (dup)
+      throw new Error(`renderVersusCard: ${who} side repeats metric "${dup}"`);
+    for (const key of spec.metrics)
+      if (!keys.includes(key))
+        throw new Error(
+          `renderVersusCard: ${who} side ("${side.name}") is missing metric ` +
+            `"${key}". Emit an explicit zero rather than omitting the row.`,
+        );
+    for (const key of keys)
+      if (!seen.has(key))
+        throw new Error(
+          `renderVersusCard: ${who} side carries metric "${key}", which is not ` +
+            `in \`metrics\` and so would render on one side only.`,
+        );
+    for (const r of side.rows) {
+      if (!(r.magnitude >= 0) || !Number.isFinite(r.magnitude))
+        throw new Error(
+          `renderVersusCard: ${who} side metric "${r.key}" has a non-finite or ` +
+            `negative magnitude (${r.magnitude}); pass the size, not the sign.`,
+        );
+      // An empty string draws a bar with no number beside it, which reads as a
+      // value the card failed to print rather than one nobody declared.
+      if (!r.value)
+        throw new Error(
+          `renderVersusCard: ${who} side metric "${r.key}" has an empty \`value\`; ` +
+            `pass "0 €" or "—" explicitly.`,
+        );
+    }
+  }
+
+  // Safe to assert: the loop above threw on any key that does not resolve.
+  const stock = spec.metrics.filter((k) => versusMetric(k)!.band === "stock");
+  const flow = spec.metrics.filter((k) => versusMetric(k)!.band === "flow");
+  // The total band is drawn from the stock rows, so a flow-only card would take
+  // both sides' required, caller-computed `total` and silently not draw it —
+  // while `basis`, which exists to explain that very figure, stayed at the foot.
+  if (!stock.length)
+    throw new Error(
+      "renderVersusCard: `metrics` carries no stock row, so the total band — and " +
+        "the basis line that explains it — would not render. Add a stock metric.",
+    );
+
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textBaseline = "alphabetic";
+  drawWordmark(ctx, VERSUS_PAD, 96, 40, pal);
+
+  // ---- kicker: which year, and whether it is anybody's latest ----
+  ctx.textAlign = "left";
+  ctx.fillStyle = pal.accent;
+  ctx.font = `700 28px ${FONT}`;
+  ctx.fillText(`ДЕКЛАРАЦИИ ЗА ${spec.year}`, VERSUS_PAD, 158);
+
+  // ---- the two headers ----
+  const cx = W / 2;
+  // The separator is centred at cx, so it eats into BOTH name budgets. Measuring
+  // it is what stops `fitText` from shrinking a name to exactly the width that
+  // collides: the register spells full three-part Bulgarian names (see
+  // VersusSide.name), and anything from ~18 Cyrillic characters up overprints it.
+  ctx.font = `600 24px ${FONT}`;
+  const sepHalf = ctx.measureText(VERSUS_SEP).width / 2;
+  const colW = cx - VERSUS_PAD - sepHalf - 20;
+  const drawHead = (side: VersusSide, align: "left" | "right") => {
+    const x = align === "left" ? VERSUS_PAD : W - VERSUS_PAD;
+    ctx.textAlign = align;
+    ctx.fillStyle = pal.text;
+    const nameFit = fitText(ctx, side.name, 800, 42, colW, 26);
+    ctx.font = `800 ${nameFit.px}px ${FONT}`;
+    ctx.fillText(nameFit.text, x, 224);
+    if (side.role) {
+      ctx.fillStyle = pal.muted;
+      const roleFit = fitText(ctx, side.role, 500, 25, colW, 17);
+      ctx.font = `500 ${roleFit.px}px ${FONT}`;
+      ctx.fillText(roleFit.text, x, 258);
+    }
+    // The form badge is on the card, not in the footnote: it is the single most
+    // load-bearing word here, because it says what the numbers below can mean.
+    ctx.font = `600 23px ${FONT}`;
+    const badgeFit = fitText(ctx, side.formLabel, 600, 23, colW - 28, 16);
+    ctx.font = `600 ${badgeFit.px}px ${FONT}`;
+    const bw = ctx.measureText(badgeFit.text).width + 28;
+    const bx = align === "left" ? x : x - bw;
+    ctx.fillStyle = pal.rule;
+    roundRect(ctx, bx, 274, bw, 36, 18);
+    ctx.fill();
+    ctx.fillStyle = pal.muted;
+    ctx.textAlign = "left";
+    ctx.fillText(badgeFit.text, bx + 14, 299);
+  };
+  drawHead(left, "left");
+  drawHead(right, "right");
+
+  // "срещу" sits on the name baseline, between the two headers.
+  ctx.textAlign = "center";
+  ctx.fillStyle = pal.muted;
+  ctx.font = `600 24px ${FONT}`;
+  ctx.fillText(VERSUS_SEP, cx, 224);
+
+  ctx.fillStyle = pal.rule;
+  ctx.fillRect(VERSUS_PAD, VERSUS_HEAD_RULE_Y, W - VERSUS_PAD * 2, 1);
+
+  // ---- footer anchored; the bands flex into what is left ----
+  const SOURCE_Y = H - 48;
+  const basisY = SOURCE_Y - 96;
+  // Wrap the basis BEFORE sizing the content box. The block grows upward from
+  // `basisY`, so every extra line eats 30px out of the space `need` is checked
+  // against — measuring it after the guard is how a 3-line basis printed itself
+  // straight through the last metric row's label and both euro values, at exit 0.
+  // The other four renderers in this file each derive their footer this way and
+  // each carry a comment saying why; this one is on the same contract.
+  const basisLines = wrapText(ctx, spec.basis, 500, 24, W - VERSUS_PAD * 2);
+  const basisTop = basisY - (basisLines.length - 1) * VERSUS_BASIS_LINE_H;
+  const contentTop = VERSUS_HEAD_RULE_Y + 40;
+  const contentBottom = basisTop - 34;
+
+  const need =
+    (stock.length
+      ? VERSUS_BAND_CAPTION_H + stock.length * VERSUS_ROW_H + VERSUS_TOTAL_H
+      : 0) +
+    (flow.length ? VERSUS_BAND_CAPTION_H + flow.length * VERSUS_ROW_H : 0);
+  if (need > contentBottom - contentTop)
+    throw new Error(
+      `renderVersusCard: ${spec.metrics.length} metrics need ${need}px but only ` +
+        `${contentBottom - contentTop}px are free. Drop a metric, or shorten the ` +
+        `basis (${basisLines.length} line(s)) or the header.`,
+    );
+
+  // Centre the bands in the free space rather than top-anchoring them: the
+  // footer is anchored and the row count varies by form class, so a 5-row
+  // inventory card would otherwise leave ~200px of dead ground above the basis.
+  let y = contentTop + Math.max(0, (contentBottom - contentTop - need) / 2);
+
+  const drawBandCaption = (text: string) => {
+    ctx.textAlign = "center";
+    ctx.fillStyle = pal.muted;
+    ctx.font = `700 22px ${FONT}`;
+    ctx.fillText(text.toUpperCase(), cx, y + 22);
+    y += VERSUS_BAND_CAPTION_H;
+  };
+
+  const drawBand = (keys: VersusMetricKey[]) => {
+    // One scale per band, shared by both sides, so a row's two bars are
+    // comparable to each other AND to every other row in the band.
+    const max = Math.max(
+      ...keys.flatMap((k) => [
+        left.rows.find((r) => r.key === k)!.magnitude,
+        right.rows.find((r) => r.key === k)!.magnitude,
+      ]),
+      0,
+    );
+    for (const key of keys) {
+      const mid = y + VERSUS_ROW_H / 2;
+      ctx.textAlign = "center";
+      ctx.fillStyle = pal.text;
+      const labFit = fitText(
+        ctx,
+        versusMetric(key)!.label,
+        600,
+        25,
+        VERSUS_GUT * 2 - 16,
+        16,
+      );
+      ctx.font = `600 ${labFit.px}px ${FONT}`;
+      ctx.fillText(labFit.text, cx, mid + 8);
+
+      for (const [side, dir] of [
+        [left, -1],
+        [right, 1],
+      ] as const) {
+        const row = side.rows.find((r) => r.key === key)!;
+        const len = max > 0 ? (row.magnitude / max) * VERSUS_BAR_MAX : 0;
+        const barStart = cx + dir * VERSUS_GUT;
+        // The branch is on the MAGNITUDE, never on the drawn length. A row worth
+        // 0.5% of the band max is ~1px long, and branching on that painted a real
+        // declared sum in the same "declared zero" grey as an actual zero — three
+        // different states (zero, small, not-on-this-form) reduced to one mark,
+        // in the encoding the card leads with. The 6px floor keeps a small real
+        // value visible; the gutter has the clearance for it.
+        if (row.magnitude > 0) {
+          const w = Math.max(6, len);
+          ctx.fillStyle =
+            VERSUS_SIDE_INK[spec.theme ?? "dark"][dir < 0 ? 0 : 1];
+          roundRect(ctx, dir < 0 ? barStart - w : barStart, mid - 13, w, 26, 6);
+          ctx.fill();
+        } else {
+          // A declared zero still gets a mark, so an empty row cannot be read as
+          // a row the card forgot to draw — in `muted` rather than `rule`, which
+          // is 1.42:1 on the dark surface and so nearly invisible itself.
+          ctx.fillStyle = pal.muted;
+          ctx.fillRect(dir < 0 ? barStart - 4 : barStart, mid - 13, 4, 26);
+        }
+        const vx =
+          dir < 0
+            ? VERSUS_PAD + VERSUS_VALUE_COL
+            : W - VERSUS_PAD - VERSUS_VALUE_COL;
+        ctx.textAlign = dir < 0 ? "right" : "left";
+        ctx.fillStyle = pal.text;
+        const vFit = fitText(ctx, row.value, 700, 27, VERSUS_VALUE_COL, 17);
+        ctx.font = `700 ${vFit.px}px ${FONT}`;
+        ctx.fillText(vFit.text, vx, row.note ? mid + 1 : mid + 9);
+        if (row.note) {
+          ctx.fillStyle = pal.muted;
+          const nFit = fitText(ctx, row.note, 500, 21, VERSUS_VALUE_COL, 14);
+          ctx.font = `500 ${nFit.px}px ${FONT}`;
+          ctx.fillText(nFit.text, vx, mid + 25);
+        }
+      }
+      y += VERSUS_ROW_H;
+    }
+  };
+
+  if (stock.length) {
+    drawBandCaption("притежавано и дължимо");
+    drawBand(stock);
+
+    // ---- total row ----
+    ctx.fillStyle = pal.rule;
+    ctx.fillRect(VERSUS_PAD, y + 6, W - VERSUS_PAD * 2, 1);
+    const tMid = y + VERSUS_TOTAL_H / 2 + 8;
+    ctx.textAlign = "center";
+    ctx.fillStyle = pal.muted;
+    const tlFit = fitText(
+      ctx,
+      left.total.label.toUpperCase(),
+      700,
+      22,
+      VERSUS_GUT * 2 + 4,
+      15,
+    );
+    ctx.font = `700 ${tlFit.px}px ${FONT}`;
+    ctx.fillText(tlFit.text, cx, tMid + 6);
+    for (const [side, align] of [
+      [left, "right"],
+      [right, "left"],
+    ] as const) {
+      const x = align === "right" ? cx - VERSUS_GUT - 16 : cx + VERSUS_GUT + 16;
+      ctx.textAlign = align;
+      ctx.fillStyle = pal.text;
+      const tFit = fitText(
+        ctx,
+        side.total.value,
+        800,
+        44,
+        cx - VERSUS_GUT - VERSUS_PAD - 32,
+        24,
+      );
+      ctx.font = `800 ${tFit.px}px ${FONT}`;
+      ctx.fillText(tFit.text, x, tMid + 12);
+    }
+    y += VERSUS_TOTAL_H;
+  }
+
+  if (flow.length) {
+    drawBandCaption("получено през годината");
+    drawBand(flow);
+  }
+
+  // ---- basis + the year caveat, both above the footer rule ----
+  ctx.textAlign = "left";
+  ctx.fillStyle = pal.muted;
+  let by = basisTop;
+  ctx.font = `500 24px ${FONT}`;
+  for (const line of basisLines) {
+    ctx.fillText(line, VERSUS_PAD, by);
+    by += VERSUS_BASIS_LINE_H;
+  }
+  if (spec.yearNote) {
+    const noteFit = fitText(
+      ctx,
+      spec.yearNote,
+      600,
+      23,
+      W - VERSUS_PAD * 2,
+      16,
+    );
+    ctx.fillStyle = pal.accent;
+    ctx.font = `600 ${noteFit.px}px ${FONT}`;
+    ctx.fillText(noteFit.text, VERSUS_PAD, by);
+  }
+
+  ctx.fillStyle = pal.rule;
+  ctx.fillRect(VERSUS_PAD, SOURCE_Y - 54, W - VERSUS_PAD * 2, 1);
+
+  const ctaText = spec.cta ?? "виж декларациите";
+  ctx.font = `700 25px ${FONT}`;
+  const ctaW = ctx.measureText(ctaText).width + 30 + 22;
+  ctx.fillStyle = pal.muted;
+  ctx.textAlign = "left";
+  const srcFit = fitText(
+    ctx,
+    spec.source,
+    500,
+    25,
+    W - VERSUS_PAD * 2 - ctaW - 24,
+    17,
+  );
+  ctx.font = `500 ${srcFit.px}px ${FONT}`;
+  ctx.fillText(srcFit.text, VERSUS_PAD, SOURCE_Y);
+
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `700 25px ${FONT}`;
+  ctx.fillText(ctaText, W - VERSUS_PAD - 30, SOURCE_Y);
+  ctx.beginPath();
+  ctx.moveTo(W - VERSUS_PAD - 22, SOURCE_Y - 16);
+  ctx.lineTo(W - VERSUS_PAD, SOURCE_Y - 5);
+  ctx.lineTo(W - VERSUS_PAD - 22, SOURCE_Y + 6);
+  ctx.closePath();
+  ctx.fill();
+
+  return canvas.toBuffer("image/png");
+};
