@@ -10,6 +10,7 @@ import {
   renderTableCard,
   renderPlaceCard,
   renderVersusCard,
+  FONT,
   VERSUS_METRICS,
   VERSUS_SIDE_INK,
   THEME,
@@ -1037,34 +1038,131 @@ describe("renderVersusCard", () => {
     ).toThrow(/px are free/);
   });
 
-  it("keeps two full three-part register names clear of the centred separator", async () => {
-    // VersusSide.name's contract requires the register's own spelling, and the
-    // cacbg register spells full three-part Bulgarian names. `fitText` shrinks a
-    // name to fit its column, so an unmeasured separator does not merely risk a
-    // collision — it guarantees the name lands exactly on one.
-    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
-    const sepStrip = async (a: string, b: string) => {
-      const png = renderVersusCard({
+  it("refuses a property count on an annual card", () => {
+    // A property COUNT is an inventory claim: on an annual filing „0 имота" is a coin flip
+    // (50.7% of people who filed both forms for one period show zero on the annual and real
+    // property on the inventory). Same rule as the `real_estate` metric, enforced separately
+    // because this band does not go through `metrics`.
+    const props = { total: 2, parts: [{ label: "апартамента", n: 2 }] };
+    expect(() =>
+      renderVersusCard({
         ...base,
         versus: {
-          left: { ...base.versus.left, name: a },
-          right: { ...base.versus.right, name: b },
+          left: { ...base.versus.left, properties: props },
+          right: { ...base.versus.right, properties: props },
+        },
+      }),
+    ).toThrow(/only meaningful on an inventory filing/);
+  });
+
+  it("refuses a property count on one side only", () => {
+    // Symmetric like every row: one side showing a count while the other shows nothing reads
+    // as „declared none", which is a different claim from „not measured".
+    const inv = (rows: VersusRow[], properties?: VersusSide["properties"]) => ({
+      ...side("А", "inventory", rows),
+      properties,
+    });
+    const rows: VersusRow[] = [{ key: "bank", value: "0 €", magnitude: 0 }];
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        metrics: ["bank"],
+        versus: {
+          left: inv(rows, { total: 1, parts: [{ label: "къща", n: 1 }] }),
+          right: inv(rows),
+        },
+      }),
+    ).toThrow(/one side carries a property count/);
+  });
+
+  it("renders the property band on an inventory card", () => {
+    const rows: VersusRow[] = [{ key: "bank", value: "0 €", magnitude: 0 }];
+    const png = renderVersusCard({
+      ...base,
+      metrics: ["bank"],
+      versus: {
+        left: {
+          ...side("А", "inventory", rows),
+          properties: {
+            total: 24,
+            parts: [
+              { label: "апартамента", n: 6 },
+              { label: "други имота", n: 6 },
+              { label: "търговски обекта", n: 4 },
+              { label: "къщи", n: 2 },
+              { label: "земеделски имота", n: 2 },
+              { label: "парцела", n: 2 },
+              { label: "гаража", n: 2 },
+            ],
+          },
+        },
+        right: {
+          ...side("Б", "inventory", rows),
+          properties: { total: 0, parts: [] },
+        },
+      },
+    });
+    expect(png.readUInt32BE(16)).toBe(1080);
+    expect(png.readUInt32BE(20)).toBe(1350);
+  });
+
+  it("reserves the separator's MEASURED width out of both name budgets", async () => {
+    // VersusSide.name's contract requires the register's own spelling, and cacbg spells full
+    // three-part Bulgarian names. `fitText` shrinks a name to fit its column, so a budget
+    // that does not subtract the separator does not merely risk a collision — it guarantees
+    // one, with the name landing exactly on the separator.
+    //
+    // Driven with a LONG separator on purpose. The shipped default („с/у") is narrow enough
+    // that an assumed 24px reserve also happens to clear it, so a short separator cannot
+    // tell a measured reserve from a lucky constant. „срещу" — the original — is 71.9px and
+    // does.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    const inkRightOfNames = async (separator: string): Promise<number> => {
+      const png = renderVersusCard({
+        ...base,
+        separator,
+        versus: {
+          left: {
+            ...base.versus.left,
+            name: "Христо Александров Проданов",
+            role: undefined,
+          },
+          right: {
+            ...base.versus.right,
+            name: "Десислава Атанасова Танева",
+            role: undefined,
+          },
         },
       });
       const img = await loadImage(png);
       const cx = createCanvas(1080, 1350).getContext("2d");
       cx.drawImage(img, 0, 0);
-      return Buffer.from(cx.getImageData(496, 196, 88, 40).data);
+      // The name baseline band, left half only: find the rightmost lit pixel.
+      const band = cx.getImageData(0, 190, 540, 44).data;
+      let rightmost = 0;
+      for (let i = 0; i < band.length; i += 4) {
+        const px = (i / 4) % 540;
+        // Name ink only. The threshold has to clear `pal.muted` (154,167,189) as well as the
+        // background, because the separator itself is drawn in muted and sits inside this
+        // window — at 150 the scan found the separator's own left edge and called it a name.
+        // `pal.text` is (242,245,248).
+        if (band[i] > 220 && band[i + 1] > 220 && band[i + 2] > 220)
+          rightmost = Math.max(rightmost, px);
+      }
+      return rightmost;
     };
-    const short = await sepStrip("Бойко Рашков", "Иван Демерджиев");
-    const long = await sepStrip(
-      "Христо Александров Проданов",
-      "Десислава Атанасова Танева",
-    );
-    // Identical pixels means both names stayed out of the separator's box.
-    expect(long.equals(short)).toBe(true);
-    // …and the box is not blank, or the assertion above proves nothing.
-    expect(short.some((b) => b > 90)).toBe(true);
+
+    const CX = 540;
+    const sepHalf = (() => {
+      const m = createCanvas(10, 10).getContext("2d");
+      m.font = `600 24px ${FONT}`;
+      return m.measureText("срещу").width / 2;
+    })();
+    expect(sepHalf).toBeGreaterThan(30); // the case a narrow default cannot exercise
+
+    const ink = await inkRightOfNames("срещу");
+    expect(ink).toBeGreaterThan(0); // the name really is drawn, or this proves nothing
+    expect(ink).toBeLessThan(CX - sepHalf);
   });
 
   it("draws a small declared sum as a bar, not as the declared-zero mark", async () => {

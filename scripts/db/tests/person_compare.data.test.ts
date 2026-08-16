@@ -26,6 +26,7 @@ import {
   MAX_UNVALUED_SHARE,
 } from "../../person/compare_declarations";
 import { VERSUS_METRICS } from "../../posts/cardKit";
+import { propertyKind, type PropertyKind } from "../../person/propertyKind";
 
 /** The fixture pair the whole skill was designed against: Бойко Рашков and Иван Демерджиев.
  *  Both are MPs, so their slugs are stable `mp-*` ids rather than name-derived hashes. */
@@ -653,3 +654,46 @@ test.skipIf(skip)("refuses to compare a person with themselves", async () => {
     /same person/,
   );
 });
+
+test.skipIf(skip)(
+  "the property fold classifies the corpus, and `other` stays a tail",
+  async () => {
+    // The fold reads free text — 2,981 distinct spellings over 133,240 real-estate rows —
+    // so its coverage is a property of the CORPUS and can only be checked here. `other` is a
+    // real bucket (the register's own „други", plus rights and ancillary spaces), but if a
+    // new spelling or a broken rule sent a real kind there it would show up as growth.
+    const rows = await allRows<{ d: string; n: string }>(
+      `SELECT lower(trim(description)) d, count(*)::text n
+         FROM declaration_asset
+        WHERE category = 'real_estate'
+          AND description IS NOT NULL AND trim(description) <> ''
+        GROUP BY 1`,
+    );
+    assert.ok(rows.length > 100, "real-estate descriptions not loaded?");
+
+    const tally = new Map<PropertyKind, number>();
+    let total = 0;
+    for (const r of rows) {
+      const n = Number(r.n);
+      const k = propertyKind(r.d);
+      tally.set(k, (tally.get(k) ?? 0) + n);
+      total += n;
+    }
+    const share = (k: PropertyKind) => (tally.get(k) ?? 0) / total;
+
+    // Measured 2026-08-16: other 3.1%. A ceiling well above it, so ordinary corpus drift
+    // does not fail the build, but a rule that stopped firing does.
+    assert.ok(
+      share("other") < 0.08,
+      `unclassified property descriptions are ${(share("other") * 100).toFixed(1)}% ` +
+        `of rows (ceiling 8%) — a fold rule has probably stopped matching`,
+    );
+    // …and the four kinds that carry the corpus must each still carry a real share, or a
+    // rule has silently collapsed into another.
+    for (const k of ["farmland", "apartment", "house", "plot"] as const)
+      assert.ok(
+        share(k) > 0.05,
+        `${k} fell to ${(share(k) * 100).toFixed(1)}% of rows — rule regression?`,
+      );
+  },
+);

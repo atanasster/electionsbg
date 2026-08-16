@@ -2378,6 +2378,21 @@ export type VersusRow = {
   magnitude: number;
 };
 
+/** A count of declared properties by kind — never a money figure.
+ *
+ *  It exists because the card DROPS a property table whose prices are substantially
+ *  unstated, which would otherwise remove the property information altogether even though
+ *  the count and the kind are perfectly well known. Somebody who declared 24 properties
+ *  without prices has still declared 24 properties.
+ *
+ *  `parts` arrives pre-formatted and pre-ordered from `summariseProperties`
+ *  (scripts/person/propertyKind.ts), because the Bulgarian counting form („2 апартамента",
+ *  never „2 апартаменти") is a property of the label, not of the renderer. */
+export type VersusProperties = {
+  total: number;
+  parts: { label: string; n: number }[];
+};
+
 export type VersusSide = {
   /** As the register spells it — never a normalised or shortened form. */
   name: string;
@@ -2388,6 +2403,8 @@ export type VersusSide = {
   formClass: VersusFormClass;
   rows: VersusRow[];
   total: { label: string; value: string };
+  /** INVENTORY cards only — see the throw in the renderer. */
+  properties?: VersusProperties;
 };
 
 export type VersusCardSpec = {
@@ -2404,6 +2421,9 @@ export type VersusCardSpec = {
   source: string;
   cta?: string;
   theme?: Theme;
+  /** Overrides {@link VERSUS_SEP_DEFAULT}. Whatever it is, its MEASURED width comes out of
+   *  both name budgets — see the header layout. */
+  separator?: string;
 };
 
 /** Canvas width. Module-scope so the derived geometry below cannot drift from
@@ -2435,9 +2455,20 @@ export const VERSUS_SIDE_INK: Record<Theme, [string, string]> = {
 
 /** Baseline of the rule under the two headers; the content box starts below it. */
 const VERSUS_HEAD_RULE_Y = 336;
-/** Drawn centred between the two names; its measured width is reserved out of
- *  each side's name budget rather than assumed — see the header layout. */
-const VERSUS_SEP = "срещу";
+/** Default separator drawn centred between the two names. Abbreviated („с/у", not „срещу")
+ *  because the names are the content: the full word costs ~36px of name budget on a card
+ *  whose subjects are routinely spelled with three words each.
+ *
+ *  Its width is MEASURED and reserved out of each side's budget rather than assumed — see
+ *  the header layout. That the current default happens to be narrow enough for an assumed
+ *  reserve to work is luck, not design, which is why `separator` is overridable and the
+ *  gate test drives a long one. */
+export const VERSUS_SEP_DEFAULT = "с/у";
+/** Height of the declared-property band, when one is present: the count plus THREE
+ *  breakdown lines. Three rather than two because the elision is not free — a filing spread
+ *  over seven kinds collapses to „+4 др." at two lines, which is honest but tells the reader
+ *  almost nothing, and the card has the room. */
+const VERSUS_PROP_H = 124;
 /** Line pitch of the wrapped basis block, which grows UPWARD from `basisY`. */
 const VERSUS_BASIS_LINE_H = 30;
 
@@ -2550,6 +2581,22 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   }
 
   // Safe to assert: the loop above threw on any key that does not resolve.
+  // A property COUNT is an inventory claim, for the same reason `real_estate` is an
+  // inventory metric: on an annual filing „0 имота" is a coin flip — 50.7% of people who
+  // filed both forms for one period show zero property on the annual and real property on
+  // the inventory. And like every row it is symmetric, so one side cannot show a count while
+  // the other silently shows nothing.
+  if ((left.properties || right.properties) && klass !== "inventory")
+    throw new Error(
+      "renderVersusCard: a property count is only meaningful on an inventory filing — " +
+        "an annual one is not a property inventory.",
+    );
+  if (Boolean(left.properties) !== Boolean(right.properties))
+    throw new Error(
+      "renderVersusCard: one side carries a property count and the other does not; " +
+        "pass both (a side with none gets total 0) or neither.",
+    );
+
   const stock = spec.metrics.filter((k) => versusMetric(k)!.band === "stock");
   const flow = spec.metrics.filter((k) => versusMetric(k)!.band === "flow");
   // The total band is drawn from the stock rows, so a flow-only card would take
@@ -2585,8 +2632,9 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   // it is what stops `fitText` from shrinking a name to exactly the width that
   // collides: the register spells full three-part Bulgarian names (see
   // VersusSide.name), and anything from ~18 Cyrillic characters up overprints it.
+  const sep = spec.separator ?? VERSUS_SEP_DEFAULT;
   ctx.font = `600 24px ${FONT}`;
-  const sepHalf = ctx.measureText(VERSUS_SEP).width / 2;
+  const sepHalf = ctx.measureText(sep).width / 2;
   const colW = cx - VERSUS_PAD - sepHalf - 20;
   const drawHead = (side: VersusSide, align: "left" | "right") => {
     const x = align === "left" ? VERSUS_PAD : W - VERSUS_PAD;
@@ -2622,7 +2670,7 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   ctx.textAlign = "center";
   ctx.fillStyle = pal.muted;
   ctx.font = `600 24px ${FONT}`;
-  ctx.fillText(VERSUS_SEP, cx, 224);
+  ctx.fillText(sep, cx, 224);
 
   ctx.fillStyle = pal.rule;
   ctx.fillRect(VERSUS_PAD, VERSUS_HEAD_RULE_Y, W - VERSUS_PAD * 2, 1);
@@ -2638,14 +2686,16 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   // each carry a comment saying why; this one is on the same contract.
   const basisLines = wrapText(ctx, spec.basis, 500, 24, W - VERSUS_PAD * 2);
   const basisTop = basisY - (basisLines.length - 1) * VERSUS_BASIS_LINE_H;
-  const contentTop = VERSUS_HEAD_RULE_Y + 40;
+  const contentTop = VERSUS_HEAD_RULE_Y + 26;
   const contentBottom = basisTop - 34;
 
+  const hasProps = Boolean(left.properties);
   const need =
     (stock.length
       ? VERSUS_BAND_CAPTION_H + stock.length * VERSUS_ROW_H + VERSUS_TOTAL_H
       : 0) +
-    (flow.length ? VERSUS_BAND_CAPTION_H + flow.length * VERSUS_ROW_H : 0);
+    (flow.length ? VERSUS_BAND_CAPTION_H + flow.length * VERSUS_ROW_H : 0) +
+    (hasProps ? VERSUS_BAND_CAPTION_H + VERSUS_PROP_H : 0);
   if (need > contentBottom - contentTop)
     throw new Error(
       `renderVersusCard: ${spec.metrics.length} metrics need ${need}px but only ` +
@@ -2653,10 +2703,12 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
         `basis (${basisLines.length} line(s)) or the header.`,
     );
 
-  // Centre the bands in the free space rather than top-anchoring them: the
-  // footer is anchored and the row count varies by form class, so a 5-row
-  // inventory card would otherwise leave ~200px of dead ground above the basis.
-  let y = contentTop + Math.max(0, (contentBottom - contentTop - need) / 2);
+  // Top-anchored. Centring put half the free space directly under the two names, which left
+  // them reading as a header belonging to nothing; the footer is anchored regardless, so the
+  // slack is better spent at the bottom, where it is just margin.
+  let y =
+    contentTop +
+    Math.min(24, Math.max(0, (contentBottom - contentTop - need) / 4));
 
   const drawBandCaption = (text: string) => {
     ctx.textAlign = "center";
@@ -2781,6 +2833,71 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   if (flow.length) {
     drawBandCaption("получено през годината");
     drawBand(flow);
+  }
+
+  if (hasProps) {
+    // Explicitly „(брой)" in the caption. This band sits under a euro total on a card whose
+    // other bands are all money, and the whole reason it exists is that the property MONEY
+    // was withheld — so a number here that could be read as euros would be the worst
+    // possible misunderstanding.
+    drawBandCaption("декларирани имоти (брой)");
+    const mid = y + 34;
+    for (const [side, dir] of [
+      [left, -1],
+      [right, 1],
+    ] as const) {
+      const p = side.properties!;
+      const x = dir < 0 ? cx - VERSUS_GUT - 16 : cx + VERSUS_GUT + 16;
+      ctx.textAlign = dir < 0 ? "right" : "left";
+      ctx.fillStyle = p.total > 0 ? pal.text : pal.muted;
+      ctx.font = `800 40px ${FONT}`;
+      ctx.fillText(String(p.total), x, mid);
+
+      // The breakdown, stacked under the count. Two lines at most: a filing with six kinds
+      // would otherwise push into the basis, and the tail is the least informative part.
+      ctx.fillStyle = pal.muted;
+      const colWidth = cx - VERSUS_GUT - VERSUS_PAD - 24;
+      ctx.font = `500 21px ${FONT}`;
+      const wrap = (parts: string[]): string[] => {
+        const out: string[] = [];
+        let cur = "";
+        for (const part of parts) {
+          const test = cur ? `${cur} · ${part}` : part;
+          if (cur && ctx.measureText(test).width > colWidth) {
+            out.push(cur);
+            cur = part;
+          } else cur = test;
+        }
+        if (cur) out.push(cur);
+        return out;
+      };
+      // Three lines is the space there is, but a kind that does not fit is NEVER dropped in
+      // silence — it is counted into a „+N др." tail. A card that simply stopped listing
+      // said one man held three kinds of property when he had declared seven.
+      const PROP_LINES = 3;
+      const all = p.parts.map((q) => `${q.n} ${q.label}`);
+      let lines = wrap(all);
+      for (
+        let keep = all.length - 1;
+        lines.length > PROP_LINES && keep >= 1;
+        keep--
+      )
+        lines = wrap([...all.slice(0, keep), `+${all.length - keep} др.`]);
+      let ly = mid + 26;
+      for (const line of lines.slice(0, PROP_LINES)) {
+        const fit = fitText(ctx, line, 500, 21, colWidth, 15);
+        ctx.font = `500 ${fit.px}px ${FONT}`;
+        ctx.fillText(fit.text, x, ly);
+        ly += 24;
+      }
+    }
+    // The centre gutter names what the two numbers are, as the metric rows do.
+    ctx.textAlign = "center";
+    ctx.fillStyle = pal.text;
+    const pFit = fitText(ctx, "имоти", 600, 25, VERSUS_GUT * 2 - 16, 16);
+    ctx.font = `600 ${pFit.px}px ${FONT}`;
+    ctx.fillText(pFit.text, cx, mid - 6);
+    y += VERSUS_PROP_H;
   }
 
   // ---- basis + the year caveat, both above the footer rule ----

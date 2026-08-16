@@ -168,6 +168,17 @@ The gate emits a ready `card` spec (a `versus` key → `renderVersusCard`). Read
   cannot be a comparable row on this form).
 - **`yearNote`** — present whenever the chosen year is not the latest for both.
   Do not write „последните декларации" when this is set.
+- **`properties`** (inventory cards only) — a COUNT of declared properties by
+  kind, e.g. „24 · 6 апартамента · 6 други имота · 4 търговски обекта". It is
+  there because the money for that table is often withheld while the count is
+  perfectly well known, so it survives the drop that removes the euros.
+
+**Two things the property count is not.** It is a count of declared ROWS, not of
+buildings — a declarant may file one house as four entries (dwelling, terrace,
+basement, garage) and the register carries nothing that would fold them back
+together, so write „24 декларирани имота", never „24 сгради". And it is never
+money: „24" beside „449 216 €" must not be written as if the properties were
+valued, because the whole reason the band exists is that they were not.
 
 **The row set is class-dependent and you may not widen it.** `имоти` exists only
 on an `inventory` card (on an annual, „0 имота" is a coin flip — 50.7% of people
@@ -216,7 +227,10 @@ compared on money. On top of `naiasno-post`'s rules:
   equals the declared net. (With a drop it is deliberately lower — that is what
   „сравними позиции" means, and why the copy must quote the card.)
 - `scripts/posts/cardKit.test.ts` — the renderer's refusals (class rules, the
-  shared metric set, the row budget).
+  shared metric set, the row budget, the property band's inventory-only and
+  symmetry rules).
+- `scripts/person/propertyKind.test.ts` — the property fold, including the head-
+  noun rule and the ancillary-space carve-out.
 
 Both run under `npm run test:data` / `npm run test:unit` and skip when Postgres
 is down.

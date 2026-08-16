@@ -66,6 +66,7 @@
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
 import { allRows, end } from "../db/lib/pg";
+import { summariseProperties } from "./propertyKind";
 import {
   VERSUS_METRICS,
   renderVersusCard,
@@ -361,6 +362,20 @@ export const compareDeclarations = async (
   /** BG thousands grouping with non-breaking spaces, so a euro figure never wraps mid-number
    *  on the card. Written as `\u00a0` escapes rather than literal characters — an invisible
    *  NBSP in source is exactly what no-irregular-whitespace exists to stop. */
+  // The declared properties of each chosen filing, for the count band. Deliberately
+  // SEPARATE from the money query and deliberately not conditioned on price: this band's
+  // whole purpose is to survive the drop that removes the property MONEY, so it must read
+  // every row including the ones nobody priced.
+  const propRows = await allRows<{ slug: string; description: string | null }>(
+    `WITH ${REP_CTE},
+     chosen AS (SELECT * FROM rep WHERE period_year = $2 AND klass = $3)
+     SELECT c.slug, a.description
+       FROM chosen c JOIN declaration_asset a ON a.declaration_id = c.declaration_id
+      WHERE a.category = 'real_estate'
+      ORDER BY c.slug, a.seq`,
+    [slugs, picked.year, picked.klass],
+  );
+
   const eur = (n: number): string =>
     `${Math.round(n).toLocaleString("bg-BG").replace(/\s/g, "\u00a0")}\u00a0€`;
 
@@ -530,8 +545,17 @@ export const compareDeclarations = async (
     // The WHOLE declared debt, always. Never gated on whether the debt row is displayed:
     // that gate published net = assets. See droppedMetrics' exemption above.
     const debts = get("debt")?.eur ?? 0;
+    // Inventory filings only — an annual one is not a property inventory, so a count from it
+    // would be a false statement half the time (trap 2.4). The renderer refuses it too.
+    const properties =
+      picked.klass === "inventory"
+        ? summariseProperties(
+            propRows.filter((r) => r.slug === slug).map((r) => r.description),
+          )
+        : undefined;
     return {
       name: head.display_name,
+      properties,
       role:
         [head.position_title, head.institution].filter(Boolean).join(" · ") ||
         undefined,
