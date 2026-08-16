@@ -97,9 +97,12 @@ export const PersonCryptoHoldings: FC<{
           </li>
         ))}
       </ul>
-      {/* The declaration states a value AT FILING. Marking 30 ETH to today's price would
-          publish a number the declarant never filed, on a page whose whole premise is what
-          the register says — so the caveat is load-bearing, not boilerplate. */}
+      {/* The one caveat this block has to carry itself: marking 30 ETH to today's price
+          would publish a number the declarant never filed, and crypto is the asset class a
+          reader is most likely to assume is live. „Декларирано, не одитирано" is NOT
+          repeated here — FilingList renders pp_wealth_caveat directly below, on both mount
+          paths, so saying it again put three sentences of near-identical hedging on one
+          card. */}
       <p className="mt-2 text-xs text-muted-foreground">
         {t("pp_crypto_note")}
       </p>
