@@ -975,7 +975,7 @@ as links to a filtered page that delivered an unfiltered one.
 | **[2026-08-13]** No second `obshtina_population`; no second choropleth over `municipal_fiscal` | grep gate | duplicating 149 |
 | **[2026-08-13]** A withheld figure renders as „не е публикувано", never as 0 | `budget_serving.data.test.ts` | §2.2's fifth trap — 2025-Q3 is the live instance |
 | No title-regex inference of what adopted a document | `BudgetLawScreen.test.tsx` ("never claims a document was adopted without a vote") | §7.4 |
-| `adopted_by_item_id` filters `superseded_by IS NULL` | ⛔ **NOT COVERED, and not yet coverable** — the column is NULL on all 33 rows, so there is no join to filter. It becomes a real gate the day the roll-call edge is resolved; until then this row is a reminder, not a claim. | §7.4 |
+| A resolved `adopted_by_item_id` names a LIVE `vote_item` (`superseded_by IS NULL`), and an existing one | ⏭️ `budget_pg_roundtrip.data.test.ts` — CONDITIONAL: real, mutation-checked, and currently SKIPS (0 of 33 rows resolve one), so it is not yet doing work every run | §7.4 |
 | A scoped search source returns out-of-scope rows for a query that has them | `budgetSearch.test.ts` | scope silently filtering |
 | Each search group's cap is independent | `budgetSearch.test.ts` | in-scope group eating the out-of-scope budget |
 | Every see-all param is read by its destination | `budgetSearch.test.ts` | filtered link, unfiltered page |
@@ -991,11 +991,21 @@ T9.11 shipped `/budget/law` rendering „Отчетени 6 мес. по КФП"
 year — which is precisely what the §2.2 row exists to stop, and it was caught in review rather
 than by the repo.
 
-**A row that names no file is better than a row that names the wrong one.** The
-`superseded_by` half above is marked ⛔ rather than attributed, because the two files
-that check the *other* half of its original row mention `superseded_by` nowhere — and a
-table row reading as covered when it is not is the same „aspirational rather than
-descriptive" failure this section documents, only harder to see.
+**A row that names no file is better than a row that names the wrong one**, and the
+`superseded_by` half above spent a day as the ⛔ that principle produced: not covered,
+and — because the column is NULL on all 33 rows — not coverable, since there is no join
+to filter.
+
+**[2026-08-16] It is now a CONDITIONAL gate rather than a deletion** (site-hygiene-v1 T5).
+Written as „*if* a row resolves, it names a live item, and it names an item at all", it is
+a real gate from the day the roll-call edge lands and an honest statement of coverage
+until then — and, unlike the ⛔, it can be mutation-checked TODAY: pointing one
+`budget_document` at a superseded `vote_item` fails it, and its converse
+(„never inferred") too. It also warns when zero rows are resolved, so „0 violations"
+cannot be read as „0 violations out of many". The rule it will enforce is not decorative:
+`vote_item` holds all 16,741 raw items and the 1,645 re-votes `dedupeRevotes` collapses
+carry `superseded_by`, so an edge into the superseded half names a vote the chamber then
+took again.
 
 **One row's clause is split across two files on purpose.** „`months_available` never rendered
 as coverage" cannot be checked from source alone: „the file mentions `complete`" stays true of

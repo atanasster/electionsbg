@@ -424,3 +424,90 @@ test.skipIf(stateSkip)(
     assert.equal(Number(r.n), 0);
   },
 );
+
+/** ⚠️ THE ONLY CROSS-MODULE QUERY IN THIS FILE, so it needs a second probe.
+ *
+ *  `stateSkip` asks whether the BUDGET corpus is loaded. `vote_item` comes from
+ *  migration 134 (`db:load:rollcall:pg`, chain step 49) while the budget tables
+ *  are filled by a `REFRESH_EXCLUSIONS` loader run by hand — so „budget loaded,
+ *  rollcall not applied" is a perfectly ordinary state, and there the join
+ *  raises 42P01 and ERRORS rather than skipping, failing `db:refresh` at its
+ *  terminal step. That is the migration-144 class this file's header exists to
+ *  prevent, reintroduced by reaching outside the module. */
+const rollcallApplied = haveDb
+  ? Boolean(
+      (
+        await allRows<{ ok: boolean }>(
+          "SELECT to_regclass('public.vote_item') IS NOT NULL AS ok",
+        )
+      )[0]?.ok,
+    )
+  : false;
+
+test.skipIf(stateSkip || !rollcallApplied)(
+  "a resolved adopted_by_item_id points at a LIVE vote_item, never a superseded one",
+  async ({ skip }) => {
+    // ⚠️ THIS CLAUSE HAS NEVER EXECUTED ITS BODY, and saying so is the point.
+    //
+    // budget-hub-v1 §11 carried „`adopted_by_item_id` filters `superseded_by IS
+    // NULL`" as a ⛔ row — not covered, and not coverable, because the column is
+    // NULL on all 33 rows so there is no join to filter. A table row that reads
+    // as covered when it is not is the „aspirational rather than descriptive"
+    // failure that section documents, and three of its rows had already been
+    // caught naming files nobody had written.
+    //
+    // Written CONDITIONALLY instead, it is a real gate from the day the first
+    // row resolves and an honest statement of coverage until then. The two
+    // halves are deliberate: the first is the rule, the second records that the
+    // rule is currently vacuous, so „0 violations" can never be mistaken for
+    // „0 violations out of many".
+    //
+    // Why the rule matters when rows do arrive: `vote_item` holds all 16,741 raw
+    // items, and the 1,645 re-votes `dedupeRevotes` collapses carry
+    // `superseded_by`. A budget law pointed at the superseded half of a re-vote
+    // names a vote the chamber then took again — the same 9.8% over-count
+    // rollcall.data.test.ts guards for aggregates, applied to a single edge.
+    const [bad] = await allRows<{ n: string }>(
+      `SELECT count(*)::text n
+         FROM budget_document d
+         JOIN vote_item v ON v.item_id = d.adopted_by_item_id
+        WHERE d.adopted_by_item_id IS NOT NULL
+          AND v.superseded_by IS NOT NULL`,
+    );
+    assert.equal(
+      Number(bad.n),
+      0,
+      "a budget document is attributed to a vote that was superseded by a re-vote",
+    );
+
+    // …and a reference to no item at all.
+    //
+    // ⚠️ THIS IS THE ONLY REFERENTIAL PROTECTION THE COLUMN HAS — do not read it
+    // as a backstop behind a foreign key. 153 declares `adopted_by_item_id
+    // bigint` bare, and `budget_document` carries exactly one constraint, its
+    // PK. `bill` DOES have `bill_final_item_fkey` onto `vote_item`, which is
+    // what makes the absence here easy to assume away.
+    const [orphan] = await allRows<{ n: string }>(
+      `SELECT count(*)::text n
+         FROM budget_document d
+    LEFT JOIN vote_item v ON v.item_id = d.adopted_by_item_id
+        WHERE d.adopted_by_item_id IS NOT NULL AND v.item_id IS NULL`,
+    );
+    assert.equal(Number(orphan.n), 0, "adopted_by_item_id names no vote_item");
+
+    // THE ANTI-VACUITY HALF, and it must SKIP rather than warn. `console.warn`
+    // was the first cut and prints nothing under the default reporter that
+    // `npm run test:data` uses — measured — so the clause read in the runner as
+    // „checked and clean" when its body had matched no rows at all. A skip is
+    // in the summary. The day the resolver ships, this stops skipping and the
+    // assertions above start doing work, with nothing here to edit.
+    const [resolved] = await allRows<{ n: string }>(
+      "SELECT count(*)::text n FROM budget_document WHERE adopted_by_item_id IS NOT NULL",
+    );
+    if (Number(resolved.n) === 0) {
+      skip(
+        "0 of 33 budget_document rows resolve an adopted_by_item_id — the rule above is real but has nothing to check yet",
+      );
+    }
+  },
+);
