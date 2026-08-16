@@ -1,13 +1,30 @@
-// SPA hook: look up one company's connections to people in power by EIK.
+// The `CompanyConnections` SHAPE of parliament/company-connections/{eik}.json.
 //
-// Reads the per-EIK file parliament/company-connections/{eik}.json — built by
-// scripts/declarations/tr/build_company_connections.ts from the Commerce
-// Registry. A 404 yields `null`: the company has no political connection on
+// ⚠️ THE SPA HOOK AND ITS COMPONENT ARE GONE; THE TYPES ARE NOT (site-hygiene-v1
+// T6a). `useCompanyConnections` and `CompanyConnectionsSection` were imported by
+// nothing — whatever screen mounted the section had already stopped, and
+// `retired.test.ts` still exempted both names as „a separate company-page
+// pipeline" long after the pipeline had no readers.
+//
+// What survives is the AI chat's `companyConnections` tool
+// (`ai/tools/people.ts`), which is registered, routed and regression-tested, and
+// which fetches this same per-EIK file and types its response with
+// `CompanyConnections` from here. So this is now a type module with one
+// consumer, and the shards it describes are NOT orphaned — a fact that a grep
+// over `src/`, `scripts/` and `functions/` alone does not show, because `ai/` is
+// none of those.
+//
+// ⚠️ AND THE COPY THAT TOOL READS IS FROZEN. `bucket_sync_paths.ts:63` excludes
+// `parliament/company-connections` as „PG-served", and `gsutil rsync -x`
+// excludes a match from DELETION as well as upload — so the bucket objects have
+// been stuck at their 2026-07-29 vintage ever since, and the AI answers
+// company-connection questions from that snapshot at a 200. „Has a reader" and
+// „is being maintained" are separate facts; this file's types are kept for the
+// first, and the second is an open defect, not something these comments settle.
+//
+// The file is built by scripts/declarations/tr/build_company_connections.ts from
+// the Commerce Registry. A 404 means the company has no political connection on
 // record (no officer holds public office, and none is one company-hop away).
-
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
 
 export type ConnTier = "national" | "executive" | "municipal";
 
@@ -52,34 +69,4 @@ export type CompanyConnections = {
   directLinks: ConnDirectLink[];
   bridgedLinks: ConnBridgedLink[];
   truncated: boolean;
-};
-
-const fetchConnections = async (
-  eik: string,
-): Promise<CompanyConnections | null> => {
-  const r = await fetch(dataUrl(`/parliament/company-connections/${eik}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  // The dev server's SPA fallback answers a missing file with 200 + index.html
-  // instead of 404 — treat a non-JSON body as "no connections".
-  if (!(r.headers.get("content-type") || "").includes("json")) return null;
-  return (await r.json()) as CompanyConnections;
-};
-
-/** Commerce-Registry connections for one EIK, or `null` when the company has
- * no link to a person in power. `isLoading` is false once the lookup settles. */
-export const useCompanyConnections = (
-  eik?: string | null,
-): { connections: CompanyConnections | null; isLoading: boolean } => {
-  const valid = !!eik && /^\d+$/.test(eik);
-  const q = useQuery({
-    queryKey: ["company-connections", eik] as const,
-    queryFn: () => fetchConnections(eik as string),
-    enabled: valid,
-    staleTime: Infinity,
-  });
-  return useMemo(
-    () => ({ connections: q.data ?? null, isLoading: valid && q.isLoading }),
-    [q.data, q.isLoading, valid],
-  );
 };

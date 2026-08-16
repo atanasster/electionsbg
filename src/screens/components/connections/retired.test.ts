@@ -19,9 +19,31 @@ const SRC_DIR = path.resolve(
 );
 
 // The retired hooks/components. NOTE: NOT `PersonConnections` (the live person-layer tile) nor
-// `CompanyConnectionsSection` / `useCompanyConnections` (a separate company-page pipeline) nor
-// `GraphCanvas` (the new blob canvas) — only the person↔person static-JSON cluster.
+// `GraphCanvas` (the new blob canvas).
+//
+// ⚠️ `CompanyConnectionsSection` / `useCompanyConnections` WERE exempted here as
+// „a separate company-page pipeline", and that exemption outlived the pipeline.
+// Measured 2026-08-16 (site-hygiene-v1 T6a): the component was imported by
+// NOTHING, so the hook had no caller either. Both are deleted and both names are
+// in the list below.
+//
+// ⚠️ THE SHARDS THEY READ ARE NOT ORPHANED, which is the part to know before
+// acting on this. `parliament/company-connections/{eik}.json` is still fetched
+// live by the AI chat's `companyConnections` tool (`ai/tools/people.ts`,
+// registered in `ai/tools/registry.ts`, routed, regression-tested) — which is
+// why `src/data/parliament/useCompanyConnections.ts` survives as a TYPE module.
+// A grep over `src/`, `scripts/` and `functions/` reports zero readers and is
+// wrong: `ai/` is none of those.
+//
+// ⚠️ NOT orphaned is NOT the same as maintained. That tree is excluded from
+// bucket sync (`bucket_sync_paths.ts:63`), and `rsync -x` excludes from DELETION
+// too, so the objects have been frozen at 2026-07-29 — the AI tool serves that
+// snapshot at a 200. Deleting the shards would break a live tool; leaving them
+// is not the same as them being current.
+
 const RETIRED = [
+  "CompanyConnectionsSection",
+  "useCompanyConnections",
   "useConnectionsGraph",
   "useConnectionsStats",
   "useConnectionsPartyMatrix",
