@@ -512,7 +512,8 @@ const captures: Capture[] = [
     // Was anchored on BudgetFlowTile's `budget-flow`, which LEFT this page when
     // /budget became a tile hub — the anchor still exists in that component,
     // just not here, so the capture timed out and the card stayed frozen at
-    // 15 May.
+    // 15 May. That anchor now captures `budget-deep-dive` above, which is the
+    // page the tile moved to.
     //
     // Now the hub's own anchor, and top-aligned on `h1` rather than centred on
     // the tile grid: centring on a 2,000px-tall hub lands the clip mid-grid,
@@ -523,6 +524,48 @@ const captures: Capture[] = [
     anchor: "h1",
     viewport: OG_CLIP_VIEWPORT,
     settleMs: 3000,
+  },
+  {
+    slug: "budget-deep-dive",
+    routePath: "budget/deep-dive",
+    // THE CARD /budget/deep-dive DESERVES, and the one it could not have until
+    // now. It shared /og/budget.png — the hub's tile grid — so the picture a
+    // reader shared of „the deep dive" was the page it tells them it is NOT.
+    // The `budget-flow` anchor is what used to capture the hub, and it LEFT
+    // /budget for this page when the hub shipped.
+    //
+    // Top-aligned rather than centred: the tile is 1184x829, so centring lands
+    // the clip mid-Sankey and drops both the heading and the three totals
+    // (приход / разход / дефицит) that sit above it. Top-aligned it reads
+    // title → what the graphic shows → the three figures → the flow itself.
+    //
+    // ⚠️ `svg text`, and BOTH halves of that are load-bearing.
+    //
+    // Not a bare `svg path`: that is satisfied the instant the card paints,
+    // because the CardTitle renders <GitFork/>, a lucide icon whose own node
+    // list contains two <path>s. `BudgetFlowGraphic` renders later still — it
+    // is gated on a ResizeObserver setting width > 0, i.e. a second pass — so
+    // the loose selector left only settleMs between this card and a shot of an
+    // empty tile.
+    //
+    // And not the obvious fix either. The Sankey's links are the only paths
+    // carrying `stroke="url(#…-grad-N)"`, so `path[stroke^="url("]` is exactly
+    // the right SET — 35 of them — but every one is `fill="none"`, and
+    // `waitForSelector` waits for VISIBILITY. Measured: it resolved the locator
+    // 64 times and timed out at 30 s. `<text>` is Sankey-only under this anchor
+    // (lucide icons carry none), renders on the same pass as the links, and is
+    // visible.
+    waitFor: '[data-og="budget-flow"] svg text',
+    anchor: '[data-og="budget-flow"]',
+    // The five drill-down triggers are a dead affordance in a static card and
+    // wrap onto a second row, pushing the graphic down. Hiding them brings the
+    // hatched deficit wedge into frame — which matters because the intro line
+    // ABOVE it says „щрихованият клин е разликата, покривана с финансиране",
+    // and a card that says that while cropping the wedge describes a picture it
+    // does not show. The Legend is not a button and stays.
+    extraCss: '[data-og="budget-flow"] button{display:none!important;}',
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 3500,
   },
   {
     slug: "pensions",

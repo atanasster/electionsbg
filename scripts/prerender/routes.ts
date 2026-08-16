@@ -3125,16 +3125,17 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/deep-dive",
-    // ⚠️ SHARES THE HUB'S CARD, which is a compromise rather than a choice. The
-    // card this page deserves is the Sankey — and `budget-flow`, the anchor that
-    // captured it, is exactly what LEFT /budget for this page when the hub
-    // shipped (see the note on the `budget` entry in scripts/og/capture-screens.ts).
-    // So the picture a reader shares of „the deep dive" is the tile grid of the
-    // page it tells them it is not. Fixing it means a new capture entry anchored
-    // on `[data-og="budget-flow"]`; declaring one before it is captured is worse
-    // than sharing, because an uncaptured ogImage 404s — the /funds/calls defect
-    // this file's coverage gate was written for.
-    ogImage: "/og/budget.png",
+    // Its OWN card at last (site-hygiene-v1 T3). This shared /og/budget.png —
+    // the hub's tile grid — so the picture a reader shared of „the deep dive"
+    // was the page it tells them it is not. The card is now the Sankey, shot on
+    // `[data-og="budget-flow"]`: the anchor that used to capture the hub, and
+    // that LEFT /budget for this page when the hub shipped.
+    //
+    // The capture entry and this line ship TOGETHER, and that is forced rather
+    // than tidy — the coverage gate fails on either half alone. An ogImage with
+    // no card is the /funds/calls 404; a card no page points at is the
+    // /funds/focus orphan. Both were confirmed still live by breaking them.
+    ogImage: "/og/budget-deep-dive.png",
     title: "Бюджетът на едно място — потокът на парите | electionsbg.com",
     description:
       "Целият държавен бюджет в една страница: откъде идват парите, къде отиват и колко е изпълнено — с диаграма на потока и разбивки по приходи, персонал, капиталови разходи, общини и осигурителни фондове.",
