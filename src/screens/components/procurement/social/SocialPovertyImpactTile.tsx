@@ -1,10 +1,21 @@
 // "Социалните трансфери и бедността" — the flagship outcome tile (plan §4.4). A
 // before/after-transfers DUMBBELL: for each country a dot at the at-risk-of-poverty
 // rate BEFORE social transfers and a dot AFTER — the bar between them IS the poverty
-// reduction. Bulgaria's transfers cut poverty by ~27% vs the EU's ~33%: BG spends a
-// near-EU-average share of GDP on social protection but buys LESS poverty reduction
-// per euro. Reads the static data/social/poverty_impact.json (Eurostat ilc_li10 vs
-// ilc_li02). Positional / non-judgmental framing (the education report-card precedent).
+// reduction. Bulgaria's transfers cut poverty by ~27% vs the EU's ~33%. Reads the
+// static data/social/poverty_impact.json (Eurostat ilc_li10 vs ilc_li02).
+// Positional / non-judgmental framing (the education report-card precedent).
+//
+// ⚠ NOT "a near-EU-average share of GDP but LESS reduction per euro" — this header
+// claimed exactly that until 2026-08-15 and BOTH halves are false. BG spends 14.4%
+// of GDP against the EU's 19.6%, i.e. 26.5% below it at rank 17 of 26 — not near
+// average. And per GDP point BG buys 1.87 reduction-points against the EU's 1.69 —
+// MORE per euro, not less. The smaller reduction this tile shows is what a smaller
+// spend buys, which is the point of the two tiles side by side.
+//
+// The per-euro comparison belongs to SocialValueForMoneyTile, which owns the OLS
+// and puts BG +1.7pp ABOVE the fit. Restating a verdict here is how this tile and
+// SocialEuPeerTile came to give one reader two answers about one pair of numbers;
+// keep this header descriptive, as the line below it already says it is.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

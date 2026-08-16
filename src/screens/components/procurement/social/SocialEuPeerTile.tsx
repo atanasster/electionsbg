@@ -1,8 +1,19 @@
 // "Разход за социална защита спрямо ЕС" — the EU-peer comparison tile. Social
 // protection (COFOG GF10) as a share of GDP: Bulgaria sits BELOW the EU average
-// here (14.4% vs 19.6%, 2024) — the structural counterpoint to the poverty tile
-// (near-average effort, below-average effect). Reads the already-ingested Eurostat
-// COFOG artifact (data/cofog.json, update-macro). Mirrors MvrEuPeerTile (GF03→GF10).
+// here (14.4% vs 19.6%, 2024) — the structural counterpoint to the poverty tile.
+// Reads the already-ingested Eurostat COFOG artifact (data/cofog.json,
+// update-macro). Mirrors MvrEuPeerTile (GF03→GF10).
+//
+// ⚠ THIS TILE USED TO CONTRADICT THE ONE DIRECTLY ABOVE IT. Its closing sentence
+// read „Разходът не е най-ниският; проблемът е ефектът върху бедността", while
+// SocialValueForMoneyTile — rendered immediately before it, off the same two
+// series — concluded the opposite: „За похарченото резултатът е около очаквания
+// — лостът е размерът на разхода, не ефективността." The value-for-money tile is
+// the one the data supports: against its own OLS fit over the five geos BG sits
+// +1.7pp ABOVE the line (fit 25.2%, actual 26.9%), and RO is the one below it
+// (−2.2). This sentence was a survivor of the pre-correction framing that
+// SocialValueForMoneyTile's header already records as wrong; two tiles cannot
+// give one reader two verdicts on one pair of numbers.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -57,6 +68,41 @@ export const SocialEuPeerTile: FC = () => {
   const euPct = row["EU27_2020"]?.GF10 ?? band.euAvgPctGdp ?? null;
   const max = Math.max(...rows.map((r) => r.pct), euPct ?? 0, 1);
   const topGeo = band.top?.geo ?? "BG";
+
+  // ⚠ EVERY COMPARATIVE WORD BELOW IS DERIVED, none asserted. The previous copy
+  // hardcoded the direction („под средното"), a magnitude („чувствително") and the
+  // rank („не е най-ниският"), while `band` already carries bgPctGdp, euAvgPctGdp,
+  // rank and total — so a Eurostat vintage that moved any of them would leave the
+  // sentence stating the opposite of the chart above it, in both languages, with
+  // nothing failing. MvrEuPeerTile, which this file mirrors, derives all of them.
+  //
+  // `euAvgPctGdp` is genuinely nullable — fetch_cofog picks the band year on BG
+  // plus ≥20 member states WITHOUT requiring the EU27 aggregate — and the old
+  // `?? 0` rendered that as „0,0%", so the sentence claimed 14.4% was below a 0.0%
+  // average while the chart drew the EU bar at its real value. The clause is now
+  // omitted entirely when there is no average to compare against.
+  const euAvg = band.euAvgPctGdp;
+  const gapPct =
+    euAvg != null && euAvg > 0 ? (band.bgPctGdp - euAvg) / euAvg : null;
+  const gapWord =
+    gapPct == null
+      ? { bg: "", en: "" }
+      : gapPct >= 0.1
+        ? { bg: "чувствително над", en: "well above" }
+        : gapPct >= 0.02
+          ? { bg: "над", en: "above" }
+          : gapPct > -0.02
+            ? { bg: "около", en: "in line with" }
+            : gapPct > -0.1
+              ? { bg: "под", en: "below" }
+              : { bg: "чувствително под", en: "well below" };
+  // Rank is 1 = highest spender, so `total` is the lowest.
+  const rankWord =
+    band.rank === band.total
+      ? { bg: "Това е най-ниският разход в ЕС", en: "That is the lowest in the EU" } // prettier-ignore
+      : band.rank === 1
+        ? { bg: "Това е най-високият разход в ЕС", en: "That is the highest in the EU" } // prettier-ignore
+        : { bg: `${band.rank}-о място от ${band.total}`, en: `Rank ${band.rank} of ${band.total}` }; // prettier-ignore
 
   const Bar: FC<{
     geo: string;
@@ -128,8 +174,12 @@ export const SocialEuPeerTile: FC = () => {
           </span>
           <span className="text-xs text-muted-foreground">
             {bg
-              ? `от БВП за социална защита срещу ${formatCount(band.euAvgPctGdp ?? 0, loc, 1)}% средно за ЕС (${band.year} г.)`
-              : `of GDP on social protection vs ${formatCount(band.euAvgPctGdp ?? 0, loc, 1)}% EU average (${band.year})`}
+              ? euAvg != null
+                ? `от БВП за социална защита срещу ${formatCount(euAvg, loc, 1)}% средно за ЕС (${band.year} г.)`
+                : `от БВП за социална защита (${band.year} г.)`
+              : euAvg != null
+                ? `of GDP on social protection vs ${formatCount(euAvg, loc, 1)}% EU average (${band.year})`
+                : `of GDP on social protection (${band.year})`}
           </span>
         </div>
 
@@ -155,9 +205,14 @@ export const SocialEuPeerTile: FC = () => {
               <span className="font-semibold tabular-nums">
                 {formatCount(band.bgPctGdp, loc, 1)}%
               </span>{" "}
-              от БВП за социална защита — под средното за ЕС (
-              {formatCount(band.euAvgPctGdp ?? 0, loc, 1)}%). Разходът не е
-              най-ниският; проблемът е ефектът върху бедността (виж по-горе).
+              от БВП за социална защита
+              {euAvg != null ? (
+                <>
+                  {" "}
+                  — {gapWord.bg} средното за ЕС ({formatCount(euAvg, loc, 1)}%)
+                </>
+              ) : null}
+              . {rankWord.bg} — а колко бедност сваля този разход, е горе.
             </>
           ) : (
             <>
@@ -165,9 +220,14 @@ export const SocialEuPeerTile: FC = () => {
               <span className="font-semibold tabular-nums">
                 {formatCount(band.bgPctGdp, loc, 1)}%
               </span>{" "}
-              of GDP on social protection — below the EU average (
-              {formatCount(band.euAvgPctGdp ?? 0, loc, 1)}%). The spend is not
-              the lowest; the issue is its effect on poverty (see above).
+              of GDP on social protection
+              {euAvg != null ? (
+                <>
+                  {" "}
+                  — {gapWord.en} the EU average ({formatCount(euAvg, loc, 1)}%)
+                </>
+              ) : null}
+              . {rankWord.en} — how much poverty that spend removes is above.
             </>
           )}
         </p>

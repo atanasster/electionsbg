@@ -7,8 +7,11 @@
 //
 // THESIS: social protection is €15bn / 37% of государството — the largest and least
 // visible expenditure. МТСП/АСП pay the benefits (child allowances, disability,
-// heating aid, GMI); the transfers cut poverty ~27% vs the EU's ~33% — near-average
-// effort, below-average effect. Pensions (НОИ) are a separate /pensions view.
+// heating aid, GMI); the transfers cut poverty ~27% vs the EU's ~33%, on a spend of
+// 14.4% of GDP against the EU's 19.6% — a smaller effort buying a proportionate
+// effect, so the lever is the SIZE of the spend rather than its efficiency (see
+// SocialValueForMoneyTile, which owns that comparison). Pensions (НОИ) are a
+// separate /pensions view.
 
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
