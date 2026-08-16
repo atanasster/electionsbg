@@ -2364,7 +2364,7 @@ type VersusMetricDef = {
  *  gives each entry its own literal tuple type, under which
  *  `classes.includes(klass)` narrows the argument to `never` and fails to
  *  compile. */
-const versusMetric = (key: string): VersusMetricDef | undefined =>
+export const versusMetric = (key: string): VersusMetricDef | undefined =>
   (VERSUS_METRICS as Record<string, VersusMetricDef>)[key];
 
 export type VersusRow = {

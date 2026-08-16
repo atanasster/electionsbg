@@ -44,9 +44,9 @@ class 'inventory' = Entry | Vacate
 
 ---
 
-## 2. The seven ways this comparison lies
+## 2. The eight ways this comparison lies
 
-All seven are present in the Демерджиев / Рашков pair the skill was designed
+All eight are present in the Демерджиев / Рашков pair the skill was designed
 against, which is why it is the fixture.
 
 ### 2.1 "Latest each" compares different years
@@ -101,7 +101,22 @@ nobody declared. The serving SQL excludes it from BOTH arms
 appears in neither total. A hand-written card query using `category != 'debt'`
 folds it into assets silently. It must be excluded, and never labelled „задължения".
 
-### 2.7 Latest year is not the densest year
+### 2.7 An unpriced row is not a cheap one
+
+Found while BUILDING the gate, not during the brainstorm, and the sharpest one after 2.4.
+Рашков's 2023 встъпителна lists **24 properties of which 19 carry no declared price**, so
+that table sums to €409. Демерджиев's 17 are all priced, at €175,305. Rendered as money,
+that is a 428× gap which does not exist.
+
+It is systematic rather than freak. Of filings carrying a real-estate table, **22.9% have
+at least one unpriced row, 20.8% have more than a fifth unpriced, and 7.8% are entirely
+unpriced** — against ~1% for bank, vehicle and investment. So the gate drops a metric whose
+value is substantially unstated on either side (`MAX_UNVALUED_SHARE`, 20%, overridable),
+reports what it dropped and why, recomputes the total over the metrics that remain, and
+makes the basis line NAME the exclusion — a total over a subset must never be captioned as
+"all declared assets".
+
+### 2.8 Latest year is not the densest year
 
 | period year | annual filers | inventory filers |
 |---:|---:|---:|
@@ -131,26 +146,33 @@ years. Not a bug in this skill, but it will surface as a missing fallback year.)
 6. chosen year is not either person's latest → the card MUST say so
 ```
 
-For the fixture pair the gate lands on **2022 / annual** — not 2023, and not
-either man's latest. That is the designed behaviour, and the card says
-„най-скорошната година, в която и двамата подават годишна декларация".
+### The gate's answer for the fixture — NOT what this plan first predicted
 
-### The gate's answer for the fixture
+This section originally said the gate lands on **2022 / annual**. Built and run, it lands on
+**2023 / inventory**, and the plan was wrong rather than the code: Рашков filed an `Entry`
+AND a `Vacate` covering 2023, so 2023 has a common *inventory* class even though its annual
+class is not common. The rule is "newest common (year, class); prefer `annual` only to break
+a tie WITHIN a year", and 2023 beats 2022 on the year outright.
 
-| | Рашков (2022, annual) | Демерджиев (2022, annual) |
+That is the better answer: both sides are then full estate inventories rather than the
+thinner annual tables, and the form badges say which kind each is („встъпителна декларация"
+vs „декларация при напускане").
+
+Run 2026-08-16, `--a mp-5254 --b mp-5104`:
+
+| | Рашков (2023, встъпителна) | Демерджиев (2023, при напускане) |
 |---|---:|---:|
-| инвестиции | €315,054 (2) | — |
-| банкови сметки | €160,060 (1) | — |
-| пари в брой | — | €31,404 (1) |
-| активи (общо) | **€475,114** | **€31,404** |
-| задължения | €0 | €0 |
-| доход (деклариран) | €77,684 | **€104,189** |
-| длъжност | — | Служебен министър-председател и министър |
-| *(кредитен лимит €5,113 — не е задължение, не се показва)* | | |
+| банкови сметки | €130,062 (2) | €160,755 (1) |
+| инвестиции | €319,154 (2) | €0 |
+| вземания | €0 | €291,436 (1) |
+| задължения | €0 | €332,304 (6) |
+| **нетно (сравними позиции)** | **€449,216** | **€119,887** |
+| *отпаднали: имоти, автомобили* | *19/24 и 2/3 реда без цена (2.7)* | |
 
-Note the honest story the gate produces: Демерджиев declared the HIGHER income
-and a fifteenth of the wealth. That is a better post than the false one, and it
-arrives with no verdict attached.
+Forcing the older pair (`--year 2022 --class annual`) gives €475,114 against €31,404, with
+Демерджиев declaring the HIGHER income (€104,189 vs €77,684) as caretaker PM — a fifteenth
+of the wealth and more of the salary. The €5,113 credit limit on Рашков's 2022 filing is in
+neither total, per 2.6. Both are honest cards; neither carries a verdict.
 
 ---
 
@@ -258,7 +280,7 @@ Design rules the renderer enforces, each closing a defect above:
    in neither total; a same-year cross-class pair is refused; the share
    multiplier is applied (a co-owned property is not double counted).
 5. **`.claude/skills/person-compare-post/SKILL.md`** — resolve, gate, gather,
-   compose, hand off to `naiasno-post` at the final step. §2's seven traps go in
+   compose, hand off to `naiasno-post` at the final step. §2's eight traps go in
    the skill body: they are the reason it exists.
 
 ## 7. Deliberately out of scope for v1
