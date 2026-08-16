@@ -150,13 +150,44 @@ ordering rule, `deploy:db` first. Three ways it differs from the three above:
   with it. Those still serve the homepage's head; giving them their own via a `loadPerson`
   arm on `spa_page.js` is open work.
 
-The function fetches the SPA shell from `https://electionsbg.com/` once per instance and
-swaps the prerender's `<!-- SEO -->` / `<!-- BODY -->` marker blocks, so the hashed asset
-script tags always match what hosting is actually serving and nothing needs re-deploying
-when the bundle hash changes. Two consequences worth knowing: a cold instance makes one
+The function fetches the SPA shell from `https://electionsbg.com/` and swaps the
+prerender's `<!-- SEO -->` / `<!-- BODY -->` marker blocks, caching it per instance for
+`SPA_SHELL_TTL_MS` (10 min). Two consequences worth knowing: a cold instance makes one
 extra outbound request, and if that fetch fails the page still serves correct head tags
 without the SPA bundle (`FALLBACK_SHELL`) — complete for a crawler, degraded for a human,
 which is the right way round for a failure nobody is watching.
+
+⚠️ **This does NOT make the function deploy-order-free, and this paragraph claimed it did
+until 2026-08-16 ("nothing needs re-deploying when the bundle hash changes"). Ship hosting
+BEFORE the function whenever the bundle hash moves.** A WARM instance holds the PRE-deploy
+shell for up to ten minutes, so a `deploy` that replaces `dist/` — deleting the previous
+`/assets/index-<hash>.js` — leaves every function-served page advertising a script that is
+gone. Firebase's catch-all answers that path with the SPA shell at **200 `text/html`**,
+which fails strict MIME checking for a module script, so NO JS runs at all: a white screen
+`main.tsx`'s stale-chunk recovery cannot reach, because it only listens for dynamic-import
+failures and this is the ENTRY bundle. Measured on the 2026-08-16 declared-crypto deploy,
+which is how this note came to exist.
+
+**The edge is what turns a 10-minute window into an hour-long one.** `/person/**` carries
+`s-maxage=3600` (and `spa_page.js` sets the same on its own responses), so the stale HTML
+the warm function served AFTER hosting purged the CDN gets written back into it and pinned
+— `x-cache: HIT`. The function's TTL then self-heals while the edge does not.
+
+The order that avoids it, when the bundle hash changes and no NEW `/api/db` route is
+involved: `npm run deploy` first, then `npm run deploy:db`. When a new route IS involved,
+the `deploy:db` → `deploy` rule above still holds — but follow it with a SECOND
+`deploy:db` and then a re-release of hosting: the function redeploy gives fresh instances
+that fetch the current shell, and the hosting release purges the edge entries the stale
+instances repopulated. Verify with
+
+```bash
+curl -s https://electionsbg.com/person/mp-3643 | grep -oE '/assets/index-[^"]+\.js'
+curl -s https://electionsbg.com/ | grep -oE '/assets/index-[^"]+\.js'
+```
+
+— the two hashes must match. The 25,167 PRERENDERED person pages are never affected (they
+carry the build's own hash), which is exactly what makes this easy to miss: spot-checking a
+person page picks a prerendered one and looks fine.
 
 The same migration-before-writer rule applies to the hand-run ingests that have no
 `db:load:*:cloud` wrapper. `company_founded` writes `http_status`/`attempts`, so
