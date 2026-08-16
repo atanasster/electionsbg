@@ -680,9 +680,24 @@ it was.** `gsutil rsync -x` excludes a match from DELETION as well as from uploa
 or deleted", per gsutil's own help), and `syncPaths` passes `-x` together with `-d` — so once
 the exclusions are in place, no sync will ever remove those objects, and scoping a sync to the
 subtree is refused by `isExcluded` by design. The exclusion FREEZES the bucket copy. Removing
-it is an explicit `gsutil -m rm -r gs://<bucket>/parliament/votes/sessions`. Three families are
-in that frozen state today: `parliament/company-connections/` (since 2026-07-29) and the three
-retired MP↔company shard trees (see the section on 150/151 below).
+it is an explicit `gsutil -m rm -r gs://<bucket>/parliament/votes/sessions`.
+
+**[2026-08-16] Under `parliament/`, nine families are in that frozen state, and the three retired
+MP↔company shard trees are NOT among them** — `gsutil ls` returns "matched no objects" for each,
+so their objects are gone (WHAT removed them is not recoverable: no lifecycle rule, versioning
+Suspended). Frozen there today: `parliament/company-connections/` (16,609 objects, since
+2026-07-29) plus the eight site-hygiene-v1 T6b excluded — `mp-connections/`,
+`official-connections/`, `by-id/` and five `connections-*.json` singletons, **12,533 objects and
+52.5 MB**.
+
+⚠️ `company-connections/` is the one that matters, and its problem is the opposite of the others'.
+It has a LIVE READER — the AI chat's `companyConnections` tool fetches it per EIK — so it is not
+merely frozen, it is answering from a July snapshot at a 200, and an `rm` would 404 a shipped
+feature with no undo. The other eight have no reader at all.
+
+(Scoped to `parliament/` deliberately: `funds/` and `procurement/` are excluded too and far
+larger — `funds/` alone is 182,075 objects and 560 MB — but those are PG-served by design, not
+retired artifacts.)
 
 The files stay on disk either way: they are the loader's input AND the prerender's fact
 source (`scripts/prerender/votesFacts.ts`).
@@ -932,8 +947,11 @@ npm run deploy                              # ⚠️ NOT optional — see below
 
 ⚠️ **`npm run deploy` is the step that actually retires the shards, and leaving it out inverts
 the point of the whole change.** The hooks were repointed in the bundle; until hosting ships
-that bundle, production keeps fetching the frozen bucket copies and keeps publishing the 410
+that bundle, production keeps fetching the bucket copies and keeps publishing the 410
 attributions the person layer refuses. `deploy:db` alone changes nothing a reader sees.
+**[2026-08-16] This has since been deployed AND the three trees removed from the bucket**
+(`gsutil ls` → "matched no objects"), so the hazard is historical — kept because the ordering
+rule it teaches is not.
 
 **Ordering `deploy:db` before the loaders is cosmetic but not free.** Both routes degrade a
 missing migration — and they use the NON-logging `missingMigration` variant, unlike the
@@ -956,11 +974,13 @@ for "is this name one person", and it is wrong in both directions — it dropped
 whole medium set behind one busy registered agent, and passed a name held by two people with six
 companies each. Do not reintroduce a row-count heuristic beside a people count.
 
-⚠️ **The bucket objects are still there.** `gsutil rsync -x` excludes a match from DELETION as
-well as upload, and `syncPaths` passes `-x` with `-d`, so the exclusions FREEZE those 1,542
-objects rather than retiring them — the same state `parliament/company-connections/` has been in
-since 2026-07-29. Removing them is an explicit operator action, documented at the exclusion site
-in `scripts/bucket_sync_paths.ts`.
+⚠️ **[2026-08-16] Those bucket objects are GONE — this paragraph used to say they were not.**
+`gsutil ls` returns "matched no objects" for all three trees, so the `rm` the exclusion site
+described as pending has been run. The mechanism it documents is still true and still the reason
+an exclusion is never a retirement: `gsutil rsync -x` excludes a match from DELETION as well as
+upload, and `syncPaths` passes `-x` with `-d`, so an exclusion FREEZES a tree and removing it is
+always a separate operator action. What is frozen NOW is listed at the exclusion site in
+`scripts/bucket_sync_paths.ts`.
 
 The state-budget corpus (migrations 152 + 153, `db:load:budget:pg`) is the КФП execution feed,
 its per-fiscal-year roll-up, the admin/programme reconciliation, personnel, COFOG and the

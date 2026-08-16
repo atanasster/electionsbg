@@ -17,9 +17,10 @@
 // pipeline run that rewrote unknown parts of the tree. This is the surgical
 // path for the common case where you know exactly what changed.
 //
-// SAFETY: procurement/ (except roads.json + derived/mp_party.json), funds/,
-// parliament/company-connections/ and _cache/ are served from Cloud SQL or are
-// local-only PG load sources. `bucket:sync` excludes them by regex; here we
+// SAFETY: procurement/ (except roads.json + derived/mp_party.json), funds/ and
+// _cache/ are served from Cloud SQL or are local-only PG load sources;
+// parliament/company-connections/ is refused for a DIFFERENT reason — it is
+// frozen with a live reader, see its branch below. `bucket:sync` excludes them by regex; here we
 // REFUSE them outright rather than silently upload — a scoped sync that quietly
 // pushed the procurement tree would re-publish a PG-served corpus to GCS.
 //
@@ -151,20 +152,43 @@ export const isExcluded = (rel: string): string | null => {
     rel.startsWith("parliament/companies-by-obshtina")
   )
     return "parliament/{mp-management,companies-by-ekatte,companies-by-obshtina}/ are retired — served from Cloud SQL (migrations 150/151)";
-  // ⚠️ THE OBJECTS ARE STILL ON THE BUCKET, AND NO SYNC WILL EVER REMOVE THEM. `gsutil rsync
-  // -x` excludes a match from DELETION as well as from upload ("not copied or deleted" —
-  // gsutil's own help), and syncPaths passes `-x` together with `-d`. So the exclusion above
-  // freezes these 1,542 objects rather than retiring them, exactly as the 2026-07-29 exclusion
-  // froze parliament/company-connections/. Removing them is an explicit, operator-run:
+  // ⚠️ [2026-08-16] THESE THREE ARE GONE FROM THE BUCKET, and this note used to
+  // say their removal was pending. Measured with `gsutil ls`: mp-management/,
+  // companies-by-ekatte/ and companies-by-obshtina/ each return „matched no
+  // objects". The „1,542 frozen objects" the old paragraph described no longer
+  // exist — and that figure was itself 896+376+270, the LOCAL FILE counts
+  // presented as a bucket measurement, which is the same drift one level down.
   //
-  //   gsutil -m rm -r gs://<bucket>/parliament/mp-management \
-  //                   gs://<bucket>/parliament/companies-by-ekatte \
-  //                   gs://<bucket>/parliament/companies-by-obshtina
+  // WHAT removed them is not recoverable: the bucket has no lifecycle rule and
+  // versioning is Suspended, so an operator `rm`, a pre-exclusion
+  // `bucket:sync:paths --delete`, or a console deletion all fit the evidence
+  // equally. Only the absence is measured.
   //
-  // Scoping a sync to the trees instead does not work either — isExcluded refuses them as a
-  // top-level argument, by design. Until that rm runs, the bucket keeps serving 410
-  // attributions the site has otherwise retracted; nothing reads them, but nothing removes
-  // them either.
+  // The MECHANISM this note documents is still true and still the thing to know:
+  // `gsutil rsync -x` excludes a match from DELETION as well as from upload
+  // ("not copied or deleted" — gsutil's own help), and syncPaths passes `-x`
+  // together with `-d`. So an exclusion FREEZES a tree rather than retiring it,
+  // and removing the objects is always separate:
+  //
+  //   gsutil -m rm -r gs://<bucket>/parliament/<family>
+  //
+  // Scoping a sync to the tree instead does not work — isExcluded refuses it as
+  // a top-level argument, by design.
+  //
+  // FROZEN UNDER parliament/ TODAY, so the mechanism is live rather than
+  // historical (measured 2026-08-16):
+  //
+  //   · company-connections/  16,609 objects — ⚠️ DO NOT rm. It has a LIVE
+  //     READER (the AI chat's companyConnections tool), so removing it 404s a
+  //     shipped feature and versioning is Suspended, i.e. no undo. Its problem
+  //     is the opposite one: it is serving a 2026-07-29 snapshot, and the fix is
+  //     a decision about which side moves — see its branch above.
+  //   · the eight site-hygiene-v1 T6b families — 12,533 objects, 52.5 MB, none
+  //     with a reader. These are the ones an `rm` would be right for.
+  //
+  // („Frozen" here is scoped to parliament/ on purpose: funds/ and procurement/
+  // are excluded too and far larger — funds/ alone is 182,075 objects and
+  // 560 MB — but those are PG-served by design, not retired artifacts.)
   // Per-MP declaration + assets-rollup shards: served from Cloud SQL (mp_declarations()/
   // mp_assets(), /api/db/mp-declarations + mp-assets) since persons-pg-retirement-v1 T2.1b. Kept
   // on disk only as the parity-test reference (mp_serving / mp_declarations_assets gates); the
