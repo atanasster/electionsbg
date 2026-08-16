@@ -466,13 +466,32 @@ export const getSectorDashboard = (
 ): SectorDashboardConfig | null =>
   id ? (SECTOR_DASHBOARDS[id] ?? null) : null;
 
-// Reverse lookup: the sector dashboard an awarder EIK leads. Used by the awarder
-// page to (a) suppress the domain pack — its disbursement content now lives on
-// the sector dashboard, leaving the awarder page as the institution's own ЗОП
-// financials — and (b) link across to that dashboard.
+// Two reverse lookups, because the awarder page asks TWO different questions of
+// this config and only one of them is about leadership:
+//
+//   · LEAD (below) — "has this awarder's pack moved to /sector/:id?" That is true
+//     only for the lead, whose disbursement content now lives on the dashboard,
+//     leaving its awarder page as the institution's own ЗОП financials.
+//   · MEMBER (further down) — "which sector does this awarder belong to?" True for
+//     every member, and the basis of the cross-link.
+//
+// They were one lookup until 2026-08-16, keyed on lead, which made every non-lead
+// member of a multi-member sector a dead end: 161 non-lead members — 160 of them
+// with a servable awarder page (regional 125043455 is `noAwarderPage`) — belonging
+// to a sector they could not link to, the largest being МЗ (000695317) at €2.84bn.
+// Keep them apart: collapsing them back would suppress the pack for every non-lead
+// member, which today is invisible only because no member happens to have one.
+//
+// Both maps are null-prototype. An EIK arrives as an unvalidated /awarder/:eik route
+// param, and on a plain object `byEik["toString"]` returns Function.prototype.toString
+// — truthy, typed as a config, and `?? null` never sees it. Measured: toString,
+// constructor, hasOwnProperty and __proto__ all resolved to non-configs before this.
 const DASHBOARD_BY_LEAD_EIK: Record<string, SectorDashboardConfig> =
-  Object.fromEntries(
-    Object.values(SECTOR_DASHBOARDS).map((c) => [c.leadEik, c]),
+  Object.assign(
+    Object.create(null) as Record<string, SectorDashboardConfig>,
+    Object.fromEntries(
+      Object.values(SECTOR_DASHBOARDS).map((c) => [c.leadEik, c]),
+    ),
   );
 
 export const sectorDashboardForLeadEik = (
@@ -483,5 +502,59 @@ export const sectorDashboardForLeadEik = (
 /** Every EIK in a sector — the input to useAwarderGroupModel + the ?sector= set. */
 export const sectorMemberEiks = (c: SectorDashboardConfig): string[] =>
   c.members.map((m) => m.eik);
+
+/** Builds the member→sector index, refusing ANY repeated EIK.
+ *
+ *  Explicit rather than Object.fromEntries, because member EIKs — unlike leadEik —
+ *  are NOT unique by construction: nothing in this config, and no GENERAL test,
+ *  stops two sectors listing the same body (only МЗ is pinned, in
+ *  `sector_stats.data.test.ts`). fromEntries keeps the last writer silently, so a
+ *  shared EIK would link that body to whichever sector came later in object key
+ *  order. A sector attribution picked by key order is worse than a boot failure —
+ *  and this module is imported by three build scripts, so the throw fails the
+ *  BUILD rather than one page.
+ *
+ *  The check is object IDENTITY, never `prev.id !== c.id`: nothing enforces that a
+ *  config's `id` matches its SECTOR_DASHBOARDS key, so two copy-pasted entries can
+ *  share an `id` — and an id-based comparison would wave exactly that collision
+ *  through, which is the likeliest way the mistake actually gets made.
+ *
+ *  A sector repeating its OWN EIK is refused too. The index would be unharmed, but
+ *  nothing else catches it and the duplicate reaches the reader: two chips in
+ *  `SectorAwardersTile`, a doubled row in `buildMembersIndex`, and a double count
+ *  through `sectorMemberEiks` → `useAwarderGroupModel`.
+ *
+ *  Exported so the refusal is directly assertable — the caller below is the only
+ *  production use. */
+export const buildMemberIndex = (
+  configs: SectorDashboardConfig[],
+): Record<string, SectorDashboardConfig> => {
+  const byEik: Record<string, SectorDashboardConfig> = Object.create(null);
+  for (const c of configs)
+    for (const { eik } of c.members) {
+      const prev = byEik[eik];
+      if (prev)
+        throw new Error(
+          prev === c
+            ? `SECTOR_DASHBOARDS: "${c.id}" lists EIK ${eik} twice — it would render two chips and double-count the member`
+            : `SECTOR_DASHBOARDS: EIK ${eik} is a member of both "${prev.id}" and "${c.id}" — a sector must claim it exclusively`,
+        );
+      byEik[eik] = c;
+    }
+  return byEik;
+};
+
+const DASHBOARD_BY_MEMBER_EIK = buildMemberIndex(
+  Object.values(SECTOR_DASHBOARDS),
+);
+
+/** The sector an awarder EIK BELONGS to — lead or not. Powers the /awarder/:eik
+ *  cross-link up to /sector/:id. Every leadEik is also in its own `members`, so a
+ *  lead resolves here too; this is a superset of sectorDashboardForLeadEik, not an
+ *  alternative to it, and the two answer different questions (see above). */
+export const sectorDashboardForMemberEik = (
+  eik: string | null | undefined,
+): SectorDashboardConfig | null =>
+  eik ? (DASHBOARD_BY_MEMBER_EIK[eik] ?? null) : null;
 
 export const SECTOR_DASHBOARD_IDS = Object.keys(SECTOR_DASHBOARDS);
