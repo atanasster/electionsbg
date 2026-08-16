@@ -682,18 +682,37 @@ the exclusions are in place, no sync will ever remove those objects, and scoping
 subtree is refused by `isExcluded` by design. The exclusion FREEZES the bucket copy. Removing
 it is an explicit `gsutil -m rm -r gs://<bucket>/parliament/votes/sessions`.
 
-**[2026-08-16] Under `parliament/`, nine families are in that frozen state, and the three retired
-MP↔company shard trees are NOT among them** — `gsutil ls` returns "matched no objects" for each,
-so their objects are gone (WHAT removed them is not recoverable: no lifecycle rule, versioning
-Suspended). Frozen there today: `parliament/company-connections/` (16,609 objects, since
-2026-07-29) plus the eight site-hygiene-v1 T6b excluded — `mp-connections/`,
-`official-connections/`, `by-id/` and five `connections-*.json` singletons, **12,533 objects and
-52.5 MB**.
+**[2026-08-16] Under `parliament/`, EIGHT families are in that frozen state** — the eight
+site-hygiene-v1 T6b excluded: `mp-connections/`, `official-connections/`, `by-id/` and five
+`connections-*.json` singletons, **12,533 objects and 52.5 MB**. None has a reader. The three
+retired MP↔company shard trees are NOT among them: `gsutil ls` returns "matched no objects" for
+each, so their objects are gone (WHAT removed them is not recoverable — no lifecycle rule,
+versioning Suspended).
 
-⚠️ `company-connections/` is the one that matters, and its problem is the opposite of the others'.
-It has a LIVE READER — the AI chat's `companyConnections` tool fetches it per EIK — so it is not
-merely frozen, it is answering from a July snapshot at a 200, and an `rm` would 404 a shipped
-feature with no undo. The other eight have no reader at all.
+⚠️ **`company-connections/` WAS the ninth and is now retired — this entry used to say the
+decision was open.** It had a LIVE READER (the AI chat's `companyConnections` tool fetched it per
+EIK) while being excluded from sync, so it was not merely frozen but answering from a
+2026-07-29 snapshot at a 200 for weeks, and an `rm` would have 404'd a shipped feature. Closed
+2026-08-16 by moving the reader to Postgres — migration 158 `company_political_links` behind
+`/api/db/company-connections` — and then removing the 16,609 objects.
+
+Three things about that move are worth carrying, because the next retirement will look like it:
+
+- **The reader was invisible to the usual grep.** `src/ scripts/ functions/` reported zero
+  readers of the tree and was wrong: `ai/` is none of those. Any "is this readerless?" sweep
+  must include it.
+- **It was NOT a like-for-like port, and the shard builder is not its specification.** The
+  shards matched a TR officer to a power roster BY NAME, kept the match only if the name
+  appeared in exactly one company, and graded it `medium`/`low` on whether the name had three
+  parts. 158 reads the gated `person_role` tr/ngo set — the Commerce Registry's own people
+  count per name fold (`tr_name_fold_people`, 148) decides, an unmeasured fold is REFUSED, and
+  there is no confidence grade. Per EIK that is sometimes fewer links; corpus-wide it is wider
+  on both arms (9,982 companies with a direct link vs 3,843; 26,047 answerable vs 19,232).
+- **`scripts/declarations/tr/build_company_connections.ts` still writes the LOCAL tree** on
+  every `tr:daily-refresh`, 19,232 files / 83 MB, now with no reader. Kept deliberately — the
+  bucket had versioning Suspended, so it is the only path that could reconstruct what was
+  removed — and the exclusion stays in `bucket_sync_paths.ts` so that stale local tree cannot
+  re-upload itself. Retiring the builder is a separate call.
 
 (Scoped to `parliament/` deliberately: `funds/` and `procurement/` are excluded too and far
 larger — `funds/` alone is 182,075 objects and 560 MB — but those are PG-served by design, not

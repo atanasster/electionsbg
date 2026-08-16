@@ -19,8 +19,9 @@
 //
 // SAFETY: procurement/ (except roads.json + derived/mp_party.json), funds/ and
 // _cache/ are served from Cloud SQL or are local-only PG load sources;
-// parliament/company-connections/ is refused for a DIFFERENT reason — it is
-// frozen with a live reader, see its branch below. `bucket:sync` excludes them by regex; here we
+// parliament/company-connections/ is refused for a DIFFERENT reason — it is a
+// RETIRED tree whose local copy is still written on every TR refresh, see its
+// branch below. `bucket:sync` excludes them by regex; here we
 // REFUSE them outright rather than silently upload — a scoped sync that quietly
 // pushed the procurement tree would re-publish a PG-served corpus to GCS.
 //
@@ -61,22 +62,30 @@ export const isExcluded = (rel: string): string | null => {
   // path nothing reads, i.e. a spare serving surface free to go stale.
   if (rel === "opencalls" || rel.startsWith("opencalls/"))
     return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
-  // ⚠️ „PG-served" IS NOT TRUE OF THIS ONE, and the exclusion is doing harm
-  // rather than nothing. Measured 2026-08-16 (site-hygiene-v1 T6b): the AI
-  // chat's `companyConnections` tool — registered in ai/tools/registry.ts,
-  // routed in ai/orchestrator/router.ts, regression-tested — fetches
-  // `/parliament/company-connections/{eik}.json` from THIS BUCKET at runtime.
-  // Nothing serves it from Postgres.
+  // ⚠️ [2026-08-16] THE DECISION THIS BRANCH RECORDED AS OPEN HAS BEEN TAKEN: the tool moved
+  // to Postgres and the bucket tree is GONE (`gsutil -m rm -r` on the same day; `gsutil ls`
+  // returns „matched no objects"). It is kept as an exclusion, not deleted, so a stale local
+  // `data/parliament/company-connections/` — the builder still writes it, see below — cannot
+  // silently re-upload 19,232 objects on the next full sync.
   //
-  // Because `gsutil rsync -x` excludes a match from DELETION as well as upload,
-  // the 16,609 objects have been frozen at their 2026-07-29 vintage ever since,
-  // and the tool answers from that snapshot at a 200.
+  // The history, because the failure mode is the reusable part. This branch used to say the
+  // tree was „PG-served". It was not: the AI chat's `companyConnections` tool fetched
+  // `/parliament/company-connections/{eik}.json` from THIS BUCKET at runtime, and since
+  // `gsutil rsync -x` excludes a match from DELETION as well as upload, the 16,609 objects sat
+  // frozen at their 2026-07-29 vintage while the tool answered from that snapshot at a 200.
+  // An exclusion FREEZES a tree; it never retires one, and a comment asserting why a tree is
+  // excluded is not evidence that the reason is still true.
   //
-  // Left excluded rather than quietly re-enabled: turning it back on is a
-  // ~30 MB upload and the real question is which of the two should move — the
-  // tool onto a PG route (matching this comment's original claim), or the tree
-  // back into sync. Recorded here so the next person picks, instead of reading
-  // „PG-served" and believing it.
+  // It is genuinely PG-served now: migration 158 `company_political_links`, behind
+  // `/api/db/company-connections`. Not a port — the shards matched TR officers to a power
+  // roster by name; the function reads the gated `person_role` tr/ngo set and refuses a name
+  // the Commerce Registry records for more than one human.
+  //
+  // ⚠️ `scripts/declarations/tr/build_company_connections.ts` STILL WRITES the local tree on
+  // every `tr:daily-refresh` and `--declarations` run — 19,232 files, 83 MB, gitignored. It
+  // has no reader now. Left in place deliberately (it is the only path that could reconstruct
+  // the removed objects) and flagged in its own header; retiring it is a separate call.
+  //
   // Anchored to the DIRECTORY. Without the trailing slash this also swallowed
   // `parliament/company-connections-stats.json` — a different artifact, with no
   // reader — and told the operator „an AI tool still reads it", which is false
@@ -85,7 +94,7 @@ export const isExcluded = (rel: string): string | null => {
     rel === "parliament/company-connections" ||
     rel.startsWith("parliament/company-connections/")
   )
-    return "parliament/company-connections/ is FROZEN, not PG-served — an AI tool still reads it; see the note above";
+    return "parliament/company-connections/ is retired — PG-served via /api/db/company-connections (migration 158); bucket objects removed 2026-08-16";
   // Retired connections artifacts with NO reader anywhere — checked across src/,
   // ai/, scripts/ and functions/. `ai/` is the one that matters and the one a
   // grep of the first three misses: it is where company-connections and both
@@ -284,8 +293,12 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // isExcluded refuses `parliament/company-connections` as a direct argument, but that
   // only guards the top-level path — without a child exclude, the natural scoped push
   // `bucket:sync:paths -- parliament` (needed for photos/ + votes/) recursively uploaded
-  // all ~16.8k per-EIK shards to the bucket, where nothing reads them: /company/:eik is
-  // served from Cloud SQL.
+  // all ~16.8k per-EIK shards to the bucket.
+  //
+  // ⚠️ THIS TWIN IS NOW THE LOAD-BEARING HALF. The bucket objects were removed 2026-08-16
+  // and the tree has no reader, but `build_company_connections.ts` still writes 19,232 local
+  // files on every TR refresh — so without this entry the next `bucket:sync:paths -- parliament`
+  // would re-create the whole retired tree in the bucket.
   { path: "parliament/company-connections", isDir: true },
   // The T6b set. Each needs its twin here as well as the isExcluded branch,
   // because that branch only guards a DIRECT argument and the push anyone
