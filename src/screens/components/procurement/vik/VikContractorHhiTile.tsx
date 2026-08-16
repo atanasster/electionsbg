@@ -42,12 +42,29 @@ export const VikContractorHhiTile: FC<{
    *  labelled, because unlabelled they read as a private vendor topping the
    *  sector. Omit to disable the check. */
   memberEiks?: readonly string[];
-}> = ({ suppliers, totalEur, memberEiks }) => {
+  /** Contractors that are PUBLIC BODIES but NOT members of this sector — a state or
+   *  municipal company, an agency, a fund manager. Same treatment as `memberEiks`
+   *  and for the same reason: the money is an intra-government transfer rather than
+   *  a market award, and unlabelled the row reads as a private vendor topping the
+   *  sector. Still counted (see the note below); never filtered out.
+   *
+   *  ⚠ MUST BE A CURATED LIST, never "is this EIK an awarder somewhere". ЗОП's
+   *  utilities regime makes private regulated companies contracting authorities
+   *  too, so that probe returns ЕВН, Овергаз, Софийска вода and the privately-held
+   *  Топлофикации alongside the genuinely public ones — measured on water, 44% of
+   *  its answer was private. Omit to disable the check. */
+  stateBodyEiks?: readonly string[];
+}> = ({ suppliers, totalEur, memberEiks, stateBodyEiks }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = suppliers.filter((s) => s.totalEur > 0);
   const members = new Set(memberEiks ?? []);
+  // A member is already labelled „в групата", which is the more specific statement —
+  // so the two sets never both fire on one row.
+  const stateBodies = new Set(
+    (stateBodyEiks ?? []).filter((e) => !members.has(e)),
+  );
   if (rows.length < 3 || totalEur <= 0) return null;
 
   // Denominator is the ATTRIBUTED total (Σ over ranked suppliers), not the
@@ -68,6 +85,36 @@ export const VikContractorHhiTile: FC<{
   const top = [...rows].sort((a, b) => b.totalEur - a.totalEur).slice(0, TOP_N);
   const cr4 = top.slice(0, 4).reduce((acc, s) => acc + s.totalEur / denom, 0);
   const max = top[0]?.totalEur ?? 1;
+
+  // The chips label the ROW; this labels the NUMBER. A single intra-government
+  // transfer can carry the headline across a DOJ band boundary on its own —
+  // measured on social at y:2026, ФМФИБ's one €33M ОПРЧР financing agreement takes
+  // the index from 1538 („умерен") to 5009 („силно концентриран"), i.e. 70% of the
+  // index is that one row. Both numbers are true and the concentration is real, so
+  // nothing is filtered: the transfers stay in the index and the market-only figure
+  // is stated beside it, so „силно концентриран" cannot be read as a finding about
+  // private vendors. Only shown when it actually changes the reading.
+  const internal = rows.filter(
+    (s) => members.has(s.eik) || stateBodies.has(s.eik),
+  );
+  const internalEur = internal.reduce((a, s) => a + s.totalEur, 0);
+  const internalShare = denom > 0 ? internalEur / denom : 0;
+  const marketRows = rows.filter(
+    (s) => !members.has(s.eik) && !stateBodies.has(s.eik),
+  );
+  const marketDenom = marketRows.reduce((a, s) => a + s.totalEur, 0);
+  const marketHhi =
+    marketDenom > 0
+      ? Math.round(
+          marketRows.reduce((acc, s) => {
+            const pct = (s.totalEur / marketDenom) * 100;
+            return acc + pct * pct;
+          }, 0),
+        )
+      : null;
+  // A cosmetic difference is noise; a different BAND is a different sentence.
+  const showMarketHhi =
+    marketHhi != null && internalShare >= 0.05 && hhiBand(marketHhi) !== band;
 
   return (
     <Card id="hhi">
@@ -100,10 +147,19 @@ export const VikContractorHhiTile: FC<{
           </div>
         </div>
 
+        {showMarketHhi && (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? `${Math.round(internalShare * 100)}% от стойността отива към държавни или общински структури. Само пазарните договори дават HHI ${marketHhi!.toLocaleString(lang)} — „${hhiBandLabel(marketHhi!, lang)}“.`
+              : `${Math.round(internalShare * 100)}% of the value goes to state or municipal bodies. Over the market contracts alone the HHI is ${marketHhi!.toLocaleString(lang)} — “${hhiBandLabel(marketHhi!, lang)}”.`}
+          </p>
+        )}
+
         <div className="space-y-1.5">
           {top.map((s) => {
             const share = s.totalEur / denom;
             const inGroup = members.has(s.eik);
+            const isStateBody = stateBodies.has(s.eik);
             return (
               <div key={s.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
@@ -126,6 +182,18 @@ export const VikContractorHhiTile: FC<{
                         {bg ? "в групата" : "in-group"}
                       </span>
                     )}
+                    {isStateBody && (
+                      <span
+                        className="shrink-0 rounded bg-muted px-1 py-px text-[10px] font-medium text-muted-foreground"
+                        title={
+                          bg
+                            ? "Изпълнителят е държавна или общинска структура — трансфер вътре в държавата, не спечелен на пазара договор"
+                            : "The contractor is a state or municipal body — a transfer inside government, not a contract won on a market"
+                        }
+                      >
+                        {bg ? "държавно" : "state body"}
+                      </span>
+                    )}
                   </span>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {formatEurCompact(s.totalEur, lang)}
@@ -137,7 +205,9 @@ export const VikContractorHhiTile: FC<{
                 <div className="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
                   <div
                     className={`h-full rounded-full ${
-                      inGroup ? "bg-violet-600/40" : "bg-violet-600"
+                      inGroup || isStateBody
+                        ? "bg-violet-600/40"
+                        : "bg-violet-600"
                     }`}
                     style={{
                       width: `${Math.max(2, (s.totalEur / max) * 100)}%`,
@@ -154,6 +224,14 @@ export const VikContractorHhiTile: FC<{
             {bg
               ? "„В групата“ = изпълнителят е една от организациите в самия сектор — държавата плаща на собственото си дружество, а не на външен пазар. Тези договори са включени в индекса, защото са реални обществени поръчки."
               : "“In-group” = the contractor is one of the sector's own organisations — the state paying its own company rather than an external market. These contracts are included in the index, because they are real public procurements."}
+          </p>
+        )}
+
+        {top.some((s) => stateBodies.has(s.eik)) && (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? "„Държавно“ = изпълнителят е държавна или общинска структура извън сектора — парите не напускат държавата. И тези договори са в индекса: те са реални обществени поръчки, но не са спечелени на конкурентен пазар."
+              : "“State body” = the contractor is a state or municipal organisation outside this sector — the money never leaves government. These are in the index too: they are real public procurements, but they were not won on a competitive market."}
           </p>
         )}
 

@@ -147,6 +147,37 @@ export const SOCIAL_ALIAS_EIKS: string[] = SOCIAL_ENTITIES.filter(
  *  SECTOR_BROWSE_PACKS `social` entry and the awarder-group-model endpoint. */
 export const SOCIAL_SECTOR_EIKS: string[] = SOCIAL_ENTITIES.map((e) => e.eik);
 
+/** PUBLIC-BODY CONTRACTORS — suppliers to this group that are themselves state or
+ *  municipal organisations, so the money never leaves government. The HHI /
+ *  „Топ изпълнители" tile labels these („държавно"); it never drops them, and they
+ *  stay in the index because they are real public procurements.
+ *
+ *  The one that matters is ФМФИБ at €33.0M — **10.2% of the whole corpus from a
+ *  SINGLE contract**, and the group's #1 „изпълнител". It is not a service bought
+ *  on a market: it is the ОПРЧР Managing Authority (МТСП) signing a „Споразумение
+ *  за финансиране" with a 100%-state-owned fund-of-funds, filed under CPV 79420000.
+ *  Unlabelled it reads as a private consultancy winning a tenth of the sector.
+ *
+ *  ⚠ CURATED BY EIK, and it CANNOT be derived. The obvious probe — "is this
+ *  contractor an awarder somewhere in the corpus" — over-captures badly, because
+ *  ЗОП's utilities regime makes private regulated companies contracting authorities:
+ *  on this group it also returns Овергаз, ЕВН, Софийска вода and the privately-held
+ *  Топлофикация Перник/Разград, none of which are public bodies. Each row below was
+ *  checked by ownership, not by that probe. */
+export const SOCIAL_STATE_BODY_CONTRACTORS: readonly string[] = [
+  "203740812", // „Фонд мениджър на финансови инструменти в България" ЕАД — 100% state (МС)
+  "121396123", // „Български пощи" ЕАД — 100% state (принципал МТС)
+  "831609046", // „Топлофикация София" ЕАД — 100% Столична община
+  "831641791", // „Информационно обслужване" АД — majority state (принципал МЕУ)
+  "000672350", // Българска национална телевизия — държавна
+  // ⚠ „Водоснабдяване и канализация" ЕООД — СТАРА ЗАГОРА. The bare name is shared by
+  //    ten different ВиК EIKs in this supplier set alone, one of which (Софийска
+  //    вода, 130175000) is a Veolia concession and deliberately NOT here. Match on
+  //    the EIK; never on the name.
+  "833066300",
+  "202218735", // „Център за градска мобилност" ЕАД — 100% Столична община
+];
+
 export const SOCIAL_UNIVERSE_LABEL: Record<
   SocialUniverse,
   { bg: string; en: string }

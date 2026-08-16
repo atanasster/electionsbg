@@ -32,13 +32,14 @@ const suppliers = [
   { name: "Изпълнител В", eik: "333333333", totalEur: 100, contractCount: 1 },
 ];
 
-const renderTile = (memberEiks?: string[]) =>
+const renderTile = (memberEiks?: string[], stateBodyEiks?: string[]) =>
   render(
     <MemoryRouter>
       <VikContractorHhiTile
         suppliers={suppliers}
         totalEur={1000}
         memberEiks={memberEiks}
+        stateBodyEiks={stateBodyEiks}
       />
     </MemoryRouter>,
   );
@@ -125,3 +126,132 @@ describe.each(["bg", "en"])("VikContractorHhiTile in-group label — %s", (l) =>
     );
   });
 });
+
+// The state-body label — the same mechanism as in-group, for a public contractor
+// that is NOT one of the sector's own bodies. /sector/social's top „изпълнител" is
+// „Фонд мениджър на финансови инструменти в България" ЕАД at €33.0M / ~10% of the
+// whole corpus, from one ОПРЧР financing agreement: a 100%-state-owned
+// fund-of-funds, filed under CPV 79420000 („управленски консултантски услуги").
+// Unlabelled it reads as a private consultancy winning a tenth of the sector.
+const STATE_BODY = /държавно|state body/i;
+
+describe.each(["bg", "en"])(
+  "VikContractorHhiTile state-body label — %s",
+  (l) => {
+    // The property the five sibling packs depend on: they pass no such prop, so the
+    // tile must behave EXACTLY as it did before the prop existed.
+    it("says nothing about state bodies when the caller passes no set", () => {
+      lang = l;
+      const { container } = renderTile();
+      expect(container.textContent).not.toMatch(STATE_BODY);
+      expect(container.textContent).not.toMatch(
+        l === "bg" ? /не напускат държавата/ : /never leaves government/,
+      );
+    });
+
+    it("labels only the rows in the set, and explains the label", () => {
+      lang = l;
+      const { container } = renderTile(undefined, ["111111111"]);
+      expect(screen.getAllByText(l === "bg" ? "държавно" : "state body")).toHaveLength(1); // prettier-ignore
+      const badge = screen.getByText(l === "bg" ? "държавно" : "state body");
+      expect(badge.parentElement?.textContent).toContain("Изпълнител А");
+      expect(container.textContent).toMatch(
+        l === "bg" ? /не напускат държавата/ : /never leaves government/,
+      );
+    });
+
+    it("shows no footnote when no displayed row is a state body", () => {
+      lang = l;
+      const { container } = renderTile(undefined, ["999999999"]);
+      expect(container.textContent).not.toMatch(STATE_BODY);
+    });
+
+    // „В групата" is the more specific claim, so a row that is both must carry it
+    // ALONE — two chips on one row would read as two separate reasons.
+    it("never double-chips a row that is both a member and a state body", () => {
+      lang = l;
+      renderTile(["222222222"], ["222222222"]);
+      expect(screen.getAllByText(l === "bg" ? "в групата" : "in-group")).toHaveLength(1); // prettier-ignore
+      expect(
+        screen.queryByText(l === "bg" ? "държавно" : "state body"),
+      ).toBeNull();
+    });
+
+    it("keeps the row in the index rather than filtering it out", () => {
+      lang = l;
+      const { container } = renderTile(undefined, ["111111111"]);
+      // 600/300/100 of 1000 → 3600+900+100 = 4600. Dropping the state body would
+      // give 4600-3600 = a different index over a €400 denominator entirely, so
+      // this number is what proves the row is still counted.
+      expect(container.textContent).toContain((4600).toLocaleString(l));
+    });
+  },
+);
+
+// The number, not the row: one intra-government transfer can carry the headline
+// across a DOJ band boundary by itself, and the chip on the row does not say so.
+// Fixture: one €700 state body against ten €30 market contractors. All-in that is
+// 70² + 10×3² = 4990 („силно концентриран"); over the €300 of market contracts
+// alone it is 10×10² = 1000 („конкурентен пазар") — two different sentences about
+// the same sector, which is exactly the case the line exists for.
+const dominated = [
+  { name: "Държавна структура", eik: "700000000", totalEur: 700, contractCount: 1 }, // prettier-ignore
+  ...Array.from({ length: 10 }, (_, i) => ({
+    name: `Пазарен ${i}`,
+    eik: `1000000${String(i).padStart(2, "0")}`,
+    totalEur: 30,
+    contractCount: 1,
+  })),
+];
+
+const renderDominated = (stateBodyEiks?: string[]) =>
+  render(
+    <MemoryRouter>
+      <VikContractorHhiTile
+        suppliers={dominated}
+        totalEur={1000}
+        stateBodyEiks={stateBodyEiks}
+      />
+    </MemoryRouter>,
+  );
+
+describe.each(["bg", "en"])(
+  "VikContractorHhiTile market-only HHI — %s",
+  (l) => {
+    it("states the share and the market-only index when the band changes", () => {
+      lang = l;
+      const { container } = renderDominated(["700000000"]);
+      expect(container.textContent).toMatch(
+        l === "bg"
+          ? /70% от стойността отива към държавни или общински структури/
+          : /70% of the value goes to state or municipal bodies/,
+      );
+      // The market-only index itself, and its band label — this is the number a
+      // reader needs to not read „силно концентриран" as a claim about vendors.
+      expect(container.textContent).toContain((1000).toLocaleString(l));
+      // …while the headline still carries the all-in index: nothing is filtered.
+      expect(container.textContent).toContain((4990).toLocaleString(l));
+    });
+
+    it("stays silent when the caller labels nothing", () => {
+      lang = l;
+      const { container } = renderDominated();
+      expect(container.textContent).not.toMatch(
+        l === "bg" ? /отива към държавни/ : /goes to state or municipal/,
+      );
+    });
+
+    // Cosmetic differences are noise. The line is only worth its space when the two
+    // numbers land in DIFFERENT bands, i.e. when they support different sentences.
+    it("stays silent when removing the transfers does not change the band", () => {
+      lang = l;
+      // 600/300/100: all-in 4600, market-only (300/100 of 400) 6250 — both
+      // „силно концентриран", so there is no second sentence to tell.
+      const { container } = renderTile(undefined, ["111111111"]);
+      expect(container.textContent).toMatch(STATE_BODY); // the row IS still labelled
+      expect(container.textContent).not.toMatch(
+        l === "bg" ? /отива към държавни/ : /goes to state or municipal/,
+      );
+    });
+  },
+);

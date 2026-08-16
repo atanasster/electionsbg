@@ -30,6 +30,7 @@ import {
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
   SOCIAL_SECTOR_EIKS,
+  SOCIAL_STATE_BODY_CONTRACTORS,
   SOCIAL_UNIVERSES,
   socialGroupDetail,
   socialUniverseLabel,
@@ -323,9 +324,16 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           </PackSection>
 
           <PackSection id="social-suppliers">
+            {/* Both label sets are passed, neither filters. The sector's own
+                bodies get „в групата"; ФМФИБ and the other public suppliers get
+                „държавно" — without it the group's #1 „изпълнител" (10% of the
+                corpus, one contract) reads as a private consultancy rather than
+                an ОПРЧР financing agreement with a state fund-of-funds. */}
             <VikContractorHhiTile
               suppliers={model.suppliers}
               totalEur={model.totalEur}
+              memberEiks={SOCIAL_SECTOR_EIKS}
+              stateBodyEiks={SOCIAL_STATE_BODY_CONTRACTORS}
             />
           </PackSection>
 

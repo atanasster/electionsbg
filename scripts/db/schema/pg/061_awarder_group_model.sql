@@ -54,6 +54,18 @@ sup AS (
       -- Exclude €0 consortium member rows (migration 087) so the per-category
       -- distinct-supplier count isn't inflated (HHI shares are unaffected — €0).
       AND consortium_role IS DISTINCT FROM 'member'
+      -- Exclude the register artifact where the BUYER's EIK landed in the supplier
+      -- field (29 rows / €3.87M corpus-wide). Nobody procures from themselves, so
+      -- such a row is a mis-keyed contractor, not a supplier — and it is worse than
+      -- noise for a pack that passes memberEiks to the HHI tile, which then badges
+      -- the row „в групата" under a footnote saying the state is paying its own
+      -- company. Measured on social: the one match is АСП's own Булстат on a motor
+      -- policy whose contractor NAME is ЗАД „Булстрад Виена Иншурънс Груп" — a
+      -- private insurer, ranked #7 of 36 at y:2020 and so inside the displayed
+      -- top-8. Dropped from `suppliers` only: the € stays in totalEur/byCpv/byUnit
+      -- because the money really was spent, and the HHI denominator is the
+      -- ATTRIBUTED total, so it is handled exactly like a no-EIK row.
+      AND contractor_eik <> awarder_eik
     GROUP BY contractor_eik
   ) s
 ),
@@ -81,6 +93,11 @@ bycpvcon AS (
            ROUND(SUM(amount_eur))::double precision AS eur
     FROM base
     WHERE contractor_eik IS NOT NULL AND contractor_eik <> ''
+      -- Same guard as `sup` above, and it must move WITH it: this drives each
+      -- category's distinct-supplier count and its „водещ" row, both of which look
+      -- up the name in `sup` by eik. An eik present here and absent there renders a
+      -- leading supplier with no name.
+      AND contractor_eik <> awarder_eik
     GROUP BY COALESCE(cpv, ''), contractor_eik
   ) x
 ),

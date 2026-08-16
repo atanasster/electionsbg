@@ -3,8 +3,8 @@
 // declarations that must agree, and each pair has already drifted somewhere in this
 // codebase.
 //
-// The € / EIK-attribution gates live in scripts/db/tests/sector_stats_social.data.test.ts
-// (they need Postgres). This file is pure and runs in the ordinary unit suite.
+// The € / EIK-attribution gates need Postgres and live in the sector data tests
+// under scripts/db/tests/. This file is pure and runs in the ordinary unit suite.
 
 import { describe, it, expect } from "vitest";
 import {
