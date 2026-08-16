@@ -1,0 +1,3138 @@
+{
+  "budget-hub-stats": {
+    "asOf": "2026-06-30",
+    "gdpEur": 128155604775,
+    "complete": false,
+    "muniYears": [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+    "peerBands": {
+      "B9": {
+        "rank": 19,
+        "year": 2025,
+        "total": 27,
+        "bgPctGdp": -3.5,
+        "euAvgPctGdp": -3.1
+      },
+      "TE": {
+        "rank": 23,
+        "year": 2025,
+        "total": 27,
+        "bgPctGdp": 41.7,
+        "euAvgPctGdp": 49.5
+      },
+      "TR": {
+        "rank": 24,
+        "year": 2025,
+        "total": 27,
+        "bgPctGdp": 38.1,
+        "euAvgPctGdp": 46.4
+      }
+    },
+    "cofogYears": [
+      2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,
+      2022, 2023, 2024
+    ],
+    "fiscalYear": 2026,
+    "wireSource": "kfp",
+    "cofogShares": [
+      {
+        "pct": 36.756081403618154,
+        "code": "GF10"
+      },
+      {
+        "pct": 14.870821927149802,
+        "code": "GF04"
+      },
+      {
+        "pct": 13.683523463453126,
+        "code": "GF07"
+      },
+      {
+        "pct": 10.850081345166538,
+        "code": "GF09"
+      },
+      {
+        "pct": 7.489844031602841,
+        "code": "GF01"
+      },
+      {
+        "pct": 7.098461748287854,
+        "code": "GF03"
+      },
+      {
+        "pct": 3.2745082757747275,
+        "code": "GF02"
+      },
+      {
+        "pct": 2.5986614579781584,
+        "code": "GF06"
+      },
+      {
+        "pct": 1.8193065689875207,
+        "code": "GF08"
+      },
+      {
+        "pct": 1.558222681175657,
+        "code": "GF05"
+      }
+    ],
+    "programCount": 76,
+    "ipopLatestYear": 2025,
+    "yearsAvailable": [2021, 2022, 2023, 2024, 2025, 2026],
+    "latestKfpPeriod": "2026-06",
+    "monthsAvailable": 6,
+    "ipopProjectCount": 3492,
+    "ipopStalledCount": 700,
+    "latestDocumentOn": "2026-07-28",
+    "capitalLatestYear": 2026,
+    "spendingUnitCount": 44,
+    "balanceExecutedEur": -1914405872,
+    "revenueExecutedEur": 12796331646,
+    "balanceProjectedEur": -3405447950,
+    "revenueProjectedEur": 27292242746,
+    "municipalCommitments": {
+      "quarter": 2,
+      "arrearsEur": 77367050.30600818,
+      "filedCount": 265,
+      "fiscalYear": 2025,
+      "commitmentsEur": 4162558194.485205,
+      "municipalityCount": 265
+    },
+    "obsCategoriesPresent": 4,
+    "varianceCoveredUnits": 0,
+    "documentCountAllYears": 33,
+    "expenditureExecutedEur": 14150474073,
+    "muniTransferPlannedEur": 4927964000,
+    "expenditureProjectedEur": 29577990982,
+    "capitalMunicipalityCount": 1,
+    "euContributionExecutedEur": 560263445
+  },
+  "budget-functional?fy=2024&basis=eur": {
+    "rows": [
+      {
+        "code": "GF10",
+        "amount": 15091900000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 36.756081403618154
+      },
+      {
+        "code": "GF04",
+        "amount": 6105900000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 14.870821927149802
+      },
+      {
+        "code": "GF07",
+        "amount": 5618400000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 13.683523463453126
+      },
+      {
+        "code": "GF09",
+        "amount": 4455000000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 10.850081345166538
+      },
+      {
+        "code": "GF01",
+        "amount": 3075300000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 7.489844031602841
+      },
+      {
+        "code": "GF03",
+        "amount": 2914600000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 7.098461748287854
+      },
+      {
+        "code": "GF02",
+        "amount": 1344500000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 3.2745082757747275
+      },
+      {
+        "code": "GF06",
+        "amount": 1067000000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 2.5986614579781584
+      },
+      {
+        "code": "GF08",
+        "amount": 747000000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 1.8193065689875207
+      },
+      {
+        "code": "GF05",
+        "amount": 639800000,
+        "nameBg": null,
+        "nameEn": null,
+        "pctOfTotal": 1.558222681175657
+      }
+    ],
+    "basis": "eur",
+    "source": "Eurostat gov_10a_exp",
+    "totalEur": 41059600000,
+    "perimeter": "S13 — general government (state + municipalities + social funds)",
+    "fiscalYear": 2024
+  },
+  "budget-series": {
+    "basis": "eur",
+    "points": [
+      {
+        "period": "2021-06",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2804139624,
+        "executedEur": -535824876
+      },
+      {
+        "period": "2021-06",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 747792855,
+        "executedEur": 407461939
+      },
+      {
+        "period": "2021-06",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 15887507657,
+        "executedEur": 7536110833
+      },
+      {
+        "period": "2021-06",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2804139624,
+        "executedEur": 535809482
+      },
+      {
+        "period": "2021-06",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 13831160888,
+        "executedEur": 7407747896
+      },
+      {
+        "period": "2021-07",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2804139624,
+        "executedEur": -193520225
+      },
+      {
+        "period": "2021-07",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 747792855,
+        "executedEur": 441487958
+      },
+      {
+        "period": "2021-07",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 15887507657,
+        "executedEur": 8516235172
+      },
+      {
+        "period": "2021-07",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2804139624,
+        "executedEur": 193508207
+      },
+      {
+        "period": "2021-07",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 13831160888,
+        "executedEur": 8764202904
+      },
+      {
+        "period": "2021-08",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2876364715,
+        "executedEur": -44377299
+      },
+      {
+        "period": "2021-08",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 800713508,
+        "executedEur": 497202211
+      },
+      {
+        "period": "2021-08",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 16873847829,
+        "executedEur": 9601345566
+      },
+      {
+        "period": "2021-08",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2876364715,
+        "executedEur": 44360566
+      },
+      {
+        "period": "2021-08",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 10054170478
+      },
+      {
+        "period": "2021-10",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2876364715,
+        "executedEur": -152119779
+      },
+      {
+        "period": "2021-10",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 800713508,
+        "executedEur": 627898674
+      },
+      {
+        "period": "2021-10",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 16873847829,
+        "executedEur": 12173694871
+      },
+      {
+        "period": "2021-10",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2876364715,
+        "executedEur": 152122354
+      },
+      {
+        "period": "2021-10",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 12649473766
+      },
+      {
+        "period": "2021-11",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2876364715,
+        "executedEur": 5279148
+      },
+      {
+        "period": "2021-11",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 800713508,
+        "executedEur": 791181398
+      },
+      {
+        "period": "2021-11",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 16873847829,
+        "executedEur": 13759282404
+      },
+      {
+        "period": "2021-11",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2876364715,
+        "executedEur": -5280426
+      },
+      {
+        "period": "2021-11",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 14555742951
+      },
+      {
+        "period": "2021-12",
+        "series": "balance",
+        "fiscalYear": 2021,
+        "plannedEur": -2876364715,
+        "executedEur": -2240317013
+      },
+      {
+        "period": "2021-12",
+        "series": "euContribution",
+        "fiscalYear": 2021,
+        "plannedEur": 800713508,
+        "executedEur": 859495081
+      },
+      {
+        "period": "2021-12",
+        "series": "expenditure",
+        "fiscalYear": 2021,
+        "plannedEur": 16873847829,
+        "executedEur": 17190542029
+      },
+      {
+        "period": "2021-12",
+        "series": "financing",
+        "fiscalYear": 2021,
+        "plannedEur": 2876364715,
+        "executedEur": 2240325654
+      },
+      {
+        "period": "2021-12",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 15809720097
+      },
+      {
+        "period": "2022-01",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": 438964533,
+        "executedEur": 438964533
+      },
+      {
+        "period": "2022-01",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 68076985,
+        "executedEur": 68076985
+      },
+      {
+        "period": "2022-01",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 904942066,
+        "executedEur": 904942066
+      },
+      {
+        "period": "2022-01",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": -438969154,
+        "executedEur": -438969154
+      },
+      {
+        "period": "2022-01",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 1411983584,
+        "executedEur": 1411983584
+      },
+      {
+        "period": "2022-02",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3197222509,
+        "executedEur": -139230249
+      },
+      {
+        "period": "2022-02",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 860678587,
+        "executedEur": 151357018
+      },
+      {
+        "period": "2022-02",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 19088910386,
+        "executedEur": 2384137121
+      },
+      {
+        "period": "2022-02",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3197224503,
+        "executedEur": 139230139
+      },
+      {
+        "period": "2022-02",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 2396263890
+      },
+      {
+        "period": "2022-03",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3197222509,
+        "executedEur": -312154036
+      },
+      {
+        "period": "2022-03",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 860678587,
+        "executedEur": 205439028
+      },
+      {
+        "period": "2022-03",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 19088910386,
+        "executedEur": 3786552135
+      },
+      {
+        "period": "2022-03",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3197224503,
+        "executedEur": 312146580
+      },
+      {
+        "period": "2022-03",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 3679837127
+      },
+      {
+        "period": "2022-04",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3197222509,
+        "executedEur": -325287497
+      },
+      {
+        "period": "2022-04",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 860678587,
+        "executedEur": 273513061
+      },
+      {
+        "period": "2022-04",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 19088910386,
+        "executedEur": 5279763291
+      },
+      {
+        "period": "2022-04",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3197224503,
+        "executedEur": 325285033
+      },
+      {
+        "period": "2022-04",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 5227988855
+      },
+      {
+        "period": "2022-05",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3197222509,
+        "executedEur": -549225125
+      },
+      {
+        "period": "2022-05",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 860678587,
+        "executedEur": 343642224
+      },
+      {
+        "period": "2022-05",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 19088910386,
+        "executedEur": 6914758697
+      },
+      {
+        "period": "2022-05",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3197224503,
+        "executedEur": 549211588
+      },
+      {
+        "period": "2022-05",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 6709175795
+      },
+      {
+        "period": "2022-06",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -180843029
+      },
+      {
+        "period": "2022-06",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 415567531
+      },
+      {
+        "period": "2022-06",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 8217494514
+      },
+      {
+        "period": "2022-06",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 180827924
+      },
+      {
+        "period": "2022-06",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 8452219017
+      },
+      {
+        "period": "2022-07",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -194126075
+      },
+      {
+        "period": "2022-07",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 486632913
+      },
+      {
+        "period": "2022-07",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 9660386360
+      },
+      {
+        "period": "2022-07",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 194113579
+      },
+      {
+        "period": "2022-07",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 9952893198
+      },
+      {
+        "period": "2022-08",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -168968094
+      },
+      {
+        "period": "2022-08",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 559187754
+      },
+      {
+        "period": "2022-08",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 11103105320
+      },
+      {
+        "period": "2022-08",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 168958562
+      },
+      {
+        "period": "2022-08",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 11493324980
+      },
+      {
+        "period": "2022-09",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -477538620
+      },
+      {
+        "period": "2022-09",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 632626476
+      },
+      {
+        "period": "2022-09",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 12840067997
+      },
+      {
+        "period": "2022-09",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 477549234
+      },
+      {
+        "period": "2022-09",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 12995155852
+      },
+      {
+        "period": "2022-10",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -979712094
+      },
+      {
+        "period": "2022-10",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 692650520
+      },
+      {
+        "period": "2022-10",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 14658967345
+      },
+      {
+        "period": "2022-10",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 979720077
+      },
+      {
+        "period": "2022-10",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 14371905771
+      },
+      {
+        "period": "2022-11",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -1027902453
+      },
+      {
+        "period": "2022-11",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 857819435
+      },
+      {
+        "period": "2022-11",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 16568416559
+      },
+      {
+        "period": "2022-11",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 1027902125
+      },
+      {
+        "period": "2022-11",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 16398333540
+      },
+      {
+        "period": "2022-12",
+        "series": "balance",
+        "fiscalYear": 2022,
+        "plannedEur": -3897903499,
+        "executedEur": -2894548514
+      },
+      {
+        "period": "2022-12",
+        "series": "euContribution",
+        "fiscalYear": 2022,
+        "plannedEur": 940735647,
+        "executedEur": 871764269
+      },
+      {
+        "period": "2022-12",
+        "series": "expenditure",
+        "fiscalYear": 2022,
+        "plannedEur": 20398627488,
+        "executedEur": 19891326351
+      },
+      {
+        "period": "2022-12",
+        "series": "financing",
+        "fiscalYear": 2022,
+        "plannedEur": 3897904572,
+        "executedEur": 2894550690
+      },
+      {
+        "period": "2022-12",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 17868542106
+      },
+      {
+        "period": "2023-01",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": -133121876
+      },
+      {
+        "period": "2023-01",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 57288402
+      },
+      {
+        "period": "2023-01",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 1465926000
+      },
+      {
+        "period": "2023-01",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 133127085
+      },
+      {
+        "period": "2023-01",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 1390092526
+      },
+      {
+        "period": "2023-02",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -607561889,
+        "executedEur": -607561889
+      },
+      {
+        "period": "2023-02",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 145196163,
+        "executedEur": 145196163
+      },
+      {
+        "period": "2023-02",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 3068482826,
+        "executedEur": 3068482826
+      },
+      {
+        "period": "2023-02",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 607566554,
+        "executedEur": 607566554
+      },
+      {
+        "period": "2023-02",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 2606117100,
+        "executedEur": 2606117100
+      },
+      {
+        "period": "2023-03",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": -864971630
+      },
+      {
+        "period": "2023-03",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 232736633
+      },
+      {
+        "period": "2023-03",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 4791030714
+      },
+      {
+        "period": "2023-03",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 864977633
+      },
+      {
+        "period": "2023-03",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 4158795716
+      },
+      {
+        "period": "2023-04",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": -1151483122
+      },
+      {
+        "period": "2023-04",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 298885882
+      },
+      {
+        "period": "2023-04",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 6476391560
+      },
+      {
+        "period": "2023-04",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 1151478158
+      },
+      {
+        "period": "2023-04",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 5623794319
+      },
+      {
+        "period": "2023-05",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -1243556231,
+        "executedEur": -1243556231
+      },
+      {
+        "period": "2023-05",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 363880497,
+        "executedEur": 363880497
+      },
+      {
+        "period": "2023-05",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 7999255524,
+        "executedEur": 7999255524
+      },
+      {
+        "period": "2023-05",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 1243549920,
+        "executedEur": 1243549920
+      },
+      {
+        "period": "2023-05",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 7119579789,
+        "executedEur": 7119579789
+      },
+      {
+        "period": "2023-06",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": -437555538
+      },
+      {
+        "period": "2023-06",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 433387561
+      },
+      {
+        "period": "2023-06",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 9383326296
+      },
+      {
+        "period": "2023-06",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 437557667
+      },
+      {
+        "period": "2023-06",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 9379158320
+      },
+      {
+        "period": "2023-07",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -80512674
+      },
+      {
+        "period": "2023-07",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 506321197
+      },
+      {
+        "period": "2023-07",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 11013976830
+      },
+      {
+        "period": "2023-07",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 80528959
+      },
+      {
+        "period": "2023-07",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 11439785352
+      },
+      {
+        "period": "2023-08",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -407310326
+      },
+      {
+        "period": "2023-08",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 569163148
+      },
+      {
+        "period": "2023-08",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 12867972670
+      },
+      {
+        "period": "2023-08",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 407296584
+      },
+      {
+        "period": "2023-08",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 13029825493
+      },
+      {
+        "period": "2023-09",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -799610960
+      },
+      {
+        "period": "2023-09",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 640179445
+      },
+      {
+        "period": "2023-09",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 14744767085
+      },
+      {
+        "period": "2023-09",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 799592678
+      },
+      {
+        "period": "2023-09",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 14585335570
+      },
+      {
+        "period": "2023-10",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -958715976
+      },
+      {
+        "period": "2023-10",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 710658068
+      },
+      {
+        "period": "2023-10",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 16645192741
+      },
+      {
+        "period": "2023-10",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 958705786
+      },
+      {
+        "period": "2023-10",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 16397134833
+      },
+      {
+        "period": "2023-11",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -670996259
+      },
+      {
+        "period": "2023-11",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 781514728
+      },
+      {
+        "period": "2023-11",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 18653133678
+      },
+      {
+        "period": "2023-11",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 671010190
+      },
+      {
+        "period": "2023-11",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 18763652147
+      },
+      {
+        "period": "2023-12",
+        "series": "balance",
+        "fiscalYear": 2023,
+        "plannedEur": -3075941467,
+        "executedEur": -2697144137
+      },
+      {
+        "period": "2023-12",
+        "series": "euContribution",
+        "fiscalYear": 2023,
+        "plannedEur": 1044266731,
+        "executedEur": 945819707
+      },
+      {
+        "period": "2023-12",
+        "series": "expenditure",
+        "fiscalYear": 2023,
+        "plannedEur": 22897785084,
+        "executedEur": 22093721881
+      },
+      {
+        "period": "2023-12",
+        "series": "financing",
+        "fiscalYear": 2023,
+        "plannedEur": 3075941467,
+        "executedEur": 2697145760
+      },
+      {
+        "period": "2023-12",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 20342397451
+      },
+      {
+        "period": "2024-01",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -125651059
+      },
+      {
+        "period": "2024-01",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 9692587
+      },
+      {
+        "period": "2024-01",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 1836215708
+      },
+      {
+        "period": "2024-01",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 125670995
+      },
+      {
+        "period": "2024-01",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 1720257237
+      },
+      {
+        "period": "2024-02",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -122049726
+      },
+      {
+        "period": "2024-02",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 82148022
+      },
+      {
+        "period": "2024-02",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 2960114421
+      },
+      {
+        "period": "2024-02",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 122051475
+      },
+      {
+        "period": "2024-02",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 2920212717
+      },
+      {
+        "period": "2024-03",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -906567426
+      },
+      {
+        "period": "2024-03",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 173476770
+      },
+      {
+        "period": "2024-03",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 5027765191
+      },
+      {
+        "period": "2024-03",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 906568129
+      },
+      {
+        "period": "2024-03",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 4294674536
+      },
+      {
+        "period": "2024-04",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -832758810
+      },
+      {
+        "period": "2024-04",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 233842765
+      },
+      {
+        "period": "2024-04",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 7155390420
+      },
+      {
+        "period": "2024-04",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 832742714
+      },
+      {
+        "period": "2024-04",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 6556474375
+      },
+      {
+        "period": "2024-05",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -1041958623
+      },
+      {
+        "period": "2024-05",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 294071276
+      },
+      {
+        "period": "2024-05",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 9029000367
+      },
+      {
+        "period": "2024-05",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 1041945365
+      },
+      {
+        "period": "2024-05",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 8281113021
+      },
+      {
+        "period": "2024-06",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -1233078434
+      },
+      {
+        "period": "2024-06",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 364823977
+      },
+      {
+        "period": "2024-06",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 11286121691
+      },
+      {
+        "period": "2024-06",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 1233083511
+      },
+      {
+        "period": "2024-06",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 10417867233
+      },
+      {
+        "period": "2024-07",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -1347507382
+      },
+      {
+        "period": "2024-07",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 433381250
+      },
+      {
+        "period": "2024-07",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 13361414226
+      },
+      {
+        "period": "2024-07",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 1347506697
+      },
+      {
+        "period": "2024-07",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 12447288095
+      },
+      {
+        "period": "2024-08",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -1579776656
+      },
+      {
+        "period": "2024-08",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 501090175
+      },
+      {
+        "period": "2024-08",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 15287622163
+      },
+      {
+        "period": "2024-08",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 1579786292
+      },
+      {
+        "period": "2024-08",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 14208935682
+      },
+      {
+        "period": "2024-09",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -2112523176
+      },
+      {
+        "period": "2024-09",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 573126154
+      },
+      {
+        "period": "2024-09",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 17494910059
+      },
+      {
+        "period": "2024-09",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 2112515223
+      },
+      {
+        "period": "2024-09",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 15955513036
+      },
+      {
+        "period": "2024-10",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -2416217382
+      },
+      {
+        "period": "2024-10",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 644606463
+      },
+      {
+        "period": "2024-10",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 19689746833
+      },
+      {
+        "period": "2024-10",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 2416220484
+      },
+      {
+        "period": "2024-10",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 17918135914
+      },
+      {
+        "period": "2024-11",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -2160533540
+      },
+      {
+        "period": "2024-11",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 717947931
+      },
+      {
+        "period": "2024-11",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 21784632248
+      },
+      {
+        "period": "2024-11",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 2160539505
+      },
+      {
+        "period": "2024-11",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 20342046639
+      },
+      {
+        "period": "2024-12",
+        "series": "balance",
+        "fiscalYear": 2024,
+        "plannedEur": -4106916961,
+        "executedEur": -3325484979
+      },
+      {
+        "period": "2024-12",
+        "series": "euContribution",
+        "fiscalYear": 2024,
+        "plannedEur": 1161180522,
+        "executedEur": 814052657
+      },
+      {
+        "period": "2024-12",
+        "series": "expenditure",
+        "fiscalYear": 2024,
+        "plannedEur": 25139137553,
+        "executedEur": 24775124952
+      },
+      {
+        "period": "2024-12",
+        "series": "financing",
+        "fiscalYear": 2024,
+        "plannedEur": 4106916961,
+        "executedEur": 3325479976
+      },
+      {
+        "period": "2024-12",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 22263692630
+      },
+      {
+        "period": "2025-01",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": 49749621
+      },
+      {
+        "period": "2025-01",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": 79195034
+      },
+      {
+        "period": "2025-01",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": 2046468164
+      },
+      {
+        "period": "2025-01",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": -49737247
+      },
+      {
+        "period": "2025-01",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": 2175412819
+      },
+      {
+        "period": "2025-02",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -731131307,
+        "executedEur": -731131307
+      },
+      {
+        "period": "2025-02",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 156369498,
+        "executedEur": 156369498
+      },
+      {
+        "period": "2025-02",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 3963516749,
+        "executedEur": 3963516749
+      },
+      {
+        "period": "2025-02",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 731121920,
+        "executedEur": 731121920
+      },
+      {
+        "period": "2025-02",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 3388754941,
+        "executedEur": 3388754941
+      },
+      {
+        "period": "2025-03",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -1362710221
+      },
+      {
+        "period": "2025-03",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 259870235
+      },
+      {
+        "period": "2025-03",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 6059322616
+      },
+      {
+        "period": "2025-03",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 1362698554
+      },
+      {
+        "period": "2025-03",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 4956482629
+      },
+      {
+        "period": "2025-04",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -1412279598
+      },
+      {
+        "period": "2025-04",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 338492264
+      },
+      {
+        "period": "2025-04",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 8481848934
+      },
+      {
+        "period": "2025-04",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 1412266053
+      },
+      {
+        "period": "2025-04",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 7408061599
+      },
+      {
+        "period": "2025-05",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -1676585920
+      },
+      {
+        "period": "2025-05",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 416215873
+      },
+      {
+        "period": "2025-05",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 10973129307
+      },
+      {
+        "period": "2025-05",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 1676568299
+      },
+      {
+        "period": "2025-05",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 9712759259
+      },
+      {
+        "period": "2025-06",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -1763404023
+      },
+      {
+        "period": "2025-06",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 520874797
+      },
+      {
+        "period": "2025-06",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 13577869019
+      },
+      {
+        "period": "2025-06",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 1763392894
+      },
+      {
+        "period": "2025-06",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 12335339793
+      },
+      {
+        "period": "2025-07",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -1850282814
+      },
+      {
+        "period": "2025-07",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 596882586
+      },
+      {
+        "period": "2025-07",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 15980026219
+      },
+      {
+        "period": "2025-07",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 1850288295
+      },
+      {
+        "period": "2025-07",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 14726625991
+      },
+      {
+        "period": "2025-08",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -2180111270
+      },
+      {
+        "period": "2025-08",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 670902751
+      },
+      {
+        "period": "2025-08",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 18243675525
+      },
+      {
+        "period": "2025-08",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 2180108713
+      },
+      {
+        "period": "2025-08",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 16734467006
+      },
+      {
+        "period": "2025-09",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -2664101472
+      },
+      {
+        "period": "2025-09",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 752317075
+      },
+      {
+        "period": "2025-09",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 20824038567
+      },
+      {
+        "period": "2025-09",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 2664101473
+      },
+      {
+        "period": "2025-09",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 18912254169
+      },
+      {
+        "period": "2025-10",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -2809466816
+      },
+      {
+        "period": "2025-10",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 829455578
+      },
+      {
+        "period": "2025-10",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 23203139671
+      },
+      {
+        "period": "2025-10",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 2809443087
+      },
+      {
+        "period": "2025-10",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 21223128433
+      },
+      {
+        "period": "2025-11",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -2680284494
+      },
+      {
+        "period": "2025-11",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 955612888
+      },
+      {
+        "period": "2025-11",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 25704298848
+      },
+      {
+        "period": "2025-11",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 2680272255
+      },
+      {
+        "period": "2025-11",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 23979627242
+      },
+      {
+        "period": "2025-12",
+        "series": "balance",
+        "fiscalYear": 2025,
+        "plannedEur": -3646864707,
+        "executedEur": -3113054197
+      },
+      {
+        "period": "2025-12",
+        "series": "euContribution",
+        "fiscalYear": 2025,
+        "plannedEur": 1033086874,
+        "executedEur": 1040980572
+      },
+      {
+        "period": "2025-12",
+        "series": "expenditure",
+        "fiscalYear": 2025,
+        "plannedEur": 30820923086,
+        "executedEur": 28381104783
+      },
+      {
+        "period": "2025-12",
+        "series": "financing",
+        "fiscalYear": 2025,
+        "plannedEur": 3646864707,
+        "executedEur": 3113043546
+      },
+      {
+        "period": "2025-12",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 26309031158
+      },
+      {
+        "period": "2026-01",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -105367739
+      },
+      {
+        "period": "2026-01",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 101106142
+      },
+      {
+        "period": "2026-01",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 2254795790
+      },
+      {
+        "period": "2026-01",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 105367737
+      },
+      {
+        "period": "2026-01",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 2250534193
+      },
+      {
+        "period": "2026-02",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -1057197363
+      },
+      {
+        "period": "2026-02",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 221828673
+      },
+      {
+        "period": "2026-02",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 4636474089
+      },
+      {
+        "period": "2026-02",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 1057197361
+      },
+      {
+        "period": "2026-02",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 3801105399
+      },
+      {
+        "period": "2026-03",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -1918355713
+      },
+      {
+        "period": "2026-03",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 259519479
+      },
+      {
+        "period": "2026-03",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 7116102687
+      },
+      {
+        "period": "2026-03",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 1918355713
+      },
+      {
+        "period": "2026-03",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 5457266453
+      },
+      {
+        "period": "2026-04",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -1965023487
+      },
+      {
+        "period": "2026-04",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 351762859
+      },
+      {
+        "period": "2026-04",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 9530477487
+      },
+      {
+        "period": "2026-04",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 1965023486
+      },
+      {
+        "period": "2026-04",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 7917216859
+      },
+      {
+        "period": "2026-05",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -2435423320
+      },
+      {
+        "period": "2026-05",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 445524862
+      },
+      {
+        "period": "2026-05",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 11894563000
+      },
+      {
+        "period": "2026-05",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 2435423318
+      },
+      {
+        "period": "2026-05",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 9904664542
+      },
+      {
+        "period": "2026-06",
+        "series": "balance",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": -1914405872
+      },
+      {
+        "period": "2026-06",
+        "series": "euContribution",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 560263445
+      },
+      {
+        "period": "2026-06",
+        "series": "expenditure",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 14150474073
+      },
+      {
+        "period": "2026-06",
+        "series": "financing",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 1914405874
+      },
+      {
+        "period": "2026-06",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 12796331646
+      }
+    ],
+    "cumulative": true
+  },
+  "budget-year?fy=2026": {
+    "asOf": "2026-06-30",
+    "basis": "eur",
+    "gdpEur": 128155604775,
+    "figures": {
+      "balance": {
+        "actual": -1914405872,
+        "planned": null,
+        "projected": -3405447950
+      },
+      "revenue": {
+        "actual": 12796331646,
+        "planned": null,
+        "projected": 27292242746
+      },
+      "financing": {
+        "actual": 1914405874,
+        "planned": null,
+        "projected": 3405447950
+      },
+      "expenditure": {
+        "actual": 14150474073,
+        "planned": null,
+        "projected": 29577990982
+      },
+      "euContribution": {
+        "actual": 560263445,
+        "planned": null,
+        "projected": 1119699714
+      }
+    },
+    "complete": false,
+    "fiscalYear": 2026,
+    "population": null,
+    "yearsAvailable": [2021, 2022, 2023, 2024, 2025, 2026],
+    "monthsAvailable": 6,
+    "populationBasis": null,
+    "projectionBasis": 2025
+  },
+  "budget-personnel": {
+    "units": [
+      {
+        "nameBg": "Министерство на здравеопазването",
+        "nameEn": "Ministry of Health",
+        "nodeId": "admin-ministerstvo-na-zdraveopazvaneto",
+        "headcount": 12842,
+        "personnelEur": 278788670,
+        "avgCostPerFteEur": 21709
+      },
+      {
+        "nameBg": "Министерство на земеделието",
+        "nameEn": "Ministry of Agriculture",
+        "nodeId": "admin-ministerstvo-na-zemedelieto",
+        "headcount": 9427,
+        "personnelEur": 166519829,
+        "avgCostPerFteEur": 17664
+      },
+      {
+        "nameBg": "Министерство на труда и социалната политика",
+        "nameEn": "Ministry of Labour and Social Policy",
+        "nodeId": "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+        "headcount": 7622,
+        "personnelEur": 136407722,
+        "avgCostPerFteEur": 17897
+      },
+      {
+        "nameBg": "Министерство на икономиката и индустрията",
+        "nameEn": "Ministry of Economy and Industry",
+        "nodeId": "admin-ministerstvo-na-ikonomikata-i-industriyata",
+        "headcount": 1369,
+        "personnelEur": 30558106,
+        "avgCostPerFteEur": 22321
+      },
+      {
+        "nameBg": "Министерство на околната среда и водите",
+        "nameEn": "Ministry of Environment and Water",
+        "nodeId": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
+        "headcount": 1615,
+        "personnelEur": 29007198,
+        "avgCostPerFteEur": 17961
+      },
+      {
+        "nameBg": "Министерство на иновациите и растежа",
+        "nameEn": "Ministry of Innovation and Growth",
+        "nodeId": "admin-ministerstvo-na-inovatsiite-i-rastezha",
+        "headcount": 392,
+        "personnelEur": 15007577,
+        "avgCostPerFteEur": 38285
+      },
+      {
+        "nameBg": "Министерство на туризма",
+        "nameEn": "Ministry of Tourism",
+        "nodeId": "admin-ministerstvo-na-turizma",
+        "headcount": 105,
+        "personnelEur": 2819553,
+        "avgCostPerFteEur": 26853
+      }
+    ],
+    "points": [
+      {
+        "fiscalYear": 2017,
+        "payrollEur": null,
+        "nsiHeadcount": null,
+        "positionsTotal": 139665,
+        "positionsFilled": null,
+        "positionsVacant": 10760,
+        "structuresTotal": null,
+        "positionsCentral": 104513,
+        "structuresCentral": null,
+        "positionsMunicipal": 26564,
+        "positionsTerritorial": 35152,
+        "structuresTerritorial": null,
+        "positionsMunicipalOwnRevenue": 6091,
+        "positionsVacantOverSixMonths": 6316
+      },
+      {
+        "fiscalYear": 2018,
+        "payrollEur": null,
+        "nsiHeadcount": null,
+        "positionsTotal": 141784,
+        "positionsFilled": 130005,
+        "positionsVacant": 11779,
+        "structuresTotal": null,
+        "positionsCentral": 105927,
+        "structuresCentral": null,
+        "positionsMunicipal": 27215,
+        "positionsTerritorial": 35857,
+        "structuresTerritorial": null,
+        "positionsMunicipalOwnRevenue": 6221,
+        "positionsVacantOverSixMonths": 4682
+      },
+      {
+        "fiscalYear": 2019,
+        "payrollEur": null,
+        "nsiHeadcount": null,
+        "positionsTotal": 142747,
+        "positionsFilled": 131278,
+        "positionsVacant": 11469,
+        "structuresTotal": null,
+        "positionsCentral": 106368,
+        "structuresCentral": null,
+        "positionsMunicipal": 27767,
+        "positionsTerritorial": 36379,
+        "structuresTerritorial": null,
+        "positionsMunicipalOwnRevenue": 6540,
+        "positionsVacantOverSixMonths": 5385
+      },
+      {
+        "fiscalYear": 2020,
+        "payrollEur": null,
+        "nsiHeadcount": null,
+        "positionsTotal": 142613,
+        "positionsFilled": 131463,
+        "positionsVacant": 11150,
+        "structuresTotal": null,
+        "positionsCentral": 106191,
+        "structuresCentral": null,
+        "positionsMunicipal": 27797,
+        "positionsTerritorial": 36422,
+        "structuresTerritorial": null,
+        "positionsMunicipalOwnRevenue": 6105,
+        "positionsVacantOverSixMonths": 5729
+      },
+      {
+        "fiscalYear": 2021,
+        "payrollEur": null,
+        "nsiHeadcount": 98098,
+        "positionsTotal": 143381,
+        "positionsFilled": 131970,
+        "positionsVacant": 11411,
+        "structuresTotal": 587,
+        "positionsCentral": 106647,
+        "structuresCentral": 115,
+        "positionsMunicipal": 28069,
+        "positionsTerritorial": 36734,
+        "structuresTerritorial": 472,
+        "positionsMunicipalOwnRevenue": 5862,
+        "positionsVacantOverSixMonths": 5540
+      },
+      {
+        "fiscalYear": 2022,
+        "payrollEur": null,
+        "nsiHeadcount": 98343,
+        "positionsTotal": 143815,
+        "positionsFilled": 131644,
+        "positionsVacant": 12171,
+        "structuresTotal": 585,
+        "positionsCentral": 107079,
+        "structuresCentral": 116,
+        "positionsMunicipal": 28129,
+        "positionsTerritorial": 36736,
+        "structuresTerritorial": 469,
+        "positionsMunicipalOwnRevenue": 5660,
+        "positionsVacantOverSixMonths": 5528
+      },
+      {
+        "fiscalYear": 2023,
+        "payrollEur": null,
+        "nsiHeadcount": 98407,
+        "positionsTotal": 143502,
+        "positionsFilled": 131496,
+        "positionsVacant": 12007,
+        "structuresTotal": 587,
+        "positionsCentral": 106756,
+        "structuresCentral": 116,
+        "positionsMunicipal": 28265,
+        "positionsTerritorial": 36746,
+        "structuresTerritorial": 471,
+        "positionsMunicipalOwnRevenue": 5885,
+        "positionsVacantOverSixMonths": 5421
+      },
+      {
+        "fiscalYear": 2024,
+        "payrollEur": null,
+        "nsiHeadcount": 98975,
+        "positionsTotal": 145802,
+        "positionsFilled": 132392,
+        "positionsVacant": 13410,
+        "structuresTotal": 588,
+        "positionsCentral": 108527,
+        "structuresCentral": 116,
+        "positionsMunicipal": 28690,
+        "positionsTerritorial": 37275,
+        "structuresTerritorial": 472,
+        "positionsMunicipalOwnRevenue": 5894,
+        "positionsVacantOverSixMonths": 5415
+      },
+      {
+        "fiscalYear": 2025,
+        "payrollEur": null,
+        "nsiHeadcount": 98446,
+        "positionsTotal": 145623,
+        "positionsFilled": 133275,
+        "positionsVacant": 12348,
+        "structuresTotal": 581,
+        "positionsCentral": 108387,
+        "structuresCentral": 114,
+        "positionsMunicipal": 28663,
+        "positionsTerritorial": 37236,
+        "structuresTerritorial": 467,
+        "positionsMunicipalOwnRevenue": 5839,
+        "positionsVacantOverSixMonths": 5729
+      }
+    ],
+    "unitBasis": "Отчет за изпълнението на програмния бюджет на съответното министерство — изпълнени щатни бройки",
+    "unitYears": [2022, 2023, 2024],
+    "unitsCoverage": {
+      "units": 7,
+      "personnelEur": 659108655,
+      "stateExpenditureEur": 24775124952,
+      "unitsExpenditureEur": 2267820590
+    },
+    "headcountBasis": "НСИ, наети лица (списъчен брой) към декември — отделна справка в същия доклад",
+    "positionsBasis": "Щатни бройки по Доклада за състоянието на администрацията",
+    "unitsFiscalYear": 2024
+  },
+  "budget-series?series=revenue": {
+    "basis": "eur",
+    "points": [
+      {
+        "period": "2021-06",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 13831160888,
+        "executedEur": 7407747896
+      },
+      {
+        "period": "2021-07",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 13831160888,
+        "executedEur": 8764202904
+      },
+      {
+        "period": "2021-08",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 10054170478
+      },
+      {
+        "period": "2021-10",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 12649473766
+      },
+      {
+        "period": "2021-11",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 14555742951
+      },
+      {
+        "period": "2021-12",
+        "series": "revenue",
+        "fiscalYear": 2021,
+        "plannedEur": 14798196622,
+        "executedEur": 15809720097
+      },
+      {
+        "period": "2022-01",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 1411983584,
+        "executedEur": 1411983584
+      },
+      {
+        "period": "2022-02",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 2396263890
+      },
+      {
+        "period": "2022-03",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 3679837127
+      },
+      {
+        "period": "2022-04",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 5227988855
+      },
+      {
+        "period": "2022-05",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 16752366463,
+        "executedEur": 6709175795
+      },
+      {
+        "period": "2022-06",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 8452219017
+      },
+      {
+        "period": "2022-07",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 9952893198
+      },
+      {
+        "period": "2022-08",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 11493324980
+      },
+      {
+        "period": "2022-09",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 12995155852
+      },
+      {
+        "period": "2022-10",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 14371905771
+      },
+      {
+        "period": "2022-11",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 16398333540
+      },
+      {
+        "period": "2022-12",
+        "series": "revenue",
+        "fiscalYear": 2022,
+        "plannedEur": 17441459636,
+        "executedEur": 17868542106
+      },
+      {
+        "period": "2023-01",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 1390092526
+      },
+      {
+        "period": "2023-02",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 2606117100,
+        "executedEur": 2606117100
+      },
+      {
+        "period": "2023-03",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 4158795716
+      },
+      {
+        "period": "2023-04",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 5623794319
+      },
+      {
+        "period": "2023-05",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 7119579789,
+        "executedEur": 7119579789
+      },
+      {
+        "period": "2023-06",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 0,
+        "executedEur": 9379158320
+      },
+      {
+        "period": "2023-07",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 11439785352
+      },
+      {
+        "period": "2023-08",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 13029825493
+      },
+      {
+        "period": "2023-09",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 14585335570
+      },
+      {
+        "period": "2023-10",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 16397134833
+      },
+      {
+        "period": "2023-11",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 18763652147
+      },
+      {
+        "period": "2023-12",
+        "series": "revenue",
+        "fiscalYear": 2023,
+        "plannedEur": 20866110347,
+        "executedEur": 20342397451
+      },
+      {
+        "period": "2024-01",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 1720257237
+      },
+      {
+        "period": "2024-02",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 2920212717
+      },
+      {
+        "period": "2024-03",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 4294674536
+      },
+      {
+        "period": "2024-04",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 6556474375
+      },
+      {
+        "period": "2024-05",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 8281113021
+      },
+      {
+        "period": "2024-06",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 10417867233
+      },
+      {
+        "period": "2024-07",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 12447288095
+      },
+      {
+        "period": "2024-08",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 14208935682
+      },
+      {
+        "period": "2024-09",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 15955513036
+      },
+      {
+        "period": "2024-10",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 17918135914
+      },
+      {
+        "period": "2024-11",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 20342046639
+      },
+      {
+        "period": "2024-12",
+        "series": "revenue",
+        "fiscalYear": 2024,
+        "plannedEur": 22193401114,
+        "executedEur": 22263692630
+      },
+      {
+        "period": "2025-01",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 0,
+        "executedEur": 2175412819
+      },
+      {
+        "period": "2025-02",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 3388754941,
+        "executedEur": 3388754941
+      },
+      {
+        "period": "2025-03",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 4956482629
+      },
+      {
+        "period": "2025-04",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 7408061599
+      },
+      {
+        "period": "2025-05",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 9712759259
+      },
+      {
+        "period": "2025-06",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 12335339793
+      },
+      {
+        "period": "2025-07",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 14726625991
+      },
+      {
+        "period": "2025-08",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 16734467006
+      },
+      {
+        "period": "2025-09",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 18912254169
+      },
+      {
+        "period": "2025-10",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 21223128433
+      },
+      {
+        "period": "2025-11",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 23979627242
+      },
+      {
+        "period": "2025-12",
+        "series": "revenue",
+        "fiscalYear": 2025,
+        "plannedEur": 28207145253,
+        "executedEur": 26309031158
+      },
+      {
+        "period": "2026-01",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 2250534193
+      },
+      {
+        "period": "2026-02",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 3801105399
+      },
+      {
+        "period": "2026-03",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 5457266453
+      },
+      {
+        "period": "2026-04",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 7917216859
+      },
+      {
+        "period": "2026-05",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 9904664542
+      },
+      {
+        "period": "2026-06",
+        "series": "revenue",
+        "fiscalYear": 2026,
+        "plannedEur": null,
+        "executedEur": 12796331646
+      }
+    ],
+    "cumulative": true
+  },
+  "budget-snapshot?fy=2026&kind=revenue&basis=eur": {
+    "basis": "eur",
+    "period": "2026-06",
+    "sections": [
+      {
+        "kind": "revenue",
+        "lines": [
+          {
+            "ord": 0,
+            "depth": 0,
+            "labelBg": "Данъчни приходи",
+            "labelEn": "Tax revenue",
+            "isSubtotal": true,
+            "executedEur": 11429348565,
+            "groupLabelBg": null
+          },
+          {
+            "ord": 1,
+            "depth": 1,
+            "labelBg": "Корпоративен данък",
+            "labelEn": "Corporate income tax",
+            "isSubtotal": false,
+            "executedEur": 1491939365,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 2,
+            "depth": 1,
+            "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+            "labelEn": "Taxes on dividends, liquidation shares and income of resident and foreign legal entities",
+            "isSubtotal": false,
+            "executedEur": 44257023,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 3,
+            "depth": 1,
+            "labelBg": "Данъци в/у доходите на физически лица",
+            "labelEn": "Personal income tax",
+            "isSubtotal": false,
+            "executedEur": 2249600553,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 4,
+            "depth": 1,
+            "labelBg": "Данък върху добавената стойност",
+            "labelEn": "Value added tax",
+            "isSubtotal": false,
+            "executedEur": 5720993848,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 5,
+            "depth": 1,
+            "labelBg": "Акцизи",
+            "labelEn": "Excise duties",
+            "isSubtotal": false,
+            "executedEur": 1691179838,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 6,
+            "depth": 1,
+            "labelBg": "Данък върху застрахователните премии",
+            "labelEn": "Insurance premium tax",
+            "isSubtotal": false,
+            "executedEur": 20527419,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 7,
+            "depth": 1,
+            "labelBg": "Мита и митнически такси",
+            "labelEn": "Customs duties",
+            "isSubtotal": false,
+            "executedEur": 126023753,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 8,
+            "depth": 1,
+            "labelBg": "Други данъци",
+            "labelEn": "Other taxes",
+            "isSubtotal": false,
+            "executedEur": 84826766,
+            "groupLabelBg": "Данъчни приходи"
+          },
+          {
+            "ord": 9,
+            "depth": 0,
+            "labelBg": "Неданъчни приходи",
+            "labelEn": "Non-tax revenue",
+            "isSubtotal": true,
+            "executedEur": 1331974318,
+            "groupLabelBg": null
+          },
+          {
+            "ord": 10,
+            "depth": 1,
+            "labelBg": "Приходи и доходи  от собственост",
+            "labelEn": "Property income",
+            "isSubtotal": false,
+            "executedEur": 172268009,
+            "groupLabelBg": "Неданъчни приходи"
+          },
+          {
+            "ord": 11,
+            "depth": 1,
+            "labelBg": "Превишение на приходите над разходите на БНБ",
+            "labelEn": "Surplus of BNB revenue over expenditure",
+            "isSubtotal": false,
+            "executedEur": 281000000,
+            "groupLabelBg": "Неданъчни приходи"
+          },
+          {
+            "ord": 12,
+            "depth": 1,
+            "labelBg": "Приходи от такси",
+            "labelEn": "Fees",
+            "isSubtotal": false,
+            "executedEur": 663619645,
+            "groupLabelBg": "Неданъчни приходи"
+          },
+          {
+            "ord": 13,
+            "depth": 1,
+            "labelBg": "Глоби, санкции и наказателни лихви",
+            "labelEn": "Fines and penalties",
+            "isSubtotal": false,
+            "executedEur": 116964910,
+            "groupLabelBg": "Неданъчни приходи"
+          },
+          {
+            "ord": 14,
+            "depth": 1,
+            "labelBg": "Други неданъчни приходи",
+            "labelEn": "Other non-tax revenue",
+            "isSubtotal": false,
+            "executedEur": 98121754,
+            "groupLabelBg": "Неданъчни приходи"
+          },
+          {
+            "ord": 15,
+            "depth": 0,
+            "labelBg": "Помощи",
+            "labelEn": "Grants",
+            "isSubtotal": false,
+            "executedEur": 35008763,
+            "groupLabelBg": null
+          }
+        ],
+        "series": "revenue",
+        "labelBg": "I. Приходи, Помощи и дарения",
+        "labelEn": "Revenue, grants and donations",
+        "plannedEur": null,
+        "executedEur": 12796331646,
+        "sectionCode": "I"
+      }
+    ],
+    "fiscalYear": 2026
+  }
+}
