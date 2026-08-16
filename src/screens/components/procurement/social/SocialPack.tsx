@@ -98,13 +98,25 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     return model.totalEur / procYears;
   }, [model, procYears]);
 
-  const yearAligned = useMemo(() => {
-    const from = scopeWindow?.from;
-    const to = scopeWindow?.to;
-    if (!from && !to) return true;
-    return !!from && from.endsWith("-01-01") && !!to && to.endsWith("-01-01");
-  }, [scopeWindow]);
-  const procValue = yearAligned ? annualProc : (model?.totalEur ?? null);
+  // ALWAYS per-year when the span is known, on every scope. It used to be
+  // per-year only when the window was year-ALIGNED, which left the default `ns`
+  // scope handing the hero a whole-parliament TOTAL — and the hero divides what it
+  // is given by a SINGLE COFOG year and a single fiscal year of the МТСП budget.
+  // Measured, that understates by ~3x on the newest (open-ended) parliament and
+  // overstates by ~2x on a two-year one, with no „/год." rendered to signal it.
+  // The StatCard's label follows the same flag, so the two figures on the page
+  // cannot end up in different units.
+  const perYearBasis = annualProc != null;
+  const procValue = annualProc ?? model?.totalEur ?? null;
+  // The hero sits ABOVE the universe picker and its sentence says „цялата група",
+  // so it gets the whole-group figure — the same invariant `groupTotalEur` the
+  // footnote uses — rather than the picker-narrowed model the tiles below it show.
+  const groupProcValue = useMemo(() => {
+    if (groupTotalEur <= 0) return null;
+    return procYears && procYears > 0
+      ? groupTotalEur / procYears
+      : groupTotalEur;
+  }, [groupTotalEur, procYears]);
 
   const [searchParams] = useSearchParams();
   const location = useLocation();
@@ -162,7 +174,7 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           (not the contract model), so it shows even when a narrow scope has no
           contracts. */}
       <div id="social-hero" className="scroll-mt-24">
-        <SocialHeroTile procEur={procValue} perYear={yearAligned} />
+        <SocialHeroTile procEur={groupProcValue} perYear={perYearBasis} />
       </div>
 
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-2">
@@ -245,7 +257,7 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
             <StatCard
               label={
-                yearAligned
+                perYearBasis
                   ? bg
                     ? "Поръчки на година"
                     : "Procurement per year"

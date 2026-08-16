@@ -66,7 +66,13 @@ export const ASP_EIK = "121015056";
  *
  *  ⚠ It covers seven of the eight SOCIAL_ENTITIES — ДАЗД is a ПРБ to the
  *  Министерски съвет and its budget is elsewhere. So this node is the honest
- *  headline for the sector, but never a denominator for the group's procurement. */
+ *  headline for the sector, and the one thing it must never become is an EXACT
+ *  denominator: „N% от бюджета" computed over all eight members' procurement is
+ *  not a share of this node. SocialHeroTile does divide the group's procurement by
+ *  it, deliberately and as an order-of-magnitude statement („поръчките са ~1% от
+ *  бюджета"), which the seam cannot disturb — ДАЗД's €3.5M is 0.17% of a €2.11bn
+ *  denominator, four orders below the claim being made. Anything that needs the
+ *  ratio to be exact needs a different denominator. */
 export const SOCIAL_BUDGET_NODE =
   "admin-ministerstvo-na-truda-i-sotsialnata-politika";
 

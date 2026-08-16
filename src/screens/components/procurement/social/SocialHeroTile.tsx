@@ -46,6 +46,23 @@ export const SocialHeroTile: FC<{
   const remainder = Math.max(0, whole - mtsp);
 
   const proc = procEur ?? 0;
+  // The two figures in the sliver caption used to be written down — „под 0,2%" and
+  // „€15 млрд." — beside a `whole` the tile computes and renders three lines above.
+  // They agree today (0.13% of €15.09bn) and the next COFOG vintage silently breaks
+  // the pairing: the bar says one total and the sentence names another. Both are
+  // now derived from the same number the bar is drawn from.
+  //
+  // Precision follows the value rather than being fixed, because the whole point of
+  // the sliver is that the number is small but REAL: rounded to whole percent this
+  // prints „0%", which reads as none. One decimal covers the usual case (0,1%); a
+  // narrow scope with a few hundred thousand euro needs two, or it rounds to „0,0%"
+  // and says the same wrong thing one digit further along.
+  const pctOfWhole = whole > 0 ? (proc / whole) * 100 : 0;
+  const shareDigits = pctOfWhole > 0 && pctOfWhole < 0.1 ? 2 : 1;
+  const shareOfWhole = `${pctOfWhole.toLocaleString(lang, {
+    minimumFractionDigits: shareDigits,
+    maximumFractionDigits: shareDigits,
+  })}%`;
 
   return (
     <PassThroughHero
@@ -97,7 +114,9 @@ export const SocialHeroTile: FC<{
                     </span>
                     {perYear ? "/год." : ""}) са{" "}
                     <span className="font-semibold">{share}</span> от бюджета на
-                    МТСП — и под 0,2% от €15 млрд. социална защита. Историята е
+                    МТСП — и{" "}
+                    <span className="font-semibold">{shareOfWhole}</span> от{" "}
+                    {formatEurCompact(whole, lang)} социална защита. Историята е
                     в изплатените помощи, не в поръчките.
                   </>
                 ) : (
@@ -108,8 +127,10 @@ export const SocialHeroTile: FC<{
                     </span>
                     {perYear ? "/yr" : ""}) is{" "}
                     <span className="font-semibold">{share}</span> of the МТСП
-                    budget — and under 0.2% of the €15bn function. The story is
-                    in the benefits paid, not the procurement.
+                    budget — and{" "}
+                    <span className="font-semibold">{shareOfWhole}</span> of the{" "}
+                    {formatEurCompact(whole, lang)} function. The story is in
+                    the benefits paid, not the procurement.
                   </>
                 ),
             }
