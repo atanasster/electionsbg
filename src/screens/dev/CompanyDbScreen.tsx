@@ -57,7 +57,11 @@ import { canonicalAwarderName } from "@/lib/awarderNameOverrides";
 import { sigmaAuthorityUrl, sigmaCompanyUrl } from "@/lib/sigma";
 import { AwarderBreadcrumb } from "../components/procurement/AwarderBreadcrumb";
 import { SectorBreadcrumb } from "../components/procurement/SectorBreadcrumb";
-import { sectorDashboardForLeadEik } from "../sector/sectorDashboards";
+import {
+  sectorDashboardForLeadEik,
+  sectorDashboardForMemberEik,
+} from "../sector/sectorDashboards";
+import { sectorCrossLinkCopy } from "../sector/sectorCrossLinkCopy";
 import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
 import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
@@ -462,9 +466,19 @@ export const CompanyDbScreen: FC = () => {
   const SectorPack = useMemo(() => getSectorPack(eik), [eik]);
   // When this awarder IS the lead of a sector dashboard, its disbursement/
   // delivery pack has moved to /sector/:id — the awarder page stays the
-  // institution's own ЗОП financials. Suppress the pack here and cross-link.
+  // institution's own ЗОП financials. This drives pack suppression ONLY; the
+  // cross-link below is keyed on membership, which is a wider set.
   const sectorDash = useMemo(() => sectorDashboardForLeadEik(eik), [eik]);
   const showPack = SectorPack && !sectorDash;
+  // The sector this awarder BELONGS to — a different question from the one above,
+  // and the reason the two lookups are separate. Keying the cross-link on `sectorDash`
+  // made every non-lead member a dead end; keying pack suppression on THIS would
+  // suppress the pack for all of them. `sectorDash` is a subset, so a lead resolves
+  // here too and the copy below tells the two apart.
+  const sectorMembership = useMemo(
+    () => sectorDashboardForMemberEik(eik),
+    [eik],
+  );
   // Both cross-links out of this page land on `?pscope`-reading destinations
   // (/sector/:id and /subsidies each mount their own ScopeControl), so a bare
   // pathname would silently re-anchor the reader to the default window — the same
@@ -478,28 +492,39 @@ export const CompanyDbScreen: FC = () => {
   // Belonging to a sector is an identity fact, true whether or not this body signed
   // a contract this parliament, so it consults neither the scope nor the corpus.
   //
-  // Today it is keyed on LEAD, i.e. the 14 sector leads — 13 of which already had
-  // the link at the default `ns` scope, so hoisting it out adds exactly one page,
-  // /awarder/831373560 (БЕХ, the only lead with no contracts in that window). The
-  // 160-member figures (98 with an empty default window) arrive when this is
-  // re-keyed to sectorDashboardForMemberEik.
+  // Keyed on MEMBERSHIP, so it reaches all 161 non-lead members and not just the
+  // 14 leads. Measured on the default `ns` scope, 98 of the 160 servable member
+  // pages have no contracts in that window — those are the pages the old placement
+  // could never have reached, whatever it was keyed on.
+  //
+  // The sentence branches lead-vs-member and lives in sectorCrossLinkCopy, which
+  // says why the two are not interchangeable and is unit-tested — the branch is
+  // the risky part here, and a ternary inside JSX cannot be asserted.
   //
   // `isAwarderRoute` keeps it off /company/<lead-eik>, which is a change: the old
   // site was route-blind. That page is the TR record, not the institution, so the
   // sector trail belongs with the awarder breadcrumb it now sits under.
   const sectorCrossLink =
-    isAwarderRoute && sectorDash ? (
+    isAwarderRoute && sectorMembership ? (
       <Link
-        to={scopedHref(`/sector/${sectorDash.id}`)}
+        to={scopedHref(`/sector/${sectorMembership.id}`)}
         className="flex items-center justify-between rounded-xl border bg-muted/20 px-4 py-3 text-sm hover:border-primary/50"
       >
         <span>
-          {i18n.language === "bg"
-            ? "Разпределените средства и детайлите по сектора са в таблото на сектора"
-            : "The disbursed funds and sector detail are on the sector dashboard"}
+          {sectorCrossLinkCopy(
+            sectorMembership,
+            eik,
+            i18n.language === "bg",
+            // The agency acronym rather than a raw i18n key if the bundle has not
+            // loaded — every other string on this banner is hardcoded, so the key
+            // would be the one piece of scaffolding showing.
+            t(sectorMembership.titleKey, {
+              defaultValue: sectorMembership.agency,
+            }),
+          )}
         </span>
         <span className="inline-flex items-center gap-1 font-medium text-primary">
-          {i18n.language === "bg" ? "Към таблото" : "Open dashboard"}
+          {i18n.language === "bg" ? "Към сектора" : "Open sector"}
           <ArrowRight className="h-4 w-4" />
         </span>
       </Link>
