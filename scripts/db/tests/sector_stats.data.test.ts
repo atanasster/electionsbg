@@ -404,6 +404,74 @@ describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () =>
       );
   });
 
+  test.skipIf(skip)(
+    "no EIK is claimed by two sectors, in either registry",
+    () => {
+      // The generalisation of the МЗ pin above. That test asks the question of ONE
+      // body; this asks it of all 175, which is what the /awarder/:eik → /sector/:id
+      // cross-link now depends on: it resolves a member EIK to A sector, so a body
+      // claimed by two would be attributed to whichever the lookup reached first.
+      //
+      // `sectorDashboards.ts` refuses that at module load, so a dashboards collision
+      // fails the build rather than this test. The value here is the OTHER registry
+      // and the pairing: browse packs have no such guard, and a double-claim there
+      // double-counts a body's money across two published sector totals.
+      const claims = (
+        sets: Array<{ id: string; eiks: readonly string[] }>,
+      ): string[] => {
+        const owner = new Map<string, string[]>();
+        for (const s of sets)
+          for (const eik of new Set(s.eiks))
+            owner.set(eik, [...(owner.get(eik) ?? []), s.id]);
+        return [...owner]
+          .filter(([, ids]) => ids.length > 1)
+          .map(([eik, ids]) => `${eik} -> ${ids.join(", ")}`)
+          .sort();
+      };
+
+      const dashboardSets = Object.entries(SECTOR_DASHBOARDS).map(
+        ([id, c]) => ({
+          id,
+          eiks: c.members.map((m) => m.eik),
+        }),
+      );
+      const packSets = Object.values(SECTOR_BROWSE_PACKS).map((p) => ({
+        id: p.id,
+        eiks: p.eiks,
+      }));
+
+      // Floors first: without them a renamed export or an emptied registry makes
+      // both assertions pass by having nothing to compare — the absence-equivalent
+      // failure this file's own header warns about.
+      // Floor the EIKs actually walked, not the number of sets holding them: 18
+      // packs whose `eiks` arrays had all been emptied would pass a set-count
+      // floor while comparing nothing. Browse packs are the arm that needs this
+      // most — SECTOR_DASHBOARDS has a module-load guard in sectorDashboards.ts
+      // and these have none.
+      const memberCount = dashboardSets.reduce((n, s) => n + s.eiks.length, 0);
+      const packEikCount = packSets.reduce((n, s) => n + s.eiks.length, 0);
+      assert.ok(
+        memberCount > 150,
+        `only ${memberCount} dashboard members scanned — the registry looks empty`,
+      );
+      assert.ok(
+        packEikCount > 250,
+        `only ${packEikCount} browse-pack EIKs scanned — the registry looks empty`,
+      );
+
+      assert.deepEqual(
+        claims(dashboardSets),
+        [],
+        "an EIK is a member of two sector dashboards",
+      );
+      assert.deepEqual(
+        claims(packSets),
+        [],
+        "an EIK is claimed by two browse packs",
+      );
+    },
+  );
+
   test.skipIf(skip)("no browse pack ships a duplicate EIK", () => {
     // A repeated EIK is harmless inside an IN (...) filter, which is why one
     // survived unnoticed in `judiciary` — but it makes eiks.length wrong and

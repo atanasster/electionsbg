@@ -11,8 +11,20 @@
 //     membership banner while keeping pack suppression — green everywhere, one page
 //     quietly wrong.
 
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { MZ_EIK, NZOK_EIK } from "@/lib/healthReferenceData";
+import { getSectorPack } from "@/screens/components/procurement/sectorPacks";
+
+const SCREEN_SRC = readFileSync(
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../dev/CompanyDbScreen.tsx",
+  ),
+  "utf8",
+);
 import {
   buildMemberIndex,
   sectorDashboardForLeadEik,
@@ -113,5 +125,58 @@ describe("sectorDashboardForMemberEik", () => {
       expect(sectorDashboardForMemberEik(v)).toBeNull();
       expect(sectorDashboardForLeadEik(v)).toBeNull();
     }
+  });
+});
+
+describe("the two lookups stay wired to their own concern", () => {
+  // The lookups are behaviourally IDENTICAL on today's data for every input that
+  // matters, because no non-lead member has a pack. So swapping them at the call
+  // site changes nothing observable and leaves every test in this file green —
+  // asserted against source for the same reason PersonProfileScreen.noindex does
+  // it: the failure is a one-token edit, and rendering CompanyDbScreen to catch it
+  // would mean standing up ~40 fetching tiles.
+  it("showPack keys on LEAD and the cross-link on MEMBERSHIP, in the source", () => {
+    expect(SCREEN_SRC).toMatch(
+      /sectorDash = useMemo\(\(\) => sectorDashboardForLeadEik\(eik\), \[eik\]\)/,
+    );
+    expect(SCREEN_SRC).toMatch(/showPack = SectorPack && !sectorDash/);
+    expect(SCREEN_SRC).toMatch(/sectorDashboardForMemberEik\(eik\)/);
+    // The swap that would silently suppress the pack for all 161 members.
+    expect(SCREEN_SRC).not.toMatch(
+      /showPack = SectorPack && !sectorMembership/,
+    );
+    // …and the swap that would put the dead end back for every non-lead member.
+    expect(SCREEN_SRC).not.toMatch(/isAwarderRoute && sectorDash \?/);
+    expect(SCREEN_SRC).toMatch(/isAwarderRoute && sectorMembership \?/);
+  });
+
+  it("no non-lead member has a registered domain pack", () => {
+    // `showPack` is `SectorPack && !sectorDashboardForLeadEik(eik)` — deliberately
+    // the LEAD lookup, because a lead's pack has moved to /sector/:id. Keying it on
+    // membership instead would suppress the pack for every non-lead member, and
+    // today that swap is INVISIBLE: no member currently has a pack, so nothing
+    // would render differently and no test would fail.
+    //
+    // This asserts the coincidence rather than relying on it. The day a sector
+    // grows a second packed body — which is exactly what health did by admitting
+    // МЗ — the mistake stops being free, and this names the EIK instead of
+    // silently blanking that body's page.
+    const nonLead = Object.values(SECTOR_DASHBOARDS).flatMap((c) =>
+      c.members.filter((m) => m.eik !== c.leadEik).map((m) => ({ c, m })),
+    );
+    // Floor the set actually SCANNED, not a neighbouring one: a roster change that
+    // empties every `members` array would otherwise pass with zero subjects.
+    expect(nonLead.length).toBeGreaterThan(150);
+    // …and floor the resolver too, so an inert getSectorPack cannot make the
+    // filter below return nothing for the wrong reason.
+    expect(
+      Object.values(SECTOR_DASHBOARDS).filter((c) => getSectorPack(c.leadEik))
+        .length,
+    ).toBeGreaterThan(5);
+
+    const packed = nonLead
+      .filter(({ m }) => getSectorPack(m.eik))
+      .map(({ c, m }) => `${c.id}:${m.eik}`);
+    expect(packed).toEqual([]);
   });
 });
