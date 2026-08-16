@@ -5,6 +5,12 @@
 // (the ContextScatter house pattern). Reads data/cofog.json (x) +
 // data/social/poverty_impact.json (y).
 //
+// ⚠ THE TWO AXES ARE DIFFERENT VINTAGES. x is COFOG (national accounts, 2024
+// today); y is EU-SILC (2025). They are a year apart and will stay roughly so —
+// gov_10a_exp lands later than ilc_li10/li02 — so the footnote names a year per
+// dataset. Printing one year for both, which this tile did until 2026-08-15,
+// backdates the poverty half of every dot.
+//
 // HONEST framing (verified against the data): Bulgaria is bottom-left — it spends
 // BELOW the EU (14.4% vs 19.6% of GDP) and cuts poverty less (27% vs 33%). For what
 // it spends the result is about on the line, so the lever is the SIZE of the spend,
@@ -83,6 +89,12 @@ export const SocialValueForMoneyTile: FC = () => {
   });
   if (!cofog || !poverty) return null;
 
+  // TWO series, TWO vintages — and they are not the same year. COFOG (the x-axis)
+  // is a national-accounts release and lands well behind EU-SILC (the y-axis): 2024
+  // against 2025 today. The footnote used to print the COFOG year alone and hang
+  // both dataset names off it, so the poverty half of every dot was labelled a year
+  // early. Each axis now names its own year, and the sibling
+  // SocialPovertyImpactTile already renders `b.year` for the same reason.
   const year = cofog.peers?.GF10?.year ?? cofog.peerSeriesLatestYear;
   const composition =
     year != null ? cofog.peerSeriesByYear?.[String(year)] : undefined;
@@ -91,10 +103,37 @@ export const SocialValueForMoneyTile: FC = () => {
   // Pair each geo's spend (x) with its poverty-reduction effect (y).
   const pts = GEOS.map((geo) => {
     const x = composition[geo]?.GF10;
-    const y = poverty.latest[geo]?.pct;
-    return x != null && y != null ? { geo: geo as string, x, y } : null;
-  }).filter((p): p is { geo: string; x: number; y: number } => p != null);
-  if (pts.length < 3) return null;
+    const row = poverty.latest[geo];
+    return x != null && row?.pct != null
+      ? { geo: geo as string, x, y: row.pct, year: row.year }
+      : null;
+  }).filter(
+    (p): p is { geo: string; x: number; y: number; year: number } => p != null,
+  );
+
+  const bgPt = pts.find((p) => p.geo === "BG");
+  const euPt = pts.find((p) => p.geo === "EU27_2020");
+  // BG and the EU average are not optional here: the paragraph below is a sentence
+  // ABOUT them and reads „долу вляво" unconditionally. Three foreign geos satisfy
+  // a bare length check, and `bgPt?.x ?? 0` then prints „харчи 0,0% от БВП" — a
+  // fabricated figure inside a fixed verdict, at a 200.
+  if (pts.length < 3 || !bgPt || !euPt) return null;
+
+  // The poverty year is read off the DRAWN points, not off BG alone. Eurostat
+  // publishes EU-SILC per country, and fetch_poverty_impact keeps a geo's own
+  // latest when it lags (`pts.find(p => p.year === latestYear) ?? pts.at(-1)`) —
+  // so if BG were the laggard, naming BG's year would backdate the other four
+  // dots, which is the same defect one level down from the one this fixes. They
+  // agree today (all 2025); when they do not, say so rather than pick one.
+  const povertyYears = [...new Set(pts.map((p) => p.year))].sort();
+  const povertyYear =
+    povertyYears.length === 0
+      ? poverty.latestYear
+      : povertyYears.length === 1
+        ? String(povertyYears[0])
+        : `${povertyYears[0]}–${povertyYears[povertyYears.length - 1]}`;
+  // The x-axis has no such exposure: peerSeriesByYear[year] is a per-year map, so
+  // every x is one vintage by construction.
 
   const xs = niceScale(Math.min(...pts.map((p) => p.x)), Math.max(...pts.map((p) => p.x))); // prettier-ignore
   const ys = niceScale(Math.min(...pts.map((p) => p.y)), Math.max(...pts.map((p) => p.y)), 3); // prettier-ignore
@@ -126,9 +165,6 @@ export const SocialValueForMoneyTile: FC = () => {
   const slope = sxx > 0 ? sxy / sxx : 0;
   const intercept = my - slope * mx;
   const lineY = (x: number) => intercept + slope * x;
-
-  const bgPt = pts.find((p) => p.geo === "BG");
-  const euPt = pts.find((p) => p.geo === "EU27_2020");
 
   // Label placement. RO/HU/HR cluster within ~1.5 points of GDP in the crowded
   // bottom-left, and their labels printed on top of one another (a uniform
@@ -361,19 +397,19 @@ export const SocialValueForMoneyTile: FC = () => {
                 подреждат по възходяща линия. България е{" "}
                 <span className="font-semibold">долу вляво</span>: харчи{" "}
                 <span className="font-semibold tabular-nums">
-                  {formatCount(bgPt?.x ?? 0, loc, 1)}%
+                  {formatCount(bgPt.x, loc, 1)}%
                 </span>{" "}
                 от БВП (под{" "}
                 <span className="tabular-nums">
-                  {formatCount(euPt?.x ?? 0, loc, 1)}%
+                  {formatCount(euPt.x, loc, 1)}%
                 </span>{" "}
                 за ЕС) и сваля бедността с{" "}
                 <span className="font-semibold tabular-nums">
-                  {formatCount(bgPt?.y ?? 0, loc, 0)}%
+                  {formatCount(bgPt.y, loc, 0)}%
                 </span>{" "}
                 (под{" "}
                 <span className="tabular-nums">
-                  {formatCount(euPt?.y ?? 0, loc, 0)}%
+                  {formatCount(euPt.y, loc, 0)}%
                 </span>{" "}
                 за ЕС). За похарченото резултатът е около очаквания — лостът е
                 размерът на разхода, не ефективността.
@@ -384,19 +420,19 @@ export const SocialValueForMoneyTile: FC = () => {
                 an upward trend. Bulgaria is{" "}
                 <span className="font-semibold">bottom-left</span>: it spends{" "}
                 <span className="font-semibold tabular-nums">
-                  {formatCount(bgPt?.x ?? 0, loc, 1)}%
+                  {formatCount(bgPt.x, loc, 1)}%
                 </span>{" "}
                 of GDP (below the EU's{" "}
                 <span className="tabular-nums">
-                  {formatCount(euPt?.x ?? 0, loc, 1)}%
+                  {formatCount(euPt.x, loc, 1)}%
                 </span>
                 ) and cuts poverty by{" "}
                 <span className="font-semibold tabular-nums">
-                  {formatCount(bgPt?.y ?? 0, loc, 0)}%
+                  {formatCount(bgPt.y, loc, 0)}%
                 </span>{" "}
                 (below the EU's{" "}
                 <span className="tabular-nums">
-                  {formatCount(euPt?.y ?? 0, loc, 0)}%
+                  {formatCount(euPt.y, loc, 0)}%
                 </span>
                 ). For what it spends the result is about as expected — the
                 lever is the size of the spend, not efficiency.
@@ -406,7 +442,8 @@ export const SocialValueForMoneyTile: FC = () => {
 
           <p className="text-[11px] text-muted-foreground/80">
             {bg ? "Източник: " : "Source: "}
-            Eurostat gov_10a_exp (GF10) · ilc_li10 / ilc_li02 ({year})
+            Eurostat gov_10a_exp (GF10, {year}) · ilc_li10 / ilc_li02 (
+            {povertyYear})
           </p>
         </CardContent>
       </Card>
