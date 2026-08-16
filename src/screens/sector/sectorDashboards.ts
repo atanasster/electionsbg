@@ -17,7 +17,7 @@
 
 import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
-import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import { NZOK_EIK, HEALTH_ENTITIES } from "@/lib/healthReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { NAP_EIK } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
@@ -137,6 +137,16 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       })),
     ),
   },
+  // Здравеопазване — НЗОК (pays for care) + МЗ (builds and equips it). The
+  // hub HEADLINE stays НЗОК-only payout on purpose: summing МЗ's budget onto it
+  // would mix bases and double-count the state transfer that part-funds НЗОК.
+  // Members from the curated allowlist (healthReferenceData.ts), which carries
+  // that reasoning and the second-level anti-allowlist.
+  //
+  // leadEik stays НЗОК because getSectorPack keys on it, so the fund's
+  // budget-bridge pack — the one that shows ЗОП is ~1.5% of the money — remains
+  // this dashboard's content. МЗ reaches the reader through the awarders tile
+  // and the whole-group browse link.
   health: {
     id: "health",
     titleKey: "sector_health_title",
@@ -149,15 +159,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
         (m) => ({ default: m.NzokSearchBox }),
       ),
     ),
-    members: [
-      {
-        eik: NZOK_EIK,
-        name: {
-          bg: "Национална здравноосигурителна каса",
-          en: "National Health Insurance Fund",
-        },
-      },
-    ],
+    members: HEALTH_ENTITIES.map((e) => ({ eik: e.eik, name: e.name })),
   },
   roads: {
     id: "roads",

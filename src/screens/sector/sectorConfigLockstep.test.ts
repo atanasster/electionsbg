@@ -51,4 +51,18 @@ describe("sector registry ↔ dashboard config", () => {
     expect(SECTOR_DASHBOARDS.energy.agency).toBe("МЕ");
     expect(registrySectors.find((s) => s.id === "energy")?.agency).toBe("МЕ");
   });
+
+  it("keeps health on НЗОК — the money the tile actually shows", () => {
+    // The other badge naming one of two members, and the reasoning runs the
+    // OPPOSITE way to energy's, so pin it before someone applies that precedent
+    // here. The set is МЗ + НЗОК, but this badge is not an ownership claim: the
+    // hub number beside it is НЗОК's payout alone, because the headline
+    // deliberately does not sum МЗ's enacted budget onto НЗОК's cash execution
+    // (mixed bases, and it would double-count the state transfer). So the badge
+    // names the body the metric belongs to; the title and desc carry both.
+    // „МЗ" would be the principal AND two characters shorter — the width
+    // argument does not resist it, which is why this test does.
+    expect(SECTOR_DASHBOARDS.health.agency).toBe("НЗОК");
+    expect(registrySectors.find((s) => s.id === "health")?.agency).toBe("НЗОК");
+  });
 });

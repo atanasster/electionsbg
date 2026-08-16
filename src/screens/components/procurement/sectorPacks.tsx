@@ -18,8 +18,8 @@ import { lazy, type ComponentType } from "react";
 // hook — the RoadsPack itself stays a lazy() dynamic import.
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
-import { NZOK_EIK } from "@/lib/nzokBenchmarks";
-import { VSS_EIK, VSS_ALIAS_EIKS, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
+import { NZOK_EIK, HEALTH_SECTOR_EIKS } from "@/lib/healthReferenceData";
+import { VSS_EIK, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
 import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
@@ -54,13 +54,19 @@ export interface SectorPackProps {
 // surfaces (route redirect, procurement pill, report menu) so re-keying a pack —
 // or giving a pack a pill — can't drift the hardcoded EIK.
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
-export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
-export const NZOK_AWARDER_PATH = `/awarder/${NZOK_EIK}`;
 export const MON_AWARDER_PATH = `/awarder/${MON_EIK}`;
-// NOTE: there is deliberately no VSS_AWARDER_PATH export. Its siblings
-// (ROADS_/NOI_/NZOK_AWARDER_PATH) are consumed by reportMenus.ts and
-// ProcurementNav.tsx, but both nav surfaces point at the /judiciary dashboard
-// instead — the ВСС buyer page is reached from there. Don't "fix" the omission.
+// NOTE: there is deliberately no VSS_AWARDER_PATH export. Its live siblings
+// (ROADS_AWARDER_PATH → routes.tsx, MON_AWARDER_PATH → EducationScreen.tsx) are
+// consumed by nav surfaces, but both ВСС surfaces point at the /judiciary
+// dashboard instead — the ВСС buyer page is reached from there. Don't "fix" the
+// omission.
+//
+// NOI_/NZOK_AWARDER_PATH used to sit here and were removed 2026-08-16: both had
+// zero consumers anywhere, and this note asserted they were read by
+// reportMenus.ts and ProcurementNav.tsx, which was not true of any sibling. The
+// note's whole job is to stop someone "fixing" the ВСС omission, so it cannot
+// rest on a consumer list that has gone stale. Both bodies graduated to their
+// own dashboards (/pensions, /sector/health), which is what orphaned them.
 // ДФ „Земеделие" has no bespoke SectorPack — its awarder page is the generic
 // awarder dashboard plus the administering-agency subsidies card (gated on
 // AGRI_PAYER_EIK in CompanyDbScreen), the entry point into the /subsidies pack.
@@ -230,20 +236,32 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Осигуряване (НОИ)", en: "Social security (НОИ)" },
     eiks: [NOI_EIK],
   },
+  // The pack id stays `nzok` even though the set is now НЗОК + МЗ: it is a URL
+  // value (`?sector=nzok`) carried by live deep links, so renaming it would
+  // break them for no reader-visible gain. The LABEL is what a reader sees.
   nzok: {
     id: "nzok",
-    label: { bg: "Здравна каса (НЗОК)", en: "Health fund (НЗОК)" },
-    eiks: [NZOK_EIK],
+    label: {
+      bg: "Здравеопазване (МЗ + НЗОК)",
+      en: "Health (МЗ + НЗОК)",
+    },
+    eiks: [...HEALTH_SECTOR_EIKS],
   },
   agri: {
     id: "agri",
     label: { bg: "Земеделие (ДФЗ)", en: "Agriculture (ДФЗ)" },
     eiks: [AGRI_PAYER_EIK],
   },
+  // JUDICIAL_EIKS ALREADY carries VSS_EIK and its alias, so the old
+  // `[VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS]` shipped 60 entries for 58
+  // bodies, with 121513231 and 181092349 in twice. Harmless in the `IN (...)`
+  // filter this feeds today, which is why it went unnoticed — but it makes
+  // eiks.length wrong and would double-weight both the council and its own alias
+  // the day the list drives a per-EIK fan-out.
   judiciary: {
     id: "judiciary",
     label: { bg: "Съдебна власт (ВСС)", en: "Judiciary (ВСС)" },
-    eiks: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
+    eiks: JUDICIAL_EIKS,
   },
   defense: {
     id: "defense",

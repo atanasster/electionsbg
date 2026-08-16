@@ -12,17 +12,31 @@
 //
 // Sectors pinned here (extend per audit, one describe-block each):
 //
-//  · HEALTH (audit 2026-07-23) — a single-member PAYOUT sector. The tripwires:
+//  · HEALTH (audit 2026-07-23, widened 2026-08-16) — the one sector here whose
+//    EIK-SET and whose HEADLINE describe different things on purpose: a
+//    MULTI-member set (НЗОК + МЗ) fronted by a SINGLE-body payout headline.
+//    Summing МЗ's enacted budget onto НЗОК's cash execution would mix bases AND
+//    double-count the state transfer that part-funds the fund, so the headline
+//    stays НЗОК-only. (This bullet said "a single-member PAYOUT sector" until
+//    the widening.) The tripwires:
 //     - the hub headline stays basis='payout' and in a €-band around the НЗОК
 //       cash-execution latest full year (catches a basis flip, a zeroed/renamed
 //       source field, or a re-conversion-to-BGN that would ~halve the number);
 //     - the headline reconciles to nzok/execution_history.json's latest month-12
-//       point (the declared source of truth);
-//     - the four EIK-set copies collapse to the single НЗОК EIK 121858220 and
-//       stay equal (dashboard members ↔ browse pack ↔ NZOK_EIK constant), and
-//       health is NOT a procurement-basis sector;
-//     - НЗОК 121858220 is a real, signature awarder in the corpus (its own thin
-//       ЗОП line) — proves the EIK isn't a typo while staying far below payout.
+//       point (the declared source of truth), and NO scope may publish a year
+//       that has no December point — the B1 feed is cumulative-YTD, and this
+//       sector has shipped a partial year as an annual figure twice;
+//     - the EIK-set copies stay equal on BOTH EIKs (HEALTH_SECTOR_EIKS ↔
+//       dashboard members ↔ browse pack) while leadEik stays НЗОК — that last is
+//       what keeps the budget-bridge pack, rather than the generic KPI row, as
+//       the dashboard's body — and health is NOT a procurement-basis sector;
+//     - МЗ is claimed by exactly ONE sector. The whole argument for admitting a
+//       €2.84bn ministry is that it double-counted against nothing, so that is
+//       asserted rather than assumed;
+//     - the second-level МЗ family (54 ЦСМП/РЗИ/НЦОЗА bodies, €86.6m) and the
+//       234 state/university HOSPITALS (€10.6bn — НЗОК's own payees) stay OUT;
+//     - both members are real, signature awarders in the corpus — proves neither
+//       EIK is a typo, while НЗОК's own thin ЗОП line stays far below payout.
 //
 //  · WATER (audit 2026-08-13, docs/plans/water-sector-audit-v1.md) — a MULTI-member
 //    PROCUREMENT sector, so the tripwires are the opposite shape to health's:
@@ -103,7 +117,11 @@ import { fileURLToPath } from "node:url";
 import { allRows, end } from "../lib/pg";
 import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
-import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import {
+  NZOK_EIK,
+  MZ_EIK,
+  HEALTH_SECTOR_EIKS,
+} from "@/lib/healthReferenceData";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
 import { API_EIK } from "@/lib/roadAttributes";
@@ -245,7 +263,7 @@ const sectorSum = async (eiks: readonly string[]): Promise<number> => {
   return Number(r?.eur ?? 0);
 };
 
-describe("health sector (payout / НЗОК)", () => {
+describe("health sector (НЗОК + МЗ; payout headline from НЗОК)", () => {
   test.skipIf(skip)(
     "hub headline is payout, in-band, reconciles to source",
     () => {
@@ -294,28 +312,182 @@ describe("health sector (payout / НЗОК)", () => {
   );
 
   test.skipIf(skip)(
-    "four EIK-set copies collapse to the single НЗОК EIK",
+    "the health EIK-set copies stay in lockstep on НЗОК + МЗ",
     () => {
-      const expected = ["121858220"];
-      assert.deepEqual([NZOK_EIK], expected, "NZOK_EIK constant drifted");
+      // Widened 2026-08-16 from НЗОК alone: МЗ is €2.84bn / 5,771 contracts —
+      // 34× НЗОК's whole ЗОП line — and belonged to no sector at all. Pin both
+      // EIKs so neither a re-narrowing nor a silent third member goes unnoticed.
+      const expected = ["121858220", "000695317"];
+      assert.equal(NZOK_EIK, "121858220", "NZOK_EIK constant drifted");
+      assert.equal(MZ_EIK, "000695317", "MZ_EIK constant drifted");
+      assert.deepEqual(
+        [...HEALTH_SECTOR_EIKS],
+        expected,
+        "HEALTH_SECTOR_EIKS drifted",
+      );
       assert.deepEqual(
         SECTOR_DASHBOARDS.health.members.map((m) => m.eik),
         expected,
-        "SECTOR_DASHBOARDS.health.members drifted from the single НЗОК EIK",
+        "SECTOR_DASHBOARDS.health.members drifted from HEALTH_SECTOR_EIKS",
       );
-      assert.equal(SECTOR_DASHBOARDS.health.leadEik, NZOK_EIK);
       assert.deepEqual(
-        SECTOR_BROWSE_PACKS.nzok.eiks,
+        [...SECTOR_BROWSE_PACKS.nzok.eiks],
         expected,
-        "SECTOR_BROWSE_PACKS.nzok.eiks drifted from the single НЗОК EIK",
+        "SECTOR_BROWSE_PACKS.nzok.eiks drifted from HEALTH_SECTOR_EIKS",
       );
+      // getSectorPack keys on leadEik, so this is what keeps the НЗОК
+      // budget-bridge pack — not the generic KPI row — as the dashboard's body.
+      assert.equal(SECTOR_DASHBOARDS.health.leadEik, NZOK_EIK);
 
       // Health is payout-basis: it must NOT be emitted as a procurement sector
-      // (a procurement headline would understate НЗОК ~56×).
+      // (a procurement headline would understate НЗОК ~56×). This is also what
+      // stops the widening from leaking into the headline — adding МЗ's budget
+      // to НЗОК's cash execution would mix bases AND double-count the state
+      // transfer that part-funds the fund.
       const stats = readJson<SectorStats>(
         "data/procurement/derived/sector_stats.json",
       );
       assert.equal(stats["all"].health.basis, "payout");
+    },
+  );
+
+  test.skipIf(skip)("МЗ is claimed by exactly one sector", () => {
+    // The whole argument for admitting a €2.84bn ministry is that it belonged to
+    // no sector, so it double-counts against nothing. That was prose; this makes
+    // it an invariant, on the all-packs idiom the НОИ block below already argues
+    // for — unlike a hand-listed set it cannot silently under-cover, because a
+    // pack added tomorrow is checked the day it lands.
+    const claiming = Object.values(SECTOR_BROWSE_PACKS)
+      .filter((pack) => pack.eiks.includes(MZ_EIK))
+      .map((pack) => pack.id)
+      .sort();
+    assert.deepEqual(
+      claiming,
+      ["nzok"],
+      `МЗ ${MZ_EIK} is claimed by browse packs: ${claiming.join(", ")}`,
+    );
+
+    const dashboards = Object.entries(SECTOR_DASHBOARDS)
+      .filter(([, c]) => c.members.some((m) => m.eik === MZ_EIK))
+      .map(([id]) => id)
+      .sort();
+    assert.deepEqual(
+      dashboards,
+      ["health"],
+      `МЗ ${MZ_EIK} is a member of dashboards: ${dashboards.join(", ")}`,
+    );
+
+    // …and it must never reach a PROCUREMENT-basis EIK-set, which is where a
+    // double-count would actually move a published number (health's own headline
+    // is payout, so its set cannot).
+    const procurementSets: Record<string, readonly string[]> = {
+      water: WATER_SECTOR_EIKS,
+      transport: TRANSPORT_SECTOR_EIKS,
+      energy: ENERGY_SECTOR_EIKS,
+      social: SOCIAL_SECTOR_EIKS,
+      roads: [API_EIK],
+    };
+    for (const [id, eiks] of Object.entries(procurementSets))
+      assert.ok(
+        !eiks.includes(MZ_EIK),
+        `МЗ ${MZ_EIK} leaked into the ${id} EIK-set — that WOULD double-count`,
+      );
+  });
+
+  test.skipIf(skip)("no browse pack ships a duplicate EIK", () => {
+    // A repeated EIK is harmless inside an IN (...) filter, which is why one
+    // survived unnoticed in `judiciary` — but it makes eiks.length wrong and
+    // would double-weight a member the day the list drives a per-EIK fan-out.
+    const dupes = Object.values(SECTOR_BROWSE_PACKS)
+      .filter((p) => new Set(p.eiks).size !== p.eiks.length)
+      .map((p) => p.id);
+    assert.deepEqual(dupes, [], `browse packs with duplicate EIKs: ${dupes}`);
+  });
+
+  test.skipIf(skip)(
+    "the second-level МЗ family is deliberately out of the EIK-set",
+    async () => {
+      // ЦСМП / РЗИ / НЦОЗА are 54 separate legal persons under МЗ (~€86.6m).
+      // Excluding them is a decision recorded in healthReferenceData.ts, not an
+      // oversight — so assert it holds rather than letting a later sweep fold
+      // them in silently. Resolved from the corpus, so it also catches a body
+      // that starts matching after a rename.
+      const rows = await allRows<{ eik: string }>(
+        `select distinct awarder_eik eik from contracts
+          where tag='contract'
+            and (awarder_name ilike '%спешна медицинска помощ%'
+              or awarder_name ilike '%регионална здравна инспекц%'
+              or awarder_name ilike '%обществено здраве%')`,
+      );
+      const secondLevel = new Set(rows.map((r) => r.eik));
+      // Measured 54. A floor of >10 would still pass after a reload that lost
+      // 43 of them, leaving the anti-leak check below measuring an almost-empty
+      // set — the vacuous-gate shape this file warns about elsewhere.
+      assert.ok(
+        secondLevel.size >= 40,
+        `second-level МЗ sweep found only ${secondLevel.size} bodies (expected ~54)`,
+      );
+      const leaked = HEALTH_SECTOR_EIKS.filter((e) => secondLevel.has(e));
+      assert.deepEqual(
+        leaked,
+        [],
+        `second-level МЗ bodies leaked into HEALTH_SECTOR_EIKS: ${leaked.join(", ")}`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "the state and university hospitals stay out of the EIK-set",
+    async () => {
+      // The biggest neighbour by far — 234 bodies / €10.6bn, 3.7× МЗ — and the
+      // one whose exclusion is NOT covered by the second-level argument: they
+      // are commercial ЕАД/ООД, and МЗ holds the state's shares in them. What
+      // rules them out is that НЗОК REIMBURSES them, so a set holding both the
+      // payer and its payees counts the same care twice. Gated because the
+      // reference file's earlier phrasing ("principal is verifiably the Minister
+      // of Health") read as an invitation to add them.
+      const rows = await allRows<{ eik: string }>(
+        `select distinct awarder_eik eik from contracts
+          where tag='contract'
+            and (awarder_name ilike '%МБАЛ%' or awarder_name ilike '%болница%'
+              or awarder_name ilike '%диспансер%')`,
+      );
+      const hospitals = new Set(rows.map((r) => r.eik));
+      assert.ok(
+        hospitals.size >= 150,
+        `hospital sweep found only ${hospitals.size} bodies (expected ~234)`,
+      );
+      const leaked = HEALTH_SECTOR_EIKS.filter((e) => hospitals.has(e));
+      assert.deepEqual(
+        leaked,
+        [],
+        `hospitals leaked into HEALTH_SECTOR_EIKS — that double-counts НЗОК's own payees: ${leaked.join(", ")}`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "МЗ is a real signature awarder, far above НЗОК's own ЗОП line",
+    async () => {
+      const [r] = await allRows<{ name: string | null }>(
+        `select min(awarder_name) name
+           from contracts where tag='contract' and awarder_eik = $1`,
+        [MZ_EIK],
+      );
+      // r is never nullish — a bare aggregate always returns one row — so the
+      // "does this EIK exist in the corpus" check has to be on the NAME.
+      assert.ok(r?.name, `no contracts at all for МЗ EIK ${MZ_EIK}`);
+      assert.ok(
+        /министерство на здравеопазването/i.test(r.name),
+        `awarder_name for ${MZ_EIK} is not МЗ: ${r.name}`,
+      );
+      // Floor well under today's €2.84bn — this is the reason the sector was
+      // widened, so a collapse here means the widening stopped being worth it.
+      const eur = await sectorSum([MZ_EIK]);
+      assert.ok(
+        eur > 1_500_000_000,
+        `МЗ procurement €${eur} below the floor — is the EIK still right?`,
+      );
     },
   );
 

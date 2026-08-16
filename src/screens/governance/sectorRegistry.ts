@@ -99,6 +99,13 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         to: "/sector/social",
         accent: TILE_ACCENTS.olive,
       },
+      // Здравеопазване — МЗ + НЗОК (healthReferenceData.ts). The badge stays the
+      // single acronym „НЗОК" rather than „МЗ · НЗОК": the slot is an acronym in
+      // a shrink-0 flex row that shares the mobile line with the metric, so a
+      // 9-character badge there is the horizontal-overflow shape. It also
+      // happens to be the honest label for what sits beside it — the tile's
+      // number IS НЗОК's payout, since the headline deliberately does not sum
+      // МЗ's budget onto it. The title and desc name both bodies.
       {
         id: "health",
         titleKey: "sector_health_title",
