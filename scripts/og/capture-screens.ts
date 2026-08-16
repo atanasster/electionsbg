@@ -746,6 +746,18 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "crypto",
+    routePath: "declarations/crypto",
+    // The declared-crypto register, most valuable holding first. No ?elections= — the
+    // page has no parliament scope: its rows are declarants across every tier, keyed on
+    // the filing year, so pinning an election would seed a param the screen ignores.
+    waitFor: '[data-og="crypto-registry-og"] tbody tr',
+    anchor: '[data-og="crypto-registry-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "mp-companies",
     routePath: "mp/companies?elections=2026_04_19",
     // MP-connected companies (most MPs first) — company rows with their linked-MP

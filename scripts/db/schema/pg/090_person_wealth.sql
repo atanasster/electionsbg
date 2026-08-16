@@ -237,6 +237,84 @@ RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
   SELECT COALESCE(m, 1::numeric) FROM parsed
 $$;
 
+-- ---------------------------------------------------------------------------
+-- asset_unit_norm(currency) — the declared unit, upper-cased and stripped of the
+-- punctuation and whitespace a hand-typed cell carries ("шв. фр." -> "ШВФР"), so the
+-- lists in is_crypto_asset below can be EXACT equality rather than substring matches.
+-- Exact matters there: a substring rule on ЗЛАТО/GOLD would swallow PAX Gold, which is a
+-- token held on an exchange and not a bar in a vault.
+--
+-- A single SELECT with no CTE, deliberately — see the inlining note on
+-- asset_share_multiplier above. This one IS called corpus-wide (159's matview scans every
+-- asset row), which is exactly the case that comment says to write for rather than
+-- rediscover under a slow query.
+CREATE OR REPLACE FUNCTION asset_unit_norm(p_currency text)
+RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  SELECT upper(regexp_replace(COALESCE(p_currency, ''), '[^[:alnum:]]', '', 'g'))
+$$;
+
+-- is_crypto_asset(category, description, detail, currency) — is this row a declared
+-- CRYPTO holding?
+--
+-- Lives here, beside asset_share_multiplier, for the same reason: a classifier that
+-- several migrations read belongs with the corpus it classifies, not in the newest file
+-- that happens to need it. 159's matview, declaration_detail() and person_declarations()
+-- below all call it, so there is exactly one answer per row.
+--
+-- There is deliberately NO TypeScript twin. Every consumer is server-side, so the
+-- two-copies-that-drift problem asset_share_multiplier and shlyo_query_fold have to be
+-- gated for cannot arise — do not add one.
+--
+-- WHY THIS IS NOT A TICKER ALLOWLIST. Crypto reaches the corpus in two shapes that differ
+-- by filing year: the 2019-2025 filings put it in table 9 (`security`) with the ticker in
+-- `detail` and the count in `share`, while the 2026 служебен cabinet used table 8
+-- (`investment`), where the coin name IS the declared `currency` and the count is
+-- `amount`. A list of known tickers answers today's corpus and then misses every new coin
+-- SILENTLY — the row still renders, just not as crypto. So rule A below is "the unit of
+-- account is not money", which classifies a coin nobody has heard of yet.
+--
+-- The residue is what makes that safe, and it is a TEST rather than a longer list:
+-- declared_crypto.data.test.ts asserts every distinct non-fiat `currency` in the corpus is
+-- classified deliberately. A new COIN classifies itself; a new fiat SPELLING fails the
+-- test rather than publishing somebody's bank balance as a crypto holding.
+CREATE OR REPLACE FUNCTION is_crypto_asset(
+  p_category text, p_description text, p_detail text, p_currency text
+) RETURNS boolean LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  -- A liability is never a holding. `credit_limit` is not even money owed.
+  SELECT p_category IS DISTINCT FROM 'debt'
+     AND p_category IS DISTINCT FROM 'credit_limit'
+     AND (
+       -- B — the declarant said so. Covers all 98 table-9 rows („Криптовалута",
+       -- „крипто валута", „Крипто"). Note „акции · Coinbase" does NOT match: an equity in
+       -- an exchange is not a crypto holding, and "Coinbase" contains no "crypto".
+       (COALESCE(p_description, '') || ' ' || COALESCE(p_detail, '')) ~* '(крипто|crypto)'
+       -- A — the unit of account is not money.
+       OR (
+         asset_unit_norm(p_currency) <> ''
+         -- Fiat, INCLUDING the Cyrillic-homoglyph typos the register is full of: ЕUR
+         -- (Cyrillic Е), ВGN (Cyrillic В), УСД. ФЖХ is a BGN mistype and is provable as
+         -- one — its €/unit is exactly the 1.95583 peg. Without these, six fiat rows
+         -- publish as crypto.
+         AND asset_unit_norm(p_currency) NOT IN (
+           'BGN', 'EUR', 'USD', 'GBP', 'CHF', 'RON', 'TRY', 'RSD', 'MKD', 'SEK', 'NOK',
+           'DKK', 'PLN', 'CZK', 'HUF', 'CAD', 'AUD', 'JPY', 'CNY', 'RUB', 'UAH', 'ILS',
+           'AED', 'ZAR',
+           'ЕUR', 'ВGN', 'УСД', 'ЕВРО', 'ЕВРА', 'ЛЕВА', 'ЛЕВ', 'ЛВ', 'ДОЛАРА', 'ДОЛАР',
+           'ШВФР', 'ШВЕЙЦАРСКИФРАНКА', 'ШВЕЙЦАРСКИФРАНК', 'ФРАНКА', 'ФРАНК',
+           'ПАУНДА', 'ПАУНД', 'ЛИРИ', 'ЛИРА', 'ФЖХ', 'ЕДНО'
+         )
+         -- Precious metal — a non-money unit that is not crypto. Exact equality, so
+         -- PAX Gold survives.
+         AND asset_unit_norm(p_currency) NOT IN (
+           'XAU', 'XAG', 'XPT', 'XPD',
+           'ЗЛАТО', 'ИНВЕСТИЦИОННОЗЛАТО', 'СРЕБРО', 'ПЛАТИНА', 'GOLD', 'SILVER'
+         )
+         -- A mis-keyed numeric cell ('9448') is not a unit.
+         AND asset_unit_norm(p_currency) !~ '^[0-9]+$'
+       )
+     )
+$$;
+
 DROP MATERIALIZED VIEW IF EXISTS person_wealth_year CASCADE;
 CREATE MATERIALIZED VIEW person_wealth_year AS
 WITH ranked AS (
@@ -458,6 +536,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                                 AND a.value_eur > asset_row_ceiling_eur()),
       'assetCount', (SELECT count(*) FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id),
+      -- Whether this filing declares crypto at all, and for how much. Carried on the
+      -- LIST row so the profile can decide to mount the „Криптоактиви" block without
+      -- fetching any filing detail: ~56.8k people hold none, and none of them should pay
+      -- a request to discover that. The 12 who do reuse the expander's own
+      -- declaration_detail() call, which React Query dedupes.
+      --
+      -- cryptoEur is UNWEIGHTED and UNCAPPED, unlike assetsEur above: asset_share_multiplier
+      -- only ever applies to real_estate/vehicle, and a co-owned coin is not a thing the
+      -- form can express. It is the sum of what the declarant put on those rows.
+      'cryptoCount', (SELECT count(*) FROM declaration_asset a
+                        WHERE a.declaration_id = d.declaration_id
+                          AND is_crypto_asset(a.category, a.description, a.detail, a.currency)),
+      'cryptoEur', round(COALESCE((SELECT SUM(a.value_eur) FROM declaration_asset a
+                        WHERE a.declaration_id = d.declaration_id
+                          AND is_crypto_asset(a.category, a.description, a.detail, a.currency)), 0)),
       'stakeCount', (SELECT count(*) FROM declaration_stake s
                        WHERE s.declaration_id = d.declaration_id),
       'eventCount', (SELECT count(*) FROM declaration_event e
@@ -520,7 +613,48 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'location', a.location, 'municipality', a.municipality,
         'areaSqm', a.area_sqm, 'acquiredYear', a.acquired_year, 'share', a.share,
         'valueEur', round(a.value_eur), 'holderName', a.holder_name,
-        'isSpouse', a.is_spouse
+        'isSpouse', a.is_spouse,
+        -- The unit the declarant wrote on the row, verbatim. Carried because the renderer
+        -- suppresses `detail` when it merely RESTATES this (table 4/5 bank and cash rows
+        -- store `detail = currency`, so „Банкови сметки EUR" would be on every bank line
+        -- in the corpus) — a comparison it cannot make without both halves.
+        'currency', a.currency,
+        -- HOW MUCH OF THE THING, in its own unit — „30 Етериум", „518 000" shares. The
+        -- block could not render this before, and a crypto holding without it is four
+        -- identical „Инвестиции €66 030" rows for four different coins.
+        --
+        -- WHICH COLUMN HOLDS THE COUNT DEPENDS ON THE FILING SHAPE, which is why this is
+        -- resolved here and not client-side. Table 8 (`investment`, the 2026 служебен
+        -- cabinet) declares the coin AS the currency and the count in `amount`. Table 9
+        -- (`security`, 2019-2025) puts the count in `share` and uses `amount` for the
+        -- acquisition PRICE in leva — so reading `amount` there would print „140 696 ADA"
+        -- for a holding of 518 000 ADA that cost 140 696 лв.
+        --
+        -- The discriminator is is_crypto_asset with the text arms passed NULL: that
+        -- disables rule B and leaves only rule A, so it answers exactly "is the declared
+        -- currency a non-money unit" — i.e. is `currency` the coin. Reusing the classifier
+        -- rather than restating half of it is the point; there is no second list to drift.
+        --
+        -- The `share` arm is restricted to `security` because `share` means an IDEAL PART
+        -- on real_estate/vehicle rows (see asset_share_multiplier) — a bare „50" there is
+        -- an unreadable ownership fraction, not fifty of something.
+        --
+        -- NOT rounded: 0.017 BTC and 0.38 ETH are real declared holdings that round to 0.
+        'quantity', CASE
+          WHEN is_crypto_asset(a.category, NULL, NULL, a.currency) THEN a.amount
+          WHEN a.category = 'security'
+           AND a.share ~ '^[[:space:]]*[0-9]+([.,][0-9]+)?[[:space:]]*$'
+            THEN replace(btrim(a.share), ',', '.')::numeric
+        END,
+        -- The unit to print after the quantity. NULL means "bare count" — the client
+        -- supplies its own localised „бр." / "units", because a UI word does not belong
+        -- in a migration.
+        'quantityUnit', CASE
+          WHEN is_crypto_asset(a.category, NULL, NULL, a.currency) THEN a.currency
+        END,
+        -- Server-classified so the profile block and the /declarations/crypto register
+        -- cannot disagree about what counts as crypto. See is_crypto_asset above.
+        'isCrypto', is_crypto_asset(a.category, a.description, a.detail, a.currency)
       ) ORDER BY a.seq) FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
     ), '[]'::jsonb),
     'income', COALESCE((

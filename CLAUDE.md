@@ -1791,6 +1791,47 @@ magistrates were missing from `person_search` while all 460 were already in `per
 the retention's own purpose defeated, at a 200, with every row count reconciling. Re-run this loader
 after any magistrate reload, on both sides.
 
+`person_crypto_table` (migration 159) is the declared-CRYPTO register behind
+`/declarations/crypto` and the `crypto_holdings` DbDataTable resource. It has **no loader of
+its own** — it is a fifth victim of 090's `DROP MATERIALIZED VIEW person_wealth_year CASCADE`,
+so `load_declarations_pg.ts` applies it in phase 2 right after 120, and its `CREATE … AS`
+populates it. On the cloud side it therefore rides:
+
+```bash
+npm run db:load:declarations:pg:cloud -- --resolve
+```
+
+**First deploy is ORDERED, and getting it wrong is a 500 rather than a narrower answer.**
+The registry engine reads the base relation unconditionally (same shape as `cpv_catalog` /
+`contractor_rank` — there is no `missingMigration` degrade on a DbDataTable resource), so a
+`deploy:db` that ships `crypto_holdings` before the loader has reached the target 500s every
+request to `/declarations/crypto`. Loader first, then `deploy:db`, then `deploy`.
+
+Three things about it are easy to get backwards:
+
+- **It joins through `person_wealth_year`, and that is a CORRECTNESS property, not a
+  convenience.** A holding is re-declared on every filing that covers it — Борис Михайлов's
+  500,000 BUSD sits on both his 2023 годишна and his 2023 при-напускане — so summing the raw
+  `declaration_asset` rows reads **€1,960,489 against a true €1,649,180**, a 19% overstatement
+  on a page whose entire content is a number beside a person's name. 090 already picks ONE
+  declaration per (person, period_year); joining through it is what stops this register
+  becoming a fifth opinion about which filing counts.
+- **The `scope` fan-out needs its `defaultScope`** (`latest`), exactly as `mp_cars` does. An
+  unscoped query is otherwise the UNION of the `latest` and `all` buckets, which serves that
+  double-count with the `count` and `sum` aggregates inflated to match and nothing erroring.
+- **The classifier is `is_crypto_asset()` in 090, beside `asset_share_multiplier`, and it has
+  NO TypeScript twin — do not add one.** Every consumer is server-side. It classifies by RULE
+  ("the declared unit is not money") rather than by a ticker allowlist, so a new coin
+  classifies itself; the price is that a new FIAT spelling would publish a bank balance as
+  crypto, which `declared_crypto.data.test.ts` closes by requiring every distinct non-fiat unit
+  in the corpus to be classified deliberately. The register is full of Cyrillic homoglyph
+  typos (`ЕUR`, `ВGN`, `УСД`) and hand-typed units (`шв. фр.`, `ФЖХ` — a BGN mistype, provable
+  because its €/unit is exactly the peg), so that gate is load-bearing. Note the precious-metal
+  carve-out matches on EXACT equality: `PAX Gold` is a gold-backed TOKEN and must stay crypto,
+  while `XAU` / `инвестиционно злато` must not.
+
+Plan: `docs/plans/declared-crypto-v1.md`.
+
 Last of the person-layer standalone loaders — the connections graph (migrations 127 + 128 + 129,
 `db:load:graph:pg`), the three `graph_*` tables (`graph_edge` / `graph_company_node` /
 `graph_person_node`) + the down-sampled `graph_payloads` blob behind `/connections` and the re-pointed

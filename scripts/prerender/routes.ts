@@ -4352,6 +4352,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/mp/companies">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
 <li><a href="${SITE_URL}/mp-assets">Класиране на депутатите</a> по декларирани активи.</li>
 <li><a href="${SITE_URL}/mp-cars">Декларирани коли</a> на народните представители.</li>
+<li><a href="${SITE_URL}/declarations/crypto">Декларирани криптоактиви</a> — монета, количество и стойност, за всички власти.</li>
 </ul>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата) и <a href="https://www.registryagency.bg" rel="nofollow noopener">Търговски регистър</a>.</p>`.trim(),
     english: {
@@ -4369,6 +4370,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/mp/companies">List of all companies</a> with at least one MP owner or director.</li>
 <li><a href="${SITE_URL}/en/mp-assets">MPs ranked</a> by declared assets.</li>
 <li><a href="${SITE_URL}/en/mp-cars">Cars declared</a> by MPs.</li>
+<li><a href="${SITE_URL}/en/declarations/crypto">Declared crypto assets</a> — coin, quantity and value, across every tier.</li>
 </ul>
 <p>Sources: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Court of Audit) and the <a href="https://www.registryagency.bg" rel="nofollow noopener">Bulgarian Commerce Registry</a>.</p>`.trim(),
     },
@@ -4462,6 +4464,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h1>Cars declared by MPs</h1>
 <p>Every passenger car or jeep declared by a sitting MP (or spouse) in their most recent declaration filed with the Court of Audit — sorted by declared BGN value. Spouse-held cars are listed with holder = spouse.</p>
 <p>Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "declarations/crypto",
+    title: "Декларирани криптоактиви — кой какво притежава | electionsbg.com",
+    description:
+      "Всеки криптоактив, деклариран пред Сметната палата — от депутати, министри, кметове и ръководители на агенции. Монета, количество и декларирана стойност.",
+    breadcrumbName: "Криптоактиви",
+    ogImage: "/og/crypto.png",
+    // No counts or totals in the body: the register grows with every filing season, and a
+    // number baked into static HTML is one nobody re-checks. /mp-cars makes the same call.
+    bodyHtml: `
+<h1>Декларирани криптоактиви</h1>
+<p>Всеки криптоактив, вписан в имуществените декларации пред Сметната палата — коя монета, колко от нея и на каква стойност е оценена. Декларациите обхващат народни представители, членове на кабинета, кметове, общински съветници и ръководители на агенции, затова регистърът не е обвързан с една институция.</p>
+<p>Стойността е тази, посочена от декларатора към момента на подаване, а не текуща пазарна цена. Един и същ актив се вписва наново във всяка декларация, която го покрива — затова изгледът по подразбиране показва по една година на човек, а „всички години“ дава цялата история.</p>
+<p>Виж и <a href="${SITE_URL}/mp-assets">депутатите по декларирано имущество</a>, <a href="${SITE_URL}/officials/assets">класацията на длъжностните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
+    english: {
+      title: "Declared Crypto Assets — Bulgarian Officials | electionsbg.com",
+      description:
+        "Every crypto asset declared to the Bulgarian Court of Audit — by MPs, ministers, mayors and agency heads. Coin, quantity and declared value.",
+      breadcrumbName: "Crypto assets",
+      bodyHtml: `
+<h1>Declared crypto assets</h1>
+<p>Every crypto asset recorded in the property and interest declarations filed with the Bulgarian Court of Audit — which coin, how much of it, and the value put on it. The declarations cover MPs, cabinet members, mayors, councillors and agency heads, so this register is not tied to a single institution.</p>
+<p>The value is the one the declarant stated at the time of filing, not a current market price. The same asset is re-declared on every filing that covers it, so the default view shows one year per person; „all years" gives the full history.</p>
+<p>See also <a href="${SITE_URL}/en/mp-assets">MPs by declared assets</a>, the <a href="${SITE_URL}/en/officials/assets">officials ranking</a> and the <a href="${SITE_URL}/en/persons">public-figure directory</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
     },
   }),
   staticPage({

@@ -73,6 +73,38 @@ const Officials: FC = () => (
   </SceneFrame>
 );
 
+// Криптоактиви — a token disc over a rising ledger of blocks. Deliberately NOT any real
+// coin's mark: the register carries бitcoin, ether, ICX, a gold-backed token and several
+// rows whose issuer the declarant left as „няма", so borrowing one project's logo would
+// label the whole page with an asset most of it is not.
+const Crypto: FC = () => (
+  <SceneFrame>
+    <g fill="var(--sector)">
+      <rect x={92} y={82} width={26} height={22} rx={3} opacity=".55" />
+      <rect x={124} y={70} width={26} height={34} rx={3} opacity=".7" />
+      <rect x={156} y={56} width={26} height={48} rx={3} opacity=".85" />
+      <rect x={188} y={44} width={26} height={60} rx={3} />
+    </g>
+    <circle cx={150} cy={40} r={20} fill="var(--sector)" opacity=".9" />
+    <circle
+      cx={150}
+      cy={40}
+      r={20}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path
+      d="M144 30 v20 M150 30 v20 M140 36 h14 a5 5 0 0 1 0 10 h-14 M140 46 h16 a5 5 0 0 1 0 10 h-16"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      transform="translate(0,-5) scale(1 0.8) translate(0,10)"
+    />
+  </SceneFrame>
+);
+
 export const DECLARATION_SCENES: Record<string, FC> = {
   // The same vignette the /governance hub uses — one destination, one picture, imported
   // as a COMPONENT rather than read out of that hub's lookup table (see personsScene.tsx).
@@ -82,4 +114,5 @@ export const DECLARATION_SCENES: Record<string, FC> = {
   cars: Cars,
   companies: Companies,
   officials: Officials,
+  crypto: Crypto,
 };

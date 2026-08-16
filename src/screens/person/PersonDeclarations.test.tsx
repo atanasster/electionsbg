@@ -36,6 +36,8 @@ const filing = (
     stakeCount: 0,
     eventCount: 0,
     excludedAssetRows: 0,
+    cryptoCount: 0,
+    cryptoEur: 0,
     ...o,
   };
   // 090 serves periodYear = COALESCE(fiscal_year, declaration_year); derive it here

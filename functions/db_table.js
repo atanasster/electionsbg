@@ -1274,6 +1274,76 @@ const REGISTRY = {
     maxPageSize: 200,
   },
 
+  // The declared-crypto register (matview person_crypto_table, migration 159) behind
+  // /declarations/crypto. ONE ROW PER DECLARED HOLDING, not per person: a declarant with
+  // four coins contributes four rows, so `count` is holdings and a people count is a
+  // DISTINCT over person_slug — never `count`.
+  //
+  // THE `scope` FAN-OUT IS A DE-DUPLICATOR, NOT A CONVENIENCE (159's header has the full
+  // reasoning). A holding is re-declared on every filing that covers it, so `latest`
+  // (each person's most recent crypto-bearing period) and `all` (every period-year) are
+  // both built on person_wealth_year's representative filing per person-year. The
+  // defaultScope below is therefore load-bearing exactly as it is for mp_cars: without it
+  // an unscoped query is the UNION of both buckets, and the sum reads 19% high with
+  // nothing erroring.
+  crypto_holdings: {
+    base: "person_crypto_table",
+    scopeCols: ["scope"],
+    defaultScope: { col: "scope", val: "latest" },
+    columns: {
+      scope: { type: "text" },
+      holding_key: { type: "text" },
+      person_slug: { type: "text", filter: "in" },
+      person_name: { type: "text", sort: true, filter: "text", search: true },
+      tier: { type: "text", sort: true, filter: "in" },
+      institution: { type: "text", filter: "text", search: true },
+      position_title: { type: "text", filter: "text" },
+      declaration_type: { type: "text", filter: "in" },
+      period_year: { type: "int", sort: true, filter: "range" },
+      declaration_id: { type: "int" },
+      category: { type: "text", filter: "in" },
+      // The coin / issuer as declared. Searchable because „ADA" and „Етериум" are what a
+      // reader types; there is deliberately no normalised `coin` FACET, because the
+      // register's own values include „няма", „Е" and „международен емитент" — folding
+      // those into a coin taxonomy would invent a fact the filings do not carry.
+      description: { type: "text", filter: "text", search: true },
+      detail: { type: "text", filter: "text", search: true },
+      quantity: { type: "number", sort: true },
+      quantity_unit: { type: "text" },
+      is_spouse: { type: "bool", filter: "eq" },
+      value_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      source_url: { type: "text" },
+    },
+    select: [
+      "holding_key",
+      "person_slug",
+      "person_name",
+      "tier",
+      "institution",
+      "position_title",
+      "declaration_type",
+      "period_year",
+      "declaration_id",
+      "category",
+      "description",
+      "detail",
+      "quantity",
+      "quantity_unit",
+      "is_spouse",
+      "value_eur",
+      "source_url",
+    ],
+    defaultSort: [["value_eur", "desc"]],
+    // count(*) = holdings; count(value_eur) = holdings carrying a declared value;
+    // sum(value_eur) = the declared total for the current scope + filters.
+    aggregates: [
+      { fn: "count" },
+      { fn: "count", col: "value_eur" },
+      { fn: "sum", col: "value_eur" },
+    ],
+    maxPageSize: 200,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //

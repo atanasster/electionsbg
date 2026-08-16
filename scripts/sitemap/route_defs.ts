@@ -125,6 +125,7 @@ export const ENGLISH_STATIC_PAGES = [
   "mp/companies",
   "mp-assets",
   "mp-cars",
+  "declarations/crypto",
   "officials/assets",
   "persons",
   "procurement",
@@ -509,6 +510,12 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "mp/companies", file: `src/screens/AllMpCompaniesScreen.tsx` },
   { path: "mp-assets", file: `src/screens/AllMpAssetsScreen.tsx` },
   { path: "mp-cars", file: `src/screens/MpCarsScreen.tsx` },
+  // Cross-tier, so it is NOT under the MP heading above: the register's holders are MPs,
+  // a НАП director and two служебен вицепремиери. Plan: docs/plans/declared-crypto-v1.md
+  {
+    path: "declarations/crypto",
+    file: `src/screens/CryptoRegistryScreen.tsx`,
+  },
 
   // Non-MP officials (cabinet, state-agency heads, regional governors).
   // Sourced from the same register.cacbg.bg pipeline as MPs.

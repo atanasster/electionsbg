@@ -18,6 +18,8 @@ import { DeclarationsSection } from "./DeclarationsSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { cn } from "@/lib/utils";
+import { assetRowParts } from "./assetRowText";
+import { PersonCryptoHoldings } from "./PersonCryptoHoldings";
 import {
   usePersonDeclarations,
   useDeclarationDetail,
@@ -103,7 +105,17 @@ export const PersonDeclarations: FC<{
   // break it.)
   if (!rows || rows.length === 0) return null;
 
-  if (bare) return <FilingList rows={rows} locale={locale} />;
+  // The crypto block rides BOTH branches. Bare mode is the MP path, and MPs are not a
+  // special case here — Борис Михайлов is the largest declared crypto holding in the
+  // corpus. It hangs off `summary.latest` in both, so the coins shown are always the
+  // filing whose € the section headlines.
+  if (bare)
+    return (
+      <>
+        {summary && <PersonCryptoHoldings filing={summary.latest} />}
+        <FilingList rows={rows} locale={locale} />
+      </>
+    );
   if (!summary) return null;
   const { latest } = summary;
 
@@ -155,6 +167,8 @@ export const PersonDeclarations: FC<{
           </div>
         </StatCard>
       </div>
+
+      <PersonCryptoHoldings filing={latest} />
 
       <FilingList rows={rows} locale={locale} />
     </DeclarationsSection>
@@ -353,8 +367,11 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                 <span className="text-muted-foreground">
                   {t(`asset_category_${a.category}`)}
                 </span>{" "}
-                {a.description}
-                {a.location ? ` · ${a.location}` : ""}
+                {/* description + the coin / car make / share issuer + the size of the
+                    holding + the location, as one sentence. The middle two were dropped
+                    before, which is why four different coins rendered as four identical
+                    „Инвестиции €66 030" lines. */}
+                {assetRowParts(a, locale, t("pp_decl_units") || "бр.")}
                 {a.isSpouse && (
                   <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
                     {t("pp_decl_spouse") || "съпруг/а"}

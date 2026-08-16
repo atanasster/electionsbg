@@ -160,6 +160,17 @@ const PERSON_BROWSE_SCHEMA = [
   path.join(ROOT, "scripts/db/schema/pg/148_person_company_basis.sql"),
   path.join(ROOT, "scripts/db/schema/pg/120_person_browse.sql"),
 ];
+// The declared-crypto register served to /declarations/crypto (declared-crypto-v1 T2).
+// Reads person_wealth_year — it joins through that matview precisely so it cannot become a
+// fifth opinion about which filing counts — so it is the FIFTH victim of 090's
+// `DROP … CASCADE` and belongs in the after-the-REFRESH group with 097/100/105/120.
+// Without this line a standalone `--resolve` (a local officials refresh, or the documented
+// Cloud SQL publish step) drops the matview and nothing recreates it: /declarations/crypto
+// serves an empty register at a 200, since the registry engine reads it directly.
+const PERSON_CRYPTO_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/159_person_crypto.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -751,9 +762,12 @@ const resolve = async () => {
   // (empty) tables 105 selects from, rather than an aborted DDL.
   await exec(fs.readFileSync(MP_ROSTER_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
-  // And the /persons browser, last of the four CASCADE victims — after 108 above, whose
-  // official_candidate_link it reads for the non-MP photos.
+  // And the /persons browser — after 108 above, whose official_candidate_link it reads
+  // for the non-MP photos.
   for (const f of PERSON_BROWSE_SCHEMA) await exec(fs.readFileSync(f, "utf-8"));
+  // Last of the five CASCADE victims: the declared-crypto register. Its CREATE …  AS
+  // populates it, so no separate REFRESH is needed on this path.
+  await exec(fs.readFileSync(PERSON_CRYPTO_SCHEMA, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
@@ -771,6 +785,7 @@ const resolve = async () => {
     "mp_assets_rankings_table",
     "mp_cars_table",
     "declaration_stake_company",
+    "person_crypto_table",
   ])
     await exec(`ANALYZE ${t}`);
   const [{ n: cohortRows }] = await allRows<{ n: string }>(

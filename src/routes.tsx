@@ -913,6 +913,11 @@ const MpCarsScreen = lazy(() =>
     default: m.MpCarsScreen,
   })),
 );
+const CryptoRegistryScreen = lazy(() =>
+  import("./screens/CryptoRegistryScreen").then((m) => ({
+    default: m.CryptoRegistryScreen,
+  })),
+);
 const SimulatorScreen = lazy(() =>
   import("./screens/SimulatorScreen").then((m) => ({
     default: m.SimulatorScreen,
@@ -3301,6 +3306,18 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <MpCarsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The declared-crypto register. Under /declarations/ rather than beside
+              /mp-cars because it is CROSS-TIER — its holders are MPs, a НАП director and
+              two служебен вицепремиери — so an `mp-` prefix would name the wrong
+              population. Plan: docs/plans/declared-crypto-v1.md */}
+          <Route
+            path="declarations/crypto"
+            element={
+              <LayoutScreen>
+                <CryptoRegistryScreen />
               </LayoutScreen>
             }
           />

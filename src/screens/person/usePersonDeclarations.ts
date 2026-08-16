@@ -41,6 +41,13 @@ export type DeclarationListItem = {
    *  ("no silent caps", 090's header). `/officials/assets` and the `/persons` money column
    *  already honour it. */
   excludedAssetRows: number;
+  /** Declared CRYPTO rows on this filing, and their summed declared value. Carried on the
+   *  LIST so the profile can decide whether to mount the „Криптоактиви" block without
+   *  fetching any filing detail — ~56.8k people hold none, and none of them should pay a
+   *  request to find that out. Classified server-side by `is_crypto_asset` (090), so this
+   *  block and /declarations/crypto cannot disagree about what counts. */
+  cryptoCount: number;
+  cryptoEur: number;
 };
 
 export const usePersonDeclarations = (
@@ -97,6 +104,21 @@ export type DeclarationDetail = {
     valueEur: number | null;
     holderName: string | null;
     isSpouse: boolean;
+    /** The unit the declarant wrote on the row, verbatim. Needed by the renderer to tell a
+     *  `detail` that adds something (a coin, a car make, a share issuer) from one that
+     *  merely restates this — bank and cash rows store `detail = currency`. */
+    currency: string | null;
+    /** HOW MUCH of the thing, in its own unit, and that unit — „30 Етериум", „518 000"
+     *  shares. Resolved server-side (090) because WHICH declaration column holds the count
+     *  depends on the filing shape: table 8 puts it in `amount` with the coin as the
+     *  currency, table 9 puts it in `share` and uses `amount` for the leva price. A NULL
+     *  `quantityUnit` with a non-null `quantity` means a BARE COUNT — the client supplies
+     *  its own localised „бр.", which is why the word is not in the migration. Unrounded:
+     *  0.017 BTC and 0.38 ETH are real declared holdings that round to zero. */
+    quantity: number | null;
+    quantityUnit: string | null;
+    /** Server-classified (`is_crypto_asset`, 090). See the type note on cryptoCount. */
+    isCrypto: boolean;
   }[];
   income: {
     category: string | null;

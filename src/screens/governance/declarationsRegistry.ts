@@ -23,14 +23,14 @@ export interface DeclarationBand {
  *  named „Декларации" — the page title again, which is a label rather than a table of
  *  contents. The split is by SUBJECT: who is in the register, then what they declared.
  *
- *  Four and two, not six: the grid is four columns at xl, so six renders 4 + 2 with the
- *  second row half empty either way — but as two named bands those two tiles are a section
+ *  Five and two, not seven: the grid is four columns at xl, so seven renders 4 + 3 with
+ *  the last row part empty either way — but as two named bands those tiles are a section
  *  rather than a remainder. */
 export const DECLARATION_BANDS: DeclarationBand[] = [
   {
     labelKey: "decl_band_who",
     descKey: "decl_band_who_desc",
-    tileIds: ["persons", "officials", "assets", "cars"],
+    tileIds: ["persons", "officials", "assets", "cars", "crypto"],
   },
   {
     labelKey: "decl_band_business",
@@ -77,6 +77,15 @@ export const DECLARATION_TILES: DeclarationTile[] = [
     descKey: "decl_mp_companies_desc",
     to: "/mp/companies",
     accent: TILE_ACCENTS.teal,
+  },
+  {
+    // Cross-tier by construction — MPs, a НАП director and two служебен вицепремиери — so
+    // it sits in the „who" band beside /persons rather than under either MP-only tile.
+    id: "crypto",
+    titleKey: "crypto_link_label",
+    descKey: "decl_crypto_desc",
+    to: "/declarations/crypto",
+    accent: TILE_ACCENTS.gold,
   },
   {
     id: "officials",
