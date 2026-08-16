@@ -185,6 +185,42 @@ type SectorStat = {
   unavailable?: boolean;
 };
 type SectorStats = Record<string, Record<string, SectorStat>>;
+
+/** The "a published health figure is always a CLOSED year" rule, as a pure
+ *  function of (feed points, emitted stats) → violations. Written this way so
+ *  the health gate can run it twice: once over the real corpus, and once over a
+ *  synthetic partial year to prove it still discriminates — a live-corpus-only
+ *  check silently goes vacuous once every year in the feed has closed. */
+const partialYearViolations = (
+  points: NzokHistory["points"],
+  stats: SectorStats,
+): string[] => {
+  const december = new Map(
+    points.filter((p) => p.month === 12).map((p) => [p.year, p.expenditureEur]),
+  );
+  const bad: string[] = [];
+  for (const [scope, sectors] of Object.entries(stats)) {
+    const h = sectors.health;
+    if (!h) {
+      bad.push(`${scope}: no health stat emitted`);
+      continue;
+    }
+    // Whatever year the stat NAMES, its value must be that year's December
+    // cumulative — never a mid-year one.
+    if (h.year == null || december.get(h.year) !== h.value)
+      bad.push(
+        `${scope}: value ${h.value} captioned ${h.year} is not a December point`,
+      );
+    // And a y:<year> scope may only claim its own year once that year closed.
+    const m = /^y:(\d{4})$/.exec(scope);
+    if (m && !december.has(Number(m[1])) && h.unavailable !== true)
+      bad.push(
+        `${scope}: ${m[1]} has no December point, so health must flag unavailable`,
+      );
+  }
+  return bad;
+};
+
 type NzokHistory = {
   points: Array<{
     year: number;
@@ -329,6 +365,56 @@ describe("health sector (payout / НЗОК)", () => {
         );
         assert.equal(scope.year, year);
       }
+    },
+  );
+
+  test.skipIf(skip)(
+    "no health scope publishes a year the НЗОК feed has not closed",
+    () => {
+      // The B1 feed is CUMULATIVE-YTD, so only a month-12 point is a year. The
+      // test above pins three specific years; this one is the corpus-wide rule,
+      // and it exists because the sector has shipped this defect in BOTH of its
+      // shapes — 2022-2024 as 11-month cumulatives (fixed by the backfill the
+      // test above locks) and 2026 as a FOUR-month one, €1.72bn captioned
+      // „изплатено 2026" against 2025's €4.72bn. The second shape can never be
+      // backfilled, because the year is not over: the only thing standing
+      // between it and the artifact is the selection rule, and this gate.
+      const hist = readJson<NzokHistory>(
+        "data/budget/nzok/execution_history.json",
+      );
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      assert.deepEqual(
+        partialYearViolations(hist.points, stats),
+        [],
+        "a health scope is publishing a cumulative-YTD figure as an annual payout",
+      );
+
+      // Mutation check. Run the same rule over a SYNTHETIC feed rather than the
+      // live one — the live-corpus form of this check stops discriminating the
+      // moment 2026 gets a December point, which is exactly when a reader would
+      // most trust a green suite. The fixture reconstructs the pre-fix
+      // selection: take the last point of a year whether or not it closed, and
+      // caption it with that year.
+      const openYear = 2999;
+      assert.notDeepEqual(
+        partialYearViolations(
+          [{ year: openYear, month: 4, expenditureEur: 1_720_537_150 }],
+          {
+            [`y:${openYear}`]: {
+              health: {
+                kind: "eur",
+                basis: "payout",
+                value: 1_720_537_150,
+                year: openYear,
+              },
+            },
+          },
+        ),
+        [],
+        "the gate no longer catches a partial year published as an annual payout",
+      );
     },
   );
 

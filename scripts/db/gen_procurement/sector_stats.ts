@@ -190,19 +190,18 @@ interface SectorVal {
   year?: number;
   note?: "adjusted";
   /** True when a specific `y:<year>` scope was requested but the annual series
-   *  has no datum for it, so `value`/`year` are a fall-back to the latest
-   *  available year (e.g. НЗОК payout before 2022). The tile shows a "no data
-   *  for <year>" notice instead of a misleading fall-back number. */
+   *  has no PUBLISHABLE datum for it, so `value`/`year` are a fall-back to the
+   *  latest available year. Two causes, and the second is now the common one:
+   *  the series does not reach that year (НЗОК payout before 2022), or the year
+   *  is not over yet — a cumulative-YTD point is not an annual figure, so a
+   *  running year counts as no data rather than as a small one. The tile shows a
+   *  "no data for <year>" notice instead of a misleading fall-back number. */
   unavailable?: boolean;
 }
 type ScopeStats = Record<string, SectorVal>;
 
 // ---- bespoke annual series (year → value) + latest ------------------------
 
-const seriesLatest = (byYear: Record<number, number>): number => {
-  const ys = Object.keys(byYear).map(Number);
-  return ys.length ? byYear[Math.max(...ys)] : 0;
-};
 const latestYearOf = (byYear: Record<number, number>): number => {
   const ys = Object.keys(byYear).map(Number);
   return ys.length ? Math.max(...ys) : 0;
@@ -309,26 +308,48 @@ for (const y of funds.years ?? []) {
   if (v) pensionByYear[y.fiscalYear] = v;
 }
 
-// НЗОК: cash-execution B1 outlay. The monthly feed is cumulative-YTD; take the
-// last point per year, and treat the latest full year (month 12) as "current".
+// НЗОК: cash-execution B1 outlay. The monthly feed is CUMULATIVE-YTD (the file's
+// own source.description says so), so only a month-12 point is a full year — a
+// month-4 point is January–April, not "2026".
+//
+// Two maps, and the split is the whole point. `nzokFullYear` (December only) is
+// what may ever be PUBLISHED as an annual payout; `nzokByYear` (the last point of
+// each year, complete or not) exists solely for the completeness report at the
+// foot of main(), which should still see a partial year as data that arrived.
+//
+// Publishing the partial year is a defect this sector has already had twice, in
+// both of its possible shapes:
+//   · 2022-2024 shipped as 11-month cumulatives because the /quarter feed stops
+//     at month 11 — fixed by the hand-verified December backfill that
+//     write_execution_annual.ts pins (and sector_stats.data.test.ts locks).
+//   · 2026 shipped as a FOUR-month cumulative (€1.72bn on `?pscope=y:2026`,
+//     against 2025's €4.72bn — a 63.5% collapse in НЗОК payouts, at a 200).
+//     A backfill can never fix this one: the year is not over. So the rule has to
+//     live in the SELECTION, and it has to bind in BOTH branches of out.health —
+//     the fallback already required month 12 via nzokLatestYear, which is exactly
+//     why the defect was invisible on `all` and every `ns:` scope.
+// A year with no December point therefore falls through to `unavailable`, the
+// same no-data notice pension/agri/administration already show for 2026.
 const nzok = readJson<{
   points?: Array<{ year: number; month: number; expenditureEur: number }>;
 }>("data/budget/nzok/execution_history.json");
-const nzokLastPt: Record<number, { month: number; expenditureEur: number }> =
-  {};
-for (const p of nzok.points ?? []) {
-  const cur = nzokLastPt[p.year];
-  if (!cur || p.month > cur.month) nzokLastPt[p.year] = p;
-}
+/** Last point per year, complete or not — completeness REPORTING only. */
 const nzokByYear: Record<number, number> = {};
-let nzokLatestYear = 0;
-for (const [y, p] of Object.entries(nzokLastPt)) {
-  nzokByYear[Number(y)] = p.expenditureEur;
-  if (p.month === 12 && Number(y) > nzokLatestYear) nzokLatestYear = Number(y);
+/** December points only — the sole series a headline may be published from. */
+const nzokFullYear: Record<number, number> = {};
+const nzokLastMonth: Record<number, number> = {};
+for (const p of nzok.points ?? []) {
+  if (!(p.year in nzokLastMonth) || p.month > nzokLastMonth[p.year]) {
+    nzokLastMonth[p.year] = p.month;
+    nzokByYear[p.year] = p.expenditureEur;
+  }
+  // Read off the points directly rather than off the last-point map above: the
+  // two questions are independent, and routing December through "the last point,
+  // if it happens to be December" would let one out-of-range adjustment row hide
+  // a year's real December figure — marking a COMPLETE year „няма данни", which
+  // is the same class of silent wrongness in the opposite direction.
+  if (p.month === 12) nzokFullYear[p.year] = p.expenditureEur;
 }
-const nzokLatest = nzokLatestYear
-  ? nzokByYear[nzokLatestYear]
-  : seriesLatest(nzokByYear);
 
 // Schools: national mean ДЗИ-по-БЕЛ success across oblasti, per year. Unweighted
 // oblast mean — good enough for a tile headline (no per-oblast cohort sizes here).
@@ -435,18 +456,20 @@ const scopeStats = async (
   if (Object.keys(pensionByYear).length)
     out.pension = annual(pensionByYear, year, "eur", "payout");
   // НЗОК: latest is the last FULL year (month 12), not the partial current YTD.
-  out.health =
-    year != null && nzokByYear[year] != null
-      ? { kind: "eur", basis: "payout", value: nzokByYear[year], year }
-      : {
-          kind: "eur",
-          basis: "payout",
-          value: nzokLatest,
-          year: nzokLatestYear || undefined,
-          // НЗОК cash execution starts 2022; a pre-2022 y:<year> scope falls
-          // back to the latest full year — flag it so the tile says so.
-          ...(year != null ? { unavailable: true } : {}),
-        };
+  // The rule lives ONCE, in nzokFullYear's construction — see its definition —
+  // so the published series never holds a cumulative-YTD point and annual() can
+  // treat "no December point" exactly like "no data", which for the purpose of
+  // naming a year's payout is what it is. Both of the scopes that used to need
+  // separate handling now fall out of that: a pre-2022 `y:<year>` and a
+  // still-running current year alike get the latest complete year plus
+  // `unavailable`, so the tile says „няма данни за <year>" rather than showing a
+  // number captioned with a year it does not measure.
+  //
+  // OMITS its key on an empty series rather than emitting €0, for the reason
+  // spelled out on pension above: annual() would return `value: 0`, which this
+  // generator then commits over a good artifact as „НЗОК плати нищо" at a 200.
+  if (Object.keys(nzokFullYear).length)
+    out.health = annual(nzokFullYear, year, "eur", "payout");
   out.agri = annual(agriByYear, year, "eur", "payout");
   out.schools = annual(dziByYear, year, "score", "score");
   out.administration = annual(adminByYear, year, "count", "headcount");
@@ -510,6 +533,13 @@ const main = async (): Promise<void> => {
   const bespoke: [string, Record<number, number>][] = [
     ["pension (funds.json)", pensionByYear],
     ["health (nzok execution_history.json)", nzokByYear],
+    // The series that is actually PUBLISHED, checked beside the raw one because
+    // they fail apart: nzokByYear can be full while this is empty (the ingest
+    // starts emitting `month` as a string, the field is renamed, the feed stops
+    // publishing a December row). That state omits the health key entirely, so
+    // without this line the tile would lose its headline sitewide with nothing
+    // reporting why.
+    ["health full-year (nzok December points)", nzokFullYear],
     ["agri (agri_payloads)", agriByYear],
     ["schools (indicators dzi)", dziByYear],
     ["administration (personnel.json)", adminByYear],

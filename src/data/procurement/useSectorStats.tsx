@@ -36,9 +36,13 @@ export interface SectorStat {
   /** Caption qualifier the tile abbreviates. 'adjusted' = the figure is a
    *  годишен уточнен план (the НАП/АМ second-level agencies), not ЗДБРБ-приет. */
   note?: "adjusted";
-  /** The selected `y:<year>` scope has no datum for this sector, so value/year
-   *  are a fall-back to the latest available year (e.g. НЗОК before 2022). The
-   *  tile shows a "no data for <year>" notice, not the misleading number. */
+  /** The selected `y:<year>` scope has no PUBLISHABLE datum for this sector, so
+   *  value/year are a fall-back to the latest available year. Two causes, and
+   *  the second is now the common one: the series does not reach that year (НЗОК
+   *  before 2022), or the year is not over yet — an annual basis whose source is
+   *  cumulative-YTD counts a running year as no data rather than as a small one,
+   *  so the tile cannot caption four months of НЗОК payouts „изплатено 2026".
+   *  The tile shows a "no data for <year>" notice, not the misleading number. */
   unavailable?: boolean;
 }
 
