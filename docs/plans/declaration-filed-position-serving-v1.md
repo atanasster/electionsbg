@@ -169,29 +169,52 @@ That is the fix landing, not a regression.
 The UI needs no change either — `PersonDeclarations.tsx:268` and `OfficialsAssetsScreen.tsx:138`
 already render `positionTitle ?? institution`.
 
-## 5. The gate
+## 5. The gate — as shipped
 
-New `scripts/db/tests/declaration_filed_position.data.test.ts`, following
-`person_compare.data.test.ts`'s reachability-skip pattern (skip when PG is down / corpus empty
-/ 089's columns absent).
+`scripts/db/tests/declaration_filed_position.data.test.ts`, 18 tests, following
+`person_compare.data.test.ts`'s reachability-skip pattern (skips when PG is down or 089 is
+unapplied). Four layers:
 
-Assertions:
-1. For every declaration with a non-empty `filed_position`, the payload from
-   `person_declarations()` / `declaration_detail()` returns that value, not `position_title`.
-2. Same for `filed_institution`.
-3. Where `filed_position IS NULL`, the payload returns `position_title` — the degrade half,
-   which is what protects the 87.6%.
-4. `officials_rankings_table` / `person_browse_table` / `person_crypto_table`: no row whose
-   underlying newest declaration carries a `filed_*` still shows the listing label.
-5. **The Демерджиев / Лазаров fixture explicitly** — the two people the bucket
-   `Служебен министър-председател и министър` was wrong about. Assert neither serves that
-   string. This is the regression that motivated the work; it should be named in the test.
+**The function itself** — the filed value wins and is returned TRIMMED; the listing label is
+passed through UNTOUCHED (it is the exact value 120's `filter: "in"` picker matches on, so
+trimming it there would silently change which rows a selection returns); `NULL` / `''` /
+whitespace-only all fall through; NULL only when neither side has a value; and a catalogue
+assertion that it stays `IMMUTABLE PARALLEL SAFE` and **not** `STRICT` (STRICT would
+short-circuit the whole fallback).
 
-**Mutation check (required):** invert `declared_label` to `COALESCE(p_listed, p_filed)` in a
-rolled-back transaction and confirm assertions 1/2/5 go red — otherwise they are satisfiable
-by any implementation that happens to agree. Same technique as
-`sync_enrichment.test.ts`'s rank-predicate stub and `person_connections.data.test.ts`'s
-old-body restore.
+**Per-surface** — each repointed surface compared against `declared_label` over its own source
+rows, separately: the three 090 functions, both 093 sites, 098, and the three bulk surfaces
+(100's `officials_rankings_table`, 105's `mp_declarations`, 159's `person_crypto_table`). Each
+arm first asserts its own NON-VACUOUSNESS — that the rows it walks really do contain a
+filed/listing disagreement — so a converged corpus or a fixture that stopped filing fails
+loudly rather than passing over nothing.
+
+**The exceptions, positively** — 120's `institution` stays under 3,000 distinct values (it is
+1,263; the filed value took it to 12,626) and 102's `role_raw` under 25 (it is 5; the filed
+value has 563). These assert the property that JUSTIFIED each exclusion, not merely that the
+column is unrouted.
+
+**The degrade half, on real rows** — the three filings whose `<Position>` the register itself
+leaves empty are the only rows in this corpus that exercise the fallback, and they stand in for
+every row on an unbackfilled database. Asserted directly, because every other assertion covers
+the branch that fires 61,740 times.
+
+**Exhaustiveness** — a sweep enumerates every function, view and matview whose definition reads
+`declaration` and mentions these columns, and requires each to be CLASSIFIED: routed through
+`declared_label`, or named in `LISTING_LABEL_EXCEPTIONS` with a reason. A new surface fails
+until someone decides. It also refuses a STALE exception (one whose object no longer qualifies,
+or has since been routed). This exists because review caught `declaration_events_feed`
+repointed but untested, where reverting it passed every other assertion in the repo.
+
+**Mutation checks — one SHIPPED, seven run during development.** The shipped one redefines
+`declared_label` to prefer the listing value inside a transaction, asserts the surfaces flip
+with it, and rolls back; without it, every assertion comparing a payload to `declared_label` is
+satisfiable by an inverted implementation both sides agree on. Verified during development:
+inverting the preference (reds 4), dropping the fallback (2), a bare COALESCE (3), reverting
+`person_declarations` (1), reverting `declaration_events_feed` (1), **swapping
+`declared_label`'s ARGUMENTS in 100** (1 — and this one passes the exhaustiveness sweep, which
+is why the per-surface arms exist), adding an unrouted view (the sweep), and trimming the
+listing branch (1).
 
 ## 6. Local apply — order is forced
 
@@ -221,17 +244,50 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/a
   102_municipal_officials.sql \
   104_mp_roster.sql \
   105_mp_serving.sql \
+  148_person_company_basis.sql \
   120_person_browse.sql \
   159_person_crypto.sql
 ```
 
-089 first (the helper), 090 next (the CASCADE), then every dependent. 097 and 104 are edited by
-nothing here and are present purely to recreate what 090's CASCADE removed. 104 must precede
-105. `apply_functions.ts`'s collateral-drop guard should report **nothing vanished**; if it
-names a relation, a file is missing from the list.
+⚠️ **`148_person_company_basis.sql` is in that list and must precede 120** — 120's matview
+selects `person_company_bridge_a`, a view only 148 creates. Omitting it is the worst available
+failure: 120 raises 42P01 **after** 090's CASCADE has already deleted `person_browse_table`, so
+`/persons` is down with nothing left to recreate it. `load_declarations_pg.ts` pairs the two in
+`PERSON_BROWSE_SCHEMA` for exactly this reason, and its own comment says so. A local run can
+pass without it purely because the view is already there from unrelated work — which is how it
+was missing from this command until review caught it.
 
-Measured rebuild cost, local, all seven matviews: **48.7 s**
-(`person_wealth_year` 27.9 s, `person_browse_table` 17.2 s, the rest ≤1.4 s).
+089 first (the helper), 090 next (the CASCADE), then every dependent. 097, 104 **and 120** are
+edited by nothing here and are present purely to recreate what 090's CASCADE removed — 120 is
+in the list despite being an excluded site precisely because it is a CASCADE victim, and
+leaving it out is how `/persons` 500s. 102 is neither edited nor a victim; it is in the list
+only because its header changed and re-applying is free. 104 must precede 105.
+`apply_functions.ts`'s collateral-drop guard should report **nothing vanished**; if it names a
+relation, a file is missing from the list.
+
+**VERIFIED 2026-08-17.** The command above was run end to end against local `:5433`:
+all twelve files applied, the collateral-drop guard reported nothing vanished, and the whole
+thing took **21.8 s** (the earlier 48.7 s figure was the sum of individual REFRESHes; the
+DROP+CREATE path is cheaper). `person_wealth_year` and `person_browse_table` dominate.
+
+Post-apply verification, all green:
+
+- the new gate, 18/18, with every assertion mutation-checked (inverted preference, dropped
+  fallback, bare COALESCE, reverted caller, swapped arguments, unrouted object, trimmed
+  listing branch);
+- `npm run test:data` — **1,201 passed, 21 skipped, 1 failed**: `tr_company_place.data.test.ts
+  > the worst-case place answers fast`, a 400 ms TIMING assertion on migration 133, which this
+  work does not touch. It passes in 1.4 s when re-run alone, which is the documented
+  flaky-under-load behaviour rather than a regression;
+- `npm run functions:test` 411/411, `tsc -b` and `eslint` clean.
+
+The original defect, checked directly — both people the listing bucket „Служебен
+министър-председател и министър" covered now serve their own filed job:
+
+| person | listing claimed | now serves |
+|---|---|---|
+| Иван Демерджиев | Служебен министър-председател и министър | министър · Министерство на вътрешните работи |
+| Лазар Лазаров | Служебен министър-председател и министър | Заместник министър-председател и министър на труда и социалната политика · Министерски съвет |
 
 ## 7. Cloud rollout
 
@@ -245,39 +301,58 @@ respect:
    construction** — exactly the required behaviour, and it needs no feature flag. Cloud serves
    what it serves today until a backfill runs there.
 
-Two routes, in preference order:
+**RECOMMENDED: route (A), the loader.**
 
-**(A) Sanctioned — the loader re-applies everything in order:**
 ```bash
 npm run db:load:declarations:pg:cloud -- --resolve
 ```
-`migration_drop_dependents.data.test.ts` sanctions 090's CASCADE *on the ground that the
-recreate rides this same path*. Slower, but no hand-derived file list to get wrong.
 
-**(B) Surgical — the §6 command with `DATABASE_URL` pointed at the proxy (`:5434`).**
-Faster; correct only if the file list is complete.
+`migration_drop_dependents.data.test.ts` sanctions 090's `DROP … CASCADE` *on the stated
+ground that the recreate rides this same path*, and this is that path. It re-applies 089 →
+090 → 093 → 098 → 097 → 100 → 102 → 104 → 105 → 148 → 120 → 159 in the loader's own order, so there is no
+hand-derived file list to get wrong — which is the failure mode that took `/persons` and
+`/officials/assets` down on prod on 2026-08-15.
 
-Then, and only then:
-```bash
-npm run db:load:persons-browse:pg:cloud   # person_browse_table is 120's own loader
-npm run db:load:person-search:pg:cloud    # reads person_browse_table
-```
+Route (B), the surgical eleven-file `apply_functions.ts` command from §6 with `DATABASE_URL`
+pointed at the proxy (`:5434`), is faster and correct **only if the list is complete**. Prefer
+it only when a re-resolve is unacceptable, and check the collateral-drop guard's output.
 
-`npm run deploy:db` is **not** required and does not carry any of this — it ships `functions/`
-code, and no `functions/` file changes in this plan.
+**Nothing else is required.** `npm run deploy:db` does NOT carry any of this — it ships
+`functions/` code, and no `functions/` file changed. `npm run deploy` is likewise unrelated.
 
-### ⚠️ The outage window — state it before shipping
+### ⚠️ The outage window — announce it, don't discover it
 
-Between 090's CASCADE and each dependent's recreate, those five relations **do not exist**.
+Between 090's CASCADE and each dependent's recreate, five relations **do not exist**.
 `/persons`, `/officials/assets` and `/declarations/crypto` are DbDataTable resources with **no
-`missingMigration` degrade**, so they answer **500**, not a narrower result. Local total is
-48.7 s; Cloud SQL is a db-g1-small reading cold over the proxy, so budget **5–10 minutes**.
+`missingMigration` degrade**, so during that window they answer **500**, not a narrower result.
+Local is 33.6 s; Cloud SQL is a db-g1-small reading cold over the proxy, so budget
+**5–10 minutes**, and route (A) is longer still because it re-resolves.
 
-Mitigation: run off-peak, and prefer wrapping the whole apply in ONE `psql` transaction
-(`BEGIN; \i …; COMMIT;`) so there is never a "relation missing" state — readers then block on
-the AccessExclusiveLock instead, and the ones that exceed `lock_timeout` get 55P03 rather than
-a 42P01 the route cannot distinguish from a broken deploy. Either way the window is real and
-should be announced, not discovered.
+Run it off-peak. Wrapping the apply in ONE `psql` transaction (`BEGIN; \i …; COMMIT;`) removes
+the "relation missing" state — readers then block on the AccessExclusiveLock instead, and only
+those exceeding `lock_timeout` get a 55P03. Either way the window is real.
+
+### What changes on prod, and when
+
+**Nothing a reader sees, until a backfill runs there.** Cloud SQL has no `filed_*` values, so
+`declared_label` returns the listing label on every row — byte-identical to today. That is the
+property that makes this shippable ahead of the crawl, and it is asserted by the gate's
+fallback arm (§5).
+
+The backfill itself is **explicitly out of scope** (§8) and is an operator decision. Two ways
+to get the values onto Cloud SQL when that call is made, and the second is much cheaper:
+
+1. `scripts/declarations/backfill_filed_position.ts` — a ~5 h crawl of a rate-limited public
+   register. **Do not point it at Cloud SQL**: a filing is immutable once published, so this
+   recomputes bytes we already hold locally.
+2. `scripts/db/ship_filed_position.ts` — ships the LOCAL values across, keyed on `source_url`
+   (not `declaration_id`, which is a `bigserial` and therefore a property of how a database was
+   loaded). It refuses below a 95% match rate and only updates rows that differ, so re-running
+   is free. This is what CLAUDE.md already documents for the columns themselves.
+
+After shipping values, re-run this plan's apply so the matviews pick them up — the functions
+read live, but `officials_rankings_table`, `person_crypto_table` and `mp_assets_rankings_table`
+are materialised.
 
 ## 8. Explicitly out of scope
 
