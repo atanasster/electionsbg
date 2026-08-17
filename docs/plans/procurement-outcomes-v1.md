@@ -743,8 +743,13 @@ it is a second independent reason the raw ranking was never publishable.
 
 ### 8e. Recommended shape
 
-1. **Ingest all 30 months at monthly grain** (`period` = the real month). Cheap
-   (§8b), and it makes the payments join period-exact.
+1. **Ingest all 30 months at monthly grain — into a SEPARATE relation, never by
+   re-graining `nzok_activities`.** Cheap (§8b) and it makes the payments join
+   period-exact, but see hazard 2 below: 10 call sites read
+   `max(period) FROM nzok_activities` meaning "the latest annual matrix", and
+   re-graining that table silently turns the case-mix into a one-month figure.
+   The monthly home already half-exists (`nzok_activity_facility_periods`); what
+   it lacks is a `procedure` dimension.
 2. **Key every aggregate on EIK, never on facility.** Facility name becomes a
    display label for the latest period only. This is the single change that
    defuses §8c/§8d.
@@ -758,9 +763,86 @@ it is a second independent reason the raw ranking was never publishable.
    name changes between consecutive periods, and any period where the union of
    facility names exceeds the per-month count by more than a few percent. That
    assert would have caught this before it shipped.
-6. **Keep 2024 in scope** — with 2024+2025 full and 2026 half, the case-mix
-   metric gets two clean annual comparatives, which is the minimum for saying
-   anything about direction.
+6. **Keep 2024 in scope, and 2026 out of the annual table.** 2024+2025 gives the
+   case-mix two clean annual comparatives — the minimum for a direction claim.
+   2026 is a half year, so it must not enter `nzok_activities` until a
+   completeness flag exists (hazard 3); its files are still worth fetching for
+   the monthly panel. Note that "keep 2024" is not a re-run: hazard 1 means a
+   second year needs the TRUNCATE replaced with a per-year merge first.
+
+#### The named step
+
+**Fetch** (writer, one year per run — the CLI takes no multi-year form):
+
+```bash
+npm run data:nzok -- --activities                  # newest year with all 12 months
+tsx scripts/nzok/write_activities.ts --year 2024   # value flags need direct invocation
+```
+
+**Load**, local then cloud (`package.json:169-170`):
+
+```bash
+npm run db:load:nzok-activities:pg
+npm run db:load:nzok-activities:pg:cloud
+```
+
+Four things make this more than "run it again for 2024", and the first two are
+blocking:
+
+**1. A run REPLACES the corpus; it does not add to it.** The loader TRUNCATEs
+all three tables in one transaction — `nzok_activities`,
+`nzok_activity_monthly`, `nzok_activity_facility_periods`
+(`load_nzok_activities_pg.ts:599-601`) — and `activities.json` is **single-year
+by construction** (top-level `year`, `periods`, `monthlyNational`, `procedures`,
+`facilityProcedures`, `facilityPeriods`). So running it for 2024 does not add a
+year, it **replaces 2025 with 2024**. Multi-year needs a real change: either the
+writer emits a multi-year artifact, or the loader switches from TRUNCATE to a
+per-year merge (`DELETE WHERE year = $1` + insert) across all three tables.
+Until one of those lands, there is no "just backfill 2024".
+
+**2. `max(period)` means "the latest ANNUAL matrix" in 10 places, and widening
+the table silently redefines it.** Enumerated:
+
+| file | sites | what it drives |
+|---|---|---|
+| `053_nzok_activities.sql` | 5 | activity tiles, by-procedure, by-eik |
+| `059_nzok_pathway_tariffs.sql` | 2 | pathway spend + **W2's case-mix** |
+| `054_nzok_risk.sql` | 1 | the NZOK hospital risk index |
+| `065_nzok_ownership.sql` | 1 | ownership rollup |
+| `075_nzok_hospital_map.sql` | 1 | the hospital map |
+
+Every one selects `max(period) FROM nzok_activities`. Move that table to monthly
+grain and `max(period)` silently becomes **one month**, so the case-mix compares
+a single month of cases against a full-year payment figure — a ratio wrong by
+roughly 12×, served at 200 with every row count reconciling. **Do not change
+`nzok_activities`' grain.** If a per-procedure monthly panel is wanted, it is a
+new relation, and these 10 sites stay pointed at the annual one.
+
+**3. The partial-year guard already exists — preserve it.** `write_activities.ts`
+picks "the newest year that has **all 12 months**" (`:162-176`, `resolveFiles(...).length >= 12`),
+which is exactly why 2026 (6 files) is not picked today. That guard is what stops
+`max(period)` selecting a half-year; loosening it to ingest 2026-H1 reintroduces
+hazard 2 at annual grain. **2026 must stay out of `nzok_activities` until a
+completeness flag exists** — the H1 files are still worth fetching for the
+monthly panel, which has no such ambiguity.
+
+**4. The per-facility monthly table already exists** — `nzok_activity_facility_periods`
+(PK `(period, facility_fold)`, 12 periods, 463 facilities, 4,585 rows), built by
+this same loader as the "per-period facility roster (churn + coverage)", i.e. it
+was added in response to the §8c churn finding. It carries **no `procedure`
+column**, so it answers "which facilities billed in which month" but cannot carry
+case-mix. The payments-aligned per-procedure join in §8b therefore needs a
+`procedure` dimension added there (or a sibling table) — not a new table designed
+from scratch.
+
+**Verify after loading:**
+
+```bash
+psql "$DATABASE_URL" -c "SELECT count(DISTINCT period), min(period), max(period) FROM nzok_activities;"
+psql "$DATABASE_URL" -c "SELECT count(DISTINCT period), min(period), max(period) FROM nzok_activity_facility_periods;"
+```
+
+The first must stay at **one complete annual period** until hazard 2 is resolved.
 
 **Corpus floor to state publicly:** activity data begins Jan 2024. Any "trend"
 claim beyond that has no source.
