@@ -45,6 +45,13 @@ export const TILE_ACCENTS = {
   // tile at a glance — violet is the only clearly distinct hue left in that grid.
   // Distinct from justice's `plum` (#7a5a8f, pinker) and `indigo` (#7f85a3, greyer),
   // which live in other clusters.
+  ochre: "#a8862b", // municipal councils — the 22nd token, minted because the
+  // accountability cluster grew a tile and the governance hub had used all 21
+  // (the gate in hubRegistry.test.ts requires one accent per tile per page).
+  // A deep yellow-ochre. Its nearest neighbours are `gold` (#8a7a2a) and
+  // `brass` (#8a7734), both of which sit in OTHER clusters on that page —
+  // `amber` (#b07d2f) is the closest same-page hue at Δh ~7°, still wider than
+  // green/emerald (0.2°) and olive/brass (0.3°) already shipping.
   wine: "#96455f", // municipal finances — the 21st token, minted because the money
   // cluster grew a 21st tile and the palette had exactly 20. A desaturated
   // red-violet. Its nearest neighbour in hue is `rose` (#c14b57) at Δh 13°,

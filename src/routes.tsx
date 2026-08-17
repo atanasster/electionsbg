@@ -216,6 +216,16 @@ const PricesMapScreen = lazy(() =>
     default: m.PricesMapScreen,
   })),
 );
+const CouncilHubScreen = lazy(() =>
+  import("./screens/council/CouncilHubScreen").then((m) => ({
+    default: m.CouncilHubScreen,
+  })),
+);
+const CouncilScreen = lazy(() =>
+  import("./screens/council/CouncilScreen").then((m) => ({
+    default: m.CouncilScreen,
+  })),
+);
 const JudiciaryScreen = lazy(() =>
   import("./screens/judiciary/JudiciaryScreen").then((m) => ({
     default: m.JudiciaryScreen,
@@ -1802,6 +1812,25 @@ export const AuthRoutes = () => {
                 <Suspense fallback={<RouteFallback />}>
                   <PricesMapScreen />
                 </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="council"
+            element={
+              <LayoutScreen>
+                <CouncilHubScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The FRONTEND obshtina code (BGS04, S2414, SFO_CITY…), never the
+              council's own key — three of those keys are other municipalities'
+              codes, so the server resolves through council_muni_code only. */}
+          <Route
+            path="council/:code"
+            element={
+              <LayoutScreen>
+                <CouncilScreen />
               </LayoutScreen>
             }
           />

@@ -35,13 +35,13 @@
 CREATE OR REPLACE FUNCTION council_attendance_basis()
 RETURNS text LANGUAGE sql IMMUTABLE AS $$
   SELECT 'Протоколите изброяват само гласувалите — няма запис кой е отсъствал. '
-      || 'Затова „участие" е дял от решенията с поименно гласуване, а не присъствие.'
+      || 'Затова „участие“ е дял от решенията с поименно гласуване, а не присъствие.'
 $$;
 
 CREATE OR REPLACE FUNCTION council_dissent_basis()
 RETURNS text LANGUAGE sql IMMUTABLE AS $$
   SELECT 'Спрямо мнозинството в съвета, не спрямо партия — този корпус не съдържа '
-      || 'партийна принадлежност. „Против мнозинството" брои само изричен вот срещу '
+      || 'партийна принадлежност. „Против мнозинството“ брои само изричен вот срещу '
       || 'надделяващия; въздържалите се са отделно, а решенията без мнозинство '
       || '(равен вот) не се броят.'
 $$;
@@ -69,10 +69,30 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'namedVotes',        (SELECT count(*) FROM council_vote),
     'attributedVotes',   (SELECT count(*) FROM council_vote WHERE person_id IS NOT NULL),
     'newestDecidedOn',   (SELECT max(decided_on)::text FROM council_resolution),
+    -- The result split, so no consumer has to hard-code a share. 'unknown' is
+    -- 43% corpus-wide but ranges 0%-100% PER COUNCIL with nothing in between
+    -- 17.5% and 68.8% — a corpus figure rendered on a council page is wrong for
+    -- every one of the sixteen.
+    'resultSplit', (
+      SELECT coalesce(jsonb_object_agg(coalesce(result, 'unknown'), n), '{}'::jsonb)
+        FROM (SELECT result, count(*) AS n FROM council_resolution GROUP BY 1) s
+    ),
     'councils', (
       SELECT coalesce(jsonb_agg(x ORDER BY x->>'name'), '[]'::jsonb) FROM (
         SELECT jsonb_build_object(
                  'code',           m.obshtina_code,
+                 -- The code a LINK must use. council_muni_detail resolves through
+                 -- council_muni_code only (an internal key is another
+                 -- municipality's frontend code for three councils), so the hub
+                 -- would otherwise need its own copy of the mapping — the fifth.
+                 -- Prefer a non-S2 code so Sofia links as SFO_CITY rather than
+                 -- an arbitrary район.
+                 'frontendCode', (
+                   SELECT c.frontend_code FROM council_muni_code c
+                    WHERE c.obshtina_code = m.obshtina_code
+                    ORDER BY (c.frontend_code LIKE 'S2%'), c.frontend_code
+                    LIMIT 1
+                 ),
                  'name',           m.name,
                  'hasNamedVotes',  m.has_named_votes,
                  'resolutions',    m.resolution_count,
@@ -183,6 +203,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
        WHERE r.obshtina_code = (SELECT obshtina_code FROM muni)
          AND r.has_named_votes
     ),
+    -- THIS council's split, never the corpus's. Бургас is 367 unclear of 374
+    -- (98.1%) and Русе 0 of 211 — one number cannot describe both.
+    'resultSplit', (
+      SELECT coalesce(jsonb_object_agg(coalesce(result, 'unknown'), n), '{}'::jsonb)
+        FROM (
+          SELECT result, count(*) AS n FROM council_resolution
+           WHERE obshtina_code = (SELECT obshtina_code FROM muni)
+           GROUP BY 1
+        ) s
+    ),
+    -- The UI renders its own translated wording (this one is Bulgarian, and the
+    -- English page would otherwise show a Bulgarian sentence). This stays in the
+    -- payload as the contract for NON-UI consumers — the AI chat and any API
+    -- reader — so a participation figure can never travel without it.
     'attendanceBasis', council_attendance_basis()
   ) END
 $$;
@@ -222,8 +256,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         FROM council_vote v WHERE v.resolution_id = r.id
     ),
     'tallyBasis',
-      'Двата броя идват от различни места в протокола: „по протокол" е '
-      || 'обобщението, което самият протокол отпечатва, а „по имена" е сборът '
+      'Двата броя идват от различни места в протокола: „по протокол“ е '
+      || 'обобщението, което самият протокол отпечатва, а „по имена“ е сборът '
       || 'от поименния списък. Разминаване не значи, че единият е грешен — '
       || 'поименният списък може да е непълен.',
     'hasNamedVotes', r.has_named_votes,

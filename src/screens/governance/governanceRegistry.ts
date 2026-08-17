@@ -86,6 +86,15 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.plum,
       },
       {
+        // The local counterpart of /parliament: 265 municipal councils legislate
+        // for their own municipality, and 16 of them are in the corpus.
+        id: "council",
+        titleKey: "council_hub_title",
+        descKey: "gov_hub_council_desc",
+        to: "/council",
+        accent: TILE_ACCENTS.ochre,
+      },
+      {
         id: "governments",
         titleKey: "governments_title",
         descKey: "gov_hub_governments_desc",

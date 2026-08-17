@@ -67,6 +67,7 @@ const GOVERNANCE_PREFIXES = [
   "/company",
   "/awarder",
   "/judiciary",
+  "/council",
   "/pensions",
   // Sector dashboards — their breadcrumb reads "Управление › … › Сектори", so the
   // top-nav must tint управление too (they used to fall through to elections).

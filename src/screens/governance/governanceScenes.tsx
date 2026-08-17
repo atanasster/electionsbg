@@ -136,6 +136,45 @@ const Parliament: FC = () => (
   </SceneFrame>
 );
 
+// Общински съвети — a horseshoe of seats seen from above, smaller and squarer
+// than the parliament hemicycle: a council chamber, not the National Assembly.
+// A handful of seats are drawn hollow — most councils publish only a total, so
+// who sat where is exactly what the corpus usually cannot say.
+const Council: FC = () => (
+  <SceneFrame>
+    {[0, 1].flatMap((row) =>
+      Array.from({ length: 7 }).map((_, i) => {
+        const a = Math.PI * (i / 6);
+        const r = 34 + row * 20;
+        const filled = row === 0 || i % 3 !== 2;
+        return (
+          <rect
+            key={`${row}-${i}`}
+            x={150 - Math.cos(a) * r - 4}
+            y={100 - Math.sin(a) * r - 4}
+            width={8}
+            height={8}
+            rx={1.5}
+            fill={filled ? "var(--sector)" : "none"}
+            stroke="var(--sector)"
+            strokeWidth={1.2}
+            opacity={row === 0 ? 0.85 : 0.5}
+          />
+        );
+      }),
+    )}
+    <rect
+      x={140}
+      y={96}
+      width={20}
+      height={5}
+      rx={1}
+      fill="currentColor"
+      opacity={0.35}
+    />
+  </SceneFrame>
+);
+
 // Правителства — a classic columned building (the executive / cabinets).
 const Governments: FC = () => (
   <SceneFrame>
@@ -577,6 +616,7 @@ export const GOV_HUB_SCENES: Record<string, FC> = {
   tax_calculator: TaxCalculator,
   simulator: Simulator,
   parliament: Parliament,
+  council: Council,
   governments: Governments,
   declarations: Declarations,
   indicators: Indicators,
