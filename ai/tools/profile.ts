@@ -314,7 +314,10 @@ type AirData = {
   stations: { obshtina?: string; latestReadings?: { pm10?: number } }[];
 };
 type GraoData = { settlements: Record<string, { permanent: number }> };
-type CouncilData = { resolutionsByObshtina: Record<string, unknown[]> };
+/** `/api/db/council-muni`, narrowed to the one field this tool reads.
+ *  `limit: 1` because only the COUNT is wanted and `resolutionCount` is the
+ *  council's whole history rather than the page size. */
+type CouncilData = { resolutionCount: number };
 
 export const governanceProfile = async (
   args: ToolArgs,
@@ -347,7 +350,16 @@ export const governanceProfile = async (
       }).catch(() => null),
       tryFetch<AirData>("/air/index.json"),
       tryFetch<GraoData>("/grao_population.json"),
-      tryFetch<CouncilData>("/council/index.json"),
+      // Scoped, and CORRECTLY KEYED. This fetched the whole 1,542 KB council
+      // index and looked the município up by `place.obshtina` — but that map is
+      // keyed on the council's OWN code, which differs for 8 of the 16
+      // (Бургас is council BGS01, obshtina BGS04), so those eight silently
+      // reported no resolutions at all. The route resolves the code through
+      // council_muni_code server-side.
+      fetchDb<CouncilData | null>("council-muni", {
+        code: place.obshtina,
+        limit: 1,
+      }).catch(() => null),
     ]);
 
   const facts: Record<string, string | number> = {
@@ -416,10 +428,9 @@ export const governanceProfile = async (
       provenance.push("air/index.json");
     }
   }
-  const resolutions = council?.resolutionsByObshtina?.[place.obshtina];
-  if (resolutions?.length) {
-    facts.council_resolutions = resolutions.length;
-    provenance.push("council/index.json");
+  if (council?.resolutionCount) {
+    facts.council_resolutions = council.resolutionCount;
+    provenance.push("db:council-muni");
   }
 
   return {

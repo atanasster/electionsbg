@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-16T15:45:47.759Z",
+  "generatedAt": "2026-08-17T20:01:28.042Z",
   "nodes": [
     {
       "id": "src:water",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-16T06:08:41.791Z",
+      "freshness": "2026-08-17T06:08:34.574Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-16T06:08:41.791Z"
+          "freshness": "2026-08-17T06:08:34.574Z"
         }
       ],
       "x": 28,
@@ -1050,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-14T15:05:23.140Z",
+      "freshness": "2026-08-17T06:08:34.574Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1069,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-14T15:05:23.140Z"
+          "freshness": "2026-08-17T06:08:34.574Z"
         },
         {
           "id": "municipal_naredba",
@@ -1586,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-16T06:08:41.791Z",
+      "freshness": "2026-08-17T06:08:34.574Z",
       "skills": [
         "update-prices"
       ],
@@ -1596,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-16T06:08:41.791Z"
+          "freshness": "2026-08-17T06:08:34.574Z"
         }
       ],
       "x": 28,
@@ -2923,13 +2923,13 @@
         "en": "taxes, resolutions, transparency, air"
       },
       "desc": {
-        "bg": "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха.",
-        "en": "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality."
+        "bg": "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха. Решенията на съветите се съхраняват в Postgres (council_resolution, council_vote) — включително кой съветник как е гласувал там, където протоколът го записва; останалите са JSON файлове.",
+        "en": "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality. The council decisions are stored in Postgres (council_resolution, council_vote) — including how each councillor voted where the minutes record it; the rest are JSON files."
       },
       "tags": [
         "local"
       ],
-      "path": "data/local_taxes/ · data/council/",
+      "path": "data/local_taxes/",
       "x": 378,
       "y": 1218,
       "w": 240,

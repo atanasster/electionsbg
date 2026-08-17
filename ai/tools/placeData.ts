@@ -1,6 +1,6 @@
 // D3 — per-place environment / population / council tools.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtInt } from "./format";
 import {
   resolveMunicipality,
@@ -255,20 +255,47 @@ export const graoPopulation = async (
 
 // ---- municipal council resolutions ------------------------------------------
 
-type Resolution = {
-  date: string;
-  session?: string;
-  number?: string;
-  title: string;
-  tally?: { for?: number; against?: number; abstain?: number };
-};
-type CouncilData = {
-  resolutionsByObshtina: Record<string, Resolution[]>;
-  meta?: Record<string, { name?: string }>;
+/** The `/api/db/council-muni` payload, narrowed to what this tool reads.
+ *  Mirrors CouncilMuniDetail in src/data/council/useCouncilHub.tsx — a chat
+ *  tool cannot import from src/, so the shape is restated rather than shared. */
+type CouncilMuniDetail = {
+  name: string;
+  resolutionCount: number;
+  resolutions: {
+    id: string;
+    decidedOn: string;
+    number: string | null;
+    title: string;
+    tallyFor: number | null;
+    tallyAgainst: number | null;
+    tallyAbstain: number | null;
+  }[];
 };
 
-const normName = (s: string): string =>
-  s.toLowerCase().replace(/[\s.\-_/]+/g, "");
+/** 2,234 of 4,727 resolutions (47%) store the literal "(no title parsed)" —
+ *  the scraper's placeholder for minutes it could read but whose subject line
+ *  it could not isolate. Reading that back in a chat answer states a parser's
+ *  internal condition as the subject of a public decision. The FOURTH copy of
+ *  this rule (functions/spa_page.js, CouncilResolutionScreen.tsx,
+ *  scripts/db/lib/council_alerts.ts); a chat tool can import from none of them. */
+const councilTitle = (
+  r: CouncilMuniDetail["resolutions"][number],
+  lang: string,
+): string => {
+  const parsed =
+    r.title && !/^\(?\s*no title parsed\s*\)?$/i.test(r.title.trim())
+      ? r.title.trim()
+      : null;
+  // Bilingual: Русе is 211 of 211 placeholders, so an English reader asking
+  // about it would otherwise get ten Bulgarian rows under an English title.
+  // The resolution TITLES stay Bulgarian when they exist — they are the
+  // instrument's own name, and translating one would be inventing it.
+  if (!parsed)
+    return lang === "bg"
+      ? `Решение № ${r.number ?? "—"} от ${r.decidedOn}`
+      : `Decision no. ${r.number ?? "—"} of ${r.decidedOn}`;
+  return parsed.length > 70 ? `${parsed.slice(0, 70)}…` : parsed;
+};
 
 export const councilResolutions = async (
   args: ToolArgs,
@@ -277,21 +304,35 @@ export const councilResolutions = async (
   const place = await resolveMunicipality(String(args.place ?? ""));
   if (!place)
     return noPlace("councilResolutions", String(args.place ?? ""), ctx);
-  const d = await fetchData<CouncilData>("/council/index.json");
-  // The council ingest keys some oblast centres with a different obshtina code
-  // than municipalities.json (e.g. Русе = RSE01 vs RSE27). Try the code first,
-  // then fall back to matching the council entry's name.
-  let list = d.resolutionsByObshtina[place.obshtina];
-  if (!list && d.meta) {
-    const target = normName(place.name);
-    for (const [code, m] of Object.entries(d.meta)) {
-      if (m.name && normName(m.name).includes(target)) {
-        list = d.resolutionsByObshtina[code];
-        break;
-      }
-    }
-  }
-  if (!list || list.length === 0) {
+  // ONE scoped call. This used to fetch the whole 1,542 KB council/index.json
+  // to answer about one município — and that file is capped at 200 resolutions
+  // per município (six of sixteen exceed it), so the tool could under-report a
+  // council's own history and had no way to know it.
+  //
+  // The code mapping that stood here was the FOURTH copy, and the least safe:
+  // it tried place.obshtina, then fell back to a fuzzy substring match of the
+  // council's name across every entry. A substring fallback over 265
+  // municipalities is a wrong-place answer waiting to happen in a surface that
+  // speaks in sentences — „Стара Загора" contains „Загора", and the tool would
+  // have answered confidently with another council's decisions. /api/db/
+  // council-muni resolves the code server-side through council_muni_code, so
+  // there is nothing to guess: a município with no council returns null.
+  //
+  // Deliberately NOT wrapped in .catch(() => null). The route's null body means
+  // "this place has no council" — 249 of 265 — while a throw means the lookup
+  // FAILED. Collapsing them would print „още не са индексирани" plus „Покритие:
+  // 16 общини" during any outage: a false claim about our coverage, stated
+  // confidently, in a surface that speaks in sentences. Same invariant
+  // src/data/council/useCouncilHub.tsx documents for this route, and the
+  // behaviour the previous fetchData() call had. governanceProfile's catch is
+  // the opposite case and correctly stays: it omits a fact rather than making
+  // a claim.
+  const detail = await fetchDb<CouncilMuniDetail | null>("council-muni", {
+    code: place.obshtina,
+    limit: 10,
+  });
+  const list: CouncilMuniDetail["resolutions"] = detail?.resolutions ?? [];
+  if (list.length === 0) {
     return {
       tool: "councilResolutions",
       domain: "place",
@@ -308,12 +349,11 @@ export const councilResolutions = async (
             ? "Покритие: 16 общини"
             : "Coverage: 16 municipalities",
       },
-      provenance: ["council/index.json"],
+      provenance: ["db:council-muni"],
     };
   }
-  const recent = [...list]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 10);
+  // Already ordered decided_on DESC by the route, and already capped at 10.
+  const recent = list;
   const columns: Column[] = [
     { key: "date", label: ctx.lang === "bg" ? "Дата" : "Date" },
     { key: "num", label: "№" },
@@ -321,21 +361,30 @@ export const councilResolutions = async (
     { key: "vote", label: ctx.lang === "bg" ? "За/Пр/Възд" : "For/Ag/Abs" },
   ];
   const rows: Row[] = recent.map((r) => ({
-    date: r.date,
+    date: r.decidedOn,
     num: r.number ?? "—",
-    title: r.title.length > 70 ? `${r.title.slice(0, 70)}…` : r.title,
-    vote: r.tally
-      ? `${r.tally.for ?? "—"}/${r.tally.against ?? "—"}/${r.tally.abstain ?? "—"}`
-      : "—",
+    // 47% of the corpus stores the scraper's "(no title parsed)" placeholder.
+    // Reading it out loud in a chat answer publishes a parser's internal state
+    // as the subject of a decision.
+    title: councilTitle(r, ctx.lang),
+    vote:
+      r.tallyFor != null
+        ? `${r.tallyFor ?? "—"}/${r.tallyAgainst ?? "—"}/${r.tallyAbstain ?? "—"}`
+        : "—",
   }));
   return {
     tool: "councilResolutions",
     domain: "place",
     kind: "table",
+    // The COUNCIL's name, not the place's. A reader in район Красно село is
+    // served Столична община's 413 decisions, and titling that „Общински съвет
+    // — Красно село" names a council that does not exist. `detail.name` is the
+    // council_muni row the route resolved to; the place name is the fallback
+    // only when the payload somehow lacks one.
     title:
       ctx.lang === "bg"
-        ? `Решения на Общински съвет — ${place.name}`
-        : `Municipal council resolutions — ${place.nameEn}`,
+        ? `Решения на Общински съвет — ${detail?.name ?? place.name}`
+        : `Municipal council resolutions — ${detail?.name ?? place.nameEn}`,
     columns,
     rows,
     viz: "none",
@@ -348,9 +397,11 @@ export const councilResolutions = async (
       // hidden deep-link key -> this município's governance page (council tile)
       obshtina_id: place.obshtina,
       place: place.name,
-      total: fmtInt(list.length, ctx.lang),
-      latest: recent[0]?.date ?? "—",
+      // The council's WHOLE history, not the ten rows shown — the route
+      // reports it separately, and `list.length` is the page size.
+      total: fmtInt(detail?.resolutionCount ?? list.length, ctx.lang),
+      latest: recent[0]?.decidedOn ?? "—",
     },
-    provenance: ["council/index.json"],
+    provenance: ["db:council-muni"],
   };
 };

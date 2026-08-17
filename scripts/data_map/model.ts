@@ -121,7 +121,13 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
     dataset: "indicators",
   },
   {
-    pattern: /^\/(air|municipal_transparency|local_taxes|council)\//,
+    // `council` is deliberately NOT here. The council corpus is served from
+    // Postgres (migration 160/161) — /api/db/council-overview, -muni and
+    // -resolution — so no served path under /council/ exists to classify. The
+    // durable shard tree data/council/<code>/<YYYY>/<id>.json is still
+    // committed, but as the LOADER'S INPUT rather than as anything a reader
+    // fetches.
+    pattern: /^\/(air|municipal_transparency|local_taxes)\//,
     dataset: "localgov",
   },
   { pattern: /^\/(census|grao_population)/, dataset: "demographics" },
@@ -1459,10 +1465,13 @@ export const DATASETS: DatasetDef[] = [
       en: "taxes, resolutions, transparency, air",
     },
     desc: {
-      bg: "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха.",
-      en: "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality.",
+      bg: "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха. Решенията на съветите се съхраняват в Postgres (council_resolution, council_vote) — включително кой съветник как е гласувал там, където протоколът го записва; останалите са JSON файлове.",
+      en: "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality. The council decisions are stored in Postgres (council_resolution, council_vote) — including how each councillor voted where the minutes record it; the rest are JSON files.",
     },
-    path: "data/local_taxes/ · data/council/",
+    // Files only — this field renders under a „Файлове" / "Files" label, and
+    // every other value in it is a filesystem path. The Postgres half is said
+    // in `desc`, which is what the agri and ngo nodes do.
+    path: "data/local_taxes/",
     tags: ["local"],
   },
   {
