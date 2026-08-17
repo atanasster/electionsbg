@@ -2405,12 +2405,20 @@ export type VersusSide = {
   total: { label: string; value: string };
   /** INVENTORY cards only — see the throw in the renderer. */
   properties?: VersusProperties;
+  /** The year THIS side's filing covers. Required when the two sides differ — a card whose
+   *  figures come from different years and does not say so per side is unreadable. */
+  periodYear?: number;
 };
 
 export type VersusCardSpec = {
   /** Discriminator: the presence of `versus` routes a spec to this renderer. */
   versus: { left: VersusSide; right: VersusSide };
-  year: number;
+  /** The shared year, when both sides filed for the same one. Omit it and pass `kicker`
+   *  instead when they did not — a role-matched card compares two people in the same OFFICE
+   *  at whatever year each held it, so there is no single year to put in the header. */
+  year?: number;
+  /** Overrides the default „ДЕКЛАРАЦИИ ЗА <year>" header. */
+  kicker?: string;
   /** Shown when the year is not either person's latest — see the gate. */
   yearNote?: string;
   /** e.g. "активи = всичко без задължения и кредитни лимити". */
@@ -2514,11 +2522,30 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
         `for both.`,
     );
 
-  if (!Number.isInteger(spec.year))
+  // Exactly one header source. `year` is validated rather than coerced because a spec parsed
+  // from JSON is not type-checked, and `${undefined}` reaches the card as „ДЕКЛАРАЦИИ ЗА NaN".
+  if (spec.year !== undefined && !Number.isInteger(spec.year))
     throw new Error(
-      `renderVersusCard: \`year\` must be an integer, got ${JSON.stringify(spec.year)} ` +
-        `— a spec parsed from JSON is not type-checked, and this reaches the card ` +
-        `as "ДЕКЛАРАЦИИ ЗА NaN".`,
+      `renderVersusCard: \`year\` must be an integer, got ${JSON.stringify(spec.year)}.`,
+    );
+  if (spec.year !== undefined && spec.kicker)
+    throw new Error(
+      "renderVersusCard: pass `year` OR `kicker`, not both — the kicker replaces the year " +
+        "header, so a spec with both silently drops the year from the card entirely.",
+    );
+  if (spec.year === undefined && !spec.kicker)
+    throw new Error(
+      "renderVersusCard: pass `year` (both sides filed for the same one) or `kicker` " +
+        "(they did not, e.g. a role-matched card) — a card with no header states no period.",
+    );
+  // Differing years must be stated PER SIDE. Two figures from different years under one
+  // header is the same class of false sentence as two different declaration forms: the
+  // reader has no way to tell which number belongs to when.
+  const sideYears = [left.periodYear, right.periodYear];
+  if (spec.year === undefined && sideYears.some((y) => !Number.isInteger(y)))
+    throw new Error(
+      "renderVersusCard: a card without a shared `year` needs `periodYear` on BOTH sides, " +
+        "or its two figures cannot be dated.",
     );
   if (!spec.metrics.length)
     throw new Error("renderVersusCard: `metrics` is empty");
@@ -2624,7 +2651,19 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
   ctx.textAlign = "left";
   ctx.fillStyle = pal.accent;
   ctx.font = `700 28px ${FONT}`;
-  ctx.fillText(`ДЕКЛАРАЦИИ ЗА ${spec.year}`, VERSUS_PAD, 158);
+  // Bounded like every other run on the card. A role-matched header carries a ministry name
+  // („ДЕКЛАРАЦИИ КАТО МИНИСТЪР · МИНИСТЕРСТВО НА ВЪТРЕШНИТЕ РАБОТИ") and ran off the canvas
+  // unmeasured — the one string here that used to be a bare fillText.
+  const kickerFit = fitText(
+    ctx,
+    (spec.kicker ?? `ДЕКЛАРАЦИИ ЗА ${spec.year}`).toLocaleUpperCase("bg-BG"),
+    700,
+    28,
+    W - VERSUS_PAD * 2,
+    17,
+  );
+  ctx.font = `700 ${kickerFit.px}px ${FONT}`;
+  ctx.fillText(kickerFit.text, VERSUS_PAD, 158);
 
   // ---- the two headers ----
   const cx = W / 2;
@@ -2651,8 +2690,14 @@ export const renderVersusCard = (spec: VersusCardSpec): Buffer => {
     }
     // The form badge is on the card, not in the footnote: it is the single most
     // load-bearing word here, because it says what the numbers below can mean.
+    // The year rides IN the badge rather than beside the name: the badge already says what
+    // KIND of filing this is, and „кой отчет, от кога" is one thought.
+    const badgeText =
+      side.periodYear !== undefined && spec.year === undefined
+        ? `${side.formLabel} · ${side.periodYear}`
+        : side.formLabel;
     ctx.font = `600 23px ${FONT}`;
-    const badgeFit = fitText(ctx, side.formLabel, 600, 23, colW - 28, 16);
+    const badgeFit = fitText(ctx, badgeText, 600, 23, colW - 28, 16);
     ctx.font = `600 ${badgeFit.px}px ${FONT}`;
     const bw = ctx.measureText(badgeFit.text).width + 28;
     const bx = align === "left" ? x : x - bw;

@@ -83,6 +83,53 @@ magistrates, mayors, councillors. The serving functions gate on
 `status = 'active' AND is_public_figure`, so a person the site does not publish
 cannot be compared here either.
 
+## Step 1b — Pick the axis
+
+Two ways to pair two people, and the choice is editorial:
+
+| axis | flag | what it asks |
+|---|---|---|
+| **year-matched** (default) | — | what did these two lives look like at the SAME moment |
+| **role-matched** | `--same-role` | what does the estate of whoever holds THIS post look like |
+
+Year-matching is right for two people compared as contemporaries. **Role-matching is the
+only way to compare two holders of the same office**, because they usually never held it in
+the same year — Рашков was interior minister in 2021 and Демерджиев in 2022, so the default
+axis can never show them both in the job, and would instead pair Рашков's МП filing against
+Демерджиев's ministerial one.
+
+```bash
+PGPASSFILE=$PWD/.pgpass node_modules/.bin/tsx scripts/person/compare_declarations.ts \
+  --a mp-5254 --b mp-5104 --same-role --out /tmp/cmp.json
+```
+
+On that axis the year gap is the SUBJECT, not a confound, so the card names the office in
+its header and dates each side in its own badge. `--same-role` cannot be combined with
+`--year` or `--class` — it takes each side's year from that person's time in the office.
+
+**The offices must match on the filing's own words.** Abbreviations are not expanded, so
+„МВР" and „Министерство на вътрешните работи" do NOT match and the gate refuses rather than
+guessing. It also reads one representative filing per (person, year, form class), so a
+second filing that year under a different office is invisible to it. Both are under-matching
+— a refusal you can see, never a wrong pairing.
+
+**It needs `filed_position`, which is backfilled for a minority of the corpus.** The refusal
+names the exact command per person; it is a handful of requests each:
+
+```bash
+npx tsx scripts/declarations/backfill_filed_position.ts --slug <slug> --apply
+```
+
+### What the copy must say on a role-matched card
+
+- **Name both years.** „Рашков през 2021 г., Демерджиев през 2022 г." — the two figures are
+  from different years by design, and a reader who sees only the text must not read them as
+  contemporaneous.
+- **Name the office**, because that is the comparison. „Двама вътрешни министри" is the post;
+  „Рашков срещу Демерджиев" is not.
+- **Do not narrate the gap as a trend.** Two holders of one post at two dates is not a time
+  series, and „разходите на поста растат" is a claim two points cannot support.
+
 ## Step 2 — Run the gate and read what it decided
 
 Exit codes: **0** = comparable, **2** = not comparable (or a flag was misused),
@@ -114,7 +161,9 @@ that is the number the reader sees. Body copy quoting 295 192 € beside an imag
 saying 119 887 € is the contradiction this whole skill exists to prevent.
 
 `--year` / `--class` force a different pair when the newest one is not the
-story; `--total assets|net` picks which figure heads the card.
+story; `--total assets|net` picks which figure heads the card. On the role axis the header
+names the office instead of a year and each badge carries its own — including when the two
+years coincide, which happens and is still a role-matched card.
 
 **`--max-unvalued-pct` exists and you should almost never pass it.** It is the
 threshold above which an unpriced table is dropped (default 20). Setting it to

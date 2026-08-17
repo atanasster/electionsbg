@@ -68,7 +68,7 @@ afterAll(async () => {
 });
 
 type Gate = {
-  picked: { year: number; klass: string };
+  picked: { klass: string; yearA: number; yearB: number; office?: string };
   isLatestForBoth: boolean;
   droppedMetrics: {
     metric: string;
@@ -95,7 +95,8 @@ test.skipIf(skip)(
     // NOT 2022/annual. Рашков filed an Entry and Демерджиев a Vacate covering 2023, so 2023
     // has a common INVENTORY class; `annual` only breaks a tie WITHIN a year. The plan
     // predicted 2022 and was wrong — this asserts the rule, not the prediction.
-    assert.equal(g.picked.year, 2023);
+    assert.equal(g.picked.yearA, 2023);
+    assert.equal(g.picked.yearB, 2023);
     assert.equal(g.picked.klass, "inventory");
     // Both sides must be on the same form, or the card is comparing two instruments.
     assert.equal(card.versus.left.formClass, card.versus.right.formClass);
@@ -695,5 +696,187 @@ test.skipIf(skip)(
         share(k) > 0.05,
         `${k} fell to ${(share(k) * 100).toFixed(1)}% of rows — rule regression?`,
       );
+  },
+);
+
+test.skipIf(skip)(
+  "--same-role matches on the OFFICE, taking each side's own year in it",
+  async () => {
+    // The second comparison axis. Matching on the year asks what two lives looked like at
+    // one moment; matching on the office asks what the estate of whoever holds THIS post
+    // looks like — and there the year gap is the subject, not a confound.
+    //
+    // The fixture is the reason the axis exists: both men were interior minister, but never
+    // in the same year, so the year-matched gate can never show them in the role. Рашков
+    // filed an annual as minister in 2021, Демерджиев in 2022.
+    const { gate, card } = await compareDeclarations({
+      slugA: RASHKOV,
+      slugB: DEMERDZHIEV,
+      sameRole: true,
+    });
+    const g = gate as unknown as Gate;
+    assert.match(g.picked.office ?? "", /вътрешните работи/i);
+    assert.equal(g.picked.yearA, 2021);
+    assert.equal(g.picked.yearB, 2022);
+    // The form-class rule survives this axis: an annual and an entry/vacate measure
+    // different things whichever years they come from.
+    assert.equal(g.picked.klass, "annual");
+    // NOT `left.formClass === right.formClass` — both are assigned from picked.klass, so
+    // that comparison cannot fail whatever the gate does. Assert against the DECLARATION
+    // TYPES the two filings actually carry, which is what the class is supposed to encode.
+    const types = await allRows<{ slug: string; declaration_type: string }>(
+      `SELECT p.slug, d.declaration_type
+         FROM declaration d JOIN person p USING (person_id)
+        WHERE (p.slug = $1 AND COALESCE(d.fiscal_year, d.declaration_year) = $3)
+           OR (p.slug = $2 AND COALESCE(d.fiscal_year, d.declaration_year) = $4)`,
+      [RASHKOV, DEMERDZHIEV, g.picked.yearA, g.picked.yearB],
+    );
+    assert.ok(types.length >= 2);
+    for (const t of types.filter((r) => r.declaration_type !== "Other"))
+      assert.equal(
+        t.declaration_type,
+        "Annualy",
+        `${t.slug} contributed a ${t.declaration_type} filing to an annual-class card`,
+      );
+
+    // Differing years must be stated per side, and no shared year may head the card.
+    assert.equal(card.year, undefined);
+    assert.ok(card.kicker && /вътрешните работи/i.test(card.kicker));
+    assert.equal(card.versus.left.periodYear, 2021);
+    assert.equal(card.versus.right.periodYear, 2022);
+    // …and the year-matched caveat must NOT appear, since it would be false here.
+    assert.ok(
+      card.yearNote && !/най-скорошната година/i.test(card.yearNote),
+      "a role-matched card must not carry the year-matched note",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "--same-role refuses a person whose filings state no office, naming the backfill",
+  async () => {
+    // declaration.filed_position is backfilled for a minority of the corpus, so this is the
+    // common refusal rather than an edge case — it must be actionable, not just a no.
+    const [bare] = await allRows<{ slug: string }>(
+      // The asset-bearing predicate is the gate's own (REP_CTE): without it this picks
+      // someone the gate rejects earlier for a DIFFERENT reason, and the test then passes
+      // on the wrong error. 2,025 of 19,773 office-less people are in that state.
+      `SELECT p.slug
+         FROM person p JOIN declaration d USING (person_id)
+        WHERE p.status = 'active' AND p.is_public_figure
+          AND d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
+          AND EXISTS (SELECT 1 FROM declaration_asset a
+                       WHERE a.declaration_id = d.declaration_id
+                         AND a.value_eur IS NOT NULL)
+        GROUP BY p.slug
+       HAVING count(*) FILTER (WHERE d.filed_position IS NOT NULL) = 0
+        ORDER BY p.slug LIMIT 1`,
+    );
+    assert.ok(
+      bare,
+      "every person now has an office — this refusal is unreachable",
+    );
+    await assert.rejects(
+      () =>
+        compareDeclarations({
+          slugA: RASHKOV,
+          slugB: bare.slug,
+          sameRole: true,
+        }),
+      /backfill_filed_position/,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "--same-role refuses two people who never held the same office",
+  async () => {
+    // Offices are matched on the filing's own words with no abbreviation expansion, so this
+    // under-matches rather than guessing — the refusal prints both people's offices.
+    const [other] = await allRows<{ slug: string }>(
+      `SELECT p.slug
+         FROM person p JOIN declaration d USING (person_id)
+        WHERE p.status = 'active' AND p.is_public_figure
+          AND d.filed_position IS NOT NULL
+          AND d.filed_institution NOT ILIKE '%вътрешните работи%'
+          AND d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
+          AND EXISTS (SELECT 1 FROM declaration_asset a
+                       WHERE a.declaration_id = d.declaration_id
+                         AND a.value_eur IS NOT NULL)
+          AND p.slug NOT IN ($1, $2)
+        GROUP BY p.slug ORDER BY p.slug LIMIT 1`,
+      [RASHKOV, DEMERDZHIEV],
+    );
+    assert.ok(other, "no third person with a stated office");
+    await assert.rejects(
+      () =>
+        compareDeclarations({
+          slugA: RASHKOV,
+          slugB: other.slug,
+          sameRole: true,
+        }),
+      /no office both people held/,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "a role-matched card names the office even when both years coincide",
+  async () => {
+    // The branch that published a role comparison as an undescribed year comparison: the
+    // header and the caveat were keyed on whether the two years happened to be equal, while
+    // the per-side role is suppressed because the header is supposed to carry the office. So
+    // on a coincident-year pair the office appeared NOWHERE and the year-matched caveat
+    // printed. 3 of 30 sampled role-matched pairs take this branch.
+    const [pair] = await allRows<{ a: string; b: string }>(
+      `WITH rep AS (
+         SELECT DISTINCT ON (d.person_id, COALESCE(d.fiscal_year, d.declaration_year),
+                             CASE d.declaration_type WHEN 'Annualy' THEN 'annual'
+                                                     ELSE 'inventory' END)
+                p.slug,
+                COALESCE(d.fiscal_year, d.declaration_year) AS yr,
+                CASE d.declaration_type WHEN 'Annualy' THEN 'annual'
+                                        ELSE 'inventory' END AS klass,
+                lower(d.filed_position) AS pos, lower(d.filed_institution) AS inst
+           FROM declaration d JOIN person p USING (person_id)
+          WHERE p.status = 'active' AND p.is_public_figure
+            AND d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
+            AND d.filed_position IS NOT NULL AND d.filed_institution IS NOT NULL
+            AND EXISTS (SELECT 1 FROM declaration_asset a
+                         WHERE a.declaration_id = d.declaration_id
+                           AND a.value_eur IS NOT NULL)
+          ORDER BY d.person_id, 2, 3, d.filed_at DESC NULLS LAST, d.declaration_id
+       )
+       SELECT min(slug) AS a, max(slug) AS b
+         FROM rep GROUP BY yr, klass, pos, inst
+        HAVING count(DISTINCT slug) = 2
+        ORDER BY yr DESC LIMIT 1`,
+    );
+    assert.ok(pair, "no two people share an office, year and form class");
+
+    const { gate, card } = await compareDeclarations({
+      slugA: pair.a,
+      slugB: pair.b,
+      sameRole: true,
+    });
+    const g = gate as unknown as Gate;
+    assert.equal(
+      g.picked.yearA,
+      g.picked.yearB,
+      "fixture must have coincident years",
+    );
+    // The office must be findable on the card — in the header, since the per-side role is
+    // deliberately suppressed on this axis.
+    assert.ok(
+      card.kicker,
+      "a role-matched card must name the office in its header",
+    );
+    assert.equal(card.year, undefined);
+    assert.equal(card.versus.left.role, undefined);
+    // …and the year-matched caveat must not appear.
+    assert.ok(
+      !/най-скорошната година/i.test(card.yearNote ?? ""),
+      "a role-matched card must not carry the year-matched caveat",
+    );
   },
 );

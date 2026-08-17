@@ -1038,6 +1038,113 @@ describe("renderVersusCard", () => {
     ).toThrow(/px are free/);
   });
 
+  it("refuses a card with neither a shared year nor a kicker", () => {
+    // A header is where the period lives. Without one the card states no period at all.
+    expect(() => renderVersusCard({ ...base, year: undefined })).toThrow(
+      /pass `year`.*or `kicker`/s,
+    );
+  });
+
+  it("refuses differing years that are not stated per side", () => {
+    // The role-matched axis compares two people in the same OFFICE at whatever year each
+    // held it, so the years differ by design. Undated, the reader cannot tell which figure
+    // belongs to when — the same class of false sentence as mixing two declaration forms.
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        year: undefined,
+        kicker: "ДЕКЛАРАЦИИ КАТО МИНИСТЪР",
+      }),
+    ).toThrow(/needs `periodYear` on BOTH sides/);
+    // …and one side is not enough.
+    expect(() =>
+      renderVersusCard({
+        ...base,
+        year: undefined,
+        kicker: "ДЕКЛАРАЦИИ КАТО МИНИСТЪР",
+        versus: {
+          left: { ...base.versus.left, periodYear: 2021 },
+          right: base.versus.right,
+        },
+      }),
+    ).toThrow(/needs `periodYear` on BOTH sides/);
+  });
+
+  it("draws the per-side year, which is the only thing dating either figure", async () => {
+    // Mutation-proven hole: dropping `periodYear` from the badge left all 85 tests green.
+    // On a role-matched card the header names an OFFICE, not a year, so the badge is the
+    // only place either figure is dated — an undated pair of money figures about two named
+    // people is exactly the sentence this renderer exists to refuse.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    const badgeStrip = async (periodYear: number) => {
+      const png = renderVersusCard({
+        ...base,
+        year: undefined,
+        kicker: "ДЕКЛАРАЦИИ КАТО МИНИСТЪР",
+        versus: {
+          left: { ...base.versus.left, periodYear },
+          right: { ...base.versus.right, periodYear: 2022 },
+        },
+      });
+      const img = await loadImage(png);
+      const cx = createCanvas(1080, 1350).getContext("2d");
+      cx.drawImage(img, 0, 0);
+      // The left badge's own band.
+      return Buffer.from(cx.getImageData(56, 270, 460, 44).data);
+    };
+    const a = await badgeStrip(2021);
+    const b = await badgeStrip(2019);
+    // Two different years must draw two different badges.
+    expect(a.equals(b)).toBe(false);
+    // …and the badge is not blank, or the inequality proves nothing.
+    expect(a.some((v) => v > 90)).toBe(true);
+  });
+
+  it("refuses `year` and `kicker` together, which would drop the year silently", () => {
+    expect(() =>
+      renderVersusCard({ ...base, kicker: "ДЕКЛАРАЦИИ КАТО МИНИСТЪР" }),
+    ).toThrow(/`year` OR `kicker`, not both/);
+  });
+
+  it("renders a role-matched card whose two sides carry different years", () => {
+    const png = renderVersusCard({
+      ...base,
+      year: undefined,
+      kicker: "ДЕКЛАРАЦИИ КАТО МИНИСТЪР · МИНИСТЕРСТВО НА ВЪТРЕШНИТЕ РАБОТИ",
+      versus: {
+        left: { ...base.versus.left, periodYear: 2021 },
+        right: { ...base.versus.right, periodYear: 2022 },
+      },
+    });
+    expect(png.readUInt32BE(16)).toBe(1080);
+    expect(png.readUInt32BE(20)).toBe(1350);
+  });
+
+  it("keeps a long role-matched header inside the canvas", async () => {
+    // The header carries a ministry name on this axis and was the one string on the card
+    // drawn without fitText, so it ran off the right edge. Sample the last 40px of the
+    // header band and assert no ink reaches it.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    const png = renderVersusCard({
+      ...base,
+      year: undefined,
+      kicker:
+        "ДЕКЛАРАЦИИ КАТО ЗАМЕСТНИК МИНИСТЪР-ПРЕДСЕДАТЕЛ И МИНИСТЪР НА ТРУДА И СОЦИАЛНАТА ПОЛИТИКА",
+      versus: {
+        left: { ...base.versus.left, periodYear: 2021 },
+        right: { ...base.versus.right, periodYear: 2022 },
+      },
+    });
+    const img = await loadImage(png);
+    const cx = createCanvas(1080, 1350).getContext("2d");
+    cx.drawImage(img, 0, 0);
+    const edge = cx.getImageData(1040, 132, 40, 34).data;
+    let lit = 0;
+    for (let i = 0; i < edge.length; i += 4)
+      if (edge[i] > 120 || edge[i + 1] > 120) lit += 1;
+    expect(lit).toBe(0);
+  });
+
   it("refuses a property count on an annual card", () => {
     // A property COUNT is an inventory claim: on an annual filing „0 имота" is a coin flip
     // (50.7% of people who filed both forms for one period show zero on the annual and real

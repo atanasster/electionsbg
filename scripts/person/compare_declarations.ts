@@ -5,6 +5,22 @@
  *
  *   npx tsx scripts/person/compare_declarations.ts --a <slug|name> --b <slug|name> \
  *     [--year N] [--class annual|inventory] [--total net|assets] [--out <path>]
+ *   npx tsx scripts/person/compare_declarations.ts --a <slug> --b <slug> --same-role
+ *
+ * TWO AXES. By default the pair is matched on the YEAR: the same period, the same form, one
+ * moment compared across two lives. `--same-role` matches on the OFFICE instead — the same
+ * post, at whatever year each person held it — which is the only way to ask what the estate
+ * of whoever holds THIS job tends to look like. There the year gap is the subject rather
+ * than a confound, so the card names the office in its header and dates each side in its own
+ * badge. The form-class rule survives both axes: an annual and an entry/vacate measure
+ * different things whichever years they come from.
+ *
+ * The two years may also COINCIDE on the role axis — two people can hold the same post in
+ * one year, and 3 of 30 sampled pairs do. That is still a role-matched card: the header
+ * names the office and each badge carries the year, exactly as when they differ. Keying any
+ * of that on whether the years happen to be equal is the defect this note exists to prevent
+ * — it published a role comparison with the office named NOWHERE (the per-side role is
+ * suppressed precisely because the header carries it) under the year-matched caveat.
  *
  * Plan: docs/plans/person-compare-post-v1.md. Exit 2 means the pair is NOT comparable, or a
  * flag was misused, and the reason is printed — a normal outcome, not a crash. Exit 1 means
@@ -93,6 +109,31 @@ const NOT_A_METRIC = new Set(["credit_limit"]);
  *  rather than acted on. `--max-unvalued-pct` overrides; 100 disables the drop. */
 export const MAX_UNVALUED_SHARE = 0.2;
 
+/** Fold an office to a match key. Deliberately conservative — lowercase, collapse the
+ *  punctuation and spacing the register varies („Заместник - министър" / „заместник-министър"
+ *  / „заместник министър") and nothing else.
+ *
+ *  It does NOT expand abbreviations, so „МВР" and „Министерство на вътрешните работи" do not
+ *  fold together even though they are the same ministry. That is under-matching, and it is
+ *  the safe direction: the gate then REFUSES and prints both people's offices, where an
+ *  alias map that guessed wrong would silently pair two different posts. */
+const officeFold = (t: string | null): string =>
+  (t ?? "")
+    .toLocaleLowerCase("bg-BG")
+    .replace(/[.\-–—]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+type RoleAvailability = {
+  slug: string;
+  display_name: string;
+  period_year: number;
+  klass: VersusFormClass;
+  declaration_type: string;
+  filed_position: string | null;
+  filed_institution: string | null;
+};
+
 type Availability = {
   slug: string;
   display_name: string;
@@ -125,6 +166,8 @@ const arg = (flag: string): string | undefined => {
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 
+const has = (flag: string): boolean => process.argv.includes(flag);
+
 /** byRecency (src/lib/declarations.ts), restricted to one (person, year, class), so this
  *  picks the filing the /person page calls latest.
  *
@@ -148,6 +191,17 @@ const BY_RECENCY = `
   END DESC,
   entry_number ASC NULLS LAST,
   source_url ASC`;
+
+/** The two chosen filings — one per side, each at its own year. The year-matched axis is the
+ *  case where the two years are equal, so this one predicate serves both.
+ *
+ *  Written once because it is bound positionally ($2..$6) in two separate queries, and the
+ *  two drifting apart would silently pair the money of one filing with the properties of
+ *  another. */
+const CHOSEN_SQL = `SELECT * FROM rep
+        WHERE klass = $4
+          AND ((slug = $2 AND period_year = $5)
+            OR (slug = $3 AND period_year = $6))`;
 
 /** Asset-bearing filings of both people, one representative per (person, year, class).
  *  `Other` filings are excluded at source: 5,990 of them carry no asset table at all. */
@@ -241,6 +295,8 @@ export type CompareOptions = {
   totalBasis?: "net" | "assets";
   /** 0..1; default {@link MAX_UNVALUED_SHARE}. */
   maxUnvaluedShare?: number;
+  /** Match on the OFFICE each person held rather than on the year — see the gate. */
+  sameRole?: boolean;
 };
 
 /** The gate's reasoning, and the card it licenses. */
@@ -255,6 +311,7 @@ export const compareDeclarations = async (
   opts: CompareOptions,
 ): Promise<CompareResult> => {
   const { slugA, slugB } = opts;
+  const sameRole = opts.sameRole ?? false;
   const totalBasis = opts.totalBasis ?? "net";
   const wantYear = opts.year;
   const wantClass = opts.klass;
@@ -264,15 +321,113 @@ export const compareDeclarations = async (
   const slugs = [slugA, slugB];
 
   // ---- the gate: which (year, class) can both of them actually speak to? ----
-  const avail = await allRows<Availability>(
+  const avail = await allRows<RoleAvailability>(
     `WITH ${REP_CTE}
-     SELECT slug, display_name, period_year, klass, declaration_type
+     SELECT slug, display_name, period_year, klass, declaration_type,
+            filed_position, filed_institution
        FROM rep ORDER BY period_year DESC, klass`,
     [slugs],
   );
+  // One shape for both axes: a form class plus a year PER SIDE. Year-matched is simply the
+  // case where the two years are equal, so everything downstream — the detail query, the
+  // card build, the totals — is written once.
+  let picked: {
+    klass: VersusFormClass;
+    yearA: number;
+    yearB: number;
+    /** Set only on the role-matched axis; the office both people held. */
+    office?: string;
+  } | null = null;
+
   const missing = slugs.filter((s) => !avail.some((r) => r.slug === s));
   if (missing.length)
     throw new Usage(`no asset-bearing declaration for: ${missing.join(", ")}`);
+
+  // ── role-matched: the same OFFICE, at whatever year each person held it ────────────────
+  //
+  // The year rule exists because two filings a year apart describe two different moments in
+  // ONE life. Matching on the office asks a different question — what did the estate of
+  // whoever held THIS post look like while they held it — and there the year gap is the
+  // subject rather than a confound. The form-class rule still applies: an annual and an
+  // entry/vacate measure different things whichever year they are from.
+  if (sameRole) {
+    // Gated on the FOLD rather than raw truthiness: a `filed_position` of "-" is truthy and
+    // folds to "", so two degenerate offices would "share" the empty key and the header
+    // would read „ДЕКЛАРАЦИИ КАТО  ·  ". Zero such rows today; the guard is the cheap half.
+    const withOffice = avail.filter(
+      (r) => officeFold(r.filed_position) && officeFold(r.filed_institution),
+    );
+    const noOffice = slugs.filter(
+      (sl) => !withOffice.some((r) => r.slug === sl),
+    );
+    if (noOffice.length)
+      throw new Usage(
+        `no filing states an office for: ${noOffice.join(", ")}.\n` +
+          `  declaration.filed_position is backfilled for 12.4% of the corpus; fill these ` +
+          `people first (a handful of requests each):\n` +
+          noOffice
+            .map(
+              (sl) =>
+                `    npx tsx scripts/declarations/backfill_filed_position.ts --slug ${sl} --apply`,
+            )
+            .join("\n"),
+      );
+
+    const officeKey = (r: RoleAvailability) =>
+      `${officeFold(r.filed_position)}\u0000${officeFold(r.filed_institution)}\u0000${r.klass}`;
+    const byOfficeA = new Set(
+      withOffice.filter((r) => r.slug === slugA).map(officeKey),
+    );
+    const shared = [
+      ...new Set(
+        withOffice
+          .filter((r) => r.slug === slugB && byOfficeA.has(officeKey(r)))
+          .map(officeKey),
+      ),
+    ];
+    if (!shared.length) {
+      const grid = (sl: string) =>
+        [
+          ...new Set(
+            withOffice
+              .filter((r) => r.slug === sl)
+              .map(
+                (r) =>
+                  `    ${r.period_year} ${r.klass}  ${r.filed_position} · ${r.filed_institution}`,
+              ),
+          ),
+        ].join("\n");
+      throw new Usage(
+        `no office both people held with the same kind of filing.\n` +
+          `  ${slugA}:\n${grid(slugA)}\n  ${slugB}:\n${grid(slugB)}\n` +
+          `  Offices are matched on the filing's own words, without expanding ` +
+          `abbreviations — „МВР" and „Министерство на вътрешните работи" do not match.`,
+      );
+    }
+
+    // Newest first, judged by the more recent of the two sides' years in that office.
+    const newestOf = (k: string) =>
+      Math.max(
+        ...withOffice
+          .filter((r) => officeKey(r) === k)
+          .map((r) => r.period_year),
+      );
+    shared.sort((x, y) => newestOf(y) - newestOf(x));
+    const chosenOffice = shared[0];
+    // Each side takes its own most recent filing in that office.
+    const pickFor = (sl: string) =>
+      withOffice
+        .filter((r) => r.slug === sl && officeKey(r) === chosenOffice)
+        .sort((a, b) => b.period_year - a.period_year)[0];
+    const pa = pickFor(slugA);
+    const pb = pickFor(slugB);
+    picked = {
+      klass: pa.klass,
+      yearA: pa.period_year,
+      yearB: pb.period_year,
+      office: `${pa.filed_position} · ${pa.filed_institution}`,
+    };
+  }
 
   const keyOf = (r: Availability) => `${r.period_year}:${r.klass}`;
   const setA = new Set(avail.filter((r) => r.slug === slugA).map(keyOf));
@@ -292,11 +447,19 @@ export const compareDeclarations = async (
         (x.klass === y.klass ? 0 : x.klass === "annual" ? -1 : 1),
     );
 
-  const picked = common.find(
-    (c) =>
-      (wantYear === undefined || c.year === wantYear) &&
-      (wantClass === undefined || c.klass === wantClass),
-  );
+  const yearMatched = sameRole
+    ? null
+    : (common.find(
+        (c) =>
+          (wantYear === undefined || c.year === wantYear) &&
+          (wantClass === undefined || c.klass === wantClass),
+      ) ?? null);
+  if (yearMatched)
+    picked = {
+      klass: yearMatched.klass,
+      yearA: yearMatched.year,
+      yearB: yearMatched.year,
+    };
   if (!picked) {
     const grid = (s: string) =>
       avail
@@ -316,7 +479,7 @@ export const compareDeclarations = async (
   const detail = await allRows<SideRow>(
     `WITH ${REP_CTE},
      chosen AS (
-       SELECT * FROM rep WHERE period_year = $2 AND klass = $3
+       ${CHOSEN_SQL}
      )
      SELECT c.slug, c.display_name, c.filed_institution, c.filed_position,
             c.declaration_type, c.source_url,
@@ -356,7 +519,7 @@ export const compareDeclarations = async (
        LEFT JOIN declaration_income i ON i.declaration_id = c.declaration_id
       GROUP BY c.slug, c.display_name, c.filed_institution, c.filed_position,
                c.declaration_type, c.source_url`,
-    [slugs, picked.year, picked.klass],
+    [slugs, slugA, slugB, picked.klass, picked.yearA, picked.yearB],
   );
 
   /** BG thousands grouping with non-breaking spaces, so a euro figure never wraps mid-number
@@ -368,12 +531,14 @@ export const compareDeclarations = async (
   // every row including the ones nobody priced.
   const propRows = await allRows<{ slug: string; description: string | null }>(
     `WITH ${REP_CTE},
-     chosen AS (SELECT * FROM rep WHERE period_year = $2 AND klass = $3)
+     chosen AS (
+       ${CHOSEN_SQL}
+     )
      SELECT c.slug, a.description
        FROM chosen c JOIN declaration_asset a ON a.declaration_id = c.declaration_id
       WHERE a.category = 'real_estate'
       ORDER BY c.slug, a.seq`,
-    [slugs, picked.year, picked.klass],
+    [slugs, slugA, slugB, picked.klass, picked.yearA, picked.yearB],
   );
 
   /** The register's casing is whatever the declarant typed — „НАРОДЕН ПРЕДСТАВИТЕЛ" beside
@@ -565,6 +730,7 @@ export const compareDeclarations = async (
         : undefined;
     return {
       name: head.display_name,
+      periodYear: yearOf(slug),
       properties,
       // The declarant's OWN job, from the filing — NEVER declaration.position_title, which
       // is the register LISTING's group label. That label put Демерджиев under „Служебен
@@ -575,11 +741,14 @@ export const compareDeclarations = async (
       //
       // Undefined rather than a fallback when the filing states nothing: no role on the card
       // is a gap a reader can see, while a wrong one is a claim they cannot check.
-      role:
-        [head.filed_position, head.filed_institution]
-          .filter((t): t is string => Boolean(t))
-          .map(softCase)
-          .join(" · ") || undefined,
+      // Suppressed on the role-matched axis: the header already names the office, and both
+      // sides hold it by construction, so repeating it under each name says it three times.
+      role: picked!.office
+        ? undefined
+        : [head.filed_position, head.filed_institution]
+            .filter((t): t is string => Boolean(t))
+            .map(softCase)
+            .join(" · ") || undefined,
       formLabel:
         picked.klass === "annual"
           ? "годишна декларация"
@@ -599,8 +768,10 @@ export const compareDeclarations = async (
 
   const latestOf = (s: string) =>
     Math.max(...avail.filter((r) => r.slug === s).map((r) => r.period_year));
+  const yearOf = (s: string) => (s === slugA ? picked!.yearA : picked!.yearB);
   const isLatestForBoth =
-    latestOf(slugA) === picked.year && latestOf(slugB) === picked.year;
+    latestOf(slugA) === picked.yearA && latestOf(slugB) === picked.yearB;
+  const sharedYear = picked.yearA === picked.yearB ? picked.yearA : undefined;
 
   // The total is summed over the SHOWN metrics, so when any were dropped it is no longer
   // "all declared assets" and the basis line must not say it is. Naming the excluded
@@ -620,14 +791,26 @@ export const compareDeclarations = async (
 
   const card: VersusCardSpec = {
     versus: { left: buildSide(slugA), right: buildSide(slugB) },
-    year: picked.year,
-    yearNote: isLatestForBoth
-      ? undefined
-      : `Най-скорошната година, в която и двамата подават ${
-          picked.klass === "annual"
-            ? "годишна декларация"
-            : "декларация при встъпване или напускане"
-        }.`,
+    // Keyed on the AXIS, never on whether the two years happen to coincide. A role-matched
+    // card names the office in its header and dates each side in its badge — including when
+    // both people held the post in the same year, which is 3 of 30 sampled pairs. Keying
+    // this on `sharedYear` made those cards name no office at all (the per-side role is
+    // suppressed precisely because the header carries it) while printing the year-matched
+    // caveat, so a role comparison published as an undescribed year comparison.
+    year: picked.office ? undefined : sharedYear,
+    kicker: picked.office ? `ДЕКЛАРАЦИИ КАТО ${picked.office}` : undefined,
+    // Two different sentences for two different axes. „Най-скорошната година, в която и
+    // двамата подават…" is FALSE on a role-matched card, where the two years differ by
+    // design — and it was the note the year-matched branch produced regardless.
+    yearNote: picked.office
+      ? "Всеки подава декларацията за годината, в която заема поста."
+      : isLatestForBoth
+        ? undefined
+        : `Най-скорошната година, в която и двамата подават ${
+            picked.klass === "annual"
+              ? "годишна декларация"
+              : "декларация при встъпване или напускане"
+          }.`,
     basis: basisText,
     metrics,
     source: "Източник: Сметна палата (register.cacbg.bg)",
@@ -658,6 +841,7 @@ export const compareDeclarations = async (
       slugs: { a: slugA, b: slugB },
       picked,
       isLatestForBoth,
+      sameRole,
       totalBasis,
       available: avail.map((r) => ({
         slug: r.slug,
@@ -706,6 +890,9 @@ export const compareDeclarations = async (
       },
     });
     let trial = spec;
+    // The refusal below is a Usage: „these two do not fit on a card" is an outcome the
+    // operator acts on, not a broken tool. It surfaces on 13% of role-matched pairs, where
+    // the office header plus two dated badges leave less room than a shared-year card.
     const empties = spec.metrics.filter(
       (k) =>
         !ALWAYS.includes(k) &&
@@ -721,7 +908,10 @@ export const compareDeclarations = async (
           );
         return trial;
       } catch (e) {
-        if (i >= empties.length) throw e;
+        if (i >= empties.length)
+          throw new Usage(
+            `the card cannot hold this comparison: ${e instanceof Error ? e.message : e}`,
+          );
         trial = attempt(
           spec.metrics.filter((k) => !empties.slice(0, i + 1).includes(k)),
         );
@@ -772,9 +962,17 @@ const main = async (): Promise<void> => {
       `--max-unvalued-pct must be a number 0-100, got "${rawMax}"`,
     );
 
+  const sameRole = has("--same-role");
+  if (sameRole && (year !== undefined || rawClass !== undefined))
+    throw new Usage(
+      "--same-role picks the year from each person's time in the office, so it cannot be " +
+        "combined with --year or --class",
+    );
+
   const { gate, card } = await compareDeclarations({
     slugA: await resolvePerson(rawA),
     slugB: await resolvePerson(rawB),
+    sameRole,
     year,
     klass: rawClass as VersusFormClass | undefined,
     totalBasis,
@@ -787,7 +985,12 @@ const main = async (): Promise<void> => {
   else console.log(json);
 
   const g = gate as {
-    picked: { year: number; klass: string };
+    picked: {
+      klass: string;
+      yearA: number;
+      yearB: number;
+      office?: string;
+    };
     isLatestForBoth: boolean;
     droppedMetrics: {
       metric: string;
@@ -820,8 +1023,17 @@ const main = async (): Promise<void> => {
       `in the total but not a row: ${g.inTotalNotShown.join(", ")}`,
     );
   console.error(
-    `gate: ${g.picked.year} / ${g.picked.klass}` +
-      `${g.isLatestForBoth ? "" : "  (NOT the latest year for both — the card says so)"}\n` +
+    `gate: ${g.picked.office ? `${g.picked.office} · ` : ""}` +
+      `${g.picked.yearA === g.picked.yearB ? g.picked.yearA : `${g.picked.yearA} vs ${g.picked.yearB}`}` +
+      ` / ${g.picked.klass}` +
+      // Only the YEAR-matched card carries the not-the-latest caveat; the role-matched one
+      // says „всеки подава за годината, в която заема поста" instead, so claiming „the card
+      // says so" there told the operator to expect a sentence that is not on the image.
+      `${
+        g.isLatestForBoth || g.picked.office
+          ? ""
+          : "  (NOT the latest year for both — the card says so)"
+      }\n` +
       Object.entries(g.totals)
         .map(
           ([sl, t]) =>
