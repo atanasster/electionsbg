@@ -492,3 +492,141 @@ test.skipIf(skip)(
     }
   },
 );
+
+test.skipIf(skip)(
+  "no council has quietly stopped publishing named votes",
+  async () => {
+    assert.ok(await present(), "council_* absent — run db:load:council:pg");
+
+    // THE gate whose absence let the 2026-05 freeze run for two and a half
+    // months. Nothing else notices: resolutions keep arriving, every row count
+    // reconciles, and the named-vote half simply stops moving.
+    const rows = await allRows<{
+      code: string;
+      newest: string;
+      newest_named: string | null;
+      gap_days: string | null;
+    }>(
+      `SELECT m.obshtina_code AS code,
+            max(r.decided_on)::text AS newest,
+            max(r.decided_on) FILTER (WHERE r.has_named_votes)::text AS newest_named,
+            (max(r.decided_on)
+               - max(r.decided_on) FILTER (WHERE r.has_named_votes))::text AS gap_days
+       FROM council_muni m
+       JOIN council_resolution r ON r.obshtina_code = m.obshtina_code
+      WHERE m.has_named_votes
+      GROUP BY 1`,
+    );
+    assert.ok(rows.length > 0, "no vote-bearing council found");
+
+    // ⚠️ THE FREEZE'S FOOTPRINT IS STILL IN THE DATA. Fixing the merge and putting
+    // --per-councillor back on the daily path stops it recurring; it does NOT
+    // backfill what was missed, and re-scraping 16 municipal websites is an
+    // operator action.
+    //
+    // These are DATES, not day-counts, and that is the whole design. `gap_days`
+    // is the difference between two MOVING watermarks, so a day-count budget
+    // expires on its own as new resolutions land — every entry would go red on a
+    // CORRECT run, inviting someone to raise the number until the ratchet became
+    // the allowlist its own comment warns against. Sofia makes that concrete: its
+    // per-councillor extraction is --ocr-gated (parsers/sof.ts:350) and the daily
+    // path deliberately does not pass --ocr, so its named watermark is pinned by
+    // design while its resolutions advance daily.
+    //
+    // A date watermark only fails when the named side actually REGRESSES, and it
+    // tightens automatically — the second assertion fires the moment a council
+    // makes progress, and the fix is a one-line date bump.
+    const NAMED_VOTE_WATERMARK: Record<string, string> = {
+      SZR12: "2025-06-01", // a separate, older parser problem the May freeze hid
+      BGS01: "2026-03-17",
+      SOF: "2026-04-30", // --ocr-gated; moves only on a deliberate OCR run
+      PER32: "2026-04-28",
+      VTR01: "2026-05-07",
+    };
+
+    // A council with no recorded debt. The freeze ran 79 days before anyone
+    // noticed, so the ceiling has to sit below that or it would have permitted
+    // the very incident this gate exists to catch.
+    const NORMAL_LAG_DAYS = 60;
+
+    // A typo here would silently relax that council to NORMAL_LAG_DAYS, and for
+    // four of the five entries that is LOOSER than their budget — the ratchet
+    // lost with nothing failing.
+    for (const code of Object.keys(NAMED_VOTE_WATERMARK)) {
+      assert.ok(
+        rows.some((r) => r.code === code),
+        `NAMED_VOTE_WATERMARK names '${code}', which is not a vote-bearing council ` +
+          `— either a typo, or the council has dropped out and the entry is dead config`,
+      );
+    }
+
+    for (const r of rows) {
+      assert.ok(
+        r.newest_named !== null,
+        `${r.code} claims named votes but has no resolution carrying any`,
+      );
+      const floor = NAMED_VOTE_WATERMARK[r.code];
+      if (floor) {
+        // ISO dates compare lexicographically.
+        assert.ok(
+          (r.newest_named as string) >= floor,
+          `${r.code}: newest named-vote resolution is ${r.newest_named}, behind its ` +
+            `recorded watermark of ${floor} — named votes have REGRESSED`,
+        );
+        assert.equal(
+          r.newest_named,
+          floor,
+          `${r.code} has advanced to ${r.newest_named} (watermark ${floor}) — move its ` +
+            `NAMED_VOTE_WATERMARK entry forward so the gate ratchets. A recorded debt ` +
+            `that is never tightened is an allowlist`,
+        );
+      } else {
+        assert.ok(
+          Number(r.gap_days) <= NORMAL_LAG_DAYS,
+          `${r.code}: newest resolution ${r.newest}, newest NAMED-vote resolution ` +
+            `${r.newest_named} — ${r.gap_days} days apart. The named-vote half has ` +
+            `stopped moving while resolutions keep arriving: check that the daily ` +
+            `scrape still passes --per-councillor, and that this município's parser ` +
+            `still emits perCouncillor`,
+        );
+      }
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "no council has stopped publishing named votes ENTIRELY",
+  async () => {
+    assert.ok(await present(), "council_* absent — run db:load:council:pg");
+
+    // The gate above filters `WHERE m.has_named_votes`, so it supervises only
+    // councils that still have SOME named votes. A council that loses them all —
+    // a parser regression, a site redesign — drops out of that filter entirely
+    // and becomes invisible. That is a worse freeze than the partial one, not a
+    // lesser one, so the vote-bearing SET is pinned here.
+    //
+    // GAB05 is deliberately absent: its 244 resolutions carry zero per-councillor
+    // blocks, despite the wired-municipalities table once claiming otherwise.
+    const EXPECTED_VOTE_BEARING = ["BGS01", "PER32", "SOF", "SZR12", "VTR01"];
+
+    const rows = await allRows<{ code: string }>(
+      `SELECT obshtina_code AS code FROM council_muni WHERE has_named_votes ORDER BY 1`,
+    );
+    const actual = rows.map((r) => r.code);
+    const lost = EXPECTED_VOTE_BEARING.filter((c) => !actual.includes(c));
+    assert.deepEqual(
+      lost,
+      [],
+      `${lost.join(", ")} published named votes and now publish none at all — a ` +
+        `TOTAL freeze, which the per-council staleness gate cannot see because it ` +
+        `only looks at councils that still have some`,
+    );
+    const gained = actual.filter((c) => !EXPECTED_VOTE_BEARING.includes(c));
+    assert.deepEqual(
+      gained,
+      [],
+      `${gained.join(", ")} started publishing named votes — good news, but add them ` +
+        `to EXPECTED_VOTE_BEARING (and NAMED_VOTE_WATERMARK) so they are supervised`,
+    );
+  },
+);

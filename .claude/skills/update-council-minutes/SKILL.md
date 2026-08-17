@@ -18,9 +18,9 @@ There is **no central register**. Bulgaria's РМС 436/2017 only mandates the n
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `Council resolutions: N município(s) changed` | Run incremental ingest for ALL wired munis (`npm run council:scrape`) |
+| Daily watcher reports `Council resolutions: N município(s) changed` | Run incremental ingest for ALL wired munis (`npm run council:scrape -- --per-councillor`) |
 | User asks to "refresh council resolutions" / "update council votes" | Same — incremental |
-| User asks for one município only ("refresh Стара Загора council") | `npm run council:scrape -- --only <code>` |
+| User asks for one município only ("refresh Стара Загора council") | `npm run council:scrape -- --only <code> --per-councillor` |
 | `data/council/index.json` shows empty `resolutionsByObshtina` (fresh clone) | Cold-start ingest — drop the per-município watermarks from `state/ingest/council_*.json` and run a `--since-year` of 2 years back |
 | Adding a new município to the fleet | See "Adding a parser" below — Phase 0 discovery + a per-município parser file + dispatcher entry |
 | `process-watch-report` invokes this skill | Reads watermarks from `state/ingest/council_<obshtina>.json`, runs incremental ingest, stamps marker |
@@ -37,7 +37,7 @@ There is **no central register**. Bulgaria's РМС 436/2017 only mandates the n
 If you suspect a município's website has migrated or a recipe has rotted:
 
 ```bash
-npm run council:discover            # probe all 10 recipes for liveness
+npm run council:discover            # probe all 17 wired recipes for liveness
 npm run council:discover -- --only SOF --verbose
 ```
 
@@ -46,7 +46,10 @@ Reports HTTP status + content-type + byte count per município index URL + sampl
 ## Step 3 — Incremental scrape
 
 ```bash
-npm run council:scrape                             # all wired munis, since last ingest
+npm run council:scrape -- --per-councillor         # all wired munis, since last ingest
+                                                   # ⚠️ --per-councillor is NOT optional on the
+                                                   # daily path — see "The named-vote freeze"
+npm run council:scrape                             # aggregate tallies only (debugging)
 npm run council:scrape -- --only VTR01             # one município
 npm run council:scrape -- --only VTR01 --since-year 2025 --max 5 --dry
 npm run council:scrape -- --only VTR01 --per-councillor   # Phase 2 join to roster
@@ -133,6 +136,81 @@ npx tsx scripts/officials/build_councillor_conflicts.ts
 
 Outputs land at `data/officials/derived/councillor_signals.json` (≈ 50 KB — per-councillor attendance + dissent counts, used by the standouts strip) and `data/officials/derived/councillor_conflicts.json` (≈ 0.1 KB today; populated when conflict-detection hits a hit — currently `0 flags across 0 resolutions` since conflict-matching against company-officer ties is opt-in and few tier-A municípios have full per-decision bodies indexed). The `COUNCIL_TO_OFFICIALS` map at the top of each script names which munis feed the join — every new parser landing in the dispatcher needs the same one-line entry added.
 
+## Step 4.6 — Publish the corpus to Postgres
+
+The council corpus is PG-served (migration 160). `data/council/` is the ingest's
+output and the loader's input; nothing reads it from the bucket any more.
+
+```bash
+npm run db:load:council:pg          # local
+npm run db:load:council:pg:cloud    # ⚠️ PROD — nothing runs this automatically
+```
+
+**Order matters on the cloud side.** The loader must run AFTER
+`db:resolve:persons` and after `db:load:ngo-board-links`: the resolver does
+`DELETE FROM person` + re-COPY with `person_id` as a positional ordinal, so
+`council_vote.person_id` is nulled table-wide on every re-resolve
+(ON DELETE SET NULL) and this loader is what re-attaches it; and
+`db:load:ngo-board-links` is the only writer of `official_roster`, the roster
+bridge every attribution resolves through. See CLAUDE.md §council.
+
+**The cloud line is the one that gets forgotten**, and its failure is the usual
+shape: local is green, prod keeps the previous vintage at a 200, and every row
+count reconciles. Run it after every ingest that added resolutions.
+
+Expected output — the two numbers to read:
+
+```
+[council] 16 municipalities, 4676 resolutions, 28214 named votes (refused 840 vote-label-polluted rows)
+[council] person_id attached to 26550/28214 named votes (94.1%)
+```
+
+**94.1% is the number.** A drop to ~77% means the two sides of `councilNameKey`
+have drifted apart again (see Troubleshooting). The loader refuses rather than
+publishing a collapse: if attribution would fall below 90% of what is already
+live it throws, naming `db:load:ngo-board-links` — the only writer of
+`official_roster`, which degrades to NULL `obshtina` on a clone with no
+municipal shards. `--allow-attribution-drop` overrides when the loss is real.
+
+## The named-vote freeze — read before touching the scrape flags
+
+`data/council/votes/*.json` did not move between 2026-05-29 and 2026-08-16 while
+`index.json` refreshed weekly, and nothing reported it. Two causes, and the
+second makes the obvious fix for the first destructive:
+
+1. **`--per-councillor` is opt-in and the daily path did not pass it.** The May
+   corpus came from explicit one-off runs. Since then no scrape produced a
+   single `tally.perCouncillor`.
+2. **The votes shard was rebuilt from a source that had already been stripped.**
+   `writeIndex` removes `perCouncillor`, and `mergeMuniResult` read its previous
+   state back out of the index — so the shard could only ever hold what the
+   current scrape returned. 530 resolutions and 10,754 vote rows sat in the
+   durable tree, unserved.
+
+The `kept === 0` early return was the only thing preserving the shards, so the
+corpus was protected by extraction being broken: adding `--per-councillor`
+without fixing the merge would have overwritten each shard with one resolution.
+Both are fixed (the merge is additive and reads the durable tree), which is why
+the flag is now on the daily path.
+
+`--ocr` stays opt-in: it is ~$1.85/session for Sofia and that is a budget
+decision, not a default.
+
+⚠️ **So the daily path does NOT refresh Sofia's named votes, and cannot.**
+`parsers/sof.ts` gates per-councillor extraction behind `opts.ocr` (its full
+protokol PDFs carry ABBYY Cyrillic→Latin mojibake, so plain text extraction
+yields nothing usable). A daily `--per-councillor` run advances Sofia's
+resolutions while its named-vote watermark stays put — by design, not as a
+defect. Move it with a deliberate periodic run:
+
+```bash
+npm run council:scrape -- --only SOF --per-councillor --ocr
+```
+
+and then bump `SOF` in `NAMED_VOTE_WATERMARK`
+(`scripts/db/tests/council_corpus.data.test.ts`) — the gate is a ratchet and
+will tell you to.
+
 ## Step 5 — Stamp the ingest marker
 
 For watcher / process-watch-report integration:
@@ -168,7 +246,7 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | BGS01 (Бургас) | A | pdf-text via Drupal /node | yes (86) | yes (~94% roster match) | full coverage via `--per-councillor` — pulls the parallel `protokol-N-sayt.pdf` from `/video` while keeping the za-sayta extraction for Phase-1 decision metadata |
 | PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
 | SOF (Столична) | A | pdf-text + Gemini OCR via Playwright | yes (77) | yes (75 sessions, ~89% roster match) | full coverage via `--ocr --per-councillor`; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake so OCR is mandatory — costs ~$1.85/session |
-| GAB05 (Габрово) | A | pdf-text via Wayback CDX | yes (244 across 12 protokols) | partial — 2025+ only (2024 protokols ship aggregate-only) | Apache directory listing 403-blocked; discovery uses Wayback CDX index. 2024 protokols have compact "Т. 1: За – 9 Против – 10 Въздържали се – 9" aggregate tallies but no per-councillor table; 2025+ added a full tabular per-councillor block (NN  Name  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства). |
+| GAB05 (Габрово) | A | pdf-text via Wayback CDX | yes (244 across 12 protokols) | **no — 0 of 244** (see note) | Apache directory listing 403-blocked; discovery uses Wayback CDX index. 2024 protokols have compact "Т. 1: За – 9 Против – 10 Въздържали се – 9" aggregate tallies but no per-councillor table; 2025+ protokols DO carry a tabular per-councillor block (NN  Name  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства), but **none of it has ever been extracted**: measured 2026-08-16, 0 of 244 durable shards carry `perCouncillor` and `council_muni.has_named_votes` is false. This column previously claimed partial coverage. A município with NO named votes is invisible to the per-council staleness gate (it filters `WHERE has_named_votes`), which is why the vote-bearing SET is pinned separately in `council_corpus.data.test.ts`. |
 | SZR12 (Казанлък) | A | pdf-text via Wayback CDX + brute-force | yes | yes | Nuxt-rendered category page doesn't surface protokol links via curl; discovery is Wayback CDX + a focused brute-force probe (Protokol_{N}_SAIT.pdf across {YYYY-MM} dirs, current year only). Per-councillor block in standard "<N>. <Name>: <vote>" form. |
 | HKV34 (Хасково) | B | pdf-text via Wayback CDX | yes | no | 89 protokols at haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf. Born-digital text-layer. Tally form is novel — chair-announcement prose ("Т.ЗАХАРИЕВА: С 37 гласа „за\", без „против\" и „въздържали се\""); parser pre-processes the text to rewrite it into the canonical V. Tarnovo form so the shared SUMMARY_RE_DIGIT_FIRST matches. NO per-councillor block — protokol records the chair's totals, not the individual readout. |
 | DOB28 (Добрич) | B | pdf-text via Wayback CDX | yes | no | Full session protokols at dobrich.bg/uploads/posts/{YYYY}/protokol-{N}_{DD-MM-YYYY}.pdf, ~200 pages each, ~45 decisions per session. Two custom handlers: (1) dual-numbered "РЕШЕНИЕ <session> – <item>:" markers, (2) semicolon separators in the ПОИМЕННО ГЛАСУВАЛИ tally line, pre-processed to comma so the shared label-first regex matches. NO per-councillor block. |
@@ -197,6 +275,25 @@ npx tsx scripts/council/rebuild_shards.ts
 - **`deferred` entry that never clears**: expected for a `content` skip whose URL is not a resolution's `sourceUrl` — RSE01's "PDF variant skipped" and the "no .docx link on session page" cases. The ledger is the record that they are missing; picking one up after the source is fixed needs an explicit `--since-date` behind it.
 - **`UNVERIFIED` município**: the source was unreadable, so nothing was merged or stamped. Not a failure to fix here unless it persists — re-run with `--only <key>` once the council's site is back.
 - **A run that hangs**: it should not any more (`--budget-min`, default 20, caps each município's wall clock; `--ocr` raises it to 60). If one does, the status table on SIGINT names exactly how far it got.
+
+- **Attribution drops to ~77%**: the vote side and the roster side of
+  `councilNameKey` (`scripts/council/lib/tally.ts`) have diverged. The two
+  divergences that have happened are `й`→`и` (the parser's NFD strip) and
+  hyphen collapse — 4,899 votes between them. Both sides must call that one
+  function; `council_corpus.data.test.ts` gates it.
+- **`refusing to shrink <code> votes shard`**: a run would have published fewer
+  named-vote resolutions than are already on disk. That cannot happen through
+  the additive merge, so it means something upstream changed shape. Investigate
+  before overriding. Note `--allow-shrink` is parsed by `rebuild_shards.ts`
+  ONLY — `council:scrape` ignores it, so the override belongs on the repair
+  command (`npx tsx scripts/council/rebuild_shards.ts --allow-shrink`), not on
+  the scrape that raised the error.
+- **`person attribution collapsed`**: `official_roster` is empty or partial.
+  Re-run `db:load:ngo-board-links`, then this loader.
+- **A município's named votes stop updating while its resolutions keep
+  arriving**: the parser is no longer emitting `perCouncillor` for it. This is
+  the 2026-05 freeze in miniature and nothing else reports it — compare
+  `named_vote_count` in `council_muni` against the previous run.
 
 ## See also
 
