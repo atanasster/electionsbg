@@ -376,3 +376,85 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "the company-shaped figure is a FLOOR, and its word boundaries are load-bearing",
+  async () => {
+    const s = (await stats("all")) as Record<string, number>;
+    const [row] = await allRows<{
+      anchored: string;
+      unanchored: string;
+      no_eik: string;
+    }>(
+      // The SAME pattern with and without \m…\M on the two-letter forms. Unanchored,
+      // АД matches inside ordinary Bulgarian names (…-ад) and ЕТ inside many more, so
+      // the „floor" balloons and stops being a floor at all. This asserts the gap is
+      // real — i.e. that the anchors are doing work — as well as pinning the value.
+      `WITH anchored AS (
+         SELECT round(sum(total_eur::numeric), 2) AS v FROM agri_subsidies
+          WHERE eik IS NULL
+            AND name ~* '(ЕООД|ООД|ЕАД|КООПЕРАЦИЯ|ОБЩИНА|СДРУЖЕНИЕ|ФОНДАЦИЯ|ЧИТАЛИЩЕ)|(\\mАД\\M)|(\\mЕТ\\M)'
+       ), unanchored AS (
+         SELECT round(sum(total_eur::numeric), 2) AS v FROM agri_subsidies
+          WHERE eik IS NULL
+            AND name ~* '(ЕООД|ООД|ЕАД|КООПЕРАЦИЯ|ОБЩИНА|СДРУЖЕНИЕ|ФОНДАЦИЯ|ЧИТАЛИЩЕ|АД|ЕТ)'
+       ), all_no_eik AS (
+         SELECT round(sum(total_eur::numeric), 2) AS v FROM agri_subsidies WHERE eik IS NULL
+       )
+       SELECT (SELECT v FROM anchored)::text   AS anchored,
+              (SELECT v FROM unanchored)::text AS unanchored,
+              (SELECT v FROM all_no_eik)::text AS no_eik`,
+    );
+    assert.equal(
+      Math.round(Number(s.noEikCompanyShapedEurFloor)),
+      Math.round(Number(row.anchored)),
+      "the cached floor no longer matches the pattern the migration documents",
+    );
+    // It is a FLOOR: strictly less than the no-ЕИК money it is a subset of, and
+    // strictly less than the unanchored reading. If the two ever converge the
+    // anchors have stopped mattering and the figure is no longer a floor.
+    assert.ok(
+      Number(row.anchored) < Number(row.no_eik),
+      "the floor equals the whole no-ЕИК total — it is meant to be a subset",
+    );
+    assert.ok(
+      Number(row.unanchored) > Number(row.anchored) * 1.5,
+      `unanchored (€${row.unanchored}) is not materially larger than anchored ` +
+        `(€${row.anchored}) — the \\m…\\M boundaries have stopped discriminating, ` +
+        "which usually means a collation or regex-engine change",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the company-shaped floor breaks at the source change, not gradually",
+  async () => {
+    // The claim /subsidies/untraceable and /subsidies/coverage both make: the rise in
+    // untraceable money is at least partly a SOURCE artefact, because the older
+    // register published companies with an ЕИК and the newer one often does not.
+    // Pinned so the pages cannot keep asserting it after the data stops supporting it.
+    const rows = await allRows<{ scope_key: string; floor: string }>(
+      `SELECT scope_key, coalesce(no_eik_companyish_eur, 0)::text AS floor
+         FROM agri_hub_stats_cache
+        WHERE scope_key ~ '^[0-9]{4}$' ORDER BY scope_key`,
+    );
+    const egov = rows.filter((r) => Number(r.scope_key) <= 2023);
+    const seu = rows.filter((r) => Number(r.scope_key) >= 2024);
+    assert.ok(
+      egov.length && seu.length,
+      "expected both source eras in the corpus",
+    );
+    const maxEgov = Math.max(...egov.map((r) => Number(r.floor)));
+    const minSeu = Math.min(...seu.map((r) => Number(r.floor)));
+    assert.ok(
+      maxEgov < 1_000_000,
+      `an egov-era year carries €${maxEgov} of plainly-corporate no-ЕИК money — the ` +
+        "pages say this is negligible before 2024",
+    );
+    assert.ok(
+      minSeu > 100_000_000,
+      `a СЕУ-era year carries only €${minSeu} — the pages say 2024-2025 are in the ` +
+        "hundreds of millions",
+    );
+  },
+);

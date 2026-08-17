@@ -561,6 +561,16 @@ const SubsidiesDashboardScreen = lazy(() =>
     default: m.SubsidiesDashboardScreen,
   })),
 );
+const SubsidiesUntraceableScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesUntraceableScreen").then((m) => ({
+    default: m.SubsidiesUntraceableScreen,
+  })),
+);
+const SubsidiesCoverageScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesCoverageScreen").then((m) => ({
+    default: m.SubsidiesCoverageScreen,
+  })),
+);
 const SubsidiesRecipientsScreen = lazy(() =>
   import("./screens/subsidies/SubsidiesRecipientsScreen").then((m) => ({
     default: m.SubsidiesRecipientsScreen,
@@ -2631,6 +2641,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SubsidiesDashboardScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/untraceable"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesUntraceableScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/coverage"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesCoverageScreen />
                 </Suspense>
               </LayoutScreen>
             }

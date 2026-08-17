@@ -23,6 +23,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════════
 
 import { type FC, useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Scale } from "lucide-react";
 import { Title } from "@/ux/Title";
@@ -30,7 +31,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
-import { useAgriScope } from "@/data/agri/useAgriScope";
+import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { formatEurCompact } from "@/lib/currency";
 
 /** The tier bar: each segment is a tier's MARGINAL share of the money. */
@@ -176,6 +177,7 @@ export const SubsidiesConcentrationScreen: FC = () => {
   const bg = i18n.language === "bg";
   const L = i18n.language;
   const nloc = bg ? "bg-BG" : "en-US";
+  const [params] = useSearchParams();
   const gate = useAgriScope();
   const { data } = gate;
 
@@ -256,8 +258,7 @@ export const SubsidiesConcentrationScreen: FC = () => {
         </p>
         {/* The denominator, named before any number appears. */}
         <p className="mb-4 max-w-3xl text-sm text-muted-foreground">
-          {/* The link to /subsidies/untraceable arrives with that page, next step.
-              The over-corpus comparison is COMPUTED, never the hard-coded „7,5%":
+          {/* The over-corpus comparison is COMPUTED, never the hard-coded „7,5%":
               that is the all-years figure and it is wrong for 7 of the 10 scopes
               (14,23% at 2016), while every input is already in the fetched payload. */}
           {bg ? (
@@ -265,7 +266,14 @@ export const SubsidiesConcentrationScreen: FC = () => {
               Всички дялове на тази страница са от парите за{" "}
               <strong>юридически лица</strong>, не от общата сума. Плащанията
               без ЕИК не могат да бъдат подредени по получател, така че
-              концентрацията върху тях е неизмерима.
+              концентрацията върху тях е неизмерима —{" "}
+              <Link
+                to={agriScopedHref("/subsidies/untraceable", params)}
+                className="text-primary hover:underline"
+              >
+                колко са
+              </Link>
+              .
               {overCorpus !== null && c ? (
                 <>
                   {" "}
@@ -280,7 +288,14 @@ export const SubsidiesConcentrationScreen: FC = () => {
               Every share on this page is out of the money paid to{" "}
               <strong>legal entities</strong>, not out of the total. Payments
               with no ЕИК cannot be attributed to a recipient, so concentration
-              over them is unmeasurable.
+              over them is unmeasurable —{" "}
+              <Link
+                to={agriScopedHref("/subsidies/untraceable", params)}
+                className="text-primary hover:underline"
+              >
+                how much that is
+              </Link>
+              .
               {overCorpus !== null && c ? (
                 <>
                   {" "}

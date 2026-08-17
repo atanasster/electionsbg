@@ -422,6 +422,29 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    // The four headline cards ARE the argument: the share, the name count, the row
+    // count and — the one that stops the misreading — how much of it is plainly a
+    // company. anchor h1 so the clip leads with the „no ЕИК is not a person" line.
+    slug: "subsidies-untraceable",
+    routePath: "subsidies/untraceable?pscope=all",
+    waitFor: '[data-og="subsidies-untraceable"]',
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
+    // The year table with its gaps is the whole page — the missing rows are the
+    // content, so the clip has to include them rather than stopping at the intro.
+    slug: "subsidies-coverage",
+    routePath: "subsidies/coverage",
+    waitFor: '[data-og="subsidies-coverage"] tbody tr',
+    anchor: '[data-og="subsidies-coverage"]',
+    settleMs: 2000,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     // The ranking IS the page — anchor on the h1 so the clip reads title → the
     // "ЕИК only" caveat → the first rows, the recipe the skill gives for a ranked
     // list. Paired with the capped content column so the 1200 clip does not shave

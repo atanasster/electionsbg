@@ -64,8 +64,10 @@
 --
 --   * top-100 concentration is 12.6% of LEGAL-ENTITY money and 7.5% of ALL money;
 --   * 39.8% of the money sits on rows with NO ЕИК — and „no ЕИК" is NOT „физическо лице":
---     €385.5m of it carries an unmistakable company name (Напоителни системи ЕАД at €47.8m,
---     Община Баните), so the key is `noEikEur`, never `individualEur`. See plan §4.3.
+--     €345.9m of it carries an unmistakable company name (Напоителни системи ЕАД at €47.8m,
+--     Община Баните), so the key is `noEikEur`, never `individualEur`. That is the
+--     word-boundary-anchored FLOOR computed below — unanchored, the same pattern reads
+--     €919.9m by swallowing ordinary names ending in -ад. See plan §4.3.
 --
 -- A key called `top100Share` invites a consumer to pick a denominator by accident, which is
 -- how six of six figures came out wrong on the parliament hub.
@@ -204,7 +206,20 @@ WITH
     SELECT r.scope_key,
            count(*)                                       AS payment_rows,
            count(DISTINCT r.scheme) FILTER (WHERE r.scheme IS NOT NULL) AS scheme_count,
-           count(*) FILTER (WHERE r.eik IS NULL)          AS no_eik_rows
+           count(*) FILTER (WHERE r.eik IS NULL)          AS no_eik_rows,
+           -- A FLOOR on how much of the no-ЕИК money is a COMPANY the register
+           -- filed without an identifier — not a census. It matches only
+           -- unmistakable legal-form markers, so a company spelled without one is
+           -- missed and the true figure is higher. It exists because „no ЕИК" is
+           -- routinely read as „физическо лице" and that is false: Напоителни
+           -- системи ЕАД (€47.8m) and Община Баните are in here.
+           --
+           -- ⚠️ The word boundaries on АД and ЕТ are load-bearing — unanchored,
+           -- „АД" matches inside ordinary words.
+           sum(coalesce(r.total_eur, 0)::numeric) FILTER (
+             WHERE r.eik IS NULL
+               AND r.name ~* '(ЕООД|ООД|ЕАД|КООПЕРАЦИЯ|ОБЩИНА|СДРУЖЕНИЕ|ФОНДАЦИЯ|ЧИТАЛИЩЕ)|(\mАД\M)|(\mЕТ\M)'
+           )                                              AS no_eik_companyish_eur
     FROM rows_in_scope r
     GROUP BY r.scope_key
   ),
@@ -231,6 +246,7 @@ SELECT p.scope_key,
        p.no_eik_eur,
        p.no_eik_beneficiaries,
        rw.no_eik_rows,
+       rw.no_eik_companyish_eur,
        rw.scheme_count,
        p.top_scheme,
        p.top_scheme_eur,
@@ -299,6 +315,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'noEikEur',      round(c.no_eik_eur, 2),
     'noEikBeneficiaries', c.no_eik_beneficiaries,
     'noEikRows',     c.no_eik_rows,
+    -- A FLOOR, and the key says so: unmistakable legal-form markers only.
+    'noEikCompanyShapedEurFloor', round(c.no_eik_companyish_eur, 2),
     'noEikPctOfTotalEur', CASE WHEN c.total_eur > 0
       THEN round((c.no_eik_eur / c.total_eur * 100), 1) END,
     'schemeCount',   c.scheme_count,

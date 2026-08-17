@@ -22,14 +22,14 @@
 // ═══════════════════════════════════════════════════════════════════════════════════
 
 import { type FC, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
-import { useAgriScope } from "@/data/agri/useAgriScope";
+import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { agriScopeToKey } from "@/data/agri/constants";
 import { formatEur } from "@/lib/currency";
 
@@ -49,6 +49,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
+  const [params] = useSearchParams();
   const gate = useAgriScope();
   const { scope, data } = gate;
 
@@ -140,12 +141,33 @@ export const SubsidiesRecipientsScreen: FC = () => {
             footnote — 39.8% of the corpus and 49.3% of 2025 sits on rows with no ЕИК
             and cannot be ranked at all. */}
         <p className="mb-4 max-w-3xl text-sm text-muted-foreground">
-          {/* No link to /subsidies/untraceable yet — that page ships in the next
-              step, and a caveat pointing at a 404 is worse than one that stands on
-              its own. The sentence is the load-bearing part. */}
-          {bg
-            ? "Класацията обхваща само получателите с ЕИК. Плащанията към физически лица се публикуват без стабилен идентификатор и не могат да бъдат подредени по получател — това е около 40% от всички изплатени пари."
-            : "The ranking covers recipients with an ЕИК only. Payments to natural persons are published with no stable identifier and cannot be attributed to a recipient — that is roughly 40% of all money paid."}
+          {bg ? (
+            <>
+              Класацията обхваща само получателите с ЕИК. Около 40% от
+              изплатените пари стоят на редове без такъв и не могат да бъдат
+              приписани на получател —{" "}
+              <Link
+                to={agriScopedHref("/subsidies/untraceable", params)}
+                className="text-primary hover:underline"
+              >
+                вижте колко са
+              </Link>
+              .
+            </>
+          ) : (
+            <>
+              The ranking covers recipients with an ЕИК only. Roughly 40% of the
+              money paid sits on rows without one and cannot be attributed to a
+              recipient —{" "}
+              <Link
+                to={agriScopedHref("/subsidies/untraceable", params)}
+                className="text-primary hover:underline"
+              >
+                see how much
+              </Link>
+              .
+            </>
+          )}
         </p>
 
         <AgriScopePicker className="mb-3" />

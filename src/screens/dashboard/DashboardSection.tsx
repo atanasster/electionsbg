@@ -65,6 +65,12 @@ type Props = {
     // payload has always carried and nothing rendered.
     | "subsidies-concentration-tiers"
     | "subsidies-concentration-lorenz"
+    // /subsidies/untraceable and /subsidies/coverage — the two honesty pages.
+    | "subsidies-untraceable-headline"
+    | "subsidies-untraceable-trend"
+    | "subsidies-coverage-years"
+    | "subsidies-coverage-sources"
+    | "subsidies-coverage-caveats"
     | "subsidies-distribution"
     | "subsidies-recipients"
     | "subsidies-data"

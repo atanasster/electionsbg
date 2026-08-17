@@ -5498,6 +5498,88 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "subsidies/untraceable",
+    title:
+      "Непроследими земеделски субсидии — парите без ЕИК | electionsbg.com",
+    description: `Около 40% от земеделските субсидии на ДФ „Земеделие" стоят на редове без ЕИК — без стабилен идентификатор, така че не могат да бъдат приписани на получател (${AGRI_YEAR_RANGES}).`,
+    breadcrumbName: "Непроследими получатели",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-untraceable.png",
+    bodyHtml: `
+<h1>Непроследими получатели на земеделски субсидии</h1>
+<p>ДФ „Земеделие" публикува част от плащанията <strong>без ЕИК</strong> — само с име и област. Тези редове не могат да бъдат приписани на конкретен получател: сливането на двама съименници е предположение, а разделянето им подценява. Затова те не се появяват в никоя класация тук — а са около <strong>40% от всички изплатени пари</strong>.</p>
+<h2>„Без ЕИК" не значи „физическо лице"</h2>
+<p>Това е грешката, която числото най-често предизвиква. Сред редовете без ЕИК има безспорни фирми и общини: <strong>Напоителни системи ЕАД</strong> (близо €48 млн.), Община Баните, десетки ЕООД. Измеримият минимум е <strong>около €346 млн.</strong> — и това е долна граница, защото се броят само имена с изрична правна форма.</p>
+<p>Затова честното твърдение е за <strong>проследимостта</strong>, а не за получателите: 40% от парите стоят на редове, които регистърът е публикувал без идентификатор. Колко от тях са хора и колко фирми е точно това, което корпусът не може да каже.</p>
+<h2>Ръстът съвпада със смяната на източника</h2>
+<p>Делът расте от 33% през 2015 до 49% през 2025, но скокът е между 2023 и 2024 — точно там, където поредицата сменя регистъра. Съставът също се променя: явните фирми без ЕИК са под 4 хил. евро годишно до 2023, а през 2024 и 2025 са €149 млн. и €196 млн. Поне част от „новите" непроследими пари са фирми, които по-старият източник е публикувал с ЕИК.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies/coverage">обхвата и източниците</a>, <a href="${SITE_URL}/subsidies/recipients">класацията на получателите</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
+    english: {
+      title:
+        "Untraceable Farm Subsidies — the Money With No ЕИК | electionsbg.com",
+      description: `Around 40% of the State Fund Agriculture's farm subsidy sits on rows with no ЕИК — no stable identifier, so it cannot be attributed to a recipient (${AGRI_YEAR_RANGES}).`,
+      breadcrumbName: "Untraceable recipients",
+      bodyHtml: `
+<h1>Untraceable recipients of farm subsidies</h1>
+<p>The State Fund Agriculture publishes some payments <strong>with no ЕИК</strong> — a name and a province only. Those rows cannot be attributed to a specific recipient: merging two namesakes is a guess and splitting them understates. They therefore appear in no ranking here — and they are around <strong>40% of all money paid</strong>.</p>
+<h2>„No ЕИК" does not mean „natural person"</h2>
+<p>That is the inference the number most often invites, and it is wrong. The no-ЕИК rows include unmistakable companies and municipalities: <strong>Напоителни системи ЕАД</strong> (nearly €48m), the municipality of Banite, dozens of ЕООД. The measurable floor is <strong>about €346m</strong> — a floor, because only names carrying an explicit legal form are counted.</p>
+<p>So the honest claim is about <strong>traceability</strong>, not about recipients: 40% of the money sits on rows the register published without an identifier. How much of that is a person and how much a company is precisely what this corpus cannot say.</p>
+<h2>The rise coincides with the change of source</h2>
+<p>The share climbs from 33% in 2015 to 49% in 2025, but the jump is between 2023 and 2024 — exactly where the series changes register. The composition changes too: plainly-corporate no-ЕИК payments are under €4k a year until 2023, then €149m and €196m in 2024 and 2025. At least part of the „new" untraceable money is companies the older source published with an ЕИК.</p>
+<p>See also <a href="${SITE_URL}/en/subsidies/coverage">coverage and sources</a>, the <a href="${SITE_URL}/en/subsidies/recipients">recipient ranking</a> and the <a href="${SITE_URL}/en/subsidies">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "subsidies/coverage",
+    title: "Земеделски субсидии — обхват и източници | electionsbg.com",
+    description: `Кои финансови години покрива корпусът със земеделски субсидии (${AGRI_YEAR_RANGES}), кои липсват в източника и къде поредицата сменя регистъра.`,
+    breadcrumbName: "Обхват и източници",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-coverage.png",
+    bodyHtml: `
+<h1>Земеделски субсидии — обхват и източници</h1>
+<p>Всички числа в този раздел идват от два публични регистъра на ДФ „Земеделие". Тази страница казва какво има в тях и какво няма — за да не се чете липса в източника като липса на плащания.</p>
+<h2>Липсващи години</h2>
+<p>Покрити са ${AGRI_YEAR_RANGES}. <strong>2014, 2018, 2019 и 2020 липсват</strong>: порталът за отворени данни няма таблици за първите три, а за 2020 връща нула реда. Това е празнота в източника, не в плащанията — затова графиките по година показват прекъсване.</p>
+<h2>Два регистъра, една поредица</h2>
+<p>2015-2023 идват от портала за отворени данни, 2024-2025 — от Системата за електронни услуги на ДФЗ. Двата не се държат еднакво: до 2023 фирмите почти винаги носят ЕИК, а от 2024 значителна част от корпоративните плащания се публикуват без него. Затова ръстът на <a href="${SITE_URL}/subsidies/untraceable">непроследимите пари</a> не бива да се чете направо като промяна в получателите.</p>
+<h2>Още три неща</h2>
+<ul>
+<li><strong>Изплатено, не договорено</strong> — един ред е плащане по една схема за една финансова година, а не годишен доход на стопанството.</li>
+<li><strong>Самият Фонд е извън класациите</strong> — неговите плащания са техническа помощ и публично складиране, не получена земеделска подкрепа.</li>
+<li><strong>Областта е на получателя, не на земята</strong> — за фирма това е седалището по регистрация.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a> и <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a>.</p>`.trim(),
+    english: {
+      title: "Farm Subsidies — Coverage and Sources | electionsbg.com",
+      description: `Which financial years the farm-subsidy corpus covers (${AGRI_YEAR_RANGES}), which are missing at source, and where the series changes register.`,
+      breadcrumbName: "Coverage and sources",
+      bodyHtml: `
+<h1>Farm subsidies — coverage and sources</h1>
+<p>Every figure in this section comes from two public registers of the State Fund Agriculture. This page says what is in them and what is not — so a gap in the source is not read as a gap in the payments.</p>
+<h2>Missing years</h2>
+<p>Covered: ${AGRI_YEAR_RANGES}. <strong>2014, 2018, 2019 and 2020 are missing</strong>: the open-data portal has no tables for the first three and returns zero rows for 2020. That is a gap in the source, not in the payments — which is why the by-year charts show a break.</p>
+<h2>Two registers, one series</h2>
+<p>2015-2023 come from the open-data portal, 2024-2025 from the Fund's e-services register. They do not behave alike: until 2023 companies almost always carry an ЕИК, while from 2024 a substantial share of corporate payments is published without one. That is why the rise in <a href="${SITE_URL}/en/subsidies/untraceable">untraceable money</a> must not be read directly as a change in who receives it.</p>
+<h2>Three more things</h2>
+<ul>
+<li><strong>Paid, not contracted</strong> — a row is one payment under one scheme for one financial year, not a farm's annual income.</li>
+<li><strong>The Fund itself is outside the rankings</strong> — its payments are technical assistance and public storage, not farm support received.</li>
+<li><strong>The province is the recipient's, not the land's</strong> — for a company that is its registered seat.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/subsidies">overview</a> and the <a href="${SITE_URL}/en/subsidies/browse">full payments table</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "subsidies/recipients",
     title: "Най-големи получатели — земеделски субсидии | electionsbg.com",
     description: `Класация на фирмите с най-много земеделски субсидии от ДФ „Земеделие" за финансови години ${AGRI_YEAR_RANGES} — с област, брой плащания и обща изплатена сума.`,
