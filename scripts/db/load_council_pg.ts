@@ -41,7 +41,13 @@ import {
   councilKeyForObshtina,
   rosterShardForObshtina,
 } from "../../src/data/council/councilObshtinaMap";
-import { councilNameKey, normaliseCouncillorName } from "../council/lib/tally";
+import {
+  councilNameKey,
+  isPollutedKey,
+  normaliseCouncillorName,
+  COUNCIL_VOTING_ROLES,
+  VOTE_LABEL_SOURCE,
+} from "../council/lib/tally";
 import type { CouncilResolution } from "../council/lib/types";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -50,39 +56,7 @@ const COUNCIL_DIR = join(ROOT, "data/council");
 const MUNIS_PATH = join(ROOT, "data/municipalities.json");
 const SCHEMA = join(__dirname, "schema/pg/160_council_corpus.sql");
 
-// Roster roles a protocol vote list can name. Measured over the loaded corpus,
-// every one of the attributions comes from `councillor` (20,884) or
-// `council_chair` (767): `mayor` and `deputy_mayor` contributed ZERO while
-// adding ~460 extra names per council to the fold space, each one a chance for
-// a councillor missing from the roster to be attributed to a deputy mayor who
-// happens to share a first+last. Widening this needs a measurement, not a
-// plausible story about committee votes.
-const VOTING_ROLES = ["councillor", "council_chair"];
-
 const VOTE_VALUES = new Set(["for", "against", "abstain"]);
-
-/**
- * Vote labels the PER32 parser absorbs into the councillor name — measured, 840
- * of its 7,298 rows look like `{ name: "За\n\tРадослав Червенков" }`, which
- * splits 18 councillors across two identities and includes 20 rows whose
- * embedded label CONTRADICTS the recorded vote. Those rows are REFUSED rather
- * than stored and repaired: a refusal is recoverable and counted, a stored
- * corruption is neither, and the schema's CHECK cannot see it because every
- * value is legal.
- *
- * ⚠️ The trailing `(?=\s|$)` is NOT interchangeable with `\b`. `\b` is defined
- * over ASCII `\w`, so after a Cyrillic letter it never fires — the first cut of
- * this rule used `\b`, matched nothing, and let all 840 rows through while
- * reporting zero refusals.
- *
- * One definition, applied in both directions: the loader will not STORE a
- * polluted key, and removes any a previous version already stored.
- */
-const VOTE_LABEL_SOURCE =
-  "^(за|против|въздържал([\\s-]+се)?|отсъства(щ|л)?|не[\\s-]+гласувал)(?=[\\s-]|$)";
-
-const isPollutedKey = (normKey: string): boolean =>
-  new RegExp(VOTE_LABEL_SOURCE, "u").test(normKey.trim());
 
 type MuniRow = {
   obshtina_code: string;
@@ -330,7 +304,7 @@ const main = async (): Promise<void> => {
       await allRows<{ obshtina: string }>(
         `SELECT DISTINCT obshtina FROM official_roster
           WHERE obshtina IS NOT NULL AND role = ANY($1::text[])`,
-        [VOTING_ROLES],
+        [COUNCIL_VOTING_ROLES],
       )
     ).map((r) => r.obshtina),
   );
@@ -540,7 +514,7 @@ const main = async (): Promise<void> => {
     }>(
       `SELECT obshtina, name, slug FROM official_roster
         WHERE obshtina IS NOT NULL AND role = ANY($1::text[])`,
-      [VOTING_ROLES],
+      [COUNCIL_VOTING_ROLES],
     );
 
     // `${roster_code}\t${fold}` -> slugs. A fold held by more than one slug in

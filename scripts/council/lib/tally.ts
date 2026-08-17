@@ -348,6 +348,40 @@ export const normaliseCouncillorName = (raw: string): string =>
  * held by two people" guard over a DIFFERENT equivalence class than the join
  * used, which can attach a vote to the wrong person.
  */
+/**
+ * Roster roles a protocol vote list can name.
+ *
+ * Lives here rather than in the loader because the loader executes `main()` at
+ * module scope — importing anything from it RUNS it — so every consumer that
+ * needs one of these rules would otherwise hand-roll its own copy. That is the
+ * exact drift this file exists to prevent.
+ */
+export const COUNCIL_VOTING_ROLES = ["councillor", "council_chair"] as const;
+
+/**
+ * Vote labels the PER32 parser absorbs into the councillor name, e.g.
+ * `{ name: "За\n\tРадослав Червенков" }` — 840 of its 7,298 rows. Stored, they
+ * split one councillor across two identities and render a vote word as part of
+ * a person's name; no CHECK can see them because every value is legal.
+ *
+ * ⚠️ The trailing `(?=[\s-]|$)` is NOT interchangeable with `\b`. `\b` is
+ * defined over ASCII `\w`, so after a Cyrillic letter it never fires — the
+ * first cut used `\b`, matched nothing, and let all 840 rows through while
+ * reporting zero refusals.
+ *
+ * Written as a SOURCE string, not a RegExp, because it is applied in three
+ * places and two of them are Postgres (`~`): the loader's parse-time refusal,
+ * the loader's purge of anything a previous version stored, and the data-test
+ * gate. Postgres' ARE dialect accepts this pattern unchanged, lookahead
+ * included.
+ */
+export const VOTE_LABEL_SOURCE =
+  "^(за|против|въздържал([\\s-]+се)?|отсъства(щ|л)?|не[\\s-]+гласувал)(?=[\\s-]|$)";
+
+/** Does this folded key begin with a vote label rather than a name? */
+export const isPollutedKey = (normKey: string): boolean =>
+  new RegExp(VOTE_LABEL_SOURCE, "u").test(normKey.trim());
+
 export const councilNameKey = (raw: string): string => {
   const parts = normaliseCouncillorName(raw).split(/\s+/).filter(Boolean);
   if (parts.length === 0) return "";
