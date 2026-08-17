@@ -1,16 +1,20 @@
 # "Плащане за резултат" — the grounded subset — v1
 
-Date: 2026-07-25. Status: **DRAFT — §6 open questions RESOLVED against the data
-2026-07-25**. Owner: TBD.
+Date: 2026-07-25. Status: **DRAFT — audited 2026-08-17 (§10); §6 open questions
+RESOLVED**. Owner: TBD.
 
-> **Precedence: §9 > §8 > §7 > §6 > everything above.** §6 changed W1's denominator
+> **Precedence: §10 > §9 > §8 > §7 > §6 > everything above.** §6 changed W1's denominator
 > (§6a), downgraded W2 (§6b) and settled W3's route (§6c); the headline figures
 > in §1a are restated on the corrected basis in §6a — **use those, not §1a's**.
 > §7 then established that W2's data source is reachable after all, so §6b's
 > "blocked" status is withdrawn while its methodological guards stand. §8 covers
 > filling `nzok_activities` and documents a **correctness bug in the currently
 > shipped annual matrix** (renamed hospitals double-counted) — read §8d before
-> touching anything that aggregates activity by facility.
+> touching anything that aggregates activity by facility. §10 is the
+> 2026-08-17 audit: it records that **§7 shipped** (tariffs loaded, 95.9%
+> coverage, JSON now committed) and **§8d's bug is fixed**, corrects §6a's
+> shared-helper instruction, and names the page-artifact gap. Read §10d first
+> for current status.
 
 Origin: an analysis of the GO Lab (Blavatnik School, Oxford) primer on
 **outcomes-based contracting** (OBC) — payment contingent on measured change in
@@ -156,7 +160,7 @@ Small. One SQL file, one tile, one test file. No ingest, no new source, no crawl
 
 ---
 
-## 2. W2 — €/случай за болница (NZOK cost-per-case, case-mix aware) — **see §6b + §7**
+## 2. W2 — €/случай за болница (NZOK cost-per-case, case-mix aware) — **see §6b, §7, §10a**
 
 > Investigated 2026-07-25: `nzok_pathway_tariffs` is empty and `proc_type` alone
 > explains only ~9% of the €/case variance, so the raw per-hospital tile stays
@@ -454,6 +458,10 @@ tile on the hub linking to it. `/data` gets a pointer, not a copy.
 
 ## 7. Producing `pathway_tariffs.json` — W2 is NOT blocked (investigated 2026-07-25)
 
+> **STATUS 2026-08-17: SHIPPED.** 410 codes loaded, 95.9% weighted case coverage,
+> reconciliation 0.978, JSON committed. §7c/§7d are now historical; the one live
+> item is that the **cloud publish step is still unnamed**. See §10a-1 / §10c-3.
+
 **§6b is superseded on the blocker, not on the method.** The tariff-weighted
 expected-vs-actual design stands; the claim that it needs Bulgarian egress does
 not. A prototype end-to-end run from this machine produced tariffs covering
@@ -575,6 +583,10 @@ One genuinely open item: `nzok_activities` still holds a **single period**
 ---
 
 ## 8. Filling `nzok_activities` (investigated 2026-07-25)
+
+> **STATUS 2026-08-17:** §8d's rename double-count is **FIXED** (0 EIKs with >1
+> name; facilities 479→404). The **monthly ingest in §8e is still open** — still
+> 1 period. See §10a-2.
 
 ### 8a. What exists vs what we hold
 
@@ -834,3 +846,153 @@ What to do:
    repeated-unit-cost series in the health data — 30 monthly periods per hospital.
    That is the one place a Kaizen test could later become meaningful, and it
    should be run then, not now.
+
+---
+
+## 10. Audit — 2026-08-17
+
+Re-verified every measured fact in §6–§9 against the live corpus and the repo.
+**Three things moved, one recommendation was wrong, and the plan has a
+page-artifact gap it never named.** Where §10 conflicts with anything above,
+§10 wins.
+
+### 10a. Status changes since §6–§9 were written
+
+**1. §7 (pathway tariffs) is DONE — and beat its own spec.**
+`data/budget/nzok/pathway_tariffs.json` now exists (410 codes, `nrdYear` 2025,
+EUR, source recorded as „цените по чл. 368/369/370 … от тялото на договора и
+изменения") and `nzok_pathway_tariffs` holds 410 rows, €26–€19,672.
+
+| | prototype (§7c) | shipped |
+|---|---|---|
+| КП case coverage | 90.2% | **93.7%** |
+| АПр | 98.2% | 98.2% |
+| КПр | 3.3% | **100.0%** |
+| **weighted** | **86.2%** | **95.9%** |
+
+The КПр parser gap §7d called out is closed. Expected spend is now €2,142M on
+95.9% coverage (≈€2,234M grossed) against €2,284M actual — **ratio 0.978**,
+tighter than the prototype's 0.91 and well inside what the vintage and
+outside-the-pathway payments explain.
+
+**RESOLVED 2026-08-17 — `pathway_tariffs.json` is now committed** (`42d2e5c9aa`).
+It had been swept into the `.gitignore` block for "regenerable loader input",
+where it was the odd one out on every criterion that block states: 9 KB against
+the 9.9 MB / 1.4 MB described, no `npm run data:nzok --` regeneration command
+(the block lists one for each of the other three), and its own sibling from the
+same НРД family — `procedures.json` — already committed. Rebuilding it means
+re-parsing the НРД contract PDF off nhif.bg, an external source that moves. The
+ignore rule was removed with it.
+
+**2. §8d (the rename double-count) is FIXED.**
+`nzok_activities` now reports **0 EIKs carrying more than one facility name**
+(was 51 EIKs / 130 rows), and facilities fell **479 → 404** — the ~75 duplicate
+name variants folded away. Unmapped is essentially unchanged: 156 facilities,
+464,783 cases = **10.5%** (was 154 / 11.0%).
+
+**What is NOT done: the monthly ingest.** `nzok_activities` still holds
+**1 period** and `nzok_activity_monthly` still 12 rows spanning 2025 only. So
+§8a/§8b/§8e stand in full — 2024 and 2026-H1 are still unfetched, the corpus is
+still a single annual cross-section, and the payments join is still
+period-inexact. §8d's *analysis* is now historical; §8e's *recommendations* are
+live.
+
+**3. The contracts corpus reloaded.** `tag='contract'` 403,153 → **405,812**;
+§9b's repeat-procurement groups 9,567 → **9,622**. Both §9 conclusions are
+unaffected (the §9d tests are ratios and autocorrelations, not counts), and
+§6a's `award_method` domain is still **exactly 7 values** — the §6e re-check
+passes.
+
+### 10b. Correction — §6a's shared-helper recommendation is WRONG
+
+§6a said the W1 denominator should exclude "the *same* no-call family
+`procurement_benchmarks` (037) already applies", via one shared `IMMUTABLE`
+helper. Both halves are wrong.
+
+**The sets are not the same.** 037's `no_call` is a four-item list —
+`'Пряко договаряне', 'Договаряне без предварително обявление',
+'Покана до определени лица', 'direct'`. Against §6a's measured blank rates:
+
+- it **includes `Покана до определени лица`**, which is **0.0% blank** across
+  2,164 tenders — a procedure that always carries a criterion. Excluding it
+  would drop 2,164 criterion-bearing tenders from the denominator.
+- it **omits four genuinely criterion-less types** — `Договаряне без
+  предварителна покана за участие` (74.7% blank), `Договаряне без публикуване
+  на обявление за поръчка` (81.3%), `Ограничена процедура по ДСП` (43.6%),
+  `Договаряне с предварителна покана за участие по КС` (46.4%).
+
+**And they cannot share a column.** 037/011/023 read
+`contracts.procurement_method`; W1 reads `tenders.procedure_type`. The two
+vocabularies intersect on 17 values but diverge: contracts also carries the OCDS
+codes `open` / `limited` / `selective` / `direct` and
+`Вътрешен конкурентен избор по РС` (9,893 rows), and **45% of contracts rows
+have no method at all** (183,804 NULL/empty).
+
+**Revised instruction:** define W1's criterion-less predicate **independently,
+on `tenders.procedure_type`**, derived from measured blank rates rather than
+inherited from a contracts-side bucket built for a different question. Do not
+refactor 037 to share it. Note separately that the existing `no_call` list is
+already restated in **three** files (011 ×3, 023 ×3, 037 ×1) — worth a
+consolidation of its own, but that is a different task from W1 and must not be
+bundled into it.
+
+### 10c. Gaps the plan never named
+
+**1. The new-page artifact set (affects W3, and any coverage page).** §6c
+specifies a route and a screen and stops there. The `/subsidies` workstream that
+landed alongside this plan shows what a page actually ships — from
+`5efcf16ce8` alone: `public/og/<slug>.png`, a `<loc>` in
+`public/sitemap_static_2.xml`, entries in **both** `scripts/prerender/routes.ts`
+and `scripts/sitemap/route_defs.ts`, a `scripts/og/capture-screens.ts` case, the
+`src/routes.tsx` wiring, **both** locale files, and a `.data.test.ts` gate.
+W3 must budget for all of it; a route-plus-screen estimate is roughly half the
+work.
+
+**2. There is a precedent for the coverage surfaces, and the plan reinvents it.**
+§7d item 6 and §8e item 4 both say "publish coverage as data". `SubsidiesCoverageScreen`
+and `SubsidiesUntraceableScreen` are exactly that genre, already shipped, with
+og:images and prerender entries. Follow them rather than inventing a shape.
+`AgriScopeGate.tsx` is likewise the existing answer to the scope-resolution rule
+CLAUDE.md states for any page narrower than its corpus.
+
+**3. The tariff publish path exists but is inert — and §7 never names it.**
+Verified: `db:load:nzok-tariffs:pg` is in the `db:refresh` chain and
+`db:load:nzok-tariffs:pg:cloud` exists (`package.json:172`). So the plumbing is
+fine. The hazard was the interaction with §10a-1: the loader is deliberately
+absent-safe — it applies 059 and exits 0 when the JSON is missing — so while the
+input was untracked, `:cloud` run from any other machine would have **silently
+published nothing**, leaving Cloud SQL with an empty table, a green exit and no
+warning. Committing the JSON (§10a-1) disarms that. **What remains open: §7
+still never names the publish step.** It must, because nothing runs
+`db:load:nzok-tariffs:pg:cloud` automatically and the absent-safe exit means a
+skipped publish is invisible on both sides.
+
+**4. No `recent_updates` / changelog wiring is specified** for either the tariff
+load or the widened activity ingest, though the repo requires it for anything
+that changes a served corpus.
+
+**5. Ownership and gates are still blank.** The header says `Owner: TBD`; W1's
+test is referenced as "the §1c test" but never specified; and §6e's
+"re-run `SELECT DISTINCT award_method` after each ingest" is written as a habit
+rather than as the assertion it asks to become.
+
+**6. English locale is unaddressed** across W1, W3 and the coverage surfaces,
+although the artifact set above makes both locale files mandatory.
+
+### 10d. Revised status
+
+| item | status |
+|---|---|
+| W1 award-criterion lens | ready; denominator per §10b, **not** §6a |
+| §4a article | ready; spine is §6a's CPV-85 9.9% |
+| W3 methodology page | ready; scope per §10c-1, genre per §10c-2 |
+| §7 tariffs | **DONE**, 95.9% coverage, JSON committed; cloud publish still unnamed |
+| §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |
+| W2 per-hospital €/case | now blocked only on §8e, not on tariffs |
+| §9 Kaizen | closed — negative result, publish don't build |
+
+The one change of sequencing this implies: **W2 moved up.** With tariffs at
+95.9% and the rename bug gone, the only thing between us and the case-mix
+expected-vs-actual metric is the monthly EIK-keyed ingest in §8e — which is also
+what makes the payments join period-exact. It is now the highest-leverage
+remaining data task in this plan.
