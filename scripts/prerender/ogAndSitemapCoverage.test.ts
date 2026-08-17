@@ -170,6 +170,14 @@ describe("every routed page is DECLARED — for prerender and for the sitemap", 
     votes: "buildVotesRoutes() — data/parliament/votes/index.json",
     polls: "buildPollsRoutes() — public/polls/agencies.json",
     articles: "buildArticleRoutes() — public/articles/index.json",
+    // The /council HUB is emitted by buildCouncilRoutes() rather than declared
+    // in routes.ts, because its whole argument is a COVERAGE figure ("16 of
+    // 265", "5 publish named votes") and routes.ts is a static module with no
+    // database. A literal there is the /funds/calls "2 от 6" trap with a
+    // crawler's cache in front of it. The per-council pages (/council/:code)
+    // are parameterised and so invisible to the router census, like every
+    // other :param family.
+    council: "buildCouncilRoutes() — Postgres via seo_councils.ts",
     // The per-article family is `articles/:slug` and so is invisible to the
     // router census — EXCEPT this one, which also carries a hard-coded
     // `<Route path="articles/2026-07-21-machine-only-sections">` because it

@@ -17,6 +17,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ElectionInfo, PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { readSeoCourts, type SeoCourt } from "../db/lib/seo_courts";
+import { readSeoCouncils, type SeoCouncil } from "../db/lib/seo_councils";
 import {
   readSeoPensionFunds,
   type SeoPensionFund,
@@ -185,6 +186,11 @@ const COPY = {
     regionsHeading: "Области (МИР) — бързи връзки",
     governanceHeading:
       "Управление — местна йерархия (страна → област → община → населено място)",
+    councilHeading: "Общински съвети — решения и поименни гласувания",
+    councilIntro: (siteUrl: string, covered: number, named: number) =>
+      `Няма централен регистър на решенията на общинските съвети — всеки от 265-те съвета публикува своите сам, на своя сайт и в свой формат. Тук са ${covered} от тях, всеки със страница на ${siteUrl}/council/{код}. „Поименни вота" значи, че протоколът записва кой съветник как е гласувал; само ${named} съвета публикуват такива, при останалите има само общ сбор „за/против/въздържал се". Тире НЕ значи нула — значи, че този съвет не публикува поименно гласуване. Протоколите изброяват само гласувалите, няма запис кой е отсъствал, затова „участие" е дял от решенията с поименно гласуване, а не присъствие. Обзор: ${siteUrl}/council.`,
+    councilTable:
+      "| Съвет | Решения | Поименни вота | Последно решение | Последно поименно | URL |",
     judiciaryHeading: "Съдебна власт — органи, натовареност и магистрати",
     judiciaryIntro: (siteUrl: string) =>
       `Всеки съд, прокуратура и следствен отдел има собствена страница на ${siteUrl}/court/{код}. „Постъпили" и „свършени" са ДЕЙСТВИТЕЛНА натовареност — брой дела на съдия на месец за последната публикувана от ВСС година. Тире значи, че ВСС не публикува натовареност за този орган: така е за всички прокуратури и следствени отдели, а от съдилищата — само за ВКС и ВАС. Тирето не бива да се чете като нула. „Магистрати" са лицата с имуществени декларации в ИВСС от този орган. Обзор: ${siteUrl}/judiciary.`,
@@ -246,6 +252,11 @@ const COPY = {
     regionsHeading: "Regions (MIR) — quick links",
     governanceHeading:
       "Governance — place ladder (country → region → município → settlement)",
+    councilHeading: "Municipal councils — decisions and named votes",
+    councilIntro: (siteUrl: string, covered: number, named: number) =>
+      `There is no central register of Bulgarian municipal-council decisions — each of the 265 councils publishes its own, on its own site, in its own format. ${covered} of them are here, each with a page at ${siteUrl}/en/council/{code}. "Named votes" means the minutes record how each councillor voted; only ${named} councils publish those, the rest give a for/against/abstained total only. A dash is NOT a zero — it means that council publishes no named vote. The minutes list only the councillors who voted, with no record of who was absent, so participation is a share of the decisions with a named vote, not an attendance rate. Overview: ${siteUrl}/en/council.`,
+    councilTable:
+      "| Council | Decisions | Named votes | Latest decision | Latest named vote | URL |",
     judiciaryHeading: "The judiciary — bodies, caseload and magistrates",
     judiciaryIntro: (siteUrl: string) =>
       `Every court, prosecution office and investigation service has its own page at ${siteUrl}/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means the Supreme Judicial Council publishes no workload for that body: that covers every prosecution office and investigation service, and among the courts only the two Supreme Courts. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: ${siteUrl}/en/judiciary.`,
@@ -279,6 +290,7 @@ const sep = (align: string[]): string =>
 const buildCorpus = (
   lang: Lang,
   courts: SeoCourt[],
+  councils: SeoCouncil[],
   funds: SeoPensionFund[],
 ): string => {
   const t = COPY[lang];
@@ -543,6 +555,37 @@ const buildCorpus = (
   // among others), and for `Магистрати` it means the dimension was not loaded
   // on the database this corpus was built from. Emitting 0 for either would
   // turn a gap in the source into a claim about the body.
+  if (councils.length) {
+    lines.push(`## ${t.councilHeading}`);
+    lines.push("");
+    lines.push(
+      t.councilIntro(
+        SITE_URL,
+        councils.length,
+        councils.filter((c) => c.hasNamedVotes).length,
+      ),
+    );
+    lines.push("");
+    lines.push(t.councilTable);
+    lines.push(sep(["-", "r", "r", "-", "-", "-"]));
+    for (const c of councils) {
+      const cells = [
+        cell(c.name),
+        fmtInt(c.resolutions, lang),
+        // A dash, never 0: eleven of the sixteen publish no named vote at all,
+        // and a zero would read as "they voted and nobody was recorded".
+        c.hasNamedVotes ? fmtInt(c.namedVotes, lang) : "—",
+        cell(c.newestDecidedOn ?? "—"),
+        // Behind the previous column wherever a council has stopped publishing
+        // named votes — the one thing the decision list cannot say.
+        cell(c.hasNamedVotes ? (c.newestNamedOn ?? "—") : "—"),
+        `${SITE_URL}${langPrefix}/council/${c.code}`,
+      ];
+      lines.push(`| ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
   if (courts.length) {
     lines.push(`## ${t.judiciaryHeading}`);
     lines.push("");
@@ -888,6 +931,14 @@ const REQUIRED_SECTIONS: Array<{ heading: string; fix: string }> = [
     fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
   },
   {
+    heading: "## " + COPY.bg.councilHeading,
+    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+  },
+  {
+    heading: "## " + COPY.en.councilHeading,
+    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+  },
+  {
     heading: "## " + COPY.bg.pensionsHeading,
     fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
   },
@@ -944,7 +995,8 @@ const writeOutput = (filename: string, content: string) => {
 // courts, no committed archive for the funds — so a corpus built without them
 // simply omits those sections rather than failing the build.
 const courts = await readSeoCourts();
+const councils = await readSeoCouncils();
 const funds = readSeoPensionFunds(PROJECT_ROOT);
 
-writeOutput("llms-full.txt", buildCorpus("bg", courts, funds));
-writeOutput("llms-full.en.txt", buildCorpus("en", courts, funds));
+writeOutput("llms-full.txt", buildCorpus("bg", courts, councils, funds));
+writeOutput("llms-full.en.txt", buildCorpus("en", courts, councils, funds));

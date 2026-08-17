@@ -799,6 +799,24 @@ const captures: Capture[] = [
       " article header h1,article header p{display:revert!important;}",
   },
   {
+    slug: "council",
+    routePath: "council",
+    // The page is a coverage statement plus a ranked list, not a chart, so the
+    // skill's list recipe applies: anchor on the h1 (HIDE_CHROME_CSS drops the
+    // site header, so the h1 IS the top of the page) and let the clip read
+    // title -> coverage -> the first councils. No leftAlign — that pins to the
+    // h1's own left edge rather than the content column's.
+    //
+    // waitFor names a row LINK, which only exists after /api/db/council-overview
+    // resolves. A container selector would match an empty shell and produce a
+    // screenshot of a skeleton.
+    waitFor: 'a[href^="/council/"]',
+    anchor: "h1",
+    settleMs: 1200,
+    viewport: OG_CLIP_VIEWPORT,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "judiciary",
     routePath: "judiciary",
     // The caseload-flow chart IS the page's argument (filed ≈ resolved, so the

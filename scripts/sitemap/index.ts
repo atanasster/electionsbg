@@ -7,6 +7,7 @@ import {
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
 import { readSeoCourts } from "../db/lib/seo_courts";
+import { readSeoCouncils } from "../db/lib/seo_councils";
 import { kfnFundsFile, readSeoPensionFunds } from "../prerender/kfnFunds";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import {
@@ -928,6 +929,20 @@ for (const inst of INSTITUTION_PACKS) {
 // would only re-apply half its predicate and bypass that warning.
 for (const b of await readSeoCourts()) {
   pushBoth(`/court/${b.bodyCode}`, today);
+}
+
+// Per-council pages (/council/:code) — the 16 municipal councils in the corpus.
+// Read from Postgres through the SAME seo_councils.ts reader buildCouncilRoutes
+// uses, so the sitemap and the prerendered files cannot disagree about which
+// pages exist; a Postgres-less build gets [] from both and emits neither. BG +
+// EN, since both languages are prerendered. route_defs.ts intentionally carries
+// no entry — courts and schools set that precedent.
+//
+// The URL is the FRONTEND code, which is what the reader already applied: the
+// council's own key is a different code space and three of those keys belong to
+// other municipalities.
+for (const c of await readSeoCouncils()) {
+  pushBoth(`/council/${c.code}`, today);
 }
 
 // Per-pension-fund pages (/pension-fund/:slug) — the 31 КФН pillar-2/3 funds.

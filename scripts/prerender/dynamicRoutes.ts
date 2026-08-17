@@ -38,6 +38,7 @@ import {
 } from "../../src/screens/parliament/seeds";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import { readSeoCourts } from "../db/lib/seo_courts";
+import { readSeoCouncils } from "../db/lib/seo_councils";
 import { readSeoPensionFunds } from "./kfnFunds";
 import {
   bgIn,
@@ -3863,6 +3864,203 @@ export const buildCourtRoutes = async (): Promise<PrerenderRoute[]> => {
   });
 };
 
+// /council/{code} — one municipal council. Real SPA route (CouncilScreen) with
+// no prerendered HTML before this, so a no-JS crawler read the HOMEPAGE's meta
+// for all sixteen. Enumerated from Postgres via seo_councils.ts — the same
+// reader the sitemap calls, so the two cannot disagree about which pages exist.
+//
+// THE URL IS THE FRONTEND CODE. council_muni_code is many-to-one and three
+// council keys are other municipalities' frontend codes, so enumerating
+// council_muni directly would emit /council/BGS01 — a URL that resolves to
+// nothing and that a reader in Айтос would reasonably expect to be theirs.
+//
+// TWO DEGRADED CASES, and both must be said rather than implied. Eleven of the
+// sixteen publish no per-councillor votes at all, and `unknown` is the outcome
+// on 43% of decisions corpus-wide but 0%-100% per council — Бургас is 367 of
+// 374 and Русе 0 of 211. A body that quoted a corpus share here would be wrong
+// for every one of them, baked into static HTML a crawler caches.
+export const buildCouncilRoutes = async (): Promise<PrerenderRoute[]> => {
+  const councils = await readSeoCouncils();
+  if (councils.length === 0) return [];
+  const bgNum = (n: number) => new Intl.NumberFormat("bg-BG").format(n);
+  const enNum = (n: number) => new Intl.NumberFormat("en-GB").format(n);
+
+  // The HUB lives here rather than in routes.ts because its whole argument is a
+  // coverage figure, and routes.ts is a static module with no database. A
+  // hard-coded "16 of 265" in a prerendered body is the /funds/calls "2 от 6"
+  // trap with a crawler's cache in front of it.
+  const covered = councils.length;
+  const withNamed = councils.filter((c) => c.hasNamedVotes);
+  const resolutions = councils.reduce((n, c) => n + c.resolutions, 0);
+  const namedVotes = councils.reduce((n, c) => n + c.namedVotes, 0);
+  const listBg = councils
+    .map(
+      (c) =>
+        `<li><a href="${SITE_URL}/council/${c.code}">${escapeHtmlMinimal(c.name)}</a> — ${bgNum(c.resolutions)} решения${c.hasNamedVotes ? `, ${bgNum(c.namedVotes)} поименни вота` : ""}</li>`,
+    )
+    .join("");
+  const listEn = councils
+    .map(
+      (c) =>
+        `<li><a href="${SITE_URL}/en/council/${c.code}">${escapeHtmlMinimal(c.name)}</a> — ${enNum(c.resolutions)} decisions${c.hasNamedVotes ? `, ${enNum(c.namedVotes)} named votes` : ""}</li>`,
+    )
+    .join("");
+
+  const hubTitleBg = `Общински съвети — решения и поименни гласувания | electionsbg.com`;
+  const hubTitleEn = `Municipal councils — decisions and named votes | electionsbg.com`;
+  const hubDescBg = `${bgNum(resolutions)} решения от ${covered} общински съвета, ${withNamed.length} от които публикуват и кой съветник как е гласувал (${bgNum(namedVotes)} поименни вота).`;
+  const hubDescEn = `${enNum(resolutions)} decisions from ${covered} municipal councils, ${withNamed.length} of which also publish how each councillor voted (${enNum(namedVotes)} named votes).`;
+
+  const hub: PrerenderRoute = {
+    path: "council",
+    title: hubTitleBg,
+    description: hubDescBg,
+    ogImage: "/og/council.png",
+    bodyHtml:
+      `<h1>Общински съвети — решения и поименни гласувания</h1>` +
+      `<p>Няма централен регистър на решенията на общинските съвети: всеки съвет ги публикува сам, на своя сайт и в свой формат. Тук следим ${covered} от 265-те съвета — ${bgNum(resolutions)} решения, от които ${withNamed.length} съвета публикуват и поименно гласуване (${bgNum(namedVotes)} вота, по които се вижда кой съветник как е гласувал).</p>` +
+      `<p>Протоколите изброяват само гласувалите — няма запис кой е отсъствал, затова „участие" е дял от решенията с поименно гласуване, а не присъствие.</p>` +
+      `<h2>Съветите, които следим</h2><ul>${listBg}</ul>` +
+      `<p>Виж и <a href="${SITE_URL}/governance">управлението</a>, ` +
+      `<a href="${SITE_URL}/parliament">Народното събрание</a> ` +
+      `и <a href="${SITE_URL}/persons">указателя на публичните лица</a>.</p>`,
+    jsonLd: [
+      buildWebPageLd({
+        title: hubTitleBg,
+        description: hubDescBg,
+        url: `${SITE_URL}/council`,
+      }),
+      buildBreadcrumbLd([
+        { name: "Начало", url: `${SITE_URL}/` },
+        { name: "Управление", url: `${SITE_URL}/governance` },
+        { name: "Общински съвети", url: `${SITE_URL}/council` },
+      ]),
+    ],
+    english: {
+      title: hubTitleEn,
+      description: hubDescEn,
+      bodyHtml:
+        `<h1>Municipal councils — decisions and named votes</h1>` +
+        `<p>There is no central register of Bulgarian municipal-council decisions: each council publishes its own, on its own site, in its own format. We track ${covered} of the 265 councils — ${enNum(resolutions)} decisions, of which ${withNamed.length} councils also publish a named vote (${enNum(namedVotes)} votes showing how each councillor voted).</p>` +
+        `<p>Bulgarian minutes list only the councillors who voted — there is no record of who was absent — so participation is a share of the decisions with a named vote, not an attendance rate.</p>` +
+        `<h2>The councils we track</h2><ul>${listEn}</ul>` +
+        `<p>See also <a href="${SITE_URL}/en/governance">governance</a>, ` +
+        `<a href="${SITE_URL}/en/parliament">the National Assembly</a> ` +
+        `and <a href="${SITE_URL}/en/persons">the public-figure directory</a>.</p>`,
+      jsonLd: [
+        buildWebPageLd({
+          title: hubTitleEn,
+          description: hubDescEn,
+          url: `${SITE_URL}/en/council`,
+          inLanguage: "en",
+        }),
+        buildBreadcrumbLd([
+          { name: "Home", url: EN_HOME },
+          { name: "Governance", url: `${SITE_URL}/en/governance` },
+          { name: "Municipal councils", url: `${SITE_URL}/en/council` },
+        ]),
+      ],
+    },
+  };
+
+  return [
+    hub,
+    ...councils.map((c) => {
+      const nm = escapeHtmlMinimal(c.name);
+      const path_ = `council/${c.code}`;
+      const url = `${SITE_URL}/${path_}`;
+      const enUrl = `${SITE_URL}/en/${path_}`;
+
+      const titleBg = `${c.name} — решения на общинския съвет | electionsbg.com`;
+      const titleEn = `${c.name} — municipal council decisions | electionsbg.com`;
+      const descBg =
+        `${bgNum(c.resolutions)} решения на ${c.name}` +
+        (c.hasNamedVotes
+          ? `, включително ${bgNum(c.namedVotes)} поименни вота — кой съветник как е гласувал.`
+          : `. Протоколите дават общ резултат, но не и поименно гласуване.`);
+      const descEn =
+        `${enNum(c.resolutions)} decisions of ${c.name}` +
+        (c.hasNamedVotes
+          ? `, including ${enNum(c.namedVotes)} named votes — how each councillor voted.`
+          : `. The minutes give an overall result but no named vote.`);
+
+      // Said only when it lags: a council whose named votes stopped is the one
+      // thing a reader cannot see from the decision list.
+      const staleBg =
+        c.hasNamedVotes &&
+        c.newestNamedOn &&
+        c.newestDecidedOn &&
+        c.newestNamedOn < c.newestDecidedOn
+          ? ` Поименните гласувания в базата стигат до ${c.newestNamedOn}, а решенията — до ${c.newestDecidedOn}.`
+          : "";
+      const staleEn =
+        c.hasNamedVotes &&
+        c.newestNamedOn &&
+        c.newestDecidedOn &&
+        c.newestNamedOn < c.newestDecidedOn
+          ? ` Named votes on record run to ${c.newestNamedOn}, decisions to ${c.newestDecidedOn}.`
+          : "";
+
+      const votesBg = c.hasNamedVotes
+        ? ` Протоколите му включват поименно гласуване: ${bgNum(c.namedVotes)} вота, по които се вижда кой съветник как е гласувал.${staleBg}`
+        : ` Протоколите му дават „за / против / въздържал се" като сбор, но не по имена — затова тук няма как да се покаже кой съветник как е гласувал.`;
+      const votesEn = c.hasNamedVotes
+        ? ` Its minutes include named votes: ${enNum(c.namedVotes)} of them, showing how each councillor voted.${staleEn}`
+        : ` Its minutes give for / against / abstained as a total but not by name, so there is no way to show how each councillor voted.`;
+
+      return {
+        path: path_,
+        title: titleBg,
+        description: descBg,
+        bodyHtml:
+          `<h1>${nm} — решения на общинския съвет</h1>` +
+          `<p>${bgNum(c.resolutions)} решения на ${nm} в базата.${escapeHtmlMinimal(votesBg)}</p>` +
+          `<p>Протоколите изброяват само гласувалите — няма запис кой е отсъствал, затова „участие" е дял от решенията с поименно гласуване, а не присъствие.</p>` +
+          `<p>Виж <a href="${SITE_URL}/council">всички общински съвети, които следим</a>, ` +
+          `<a href="${SITE_URL}/governance">управлението</a> ` +
+          `и <a href="${SITE_URL}/persons">указателя на публичните лица</a>.</p>`,
+        jsonLd: [
+          buildWebPageLd({ title: titleBg, description: descBg, url }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Управление", url: `${SITE_URL}/governance` },
+            { name: "Общински съвети", url: `${SITE_URL}/council` },
+            { name: c.name, url },
+          ]),
+        ],
+        english: {
+          title: titleEn,
+          description: descEn,
+          // Council names are Bulgarian-only, so the EN page carries the BG
+          // proper noun inside English sentence furniture — what the court and
+          // school builders do.
+          bodyHtml:
+            `<h1>${nm} — municipal council decisions</h1>` +
+            `<p>${enNum(c.resolutions)} decisions of ${nm} on record.${escapeHtmlMinimal(votesEn)}</p>` +
+            `<p>Bulgarian minutes list only the councillors who voted — there is no record of who was absent — so participation is a share of the decisions with a named vote, not an attendance rate.</p>` +
+            `<p>See <a href="${SITE_URL}/en/council">every municipal council we track</a>, ` +
+            `<a href="${SITE_URL}/en/governance">governance</a> ` +
+            `and <a href="${SITE_URL}/en/persons">the public-figure directory</a>.</p>`,
+          jsonLd: [
+            buildWebPageLd({
+              title: titleEn,
+              description: descEn,
+              url: enUrl,
+              inLanguage: "en",
+            }),
+            buildBreadcrumbLd([
+              { name: "Home", url: EN_HOME },
+              { name: "Governance", url: `${SITE_URL}/en/governance` },
+              { name: "Municipal councils", url: `${SITE_URL}/en/council` },
+              { name: c.name, url: enUrl },
+            ]),
+          ],
+        },
+      };
+    }),
+  ];
+};
+
 // /pension-fund/{slug} — one private pension fund (КФН pillars 2 & 3). Real SPA
 // route (PensionFundScreen) with no prerendered HTML before this. FILE-backed
 // off the committed data/budget/kfn/funds.json, so this follows buildSchoolRoutes
@@ -4621,6 +4819,7 @@ export const buildDynamicRoutes = async (
     ...buildPersonRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...(await buildCourtRoutes()),
+    ...(await buildCouncilRoutes()),
     ...buildPensionFundRoutes(projectRoot),
     ...buildFundsThemeRoutes(projectRoot),
     ...buildCuratedProjectRoutes(projectRoot),

@@ -89,6 +89,7 @@ export const ENGLISH_STATIC_PAGES = [
   "demographics",
   "prices",
   "prices/map",
+  "council",
   "judiciary",
   "judiciary/magistrates",
   "defense",
@@ -196,6 +197,13 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "data/updates", file: `src/screens/DataUpdatesScreen.tsx` },
   { path: "prices", file: `src/screens/PricesScreen.tsx` },
   { path: "prices/map", file: `src/screens/PricesMapScreen.tsx` },
+  {
+    path: "council",
+    // The hub renders from Postgres, so there is no artifact whose mtime means
+    // "the councils changed". The screen is the honest second best: a
+    // file: that does not exist SKIPS THE ENTRY SILENTLY.
+    file: `src/screens/council/CouncilHubScreen.tsx`,
+  },
   {
     path: "judiciary",
     file: `src/screens/judiciary/JudiciaryScreen.tsx`,
