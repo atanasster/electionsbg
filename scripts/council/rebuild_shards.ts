@@ -1,20 +1,33 @@
-// One-shot rebuilder: takes the existing (unstripped) data/council/index.json
-// — which currently inlines perCouncillor[] inside each resolution — and
-// regenerates the slim index + per-município votes shards under
-// data/council/votes/<obshtinaCode>.json.
+// Rebuild every per-município votes shard under data/council/votes/ from the
+// DURABLE per-resolution shard tree (data/council/<code>/<YYYY>/<id>.json),
+// and resync meta.resolutionCount in the index.
 //
-// Idempotent: re-running is safe. Once this has run once, mergeMuniResult
-// in lib/index_writer.ts keeps the two files in sync incrementally so this
-// script doesn't need to be wired into the watcher.
+// It used to read data/council/index.json, on the assumption that the index
+// inlined perCouncillor[]. `writeIndex` strips exactly that field, so after
+// the first merge the index carried none and this script was a silent no-op.
+// Reading the durable tree makes it the repair tool for a votes shard that has
+// fallen behind its own município's history.
 //
-// Run with: tsx scripts/council/rebuild_shards.ts
+// Idempotent: re-running is safe, and the merge in writeVotesShard is additive
+// so it can only ever add entries back.
+//
+// Run with: tsx scripts/council/rebuild_shards.ts [--allow-shrink]
+//
+// --allow-shrink overrides the votes-shard shrink guard. Needed only when a
+// município's named-vote history has legitimately been reduced; a healthy
+// repair only ever ADDS entries back.
 
-import { rebuildShardsFromIndex } from "./lib/index_writer";
+import { rebuildShardsFromDurable } from "./lib/index_writer";
 
 const main = async (): Promise<void> => {
-  const r = await rebuildShardsFromIndex();
+  const allowShrink = process.argv.includes("--allow-shrink");
+  const r = await rebuildShardsFromDurable({ allowShrink });
+  // `resolutionsWithVotes` and `voteRows` differ by ~25x on the real corpus
+  // (1,169 vs 29,054), so both are named rather than one being called "rows".
   console.log(
-    `[council] rebuilt index + votes shards — munis=${r.munis} shardsWritten=${r.shardsWritten} totalRows=${r.votesTotal}`,
+    `[council] rebuilt votes shards + resynced meta.resolutionCount — ` +
+      `munis=${r.munis} shardsWritten=${r.shardsWritten} ` +
+      `resolutionsWithVotes=${r.resolutionsWithVotes} voteRows=${r.voteRows}`,
   );
 };
 
