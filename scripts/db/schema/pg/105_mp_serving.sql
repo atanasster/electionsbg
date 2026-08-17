@@ -403,8 +403,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              'id',             d.declaration_id,
              'tier',           d.tier,
              'declarantName',  d.declarant_name,
-             'institution',    d.institution,
-             'positionTitle',  d.position_title,
+             -- Per-filing job and institution; see declared_label() in 089. The mp tier
+             -- has NO listing position at all (position_title is NULL on all 6,296 rows),
+             -- so before this the block rendered an empty office for every MP.
+             'institution',    declared_label(d.filed_institution, d.institution),
+             'positionTitle',  declared_label(d.filed_position, d.position_title),
              'year',           d.declaration_year,
              'fiscalYear',     d.fiscal_year,
              'type',           d.declaration_type,

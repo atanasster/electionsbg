@@ -318,6 +318,23 @@ inst AS (
   ORDER BY r.person_id, r.prom DESC, jb.body_code
 ),
 decl_inst AS (
+  -- ⚠️ DELIBERATELY the LISTING label, NOT declared_label() — checked, not assumed
+  -- (2026-08-17), and for a different reason from 102's.
+  --
+  -- This column is a FACET KEY, not a description of a person's job. `persons.institution`
+  -- in db_table.js is filter:"in" (EXACT), and its own comment says the picker facets and
+  -- filters this same column — so the set of distinct values IS the picker. The register's
+  -- listing is a controlled vocabulary of 1,013 institutions; `filed_institution` is free
+  -- text, and routing it through here takes the column from 991 to 12,626 distinct values
+  -- („НАП" / „ЦУ на НАП" / „Национална агенция за приходи" as three), which does not make
+  -- the picker noisier so much as stop it being a picker. Measured: the fragmentation is
+  -- driven by the EXEC tier, so narrowing the repoint to one tier does not rescue it.
+  --
+  -- The cost is real and accepted: the exec tier's group buckets („Ръководителите на
+  -- задграничните представителства на Р.България") remain as facet VALUES here. That is
+  -- coherent — as a grouping key „the heads of foreign missions" is a usable bucket, and it
+  -- is only as a claim about one named person that it is false. Every surface that renders
+  -- it as that person's job (090, 093, 098, 100, 105, 159) routes through declared_label.
   SELECT DISTINCT ON (d.person_id) d.person_id, d.institution
   FROM declaration d
   WHERE d.tier IN ('exec', 'muni') AND d.person_id IS NOT NULL

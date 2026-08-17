@@ -71,20 +71,57 @@ Repointing any of these at a declaration field would be a regression:
 | `093_declaration_events.sql:45,77` | declaration events | none | same |
 | `098_new_filings.sql:53` | new-filings feed | none | same |
 | `100_officials_rankings.sql:180,193,194` | matview `officials_rankings_table` | `exec,muni` | newest-filing label changes for a large share of rows |
-| `102_municipal_officials.sql:61,76,85,95,97` | matview `municipal_officials_table` | muni | 1,323 of 6,613 rows (20.0%) change |
+| ~~`102_municipal_officials.sql`~~ | matview `municipal_officials_table` | muni | **excluded — see below** |
 | `105_mp_serving.sql:406,407` | `d.` = declaration | mp | pure win — 100% filled, listing NULL |
-| `120_person_browse.sql:321-324` | matview `person_browse_table` | `exec,muni` | institution only |
+| ~~`120_person_browse.sql`~~ | matview `person_browse_table` | `exec,muni` | **excluded — facet key, see below** |
 | `159_person_crypto.sql:95,96` | matview `person_crypto_table` | none | `/declarations/crypto` |
 
 `101_declaration_subject_alias.sql:62` — **leave alone.** Those are the alias table's own
 columns, holding a *dropped listing's* labels by construction; carrying filed values there
 would need a loader change and is scope creep. Revisit only if the muni backfill runs.
 
-`102` — **include.** This was planned as a deliberate no-op on the strength of muni being 0%
-filled; the re-measure kills that reasoning and replaces it with a better one. Muni is now
-100% filled and **1,323 of its 6,613 rows (20.0%) carry a filed position that disagrees with
-the listing label**, so `role_raw` on `municipal_officials_table` changes for one row in five.
-It is a real improvement, not future-proofing.
+`102` — **EXCLUDE.** This entry has now been wrong twice, and the second time is the
+instructive one. It was first planned as a harmless no-op (muni 0% filled); the step-1
+re-measure flipped that to "include, a real improvement" on the strength of a 20%
+disagreement rate; reading the actual VALUES in step 4 reversed it again. Both columns are
+renamed into contracts the filed values do not satisfy:
+
+- `ld.institution AS municipality` — the listing holds the município NAME („Ямбол"), the
+  filing holds the EMPLOYER („Община Ямбол", and for 25 Видин rows „Общински съвет - Видин",
+  a council). 6,576 of 6,613 rows differ, so the swap rewrites essentially the whole column
+  into something that no longer answers "which município".
+- `ld.position_title AS role_raw` — the listing has FIVE clean roles; `filed_position` has
+  **563 distinct free-text spellings** of them, and sometimes names the body instead of the
+  role („Общински съветник" → „Общински съвет").
+
+`120` — **EXCLUDE, on a second and different ground.** `person_browse_table.institution` is
+a FACET KEY, not a description of anyone's job: `db_table.js` exposes it as `filter: "in"`
+(EXACT) and its own comment records that the picker facets and filters that same column. The
+register's listing is a controlled vocabulary of 1,013 institutions; the filed value is free
+text, and routing it through takes the column from **991 to 12,626 distinct values** („НАП" /
+„ЦУ на НАП" / „Национална агенция за приходи" as three separate entries). That does not make
+the picker noisier, it stops it being a picker. Measured: the fragmentation is driven by the
+EXEC tier, so narrowing the repoint to one tier does not rescue it.
+
+The cost is accepted and stated: the exec tier's group buckets survive as facet VALUES here.
+That is coherent — as a grouping key „the heads of foreign missions" is usable, and it is only
+as a claim about one named person that it is false. Every surface that renders it as a
+person's job routes through `declared_label`.
+
+**So the rule that decides these sites is what the COLUMN is for, not which tier it spans:**
+
+| column's job | example | source |
+|---|---|---|
+| a rendered label / substring search (`filter: "text"`) | 090, 093, 098, 100, 105, 159 | **filed**, listing as fallback |
+| an exact-match facet key (`filter: "in"`) | 120 `institution` | **listing** (controlled vocabulary) |
+| renamed into a different contract | 102 `municipality`, `role_raw` | **listing** |
+
+**The general lesson, which applies to any future site added to this list: a disagreement
+COUNT cannot distinguish correction from noise.** On the exec tier the listing invents group
+buckets that describe nobody, and the filed value is a fix; on muni the listing is a clean
+controlled vocabulary and the filed value is unnormalised free text. Both read as "20-42% of
+rows disagree". Only reading the values tells them apart. The reasoning is recorded in 102's
+own header so the next reader does not "finish the job".
 
 ## 3. The rule lives once — a helper, not twelve COALESCEs
 

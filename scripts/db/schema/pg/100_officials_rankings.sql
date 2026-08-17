@@ -176,8 +176,27 @@ decl AS (
   -- Institution / position from the newest officials-tier declaration. NULL for the
   -- 466 whose filing lives in the mp tier — the UI already tolerates a missing
   -- institution, and inventing one from the MP filing would misattribute the office.
+  -- The declarant's OWN institution and job where the filing states them (declared_label,
+  -- 089), the listing label only as a fallback. This is the tier where the listing is at
+  -- its worst: „Ръководителите на задграничните представителства на Р.България" is a GROUP
+  -- of people, and the filings behind it name Министерство на външните работи.
+  --
+  -- Repointed here and NOT in 102 or 120, which is a real distinction rather than an
+  -- oversight — read those two files' headers before making them match. The rule is what
+  -- the COLUMN is for: db_table.js exposes both of these as filter:"text", a substring
+  -- search over a rendered label, so the filed value's free-text spread costs nothing and
+  -- its truthfulness is the whole point. 120's `institution` is filter:"in" — a picker's
+  -- key — and 102's two columns are renamed to `municipality` / `role_raw`.
+  --
+  -- One consequence, accepted: this CTE spans exec AND muni, so ~330 municipal rows now
+  -- carry the EMPLOYER („Община Ямбол") where they used to carry the município name
+  -- („Ямбол"). For a column called `institution` that is right — „Община Ямбол" IS the
+  -- institution — but it is exactly the swap 102 refuses, because there the same value is
+  -- renamed `municipality` and would stop answering the question its name asks.
   SELECT DISTINCT ON (d.person_id)
-         d.person_id, d.institution, d.position_title
+         d.person_id,
+         declared_label(d.filed_institution, d.institution) AS institution,
+         declared_label(d.filed_position, d.position_title)  AS position_title
   FROM declaration d
   WHERE d.tier IN ('exec', 'muni') AND d.person_id IS NOT NULL
   ORDER BY d.person_id, d.declaration_year DESC, d.declaration_id DESC

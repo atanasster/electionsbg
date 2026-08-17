@@ -57,6 +57,26 @@ WITH listing_decl AS (
   -- filing. That is what the first cut did, and for the 47 people holding two seats it
   -- stamped one seat's labels onto the other — a Добрич councillor rendered
   -- role_raw='Главен архитект', municipality='Тервел'.
+  -- ⚠️ DELIBERATELY the LISTING labels, NOT declared_label() — this is the one surface in
+  -- the declaration family that reads the register's listing on purpose, and it was checked
+  -- rather than assumed (2026-08-17). Both columns are renamed below into contracts the
+  -- filed values do not satisfy:
+  --
+  --   ld.institution   AS municipality — the listing holds the município NAME („Ямбол"),
+  --     while filed_institution holds the EMPLOYER („Община Ямбол", and for 25 Видин rows
+  --     „Общински съвет - Видин", a council rather than a município). 6,576 of 6,613 muni
+  --     rows differ, so swapping would rewrite essentially the whole column into something
+  --     that no longer answers "which município".
+  --   ld.position_title AS role_raw — the listing has FIVE clean roles (Общински съветник,
+  --     Кмет, Заместник кмет, Главен архитект, Председател на ОбС); filed_position has 563
+  --     distinct free-text spellings of them („Заместник-кмет" / „заместник-кмет" /
+  --     „ЗАМЕСТНИК-КМЕТ" / „Заместник - кмет"), and sometimes names the BODY instead of the
+  --     role („Общински съветник" → „Общински съвет").
+  --
+  -- So the 20% muni disagreement rate is NOISE here, not correction — the opposite of the
+  -- exec tier, where the listing invents group buckets that describe nobody. A disagreement
+  -- COUNT cannot tell those two apart; only reading the values can, which is why this note
+  -- records the values.
   SELECT r.ref AS listing_ref, d.declaration_id,
          d.institution, d.position_title, d.declaration_year
   FROM person_role r

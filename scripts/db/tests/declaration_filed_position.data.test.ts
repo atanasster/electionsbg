@@ -29,7 +29,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, end, withClient } from "../lib/pg";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -348,5 +348,167 @@ test.skipIf(skip)(
       "no row in the new-filings feed disagrees with its listing label — gate is vacuous",
     );
     assert.equal(Number(filings.bad), 0);
+  },
+);
+
+// ---------------------------------------------------------------------------
+// The exhaustiveness sweep: no serving object may read the listing columns raw.
+//
+// Every per-surface assertion above names an object someone remembered to test, and the
+// review that produced this file caught exactly that gap once — declaration_events_feed was
+// repointed and untested, and reverting it passed everything else in the repo. So the last
+// gate is not another assertion about a known surface: it enumerates every function, view
+// and matview whose definition reads `declaration` and mentions these columns, and requires
+// each one to be CLASSIFIED. A new surface — or an old one someone repoints — fails here
+// until it is either routed through declared_label or written down as an exception.
+// ---------------------------------------------------------------------------
+
+/** Objects that legitimately serve the register's LISTING label instead of the filing's own.
+ *  Each needs a reason, because "it looked fine" is what this gate exists to refuse. */
+const LISTING_LABEL_EXCEPTIONS: Record<string, string> = {
+  // 102: both columns are renamed into contracts the filed values do not satisfy —
+  // `ld.institution AS municipality` (listing = „Ямбол", filing = „Община Ямбол" / a
+  // council) and `ld.position_title AS role_raw` (listing = 5 clean roles, filing = 563
+  // free-text spellings, sometimes naming the body instead of the role). See 102's header.
+  municipal_officials_table:
+    "columns are renamed to municipality / role_raw (102 header)",
+  // 120: `institution` is a FACET KEY, not a job description — db_table.js exposes it as
+  // filter:"in" and the picker facets the same column. The listing is a 1,013-value
+  // controlled vocabulary; the filed value is free text and takes the column to 12,626
+  // distinct values, which stops it being a picker. See 120's header.
+  person_browse_table: "institution is an exact-match facet key (120 header)",
+};
+
+test.skipIf(skip)(
+  "every declaration-serving object either routes through declared_label or is a named exception",
+  async () => {
+    const rows = await allRows<{ obj: string; kind: string; routes: boolean }>(
+      `WITH defs AS (
+         SELECT c.relname AS obj, c.relkind::text AS kind, pg_get_viewdef(c.oid) AS src
+           FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+          WHERE n.nspname = 'public' AND c.relkind IN ('m', 'v')
+         UNION ALL
+         SELECT p.proname, 'f', pg_get_functiondef(p.oid)
+           FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+          WHERE n.nspname = 'public' AND p.prokind = 'f'
+       ), clean AS (
+         -- Comments are stored verbatim in a function body, and several of these files
+         -- mention the raw columns in prose precisely to warn against them. Strip comments
+         -- before deciding, or the warning trips the gate it was written to support.
+         SELECT obj, kind, regexp_replace(src, '--[^\n]*', '', 'g') AS s FROM defs
+       )
+       SELECT obj, kind, (s ~ 'declared_label') AS routes
+         FROM clean
+        WHERE s ~ 'declaration'
+          AND s ~ '(position_title|filed_position|\\minstitution\\M)'
+        ORDER BY obj`,
+    );
+    assert.ok(
+      rows.length > 5,
+      `only ${rows.length} serving objects found — migrations applied?`,
+    );
+
+    const unrouted = rows
+      .filter((r) => !r.routes && !(r.obj in LISTING_LABEL_EXCEPTIONS))
+      .map((r) => `${r.obj} (${r.kind})`);
+    assert.deepEqual(
+      unrouted,
+      [],
+      `these read the register's listing label raw — route them through declared_label() ` +
+        `or add them to LISTING_LABEL_EXCEPTIONS with a reason: ${unrouted.join(", ")}`,
+    );
+
+    // The exception list must not outlive its entries: an exception for an object that no
+    // longer exists, or that has since been routed, is stale config that hides the next one.
+    const seen = new Set(rows.map((r) => r.obj));
+    for (const [obj, why] of Object.entries(LISTING_LABEL_EXCEPTIONS)) {
+      assert.ok(
+        seen.has(obj),
+        `stale exception '${obj}' (${why}) — object no longer qualifies`,
+      );
+      assert.equal(
+        rows.find((r) => r.obj === obj)?.routes,
+        false,
+        `'${obj}' now routes through declared_label — drop its exception`,
+      );
+    }
+  },
+);
+
+// ---------------------------------------------------------------------------
+// The mutation check, shipped rather than run by hand.
+//
+// Every assertion above compares a serving payload against declared_label(). That makes
+// them satisfiable by ANY implementation the two sides happen to share — including an
+// inverted one, where each surface faithfully republishes the listing label and the gate
+// agrees with it. So the gate has to prove it discriminates: redefine declared_label to
+// prefer the LISTING value inside a transaction, confirm the surfaces flip with it, and
+// roll back. Same technique as person_connections.data.test.ts restoring an old function
+// body to prove its buffer ceiling still bites.
+// ---------------------------------------------------------------------------
+
+test.skipIf(skip)(
+  "the gate discriminates: inverting declared_label flips what the surfaces serve",
+  async () => {
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        // A filing where the two labels genuinely differ, chosen live so the check cannot
+        // go vacuous if this particular person's filings change.
+        const { rows: fx } = await c.query<{
+          slug: string;
+          id: string;
+          filed: string;
+          listed: string;
+        }>(
+          `SELECT p.slug, d.declaration_id AS id, d.filed_position AS filed,
+                  d.position_title AS listed
+             FROM declaration d JOIN person p ON p.person_id = d.person_id
+            WHERE btrim(coalesce(d.filed_position, '')) <> ''
+              AND d.position_title IS NOT NULL
+              AND btrim(d.filed_position) <> d.position_title
+            ORDER BY d.declaration_id
+            LIMIT 1`,
+        );
+        assert.ok(
+          fx[0],
+          "no filing disagrees with its listing label — gate is vacuous",
+        );
+        const { id, filed, listed } = fx[0];
+
+        const served = async () => {
+          const { rows } = await c.query<{ v: string | null }>(
+            "SELECT declaration_detail($1)->>'positionTitle' AS v",
+            [id],
+          );
+          return rows[0].v;
+        };
+
+        // Baseline: the real definition serves the filing's own job.
+        assert.equal(await served(), filed.trim());
+
+        await c.query(`
+          CREATE OR REPLACE FUNCTION declared_label(p_filed text, p_listed text)
+          RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $x$
+            SELECT COALESCE(nullif(btrim(p_listed), ''), p_filed)
+          $x$`);
+
+        // If this still returned the filed value, declaration_detail would not be reading
+        // declared_label at all and every assertion above would be proving nothing.
+        assert.equal(
+          await served(),
+          listed.trim(),
+          "declaration_detail did not follow declared_label — it is not routed through it",
+        );
+      } finally {
+        await c.query("ROLLBACK").catch(() => {});
+      }
+    });
+
+    // The rollback must have restored the real definition for every later test.
+    const [check] = await allRows<{ v: string }>(
+      "SELECT declared_label('филед', 'листед') AS v",
+    );
+    assert.equal(check.v, "филед", "ROLLBACK did not restore declared_label");
   },
 );

@@ -92,8 +92,10 @@ SELECT
   p.slug        AS person_slug,
   p.display_name AS person_name,
   d.tier,
-  d.institution,
-  d.position_title,
+  -- Per-filing job and institution; see declared_label() in 089. This register names a
+  -- person beside a crypto holding, so the label is a claim about that individual.
+  declared_label(d.filed_institution, d.institution) AS institution,
+  declared_label(d.filed_position, d.position_title)  AS position_title,
   d.declaration_type,
   d.source_url,
   s.period_year,
