@@ -537,11 +537,15 @@ test.skipIf(skip)(
     // tightens automatically — the second assertion fires the moment a council
     // makes progress, and the fix is a one-line date bump.
     const NAMED_VOTE_WATERMARK: Record<string, string> = {
-      SZR12: "2025-06-01", // a separate, older parser problem the May freeze hid
-      BGS01: "2026-03-17",
-      SOF: "2026-04-30", // --ocr-gated; moves only on a deliberate OCR run
-      PER32: "2026-04-28",
-      VTR01: "2026-05-07",
+      SZR12: "2025-06-01", // a separate, older parser problem the May freeze hid;
+      // obs.kazanlak.bg was unreachable on 2026-08-17 (6 lookup timeouts, circuit
+      // breaker open), so this one could not be backfilled at all.
+      BGS01: "2026-03-17", // re-scraped 2026-08-17: 70 resolutions updated, but the
+      // protokols in the window carry no per-councillor block, so the watermark
+      // did not move. "Updated" is not "gained named votes".
+      SOF: "2026-04-30", // --ocr-gated; the 2026-08-17 run reached all 7 sessions
+      // and every Gemini call failed at the network layer ("fetch failed", zero
+      // billed chunks), so Sofia gained 51 resolutions and no named votes.
     };
 
     // A council with no recorded debt. The freeze ran 79 days before anyone
