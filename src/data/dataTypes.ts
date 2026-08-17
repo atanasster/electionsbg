@@ -869,6 +869,13 @@ export type MpDeclaration = {
   mpId: number;
   declarantName: string;
   institution: string; // e.g. "51-во Народно събрание"
+  /** The declarant's OWN institution and job, from the filing's <Personal><Work> and
+   *  <Personal><Position>. Distinct from `institution` above, which for the officials tiers
+   *  is the register LISTING's group label — a bucket shared across people and capable of
+   *  describing none of them. Only these say what one person's job was, so a reader-facing
+   *  surface must use them. Null on filings parsed before 2026-08-16. */
+  filedInstitution?: string | null;
+  filedPosition?: string | null;
   declarationYear: number; // year filed
   fiscalYear: number | null; // year covered (declarationYear - 1 for annual)
   declarationType: string;

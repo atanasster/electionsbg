@@ -1942,6 +1942,14 @@ export const parseDeclarationXml = ({
   // declarant "(unknown)" — which then differed from every holder name on the
   // row, tagging the declarant's own holdings as a spouse's.
   const declarantName = text($, "Personal > Name") || "(unknown)";
+  // The declarant's OWN institution and job, per filing. Distinct from the `institution` /
+  // `positionTitle` on the register's listing, which are GROUP labels shared across people:
+  // Демерджиев's 2023 filing states „Министерство на вътрешните работи" / „Министър" while
+  // the listing files him under „Служебен министър-председател и министър", a bucket he
+  // shares with one other man and which describes neither of them. Only these two say what
+  // one person's job actually was, so they are what any reader-facing surface must use.
+  const filedInstitution = text($, "Personal > Work") || null;
+  const filedPosition = text($, "Personal > Position") || null;
   const declType = text($, "DeclarationData > DeclarationType") || "Other";
   const declYearRaw = text($, "DeclarationData > Year");
   const fiscalYear = declYearRaw ? Number(declYearRaw) : null;
@@ -1993,6 +2001,8 @@ export const parseDeclarationXml = ({
     return {
       mpId,
       declarantName,
+      filedInstitution,
+      filedPosition,
       institution,
       declarationYear,
       fiscalYear: believedFiscalYear,

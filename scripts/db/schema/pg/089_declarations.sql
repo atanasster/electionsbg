@@ -63,6 +63,13 @@ CREATE TABLE IF NOT EXISTS declaration (
   declarant_name   text NOT NULL,
   institution      text,
   position_title   text,
+  -- ⚠️ institution / position_title / category come from the register's LISTING page, NOT
+  -- from the filing. They are GROUP labels: `position_title` = 'Служебен министър-председател
+  -- и министър' covers two different people, neither of whom was caretaker PM — both were
+  -- DEPUTY PM and a minister — and the register has a separate 'Служебен заместник
+  -- министър-председател и министър' bucket they were not put in. Rendering either as a
+  -- person's job publishes a false claim about a named individual; that reached a card on
+  -- 2026-08-16. Use filed_institution / filed_position below for anything a reader sees.
   category         text,               -- register category label (categorise.ts bucket)
   declaration_type text,               -- Annualy | Entry | Vacate | Other
   -- The effective snapshot year — the resolved `declarationYear` the app sorts
@@ -77,6 +84,14 @@ CREATE TABLE IF NOT EXISTS declaration (
   filed_at         date,
   entry_number     text,
   control_hash     text,
+  -- The declarant's OWN institution and job, as stated in the filing's <Personal><Work>
+  -- and <Personal><Position>. Per-filing and authoritative — this is the field that says
+  -- Рашков was МВР's minister in 2021 and an MP from 2022, which no listing label does.
+  -- NULL until backfilled: the parser only learned to read them on 2026-08-16, and the raw
+  -- XML cache covers ~10% of the corpus, so the rest arrives via
+  -- scripts/declarations/backfill_filed_position.ts.
+  filed_institution text,
+  filed_position    text,
   source_url       text NOT NULL UNIQUE
 );
 
@@ -91,6 +106,10 @@ CREATE INDEX IF NOT EXISTS idx_declaration_year ON declaration (register_year);
 -- against a table that still holds rows; the loader always fills it, so a fresh DB
 -- keeps the CREATE's NOT NULL and a retrofitted one is populated on the next load.
 ALTER TABLE declaration ADD COLUMN IF NOT EXISTS declaration_year int;
+-- Same retrofit for the per-filing job fields: CREATE TABLE IF NOT EXISTS is a no-op on a
+-- warm database, so without these the columns reach a fresh clone and nowhere else.
+ALTER TABLE declaration ADD COLUMN IF NOT EXISTS filed_institution text;
+ALTER TABLE declaration ADD COLUMN IF NOT EXISTS filed_position text;
 
 -- ---------------------------------------------------------------------------
 -- Asset rows — real estate, vehicles, cash, bank, receivables, debts, investments,

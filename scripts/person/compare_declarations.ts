@@ -104,8 +104,8 @@ type Availability = {
 type SideRow = {
   slug: string;
   display_name: string;
-  institution: string | null;
-  position_title: string | null;
+  filed_institution: string | null;
+  filed_position: string | null;
   declaration_type: string;
   source_url: string;
   category: string | null;
@@ -162,7 +162,7 @@ const REP_CTE = `
            COALESCE(d.fiscal_year, d.declaration_year) AS period_year,
            CASE d.declaration_type WHEN 'Annualy' THEN 'annual' ELSE 'inventory' END AS klass,
            d.declaration_type, d.filed_at, d.entry_number, d.source_url,
-           d.institution, d.position_title
+           d.filed_institution, d.filed_position
       FROM declaration d
       JOIN people p USING (person_id)
      WHERE d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
@@ -318,7 +318,7 @@ export const compareDeclarations = async (
      chosen AS (
        SELECT * FROM rep WHERE period_year = $2 AND klass = $3
      )
-     SELECT c.slug, c.display_name, c.institution, c.position_title,
+     SELECT c.slug, c.display_name, c.filed_institution, c.filed_position,
             c.declaration_type, c.source_url,
             a.category,
             count(a.*)::int AS n,
@@ -342,10 +342,10 @@ export const compareDeclarations = async (
             ), 0))::float8 AS eur
        FROM chosen c
        LEFT JOIN declaration_asset a ON a.declaration_id = c.declaration_id
-      GROUP BY c.slug, c.display_name, c.institution, c.position_title,
+      GROUP BY c.slug, c.display_name, c.filed_institution, c.filed_position,
                c.declaration_type, c.source_url, a.category
      UNION ALL
-     SELECT c.slug, c.display_name, c.institution, c.position_title,
+     SELECT c.slug, c.display_name, c.filed_institution, c.filed_position,
             c.declaration_type, c.source_url,
             'income' AS category, count(i.*)::int, 0, 0,
             -- DECLARANT ONLY. Table 12 has a declarant column and a spouse column — two
@@ -354,7 +354,7 @@ export const compareDeclarations = async (
             round(COALESCE(SUM(i.eur_declarant), 0))::float8
        FROM chosen c
        LEFT JOIN declaration_income i ON i.declaration_id = c.declaration_id
-      GROUP BY c.slug, c.display_name, c.institution, c.position_title,
+      GROUP BY c.slug, c.display_name, c.filed_institution, c.filed_position,
                c.declaration_type, c.source_url`,
     [slugs, picked.year, picked.klass],
   );
@@ -375,6 +375,16 @@ export const compareDeclarations = async (
       ORDER BY c.slug, a.seq`,
     [slugs, picked.year, picked.klass],
   );
+
+  /** The register's casing is whatever the declarant typed — „НАРОДЕН ПРЕДСТАВИТЕЛ" beside
+   *  „Министър" in the same corpus. An all-caps run shouts on a card, so it is folded down;
+   *  anything already mixed-case is left exactly as filed, because a proper noun inside a job
+   *  title („Национално бюро за контрол на СРС") must not be re-capitalised by rule. */
+  const softCase = (t: string): string => {
+    if (t !== t.toLocaleUpperCase("bg-BG")) return t;
+    const lower = t.toLocaleLowerCase("bg-BG");
+    return lower.charAt(0).toLocaleUpperCase("bg-BG") + lower.slice(1);
+  };
 
   const eur = (n: number): string =>
     `${Math.round(n).toLocaleString("bg-BG").replace(/\s/g, "\u00a0")}\u00a0€`;
@@ -556,9 +566,20 @@ export const compareDeclarations = async (
     return {
       name: head.display_name,
       properties,
+      // The declarant's OWN job, from the filing — NEVER declaration.position_title, which
+      // is the register LISTING's group label. That label put Демерджиев under „Служебен
+      // министър-председател и министър", a bucket he shares with one other man and which
+      // describes neither: both were DEPUTY PM plus a minister. It reached a published card
+      // on 2026-08-16. It is also plainly wrong elsewhere — Рашков's 2017 filing is filed
+      // under „Упълномощено лице по ЗОП" while he chaired the СРС bureau.
+      //
+      // Undefined rather than a fallback when the filing states nothing: no role on the card
+      // is a gap a reader can see, while a wrong one is a claim they cannot check.
       role:
-        [head.position_title, head.institution].filter(Boolean).join(" · ") ||
-        undefined,
+        [head.filed_position, head.filed_institution]
+          .filter((t): t is string => Boolean(t))
+          .map(softCase)
+          .join(" · ") || undefined,
       formLabel:
         picked.klass === "annual"
           ? "годишна декларация"
