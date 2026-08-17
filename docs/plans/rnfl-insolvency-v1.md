@@ -1,8 +1,9 @@
 # РНФЛ (личен фалит): watch it now, aggregate it later, never name-match it — v1
 
 **Status:** T1 (watch source) SHIPPED 2026-08-17 — `scripts/watch/sources/rnfl_insolvency.ts`,
-registered in `scripts/watch/sources/index.ts`, tests in `rnfl_insolvency.test.ts`. T2 and T3
-remain gated and unimplemented; nothing is ingested and no table exists.
+registered in `scripts/watch/sources/index.ts`, tests in `rnfl_insolvency.test.ts`, and the
+no-skill mapping row in `.claude/skills/process-watch-report/SKILL.md`. T2 and T3 remain
+gated and unimplemented; nothing is ingested and no table exists.
 **Date:** 2026-08-03 — the day the register went live, which is why §2's answer to
 "can we ingest it" is "there is nothing in it yet".
 
@@ -20,13 +21,17 @@ the Minister of Justice's order activated the **Регистър на физич
 Everything in this section was probed directly, not read off a press release. A future
 reader should not have to re-derive it.
 
-| Fact | Value |
+Every value below is **as of the 2026-08-03 probe** and has not been re-checked since; the
+watcher shipped on 2026-08-17 is what keeps them current from now on. Read its `detail` line
+(`дело №1: няма запис`, subject to the advisory caveat in §T1) rather than quoting the table.
+
+| Fact | Value at first probe (2026-08-03) |
 |---|---|
 | Portal | `https://portal.registryagency.bg/home-rnfl` (React SPA under `/RNFL/`) |
 | Backend | ASP.NET Core JSON API under `/RNFL/api/`, returns `application/problem+json` on 404 |
 | Auth | **None** for the report + nomenclature endpoints below |
 | Cloudflare | **Not walled.** Plain `curl` from our egress gets a 200 |
-| Records today | **Zero** |
+| Records | **Zero** |
 
 **Reachability is the pleasant surprise.** The Търговски регистър side of the same portal
 needs headed Playwright (see `docs/plans/cr-deeds-capture-v1.md`); РНФЛ answers a bare
@@ -83,7 +88,9 @@ SPA shell, i.e. the CR statistics page is server-rendered, not API-backed.)
 Two independent blockers, and they fail at different times:
 
 1. **Nothing to ingest.** Filing needs a qualifying debt overdue 12 months, then a court
-   proceeding. First entries are weeks out; a corpus worth aggregating is months out.
+   proceeding. As of the 2026-08-03 probe, first entries were weeks out and a corpus worth
+   aggregating months out. The watcher, not this paragraph, is what says whether that is
+   still true.
 2. **No enumeration.** Even when full, §1 says there is no route that lists files. The only
    mechanical way to build a corpus would be to probe `{fileNumber}` over a guessed integer
    range until 204s turn into records — brute-force enumeration of a register of private
@@ -150,7 +157,7 @@ the agency publishes statistics — i.e. when T2 becomes possible.
      others:
      | probe | today | meaning when it moves |
      |---|---|---|
-     | `GET /statistic-rnfl` status | `404` | **the T2 trigger** — an official aggregate exists |
+     | `GET /statistic-rnfl`, body compared to `/home-rnfl` | `404` | **the T2 trigger** — an official aggregate exists |
      | `GET /RNFL/api/Reports/1/Deed` status | `204` | possibly the first filings (see caveat) |
      | hash of `courts` + `actTypes` nomenclatures | stable | the register's schema moved |
    - **The `Deed` probe is advisory and must be labelled as such in `detail`.** If
@@ -186,9 +193,16 @@ no data.
 
 ### T2 — the aggregate (gated)
 
-**Trigger:** `/statistic-rnfl` returns 200, *or* the agency publishes a bulk export (watch
-data.egov.bg — the Registry Agency already publishes the Commerce Register there, so an
-РНФЛ dataset appearing under the same org is plausible and would be the better source).
+**Trigger:** `/statistic-rnfl` serves a real statistics page — **a 200 alone is not enough**,
+since a 302 back to the landing page answers 200 too, which is why the watcher compares the
+body against `/home-rnfl` and carries `statsBytes` / `statsHash` in `meta` for an operator to
+check before acting.
+
+*Or* the agency publishes a bulk export. ⚠️ **Nothing watches that second half** — this source
+probes only `portal.registryagency.bg`, and `egov_commerce` is pinned to the single TR
+daily-filings dataset UUID, so a new РНФЛ dataset appearing under the same org would not flip
+it. Detecting it needs a human to look, or a new watcher source. It would nonetheless be the
+better source: the Registry Agency already publishes the Commerce Register on data.egov.bg.
 
 **Shape:** filings and outcome acts over time, split by court (the `courts` nomenclature is
 already a clean dimension, and its `Районен съд – X` labels map to place) and by act type.
