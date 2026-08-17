@@ -81,6 +81,15 @@ test.skipIf(skip)(
   },
 );
 
+test.skipIf(skip)("passes the listing label through UNTOUCHED", async () => {
+  // Only the FILED branch is trimmed. The listing label is handed back byte-for-byte,
+  // because it is already the exact value the picker columns are filtered on — 120's
+  // `institution` is filter:"in" (EXACT), so silently trimming it here would change which
+  // rows a picker selection matches, on a branch nobody would think to look at.
+  assert.equal(await label(null, "  Кмет  "), "  Кмет  ");
+  assert.equal(await label("", "  Кмет  "), "  Кмет  ");
+});
+
 test.skipIf(skip)(
   "returns NULL only when neither side has a value",
   async () => {
@@ -233,17 +242,23 @@ test.skipIf(skip)(
     // detail, and the chart's Entry/Vacate markers. A reader who opens one and then the
     // other must not be told two different things, which is the failure a per-site COALESCE
     // invites and the reason declared_label exists.
-    const rows = await allRows<{ mismatched: string; checked: string }>(
+    const rows = await allRows<{
+      mismatched: string;
+      checked: string;
+      diverging: string;
+    }>(
       `SELECT count(*) FILTER (
                 WHERE declaration_detail(d.declaration_id)->>'positionTitle'
                       IS DISTINCT FROM declared_label(d.filed_position, d.position_title)
                    OR declaration_detail(d.declaration_id)->>'institution'
                       IS DISTINCT FROM declared_label(d.filed_institution, d.institution)
               ) AS mismatched,
-              count(*) AS checked
+              count(*) AS checked,
+              count(*) FILTER (WHERE btrim(coalesce(d.filed_position, '')) <> ''
+                                 AND btrim(d.filed_position)
+                                     IS DISTINCT FROM d.position_title) AS diverging
          FROM declaration d
-        WHERE d.person_id IS NOT NULL
-        LIMIT 1`,
+        WHERE d.person_id IS NOT NULL`,
     );
     assert.ok(
       Number(rows[0].checked) > 0,
@@ -395,7 +410,11 @@ test.skipIf(skip)(
          -- Comments are stored verbatim in a function body, and several of these files
          -- mention the raw columns in prose precisely to warn against them. Strip comments
          -- before deciding, or the warning trips the gate it was written to support.
-         SELECT obj, kind, regexp_replace(src, '--[^\n]*', '', 'g') AS s FROM defs
+         SELECT obj, kind,
+                regexp_replace(
+                  regexp_replace(src, '--[^\n]*', '', 'g'),
+                  '/\\*.*?\\*/', '', 'gs') AS s
+           FROM defs
        )
        SELECT obj, kind, (s ~ 'declared_label') AS routes
          FROM clean
@@ -510,5 +529,174 @@ test.skipIf(skip)(
       "SELECT declared_label('филед', 'листед') AS v",
     );
     assert.equal(check.v, "филед", "ROLLBACK did not restore declared_label");
+  },
+);
+
+// ---------------------------------------------------------------------------
+// Per-surface: the three repointed BULK SURFACES — two matviews (100, 159) and one
+// function (105's mp_declarations).
+//
+// The exhaustiveness sweep proves each of these CALLS declared_label; it cannot prove the
+// call is right — verified by mutation: swapping the arguments in 100 passes the sweep and
+// reds only the assertion below. `declared_label(d.institution, d.filed_institution)` — the arguments the
+// wrong way round — passes the sweep and serves the listing label everywhere. So each
+// surface is also compared against its own source rows.
+// ---------------------------------------------------------------------------
+
+test.skipIf(skip)(
+  "officials_rankings_table carries the newest filing's own labels (100)",
+  async () => {
+    const [r] = await allRows<{ bad: string; n: string; diverging: string }>(
+      `WITH newest AS (
+         SELECT DISTINCT ON (d.person_id) d.person_id,
+                declared_label(d.filed_institution, d.institution) AS want_inst,
+                declared_label(d.filed_position, d.position_title)  AS want_pos,
+                (btrim(coalesce(d.filed_position, '')) <> ''
+                 AND btrim(d.filed_position) IS DISTINCT FROM d.position_title) AS differs
+           FROM declaration d
+          WHERE d.tier IN ('exec', 'muni') AND d.person_id IS NOT NULL
+          ORDER BY d.person_id, d.declaration_year DESC, d.declaration_id DESC
+       )
+       SELECT count(*) FILTER (WHERE t.institution IS DISTINCT FROM n.want_inst
+                                  OR t.position_title IS DISTINCT FROM n.want_pos) AS bad,
+              count(*) AS n,
+              count(*) FILTER (WHERE n.differs) AS diverging
+         FROM officials_rankings_table t
+         JOIN person p ON p.slug = t.slug
+         JOIN newest n ON n.person_id = p.person_id`,
+    );
+    assert.ok(Number(r.n) > 0, "officials_rankings_table is empty");
+    assert.ok(Number(r.diverging) > 0, "no row diverges — gate is vacuous");
+    assert.equal(Number(r.bad), 0);
+  },
+);
+
+test.skipIf(skip)(
+  "person_crypto_table carries the filing's own labels (159)",
+  async () => {
+    const [r] = await allRows<{ bad: string; n: string; diverging: string }>(
+      `SELECT count(*) FILTER (
+              WHERE t.institution IS DISTINCT FROM declared_label(d.filed_institution, d.institution)
+                 OR t.position_title IS DISTINCT FROM declared_label(d.filed_position, d.position_title)
+            ) AS bad,
+            count(*) AS n,
+            count(*) FILTER (WHERE btrim(coalesce(d.filed_position, '')) <> ''
+                               AND btrim(d.filed_position) IS DISTINCT FROM d.position_title) AS diverging
+       FROM person_crypto_table t
+       JOIN declaration d ON d.declaration_id = t.declaration_id`,
+    );
+    assert.ok(Number(r.n) > 0, "person_crypto_table is empty");
+    assert.ok(
+      Number(r.diverging) > 0,
+      "no crypto holder diverges — gate is vacuous",
+    );
+    assert.equal(Number(r.bad), 0);
+  },
+);
+
+test.skipIf(skip)(
+  "mp_declarations carries the filing's own labels (105)",
+  async () => {
+    // The mp tier has NO listing position at all, so this is the arm that gains most: before
+    // the repoint every one of these rendered an empty office. The fixture is mp-5335 rather
+    // than the mp-5104 used above precisely because of that — Демерджиев's filings are all
+    // EXEC tier (he filed as a minister), so they carry a listing position and would not
+    // exercise the NULL-listing case this asserts.
+    const [r] = await allRows<{ bad: string; n: string; from_filed: string }>(
+      `SELECT count(*) FILTER (
+              WHERE e->>'positionTitle'
+                    IS DISTINCT FROM declared_label(d.filed_position, d.position_title)) AS bad,
+            count(*) AS n,
+            count(*) FILTER (WHERE d.position_title IS NULL
+                               AND btrim(coalesce(d.filed_position, '')) <> '') AS from_filed
+       FROM jsonb_array_elements(mp_declarations('mp-5335')) e
+       JOIN declaration d ON d.declaration_id = (e->>'id')::bigint`,
+    );
+    assert.ok(Number(r.n) > 0, "fixture MP has no declarations in the payload");
+    assert.ok(
+      Number(r.from_filed) > 0,
+      "no row here has a NULL listing position — the mp tier's gain is untested",
+    );
+    assert.equal(Number(r.bad), 0);
+  },
+);
+
+// ---------------------------------------------------------------------------
+// The two exceptions, asserted POSITIVELY: each keeps the property that justified it.
+// The sweep only checks they do not route; these check the reason they must not.
+// ---------------------------------------------------------------------------
+
+test.skipIf(skip)(
+  "person_browse_table.institution stays picker-sized (120)",
+  async () => {
+    // The exception exists because db_table.js exposes this filter:"in" and the picker facets
+    // this same column, so the distinct-value count IS the picker's length. Routing the filed
+    // value through took it from 991 to 12,626. The ceiling is deliberately loose — this
+    // guards an order of magnitude, not a number that moves with the corpus.
+    const [r] = await allRows<{ n: string }>(
+      "SELECT count(DISTINCT institution) AS n FROM person_browse_table",
+    );
+    assert.ok(
+      Number(r.n) < 3000,
+      `institution has ${r.n} distinct values — it has stopped being a picker; ` +
+        `something repointed 120 at filed_institution (see its header)`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "municipal_officials_table.role_raw stays a controlled vocabulary (102)",
+  async () => {
+    // The listing's five clean roles, against filed_position's 563 free-text spellings. Same
+    // shape of guard as above: an order of magnitude, not an exact count.
+    const [r] = await allRows<{ n: string }>(
+      "SELECT count(DISTINCT role_raw) AS n FROM municipal_officials_table",
+    );
+    assert.ok(
+      Number(r.n) < 25,
+      `role_raw has ${r.n} distinct values — the roster's controlled vocabulary is gone; ` +
+        `something repointed 102 at filed_position (see its header)`,
+    );
+  },
+);
+
+// ---------------------------------------------------------------------------
+// The degrade half, on the rows that actually exercise it.
+//
+// Every "prefers the filed value" assertion above is about the branch that fires 61,740
+// times. The fallback fires THREE times in this corpus — the filings whose <Position> the
+// register itself leaves empty — and those three stand in for every row on a database with
+// no backfill, which is Cloud SQL, a fresh clone, and anything ingested since the last
+// crawl. A suite that never executes that branch is not testing the decision the plan made.
+// ---------------------------------------------------------------------------
+
+test.skipIf(skip)(
+  "a filing that states no position still serves the listing label, not a blank",
+  async () => {
+    const rows = await allRows<{
+      id: string;
+      listed: string | null;
+      served: string | null;
+    }>(
+      `SELECT d.declaration_id AS id,
+              d.position_title AS listed,
+              declaration_detail(d.declaration_id)->>'positionTitle' AS served
+         FROM declaration d
+        WHERE d.filed_position IS NULL AND d.position_title IS NOT NULL
+        ORDER BY d.declaration_id`,
+    );
+    assert.ok(
+      rows.length > 0,
+      "no filing lacks a filed_position — the fallback branch is untested here; it still " +
+        "matters for an unbackfilled database, so assert it another way rather than dropping it",
+    );
+    for (const r of rows) {
+      assert.equal(
+        r.served,
+        r.listed,
+        `filing ${r.id} lost its label instead of degrading to the listing value`,
+      );
+      assert.ok(r.served, `filing ${r.id} served a blank position`);
+    }
   },
 );
