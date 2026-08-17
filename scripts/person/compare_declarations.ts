@@ -363,8 +363,8 @@ export const compareDeclarations = async (
     if (noOffice.length)
       throw new Usage(
         `no filing states an office for: ${noOffice.join(", ")}.\n` +
-          `  declaration.filed_position is backfilled for 12.4% of the corpus; fill these ` +
-          `people first (a handful of requests each):\n` +
+          `  declaration.filed_position is filled from each filing's own <Personal> block; ` +
+          `fill these people first (a handful of requests each):\n` +
           noOffice
             .map(
               (sl) =>

@@ -335,8 +335,12 @@ so the year axis can never show them both in the job — it pairs Рашков's
 no abbreviation expansion, so „МВР" and „Министерство на вътрешните работи" do not pair; only
 one representative filing per (person, year, class) is visible, so a second filing that year
 under a different office is not (161 such groups corpus-wide); and it needs `filed_position`,
-backfilled for a minority of the corpus. Each yields a refusal the operator can read and act
-on, never a wrong pairing — and the refusal names the backfill command per person.
+filled from each filing's own `<Personal>` block. Each yields a refusal the operator can read
+and act on, never a wrong pairing — and the refusal names the backfill command per person.
+
+`filed_position` reached the whole corpus on 2026-08-17 (61,740 of 61,743; the three
+exceptions carry an institution and an empty `<Position>` in the register itself), so the
+axis is usable for any pair rather than only the handful backfilled by hand.
 
 ⚠️ **The coincident-year trap, which shipped and was caught in review.** Two people CAN hold
 the same post in one year — 3 of 30 sampled pairs do. The header and the caveat were keyed on

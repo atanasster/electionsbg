@@ -755,35 +755,83 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "--same-role refuses a person whose filings state no office, naming the backfill",
   async () => {
-    // declaration.filed_position is backfilled for a minority of the corpus, so this is the
-    // common refusal rather than an edge case — it must be actionable, not just a no.
-    const [bare] = await allRows<{ slug: string }>(
-      // The asset-bearing predicate is the gate's own (REP_CTE): without it this picks
-      // someone the gate rejects earlier for a DIFFERENT reason, and the test then passes
-      // on the wrong error. 2,025 of 19,773 office-less people are in that state.
+    // The condition is CONSTRUCTED, because the corpus no longer contains it: the
+    // 2026-08-17 backfill took filed_position to 100%, so no person is office-less any
+    // more. This test used to find one, and its own assertion message predicted its
+    // death („every person now has an office — this refusal is unreachable").
+    //
+    // The path is still live — three filings in the corpus carry an institution and an
+    // EMPTY <Position>, because the register itself states none — and it is the refusal a
+    // fresh clone hits before any backfill has run, so it must stay covered and must stay
+    // actionable rather than a bare no.
+    //
+    // Mutate-and-restore rather than a rolled-back transaction: `compareDeclarations` takes
+    // its own pooled connection and would not see an uncommitted write. Safe because
+    // filed_position is fully re-derivable — `backfill_filed_position.ts --slug <slug>` —
+    // and the restore is asserted below.
+    const [victim] = await allRows<{ slug: string }>(
       `SELECT p.slug
          FROM person p JOIN declaration d USING (person_id)
         WHERE p.status = 'active' AND p.is_public_figure
+          AND d.filed_position IS NOT NULL AND d.filed_institution IS NOT NULL
           AND d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
+          AND p.slug NOT IN ($1, $2)
           AND EXISTS (SELECT 1 FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id
                          AND a.value_eur IS NOT NULL)
-        GROUP BY p.slug
-       HAVING count(*) FILTER (WHERE d.filed_position IS NOT NULL) = 0
-        ORDER BY p.slug LIMIT 1`,
+        GROUP BY p.slug ORDER BY p.slug LIMIT 1`,
+      [RASHKOV, DEMERDZHIEV],
     );
-    assert.ok(
-      bare,
-      "every person now has an office — this refusal is unreachable",
+    assert.ok(victim, "no person with a stated office to borrow");
+
+    const saved = await allRows<{
+      declaration_id: string;
+      filed_position: string | null;
+      filed_institution: string | null;
+    }>(
+      `SELECT d.declaration_id::text, d.filed_position, d.filed_institution
+         FROM declaration d JOIN person p USING (person_id)
+        WHERE p.slug = $1`,
+      [victim.slug],
     );
-    await assert.rejects(
-      () =>
-        compareDeclarations({
-          slugA: RASHKOV,
-          slugB: bare.slug,
-          sameRole: true,
-        }),
-      /backfill_filed_position/,
+    assert.ok(saved.length > 0);
+
+    try {
+      await allRows(
+        `UPDATE declaration SET filed_position = NULL, filed_institution = NULL
+          WHERE person_id = (SELECT person_id FROM person WHERE slug = $1)`,
+        [victim.slug],
+      );
+      await assert.rejects(
+        () =>
+          compareDeclarations({
+            slugA: RASHKOV,
+            slugB: victim.slug,
+            sameRole: true,
+          }),
+        // Actionable: the message must name the tool that fixes it, not merely refuse.
+        /backfill_filed_position/,
+      );
+    } finally {
+      for (const r of saved)
+        await allRows(
+          `UPDATE declaration SET filed_position = $2, filed_institution = $3
+            WHERE declaration_id = $1::bigint`,
+          [r.declaration_id, r.filed_position, r.filed_institution],
+        );
+    }
+
+    // The restore is part of the test, not a hope.
+    const after = await allRows<{ n: string }>(
+      `SELECT count(*)::text n
+         FROM declaration d JOIN person p USING (person_id)
+        WHERE p.slug = $1 AND d.filed_position IS NOT NULL`,
+      [victim.slug],
+    );
+    assert.equal(
+      Number(after[0].n),
+      saved.filter((r) => r.filed_position !== null).length,
+      `${victim.slug}'s offices were not restored — re-run backfill_filed_position.ts --slug ${victim.slug} --apply`,
     );
   },
 );

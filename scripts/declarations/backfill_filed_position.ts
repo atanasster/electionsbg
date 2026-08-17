@@ -10,10 +10,14 @@
  * holds and skips the rest. Measured 2026-08-16 that is 6,288 of 61,725 outstanding filings
  * — free and instant, so run it first and let the crawl cover only what is left.
  *
- * The full run is a ~5.4 hour crawl of a shared public register (55,437 fetches at the
- * courtesy delay below), so it is an operator action like `tr:cr-deeds`, not a pipeline
- * step. It commits in batches and skips rows that already have both columns, so it is
- * interruptible and resumes simply by being re-run.
+ * The full run is a ~5 hour crawl of a shared public register, so it is an operator action
+ * like `tr:cr-deeds`, not a pipeline step. It commits in batches and skips rows that already
+ * have both columns, so it is interruptible and resumes simply by being re-run.
+ *
+ * RUN TO COMPLETION 2026-08-17: 54,071 rows in the final pass, and the corpus now stands at
+ * 61,740 of 61,743. The three stragglers are not failures — the register carries an
+ * institution and an EMPTY <Position> for them, so `filed_position` is correctly NULL. What
+ * is left for this script is incremental: new filings as they are ingested.
  *
  * ── WHY IT EXISTS ───────────────────────────────────────────────────────────────────────
  *

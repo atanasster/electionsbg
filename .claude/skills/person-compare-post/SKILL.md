@@ -113,8 +113,10 @@ guessing. It also reads one representative filing per (person, year, form class)
 second filing that year under a different office is invisible to it. Both are under-matching
 — a refusal you can see, never a wrong pairing.
 
-**It needs `filed_position`, which is backfilled for a minority of the corpus.** The refusal
-names the exact command per person; it is a handful of requests each:
+**It needs `filed_position`, which is now filled for the whole corpus** (61,740 of 61,743 as
+of 2026-08-17; the three exceptions are filings whose `<Position>` the register itself leaves
+empty). So this refusal should be rare — but it is what a fresh clone hits before any
+backfill has run, and the refusal names the exact command per person:
 
 ```bash
 npx tsx scripts/declarations/backfill_filed_position.ts --slug <slug> --apply
