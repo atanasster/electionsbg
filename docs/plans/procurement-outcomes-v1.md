@@ -835,6 +835,12 @@ case-mix. The payments-aligned per-procedure join in §8b therefore needs a
 `procedure` dimension added there (or a sibling table) — not a new table designed
 from scratch.
 
+**Changelog:** a monthly relation needs its own `recordIngestBatch` call, keyed
+on the **period** — `nzok_activities`' existing key uses
+`EXTRACT(YEAR FROM period)`, which would collapse 12 months into one key and
+report 11 of them as nothing new. `nzok_activity_facility_periods` is currently
+recorded by nothing at all. See §10c-4.
+
 **Verify after loading:**
 
 ```bash
@@ -1162,9 +1168,55 @@ which names the command, the mandatory activities→payments→tariffs ordering
 (059's `LANGUAGE sql` bodies are validated at CREATE time), the silent-degrade
 behaviour, the two live route consumers, and the verification query.
 
-**4. No `recent_updates` / changelog wiring is specified** for either the tariff
-load or the widened activity ingest, though the repo requires it for anything
-that changes a served corpus.
+**4. Changelog wiring — §10c-4's first draft was wrong; both loaders are already
+wired.** Verified: `load_nzok_tariffs_pg.ts:72` and
+`load_nzok_activities_pg.ts:646` both call `recordIngestBatch`. The claim that
+it was unspecified is withdrawn. What is real is narrower and more specific.
+
+**There are TWO changelogs and they are not interchangeable:**
+
+| | `recent_updates` (PG) | `data/data-changes.json` |
+|---|---|---|
+| granularity | per LOADER, row-level | per SKILL, one entry per run |
+| written by | `recordIngestBatch` → `ingest_batches` + `ingest_first_seen` | the `process-watch-report` orchestrator, via `scripts/lib/data-changes.ts` |
+| surfaces | the `/data/updates` feed, `funds_wire` / `funds_news` | the `/data-changes` page |
+
+What is already recorded:
+
+| source | key expression | amount |
+|---|---|---|
+| `nzok_pathway_tariffs` | `nrd_year \|\| procedure` | `price_eur` |
+| `nzok_activities` | `EXTRACT(YEAR FROM period) \|\| entity_key \|\| procedure` | `cases` |
+
+**The four things that actually need deciding:**
+
+- **`nzok_activity_facility_periods` is recorded by nothing.** The loader writes
+  three tables and calls `recordIngestBatch` for one. If §8e makes that table the
+  monthly panel's home, it needs its own call — otherwise the panel changes
+  vintage with no trace in either changelog.
+- **The activities key is YEAR-based, and that is a trap for anything monthly.**
+  `EXTRACT(YEAR FROM t.period)` means 12 monthly rows of one (entity, procedure)
+  collapse to a single key; `ingest_first_seen` inserts
+  `ON CONFLICT DO NOTHING`, so 11 of the 12 register as nothing new and the feed
+  reports a quiet month that was not quiet. **A monthly relation must put the
+  period in the key**, not the year.
+- **A 30-month backfill will be summarised, and that is correct.**
+  `INGEST_SUMMARY_THRESHOLD = 500`; the backfill inserts ~379k first-seen keys,
+  so `mode = 'summary'`, which `funds_wire` / `funds_news` deliberately report as
+  a backfill rather than as news. Do not "fix" that into a detail batch — the
+  alternative is 379k rows presented as new findings.
+- **W1 and W3 take NO changelog row of either kind.** W1 is a derived SQL
+  function over `tenders` (whose own loader already records a batch) and W3 is a
+  page; the precedent is `load_graph_pg.ts:34`, which states the rule for derived
+  serving layers explicitly.
+
+**And the manual-flow gap that survives all of the above:**
+`data/data-changes.json` is stamped **per skill** by `process-watch-report`. The
+tariff publish (§7e) and the activity refresh are documented as manual operator
+commands. Run through the `update-nzok` skill they get stamped; run as the bare
+`npm run` commands they do not, so `/data-changes` shows nothing while the PG
+side records the batch correctly. Either route the manual flows through the skill
+or accept that the two changelogs disagree — but say which.
 
 **5. Ownership and gates are still blank.** The header says `Owner: TBD`; W1's
 test is referenced as "the §1c test" but never specified; and §6e's
