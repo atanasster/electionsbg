@@ -2,15 +2,16 @@
 // text layer (scanned image of a handwritten vote sheet). Mirrors the
 // pattern in scripts/budget/capital_programs/kazanlak_ocr.ts — same
 // model, same auth path (.env.local → GEMINI_API_KEY), same undici
-// dispatcher with generous timeouts (a busy 12-page scan takes 5-8
-// minutes through gemini-3.5-flash).
+// dispatcher with generous timeouts. MEASURED 2026-08-17 on Sofia's
+// protokol 65: 132 scanned pages cost $0.65 and 352 s in nine 15-page
+// chunks, i.e. ~40 s per chunk.
 //
 // The output is plain text — we deliberately do NOT ask Gemini for a
 // structured tally JSON. Instead, the OCR'd text feeds the same
 // `findAllTallies` + `extractNamedVoteBlock` extractors that handle
 // native-text PDFs, so per-município parsers stay format-agnostic.
 //
-// Cost note: gemini-3.5-flash inference is far cheaper than the old
+// Cost note: gemini-3.7-flash inference is far cheaper than the old
 // 2.5-pro path, but still metered per call. The Sliven / Stara Zagora
 // scrapers only invoke this when
 // pdftotext returns <200 non-whitespace chars (the `looksLikeScannedPdf`
@@ -31,7 +32,11 @@ const withMuniBudget = (own: AbortSignal): AbortSignal => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ENV_FILE = resolve(__dirname, "../../../.env.local");
-const MODEL = "gemini-3.5-flash";
+// Verified present on this key 2026-08-17 (models.list). 3.5-flash also works,
+// but measured on the same 10-page Sofia chunk it transcribed 401 characters
+// against 3.7's 1,584 — a 4x difference in what it actually reads off a scan,
+// which on this corpus is the whole job.
+const MODEL = "gemini-3.7-flash";
 
 /**
  * .env.local loader — copy of the kazanlak_ocr helper. Deliberately
@@ -107,7 +112,28 @@ export const ocrPdfWithGemini = async (
   // accepted it. Same key, same URL, same JSON body — undici was
   // mangling something (likely headers or the binary body) that the
   // Gemini gateway interpreted as a malformed auth request.
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+  // STREAMING, not generateContent — and this is a correctness fix rather than a
+  // performance one.
+  //
+  // MEASURED 2026-08-17 on Sofia's protokol 65 (132 pages of scans). The
+  // non-streaming endpoint holds the connection open while it generates, and
+  // Google's frontend closes it at ~63 s with `bytesRead: 0`
+  // (`UND_ERR_SOCKET`, "other side closed"). With this prompt the model emits
+  // roughly 800 output tokens per page, so generation time scales with the
+  // chunk: 4 pages took 55 s and 6 pages 58 s — both already against the
+  // ceiling — while 30 pages never returned at all. Every one of the six
+  // protokols in the 2026-08-17 backfill failed this way, which is why Sofia
+  // gained 51 resolutions and zero named votes.
+  //
+  // Chunk-size tuning CANNOT fix it: at ~5 pages per request a 210-page
+  // protokol is 42 sequential ~55 s calls, i.e. ~40 minutes for one session.
+  // `streamGenerateContent` emits SSE frames as it generates, so the socket is
+  // never idle and the frontend has nothing to time out — the same 30-page
+  // chunk that never returned completes in 33 s with the first byte at 24 s.
+  //
+  // It is NOT a size limit: a 26.7 MB body of junk gets a clean HTTP 400 back,
+  // so the request plainly arrives.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse&key=${apiKey}`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -136,23 +162,62 @@ export const ocrPdfWithGemini = async (
     // município's wall-clock budget so a 15-minute OCR call cannot
     // outlive the município the orchestrator has already given up on.
     signal: withMuniBudget(AbortSignal.timeout(900_000)),
+  }).catch((err: unknown) => {
+    // `fetch failed` is undici's generic wrapper and the REASON lives in
+    // `err.cause` — which every caller up the chain was dropping, so six
+    // identical "protokol OCR failed: fetch failed" lines named a network
+    // error, a TLS error, a socket close and an abort identically. It took a
+    // reproduction to learn the real one was UND_ERR_SOCKET / "other side
+    // closed" at 63 s, i.e. the server hanging up mid-generation.
+    const e = err as Error & { cause?: { code?: string; message?: string } };
+    const cause = e.cause?.code
+      ? `${e.cause.code}${e.cause.message ? ` (${e.cause.message})` : ""}`
+      : (e.cause?.message ?? "no cause");
+    const wrapped = new Error(
+      `gemini request failed: ${e.message} [${cause}] — ` +
+        `a socket close mid-generation usually means the chunk is too large; ` +
+        `see chunkPages in pdf_chunk_ocr.ts`,
+    );
+    (wrapped as Error & { cause?: unknown }).cause = e.cause;
+    throw wrapped;
   });
   if (!res.ok) {
     const txt = await res.text();
     throw new Error(`gemini ${res.status}: ${txt.slice(0, 500)}`);
   }
-  const json = (await res.json()) as GeminiResponse;
-  const text = json.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+  // Reassemble the SSE frames. Each `data:` line is a partial GeminiResponse
+  // carrying the next slice of text; usageMetadata arrives on later frames and
+  // the LAST value is the total, so it is overwritten rather than summed.
+  let text = "";
+  let input: number | undefined;
+  let output: number | undefined;
+  let finishReason: string | undefined;
+  const decoder = new TextDecoder();
+  let pending = "";
+  for await (const part of res.body as unknown as AsyncIterable<Uint8Array>) {
+    pending += decoder.decode(part, { stream: true });
+    let nl: number;
+    while ((nl = pending.indexOf("\n")) >= 0) {
+      const line = pending.slice(0, nl).trim();
+      pending = pending.slice(nl + 1);
+      if (!line.startsWith("data:")) continue;
+      let frame: GeminiResponse;
+      try {
+        frame = JSON.parse(line.slice(5)) as GeminiResponse;
+      } catch {
+        // A frame split across TCP reads is normal; the next read completes it.
+        continue;
+      }
+      text += frame.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+      finishReason = frame.candidates?.[0]?.finishReason ?? finishReason;
+      input = frame.usageMetadata?.promptTokenCount ?? input;
+      output = frame.usageMetadata?.candidatesTokenCount ?? output;
+    }
+  }
   if (!text || text.trim() === "[empty]") {
     throw new Error(
-      `gemini returned empty/unintelligible — finishReason=${json.candidates?.[0]?.finishReason}`,
+      `gemini returned empty/unintelligible — finishReason=${finishReason}`,
     );
   }
-  return {
-    text,
-    usage: {
-      input: json.usageMetadata?.promptTokenCount,
-      output: json.usageMetadata?.candidatesTokenCount,
-    },
-  };
+  return { text, usage: { input, output } };
 };

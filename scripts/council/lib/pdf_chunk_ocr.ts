@@ -81,7 +81,29 @@ export const ocrPdfChunked = async (
   pdfPath: string,
   opts: { chunkPages?: number; onProgress?: (msg: string) => void } = {},
 ): Promise<ChunkOcrResult> => {
-  const chunkPages = opts.chunkPages ?? 30;
+  // 15 pages, and the reason is TRANSCRIPTION QUALITY rather than transport —
+  // the transport limit is fixed in gemini_ocr.ts by streaming. Both halves
+  // measured 2026-08-17 against Sofia's protokol 65 (132 pages of scans):
+  //
+  //   - Non-streaming `generateContent` cannot do this job at ANY chunk size.
+  //     Google's frontend closes the connection at ~63 s while the model is
+  //     still generating, and with this prompt 4 pages already takes 55 s and
+  //     6 pages 58 s. That is why all six protokols in the 2026-08-17 backfill
+  //     failed and Sofia gained 51 resolutions with zero named votes.
+  //     `streamGenerateContent` (gemini_ocr.ts) removes the ceiling entirely:
+  //     the same 30-page chunk that never returned completes in 33 s.
+  //
+  //   - Streaming makes 30 pages POSSIBLE but not GOOD. At 30 pages the model
+  //     starts abstracting instead of transcribing: 9,719 chars out of 30 pages
+  //     against 18,173 chars out of 6 — i.e. five times the input produced HALF
+  //     the text. A named-vote roster is ~50 councillor lines per vote, so an
+  //     abstracting pass silently drops exactly the rows this OCR exists to
+  //     recover, and it drops them at a plausible-looking 200.
+  //
+  // 15 is therefore a QUALITY bound, not a timeout bound. Raising it will not
+  // fail — it will quietly transcribe less. Re-measure chars-per-page, never
+  // just wall-clock, before changing it.
+  const chunkPages = opts.chunkPages ?? 15;
   const log = opts.onProgress ?? ((m: string) => console.log(m));
   const totalPages = await countPages(pdfPath);
   log(
