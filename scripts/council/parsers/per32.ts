@@ -203,8 +203,34 @@ const findRealMarkers = (text: string): Marker[] => {
 // lookahead after the vote token instead of \b — ASCII word-boundary
 // doesn't fire after Cyrillic letters in u-mode regex (same trap as
 // the HKV34 chair-announcement parser hit).
-const PER_NAME_RE =
-  /([А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)?(?:\s+[А-ЯЁ][а-яё]+){1,3})\s*:\s*(За|Против|Въздържал[аи]?\s*се|отсъства)(?=[^\p{L}]|$)/giu;
+//
+// ⚠️ THE INTRA-NAME SEPARATOR MUST NOT CROSS A LINE, and it used `\s+`.
+// `\s` matches `\n`, and „За" / „Против" themselves match the name-part class
+// (capital + lowercase), so a vote-label line sitting directly above a
+// „Name: За" line was absorbed INTO the name: the capture came out as
+// "За\nРая Благоева". The stored norm_key then began with a vote word, the PG
+// loader refused it as corrupt, and that councillor's vote was dropped.
+//
+// Measured 2026-08-17 over the durable tree: 1,029 of Перник's 8,915
+// per-councillor rows, and the cost was NOT spread thinly — it fell on the 18
+// councillors who happen to follow a label line, and ALL EIGHTEEN had zero
+// surviving clean rows. Рая Владимирова Благоева (364 votes) and Петър Кирилов
+// Първанов (287) are on the official roster and were entirely absent from
+// „Кой как гласува" for Перник.
+//
+// `:` and the vote are also line-bound now, for the same reason.
+// The hyphen alternative repeats on EVERY name part, not just the first. It was
+// on the first only, so „Мариета Тимнева-Рохова: Въздържал се" matched nothing
+// at all — a pre-existing latent gap (Перник's roster happens to hold no
+// hyphenated councillor today, so it costs nothing yet) and one hyphenated
+// surname away from silently dropping a whole person.
+const NAME_PART = "[А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)*";
+const PER_NAME_RE = new RegExp(
+  `(${NAME_PART}(?:[ \\t\\u00a0]+${NAME_PART}){1,3})` +
+    `[ \\t\\u00a0]*:[ \\t\\u00a0]*` +
+    `(За|Против|Въздържал[аи]?[ \\t\\u00a0]*се|отсъства)(?=[^\\p{L}]|$)`,
+  "giu",
+);
 
 const collectNamedVotes = (
   blockText: string,
