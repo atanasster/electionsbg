@@ -571,11 +571,15 @@ test.skipIf(skip)(
       "fixture assumes Рашков's 2022 annual carries a credit limit — it no longer does",
     );
 
+    // allowThin because Демерджиев's fiscal-2022 annual trips the substance guard — this
+    // test is about the credit-limit arithmetic on РАШКОВ's filing, not about whether the
+    // two are comparable, and the guard would otherwise refuse before the maths runs.
     const { gate } = await compareDeclarations({
       slugA: RASHKOV,
       slugB: DEMERDZHIEV,
       year: 2022,
       klass: "annual",
+      allowThin: true,
     });
     const t = (gate as unknown as Gate).totals[RASHKOV];
     // Not a debt…
@@ -709,10 +713,14 @@ test.skipIf(skip)(
     // The fixture is the reason the axis exists: both men were interior minister, but never
     // in the same year, so the year-matched gate can never show them in the role. Рашков
     // filed an annual as minister in 2021, Демерджиев in 2022.
+    // allowThin: this pair is the fixture for the OFFICE-matching mechanics, and it is also
+    // the fixture for the substance guard that refuses it — see the thin-guard test below.
+    // Exercising the axis needs the override; publishing it does not, which is the point.
     const { gate, card } = await compareDeclarations({
       slugA: RASHKOV,
       slugB: DEMERDZHIEV,
       sameRole: true,
+      allowThin: true,
     });
     const g = gate as unknown as Gate;
     assert.match(g.picked.office ?? "", /вътрешните работи/i);
@@ -925,6 +933,182 @@ test.skipIf(skip)(
     assert.ok(
       !/най-скорошната година/i.test(card.yearNote ?? ""),
       "a role-matched card must not carry the year-matched caveat",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "refuses a filing too thin to compare, and only when it would distort the card",
+  async () => {
+    // The defect this closes shipped a card. Демерджиев's fiscal-2022 annual and Рашков's
+    // fiscal-2021 annual are the same FORM CLASS, both filed as interior minister, and so
+    // passed every gate there was — but the first states one row (€31,404 cash, no bank at
+    // all) while the same man's filing six months later states €452,192 including €160,755
+    // of bank. The card published a 13x gap that is an artifact of a near-empty filing.
+    //
+    // Form class is necessary and not sufficient: two annuals can be formally matched and
+    // substantively incomparable.
+    await assert.rejects(
+      () =>
+        compareDeclarations({
+          slugA: RASHKOV,
+          slugB: DEMERDZHIEV,
+          sameRole: true,
+        }),
+      /too thin to compare/,
+    );
+
+    // …and it names the numbers, because "too thin" is a claim the operator must be able to
+    // check against the filings themselves.
+    const err = await compareDeclarations({
+      slugA: RASHKOV,
+      slugB: DEMERDZHIEV,
+      sameRole: true,
+    }).catch((e: Error) => e.message);
+    assert.match(err as string, new RegExp(DEMERDZHIEV));
+    assert.match(err as string, /bank/);
+
+    // --allow-thin is the deliberate override, for an operator who has read the filings.
+    const { card } = await compareDeclarations({
+      slugA: RASHKOV,
+      slugB: DEMERDZHIEV,
+      sameRole: true,
+      allowThin: true,
+    });
+    assert.ok(card.versus.left.total.value);
+
+    // The guard must NOT fire on the year-matched 2023 pair, where both sides are
+    // substantial — over-refusing would make the whole gate useless.
+    await assert.doesNotReject(() =>
+      compareDeclarations({ slugA: RASHKOV, slugB: DEMERDZHIEV }),
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the thin guard does NOT fire when money merely moved and no category vanished",
+  async () => {
+    // The signal that isolates the conjunction. Mutating the lost-category requirement away
+    // left every other assertion green, because the fixture pair trips the ratio and the
+    // shortfall too — so this test exists to be the one that fails.
+    //
+    // The subject holds a small fraction of what they declared nearby, with a shortfall far
+    // over the floor, and yet nothing vanished: their money genuinely moved. Refusing them
+    // would make the guard fire on ordinary wealth changes.
+    const [subject] = await allRows<{ slug: string; yr: number }>(
+      `WITH m AS (
+         SELECT d.declaration_id, d.person_id,
+                COALESCE(d.fiscal_year, d.declaration_year) AS yr,
+                COALESCE(SUM(a.value_eur) FILTER (
+                  WHERE a.category IN ('bank','cash','investment','security','receivable')), 0) AS money,
+                COALESCE(array_agg(DISTINCT a.category) FILTER (
+                  WHERE a.category IN ('bank','cash','investment','security','receivable')), '{}') AS cats
+           FROM declaration d LEFT JOIN declaration_asset a USING (declaration_id)
+          WHERE d.declaration_type = 'Annualy'
+          GROUP BY 1,2,3
+         HAVING COALESCE(SUM(a.value_eur) FILTER (WHERE a.value_eur IS NOT NULL), 0) > 0
+       ), j AS (
+         SELECT m.person_id, m.yr, m.money, max(o.money) AS peer,
+                bool_or(EXISTS (SELECT 1 FROM unnest(o.cats) c
+                                 WHERE NOT (m.cats @> ARRAY[c]))) AS lost_any
+           FROM m JOIN m o ON o.person_id = m.person_id
+                          AND o.declaration_id <> m.declaration_id
+                          AND abs(o.yr - m.yr) <= 2
+          GROUP BY 1,2,3
+       )
+       SELECT p.slug, j.yr
+         FROM j JOIN person p USING (person_id)
+        WHERE p.status = 'active' AND p.is_public_figure
+          AND j.money < 0.25 * j.peer
+          AND j.peer - j.money >= 50000
+          AND NOT j.lost_any
+        ORDER BY j.peer - j.money DESC LIMIT 1`,
+    );
+    assert.ok(
+      subject,
+      "no filing has a large shortfall with no vanished category — this test cannot " +
+        "discriminate and the conjunction is untested",
+    );
+
+    // A substantial counterpart filing the same year, so only the subject is in question.
+    const [other] = await allRows<{ slug: string }>(
+      `WITH m AS (
+         SELECT d.declaration_id, d.person_id, p.slug,
+                COALESCE(SUM(a.value_eur) FILTER (
+                  WHERE a.category IN ('bank','cash','investment','security','receivable')), 0) AS money
+           FROM declaration d JOIN person p USING (person_id)
+           LEFT JOIN declaration_asset a USING (declaration_id)
+          WHERE d.declaration_type = 'Annualy'
+            AND COALESCE(d.fiscal_year, d.declaration_year) = $1
+            AND p.status = 'active' AND p.is_public_figure AND p.slug <> $2
+          GROUP BY 1,2,3
+         HAVING COALESCE(SUM(a.value_eur) FILTER (WHERE a.value_eur IS NOT NULL), 0) > 0
+       )
+       SELECT slug FROM m ORDER BY money DESC LIMIT 1`,
+      [subject.yr, subject.slug],
+    );
+    assert.ok(other, `no counterpart filed an annual for ${subject.yr}`);
+
+    await assert.doesNotReject(
+      () =>
+        compareDeclarations({
+          slugA: subject.slug,
+          slugB: other.slug,
+          year: subject.yr,
+          klass: "annual",
+        }),
+      "the guard fired on a filing where money moved but nothing vanished",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the thin guard needs all three signals, not any one of them",
+  async () => {
+    // Each signal alone misfires, which is why the rule is a conjunction. Measured on the
+    // fixture pair's own history: Рашков's 2018 filing holds 3.7% of its neighbours and is
+    // fine (his money genuinely fell, nothing vanished), and his 2015 filing lost a category
+    // with money at 88% and is also fine. Corpus-wide the ratio alone fires on 13.10% of
+    // filings and all three together on 3.24%.
+    const [counts] = await allRows<{
+      ratio_only: string;
+      all_three: string;
+    }>(
+      `WITH m AS (
+         SELECT d.declaration_id, d.person_id,
+                COALESCE(d.fiscal_year, d.declaration_year) AS yr,
+                COALESCE(SUM(a.value_eur) FILTER (
+                  WHERE a.category IN ('bank','cash','investment','security','receivable')), 0) AS money,
+                COALESCE(array_agg(DISTINCT a.category) FILTER (
+                  WHERE a.category IN ('bank','cash','investment','security','receivable')), '{}') AS cats
+           FROM declaration d LEFT JOIN declaration_asset a USING (declaration_id)
+          WHERE d.declaration_type IN ('Annualy','Entry','Vacate')
+          GROUP BY 1,2,3
+         HAVING COALESCE(SUM(a.value_eur) FILTER (WHERE a.value_eur IS NOT NULL), 0) > 0
+       ), j AS (
+         SELECT m.declaration_id, m.money, max(o.money) AS peer,
+                bool_or(EXISTS (SELECT 1 FROM unnest(o.cats) c
+                                 WHERE NOT (m.cats @> ARRAY[c]))) AS lost_any
+           FROM m JOIN m o ON o.person_id = m.person_id
+                          AND o.declaration_id <> m.declaration_id
+                          AND abs(o.yr - m.yr) <= 2
+          GROUP BY 1, 2
+       )
+       SELECT count(*) FILTER (WHERE money < 0.25 * peer)::text AS ratio_only,
+              count(*) FILTER (WHERE money < 0.25 * peer AND lost_any
+                                 AND peer - money >= 50000)::text AS all_three
+         FROM j WHERE peer > 0`,
+    );
+    const ratioOnly = Number(counts.ratio_only);
+    const allThree = Number(counts.all_three);
+    assert.ok(
+      allThree > 0,
+      "the guard never fires — it cannot be protecting anything",
+    );
+    assert.ok(
+      allThree < ratioOnly / 3,
+      `the extra two signals barely narrow the ratio test (${allThree} vs ${ratioOnly}) — ` +
+        `the conjunction is not doing the work its comment claims`,
     );
   },
 );

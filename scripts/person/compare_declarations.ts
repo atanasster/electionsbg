@@ -99,6 +99,44 @@ import {
  *  `= 'debt'` debt arm — `credit_limit` is in neither, by design. */
 const NOT_A_METRIC = new Set(["credit_limit"]);
 
+/** The categories a filing states as a POSITION rather than an acquisition — what a person
+ *  holds, in money. Property is deliberately not among them: the annual form is legitimately
+ *  thin on property (trap 2.4, 50.7%), so including it would flag half the corpus. */
+const MONEY_CATEGORIES = [
+  "bank",
+  "cash",
+  "investment",
+  "security",
+  "receivable",
+];
+
+/** A chosen filing is REFUSED as too thin when both hold against the same person's own
+ *  filings within ±2 years: it carries under this share of their money, AND a money category
+ *  those filings contain is missing here entirely.
+ *
+ *  Both are required because either alone misfires, measured on the fixture pair: Рашков's
+ *  2018 filing holds 3.7% of its neighbours and is fine (his money genuinely fell), while his
+ *  2015 filing lost a category with money at 88% and is also fine. Together they fire on
+ *  1.36% of filings corpus-wide (427 of 31,313).
+ *
+ *  This exists because form class is NOT sufficient. Демерджиев's fiscal-2022 annual and
+ *  Рашков's fiscal-2021 annual are the same form, both filed as interior minister, and
+ *  formally comparable — but the first states ONE row (€31,404 cash, no bank at all) while
+ *  the same man's filing six months later states €452,192 including €160,755 of bank. A card
+ *  built from it published a 13x gap that is an artifact of a near-empty filing, which is the
+ *  same class of false sentence as the unpriced-property trap. */
+const THIN_MONEY_SHARE = 0.25;
+const THIN_PEER_YEARS = 2;
+/** …and only when the shortfall is large enough to distort the card. The guard exists to stop
+ *  a published gap that is an artifact, so the quantity that matters is how much the card
+ *  would MISSTATE — not the ratio, and not the person's absolute wealth. A filing at 22% of a
+ *  €46,693 neighbour is thin in the same ratio as Демерджиев's at 6.9% of €452,192, and only
+ *  the second makes the other side look dramatically richer than the record supports.
+ *
+ *  Measured share of filings tripping all three: €50k 3.24%, €100k 1.55%, €200k 0.69%. At
+ *  €50k the fixture (a €420,788 shortfall) is caught with three orders of magnitude to spare. */
+const THIN_ABSOLUTE_EUR = 50_000;
+
 /** Share of a metric's rows that may lack a declared value before the metric is dropped
  *  from the card as a money comparison.
  *
@@ -297,6 +335,10 @@ export type CompareOptions = {
   maxUnvaluedShare?: number;
   /** Match on the OFFICE each person held rather than on the year — see the gate. */
   sameRole?: boolean;
+  /** Publish anyway when a chosen filing is too thin — see {@link THIN_MONEY_SHARE}. */
+  allowThin?: boolean;
+  /** 0..1; default {@link THIN_MONEY_SHARE}. */
+  maxThinShare?: number;
 };
 
 /** The gate's reasoning, and the card it licenses. */
@@ -529,6 +571,88 @@ export const compareDeclarations = async (
   // SEPARATE from the money query and deliberately not conditioned on price: this band's
   // whole purpose is to survive the drop that removes the property MONEY, so it must read
   // every row including the ones nobody priced.
+  /** BG thousands grouping with non-breaking spaces, so a euro figure never wraps mid-number.
+   *  Declared here rather than beside the card build because the substance guard below throws
+   *  with formatted figures — a `const` used before its initialiser is a TDZ error at runtime
+   *  that tsc does not catch across statement order in the same scope. */
+  const eur = (n: number): string =>
+    `${Math.round(n).toLocaleString("bg-BG").replace(/\s/g, "\u00a0")}\u00a0€`;
+
+  // ---- substance: is each chosen filing actually a statement of a position? ----
+  const thin = await allRows<{
+    slug: string;
+    money: number;
+    peer_money: number;
+    lost: string[] | null;
+  }>(
+    `WITH ${REP_CTE},
+     chosen AS (
+       ${CHOSEN_SQL}
+     ),
+     money AS (
+       SELECT d.declaration_id, d.person_id,
+              COALESCE(d.fiscal_year, d.declaration_year) AS yr,
+              COALESCE(SUM(a.value_eur) FILTER (
+                WHERE a.category = ANY($7::text[])), 0)::float8 AS money,
+              COALESCE(array_agg(DISTINCT a.category) FILTER (
+                WHERE a.category = ANY($7::text[])), '{}') AS cats
+         FROM declaration d
+         LEFT JOIN declaration_asset a USING (declaration_id)
+        WHERE d.declaration_type IN ('Annualy', 'Entry', 'Vacate')
+        GROUP BY 1, 2, 3
+       HAVING COALESCE(SUM(a.value_eur) FILTER (WHERE a.value_eur IS NOT NULL), 0) > 0
+     )
+     SELECT c.slug,
+            m.money,
+            COALESCE(MAX(o.money), 0)::float8 AS peer_money,
+            -- Money categories a neighbouring filing states and this one does not.
+            COALESCE(array_agg(DISTINCT x.cat) FILTER (WHERE x.cat IS NOT NULL), '{}') AS lost
+       FROM chosen c
+       JOIN money m ON m.declaration_id = c.declaration_id
+       LEFT JOIN money o
+              ON o.person_id = m.person_id
+             AND o.declaration_id <> m.declaration_id
+             AND abs(o.yr - m.yr) <= $8
+       LEFT JOIN LATERAL unnest(o.cats) AS x(cat)
+              ON NOT (m.cats @> ARRAY[x.cat])
+      GROUP BY c.slug, m.money`,
+    [
+      slugs,
+      slugA,
+      slugB,
+      picked.klass,
+      picked.yearA,
+      picked.yearB,
+      MONEY_CATEGORIES,
+      THIN_PEER_YEARS,
+    ],
+  );
+
+  const maxThinShare = opts.maxThinShare ?? THIN_MONEY_SHARE;
+  const tooThin = thin.filter(
+    (t) =>
+      t.peer_money > 0 &&
+      t.money < maxThinShare * t.peer_money &&
+      t.peer_money - t.money >= THIN_ABSOLUTE_EUR &&
+      (t.lost?.length ?? 0) > 0,
+  );
+  if (tooThin.length && !opts.allowThin)
+    throw new Usage(
+      `a chosen filing is too thin to compare — it states a fraction of what the same ` +
+        `person declared within ${THIN_PEER_YEARS} years, and omits a money category ` +
+        `their other filings carry:\n` +
+        tooThin
+          .map(
+            (t) =>
+              `  ${t.slug}: ${eur(t.money)} against ${eur(t.peer_money)} nearby ` +
+              `(${((100 * t.money) / t.peer_money).toFixed(1)}%), missing ${t.lost!.join(", ")}`,
+          )
+          .join("\n") +
+        `\n  Comparing it publishes a gap that is an artifact of the filing, not of the ` +
+        `person. Pick another year/office, or pass --allow-thin if you have read the ` +
+        `filings and the difference is real.`,
+    );
+
   const propRows = await allRows<{ slug: string; description: string | null }>(
     `WITH ${REP_CTE},
      chosen AS (
@@ -550,9 +674,6 @@ export const compareDeclarations = async (
     const lower = t.toLocaleLowerCase("bg-BG");
     return lower.charAt(0).toLocaleUpperCase("bg-BG") + lower.slice(1);
   };
-
-  const eur = (n: number): string =>
-    `${Math.round(n).toLocaleString("bg-BG").replace(/\s/g, "\u00a0")}\u00a0€`;
 
   // Only metrics legal on the chosen class, in a stable order, and only those either side
   // actually declared — plus the ones the card should always state even at zero.
@@ -963,6 +1084,7 @@ const main = async (): Promise<void> => {
     );
 
   const sameRole = has("--same-role");
+  const allowThin = has("--allow-thin");
   if (sameRole && (year !== undefined || rawClass !== undefined))
     throw new Usage(
       "--same-role picks the year from each person's time in the office, so it cannot be " +
@@ -973,6 +1095,7 @@ const main = async (): Promise<void> => {
     slugA: await resolvePerson(rawA),
     slugB: await resolvePerson(rawB),
     sameRole,
+    allowThin,
     year,
     klass: rawClass as VersusFormClass | undefined,
     totalBasis,

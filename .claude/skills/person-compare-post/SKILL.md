@@ -189,7 +189,16 @@ Every refusal below is a finding in its own right, and often the better post.
 | `dropped for unpriced rows: real_estate …` | that table was filed with no prices | „N от имотите са декларирани без цена" is itself publishable |
 | `the debt table is substantially unpriced` | a net total would be a ceiling over an unknown liability | re-run `--total assets`, and say the debts are not fully priced |
 | `every candidate metric was dropped` | nothing comparable survives | do not post this pair |
+| `a chosen filing is too thin to compare` | one side's filing states a fraction of what that person declared nearby, and omits a money category their other filings carry | pick another year or office — the gap you would publish is an artifact of the filing |
 | `declares a negative total for …` | a parse anomaly | inspect the filing; do not publish |
+
+**Same form class is NOT the same thing as comparable, and this is the trap that got a card
+published.** Демерджиев's fiscal-2022 annual and Рашков's fiscal-2021 annual are the same
+form, both filed as interior minister — and the first states ONE row (31 404 € cash, no bank
+at all) while the same man's filing six months later states 452 192 € including 160 755 € of
+bank. A card built from it published a 13x gap that is an artifact of a near-empty filing.
+The gate now refuses that pair; `--allow-thin` overrides it, and you should only reach for
+that having read both filings.
 
 **„Unpriced" is not „cheap", and this is the trap the corpus sets most often.**
 Рашков's 2023 встъпителна lists 24 properties of which **19 carry no declared
