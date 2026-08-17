@@ -47,6 +47,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { readMunicipalAwardersByEkatte } from "../db/lib/muni_awarders";
 import {
+  readCouncilAlertsByObshtina,
+  type CouncilAlertRow,
+} from "../db/lib/council_alerts";
+import {
   readInterregByObshtina,
   type InterregAlertRow,
 } from "../db/lib/interreg_alerts";
@@ -139,36 +143,6 @@ type ChmiHistoryShard = {
   events: ChmiHistoryEvent[];
 };
 
-type CouncilTag =
-  | "financial"
-  | "personnel"
-  | "urban_planning"
-  | "procurement"
-  | "social"
-  | "other";
-
-type CouncilTally = {
-  for?: number;
-  against?: number;
-  abstain?: number;
-};
-
-type CouncilResolution = {
-  id: string;
-  date: string;
-  title: string;
-  tally?: CouncilTally;
-  result?: string;
-  summary_bg?: string;
-  summary_en?: string;
-  tags?: CouncilTag[];
-  sourceUrl?: string;
-};
-
-type CouncilIndexFile = {
-  resolutionsByObshtina: Record<string, CouncilResolution[]>;
-};
-
 type AlertEvent = {
   date: string; // YYYY-MM-DD
   kind:
@@ -207,7 +181,6 @@ const PROJECT_ROOT = path.resolve(
   "../..",
 );
 const MUNICIPALITIES_FILE = path.join(PROJECT_ROOT, "data/municipalities.json");
-const COUNCIL_INDEX = path.join(PROJECT_ROOT, "data/council/index.json");
 const PROC_AWARDERS = path.join(PROJECT_ROOT, "data/procurement/awarders");
 const TENDERS_RECENT = path.join(
   PROJECT_ROOT,
@@ -250,40 +223,20 @@ const PLENARY_TOP_N = 5;
 // Keep the top 3 freshest tagged rows from the last 60 days.
 const COUNCIL_TOP_N = 3;
 const COUNCIL_LOOKBACK_DAYS = 60;
+// How many dissenters to name inline before collapsing to a +N count.
+const COUNCIL_DISSENT_NAMES = 3;
 // Extraordinary (partial / new) elections per município. Capped so a long
 // by-election history (e.g. a Столична район) can't flood the digest; the
 // freshest events sort to the top of the feed anyway.
 const CHMI_TOP_N = 6;
 
-// Bridge between frontend obshtina codes (BGS04, S2401, SFO_CITY) and the
-// council ingest's keys (BGS01, SOF). Mirrors STATIC_MAP +
-// councilKeyForObshtina() in src/data/council/councilObshtinaMap.ts.
-// Duplicated rather than imported so this script stays free of frontend
-// imports. Keep in sync.
-const COUNCIL_KEY_MAP: Record<string, string> = {
-  SFO_CITY: "SOF",
-  VTR04: "VTR01",
-  PDV22: "PDV01",
-  VAR06: "VAR01",
-  BGS04: "BGS01",
-  SZR31: "SZR01",
-  RSE27: "RSE01",
-  PVN24: "PVN01",
-  SLV20: "SLV01",
-  BLG03: "BLG03",
-  GAB05: "GAB05",
-  SZR12: "SZR12",
-  HKV34: "HKV34",
-  HKV09: "HKV09",
-  DOB28: "DOB28",
-  RAZ26: "RAZ26",
-  PER32: "PER32",
-};
-
-const councilKeyFor = (obshtina: string): string | null => {
-  if (obshtina.startsWith("S2")) return "SOF";
-  return COUNCIL_KEY_MAP[obshtina] ?? null;
-};
+// The obshtina -> council code bridge used to live here, as a hand-maintained
+// COUNCIL_KEY_MAP whose own comment said it mirrored councilObshtinaMap.ts —
+// the THIRD copy of that mapping. It is gone: council_muni_code is the single
+// definition and readCouncilAlertsByObshtina() resolves through it in SQL, the
+// same path the serving functions take. A mapping kept in three places is how a
+// município silently renders nothing, which is the failure councilObshtinaMap.ts
+// was created to fix.
 
 const readJson = <T>(p: string): T | null => {
   try {
@@ -783,58 +736,78 @@ const buildPlenaryKeywordEvents = (
   return out;
 };
 
-// Council resolutions are the freshest "what just happened" signal for
-// any município wired into the council ingest. We take the top 3 from the
-// last COUNCIL_LOOKBACK_DAYS, prefer tagged + tally-bearing rows so they
-// outrank uncategorised entries. resolutionsForKey is sorted date-desc by
-// the council build script, so we walk in order and rank-sort within the
-// freshness window.
-const daysAgoFromIso = (iso: string, today: number): number => {
-  const d = new Date(iso + "T00:00:00Z").getTime();
-  return Math.floor((today - d) / (1000 * 60 * 60 * 24));
+// Council resolutions are the freshest "what just happened" signal for any
+// município wired into the council ingest. Top COUNCIL_TOP_N from the last
+// COUNCIL_LOOKBACK_DAYS, ranked so named-vote and tally-bearing rows outrank
+// bare ones. The window is applied in SQL (council_alerts.ts).
+const councilRank = (r: CouncilAlertRow): number => {
+  // A CONTESTED decision outranks everything. Without this arm the feed
+  // selects away the one event type this whole tier exists to enable: ranking
+  // on hasNamedVotes alone ties every resolution from the same council, the
+  // date tiebreak ties again within a session, and the winner falls out of `id`
+  // order — measured, 4 of the 6 dissent-bearing resolutions in the current
+  // window lost their slot to same-day unanimous items.
+  //
+  // `tags` used to be the primary signal and is gone with the JSON index: 0 of
+  // that file's 2,735 rows and 0 of Postgres's 4,727 ever carried one, so it
+  // only ever contributed 0.
+  const contested = r.hasNamedVotes && r.againstNames.length > 0 ? 1 : 0;
+  const named = r.hasNamedVotes ? 1 : 0;
+  const tallied = r.tallyFor != null ? 1 : 0;
+  return contested * 4 + named * 2 + tallied;
 };
 
-const councilRank = (r: CouncilResolution): number => {
-  const tagged = (r.tags?.length ?? 0) > 0 ? 1 : 0;
-  const tallied = r.tally ? 1 : 0;
-  return tagged * 2 + tallied;
-};
-
+/**
+ * Top COUNCIL_TOP_N recent decisions for one município.
+ *
+ * The freshness window is applied in SQL, so `rows` is already inside it.
+ *
+ * Named votes are gated on the resolution's own `hasNamedVotes`, never on the
+ * against-list being non-empty: 11 of the 16 councils publish an aggregate
+ * only, and a unanimous decision in a council that DOES publish names has an
+ * empty against-list for a completely different reason. Conflating the two
+ * would put "0 against" on a council that recorded nothing.
+ */
 const buildCouncilResolutionEvents = (
-  obshtina: string,
-  resolutionsByObshtina: Record<string, CouncilResolution[]> | null,
-  todayMs: number,
+  rows: CouncilAlertRow[] | undefined,
 ): AlertEvent[] => {
-  if (!resolutionsByObshtina) return [];
-  const key = councilKeyFor(obshtina);
-  if (!key) return [];
-  const all = resolutionsByObshtina[key];
-  if (!all || all.length === 0) return [];
-  const fresh = all.filter(
-    (r) => daysAgoFromIso(r.date, todayMs) <= COUNCIL_LOOKBACK_DAYS,
-  );
-  if (fresh.length === 0) return [];
-  // Rank by content quality (tagged + tallied first), break ties by date
-  // desc. Sort copy so the source array stays intact.
-  const ranked = [...fresh].sort((a, b) => {
+  if (!rows || rows.length === 0) return [];
+  const ranked = [...rows].sort((a, b) => {
     const rb = councilRank(b) - councilRank(a);
     if (rb !== 0) return rb;
-    return b.date.localeCompare(a.date);
+    return b.decidedOn.localeCompare(a.decidedOn);
   });
-  const top = ranked.slice(0, COUNCIL_TOP_N);
-  return top.map((r) => {
-    const title = r.summary_bg ?? r.title;
-    const title_en = r.summary_en ?? r.title;
-    const tally = r.tally
-      ? `${r.tally.for ?? 0}–${r.tally.against ?? 0}–${r.tally.abstain ?? 0}`
-      : undefined;
+  return ranked.slice(0, COUNCIL_TOP_N).map((r) => {
+    const title = r.summaryBg ?? r.title;
+    const title_en = r.summaryEn ?? r.title;
+    const tally =
+      r.tallyFor != null
+        ? `${r.tallyFor ?? 0}–${r.tallyAgainst ?? 0}–${r.tallyAbstain ?? 0}`
+        : undefined;
+    // The named-vote half — newly expressible, and the reason this source moved
+    // to Postgres. Only the councillors who voted AGAINST are named: abstention
+    // is the explicit refusal to take a side, so listing it as opposition would
+    // attribute a position to someone who declined to take one.
+    const dissent =
+      r.hasNamedVotes && r.againstNames.length > 0
+        ? r.againstNames.slice(0, COUNCIL_DISSENT_NAMES).join(", ") +
+          (r.againstNames.length > COUNCIL_DISSENT_NAMES
+            ? ` +${r.againstNames.length - COUNCIL_DISSENT_NAMES}`
+            : "")
+        : undefined;
+    const detail = [tally, dissent ? `против: ${dissent}` : undefined]
+      .filter(Boolean)
+      .join(" · ");
     return {
-      date: r.date,
+      date: r.decidedOn,
       kind: "council_resolution",
       headline_bg: `Общинският съвет гласува: ${title}`,
       headline_en: `Municipal council voted: ${title_en}`,
-      link: r.sourceUrl,
-      detail: tally,
+      // OUR page for the decision, not the municipality's PDF. It carries the
+      // full named vote, and it is one of the few inbound links the
+      // function-served /council/resolution family has.
+      link: `/council/resolution/${r.id}`,
+      detail: detail || undefined,
     };
   });
 };
@@ -912,18 +885,17 @@ const main = async () => {
         "territory (Stage 7 enrichment fills it); also what an unloaded open_calls looks like.",
     );
 
-  // Single read of the council index — feeds all 265 município iterations.
-  const councilIndex = readJson<CouncilIndexFile>(COUNCIL_INDEX);
-  const resolutionsByObshtina = councilIndex?.resolutionsByObshtina ?? null;
-  const todayMs = Date.now();
+  // One query for every município, keyed by FRONTEND code and already inside
+  // the freshness window. Throws rather than degrading — see council_alerts.ts.
+  const councilByObshtina = await readCouncilAlertsByObshtina(
+    COUNCIL_LOOKBACK_DAYS,
+  );
   let totalEvents = 0;
   let municipiosWithEvents = 0;
   let councilEvents = 0;
   for (const m of munis) {
     const council = buildCouncilResolutionEvents(
-      m.obshtina,
-      resolutionsByObshtina,
-      todayMs,
+      councilByObshtina.get(m.obshtina),
     );
     councilEvents += council.length;
     // The município's municipal-tier awarders, shared across the contract + tender
