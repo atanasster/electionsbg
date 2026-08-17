@@ -55,6 +55,10 @@ const ROOT = resolve(__dirname, "../..");
 const COUNCIL_DIR = join(ROOT, "data/council");
 const MUNIS_PATH = join(ROOT, "data/municipalities.json");
 const SCHEMA = join(__dirname, "schema/pg/160_council_corpus.sql");
+// "Applied, never loaded" — 161 carries no data, so nothing else would ship it
+// and `deploy:db` (which deploys functions/ code) is a different thing from a
+// Postgres function. Applying it here means a corpus reload always carries it.
+const SERVING = join(__dirname, "schema/pg/161_council_serving.sql");
 
 const VOTE_VALUES = new Set(["for", "against", "abstain"]);
 
@@ -289,11 +293,20 @@ const RESULTS = new Set(["adopted", "rejected", "returned", "unknown"]);
 const METHODS = new Set(["open", "named", "secret", "none"]);
 
 const main = async (): Promise<void> => {
+  // DDL FIRST, before any "is there data?" check. With the guard in front, a
+  // machine without the corpus printed "nothing to load", applied no DDL and
+  // exited 0 — a deploy that looks successful and creates nothing. That is the
+  // tender-dossier lesson (CLAUDE.md): the schema and the serving functions must
+  // exist wherever this loader has run, EMPTY if there was nothing to fill them.
+  await exec(readFileSync(SCHEMA, "utf8"));
+  await exec(readFileSync(SERVING, "utf8"));
+
   if (!existsSync(COUNCIL_DIR)) {
-    console.warn("[council] data/council/ absent — nothing to load.");
+    console.warn(
+      "[council] data/council/ absent — schema applied, nothing to load.",
+    );
     return;
   }
-  await exec(readFileSync(SCHEMA, "utf8"));
 
   const meta = readIndexMeta();
   const codes = councilCodes();

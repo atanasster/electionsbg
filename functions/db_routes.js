@@ -4725,6 +4725,74 @@ const DB_ROUTES = {
   //
   // Accepts the same place codes as `place-companies` — Sofia's SFO_CITY and the 24 S#### rayon
   // codes included, since those 400'd on the sibling route for months.
+  // ── Council ────────────────────────────────────────────────────────────────
+  // Migration 161 over the 160 corpus. All four degrade a missing migration
+  // rather than 500ing, so `deploy:db` can land before the loader reaches the
+  // serving database — but a premature deploy then reads as "no councils are
+  // covered" indefinitely, with nothing in the logs. Apply 160+161 first
+  // (db:load:council:pg:cloud), per CLAUDE.md's ordering rule.
+  "council-overview": async (dbRows) => {
+    const empty = {
+      councilsCovered: 0,
+      councilsTotal: 265,
+      councilsWithNamedVotes: 0,
+      resolutions: 0,
+      namedVotes: 0,
+      attributedVotes: 0,
+      newestDecidedOn: null,
+      councils: [],
+    };
+    const rows = await dbRows("SELECT council_overview() AS r").catch(
+      missingMigrationLogged("council-overview", "cc:not-built", "db:load:council:pg"),
+    );
+    return { body: rows[0]?.r ?? empty };
+  },
+  "council-muni": async (dbRows, q) => {
+    // Accepts a FRONTEND obshtina code (BGS04, S2414, SFO_CITY…) or the
+    // council's own key (BGS01, SOF). The bridge is many-to-one — Sofia is 27
+    // codes -> SOF — so resolving it here is what keeps the mapping in one
+    // place instead of the four copies it had before.
+    const code = s(q, "code");
+    if (!/^[A-Za-z0-9_]{3,12}$/.test(code))
+      return { status: 400, body: { error: "missing or malformed code" } };
+    const rows = await dbRows("SELECT council_muni_detail($1, $2, $3) AS r", [
+      code,
+      clampInt(q.limit, 20, 1, 200),
+      clampInt(q.offset, 0, 0, 100_000),
+    ]).catch(
+      missingMigrationLogged("council-muni", "cc:not-built", "db:load:council:pg"),
+    );
+    // null = this place has no council coverage, which the tile renders as
+    // "not covered" — distinct from "covered but publishes no named votes".
+    // That is also why the degrade is LOGGED: both states answer null, so an
+    // unbuilt migration is otherwise indistinguishable from an uncovered place
+    // and would read as "no councils are covered" for ever.
+    return { body: rows[0]?.r ?? null };
+  },
+  "council-resolution": async (dbRows, q) => {
+    const id = s(q, "id");
+    if (!id || id.length > 128)
+      return { status: 400, body: { error: "missing id" } };
+    const rows = await dbRows(
+      "SELECT council_resolution_detail($1) AS r",
+      [id],
+    ).catch(
+      missingMigrationLogged("council-resolution", "cc:not-built", "db:load:council:pg"),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  "council-councillor": async (dbRows, q) => {
+    // lo = 0 so the guard below is reachable: with lo = 1 a missing or
+    // malformed personId clamps UP to 1 and silently queries person 1.
+    const personId = clampInt(q.personId, 0, 0, 100_000_000);
+    if (!personId) return { status: 400, body: { error: "missing personId" } };
+    const rows = await dbRows("SELECT council_councillor($1) AS r", [
+      personId,
+    ]).catch(
+      missingMigrationLogged("council-councillor", "cc:not-built", "db:load:council:pg"),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   "place-mp-companies": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");
     const obshtina = s(q, "obshtina");
