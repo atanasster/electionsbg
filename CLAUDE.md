@@ -430,6 +430,41 @@ just vanish with nothing failing. `refresh_coverage.test.ts`'s `ORDER_PAIRS` hol
 chain; on the cloud side the order is `db:load:declarations:pg:cloud` →
 `db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve`.
 
+**`declaration.filed_position` / `filed_institution` are SHIPPED, never re-crawled.** They
+hold the declarant's own job and institution from each filing's `<Personal><Work>` /
+`<Personal><Position>` — distinct from `institution` / `position_title`, which come from the
+register's LISTING page and are GROUP labels: `position_title = 'Служебен министър-председател
+и министър'` covers two people and describes neither (both were DEPUTY PM plus a minister).
+Rendering a listing label as a person's job publishes a false claim about a named individual,
+which reached a card on 2026-08-16. 089's column comments carry the rule.
+
+The local corpus was filled by `scripts/declarations/backfill_filed_position.ts` — a ~5-hour
+crawl of a rate-limited public register (54,071 fetches; 61,740 of 61,743 filled, the three
+exceptions being filings whose `<Position>` the register itself leaves empty). **Do not point
+that script at Cloud SQL.** A filing is immutable once published, so the derived values are
+identical whichever database computes them; re-crawling spends five hours recomputing bytes
+we already hold. Ship them instead:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 089_declarations.sql
+npx tsx scripts/db/ship_filed_position.ts --to postgres://postgres@127.0.0.1:5434/electionsbg --apply
+```
+
+The shipper keys on **`source_url`**, not `declaration_id`: the id is a `bigserial` handed out
+in insertion order by the loader, so it is a property of how a database was loaded rather than
+of the filing. The two happen to agree today (verified 2026-08-17, the md5 of the whole ordered
+mapping matches), but a partial or re-ordered load would silently write every value onto the
+wrong filing. It refuses below a 95% match rate — a low rate means the two corpora are not the
+same vintage — and updates only rows whose values actually differ, so re-running it is free.
+
+⚠️ **Ordering, once anything serves these columns.** Nothing reads them today, so the deploy
+is optional; the moment a migration does (090/100/102/159 and the two `functions/db_*.js`
+still read `position_title`), those files' `LANGUAGE sql` bodies are validated at CREATE time
+and would fail the whole file with `42703` against a database that lacks the columns. Apply
+089 and ship the values BEFORE the migration that reads them, and have the readers coalesce
+(`COALESCE(filed_position, position_title)`) rather than swap — the fallback still covers the
+three empty-`<Position>` filings and anything newly ingested.
+
 `db:refresh` never shows this because it runs phase 1 before the resolver every time. Skipping
 phase 1 on the cloud leaves the stale ref joining to nothing: the filing keeps a NULL
 `person_id`, so that person's declaration drops off `/person` and out of the "с декларация"
