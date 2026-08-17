@@ -1,5 +1,5 @@
 // Shared types for the council ingest pipeline. The wire shape mirrors the
-// frontend `CouncilResolution` type in src/data/council/useCouncilMinutes.tsx
+// frontend `CouncilResolutionRow` type in src/data/council/useCouncilHub.tsx
 // — the `tally` block is Phase 1's addition. Keep the two in lock-step.
 
 export type CouncilTag =

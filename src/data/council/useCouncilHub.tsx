@@ -66,6 +66,9 @@ export type CouncilResolutionRow = {
 export type CouncilCouncillorRow = {
   name: string;
   personId: number | null;
+  personSlug: string | null;
+  /** See CouncilVoteRow.officialSlug — the officials-roster key. */
+  officialSlug: string | null;
   votes: number;
   for: number;
   against: number;
@@ -139,6 +142,11 @@ export type CouncilVoteRow = {
   name: string;
   personId: number | null;
   personSlug: string | null;
+  /** person_role.ref for source='official_muni' — the SAME key as
+   *  data/officials/municipal/<shard>.json's `slug`, so a consumer reaches the
+   *  avatar, party colour and photo without re-deriving the identity. A second
+   *  slug space from `personSlug`, and not interchangeable with it. */
+  officialSlug: string | null;
   vote: "for" | "against" | "abstain";
 };
 

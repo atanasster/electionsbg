@@ -6477,5 +6477,7 @@
   "council_resolution_lede": "Decision no. {{number}} of {{date}}, session {{session}}.",
   "council_resolution_missing_title": "No such decision",
   "council_resolution_missing_body": "This address does not match a decision in the database. It may be mistyped, or the municipality may not have published it.",
-  "council_resolution_untitled": "Decision no. {{number}} of {{date}}"
+  "council_resolution_untitled": "Decision no. {{number}} of {{date}}",
+  "council_tile_aggregate_only": "This council publishes only a for/against/abstained total — there is no record of how each councillor voted.",
+  "council_tile_no_tally": "This council publishes its decisions, but not the votes on them."
 }

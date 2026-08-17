@@ -106,7 +106,8 @@ For each resolution extract:
 `tally.method: "none"` when only an aggregate vote was явно/by acclamation
 and no count is parseable — keep the resolution, drop the numbers (don't
 guess). The `tally` block is additive to the existing `CouncilResolution`
-type in `src/data/council/useCouncilMinutes.tsx` — extend it, don't fork.
+type in `src/data/council/useCouncilHub.tsx` (`CouncilResolutionRow`, served
+from Postgres via /api/db/council-muni) — extend it, don't fork.
 
 Parsers per format:
 - **pdf-text** (Sofia): `pdfjs`/`pdf-parse` text extraction → `voteRegex`

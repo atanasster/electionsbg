@@ -150,6 +150,23 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
      -- resolutions on a council that has hundreds.
      LIMIT greatest(coalesce(p_limit, 20), 0)
      OFFSET greatest(coalesce(p_offset, 0), 0)
+  ),
+  -- Grouped on norm_key ALONE. Grouping on (norm_key, person_id) would split
+  -- one councillor into two rows the moment a re-resolve leaves some of their
+  -- votes attributed and some not — 0 such cases today, and the fix costs
+  -- nothing.
+  grp AS (
+    SELECT v.norm_key,
+           min(v.councillor) AS nm,
+           max(v.person_id)  AS pid,
+           count(*)          AS votes,
+           count(*) FILTER (WHERE v.vote = 'for')     AS n_for,
+           count(*) FILTER (WHERE v.vote = 'against') AS n_against,
+           count(*) FILTER (WHERE v.vote = 'abstain') AS n_abstain
+      FROM council_vote v
+      JOIN council_resolution r ON r.id = v.resolution_id
+     WHERE r.obshtina_code = (SELECT obshtina_code FROM muni)
+     GROUP BY v.norm_key
   )
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM muni) THEN NULL ELSE jsonb_build_object(
     'code',            (SELECT obshtina_code FROM muni),
@@ -177,26 +194,43 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              ) ORDER BY decided_on DESC, id), '[]'::jsonb)
         FROM page
     ),
+    -- TWO slug spaces, and they are not interchangeable. `personSlug` is the
+    -- /person URL and exists only for an active public figure; `officialSlug`
+    -- is person_role.ref for source='official_muni', which IS the
+    -- data/officials/municipal roster key — so a consumer reaches the avatar,
+    -- party colour and photo without re-deriving the identity. Both gated:
+    -- NULL means "do not link", never "no such person".
+    --
+    -- This is what lets MyAreaCouncilTile delete its first+last name join, a
+    -- heuristic maintained in two places that attributed a vote to a shared
+    -- name with no protection — the loader REFUSES a shared name, so the tile
+    -- was making a claim the corpus does not support.
+    --
+    -- JOINed, never correlated subqueries. As per-group subqueries they fired
+    -- once per councillor (~40-60 groups) and MORE THAN DOUBLED the function:
+    -- BGS04 1,006 -> 2,073 buffers and SFO_CITY 891 -> 2,007, both over the
+    -- 2,000 ceiling the data test declares. As joins: 1,364 and 1,298.
     'councillors', (
-      SELECT coalesce(jsonb_agg(x ORDER BY (x->>'votes')::int DESC, x->>'name'), '[]'::jsonb)
-      FROM (
-        -- Grouped on norm_key ALONE. Grouping on (norm_key, person_id) would
-        -- split one councillor into two rows the moment a re-resolve leaves
-        -- some of their votes attributed and some not — 0 such cases today,
-        -- and the fix costs nothing.
-        SELECT jsonb_build_object(
-                 'name',     min(v.councillor),
-                 'personId', max(v.person_id),
-                 'votes',    count(*),
-                 'for',      count(*) FILTER (WHERE v.vote = 'for'),
-                 'against',  count(*) FILTER (WHERE v.vote = 'against'),
-                 'abstain',  count(*) FILTER (WHERE v.vote = 'abstain')
-               ) AS x
-          FROM council_vote v
-          JOIN council_resolution r ON r.id = v.resolution_id
-         WHERE r.obshtina_code = (SELECT obshtina_code FROM muni)
-         GROUP BY v.norm_key
-      ) s
+      SELECT coalesce(jsonb_agg(jsonb_build_object(
+               'name',         g.nm,
+               'personId',     g.pid,
+               'personSlug',   CASE
+                                 WHEN p.status = 'active' AND p.is_public_figure
+                                 THEN p.slug
+                               END,
+               'officialSlug', o.ref,
+               'votes',        g.votes,
+               'for',          g.n_for,
+               'against',      g.n_against,
+               'abstain',      g.n_abstain
+             ) ORDER BY g.votes DESC, g.nm), '[]'::jsonb)
+        FROM grp g
+        LEFT JOIN person p ON p.person_id = g.pid
+        LEFT JOIN LATERAL (
+          SELECT pr.ref FROM person_role pr
+           WHERE pr.person_id = g.pid AND pr.source = 'official_muni'
+           ORDER BY pr.ref LIMIT 1
+        ) o ON true
     ),
     'namedVoteResolutions', (
       SELECT count(*) FROM council_resolution r
@@ -301,6 +335,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                                WHEN p.status = 'active' AND p.is_public_figure
                                THEN p.slug
                              END,
+               -- person_role.ref for source='official_muni' IS the
+               -- data/officials/municipal roster key — the avatar, party and
+               -- photo hang off it, so exposing it is what retires the
+               -- client-side first+last name join.
+               'officialSlug', (
+                 SELECT pr.ref FROM person_role pr
+                  WHERE pr.person_id = v.person_id
+                    AND pr.source = 'official_muni'
+                  ORDER BY pr.ref LIMIT 1
+               ),
                'vote',       v.vote
              ) ORDER BY v.councillor), '[]'::jsonb)
         FROM council_vote v

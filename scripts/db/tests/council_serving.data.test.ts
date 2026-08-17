@@ -371,18 +371,46 @@ test.skipIf(skip)(
     };
 
     await withClient(async (c) => {
-      const { rows: worst } = await c.query<{ code: string }>(
-        `SELECT obshtina_code AS code FROM council_muni
-        ORDER BY named_vote_count DESC LIMIT 1`,
+      // SWEEP every council, do not guess the worst one. Two defects lived in
+      // the single-row pick this replaces, and both kept it green:
+      //
+      //  - it ordered by `named_vote_count`, which is not the cost driver
+      //    (cost tracks resolutions x councillor fan-out). It selected PER32 at
+      //    1,784 buffers while BGS04 (2,073) and SFO_CITY (2,007) — the two
+      //    largest municipalities, one of them Sofia — were over the ceiling.
+      //  - it passed `obshtina_code`, but council_muni_detail resolves a
+      //    FRONTEND code. Eight of the sixteen council keys are not frontend
+      //    codes, so for those it measured the cost of returning NULL.
+      //
+      // Same lesson the council_councillor block below already records: an
+      // unordered LIMIT 1 is green, nondeterministic, and blind to the case
+      // that matters.
+      const { rows: codes } = await c.query<{ code: string }>(
+        `SELECT DISTINCT ON (obshtina_code) frontend_code AS code
+           FROM council_muni_code
+          ORDER BY obshtina_code, (frontend_code LIKE 'S2%'), frontend_code`,
       );
+      let worstMuni = 0;
+      let worstMuniCode = "";
+      for (const { code } of codes) {
+        // 30, the limit useCouncilMuni actually sends — not 20.
+        const n = await cost(c, "SELECT council_muni_detail($1, 30)", [code]);
+        if (n > worstMuni) {
+          worstMuni = n;
+          worstMuniCode = code;
+        }
+      }
+      assert.ok(
+        worstMuni <= 2_000,
+        `council_muni_detail cost ${worstMuni} buffers for ${worstMuniCode}, ` +
+          `against a ceiling of 2,000. The per-councillor slug lookups are the ` +
+          `usual cause: as correlated subqueries they fire once per councillor ` +
+          `group and cost BGS04 2,073 / SFO_CITY 2,007; as LEFT JOIN + LEFT ` +
+          `JOIN LATERAL, 1,364 / 1,298`,
+      );
+
       const checks: [string, number, string, unknown[]][] = [
         ["council_overview", 1_500, "SELECT council_overview()", []],
-        [
-          "council_muni_detail (worst)",
-          2_000,
-          "SELECT council_muni_detail($1, 20)",
-          [worst[0].code],
-        ],
       ];
       for (const [label, ceiling, sql, params] of checks) {
         const n = await cost(c, sql, params);
