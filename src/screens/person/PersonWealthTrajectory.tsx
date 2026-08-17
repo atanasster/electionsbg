@@ -41,7 +41,50 @@ const COLORS = {
   net: "hsl(217 70% 45%)", // blue — the bottom line
 };
 
-type Row = WealthPoint & { markerType?: "Entry" | "Vacate" };
+/** A filing year, or a GAP year carrying nulls so the line breaks across it. The rest of
+ *  WealthPoint is optional because a gap year has none of it — there is no filing to
+ *  describe, which is the whole point. */
+type Row = Partial<Omit<WealthPoint, "assetsEur" | "debtsEur" | "netEur">> & {
+  year: number;
+  assetsEur: number | null;
+  debtsEur: number | null;
+  netEur: number | null;
+  markerType?: "Entry" | "Vacate";
+};
+
+/**
+ * One row per year across the series' whole span, with a year that has NO filing carrying
+ * nulls rather than being omitted.
+ *
+ * Omitting it makes the data a list of the years that exist, and recharts then draws one
+ * continuous curve straight through the years that do not: Демерджиев's page rose smoothly
+ * from 2023 to 2026 across two years in which he declared nothing at all. A null breaks the
+ * line instead (`connectNulls={false}` below) — the same rule the post cards already follow,
+ * that an unpublished period must never read as a real reading.
+ *
+ * Null and not 0: a zero is a declared position, and would draw a collapse to the axis.
+ */
+export const padGapYears = (
+  series: readonly WealthPoint[],
+  markerByYear: ReadonlyMap<number, "Entry" | "Vacate"> = new Map(),
+): Row[] => {
+  if (!series.length) return [];
+  const byYear = new Map(series.map((p) => [p.year, p]));
+  const rows: Row[] = [];
+  for (
+    let year = series[0].year;
+    year <= series[series.length - 1].year;
+    year += 1
+  ) {
+    const point = byYear.get(year);
+    rows.push(
+      point
+        ? { ...point, markerType: markerByYear.get(year) }
+        : { year, assetsEur: null, debtsEur: null, netEur: null },
+    );
+  }
+  return rows;
+};
 
 export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
   const { t, i18n } = useTranslation();
@@ -60,10 +103,7 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
       if (m.type === "Vacate") markerByYear.set(m.year, "Vacate");
       else if (!markerByYear.has(m.year)) markerByYear.set(m.year, "Entry");
     }
-    const rows: Row[] = wealth.series.map((p) => ({
-      ...p,
-      markerType: markerByYear.get(p.year),
-    }));
+    const rows = padGapYears(wealth.series, markerByYear);
     return { rows, series: wealth.series };
   }, [wealth]);
 
@@ -97,7 +137,9 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
                 dataKey="year"
                 type="number"
                 domain={["dataMin", "dataMax"]}
-                ticks={model.rows.map((r) => r.year)}
+                /* Only years with a filing get a tick. A gap year is present in `data` so
+                   the line can break there, but labelling it would advertise a reading. */
+                ticks={model.series.map((p) => p.year)}
                 allowDecimals={false}
                 tick={{ fontSize: 11 }}
                 stroke="hsl(var(--muted-foreground))"
@@ -149,33 +191,39 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
                 }}
               />
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="assetsEur"
                 name={label("assets")}
                 stroke={COLORS.assets}
                 fill={COLORS.assets}
                 fillOpacity={0.12}
                 strokeWidth={1.5}
+                connectNulls={false}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="debtsEur"
                 name={label("debts")}
                 stroke={COLORS.debts}
                 strokeWidth={1.5}
                 dot={false}
+                connectNulls={false}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="netEur"
                 name={label("net")}
                 stroke={COLORS.net}
                 strokeWidth={2.6}
                 dot={false}
+                connectNulls={false}
               />
               {/* Entry/Vacate markers sit on the net line. */}
               {model.rows
-                .filter((r) => r.markerType)
+                .filter(
+                  (r): r is Row & { netEur: number } =>
+                    Boolean(r.markerType) && r.netEur !== null,
+                )
                 .map((r) => (
                   <ReferenceDot
                     key={`${r.year}-${r.markerType}`}

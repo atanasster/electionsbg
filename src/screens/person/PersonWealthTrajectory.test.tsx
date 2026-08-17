@@ -25,7 +25,7 @@ vi.mock("recharts", async () => {
   };
 });
 
-import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
+import { PersonWealthTrajectory, padGapYears } from "./PersonWealthTrajectory";
 
 const stubFetch = (payload: PersonWealth) => {
   vi.stubGlobal(
@@ -105,5 +105,39 @@ describe("PersonWealthTrajectory", () => {
       expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
     );
     expect(container).toBeEmptyDOMElement();
+  });
+
+  it("pads a year with no filing with NULLS so the line breaks across it", () => {
+    // Демерджиев's page rose smoothly from 2023 to 2026 across two years in which he
+    // declared nothing at all: the data held only the years that exist, so recharts drew one
+    // continuous curve through the years that do not. A published chart asserting a reading
+    // for an unfiled year is the defect the post cards already guard against.
+    const rows = padGapYears([
+      point(2022, 30000),
+      point(2023, 300000),
+      point(2026, 830000),
+    ]);
+
+    // Every year in the span is present — that is what lets the break happen at all.
+    expect(rows.map((r) => r.year)).toEqual([2022, 2023, 2024, 2025, 2026]);
+
+    // …and the two unfiled years carry NULL on every drawn series. Null, not 0: a zero is a
+    // declared position and would draw a collapse to the axis rather than a gap.
+    for (const year of [2024, 2025]) {
+      const gap = rows.find((r) => r.year === year)!;
+      expect(gap.netEur).toBeNull();
+      expect(gap.assetsEur).toBeNull();
+      expect(gap.debtsEur).toBeNull();
+    }
+
+    // The filed years keep their real figures.
+    expect(rows.find((r) => r.year === 2023)!.netEur).toBe(300000);
+    expect(rows.find((r) => r.year === 2026)!.netEur).toBe(830000);
+  });
+
+  it("leaves a gapless series untouched", () => {
+    const rows = padGapYears([point(2023, 1), point(2024, 2), point(2025, 3)]);
+    expect(rows).toHaveLength(3);
+    expect(rows.every((r) => r.netEur !== null)).toBe(true);
   });
 });

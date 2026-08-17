@@ -15,6 +15,7 @@
 
 import { FC, Fragment, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { padGapYears } from "./PersonWealthTrajectory";
 import { PieChart } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -35,7 +36,9 @@ import { COMPOSITION_CATEGORIES } from "./compositionCategories";
 
 const CATEGORIES = COMPOSITION_CATEGORIES;
 
-type Row = { year: number } & Record<string, number>;
+/** A filing year, or a GAP year whose bands are null so the stack breaks across it rather
+ *  than interpolating a composition nobody declared. */
+type Row = { year: number } & Record<string, number | null>;
 
 export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
   series,
@@ -45,12 +48,17 @@ export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
 
   const model = useMemo(() => {
     if (series.length < 2) return null;
-    const rows: Row[] = series.map((p) => {
-      const row: Row = { year: p.year };
+    // padGapYears owns the rule — a year with no filing carries nulls so the stack breaks
+    // across it instead of drawing a composition nobody declared. Shared with the trajectory
+    // chart rather than restated: two copies of "which years exist" is exactly how one chart
+    // gets fixed and the other keeps interpolating.
+    const rows: Row[] = padGapYears(series).map((r) => {
+      const row: Row = { year: r.year };
+      const filed = r.netEur !== null;
       for (const c of CATEGORIES) {
         // Already rounded server-side (090), like every other figure in the payload —
         // written unconditionally so every stacked dataKey is defined on every datum.
-        row[c.key] = p.byCategory?.[c.key] ?? 0;
+        row[c.key] = filed ? (r.byCategory?.[c.key] ?? 0) : null;
       }
       return row;
     });
@@ -94,7 +102,9 @@ export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
                 dataKey="year"
                 type="number"
                 domain={["dataMin", "dataMax"]}
-                ticks={model.rows.map((r) => r.year)}
+                /* Only years with a filing are labelled; a gap year exists in `data` so the
+                   stack can break there, but a tick would advertise a reading. */
+                ticks={series.map((p) => p.year)}
                 allowDecimals={false}
                 tick={{ fontSize: 11 }}
                 stroke="hsl(var(--muted-foreground))"
@@ -135,7 +145,7 @@ export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
               {model.present.map((c) => (
                 <Area
                   key={c.key}
-                  type="monotone"
+                  type="linear"
                   dataKey={c.key}
                   stackId="portfolio"
                   name={t(`asset_category_${c.key}`)}
@@ -143,6 +153,7 @@ export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
                   fill={c.color}
                   fillOpacity={0.55}
                   strokeWidth={1}
+                  connectNulls={false}
                 />
               ))}
             </AreaChart>
