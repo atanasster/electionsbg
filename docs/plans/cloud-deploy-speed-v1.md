@@ -2571,3 +2571,203 @@ run. `pg_stat_activity` is the only reliable signal — it showed
 `SELECT rebuild_consortium()` active on `IO/DataFileRead` with a 1,012 s open
 transaction. Same shape F23 recorded for `prices`; it is worth stating that it
 applies to `contracts` too.
+
+## Measured deploy profile (2026-08-16) — the publish that survived losing its own local database
+
+Fifth profile in this series. The publish is the procurement + prices subset
+(contracts, annexes, tenders, awarder-seats, scopes, the three crosswalk maps,
+persons-browse, person-search, graph, tr-company-place, prices), driven from a
+`process-watch-report` run whose ingests were ЦАИС ЕОП self-heal (+109 contracts
+across 61 buyers), the annex fold (6,905 contracts at +€2,272.9 m net), tenders
+re-index to 237,601, and a keep.eu Interreg `--full` re-crawl.
+
+**`db:load:interreg:pg:cloud` was deliberately omitted and that was correct**: the
+08-14 re-import rewrote rows in place without changing content, so cloud already
+held 1,958 operations / 12,015 partnerships / €401.78 m, byte-equal to local. The
+only on-disk change the ingest produced was a timestamp. This is the first run in
+this series where a queued loader was skipped on *measured* evidence rather than
+on "nothing moved upstream".
+
+The chain **aborted at step 2** (see F36) and was completed in two further
+invocations; per-step times are unaffected, but several step timings from the
+middle invocation were lost when the driving session was torn down, and are
+marked `—` rather than guessed.
+
+| # | step | seconds | | vs prior runs |
+|--:|---|--:|---|---|
+| 1 | `gcs` (8 paths) | 63 | | ~40, 55, 180 |
+| 2 | `contracts` | **5027** | 83.8 min · **rc=1** | 4297, 4982, 5005 |
+| 3 | `annexes` | 46 | | 61, 133, 137 |
+| 4–9 | `awarder-seats` … `person-search` | — | times lost | |
+| 10 | `ship-normalcy` (targeted re-ship) | **132** | | new — see F36 |
+| 11 | `tenders` | **1321** | 22.0 min | 1158, 1168, 1182 → **+12%** |
+| 12 | `graph` | 186 | | 195, 201, 224 |
+| 13 | `tr-company-place` | 76 | | 78, 132, 171 |
+| 14 | `prices` (**1 day**) | **6280** | **104.7 min** | see F37 |
+
+#### Prod verified against local after the run
+
+Thirteen of fourteen parity checks equal: contracts **409,300** (incl. 2,668
+`obed-` carriers), tenders **237,601**, tender_normalcy_cache **237,601**,
+procurement_normalcy_cache **405,812**, procurement_annexes **24,235**,
+awarder_seats 3,866, contractor_rank **431,850** (populated), procurement_payloads
+180, person_browse_table 136,863, person_search 582,087, tr_company_place 324,039,
+interreg_operations 1,958, price_facts **11,354,660**, `price_grid_days` max
+**2026-08-14** on both.
+
+The single diff is `graph_edge` 200,029 cloud vs 200,034 local — **F27 re-confirmed
+with exact numbers**, and traced to its source rather than assumed: `person`
+133,721/133,723, `person_role(tr)` 192,369/192,374, `graph_person_node`
+83,335/83,337, `graph_company_node` 87,174/87,177. `db:resolve:persons` ran
+locally inside `db:refresh` and was never published, so the graph loader
+faithfully re-derived from cloud's older `person_role`. **Re-running the graph
+loader cannot close this gap**; only the full person cloud chain can.
+
+**F12 re-confirmed at a larger corpus**: the PG-only `obed-` namespace is now
+**2,668 rows / €6.21 bn** (was 2,658 / €6.13 bn), the anti-join against every
+shard key is exactly those rows and no others, and whole-table
+`SUM(amount_eur)` still reconciles to `index.json` **to the cent**
+(93,653,238,372.29).
+
+**F8 observed live**: the contracts step logs `scoped precomputes: refreshing 6/6`
+and `refreshed 6/6` on its own, before `awarder-seats` and `procurement-scopes`
+each refresh subsets again — three passes in one chain, exactly as F8 describes.
+
+### F36 — `db:load:pg:cloud` depends on the LOCAL database, and calls it LAST
+
+`shipTable` (`scripts/db/lib/shipTable.ts`) copies a table **from local Postgres**
+into the connected database. It is therefore a hard dependency of a `:cloud`
+loader on `127.0.0.1:5433`. On this run local Docker wedged mid-deploy (F39) and
+the contracts step died with:
+
+```
+AggregateError [ECONNREFUSED]: connect ECONNREFUSED ::1:5433
+    at async shipTable (scripts/db/lib/shipTable.ts:87:24)
+```
+
+**The placement is the finding, not the dependency.** In `load_pg.ts` the call
+(line 159) executes **last** — the log shows COPY, `rebuild_consortium()`, lot-name
+recovery and `scoped precomputes: refreshed 6/6` all completing first. So the
+step burned **5,027 s (83.8 min)**, committed every expensive thing it does, and
+*then* reported failure. Cloud `contracts` was already **409,300**, equal to local,
+before the error was raised.
+
+`load_tenders_pg.ts` has the identical dependency and the opposite blast radius:
+its `shipTable("tender_normalcy_cache")` runs **early**, right after
+`cpv_catalog` and before the corpus work. Measured on this run, that ship
+completed within seconds of the step starting.
+
+| loader | shipTable position | cost of a local outage |
+|---|---|---|
+| `load_pg.ts` | last (after 6/6 precomputes) | **~84 min of committed work, then fail** |
+| `load_tenders_pg.ts` | early (after `cpv_catalog`) | seconds |
+
+Three consequences:
+
+1. **The error names the wrong host.** `ECONNREFUSED ::1:5433` in the middle of a
+   cloud deploy reads as a misconfigured `DATABASE_URL`; it actually means "your
+   local database went away". Nothing in the message says so.
+2. **Only 2 of 13 steps carry the dependency.** `shipTable` ships exactly three
+   tables (`TRUNCATE_SQL`): `procurement_normalcy_cache`, `tender_normalcy_cache`,
+   `company_founded`. The other eleven `:cloud` steps in this chain are cloud-only
+   and ran fine while local Postgres was down — which is what let this deploy
+   continue at all.
+3. **Recovery does not need the owning step.** `shipTable(table)` against
+   `DATABASE_URL=<cloud>` is sufficient on its own: **132 s** to ship
+   `procurement_normalcy_cache`'s 405,812 rows, against **5,027 s** to re-run the
+   step that owns it — a **38× difference** for a 100-row correction. There is no
+   `db:ship:<table>:cloud` affordance today; it is a one-line script and worth
+   having, and moving `load_pg.ts`'s call earlier would convert the whole failure
+   mode from "84 minutes then fail" into "fail fast".
+
+### F37 — `prices` is NOT linear in days; the per-day figure is an amortisation artifact
+
+The 2026-08-14 profile measured **7,218 s for a 3-day backfill**, which reads as
+~40 min/day and has been used that way. This run published **one** day and took
+**6,280 s (104.7 min)** — **2.6× the implied per-day cost**.
+
+The reason is that the corpus-wide phases are paid once per **run**, not per day,
+and they dominate:
+
+| phase | this run (1 day) |
+|---|---|
+| day load | 1,179,837 rows · +31,693 facts · 31,368 closed |
+| `[catalog]` | 116,963 products · 6,589 retired |
+| `[product-days]` | 674,554 rows for 3,000 head products, 16 batches |
+| `[payloads]` | 571 blobs (1,666 kB) across 12 kinds |
+| `[slugs]` | 3,000 products → `product_slugs.json` (370 KB) |
+
+So the cost model should carry `prices ≈ fixed + k·days` with a **large fixed
+term**, not `k·days`. Two practical consequences: a daily one-day publish costs
+~105 min rather than the ~40 min the plan implies (making prices the **largest**
+step in a routine publish, ahead of contracts' 84 min), and batching days is
+strongly superlinear in savings — three days cost 7,218 s, i.e. only 15% more than
+one.
+
+This also re-confirms the operational note about silent clients, for `prices`
+specifically: mid-run the client sat at **0.0% CPU / 4.9 MB RSS** for 54 minutes
+while `pg_stat_activity` showed an `active` `product-days` batch query 59 s into
+its transaction. `ps` alone cannot distinguish that from a hang. Concurrently the
+pool held four `idle`/`ClientRead` serving connections (`person_by_slug`,
+`interreg_by_place`, `school_payloads`, `person_stake_procurement`) — the site
+served normally throughout the publish.
+
+### F38 — a permanently-broken upstream day blocks the prices pipeline indefinitely
+
+Extends F28, which recorded that the >20% drop guard fires on cloud as on local.
+What this run adds is that **the guard has no escape hatch, and one class of
+rejected day never resolves itself**.
+
+`loadDay` throws inside `ingest.ts`'s `for (const date of dates)` loop with no
+`try`/`catch` and there is no per-day skip flag. Days are processed oldest-first,
+so a permanently-rejected day is re-attempted at the head of **every** future run
+and nothing after it is ever reached. Measured: 2026-08-14 loaded, 2026-08-15 was
+refused (859,394 rows vs 1,179,837, −27%), and the run aborted — leaving the
+series frozen at 08-14 until the upstream is fixed.
+
+**The 08-15 archive is CORRUPT, not thin, and the distinction changes the correct
+response.** F28's 2026-08-11 case was a thin feed (17 chain CSVs simply absent).
+This one is a mis-assembled upload:
+
+| chain | 08-14 | 08-15 |
+|---|--:|--:|
+| Кауфланд България | 25,634,727 B | **absent** |
+| Билла | 26,081,647 B | **242,603 B** (−99%) |
+| Хипермаркет Жанет | 993,134 B | **242,603 B** |
+
+Two different chains truncated to a **byte-identical** size is the signature. Those
+two chains alone account for ~51 MB of the 52 MB total drop.
+
+**`--force` is the wrong override here even though it reaches the script.**
+`price_current` is rewritten from each day's own observations and so self-heals on
+the next good day — but the SCD-2 `price_facts` table would permanently record
+run-closed events for every Кауфланд and Билла product on 08-15 and re-opens on
+08-16, i.e. fabricated price-change history that no later day repairs. A thin day
+may be real and forceable; a corrupt one never is, and nothing in the guard's
+message distinguishes them.
+
+What is missing is a `--skip-day <date>` (recording the skip, not silently
+tolerating it), so that one bad upstream file cannot freeze the series.
+
+### F39 — Docker can wedge without F29's disk-full cause
+
+F29 recorded a wedged Docker whose cause was a full host volume, and the repo as
+the largest contributor (F31). This run reproduced the **symptom** exactly with
+none of that cause:
+
+- `com.docker.backend` processes resident, so Docker looks alive to `ps`
+- `docker version` times out; `docker ps` hangs past **5 minutes**
+- `osascript`/System Events itself returns `-1712` (AppleEvent timed out),
+  consistent with a blocking modal
+- **but the volume had 22 GiB free (35% used)**
+
+So "check the disk" is a necessary but *not sufficient* diagnosis for this class,
+and a deploy runbook should not treat a wedged Docker as implying a full disk. The
+recovery F29 documents (force-kill plus relaunch, dialog dismissed first) is still
+the applicable one — here the daemon came back on its own before the deploy needed
+it again.
+
+Worth pairing with F36: while local Docker was down, **eleven of the thirteen
+remaining cloud steps ran to completion**, because they read on-disk JSON shards
+and write to the connected cloud database. A local outage is not a deploy-stopper
+in general — it is a deploy-stopper for exactly the `shipTable` steps.
