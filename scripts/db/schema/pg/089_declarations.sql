@@ -112,6 +112,70 @@ ALTER TABLE declaration ADD COLUMN IF NOT EXISTS filed_institution text;
 ALTER TABLE declaration ADD COLUMN IF NOT EXISTS filed_position text;
 
 -- ---------------------------------------------------------------------------
+-- declared_label(filed, listed) — the ONE definition of "which label does a reader see".
+--
+-- Prefer the filing's own value; fall back to the register's LISTING label.
+--
+-- WHY THE FILED VALUE WINS. Measured 2026-08-17, after backfill_filed_position.ts finished
+-- (61,740 of 61,743 filings carry a filed_position; the 3 exceptions are filings whose
+-- <Position> the register itself leaves empty):
+--
+--   * The mp tier has NO listing position at all — position_title is NULL on all 6,296 mp
+--     rows — so filed_position is the only source there. Those surfaces render an empty
+--     position today and can only gain.
+--   * Where both exist (55,444 rows) they disagree on 36,199 exactly and on 21,906 once
+--     case and whitespace are folded (39.5%): exec 20,583 of 48,831, muni 1,323 of 6,613.
+--     That disagreement is the whole defect — the listing bucket 'Служебен министър-
+--     председател и министър' held two men and described neither, both being a DEPUTY PM
+--     plus a minister, and it reached a published card on 2026-08-16.
+--
+-- WHY THE FALLBACK IS STILL LOAD-BEARING, now that the local corpus is ~fully backfilled
+-- and only 3 rows would blank here. The reason is structural rather than statistical, and
+-- it is about the OTHER databases:
+--
+--   * Cloud SQL has neither these columns nor any backfill. With filed_* uniformly NULL
+--     every caller below degrades to exactly the label it serves today — which is what
+--     lets 089 and its eight dependents ship there ahead of any crawl, with nothing a
+--     reader sees changing until the values arrive.
+--   * A fresh clone, a partial reload, or a newly ingested filing the backfill has not
+--     reached yet is the same shape. The listing label is coarse but TRUE where it is all
+--     we have: the five municipal labels are genuine roles, and the exec tier's 8,078
+--     distinct 'Директор' declarants really are directors.
+--
+-- So the fallback is not a hedge against the filed value — it is what makes the swap safe
+-- to apply to a database that has not been backfilled, which is every database except this
+-- one.
+--
+-- nullif(btrim(...), '') rather than a bare COALESCE. No filing carries an empty capture
+-- today (the 3 filings whose <Position> the register leaves empty are NULL, not ''), so
+-- this guards the shape rather than an observed row: a future parser that writes '' for a
+-- present-but-blank element must fall THROUGH to the listing label, not blank the cell.
+-- Note the btrim is not only a guard — the filed value is returned TRIMMED, so a stored
+-- ' министър ' serves as 'министър'. That is deliberate: these values are rendered, and
+-- they back equality filters on three matview columns, where a stray edge space is an
+-- invisible miss. The listing-label branch is passed through untouched, since it is
+-- already the value every one of those surfaces filters on today.
+--
+-- ⚠️ Do NOT restate this COALESCE at a call site. Twelve hand-copied copies is the shape
+-- that produced the six-way `magistrate_current` duplication, where "someone missed one"
+-- fired twice in one day. The precedent to follow is kzk_effective_suspension(suspension,
+-- status) in 042: name the rule once, read it everywhere.
+--
+-- Every dependent below is a LANGUAGE sql body, validated at CREATE time — so this
+-- function must exist BEFORE 090/093/098/100/102/105/120/159 are applied, or each of them
+-- raises 42883 and rolls its whole file back. 089 is the phase-1 SCHEMA file, applied
+-- before all of them by load_declarations_pg.ts, which is why it lives here.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION declared_label(p_filed text, p_listed text)
+RETURNS text
+LANGUAGE sql
+IMMUTABLE
+PARALLEL SAFE
+AS $$
+  SELECT COALESCE(nullif(btrim(p_filed), ''), p_listed)
+$$;
+
+-- ---------------------------------------------------------------------------
 -- Asset rows — real estate, vehicles, cash, bank, receivables, debts, investments,
 -- securities. category matches the parser's MpAssetCategory. value_eur is the
 -- signed contribution the app already computes (a debt is negative in net worth,

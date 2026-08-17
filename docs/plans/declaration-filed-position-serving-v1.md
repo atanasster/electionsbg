@@ -4,30 +4,38 @@
 
 ## 1. What the corpus actually says
 
+⚠️ **Re-measured 2026-08-17. The 2026-08-16 table this plan was written against is
+superseded** — `backfill_filed_position.ts` finished in between, so the coverage the brief
+described (exec 2.8%, muni 0%) no longer holds anywhere.
+
 ```
- tier | filings | filed_pos | filed_inst | listing_pos | listing_inst
-------+---------+-----------+------------+-------------+--------------
- exec |   48834 |      1376 |       1376 |       48834 |        48834
- mp   |    6296 |      6296 |       6296 |           0 |         6296
- muni |    6613 |         0 |          0 |        6613 |         6613
+ tier  | filings | filed_pos | filed_inst | listing_pos
+-------+---------+-----------+------------+-------------
+ exec  |   48834 |     48831 |      48832 |       48834
+ mp    |    6296 |      6296 |       6296 |           0
+ muni  |    6613 |      6613 |       6613 |        6613
+ TOTAL |   61743 |     61740 |      61741 |       55447
 ```
 
-Where both exist (1,376 rows): **1,169 disagree exactly (85%)**, **881 disagree after
-case/whitespace folding (64%)**. The 64% figure in the brief is the case-folded one — the
-conservative measure, and the right one to quote.
+61,740 of 61,743 filings carry a `filed_position`; the 3 exceptions are filings whose
+`<Position>` the register itself leaves empty. Of the **55,444** rows carrying both a filed
+and a listing position, **36,199 disagree exactly (65.3%)** and **21,906 still disagree once
+case and whitespace are folded (39.5%)** — exec 20,583 of 48,831 (42.1%), muni 1,323 of 6,613
+(20.0%). The mp tier has no listing position at all, so `filed_position` is its only source.
 
-`filed_institution` vs `institution`: **6,238 of 6,296 mp rows disagree**, 590 of 1,376 exec.
-The mp tier is where the listing label is most consistently wrong *and* where the listing
-position is NULL outright.
+**Decision: `COALESCE(filed_x, listing_x)` at every serving site — but the reason has moved.**
+On this database a straight swap would now blank only **3** rows, so the original "blanks
+87.6% of the officials surfaces" argument is spent. What keeps the fallback load-bearing is
+structural rather than statistical, and it is about the other databases: **Cloud SQL has
+neither these columns nor any backfill**, and a fresh clone, a partial reload, or a filing
+ingested since the last crawl are the same shape. With `filed_*` NULL every caller degrades to
+exactly the label it serves today, which is what lets all nine files ship ahead of any crawl.
 
-**Decision: `COALESCE(filed_x, listing_x)` at every serving site.** A straight swap blanks
-87.6% of officials surfaces. Note this deliberately DIVERGES from the reference implementation
-`scripts/person/compare_declarations.ts:579`, which uses `filed_*` with **no** fallback and
-says so in its header ("Undefined rather than a fallback … no role on the card is a gap a
-reader can see, while a wrong one is a claim they cannot check"). That is right for a
-hand-reviewed social card about one named person; it is wrong for a browse table where the
-alternative to a coarse-but-true label is an empty column on 9 rows in 10. Different surface,
-different call — the plan states it rather than silently inheriting either.
+This still diverges from the reference implementation `scripts/person/compare_declarations.ts:579`,
+which uses `filed_*` with **no** fallback and argues for it ("no role on the card is a gap a
+reader can see, while a wrong one is a claim they cannot check"). Right for a hand-reviewed
+card about one named person; wrong for a browse table that must render on an unbackfilled
+database. Different surface, different call.
 
 ## 2. The site list is wrong in both directions — corrected
 
@@ -62,8 +70,8 @@ Repointing any of these at a declaration field would be a regression:
 | `090_person_wealth.sql:471,504,600` | fns `person_wealth_series`, `person_declarations`, `declaration_detail` | none | `/person` profile — mp rows gain a position they lack today |
 | `093_declaration_events.sql:45,77` | declaration events | none | same |
 | `098_new_filings.sql:53` | new-filings feed | none | same |
-| `100_officials_rankings.sql:180,193,194` | matview `officials_rankings_table` | `exec,muni` | ≤1,376 of ~13,346 rows change |
-| `102_municipal_officials.sql:61,76,85,95,97` | matview `municipal_officials_table` | muni | **no-op today** (0% filled) |
+| `100_officials_rankings.sql:180,193,194` | matview `officials_rankings_table` | `exec,muni` | newest-filing label changes for a large share of rows |
+| `102_municipal_officials.sql:61,76,85,95,97` | matview `municipal_officials_table` | muni | 1,323 of 6,613 rows (20.0%) change |
 | `105_mp_serving.sql:406,407` | `d.` = declaration | mp | pure win — 100% filled, listing NULL |
 | `120_person_browse.sql:321-324` | matview `person_browse_table` | `exec,muni` | institution only |
 | `159_person_crypto.sql:95,96` | matview `person_crypto_table` | none | `/declarations/crypto` |
@@ -72,10 +80,11 @@ Repointing any of these at a declaration field would be a regression:
 columns, holding a *dropped listing's* labels by construction; carrying filed values there
 would need a loader change and is scope creep. Revisit only if the muni backfill runs.
 
-`102` — **include, as a deliberate no-op.** `filed_position` is 0% on muni so nothing changes
-today, and `role_raw` is genuinely accurate for the five muni labels. Including it costs one
-extra matview rebuild (218 ms local) and is the difference between "the muni backfill
-publishes everywhere" and "everywhere except муни" when an operator eventually runs it.
+`102` — **include.** This was planned as a deliberate no-op on the strength of muni being 0%
+filled; the re-measure kills that reasoning and replaces it with a better one. Muni is now
+100% filled and **1,323 of its 6,613 rows (20.0%) carry a filed position that disagrees with
+the listing label**, so `role_raw` on `municipal_officials_table` changes for one row in five.
+It is a real improvement, not future-proofing.
 
 ## 3. The rule lives once — a helper, not twelve COALESCEs
 
@@ -111,7 +120,8 @@ known `db:sync:cloud` generated-column-ordering hazard); a **`declaration_served
 inside the matview means the same column name now carries the better value.
 
 **Decision: filter on the coalesced value, no separate column.** The parameter names
-(`?institution=`, `?position_title=`) are unchanged; only the values move, on ≤1,376 exec rows.
+(`?institution=`, `?position_title=`) are unchanged; only the values move — on a much larger
+share than first planned, now that the backfill has landed (§1).
 Adding a parallel `filed_position` column would give the UI two columns that mean almost the
 same thing and force every consumer to pick — the defect the register already has.
 
