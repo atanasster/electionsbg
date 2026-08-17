@@ -3,7 +3,17 @@
  * and job, from each filing's `<Personal><Work>` and `<Personal><Position>`.
  *
  *   npx tsx scripts/declarations/backfill_filed_position.ts --slug mp-5104 --apply
+ *   npx tsx scripts/declarations/backfill_filed_position.ts --all --cache-only --apply
  *   npx tsx scripts/declarations/backfill_filed_position.ts --all --apply [--limit N]
+ *
+ * `--cache-only` never touches the network: it fills what raw_data/declarations already
+ * holds and skips the rest. Measured 2026-08-16 that is 6,288 of 61,725 outstanding filings
+ * — free and instant, so run it first and let the crawl cover only what is left.
+ *
+ * The full run is a ~5.4 hour crawl of a shared public register (55,437 fetches at the
+ * courtesy delay below), so it is an operator action like `tr:cr-deeds`, not a pipeline
+ * step. It commits in batches and skips rows that already have both columns, so it is
+ * interruptible and resumes simply by being re-run.
  *
  * ── WHY IT EXISTS ───────────────────────────────────────────────────────────────────────
  *
@@ -103,10 +113,22 @@ const extract = (
 const main = async (): Promise<void> => {
   const slug = arg("--slug");
   const all = has("--all");
-  if (!slug && !all) throw new Error("pass --slug <person-slug> or --all");
+  // Targets the listing labels most likely to be individually FALSE rather than merely
+  // coarse. The cabinet buckets are the ones that conflate distinct offices — „Служебен
+  // министър-председател и министър" is two deputy PMs, neither a PM — while „Директор"
+  // (8,078 people) and the five municipal labels are coarse but true.
+  const like = arg("--like");
+  if (!slug && !all && !like)
+    throw new Error(
+      "pass --slug <person-slug>, --like <position_title pattern>, or --all",
+    );
   const apply = has("--apply");
   const force = has("--force");
   const limit = arg("--limit") ? Number(arg("--limit")) : null;
+  const cacheOnly = has("--cache-only");
+  // Small enough that an interrupted 5-hour crawl loses seconds of work, large enough that
+  // the commit overhead disappears against a 350ms fetch.
+  const BATCH = 200;
 
   const rows = await allRows<{ declaration_id: string; source_url: string }>(
     `SELECT d.declaration_id::text, d.source_url
@@ -114,18 +136,38 @@ const main = async (): Promise<void> => {
        ${slug ? "JOIN person p USING (person_id)" : ""}
       WHERE TRUE
         ${slug ? "AND p.slug = $1" : ""}
+        ${like ? `AND d.position_title ILIKE ${slug ? "$2" : "$1"}` : ""}
         ${force ? "" : "AND (d.filed_position IS NULL OR d.filed_institution IS NULL)"}
       ORDER BY d.declaration_id
       ${limit ? `LIMIT ${Number(limit)}` : ""}`,
-    slug ? [slug] : [],
+    [...(slug ? [slug] : []), ...(like ? [like] : [])],
   );
   console.log(`${rows.length} filing(s) to fill${apply ? "" : "  (dry run)"}`);
 
+  const flush = async (batch: [string, string | null, string | null][]) => {
+    if (!apply || !batch.length) return;
+    await withTx(async (c) => {
+      for (const [id, w, p] of batch)
+        await c.query(
+          `UPDATE declaration SET filed_institution = $2, filed_position = $3
+            WHERE declaration_id = $1::bigint`,
+          [id, w, p],
+        );
+    });
+  };
+
   const updates: [string, string | null, string | null][] = [];
+  let pending: [string, string | null, string | null][] = [];
+  let written = 0;
   let cache = 0;
   let fetched = 0;
   let missing = 0;
-  for (const r of rows) {
+  let skipped = 0;
+  for (const [i, r] of rows.entries()) {
+    if (cacheOnly && !cachedPath(r.source_url)) {
+      skipped += 1;
+      continue;
+    }
     const got = await readXml(r.source_url);
     if (!got) {
       missing += 1;
@@ -136,9 +178,22 @@ const main = async (): Promise<void> => {
     const { work, position } = extract(got.xml);
     if (!work && !position) continue;
     updates.push([r.declaration_id, work, position]);
+    pending.push([r.declaration_id, work, position]);
+    if (pending.length >= BATCH) {
+      await flush(pending);
+      written += pending.length;
+      pending = [];
+      console.log(
+        `  … ${i + 1}/${rows.length} read, ${written} written` +
+          `${fetched ? ` (${fetched} fetched)` : ""}`,
+      );
+    }
   }
+  await flush(pending);
+  written += pending.length;
   console.log(
-    `  read: ${cache} cached, ${fetched} fetched, ${missing} unreadable · ` +
+    `  read: ${cache} cached, ${fetched} fetched, ${missing} unreadable` +
+      `${cacheOnly ? `, ${skipped} skipped (not cached)` : ""} · ` +
       `${updates.length} carry a Work/Position`,
   );
   for (const [id, w, p] of updates.slice(0, 12))
@@ -149,15 +204,12 @@ const main = async (): Promise<void> => {
     console.log("dry run — pass --apply to write");
     return;
   }
-  await withTx(async (c) => {
-    for (const [id, w, p] of updates)
-      await c.query(
-        `UPDATE declaration SET filed_institution = $2, filed_position = $3
-          WHERE declaration_id = $1::bigint`,
-        [id, w, p],
-      );
-  });
-  console.log(`updated ${updates.length} row(s)`);
+  console.log(`updated ${written} row(s)`);
+  if (cacheOnly && skipped)
+    console.log(
+      `${skipped} filing(s) are not cached. Re-run without --cache-only to fetch them ` +
+        `(~${Math.round((skipped * FETCH_DELAY_MS) / 3600000)}h against the register).`,
+    );
 };
 
 main()
