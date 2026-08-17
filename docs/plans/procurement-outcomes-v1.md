@@ -1090,14 +1090,55 @@ bundled into it.
 ### 10c. Gaps the plan never named
 
 **1. The new-page artifact set (affects W3, and any coverage page).** §6c
-specifies a route and a screen and stops there. The `/subsidies` workstream that
-landed alongside this plan shows what a page actually ships — from
-`5efcf16ce8` alone: `public/og/<slug>.png`, a `<loc>` in
-`public/sitemap_static_2.xml`, entries in **both** `scripts/prerender/routes.ts`
-and `scripts/sitemap/route_defs.ts`, a `scripts/og/capture-screens.ts` case, the
-`src/routes.tsx` wiring, **both** locale files, and a `.data.test.ts` gate.
-W3 must budget for all of it; a route-plus-screen estimate is roughly half the
-work.
+specifies a route and a screen and stops there. Read off `5efcf16ce8`, which
+shipped two such pages, here is the full set — **seven artifacts, of which the
+route and the screen are two**:
+
+| # | artifact | where |
+|---|---|---|
+| 1 | screen component, carrying a `data-og="<slug>"` attribute on the element the OG clip anchors to | `src/screens/<area>/<Name>Screen.tsx` |
+| 2 | lazy import **and** `<Route>` element (two separate edits) | `src/routes.tsx` |
+| 3 | `staticPage({...})` — the prerendered page | `scripts/prerender/routes.ts` |
+| 4 | **both** sitemap lists | `scripts/sitemap/route_defs.ts` |
+| 5 | regenerated, committed sitemap shard | `public/sitemap_static_2.xml` |
+| 6 | capture entry + the captured PNG | `scripts/og/capture-screens.ts`, `public/og/<slug>.png` |
+| 7 | i18n strings, both languages | `src/locales/{bg,en}/translation.json` |
+
+plus a `scripts/db/tests/<name>.data.test.ts` gate for whatever figures the page
+asserts.
+
+Four of these are not wiring, and they are where the effort actually is:
+
+- **#3 is writing, not configuration.** `staticPage()` takes `path`, `title`,
+  `description`, `breadcrumbName`, `breadcrumbParent`, `ogImage`, **`bodyHtml`**
+  — a full prose body in Bulgarian — and an `english: { title, description,
+  breadcrumbName, bodyHtml }` block with the whole thing again in English. The
+  `/subsidies/untraceable` entry is ~20 lines of argued prose per language. That
+  body IS the crawler-visible page; a thin one earns the thin-content treatment
+  the `/council/resolution/**` note in CLAUDE.md describes.
+- **#4 is two lists, and missing one fails silently.**
+  `ENGLISH_STATIC_PAGES` (a bare string path, drives the `/en` mirror) and
+  `routeDefs(year)` (a `{path, file}` object). Register only the second and the
+  page simply has no English `<loc>` — nothing errors.
+- **#5 is a committed file.** `public/sitemap_static_2.xml` is in git, so adding
+  to `route_defs.ts` changes nothing served until the sitemap is regenerated and
+  committed. CLAUDE.md's `families.data.test.ts` checks every `<loc>` has a
+  `dist/<path>/index.html`, but only sees a `dist/` that exists — so run it
+  **after** `npm run build`.
+- **#6 is a manual Playwright run against a live dev server**, not part of any
+  build: `npx tsx scripts/og/capture-screens.ts` with Vite up on :5173
+  (`OG_BASE_URL` overrides the port). `postbuild` runs `og/generate.ts`, which is
+  a different script and will not produce these. The entry needs `slug`,
+  `routePath`, `waitFor`, `anchor`, `settleMs` and usually `extraCss` to hide the
+  community banner and pin the content width — and the `waitFor` selector is why
+  artifact #1 has to expose `data-og`.
+
+**And every URL is the no-slash form** (`firebase.json` runs
+`"trailingSlash": false`), with the EN root being `/en`, never `/en/`.
+
+W3 must budget for all seven. A route-plus-screen estimate is roughly half the
+work, and the half it omits is the half that decides whether the page is
+indexable.
 
 **2. There is a precedent for the coverage surfaces, and the plan reinvents it.**
 §7d item 6 and §8e item 4 both say "publish coverage as data". `SubsidiesCoverageScreen`
@@ -1139,7 +1180,7 @@ although the artifact set above makes both locale files mandatory.
 |---|---|
 | W1 award-criterion lens | ready; denominator per §10b, **not** §6a |
 | §4a article | ready; spine is §6a's CPV-85 9.9% |
-| W3 methodology page | ready; scope per §10c-1, genre per §10c-2 |
+| W3 methodology page | ready; **seven artifacts** per §10c-1, genre per §10c-2 |
 | §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
 | §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |
 | W2 per-hospital €/case | metric already EXISTS (059, live route, ratio 0.963 verified); blocked only on §8e + §6b guards |
