@@ -5498,6 +5498,47 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "subsidies/places",
+    title: "Земеделски субсидии по област — карта и класация | electionsbg.com",
+    description: `Областта е на ПОЛУЧАТЕЛЯ, не на земята: земеделските субсидии на ДФ „Земеделие" по 28-те области — карта, класация и дял за финансови години ${AGRI_YEAR_RANGES}.`,
+    breadcrumbName: "По област",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-places.png",
+    bodyHtml: `
+<h1>Земеделски субсидии по област</h1>
+<p>Картата и класацията на изплатените от ДФ „Земеделие" суми по <strong>28-те области</strong>, за избрана финансова година или за целия период (${AGRI_YEAR_RANGES}).</p>
+<h2>Областта е на ПОЛУЧАТЕЛЯ, не на земята</h2>
+<p>ДФ „Земеделие" публикува областта на бенефициента. За фирма това е <strong>седалището по регистрация</strong>, а не мястото, където се обработва земята. Затова „София (столица)" е сред водещите области по земеделска субсидия — там са регистрирани дружества, чиито ниви са другаде. Всяка цифра тук описва къде е регистриран получателят.</p>
+<h2>Какво ще намерите</h2>
+<ul>
+<li><strong>Карта</strong> — интензитетът показва изплатената сума; кликването върху област отваря нейните плащания в таблицата с всички плащания.</li>
+<li><strong>Класация</strong> — всичките 28 области, с изплатена сума и дял от общата.</li>
+<li><strong>Концентрация</strong> — какъв дял държат първите три области.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/subsidies">общия преглед на земеделските субсидии</a>, <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a> и <a href="${SITE_URL}/sector/agri">сектор „Земеделие"</a>.</p>`.trim(),
+    english: {
+      title: "Farm Subsidies by Province — Map and Ranking | electionsbg.com",
+      description: `The province is the RECIPIENT's, not the land's: State Fund Agriculture farm subsidies across Bulgaria's 28 provinces — map, ranking and shares for financial years ${AGRI_YEAR_RANGES}.`,
+      breadcrumbName: "By province",
+      bodyHtml: `
+<h1>Farm subsidies by province</h1>
+<p>A map and ranking of the amounts paid out by the State Fund Agriculture across Bulgaria's <strong>28 provinces</strong>, for a chosen financial year or the whole period (${AGRI_YEAR_RANGES}).</p>
+<h2>The province is the RECIPIENT's, not the land's</h2>
+<p>The Fund publishes the beneficiary's province. For a company that is its <strong>registered seat</strong>, not where the land is farmed. That is why "Sofia (capital)" ranks among the leading provinces for farm subsidy — companies are registered there whose fields are elsewhere. Every figure here describes where the recipient is registered.</p>
+<h2>What you will find</h2>
+<ul>
+<li><strong>Map</strong> — shading is the amount paid; clicking a province opens its payments in the full payments table.</li>
+<li><strong>Ranking</strong> — all 28 provinces, with the amount paid and its share of the total.</li>
+<li><strong>Concentration</strong> — the share held by the top three provinces.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/subsidies">farm-subsidies overview</a>, the <a href="${SITE_URL}/en/subsidies/browse">full payments table</a> and the <a href="${SITE_URL}/en/sector/agri">agriculture sector</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "subsidies/browse",
     title:
       "Земеделски субсидии — пълна таблица по получател, схема и година | electionsbg.com",

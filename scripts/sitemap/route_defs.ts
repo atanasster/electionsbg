@@ -28,6 +28,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/companies",
   "sector/administration/services",
   "subsidies/browse",
+  "subsidies/places",
   "about",
   "sverka",
   "local/chmi",
@@ -611,6 +612,10 @@ export const routeDefs = (year: string): RouteDefs => [
   // (site-hygiene-v1 T1d): it is one bounded URL, and while undeclared it served
   // crawlers the homepage's title and canonical.
   { path: "subsidies", file: `src/screens/SubsidiesDashboardScreen.tsx` },
+  {
+    path: "subsidies/places",
+    file: `src/screens/subsidies/SubsidiesPlacesScreen.tsx`,
+  },
 
   // EU funds — ИСУН 2020 corpus.
   { path: "funds", file: `data/funds/index.json` },

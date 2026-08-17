@@ -422,6 +422,25 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    // The choropleth IS this page's argument — it is the whole reason the page
+    // exists (the map moved off /subsidies to stop it costing every hub visitor
+    // 407 KB). Anchor on the map itself rather than the KPI row above it, and
+    // wait for a rendered <path> so the clip is not a screenshot of an empty
+    // SVG container: the GeoJSON arrives after mount.
+    slug: "subsidies-places",
+    routePath: "subsidies/places",
+    waitFor: '[data-og="subsidies-places-map"] svg path',
+    anchor: '[data-og="subsidies-places-map"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+    // The content column is capped to 1216 so the 1200 clip does not slice the
+    // card's own edges — the first shot cut „Кликни" to „икни" on the left and lost
+    // the share column on the right, because centring on a full-bleed anchor centres
+    // on a box WIDER than the clip. Same trick the culture and subsidies cards use.
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     slug: "subsidies-browse",
     routePath: "subsidies/browse",
     // The ДФЗ payments table. Scoped to the section like its DbDataTable

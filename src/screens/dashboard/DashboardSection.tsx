@@ -52,6 +52,10 @@ type Props = {
     | "procurement-risk"
     | "procurement-tenders"
     | "subsidies-headline"
+    // /subsidies/places — the choropleth's own page, moved off the hub.
+    | "subsidies-places-headline"
+    | "subsidies-places-map"
+    | "subsidies-places-table"
     | "subsidies-distribution"
     | "subsidies-recipients"
     | "subsidies-data"

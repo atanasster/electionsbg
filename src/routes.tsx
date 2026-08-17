@@ -561,6 +561,11 @@ const SubsidiesDashboardScreen = lazy(() =>
     default: m.SubsidiesDashboardScreen,
   })),
 );
+const SubsidiesPlacesScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesPlacesScreen").then((m) => ({
+    default: m.SubsidiesPlacesScreen,
+  })),
+);
 const SubsidiesBrowserDbScreen = lazy(() =>
   import("./screens/dev/SubsidiesBrowserDbScreen").then((m) => ({
     default: m.SubsidiesBrowserDbScreen,
@@ -2611,6 +2616,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SubsidiesDashboardScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/places"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesPlacesScreen />
                 </Suspense>
               </LayoutScreen>
             }

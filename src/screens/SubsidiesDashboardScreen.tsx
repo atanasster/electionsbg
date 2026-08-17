@@ -9,7 +9,7 @@
 // Copies the homepage shell (no max-width cap); tiles, never tabs.
 
 import { FC } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Sprout,
@@ -28,7 +28,6 @@ import { Hint } from "@/ux/Hint";
 import { StatCard } from "./dashboard/StatCard";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { useAgriOverview } from "@/data/agri/useAgriOverview";
-import { AgriOblastMap } from "./components/subsidies/AgriOblastMap";
 import type { AgriIndexFile, AgriConcentration } from "@/data/agri/types";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
@@ -36,6 +35,7 @@ import { useScope, scopeYear } from "@/data/scope/useScope";
 import { ScopeControl } from "./components/ScopeControl";
 import { SectorBreadcrumb } from "./components/procurement/SectorBreadcrumb";
 import { SubsidiesSearchBox } from "./SubsidiesSearchBox";
+import { agriScopedHref } from "@/data/agri/useAgriScope";
 
 const Tile: FC<{
   title: React.ReactNode;
@@ -230,7 +230,6 @@ const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
   const bg = i18n.language === "bg";
   const L = i18n.language;
   const nloc = bg ? "bg-BG" : "en-US";
-  const navigate = useNavigate();
   const [params] = useSearchParams();
   // Browse links carry the section scope (pscope) + election forward, so the
   // scope survives the click into the sub-page — same contract as the
@@ -248,6 +247,13 @@ const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
   const c = data.concentration;
   const schemeMax = Math.max(...data.byScheme.map((s) => s.totalEur), 1);
   const yearMax = Math.max(...data.totalsByYear.map((y) => y.totalEur), 1);
+  const oblastMax = Math.max(...data.byOblast.map((o) => o.totalEur), 1);
+  // CARRIES THE SCOPE. A bare "/subsidies/places" is a react-router <Link>, which does
+  // NOT go through usePreserveParams — so a tile showing 2016 landed the reader on the
+  // default 2025, which is the "shows one window and counts another" failure one click
+  // wide. browseTo below has always done this; the new link has to as well.
+  const placesHref = agriScopedHref("/subsidies/places", params);
+  const topOblasts = data.byOblast.slice(0, 5);
   const recipients = data.headline.entityCount + data.headline.individualCount;
   const scopeLabel = data.scopeYear
     ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
@@ -369,17 +375,40 @@ const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
             </div>
           </Tile>
 
+          {/* THE CHOROPLETH IS GONE FROM HERE, and that is the point of the change.
+              `AgriOblastMap` pulls `regions_map.json` — 407.6 KB, served
+              UNCOMPRESSED from GCS, so that figure holds on prod — which was 95.5%
+              of everything this page fetched, to draw a preview of a page nobody had
+              asked for yet. It now lives on /subsidies/places, where the reader who
+              wants a map goes to get one. Same defect /funds fixed, worse in
+              proportion: there the outsized fetch was 63% of the page.
+
+              What stays is the top three as text plus the link — the same figures,
+              from the payload this page already has, at zero extra bytes. */}
           <Tile
             title={bg ? "По област" : "By region"}
             icon={MapPin}
             subtitle={scopeYearLabel}
+            seeAllHref={placesHref}
+            seeAllLabel={bg ? "Виж картата" : "See the map"}
           >
-            <AgriOblastMap
-              rows={data.byOblast}
-              locale={L}
-              bg={bg}
-              onSelectOblast={(name) => navigate(browseTo({ oblast: name }))}
-            />
+            <div>
+              {topOblasts.map((o) => (
+                <BarRow
+                  key={o.oblast}
+                  label={o.oblast}
+                  href={browseTo({ oblast: o.oblast })}
+                  value={o.totalEur}
+                  max={oblastMax}
+                  locale={L}
+                />
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              {bg
+                ? `Първите ${topOblasts.length} от ${data.byOblast.length} области — по област на получателя, не по местоположение на земята.`
+                : `Top ${topOblasts.length} of ${data.byOblast.length} provinces — by the recipient's province, not by where the land is.`}
+            </p>
           </Tile>
 
           <Tile
