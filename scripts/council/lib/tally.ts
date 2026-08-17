@@ -327,6 +327,34 @@ export const normaliseCouncillorName = (raw: string): string =>
     .replace(/[-\s]+/g, " ")
     .trim();
 
+/**
+ * The município-scoped identity key for a councillor: this file's own
+ * normalisation followed by the first+last reduction.
+ *
+ * BOTH sides of every councillor match must use this one function. Bulgarian
+ * declarations carry three-part names (given + middle + family) while protocol
+ * vote lists usually drop the middle, so first+last is the only key both sides
+ * can produce — but the reduction is meaningless unless the normalisation that
+ * precedes it is identical, and two of its steps change Bulgarian names in ways
+ * a naive `lower()` does not:
+ *
+ *   - NFD + diacritic strip turns `й` into `и`, so `Йордан` folds to `иордан`;
+ *   - `[-\s]+` collapses hyphens, so `Тимнева-Рохова` is two tokens and the
+ *     family name is `рохова`.
+ *
+ * Measured 2026-08-16: folding the officials roster with `lower()` instead of
+ * this cost 4,899 of 28,214 council votes their person attribution (4,448 to
+ * `й`, 451 to hyphenated surnames) and — worse — evaluated the "refuse a name
+ * held by two people" guard over a DIFFERENT equivalence class than the join
+ * used, which can attach a vote to the wrong person.
+ */
+export const councilNameKey = (raw: string): string => {
+  const parts = normaliseCouncillorName(raw).split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "";
+  if (parts.length === 1) return parts[0];
+  return `${parts[0]} ${parts[parts.length - 1]}`;
+};
+
 export type ParsedVoteEntry = {
   name: string;
   normKey: string;

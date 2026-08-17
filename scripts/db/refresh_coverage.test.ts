@@ -84,6 +84,26 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:council:pg",
+    before: "db:resolve:persons",
+    why:
+      "council_vote.person_id REFERENCES person ON DELETE SET NULL, and " +
+      "db:resolve:persons runs DELETE FROM person + re-COPY with person_id as a " +
+      "POSITIONAL ordinal — so every re-resolve nulls the column table-wide and this " +
+      "loader is what re-attaches it. Running it first leaves every named vote " +
+      "unattributed at a 200, the declarations --resolve trap one table over",
+  },
+  {
+    after: "db:load:council:pg",
+    before: "db:load:ngo-board-links",
+    why:
+      "official_roster is this loader's ONLY roster bridge — it supplies roster_code and " +
+      "every council_vote.person_id — and db:load:ngo-board-links is its only writer (the " +
+      "repo's sole TRUNCATE official_roster). Running council first resolves against the " +
+      "previous vintage, or against an empty table on a fresh clone, and publishes 0% " +
+      "attribution at a 200",
+  },
+  {
     after: "db:load:municipal-fiscal:pg",
     before: "db:load:place-dim:pg",
     why:

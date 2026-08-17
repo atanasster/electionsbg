@@ -25,6 +25,18 @@
 -- grains so a page can say "this council does not publish named votes" rather
 -- than rendering an empty list, which reads as "nobody voted".
 --
+-- No `ekatte` and no party column: an obshtina is not a settlement, so
+-- place_dim carries no ekatte at this grain, and the corpus has no party
+-- information at all (perCouncillor is exactly {name, normKey, vote} on all
+-- 29,054 rows). Both were here as always-NULL columns, which is worse than
+-- absent — the loader nulls them on every run, so anything filling them out of
+-- band would be silently wiped. The reconcile block can add either at no cost
+-- the day a source exists.
+--
+-- `returned` (чл.45 ЗМСМА governor veto) is IN the result domain even though
+-- the corpus has none today: it is a legal outcome, and folding it into
+-- `unknown` would hide it inside a bucket that already means "unparseable".
+--
 -- `result` is 'unknown' on 43% of the corpus (2,034 of 4,676) — the plurality
 -- case for one município. A page rendering adopted/rejected as a binary
 -- misreports nearly half of it; that is the same absence-vs-no-data
@@ -45,10 +57,24 @@
 -- ---------------------------------------------------------------------------
 -- Municipality dimension
 -- ---------------------------------------------------------------------------
+-- ⚠️ `roster_code` is NOT `obshtina_code`, and conflating them attaches votes
+-- to the WRONG council. The three code spaces do not agree:
+--
+--   council key   BGS01  = Община Бургас        (this table's PK)
+--   frontend code BGS04  = Община Бургас        (council_muni_code below)
+--   roster code   BGS04  = Община Бургас        (official_roster.obshtina)
+--
+-- and `official_roster` ALSO contains a row set under `BGS01` — a DIFFERENT
+-- município (28 councillors, disjoint names). So joining the council's own key
+-- to the roster silently resolves Burgas's votes against another council's
+-- members: mostly NULL, and a coincidental name match is a real vote credited
+-- to the wrong person. Sofia is the other shape — council `SOF`, roster
+-- `SFO_CITY`. The loader derives this via rosterShardForObshtina() so the rule
+-- has one definition (src/data/council/councilObshtinaMap.ts).
 CREATE TABLE IF NOT EXISTS council_muni (
   obshtina_code    text PRIMARY KEY,
+  roster_code      text,
   name             text NOT NULL,
-  ekatte           text,
   last_ingest      timestamptz,
   resolution_count int  NOT NULL DEFAULT 0,
   named_vote_count int  NOT NULL DEFAULT 0,
@@ -107,7 +133,7 @@ CREATE TABLE IF NOT EXISTS council_resolution (
   -- docs/plans/council-hub-v1.md §7).
   summary_bg      text,
   summary_en      text,
-  result          text CHECK (result IN ('adopted', 'rejected', 'unknown')),
+  result          text CHECK (result IN ('adopted', 'rejected', 'returned', 'unknown')),
   tally_for       int,
   tally_against   int,
   tally_abstain   int,
@@ -145,11 +171,6 @@ CREATE TABLE IF NOT EXISTS council_vote (
   councillor     text NOT NULL,
   vote           text NOT NULL CHECK (vote IN ('for', 'against', 'abstain')),
   person_id      bigint REFERENCES person (person_id) ON DELETE SET NULL,
-  -- A municipal SLATE label from the officials roster, NOT a party_dim id:
-  -- council slates are local coalitions with no national party. Named
-  -- `party_label` (and text) so it cannot be misread as the roll-call
-  -- corpus's `party_id smallint`.
-  party_label    text,
   PRIMARY KEY (resolution_id, norm_key)
 );
 
@@ -171,8 +192,8 @@ CREATE TABLE IF NOT EXISTS council_vote (
 -- first later edit that adds a column. Note what they cannot restore: a
 -- column acquired through ADD COLUMN gets no FK, CHECK or PK — those need a
 -- hand-written guarded ALTER, and the CHECK below is the worked example.
+ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS roster_code      text;
 ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS name             text;
-ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS ekatte           text;
 ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS last_ingest      timestamptz;
 ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS resolution_count int NOT NULL DEFAULT 0;
 ALTER TABLE council_muni ADD COLUMN IF NOT EXISTS named_vote_count int NOT NULL DEFAULT 0;
@@ -210,7 +231,6 @@ END $$;
 ALTER TABLE council_vote ADD COLUMN IF NOT EXISTS councillor text;
 ALTER TABLE council_vote ADD COLUMN IF NOT EXISTS vote       text;
 ALTER TABLE council_vote ADD COLUMN IF NOT EXISTS person_id  bigint;
-ALTER TABLE council_vote ADD COLUMN IF NOT EXISTS party_label text;
 
 -- ---------------------------------------------------------------------------
 -- Indexes
@@ -249,6 +269,6 @@ BEGIN
     GRANT SELECT ON council_resolution TO app_readonly;
     GRANT SELECT ON council_vote       TO app_readonly;
   ELSE
-    RAISE WARNING '[159] app_readonly absent — council_* tables carry no ACL. Run roles_readonly.sql, then re-apply.';
+    RAISE WARNING '[160] app_readonly absent — council_* tables carry no ACL. Run roles_readonly.sql, then re-apply.';
   END IF;
 END $$;

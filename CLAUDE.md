@@ -1104,6 +1104,48 @@ Four things about it are easy to get backwards:
   general government, which includes municipalities and the social funds. It is NOT a
   decomposition of the КФП state-budget expenditure it will be rendered beside.
 
+`council_muni` / `council_muni_code` / `council_resolution` / `council_vote` (migration 160,
+`db:load:council:pg`) are the municipal-council corpus behind the My-Area council tile, the
+My-Area alerts feed and the AI chat's `councilResolutions` tool. In `db:refresh` after
+`db:load:official-candidate-links:pg`; on the cloud side:
+
+```bash
+npm run db:load:council:pg:cloud
+```
+
+**Its input is the DURABLE per-resolution shard tree** (`data/council/<code>/<YYYY>/<id>.json`,
+4,676 files, COMMITTED) — deliberately not `index.json` (capped at 200 rows per município, and six
+of sixteen exceed it) nor `votes/*.json` (rebuilt from that capped, `perCouncillor`-stripped index
+until 2026-08-16, which left 530 resolutions and 10,754 named-vote rows on disk and unserved). The
+tree being committed is why this loader is in the chain proper rather than `REFRESH_EXCLUSIONS`.
+
+Four things about it are easy to get backwards:
+
+- **It is UPSERT-ONLY and must stay that way.** A council resolution is a permanent public record,
+  so a scrape that misses a protocol — or a parser regression on one município — must not erase
+  history; `last_seen_at` records the absence instead. `mergeFromStage` is therefore NOT used (it
+  couples an unscoped anti-join DELETE to the upsert). The one deletion the loader performs is a
+  targeted purge of `norm_key ~ VOTE_LABEL_SOURCE`, a provable invariant violation — 840 PER32 rows
+  where the parser absorbed the vote label into the councillor's name.
+- **`roster_code` is NOT `obshtina_code`, and conflating them attaches votes to the WRONG council.**
+  This corpus's `BGS01` is Бургас, but `official_roster` holds a DIFFERENT município under `BGS01`
+  (28 councillors, disjoint names) — Burgas city is roster `BGS04`. Sofia is council `SOF` → roster
+  `SFO_CITY`. The loader derives it via `rosterShardForObshtina()` and **refuses** rather than
+  guessing when a council resolves to more than one roster.
+- **The name fold has ONE definition, `councilNameKey()` in `scripts/council/lib/tally.ts`**, and
+  both sides must use it. It was briefly written twice — TS on the vote side, `lower(split_part(…))`
+  in SQL on the roster side — and the two diverged on `й`→`и` (NFD) and on hyphens, costing 4,899 of
+  28,214 votes their attribution AND evaluating the "refuse a shared name" guard over a different
+  equivalence class than the join used, which can attach a vote to the wrong person. Attribution is
+  **94.1%**; a run reporting ~77% means the folds have drifted apart again.
+- **`db:resolve:persons` nulls `council_vote.person_id` table-wide** (ON DELETE SET NULL, because
+  `person_id` is a positional ordinal and the resolver does DELETE + re-COPY), so this loader must
+  run AFTER it and is what re-attaches attribution — the declarations `--resolve` trap, one table
+  over. The loader carries a 90% attribution floor that refuses rather than republishing a corpus
+  with its attributions wiped (`--allow-attribution-drop` overrides); its roster input,
+  `official_roster`, has exactly one writer, `db:load:ngo-board-links`, which degrades to NULL
+  `obshtina` on a clone with no municipal shards.
+
 `municipal_fiscal` (migration 149, `db:load:municipal-fiscal:pg`) is the per-município
 quarterly financial-indicators corpus (ЗПФ чл. 130г ал. 2) — 265 общини × quarter, carrying
 the three liability stocks Bulgarian public finance distinguishes and the site previously

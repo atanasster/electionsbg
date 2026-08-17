@@ -114,6 +114,15 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "graph_company_node", loader: "db:load:graph:pg" },
   { table: "graph_person_node", loader: "db:load:graph:pg" },
   { table: "graph_payloads", loader: "db:load:graph:pg" },
+  // Upsert-only — a council resolution is a permanent public record, so this
+  // loader never truncates. Listed for the same reason as the Interreg and
+  // graph entries above: the merge still leaves dead tuples that neither
+  // autovacuum threshold reaches, and a future switch to TRUNCATE must not
+  // silently give back the index-only scans the serving functions plan on.
+  { table: "council_muni", loader: "db:load:council:pg" },
+  { table: "council_muni_code", loader: "db:load:council:pg" },
+  { table: "council_resolution", loader: "db:load:council:pg" },
+  { table: "council_vote", loader: "db:load:council:pg" },
 ];
 
 // Every loader, DERIVED rather than hand-listed, so the static check below reads
