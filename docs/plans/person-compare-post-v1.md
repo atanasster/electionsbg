@@ -87,10 +87,14 @@ as 0, not footnoted.
 
 ### 2.5 The basis flip
 
-2023: on ASSETS Демерджиев leads (€627,497 vs €571,647); on NET Рашков leads
-almost 2× (€571,647 vs €295,193), because Демерджиев declared €332,304 of debt.
-The winner is chosen by the basis, so the card shows assets AND debts and names
-the basis, never a bare "net worth" with a single number each.
+2023, both on INVENTORY filings — which matters, because the first draft of this very
+section compared Рашков's 2023 **annual** against Демерджиев's 2023 **inventory**, i.e. the
+cross-form pairing §2.2 forbids and the gate refuses. The flip survives the correction:
+
+on ASSETS Демерджиев leads (€627,496 vs €503,311); on NET Рашков leads 1.70× (€503,311 vs
+€295,192), because Демерджиев declared €332,304 of debt. The winner is chosen by the basis,
+so the card shows assets AND debts and names the basis, never a bare "net worth" with a
+single number each.
 
 ### 2.6 `credit_limit` is not a debt
 
@@ -133,7 +137,9 @@ years. Not a bug in this skill, but it will surface as a missing fallback year.)
 
 ---
 
-## 3. The gate
+## 3. The gate — year-matched (the default axis)
+
+Steps 1-2 are shared with the role axis (§7); steps 3-6 are this axis only.
 
 ```
 1. resolve both slugs        → person.slug, status='active', is_public_figure
@@ -141,10 +147,14 @@ years. Not a bug in this skill, but it will surface as a missing fallback year.)
      period_year = COALESCE(fiscal_year, declaration_year)   -- 090's axis, not declaration_year
      asset-bearing = has >=1 declaration_asset row with a non-null value_eur
 3. intersect on (period_year, class)
-4. pick newest; tie → prefer 'annual'
+4. pick newest; tie → prefer 'annual' (WITHIN a year; it never outranks a newer one)
 5. no intersection → REFUSE, printing each person's (year, class) list
 6. chosen year is not either person's latest → the card MUST say so
 ```
+
+Step 6's caveat („най-скорошната година, в която и двамата подават…") belongs to THIS axis
+and is false on the role one, where the years differ by design — see §7's coincident-year
+trap for what happens when that distinction is keyed on the wrong thing.
 
 ### The gate's answer for the fixture — NOT what this plan first predicted
 
@@ -217,21 +227,28 @@ export type VersusMetricKey = keyof typeof VERSUS_METRICS;
 
 export type VersusSide = {
   name: string;            // as the register spells it
-  role?: string;           // position_title / institution at the time of filing
+  // ⚠️ From the FILING's own filed_position / filed_institution — NEVER
+  // declaration.position_title, which is the register listing's group label and announced
+  // Демерджиев as caretaker PM. See commit 71a672fe34 and 089's column comments.
+  role?: string;
   formLabel: string;       // "годишна декларация" | "декларация при напускане"
   formClass: VersusFormClass;   // machine-readable; both sides must agree
   rows: { key: VersusMetricKey; value: string; note?: string; magnitude: number }[];
   total: { label: string; value: string };   // label must match on both sides
+  properties?: VersusProperties;  // inventory cards only — a COUNT, never money
+  periodYear?: number;     // required on both sides when the two differ (§7)
 };
 
 export type VersusCardSpec = {
   versus: { left: VersusSide; right: VersusSide };
-  year: number;
-  yearNote?: string;       // "най-скорошната година с еднакви декларации" (§3 step 6)
+  year?: number;           // the SHARED year; omit on the role axis and pass `kicker`
+  kicker?: string;         // replaces the year header; exactly one of the two
+  yearNote?: string;       // the caveat, and it differs per axis (§7)
   basis: string;           // "активи = всичко без задължения и кредитни лимити"
   metrics: VersusMetricKey[];   // the row order, SHARED by both sides — see below
   source: string;          // "Източник: Сметна палата (register.cacbg.bg)"
   cta?: string;
+  separator?: string;      // default "с/у"; its measured width is reserved from both names
   theme?: Theme;
 };
 ```
@@ -276,19 +293,63 @@ Design rules the renderer enforces, each closing a defect above:
    `--slug-a --slug-b [--year] [--class]`, emitting the card spec as JSON. A CLI
    so the gate is testable without rendering, and so the skill body stays prose.
 4. **`scripts/db/tests/person_compare.data.test.ts`** — a PG-backed gate test:
-   the fixture pair resolves to **2022 / annual** (never 2023); `credit_limit` is
-   in neither total; a same-year cross-class pair is refused; the share
-   multiplier is applied (a co-owned property is not double counted).
+   the fixture pair resolves to **2023 / inventory** (see §3 — this plan first predicted
+   2022/annual and was wrong); `credit_limit` is in neither total; a cross-form pair is
+   refused; the share multiplier is applied (a co-owned property is not double counted);
+   and the PUBLISHED total equals the declared net.
 5. **`.claude/skills/person-compare-post/SKILL.md`** — resolve, gate, gather,
    compose, hand off to `naiasno-post` at the final step. §2's eight traps go in
    the skill body: they are the reason it exists.
+6. **The role-matched axis** (§7) — `--same-role`, per-side years on the card, and the
+   `filed_position` dependency it rests on (migration 089 + the backfill,
+   commits `71a672fe34` / `253e8cd634`).
 
-## 7. Deliberately out of scope for v1
+## 7. The second axis — role-matched (SHIPPED, `ae935cded4`)
+
+Listed here as out of scope in the first draft, and built once the corpus showed why the
+year axis could not answer the question it is most often asked.
+
+**The honesty argument, which is the whole of it.** The year rule exists because two filings
+a year apart describe two moments in ONE life, so a year gap between two *people* is a
+confound. Matching on the OFFICE asks a different question — what the estate of whoever
+holds THIS post looks like — and there the year gap is the SUBJECT. The two axes are not a
+strict/loose pair; they are different questions, and each is dishonest asked the other way.
+
+What the form-class rule does NOT do is come along for the ride: an annual and an
+entry/vacate measure different things whichever years they are from, so it holds on both
+axes. That is asserted, not assumed (`person_compare.data.test.ts`).
+
+The fixture is why it exists: Рашков was interior minister in 2021 and Демерджиев in 2022,
+so the year axis can never show them both in the job — it pairs Рашков's MP filing against
+Демерджиев's ministerial one. Role-matched, 2021 vs 2022 annuals:
+
+| | Рашков (2021) | Демерджиев (2022) |
+|---|---:|---:|
+| банкови сметки | €86,436 | €0 |
+| пари в брой | €0 | €31,404 |
+| инвестиции | €327,034 | €0 |
+| **нетно** | **€413,470** | **€31,404** |
+| деклариран доход | €49,215 | €104,189 |
+
+**Three ways it under-matches, all deliberate.** Offices match on the filing's own words with
+no abbreviation expansion, so „МВР" and „Министерство на вътрешните работи" do not pair; only
+one representative filing per (person, year, class) is visible, so a second filing that year
+under a different office is not (161 such groups corpus-wide); and it needs `filed_position`,
+backfilled for a minority of the corpus. Each yields a refusal the operator can read and act
+on, never a wrong pairing — and the refusal names the backfill command per person.
+
+⚠️ **The coincident-year trap, which shipped and was caught in review.** Two people CAN hold
+the same post in one year — 3 of 30 sampled pairs do. The header and the caveat were keyed on
+whether the two years happened to be equal rather than on the axis, so those cards named the
+office **nowhere** (the per-side role is suppressed precisely because the header is meant to
+carry it) and printed the year-matched caveat. Anything that distinguishes the two axes must
+key on the AXIS.
+
+## 8. Deliberately out of scope
 
 - **The year-over-year and cohort axes.** The gatherer generalises to "one person
   across two years" (same gate, one slug both sides) and "person vs cohort
-  median" (`person_cohort_wealth`, 097). Both are a later `-v2`; building three
-  axes before one is published is how the gate stops being the focus.
+  median" (`person_cohort_wealth`, 097). Neither is built.
 - **An on-site `/person/a/vs/b` page.** This is a post skill. A route means a
   sitemap entry, a prerender and an `og:image` — the `dashboard-hub` checklist —
   for a page with a combinatorial URL space.
