@@ -483,13 +483,89 @@ mapping matches), but a partial or re-ordered load would silently write every va
 wrong filing. It refuses below a 95% match rate — a low rate means the two corpora are not the
 same vintage — and updates only rows whose values actually differ, so re-running it is free.
 
-⚠️ **Ordering, once anything serves these columns.** Nothing reads them today, so the deploy
-is optional; the moment a migration does (090/100/102/159 and the two `functions/db_*.js`
-still read `position_title`), those files' `LANGUAGE sql` bodies are validated at CREATE time
-and would fail the whole file with `42703` against a database that lacks the columns. Apply
-089 and ship the values BEFORE the migration that reads them, and have the readers coalesce
-(`COALESCE(filed_position, position_title)`) rather than swap — the fallback still covers the
-three empty-`<Position>` filings and anything newly ingested.
+### `declared_label()` — the ONE definition of which office label a reader sees
+
+**Nine serving surfaces now read these columns, and all of them go through
+`declared_label(p_filed, p_listed)` in `089_declarations.sql`** —
+`COALESCE(nullif(btrim(p_filed), ''), p_listed)`, IMMUTABLE, PARALLEL SAFE and deliberately
+**not** STRICT (STRICT would short-circuit the whole fallback). Shipped and deployed to Cloud
+SQL 2026-08-17; plan: `docs/plans/declaration-filed-position-serving-v1.md`.
+
+**Never restate that COALESCE at a call site.** Twelve hand-copied copies is the shape that
+produced the six-way `magistrate_current` duplication where "someone missed one" fired twice
+in one day. The precedent is `kzk_effective_suspension(suspension, status)` in 042.
+
+**⚠️ Which surfaces take the filed value is decided by what the COLUMN is for, NOT by the
+tier it spans.** Getting this backwards is the live defect this section exists to prevent:
+
+| the column's job | surfaces | source |
+|---|---|---|
+| a rendered label / substring search (`filter: "text"`) | 090 ×3, 093 ×2, 098, 100, 105, 159 | **filed**, listing as fallback |
+| an exact-match FACET KEY (`filter: "in"`) | 120 `person_browse_table.institution` | **listing** |
+| renamed into a different contract | 102 `municipality`, `role_raw` | **listing** |
+
+The two exclusions are deliberate and their own files' headers say so — do NOT "finish the
+job":
+
+- **120** — `db_table.js` exposes `institution` as `filter: "in"` and the picker facets that
+  same column, so the distinct values ARE the picker. The listing is a 1,013-value controlled
+  vocabulary; the filed value is free text and takes the column **991 → 12,626**, which does
+  not make the picker noisier so much as stop it being a picker. The fragmentation is driven
+  by the EXEC tier, so narrowing to one tier does not rescue it. The accepted cost: exec group
+  buckets survive there as facet VALUES, which is coherent — „the heads of foreign missions"
+  is a usable bucket and only false as a claim about one named person.
+- **102** — `ld.institution` is renamed `AS municipality` and holds the município NAME
+  („Ямбол") where the filing holds the EMPLOYER („Община Ямбол"; 25 Видин rows say „Общински
+  съвет - Видин", a council), 6,576 of 6,613 rows differing. `ld.position_title` is renamed
+  `AS role_raw`: five clean roles against **563** free-text spellings, one of which names the
+  body instead of the role („Общински съветник" → „Общински съвет").
+
+**A disagreement COUNT cannot tell correction from noise.** On exec the listing invents group
+buckets describing nobody and the filed value is a fix; on muni the listing is a clean
+controlled vocabulary and the filed value is unnormalised free text. Both read as "20-42% of
+rows disagree". Only reading the VALUES separates them — this plan got 102 wrong twice by
+trusting the rate.
+
+**Apply order — `148` must be in the command and precede `120`.** 090 opens with
+`DROP MATERIALIZED VIEW person_wealth_year CASCADE`, which takes FIVE dependents, so every one
+must be recreated in the same run; and 120's matview selects `person_company_bridge_a`, which
+only 148 creates. Omit 148 and 120 raises 42P01 **after** the CASCADE has already deleted
+`person_browse_table` — `/persons` down with nothing left to rebuild it. A local run can pass
+without it purely because the view is already there.
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5433/electionsbg npx tsx scripts/db/apply_functions.ts \
+  089_declarations.sql 090_person_wealth.sql 093_declaration_events.sql 097_cohort_benchmark.sql \
+  098_new_filings.sql 100_officials_rankings.sql 102_municipal_officials.sql 104_mp_roster.sql \
+  105_mp_serving.sql 148_person_company_basis.sql 120_person_browse.sql 159_person_crypto.sql
+```
+
+Measured: 21.8 s local, **8m02s on Cloud SQL**, during which `/persons`, `/officials/assets`
+and `/declarations/crypto` answer **500** — DbDataTable resources have no `missingMigration`
+degrade. Off-peak only. Prefer `db:load:declarations:pg:cloud -- --resolve` (which applies the
+same files in its own order) unless the CASCADE dependents have been resolved against the
+TARGET database, which is what makes the short command safe.
+
+**⚠️ After SHIPPING VALUES, refresh — do NOT re-apply.** Only two matviews read
+`declared_label` (`officials_rankings_table`, `person_crypto_table`) and both carry a UNIQUE
+index, so `REFRESH MATERIALIZED VIEW CONCURRENTLY` on the pair is **14 s with no reader
+blocking**, against the ~8-minute outage a re-apply costs. Re-apply only when a DEFINITION
+changed:
+
+```sql
+REFRESH MATERIALIZED VIEW CONCURRENTLY officials_rankings_table;
+REFRESH MATERIALIZED VIEW CONCURRENTLY person_crypto_table;
+```
+
+**The gate is `scripts/db/tests/declaration_filed_position.data.test.ts`** (18 tests). Its last
+one is an EXHAUSTIVENESS sweep: it enumerates every function, view and matview whose definition
+reads `declaration` and mentions these columns, and fails unless each is either routed through
+`declared_label` or listed in `LISTING_LABEL_EXCEPTIONS` with a reason — so a NEW surface fails
+until someone decides, and a stale exception fails too. It also carries a shipped mutation
+check, because an assertion comparing a payload to `declared_label` is otherwise satisfiable by
+an inverted implementation both sides agree on. Note the sweep alone cannot catch **swapped
+arguments** (`declared_label(d.institution, d.filed_institution)` passes it), which is why the
+per-surface arms exist.
 
 `db:refresh` never shows this because it runs phase 1 before the resolver every time. Skipping
 phase 1 on the cloud leaves the stale ref joining to nothing: the filing keeps a NULL
@@ -2437,7 +2513,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_hub_stats_cache;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE
