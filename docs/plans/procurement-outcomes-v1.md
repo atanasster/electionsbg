@@ -459,8 +459,9 @@ tile on the hub linking to it. `/data` gets a pointer, not a copy.
 ## 7. Producing `pathway_tariffs.json` — W2 is NOT blocked (investigated 2026-07-25)
 
 > **STATUS 2026-08-17: SHIPPED.** 410 codes loaded, 95.9% weighted case coverage,
-> reconciliation 0.978, JSON committed. §7c/§7d are now historical; the one live
-> item is that the **cloud publish step is still unnamed**. See §10a-1 / §10c-3.
+> reconciliation 0.978, JSON committed, cloud publish named in §7e. §7c/§7d are
+> now historical. Note §7e's closing finding: **W2's metric already exists** in
+> 059 and is wired to a live route.
 
 **§6b is superseded on the blocker, not on the method.** The tariff-weighted
 expected-vs-actual design stands; the claim that it needs Bulgarian egress does
@@ -567,7 +568,75 @@ idempotent loader. The changes:
   casesTotal` per hospital and suppress the ratio below a floor — a hospital whose
   mix is concentrated in uncovered codes must not read as cheap.
 
-### 7e. Revised status
+### 7e. Publishing to Cloud SQL — the step this plan kept omitting
+
+Nothing publishes the tariffs automatically. `db:refresh` runs the LOCAL
+`db:load:nzok-tariffs:pg` (it is in the chain); **the cloud side is manual**:
+
+```bash
+npm run db:load:nzok-tariffs:pg:cloud
+```
+
+(`package.json:172` — it is the plain loader with `DATABASE_URL` pointed at the
+proxy.) The loader applies migration 059 and upserts
+`data/budget/nzok/pathway_tariffs.json`, which is now committed (§10a-1) and so
+travels to any machine.
+
+**Ordering is mandatory, and getting it wrong leaves no tariff table at all.**
+059's two functions — `nzok_activity_by_procedure_spend(text)` and
+`nzok_casemix_expected_vs_actual(text)` — are `LANGUAGE sql STABLE`, so their
+bodies are validated at CREATE time, and they read `nzok_activities` and
+`nzok_hospital_payments`. Applying 059 to a database missing either raises
+`42P01`, and because `exec()` sends a migration as one transaction the whole
+file rolls back. So on the cloud side:
+
+```bash
+npm run db:load:nzok-activities:pg:cloud    # 1. the case corpus
+npm run db:load:nzok-hospital:pg:cloud      # 2. the payments corpus
+npm run db:load:nzok-tariffs:pg:cloud       # 3. applies 059 + fills the prices
+```
+
+**Skipping step 3 degrades silently — it does not fail.** Both functions
+`LEFT JOIN` the tariff view, so an empty table yields NULL prices: the routes
+still answer 200 with `expectedEur: null` and volume-only output, exactly as
+059's header describes. And the loader is **absent-safe** — no JSON means it
+applies 059 and exits 0 having published nothing. Between those two behaviours a
+skipped or no-op publish is invisible on both sides, which is why the step has
+to be named here rather than left to the operator's memory.
+
+**Two live consumers**, so this is not cosmetic:
+`functions/db_routes.js:3797` (`nzok_activity_by_procedure_spend`) and
+`:3809` (`nzok_casemix_expected_vs_actual`).
+
+**No GRANT is needed** — verified rather than assumed. `roles_readonly.sql`
+carries `ALTER DEFAULT PRIVILEGES … GRANT SELECT ON TABLES TO app_readonly`, so
+a table created by `postgres` is readable without a per-migration `GRANT`;
+`has_table_privilege('app_readonly','nzok_pathway_tariffs','SELECT')` is `true`.
+059 correctly has none, matching its sibling 053.
+
+**Verify after publishing:**
+
+```bash
+psql "$DATABASE_URL" -c "SELECT nrd_year, count(*) FROM nzok_pathway_tariffs GROUP BY 1;"
+```
+
+410 rows for `nrd_year = 2025` is the current expected answer.
+
+**Re-run trigger:** the `nzok_nrd_tariffs` watcher
+(`scripts/watch/sources/nzok_nrd_tariffs.ts`) flags a new НРД or amendment PDF.
+That needs the writer re-run (a human parse pass, §7d) and then this publish —
+the watcher does not do either.
+
+**Bonus finding — W2's metric already exists.** `nzok_casemix_expected_vs_actual`
+is not something this plan needs to build: it is in 059, wired to a route, and
+now returns real output. For the largest hospital by cases (eik `115576405`):
+`ratio 0.963`, `coverage 0.937`, `expectedEur €94,298,997` against
+`actualEur €90,843,506`. It even carries the per-hospital coverage field that
+§7d item 6 asked for. What remains for W2 is therefore **not the metric** but
+§8e's monthly EIK-keyed panel plus the §6b presentation guards (the 11–12
+payment-period rule, coverage suppression, no ranking on raw €/case).
+
+### 7f. Revised status
 
 **W2 moves from "blocked on a data fetch" to "a normal ingest task, ~a day."**
 It stays behind W1 and the article on sequencing grounds, but §6d's framing of it
@@ -965,7 +1034,10 @@ published nothing**, leaving Cloud SQL with an empty table, a green exit and no
 warning. Committing the JSON (§10a-1) disarms that. **What remains open: §7
 still never names the publish step.** It must, because nothing runs
 `db:load:nzok-tariffs:pg:cloud` automatically and the absent-safe exit means a
-skipped publish is invisible on both sides.
+skipped publish is invisible on both sides. **CLOSED 2026-08-17 — see §7e**,
+which names the command, the mandatory activities→payments→tariffs ordering
+(059's `LANGUAGE sql` bodies are validated at CREATE time), the silent-degrade
+behaviour, the two live route consumers, and the verification query.
 
 **4. No `recent_updates` / changelog wiring is specified** for either the tariff
 load or the widened activity ingest, though the repo requires it for anything
@@ -986,9 +1058,9 @@ although the artifact set above makes both locale files mandatory.
 | W1 award-criterion lens | ready; denominator per §10b, **not** §6a |
 | §4a article | ready; spine is §6a's CPV-85 9.9% |
 | W3 methodology page | ready; scope per §10c-1, genre per §10c-2 |
-| §7 tariffs | **DONE**, 95.9% coverage, JSON committed; cloud publish still unnamed |
+| §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
 | §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |
-| W2 per-hospital €/case | now blocked only on §8e, not on tariffs |
+| W2 per-hospital €/case | metric already EXISTS (059, live route, ratio 0.963 verified); blocked only on §8e + §6b guards |
 | §9 Kaizen | closed — negative result, publish don't build |
 
 The one change of sequencing this implies: **W2 moved up.** With tariffs at
