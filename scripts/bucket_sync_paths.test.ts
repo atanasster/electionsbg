@@ -38,6 +38,24 @@ describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
     expect(isExcluded("opencalls/isun.json")).toBeTruthy();
   });
 
+  // council/ is PG-served (migrations 160/161) — /api/db/council-overview, -muni
+  // and -resolution. Every reader moved off the bucket in council-hub-v1 tiers
+  // 5-7 (the My-Area tile, the alerts builder, both AI tools). The tree stays on
+  // disk and in git as the loader's input; what must not happen is a second
+  // copy on a path nothing reads. council/ is TOP-LEVEL, so isExcluded refuses
+  // it as a direct argument and no CHILD_EXCLUDES twin is needed — unlike
+  // budget/municipal_fiscal, whose parent is still served.
+  it("excludes council/ in both the -x regexes and isExcluded()", () => {
+    expect(pkg["bucket:sync"]).toContain("^council/.*");
+    expect(pkg["bucket:sync:dry"]).toContain("^council/.*");
+    expect(isExcluded("council")).toBeTruthy();
+    expect(isExcluded("council/index.json")).toBeTruthy();
+    expect(
+      isExcluded("council/PER32/2026/PER32-2026-prot1-r1.json"),
+    ).toBeTruthy();
+    expect(isExcluded("council/votes/SOF.json")).toBeTruthy();
+  });
+
   it("both bucket:sync and bucket:sync:dry -x regexes exclude the officials families", () => {
     for (const frag of RETIRED) {
       expect(pkg["bucket:sync"]).toContain(frag);

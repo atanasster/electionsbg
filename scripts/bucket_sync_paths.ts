@@ -136,6 +136,24 @@ export const isExcluded = (rel: string): string | null => {
   // DIRECT argument and the natural push is the whole `budget` subtree.
   if (rel.startsWith("budget/municipal_fiscal"))
     return "budget/municipal_fiscal/ is a PG load source (db:load:municipal-fiscal:pg)";
+  // The council corpus is PG-served (migrations 160/161) — /api/db/council-overview,
+  // -muni and -resolution. Every reader moved off the bucket in council-hub-v1
+  // tiers 5-7: the My-Area tile, the alerts builder and both AI tools.
+  //
+  // The tree STAYS on disk and in git — data/council/<code>/<YYYY>/<id>.json is
+  // the loader's input, and index.json + votes/ are the scraper's own output.
+  // What must not happen is a second copy on a bucket path nothing reads, free
+  // to go stale: this repo has pushed ~16.8k orphan shards that way before.
+  //
+  // ⚠️ This FREEZES the bucket copy, it does not remove it. `gsutil rsync -x`
+  // excludes a match from DELETION as well as upload and syncPaths passes -x
+  // with -d, so the existing objects stay until an explicit operator action:
+  //   gsutil -m rm -r gs://data-electionsbg-com/council
+  // Do that only after the readers are deployed — removing them while a shipped
+  // reader still fetches is what left parliament/company-connections/ answering
+  // from a July snapshot at a 200.
+  if (rel === "council" || rel.startsWith("council/"))
+    return "council/ is a PG load source, served from Cloud SQL (db:load:council:pg:cloud)";
   // The registry people-count artifact: a 12 MB LOADER SOURCE for tr_name_fold_people
   // (migration 148, db:load:tr-name-fold-people:pg), never fetched by a browser. Same rule
   // as opencalls/ above, with two extra reasons to be sure: .tsv is not in GZIP_EXTS so it

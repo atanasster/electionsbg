@@ -423,8 +423,8 @@ export const parseFinancialDeclarations = async ({
   integrateTr({ publicFolder, rawFolder: dataFolder });
 
   // Officials → company cross-reference. Joins executive + municipal officials
-  // to companies (declared stakes + TR officer/owner name match). Feeds the
-  // councillor-conflicts pass. No-ops if data/officials/ has not been ingested.
+  // to companies (declared stakes + TR officer/owner name match). No-ops if
+  // data/officials/ has not been ingested.
   buildOfficialsCompanyLinks();
 
   // Augment companies-index with `mpRoles` + the registry-only company entries an MP holds but

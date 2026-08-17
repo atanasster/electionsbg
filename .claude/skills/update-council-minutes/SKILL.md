@@ -125,18 +125,7 @@ console.log('first:', rs[0]?.id, '|', rs[0]?.title?.slice(0, 60));
 
 Spot-check: open the most recent resolution's `sourceUrl` in a browser and confirm the tally numbers match the document. Drift here usually means the source CMS changed the protocol format — fix the per-município parser, don't fix the regex globally.
 
-## Step 4.5 — Refresh the derived councillor signals + conflicts
-
-Two derivations sit downstream of the votes shards and MUST be rebuilt after any ingest, otherwise the "standouts" strip in the unified `MyAreaCouncilTile` and the conflict-warning chips on `/officials/<slug>` stay stale. Both scripts walk `data/council/votes/*.json` so they pick up new munis the moment the shard exists:
-
-```bash
-npx tsx scripts/officials/build_councillor_signals.ts
-npx tsx scripts/officials/build_councillor_conflicts.ts
-```
-
-Outputs land at `data/officials/derived/councillor_signals.json` (≈ 50 KB — per-councillor attendance + dissent counts, used by the standouts strip) and `data/officials/derived/councillor_conflicts.json` (≈ 0.1 KB today; populated when conflict-detection hits a hit — currently `0 flags across 0 resolutions` since conflict-matching against company-officer ties is opt-in and few tier-A municípios have full per-decision bodies indexed). The `COUNCIL_TO_OFFICIALS` map at the top of each script names which munis feed the join — every new parser landing in the dispatcher needs the same one-line entry added.
-
-## Step 4.6 — Publish the corpus to Postgres
+## Step 4.5 — Publish the corpus to Postgres
 
 The council corpus is PG-served (migration 160). `data/council/` is the ingest's
 output and the loader's input; nothing reads it from the bucket any more.
