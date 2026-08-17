@@ -1,13 +1,13 @@
 {
-  "detail": "16 município(s) wired, 796 session-link(s) total",
-  "fingerprint": "83870317859afcebe3f720a44a8a0826ceeb02f1937fa0ad2b018f8dcba2854a",
-  "lastChanged": "2026-08-14T15:05:23.140Z",
-  "lastChecked": "2026-08-16T06:08:41.791Z",
+  "detail": "16 município(s) wired, 796 session-link(s) total · 3 fetch error(s)",
+  "fingerprint": "0c3b2863e09ad99095a12b1a847982a58c04faf626af5d9c277915a1cf5c3ded",
+  "lastChanged": "2026-08-17T06:08:34.574Z",
+  "lastChecked": "2026-08-17T06:08:34.574Z",
   "meta": {
     "counts": {
       "BGS01": 36,
-      "DOB28": 45,
-      "GAB05": 12,
+      "DOB28": -1,
+      "GAB05": -1,
       "HKV09": 18,
       "HKV34": 21,
       "PDV01": 9,
@@ -18,7 +18,7 @@
       "SLV01": 104,
       "SOF": 0,
       "SZR01": 31,
-      "SZR12": 13,
+      "SZR12": -1,
       "VAR01": 352,
       "VTR01": 5
     },
@@ -40,7 +40,11 @@
       "VAR01": 353,
       "VTR01": 5
     },
-    "errors": [],
-    "heartbeatEpoch": 6893
+    "errors": [
+      "DOB28",
+      "GAB05",
+      "SZR12"
+    ],
+    "heartbeatEpoch": 6894
   }
 }
