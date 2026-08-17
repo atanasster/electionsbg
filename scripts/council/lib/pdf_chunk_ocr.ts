@@ -132,7 +132,21 @@ export const ocrPdfChunked = async (
       ]);
       const buf = await readFile(chunkPath);
       const t = Date.now();
-      const ocr = await ocrPdfWithGemini(buf);
+      // Retry once on a transport failure. Streaming removed the ~63 s
+      // hold-open ceiling but not the occasional mid-generation socket close,
+      // and ONE such chunk aborts the whole protokol — measured 2026-08-17,
+      // session 61 died at chunk 7 of 9 and discarded the $0.53 already spent
+      // on the six that had completed. A single retry is cheap against that;
+      // a persistent failure still surfaces rather than looping.
+      let ocr;
+      try {
+        ocr = await ocrPdfWithGemini(buf);
+      } catch (e) {
+        log(
+          `    chunk ${first}-${last}: ${e instanceof Error ? e.message.slice(0, 120) : String(e)} — retrying once`,
+        );
+        ocr = await ocrPdfWithGemini(buf);
+      }
       const ms = Date.now() - t;
       inputTokens += ocr.usage.input ?? 0;
       outputTokens += ocr.usage.output ?? 0;

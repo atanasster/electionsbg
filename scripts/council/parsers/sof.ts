@@ -35,6 +35,7 @@
 import { fetchToFile } from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { ocrPdfChunked } from "../lib/pdf_chunk_ocr";
+import { agendaSubject, alignAgenda, foldTitle } from "../lib/agenda_align";
 import {
   classifyResult,
   extractNamedVoteBlock,
@@ -119,6 +120,15 @@ type SofiaUnlockEntry = {
   result: CouncilResolution["result"];
 };
 
+/** One agenda marker in document order, with the „относно" subject that follows
+ *  it — the key the decisions are aligned on. */
+type SofiaMarker = {
+  number: string;
+  /** Folded; "" when the OCR did not recover one. */
+  subject: string;
+  entry: SofiaUnlockEntry;
+};
+
 const unlockProtokolTallies = async (
   protokolUrl: string,
   sess: SofiaSession,
@@ -128,10 +138,10 @@ const unlockProtokolTallies = async (
   /** Keyed by the marker number (Решение № NNN if the OCR preserved
    * it; Точка N otherwise). */
   byNumber: Map<string, SofiaUnlockEntry>;
-  /** Markers in document order — supports positional fallback when the
-   * map keys turn out to be Точка numbers (1-80) that don't match
-   * decision numbers (303-380). */
-  inOrder: SofiaUnlockEntry[];
+  /** Every marker in document order, carrying its subject. The decisions are
+   *  ALIGNED against this by title (lib/agenda_align.ts) rather than merged
+   *  positionally — see that file for the measurement that rules position out. */
+  ordered: SofiaMarker[];
   cost: number;
   pages: number;
   joinExact: number;
@@ -141,7 +151,7 @@ const unlockProtokolTallies = async (
   hasReshenieHeaders: boolean;
 }> => {
   const out = new Map<string, SofiaUnlockEntry>();
-  const inOrder: SofiaUnlockEntry[] = [];
+  const ordered: SofiaMarker[] = [];
   const path = join(dir, `protokol_${sess.session}.pdf`);
   await fetchToFile(protokolUrl, path, { timeoutMs: 120000 });
   const { text, usage } = await ocrPdfChunked(path);
@@ -214,21 +224,21 @@ const unlockProtokolTallies = async (
     const result = best ? classifyResult(text, best.offset) : "unknown";
     const entry: SofiaUnlockEntry = { tally, result };
     out.set(marker.number, entry);
-    // „Точка 0 (нулева)" is the vote ADOPTING THE AGENDA — it produces no
-    // решение and therefore no r-NNN-YYYY PDF. Including it shifted the
-    // whole positional map by one, so every resolution inherited the
-    // PREVIOUS agenda item's tally and its named votes. Verified on
-    // protokol 65 against the published shards: Точка 0/1/2/3 tally
-    // 49-0-0 / 49-0-0 / 51-0-0 / 52-0-0 while decisions 528/529/530/531
-    // had stored 49 / 49 / 51 / 52 — i.e. decision 528 was carrying the
-    // agenda vote. Misattributing a NAMED councillor vote to the wrong
-    // decision is the worst failure this parser has, so it is excluded by
-    // number rather than by title.
-    if (tally && marker.number !== "0") inOrder.push(entry);
+    // The subject is FORWARD of the marker, so slice to the next one.
+    const nextOffset =
+      markers.find((x) => x.offset > marker.offset)?.offset ?? text.length;
+    const subject = agendaSubject(text.slice(marker.offset, nextOffset));
+    // EVERY marker with a tally is kept, „Точка 0" included. It is the vote
+    // adopting the agenda and produces no решение, so it must not receive one —
+    // but excluding it here would be a POSITIONAL correction, and position is
+    // no longer what decides. It carries no „относно" subject, so the alignment
+    // cannot anchor it to a decision and the interpolation is bounded by
+    // anchors on both sides; it simply falls out.
+    if (tally) ordered.push({ number: marker.number, subject, entry });
   }
   return {
     byNumber: out,
-    inOrder,
+    ordered,
     cost: usage.estUsd,
     pages: usage.outputTokens,
     joinExact,
@@ -367,7 +377,8 @@ export const scrapeSOF = async (
           );
           totalOcrCost += unlock.cost;
           let merged = 0;
-          let mergeMethod: "number" | "positional" | "refused" = "number";
+          let mergeMethod: "number" | "aligned" | "refused" = "number";
+          let alignNote = "";
           // Path A: the OCR preserved "Решение № NNN" headers; join by
           // exact number. Path B (Sofia today): the OCR surfaces only
           // "Точка <N>" agenda markers — fall back to POSITIONAL
@@ -385,38 +396,42 @@ export const scrapeSOF = async (
               merged++;
             }
           }
-          // Fall back to positional when the number join produced NOTHING.
-          // This used to be an `else if`, so a session whose OCR surfaced
-          // large-N headers that then matched no decision merged 0 and
+          // Fall back to TITLE ALIGNMENT when the number join produced
+          // nothing. This used to be an `else if`, so a session whose OCR
+          // surfaced large-N headers that then matched no decision merged 0 and
           // stopped — measured 2026-08-17, sessions 62 and 64 each OCR'd
-          // cleanly (91-92% roster join) and published zero tallies, ~$1.5
-          // of OCR discarded in silence. hasReshenieHeaders is a heuristic
-          // ("some marker number > 100"), so it can be true and useless.
-          if (merged === 0 && unlock.inOrder.length > 0) {
+          // cleanly (91-92% roster join) and published zero tallies, ~$1.5 of
+          // OCR discarded in silence. hasReshenieHeaders is a heuristic ("some
+          // marker number > 100"), so it can be true and useless.
+          if (merged === 0 && unlock.ordered.length > 0) {
             const sortedRecs = [...sessionRecs].sort(
               (a, b) => parseInt(a.number, 10) - parseInt(b.number, 10),
             );
-            // EXACT counts only. Positional merging assumes the Nth agenda
-            // item is the Nth decision; when the counts disagree, some
-            // Точка mid-session produced no decision (withdrawn, deferred,
-            // split) and every entry after it is attributed to the WRONG
-            // resolution. Truncating with Math.min hid that — it always
-            // "succeeded", reporting 57/57 while silently assuming the 5
-            // surplus markers were all trailing. Refusing costs a session's
-            // tallies; guessing publishes a named councillor's vote against
-            // a decision they did not cast it on.
-            if (sortedRecs.length !== unlock.inOrder.length) {
+            // ALIGNED on the decision titles, never on position. Protokol 65
+            // has 63 markers and 57 decisions, and the five agenda items that
+            // produced no decision sit MID-SESSION: decisions 582/583/584 are
+            // Точки 60/61/62, not 55/56/57 (title overlap 1.00 vs 0.12). Any
+            // positional scheme — truncating, or a single global offset — gets
+            // the tail wrong and publishes a named councillor's vote against a
+            // decision they did not cast it on. See lib/agenda_align.ts.
+            const align = alignAgenda(
+              sortedRecs.map((r) => foldTitle(r.title ?? "")),
+              unlock.ordered.map((m) => m.subject),
+            );
+            if (align.map.size === 0) {
               mergeMethod = "refused";
               console.log(
-                `      ocr: positional merge REFUSED — ${unlock.inOrder.length} agenda item(s) with a tally vs ${sortedRecs.length} decision(s); cannot align without misattributing`,
+                `      ocr: title alignment found NO anchor across ${unlock.ordered.length} agenda item(s) and ${sortedRecs.length} decision(s) — refusing rather than guessing a position`,
               );
             } else {
-              mergeMethod = "positional";
-              for (let i = 0; i < sortedRecs.length; i++) {
-                sortedRecs[i].tally = unlock.inOrder[i].tally;
-                sortedRecs[i].result = unlock.inOrder[i].result;
+              mergeMethod = "aligned";
+              for (const [ri, mj] of align.map) {
+                const e = unlock.ordered[mj].entry;
+                sortedRecs[ri].tally = e.tally;
+                sortedRecs[ri].result = e.result;
                 merged++;
               }
+              alignNote = ` · align ${align.anchors} anchor(s) + ${align.interpolated} interpolated`;
             }
           }
           const joinPct =
@@ -424,7 +439,7 @@ export const scrapeSOF = async (
               ? ` · join ${unlock.joinExact}/${unlock.joinTotal} (${Math.round((unlock.joinExact / unlock.joinTotal) * 100)}%)`
               : "";
           console.log(
-            `      ocr: $${unlock.cost.toFixed(4)} (${mergeMethod}), merged tally into ${merged}/${refs.length}${joinPct}`,
+            `      ocr: $${unlock.cost.toFixed(4)} (${mergeMethod}), merged tally into ${merged}/${refs.length}${alignNote}${joinPct}`,
           );
         } catch (err) {
           errors.push({
