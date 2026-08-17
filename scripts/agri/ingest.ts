@@ -204,6 +204,58 @@ export const runAgriIngest = async ({
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
 
+  // ── the /subsidies hub stat cache (162) ─────────────────────────────────────
+  // `CREATE MATERIALIZED VIEW` RESOLVES ITS QUERY at creation — check_function_bodies
+  // does not help — so every relation 162 reads must already exist. It reads four this
+  // loader does not own, and on a COLD db:refresh two of them do not exist yet at step 14:
+  //
+  //     contracts             db:load:pg              step  5  ✓ before us
+  //     fund_projects         db:load:funds:pg        step 10  ✓ before us
+  //     person_role, person   db:resolve:persons      step 45  ✗ AFTER us
+  //     budget_muni_transfer  db:load:budget-muni:pg  step ~29 ✗ AFTER us
+  //
+  // Unhandled that is migration 145's defect exactly: the file 42P01s, exec() rolls the
+  // whole thing back, and a fresh clone's db:refresh dies at step 14 of 62.
+  //
+  // The fix is the one load_graph_pg.ts uses for 137 — apply the DEPENDENCY's DDL first,
+  // rather than a to_regclass branch inside the view (127's header explains why that was
+  // the wrong fix). Both files are CREATE TABLE IF NOT EXISTS throughout, so this is
+  // idempotent and costs nothing on a warm database; on a cold one it creates the empty
+  // tables 162 needs to compile against, and the arms simply contribute zero until their
+  // real loaders run.
+  for (const f of ["081_person_identity.sql", "154_budget_municipal.sql"])
+    await exec(readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
+
+  // contracts / fund_projects are guaranteed by db:refresh ORDER rather than by us —
+  // applying two more corpora's DDL from the agri loader would be real coupling for a
+  // case only a hand-built database reaches. So preflight instead: if either is absent,
+  // skip 162 with a warning that names the fix. The hub then renders WITHOUT figures
+  // (the route degrades 42P01 to null and logs `ahs:not-built` once), which is the
+  // designed empty state — not a silent wrong number.
+  const missing = await withClient(async (c) => {
+    const { rows } = await c.query<{ missing: string[] }>(
+      `SELECT array_remove(ARRAY[
+         CASE WHEN to_regclass('public.contracts') IS NULL THEN 'contracts (db:load:pg)' END,
+         CASE WHEN to_regclass('public.fund_projects') IS NULL THEN 'fund_projects (db:load:funds:pg)' END
+       ], NULL) AS missing`,
+    );
+    return rows[0].missing;
+  });
+  // A SKIPPED apply leaves whatever definition was already there. That is stale
+  // rather than broken — the REFRESH below is guarded on existence and will rebuild
+  // the OLD body — so say so explicitly instead of implying the hub is simply empty.
+  if (missing.length)
+    console.warn(
+      `[agri] skipping 162_agri_hub_stats.sql — absent: ${missing.join(", ")}. ` +
+        "The /subsidies hub will render without its figures (or, on a database that " +
+        "already had 162, with the PREVIOUS definition) until those load and this " +
+        "loader is re-run.",
+    );
+  else
+    await exec(
+      readFileSync(path.join(SCHEMA_DIR, "162_agri_hub_stats.sql"), "utf8"),
+    );
+
   const recipients = new Map<string, Recipient>();
   const totalsByYear: {
     year: number;
@@ -776,6 +828,33 @@ export const runAgriIngest = async ({
     console.log(
       `  agri_beneficiary_year refreshed → ${yr[0].n} rows across ${yr[0].k} scopes`,
     );
+
+    // The /subsidies hub's stat cache (162). LAST of the three, because it reads
+    // `agri_payloads` for its scope list and its declared scopeYear — refreshed
+    // before the payload merge above it would key itself on the PREVIOUS vintage's
+    // scopes, so a newly covered financial year would exist in the payloads, in the
+    // ranking and nowhere on the hub.
+    //
+    // ⚠️ Three of its arms read corpora this ingest does not own — person_role
+    // (db:resolve:persons), fund_projects (db:load:funds:pg), contracts
+    // (db:load:pg) — so it goes stale on THEIR reloads too, silently, at a 200.
+    // And db:refresh runs this loader at step 14 against a person layer that is
+    // rebuilt at step 45, so a full refresh always builds the political arm one
+    // vintage behind; a second `npm run db:load:agri:pg` after the person chain
+    // closes that cycle in one pass. See 162's header.
+    // Guarded on existence for the same reason the apply above is: on a database
+    // where 162 was skipped this relation does not exist, and an unguarded REFRESH
+    // would abort a load that is otherwise complete and correct.
+    const { rows: built } = await c.query<{ ok: boolean }>(
+      "SELECT to_regclass('public.agri_hub_stats_cache') IS NOT NULL AS ok",
+    );
+    if (built[0].ok) {
+      await c.query("REFRESH MATERIALIZED VIEW agri_hub_stats_cache");
+      const { rows: hub } = await c.query<{ n: string }>(
+        "SELECT count(*)::text AS n FROM agri_hub_stats_cache",
+      );
+      console.log(`  agri_hub_stats_cache refreshed → ${hub[0].n} scopes`);
+    }
   });
 
   // The visibility map this ingest has been discarding since it was written.
@@ -799,6 +878,14 @@ export const runAgriIngest = async ({
     "agri_beneficiary",
     "agri_beneficiary_year",
   );
+  // Separately, and only when 162 was applied — vacuumAfterReload validates the
+  // name and then VACUUMs it, so an absent relation would throw here too.
+  await withClient(async (c) => {
+    const { rows } = await c.query<{ ok: boolean }>(
+      "SELECT to_regclass('public.agri_hub_stats_cache') IS NOT NULL AS ok",
+    );
+    if (rows[0].ok) await vacuumAfterReload("agri_hub_stats_cache");
+  });
 
   console.log(
     `\nloaded → Postgres: ${rowsTotal} agri rows + ${payloadRows.length} payloads (${recipients.size} recipients across ${totalsByYear.length} years)`,

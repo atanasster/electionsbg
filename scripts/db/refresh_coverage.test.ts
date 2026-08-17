@@ -84,6 +84,44 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:agri:pg",
+    before: "db:load:pg",
+    why:
+      "162's agri_hub_stats_cache reads `contracts` for its cross-programme arm, and " +
+      "CREATE MATERIALIZED VIEW RESOLVES ITS QUERY at creation — so on a database " +
+      "where contracts does not exist the migration cannot be applied at all. The " +
+      "loader preflights and skips it with a warning rather than aborting, which " +
+      "leaves the /subsidies hub rendering with NO figures",
+  },
+  {
+    after: "db:load:agri:pg",
+    before: "db:load:funds:pg",
+    why:
+      "same as the contracts pair above — 162 reads `fund_projects` for the " +
+      "cross-programme arm, and the matview's query is resolved at CREATE time",
+  },
+  // 162's OTHER two inputs run after db:load:agri:pg, so the cache that loader builds
+  // is always one vintage behind on them — and on a FIRST run, against a person layer
+  // 081 has just created empty, the political arm is not stale but ZERO. That is why
+  // db:load:agri-hub-stats:pg exists and sits late in the chain: it rebuilds the same
+  // matview in 5.9 s instead of re-running a 5m44s corpus load.
+  {
+    after: "db:load:agri-hub-stats:pg",
+    before: "db:resolve:persons",
+    why:
+      "162's political arm reads person_role ⨝ person. Built before the resolve it is " +
+      "empty on a fresh database, and `politicalEiks: 0` beside a NULL politicalEur is " +
+      "a CLAIM (0 companies) rather than an absence — the tile would read „0 фирми" +
+      "\u201c where the truth is „not computed yet",
+  },
+  {
+    after: "db:load:agri-hub-stats:pg",
+    before: "db:load:budget-muni:pg",
+    why:
+      "162's crossStream block reads budget_muni_transfer for the „общински трансфери" +
+      "\u201c tile. Built first, that tile has no figure at all",
+  },
+  {
     after: "db:load:council:pg",
     before: "db:resolve:persons",
     why:

@@ -140,6 +140,11 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "agri_payloads", loader: "db:load:agri:pg" },
   { table: "agri_beneficiary", loader: "db:load:agri:pg" },
   { table: "agri_beneficiary_year", loader: "db:load:agri:pg" },
+  // The hub stat cache (162). Vacuumed CONDITIONALLY — the loader skips applying 162
+  // when `contracts` or `fund_projects` is absent, so the relation may legitimately
+  // not exist — but once it does, its non-concurrent REFRESH loses the map like any
+  // other matview here.
+  { table: "agri_hub_stats_cache", loader: "db:load:agri:pg" },
 ];
 
 // Every loader, DERIVED rather than hand-listed, so the static check below reads

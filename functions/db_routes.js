@@ -3213,6 +3213,43 @@ const DB_ROUTES = {
       return { status: 404, body: { error: "unknown or unbuilt scope" } };
     return { body: payload };
   },
+  // The /subsidies hub's ONE stat call (migration 162). Every tile figure for one
+  // scope, from a matview seek — 541 buffers, 1.5 ms — so the hub does not fetch
+  // the module's artifacts to draw preview numbers.
+  //
+  // `scope` is the agri_payloads overview key ('' | <year> | 'all'), the same value
+  // agriScopeToKey resolves for the page. An UNKNOWN scope returns null rather than
+  // 404: unlike agri-payload, whose key is the page's whole content, a hub with no
+  // figures is a hub that still renders — its tiles simply carry no metric, which is
+  // the honest state for a scope this corpus does not cover. A `0` would be a claim.
+  //
+  // DEGRADES on the narrow set that means „not built yet", never on anything else:
+  //   42883 undefined_function      — 162 never applied
+  //   42P01 undefined_table         — the matview is absent
+  //   55000 object_not_in_prerequisite_state — created WITH NO DATA, i.e. every
+  //                                   first cloud deploy; reading it RAISES rather
+  //                                   than returning zero rows
+  //   55P03 lock_not_available      — a REFRESH holds AccessExclusive right now
+  // NOT 57014: that is the pool's own statement_timeout, so the budget is already
+  // spent and degrading turns one slow failure into two. NOT 42501 either — a
+  // missing GRANT is PERMANENT, not a refresh artifact, so it must stay loud rather
+  // than serve a figure-less hub for ever.
+  "agri-hub-stats": async (dbRows, q) => {
+    const scope = s(q, "scope") || "";
+    const rows = await dbRows("SELECT agri_hub_stats($1) AS r", [scope]).catch(
+      (e) => {
+        if (!["42883", "42P01", "55000", "55P03"].includes(e?.code))
+          return Promise.reject(e);
+        logMissOnce(
+          `ahs:not-built:${e.code}`,
+          `agri-hub-stats: read failed (${e.code}) — the /subsidies hub will render ` +
+            `without its figures. Run npm run db:load:agri:pg (applies + refreshes 162).`,
+        );
+        return [{ r: null }];
+      },
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // ── Schools / education serving (school_payloads, migration 055) ─────────────
   // The 'directory' blob (key '') is the whole /education dataset with the SES +
   // value-added verdicts precomputed in the loader — one PK seek, ~150 KB, vs the

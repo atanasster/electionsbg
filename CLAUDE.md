@@ -1712,9 +1712,40 @@ publish a corpus missing a financial year. Publishing to prod:
 
 ```bash
 npm run db:load:agri:pg:cloud
+npm run db:load:agri-hub-stats:pg:cloud   # the /subsidies hub cache — see below
 ```
 
-Run it after any `raw_data/agri/` refresh (a new egov financial year, or a fresh
+**`db:load:agri-hub-stats:pg` is a SECOND, much cheaper loader for the same corpus, and it
+has its own trigger list.** It applies migration 162 and rebuilds `agri_hub_stats_cache`, the
+scope-keyed matview behind `/api/db/agri-hub-stats` and every figure on the `/subsidies` hub —
+**5.9 s**, against the 5m44s the full agri ingest takes. `db:load:agri:pg` also applies and
+refreshes 162, so a corpus reload carries it; this exists because the cache has FIVE inputs and
+the agri ingest owns one:
+
+| input | filled by |
+|---|---|
+| `agri_subsidies` / `agri_payloads` | `db:load:agri:pg` |
+| `person_role`, `person` | `db:resolve:persons` |
+| `fund_projects` | `db:load:funds:pg` |
+| `contracts` | `db:load:pg` |
+| `budget_muni_transfer` | `db:load:budget-muni:pg` |
+
+Re-run it after **any** of those. `db:refresh` runs it at step 56, after the person chain, for a
+reason worth knowing: the agri ingest is step 14 and `db:resolve:persons` is step 45, so the
+cache the ingest builds is always one vintage behind on the political arm — and on a FIRST run,
+against a person layer `081` has just created empty, that arm is not stale but **zero**, which
+is a claim („0 фирми") rather than an absence. The loader warns when it sees that state.
+
+⚠️ **The agri ingest is now a second applier of `081_person_identity.sql` and
+`154_budget_municipal.sql`.** `CREATE MATERIALIZED VIEW` resolves its query at creation, so 162
+cannot compile against a database where `person_role` or `budget_muni_transfer` is absent — and
+on a cold `db:refresh` both are created after step 14. Applying their DDL first (the pattern
+`load_graph_pg.ts` uses for 137) is what keeps a fresh clone's chain alive; both files are
+`CREATE TABLE IF NOT EXISTS` throughout, so it is idempotent and free on a warm database.
+`contracts` and `fund_projects` are guaranteed by chain ORDER instead, and preflighted — a
+missing one skips the migration with a warning rather than aborting the load.
+
+Run the base loader after any `raw_data/agri/` refresh (a new egov financial year, or a fresh
 `npm run agri:seu` pull); the fetch+load path stays `npm run agri:ingest` (the update-agri
 skill). Nothing on the cloud side is automatic. The subsidies table publishes via an UNLOGGED
 stage + one-transaction DELETE+INSERT (RowExclusiveLock only — readers stay on the MVCC
@@ -2406,7 +2437,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_hub_stats_cache;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE
