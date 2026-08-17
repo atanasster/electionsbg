@@ -561,6 +561,16 @@ const SubsidiesDashboardScreen = lazy(() =>
     default: m.SubsidiesDashboardScreen,
   })),
 );
+const SubsidiesPoliticalScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesPoliticalScreen").then((m) => ({
+    default: m.SubsidiesPoliticalScreen,
+  })),
+);
+const SubsidiesCrossProgrammeScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesCrossProgrammeScreen").then((m) => ({
+    default: m.SubsidiesCrossProgrammeScreen,
+  })),
+);
 const SubsidiesUntraceableScreen = lazy(() =>
   import("./screens/subsidies/SubsidiesUntraceableScreen").then((m) => ({
     default: m.SubsidiesUntraceableScreen,
@@ -2641,6 +2651,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SubsidiesDashboardScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/political"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesPoliticalScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/cross-programme"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesCrossProgrammeScreen />
                 </Suspense>
               </LayoutScreen>
             }

@@ -422,6 +422,29 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    // anchor h1 so the clip leads with the „вписана роля, не собственост" caveat —
+    // on a page about named people that limit has to be in the share card, not
+    // below the fold.
+    slug: "subsidies-political",
+    routePath: "subsidies/political?pscope=all",
+    waitFor: '[data-og="subsidies-political"]',
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
+    // Same reason: the „трите колони не се събират" box is the page's argument and
+    // must survive into the card.
+    slug: "subsidies-cross-programme",
+    routePath: "subsidies/cross-programme?pscope=all",
+    waitFor: '[data-og="subsidies-cross-programme"]',
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     // The four headline cards ARE the argument: the share, the name count, the row
     // count and — the one that stops the misreading — how much of it is plainly a
     // company. anchor h1 so the clip leads with the „no ЕИК is not a person" line.

@@ -146,6 +146,9 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   // not exist — but once it does, its non-concurrent REFRESH loses the map like any
   // other matview here.
   { table: "agri_hub_stats_cache", loader: "db:load:agri:pg" },
+  // 163, refreshed beside it by db:load:agri-hub-stats:pg — same person_role gate.
+  { table: "agri_political_link", loader: "db:load:agri-hub-stats:pg" },
+  { table: "agri_cross_programme", loader: "db:load:agri-hub-stats:pg" },
 ];
 
 // Every loader, DERIVED rather than hand-listed, so the static check below reads

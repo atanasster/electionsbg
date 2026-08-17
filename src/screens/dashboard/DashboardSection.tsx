@@ -71,6 +71,11 @@ type Props = {
     | "subsidies-coverage-years"
     | "subsidies-coverage-sources"
     | "subsidies-coverage-caveats"
+    // /subsidies/political and /subsidies/cross-programme — the two cross-corpus pages.
+    | "subsidies-political-headline"
+    | "subsidies-political-table"
+    | "subsidies-cross-headline"
+    | "subsidies-cross-table"
     | "subsidies-distribution"
     | "subsidies-recipients"
     | "subsidies-data"

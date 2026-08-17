@@ -5498,6 +5498,80 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "subsidies/political",
+    title:
+      "Земеделски субсидии и публични фигури — вписани роли | electionsbg.com",
+    description: `Земеделски получатели, при които публична фигура заема ВПИСАНА РОЛЯ в търговския регистър или в регистъра на ЮЛНЦ — не собственост и не нарушение (${AGRI_YEAR_RANGES}).`,
+    breadcrumbName: "Публични фигури",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-political.png",
+    bodyHtml: `
+<h1>Земеделски субсидии и публични фигури</h1>
+<p>Земеделските получатели, при които публична фигура е <strong>вписана в роля</strong> в търговския регистър или в регистъра на ЮЛНЦ. Това са 568 от 16 701 получатели с ЕИК (3,4%) и около €184 млн.</p>
+<p>„Публична фигура" тук е по-широко от изборна длъжност: освен депутати, министри, кметове, общински съветници и магистрати, обхваща и кандидати на избори, и ръководители на публични институции — училища, детски градини, лечебни заведения, културни институти. Около 30% от изброените лица заемат само такава позиция.</p>
+<h2>Вписана роля — не собственост и не нарушение</h2>
+<p>Регистърът показва, че лицето е записано в тази роля; нищо повече. Земеделската субсидия се получава по правила за площ и мярка, а не по преценка на чиновник, така че присъствието в този списък само по себе си не значи нередност. Самоличността е <strong>отказана, а не степенувана</strong>: когато търговският регистър познава името на повече от един човек, връзка изобщо не се създава.</p>
+<h2>Два различни вида връзка</h2>
+<p>Списъкът разделя „чрез фирма" от „чрез сдружение", защото това са различни факти. 64 от 568 се стигат само по втория път — а <strong>местните инициативни групи (МИГ)</strong> сред тях са сдружения по устройство и са официалният канал за парите за развитие на селските райони, а не бизнес интерес.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies/cross-programme">получателите и по други програми</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
+    english: {
+      title:
+        "Farm Subsidies and Public Figures — Recorded Roles | electionsbg.com",
+      description: `Farm recipients where a public figure holds a RECORDED ROLE in the Commerce Registry or the non-profit register — not ownership and not wrongdoing (${AGRI_YEAR_RANGES}).`,
+      breadcrumbName: "Public figures",
+      bodyHtml: `
+<h1>Farm subsidies and public figures</h1>
+<p>The farm recipients where a public figure is <strong>recorded in a role</strong> in the Commerce Registry or the non-profit register. That is 568 of 16,701 ЕИК-bearing recipients (3.4%) and about €184m.</p>
+<p>„Public figure" here is broader than elected office: besides MPs, ministers, mayors, councillors and magistrates it covers election candidates and the heads of public institutions — schools, kindergartens, medical centres, cultural institutes. About 30% of the people listed hold only such a position.</p>
+<h2>A recorded role — not ownership, and not wrongdoing</h2>
+<p>The register shows that the person is entered in that role; nothing more. Farm subsidy is paid by area and measure under published rules rather than at an official's discretion, so appearing in this list is not in itself an irregularity. The identity behind it is <strong>refused rather than graded</strong>: where the Commerce Registry knows the name for more than one person, no link is created at all.</p>
+<h2>Two different kinds of link</h2>
+<p>The list separates „via a company" from „via an association", because they are different facts. 64 of the 568 are reached only by the second — and the <strong>local action groups (LAGs)</strong> among them are associations by design and the official channel for rural-development money, not a business interest.</p>
+<p>See also <a href="${SITE_URL}/en/subsidies/cross-programme">recipients across other programmes</a> and the <a href="${SITE_URL}/en/subsidies">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "subsidies/cross-programme",
+    title:
+      "Земеделски получатели и по други програми — поръчки и еврофондове | electionsbg.com",
+    description: `Земеделски получатели, които държат и обществени поръчки или европейски грантове. Трите вида пари се показват поотделно — те са на различна основа и не се събират.`,
+    breadcrumbName: "И по други програми",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-cross-programme.png",
+    bodyHtml: `
+<h1>Земеделски получатели и по други програми</h1>
+<p>Един и същ ЕИК може да се появи в три различни регистъра: земеделските субсидии на ДФ „Земеделие", обществените поръчки и европейските фондове по ИСУН. От нито един поотделно това не се вижда. Тук са 3 910 получатели, които са и бенефициенти по ИСУН, и 764, които държат договор по ЗОП; 348 са и в трите.</p>
+<h2>Трите колони не се събират</h2>
+<p>Основите им са различни: <strong>субсидиите</strong> са изплатени пари за избрания период, <strong>поръчките</strong> са договорена стойност за цялото време (възложена, не непременно платена), а <strong>еврофондовете</strong> са договорен грант — публичната част, без собственото съфинансиране на бенефициента. Сборът им би съчетал едно платено и две обещани числа през три различни прозореца, затова обща сума няма.</p>
+<p>Само колоната със субсидиите следва избрания период — другите два регистъра нямат земеделска финансова година.</p>
+<h2>Това е страница за застъпване, не за нередност</h2>
+<p>Да държиш и грант, и субсидия е обичайно: двете финансират различни неща и модернизиращо се стопанство ще има и двете. Полезното е, че една и съща фирма може да бъде видяна в повече от един регистър наведнъж.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies/political">получателите с публична фигура</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
+    english: {
+      title:
+        "Farm Recipients Across Other Programmes — Contracts and EU Funds | electionsbg.com",
+      description: `Farm recipients that also hold public contracts or EU grants. The three kinds of money are shown separately — they are on different bases and are never summed.`,
+      breadcrumbName: "Across other programmes",
+      bodyHtml: `
+<h1>Farm recipients across other programmes</h1>
+<p>One ЕИК can appear in three different registers: State Fund Agriculture subsidies, public procurement, and EU funds under ИСУН. From any one of them alone that is invisible. Here are the 3,910 recipients that are also ИСУН beneficiaries and the 764 that hold a public contract; 348 are in all three.</p>
+<h2>The three columns are never summed</h2>
+<p>Their bases differ: <strong>subsidy</strong> is money paid in the selected period, <strong>contracts</strong> are awarded value all-time (awarded, not necessarily paid), and <strong>EU funds</strong> are a contracted grant — the public part, excluding the beneficiary's own co-financing. Adding them would combine one paid figure with two promised ones across three different windows, so there is no total.</p>
+<p>Only the subsidy column follows the selected period — the other two registers carry no CAP financial year.</p>
+<h2>This is a page about overlap, not about wrongdoing</h2>
+<p>Holding both a grant and a subsidy is ordinary: the two fund different things and a modernising farm will have both. What is useful is that the same company can be seen in more than one register at once.</p>
+<p>See also <a href="${SITE_URL}/en/subsidies/political">recipients with a public figure</a> and the <a href="${SITE_URL}/en/subsidies">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "subsidies/untraceable",
     title:
       "Непроследими земеделски субсидии — парите без ЕИК | electionsbg.com",

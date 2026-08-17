@@ -153,8 +153,15 @@ WITH
     WHERE beneficiary_eik IS NOT NULL
   ),
   contract_eik AS (
+    -- The SAME predicate 163's agri_cross_programme uses, and the same one 127 and
+    -- 024 use for „this company's procurement take": settled contracts only, and no
+    -- €0 consortium-member rows (087). Without the two filters this arm counted 772
+    -- companies while the table on /subsidies/cross-programme counted 764 — the card
+    -- and the rows beneath it disagreeing, on all ten scopes.
     SELECT DISTINCT contractor_eik AS eik FROM contracts
     WHERE contractor_eik IS NOT NULL
+      AND tag = 'contract'
+      AND consortium_role IS DISTINCT FROM 'member'
   ),
   -- Per-entity totals in scope, for the concentration tiers. The payer is excluded
   -- (it is a counterparty, not a recipient, and has no /farm page to land on).

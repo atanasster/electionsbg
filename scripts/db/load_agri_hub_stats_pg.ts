@@ -47,6 +47,7 @@ const main = async (): Promise<void> => {
          CASE WHEN to_regclass('public.contracts') IS NULL THEN 'contracts (db:load:pg)' END,
          CASE WHEN to_regclass('public.fund_projects') IS NULL THEN 'fund_projects (db:load:funds:pg)' END,
          CASE WHEN to_regclass('public.person_role') IS NULL THEN 'person_role (db:resolve:persons)' END,
+         CASE WHEN to_regclass('public.agri_beneficiary_year') IS NULL THEN 'agri_beneficiary_year (db:load:agri:pg)' END,
          CASE WHEN to_regclass('public.budget_muni_transfer') IS NULL THEN 'budget_muni_transfer (db:load:budget-muni:pg)' END
        ], NULL) AS missing`,
     );
@@ -60,15 +61,19 @@ const main = async (): Promise<void> => {
     return;
   }
 
-  await exec(
-    readFileSync(path.join(SCHEMA_DIR, "162_agri_hub_stats.sql"), "utf8"),
-  );
+  for (const f of ["162_agri_hub_stats.sql", "163_agri_political.sql"])
+    await exec(readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
 
   // 162 is created WITH NO DATA (it is refreshed here, and building it at apply time
   // would compute a vintage that is immediately replaced), so this REFRESH is not
   // optional — without it the matview raises 55000 on every read.
   const n = await withClient(async (c) => {
     await c.query("REFRESH MATERIALIZED VIEW agri_hub_stats_cache");
+    // 163 shares this loader's person_role dependency exactly — it is the same gate,
+    // resolved at the same moment — so refreshing it anywhere else would let the hub's
+    // „политически свързани" count and the list behind it describe two vintages.
+    await c.query("REFRESH MATERIALIZED VIEW agri_political_link");
+    await c.query("REFRESH MATERIALIZED VIEW agri_cross_programme");
     const { rows } = await c.query<{ n: string }>(
       "SELECT count(*)::text AS n FROM agri_hub_stats_cache",
     );
@@ -77,7 +82,11 @@ const main = async (): Promise<void> => {
   // Outside the client above: VACUUM cannot run inside a transaction block, and a
   // non-concurrent REFRESH rewrites the heap wholesale, leaving the visibility map
   // empty like any other matview in this repo.
-  await vacuumAfterReload("agri_hub_stats_cache");
+  await vacuumAfterReload(
+    "agri_hub_stats_cache",
+    "agri_political_link",
+    "agri_cross_programme",
+  );
 
   // A loud, cheap check on the arm this loader exists to fix. Zero politically-linked
   // companies across the whole corpus means the person layer was empty when the cache

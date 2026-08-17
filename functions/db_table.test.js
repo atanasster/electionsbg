@@ -347,6 +347,8 @@ test("every fan-out resource declares a defaultScope", () => {
     // default: €14.04bn and €23.66bn against a real €11.04bn.
     "agri_recipients",
     "agri_schemes",
+    "agri_political",
+    "agri_cross_programme",
   ];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);

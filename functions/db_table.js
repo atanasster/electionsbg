@@ -874,6 +874,89 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // The politically-linked farm recipients behind /subsidies/political (matview
+  // agri_political_link, migration 163). One row per (scope × EIK).
+  //
+  // `arm` splits the two link kinds and MUST stay a visible column: an ЕООД whose
+  // manager is an MP and a местна инициативна група whose board includes a mayor
+  // are not the same fact, and 64 of the 568 are reached only through the ngo arm.
+  // It reports a REGISTRY ROLE — never ownership, control or wrongdoing.
+  agri_political: {
+    base: "agri_political_link",
+    defaultScope: { col: "scope_key", val: "all" },
+    scopeCols: ["scope_key"],
+    columns: {
+      scope_key: { type: "text", filter: "eq" },
+      eik: { type: "text", filter: "eq" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      oblast: { type: "text", sort: true, filter: "in" },
+      arm: { type: "text", sort: true, filter: "in" },
+      person_count: { type: "number", sort: true, filter: "range" },
+      people: { type: "json" },
+      payment_count: { type: "number", sort: true, filter: "range" },
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "scope_key",
+      "eik",
+      "name",
+      "oblast",
+      "arm",
+      "person_count",
+      "people",
+      "payment_count",
+      "total_eur",
+    ],
+    defaultSort: [["total_eur", "desc"]],
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "total_eur" }],
+    maxPageSize: 100,
+  },
+
+  // Farm recipients that also hold a ЗОП contract or an ИСУН grant, behind
+  // /subsidies/cross-programme (matview agri_cross_programme, 163).
+  //
+  // ⚠️ THE THREE MONEY COLUMNS ARE ON DIFFERENT BASES and there is deliberately NO
+  // total aggregate across them: agri_eur is CASH PAID in the scope, contracts_eur
+  // is post-annex CONTRACT VALUE all-time, funds_grant_eur is the CONTRACTED ИСУН
+  // grant all-time. Only the first is scoped. Summing them describes nothing.
+  agri_cross_programme: {
+    base: "agri_cross_programme",
+    defaultScope: { col: "scope_key", val: "all" },
+    scopeCols: ["scope_key"],
+    columns: {
+      scope_key: { type: "text", filter: "eq" },
+      eik: { type: "text", filter: "eq" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      oblast: { type: "text", sort: true, filter: "in" },
+      programme_count: { type: "number", sort: true, filter: "in" },
+      agri_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contracts_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contract_count: { type: "number", sort: true, filter: "range" },
+      funds_grant_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      fund_project_count: { type: "number", sort: true, filter: "range" },
+    },
+    select: [
+      "scope_key",
+      "eik",
+      "name",
+      "oblast",
+      "programme_count",
+      "agri_eur",
+      "contracts_eur",
+      "contract_count",
+      "funds_grant_eur",
+      "fund_project_count",
+    ],
+    defaultSort: [["agri_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "agri_eur" },
+      { fn: "sum", col: "contracts_eur" },
+      { fn: "sum", col: "funds_grant_eur" },
+    ],
+    maxPageSize: 100,
+  },
+
   // Magistrates with a declared company (ИВСС чл. 175а ЗСВ) — the standalone
   // „виж всички" browse behind the /judiciary holdings tile (view
   // magistrate_holdings_table, migration 070). One row per holder (208); `companies`

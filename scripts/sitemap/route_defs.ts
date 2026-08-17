@@ -34,6 +34,8 @@ export const ENGLISH_STATIC_PAGES = [
   "subsidies/concentration",
   "subsidies/untraceable",
   "subsidies/coverage",
+  "subsidies/political",
+  "subsidies/cross-programme",
   "about",
   "sverka",
   "local/chmi",
@@ -640,6 +642,14 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "subsidies/coverage",
     file: `src/screens/subsidies/SubsidiesCoverageScreen.tsx`,
+  },
+  {
+    path: "subsidies/political",
+    file: `src/screens/subsidies/SubsidiesPoliticalScreen.tsx`,
+  },
+  {
+    path: "subsidies/cross-programme",
+    file: `src/screens/subsidies/SubsidiesCrossProgrammeScreen.tsx`,
   },
 
   // EU funds — ИСУН 2020 corpus.
