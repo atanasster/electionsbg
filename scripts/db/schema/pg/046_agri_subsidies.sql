@@ -93,7 +93,16 @@ CREATE TABLE IF NOT EXISTS agri_payloads (
 -- spelling was wrong on thousands of rows, which is exactly the kind of change that must
 -- propagate. Verified before changing: no stored-query dependent (so no CASCADE), and the
 -- added populate is 1.78 s over agri_subsidies' ~2.5M rows.
+--
+-- ⚠️ THAT "no stored-query dependent" CLAUSE IS NO LONGER TRUE — `agri_beneficiary_year`
+-- below SELECTs from this matview, which records a pg_depend edge. The DROP therefore has
+-- to take the dependent first, which is the line immediately beneath this comment. Both
+-- live in THIS file, so the ordering is under one author's control and the generic gate
+-- (migration_drop_dependents.data.test.ts) only fails on a dependent owned by a DIFFERENT
+-- file. Never make it `DROP … CASCADE`: that succeeds, deletes the dependent and exits 0,
+-- which is the silent half of the 003 defect CLAUDE.md records.
 -- ==========================================================================
+DROP MATERIALIZED VIEW IF EXISTS agri_beneficiary_year;
 DROP MATERIALIZED VIEW IF EXISTS agri_beneficiary;
 CREATE MATERIALIZED VIEW agri_beneficiary AS
   SELECT eik,
@@ -131,6 +140,122 @@ CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_fold_trgm
 -- The ranking the typeahead orders by, so a broad term stops at the cap.
 CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_total
   ON agri_beneficiary (total_eur DESC);
+
+-- ==========================================================================
+-- The SCOPED twin — one row per (scope × beneficiary), behind the ranked
+-- /subsidies/recipients page.
+--
+-- WHY A SECOND MATVIEW RATHER THAN A YEAR COLUMN ON THE FIRST. Two consumers
+-- want different things from the same rollup and merging them breaks the cheaper
+-- one. `agri_beneficiary` is keyed UNIQUE (eik) and backs the per-keystroke
+-- typeahead (3 ms, against 2,152 ms for the GROUP-BY form) — a year dimension
+-- destroys that key and multiplies every search hit by the number of years the
+-- farm appears in. And search must FIND a farm whatever year the reader has
+-- selected: „вашата фирма не съществува" is a far worse answer than „вашата
+-- фирма няма плащания през 2025", so the finder stays on the all-time view and
+-- only the ranked PAGE is scoped (scope ranks, it never filters).
+--
+-- `scope_key` IS THE `agri_payloads` KEY, not a year. Same ten values the
+-- overview payloads use — '' (the latest financial year, i.e. the default
+-- scope), each covered year as text, and 'all' — so a scope the hub can resolve
+-- is a scope this ranking can serve, by construction rather than by agreement.
+-- `agri_beneficiary_year.data.test.ts` asserts the two key sets are equal; the
+-- '' partition is a deliberate duplicate of the latest year for that reason.
+--
+-- THE NAME AND OBLAST COME FROM `agri_beneficiary`, NOT from a per-scope
+-- re-derivation. Deriving them per scope would let one EIK show a different
+-- spelling on 2015 than on 2025 — the exact defect the LONGEST-spelling rule
+-- above exists to prevent, reintroduced one table over. Joining the sibling also
+-- makes the 'all' partition's money equal the typeahead's by construction, so
+-- those two can never drift.
+--
+-- Consequences of that join, both real and both handled: the DROP above must
+-- take this matview FIRST (pg_depend), and `scripts/agri/ingest.ts` must REFRESH
+-- `agri_beneficiary` BEFORE this one or the labels are a vintage behind.
+--
+-- ⚠️ WHAT THE JOIN DOES AND DOES NOT GUARANTEE. It fixes the LABEL — one EIK, one
+-- spelling, one oblast, whatever scope you read. It does NOT make the money agree
+-- with the typeahead "by construction": `total_eur` below is re-aggregated from
+-- `src`, and the 'all' partition matches `agri_beneficiary` only because the two
+-- WHERE clauses are duplicated. Re-derive the name per scope and every money
+-- assertion still passes while the label defect ships, which is why
+-- `agri_beneficiary_year.data.test.ts` gates the name property directly.
+--
+-- SIZE: 8 years × ~9k entities + 16.7k all-time + ~8.4k for '' ≈ 101k rows.
+-- COST: the body is 1.56 s (387,598 rows through `src`, hash-joined against
+-- 16,701 `agri_beneficiary` rows) plus two index builds — and it is paid TWICE
+-- per `db:load:agri:pg`, once here (exec(schemaSql) runs at the top of
+-- runAgriIngest, so the CREATE populates against the PRE-load corpus) and once
+-- at the REFRESH after the publish. That is the same double cost
+-- `agri_beneficiary` carries, and the reason neither REFRESH in ingest.ts can be
+-- deleted on the grounds that "the apply builds it now".
+--
+-- Same (scope_key × dimension) shape as `contractor_rank` (122), which is where
+-- the index layout and the 'ALL'-sentinel idea come from.
+-- ==========================================================================
+CREATE MATERIALIZED VIEW agri_beneficiary_year AS
+  WITH src AS (
+    SELECT year, eik, total_eur
+    FROM agri_subsidies
+    -- Same two restrictions as `agri_beneficiary`: /farm/:eik is the only
+    -- destination (so a row with no EIK cannot land) and ДФ „Земеделие" itself
+    -- is a counterparty rather than a recipient. Kept in sync with PAYER_EIKS in
+    -- scripts/agri/ingest.ts.
+    WHERE eik IS NOT NULL
+      AND eik <> '121100421'
+  ),
+  -- ⚠️ OVER THE WHOLE TABLE, not over `src`. This must be the SAME year
+  -- `scripts/agri/ingest.ts` calls `latestYear` when it keys the `''` overview
+  -- payload — and that one is `max(year)` across every row, individuals
+  -- included. Narrowing it to EIK-bearing non-payer rows reads as tidier and
+  -- silently forks the definition: the first financial year whose only rows are
+  -- individual payments would advance the payload's `''` and not this one, so
+  -- the hub's „Последна година" pill would name one year while the ranking
+  -- beneath it counted another — both at 200, every row count reconciling. The
+  -- corpus already skips 2018-2020, so irregular years are not hypothetical.
+  -- An empty `''` partition is the CORRECT outcome in that case: the payload
+  -- describes a year with no company payments, and the ranking says so.
+  latest AS (SELECT max(year) AS y FROM agri_subsidies),
+  scoped AS (
+    -- coalesce, so `total_eur` is NEVER NULL here. `agri_subsidies.total_eur` is
+    -- nullable, and a NULL sum would sort FIRST under PostgreSQL's `DESC`
+    -- default — putting a farm with no money at the top of a page whose entire
+    -- content is a money ranking. The index below spells `NULLS LAST` to match
+    -- its four `agri_subsidies` siblings; between them the ordering is pinned
+    -- from both ends.
+    SELECT year::text AS scope_key, eik,
+           sum(coalesce(total_eur, 0)) AS total_eur, count(*) AS payment_count
+    FROM src GROUP BY year, eik
+    UNION ALL
+    SELECT 'all', eik, sum(coalesce(total_eur, 0)), count(*)
+    FROM src GROUP BY eik
+    UNION ALL
+    -- The DEFAULT scope. `agri_payloads` keys the latest financial year twice —
+    -- once under its own number and once under '' — because `agriScopeToKey`
+    -- maps the default `ns` scope to ''. This mirrors that exactly.
+    SELECT '', s.eik, sum(coalesce(s.total_eur, 0)), count(*)
+    FROM src s, latest l WHERE s.year = l.y GROUP BY s.eik
+  )
+  SELECT sc.scope_key,
+         sc.eik,
+         b.name,
+         b.oblast,
+         sc.total_eur,
+         sc.payment_count
+  FROM scoped sc
+  JOIN agri_beneficiary b ON b.eik = sc.eik;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_agri_beneficiary_year_key
+  ON agri_beneficiary_year (scope_key, eik);
+-- The ranked page walk: filter one scope, then read money-desc straight off the
+-- index with a stable tiebreak, no sort. `NULLS LAST` matches the four
+-- `agri_subsidies` indexes above — and the CONSUMING QUERY MUST SPELL IT TOO
+-- (`ORDER BY total_eur DESC NULLS LAST, eik`), because an ORDER BY whose null
+-- ordering differs from the index's cannot be served by it and silently
+-- reintroduces a Sort over every row in the scope.
+CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_year_rank
+  ON agri_beneficiary_year (scope_key, total_eur DESC NULLS LAST, eik);
+
 -- Explicit, rather than left to the ALTER DEFAULT PRIVILEGES in roles_readonly.sql:
 -- that is a one-time MANUAL step, and now that the matview is recreated on every
 -- apply the ACL is re-derived on every db:load:agri:pg[:cloud] rather than once per
@@ -149,6 +274,7 @@ DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON agri_beneficiary TO app_readonly;
+    GRANT SELECT ON agri_beneficiary_year TO app_readonly;
   END IF;
 END $$;
 

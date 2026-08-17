@@ -29,7 +29,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -123,6 +123,23 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "council_muni_code", loader: "db:load:council:pg" },
   { table: "council_resolution", loader: "db:load:council:pg" },
   { table: "council_vote", loader: "db:load:council:pg" },
+  // The ДФЗ family — THREE different reload shapes, listed together because one
+  // loader owns them all. `agri_subsidies` is DELETE + INSERT in one transaction
+  // (the canonical map-losing shape); `agri_payloads` is stage-merged, so it
+  // carries the call for the same defensive reason as the Interreg and budget
+  // entries; `agri_beneficiary` and `agri_beneficiary_year` are MATVIEWS, whose
+  // non-concurrent REFRESH rewrites the heap wholesale and leaves the map empty
+  // the same way. The family vacuumed NOTHING until 2026-08-17,
+  // which no direction of this file could see: the call site is
+  // `scripts/agri/ingest.ts`, and `load_agri_pg.ts` is a wrapper that delegates
+  // to it, so the derived LOADER_FILES glob below never read it. That is the
+  // "loader that vacuums nothing stays invisible" hole named in the comment on
+  // LOADER_FILES, hit through a second door: not an absent call, but a call in
+  // a file the glob does not reach. DELEGATE_FILES closes that door.
+  { table: "agri_subsidies", loader: "db:load:agri:pg" },
+  { table: "agri_payloads", loader: "db:load:agri:pg" },
+  { table: "agri_beneficiary", loader: "db:load:agri:pg" },
+  { table: "agri_beneficiary_year", loader: "db:load:agri:pg" },
 ];
 
 // Every loader, DERIVED rather than hand-listed, so the static check below reads
@@ -142,7 +159,41 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
 // so it is not yet a gate that could be green.
 const LOADER_FILES = readdirSync(path.join(REPO, "db"))
   .filter((f) => /^load_.*\.ts$/.test(f) && !f.endsWith(".test.ts"))
-  .sort();
+  .sort()
+  .map((f) => path.join("db", f));
+
+// The second door into the same blind spot: a `load_*.ts` that DELEGATES its body
+// to a module outside `scripts/db/` contributes no call sites to the scan, so its
+// tables look like a loader that vacuums nothing — indistinguishable from a real
+// omission. `load_agri_pg.ts` is 45 lines that check for the `raw_data/agri/`
+// cache and call `runAgriIngest({ offline: true })`; everything worth reading is
+// in `scripts/agri/ingest.ts`.
+//
+// DERIVED, not hand-listed, for exactly the reason LOADER_FILES is: a literal list
+// here would be the same allowlist shape one level down, invisible to the next
+// delegating loader until somebody remembered to extend it — and "somebody
+// remembered" is the mechanism that failed twice already. Following each loader's
+// ESCAPING relative imports finds them with no human in the loop (it is what would
+// have found scripts/agri/ingest.ts).
+//
+// ⚠️ THE SCAN BELOW READS STRING LITERALS ONLY. A call like
+// `vacuumAfterReload(table)` with a variable — scripts/db/lib/shipTable.ts does
+// exactly that — contributes nothing even from a file this list reaches. That is
+// why `company_founded` appears in CLAUDE.md's repair command and has no RELOADED
+// entry, and it is a real remaining hole rather than an oversight.
+const DELEGATE_FILES = [
+  ...new Set(
+    LOADER_FILES.flatMap((f) => {
+      const src = readFileSync(path.join(REPO, f), "utf8");
+      return [...src.matchAll(/from "(\.\.\/[^"]+)"/g)]
+        .map((m) => path.normalize(path.join("db", m[1])))
+        .filter((p) => !p.startsWith("db/") && !p.startsWith(".."))
+        .map((p) => (p.endsWith(".ts") ? p : `${p}.ts`));
+    }),
+  ),
+].filter((p) => existsSync(path.join(REPO, p)));
+
+const SCANNED_FILES = [...LOADER_FILES, ...DELEGATE_FILES];
 
 const haveDb = await dbReachable();
 const skip = haveDb ? false : "Postgres unreachable";
@@ -156,8 +207,8 @@ afterAll(async () => {
 test("every table a loader vacuums is listed here", () => {
   const declared = new Set(RELOADED.map((r) => r.table));
   const called = new Set<string>();
-  for (const f of LOADER_FILES) {
-    const src = readFileSync(path.join(REPO, "db", f), "utf8");
+  for (const f of SCANNED_FILES) {
+    const src = readFileSync(path.join(REPO, f), "utf8");
     // `vacuumAfterReload("a", "b")`, including the multi-line prettier form.
     for (const m of src.matchAll(/vacuumAfterReload\(([^)]*)\)/g))
       for (const q of m[1].matchAll(/"([a-z_][a-z0-9_]*)"/g)) called.add(q[1]);

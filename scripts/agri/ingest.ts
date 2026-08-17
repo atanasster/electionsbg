@@ -25,7 +25,13 @@ import type { PoolClient } from "pg";
 import { AGRI_YEARS, loadYearSheet } from "./source";
 import { AGRI_SEU_YEARS, parseSeuYear } from "./seu_fetch";
 import { parseAmount } from "./parse_amount";
-import { exec, getPool, withClient, end } from "../db/lib/pg";
+import {
+  exec,
+  getPool,
+  withClient,
+  end,
+  vacuumAfterReload,
+} from "../db/lib/pg";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 import {
   createStageTable,
@@ -746,7 +752,53 @@ export const runAgriIngest = async ({
       "SELECT count(*)::text AS n FROM agri_beneficiary",
     );
     console.log(`  agri_beneficiary refreshed → ${rows[0].n} beneficiaries`);
+
+    // The SCOPED twin behind the ranked /subsidies/recipients page. ORDER IS
+    // LOAD-BEARING and not stylistic: 046 builds it as a JOIN onto
+    // `agri_beneficiary` for the name and oblast (one definition of the
+    // LONGEST-spelling rule). Refreshed BEFORE its source it would carry the
+    // previous vintage's labels — new farms missing entirely, renamed ones
+    // showing the old spelling — with both row counts reconciling.
+    //
+    // NB the pair is NOT atomic, deliberately: these are two autocommit
+    // statements, so neither REFRESH holds AccessExclusive on the other's
+    // matview for the combined ~3.4 s. A failure on the second therefore leaves
+    // the typeahead current and the ranking one vintage behind — but it throws
+    // out of runAgriIngest, load_agri_pg.ts exits 1 and db:refresh's && chain
+    // stops, so that state is LOUD rather than silent, and re-running the loader
+    // repairs it. Wrapping the two in one transaction would trade a loud,
+    // self-repairing failure for blocked readers on every run, which is the
+    // trade this repo refuses elsewhere (reference_stage_merge_reload).
+    await c.query("REFRESH MATERIALIZED VIEW agri_beneficiary_year");
+    const { rows: yr } = await c.query<{ n: string; k: string }>(
+      "SELECT count(*)::text AS n, count(DISTINCT scope_key)::text AS k FROM agri_beneficiary_year",
+    );
+    console.log(
+      `  agri_beneficiary_year refreshed → ${yr[0].n} rows across ${yr[0].k} scopes`,
+    );
   });
+
+  // The visibility map this ingest has been discarding since it was written.
+  //
+  // `agri_subsidies` publishes via DELETE + INSERT inside ONE transaction and
+  // `agri_payloads` via a stage merge — both shapes CLAUDE.md records as losing
+  // (or never building) `relallvisible`, which is what lets Postgres plan the
+  // index-only scans 046's covering indexes exist for. Nothing here vacuumed
+  // them, and no gate could see it: `reload_visibility_map.data.test.ts` derives
+  // its call sites from `scripts/db/load_*.ts`, and `load_agri_pg.ts` is a
+  // wrapper that delegates to THIS file — so the whole agri family sat in the
+  // one direction that test cannot look. (Measured 2026-08-17: the three were
+  // healthy on this machine, i.e. autovacuum had happened to reach them. That is
+  // luck, not the loader working; the next reload starts the clock again.)
+  //
+  // Outside `withClient` on purpose — VACUUM cannot run inside a transaction
+  // block, and this must follow the COPY's COMMIT rather than ride in it.
+  await vacuumAfterReload(
+    "agri_subsidies",
+    "agri_payloads",
+    "agri_beneficiary",
+    "agri_beneficiary_year",
+  );
 
   console.log(
     `\nloaded → Postgres: ${rowsTotal} agri rows + ${payloadRows.length} payloads (${recipients.size} recipients across ${totalsByYear.length} years)`,
