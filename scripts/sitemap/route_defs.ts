@@ -29,6 +29,9 @@ export const ENGLISH_STATIC_PAGES = [
   "sector/administration/services",
   "subsidies/browse",
   "subsidies/places",
+  "subsidies/recipients",
+  "subsidies/schemes",
+  "subsidies/concentration",
   "about",
   "sverka",
   "local/chmi",
@@ -615,6 +618,18 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "subsidies/places",
     file: `src/screens/subsidies/SubsidiesPlacesScreen.tsx`,
+  },
+  {
+    path: "subsidies/recipients",
+    file: `src/screens/subsidies/SubsidiesRecipientsScreen.tsx`,
+  },
+  {
+    path: "subsidies/schemes",
+    file: `src/screens/subsidies/SubsidiesSchemesScreen.tsx`,
+  },
+  {
+    path: "subsidies/concentration",
+    file: `src/screens/subsidies/SubsidiesConcentrationScreen.tsx`,
   },
 
   // EU funds — ИСУН 2020 corpus.

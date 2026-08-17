@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS agri_payloads (
 -- file. Never make it `DROP … CASCADE`: that succeeds, deletes the dependent and exits 0,
 -- which is the silent half of the 003 defect CLAUDE.md records.
 -- ==========================================================================
+DROP MATERIALIZED VIEW IF EXISTS agri_scheme_year;
 DROP MATERIALIZED VIEW IF EXISTS agri_beneficiary_year;
 DROP MATERIALIZED VIEW IF EXISTS agri_beneficiary;
 CREATE MATERIALIZED VIEW agri_beneficiary AS
@@ -256,6 +257,108 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_agri_beneficiary_year_key
 CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_year_rank
   ON agri_beneficiary_year (scope_key, total_eur DESC NULLS LAST, eik);
 
+-- ==========================================================================
+-- The SCHEME rollup — one row per (scope × мярка), behind /subsidies/schemes.
+--
+-- WHY IT EXISTS: measured, the live form is a full seq scan of agri_subsidies on
+-- EVERY request — 189,458 buffers and 726 ms for one year, ~95x the ~2,000 the
+-- dashboard-hub skill allows for anything served live. `agri_payloads` carries
+-- only a TOP-12 `byScheme`, so a page that lists all 481 schemes cannot read it.
+--
+-- IT ALSO CARRIES THE THREE CAP FUNDS, which nothing else in this schema exposes
+-- per scheme: ЕФГЗ-ДП (direct payments), ЕФГЗ (market measures) and ЕЗФРСР
+-- (rural development). Corpus-wide they are €6.17bn / €0.16bn / €4.71bn and they
+-- sum exactly to the total, so a page can partition by them without a residual.
+--
+-- ⚠️ SCHEME LABELS ARE NOT COMPARABLE ACROSS CAP PERIODS, and no fold here tries
+-- to make them so. „СЕПП" (2015-2022, €2.33bn) and „I.А.1-1 основно подпомагане
+-- на доходите за устойчивост" (2023+, €382.7m) are basic income support under two
+-- names; a ranking that mixes them reports a rename as a collapse. The corpus has
+-- 481 distinct labels for that reason. The PERIOD is derivable from the year with
+-- no guessing at all, so the page groups by period and says so — rather than
+-- inventing a label fold that would be wrong in ways nobody could see.
+-- ==========================================================================
+CREATE MATERIALIZED VIEW agri_scheme_year AS
+  WITH src AS (
+    SELECT year, scheme, scheme_desc, eik, total_eur, dp_eur, market_eur, rural_eur
+    FROM agri_subsidies WHERE scheme IS NOT NULL
+  ),
+  latest AS (SELECT max(year) AS y FROM agri_subsidies),
+  -- ⚠️ THE PERIOD IS A PROPERTY OF THE SCHEME, NOT OF THE SCOPE, so it is derived
+  -- ONCE over the whole corpus and joined in. Derived per (scope, scheme) it says
+  -- something false and self-contradicting: in the 2023 scope every carried-over
+  -- 2014-2022 measure has min(year) = max(year) = 2023 and is labelled 2023-2027 —
+  -- 53 schemes and €1.11bn, 97.7% of that year, „СЕПП" among them — directly under
+  -- a warning that „СЕПП" is the OLD name. The „2014-2022" filter then returns no
+  -- rows for money that plainly exists.
+  scheme_period AS (
+    SELECT scheme,
+           CASE WHEN min(year) >= 2023 THEN '2023-2027'
+                WHEN max(year) <= 2022 THEN '2014-2022'
+                ELSE 'mixed' END AS cap_period,
+           min(year) AS corpus_first_year,
+           max(year) AS corpus_last_year
+    FROM src GROUP BY scheme
+  ),
+  scoped AS (
+    SELECT year::text AS scope_key, year, scheme, scheme_desc, eik,
+           total_eur, dp_eur, market_eur, rural_eur
+      FROM src
+    UNION ALL
+    SELECT 'all', year, scheme, scheme_desc, eik,
+           total_eur, dp_eur, market_eur, rural_eur
+      FROM src
+    UNION ALL
+    SELECT '', year, scheme, scheme_desc, eik,
+           total_eur, dp_eur, market_eur, rural_eur
+      FROM src, latest l WHERE src.year = l.y
+  )
+  SELECT sc.scope_key,
+         sc.scheme,
+         -- The LONGEST descriptive spelling, the same rule agri_beneficiary uses
+         -- for names: the register writes the same measure several ways and the
+         -- shortest is often a bare code.
+         (array_agg(sc.scheme_desc ORDER BY length(coalesce(sc.scheme_desc, '')) DESC,
+                    sc.scheme_desc COLLATE "C"))[1]              AS scheme_desc,
+         sp.cap_period,
+         -- The scheme's own span across the WHOLE corpus, so a row in the 2023
+         -- scope still reports that the measure started in 2015.
+         sp.corpus_first_year                                    AS first_year,
+         sp.corpus_last_year                                     AS last_year,
+         -- ⚠️ ACCUMULATED in numeric (order-independent — the served figure must not
+         -- move between two identical requests) but CAST BACK to double precision.
+         -- node-postgres returns a PG `numeric` as a STRING, `Number.isFinite("…")`
+         -- is false, and formatEur then renders "" — which blanked the money column
+         -- on every row of /subsidies/schemes while the page looked otherwise fine.
+         -- The table engine coerces AGGREGATES to numbers but never row values,
+         -- which is why the three-fund cards were right and the rows were empty.
+         -- `agri_beneficiary_year` is double precision throughout and unaffected.
+         sum(coalesce(sc.total_eur, 0)::numeric)::double precision  AS total_eur,
+         sum(coalesce(sc.dp_eur, 0)::numeric)::double precision     AS dp_eur,
+         sum(coalesce(sc.market_eur, 0)::numeric)::double precision AS market_eur,
+         sum(coalesce(sc.rural_eur, 0)::numeric)::double precision  AS rural_eur,
+         count(*)                                                AS payment_count,
+         -- EIK-bearing recipients only: a natural person has no stable id, so a
+         -- distinct count over them would be a namesake count, not a people count.
+         count(DISTINCT sc.eik) FILTER (WHERE sc.eik IS NOT NULL) AS recipient_count,
+         -- How many of the three CAP funds this scheme actually draws on. Usually
+         -- one — but 49 of 481 schemes (€202m across 51,953 rows) span two or
+         -- three, so „every scheme belongs to exactly one fund" is FALSE and no
+         -- surface may say it. The three funds still PARTITION THE MONEY exactly;
+         -- what they do not partition is the schemes.
+         (CASE WHEN sum(coalesce(sc.dp_eur, 0)) <> 0 THEN 1 ELSE 0 END
+        + CASE WHEN sum(coalesce(sc.market_eur, 0)) <> 0 THEN 1 ELSE 0 END
+        + CASE WHEN sum(coalesce(sc.rural_eur, 0)) <> 0 THEN 1 ELSE 0 END)
+                                                                 AS fund_count
+  FROM scoped sc
+  JOIN scheme_period sp ON sp.scheme = sc.scheme
+  GROUP BY sc.scope_key, sc.scheme, sp.cap_period, sp.corpus_first_year, sp.corpus_last_year;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_agri_scheme_year_key
+  ON agri_scheme_year (scope_key, scheme);
+CREATE INDEX IF NOT EXISTS idx_agri_scheme_year_rank
+  ON agri_scheme_year (scope_key, total_eur DESC NULLS LAST, scheme);
+
 -- Explicit, rather than left to the ALTER DEFAULT PRIVILEGES in roles_readonly.sql:
 -- that is a one-time MANUAL step, and now that the matview is recreated on every
 -- apply the ACL is re-derived on every db:load:agri:pg[:cloud] rather than once per
@@ -275,6 +378,7 @@ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON agri_beneficiary TO app_readonly;
     GRANT SELECT ON agri_beneficiary_year TO app_readonly;
+    GRANT SELECT ON agri_scheme_year TO app_readonly;
   END IF;
 END $$;
 

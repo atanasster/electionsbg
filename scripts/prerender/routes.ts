@@ -5498,6 +5498,99 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "subsidies/recipients",
+    title: "Най-големи получатели — земеделски субсидии | electionsbg.com",
+    description: `Класация на фирмите с най-много земеделски субсидии от ДФ „Земеделие" за финансови години ${AGRI_YEAR_RANGES} — с област, брой плащания и обща изплатена сума.`,
+    breadcrumbName: "Най-големи получатели",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-recipients.png",
+    bodyHtml: `
+<h1>Най-големи получатели на земеделски субсидии</h1>
+<p>Класация на всяка фирма с ЕИК, получила плащане от ДФ „Земеделие" през избрания период — подредена по изплатена сума, с областта на регистрация и броя плащания.</p>
+<h2>Класацията покрива само получателите с ЕИК</h2>
+<p>Плащанията към физически лица се публикуват с име и област, но <strong>без стабилен идентификатор</strong>, така че не могат да бъдат подредени по получател: сливането на двама съименници е предположение, а разделянето им подценява. Това е около <strong>40% от всички изплатени пари</strong> — не бележка под линия към класацията, а другата ѝ половина. Виж <a href="${SITE_URL}/subsidies/untraceable">колко точно</a>.</p>
+<p>Самият Фонд е изключен: неговите „субсидии" са техническа помощ и публично складиране, а не получена земеделска подкрепа.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a>, <a href="${SITE_URL}/subsidies/concentration">концентрацията</a> и <a href="${SITE_URL}/subsidies/browse">пълната таблица на плащанията</a>.</p>`.trim(),
+    english: {
+      title: "Largest recipients — Farm Subsidies | electionsbg.com",
+      description: `A ranking of the companies receiving the most State Fund Agriculture farm subsidy for financial years ${AGRI_YEAR_RANGES} — with province, payment count and total paid.`,
+      breadcrumbName: "Largest recipients",
+      bodyHtml: `
+<h1>Largest recipients of farm subsidies</h1>
+<p>A ranking of every company with an ЕИК that received a payment from the State Fund Agriculture in the selected period — ordered by amount, with its registered province and payment count.</p>
+<h2>The ranking covers recipients with an ЕИК only</h2>
+<p>Payments to natural persons are published with a name and a province but <strong>no stable identifier</strong>, so they cannot be attributed to a recipient: merging two namesakes is a guess, and splitting them understates. That is roughly <strong>40% of all money paid</strong> — not a footnote to the ranking but its other half. See <a href="${SITE_URL}/en/subsidies/untraceable">how much</a>.</p>
+<p>The Fund itself is excluded: its own „subsidies" are technical assistance and public storage, not farm support received.</p>
+<p>See also the <a href="${SITE_URL}/en/subsidies">overview</a>, <a href="${SITE_URL}/en/subsidies/concentration">concentration</a> and the <a href="${SITE_URL}/en/subsidies/browse">full payments table</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "subsidies/schemes",
+    title: "По схема — земеделски субсидии | electionsbg.com",
+    description: `Всички мерки, по които ДФ „Земеделие" е платил през ${AGRI_YEAR_RANGES} — с разбивка по трите фонда на ОСП и по програмен период.`,
+    breadcrumbName: "По схема",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-schemes.png",
+    bodyHtml: `
+<h1>Земеделски субсидии по схема</h1>
+<p>Всяка мярка, по която ДФ „Земеделие" е извършил плащане — със сумата, броя фирми-получатели и програмния период, към който принадлежи.</p>
+<h2>Имената на схемите не са сравними между периодите</h2>
+<p>„СЕПП" (2014-2022) и „I.А.1-1 основно подпомагане на доходите за устойчивост" (2023-2027) са <strong>едно и също</strong> — основно подпомагане на доходите, преименувано със Стратегическия план. Класация, която ги смесва, представя преименуването като срив. Затова програмният период е отделна колона и филтър. От 481 етикета <strong>53 се срещат и в двата периода</strong>.</p>
+<h2>Трите фонда на ОСП</h2>
+<p>Трите фонда разделят <strong>парите</strong> точно: <strong>ЕФГЗ-ДП</strong> (директни плащания на площ), <strong>ЕЗФРСР</strong> (развитие на селските райони — инвестиции, млади фермери, ЛИДЕР/МИГ) и <strong>ЕФГЗ</strong> (пазарни мерки). Те обаче не разделят <strong>схемите</strong>: 49 от 481 мерки теглят от повече от един фонд, така че една схема може да се появи в две от групите.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies">общия преглед</a> и <a href="${SITE_URL}/subsidies/recipients">най-големите получатели</a>.</p>`.trim(),
+    english: {
+      title: "By scheme — Farm Subsidies | electionsbg.com",
+      description: `Every measure the State Fund Agriculture paid under across ${AGRI_YEAR_RANGES} — split by the three CAP funds and by programme period.`,
+      breadcrumbName: "By scheme",
+      bodyHtml: `
+<h1>Farm subsidies by scheme</h1>
+<p>Every measure the State Fund Agriculture paid under — with the amount, the number of recipient companies, and the programme period it belongs to.</p>
+<h2>Scheme names are not comparable across periods</h2>
+<p>„СЕПП" (2014-2022) and „I.А.1-1 basic income support for sustainability" (2023-2027) are <strong>the same instrument</strong>, renamed by the Strategic Plan. A ranking that mixes them presents a rename as a collapse. That is why the programme period is its own column and filter. Of 481 labels, <strong>53 appear in both periods</strong>.</p>
+<h2>The three CAP funds</h2>
+<p>The three funds partition the <strong>money</strong> exactly: <strong>EAGF direct payments</strong> (area-based income support), <strong>EAFRD</strong> (rural development — investment, young farmers, LEADER/LAG) and <strong>EAGF market measures</strong>. They do not partition the <strong>schemes</strong>, though: 49 of 481 measures draw on more than one fund, so a single scheme can appear under two of them.</p>
+<p>See also the <a href="${SITE_URL}/en/subsidies">overview</a> and the <a href="${SITE_URL}/en/subsidies/recipients">largest recipients</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "subsidies/concentration",
+    title: "Концентрация — земеделски субсидии | electionsbg.com",
+    description: `Колко от земеделските субсидии взимат най-големите стопанства — по групи и с крива на Лоренц, върху парите за юридически лица (${AGRI_YEAR_RANGES}).`,
+    breadcrumbName: "Концентрация",
+    breadcrumbParent: {
+      name: "Земеделски субсидии",
+      nameEn: "Farm subsidies",
+      path: "subsidies",
+    },
+    ogImage: "/og/subsidies-concentration.png",
+    bodyHtml: `
+<h1>Концентрация на земеделските субсидии</h1>
+<p>Земеделската подкрепа не се разпределя равномерно: малка група стопанства получава непропорционален дял. Тук е колко точно — по групи (топ 10, 11-100, 101-1000, останалите) и като крива на Лоренц.</p>
+<h2>Знаменателят са парите за юридически лица</h2>
+<p>Всички дялове на страницата са от сумата, изплатена на <strong>фирми</strong>, а не от общата. Разликата е съществена: за целия период същият числител, разделен на всички изплатени пари, дава около 7,5% вместо 12,6% за топ 100 — а за отделните години съотношението е различно, затова страницата го изчислява за избрания период. Плащанията без ЕИК не могат да бъдат подредени по получател, така че концентрацията върху тях е неизмерима — виж <a href="${SITE_URL}/subsidies/untraceable">колко са те</a>.</p>
+<p>Виж и <a href="${SITE_URL}/subsidies/recipients">класацията на получателите</a> и <a href="${SITE_URL}/subsidies">общия преглед</a>.</p>`.trim(),
+    english: {
+      title: "Concentration — Farm Subsidies | electionsbg.com",
+      description: `How much of the farm subsidy the largest holdings take — by tier and as a Lorenz curve, over the legal-entity money (${AGRI_YEAR_RANGES}).`,
+      breadcrumbName: "Concentration",
+      bodyHtml: `
+<h1>Concentration of farm subsidies</h1>
+<p>Farm support is not shared evenly: a small group of holdings receives a disproportionate share. Here is how much — by tier (top 10, 11-100, 101-1000, the rest) and as a Lorenz curve.</p>
+<h2>The denominator is the legal-entity money</h2>
+<p>Every share on the page is out of what was paid to <strong>companies</strong>, not out of the total. The difference matters: across the whole period the same numerator over all money paid is about 7.5% rather than 12.6% for the top 100 — and the ratio differs year by year, which is why the page computes it for the selected period. Payments with no ЕИК cannot be attributed to a recipient, so concentration over them is unmeasurable — see <a href="${SITE_URL}/en/subsidies/untraceable">how much that is</a>.</p>
+<p>See also the <a href="${SITE_URL}/en/subsidies/recipients">recipient ranking</a> and the <a href="${SITE_URL}/en/subsidies">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "subsidies/places",
     title: "Земеделски субсидии по област — карта и класация | electionsbg.com",
     description: `Областта е на ПОЛУЧАТЕЛЯ, не на земята: земеделските субсидии на ДФ „Земеделие" по 28-те области — карта, класация и дял за финансови години ${AGRI_YEAR_RANGES}.`,

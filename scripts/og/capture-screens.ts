@@ -422,6 +422,43 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    // The ranking IS the page — anchor on the h1 so the clip reads title → the
+    // "ЕИК only" caveat → the first rows, the recipe the skill gives for a ranked
+    // list. Paired with the capped content column so the 1200 clip does not shave
+    // both sides of a full-bleed table.
+    slug: "subsidies-recipients",
+    routePath: "subsidies/recipients?pscope=all",
+    waitFor: "tbody tr",
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
+    // The three-fund split is what this page adds over the hub's old bar list, so
+    // the clip leads with it rather than with the scheme table.
+    slug: "subsidies-schemes",
+    routePath: "subsidies/schemes?pscope=all",
+    waitFor: '[data-og="subsidies-schemes-pillars"]',
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
+    // anchor: "h1" and NOT centerOnAnchor. The tier bar is the page's argument,
+    // but it is the left cell of an xl two-column grid — centring the 1200 clip on
+    // it shifted the frame left and sliced the „Топ 100" card off the right edge.
+    // Anchoring on the h1 lets the clip fall over the whole band.
+    slug: "subsidies-concentration",
+    routePath: "subsidies/concentration?pscope=all",
+    waitFor: '[data-og="subsidies-concentration"] ul li',
+    anchor: "h1",
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     // The choropleth IS this page's argument — it is the whole reason the page
     // exists (the map moved off /subsidies to stop it costing every hub visitor
     // 407 KB). Anchor on the map itself rather than the KPI row above it, and

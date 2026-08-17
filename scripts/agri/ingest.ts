@@ -829,6 +829,15 @@ export const runAgriIngest = async ({
       `  agri_beneficiary_year refreshed → ${yr[0].n} rows across ${yr[0].k} scopes`,
     );
 
+    // The scheme rollup behind /subsidies/schemes. Independent of the two above —
+    // it reads agri_subsidies directly — but refreshed here so one loader run
+    // leaves every /subsidies surface on one vintage.
+    await c.query("REFRESH MATERIALIZED VIEW agri_scheme_year");
+    const { rows: sc } = await c.query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM agri_scheme_year",
+    );
+    console.log(`  agri_scheme_year refreshed → ${sc[0].n} rows`);
+
     // The /subsidies hub's stat cache (162). LAST of the three, because it reads
     // `agri_payloads` for its scope list and its declared scopeYear — refreshed
     // before the payload merge above it would key itself on the PREVIOUS vintage's
@@ -877,6 +886,7 @@ export const runAgriIngest = async ({
     "agri_payloads",
     "agri_beneficiary",
     "agri_beneficiary_year",
+    "agri_scheme_year",
   );
   // Separately, and only when 162 was applied — vacuumAfterReload validates the
   // name and then VACUUMs it, so an absent relation would throw here too.

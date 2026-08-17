@@ -561,6 +561,21 @@ const SubsidiesDashboardScreen = lazy(() =>
     default: m.SubsidiesDashboardScreen,
   })),
 );
+const SubsidiesRecipientsScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesRecipientsScreen").then((m) => ({
+    default: m.SubsidiesRecipientsScreen,
+  })),
+);
+const SubsidiesSchemesScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesSchemesScreen").then((m) => ({
+    default: m.SubsidiesSchemesScreen,
+  })),
+);
+const SubsidiesConcentrationScreen = lazy(() =>
+  import("./screens/subsidies/SubsidiesConcentrationScreen").then((m) => ({
+    default: m.SubsidiesConcentrationScreen,
+  })),
+);
 const SubsidiesPlacesScreen = lazy(() =>
   import("./screens/subsidies/SubsidiesPlacesScreen").then((m) => ({
     default: m.SubsidiesPlacesScreen,
@@ -2616,6 +2631,36 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SubsidiesDashboardScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/recipients"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesRecipientsScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/schemes"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesSchemesScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/concentration"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesConcentrationScreen />
                 </Suspense>
               </LayoutScreen>
             }

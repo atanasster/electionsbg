@@ -781,6 +781,99 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // The scope-keyed recipient ranking behind /subsidies/recipients (matview
+  // agri_beneficiary_year, migration 046). One row per (scope × EIK) — 101,179
+  // rows across ten scopes — so the page can rank ALL 16,701 companies for the
+  // year the reader picked, rather than the top 60 the overview payload carries.
+  //
+  // `scope_key` is the agri_payloads overview key ('' | <year> | 'all'), NOT a
+  // year: the caller passes whatever agriScopeToKey resolved, so a scope the page
+  // can resolve is one this resource can serve. It is filter-only and never
+  // sortable — sorting by it would interleave ten partitions of the same company.
+  agri_recipients: {
+    base: "agri_beneficiary_year",
+    // ⚠️ LOAD-BEARING. This matview FANS OUT on scope_key — the same row appears in
+    // its year partition, in 'all' and (for the latest year) in '' — so a request
+    // that omits the filter unions every bucket and returns ~2.1x the corpus, with
+    // the count and every aggregate inflated identically and looking entirely
+    // plausible. Measured unscoped: €14.04bn / €23.66bn against a real €11.04bn.
+    // Never remove this without removing the fan-out. Same rule as mp_cars.
+    defaultScope: { col: "scope_key", val: "all" },
+    scopeCols: ["scope_key"],
+    columns: {
+      scope_key: { type: "text", filter: "eq" },
+      eik: { type: "text", filter: "eq" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      oblast: { type: "text", sort: true, filter: "in" },
+      payment_count: { type: "number", sort: true, filter: "range" },
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: ["scope_key", "eik", "name", "oblast", "payment_count", "total_eur"],
+    // (scope_key, total_eur DESC NULLS LAST, eik) is the covering index; the
+    // NULLS LAST must match it or the walk falls back to a sort of the partition.
+    defaultSort: [["total_eur", "desc"]],
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "total_eur" }],
+    maxPageSize: 100,
+  },
+
+  // The scope-keyed scheme ranking behind /subsidies/schemes (matview
+  // agri_scheme_year, 046). The live form is a full seq scan of agri_subsidies —
+  // 189,458 buffers, 726 ms — because agri_payloads carries only a top-12.
+  //
+  // `cap_period` is derived from the YEAR, never from the label: „СЕПП"
+  // (2014-2022) and „I.А.1-1 основно подпомагане на доходите за устойчивост"
+  // (2023+) are the same instrument renamed, so a ranking that mixes the periods
+  // reports a rename as a collapse. 53 of the 481 labels appear in BOTH periods,
+  // which is why the column exists rather than being inferred client-side.
+  agri_schemes: {
+    base: "agri_scheme_year",
+    // ⚠️ LOAD-BEARING. This matview FANS OUT on scope_key — the same row appears in
+    // its year partition, in 'all' and (for the latest year) in '' — so a request
+    // that omits the filter unions every bucket and returns ~2.1x the corpus, with
+    // the count and every aggregate inflated identically and looking entirely
+    // plausible. Measured unscoped: €14.04bn / €23.66bn against a real €11.04bn.
+    // Never remove this without removing the fan-out. Same rule as mp_cars.
+    defaultScope: { col: "scope_key", val: "all" },
+    scopeCols: ["scope_key"],
+    columns: {
+      scope_key: { type: "text", filter: "eq" },
+      scheme: { type: "text", sort: true, filter: "text", search: true },
+      scheme_desc: { type: "text", filter: "text", search: true },
+      cap_period: { type: "text", sort: true, filter: "in" },
+      first_year: { type: "number", sort: true, filter: "range" },
+      last_year: { type: "number", sort: true, filter: "range" },
+      dp_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      market_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      rural_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      recipient_count: { type: "number", sort: true, filter: "range" },
+      payment_count: { type: "number", sort: true, filter: "range" },
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "scope_key",
+      "scheme",
+      "scheme_desc",
+      "cap_period",
+      "first_year",
+      "last_year",
+      "dp_eur",
+      "market_eur",
+      "rural_eur",
+      "recipient_count",
+      "payment_count",
+      "total_eur",
+    ],
+    defaultSort: [["total_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+      { fn: "sum", col: "dp_eur" },
+      { fn: "sum", col: "market_eur" },
+      { fn: "sum", col: "rural_eur" },
+    ],
+    maxPageSize: 100,
+  },
+
   // Magistrates with a declared company (ИВСС чл. 175а ЗСВ) — the standalone
   // „виж всички" browse behind the /judiciary holdings tile (view
   // magistrate_holdings_table, migration 070). One row per holder (208); `companies`

@@ -342,6 +342,11 @@ test("every fan-out resource declares a defaultScope", () => {
     "mp_cars",
     "procurement_settlements",
     "contractor_rankings",
+    // Both fan out on scope_key (year partitions + 'all' + the '' default), so an
+    // unscoped query unions ~2.1x the corpus. Measured when they shipped without a
+    // default: €14.04bn and €23.66bn against a real €11.04bn.
+    "agri_recipients",
+    "agri_schemes",
   ];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);

@@ -56,6 +56,15 @@ type Props = {
     | "subsidies-places-headline"
     | "subsidies-places-map"
     | "subsidies-places-table"
+    // /subsidies/recipients and /subsidies/schemes — the hub's inline top-25 table
+    // and top-12 bar list, moved onto their own pages.
+    | "subsidies-recipients-table"
+    | "subsidies-schemes-pillars"
+    | "subsidies-schemes-table"
+    // /subsidies/concentration — the tier bar plus the Lorenz curve the overview
+    // payload has always carried and nothing rendered.
+    | "subsidies-concentration-tiers"
+    | "subsidies-concentration-lorenz"
     | "subsidies-distribution"
     | "subsidies-recipients"
     | "subsidies-data"
