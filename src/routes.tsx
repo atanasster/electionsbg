@@ -226,6 +226,11 @@ const CouncilScreen = lazy(() =>
     default: m.CouncilScreen,
   })),
 );
+const CouncilResolutionScreen = lazy(() =>
+  import("./screens/council/CouncilResolutionScreen").then((m) => ({
+    default: m.CouncilResolutionScreen,
+  })),
+);
 const JudiciaryScreen = lazy(() =>
   import("./screens/judiciary/JudiciaryScreen").then((m) => ({
     default: m.JudiciaryScreen,
@@ -1820,6 +1825,21 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CouncilHubScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Served by the `db` function (functions/spa_page.js), NOT
+              prerendered and with no sitemap <loc> — 4,676 thin pages would
+              earn a thin-content penalty rather than traffic. Declared here
+              anyway: the function swaps head + body into the SPA shell, so
+              this is what a human gets after hydration. It must sit BEFORE
+              `council/:code`, or "resolution" is captured as an obshtina
+              code. */}
+          <Route
+            path="council/resolution/:id"
+            element={
+              <LayoutScreen>
+                <CouncilResolutionScreen />
               </LayoutScreen>
             }
           />

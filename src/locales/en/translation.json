@@ -6464,5 +6464,18 @@
   "council_not_covered_body": "We track {{covered}} of {{total}} municipal councils. This one is not among them — there is no central register, and each council publishes its own minutes.",
   "council_not_covered_back": "See the councils we track",
   "gov_hub_council_desc": "Who decides what in Bulgaria's 265 municipal councils — decisions, votes, and how each councillor voted.",
-  "council_screen_title_suffix": " — municipal council"
+  "council_screen_title_suffix": " — municipal council",
+  "council_vote_for": "For",
+  "council_vote_against": "Against",
+  "council_vote_abstain": "Abstained",
+  "council_tally_inline": "for {{for}}, against {{against}}, abstained {{abstain}}",
+  "council_tally_protocol": "Per the minutes",
+  "council_tally_named": "By name",
+  "council_resolution_vote_heading": "The vote",
+  "council_resolution_people_heading": "Named vote",
+  "council_resolution_people_desc": "{{count}} councillors are recorded in the minutes. The list names only those who voted — there is no record of who was absent.",
+  "council_resolution_lede": "Decision no. {{number}} of {{date}}, session {{session}}.",
+  "council_resolution_missing_title": "No such decision",
+  "council_resolution_missing_body": "This address does not match a decision in the database. It may be mistyped, or the municipality may not have published it.",
+  "council_resolution_untitled": "Decision no. {{number}} of {{date}}"
 }

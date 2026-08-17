@@ -130,7 +130,33 @@ Deploying the hosting rewrite BEFORE the function is the one ordering that break
 that works today: the rewrite would route every contract and company URL to a function
 with no handler for it. `deploy:db` first, then `deploy`.
 
-**`/person/*` is a fourth member of that family, and the one easiest to get wrong.** The
+**`/council/resolution/**` is a fifth member, and the only one that is function-served for a
+CONTENT reason rather than a file-count one.** 4,676 resolutions (9,352 with the EN mirror)
+would fit under the Firebase ceiling comfortably — but each body is one title and a vote
+table, the shape that earns a thin-content penalty rather than traffic. So they get a real
+head from the function and deliberately **no sitemap `<loc>` and no prerender**: discoverable
+by a crawler already on the council page, never submitted en masse. The only inbound link is
+the resolution title in `CouncilScreen`; without it the whole family is unreachable, which is
+also what makes a routing bug here invisible to manual testing. Same ordering rule,
+`deploy:db` before `deploy`.
+
+Two things about it are easy to get backwards, and both shipped once:
+
+- **The id charset must admit Sofia.** Fifteen of the sixteen council keys are `AAA99`;
+  Sofia's synthetic key is a bare `SOF`, so a `[A-Z]{3}\d{2}` id regex excluded all 413 Sofia
+  resolutions. `isSpaPagePath` still routed them to the function, `matchSpaPage` returned
+  null, and the fallthrough served the HOMEPAGE's head plus a `noindex` — on the largest
+  council in the corpus, cached an hour at the edge. `spa_page.council.test.js` derives its
+  cases from the committed shard tree for exactly this reason: every hand-picked example is
+  one of the fifteen that worked.
+- **A link must use the FRONTEND code, never `obshtina_code`.** `/council/:code` resolves
+  through `council_muni_code` only, and eight of the sixteen council keys are not frontend
+  codes — three (BGS01, PDV01, VAR01) are OTHER municipalities' codes. Linking the internal
+  key put "we do not track this council" one click from that council's own decision, for
+  1,768 of 4,727 resolutions. `council_resolution_detail()` therefore returns
+  `councilFrontendCode` beside `councilCode`, and a NULL there means render plain text.
+
+**`/person/*` is a sixth member of that family, and the one easiest to get wrong.** The
 `/person/*` + `/en/person/*` rewrites (`functions/person_redirect.js`) serve the 301 from
 `person_slug_retired` — 23,916 slugs a re-resolve retired, which before 2026-08-08 returned
 200 with the homepage's title and canonical and then noindexed themselves client-side. Same

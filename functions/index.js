@@ -33,6 +33,7 @@ const {
   contractPage,
   companyPage,
   interregPage,
+  councilResolutionPage,
   FALLBACK_SHELL,
 } = require("./spa_page.js");
 
@@ -664,6 +665,16 @@ const makeDb = () => {
               [Number(keepId)],
             );
             return rows[0]?.r ? interregPage(rows[0].r, lang, selfUrl) : null;
+          },
+          loadCouncilResolution: async (id, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const { rows } = await p.query(
+              "SELECT council_resolution_detail($1) AS r",
+              [id],
+            );
+            return rows[0]?.r
+              ? councilResolutionPage(rows[0].r, lang, selfUrl)
+              : null;
           },
           loadCompany: async (eik, lang, selfUrl) => {
             const p = await getDbPool(DB_PASSWORD.value());

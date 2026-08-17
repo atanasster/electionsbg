@@ -124,6 +124,32 @@ const matchSpaPage = (path) => {
   if (interreg) {
     return { kind: "interreg", key: interreg[1], lang: en ? "en" : "bg" };
   }
+
+  // Municipal-council resolutions. 4,676 of them, 9,352 with the EN mirror —
+  // comfortably under the Firebase file-count ceiling, so prerendering is
+  // affordable. They are served here anyway, and the reason is the OPPOSITE of
+  // the contract family's: each body is one title and a vote table, which is
+  // the shape that earns a thin-content penalty rather than traffic. They get
+  // a real head so a crawler that finds one is not told it is a duplicate of
+  // the homepage, and no sitemap <loc> so we are not asking for them to be
+  // indexed en masse.
+  //
+  // The id is minted by the scraper as <COUNCIL>-<YYYY>-prot<N>-r<NNN>, so the
+  // charset is deliberately narrow — anything else is a typo, and returning
+  // null hands it the plain SPA shell rather than a fabricated head.
+  // \d{0,2}, not \d{2}. Fifteen of the sixteen council keys are AAA99, but
+  // Sofia's synthetic key is a bare `SOF` — so requiring the digits excluded
+  // all 413 Sofia resolutions (826 URLs with the EN mirror). isSpaPagePath
+  // still routed them here, matchSpaPage returned null, and sendShell(null)
+  // served the HOMEPAGE's title and canonical plus a noindex — the exact
+  // duplicate-content shape this family exists to end, on the largest council
+  // in the corpus, cached for an hour at the edge. Corpus-derived cases in
+  // spa_page.test.js keep the charset honest.
+  const resolution =
+    /^\/council\/resolution\/([A-Z]{3}\d{0,2}-\d{4}-prot\d+-r\d+)$/.exec(rest);
+  if (resolution) {
+    return { kind: "council", key: resolution[1], lang: en ? "en" : "bg" };
+  }
   return null;
 };
 
@@ -136,7 +162,9 @@ const selfUrlFor = (match) => {
       ? `/funds/contract/${encodeURIComponent(match.key)}`
       : match.kind === "company"
         ? `/company/${match.key}`
-        : `/funds/interreg/${match.key}`;
+        : match.kind === "council"
+          ? `/council/resolution/${match.key}`
+          : `/funds/interreg/${match.key}`;
   return match.lang === "en" ? `${SITE_URL}/en${path}` : `${SITE_URL}${path}`;
 };
 
@@ -156,9 +184,11 @@ const isSpaPagePath = (path) => {
     stripped === "/funds/contract" ||
     stripped === "/company" ||
     stripped === "/funds/interreg" ||
+    stripped === "/council/resolution" ||
     rest.startsWith("/funds/contract/") ||
     rest.startsWith("/company/") ||
-    rest.startsWith("/funds/interreg/")
+    rest.startsWith("/funds/interreg/") ||
+    rest.startsWith("/council/resolution/")
   );
 };
 
@@ -252,6 +282,182 @@ const contractPage = (row, lang, selfUrl) => {
  *  `titleBg ?? titleEn` rule runs in FundsInterregScreen, so head and page
  *  never disagree; the EN canonical points at the BG URL either way.
  */
+/** The <head> block and crawlable body for one municipal-council resolution.
+ *
+ *  Two rules here are corpus properties rather than style choices.
+ *
+ *  BOTH tallies are printed and both are LABELLED. `protocolTally` is the
+ *  aggregate the protokol prints; `namedVoteTally` is what the per-councillor
+ *  list adds up to. They disagree on 62% of named-vote resolutions (Перник:
+ *  100%) because a councillor list can be partial and OCR drops rows. Showing
+ *  one unlabelled number would present a contested figure as settled; showing
+ *  both without saying which is which shows a reader two numbers for one vote.
+ *
+ *  A council with no named votes gets a DASH, never a zero. 11 of the 16
+ *  councils publish an aggregate only, and "0 against" would assert unanimity
+ *  that the source never recorded.
+ */
+// The vote and result enums, localised. A Cloud Function cannot import the
+// locale JSON, so this is a second copy by necessity — the same trade
+// outcomeBucket() makes for /api/db/vote-day-summary. council_labels.test.js
+// asserts these agree with src/locales/*/translation.json so they cannot drift.
+//
+// `unknown` is NOT "we could not determine the outcome" — it is the minutes not
+// stating one, and it is 43% of the corpus (367 of Бургас's 374). Rendering it
+// as a result would assert something the corpus explicitly does not, so it
+// returns "" and the row is dropped by the .filter below.
+// The function's half of the day formatter. It MUST agree byte-for-byte with
+// src/ux/feed/useDayLabel.tsx ("long"), because the untitled-resolution <h1>
+// falls back to a string containing the date — so a different rendering here
+// would make the served <h1> change on hydration, which is exactly the
+// invariant the (no title parsed) fallback pair exists to hold. Same Intl
+// options, and `timeZone: "UTC"` is load-bearing for the same reason it is
+// there: these are calendar DAYS, and formatting in a local zone renders
+// 2025-01-16 as the 15th for anyone west of UTC.
+const formatDay = (iso, lang) => {
+  if (!iso) return "";
+  try {
+    return new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(new Date(`${iso}T00:00:00Z`));
+  } catch {
+    return iso;
+  }
+};
+
+const COUNCIL_VOTE_LABEL = {
+  bg: { for: "За", against: "Против", abstain: "Въздържал се" },
+  en: { for: "For", against: "Against", abstain: "Abstained" },
+};
+const COUNCIL_RESULT_LABEL = {
+  bg: {
+    adopted: "Приема се",
+    rejected: "Отхвърля се",
+    returned: "Върнато за ново обсъждане",
+    unknown: "",
+  },
+  en: {
+    adopted: "Adopted",
+    rejected: "Rejected",
+    returned: "Returned for reconsideration",
+    unknown: "",
+  },
+};
+
+const councilResolutionPage = (row, lang, selfUrl) => {
+  const bg = lang === "bg";
+  const council = row.councilName || row.councilCode || "";
+  // 2,234 of 4,727 resolutions (47%) carry the literal string
+  // "(no title parsed)" — the scraper's placeholder for minutes it could read
+  // but whose subject line it could not isolate. Rendering it would put a
+  // parser's internal state in the <title> of nearly half this family and in
+  // the <h1> a reader sees. The fallback names the decision from fields that
+  // are always present instead, which is the honest thing a title can say
+  // about a decision whose subject we did not capture.
+  const parsed =
+    row.title && !/^\(?\s*no title parsed\s*\)?$/i.test(row.title.trim())
+      ? row.title.trim()
+      : null;
+  const day = formatDay(row.decidedOn, lang);
+  const heading =
+    parsed ||
+    (bg
+      ? `Решение № ${row.number ?? "—"} от ${day}`
+      : `Decision no. ${row.number ?? "—"} of ${day}`);
+  const title = truncateAtWord(heading, 70);
+  const head = bg
+    ? `${title} — ${council} | Решение`
+    : `${title} — ${council} | Council decision`;
+  const t = row.protocolTally || {};
+  const n = row.namedVoteTally || {};
+  const votes = Array.isArray(row.votes) ? row.votes : [];
+  const tallyText = (x) =>
+    x && x.for != null
+      ? bg
+        ? `за ${x.for}, против ${x.against}, въздържали се ${x.abstain}`
+        : `for ${x.for}, against ${x.against}, abstained ${x.abstain}`
+      : null;
+  const protocol = tallyText(t);
+  const named = row.hasNamedVotes ? tallyText(n) : null;
+  const description = bg
+    ? `${council}, решение № ${row.number ?? "—"} от ${day}${protocol ? ` — по протокол: ${protocol}` : ""}${named ? `; по имена: ${named} (${votes.length} съветника)` : "; този съвет не публикува поименно гласуване"}.`
+    : `${council}, decision no. ${row.number ?? "—"} of ${day}${protocol ? ` — per the minutes: ${protocol}` : ""}${named ? `; by name: ${named} (${votes.length} councillors)` : "; this council publishes no named vote"}.`;
+  const base = bg ? SITE_URL : `${SITE_URL}/en`;
+
+  const rows = [
+    [bg ? "Общински съвет" : "Municipal council", escapeHtml(council)],
+    [bg ? "Дата" : "Date", escapeHtml(day)],
+    [bg ? "Заседание" : "Session", escapeHtml(String(row.session ?? ""))],
+    [bg ? "Решение №" : "Decision no.", escapeHtml(String(row.number ?? ""))],
+    [
+      bg ? "Резултат" : "Result",
+      escapeHtml(COUNCIL_RESULT_LABEL[bg ? "bg" : "en"][row.result] ?? ""),
+    ],
+    [bg ? "Гласуване по протокол" : "Vote per the minutes", escapeHtml(protocol || "")],
+    [
+      bg ? "Гласуване по имена" : "Vote by name",
+      // A dash, not a zero — see the header note.
+      row.hasNamedVotes ? escapeHtml(named || "") : "&mdash;",
+    ],
+  ]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${v}</td></tr>`)
+    .join("");
+
+  // Councillors who have a person_id link to their profile; the rest render as
+  // plain text. Never the reverse — attributing a vote to a /person page the
+  // resolver refused to bind is the "name match is not identity" failure.
+  const voteList = votes
+    .map((v) => {
+      const nm = escapeHtml(v.name || "");
+      const label = escapeHtml(
+        COUNCIL_VOTE_LABEL[bg ? "bg" : "en"][v.vote] || v.vote || "",
+      );
+      // Link on the SLUG, never on personId — a /person URL is a slug, and a
+      // councillor can carry a resolved person_id with no servable page.
+      const linked = v.personSlug
+        ? `<a href="${base}/person/${escapeHtml(v.personSlug)}">${nm}</a>`
+        : nm;
+      return `<li>${linked} — ${label}</li>`;
+    })
+    .join("");
+
+  const basisText =
+    (bg ? row.tallyBasisBg : row.tallyBasisEn) || row.tallyBasis || "";
+  const basis = basisText ? `<p>${escapeHtml(basisText)}</p>` : "";
+  const source = row.sourceUrl
+    ? `<p><a href="${escapeHtml(row.sourceUrl)}" rel="nofollow noopener">${bg ? "Протокол на сайта на общината" : "Minutes on the municipality's own site"}</a></p>`
+    : "";
+
+  return {
+    title: head,
+    description,
+    selfUrl,
+    // The minutes are Bulgarian and the EN mirror differs in boilerplate
+    // alone, so the English page stays navigable but points its canonical at
+    // the Bulgarian URL rather than competing with it — the same call the
+    // contract and Interreg families make.
+    canonicalUrl: bg ? selfUrl : selfUrl.replace(`${SITE_URL}/en`, SITE_URL),
+    lang,
+    bodyHtml: `<h1>${escapeHtml(heading)}</h1>
+<p>${escapeHtml(description)}</p>
+<table><tbody>${rows}</tbody></table>
+${basis}${
+      voteList
+        ? `<h2>${bg ? "Поименно гласуване" : "Named vote"}</h2><ul>${voteList}</ul>`
+        : ""
+    }${source}
+<p>${
+      row.councilFrontendCode
+        ? `<a href="${base}/council/${escapeHtml(row.councilFrontendCode)}">${escapeHtml(council)}</a>`
+        : escapeHtml(council)
+    } · <a href="${base}/council">${bg ? "Общински съвети" : "Municipal councils"}</a></p>`,
+  };
+};
+
 const interregPage = (row, lang, selfUrl) => {
   const bg = lang === "bg";
   const title = truncateAtWord(row.titleBg || row.titleEn || "", 70);
@@ -549,7 +755,9 @@ const handleSpaPageRequest = async (req, res, deps) => {
         ? await deps.loadContract(match.key, match.lang, selfUrl)
         : match.kind === "company"
           ? await deps.loadCompany(match.key, match.lang, selfUrl)
-          : await deps.loadInterreg(match.key, match.lang, selfUrl);
+          : match.kind === "council"
+            ? await deps.loadCouncilResolution(match.key, match.lang, selfUrl)
+            : await deps.loadInterreg(match.key, match.lang, selfUrl);
   } catch (e) {
     console.error("spa page lookup error", match.kind, match.key, e);
     // A database blip must not take the page down: serve the SPA, which fetches
@@ -563,6 +771,7 @@ const handleSpaPageRequest = async (req, res, deps) => {
 
 module.exports = {
   interregPage,
+  councilResolutionPage,
   selfUrlFor,
   matchSpaPage,
   isSpaPagePath,

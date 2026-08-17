@@ -94,6 +94,20 @@
           }
         },
         {
+          "source": "/council/resolution/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/en/council/resolution/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
           "source": "/en/funds/contract/**",
           "function": {
             "functionId": "db",
@@ -252,6 +266,24 @@
         },
         {
           "source": "/funds/interreg/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/council/resolution/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/en/council/resolution/**",
           "headers": [
             {
               "key": "Cache-Control",

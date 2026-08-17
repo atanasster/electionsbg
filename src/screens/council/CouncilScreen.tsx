@@ -226,9 +226,21 @@ export const CouncilScreen: FC = () => {
               </div>
               {/* Bulgarian, verbatim, in both languages. There is no title_en
                   in the corpus and machine-translating a legal instrument's
-                  title would be inventing one. */}
-              <p className="mt-1 text-sm" lang="bg">
-                {r.title}
+                  title would be inventing one.
+
+                  The title is the ONLY inbound link to /council/resolution/:id.
+                  That family is function-served with no sitemap <loc> and no
+                  prerender by design — thin pages we do not submit en masse —
+                  so without this link nothing, reader or crawler, could reach
+                  any of the 4,676 of them. */}
+              <p className="mt-1 text-sm">
+                <Link
+                  to={`/council/resolution/${r.id}`}
+                  className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-inherit"
+                  lang="bg"
+                >
+                  {r.title}
+                </Link>
               </p>
               {r.sourceUrl && (
                 <a

@@ -6464,5 +6464,18 @@
   "council_not_covered_body": "Следим {{covered}} от {{total}} общински съвета. Този не е сред тях — няма централен регистър и всеки съвет публикува протоколите си сам.",
   "council_not_covered_back": "Виж съветите, които следим",
   "gov_hub_council_desc": "Кой какво решава в 265-те общински съвета — решения, гласувания и кой съветник как гласува.",
-  "council_screen_title_suffix": " — общински съвет"
+  "council_screen_title_suffix": " — общински съвет",
+  "council_vote_for": "За",
+  "council_vote_against": "Против",
+  "council_vote_abstain": "Въздържал се",
+  "council_tally_inline": "за {{for}}, против {{against}}, въздържали се {{abstain}}",
+  "council_tally_protocol": "По протокол",
+  "council_tally_named": "По имена",
+  "council_resolution_vote_heading": "Гласуване",
+  "council_resolution_people_heading": "Поименно гласуване",
+  "council_resolution_people_desc": "{{count}} съветника са записани в протокола. Списъкът изброява само гласувалите — няма запис кой е отсъствал.",
+  "council_resolution_lede": "Решение № {{number}} от {{date}}, заседание {{session}}.",
+  "council_resolution_missing_title": "Няма такова решение",
+  "council_resolution_missing_body": "Този адрес не отговаря на решение в базата. Възможно е да е сгрешен или решението да не е публикувано от общината.",
+  "council_resolution_untitled": "Решение № {{number}} от {{date}}"
 }

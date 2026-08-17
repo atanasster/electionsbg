@@ -229,6 +229,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT jsonb_build_object(
     'id',            r.id,
     'councilCode',   r.obshtina_code,
+    -- The code a LINK must use. /council/:code resolves through
+    -- council_muni_code ONLY, and eight of the sixteen council keys are not
+    -- frontend codes at all — three of them (BGS01, PDV01, VAR01) are OTHER
+    -- municipalities' codes, so linking on obshtina_code sends a reader from
+    -- Бургас's own decision to "we do not track this council". Same ORDER BY
+    -- as council_overview() so Sofia links as SFO_CITY, not an arbitrary
+    -- район. NULL means "not linkable" and consumers must render plain text.
+    'councilFrontendCode', (
+      SELECT c.frontend_code FROM council_muni_code c
+       WHERE c.obshtina_code = r.obshtina_code
+       ORDER BY (c.frontend_code LIKE 'S2%'), c.frontend_code
+       LIMIT 1
+    ),
     'councilName',   m.name,
     'decidedOn',     r.decided_on::text,
     'session',       r.session,
@@ -255,20 +268,44 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              )
         FROM council_vote v WHERE v.resolution_id = r.id
     ),
-    'tallyBasis',
-      'Двата броя идват от различни места в протокола: „по протокол“ е '
+    -- BOTH languages. This is CHROME, not a title, and it is the one sentence
+    -- that stops a reader treating the 62% tally disagreement as a bug — so an
+    -- English reader served the Bulgarian one gets two contradicting numbers
+    -- and no explanation. `tallyBasis` is kept as an alias of the Bulgarian
+    -- form so an older consumer does not break.
+    'tallyBasisBg', 'Двата броя идват от различни места в протокола: „по протокол“ е '
+      || 'обобщението, което самият протокол отпечатва, а „по имена“ е сборът '
+      || 'от поименния списък. Разминаване не значи, че единият е грешен — '
+      || 'поименният списък може да е непълен.',
+    'tallyBasisEn', 'The two counts come from different places in the minutes: "per the '
+      || 'minutes" is the summary the protokol itself prints, while "by name" '
+      || 'is the sum of the per-councillor list. A disagreement does not mean '
+      || 'one of them is wrong — the named list can be incomplete.',
+    'tallyBasis',   'Двата броя идват от различни места в протокола: „по протокол“ е '
       || 'обобщението, което самият протокол отпечатва, а „по имена“ е сборът '
       || 'от поименния списък. Разминаване не значи, че единият е грешен — '
       || 'поименният списък може да е непълен.',
     'hasNamedVotes', r.has_named_votes,
     'sourceUrl',     r.source_url,
+    -- personSlug is the LINKABLE half and is deliberately NOT `person_id IS
+    -- NOT NULL`. A /person page exists only for an active public figure, so a
+    -- councillor can be resolved to a real person_id and still have no page —
+    -- linking on the id alone mints a 404 per councillor. Consumers render a
+    -- link when the slug is present and plain text otherwise; person_id stays
+    -- in the payload because it is the join key for everything else.
     'votes', (
       SELECT coalesce(jsonb_agg(jsonb_build_object(
-               'name',     v.councillor,
-               'personId', v.person_id,
-               'vote',     v.vote
+               'name',       v.councillor,
+               'personId',   v.person_id,
+               'personSlug', CASE
+                               WHEN p.status = 'active' AND p.is_public_figure
+                               THEN p.slug
+                             END,
+               'vote',       v.vote
              ) ORDER BY v.councillor), '[]'::jsonb)
-        FROM council_vote v WHERE v.resolution_id = r.id
+        FROM council_vote v
+        LEFT JOIN person p ON p.person_id = v.person_id
+       WHERE v.resolution_id = r.id
     )
   )
   FROM council_resolution r

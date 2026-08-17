@@ -427,3 +427,91 @@ test.skipIf(skip)(
     });
   },
 );
+
+test.skipIf(skip)(
+  "every resolution carries a LINKABLE council code",
+  async () => {
+    assert.ok(await present(), "council_* absent — run db:load:council:pg");
+    // /council/:code resolves through council_muni_code ONLY. Eight of the
+    // sixteen council keys are not frontend codes, and three (BGS01, PDV01,
+    // VAR01) are OTHER municipalities' codes — so linking obshtina_code put a
+    // "we do not track this council" page one click from that council's own
+    // decision, for 1,768 of 4,727 resolutions. Eight councils DO work (key ==
+    // frontend code), which is why a spot check misses it and this asserts
+    // over every council.
+    const orphan = await allRows<{ n: string; sample: string | null }>(
+      `SELECT count(*)::text AS n, min(r.obshtina_code) AS sample
+         FROM council_resolution r
+        WHERE NOT EXISTS (
+                SELECT 1 FROM council_muni_code mc
+                 WHERE mc.obshtina_code = r.obshtina_code)`,
+    );
+    assert.equal(
+      Number(orphan[0].n),
+      0,
+      `${orphan[0].n} resolution(s) have no frontend code (e.g. ${orphan[0].sample})`,
+    );
+
+    const perCouncil = await allRows<{ id: string; fc: string | null }>(
+      `SELECT r.id,
+              (council_resolution_detail(r.id) ->> 'councilFrontendCode') AS fc
+         FROM (SELECT DISTINCT ON (obshtina_code) id, obshtina_code
+                 FROM council_resolution ORDER BY obshtina_code, id) r`,
+    );
+    assert.ok(perCouncil.length >= 10, "too few councils to be a real check");
+    for (const row of perCouncil) {
+      assert.ok(row.fc, `${row.id}: councilFrontendCode is null`);
+      const served = await one<unknown>(
+        "SELECT council_muni_detail($1, 1) AS r",
+        [row.fc],
+      );
+      assert.ok(
+        served,
+        `${row.id}: /council/${row.fc} resolves to NOTHING — dead breadcrumb`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "personSlug is present only for a servable /person page",
+  async () => {
+    assert.ok(await present(), "council_* absent — run db:load:council:pg");
+    // A councillor can carry a resolved person_id and still have no page —
+    // /person exists for active public figures only. Linking on the id would
+    // mint a 404 per councillor, so the payload gates the slug and every
+    // consumer links on the slug alone.
+    const [r] = await allRows<{ leaked: string; missing: string }>(
+      `WITH v AS (
+         SELECT jsonb_array_elements(
+                  council_resolution_detail(r.id) -> 'votes') AS j
+           FROM (SELECT id FROM council_resolution
+                  WHERE has_named_votes ORDER BY id LIMIT 40) r
+       )
+       SELECT
+         count(*) FILTER (
+           WHERE j ->> 'personSlug' IS NOT NULL
+             AND NOT EXISTS (
+                   SELECT 1 FROM person p
+                    WHERE p.slug = j ->> 'personSlug'
+                      AND p.status = 'active' AND p.is_public_figure))::text AS leaked,
+         count(*) FILTER (
+           WHERE j ->> 'personSlug' IS NULL
+             AND EXISTS (
+                   SELECT 1 FROM person p
+                    WHERE p.person_id = (j ->> 'personId')::bigint
+                      AND p.status = 'active' AND p.is_public_figure))::text AS missing
+         FROM v`,
+    );
+    assert.equal(
+      Number(r.leaked),
+      0,
+      `${r.leaked} vote(s) expose a slug whose /person page is not servable`,
+    );
+    assert.equal(
+      Number(r.missing),
+      0,
+      `${r.missing} vote(s) withhold a slug for a person who HAS a page`,
+    );
+  },
+);

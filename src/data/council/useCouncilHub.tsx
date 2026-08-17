@@ -129,3 +129,74 @@ export const useCouncilMuni = (code: string | null | undefined, limit = 30) =>
     staleTime: Infinity,
     retry: 2,
   });
+
+/** One resolution's named vote. `personSlug` is the LINKABLE half and is
+ *  deliberately not `personId != null`: a /person page exists only for an
+ *  active public figure, so a councillor can be resolved to a real person and
+ *  still have no page. Render a link when the slug is present, plain text
+ *  otherwise — never link on the id. */
+export type CouncilVoteRow = {
+  name: string;
+  personId: number | null;
+  personSlug: string | null;
+  vote: "for" | "against" | "abstain";
+};
+
+export type CouncilTallyCounts = {
+  for: number | null;
+  against: number | null;
+  abstain: number | null;
+  method?: string | null;
+};
+
+export type CouncilResolutionDetail = {
+  id: string;
+  councilCode: string;
+  /** The code a LINK must use. `councilCode` is the council's INTERNAL key and
+   *  is not routable for 8 of the 16 — three of those keys (BGS01, PDV01,
+   *  VAR01) are other municipalities' frontend codes, so linking on it sends a
+   *  reader from Бургас's decision to "we do not track this council". NULL
+   *  means not linkable; render plain text, as CouncilHubScreen does. */
+  councilFrontendCode: string | null;
+  councilName: string;
+  decidedOn: string;
+  session: string | null;
+  number: string | null;
+  title: string;
+  summaryBg: string | null;
+  summaryEn: string | null;
+  result: "adopted" | "rejected" | "returned" | "unknown" | null;
+  /** The aggregate the protokol itself prints. */
+  protocolTally: CouncilTallyCounts;
+  /** What the per-councillor list adds up to. These two DISAGREE on 62% of
+   *  named-vote resolutions (Перник: 100%) — a councillor list can be partial
+   *  and OCR drops rows — so both are shown, both are labelled, and neither is
+   *  presented as correcting the other. */
+  namedVoteTally: CouncilTallyCounts;
+  /** Rendered verbatim beside the two tallies; it is what stops a reader
+   *  reading the disagreement as an error — so it must be in the READER'S
+   *  language. `tallyBasis` is the Bulgarian alias kept for older consumers. */
+  tallyBasisBg: string;
+  tallyBasisEn: string;
+  tallyBasis: string;
+  hasNamedVotes: boolean;
+  sourceUrl: string | null;
+  votes: CouncilVoteRow[];
+};
+
+/**
+ * One resolution. `null` means no such id — the screen renders its own
+ * not-found state rather than an empty page, because these URLs are
+ * function-served and a typo must not look like a real decision with no votes.
+ */
+export const useCouncilResolution = (id: string | null | undefined) =>
+  useQuery({
+    queryKey: ["council", "resolution", id ?? ""] as const,
+    queryFn: () =>
+      getJson<CouncilResolutionDetail>(
+        `/api/db/council-resolution?id=${encodeURIComponent(id as string)}`,
+      ),
+    enabled: !!id,
+    staleTime: Infinity,
+    retry: 2,
+  });
