@@ -9,24 +9,32 @@
 -- AFTER person_id is filled — an unresolved declaration has no person_id and so
 -- contributes to no person's series, which is correct.
 --
--- NOTE the DROP … CASCADE below re-runs on every --resolve, and FOUR matviews now depend
+-- NOTE the DROP … CASCADE below re-runs on every --resolve, and FIVE matviews now depend
 -- on person_wealth_year, so every one of them is dropped with it:
 --
 --   person_cohort_wealth       (097_cohort_benchmark.sql)
 --   officials_rankings_table   (100_officials_rankings.sql)
 --   mp_assets_rankings_table   (105_mp_serving.sql)
 --   person_browse_table        (120_person_browse.sql)
+--   person_crypto_table        (159_person_crypto.sql)
 --
--- All four are re-applied by load_declarations_pg.ts immediately after this DROP, in the
+-- All five are re-applied by load_declarations_pg.ts immediately after this DROP, in the
 -- same run — that is the ONLY thing keeping a `--resolve` from leaving those serving
--- surfaces missing. Adding a fifth dependent means adding it there too; the failure is
+-- surfaces missing. Adding a sixth dependent means adding it there too; the failure is
 -- silent in both directions (no error on the drop, and a matview that is simply absent).
+--
+-- (This list said FOUR until 2026-08-17, having been written before 159 landed. The count
+-- is not decoration: it is what a reader checks their apply command against, and 159 was
+-- already wired into the loader and into apply_functions.ts's post-condition — only this
+-- comment had missed it. Verify with a pg_depend probe rather than by reading, since a
+-- LANGUAGE sql string body records no dependency edge and would not show up.)
 --
 -- That covers the LOADER. It does not cover apply_functions.ts, which is the documented
 -- hatch for shipping a body change in this file on its own and which recreates only what
--- the caller names — applying 090 there alone deleted all four on prod on 2026-08-15. That
--- script now carries a generic post-condition that reports any relation an apply dropped
--- and did not recreate, so the hand-run path fails loudly instead; see its header.
+-- the caller names — applying 090 there alone deleted four of them on prod on 2026-08-15
+-- (159 did not yet exist). That script now carries a generic post-condition that reports
+-- any relation an apply dropped and did not recreate, so the hand-run path fails loudly
+-- instead; see its header.
 
 -- ---------------------------------------------------------------------------
 -- person_wealth_year — one row per (person_id, period_year).
@@ -468,8 +476,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'year', COALESCE(d.fiscal_year, d.declaration_year),
         'type', d.declaration_type,
         'filedAt', d.filed_at,
-        'institution', d.institution,
-        'positionTitle', d.position_title
+        -- The declarant's OWN institution and job, per filing, falling back to the
+        -- register's listing label only where the filing states none. See
+        -- declared_label() in 089 — never d.institution / d.position_title directly.
+        'institution', declared_label(d.filed_institution, d.institution),
+        'positionTitle', declared_label(d.filed_position, d.position_title)
       ) ORDER BY COALESCE(d.fiscal_year, d.declaration_year), d.declaration_id)
       FROM declaration d JOIN pick ON pick.person_id = d.person_id
       WHERE d.declaration_type IN ('Entry', 'Vacate')
@@ -501,8 +512,12 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- a second copy of the COALESCE is a second thing that can drift.
       'periodYear', COALESCE(d.fiscal_year, d.declaration_year),
       'type', d.declaration_type,
-      'institution', d.institution,
-      'positionTitle', d.position_title,
+      -- Per-filing job and institution, listing label only as a fallback (089's
+      -- declared_label). This block renders one row per filing, so the listing's GROUP
+      -- label was at its most misleading here: it repeated one bucket down a column of
+      -- filings that each state a different office.
+      'institution', declared_label(d.filed_institution, d.institution),
+      'positionTitle', declared_label(d.filed_position, d.position_title),
       'filedAt', d.filed_at,
       'sourceUrl', d.source_url,
       -- SAME BASIS AS person_wealth_year, INCLUDING THE CEILING. This is the payload
@@ -597,8 +612,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'year', d.declaration_year,
     'fiscalYear', d.fiscal_year,
     'type', d.declaration_type,
-    'institution', d.institution,
-    'positionTitle', d.position_title,
+    -- Per-filing job and institution; see declared_label() in 089.
+    'institution', declared_label(d.filed_institution, d.institution),
+    'positionTitle', declared_label(d.filed_position, d.position_title),
     'filedAt', d.filed_at,
     -- The register's own reference for this filing. A journalist citing a figure needs to
     -- name the document, not just link it: „вх. № Г4937, подадена 04.05.2026". Both were

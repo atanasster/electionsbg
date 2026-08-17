@@ -17,8 +17,10 @@
 //   - fall back to the LISTING label, or every caller blanks on a database with no backfill —
 //     which is Cloud SQL, a fresh clone, and any filing ingested since the last crawl.
 //
-// This file covers the function itself. The per-surface assertions (that each serving payload
-// and matview actually routes through it) live below in the same file as the callers land.
+// This file covers the function itself AND the per-surface assertions — that each serving
+// payload and matview actually routes through it rather than reading the raw columns. A
+// caller that quietly kept `d.position_title` would pass every test above and still publish
+// the wrong label, so the two halves are not redundant.
 //
 // Auto-skips when Postgres is down or 089 has not been applied, like the other *.data.test.ts
 // gates, so CI (no container) skips it.
@@ -152,5 +154,114 @@ test.skipIf(skip)(
         `${r.declarant_name} is still served the listing bucket`,
       );
     }
+  },
+);
+
+// ---------------------------------------------------------------------------
+// Per-surface: the 090 payloads (/person profile) must route through declared_label.
+//
+// Asserted corpus-wide against the raw columns rather than on a fixture, so a caller that
+// was missed shows up as a count instead of a lucky pass. Демерджиев is then named
+// explicitly because his is the filing that reached a published card.
+// ---------------------------------------------------------------------------
+
+/** Every filing the profile block renders, joined to what the raw columns hold. */
+const PROFILE_SQL = `
+  SELECT d.declaration_id,
+         d.filed_position, d.position_title,
+         d.filed_institution, d.institution,
+         r->>'positionTitle' AS served_position,
+         r->>'institution'   AS served_institution
+    FROM person p
+    JOIN declaration d ON d.person_id = p.person_id
+    CROSS JOIN LATERAL jsonb_array_elements(person_declarations(p.slug)) r
+   WHERE p.slug = $1 AND (r->>'id')::bigint = d.declaration_id`;
+
+type Served = {
+  declaration_id: string;
+  filed_position: string | null;
+  position_title: string | null;
+  filed_institution: string | null;
+  institution: string | null;
+  served_position: string | null;
+  served_institution: string | null;
+};
+
+test.skipIf(skip)(
+  "person_declarations() serves the filed job, not the listing bucket",
+  async () => {
+    // mp-5104 is Иван Демерджиев. His two 2023 filings are listed under „Служебен
+    // министър-председател и министър" — a bucket covering two men, neither of whom was
+    // caretaker PM — while the filings themselves say министър of МВР.
+    const rows = await allRows<Served>(PROFILE_SQL, ["mp-5104"]);
+    assert.ok(
+      rows.length > 0,
+      "fixture person has no filings — corpus not loaded?",
+    );
+    for (const r of rows) {
+      if (r.filed_position && r.filed_position.trim()) {
+        assert.equal(r.served_position, r.filed_position.trim());
+      } else {
+        // The degrade half: no filed value must yield the listing label, never a blank.
+        assert.equal(r.served_position, r.position_title);
+      }
+      if (r.filed_institution && r.filed_institution.trim()) {
+        assert.equal(r.served_institution, r.filed_institution.trim());
+      } else {
+        assert.equal(r.served_institution, r.institution);
+      }
+    }
+    assert.ok(
+      rows.some(
+        (r) => r.position_title === "Служебен министър-председател и министър",
+      ),
+      "fixture no longer covers the caretaker-PM bucket — pick another person",
+    );
+    for (const r of rows) {
+      assert.notEqual(
+        r.served_position,
+        "Служебен министър-председател и министър",
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "declaration_detail() and the wealth-series markers agree with the profile block",
+  async () => {
+    // Three functions in 090 render the same filing's job — the row block, the expanded
+    // detail, and the chart's Entry/Vacate markers. A reader who opens one and then the
+    // other must not be told two different things, which is the failure a per-site COALESCE
+    // invites and the reason declared_label exists.
+    const rows = await allRows<{ mismatched: string; checked: string }>(
+      `SELECT count(*) FILTER (
+                WHERE declaration_detail(d.declaration_id)->>'positionTitle'
+                      IS DISTINCT FROM declared_label(d.filed_position, d.position_title)
+                   OR declaration_detail(d.declaration_id)->>'institution'
+                      IS DISTINCT FROM declared_label(d.filed_institution, d.institution)
+              ) AS mismatched,
+              count(*) AS checked
+         FROM declaration d
+        WHERE d.person_id IS NOT NULL
+        LIMIT 1`,
+    );
+    assert.ok(
+      Number(rows[0].checked) > 0,
+      "no resolved filings — corpus not loaded?",
+    );
+    assert.equal(Number(rows[0].mismatched), 0);
+
+    const markers = await allRows<{ bad: string }>(
+      `SELECT count(*) AS bad
+         FROM person p
+         CROSS JOIN LATERAL jsonb_array_elements(person_wealth_series(p.slug)->'markers') m
+         JOIN declaration d ON d.person_id = p.person_id
+          AND d.declaration_type IN ('Entry', 'Vacate')
+          AND COALESCE(d.fiscal_year, d.declaration_year) = (m->>'year')::int
+        WHERE p.slug = 'mp-5104'
+          AND m->>'positionTitle'
+              IS DISTINCT FROM declared_label(d.filed_position, d.position_title)`,
+    );
+    assert.equal(Number(markers[0].bad), 0);
   },
 );
