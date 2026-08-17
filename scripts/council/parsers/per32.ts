@@ -303,7 +303,22 @@ const parseProtokolText = (
     if (lookup) {
       // Slice from just after the tally summary line up to (but not
       // including) the marker — that's the named-vote window.
-      const tallyEnd = candidate.offset + 200; // generous skip past the tally line itself
+      // End the skip at the tally match's OWN end, never at a fixed
+      // offset. This was `candidate.offset + 200` ("generous skip past
+      // the tally line itself"), and 200 is longer than most Перник
+      // tally lines — so the slice started INSIDE the first councillor's
+      // name and ate a variable number of leading letters, producing one
+      // orphan fold per block: Владислав Владимиров survived as
+      // 'ладислав', 'дислав', 'ислав', 'слав' and 'лав' Владимиров, each
+      // matching no roster entry. The truncation VARIES with the tally
+      // line's real length, which is what rules out a regex-boundary
+      // cause and points here.
+      //
+      // findAllTallies already reports the match length, so the correct
+      // bound is exact. Anything between the tally's end and the first
+      // name (". Приема се", "Гласували поименно:") cannot false-match —
+      // collectNamedVotes requires a `Name: Vote` shape.
+      const tallyEnd = candidate.offset + candidate.length;
       const blockText = text.slice(tallyEnd, marker.offset);
       const { entries } = collectNamedVotes(blockText);
       if (entries.length > 0) {
