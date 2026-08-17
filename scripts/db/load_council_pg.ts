@@ -679,6 +679,36 @@ const main = async (): Promise<void> => {
       }
     }
 
+    // A RE-PARSED resolution's vote list is authoritative; an unseen one is
+    // not. Upsert-only is right at the RESOLUTION grain — a scrape that misses
+    // a protocol must leave it standing — but at the VOTE grain it means a
+    // parser fix can never reach the database: the corrected rows are inserted
+    // beside the rows they were meant to replace. Measured 2026-08-17, after
+    // the Перник name fixes: 13,206 stored against 13,131 on disk, 75 orphans
+    // under folds the parser no longer emits ('ладислав владимиров' for
+    // Владислав Владимиров), each one a phantom councillor on /council/PER32.
+    //
+    // The scope is what keeps this from becoming the anti-join this loader must
+    // never do: it deletes only within resolutions THIS RUN staged, so a
+    // protocol the scrape did not reach is untouched. `council_vote_stage`
+    // holds one run's parse, so "present in the stage" is exactly "re-parsed
+    // just now".
+    const stale = await c.query(
+      `DELETE FROM council_vote v
+        WHERE EXISTS (
+                SELECT 1 FROM council_vote_stage s
+                 WHERE s.resolution_id = v.resolution_id)
+          AND NOT EXISTS (
+                SELECT 1 FROM council_vote_stage s
+                 WHERE s.resolution_id = v.resolution_id
+                   AND s.norm_key = v.norm_key)`,
+    );
+    if (stale.rowCount) {
+      console.log(
+        `[council] retired ${stale.rowCount} vote row(s) whose resolution was re-parsed without them`,
+      );
+    }
+
     // Upsert-only means a reload cannot retire a bad row, so the refusal above
     // has to be paired with a targeted removal of anything a previous version
     // stored. This is scoped to a provable invariant violation — not "rows this
