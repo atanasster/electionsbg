@@ -15,7 +15,7 @@
 
 import { FC, Fragment, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { padGapYears } from "./PersonWealthTrajectory";
+import { padGapYears } from "./wealthGapYears";
 import { PieChart } from "lucide-react";
 import {
   ResponsiveContainer,

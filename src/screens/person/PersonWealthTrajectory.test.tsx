@@ -25,7 +25,8 @@ vi.mock("recharts", async () => {
   };
 });
 
-import { PersonWealthTrajectory, padGapYears } from "./PersonWealthTrajectory";
+import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
+import { padGapYears } from "./wealthGapYears";
 
 const stubFetch = (payload: PersonWealth) => {
   vi.stubGlobal(

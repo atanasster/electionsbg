@@ -14,6 +14,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { padGapYears, type WealthRow } from "./wealthGapYears";
 import { TrendingUp } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -31,7 +32,7 @@ import { Card, CardContent } from "@/ux/Card";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
-import { usePersonWealth, type WealthPoint } from "./usePersonWealth";
+import { usePersonWealth } from "./usePersonWealth";
 import { PersonPortfolioComposition } from "./PersonPortfolioComposition";
 import { LegendSwatch } from "./LegendSwatch";
 
@@ -39,51 +40,6 @@ const COLORS = {
   assets: "hsl(160 60% 42%)", // green — what they hold
   debts: "hsl(0 65% 55%)", // red — what they owe
   net: "hsl(217 70% 45%)", // blue — the bottom line
-};
-
-/** A filing year, or a GAP year carrying nulls so the line breaks across it. The rest of
- *  WealthPoint is optional because a gap year has none of it — there is no filing to
- *  describe, which is the whole point. */
-type Row = Partial<Omit<WealthPoint, "assetsEur" | "debtsEur" | "netEur">> & {
-  year: number;
-  assetsEur: number | null;
-  debtsEur: number | null;
-  netEur: number | null;
-  markerType?: "Entry" | "Vacate";
-};
-
-/**
- * One row per year across the series' whole span, with a year that has NO filing carrying
- * nulls rather than being omitted.
- *
- * Omitting it makes the data a list of the years that exist, and recharts then draws one
- * continuous curve straight through the years that do not: Демерджиев's page rose smoothly
- * from 2023 to 2026 across two years in which he declared nothing at all. A null breaks the
- * line instead (`connectNulls={false}` below) — the same rule the post cards already follow,
- * that an unpublished period must never read as a real reading.
- *
- * Null and not 0: a zero is a declared position, and would draw a collapse to the axis.
- */
-export const padGapYears = (
-  series: readonly WealthPoint[],
-  markerByYear: ReadonlyMap<number, "Entry" | "Vacate"> = new Map(),
-): Row[] => {
-  if (!series.length) return [];
-  const byYear = new Map(series.map((p) => [p.year, p]));
-  const rows: Row[] = [];
-  for (
-    let year = series[0].year;
-    year <= series[series.length - 1].year;
-    year += 1
-  ) {
-    const point = byYear.get(year);
-    rows.push(
-      point
-        ? { ...point, markerType: markerByYear.get(year) }
-        : { year, assetsEur: null, debtsEur: null, netEur: null },
-    );
-  }
-  return rows;
 };
 
 export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
@@ -157,7 +113,7 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
               <Tooltip
                 content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
-                  const r = payload[0].payload as Row;
+                  const r = payload[0].payload as WealthRow;
                   return (
                     <div className={cn(tooltipSurfaceClass, "p-2 text-xs")}>
                       <div className="font-semibold tabular-nums">{r.year}</div>
@@ -221,7 +177,7 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
               {/* Entry/Vacate markers sit on the net line. */}
               {model.rows
                 .filter(
-                  (r): r is Row & { netEur: number } =>
+                  (r): r is WealthRow & { netEur: number } =>
                     Boolean(r.markerType) && r.netEur !== null,
                 )
                 .map((r) => (
