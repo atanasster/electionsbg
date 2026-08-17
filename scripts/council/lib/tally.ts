@@ -69,8 +69,34 @@ const SHORT_WS = "[ \\t\\r\\n]{0,3}";
 // SHORT_WS (up to 3 whitespace chars incl. one newline) covers that
 // without re-introducing the unbounded gap that breaks multi-tally
 // scanning.
+// The FIRST gap — leading digit → „за" — is horizontal whitespace only
+// (HGAP), NOT SHORT_WS. SHORT_WS permits a newline, and in the vertical
+// layout Sofia's OCR produces
+//
+//     49
+//     За 49
+//     Против 0
+//     Въздържали се 0
+//
+// that newline lets the previous line's TOTAL be captured as the „за"
+// count, which shifts every field left: „за" then takes Против's number,
+// yielding for == against. Measured on protokol 65: 29 of 168 tallies,
+// and the same span also matched correctly via LABEL_FIRST — so
+// findAllTallies emitted a right and a wrong tally 3 chars apart, and the
+// positional merge took whichever came first. 14 of Sofia's 106 stored
+// tallies were wrong this way, all in OCR'd sessions.
+//
+// This is the same defect the `Общо гласували:` lookbehind on
+// SUMMARY_RE_VERBOSE already guards — that fix matched the LABEL
+// literally, so it never fired once the OCR emitted a bare number.
+// Constraining the gap catches both spellings and any future one.
+//
+// The later gaps keep SHORT_WS: those exist for a real wrap Burgas
+// produces (`0 гл.\n„въздържали се"`), which is a line break INSIDE one
+// count-label pair rather than between two of them.
+const HGAP = "[ \\t]{0,3}";
 const SUMMARY_RE_DIGIT_FIRST = new RegExp(
-  `(\\d+|няма|-)${GL}${SHORT_WS}${Q}[ \\t]*за\\s*${Q}` +
+  `(\\d+|няма|-)${GL}${HGAP}${Q}[ \\t]*за\\s*${Q}` +
     SEP +
     `(?:${Q}\\s*)?(\\d+|няма|-)${GL}${SHORT_WS}${Q}[ \\t]*против\\s*${Q}` +
     SEP +

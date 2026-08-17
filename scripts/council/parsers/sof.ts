@@ -214,7 +214,17 @@ const unlockProtokolTallies = async (
     const result = best ? classifyResult(text, best.offset) : "unknown";
     const entry: SofiaUnlockEntry = { tally, result };
     out.set(marker.number, entry);
-    if (tally) inOrder.push(entry);
+    // „Точка 0 (нулева)" is the vote ADOPTING THE AGENDA — it produces no
+    // решение and therefore no r-NNN-YYYY PDF. Including it shifted the
+    // whole positional map by one, so every resolution inherited the
+    // PREVIOUS agenda item's tally and its named votes. Verified on
+    // protokol 65 against the published shards: Точка 0/1/2/3 tally
+    // 49-0-0 / 49-0-0 / 51-0-0 / 52-0-0 while decisions 528/529/530/531
+    // had stored 49 / 49 / 51 / 52 — i.e. decision 528 was carrying the
+    // agenda vote. Misattributing a NAMED councillor vote to the wrong
+    // decision is the worst failure this parser has, so it is excluded by
+    // number rather than by title.
+    if (tally && marker.number !== "0") inOrder.push(entry);
   }
   return {
     byNumber: out,
@@ -357,7 +367,7 @@ export const scrapeSOF = async (
           );
           totalOcrCost += unlock.cost;
           let merged = 0;
-          let mergeMethod: "number" | "positional" = "number";
+          let mergeMethod: "number" | "positional" | "refused" = "number";
           // Path A: the OCR preserved "Решение № NNN" headers; join by
           // exact number. Path B (Sofia today): the OCR surfaces only
           // "Точка <N>" agenda markers — fall back to POSITIONAL
@@ -374,16 +384,39 @@ export const scrapeSOF = async (
               r.result = u.result;
               merged++;
             }
-          } else if (unlock.inOrder.length > 0) {
-            mergeMethod = "positional";
+          }
+          // Fall back to positional when the number join produced NOTHING.
+          // This used to be an `else if`, so a session whose OCR surfaced
+          // large-N headers that then matched no decision merged 0 and
+          // stopped — measured 2026-08-17, sessions 62 and 64 each OCR'd
+          // cleanly (91-92% roster join) and published zero tallies, ~$1.5
+          // of OCR discarded in silence. hasReshenieHeaders is a heuristic
+          // ("some marker number > 100"), so it can be true and useless.
+          if (merged === 0 && unlock.inOrder.length > 0) {
             const sortedRecs = [...sessionRecs].sort(
               (a, b) => parseInt(a.number, 10) - parseInt(b.number, 10),
             );
-            const n = Math.min(sortedRecs.length, unlock.inOrder.length);
-            for (let i = 0; i < n; i++) {
-              sortedRecs[i].tally = unlock.inOrder[i].tally;
-              sortedRecs[i].result = unlock.inOrder[i].result;
-              merged++;
+            // EXACT counts only. Positional merging assumes the Nth agenda
+            // item is the Nth decision; when the counts disagree, some
+            // Точка mid-session produced no decision (withdrawn, deferred,
+            // split) and every entry after it is attributed to the WRONG
+            // resolution. Truncating with Math.min hid that — it always
+            // "succeeded", reporting 57/57 while silently assuming the 5
+            // surplus markers were all trailing. Refusing costs a session's
+            // tallies; guessing publishes a named councillor's vote against
+            // a decision they did not cast it on.
+            if (sortedRecs.length !== unlock.inOrder.length) {
+              mergeMethod = "refused";
+              console.log(
+                `      ocr: positional merge REFUSED — ${unlock.inOrder.length} agenda item(s) with a tally vs ${sortedRecs.length} decision(s); cannot align without misattributing`,
+              );
+            } else {
+              mergeMethod = "positional";
+              for (let i = 0; i < sortedRecs.length; i++) {
+                sortedRecs[i].tally = unlock.inOrder[i].tally;
+                sortedRecs[i].result = unlock.inOrder[i].result;
+                merged++;
+              }
             }
           }
           const joinPct =
