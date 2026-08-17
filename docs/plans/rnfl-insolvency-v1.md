@@ -1,6 +1,8 @@
 # РНФЛ (личен фалит): watch it now, aggregate it later, never name-match it — v1
 
-**Status:** plan only, nothing implemented.
+**Status:** T1 (watch source) SHIPPED 2026-08-17 — `scripts/watch/sources/rnfl_insolvency.ts`,
+registered in `scripts/watch/sources/index.ts`, tests in `rnfl_insolvency.test.ts`. T2 and T3
+remain gated and unimplemented; nothing is ingested and no table exists.
 **Date:** 2026-08-03 — the day the register went live, which is why §2's answer to
 "can we ingest it" is "there is nothing in it yet".
 
@@ -156,8 +158,13 @@ the agency publishes statistics — i.e. when T2 becomes possible.
      It may never flip; it must never be the thing we rely on. `/statistic-rnfl` is the
      primary signal because the agency, not our guess, controls it.
    - Probe **only file number 1**. Not a range — a range is the enumeration §2 rejects.
-   - Degrade like `comdos_ds`: on fetch failure return a stable sentinel rather than
-     flapping between "changed" and "unchanged".
+   - On a failed probe, **throw** — do not degrade to a `comdos_ds`-style sentinel. The
+     runner reports the source as `error` and leaves its previous state intact
+     (`scripts/watch/index.ts`), so an outage costs a week of detection latency and
+     produces no false "changed" line. A sentinel is right for `comdos_ds` only because
+     that upstream is unreachable from our egress *always*, making `"manual"` a stable
+     value; this portal answers a plain `curl`, so a sentinel would flip the fingerprint
+     on the way into an outage and again on the way back out.
 
 2. Register it in `scripts/watch/sources/index.ts`, next to the person-layer curated
    sources (`ofacSanctions` / `comdosDs` / `regulatorRosters`) — same "operator reviews,
@@ -166,7 +173,8 @@ the agency publishes statistics — i.e. when T2 becomes possible.
 3. `scripts/watch/sources/rnfl_insolvency.test.ts` — stubbed `fetch`, per
    `docs/testing-standards.md` (unit tests never touch the network). Cover: the all-quiet
    baseline; `/statistic-rnfl` flipping to 200; a `Deed` flipping to 200; nomenclature
-   drift; and the fetch-failure sentinel.
+   drift; and that a failed probe THROWS (no sentinel — see deliverable 1), so the runner
+   keeps the previous state and emits no false "changed".
 
 4. A mapping row in `.claude/skills/process-watch-report/SKILL.md`. **It maps to no skill.**
    Like `comdos_ds`, a flip means *an operator reads this plan's §T2 and decides*, because

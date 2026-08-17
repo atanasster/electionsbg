@@ -13,6 +13,7 @@ import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
 import { regulatorRosters } from "./regulator_rosters";
+import { rnflInsolvency } from "./rnfl_insolvency";
 import { kzkAppeals } from "./kzk_appeals";
 import { kzkDecisions } from "./kzk_decisions";
 import { monRiRegister } from "./mon_ri_register";
@@ -131,6 +132,7 @@ export const SOURCES: WatchSource[] = [
   ofacSanctions, // person-layer sanctions facet (→ update-persons)
   comdosDs, // person-layer ДС/COMDOS facet (→ update-persons)
   regulatorRosters, // person-layer regulator facet (→ update-persons)
+  rnflInsolvency, // РНФЛ личен фалит (→ NO skill — operator reads docs/plans/rnfl-insolvency-v1.md)
   nfcFilmRegister,
   ncfGrantResults,
   nfcCommissions,
