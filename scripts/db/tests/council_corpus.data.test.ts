@@ -543,9 +543,13 @@ test.skipIf(skip)(
       BGS01: "2026-03-17", // re-scraped 2026-08-17: 70 resolutions updated, but the
       // protokols in the window carry no per-councillor block, so the watermark
       // did not move. "Updated" is not "gained named votes".
-      SOF: "2026-04-30", // --ocr-gated; the 2026-08-17 run reached all 7 sessions
-      // and every Gemini call failed at the network layer ("fetch failed", zero
-      // billed chunks), so Sofia gained 51 resolutions and no named votes.
+      SOF: "2026-07-09", // --ocr-gated, and RATCHETED FORWARD from 2026-04-30 by
+      // the 2026-08-17 backfill: 5 protokols OCR'd and aligned, 75 -> 313
+      // resolutions with named votes and 13,436 vote rows. The remaining lag is
+      // session 66 (2026-07-23), whose full protokol the município has not
+      // published yet — the per-resolution PDFs are out, the session record is
+      // not, so there is nothing to OCR. That is a source-side wait, not a
+      // parser debt, and the watermark will move again on its own.
     };
 
     // A council with no recorded debt. The freeze ran 79 days before anyone
