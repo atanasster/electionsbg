@@ -167,7 +167,7 @@ satisfied by any implementation that happens not to write.
 
 ---
 
-## 4. Tier 1 — migration 159, the council corpus in Postgres
+## 4. Tier 1 — migration 160, the council corpus in Postgres
 
 > **Deviation from the brief, stated explicitly.** The ask was to migrate
 > `data/council/votes/*.json`. Those files are a **lossy derivative** — 639 of 1,169
@@ -177,8 +177,9 @@ satisfied by any implementation that happens not to write.
 > 200-cap stops mattering for anything PG-served. `votes/*.json` becomes a build artifact
 > of the old path, retired in Tier 5.
 
-`158` is taken (`158_company_political_links.sql`, untracked in the working tree), so this
-is **`159_council_corpus.sql`**.
+`158` and `159` are both taken (`158_company_political_links.sql`;
+`159_person_crypto.sql`, which CLAUDE.md also names in prose as "migration 159"), so this
+is **`160_council_corpus.sql`** and the serving layer below is **161**.
 
 ### Schema
 
@@ -291,7 +292,7 @@ clone, needs **no** skip-and-warn branch, and belongs in the `db:refresh` chain 
   is the counter-example, at 130 of 474 pages after an ordinary merge. Add the tables to
   `reload_visibility_map.data.test.ts`.
 - Refuses a >5% shrink without `--allow-shrink`.
-- Applies 159 itself, so a corpus reload always carries the DDL.
+- Applies 160 itself, so a corpus reload always carries the DDL.
 - Wires **both** changelogs. `ingest_changelog` (`scripts/db/lib/ingest_changelog.ts`) for
   the PG `recent_updates()` feed, **and** `data/data-changes.json` via
   `scripts/lib/data-changes` for `/data/updates`. These are two different artifacts serving
@@ -357,7 +358,7 @@ Add the same hook to `process-watch-report`'s mapping so an orchestrated run rea
 
 ## 6. Tier 3 — serving layer
 
-`160_council_serving.sql` — "applied, never loaded", so `db:load:council:pg` applies it and
+`161_council_serving.sql` — "applied, never loaded", so `db:load:council:pg` applies it and
 a body fix ships via `apply_functions.ts`.
 
 - `council_overview()` — hub tiles: municipalities covered, resolutions, named-vote
