@@ -8,12 +8,17 @@
 // did not cast it on.
 
 import { describe, it, expect } from "vitest";
-import { alignAgenda, foldTitle, titleOverlap, agendaSubject } from "./agenda_align";
+import {
+  alignAgenda,
+  foldTitle,
+  titleOverlap,
+  agendaSubject,
+} from "./agenda_align";
 
 describe("foldTitle", () => {
   it("folds case, punctuation and diacritics so two renderings meet", () => {
     // One side is OCR'd from a scan, the other extracted from a text PDF.
-    expect(foldTitle('Приемане на „Бюджет“ — 2026 г.')).toBe(
+    expect(foldTitle("Приемане на „Бюджет“ — 2026 г.")).toBe(
       "приемане на бюджет 2026 г",
     );
   });
@@ -59,7 +64,11 @@ describe("alignAgenda", () => {
   const D = (...xs: string[]) => xs.map(foldTitle);
 
   it("aligns 1:1 when the lists correspond", () => {
-    const decisions = D("приемане на бюджет", "продажба на имот", "избор на комисия");
+    const decisions = D(
+      "приемане на бюджет",
+      "продажба на имот",
+      "избор на комисия",
+    );
     const markers = decisions;
     const r = alignAgenda(decisions, markers);
     expect(r.map.size).toBe(3);
@@ -85,7 +94,11 @@ describe("alignAgenda", () => {
     // Three decisions, then five agenda items that produced none, then three
     // more. A positional merge maps the last three onto the withdrawn items.
     const tail = D("наредба за рекламата", "план за квартал", "отчет на кмета");
-    const head = D("приемане на бюджет", "продажба на имот", "избор на комисия");
+    const head = D(
+      "приемане на бюджет",
+      "продажба на имот",
+      "избор на комисия",
+    );
     const decisions = [...head, ...tail];
     const markers = [...head, "", "", "", "", "", ...tail];
     const r = alignAgenda(decisions, markers);
@@ -100,7 +113,11 @@ describe("alignAgenda", () => {
     // Equal spans on both sides, so the mapping is forced rather than assumed —
     // this is what recovers the agenda items whose „относно" the OCR dropped.
     const decisions = D("първо решение", "второ решение", "трето решение");
-    const markers = [foldTitle("първо решение"), "", foldTitle("трето решение")];
+    const markers = [
+      foldTitle("първо решение"),
+      "",
+      foldTitle("трето решение"),
+    ];
     const r = alignAgenda(decisions, markers);
     expect(r.anchors).toBe(2);
     expect(r.interpolated).toBe(1);
@@ -123,14 +140,20 @@ describe("alignAgenda", () => {
   it("refuses everything when nothing anchors", () => {
     // No shared vocabulary at all — the caller turns an empty map into a
     // refusal rather than falling back to position.
-    const r = alignAgenda(D("приемане на бюджет"), [foldTitle("нещо съвсем друго")]);
+    const r = alignAgenda(D("приемане на бюджет"), [
+      foldTitle("нещо съвсем друго"),
+    ]);
     expect(r.map.size).toBe(0);
   });
 
   it("never maps two decisions onto one marker", () => {
     // Monotonic by construction. A duplicated title must not let one agenda
     // item's named vote be attributed to two different decisions.
-    const decisions = D("продажба на имот", "продажба на имот", "друго решение");
+    const decisions = D(
+      "продажба на имот",
+      "продажба на имот",
+      "друго решение",
+    );
     const markers = D("продажба на имот", "друго решение");
     const r = alignAgenda(decisions, markers);
     expect(new Set([...r.map.values()]).size).toBe(r.map.size);
