@@ -4,7 +4,7 @@
 -- expose: WHEN a filing entered our data. The register itself carries no publication date —
 -- filed_at is when the declarant filed, which for a backfilled year is a decade ago — so
 -- recency has to come from the ingest layer. ingest_first_seen already records it, keyed on
--- source='cacbg_declarations' with key = declaration.source_url, and it joins all 47,983
+-- source='cacbg_declarations' with key = declaration.source_url, and it joins all 61,743
 -- filings exactly.
 --
 -- FIRST-SEEN IS NOT PUBLICATION. A filing first seen today may have sat in the register for
@@ -49,8 +49,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  'year', d.declaration_year,
                  'fiscalYear', d.fiscal_year,
                  'declarationType', d.declaration_type,
-                 'institution', d.institution,
-                 'positionTitle', d.position_title,
+                 -- Per-filing job and institution; see declared_label() in 089. This feed
+                 -- announces a named person's new filing, so the label rides in a sentence
+                 -- about them rather than in a table column.
+                 'institution', declared_label(d.filed_institution, d.institution),
+                 'positionTitle', declared_label(d.filed_position, d.position_title),
                  -- first_seen_at is timestamptz, so to_char renders it in the SESSION
                  -- TimeZone — the same ingest batch would read 2026-07-23 or -24 depending
                  -- on the connection. Pin to Europe/Sofia (the site's frame) so the rendered

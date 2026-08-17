@@ -7,7 +7,7 @@
 --
 -- They are the most editorially interesting rows in the whole declaration precisely because
 -- they are not wealth: "sold the car the year before leaving office" and "someone else paid
--- for this trip" are transactions, not holdings. 9,127 of them are on file.
+-- for this trip" are transactions, not holdings. 12,904 of them are on file (2026-08-17).
 --
 -- Two surfaces:
 --   person_declaration_events(slug) — one person's, newest first, for their profile.
@@ -41,8 +41,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- and the UI then shows the filing year rather than inventing one.
       'fiscalYear', d.fiscal_year,
       'declarationType', d.declaration_type,
-      'institution', d.institution,
-      'positionTitle', d.position_title,
+      -- The declarant's OWN job and institution, per filing (declared_label, 089). An
+      -- event names a person and a transaction, so the label beside it is a claim about
+      -- that individual — exactly where the register's listing GROUP label must not go.
+      'institution', declared_label(d.filed_institution, d.institution),
+      'positionTitle', declared_label(d.filed_position, d.position_title),
       'description', e.description,
       'detail', e.detail,
       'location', e.location,
@@ -73,8 +76,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
           'kind', e.kind,
           'year', d.declaration_year,
           'fiscalYear', d.fiscal_year,
-          'institution', d.institution,
-          'positionTitle', d.position_title,
+          -- Per-filing job and institution; see declared_label() in 089.
+          'institution', declared_label(d.filed_institution, d.institution),
+          'positionTitle', declared_label(d.filed_position, d.position_title),
           'description', e.description,
           'detail', e.detail,
           'location', e.location,

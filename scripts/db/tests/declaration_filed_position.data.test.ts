@@ -265,3 +265,88 @@ test.skipIf(skip)(
     assert.equal(Number(markers[0].bad), 0);
   },
 );
+
+test.skipIf(skip)(
+  "all three feed functions carry the filed job (093 x2, 098)",
+  async () => {
+    // 093 has TWO call sites — the per-person events block and the site-wide feed — and 098
+    // one. Each is asserted against declared_label separately, because a shared helper does
+    // not make one call site evidence for another: a review caught declaration_events_feed
+    // repointed but untested, where reverting it passed every other assertion in the repo.
+    //
+    // Each arm also asserts its own NON-VACUOUSNESS first: that the rows it checks actually
+    // contain a case where filed and listing disagree. Without that, a corpus that converged
+    // (or a fixture that stopped filing) would leave the arm green while checking nothing.
+    const [events] = await allRows<{
+      bad: string;
+      n: string;
+      diverging: string;
+    }>(
+      `SELECT count(*) FILTER (
+                WHERE e->>'positionTitle' IS DISTINCT FROM
+                      declared_label(d.filed_position, d.position_title)
+                   OR e->>'institution' IS DISTINCT FROM
+                      declared_label(d.filed_institution, d.institution)) AS bad,
+              count(*) AS n,
+              count(*) FILTER (
+                WHERE btrim(coalesce(d.filed_position, '')) <> ''
+                  AND d.filed_position IS DISTINCT FROM d.position_title) AS diverging
+         FROM person p
+         CROSS JOIN LATERAL jsonb_array_elements(person_declaration_events(p.slug)) e
+         JOIN declaration d ON d.source_url = e->>'sourceUrl'
+        WHERE p.slug = 'mp-1588'`,
+    );
+    assert.ok(Number(events.n) > 0, "fixture person has no declaration events");
+    assert.ok(
+      Number(events.diverging) > 0,
+      "mp-1588's events no longer disagree with the listing label — pick another fixture",
+    );
+    assert.equal(Number(events.bad), 0);
+
+    // The site-wide feed. NULL kind = every kind; 500 rows is well past the page size any
+    // caller asks for, so this walks a real cross-section rather than the first screen.
+    const [feed] = await allRows<{ bad: string; n: string; diverging: string }>(
+      `SELECT count(*) FILTER (
+                WHERE e->>'positionTitle' IS DISTINCT FROM
+                      declared_label(d.filed_position, d.position_title)
+                   OR e->>'institution' IS DISTINCT FROM
+                      declared_label(d.filed_institution, d.institution)) AS bad,
+              count(*) AS n,
+              count(*) FILTER (
+                WHERE btrim(coalesce(d.filed_position, '')) <> ''
+                  AND d.filed_position IS DISTINCT FROM d.position_title) AS diverging
+         FROM jsonb_array_elements(declaration_events_feed(NULL, 500)) e
+         JOIN declaration d ON d.source_url = e->>'sourceUrl'`,
+    );
+    assert.ok(Number(feed.n) > 0, "declaration_events_feed is empty");
+    assert.ok(
+      Number(feed.diverging) > 0,
+      "no row in the events feed disagrees with its listing label — gate is vacuous",
+    );
+    assert.equal(Number(feed.bad), 0);
+
+    const [filings] = await allRows<{
+      bad: string;
+      n: string;
+      diverging: string;
+    }>(
+      `SELECT count(*) FILTER (
+                WHERE e->>'positionTitle' IS DISTINCT FROM
+                      declared_label(d.filed_position, d.position_title)
+                   OR e->>'institution' IS DISTINCT FROM
+                      declared_label(d.filed_institution, d.institution)) AS bad,
+              count(*) AS n,
+              count(*) FILTER (
+                WHERE btrim(coalesce(d.filed_position, '')) <> ''
+                  AND d.filed_position IS DISTINCT FROM d.position_title) AS diverging
+         FROM jsonb_array_elements(declaration_new_filings(200)) e
+         JOIN declaration d ON d.source_url = e->>'sourceUrl'`,
+    );
+    assert.ok(Number(filings.n) > 0, "new-filings feed is empty");
+    assert.ok(
+      Number(filings.diverging) > 0,
+      "no row in the new-filings feed disagrees with its listing label — gate is vacuous",
+    );
+    assert.equal(Number(filings.bad), 0);
+  },
+);
