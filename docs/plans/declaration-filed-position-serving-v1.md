@@ -1,6 +1,11 @@
 # Repoint the serving surfaces onto `declaration.filed_position` / `filed_institution`
 
-**Status:** planned, not started. **Measured:** 2026-08-16, local Postgres :5433.
+**Status: SHIPPED AND DEPLOYED, 2026-08-17.** Six commits (`7fdbfc1220` … `cae356c807`),
+applied to Cloud SQL, values shipped, verified in a browser against production. The
+deployment record — including two places where this plan was wrong — is §7a.
+
+**Measured:** originally 2026-08-16 on local Postgres :5433; §1 was re-measured 2026-08-17
+after the backfill completed and supersedes the brief's coverage table.
 
 ## 1. What the corpus actually says
 
@@ -350,9 +355,108 @@ to get the values onto Cloud SQL when that call is made, and the second is much 
    loaded). It refuses below a 95% match rate and only updates rows that differ, so re-running
    is free. This is what CLAUDE.md already documents for the columns themselves.
 
-After shipping values, re-run this plan's apply so the matviews pick them up — the functions
-read live, but `officials_rankings_table`, `person_crypto_table` and `mp_assets_rankings_table`
-are materialised.
+After shipping values the matviews need refreshing — the functions read live, but
+`officials_rankings_table` and `person_crypto_table` are materialised.
+
+⚠️ **This paragraph used to say "re-run this plan's apply", at the cost of a second
+~8-minute outage. That is WRONG — see §7a.** Only those two matviews read `declared_label`,
+both have a UNIQUE index, and `REFRESH MATERIALIZED VIEW CONCURRENTLY` on the pair took
+**14 seconds with no reader blocking**. Re-apply the migrations only when a DEFINITION
+changed; after a DATA ship, refresh.
+
+## 7a. Deployment record — what actually happened, 2026-08-17
+
+Both halves went out. This section is the corrected account; where it disagrees with §7
+above, §7 was the prediction and this is the measurement.
+
+### The apply — route (B), not the recommended (A)
+
+§7 recommends the loader on the ground that a hand-derived file list is the error-prone
+part. **Route (B) was taken instead**, because that risk had been retired by the time of
+the deploy: the list was verified locally twice, the missing `148` was fixed (§6), and —
+decisively — every CASCADE dependent was resolved against **the actual cloud target** and
+all eight proved to be recreated by files in the list:
+
+```
+mp_assets_rankings_table · mp_cars_table · municipal_officials_current
+officials_rankings_table · person_browse_table · person_cohort_wealth · person_crypto_table
+```
+
+Route (A) would additionally have reloaded 61,743 filings over the proxy that did not need
+to change, and pulled a follow-up loader chain (persons-browse, official-candidate-links,
+person-search) behind it. **Prefer (A) only when the dependent set has NOT been checked
+against the target** — that check is what makes (B) safe, not the file list on its own.
+
+Pre-flight state of Cloud SQL: `filed_*` columns **absent**, `declared_label` absent,
+`person_company_bridge_a` present, corpus 61,743 filings (identical to local).
+
+**16:57:02 → 17:05:04, 8m02s.** All twelve files applied, collateral-drop guard reported
+nothing vanished, every relation recreated and populated with counts matching local exactly
+(`person_browse_table` 136,863 · `officials_rankings_table` 20,524 · `person_wealth_year`
+43,887 · `person_cohort_wealth` 10,428 · `mp_assets_rankings_table` 4,329 ·
+`mp_cars_table` 2,038 · `municipal_officials_table` 6,647 · `person_crypto_table` 114).
+
+The outage window predicted in §7 was real: for those eight minutes `/persons`,
+`/officials/assets` and `/declarations/crypto` returned **500**. As designed, nothing a
+reader saw changed afterwards — with `filed_*` NULL, `declared_label` returned the listing
+label on every row, confirmed directly on the caretaker-PM rows.
+
+### The values ship
+
+`ship_filed_position.ts`, dry run first: **61,743/61,743 matched on `source_url` (100%)**,
+confirming the two corpora were the same vintage. Applied **17:18:01 → 17:18:17, 16s**,
+61,743 rows updated. Prod now carries 61,740 `filed_position` / 61,741 `filed_institution`
+— identical to local, the 3 and 2 gaps being the register's own empty elements.
+
+### ⚠️ The refresh — where §6/§7 were WRONG
+
+Both sections say to re-run the twelve-file apply so the matviews pick the values up, at the
+cost of a second ~8-minute window. **That is wrong and should not be followed.** The matview
+DEFINITIONS already carried `declared_label` from the apply; only their CONTENTS were stale.
+And only **two** matviews read it at all:
+
+```sql
+SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE n.nspname = 'public' AND c.relkind = 'm' AND pg_get_viewdef(c.oid) ~ 'declared_label';
+--  officials_rankings_table
+--  person_crypto_table
+```
+
+Both carry a UNIQUE index (`idx_officials_rankings_slug`, `ux_person_crypto_table`), so:
+
+```sql
+REFRESH MATERIALIZED VIEW CONCURRENTLY officials_rankings_table;
+REFRESH MATERIALIZED VIEW CONCURRENTLY person_crypto_table;
+```
+
+**17:19:56 → 17:20:10, 14 seconds, no reader blocking and no outage** — against a predicted
+eight-minute one. The general rule this teaches: after shipping DATA into columns an already
+-deployed matview reads, refresh the matviews; re-apply the migrations only when a
+DEFINITION changed.
+
+### Verified in a browser against production
+
+Every `/api/db` call 200, zero console errors.
+
+- **`/person/mp-5104`** — all four of Демерджиев's filings render „Министър · МВР" /
+  „Министър · Министерство на вътрешните работи". „Служебен министър-председател" does not
+  appear on the page. This is the published defect, fixed.
+- **`/officials/assets`** — 25 of 14,583 rows; zero caretaker-PM labels, zero
+  „Ръководителите на задграничните представителства" buckets; the ROLE column carries filed
+  jobs against real institutions („член на Надзорния Съвет · НС на НОИ").
+- **`/declarations/crypto`** — 25 of 34 rows, institutions rendering.
+- **`/persons`** — 63,782 rows, all facet calls 200, picker still 1,263 values. This is the
+  §4 exclusion, and it is unchanged, which is the correct outcome.
+
+### Local suite
+
+`npm run test:data`: **1,203 passed, 21 skipped, 0 failed** (166 files). Two earlier runs
+each had ONE failure — `tr_company_place`'s 400 ms timing assertion, then
+`migration_drop_dependents`' 003 re-apply — a different test each time, both passing when
+re-run alone. That is lock contention across the suite, which
+`migration_drop_dependents.data.test.ts` documents in its own header (003 takes ACCESS
+EXCLUSIVE 33 times under a deliberate 20 s `lock_timeout`). Ruled out this plan's own gate as
+the cause by running the two files together repeatedly: 21/21.
 
 ## 8. Explicitly out of scope
 
