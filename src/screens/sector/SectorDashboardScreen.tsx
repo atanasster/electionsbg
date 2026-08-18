@@ -91,7 +91,12 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   // generic ЗОП KPI row + top-contractors/by-year charts are skipped (the pack
   // leads with its own, richer framing) and the group-model fetch is disabled.
   const scopeWindow = useScopeWindow();
-  const Pack = getSectorPack(config.leadEik);
+  // A registered pack normally IS the page, and disables the group model below.
+  // `packIsThematic` says this one only illustrates the sector, so the generic
+  // group dashboard runs and the pack drops to the thematic slot instead.
+  const registeredPack = getSectorPack(config.leadEik);
+  const Pack = config.packIsThematic ? null : registeredPack;
+  const ThematicPack = config.packIsThematic ? registeredPack : null;
 
   const eiks = useMemo(() => sectorMemberEiks(config), [config]);
   const build = useCallback(
@@ -239,6 +244,16 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
             ? "Няма договори в избрания обхват."
             : "No contracts in the selected scope."}
         </p>
+      )}
+
+      {ThematicPack && (
+        <Suspense
+          fallback={
+            <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
+          }
+        >
+          <ThematicPack eik={config.leadEik} scopeWindow={scopeWindow} />
+        </Suspense>
       )}
 
       {ThematicTiles && (

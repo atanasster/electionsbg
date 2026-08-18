@@ -22,6 +22,7 @@ import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK, HEALTH_SECTOR_EIKS } from "@/lib/healthReferenceData";
 import { VSS_EIK, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
+import { EDU_SECTOR_EIKS } from "@/lib/educationReferenceData";
 import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
 import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
 import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
@@ -283,6 +284,8 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   // Single-EIK sectors graduated to the generic /sector/:id dashboard — their
   // ?sector= filter narrows the browse table to the one awarder seat. Widen the
   // EIK-set here (and the server allow-list) when a multi-entity roster lands.
+  // `edu` below is no longer one of these: the 2026-08-18 audit widened it from
+  // МОН alone to the 126-EIK education roster (see educationReferenceData.ts).
   revenue: {
     id: "revenue",
     label: { bg: "Приходи (НАП)", en: "Revenue (НАП)" },
@@ -295,8 +298,8 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   },
   edu: {
     id: "edu",
-    label: { bg: "Образование (МОН)", en: "Education (МОН)" },
-    eiks: [MON_EIK],
+    label: { bg: "Образование и наука", en: "Education & science" },
+    eiks: EDU_SECTOR_EIKS,
   },
   transport: {
     id: "transport",

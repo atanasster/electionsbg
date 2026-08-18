@@ -65,4 +65,22 @@ describe("sector registry ↔ dashboard config", () => {
     expect(SECTOR_DASHBOARDS.health.agency).toBe("НЗОК");
     expect(registrySectors.find((s) => s.id === "health")?.agency).toBe("НЗОК");
   });
+
+  it("keeps edu on МОН — the body whose budget the tile shows", () => {
+    // The third badge that names one member of a larger set, and it follows
+    // health's reasoning rather than energy's. Since the 2026-08-18 audit the
+    // roster is 126 bodies under THREE principals (МОН, БАН, and МЗХ for ССА),
+    // so „МОН" would be an ownership claim if the badge were about ownership.
+    // It is not: the hub number beside it is МОН's own enacted budget and
+    // deliberately excludes the universities' and БАН's separate ПРБ budgets —
+    // different bases that must not be summed. So the badge names the body the
+    // METRIC belongs to, exactly as НЗОК does, and the title, description and
+    // awarders footnote carry the full group.
+    //
+    // Energy's precedent ("relabel to the principal") must NOT be applied here:
+    // there is no single principal to relabel to, and „МОН · БАН · МЗХ" is the
+    // horizontal-overflow shape the health note describes.
+    expect(SECTOR_DASHBOARDS.edu.agency).toBe("МОН");
+    expect(registrySectors.find((s) => s.id === "edu")?.agency).toBe("МОН");
+  });
 });

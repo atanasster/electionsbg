@@ -78,6 +78,7 @@ import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
 import { MOSV_BUDGET_NODE } from "../../../src/lib/environmentReferenceData";
+import { EDU_BUDGET_NODE } from "../../../src/lib/educationReferenceData";
 import { ministryYearSeriesEur } from "../../../src/data/budget/ministrySeries";
 import {
   dooPensionsEur,
@@ -121,7 +122,21 @@ const BUDGET_SECTOR_NODE: Record<string, string> = {
   security: "admin-ministerstvo-na-vatreshnite-raboti",
   justice: "admin-sadebnata-vlast",
   culture: "admin-ministerstvo-na-kulturata",
-  edu: "admin-ministerstvo-na-obrazovanieto-i-naukata",
+  // Образование — budget-basis, and the node covers LESS of its sector than any
+  // other entry here. It is МОН's own enacted expenditure, so it excludes (a) the
+  // state universities, which are separate ПРБ drawing their subsidy straight from
+  // the central budget — МОН's whole higher-education programme is €48.5M in 2026
+  // against €1.27bn of university procurement — (b) БАН, which is autonomous, (c)
+  // ССА, which is второстепенен разпоредител към МЗХ, and (d) the delegated
+  // municipal school budgets, the biggest slice of the function (COFOG GF09 is
+  // €4.455bn for 2024 against this node's €579.4M).
+  //
+  // ⚠ Do NOT "close the gap" by summing EDU_SECTOR_EIKS' procurement onto this —
+  // the /sector/edu group spans three budget principals while this figure spans
+  // one, they are different bases, and adding them means nothing. The sector screen
+  // states the exclusions instead, in SECTOR_DASHBOARDS.edu.footnote. Widening the
+  // roster in educationReferenceData.ts deliberately does not move this number.
+  edu: EDU_BUDGET_NODE,
   tourism: "admin-ministerstvo-na-turizma",
   social: "admin-ministerstvo-na-truda-i-sotsialnata-politika",
   // Регионално развитие — budget-basis (NOT procurement). МРРБ is a pass-through

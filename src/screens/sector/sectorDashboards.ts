@@ -22,7 +22,12 @@ import { lazy, type ComponentType } from "react";
 // as sectorPacks.tsx; gated by src/entryGraph.test.ts.
 import { API_EIK } from "@/lib/roadsAwarder";
 import { NZOK_EIK, HEALTH_ENTITIES } from "@/lib/healthReferenceData";
-import { MON_EIK } from "@/lib/monBenchmarks";
+import {
+  EDU_LEAD_EIK,
+  EDU_ENTITIES,
+  EDU_UNIVERSE_LABEL,
+  educationFootnote,
+} from "@/lib/educationReferenceData";
 import { NAP_EIK } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
@@ -93,6 +98,33 @@ export interface SectorDashboardConfig {
    *  awarders tile (curated, sector-specific data). None of the graduating
    *  sectors ship one yet. */
   ThematicTiles?: ComponentType;
+  /** Optional note under the awarders roster, for a sector whose membership needs
+   *  a caveat the roster itself cannot express — what the hub tile's € does and
+   *  does not cover, or bodies a reader would expect here and will find elsewhere.
+   *
+   *  ⚠ Only single-member sectors used to get a footnote (SectorAwardersTile hard-
+   *  coded one saying "the full breakdown is on the awarder's page"). That is
+   *  backwards for exactly the sector that needs it most: a one-EIK roster needs no
+   *  explanation, and a 126-EIK one spanning three budget principals does. */
+  footnote?: { bg: string; en: string };
+  /** The sector pack registered under `leadEik` is THEMATIC, not group-scoped:
+   *  render the generic group dashboard (KPI row / spend-by-year / top
+   *  contractors over `members`) and demote the pack to the thematic slot below
+   *  it, instead of letting the pack BE the page.
+   *
+   *  ⚠ Set this whenever a pack ignores the group. `getSectorPack(leadEik)`
+   *  normally short-circuits the whole group model — `useAwarderGroupModel` is
+   *  called with `enabled: !Pack` — which is right for the packs that ARE their
+   *  sector's money (НЗОК's payouts, ВиК's operators, МВР's directorates) and
+   *  silently wrong for one that is not. `edu` is the live case and the reason
+   *  this exists: MonPack is a cross-buyer analysis of the €51M textbook market
+   *  (bought by 606 schools) and does not even bind its `eik` prop, so widening
+   *  the sector from МОН alone to the 126-EIK education roster moved every
+   *  headline number — €3.17M → €71.7M on the default scope, top contractor
+   *  72.3% → 2.73% — and NONE of it reached the page. Removing the pack from the
+   *  registry is not the fix: `/awarder/000695114` renders it too, via the same
+   *  `getSectorPack`. */
+  packIsThematic?: boolean;
   /** Optional entity-search box, rendered directly under the scope control and
    *  above the first tile — ONE per page (see SectorEntitySearch's header). The
    *  sector supplies it because only the sector knows what its entities are and
@@ -311,17 +343,18 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     titleKey: "sector_edu_title",
     descKey: "sector_edu_desc",
     agency: "МОН",
-    leadEik: MON_EIK,
+    leadEik: EDU_LEAD_EIK,
     browsePackId: "edu",
-    members: [
-      {
-        eik: MON_EIK,
-        name: {
-          bg: "Министерство на образованието и науката",
-          en: "Ministry of Education and Science",
-        },
-      },
-    ],
+    // MonPack is the textbook-market analysis, not this group's money — see
+    // packIsThematic above for why leaving it as the page content silently
+    // discarded the whole point of the 2026-08-18 widening.
+    packIsThematic: true,
+    footnote: { bg: educationFootnote(true), en: educationFootnote(false) },
+    members: EDU_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: EDU_UNIVERSE_LABEL[e.universe],
+    })),
   },
   agri: {
     id: "agri",

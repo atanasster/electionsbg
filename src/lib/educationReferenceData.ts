@@ -4,8 +4,9 @@
 //
 // WHAT THIS SET IS. Five universes: the ministry, its own agencies and state
 // companies, the state higher-education institutions whose ПРБ is МОН, and the two
-// research academies — БАН and Селскостопанската академия. 126 EIKs (125
-// institutions — see the Свищов note), ~€2.11bn cumulative (2011-2026).
+// research academies — БАН and Селскостопанската академия. 126 EIKs for 125
+// institutions (Свищов changed EIK — see `retiredEikOf`), ~€2.11bn cumulative
+// (2011-2026).
 //
 // ⚠ WHY IT EXISTS AT ALL. Until the 2026-08-18 audit the sector rolled up ONE EIK —
 // МОН's — so `/sector/edu` showed €506M against a real €2.11bn, and on its DEFAULT
@@ -36,18 +37,18 @@
 //   * Академия на МВР (129001232) is ПРБ към МВР → securityReferenceData.ts.
 // All four were VERIFIED present in those packs' member lists, not merely assumed to
 // be. EDUCATION_EXTERNAL_HIGHER_SCHOOLS below is the machine-readable form of this
-// paragraph; the plan has the awarders-tile footnote read it (Tier 3), so that the
-// page states the roster is not the whole ЗВО list rather than implying it is.
+// paragraph, and `educationFootnote()` below builds the awarders-tile footnote from
+// it, so the page STATES that the roster is not the whole ЗВО list rather than
+// implying it is.
 //
 // ⚠⚠ THE THREE ART ACADEMIES AND THE THREE БАН MUSEUM-INSTITUTES BELONG HERE, and the
 // first draft of this file wrongly excluded all six "to culture". Read this before
 // removing them again, because the mistake is a natural one to repeat:
 // `kulturaReferenceData.ts` carries BOTH an allowlist and an `EXCLUDED_EIKS`
 // ANTI-allowlist, and grepping that file for an EIK finds it either way. All six are
-// in the ANTI-allowlist — culture explicitly DISCLAIMS them and names this sector as
-// the owner (`principal: "ban_mon"`; НАТФИЗ's `reason` is literally
-// „higher-ed / МОН"). НХА (000670716) and НМА (000670709) appear in no other
-// reference-data file at all. Excluding them put six institutions in NO sector —
+// in the ANTI-allowlist — culture explicitly DISCLAIMS them, recording БАН / higher-ed
+// МОН as the principal rather than МК. НХА (000670716) and НМА (000670709) appear in
+// no other reference-data file at all. Excluding them put six institutions in NO sector —
 // reproducing the exact defect this file exists to fix — and would have made the
 // awarders-tile footnote assert something false about six named institutions.
 // Verify ownership against `SECTOR_DASHBOARDS` members / `SECTOR_BROWSE_PACKS` eiks,
@@ -72,8 +73,8 @@
 //
 // EIKs resolved + € measured from the procurement corpus (contracts.awarder_eik,
 // 2026-08-18). Canonical Bulgarian labels below; the corpus carries spelling variants
-// per EIK — several of them actively misleading, which is why the plan folds
-// EDU_ENTITIES into AWARDER_NAME_OVERRIDES (Tier 2): 123024538 resolves to
+// per EIK — several of them actively misleading, which is why awarderNameOverrides.ts
+// folds EDU_ENTITIES in: without it 123024538 resolves to
 // „Медицински факултет към Тракийски университет" and 831917453 to „„Студентски
 // столове и общежития" ЕАД ЕАД".
 
@@ -101,6 +102,15 @@ export interface EducationEntity {
   /** Canonical Bulgarian label (corpus carries spelling variants per EIK). */
   name: string;
   universe: EducationUniverse;
+  /** This row is a RETIRED EIK of the institution now filing under the named one —
+   *  a genuine EIK change, not an alias, so both rows are kept and the € is not
+   *  double-counted (the two contract sets are disjoint in time).
+   *
+   *  ⚠ It exists so that "how many institutions" can be answered separately from
+   *  "how many EIKs". They differ by exactly this many, and prose that quotes one
+   *  where it means the other is a false claim about the sector: the footnote said
+   *  „34 държавни висши училища" for 33 institutions until this field existed. */
+  retiredEikOf?: string;
 }
 
 // One row per distinct EIK, lead first. See the header for what is deliberately out.
@@ -172,7 +182,11 @@ export const EDU_ENTITIES: EducationEntity[] = [
   // са нужни, за да е пълна историята на институцията; премахването на стария реже
   // €2.9M и пет години. Вж. Failure mode F в /audit-sectors.
   { eik: "000124026", name: "Стопанска академия „Д. А. Ценов“ — Свищов", universe: "higher_education" }, // prettier-ignore
-  { eik: "040624317", name: "Стопанска академия „Д. А. Ценов“ — Свищов (предишен ЕИК, 2011-2015)", universe: "higher_education" }, // prettier-ignore
+  // Името е БЕЗ уточнение „предишен ЕИК": този списък се влива в
+  // AWARDER_NAME_OVERRIDES, което го прави заглавието на самата страница
+  // /awarder/040624317 — а уточнението е факт за ТОЗИ регистър, не част от
+  // името на институцията.
+  { eik: "040624317", name: "Стопанска академия „Д. А. Ценов“ — Свищов", universe: "higher_education", retiredEikOf: "000124026" }, // prettier-ignore
   { eik: "000455464", name: "Аграрен университет — Пловдив", universe: "higher_education" }, // prettier-ignore
   { eik: "000670552", name: "Университет по библиотекознание и информационни технологии (УниБИТ)", universe: "higher_education" }, // prettier-ignore
   { eik: "131209472", name: "Висше транспортно училище „Тодор Каблешков“", universe: "higher_education" }, // prettier-ignore
@@ -281,7 +295,7 @@ export type ExternalSectorId = "defense" | "security";
  *  page can say the roster is not the whole ЗВО list instead of silently implying it
  *  is, and `sector_stats_education.data.test.ts` asserts BOTH halves — that every EIK
  *  here is absent from EDU_ENTITIES (the re-leakage tripwire) AND that it is really
- *  claimed by the named sector's own member list (Tier 4). The second half is the one that
+ *  claimed by the named sector's own member list. The second half is the one that
  *  matters: without it, "excluded because sector X owns it" is an unchecked claim,
  *  which is exactly how six institutions were nearly stranded in no sector at all. */
 export const EDUCATION_EXTERNAL_HIGHER_SCHOOLS: ReadonlyArray<{
@@ -295,6 +309,35 @@ export const EDUCATION_EXTERNAL_HIGHER_SCHOOLS: ReadonlyArray<{
   { eik: "129003305", name: "Военна академия „Г. С. Раковски“", sector: "defense" }, // prettier-ignore
   { eik: "129001232", name: "Академия на МВР", sector: "security" }, // prettier-ignore
 ];
+
+/** Distinct INSTITUTIONS in the roster — EIK count minus the retired-EIK rows.
+ *  Every reader-facing count of "how many bodies" must use this; `EDU_SECTOR_EIKS
+ *  .length` is the query fan-out, which is a different question. */
+export const EDU_INSTITUTION_COUNT = EDU_ENTITIES.filter(
+  (e) => !e.retiredEikOf,
+).length;
+
+/** The awarders-tile footnote — the one place the page states what its € covers and
+ *  what it does not. DERIVED rather than hand-written, so the counts and the names
+ *  cannot drift from the roster the way RegionalPack's did (its bg line said 28 and
+ *  its en line 27 for the same set). Three claims, each of which the reference data
+ *  above establishes: the group spans three budget principals; the hub tile's € is
+ *  МОН's own budget and covers neither the universities' separate ПРБ budgets nor the
+ *  delegated municipal school budgets; and four state higher schools sit elsewhere. */
+export const educationFootnote = (bg: boolean): string => {
+  const n = EDU_INSTITUTION_COUNT;
+  // INSTITUTIONS, not EIKs — the two differ by the retired-EIK rows, and this
+  // sentence is a claim about how many universities there are.
+  const uni = EDU_ENTITIES.filter(
+    (e) => e.universe === "higher_education" && !e.retiredEikOf,
+  ).length;
+  const others = EDUCATION_EXTERNAL_HIGHER_SCHOOLS.map((e) => e.name).join(
+    ", ",
+  );
+  return bg
+    ? `${n} възложителя под три бюджетни принципала: МОН и неговите структури, ${uni} държавни висши училища (самостоятелни ПРБ), БАН и Селскостопанската академия (второстепенен разпоредител към МЗХ). Числото на плочката „Образование“ в /governance/sectors е бюджетът на САМО МОН — то не включва нито субсидиите на висшите училища, нито делегираните бюджети на общинските училища, така че то и сумата на поръчките тук не се събират. Четири държавни висши училища са в друг сектор, защото бюджетният им принципал е друг: ${others}.`
+    : `${n} awarders under three budget principals: МОН and its own bodies, ${uni} state higher-education institutions (each its own first-level spending unit), БАН, and the Agricultural Academy (a second-level unit under the agriculture ministry). The „Образование“ figure on /governance/sectors is МОН's budget ALONE — it covers neither the universities' subsidies nor the delegated municipal school budgets, so it and the procurement total here are different bases and must not be added. Four state higher schools sit in another sector because their budget principal is another ministry: ${others}.`;
+};
 
 const ENTITY_BY_EIK: Record<string, EducationEntity> = Object.fromEntries(
   EDU_ENTITIES.map((e) => [e.eik, e]),

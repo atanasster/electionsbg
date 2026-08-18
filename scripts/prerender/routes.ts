@@ -821,26 +821,31 @@ const SECTOR_PAGES: SectorPageContent[] = [
         "The Ministry of e-Government builds the state's information systems. This page summarises its public procurement.",
     },
   },
+  // ⚠ The copy below deliberately names the GROUP, not МОН. The 2026-08-18 audit
+  // widened this page from the ministry alone to the 126-body education roster
+  // (МОН + agencies + state universities + БАН + ССА), so „поръчките на МОН" became
+  // a specific false claim about a page that folds €1.27bn of university
+  // procurement — and this is the copy crawlers and social-preview bots read.
   {
     id: "edu",
     eik: "000695114",
     bg: {
-      title: "Образование — обществените поръчки на МОН | electionsbg.com",
+      title: "Образование и наука — обществените поръчки | electionsbg.com",
       description:
-        "Обществените поръчки на Министерството на образованието и науката (МОН): общо възложени, изпълнители и разбивка по договори.",
+        "Обществените поръчки в образованието и науката: МОН, държавните висши училища, БАН и Селскостопанската академия — общо възложени, изпълнители и разбивка по договори.",
       breadcrumb: "Образование",
-      h1: "Образование — обществените поръчки на МОН",
+      h1: "Образование и наука — обществените поръчки",
       intro:
-        "Тази страница обобщава обществените поръчки на Министерството на образованието и науката — по избрания парламент или за цялата история.",
+        "Тази страница обобщава обществените поръчки на МОН, неговите агенции и дружества, държавните висши училища, БАН и Селскостопанската академия — по избрания парламент или за цялата история.",
     },
     en: {
-      title: "Education — the Ministry of Education's procurement | electionsbg.com", // prettier-ignore
+      title: "Education & science — public procurement | electionsbg.com",
       description:
-        "The public procurement of Bulgaria's Ministry of Education and Science (МОН): total awarded, contractors and the breakdown by contracts.",
+        "Public procurement across Bulgarian education and science: the ministry (МОН), the state universities, БАН and the Agricultural Academy — total awarded, contractors and the breakdown by contracts.",
       breadcrumb: "Education",
-      h1: "Education — the Ministry of Education's procurement",
+      h1: "Education & science — public procurement",
       intro:
-        "This page summarises the public procurement of the Ministry of Education and Science — for the selected parliament or the full history.",
+        "This page summarises the public procurement of МОН, its agencies and state companies, the state universities, БАН and the Agricultural Academy — for the selected parliament or the full history.",
     },
   },
   {

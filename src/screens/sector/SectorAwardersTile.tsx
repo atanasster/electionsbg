@@ -58,12 +58,20 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
                 : "Public procurement of the whole group",
             }
       }
+      // A sector-supplied note wins: it is a caveat about THIS roster, which the
+      // generic single-member line cannot express. The two are mutually exclusive
+      // in practice (a one-EIK sector has nothing to caveat), but ordering them
+      // explicitly means a future single-member sector can still carry one.
       footnote={
-        single
+        config.footnote
           ? bg
-            ? "Пълната разбивка по договори, изпълнители и категории е на страницата на възложителя."
-            : "The full breakdown by contracts, contractors and categories is on the awarder's page."
-          : undefined
+            ? config.footnote.bg
+            : config.footnote.en
+          : single
+            ? bg
+              ? "Пълната разбивка по договори, изпълнители и категории е на страницата на възложителя."
+              : "The full breakdown by contracts, contractors and categories is on the awarder's page."
+            : undefined
       }
     />
   );

@@ -18,6 +18,7 @@
 // disbursement star and the most prominent member of the /sector/social pack — so
 // pin the canonical agency name.
 import { REGIONAL_ENTITIES } from "./regionalReferenceData";
+import { EDU_ENTITIES } from "./educationReferenceData";
 
 // The МРРБ group (ministry + АГКК + ДНСК + the 28 областни администрации) — the corpus
 // stores their names as typed by each buyer, so they render sloppily: the oblast is
@@ -29,10 +30,25 @@ const REGIONAL_OVERRIDES: Record<string, string> = Object.fromEntries(
   REGIONAL_ENTITIES.map((e) => [e.eik, e.name]),
 );
 
+// The education group (МОН + agencies + state universities + БАН/ССА institutes).
+// Same fold as РРБ above and mostly for the same casing reasons — the corpus SHOUTS
+// half the institute names and carries „Старо наименование" clutter in the rest —
+// but two entries here are the МВР/АСП class of defect rather than cosmetics, i.e.
+// a name that identifies the WRONG BODY:
+//   123024538 resolves to „Медицински факултет към Тракийски университет" — one
+//     faculty standing in for the whole university, across 1,320 contracts.
+//   831917453 resolves to „„Студентски столове и общежития" ЕАД ЕАД".
+// The canonical labels already exist in the sector allowlist, so fold them in rather
+// than re-typing them (and so a member added there cannot be left un-pinned here).
+const EDUCATION_OVERRIDES: Record<string, string> = Object.fromEntries(
+  EDU_ENTITIES.map((e) => [e.eik, e.name]),
+);
+
 export const AWARDER_NAME_OVERRIDES: Record<string, string> = {
   "000695235": "Министерство на вътрешните работи",
   "121015056": "Агенция за социално подпомагане (АСП)",
   ...REGIONAL_OVERRIDES,
+  ...EDUCATION_OVERRIDES,
 };
 
 /** Curated canonical name for an awarder EIK, or undefined if none is pinned. */

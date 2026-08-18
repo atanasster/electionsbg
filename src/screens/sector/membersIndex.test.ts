@@ -93,10 +93,19 @@ describe("MEMBER_SEARCH_MIN", () => {
       .map((c) => c.id)
       .sort();
     // security / regional / environment / transport, plus energy — which joined
-    // at exactly the floor when ДП РАО took it from 9 members to 10. Social (6)
-    // is below it; the eight single-member sectors are far below.
+    // at exactly the floor when ДП РАО took it from 9 members to 10 — plus edu,
+    // which joined at 126 when the 2026-08-18 audit widened it from МОН alone to
+    // the whole education roster. Social (6) is below it; the seven remaining
+    // single-member sectors are far below.
     expect(above).toEqual(
-      ["energy", "environment", "regional", "security", "transport"].sort(),
+      [
+        "edu",
+        "energy",
+        "environment",
+        "regional",
+        "security",
+        "transport",
+      ].sort(),
     );
   });
 
