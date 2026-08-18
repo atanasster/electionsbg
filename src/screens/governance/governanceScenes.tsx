@@ -603,10 +603,58 @@ const MunicipalFinance: FC = () => (
   </SceneFrame>
 );
 
+// Училища и матури — a school facade with a matura grade badge. Moved here
+// from sectorScenes.tsx with the tile (see governanceRegistry).
+const Schools: FC = () => (
+  <SceneFrame>
+    {/* school facade: pediment + columns */}
+    <path d="M70 40 L118 20 L166 40 Z" fill="var(--sector)" opacity=".85" />
+    <rect
+      x="70"
+      y="40"
+      width="96"
+      height="6"
+      fill="currentColor"
+      opacity=".55"
+    />
+    <g fill="currentColor" opacity=".5">
+      <rect x="78" y="48" width="8" height="48" />
+      <rect x="98" y="48" width="8" height="48" />
+      <rect x="118" y="48" width="8" height="48" />
+      <rect x="138" y="48" width="8" height="48" />
+      <rect x="150" y="48" width="8" height="48" />
+    </g>
+    <rect
+      x="70"
+      y="98"
+      width="96"
+      height="6"
+      fill="currentColor"
+      opacity=".55"
+    />
+    {/* matura grade badge */}
+    <g transform="translate(224 56)">
+      <circle r="26" fill="var(--sector)" opacity=".9" />
+      <text
+        x="0"
+        y="9"
+        textAnchor="middle"
+        fill={PAPER}
+        fontSize="26"
+        fontWeight="700"
+        fontFamily="Georgia, serif"
+      >
+        6
+      </text>
+    </g>
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
   "municipal-finance": MunicipalFinance,
   persons: PersonsScene,
   demographics: Demographics,
+  schools: Schools,
   budget: Budget,
   subsidies: Subsidies,
   connections: ConnectionsScene,

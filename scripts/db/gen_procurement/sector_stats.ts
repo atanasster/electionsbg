@@ -47,9 +47,12 @@
 //     IS their tender flow, not a tiny ministry line — roads (АПИ), water (ВиК),
 //     transport (МТС rail/ports group), energy (the state energy sector under
 //     the Minister of Energy). Summed per scope from `contracts`.
-//   - score (annual): schools = national mean ДЗИ-по-БЕЛ success
-//     (indicators.json series.dzi) — schools have no single procurement seat, so
-//     the tile carries an outcome number instead of a €.
+//   - score: RETIRED 2026-08-18 with the `schools` tile. It was the national
+//     mean ДЗИ-по-БЕЛ success, and it was the only headline here that was not
+//     public money — /education has no awarder set, so it moved off the sectors
+//     hub to /governance entirely (see the note in sectorRegistry.ts). The kind
+//     is still handled in useSectorStats; nothing produces it. Do not re-add an
+//     outcome number to a grid that answers "what does the state spend".
 //   - headcount (annual): administration = total filled positions across the
 //     whole state administration (budget/personnel.json) — headcount, not МЕУ's
 //     thin procurement line.
@@ -101,7 +104,7 @@ const readJson = <T>(p: string): T =>
 // awarder EIK-set whose contract € rolls up to that sector. Only the
 // operational/commercial seats whose real spend IS their tender flow live here
 // (roads/water/transport/energy). The tax-funded bodies carry a budget figure
-// (BUDGET_SECTOR_NODE + AGENCY_BUDGET_FILE below); health/pension/agri/schools/
+// (BUDGET_SECTOR_NODE + AGENCY_BUDGET_FILE below); health/pension/agri/
 // administration carry a bespoke figure — all far more meaningful than a thin
 // procurement line.
 const SECTOR_EIKS: Record<string, string[]> = {
@@ -366,25 +369,6 @@ for (const p of nzok.points ?? []) {
   if (p.month === 12) nzokFullYear[p.year] = p.expenditureEur;
 }
 
-// Schools: national mean ДЗИ-по-БЕЛ success across oblasti, per year. Unweighted
-// oblast mean — good enough for a tile headline (no per-oblast cohort sizes here).
-const indicators = readJson<{
-  series?: { dzi?: Record<string, Array<{ year: number; value: number }>> };
-}>("data/indicators.json");
-const dzi = indicators.series?.dzi ?? {};
-const dziSum: Record<number, number> = {};
-const dziN: Record<number, number> = {};
-for (const series of Object.values(dzi)) {
-  for (const pt of series) {
-    dziSum[pt.year] = (dziSum[pt.year] ?? 0) + pt.value;
-    dziN[pt.year] = (dziN[pt.year] ?? 0) + 1;
-  }
-}
-const dziByYear: Record<number, number> = {};
-for (const y of Object.keys(dziSum).map(Number)) {
-  dziByYear[y] = dziSum[y] / dziN[y];
-}
-
 // Administration: total filled positions across the whole state administration
 // (the "Доклад за състоянието на администрацията" щатна численост, filled), per
 // year — a far more meaningful "administration" figure than МЕУ's thin
@@ -486,7 +470,6 @@ const scopeStats = async (
   if (Object.keys(nzokFullYear).length)
     out.health = annual(nzokFullYear, year, "eur", "payout");
   out.agri = annual(agriByYear, year, "eur", "payout");
-  out.schools = annual(dziByYear, year, "score", "score");
   out.administration = annual(adminByYear, year, "count", "headcount");
   return out;
 };
@@ -556,7 +539,6 @@ const main = async (): Promise<void> => {
     // reporting why.
     ["health full-year (nzok December points)", nzokFullYear],
     ["agri (agri_payloads)", agriByYear],
-    ["schools (indicators dzi)", dziByYear],
     ["administration (personnel.json)", adminByYear],
     ...Object.entries(budgetByYear).map(
       ([s, series]): [string, Record<number, number>] => [

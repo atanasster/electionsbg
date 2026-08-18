@@ -10,7 +10,11 @@
 //   payout      — transfer outlay (pension, health, agri)
 //   procurement — tender € in the selected scope (roads, energy, revenue, …)
 //   headcount   — filled state-admin positions (administration)
-//   score       — mean ДЗИ success (schools)
+//   score       — RETIRED. Was the mean ДЗИ success on the `schools` tile,
+//                 which left this hub on 2026-08-18 (sectorRegistry.ts says
+//                 why). The kind and its caption key are kept because the
+//                 payload is a committed artifact other checkouts may still
+//                 carry, but nothing generates it any more.
 // `kind` still drives number formatting; `year` (annual bases) names the fiscal
 // year for the caption.
 

@@ -194,6 +194,20 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.leaf,
       },
       {
+        // Училища и матури. It sat on /governance/sectors until 2026-08-18 and
+        // did not belong there: МОН already has its sector tile (`edu`, the
+        // ministry's budget), this one carries the SAME agency badge, has no
+        // awarder/EIK set behind it and no /sector/:id dashboard, and its
+        // headline was the one non-money number on a grid that answers "what
+        // does the state spend here". As an outcome browser keyed by place it
+        // belongs beside `demographics` — same shape, same question.
+        id: "schools",
+        titleKey: "sector_schools_title",
+        descKey: "sector_schools_desc",
+        to: "/education",
+        accent: TILE_ACCENTS.mulberry,
+      },
+      {
         id: "ind_compare",
         titleKey: "indicators_nav_compare",
         descKey: "gov_hub_ind_compare_desc",

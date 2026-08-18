@@ -2359,6 +2359,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/procurement">Обществени поръчки</a> — възложители, изпълнители и потоци от АОП (data.egov.bg).</li>
 <li><a href="${SITE_URL}/financing">Финансиране на партии</a> — годишни финансови отчети от Сметната палата.</li>
 <li><a href="${SITE_URL}/governments">Правителства</a> и <a href="${SITE_URL}/indicators">индикатори</a> — макроикономически и управленски контекст по мандати.</li>
+<li><a href="${SITE_URL}/education">Училища и матури</a> — среден успех на матурата по училища, общини и области, спрямо средата.</li>
 </ul>${governanceRegionBrowseHtml}`.trim(),
     english: {
       title:
@@ -2377,6 +2378,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/procurement">Public procurement</a> — awarders, contractors and contract flows from AOP (data.egov.bg).</li>
 <li><a href="${SITE_URL}/en/financing">Party financing</a> — annual financial reports from the Court of Audit.</li>
 <li><a href="${SITE_URL}/en/governments">Governments</a> and <a href="${SITE_URL}/en/indicators">indicators</a> — macroeconomic and governance context per cabinet.</li>
+<li><a href="${SITE_URL}/en/education">Schools &amp; matura</a> — state matura scores by school, municipality and province, against context.</li>
 </ul>${governanceRegionBrowseHtmlEn}`.trim(),
     },
   }),
@@ -2529,7 +2531,6 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/awarder/121082521">Осигуряване (НОИ)</a> — осигуровки и договори на НОИ.</li>
 <li><a href="${SITE_URL}/awarder/121858220">Здравна каса (НЗОК)</a> — болници, лекарства, клинични пътеки.</li>
 <li><a href="${SITE_URL}/awarder/000695114">Образование (МОН)</a> — договори и бюджет на МОН.</li>
-<li><a href="${SITE_URL}/education">Училища и матури</a> — училища, матури, среден успех.</li>
 </ul>
 <h2>Приходи и администрация</h2>
 <ul>
@@ -2568,7 +2569,6 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/awarder/121082521">Social security (НОИ)</a> — contributions and НОИ procurement.</li>
 <li><a href="${SITE_URL}/en/awarder/121858220">Health fund (НЗОК)</a> — hospitals, drugs, clinical pathways.</li>
 <li><a href="${SITE_URL}/en/awarder/000695114">Education (МОН)</a> — МОН contracts and budget.</li>
-<li><a href="${SITE_URL}/en/education">Schools & matura</a> — schools, matura, average score.</li>
 </ul>
 <h2>Revenue & administration</h2>
 <ul>

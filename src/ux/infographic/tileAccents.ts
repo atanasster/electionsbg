@@ -52,6 +52,15 @@ export const TILE_ACCENTS = {
   // `brass` (#8a7734), both of which sit in OTHER clusters on that page —
   // `amber` (#b07d2f) is the closest same-page hue at Δh ~7°, still wider than
   // green/emerald (0.2°) and olive/brass (0.3°) already shipping.
+  mulberry: "#954b8b", // училища и матури — the 23rd token, minted because the
+  // /governance hub grew a 23rd tile (schools moved off the sectors hub, where
+  // it was the one tile whose headline was an outcome rather than public money)
+  // and the palette had exactly 22. A red-violet at h 308°, which is the widest
+  // hue gap left on that page: `plum` (#7a5a8f) sits 32° cooler and `wine`
+  // (#96455f) 33° warmer, both far wider than pairs already shipping
+  // (green/emerald 0.2°, olive/brass 0.3°). Contrast tracks `plum` almost
+  // exactly — 4.87:1 on cream, 3.25:1 on navy against its 4.83/3.27 — so it
+  // needs no different handling from the token it sits next to.
   wine: "#96455f", // municipal finances — the 21st token, minted because the money
   // cluster grew a 21st tile and the palette had exactly 20. A desaturated
   // red-violet. Its nearest neighbour in hue is `rose` (#c14b57) at Δh 13°,

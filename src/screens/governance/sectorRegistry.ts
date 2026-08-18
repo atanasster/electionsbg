@@ -122,14 +122,16 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         to: "/sector/edu",
         accent: TILE_ACCENTS.green,
       },
-      {
-        id: "schools",
-        titleKey: "sector_schools_title",
-        descKey: "sector_schools_desc",
-        agency: "МОН",
-        to: "/education",
-        accent: TILE_ACCENTS.emerald,
-      },
+      // ⚠️ `schools` (Училища и матури → /education) is NOT a sector and must
+      // not come back here. МОН's sector is `edu` above; this hub answers "what
+      // does the state spend, by sector", and every other tile fronts an awarder
+      // set with a money basis (budget/payout/procurement — `administration`'s
+      // headcount still measures the entity set). /education is an outcome
+      // browser with no EIK set and no SECTOR_DASHBOARDS entry, so it carried a
+      // second МОН badge and the grid's only non-money headline. It moved to the
+      // /governance hub's показатели cluster on 2026-08-18, beside
+      // /demographics. The МОН pack ↔ /education cross-links keep it reachable
+      // from the sector (MonPack.tsx, EducationScreen.tsx).
     ],
   },
   {
