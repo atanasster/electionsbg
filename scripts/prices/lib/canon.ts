@@ -60,13 +60,41 @@ const LEADING_NE = /^НЕ\s+/i;
 // scripts' units appear natively: Cyrillic КГ/ГР/Г/МЛ/Л and Latin KG/GR/G/MG/ML/L.
 // Longer alternatives precede their prefixes (ГР before Г, GR before G, MG/ML
 // before L) so the match is greedy-correct.
-const UNIT_RE =
-  /(\d+(?:[.,]\d+)?)\s*(КГ|ГР|Г|МЛ|Л|БР|KG|GR|MG|G|ML|L)(?![\p{L}])/giu;
+//
+// rule 8: a decimal separator may carry stray whitespace. The feed contains
+// "Минерална Вода Банкя 1. 5 Л." and "Вино Enira Мерло 0. 75 Л." — without this
+// the leading "1" is dropped, the regex resumes at "5 Л" and a 1.5 L bottle is
+// published as 5 L, i.e. at a third of its true €/L. That put four bottled
+// waters at the top of the "най-добра стойност" €/L board.
+//
+// The two separators are NOT symmetric, and treating them alike is the trap:
+//
+//   · DOT is unconditionally safe. All 6 dot-spaced names in the corpus
+//     ("1. 5 Л.", "0. 75 Л.") are genuine decimals — nothing writes an
+//     enumeration with a dot and a space.
+//   · COMMA is overwhelmingly a LIST separator: "СПАГЕТИ DE CECCO №11, 500 Г",
+//     "Мляно кафе L'OR Classique, Интензитет 6, 250 гр", "ШАМПОАН … 2 В 1,
+//     250 МЛ". 59 of the 60 comma-spaced names in the corpus are this shape,
+//     and reading them as decimals turns 500 g into 9500 g and 250 ml into
+//     1250 ml — the same defect this rule exists to fix, pointed the other way.
+//     The single genuine one is "Вино Contour … 0, 75 Л.", and a ZERO integer
+//     part is what makes it unambiguous: "0," is a fraction, nobody enumerates
+//     item 0. So the spaced-comma arm is restricted to it.
+//
+// The `(?<![\d.,])` guard on that arm stops the alternation latching onto the
+// trailing zero of a larger numeral — without it "Интензитет 10, 250 гр" would
+// match "0, 250" and yield 0.25.
+const NUM = String.raw`(?:(?<![\d.,])0\s*,\s*\d+|\d+(?:\s*\.\s*\d+|,\d+)?)`;
+const UNITS = String.raw`КГ|ГР|Г|МЛ|Л|БР|KG|GR|MG|G|ML|L`;
+
+const UNIT_RE = new RegExp(String.raw`(${NUM})\s*(${UNITS})(?![\p{L}])`, "giu");
 
 // rule 7: multipacks — "6х1.5Л" must not compare against a single 1.5Л bottle.
 // The multiplier may be Latin `x` or Cyrillic `х` (the `i` flag covers case).
-const MULTIPACK_RE =
-  /(\d+)\s*[хx*]\s*(\d+(?:[.,]\d+)?)\s*(КГ|ГР|Г|МЛ|Л|БР|KG|GR|MG|G|ML|L)(?![\p{L}])/iu;
+const MULTIPACK_RE = new RegExp(
+  String.raw`(\d+)\s*[хx*]\s*(${NUM})\s*(${UNITS})(?![\p{L}])`,
+  "iu",
+);
 
 // rule 2: percentages are identity, not noise. Stripping them collapsed every
 // fat percentage of Vereya milk into one 59-chain group.
@@ -106,8 +134,44 @@ const UNIT_NORM: Record<string, [Canon["netUnit"], number]> = {
   БР: ["pc", 1],
 };
 
-const num = (s: string): number => parseFloat(s.replace(",", "."));
+// The matched numeral may now contain whitespace around its decimal separator
+// (rule 8), so strip it BEFORE parsing: parseFloat("1. 5") is 1 and
+// parseFloat("0. 75") is 0 — the silent half of the mis-sizing bug.
+const num = (s: string): number =>
+  parseFloat(s.replace(/\s+/g, "").replace(",", "."));
 const r3 = (n: number): number => Math.round(n * 1000) / 1000;
+
+// ── rule 9: a decimal separator lost ENTIRELY, on a large unit ─────────────
+// Wine arrives as "ВИНО A GOOD YEAR КЮВЕ 075Л" — 0.75 L written with no point.
+// Read literally that is 75 L, so a €5.62 bottle posts €0.075/L and takes the
+// whole top of the "най-добра стойност" €/L board: measured 2026-08-18, nine of
+// its first ten entries were 075Л wines. The kg basis never showed this because
+// HOUSEHOLD_PACK_MAX_G already drops anything over 3 kg; the L basis has no
+// such ceiling, which is precisely why these surfaced there.
+//
+// The leading zero is the signal and the UNIT decides what it means. There are
+// exactly 18 unspaced leading-zero numerals in the corpus, and they split
+// cleanly:
+//
+//   · "075Л" ×16 — a LARGE unit (Л|L|КГ|KG). 75 litres is not a retail bottle,
+//     so the zero is a stranded integer part and the value is 0.75.
+//   · "0375МЛ", "0700МЛ" ×2 — a SMALL unit. 375 ml and 700 ml are ordinary
+//     sizes, the zero is mere padding, and these are already correct.
+//
+// Deliberately NOT extended to the SPACED form ("Сайкъл Вионие 0 75л", 5 rows).
+// It looks like the same defect but is not separable from a preceding token:
+// "БРАШНО БИО ALCE NERO ПШЕНИЧНО ТИП 0 1 КГ" is flour of TYPE 0 in a 1 kg bag,
+// and "МЛЯКО NAN 1 ОПТИПРО HM-0 400 ГР" is product code HM-0. A spaced rule
+// fixes 5 rows and breaks 2 that are right today, so those 5 stay wrong.
+const LOST_SEPARATOR_RE = /^0\d+$/;
+
+/** Quantity in the unit's base measure, applying rule 9 for large units. */
+const qtyOf = (rawNum: string, mult: number): number => {
+  const compact = rawNum.replace(/\s+/g, "");
+  if (mult >= 1000 && LOST_SEPARATOR_RE.test(compact))
+    return r3(parseFloat(`0.${compact.slice(1)}`) * mult);
+  return r3(num(rawNum) * mult);
+};
 
 interface Size {
   qty: number;
@@ -122,7 +186,7 @@ const parseSize = (folded: string): Size | null => {
     if (spec?.[0]) {
       const [unit, mult] = spec;
       return {
-        qty: r3(Number(mp[1]) * num(mp[2]) * mult),
+        qty: r3(Number(mp[1]) * qtyOf(mp[2], mult)),
         unit: unit as NonNullable<Canon["netUnit"]>,
         count: Number(mp[1]),
       };
@@ -135,7 +199,7 @@ const parseSize = (folded: string): Size | null => {
   if (!spec?.[0]) return null;
   const [unit, mult] = spec;
   return {
-    qty: r3(num(m[1]) * mult),
+    qty: qtyOf(m[1], mult),
     unit: unit as NonNullable<Canon["netUnit"]>,
   };
 };

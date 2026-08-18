@@ -421,9 +421,19 @@ export interface UnitPricesFile {
  *
  * ⚠️ KG ONLY. Do not reuse it for the L basis: the ordinary household liquid
  * pack is a 6×1.5 L water стек (9,000 ml) or a 5 L detergent, so 3,000 would
- * exclude the normal case rather than the bulk one. (The L tier also has an
- * open ingest defect — "1. 5 Л." parses as 5,000 ml, publishing 1.5 L bottles
- * at a third of their true €/L — so it needs its own ceiling AND its own fix.)
+ * exclude the normal case rather than the bulk one. Measured 2026-08-18, of the
+ * 27 live L products above 3,000 ml, 20 are legitimate 6×1.5 L multipacks and
+ * only 7 are mis-sized — so a 3 L ceiling here suppresses correct rows almost
+ * three to one, which is the opposite of what it does on the kg basis.
+ *
+ * The ingest defect this used to cite is FIXED (rules 8 and 9 in
+ * scripts/prices/lib/canon.ts): "1. 5 Л." no longer parses as 5,000 ml and the
+ * "075Л" wines no longer parse as 75,000 ml. Three narrow shapes survive, all
+ * verified as the complete residue and none reaching this board today — a
+ * SPACED lost separator ("Сайкъл Вионие 0 75л", 4 rows, deliberately not fixed
+ * because "БРАШНО … ТИП 0 1 КГ" is the same shape and is correct), a bare "75Л"
+ * for 0.75 L (2 rows, not separable from a genuine 75 L without a plausibility
+ * clamp) and a Cyrillic "О" typed for a zero ("ОЦЕТ … О,7L", 1 row).
  *
  * €/kg is the right way to compare a 400g jar with a 700g one. It is NOT a way
  * to compare either with a 10kg sack: bulk is cheaper per kilo by definition,
