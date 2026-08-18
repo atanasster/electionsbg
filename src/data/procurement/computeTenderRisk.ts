@@ -30,6 +30,7 @@
 
 import type { TenderAward } from "@/data/procurement/useTender";
 import { realSignedDate } from "@/lib/signedDate";
+import { tenderThreshold, type TenderRiskKey } from "@/lib/riskFlagCatalog";
 
 // The structural minimum the scorer reads — satisfied by the full `Tender`
 // (detail page) AND by the slimmer browser row (`TenderRow`), so the same
@@ -41,11 +42,9 @@ export type TenderRiskInput = {
   estimatedValueEur?: number | null;
 };
 
-export type TenderRiskKey =
-  | "nonOpenProcedure"
-  | "rushedDeadline"
-  | "shortDecisionPeriod"
-  | "awardOverEstimate";
+/** Derived from src/lib/riskFlagCatalog.ts and re-exported here so existing
+ *  importers of this path keep working. */
+export type { TenderRiskKey };
 
 export type TenderRiskComponent = {
   key: TenderRiskKey;
@@ -81,9 +80,9 @@ const NON_OPEN =
   /без предварително обявление|без публикуване|без предварителна покана|Пряко договаряне|Покана до определени/;
 
 // Below the competitive-procedure norm (the 12+ "normal" band starts here).
-const RUSHED_SUBMISSION_DAYS = 12;
+const RUSHED_SUBMISSION_DAYS = tenderThreshold("rushedDeadline");
 // Award decided within this many days of the deadline (PRWP 10444 short band).
-const SHORT_DECISION_DAYS = 4;
+const SHORT_DECISION_DAYS = tenderThreshold("shortDecisionPeriod");
 // Awards summing to more than this × the procedure estimate — the forecast was
 // overshot. Base rate 4.1% at 1.10 (median awarded/estimated = 99%, p95 = 105%);
 // the 10% buffer absorbs rounding/minor scope tweaks. PwC/Ecorys flag 18
@@ -91,7 +90,7 @@ const SHORT_DECISION_DAYS = 4;
 // competition savings, not a signal — and OCP R016's under-valuation is a
 // different comparison (estimate vs the peer-CPV norm, already on the normalcy
 // panel). See scripts/procurement/tender_base_rates.sql / plan §7.3.
-const AWARD_OVER_ESTIMATE_RATIO = 1.1;
+const AWARD_OVER_ESTIMATE_RATIO = tenderThreshold("awardOverEstimate");
 
 const MS_PER_DAY = 86_400_000;
 

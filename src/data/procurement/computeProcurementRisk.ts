@@ -24,23 +24,21 @@ import type {
 } from "@/data/dataTypes";
 import { procedureBucket } from "@/lib/cpvSectors";
 import { naceCpvMismatch } from "@/lib/naceCpv";
+import {
+  contractFlag,
+  contractThreshold,
+  LEGALLY_SINGLE_SOURCE_CPV_PREFIX,
+  type RiskComponentKey,
+} from "@/lib/riskFlagCatalog";
 
 /** One evaluable red-flag check. `available` = we had the data to evaluate it;
- *  `fired` = the check tripped. */
-export type RiskComponentKey =
-  | "debarred"
-  | "mpConnected"
-  | "pepConnected"
-  | "awarderConcentration"
-  | "weakCompetition"
-  | "directAward"
-  | "shortTenderPeriod"
-  | "amendment"
-  | "annexGrowth"
-  | "newFirmWinner"
-  | "nkidMismatch"
-  | "splitPurchase"
-  | "appealUpheld";
+ *  `fired` = the check tripped.
+ *
+ *  The union is DERIVED from src/lib/riskFlagCatalog.ts and re-exported here so
+ *  the ~15 modules that import it from this path keep working. It used to be a
+ *  hand-written literal union — one of six copies of the flag list, and the one
+ *  a new check had to be added to first. */
+export type { RiskComponentKey };
 
 export type RiskComponent = {
   key: RiskComponentKey;
@@ -144,35 +142,33 @@ export type ContractRiskResult = {
 // Additive weights for the legacy score — MP-connection heaviest (most
 // editorially loaded), debarred next, then single-bidder, concentration,
 // non-open, short-period, amendment. Multiple signals stack up to 100.
-const WEIGHT_MP_CONNECTED = 50;
-const WEIGHT_PEP_CONNECTED = 40;
-const WEIGHT_DEBARRED = 80;
-const WEIGHT_WEAK_COMPETITION = 40;
-const WEIGHT_HIGH_CONCENTRATION = 30;
-const WEIGHT_DIRECT_AWARD = 20;
-const WEIGHT_SHORT_PERIOD = 15;
-const WEIGHT_AMENDMENT = 10;
-// Annex value growth to/past the legal cap — a structural signal (money added
-// after the competition), on par with concentration.
-const WEIGHT_ANNEX_GROWTH = 30;
-// New-firm winner — a company barely older than the contract it won. Structural,
-// editorially legible (K-Index P4).
-const WEIGHT_NEW_FIRM = 30;
-// Declared-activity mismatch — the winner's НКИД is disjoint from the contract's
-// CPV. A "for review" structural signal (firms lawfully diversify), so it sits
-// at the light end, level with direct award.
-const WEIGHT_NKID_MISMATCH = 20;
-// Split-purchase pattern — a "for review" structural signal, weighted below the
-// authoritative flags (debarred/appeal) and concentration given its
-// irreducible false-positive floor (a legal recurring-need pattern looks the same).
-const WEIGHT_SPLIT_PURCHASE = 25;
+//
+// The numbers now come from src/lib/riskFlagCatalog.ts. Each flag's entry there
+// carries the rationale that used to sit in a comment beside its literal —
+// including why the "for review" signals (split, НКИД mismatch) sit below the
+// authoritative ones (debarment, a КЗК-upheld appeal) — plus its legal basis and
+// its label keys, and 112 holds a second copy of every weight that the SQL
+// parity gate holds to the same source.
+const w = (id: RiskComponentKey): number => contractFlag(id).legacyWeight;
+
+const WEIGHT_MP_CONNECTED = w("mpConnected");
+const WEIGHT_PEP_CONNECTED = w("pepConnected");
+const WEIGHT_DEBARRED = w("debarred");
+const WEIGHT_WEAK_COMPETITION = w("weakCompetition");
+const WEIGHT_HIGH_CONCENTRATION = w("awarderConcentration");
+const WEIGHT_DIRECT_AWARD = w("directAward");
+const WEIGHT_SHORT_PERIOD = w("shortTenderPeriod");
+const WEIGHT_AMENDMENT = w("amendment");
+const WEIGHT_ANNEX_GROWTH = w("annexGrowth");
+const WEIGHT_NEW_FIRM = w("newFirmWinner");
+const WEIGHT_NKID_MISMATCH = w("nkidMismatch");
+const WEIGHT_SPLIT_PURCHASE = w("splitPurchase");
+const WEIGHT_APPEAL_UPHELD = w("appealUpheld");
+
 /** A contractor incorporated fewer than this many months before the award is a
  *  "new firm" for the newFirmWinner flag. */
-const NEW_FIRM_MONTHS = 12;
+const NEW_FIRM_MONTHS = contractThreshold("newFirmWinner");
 const MS_PER_MONTH = 2_629_800_000; // 30.44 days
-// КЗК-upheld appeal — authoritative (a regulator annulled the award), so heavy,
-// just below debarment (80). Only fires where the appeal outcome is known.
-const WEIGHT_APPEAL_UPHELD = 70;
 
 /** All-default `ContractRiskFlags` — the single source of truth for the field
  *  list, reused by the merge initializer and tests so a new flag can't be
@@ -245,11 +241,11 @@ const scoreFromFlags = (
  *  the ал.1 т.2/т.3 grounds. ⚠️ A permitted inflation indexation (ал.3 / чл.117а)
  *  carries its OWN separate 50% ceiling, so ≥50% is a signal for review, not a
  *  proven breach. See docs/plans/procurement-risk-v2.md §0b. */
-const ANNEX_GROWTH_CAP = 0.5;
+const ANNEX_GROWTH_CAP = contractThreshold("annexGrowth");
 
 /** EU Directive 2014/24/EU Art. 27 reference open-procedure minimum. A tender
  *  window below this is the conventional "rushed deadline" red flag. */
-const SHORT_TENDER_DAYS = 14;
+const SHORT_TENDER_DAYS = contractThreshold("shortTenderPeriod");
 const MS_PER_DAY = 86_400_000;
 
 export type RiskScoreArgs = {
@@ -418,11 +414,13 @@ export const computeProcurementRisk = (
         : undefined;
     const structural =
       structuralShare !== undefined &&
-      structuralShare >= (args.structuralSingleBidShare ?? 0.8);
+      structuralShare >=
+        (args.structuralSingleBidShare ?? contractThreshold("weakCompetition"));
     // Textbooks (CPV 22112xxx) are awarded by law to the sole copyright holder
     // (чл. 79, ал. 1, т. 3 ЗОП), so every one is single-bid by statute, not
     // choice — suppress the flag regardless of the division's aggregate share.
-    const legallySingleSource = contract.cpv?.startsWith("22112") ?? false;
+    const legallySingleSource =
+      contract.cpv?.startsWith(LEGALLY_SINGLE_SOURCE_CPV_PREFIX) ?? false;
     const single = bidCount === 1 && !structural && !legallySingleSource;
     // Graded arm: materially fewer bidders than this MARKET's norm (keyed by the
     // 5-digit CPV prefix; the map holds only competitive markets, median ≥ 3).

@@ -5,7 +5,7 @@
 // every contract, and /api/db/table ships the result on every row
 // (riskCri / riskGrade / riskFired / riskAvailable / riskFiredMask /
 // riskAvailableMask — functions/db_table.js). The browser was nevertheless
-// downloading a 1.29 MB corpus-wide index payload to re-derive the same twelve
+// downloading a 1.29 MB corpus-wide index payload to re-derive the same thirteen
 // booleans, while the very same page filtered on `risk_grade` server-side. This
 // turns the row's two ints into chips at zero additional bytes, and makes the
 // chips agree with the grade filter beside them BY CONSTRUCTION rather than by
@@ -29,34 +29,26 @@ import {
   type RiskComponent,
   type RiskComponentKey,
 } from "@/data/procurement/computeProcurementRisk";
+import { RISK_MASK_BITS } from "@/lib/riskFlagCatalog";
 
 /**
- * Bit positions, verbatim from 112_contract_risk_cache.sql.
+ * Bit positions — re-exported from the catalogue so this module has no copy.
  *
  * ⚠️ "This ORDER IS A CONTRACT with every reader — append new checks at the end,
  * never renumber, or historic masks silently re-map." The SQL side decodes the
- * same order in `contract_risk_checks()`.
+ * same order in `contract_risk_checks()`, and
+ * scripts/risk/risk_catalog_sql_parity.test.ts holds the two together.
  *
- * risk_parity.harness.ts IMPORTS this array rather than keeping its own copy, and
- * asserts it against a literal before running — so a renumber here fails in the
+ * risk_parity.harness.ts IMPORTS this binding rather than keeping its own copy,
+ * and asserts it against a literal before running — so a renumber fails in the
  * one place that also checks the order against real rows. Keep it that way: a
- * private copy in the harness would let this file renumber with every test green.
+ * private copy in the harness would let the catalogue renumber with every test
+ * green.
+ *
+ * It used to be a literal here, which made this file the fifth of six hand-synced
+ * copies of the bit order (src/lib/riskFlagCatalog.ts explains the other five).
  */
-export const RISK_MASK_BITS: readonly RiskComponentKey[] = [
-  "debarred", // 0
-  "mpConnected", // 1
-  "pepConnected", // 2
-  "awarderConcentration", // 3
-  "amendment", // 4
-  "annexGrowth", // 5
-  "newFirmWinner", // 6
-  "splitPurchase", // 7
-  "appealUpheld", // 8
-  "weakCompetition", // 9
-  "directAward", // 10
-  "shortTenderPeriod", // 11
-  "nkidMismatch", // 12
-] as const;
+export { RISK_MASK_BITS };
 
 /** The row fields the decoder needs. A structural subset of the `contracts`
  *  table-engine projection, so any row from /api/db/table satisfies it. */
@@ -194,7 +186,7 @@ export const contractRiskFromMasks = (
 /**
  * Attach the foreign-funded-NGO disclosure to a decoded result.
  *
- * Separate from the decoder because it is not one of the 12 scored checks and has
+ * Separate from the decoder because it is not one of the 13 scored checks and has
  * no mask bit — it is a NEUTRAL disclosure that deliberately does not move
  * `firedCount` or the CRI, and it arrives from its own small route
  * (useNgoForeignFundedByEik). Without this the chip would silently disappear from

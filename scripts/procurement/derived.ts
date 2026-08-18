@@ -21,6 +21,10 @@ import {
   byEurDesc,
   writeStableJson,
 } from "./validate";
+import {
+  CONCENTRATION_MIN_AWARDER_TOTAL_EUR,
+  contractThreshold,
+} from "../../src/lib/riskFlagCatalog";
 
 const TOP_LIMIT = 1000;
 
@@ -53,8 +57,13 @@ const FLOW_PREVIEW_LIMIT = 150;
 //             oversight (Transparency International methodology).
 //   minAwarderTotalEur: small awarders with < €100k lifetime spend produce
 //             noisy 100%-share rows that aren't meaningful — exclude.
-const CONCENTRATION_THRESHOLD = 0.3;
-const CONCENTRATION_MIN_AWARDER_EUR = 100_000;
+// Read from the catalogue rather than re-declared. These two numbers are the
+// SAME rule 033 applies in SQL and the published handbook states, and they were
+// a seventh and eighth hand-synced copy of it — this builder EMITS them as
+// `thresholdPct` / `minAwarderTotalEur`, so a drift here would have the served
+// payload advertise a bar the corpus was not filtered on.
+const CONCENTRATION_THRESHOLD = contractThreshold("awarderConcentration");
+const CONCENTRATION_MIN_AWARDER_EUR = CONCENTRATION_MIN_AWARDER_TOTAL_EUR;
 
 // Top contractors across the corpus, sorted by euro total. The per-MP-tied
 // subset is identified by intersecting with the MP-connected EIK set — same

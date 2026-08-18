@@ -41,6 +41,10 @@ import {
 import { ekatteToNuts3 } from "./resolve_ekatte";
 import { toEur } from "@/lib/currency";
 import { newestFirst, parliamentWindow } from "@/data/scope/windows";
+import {
+  CONCENTRATION_MIN_AWARDER_TOTAL_EUR,
+  contractThreshold,
+} from "../../src/lib/riskFlagCatalog";
 
 // Top-N cap per category in each per-NS file. Keeps file size predictable
 // (top 50 × ~150 bytes/row ≈ 7.5 KB per category).
@@ -50,8 +54,13 @@ const TOP_N = 50;
 // derived.ts (buildAwarderConcentration) so the per-NS concentration page reads
 // the same bar as the corpus one: ≥30% of a buyer's in-range spend on one
 // supplier, buyer in-range total ≥ €100k (below that any share is noise).
-const CONCENTRATION_THRESHOLD = 0.3;
-const CONCENTRATION_MIN_AWARDER_EUR = 100_000;
+// Read from the catalogue rather than re-declared. These two numbers are the
+// SAME rule 033 applies in SQL and the published handbook states, and they were
+// a seventh and eighth hand-synced copy of it — this builder EMITS them as
+// `thresholdPct` / `minAwarderTotalEur`, so a drift here would have the served
+// payload advertise a bar the corpus was not filtered on.
+const CONCENTRATION_THRESHOLD = contractThreshold("awarderConcentration");
+const CONCENTRATION_MIN_AWARDER_EUR = CONCENTRATION_MIN_AWARDER_TOTAL_EUR;
 
 interface ElectionEntry {
   name: string; // "2026_04_19"

@@ -257,29 +257,51 @@ Generating key *names* instead would orphan already-translated BG/EN copy and tr
 become unreachable, the new ones have no call site the scan can see. `genRiskI18n` therefore
 audits and back-fills **values** against declared keys; it never renames.
 
-Four generators consume the catalog:
+**✅ SHIPPED (T1).** What was built, and where it differs from this section's first draft:
 
-| Generator | Emits | Replaces |
+| Side | Mechanism | Where |
 |---|---|---|
-| `genRiskTs.ts` | the `RiskComponentKey` union + `WEIGHT_*` constants + threshold constants + `emptyContractRiskFlags` field list + **`RISK_MASK_BITS`** (`src/lib/contractRiskMask.ts`) | hand-maintained constants in two TS files |
-| `genRiskSql.ts` | `112`'s bit-order comment block + `contract_risk_checks()` name array + **`112`'s inline additive-weight literals** (the `score` expression, `* 80` / `* 50` / …) + `041`'s `awarder_risk_grade_frac()` weights **and** `supplier_risk_grade()`'s un-centralised literals | hand-maintained SQL arrays/literals |
-| `genRiskI18n.ts` | a per-flag key/value audit against the bg + en corpora (declared keys, generated values) | hand-maintained i18n entries |
-| `genRiskDocs.ts` | §4's per-flag reference tables + the downloadable `risk-flags.json` + §5's alignment table | hand-written prose tables |
+| TypeScript | **direct import** — no generator | the two scorers, `contractRiskMask.ts`, `RiskBadges.tsx` |
+| SQL (033 / 041 / 112) | **static drift gate** — no generator | `scripts/risk/risk_catalog_sql_parity.test.ts` |
+| i18n keys | asserted against both corpora | `src/lib/riskFlagCatalog.test.ts` |
+| the handbook + `risk-flags.json` | **generated** (`npm run gen:risk`) | T2 |
 
-Generated SQL is **committed and gated by a vitest drift test** — it is never regenerated during
-a build. The precedent is exact: `scripts/db/gen_sql/shlyo_query_fold.ts` emits
-`141_shlyo_query_fold.sql` from `src/lib/shlyoRules.ts` behind `npm run gen:shlyo-sql`, and
-`gen_sql/shlyo_query_fold.test.ts` fails when the two drift. Follow it — `npm run gen:risk` +
-`gen_risk/*.test.ts`. (An earlier draft said the generators "all run in `prebuild`". They must
-not: `scripts/prebuild.mjs` is a `dist/` cleaner, and a build step that rewrites tracked
-migration files would put uncommitted SQL under a deploy. See §8.)
+**`genRiskTs` was not built, deliberately — generating TypeScript from TypeScript is strictly
+worse than importing it.** The catalog is a TS module, so the scorers, the decoder and the chip
+ledger read the values directly; there is no build step to run and no window in which a generated
+copy can be stale. `RiskComponentKey` and `TenderRiskKey` are now DERIVED from the catalog and
+re-exported from their old modules, so the ~15 files importing them are untouched.
+
+**`genRiskSql` became a GATE rather than a generator, and this is the resolution of the threshold
+seam below.** These three migrations are *applied artifacts with deploy semantics* — 112 rides a
+~90-minute contracts reload or `apply_functions.ts` plus a full `rebuild_contract_risk_cache()`,
+041 rides `db:load:tr:pg` — so mechanically rewriting a file that is already live on Cloud SQL
+risks reformatting a served function body, and buys nothing over failing the build on divergence.
+The gate parses all three and checks, statically and with no database: `contract_risk_checks()`'s
+name array, both mask shift-orders, 112's thirteen inline score weights, its four threshold
+literals and the `22112` carve-out, 041's buyer *and* supplier weight sets (numerically — SQL
+writes `0.30` where JS writes `0.3`), that the supplier arm still has no upheld-appeal component,
+that the buyer weights appear only inside `awarder_risk_grade_frac()`, and 033's concentration
+share and minimum-buyer-total.
+
+So the threshold seam is closed by **enforcement rather than compilation**: the number has one
+source, and a hand-edit to any SQL copy fails the build. What that cannot catch is a predicate
+applying the right number the wrong way round — which is exactly what
+`scripts/procurement/risk_parity.harness.ts` covers, over real rows. Measured after the
+refactor: **20,000 contracts, 0 mismatches on all thirteen checks, 0 on cri/score, 0 on the mask
+decoder.**
+
+(An earlier draft said the generators "all run in `prebuild`". They must not: `scripts/prebuild.mjs`
+is a `dist/` cleaner, and a build step that rewrites tracked migration files would put uncommitted
+SQL under a deploy. See §8.)
 
 **What stays hand-written and is NOT generated:** the *scoring logic itself* — the `available` /
 `fired` predicates, the structural single-bid suppression, the legally-single-source `22112`
 carve-out, the graded weak-competition arm, the merge rules. Generation covers the **declarative
 truth** (names, order, weights, labels, citations); the code keeps the judgment.
 
-⚠️ **Thresholds sit on the seam, and the plan must not pretend otherwise.** Every threshold is
+⚠️ **Thresholds sit on a seam — resolved above by option 2 with the gate made total.** Kept
+because the reasoning is what a future change has to re-read. Every threshold is
 *declared* in the catalog and *also* written inside a hand-written predicate on the SQL side:
 `>= 0.5` (annexGrowth), `< 12` months (newFirmWinner), `< 14` days (shortTenderPeriod), `>= 0.8`
 (structural single-bid), `22112%`, `1.1` (awardOverEstimate). One is worse than a duplicate:
@@ -297,9 +319,16 @@ one explicitly:
    said so plainly in the spec ("the threshold values in this catalog are asserted against the
    implementation over the full corpus, not compiled into it").
 
-Option 1 for the six numbers above; option 2 is acceptable only if the spec carries the caveat.
-What is *not* acceptable is the current draft's implication that declaring a threshold enforces
-it.
+**Chosen: option 2, with the caveat discharged by making the gate total rather than sampled.**
+Option 1's goal is "the number has one home on each side"; the static gate delivers that for
+every number that HAS a SQL copy — `annexGrowth` 0.5, `newFirmWinner` 12, `shortTenderPeriod` 14,
+`weakCompetition` 0.8 (both arms), the `22112` prefix, and 033's concentration 0.3 + €100k floor,
+each parsed out and compared on every test run. The three TENDER thresholds (12 / 4 / 1.1) have
+no SQL copy at all — tenders have no server-side risk cache — so for those the catalog is the
+only home and there is nothing to drift from. Option 2's weakness as originally stated was that it
+leaned on the *corpus-sampled* parity harness, which only catches a threshold the sample happens
+to exercise. It no longer does. The spec still carries the honest sentence: the threshold values
+in the published catalog are **asserted against** the implementation, not compiled into it.
 
 **The tender grain is asymmetric and T1/T2 should budget for it.** Tender flags have no bit mask,
 no additive weights, no `contract_risk_cache` equivalent, no `CHECK_CATALOG` (their metadata sits
@@ -505,7 +534,7 @@ a plausible-looking wrong id is not.
 | Tier | Deliverable | Depends on | Notes |
 |---|---|---|---|
 | **T0** | `LICENSE` (MIT, path-scoped) + `package.json` `license` field + `METHODOLOGY.md` pointer + confirm repo public | — | Half a day; the legal prerequisite for everything else |
-| **T1** | `src/lib/riskFlagCatalog.ts` (relocated + widened `CHECK_CATALOG`) + `genRiskTs`/`genRiskSql` + the vitest drift gates (§8) | T0 | **Touches `RiskBadges.tsx` and `contractRiskMask.ts`** — not a UI-free refactor. Pick the threshold resolution (§3b) here |
+| **T1** ✅ | `src/lib/riskFlagCatalog.ts` (relocated + widened `CHECK_CATALOG`) + direct imports + the two vitest drift gates (§8) | T0 | Touched `RiskBadges.tsx`, `contractRiskMask.ts`, both scorers **and** `derived.ts`/`by_ns.ts` (two further copies found during the work) — not a UI-free refactor. Threshold resolution picked (§3b) |
 | **T1.5** | Version stamping: `contract_risk_meta` + `rebuild_contract_risk_cache()` writes it + `/api/db` returns it | T1 | Small, but T4 cannot print an honest version without it (§3c) |
 | **T2** | `genRiskI18n`/`genRiskDocs` + the handbook (§4a–§4g) + `risk-flags.json` | T1, T1.5 | Docs generated, not hand-copied. **Resolve §3a's supplier-weight question before the handbook ships** |
 | **T3** | OCP/iMonitor alignment table (§5) | T2 | Every R-id verified against the source PDF or marked `unmapped` — that verification *is* the tier |
@@ -570,7 +599,7 @@ Postgres with a populated `contract_risk_cache` to run at all. So the split is:
 
 | gate | home | why there |
 |---|---|---|
-| catalog ↔ source-text drift (TS constants, `RISK_MASK_BITS`, `112`/`041` literals, i18n keys, generated docs) | **vitest** — `scripts/risk/gen_risk/*.test.ts` | Static, no database, seconds. The precedent is exact: `gen_sql/shlyo_query_fold.test.ts`, plus `entryGraph.test.ts` and `key_usage.test.ts` as static-analysis gates over sources |
+| catalog ↔ source-text drift (`112`/`041`/`033` literals, bit order, i18n keys, generated docs) | **vitest** — `scripts/risk/risk_catalog_sql_parity.test.ts` + `src/lib/riskFlagCatalog.test.ts` ✅ | Static, no database, ~0.3 s. Sibling gates: `gen_sql/shlyo_query_fold.test.ts`, `entryGraph.test.ts`, `key_usage.test.ts`. The TS constants need no gate at all — they are imports (§3b) |
 | catalog ↔ *computed output* over real rows | **the existing harnesses** (`risk_parity.harness.ts`, `risk_scorer.harness.ts`, `kzk.harness.ts`) | Needs Postgres and the corpus; already the right tool, already exists |
 
 Only the first can be described as "fails the build". The second is the deeper check and stays
@@ -597,9 +626,12 @@ operator-run — say so, rather than implying CI covers it.
 - **Threshold provenance** — every threshold carries a `legalBasis` or `citation`; a bare number
   fails. (Kills the "14 days is legal minimum not risk threshold" class of drift risk-v2 §6a hit.)
 - **Version bump** — a catalog change with no version bump and no CHANGELOG line fails.
-- **No stale generated SQL** — the generated blocks in `112`/`041` match what the catalog emits.
-  Generated SQL is committed and never written during a build (§3b), so this is what stops a
-  hand-edit of a migration from silently diverging from its generator.
+- **No SQL drift** — every literal `033`/`041`/`112` holds that the catalog also declares is
+  parsed out and compared. **No SQL is generated** (§3b), so what stops a hand-edit is this gate
+  failing, not a regeneration overwriting it. Its own §"the gate discriminates" block mutation-
+  tests the primitives, because a drift gate that quietly stops matching is worse than none — the
+  first cut of it passed eleven realistic single-value drifts, including a 10× move on the
+  concentration floor and the buyer weight rebalance run backwards.
 
 ## 9. Risks & open questions
 

@@ -46,6 +46,7 @@ import type {
   RiskComponentKey,
   NgoForeignFundedEntry,
 } from "@/data/procurement/computeProcurementRisk";
+import { CONTRACT_DISPLAY_ORDER, contractFlag } from "@/lib/riskFlagCatalog";
 import { Link } from "react-router-dom";
 import type { TFunction } from "i18next";
 
@@ -53,134 +54,54 @@ import type { TFunction } from "i18next";
  *  list reads worst-to-least within each state bucket. Each entry maps a check
  *  to its human label (`_long`), the "why this matters" line (`_hint`), the
  *  reason it can be unavailable (`naReasonKey`), and an optional source ref. */
-type CheckMeta = {
-  key: RiskComponentKey;
-  icon: LucideIcon;
-  labelKey: string;
-  whyKey: string;
-  naReasonKey: string;
-  ref?: string;
-};
+/** The per-check ICON map — all that is left here of what used to be
+ *  `CHECK_CATALOG`. Everything else about a flag (label key, "why" key, the
+ *  not-applicable reason, the source ref, the display order) now lives in
+ *  src/lib/riskFlagCatalog.ts, which is React-free so `scripts/**` generators,
+ *  the offline harnesses and the published spec can all read the same values.
+ *  Icons cannot move with them: they are `lucide-react` components, and importing
+ *  them would put React in a module that must stay importable from a tsx script.
+ *
+ *  COMPILE-TIME COMPLETENESS, preserved through the move. `satisfies` keeps the
+ *  key literals, so `MissingIcon` resolves to `never` only when every
+ *  RiskComponentKey has an icon. Add a fourteenth check to the catalogue without
+ *  one here and the build fails with the missing key named in the type error —
+ *  instead of the check silently vanishing from the explained ledger, which is
+ *  the one surface whose entire job is to say what was and was not checked. */
+const CHECK_ICONS = {
+  debarred: Ban,
+  appealUpheld: Gavel,
+  mpConnected: LinkIcon,
+  weakCompetition: Users,
+  pepConnected: Landmark,
+  awarderConcentration: AlertTriangle,
+  annexGrowth: TrendingUp,
+  newFirmWinner: Sparkles,
+  splitPurchase: Scissors,
+  nkidMismatch: Briefcase,
+  directAward: Gavel,
+  shortTenderPeriod: Timer,
+  amendment: Repeat,
+} satisfies Record<RiskComponentKey, LucideIcon>;
 
-const CHECK_CATALOG = [
-  {
-    key: "debarred",
-    icon: Ban,
-    labelKey: "risk_flag_debarred_long",
-    whyKey: "risk_flag_debarred_hint",
-    naReasonKey: "risk_na_generic",
-    ref: "АОП",
-  },
-  {
-    key: "appealUpheld",
-    icon: Gavel,
-    labelKey: "risk_flag_appeal_upheld_long",
-    whyKey: "risk_flag_appeal_upheld_hint",
-    naReasonKey: "risk_na_appeal_upheld",
-    ref: "КЗК",
-  },
-  {
-    key: "mpConnected",
-    icon: LinkIcon,
-    labelKey: "risk_flag_mp_connected_long",
-    whyKey: "risk_flag_mp_connected_hint",
-    naReasonKey: "risk_na_generic",
-  },
-  {
-    key: "weakCompetition",
-    icon: Users,
-    labelKey: "risk_flag_weak_competition_long",
-    whyKey: "risk_flag_weak_competition_hint",
-    naReasonKey: "risk_na_weak_competition",
-    ref: "Fazekas / GTI",
-  },
-  {
-    key: "pepConnected",
-    icon: Landmark,
-    labelKey: "risk_flag_pep_connected_long",
-    whyKey: "risk_flag_pep_connected_hint",
-    naReasonKey: "risk_na_pep_connected",
-  },
-  {
-    key: "awarderConcentration",
-    icon: AlertTriangle,
-    labelKey: "risk_flag_concentration_long",
-    whyKey: "risk_flag_concentration_hint",
-    naReasonKey: "risk_na_generic",
-    ref: "Fazekas / GTI",
-  },
-  {
-    key: "annexGrowth",
-    icon: TrendingUp,
-    labelKey: "risk_flag_annex_growth_long",
-    whyKey: "risk_flag_annex_growth_hint",
-    naReasonKey: "risk_na_annex_growth",
-    ref: "ЗОП чл.116 ал.2",
-  },
-  {
-    key: "newFirmWinner",
-    icon: Sparkles,
-    labelKey: "risk_flag_new_firm_long",
-    whyKey: "risk_flag_new_firm_hint",
-    naReasonKey: "risk_na_new_firm",
-    ref: "K-Index P4",
-  },
-  {
-    key: "splitPurchase",
-    icon: Scissors,
-    labelKey: "risk_flag_split_long",
-    whyKey: "risk_flag_split_hint",
-    naReasonKey: "risk_na_generic",
-    ref: "ЗОП чл.20 ал.4",
-  },
-  {
-    key: "nkidMismatch",
-    icon: Briefcase,
-    labelKey: "risk_flag_nkid_long",
-    whyKey: "risk_flag_nkid_hint",
-    naReasonKey: "risk_na_nkid",
-    ref: "НКИД / CPV",
-  },
-  {
-    key: "directAward",
-    icon: Gavel,
-    labelKey: "risk_flag_direct_award_long",
-    whyKey: "risk_flag_direct_award_hint",
-    naReasonKey: "risk_na_direct_award",
-    ref: "Fazekas / GTI",
-  },
-  {
-    key: "shortTenderPeriod",
-    icon: Timer,
-    labelKey: "risk_flag_short_period_long",
-    whyKey: "risk_flag_short_period_hint",
-    naReasonKey: "risk_na_short_period",
-    ref: "ЕС 2014/24 чл.27",
-  },
-  {
-    key: "amendment",
-    icon: Repeat,
-    labelKey: "risk_flag_amendment_long",
-    whyKey: "risk_flag_amendment_hint",
-    naReasonKey: "risk_na_generic",
-    ref: "ЗОП чл.116",
-  },
-] satisfies readonly CheckMeta[];
-
-/** COMPILE-TIME COMPLETENESS. `satisfies` above preserves each entry's literal
- *  `key`, so this resolves to `never` only when the catalogue covers every
- *  RiskComponentKey. Add a 13th component to the scorer without adding it here
- *  and the build fails with the missing key named in the type error — instead of
- *  the check silently vanishing from the explained ledger, which is the one
- *  surface whose entire job is to say what was and was not checked. */
-type MissingFromCatalog = Exclude<
-  RiskComponentKey,
-  (typeof CHECK_CATALOG)[number]["key"]
->;
-const _catalogIsComplete: MissingFromCatalog extends never
+type MissingIcon = Exclude<RiskComponentKey, keyof typeof CHECK_ICONS>;
+const _iconsAreComplete: MissingIcon extends never
   ? true
-  : ["CHECK_CATALOG is missing", MissingFromCatalog] = true;
-void _catalogIsComplete;
+  : ["CHECK_ICONS is missing", MissingIcon] = true;
+void _iconsAreComplete;
+
+/** One ledger row: the catalogue's declarative half plus this file's icon. */
+const CHECK_CATALOG = CONTRACT_DISPLAY_ORDER.map((key) => {
+  const f = contractFlag(key);
+  return {
+    key,
+    icon: CHECK_ICONS[key],
+    labelKey: f.labelKey,
+    whyKey: f.whyKey,
+    naReasonKey: f.naReasonKey,
+    ref: f.ref,
+  };
+});
 
 type Props = {
   /** `null` means UNSCORED — the contract has no row in contract_risk_cache, so

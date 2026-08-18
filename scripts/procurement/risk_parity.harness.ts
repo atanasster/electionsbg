@@ -1,6 +1,6 @@
 // TS ↔ SQL parity gate for the contract risk index.
 //
-// WHY: the 12 risk checks now exist twice — in Postgres (contract_risk_cache,
+// WHY: the 13 risk checks now exist twice — in Postgres (contract_risk_cache,
 // migration 112) and in TypeScript (computeProcurementRisk.ts, which still
 // renders the chips). Two implementations of one rule WILL drift, and the drift
 // is invisible: the browser column and the contract page quietly disagree about
@@ -47,12 +47,18 @@ import { RISK_MASK_BITS, contractRiskFromMasks } from "@/lib/contractRiskMask";
 import { allRows, dbReachable, end } from "../db/lib/pg";
 
 // Bit order is the contract documented on contract_risk_cache (112). IMPORTED
-// from the SPA decoder rather than copied: this harness is the only automated
-// gate that compares the bit order against the database, so a private copy here
-// would let src/lib/contractRiskMask.ts renumber with every test still green —
-// the decoder would then mis-label every chip and nothing would say so. One
-// import turns four hand-maintained copies (112's header table,
-// contract_risk_checks(), this file, the decoder) into three with a real gate.
+// rather than copied: this harness is the only automated gate that compares the
+// bit order against the DATABASE, so a private copy here would let the source
+// renumber with every test still green — the decoder would then mis-label every
+// chip and nothing would say so.
+//
+// The import now resolves, through contractRiskMask.ts, to RISK_MASK_BITS in
+// src/lib/riskFlagCatalog.ts — the one declaration the two scorers, the decoder,
+// the chip ledger and the published spec all read. What is left to keep in step
+// by hand is the SQL, and scripts/risk/risk_catalog_sql_parity.test.ts holds 033,
+// 041 and 112 to the same catalogue statically (no database needed). This file
+// stays the gate for the half that one cannot check: whether the predicates
+// actually COMPUTE what the numbers say, over real rows.
 const CHECKS = RISK_MASK_BITS;
 
 /** The literal order, asserted against the import so a renumber in the decoder
@@ -150,6 +156,14 @@ type Row = {
 export type ParityResult = {
   compared: number;
   mismatches: Map<string, number>;
+  /** Rows on which each check was AVAILABLE, per SQL.
+   *
+   *  Reported beside the mismatch tally because a check that is unavailable on
+   *  every sampled row prints a ✓ that proves NOTHING — the comparison only ever
+   *  saw "both sides agree this is not evaluable". `shortTenderPeriod` is the
+   *  live example: 112's own header records the tender-window columns as ~0%
+   *  populated, so its ✓ has always been vacuous and nothing said so. */
+  coverage: Map<string, number>;
   criDiff: number;
   scoreDiff: number;
   /** Rows where the SPA's mask DECODER disagrees with the TS scorer / SQL. */
@@ -169,6 +183,7 @@ export const runParity = async ({
   const empty = (skipped: boolean): ParityResult => ({
     compared: 0,
     mismatches: new Map(),
+    coverage: new Map(),
     criDiff: 0,
     scoreDiff: 0,
     decoderDiff: 0,
@@ -279,6 +294,7 @@ export const runParity = async ({
   );
 
   const mismatches = new Map<string, number>();
+  const coverage = new Map<string, number>();
   let criDiff = 0;
   let scoreDiff = 0;
   let decoderDiff = 0;
@@ -313,6 +329,7 @@ export const runParity = async ({
       const c = byKey.get(name);
       const tsA = c?.available ?? false;
       const tsF = c?.fired ?? false;
+      if (sqlA) coverage.set(name, (coverage.get(name) ?? 0) + 1);
       if (sqlA !== tsA || sqlF !== tsF) {
         mismatches.set(name, (mismatches.get(name) ?? 0) + 1);
         if (examples.length < 8)
@@ -375,6 +392,7 @@ export const runParity = async ({
   return {
     compared: rows.length,
     mismatches,
+    coverage,
     criDiff,
     scoreDiff,
     decoderDiff,
@@ -397,12 +415,25 @@ const main = async () => {
   }
 
   console.log(`→ parity over ${r.compared} contracts`);
+  const uncovered: string[] = [];
   for (const name of CHECKS) {
     const m = r.mismatches.get(name) ?? 0;
+    const cov = r.coverage.get(name) ?? 0;
+    if (cov === 0) uncovered.push(name);
+    // A check nobody could evaluate is reported as "—", never as ✓. Zero
+    // mismatches over zero evaluable rows is agreement about nothing, and it is
+    // the one result that looks identical to a real pass.
+    const mark = cov === 0 ? "—" : m === 0 ? "✓" : "✗";
     console.log(
-      `  ${m === 0 ? "✓" : "✗"} ${name.padEnd(22)} ${m} mismatch(es)`,
+      `  ${mark} ${name.padEnd(22)} ${m} mismatch(es)   available on ${cov}/${r.compared}`,
     );
   }
+  if (uncovered.length)
+    console.log(
+      `  ! NOT EXERCISED by this sample (available on 0 rows): ${uncovered.join(", ")}\n` +
+        "    Their parity is unproven here — the static gate\n" +
+        "    (scripts/risk/risk_catalog_sql_parity.test.ts) is what covers their constants.",
+    );
   console.log(
     `  ${r.criDiff === 0 ? "✓" : "✗"} cri differs on ${r.criDiff} · score differs on ${r.scoreDiff}`,
   );
