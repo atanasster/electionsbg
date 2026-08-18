@@ -47,9 +47,18 @@ import {
   foldMembers,
   foldByPeriod,
   matchInhouseContractors,
+  applyNarrowing,
+  rowMatchesNarrowing,
+  hasNarrowing,
+  withCpvIn,
+  withDateRange,
+  withAmountRange,
+  withEuFunded,
   DEFAULT_THRESHOLD,
   type SearchThread,
   type FoldInput,
+  type NarrowingRow,
+  type MembershipNarrowing,
 } from "./projectFile";
 
 const ringRoad: SearchThread = {
@@ -1398,5 +1407,292 @@ describe("usesCorpusTotal — program-total headline guard (§4.1c)", () => {
     expect(usesCorpusTotal({ totalBasis: "corpus", search: [t("  ")] })).toBe(
       false,
     );
+  });
+});
+
+// --- Membership narrowing -----------------------------------------------------
+
+describe("membership narrowing", () => {
+  // A resolved member set: a big строителство contract (cpv 45), a design
+  // contract pulled in via УНП lineage (cpv 71), a no-cpv works contract, and a
+  // €0 consortium member whose carrier is the €5m joint award.
+  const members: NarrowingRow[] = [
+    {
+      key: "build45",
+      cpv: "45230000",
+      date: "2021-05-01",
+      amountEur: 4_000_000,
+    },
+    {
+      key: "design71",
+      cpv: "71240000",
+      date: "2021-06-01",
+      amountEur: 120_000,
+    },
+    { key: "nocpv", cpv: null, date: "2020-01-01", amountEur: 900_000 },
+    {
+      key: "jointmember",
+      cpv: "45230000",
+      date: "2022-02-01",
+      amountEur: 0,
+      consortiumRole: "member",
+      consortiumFullEur: 5_000_000,
+    },
+  ];
+
+  it("hasNarrowing is false for an empty narrowing, true for any set field", () => {
+    expect(hasNarrowing({})).toBe(false);
+    expect(hasNarrowing({ cpvIn: [] })).toBe(false);
+    expect(hasNarrowing({ cpvIn: ["45"] })).toBe(true);
+    expect(hasNarrowing({ minAmountEur: 0 })).toBe(true);
+    expect(hasNarrowing({ euFunded: false })).toBe(true);
+  });
+
+  it("no-op when nothing is narrowed (returns every row)", () => {
+    expect(applyNarrowing(members, {}).map((r) => r.key)).toEqual([
+      "build45",
+      "design71",
+      "nocpv",
+      "jointmember",
+    ]);
+  });
+
+  it("cpvIn drops the lineage-pulled sibling that violates it (the leak case)", () => {
+    // The €120k design (cpv 71) arrived via the построителство procedure's УНП
+    // lineage; a cpv=45 narrowing must drop it — and the no-cpv row, since a
+    // NULL cpv matches no prefix (SQL LIKE semantics).
+    const keys = applyNarrowing(members, { cpvIn: ["45"] }).map((r) => r.key);
+    expect(keys).toContain("build45");
+    expect(keys).toContain("jointmember");
+    expect(keys).not.toContain("design71");
+    expect(keys).not.toContain("nocpv");
+  });
+
+  it("a manual include BYPASSES narrowing (explicit intent wins)", () => {
+    const keys = applyNarrowing(
+      members,
+      { cpvIn: ["45"] },
+      new Set(["design71"]),
+    ).map((r) => r.key);
+    expect(keys).toContain("design71"); // kept despite cpv 71 vs the 45 filter
+  });
+
+  it("a €-floor keeps a consortium member via its carrier's full value", () => {
+    // The jointmember row is €0 but its carrier is a €5m award: a €1m floor keeps
+    // it, while the €120k design and the €900k no-cpv row are dropped.
+    const keys = applyNarrowing(members, { minAmountEur: 1_000_000 }).map(
+      (r) => r.key,
+    );
+    expect(keys).toEqual(["build45", "jointmember"]);
+  });
+
+  it("date window is inclusive and drops NULL-date rows", () => {
+    const rows: NarrowingRow[] = [
+      { key: "a", date: "2021-01-01", amountEur: 1 },
+      { key: "b", date: "2021-12-31", amountEur: 1 },
+      { key: "c", date: "2022-06-01", amountEur: 1 },
+      { key: "d", date: null, amountEur: 1 },
+    ];
+    const keys = applyNarrowing(rows, {
+      dateFrom: "2021-01-01",
+      dateTo: "2021-12-31",
+    }).map((r) => r.key);
+    expect(keys).toEqual(["a", "b"]);
+  });
+
+  it("euFunded is tri-state: undefined never filters, true/false are distinct", () => {
+    const rows: NarrowingRow[] = [
+      { key: "eu", euFunded: 1, amountEur: 1 },
+      { key: "nat", euFunded: 0, amountEur: 1 },
+      { key: "unk", euFunded: null, amountEur: 1 },
+    ];
+    expect(applyNarrowing(rows, {}).length).toBe(3); // undefined = no filter
+    expect(applyNarrowing(rows, { euFunded: true }).map((r) => r.key)).toEqual([
+      "eu",
+    ]);
+    expect(applyNarrowing(rows, { euFunded: false }).map((r) => r.key)).toEqual(
+      ["nat"],
+    );
+  });
+
+  it("rowMatchesNarrowing ANDs every set predicate", () => {
+    const r: NarrowingRow = {
+      key: "x",
+      cpv: "45000000",
+      date: "2021-05-01",
+      amountEur: 2_000_000,
+      euFunded: 1,
+    };
+    expect(
+      rowMatchesNarrowing(r, {
+        cpvIn: ["45"],
+        dateFrom: "2021-01-01",
+        minAmountEur: 1_000_000,
+        euFunded: true,
+      }),
+    ).toBe(true);
+    // one failing clause fails the whole predicate
+    expect(rowMatchesNarrowing(r, { cpvIn: ["45"], euFunded: false })).toBe(
+      false,
+    );
+  });
+});
+
+describe("membership-narrowing transforms + seed mirror", () => {
+  it("with* setters set and clear immutably", () => {
+    const base: MembershipNarrowing = {};
+    expect(withCpvIn(base, ["45", " ", "71"]).cpvIn).toEqual(["45", "71"]);
+    expect(withCpvIn({ cpvIn: ["45"] }, []).cpvIn).toBeUndefined();
+    expect(withAmountRange(base, 1000, undefined).minAmountEur).toBe(1000);
+    expect(
+      withAmountRange({ minAmountEur: 5 }, -1, undefined).minAmountEur,
+    ).toBe(undefined);
+    expect(withDateRange(base, "2021-01-01", "").dateFrom).toBe("2021-01-01");
+    expect(withDateRange({ dateTo: "x" }, undefined, undefined).dateTo).toBe(
+      undefined,
+    );
+    expect(withEuFunded(base, false).euFunded).toBe(false);
+    expect(
+      withEuFunded({ euFunded: true }, undefined).euFunded,
+    ).toBeUndefined();
+    // immutability
+    expect(base).toEqual({});
+  });
+
+  it("seedContractFilter mirrors narrowing onto the contracts columns", () => {
+    const cols = seedContractFilter(
+      { terms: "мост" },
+      {
+        cpvIn: ["45"],
+        dateFrom: "2021-01-01",
+        minAmountEur: 1000,
+        euFunded: true,
+      },
+    ).columns;
+    const byId = (id: string) => cols.find((c) => c.id === id);
+    expect(byId("cpv")?.value).toEqual(["45"]);
+    expect(byId("date")?.min).toBe("2021-01-01");
+    expect(byId("amount_eur")?.min).toBe(1000);
+    expect(byId("eu_funded")?.value).toBe(1);
+  });
+
+  it("seedTenderFilter maps the SAME narrowing onto tender column names", () => {
+    const cols = seedTenderFilter(
+      { terms: "мост" },
+      {
+        cpvIn: ["45"],
+        dateFrom: "2021-01-01",
+        maxAmountEur: 9000,
+        euFunded: false,
+      },
+    ).columns;
+    const ids = cols.map((c) => c.id);
+    expect(ids).toContain("cpv_prefix");
+    expect(ids).toContain("publication_date");
+    expect(ids).toContain("estimated_value_eur");
+    expect(cols.find((c) => c.id === "is_eu_funded")?.value).toBe(false);
+    // never the contracts-side names
+    expect(ids).not.toContain("amount_eur");
+    expect(ids).not.toContain("date");
+  });
+
+  it("a thread's own narrowing overrides the query-level one at seed time", () => {
+    const cols = seedContractFilter(
+      { terms: "мост", cpvIn: ["71"] }, // per-thread wins
+      { cpvIn: ["45"] },
+    ).columns;
+    expect(cols.find((c) => c.id === "cpv")?.value).toEqual(["71"]);
+  });
+});
+
+describe("seed ↔ predicate agreement (the module invariant)", () => {
+  it("euFunded:false emits the int 0 on contracts and keeps euFunded===false rows", () => {
+    const col = seedContractFilter(
+      { terms: "x" },
+      { euFunded: false },
+    ).columns.find((c) => c.id === "eu_funded");
+    expect(col?.value).toBe(0);
+    const rows: NarrowingRow[] = [
+      { key: "nat", euFunded: 0, amountEur: 1 },
+      { key: "eu", euFunded: 1, amountEur: 1 },
+    ];
+    expect(applyNarrowing(rows, { euFunded: false }).map((r) => r.key)).toEqual(
+      ["nat"],
+    );
+  });
+
+  it("an open-ended range emits only the bound present, and the predicate applies only that bound", () => {
+    // only dateFrom
+    const dcols = seedContractFilter(
+      { terms: "x" },
+      { dateFrom: "2021-01-01" },
+    ).columns.find((c) => c.id === "date");
+    expect(dcols?.min).toBe("2021-01-01");
+    expect(dcols?.max).toBeUndefined();
+    // only maxAmountEur
+    const acols = seedContractFilter(
+      { terms: "x" },
+      { maxAmountEur: 9000 },
+    ).columns.find((c) => c.id === "amount_eur");
+    expect(acols?.min).toBeUndefined();
+    expect(acols?.max).toBe(9000);
+    // predicate applies only the set bound
+    const rows: NarrowingRow[] = [
+      { key: "lo", date: "2020-01-01", amountEur: 1 },
+      { key: "hi", date: "2022-01-01", amountEur: 1 },
+    ];
+    expect(
+      applyNarrowing(rows, { dateFrom: "2021-01-01" }).map((r) => r.key),
+    ).toEqual(["hi"]);
+  });
+
+  it("NULL fields are dropped by the predicate for every dimension (SQL parity)", () => {
+    expect(
+      rowMatchesNarrowing({ key: "a", cpv: null }, { cpvIn: ["45"] }),
+    ).toBe(false);
+    expect(
+      rowMatchesNarrowing({ key: "a", date: null }, { dateFrom: "2021-01-01" }),
+    ).toBe(false);
+    expect(
+      rowMatchesNarrowing({ key: "a", amountEur: null }, { minAmountEur: 1 }),
+    ).toBe(false);
+    expect(
+      rowMatchesNarrowing({ key: "a", euFunded: null }, { euFunded: true }),
+    ).toBe(false);
+  });
+
+  it("consortium member under an amount floor: the seed trims (€0) but the predicate keeps it via the carrier — the documented asymmetry", () => {
+    // seed emits a plain amount_eur floor (would trim the €0 member row) …
+    const amtCol = seedContractFilter(
+      { terms: "x" },
+      { minAmountEur: 1_000_000 },
+    ).columns.find((c) => c.id === "amount_eur");
+    expect(amtCol?.min).toBe(1_000_000);
+    // … while the authoritative predicate keeps the €0 member via consortiumFullEur.
+    const member: NarrowingRow = {
+      key: "m",
+      amountEur: 0,
+      consortiumRole: "member",
+      consortiumFullEur: 5_000_000,
+    };
+    expect(applyNarrowing([member], { minAmountEur: 1_000_000 })).toHaveLength(
+      1,
+    );
+  });
+
+  it('a blank-only cpvIn ([""]) is inert on BOTH sides (FINDING-002 symmetry)', () => {
+    const blank: MembershipNarrowing = { cpvIn: [""] };
+    expect(hasNarrowing(blank)).toBe(false);
+    const rows: NarrowingRow[] = [
+      { key: "a", cpv: null },
+      { key: "b", cpv: "45" },
+    ];
+    expect(applyNarrowing(rows, blank).map((r) => r.key)).toEqual(["a", "b"]);
+    // seed emits no cpv column either
+    expect(
+      seedContractFilter({ terms: "x" }, blank).columns.find(
+        (c) => c.id === "cpv",
+      ),
+    ).toBeUndefined();
   });
 });

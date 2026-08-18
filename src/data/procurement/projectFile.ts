@@ -10,16 +10,46 @@
 // these; the fetch layer must short-circuit an EMPTY member set (an `in`-filter
 // on [] returns the whole corpus).
 
+/** Column-level narrowing that changes MEMBERSHIP (NOT a view lens): a dossier
+ *  narrowed to CPV division 45 / a date window / a €-floor genuinely CONTAINS
+ *  fewer contracts — the headline total, contractor table and members.json all
+ *  move. Every field maps to an already-filterable `contracts` column
+ *  (functions/db_table.js), so `seedContractFilter` mirrors it into the seed WHERE
+ *  for recall AND `applyNarrowing` re-applies it as the authoritative FINAL
+ *  member-set predicate (post-lineage). Carried at the QUERY level and, optionally,
+ *  per SearchThread (effective = query ∩ thread at seed time; the final predicate
+ *  is query-level). View lenses (method / single-bid / risk grade) are NOT here —
+ *  they never touch membership. See `applyNarrowing`. */
+export interface MembershipNarrowing {
+  /** CPV prefix(es) — e.g. ["45"] = строителство. A row whose `cpv` matches none
+   *  (including a NULL cpv) is dropped, matching SQL `cpv LIKE '45%'`. */
+  cpvIn?: string[];
+  /** Inclusive date window (ISO `YYYY-MM-DD`). NULL-date rows are dropped, matching
+   *  the SQL range mirror. */
+  dateFrom?: string;
+  dateTo?: string;
+  /** amount_eur floor / ceiling (EUR). A consortium MEMBER row (€0 placeholder) is
+   *  tested on its carrier's `consortiumFullEur`, so a €-floor keeps a joint award
+   *  whole rather than stranding its members. */
+  minAmountEur?: number;
+  maxAmountEur?: number;
+  /** Tri-state: undefined = no filter, true = eu_funded only, false = non-EU-funded
+   *  only. A stray `false` must not silently narrow, hence the explicit tri-state. */
+  euFunded?: boolean;
+}
+
 /** One search thread. A file's `search` is an array of these, unioned (§0f.2) —
  *  a topic like "elections" needs lexically-disjoint threads (бюлетин / СУЕМГ /
- *  компютърна обработка), each with its own recall scope + confidence. */
-export interface SearchThread {
+ *  компютърна обработка), each with its own recall scope + confidence. A thread
+ *  MAY also carry `MembershipNarrowing` for a per-thread seed refinement (the UI
+ *  exposes query-level narrowing first; the model supports per-thread from day
+ *  one). */
+export interface SearchThread extends MembershipNarrowing {
   /** The title/subject recall term(s). OPTIONAL: a BUYER-ANCHORED thread (a
    *  `buyerEik` with no `terms`) treats the whole buyer as the member set — used
    *  for a single-purpose SOE whose entire corpus IS the project (e.g.
    *  „Метрополитен" ЕАД = the Sofia metro). See `isBuyerAnchored`. */
   terms?: string;
-  mode?: "any" | "all-words" | "phrase";
   /** Per-thread RECALL filter only. NEVER a cross-file confidence signal (§0f):
    *  a multi-awarder topic would wrongly demote true members of the other buyer. */
   buyerEik?: string[];
@@ -53,6 +83,20 @@ export interface MemberIds {
   fundContractNumbers?: string[];
 }
 
+/** The RESOLVABLE core of a dossier — the recall threads, the manual id-sets, and
+ *  the query-level membership narrowing — everything that decides WHAT the project
+ *  contains. `ProjectFileSpec` (useProjectFile.tsx) extends this with the editorial
+ *  fields (title, thesis, authority, claims, geo, verifiedAt, nature, …). The
+ *  contracts page consumes just this shape; the dossier page wraps it with
+ *  narrative. Kept here so the pure resolver + the shared filter component share one
+ *  definition. */
+export interface ProcurementQuery extends MembershipNarrowing {
+  search: SearchThread[];
+  includes?: MemberIds;
+  excludes?: MemberIds;
+  totalBasis?: "members" | "corpus";
+}
+
 export const DEFAULT_THRESHOLD = 0.6;
 /** Lot fan-out guard threshold (§2): a tender with ≤ K lots auto-includes all
  *  sibling lots (a genuinely split single object); more → matched lots only. */
@@ -81,7 +125,14 @@ export interface SeedFilter {
   global: string;
   globalCols: string[];
   globalFtsOnly: boolean;
-  columns: Array<{ id: string; value?: unknown }>;
+  // `value` for in/prefix/eq filters; `min`/`max` for range filters (date,
+  // amount_eur) — the same shape /api/db/table's column filters accept.
+  columns: Array<{
+    id: string;
+    value?: unknown;
+    min?: string | number;
+    max?: string | number;
+  }>;
 }
 
 /**
@@ -252,7 +303,77 @@ export const usesCorpusTotal = (spec: {
  * landmark term must not recall via contractor_name and inflate the count — and
  * go FTS-only exactly when the thread is single-token (see `isSingleToken`).
  */
-export const seedContractFilter = (thread: SearchThread): SeedFilter => {
+/** Per-field merge of a query-level narrowing with a thread's own (the thread wins
+ *  per field). Per-thread narrowing is model-only for now (the UI exposes
+ *  query-level); this keeps the seed honouring both once it lands. */
+const mergeNarrowing = (
+  base: MembershipNarrowing | undefined,
+  thread: MembershipNarrowing,
+): MembershipNarrowing => ({
+  cpvIn: thread.cpvIn ?? base?.cpvIn,
+  dateFrom: thread.dateFrom ?? base?.dateFrom,
+  dateTo: thread.dateTo ?? base?.dateTo,
+  minAmountEur: thread.minAmountEur ?? base?.minAmountEur,
+  maxAmountEur: thread.maxAmountEur ?? base?.maxAmountEur,
+  euFunded: thread.euFunded ?? base?.euFunded,
+});
+
+/** The non-blank CPV prefixes of a narrowing. Blank entries carry no predicate on
+ *  either side — `buildFilter`'s prefix arm drops `""`, and `rowMatchesNarrowing`
+ *  skips a falsy prefix — so both the seed and the final predicate treat them as
+ *  "no cpv filter". Filtering here keeps the two symmetric on malformed input
+ *  (e.g. a stray `[""]`). */
+const cpvPrefixes = (n: MembershipNarrowing): string[] =>
+  (n.cpvIn ?? []).filter((p) => typeof p === "string" && p.length > 0);
+
+/** Membership narrowing → contracts-resource column filters (functions/db_table.js
+ *  names). Mirrors `rowMatchesNarrowing` so the seed WHERE and the final predicate
+ *  select the same rows (see the recall/authoritative note on `seedContractFilter`
+ *  for the one €0-consortium-member exception). */
+const narrowingContractColumns = (
+  n: MembershipNarrowing,
+): SeedFilter["columns"] => {
+  const cols: SeedFilter["columns"] = [];
+  const cpv = cpvPrefixes(n);
+  if (cpv.length) cols.push({ id: "cpv", value: cpv });
+  if (n.dateFrom != null || n.dateTo != null)
+    cols.push({ id: "date", min: n.dateFrom, max: n.dateTo });
+  if (n.minAmountEur != null || n.maxAmountEur != null)
+    cols.push({ id: "amount_eur", min: n.minAmountEur, max: n.maxAmountEur });
+  if (n.euFunded != null)
+    cols.push({ id: "eu_funded", value: n.euFunded ? 1 : 0 });
+  return cols;
+};
+
+/** Membership narrowing → tenders-resource column filters — the SAME predicate on
+ *  DIFFERENT column names (publication_date, estimated_value_eur, cpv_prefix,
+ *  is_eu_funded); the tenders table has no per-tenderer count. */
+const narrowingTenderColumns = (
+  n: MembershipNarrowing,
+): SeedFilter["columns"] => {
+  const cols: SeedFilter["columns"] = [];
+  const cpv = cpvPrefixes(n);
+  if (cpv.length) cols.push({ id: "cpv_prefix", value: cpv });
+  if (n.dateFrom != null || n.dateTo != null)
+    cols.push({
+      id: "publication_date",
+      min: n.dateFrom,
+      max: n.dateTo,
+    });
+  if (n.minAmountEur != null || n.maxAmountEur != null)
+    cols.push({
+      id: "estimated_value_eur",
+      min: n.minAmountEur,
+      max: n.maxAmountEur,
+    });
+  if (n.euFunded != null) cols.push({ id: "is_eu_funded", value: n.euFunded });
+  return cols;
+};
+
+export const seedContractFilter = (
+  thread: SearchThread,
+  narrowing?: MembershipNarrowing,
+): SeedFilter => {
   const columns: SeedFilter["columns"] = [{ id: "tag", value: ["contract"] }];
   if (thread.buyerEik?.length)
     columns.push({ id: "awarder_eik", value: thread.buyerEik });
@@ -262,6 +383,14 @@ export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   // thread, or a term thread pinned to one supplier).
   if (thread.contractorEik?.length)
     columns.push({ id: "contractor_eik", value: thread.contractorEik });
+  // Membership narrowing (cpv / date / €-window / eu-funded) mirrored into the seed
+  // for RECALL only — `applyNarrowing` is the authoritative final predicate. The two
+  // agree row-for-row EXCEPT a €0 consortium-member placeholder under an amount
+  // floor: the seed's `amount_eur >= floor` trims it (it is €0), but the УНП-lineage
+  // fetch is amount-unconstrained, so it returns via lineage and `applyNarrowing`
+  // re-admits it on its carrier's full value (`narrowingAmount`). So the seed may
+  // over-trim that one shape; the final predicate is what decides membership.
+  columns.push(...narrowingContractColumns(mergeNarrowing(narrowing, thread)));
   return {
     // A buyer-anchored thread (blank terms) sends no text predicate — the engine
     // treats an empty `global` as a no-op (db_table.js), so the seed returns the
@@ -273,10 +402,14 @@ export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   };
 };
 
-export const seedTenderFilter = (thread: SearchThread): SeedFilter => {
+export const seedTenderFilter = (
+  thread: SearchThread,
+  narrowing?: MembershipNarrowing,
+): SeedFilter => {
   const columns: SeedFilter["columns"] = [];
   if (thread.buyerEik?.length)
     columns.push({ id: "buyer_eik", value: thread.buyerEik });
+  columns.push(...narrowingTenderColumns(mergeNarrowing(narrowing, thread)));
   return {
     global: thread.terms ?? "",
     globalCols: ["subject"],
@@ -815,6 +948,99 @@ export function guardLineageContracts<T extends LineageGuardRow>(
   });
 }
 
+/** The row fields the membership-narrowing predicate reads (a structural subset of
+ *  a resolved contract) — kept minimal so the filter is unit-testable without a
+ *  full row. */
+export interface NarrowingRow {
+  key: string;
+  cpv?: string | null;
+  date?: string | null;
+  amountEur?: number | null;
+  /** For a consortium MEMBER row (€0), the joint award's full value — the amount a
+   *  €-window is tested against, so a €-floor keeps the whole joint award. */
+  consortiumFullEur?: number | null;
+  consortiumRole?: string | null;
+  /** eu_funded as the int column (0/1) OR a mapped boolean. */
+  euFunded?: number | boolean | null;
+}
+
+/** The amount a €-window tests a row against — the joint full value for a
+ *  consortium member placeholder (so it follows its carrier), else the row's own
+ *  amount. */
+const narrowingAmount = (r: NarrowingRow): number | null =>
+  r.consortiumRole === "member"
+    ? (r.consortiumFullEur ?? r.amountEur ?? null)
+    : (r.amountEur ?? null);
+
+const euFundedFlag = (
+  v: number | boolean | null | undefined,
+): boolean | null => (v == null ? null : typeof v === "boolean" ? v : v !== 0);
+
+/** Whether a MembershipNarrowing carries any active predicate. A blank-only
+ *  `cpvIn` (e.g. `[""]`) is NOT active — it carries no predicate on either side. */
+export const hasNarrowing = (n: MembershipNarrowing): boolean =>
+  cpvPrefixes(n).length > 0 ||
+  n.dateFrom != null ||
+  n.dateTo != null ||
+  n.minAmountEur != null ||
+  n.maxAmountEur != null ||
+  n.euFunded != null;
+
+/** Whether a row satisfies EVERY set narrowing predicate. A NULL/unknown field
+ *  fails a set predicate — matching SQL (`cpv LIKE …`, `amount_eur >= …`,
+ *  `eu_funded = …` all exclude NULL), so this final predicate and the seed WHERE
+ *  agree on the same row set. */
+export function rowMatchesNarrowing(
+  r: NarrowingRow,
+  n: MembershipNarrowing,
+): boolean {
+  const cpvIn = cpvPrefixes(n);
+  if (cpvIn.length) {
+    const cpv = r.cpv ?? "";
+    if (!cpvIn.some((p) => cpv.startsWith(p))) return false;
+  }
+  if (n.dateFrom != null || n.dateTo != null) {
+    const d = r.date ?? "";
+    if (!d) return false;
+    if (n.dateFrom != null && d < n.dateFrom) return false;
+    if (n.dateTo != null && d > n.dateTo) return false;
+  }
+  if (n.minAmountEur != null || n.maxAmountEur != null) {
+    const a = narrowingAmount(r);
+    if (a == null) return false;
+    if (n.minAmountEur != null && a < n.minAmountEur) return false;
+    if (n.maxAmountEur != null && a > n.maxAmountEur) return false;
+  }
+  if (n.euFunded != null) {
+    const f = euFundedFlag(r.euFunded);
+    if (f == null || f !== n.euFunded) return false;
+  }
+  return true;
+}
+
+/**
+ * The AUTHORITATIVE final membership-narrowing predicate, applied to the assembled
+ * member set AFTER seed → confidence → УНП lineage → lot guard, so a lineage-pulled
+ * sibling that violates the narrowing cannot leak back in (applying it only at seed
+ * time would let the УНП spine re-admit it — the exact leak this guards). Rules:
+ *  - a manual `includes` key BYPASSES narrowing (explicit user intent wins);
+ *  - otherwise a row must satisfy `rowMatchesNarrowing` (NULL fields fail, matching
+ *    the SQL seed mirror);
+ *  - a no-op when nothing is narrowed (returns the input rows).
+ * `excludes` are applied elsewhere and always win; this only removes rows. Shared
+ * by the client resolver and the offline builder so the two never drift.
+ */
+export function applyNarrowing<T extends NarrowingRow>(
+  rows: readonly T[],
+  narrowing: MembershipNarrowing,
+  includeKeys: ReadonlySet<string> = new Set(),
+): T[] {
+  if (!hasNarrowing(narrowing)) return [...rows];
+  return rows.filter(
+    (r) => includeKeys.has(r.key) || rowMatchesNarrowing(r, narrowing),
+  );
+}
+
 const uniqBy = <T>(items: readonly T[], key: (t: T) => string): T[] => {
   const seen = new Set<string>();
   const out: T[] = [];
@@ -1173,4 +1399,62 @@ export function withoutThread(
   return threads.length > 1
     ? threads.filter((_, idx) => idx !== i)
     : [...threads];
+}
+
+// --- Membership-narrowing edits ------------------------------------------------
+// Pure immutable setters over any MembershipNarrowing-carrying object (a
+// ProcurementQuery, a spec, or one SearchThread). Passing an empty/undefined value
+// CLEARS the field, so the URL/spec stays lean when a narrowing is turned off.
+
+/** Set or clear the CPV-division narrowing (blank entries dropped; empty clears). */
+export function withCpvIn<T extends MembershipNarrowing>(
+  q: T,
+  cpvIn: readonly string[] | undefined,
+): T {
+  const next = { ...q };
+  const cleaned = (cpvIn ?? []).map((s) => s.trim()).filter(Boolean);
+  if (cleaned.length) next.cpvIn = cleaned;
+  else delete next.cpvIn;
+  return next;
+}
+
+/** Set or clear the inclusive date window (undefined = open end; both clear). */
+export function withDateRange<T extends MembershipNarrowing>(
+  q: T,
+  dateFrom: string | undefined,
+  dateTo: string | undefined,
+): T {
+  const next = { ...q };
+  if (dateFrom) next.dateFrom = dateFrom;
+  else delete next.dateFrom;
+  if (dateTo) next.dateTo = dateTo;
+  else delete next.dateTo;
+  return next;
+}
+
+/** Set or clear the €-window (negatives ignored). */
+export function withAmountRange<T extends MembershipNarrowing>(
+  q: T,
+  minAmountEur: number | undefined,
+  maxAmountEur: number | undefined,
+): T {
+  const next = { ...q };
+  if (minAmountEur != null && minAmountEur >= 0)
+    next.minAmountEur = minAmountEur;
+  else delete next.minAmountEur;
+  if (maxAmountEur != null && maxAmountEur >= 0)
+    next.maxAmountEur = maxAmountEur;
+  else delete next.maxAmountEur;
+  return next;
+}
+
+/** Set or clear the eu-funded tri-state (undefined clears the filter entirely). */
+export function withEuFunded<T extends MembershipNarrowing>(
+  q: T,
+  euFunded: boolean | undefined,
+): T {
+  const next = { ...q };
+  if (typeof euFunded === "boolean") next.euFunded = euFunded;
+  else delete next.euFunded;
+  return next;
 }
