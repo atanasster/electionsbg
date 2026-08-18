@@ -1,222 +1,74 @@
-// ДФ „Земеделие" (State Fund Agriculture) subsidy dashboard — /subsidies.
+// ДФ „Земеделие" (State Fund Agriculture) subsidy hub — /subsidies.
 //
-// The national view over the CAP paying-agency corpus: how much is paid, how
-// concentrated it is (the "top 10% of farms take most of it" story), which
-// schemes and oblasti it flows to, and who the biggest recipients are. Recipient
-// rows deep-link to /farm/:eik, where the subsidy history sits beside the same
-// entity's procurement + EU-funds record (the cross-program money map).
+// A DASHBOARD HUB, not a dashboard: this page fronts the module's thirteen destinations and
+// renders no analysis of its own. Everything it used to draw inline — the choropleth, the
+// concentration ladder, the scheme and oblast bars, the year trend, the top-recipient list —
+// now lives on the sub-page that is about it, reachable from the tile that names it. The
+// immediate win was the map: 407 KB of oblast GeoJSON that every visitor downloaded to see a
+// thumbnail, now loaded only by the reader who opens /subsidies/places.
+//
+// WHAT STAYS LIVE ABOVE THE GRID: the finder (a named recipient is the most common intent) and
+// the scope picker. Nothing else — in particular there is deliberately NO KPI strip, because
+// every figure it carried is now the metric on the tile whose page owns it, and printing the
+// same four numbers twice on one screen is how two copies start disagreeing.
+//
+// ═══════════════════════════════════════════════════════════════════════════════════════════
+// EVERY TILE METRIC IS READ FROM THE SOURCE ITS OWN DESTINATION RENDERS. That is the rule this
+// file exists to keep, and it is not automatic — two of the thirteen would have been wrong if
+// the plan's literals had been copied in:
+//
+//   • the municipal tile: the plan said €4.56bn / 2025; `budget_muni_transfer` has since moved
+//     to €4.93bn / 2026. A literal would have been stale on the day it shipped.
+//   • the rail tile: the plan said €447.2m for 2026 — the newest row in rail_subsidy.json.
+//     /sector/transport anchors instead on the newest year that HAS a ridership figure, so it
+//     can state a per-passenger number, and shows €443.1m for 2025. Same four components,
+//     different year. The hub follows the destination and reads `useRailSubsidy` rather than
+//     the file, because a reader who clicks and sees a different number learns that one of the
+//     two pages is lying and cannot tell which. (Verified live: the tile there reads
+//     „€443,1 млн. · 2025" and „5,55 € на пътник", which is exactly what this hub prints.)
+//
+// Bands 1, 2 and 4 come from ONE call (`agri_hub_stats`, migration 162) — the same call the
+// seven sub-pages make, so a tile cannot announce a figure its page disagrees with. Band 3 adds
+// three small fetches (rail 2.9 KB, culture overview 7.3 KB, and the municipal arm which rides
+// free inside the hub blob's `crossStream`); the party figure is two constants and no fetch.
+// ═══════════════════════════════════════════════════════════════════════════════════════════
 //
 // Copies the homepage shell (no max-width cap); tiles, never tabs.
+//
+// ⚠️ TWO CONVENTIONS IN ONE FILE, deliberately and temporarily. The tile CAPTIONS go through
+// `t()` (43 keys landed with this step, because the registry names them and a missing key
+// renders as its own literal). Everything else — the metric secondaries, both empty-state
+// cards, the source footer, the page title — is still an inline `bg ? … : …`. Plan step 8 is
+// the pass that converts them, and it converts the whole module at once so the BG is written
+// as BG rather than as a translation of the EN sibling. Until then, prefer adding a key over
+// adding a ternary.
 
-import { FC } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Sprout,
-  Coins,
-  Users,
-  Scale,
-  Layers,
-  MapPin,
-  Building2,
-  Database,
-  TrendingUp,
-  CalendarRange,
-} from "lucide-react";
+import { CalendarRange } from "lucide-react";
+import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { Title } from "@/ux/Title";
-import { Hint } from "@/ux/Hint";
-import { StatCard } from "./dashboard/StatCard";
-import { DashboardSection } from "./dashboard/DashboardSection";
 import { useAgriOverview } from "@/data/agri/useAgriOverview";
-import type { AgriIndexFile, AgriConcentration } from "@/data/agri/types";
+import {
+  useAgriHubStats,
+  type AgriHubStats,
+} from "@/data/agri/useAgriHubStats";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
-import { formatEur, formatEurCompact } from "@/lib/currency";
+import { formatEurCompact, formatInt } from "@/lib/currency";
 import { useScope, scopeYear } from "@/data/scope/useScope";
 import { ScopeControl } from "./components/ScopeControl";
 import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
 import { SubsidiesSearchBox } from "./SubsidiesSearchBox";
-import { agriScopedHref } from "@/data/agri/useAgriScope";
-
-const Tile: FC<{
-  title: React.ReactNode;
-  icon?: React.ComponentType<{ className?: string }>;
-  subtitle?: React.ReactNode;
-  seeAllHref?: string;
-  seeAllLabel?: string;
-  children: React.ReactNode;
-}> = ({ title, icon: Icon, subtitle, seeAllHref, seeAllLabel, children }) => (
-  <div className="rounded-xl border bg-card p-4 shadow-sm">
-    <div className="mb-3 flex items-center gap-2 flex-wrap">
-      {Icon ? <Icon className="h-4 w-4 text-muted-foreground" /> : null}
-      <span className="text-base font-semibold">{title}</span>
-      {subtitle ? (
-        <span className="text-xs text-muted-foreground font-normal">
-          {subtitle}
-        </span>
-      ) : null}
-      {seeAllHref ? (
-        <Link
-          to={seeAllHref}
-          className="ml-auto text-xs text-primary hover:underline"
-        >
-          {seeAllLabel} →
-        </Link>
-      ) : null}
-    </div>
-    {children}
-  </div>
-);
-
-// Horizontal bar-list row, share-scaled to the largest value in the set. When
-// `desc` is set the label carries a tooltip (the full descriptive name); when
-// `href` is set the label links through (e.g. to the scheme's beneficiaries).
-const BarRow: FC<{
-  label: React.ReactNode;
-  value: number;
-  max: number;
-  locale: string;
-  color?: string;
-  desc?: string;
-  href?: string;
-}> = ({
-  label,
-  value,
-  max,
-  locale,
-  color = "bg-emerald-500/70",
-  desc,
-  href,
-}) => {
-  const inner = href ? (
-    <Link
-      to={href}
-      className="block truncate text-sm hover:underline hover:text-primary"
-    >
-      {label}
-    </Link>
-  ) : (
-    <span className="block truncate text-sm">{label}</span>
-  );
-  const labelEl =
-    desc && desc !== label ? (
-      <Hint text={desc} underline={false}>
-        {inner}
-      </Hint>
-    ) : (
-      inner
-    );
-  return (
-    <div className="py-1">
-      <div className="flex items-baseline justify-between gap-2">
-        {/* min-w-0 + flex-1 constrains the label so the inner block-truncate
-            clips a long scheme name with an ellipsis (in both the plain and
-            Hint-wrapped cases) instead of pushing the amount off the tile. */}
-        <div className="min-w-0 flex-1">{labelEl}</div>
-        <span className="text-sm tabular-nums font-medium shrink-0">
-          {formatEurCompact(value, locale)}
-        </span>
-      </div>
-      <div className="mt-1 h-1.5 w-full rounded bg-muted overflow-hidden">
-        <div
-          className={`h-full rounded ${color}`}
-          style={{
-            width: `${max > 0 ? Math.max((value / max) * 100, 1) : 0}%`,
-          }}
-        />
-      </div>
-    </div>
-  );
-};
-
-// Concentration as distinctly-separated tiers. A Lorenz curve can't visually
-// separate "top 10 / 100 / 1000" on a linear axis (the top 1000 of ~10k firms is
-// only ~10% of the x-range, so all tiers crush into one edge). Instead show each
-// tier's MARGINAL share of the money as its own segment of a 100%-wide bar, with
-// gaps + graduated shades so the tiers read at a glance.
-const ConcentrationBar: FC<{ c: AgriConcentration; bg: boolean }> = ({
-  c,
-  bg,
-}) => {
-  const nloc = bg ? "bg-BG" : "en-US";
-  const n = c.entityCount;
-  const r2 = (x: number) => Math.round(x * 100) / 100;
-  const clamp = (x: number) => Math.max(0, x);
-  const tiers = [
-    {
-      key: "t10",
-      label: bg ? "Топ 10" : "Top 10",
-      share: r2(c.top10Share),
-      count: Math.min(10, n),
-      color: "bg-emerald-700",
-    },
-    {
-      key: "t100",
-      label: "11–100",
-      share: r2(c.top100Share - c.top10Share),
-      count: clamp(Math.min(100, n) - 10),
-      color: "bg-emerald-500",
-    },
-    {
-      key: "t1000",
-      label: "101–1000",
-      share: r2(c.top1000Share - c.top100Share),
-      count: clamp(Math.min(1000, n) - 100),
-      color: "bg-emerald-400",
-    },
-    {
-      key: "rest",
-      label: bg ? "Останалите" : "The rest",
-      share: r2(100 - c.top1000Share),
-      count: clamp(n - 1000),
-      color: "bg-zinc-300 dark:bg-zinc-600",
-    },
-  ].filter((tier) => tier.count > 0);
-
-  return (
-    <>
-      <div
-        className="flex w-full gap-1 h-8"
-        role="img"
-        aria-label={
-          bg
-            ? "Дял на всяка група фирми от общата сума"
-            : "Share of the total held by each tier of firms"
-        }
-      >
-        {tiers.map((tier) => (
-          <div
-            key={tier.key}
-            className={`${tier.color} rounded-sm first:rounded-l-md last:rounded-r-md`}
-            style={{ width: `${tier.share}%` }}
-            title={`${tier.label}: ${tier.share}%`}
-          />
-        ))}
-      </div>
-      <ul className="mt-3 space-y-1.5 text-sm">
-        {tiers.map((tier) => (
-          <li
-            key={tier.key}
-            className="flex items-center justify-between gap-2"
-          >
-            <span className="flex items-center gap-2 min-w-0">
-              <span
-                className={`h-3 w-3 shrink-0 rounded-sm ${tier.color}`}
-                aria-hidden
-              />
-              <span>{tier.label}</span>
-              <span className="text-xs text-muted-foreground">
-                {tier.count.toLocaleString(nloc)} {bg ? "фирми" : "firms"}
-              </span>
-            </span>
-            <span className="tabular-nums font-semibold shrink-0">
-              {tier.share}%
-            </span>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};
+import { SUBSIDIES_BANDS } from "./subsidies/subsidiesRegistry";
+import { SUBSIDIES_SCENES } from "./subsidies/subsidiesScenes";
+import { useRailSubsidy } from "@/data/procurement/useRailSubsidy";
+import { useCultureOverview } from "@/data/culture/useCulture";
+import { FIRST_POSSIBLE_YEAR } from "./subsidies/SubsidiesCoverageScreen";
+import {
+  PARTY_SUBSIDY_VOTES,
+  PARTY_SUBSIDY_RATE_EUR,
+  PARTY_SUBSIDY_SINCE,
+} from "@/lib/bgTaxPolicy";
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[130px]">
@@ -225,314 +77,225 @@ const SkeletonCard: FC = () => (
   </div>
 );
 
-const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
-  const { t, i18n } = useTranslation();
-  const bg = i18n.language === "bg";
-  const L = i18n.language;
+/** The three band-3 figures that are not in the hub blob. Each is `null` until its own source
+ *  arrives, and a null renders a tile with no metric rather than a zero. */
+interface Band3 {
+  railTotalEur: number | null;
+  railYear: number | null;
+  railPerPassenger: number | null;
+  filmEur: number | null;
+  filmCount: number | null;
+  filmFirstYear: number | null;
+  filmLastYear: number | null;
+}
+
+type Metric = {
+  metric: string;
+  metricCaption: string;
+  metricSecondary?: string;
+};
+
+const tileMetric = (
+  id: string,
+  s: AgriHubStats | null | undefined,
+  b3: Band3,
+  lang: string,
+  bg: boolean,
+  t: (k: string, o?: Record<string, unknown>) => string,
+): Metric | undefined => {
   const nloc = bg ? "bg-BG" : "en-US";
-  const [params] = useSearchParams();
-  // Browse links carry the section scope (pscope) + election forward, so the
-  // scope survives the click into the sub-page — same contract as the
-  // procurement nav's useScopedHref.
-  const browseTo = (extra: Record<string, string>): string => {
-    const p = new URLSearchParams();
-    const ps = params.get("pscope");
-    if (ps) p.set("pscope", ps);
-    const el = params.get("elections");
-    if (el) p.set("elections", el);
-    for (const [k, v] of Object.entries(extra)) p.set(k, v);
-    const s = p.toString();
-    return `/subsidies/browse${s ? `?${s}` : ""}`;
-  };
-  const c = data.concentration;
-  const schemeMax = Math.max(...data.byScheme.map((s) => s.totalEur), 1);
-  const yearMax = Math.max(...data.totalsByYear.map((y) => y.totalEur), 1);
-  const oblastMax = Math.max(...data.byOblast.map((o) => o.totalEur), 1);
-  // CARRIES THE SCOPE. A bare "/subsidies/places" is a react-router <Link>, which does
-  // NOT go through usePreserveParams — so a tile showing 2016 landed the reader on the
-  // default 2025, which is the "shows one window and counts another" failure one click
-  // wide. browseTo below has always done this; the new link has to as well.
-  const placesHref = agriScopedHref("/subsidies/places", params);
-  const topOblasts = data.byOblast.slice(0, 5);
-  const recipients = data.headline.entityCount + data.headline.individualCount;
-  const scopeLabel = data.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
-  const scopeYearLabel = data.scopeYear
-    ? String(data.scopeYear)
-    : bg
-      ? "всички години"
-      : "all years";
+  const int = (n: number | null | undefined) =>
+    n == null ? null : formatInt(n, lang);
+  const eur = (n: number | null | undefined) =>
+    n == null ? null : formatEurCompact(n, lang);
+  // A DECIMAL COMMA in Bulgarian. `${49.3}%` renders „49.3%" whatever the page language is,
+  // which is the one formatting slip a template literal makes silently.
+  const pct = (n: number | null | undefined) =>
+    n == null
+      ? null
+      : `${new Intl.NumberFormat(nloc, { maximumFractionDigits: 1 }).format(n)}%`;
+  const m = (
+    metric: string | null,
+    metricCaption: string,
+    metricSecondary?: string | null,
+  ): Metric | undefined =>
+    metric
+      ? {
+          metric,
+          metricCaption,
+          ...(metricSecondary ? { metricSecondary } : {}),
+        }
+      : undefined;
 
-  return (
-    <>
-      {/* KPI row */}
-      <DashboardSection
-        id="subsidies-headline"
-        title={bg ? "Накратко" : "At a glance"}
-        icon={Sprout}
-        subtitle={scopeLabel}
-      >
-        <div
-          data-og="subsidies-hero"
-          className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          <StatCard label={bg ? "Изплатено" : "Paid"}>
-            <div className="flex items-baseline gap-2">
-              <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
-              <span className="text-2xl font-bold tabular-nums">
-                {formatEurCompact(data.headline.totalEur, L)}
-              </span>
-            </div>
-          </StatCard>
-          <StatCard label={bg ? "Получатели" : "Recipients"}>
-            <div className="flex items-baseline gap-2">
-              <Users className="h-5 w-5 text-muted-foreground shrink-0" />
-              <span className="text-2xl font-bold tabular-nums">
-                {recipients.toLocaleString(nloc)}
-              </span>
-            </div>
-            <div className="text-xs text-muted-foreground">
-              {data.headline.entityCount.toLocaleString(nloc)}{" "}
-              {bg ? "фирми" : "companies"} ·{" "}
-              {data.headline.individualCount.toLocaleString(nloc)}{" "}
-              {bg ? "физ. лица" : "individuals"}
-            </div>
-          </StatCard>
-          <StatCard
-            label={bg ? "Топ 100 фирми взимат" : "Top 100 firms take"}
-            hint={
-              bg
-                ? "Дял на 100-те най-големи фирми от парите за юридически лица."
-                : "Share of legal-entity money captured by the 100 largest firms."
-            }
-          >
-            <div className="flex items-baseline gap-2">
-              <Scale className="h-5 w-5 text-muted-foreground shrink-0" />
-              <span className="text-2xl font-bold tabular-nums">
-                {c.top100Share}%
-              </span>
-            </div>
-          </StatCard>
-          <StatCard label={bg ? "Най-голяма схема" : "Largest scheme"}>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold">
-                {data.headline.topScheme?.scheme ?? "—"}
-              </span>
-              <span className="text-xs text-muted-foreground tabular-nums">
-                {data.headline.topScheme
-                  ? formatEurCompact(data.headline.topScheme.totalEur, L)
-                  : ""}
-              </span>
-            </div>
-          </StatCard>
-        </div>
-      </DashboardSection>
+  switch (id) {
+    // ── Band 1 ───────────────────────────────────────────────────────────────
+    case "recipients":
+      // EX-PAYER, like the page. ДФЗ's own ЕИК appears in the corpus as a recipient of
+      // technical-assistance money; counting the paying agency among the recipients it pays
+      // would put it at the top of its own ranking.
+      return m(
+        int(s?.entityCountExPayer),
+        t("subsidies_m_firms"),
+        eur(s?.entityEurExPayer),
+      );
+    case "schemes":
+      // The second figure NAMES the scheme. A bare „€382,7 млн" under „281 схеми" reads as the
+      // money across all 281 — which is €1.59bn, a 4.2x understatement. `metricSecondary`'s own
+      // doc says to pass a composed phrase, and every sibling tile here does.
+      //
+      // The label is truncated to its CODE. The full 2025 spelling is „I.А.1-1 oсновно
+      // подпомагане на доходите за устойчивост" and the slot is `max-w-[13rem] truncate`, so the
+      // prose would be cut mid-word anyway; the code is what the destination's own rows are
+      // keyed on, so it is the half a reader can act on.
+      return m(
+        int(s?.schemeCount),
+        t("subsidies_m_schemes"),
+        s?.topSchemeEur != null && s?.topScheme
+          ? `${bg ? "най-голяма" : "largest"}: ${s.topScheme.split(/\s+/)[0]} ${eur(s.topSchemeEur)}`
+          : null,
+      );
+    case "places":
+      // The LARGEST province's money, captioned with its name — not the corpus total, which
+      // belongs to no place and is already the recipients tile's second figure.
+      //
+      // ⚠️ „ПО СЕДАЛИЩЕ" IS NOT DECORATION. ДФЗ publishes the RECIPIENT's oblast, so a company
+      // registered in Sofia and farming in Добрич counts as Sofia — and at the default scope
+      // the top oblast IS „София (столица)" at €128m. Without the qualifier the module's front
+      // page opens by stating that the capital receives the most farm subsidy. The destination
+      // says „по област на получателя" in six places; the tile that sends readers there cannot
+      // be the one surface that drops it.
+      return m(
+        eur(s?.topOblastEur),
+        s?.topOblast
+          ? `${s.topOblast} · ${bg ? "по седалище" : "by seat"}`
+          : t("subsidies_m_top_oblast"),
+        s?.oblastCount != null
+          ? `${int(s.oblastCount)} ${bg ? "области" : "provinces"}`
+          : null,
+      );
+    case "untraceable":
+      return m(
+        pct(s?.noEikPctOfTotalEur),
+        t("subsidies_m_no_eik"),
+        eur(s?.noEikEur),
+      );
 
-      {/* Distribution: concentration + schemes + oblasti + trend */}
-      <DashboardSection
-        id="subsidies-distribution"
-        title={bg ? "Разпределение" : "Distribution"}
-        icon={Layers}
-      >
-        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-          <Tile
-            title={bg ? "Концентрация" : "Concentration"}
-            icon={Scale}
-            subtitle={
-              bg
-                ? `сред ${c.entityCount.toLocaleString(nloc)} фирми, ${scopeYearLabel}`
-                : `among ${c.entityCount.toLocaleString(nloc)} firms, ${scopeYearLabel}`
-            }
-          >
-            <ConcentrationBar c={c} bg={bg} />
-            <p className="mt-3 text-xs text-muted-foreground">
-              {bg
-                ? `Всеки сегмент е дял от общата сума. Само 1000 фирми (от ${c.entityCount.toLocaleString(nloc)}) взимат ${c.top1000Share}% от парите за юридически лица.`
-                : `Each segment is a share of the total. Just 1000 firms (of ${c.entityCount.toLocaleString(nloc)}) take ${c.top1000Share}% of the legal-entity money.`}
-            </p>
-          </Tile>
+    // ── Band 2 ───────────────────────────────────────────────────────────────
+    case "concentration":
+      // OF LEGAL-ENTITY money, which is the basis the page uses and roughly double the
+      // share-of-everything figure. The key names its basis for exactly this reason.
+      return m(
+        pct(s?.top100PctOfEntityEur),
+        t("subsidies_m_top100"),
+        s?.top1000PctOfEntityEur != null
+          ? `${pct(s.top1000PctOfEntityEur)} ${bg ? "за топ 1000" : "to the top 1000"}`
+          : null,
+      );
+    case "political":
+      // NULL, never 0, when the person layer had not been resolved when the cache was built —
+      // „0 свързани фирми" is a claim, and an unbuilt basis cannot support it.
+      return s?.politicalBasisBuilt
+        ? m(int(s.politicalEiks), t("subsidies_m_linked"), eur(s.politicalEur))
+        : undefined;
+    case "crossProgramme":
+      return m(
+        int(s?.isunEiks),
+        t("subsidies_m_also_isun"),
+        s?.contractEiks != null
+          ? `${int(s.contractEiks)} ${bg ? "и с поръчки" : "also with contracts"}`
+          : null,
+      );
 
-          <Tile
-            title={bg ? "По схема" : "By scheme"}
-            icon={Layers}
-            subtitle={scopeYearLabel}
-          >
-            <div>
-              {data.byScheme.map((s) => (
-                <BarRow
-                  key={s.scheme}
-                  label={s.scheme}
-                  desc={s.desc}
-                  href={browseTo({ scheme: s.scheme })}
-                  value={s.totalEur}
-                  max={schemeMax}
-                  locale={L}
-                />
-              ))}
-            </div>
-          </Tile>
+    // ── Band 3 — annual, each names its year in the caption ───────────────────
+    case "municipal":
+      return m(
+        eur(s?.crossStream.muniTransferEur),
+        `${bg ? "трансфери" : "transfers"}, ${s?.crossStream.muniTransferYear ?? ""}`.trim(),
+        s?.crossStream.muniCount != null
+          ? `${int(s.crossStream.muniCount)} ${bg ? "общини" : "municipalities"}`
+          : null,
+      );
+    case "rail":
+      return m(
+        eur(b3.railTotalEur),
+        `${bg ? "за железници" : "for the railways"}, ${b3.railYear ?? ""}`.trim(),
+        b3.railPerPassenger != null
+          ? `${b3.railPerPassenger.toLocaleString(nloc, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} € ${bg ? "на пътник" : "per passenger"}`
+          : null,
+      );
+    case "film":
+      return m(
+        eur(b3.filmEur),
+        b3.filmFirstYear && b3.filmLastYear
+          ? b3.filmFirstYear === b3.filmLastYear
+            ? `НФЦ, ${b3.filmFirstYear}`
+            : `НФЦ, ${b3.filmFirstYear}–${b3.filmLastYear}`
+          : "НФЦ",
+        b3.filmCount != null
+          ? `${int(b3.filmCount)} ${bg ? "филма" : "films"}`
+          : null,
+      );
+    case "party":
+      // ⚠️ THE TWO CONSTANTS, never a division of the budget envelope. ЗДБРБ-2026 чл. 13 ал. 4
+      // states „до 8 964,3 хил. евро", but чл. 63 sets TWO rates inside the one year (€4.09
+      // to 29.04, €3.00 from 30.04) over TWO vote bases, because the 19.04 election changed
+      // it — so 8 964 300 ÷ 3.00 = 2 988 100 is a vote count from no election that ever
+      // happened. bgTaxPolicy.ts carries the same warning at the constants themselves.
+      return m(
+        eur(PARTY_SUBSIDY_VOTES * PARTY_SUBSIDY_RATE_EUR),
+        // DATED, like its three band-3 siblings — and here the date carries more weight than
+        // elsewhere, because BOTH inputs moved inside 2026 (the rate on 30.04, the vote base at
+        // the 19.04 election). An undated €9.31m is a run-rate that no calendar year equals.
+        `${bg ? "годишно по ЗПП, от" : "a year under the ЗПП, since"} ${PARTY_SUBSIDY_SINCE}`,
+        `${int(PARTY_SUBSIDY_VOTES)} ${bg ? "гласа × 3,00 €" : "votes × €3.00"}`,
+      );
 
-          {/* THE CHOROPLETH IS GONE FROM HERE, and that is the point of the change.
-              `AgriOblastMap` pulls `regions_map.json` — 407.6 KB, served
-              UNCOMPRESSED from GCS, so that figure holds on prod — which was 95.5%
-              of everything this page fetched, to draw a preview of a page nobody had
-              asked for yet. It now lives on /subsidies/places, where the reader who
-              wants a map goes to get one. Same defect /funds fixed, worse in
-              proportion: there the outsized fetch was 63% of the page.
-
-              What stays is the top three as text plus the link — the same figures,
-              from the payload this page already has, at zero extra bytes. */}
-          <Tile
-            title={bg ? "По област" : "By region"}
-            icon={MapPin}
-            subtitle={scopeYearLabel}
-            seeAllHref={placesHref}
-            seeAllLabel={bg ? "Виж картата" : "See the map"}
-          >
-            <div>
-              {topOblasts.map((o) => (
-                <BarRow
-                  key={o.oblast}
-                  label={o.oblast}
-                  href={browseTo({ oblast: o.oblast })}
-                  value={o.totalEur}
-                  max={oblastMax}
-                  locale={L}
-                />
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              {bg
-                ? `Първите ${topOblasts.length} от ${data.byOblast.length} области — по област на получателя, не по местоположение на земята.`
-                : `Top ${topOblasts.length} of ${data.byOblast.length} provinces — by the recipient's province, not by where the land is.`}
-            </p>
-          </Tile>
-
-          <Tile
-            title={bg ? "По година" : "By year"}
-            icon={TrendingUp}
-            subtitle={
-              bg ? "изплатено по финансова година" : "paid by financial year"
-            }
-          >
-            <div>
-              {data.totalsByYear.map((y) => (
-                <BarRow
-                  key={y.year}
-                  label={String(y.year)}
-                  value={y.totalEur}
-                  max={yearMax}
-                  locale={L}
-                  color="bg-emerald-500/70"
-                />
-              ))}
-            </div>
-          </Tile>
-        </div>
-      </DashboardSection>
-
-      {/* Top recipients */}
-      <DashboardSection
-        id="subsidies-recipients"
-        title={bg ? "Най-големи получатели" : "Top recipients"}
-        icon={Building2}
-      >
-        <Tile
-          title={
-            bg
-              ? `Топ получатели (${scopeYearLabel})`
-              : `Top recipients (${scopeYearLabel})`
-          }
-          icon={Building2}
-          subtitle={
-            bg
-              ? "юридически лица; държавни интервенции са изключени"
-              : "legal entities; state-intervention payees excluded"
-          }
-          seeAllHref={browseTo({})}
-          seeAllLabel={bg ? "Всички" : "See all"}
-        >
-          <div className="rounded-md border bg-card overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
-                <tr>
-                  <th className="text-left px-3 py-2 w-10">#</th>
-                  <th className="text-left px-3 py-2">
-                    {bg ? "Получател" : "Recipient"}
-                  </th>
-                  <th className="text-left px-3 py-2 hidden sm:table-cell">
-                    {bg ? "Област" : "Region"}
-                  </th>
-                  <th className="text-right px-3 py-2">
-                    {bg ? "Общо" : "Total"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {data.topRecipients.slice(0, 25).map((r, idx) => (
-                  <tr key={r.eik}>
-                    <td className="px-3 py-2 text-muted-foreground tabular-nums">
-                      {idx + 1}
-                    </td>
-                    <td className="px-3 py-2">
-                      <Link
-                        to={`/farm/${r.eik}`}
-                        className="font-medium hover:underline"
-                      >
-                        {r.name}
-                      </Link>
-                    </td>
-                    <td className="px-3 py-2 hidden sm:table-cell text-muted-foreground">
-                      {r.oblast || "—"}
-                    </td>
-                    <td className="px-3 py-2 text-right tabular-nums font-medium">
-                      {formatEur(r.totalEur, L)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Tile>
-      </DashboardSection>
-
-      {/* Browse link */}
-      <DashboardSection
-        id="subsidies-data"
-        title={bg ? "Данни" : "Data"}
-        icon={Database}
-      >
-        <Tile
-          title={bg ? "Разгледай всички плащания" : "Browse all payments"}
-          icon={Database}
-        >
-          <p className="text-sm text-muted-foreground mb-3">
-            {bg
-              ? `${(data.concentration.entityCount + data.headline.individualCount).toLocaleString(nloc)} получатели, ~2 млн. плащания за ${data.years.length} години. Търсене и филтри по получател, схема, област и година.`
-              : `Search and filter ~2M payments across ${data.years.length} years by recipient, scheme, region and year.`}
-          </p>
-          <Link
-            to={browseTo({ pscope: "all" })}
-            className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
-          >
-            {bg ? "Отвори таблицата" : "Open the table"} →
-          </Link>
-          <p className="mt-3 text-xs text-muted-foreground">
-            {t("data_source") || (bg ? "Източник" : "Source")}:{" "}
-            {data.generatedFrom}
-          </p>
-        </Tile>
-      </DashboardSection>
-    </>
-  );
+    // ── Band 4 ───────────────────────────────────────────────────────────────
+    case "browse":
+      // BOTH halves on the same scope. `paymentRows` is scope-keyed, so pairing it with the
+      // constant „8 финансови години" said the corpus holds 230,214 payments across 8 years —
+      // it holds 2,481,857. Only `all` (scopeYear null) makes that pairing true, and that is
+      // the branch that keeps it.
+      return m(
+        int(s?.paymentRows),
+        t("subsidies_m_payments"),
+        s?.scopeYear != null
+          ? `${bg ? "финансова година" : "financial year"} ${s.scopeYear}`
+          : `${AGRI_FINANCIAL_YEARS.length} ${bg ? "финансови години" : "financial years"}`,
+      );
+    case "coverage": {
+      // A COUNT OF YEARS, and the caption gives the denominator. „8" alone reads as a total of
+      // something; the page's entire subject is that four years are absent.
+      //
+      // Both the denominator and the gap list are DERIVED from the same floor
+      // /subsidies/coverage uses. Hardcoded („от 12 години", „2014 и 2018–2020 липсват") they
+      // would go stale at a 200 the day ДФЗ publishes 2026 — the tile would read „9 от 12"
+      // while the page it links to said 9 of 13.
+      const span = AGRI_FINANCIAL_YEARS[0] - FIRST_POSSIBLE_YEAR + 1;
+      const missing = Array.from(
+        { length: span },
+        (_, i) => FIRST_POSSIBLE_YEAR + i,
+      ).filter((y) => !AGRI_FINANCIAL_YEARS.includes(y));
+      return m(
+        String(AGRI_FINANCIAL_YEARS.length),
+        t("subsidies_m_years_covered", { count: span }),
+        missing.length
+          ? `${missing.join(", ")} ${bg ? "липсват" : "missing"}`
+          : null,
+      );
+    }
+    default:
+      return undefined;
+  }
 };
 
 export const SubsidiesDashboardScreen: FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  const L = i18n.language;
   // Same time-scope machinery as the procurement pages: the `?pscope` URL param
   // (ns | all | y:YYYY), carried between the section and its sub-pages by
   // useScopedHref. Subsidies has no per-parliament slice, so "ns" resolves
@@ -552,6 +315,70 @@ export const SubsidiesDashboardScreen: FC = () => {
   const payloadKey = agriScopeToKey(scope);
   const { data, isError, isSuccess, fetchStatus, refetch } =
     useAgriOverview(payloadKey);
+  const { data: hub } = useAgriHubStats(payloadKey);
+
+  // Band 3's two fetched sources. Both are small and both are ANNUAL — they do not take the
+  // scope, and their tiles say which year they are for.
+  const rail = useRailSubsidy();
+  const { data: culture } = useCultureOverview();
+  // The year /culture would land on for the scope this hub is carrying. `null` (the `ns`
+  // and `all` scopes) means all years there too — CLAUDE.md's URL contract records that
+  // /culture relabels `ns` as „Всички години".
+  const cultureYear = scopeYear(scope);
+  const band3: Band3 = useMemo(
+    () => ({
+      // The HOOK'S OWN `total`, not a re-derivation. `latest` is the newest year with a
+      // ridership figure (2025, not the 2026 budget row) and the hook already sums PSO + НКЖИ
+      // (operating AND capital) + БДЖ capital. The first draft of this file re-added those
+      // three by hand and got a figure €109m lower by mis-modelling `nkzhi`; the second still
+      // re-added them, which differs on an all-null year — the hook yields `null`, a hand sum
+      // yields `0`, and `m()` treats „€0" as a real metric, printing „the state pays nothing
+      // for the railway" where the destination prints nothing at all.
+      railTotalEur: rail.latest?.total ?? null,
+      railYear: rail.latest?.year ?? null,
+      railPerPassenger: rail.latest?.perPassenger ?? null,
+      // SCOPED THE WAY /culture SCOPES IT, which is the metric rule applied to the one
+      // band-3 tile that could break it. InfographicTile carries `?pscope` forward and
+      // CultureScreen does `useScope({years: cultureYears, allowAll: false})` and then
+      // re-aggregates to that year — so an unscoped tile said „€94,9 млн · 944 филма" and
+      // the page it opened said „€8,24 млн · 84" on eight of the ten scopes.
+      //
+      // Read from `overview.byYear`, NOT via scopeCultureOverview: that helper needs the
+      // 285 KB film corpus, which is most of the payload this whole rework removed from the
+      // hub. Verified equal for all twelve years — byYear IS the same aggregation, done
+      // offline. When the scope resolves outside the register's span the all-years figure
+      // stands, exactly as the helper's own fallback does.
+      ...(() => {
+        const y = culture?.byYear.find((r) => r.year === cultureYear);
+        return {
+          filmEur: y ? y.eur : (culture?.totalEur ?? null),
+          filmCount: y ? y.count : (culture?.filmCount ?? null),
+          filmFirstYear: y ? y.year : (culture?.firstYear ?? null),
+          filmLastYear: y ? y.year : (culture?.lastYear ?? null),
+        };
+      })(),
+    }),
+    [rail.latest, culture, cultureYear],
+  );
+
+  const sections: TileHubSection[] = useMemo(
+    () =>
+      SUBSIDIES_BANDS.map((band) => ({
+        heading: t(band.labelKey),
+        description: t(band.descKey),
+        tiles: band.tiles.map((tile) => ({
+          to: tile.to,
+          title: t(tile.titleKey),
+          desc: t(tile.descKey),
+          accent: tile.accent,
+          scene: SUBSIDIES_SCENES[tile.id],
+          // NO `cta`. „разгледай →" on every tile restates an affordance the card already has.
+          ...(tileMetric(tile.id, hub, band3, L, bg, t) ?? {}),
+        })),
+      })),
+    [t, hub, band3, L, bg],
+  );
+
   // FOUR states, not two: loading, failed, loaded-with-nothing, loaded. Folding
   // everything that is not loading-with-data into the skeleton (`isLoading ||
   // !data`) is what left the page spinning forever on something that was never
@@ -572,6 +399,16 @@ export const SubsidiesDashboardScreen: FC = () => {
   const noData = payloadKey === null || (isSuccess && !data);
   const paused = fetchStatus === "paused";
   const failed = !noData && !data && (isError || paused);
+  // ⚠️ THE GATE ABOVE WATCHES THE WRONG QUERY ON ITS OWN. Every band-1/2/4 figure comes from
+  // `useAgriHubStats`, which the four states never inspect — so if /api/db/agri-hub-stats 500s,
+  // or migration 162 has not reached the target and its matview raises 55000, the hook returns
+  // `null` and the page renders the COMPLETE tile grid with no number on any of the nine
+  // in-corpus tiles, indefinitely, with no message and nothing in the console.
+  //
+  // Not folded into `failed`: the grid is still worth showing — every tile is a working link
+  // and band 3 still has its figures — so blanking the page would be the larger loss. It gets
+  // a line above the grid instead, and the tiles degrade to no-metric on their own.
+  const hubFailed = hub === null && payloadKey !== null;
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
     "Bulgarian CAP subsidies from the State Fund Agriculture (ДФЗ): who gets farm money, how concentrated it is, by scheme, region and year.";
@@ -579,7 +416,7 @@ export const SubsidiesDashboardScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
-      {/* GovernanceBreadcrumb, not SectorBreadcrumb — see plan §7a.
+      {/* GovernanceBreadcrumb, not SectorBreadcrumb — plan §7a.
           SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›
           Държавни сектори › X", and all three levels were wrong here:
 
@@ -682,7 +519,42 @@ export const SubsidiesDashboardScreen: FC = () => {
           </div>
         </section>
       ) : (
-        <Dashboard data={data} />
+        <section
+          aria-label={title}
+          className="my-4"
+          // ⚠️ THE OG CAPTURE'S ANCHOR. The old screen carried `data-og="subsidies-hero"` on
+          // its KPI grid and `scripts/og/capture-screens.ts` still waits for that selector, so
+          // removing it without a replacement left `capture-screens.ts subsidies` waiting for
+          // an element that can never appear — a hang, not a failure, with the stale card
+          // depicting the deleted dashboard still on disk and no coverage gate firing.
+          //
+          // Step 10 must repoint that entry at `subsidies-hub` and re-shoot with a sub-1280
+          // viewport (plan §8). The anchor lives here now so step 10 has something to aim at.
+          data-og="subsidies-hub"
+        >
+          {hubFailed && (
+            <p className="mb-4 rounded-lg border border-amber-300/60 bg-amber-50/60 p-3 text-sm text-muted-foreground dark:border-amber-800/50 dark:bg-amber-950/20">
+              {bg
+                ? "Числата по плочките не се заредиха — самите страници работят."
+                : "The tile figures failed to load — the pages themselves still work."}
+            </p>
+          )}
+          <TileHubGrid sections={sections} />
+          {/* The source line stays on the hub even though the analysis has moved off it: this
+              is the page a reader lands on, and „where is this from" is answered here or not
+              at all. `generatedFrom` is the payload's own provenance string, so it moves with
+              the corpus rather than being restated. */}
+          <p className="mt-6 text-xs text-muted-foreground">
+            {t("data_source")}: {data.generatedFrom}
+            {data.scopeYear
+              ? ` · ${bg ? "финансова година" : "financial year"} ${data.scopeYear}`
+              : ""}{" "}
+            ·{" "}
+            {bg
+              ? `общо изплатено ${formatEurCompact(data.headline.totalEur, L)}`
+              : `total paid ${formatEurCompact(data.headline.totalEur, L)}`}
+          </p>
+        </section>
       )}
     </>
   );

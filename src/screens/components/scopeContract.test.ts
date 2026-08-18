@@ -198,7 +198,11 @@ describe("the ?pscope contract", () => {
       // The claim is "it keeps the RAW scope", so the declared reader must call
       // useScope WITHOUT a support argument. `useScope({...})` clamps, and a
       // clamping page cannot also be showing the reader the year they asked for.
-      const src = readFileSync(join(REPO, rawScopeIn), "utf8");
+      // stripComments, like every other reader here. Without it a file that merely NAMES
+      // `useScope({...})` in a comment reads as clamping — which is exactly what happened
+      // when the /subsidies hub grew a comment explaining how /culture resolves its scope.
+      // A gate that trips on prose teaches people to delete the prose.
+      const src = stripComments(readFileSync(join(REPO, rawScopeIn), "utf8"));
       expect(
         /useScope\(\s*\)/.test(src),
         `${file} claims to keep the raw scope, but ${rawScopeIn} does not call ` +

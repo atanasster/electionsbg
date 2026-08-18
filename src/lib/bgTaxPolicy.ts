@@ -958,6 +958,11 @@ export const scoreMpPayFreeze = (wageGrowthPct: number): number =>
  *  bake the transition into a steady-state constant. */
 export const PARTY_SUBSIDY_VOTES = 3_103_303;
 export const PARTY_SUBSIDY_RATE_EUR = 3.0;
+/** The date the €3.00 rate took effect (ЗДБРБ-2026 чл. 63). Lives here so a surface that
+ *  DATES the figure — the /subsidies band-3 tile, whose three siblings all name their year —
+ *  cannot drift from the rate it dates. An undated run-rate is the specific hazard the block
+ *  above warns about: both inputs moved inside 2026, so €9.31m equals no calendar year. */
+export const PARTY_SUBSIDY_SINCE = "30.04.2026";
 
 /** Δ spending of setting the per-vote subsidy (positive = costs more than
  *  current law). */

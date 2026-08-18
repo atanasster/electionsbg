@@ -27,7 +27,10 @@ import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { formatEur } from "@/lib/currency";
 
 /** Every financial year the CAP corpus could in principle cover, 2014 onward. */
-const FIRST_POSSIBLE_YEAR = 2014;
+/** Exported so the /subsidies coverage TILE derives its denominator and its gap list from the
+ *  same floor this page does. Hardcoding „от 12 години" on the tile meant that the day ДФЗ
+ *  publishes 2026 it would read „9 от 12" while this page said 9 of 13. */
+export const FIRST_POSSIBLE_YEAR = 2014;
 
 export const SubsidiesCoverageScreen: FC = () => {
   const { t, i18n } = useTranslation();

@@ -14,6 +14,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import type { ReactNode } from "react";
 import type { AgriIndexFile } from "@/data/agri/types";
+import { SUBSIDIES_BANDS } from "./subsidies/subsidiesRegistry";
 
 const hook = vi.hoisted(() => ({
   // "empty"  = the payload is missing for a scope that IS in the corpus — a
@@ -110,6 +111,24 @@ vi.mock("@/data/agri/useAgriOverview", () => ({
   },
 }));
 
+// The three sources the tile metrics read, stubbed. They are NOT the subject here — the
+// four-state gate is — and each is a live fetch that vitest.setup.ts would throw on. Their
+// figures are asserted where they belong: `subsidiesRegistry.test.ts` proves every tile has a
+// metric mapping, and each destination page's own test proves the number.
+//
+// Stubbed as `undefined` rather than as data on purpose: it makes every test below exercise
+// the „a tile whose figure is absent renders without one" path, so a metric mapper that
+// crashes on a missing source fails here rather than on a cold cache in production.
+vi.mock("@/data/agri/useAgriHubStats", () => ({
+  useAgriHubStats: () => ({ data: undefined }),
+}));
+vi.mock("@/data/procurement/useRailSubsidy", () => ({
+  useRailSubsidy: () => ({ rows: [], latest: null, isLoading: false }),
+}));
+vi.mock("@/data/culture/useCulture", () => ({
+  useCultureOverview: () => ({ data: undefined }),
+}));
+
 // The breadcrumb is deliberately NOT mocked. It renders under the MemoryRouter
 // below, and the test at the foot of this file asserts its trail — which crumb
 // links where is the whole substance of this change, and a stub would have made
@@ -139,11 +158,62 @@ beforeEach(() => {
 });
 
 describe("SubsidiesDashboardScreen", () => {
-  it("renders the dashboard for a covered year", () => {
+  it("renders the tile grid for a covered year", () => {
     at("/subsidies?pscope=y:2024");
-    expect(screen.getByText("Financial year 2024")).toBeInTheDocument();
-    expect(screen.getByText("ЕКО ФЕРМА ООД")).toBeInTheDocument();
+    // The hub is now a GRID OF DESTINATIONS, not a dashboard. It used to assert
+    // „Financial year 2024" (a DashboardSection subtitle) and „ЕКО ФЕРМА ООД" (a row
+    // of the inline top-recipient list); both moved to /subsidies/recipients in step 4,
+    // so asserting them here would only prove the hub had not been rebuilt.
+    //
+    // What is checked instead is that every registered tile reached the page as a real
+    // link. That is the failure this file can uniquely catch: a band whose scene lookup
+    // misses, or a tile whose destination is undefined, renders as a card with no href
+    // and nothing else complains.
+    const hrefs = Array.from(
+      document.querySelectorAll(
+        "a[href^='/subsidies'], a[href^='/budget'], a[href^='/culture'], a[href^='/sector']",
+      ),
+    ).map((a) => a.getAttribute("href"));
+    // Compared on the PATHNAME: InfographicTile links through usePreserveParams, so every
+    // href carries `?pscope` forward. That is the mechanism the plan's §3.1 was about, and
+    // the next test is where it is pinned down.
+    const paths = hrefs.map((h) => (h ?? "").split("?")[0]);
+    for (const band of SUBSIDIES_BANDS)
+      for (const tile of band.tiles)
+        expect(paths, `tile ${tile.id} is not linked on the hub`).toContain(
+          tile.to,
+        );
     expect(skeletons()).toBe(0);
+  });
+
+  it("carries the scope onto band 3 too — which is safe, and was checked", () => {
+    at("/subsidies?pscope=y:2024");
+    const href = (to: string) =>
+      document.querySelector(`a[href^="${to}"]`)?.getAttribute("href") ?? "";
+    // The four cross-module destinations. `pscope` is in usePreserveParams' allowlist and
+    // InfographicTile has no opt-out, so these DO carry it — the plan predicted that would
+    // be a defect and step 6c measured that it is not: /budget/municipal and
+    // /budget/simulator never read the param, /culture resolves it against its own year
+    // list, and /sector/transport's picker spans the whole default range.
+    //
+    // Asserted rather than assumed, because the reasoning is about four OTHER pages: if a
+    // future edit narrows one of them, `scopeContract.test.ts` fails and this test is the
+    // pointer explaining why this hub is implicated.
+    expect(href("/budget/municipal")).toContain("pscope=y%3A2024");
+    expect(href("/sector/transport")).toContain("pscope=y%3A2024");
+    expect(href("/culture")).toContain("pscope=y%3A2024");
+    expect(href("/budget/simulator")).toContain("pscope=y%3A2024");
+  });
+
+  it("shows every band heading, so no tile lands under a nameless group", () => {
+    at("/subsidies?pscope=y:2024");
+    // i18next resolves nothing under vitest, so a heading renders as its own key —
+    // which is exactly what a MISSING key would look like on the live page. Asserting
+    // the key by name means a rename that forgets the locale files fails here.
+    for (const band of SUBSIDIES_BANDS)
+      expect(
+        screen.getByRole("heading", { name: band.labelKey }),
+      ).toBeInTheDocument();
   });
 
   // THE REPORTED BUG. 2019 is a valid procurement scope and outside the CAP
