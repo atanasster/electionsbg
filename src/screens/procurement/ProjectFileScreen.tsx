@@ -2635,7 +2635,47 @@ const ProvenanceFooter = ({
   bg: boolean;
 }) => {
   const nf = new Intl.NumberFormat(loc);
-  const terms = [...new Set(spec.search.map((t) => t.terms).filter(Boolean))];
+  // Per-thread scope, rendered EXACTLY (not collapsed to a unioned term list) so a
+  // reader can see every awarder + contractor scope and reproduce the dossier — the
+  // multi-awarder / contractor case the old footer hid.
+  const threadLabel = (t: (typeof spec.search)[number]): string => {
+    const parts: string[] = [];
+    if (t.terms?.trim()) parts.push(`„${t.terms.trim()}“`);
+    const buyer =
+      t.buyerName ?? (t.buyerEik?.length ? t.buyerEik.join(", ") : undefined);
+    if (buyer) parts.push(`${bg ? "възложител" : "buyer"}: ${buyer}`);
+    const contractor =
+      t.contractorName ??
+      (t.contractorEik?.length ? t.contractorEik.join(", ") : undefined);
+    if (contractor)
+      parts.push(`${bg ? "изпълнител" : "contractor"}: ${contractor}`);
+    if (t.distinctive?.length)
+      parts.push(
+        `${bg ? "ключово" : "distinctive"}: ${t.distinctive.join("/")}`,
+      );
+    if (!parts.length) parts.push(bg ? "(без обхват)" : "(no scope)");
+    return parts.join(" · ");
+  };
+  const narrowing: string[] = [];
+  if (spec.cpvIn?.length)
+    narrowing.push(`${bg ? "ЦПВ" : "CPV"} ${spec.cpvIn.join(", ")}`);
+  if (spec.dateFrom || spec.dateTo)
+    narrowing.push(`${spec.dateFrom ?? "…"} – ${spec.dateTo ?? "…"}`);
+  // > 0, not != null: a €0 floor is a no-op, so a "≥ €0" line is noise.
+  if (spec.minAmountEur != null && spec.minAmountEur > 0)
+    narrowing.push(`≥ ${formatEurCompact(spec.minAmountEur, loc)}`);
+  if (spec.maxAmountEur != null)
+    narrowing.push(`≤ ${formatEurCompact(spec.maxAmountEur, loc)}`);
+  if (spec.euFunded != null)
+    narrowing.push(
+      spec.euFunded
+        ? bg
+          ? "с ЕС средства"
+          : "EU-funded"
+        : bg
+          ? "без ЕС средства"
+          : "non-EU-funded",
+    );
   const countIds = (m?: {
     contractKeys?: string[];
     tenderUnps?: string[];
@@ -2664,10 +2704,27 @@ const ProvenanceFooter = ({
           <span className="text-foreground/60">
             {bg ? "Търсене: " : "Search: "}
           </span>
-          {terms.length
-            ? terms.map((t) => `„${t}“`).join(bg ? " или " : " or ")
-            : "—"}
+          {spec.search.length === 0
+            ? "—"
+            : spec.search.length === 1
+              ? threadLabel(spec.search[0])
+              : null}
+          {spec.search.length > 1 && (
+            <ul className="mt-0.5 list-disc pl-5">
+              {spec.search.map((t, i) => (
+                <li key={i}>{threadLabel(t)}</li>
+              ))}
+            </ul>
+          )}
         </div>
+        {narrowing.length > 0 && (
+          <div>
+            <span className="text-foreground/60">
+              {bg ? "Стеснено до: " : "Narrowed to: "}
+            </span>
+            {narrowing.join(" · ")}
+          </div>
+        )}
         <div>
           {bg ? "Членове: " : "Members: "}
           {nf.format(memberCount)}
