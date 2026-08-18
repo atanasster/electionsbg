@@ -335,6 +335,8 @@ export type CompareOptions = {
   maxUnvaluedShare?: number;
   /** Match on the OFFICE each person held rather than on the year — see the gate. */
   sameRole?: boolean;
+  /** Take each side's most recent filing within one form class, whatever years those are. */
+  latest?: boolean;
   /** Publish anyway when a chosen filing is too thin — see {@link THIN_MONEY_SHARE}. */
   allowThin?: boolean;
   /** 0..1; default {@link THIN_MONEY_SHARE}. */
@@ -354,6 +356,7 @@ export const compareDeclarations = async (
 ): Promise<CompareResult> => {
   const { slugA, slugB } = opts;
   const sameRole = opts.sameRole ?? false;
+  const latest = opts.latest ?? false;
   const totalBasis = opts.totalBasis ?? "net";
   const wantYear = opts.year;
   const wantClass = opts.klass;
@@ -385,6 +388,48 @@ export const compareDeclarations = async (
   if (missing.length)
     throw new Usage(`no asset-bearing declaration for: ${missing.join(", ")}`);
 
+  // ── latest-matched: each side's most recent filing, within one form class ─────────────
+  //
+  // The year rule waived deliberately, on the operator's say-so, while the FORM rule is not:
+  // „the latest filing of each" is routinely two different forms (an annual and an
+  // entry/vacate), and pairing those prints „N имота срещу 0" and „заплата срещу —", both
+  // artifacts of the form rather than facts about the people. So this picks the class both
+  // can speak to and then each side's newest filing in it.
+  //
+  // Of the classes both hold, take the one whose STALER side is most recent — that keeps the
+  // side lagging behind as fresh as the corpus allows, which is the whole point of asking
+  // for the latest.
+  if (latest) {
+    const classes: VersusFormClass[] = ["annual", "inventory"];
+    const options = classes
+      .map((klass) => {
+        const a = avail.filter((r) => r.slug === slugA && r.klass === klass);
+        const b = avail.filter((r) => r.slug === slugB && r.klass === klass);
+        if (!a.length || !b.length) return null;
+        const ya = Math.max(...a.map((r) => r.period_year));
+        const yb = Math.max(...b.map((r) => r.period_year));
+        return { klass, yearA: ya, yearB: yb, staler: Math.min(ya, yb) };
+      })
+      .filter((o): o is NonNullable<typeof o> => o !== null)
+      .sort((x, y) => y.staler - x.staler);
+    if (!options.length) {
+      const grid = (sl: string) =>
+        avail
+          .filter((r) => r.slug === sl)
+          .map((r) => `    ${r.period_year} ${r.klass} (${r.declaration_type})`)
+          .join("\n");
+      throw new Usage(
+        `no form class both people have filed.\n` +
+          `  ${slugA}:\n${grid(slugA)}\n  ${slugB}:\n${grid(slugB)}`,
+      );
+    }
+    picked = {
+      klass: options[0].klass,
+      yearA: options[0].yearA,
+      yearB: options[0].yearB,
+    };
+  }
+
   // ── role-matched: the same OFFICE, at whatever year each person held it ────────────────
   //
   // The year rule exists because two filings a year apart describe two different moments in
@@ -392,7 +437,7 @@ export const compareDeclarations = async (
   // whoever held THIS post look like while they held it — and there the year gap is the
   // subject rather than a confound. The form-class rule still applies: an annual and an
   // entry/vacate measure different things whichever year they are from.
-  if (sameRole) {
+  if (sameRole && !picked) {
     // Gated on the FOLD rather than raw truthiness: a `filed_position` of "-" is truthy and
     // folds to "", so two degenerate offices would "share" the empty key and the header
     // would read „ДЕКЛАРАЦИИ КАТО  ·  ". Zero such rows today; the guard is the cheap half.
@@ -489,13 +534,14 @@ export const compareDeclarations = async (
         (x.klass === y.klass ? 0 : x.klass === "annual" ? -1 : 1),
     );
 
-  const yearMatched = sameRole
-    ? null
-    : (common.find(
-        (c) =>
-          (wantYear === undefined || c.year === wantYear) &&
-          (wantClass === undefined || c.klass === wantClass),
-      ) ?? null);
+  const yearMatched =
+    sameRole || picked
+      ? null
+      : (common.find(
+          (c) =>
+            (wantYear === undefined || c.year === wantYear) &&
+            (wantClass === undefined || c.klass === wantClass),
+        ) ?? null);
   if (yearMatched)
     picked = {
       klass: yearMatched.klass,
@@ -671,8 +717,19 @@ export const compareDeclarations = async (
    *  title („Национално бюро за контрол на СРС") must not be re-capitalised by rule. */
   const softCase = (t: string): string => {
     if (t !== t.toLocaleUpperCase("bg-BG")) return t;
-    const lower = t.toLocaleLowerCase("bg-BG");
-    return lower.charAt(0).toLocaleUpperCase("bg-BG") + lower.slice(1);
+    // Per word, because an ACRONYM must survive the fold: „МВР" is not a shouted word and
+    // „Мвр" is simply wrong. Four letters is the cut — every ministry acronym in the corpus
+    // („МВР", „МОН", „МРРБ", „МТСП") is at or under it, and no ordinary Bulgarian word that
+    // reaches this branch is.
+    const folded = t
+      .split(/\s+/)
+      .map((w) =>
+        w.length <= 4 && /^[\p{Lu}.]+$/u.test(w)
+          ? w
+          : w.toLocaleLowerCase("bg-BG"),
+      )
+      .join(" ");
+    return folded.charAt(0).toLocaleUpperCase("bg-BG") + folded.slice(1);
   };
 
   // Only metrics legal on the chosen class, in a stable order, and only those either side
@@ -918,20 +975,29 @@ export const compareDeclarations = async (
     // this on `sharedYear` made those cards name no office at all (the per-side role is
     // suppressed precisely because the header carries it) while printing the year-matched
     // caveat, so a role comparison published as an undescribed year comparison.
-    year: picked.office ? undefined : sharedYear,
-    kicker: picked.office ? `ДЕКЛАРАЦИИ КАТО ${picked.office}` : undefined,
+    // A header must always state a period. The office names it on the role axis; on any other
+    // axis whose two years differ there is no single year to print, so the header says the
+    // filings are each person's most recent and the badges carry the years.
+    year: picked.office || sharedYear === undefined ? undefined : sharedYear,
+    kicker: picked.office
+      ? `ДЕКЛАРАЦИИ КАТО ${picked.office}`
+      : sharedYear === undefined
+        ? "ПОСЛЕДНИТЕ ДЕКЛАРАЦИИ НА ВСЕКИ"
+        : undefined,
     // Two different sentences for two different axes. „Най-скорошната година, в която и
     // двамата подават…" is FALSE on a role-matched card, where the two years differ by
     // design — and it was the note the year-matched branch produced regardless.
     yearNote: picked.office
       ? "Всеки подава декларацията за годината, в която заема поста."
-      : isLatestForBoth
-        ? undefined
-        : `Най-скорошната година, в която и двамата подават ${
-            picked.klass === "annual"
-              ? "годишна декларация"
-              : "декларация при встъпване или напускане"
-          }.`,
+      : sharedYear === undefined
+        ? `Различни години: последната декларация на всеки от двамата (${Math.min(picked.yearA, picked.yearB)} и ${Math.max(picked.yearA, picked.yearB)}).`
+        : isLatestForBoth
+          ? undefined
+          : `Най-скорошната година, в която и двамата подават ${
+              picked.klass === "annual"
+                ? "годишна декларация"
+                : "декларация при встъпване или напускане"
+            }.`,
     basis: basisText,
     metrics,
     source: "Източник: Сметна палата (register.cacbg.bg)",
@@ -1084,7 +1150,12 @@ const main = async (): Promise<void> => {
     );
 
   const sameRole = has("--same-role");
+  const latest = has("--latest");
   const allowThin = has("--allow-thin");
+  if (latest && sameRole)
+    throw new Usage(
+      "--latest and --same-role are two different pairings; pick one",
+    );
   if (sameRole && (year !== undefined || rawClass !== undefined))
     throw new Usage(
       "--same-role picks the year from each person's time in the office, so it cannot be " +
@@ -1095,6 +1166,7 @@ const main = async (): Promise<void> => {
     slugA: await resolvePerson(rawA),
     slugB: await resolvePerson(rawB),
     sameRole,
+    latest,
     allowThin,
     year,
     klass: rawClass as VersusFormClass | undefined,
