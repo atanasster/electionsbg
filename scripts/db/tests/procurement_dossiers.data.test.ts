@@ -1001,3 +1001,44 @@ test.skipIf(skip)(
     }
   },
 );
+
+// Narrowing on a REAL curated dossier (the Step-2 narrowing tests used a synthetic
+// term thread) — Хемус is a road file mixing строителство (cpv 45) with design /
+// supervision (cpv 71), so a cpv-45 narrowing must keep only division 45 and drop
+// the non-45 work that isn't a manual include (includes bypass narrowing).
+test.skipIf(skip)(
+  "narrowing a curated dossier (Хемус + cpv 45) keeps only that division",
+  async () => {
+    const spec = JSON.parse(
+      fs.readFileSync(path.join(DIR, "hemus.json"), "utf-8"),
+    ) as Spec;
+    const includeKeys = new Set(spec.includes?.contractKeys ?? []);
+    const full = await resolveMembers(spec);
+    // Input variety: Хемус must carry a non-45, non-include member (its design /
+    // supervision cpv-71 work) — otherwise a cpv-45 narrowing is a no-op here and
+    // the test would prove nothing about the filter.
+    assert.ok(
+      full.contracts.some(
+        (c) => !(c.cpv ?? "").startsWith("45") && !includeKeys.has(c.key),
+      ),
+      "Хемус should carry a non-45 non-include member (else cpv-45 narrowing is vacuous)",
+    );
+
+    const narrowed = await resolveMembers({ ...spec, cpvIn: ["45"] });
+    assert.ok(narrowed.keys.length > 0, "narrowed Хемус set is non-empty");
+    // Non-vacuity: at least one narrowed member is NOT a manual include, so the
+    // cpv assertion below actually exercises the predicate (includes bypass it).
+    assert.ok(
+      narrowed.contracts.some((c) => !includeKeys.has(c.key)),
+      "narrowed set should contain a non-include member (else the cpv check is vacuous)",
+    );
+    // Every non-include narrowed member is in division 45 — the core invariant.
+    for (const c of narrowed.contracts) {
+      if (includeKeys.has(c.key)) continue;
+      assert.ok(
+        (c.cpv ?? "").startsWith("45"),
+        `Хемус+cpv45 member ${c.key} has cpv ${c.cpv}, expected division 45`,
+      );
+    }
+  },
+);
