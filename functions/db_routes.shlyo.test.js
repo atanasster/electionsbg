@@ -1,246 +1,100 @@
-// The shliokavitsa second needle, at the route level.
+// Шльокавица in the price search.
 //
-//   npm run functions:test
+// A reader typing on a Latin keyboard gets nothing unless the needle is turned
+// back into Cyrillic — price_products.title is Cyrillic and has no Latin-folded
+// column. Measured before this: "mliako" returned "Няма резултати".
 //
-// The fold itself is gated elsewhere — scripts/db/tests/shlyo_fold_parity.data.test.ts proves
-// the TS and SQL implementations agree. What ONLY a route test can establish is the wiring
-// around it, and the property that matters most is the one that is invisible when it breaks:
-//
-//   ON A DATABASE WITHOUT MIGRATION 141, SEARCH MUST BEHAVE EXACTLY AS IT DID BEFORE.
-//
-// That is why the rewrite is a separate query rather than an `OR` inside each existing one.
-// Inlined, a missing shlyo_query_fold raises 42883 for the WHOLE statement and the route
-// returns nothing at all — turning "search is slightly worse on a stale database" into
-// "search is broken on one". No row count anywhere would report it.
+// TWO KINDS of substitution, and the point of these tests is that neither
+// alone is enough. The site's maintained keyboard table (src/lib/shlyoRules.ts,
+// mirrored into SQL as shlyo_query_fold) handles "6umen" and "sofiq" and leaves
+// "mliako" alone; the phonetic pass handles "mlyako" and left "6umen" as
+// "6умен".
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { DB_ROUTES } = require("./db_routes.js");
+const { shlyoCandidates } = require("./db_routes");
 
-/** A dbRows stub that records every statement and answers from `plan`.
- *  `plan` is [predicate, rows] pairs, first match wins; unmatched → []. */
-const stubDb = (plan) => {
-  const calls = [];
-  const dbRows = async (sql, params = []) => {
-    calls.push({ sql, params });
-    for (const [match, rows] of plan) {
-      if (typeof match === "function" ? match(sql, params) : sql.includes(match))
-        return typeof rows === "function" ? rows(sql, params) : rows;
-    }
-    return [];
-  };
-  return { dbRows, calls };
-};
+/** Does any candidate spelling reach the Cyrillic word? */
+const reaches = (term, target) => shlyoCandidates(term).includes(target);
 
-const isAltQuery = (sql) => sql.includes("shlyo_query_fold");
-const person = (r) => ({
-  key: r,
-  name: r,
-  tier: "P",
-  firms_count: 0,
-  href: `/person/${r}`,
+test("the phonetic pass alone: ordinary Latin spellings", () => {
+  assert.ok(reaches("mlyako", "мляко"));
+  assert.ok(reaches("kafe", "кафе"));
+  assert.ok(reaches("sirene", "сирене"));
+  assert.ok(reaches("maslo", "масло"));
 });
 
-test("a trigger-free query issues NO extra statement at all", async () => {
-  // Two gates in series, and this asserts the outer one: the raw query carries no
-  // shliokavitsa character, so the route does not even ASK Postgres for a rewrite.
-  // 3 tiers x (exact + fuzzy) = 6 statements, exactly as before this change.
-  const { dbRows, calls } = stubDb([["person_search", [person("Ivanov")]]]);
-  const res = await DB_ROUTES["person-search"](dbRows, { q: "Ivanov" });
-  assert.equal(calls.filter((c) => isAltQuery(c.sql)).length, 0);
-  assert.equal(calls.length, 6, `expected 6 statements, got ${calls.length}`);
-  assert.ok(res.body.power.length > 0);
+test("the keyboard pass: digits and spare letters standing in for Cyrillic", () => {
+  // None of these is reachable by phonetic transliteration alone — the digits
+  // and `q` are not letters it maps.
+  assert.ok(reaches("6okolad", "шоколад"));
+  assert.ok(reaches("4erven", "червен"));
+  assert.ok(reaches("jelyazko", "желязко"));
 });
 
-test("a trigger-bearing query whose fold is unchanged issues no SECOND batch", async () => {
-  // The inner gate: NULLIF returns null when the rewrite is a no-op, and then the six
-  // expensive probes do not run again. 6 + the one alternate probe = 7.
-  const { dbRows, calls } = stubDb([
-    [isAltQuery, [{ alt: null }]],
-    ["person_search", [person("Ivanov")]],
-  ]);
-  await DB_ROUTES["person-search"](dbRows, { q: "6umen" });
-  assert.equal(calls.filter((c) => isAltQuery(c.sql)).length, 1);
-  assert.equal(calls.length, 7, `expected 7 statements, got ${calls.length}`);
+test("the i-glide: 'mliako' — the spelling that returned nothing", () => {
+  assert.ok(reaches("mliako", "мляко"));
+  assert.ok(reaches("biuro", "бюро"));
 });
 
-test("a rewrite ADDS rows and never removes or reorders the plain ones", async () => {
-  const plain = [person("A"), person("B")];
-  const rewritten = [person("B"), person("C")];
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "zhelyazkov" }]],
-    // The fuzzy probe answers differently depending on which needle it was given.
-    [
-      (sql, p) => sql.includes("%>") && p[1] === "6umen",
-      [{ ...plain[0] }, { ...plain[1] }],
-    ],
-    [
-      (sql, p) => sql.includes("%>") && p[1] === "zhelyazkov",
-      [{ ...rewritten[0] }, { ...rewritten[1] }],
-    ],
-  ]);
-  const res = await DB_ROUTES["person-search"](dbRows, { q: "6umen" });
-  const keys = res.body.power.map((r) => r.key);
-  // A and B keep their positions; C is appended; B is not duplicated.
-  assert.deepEqual(keys, ["A", "B", "C"]);
+test("an ambiguous rule ADDS a reading, never replaces one", () => {
+  // "ia" is я in мляко and и-а in италиа. Both must be offered, or fixing one
+  // word breaks the other.
+  const c = shlyoCandidates("italia");
+  assert.ok(c.includes("италиа"), "the literal reading survives");
+  assert.ok(c.includes("италя"), "the glide reading is offered too");
 });
 
-test("a database without migration 141 searches exactly as it did before", async () => {
-  // The degrade contract. 42883 on the alternate probe must not touch the plain result.
-  const err = Object.assign(new Error("function shlyo_query_fold does not exist"), {
-    code: "42883",
-  });
-  const { dbRows, calls } = stubDb([
-    [isAltQuery, () => Promise.reject(err)],
-    ["person_search", [person("Ivanov")]],
-  ]);
-  const res = await DB_ROUTES["person-search"](dbRows, { q: "Jelqzkov" });
-  assert.deepEqual(
-    res.body.power.map((r) => r.key),
-    ["Ivanov"],
-    "the plain probe's rows must survive a failing alternate probe",
-  );
-  assert.equal(calls.length, 7, "no second batch after the alternate probe failed");
-  assert.equal(res.body.altQuery, null);
+test("a Cyrillic query is passed through untouched", () => {
+  // The transliteration must be a no-op on text that is already Cyrillic, or
+  // every ordinary search pays for extra ILIKE arms that cannot match.
+  assert.deepEqual(shlyoCandidates("мляко"), ["мляко"]);
+  assert.deepEqual(shlyoCandidates("кафе"), ["кафе"]);
 });
 
-test("procurement-search: a rewrite extends each group by its own key", async () => {
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "shumen" }]],
-    [
-      (sql, p) => sql.includes("search_contractors") && p[0] === "6umen",
-      [{ eik: "1", name: "one" }],
-    ],
-    [
-      (sql, p) => sql.includes("search_contractors") && p[0] === "shumen",
-      [{ eik: "1", name: "one" }, { eik: "2", name: "two" }],
-    ],
-  ]);
-  const res = await DB_ROUTES["procurement-search"](dbRows, { q: "6umen" });
-  assert.deepEqual(
-    res.body.companies.map((r) => r.eik),
-    ["1", "2"],
-    "the eik already present must not be duplicated, and the new one must be appended",
-  );
+test("the raw term is always the first candidate", () => {
+  // The шльокавица pass is strictly additive: whatever it produces, the term
+  // the user actually typed is still searched, and searched first.
+  for (const t of ["mliako", "мляко", "lurpak", "6okolad"])
+    assert.equal(shlyoCandidates(t)[0], t.toLowerCase());
 });
 
-test("procurement-search degrades to today's behaviour without 141", async () => {
-  const err = Object.assign(new Error("no shlyo_query_fold"), { code: "42883" });
-  const { dbRows } = stubDb([
-    [isAltQuery, () => Promise.reject(err)],
-    ["search_contractors", [{ eik: "1", name: "one" }]],
-  ]);
-  const res = await DB_ROUTES["procurement-search"](dbRows, { q: "remont" });
-  assert.deepEqual(res.body.companies.map((r) => r.eik), ["1"]);
-});
-
-test("the alternate needle is passed to EVERY procurement group, not just the first", async () => {
-  // A merge that paired groups by index would still look right if only one group were
-  // re-queried; this asserts all six actually receive the rewritten needle.
-  const seen = new Set();
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "shumen" }]],
-    [
-      (sql, p) => {
-        if (p[0] === "shumen") {
-          for (const fn of [
-            "search_contractors",
-            "search_awarders",
-            "search_contract_titles",
-            "search_tender_subjects",
-            "search_fund_projects",
-            "search_interreg_operations",
-          ])
-            if (sql.includes(fn)) seen.add(fn);
-        }
-        return false;
-      },
-      [],
-    ],
-  ]);
-  await DB_ROUTES["procurement-search"](dbRows, { q: "6umen" });
-  assert.equal(seen.size, 6, `only ${seen.size}/6 groups got the rewrite: ${[...seen]}`);
-});
-
-test("ordinary Cyrillic never fires the rewrite", async () => {
-  // THE REGRESSION THAT MATTERED MOST. `y(?![aeiou]) -> a` cannot tell a typed „y" (ъ) from
-  // the one translit_bg_latin emits for й — so „Бойко Борисов" folds to `boyko borisov` and
-  // rewrites to `boako borisov`. Measured before the gate: 13.64% of 539,985 indexed names
-  // rewrite, 97.4% of them containing no shliokavitsa character at all, and 6 of 8 ordinary
-  // Cyrillic queries fired a full second batch that injected 31 unrelated rows.
-  for (const q of ["Бойко Борисов", "Иван Иванов", "Желязков", "ремонт"]) {
-    const { dbRows, calls } = stubDb([["person_search", []]]);
-    await DB_ROUTES["person-search"](dbRows, { q });
-    assert.equal(
-      calls.filter((c) => c.sql.includes("shlyo_query_fold")).length,
-      0,
-      `${q} must not even ASK for a rewrite`,
-    );
+test("candidates are deduped and bounded", () => {
+  // The route builds one ILIKE arm per candidate, so an unbounded list would
+  // grow the query with the input.
+  for (const t of ["mliako", "6okolad", "sirene", "мляко", "x"]) {
+    const c = shlyoCandidates(t);
+    assert.equal(new Set(c).size, c.length, `${t} has duplicate candidates`);
+    assert.ok(c.length <= 5, `${t} produced ${c.length} candidates`);
   }
 });
 
-test("a Latin query with a trigger does ask", async () => {
-  for (const q of ["6umen", "4erven", "sofiq", "jelezopyten", "plowdiw", "xubav"]) {
-    const { dbRows, calls } = stubDb([["person_search", []]]);
-    await DB_ROUTES["person-search"](dbRows, { q });
-    assert.equal(
-      calls.filter((c) => c.sql.includes("shlyo_query_fold")).length,
-      1,
-      `${q} should ask for a rewrite`,
+test("the keyboard rules match src/lib/shlyoRules.ts", () => {
+  // functions/ is a separate CJS package and cannot import the shared table, so
+  // this is the gate that keeps the hand-copy honest. Reads the source rather
+  // than the compiled module.
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const shared = fs.readFileSync(
+    path.join(__dirname, "..", "src", "lib", "shlyoRules.ts"),
+    "utf8",
+  );
+  const table = shared.slice(
+    shared.indexOf("export const SHLYO_RULES"),
+    shared.indexOf("/** What the rules can actually rewrite"),
+  );
+  // Every left-hand side the shared table declares must appear in ours.
+  const finds = [...table.matchAll(/find:\s*"([^"]+)"/g)].map((m) => m[1]);
+  assert.ok(finds.length >= 8, "shared table not parsed");
+  const ours = fs.readFileSync(path.join(__dirname, "db_routes.js"), "utf8");
+  const keyboard = ours.slice(
+    ours.indexOf("const SHLYO_KEYBOARD"),
+    ours.indexOf("const LAT2CYR_DIGRAPHS"),
+  );
+  for (const find of finds)
+    assert.ok(
+      keyboard.includes(`/${find}/g`),
+      `SHLYO_RULES declares "${find}" and functions/db_routes.js does not — ` +
+        "the two шльокавица tables have drifted",
     );
-  }
-});
-
-test("the back-compat `people` array keeps every plain row", async () => {
-  // It concatenates the three tiers, so appending alt rows to `power` in place pushed plain
-  // money/others rows past its slice. Measured on the first draft: 4 plain rows lost.
-  const mk = (k, tier) => ({ key: k, name: k, tier, firms_count: 0, href: `/p/${k}` });
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "shumen" }]],
-    [
-      (sql, p) => sql.includes("%>") && p[1] === "6umen",
-      (sql, p) => [mk(`plain-${p[0]}-1`, p[0]), mk(`plain-${p[0]}-2`, p[0])],
-    ],
-    [
-      (sql, p) => sql.includes("%>") && p[1] === "shumen",
-      (sql, p) => [mk(`alt-${p[0]}-1`, p[0])],
-    ],
-  ]);
-  const res = await DB_ROUTES["person-search"](dbRows, { q: "6umen", limit: "6" });
-  const names = res.body.people.map((r) => r.name);
-  const plainCount = names.filter((n) => n.startsWith("plain-")).length;
-  assert.equal(plainCount, 6, `all six plain rows must survive, got ${plainCount}`);
-});
-
-test("a failure in the ALTERNATE batch cannot 500 a request that has an answer", async () => {
-  // tierRows swallows only 42883/42P01; a pool timeout in the second batch would otherwise
-  // reject a request whose plain rows are already computed.
-  const timeout = Object.assign(new Error("canceling statement"), { code: "57014" });
-  let seen = 0;
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "shumen" }]],
-    [
-      (sql, p) => sql.includes("person_search") && p[1] === "shumen",
-      () => Promise.reject(timeout),
-    ],
-    [
-      "person_search",
-      () => (++seen, [{ key: "A", name: "A", tier: "P", firms_count: 0, href: "/p/A" }]),
-    ],
-  ]);
-  const res = await DB_ROUTES["person-search"](dbRows, { q: "6umen" });
-  assert.deepEqual(res.body.power.map((r) => r.key), ["A"]);
-});
-
-test("altQuery is returned so a see-all link can reach a servable page", async () => {
-  const { dbRows } = stubDb([
-    [isAltQuery, [{ alt: "shumen" }]],
-    ["person_search", []],
-  ]);
-  const a = await DB_ROUTES["person-search"](dbRows, { q: "6umen" });
-  assert.equal(a.body.altQuery, "shumen");
-
-  const { dbRows: d2 } = stubDb([["person_search", []]]);
-  const b = await DB_ROUTES["person-search"](d2, { q: "Ivanov" });
-  assert.equal(b.body.altQuery, null, "null when no rewrite fired");
 });

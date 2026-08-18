@@ -643,12 +643,52 @@ const mpSlugFromQuery = async (dbRows, q) => {
   return rows[0]?.slug ?? null;
 };
 
-// "Шльокавица" — best-effort Latin→Cyrillic phonetic transliteration so a user
-// typing on a Latin keyboard ("kafe", "sirene", "mlyako") matches the Cyrillic
-// product titles. Greedy digraph pass (sht/sh/ch/zh/ts/yu/ya/yo) then single
-// letters; Cyrillic and unmapped characters pass through unchanged, so a query
-// already in Cyrillic comes back identical. Ambiguous by nature (c→ц, y→й) — the
-// trigram similarity ranking downstream absorbs the imperfection.
+// "Шльокавица" — the Latin-typed spellings a Bulgarian actually uses, turned
+// back into Cyrillic so they match the Cyrillic product titles.
+//
+// TWO KINDS, and they compose. Neither alone is enough:
+//
+//   KEYBOARD substitutions — a digit or a spare Latin letter standing in for a
+//   Cyrillic one: „6umen" (Шумен), „4erven" (Червен), „sofiq" (София),
+//   „plowdiw" (Пловдив), „jelyazkov" (Желязков).
+//
+//   PHONETIC digraphs — an ordinary Latin rendering: „mlyako", „mliako",
+//   „sirene", „kafe".
+//
+// Measured, this is why one is not the other: the site's maintained keyboard
+// table (src/lib/shlyoRules.ts, mirrored into SQL as shlyo_query_fold) folds
+// „6umen"→"shumen" and „sofiq"→"sofiya" but leaves „mliako" alone; the phonetic
+// pass here handles „mlyako"→мляко but left „6umen" as „6умен". A user typing
+// „mliako" got NOTHING from either.
+//
+// ⚠️ This is a THIRD spelling of a rule the repo otherwise keeps in one place.
+// It has to be: `functions/` is a separate CJS package that cannot import from
+// `src/`, and the shared table folds to STREAMLINED LATIN (for comparison
+// against translit_bg_latin) while this needle must end up CYRILLIC, because
+// price_products.title is Cyrillic and has no Latin-folded column. The keyboard
+// rules below are kept deliberately IDENTICAL to SHLYO_RULES — if that table
+// changes, change these. functions/db_routes.shlyo.test.js asserts they agree.
+//
+// STRICTLY ADDITIVE, like the shared table: every spelling is tried as its own
+// candidate ALONGSIDE the raw term, so a rewrite can add matches and never
+// remove one. That is what lets an ambiguous rule (x→х vs x→кс, q→я vs q→к)
+// emit BOTH readings instead of having to choose.
+
+/** Keyboard substitutions, in order. Mirrors SHLYO_RULES in src/lib/shlyoRules.ts —
+ *  same left-hand sides, same order, same reasons ("6t" before "6"). */
+const SHLYO_KEYBOARD = [
+  [/6t/g, "sht"],
+  [/6/g, "sh"],
+  [/4/g, "ch"],
+  [/9/g, "ya"],
+  [/q/g, "ya"],
+  [/j/g, "zh"],
+  [/w/g, "v"],
+  [/x/g, "h"],
+  // ъ typed as y; a real й/ю/я keeps its vowel.
+  [/y(?![aeiou])/g, "a"],
+];
+
 const LAT2CYR_DIGRAPHS = [
   ["sht", "щ"],
   ["sh", "ш"],
@@ -658,6 +698,12 @@ const LAT2CYR_DIGRAPHS = [
   ["yu", "ю"],
   ["ya", "я"],
   ["yo", "йо"],
+  // i-as-glide: "mliako" (мляко), "liulak" (люляк), "biuro" (бюро). Genuinely
+  // ambiguous — "italia" is италиа here and италия in life — which is why it is
+  // one CANDIDATE among several rather than a replacement for the plain read.
+  ["ia", "я"],
+  ["iu", "ю"],
+  ["io", "йо"],
 ];
 const LAT2CYR = {
   a: "а",
@@ -687,11 +733,11 @@ const LAT2CYR = {
   x: "кс",
   q: "к",
 };
-const latinToCyrillic = (str) => {
+const latinToCyrillic = (str, digraphs = LAT2CYR_DIGRAPHS) => {
   const lower = String(str).toLowerCase();
   let out = "";
   for (let i = 0; i < lower.length; ) {
-    const digraph = LAT2CYR_DIGRAPHS.find(([lat]) => lower.startsWith(lat, i));
+    const digraph = digraphs.find(([lat]) => lower.startsWith(lat, i));
     if (digraph) {
       out += digraph[1];
       i += digraph[0].length;
@@ -701,6 +747,29 @@ const latinToCyrillic = (str) => {
     i += 1;
   }
   return out;
+};
+
+/** Every Cyrillic spelling worth trying for a Latin-typed term, most literal
+ *  first. Deduped, and always non-empty (the raw term is candidate 0).
+ *
+ *  Four passes rather than one, because the ambiguities are real and a search
+ *  needle costs nothing to add: the plain phonetic read, the same without the
+ *  i-glide digraphs (so "italia" stays италиа), and both of those again after
+ *  the keyboard substitutions (so "6umen" and "mliako" both work). */
+const shlyoCandidates = (term) => {
+  const raw = String(term).toLowerCase();
+  const noGlide = LAT2CYR_DIGRAPHS.filter(
+    ([lat]) => !["ia", "iu", "io"].includes(lat),
+  );
+  const keyboard = SHLYO_KEYBOARD.reduce((t, [re, to]) => t.replace(re, to), raw);
+  const out = [
+    raw,
+    latinToCyrillic(raw, noGlide),
+    latinToCyrillic(raw),
+    latinToCyrillic(keyboard, noGlide),
+    latinToCyrillic(keyboard),
+  ];
+  return [...new Set(out.filter(Boolean))];
 };
 
 /** documentId → signed URL, per function instance. The register's URLs live 1800 s;
@@ -3359,31 +3428,45 @@ const DB_ROUTES = {
   "price-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (term.length < 2) return { body: [] };
-    // Also search a Latin→Cyrillic ("шльокавица") transliteration so "kafe"
-    // finds "кафе". `cyr` equals `term` when the query is already Cyrillic, so
-    // the extra ILIKE/similarity is a no-op there.
-    const cyr = latinToCyrillic(term);
-    // Escape LIKE metacharacters (%, _, \) so a stray `%` in the term doesn't
-    // match everything — the ILIKE is a prefilter, not a wildcard search.
-    // $1/$4 stay the RAW terms for similarity() (trigram treats them as literals).
+    // Every шльокавица reading of the term, plus the term itself — see
+    // shlyoCandidates. ORed rather than chosen between, so an ambiguous rule
+    // ("ia" is я in мляко and иа in италиа) can only ADD matches.
+    const cands = shlyoCandidates(term);
+    // Escape LIKE metacharacters (%, _, \) so a stray `%` doesn't match
+    // everything — the ILIKE is a prefilter, not a wildcard search. Backslash is
+    // LIKE's default escape character, so no ESCAPE clause is needed.
     const esc = (t) => "%" + t.replace(/[\\%_]/g, "\\$&") + "%";
+    // An explicit OR chain, NOT `ILIKE ANY($n::text[])`. Each arm is a separate
+    // indexable predicate the planner can fold into a BitmapOr over
+    // idx_price_products_title_trgm; an ANY() over an array is one opaque
+    // ScalarArrayOp that the GIN index cannot serve, which turns the prefilter
+    // into a seq scan of the whole catalogue. Same lesson as the tender-search
+    // arm in CLAUDE.md (an EXISTS there cost 37 ms → 6,617 ms). Bounded at 5
+    // candidates by shlyoCandidates, so the chain cannot grow with input.
+    const likes = cands.map((_, i) => `title ILIKE $${i + 1}`).join(" OR ");
+    const simil = cands
+      .map((_, i) => `similarity(title, $${cands.length + i + 1})`)
+      .join(", ");
     const rows = await dbRows(
       // Blend match quality with popularity: a term like "лаваца" matches a
       // one-chain "КАФЕ ЛАВАЦА КГ" and the 7-chain "КАФЕ ЛАВАЦА 1КГ КУАЛИТА
       // РОСА ЗЪРНА" equally on trigram similarity, but the shopper means the
       // latter. Weighting similarity by ln(chain_count) surfaces the product
       // people actually buy without letting a loose match on a popular product
-      // jump a tight one. The trgm index still drives the ILIKE prefilter.
+      // jump a tight one.
+      //
+      // The score is the BEST candidate's similarity, so a spelling only the
+      // шльокавица pass reached ranks on its own merit rather than being
+      // penalised for the raw term missing.
       `SELECT slug, title, pid, brand, net_qty, net_unit, chain_count,
               current_min_eur, pct_since_euro
          FROM price_products
         WHERE chain_count > 0
-          AND (title ILIKE $2 ESCAPE '\\' OR title ILIKE $3 ESCAPE '\\')
-        ORDER BY GREATEST(similarity(title, $1), similarity(title, $4))
-                   * ln(chain_count + 2) DESC,
+          AND (${likes})
+        ORDER BY GREATEST(${simil}) * ln(chain_count + 2) DESC,
                  chain_count DESC, slug COLLATE "C"
         LIMIT 20`,
-      [term, esc(term), esc(cyr), cyr],
+      [...cands.map(esc), ...cands],
     ).catch(missingMigrationRows);
     return { body: rows };
   },
@@ -5598,4 +5681,11 @@ const DB_ROUTES = {
   },
 };
 
-module.exports = { DB_ROUTES, __resetMissLog, OBLAST_CODES };
+module.exports = {
+  DB_ROUTES,
+  __resetMissLog,
+  OBLAST_CODES,
+  // Exported for db_routes.shlyo.test.js — the шльокавица readings are the one
+  // part of price-search that can be checked without a database.
+  shlyoCandidates,
+};
