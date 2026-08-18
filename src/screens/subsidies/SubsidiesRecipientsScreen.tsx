@@ -37,7 +37,9 @@ import { formatEur } from "@/lib/currency";
 // through snakeToCamel and returns bigint columns as text (node-postgres does not
 // coerce int8) — the same shape SubsidiesBrowserDbScreen's SubsidyRow uses. Column
 // `id`s stay snake_case: those address the SQL side, for sorting and filtering.
-interface RecipientRow {
+/** Exported so the page's test cannot re-declare it and drift — `paymentCount` is a
+ *  STRING on the wire and a fixture that says `number` is a shape the route never sends. */
+export interface RecipientRow {
   eik: string;
   name: string;
   oblast: string | null;
