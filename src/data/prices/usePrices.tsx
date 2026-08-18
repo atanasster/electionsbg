@@ -133,6 +133,13 @@ export interface SettlementPriceFile {
   latestDate: string;
   baselineDate: string;
   basketChangeSinceEuro: number;
+  /** Matched products / chains behind `basketChangeSinceEuro`. `indexN === 0`
+   *  means NOT COMPUTABLE — the figure is then the builder's 0.000 fallback,
+   *  not a measurement, and renders identically to a genuinely flat basket.
+   *  63 of 217 panel settlements were in that state on 2026-08-14. Optional:
+   *  shards built before the chain-matched basis carry neither. */
+  indexN?: number;
+  indexChains?: number;
   basketChange30d: number;
   basketSeriesWeekly: PricePoint[];
   byCategory: { id: number; changeSinceEuro: number; change30d: number }[];

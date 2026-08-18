@@ -43,6 +43,7 @@ import {
   comparableChains,
   usePriceRanking,
   useNationalChains,
+  useSettlementPrices,
   useDeals,
   useHubStats,
   fmtEur,
@@ -51,6 +52,11 @@ import {
   priceChangeColor,
 } from "@/data/prices/usePrices";
 import { usePricePli } from "@/data/macro/useMacroPeers";
+import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
+import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
+import { useAreaAnchor } from "@/data/area/areaAnchor";
+import { useAreaResolver } from "@/data/area/useAreaResolver";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import { sentenceCase } from "@/data/prices/sentenceCase";
 import { freshnessSentence, withheldTailCount } from "@/data/prices/freshness";
 
@@ -112,6 +118,28 @@ export const PricesScreen: FC = () => {
   const { data: chains } = useNationalChains();
   const { data: deals } = useDeals();
   const { data: hub } = useHubStats();
+  // The anchored place's own basket. The anchor is an area id, so it resolves
+  // through the shared resolver first, then through resolvePriceKeys — which is
+  // what maps a Sofia район onto the one city-wide panel the КЗП tree actually
+  // keys. A place outside the ~245 covered settlements resolves to no shard and
+  // the tile falls back to its CTA.
+  const anchor = useAreaAnchor();
+  const area = useAreaResolver(anchor?.id);
+  const areaObshtina =
+    area && area.kind !== "unknown" ? area.obshtina : undefined;
+  const { priceEkatte } = resolvePriceKeys(
+    areaObshtina ?? "",
+    area?.kind === "settlement" ? area.ekatte : undefined,
+  );
+  const placeQuery = useSettlementPrices(
+    areaObshtina ? priceEkatte : undefined,
+  );
+  const placePrices = placeQuery.data;
+  // The figure is only a measurement when something matched. `indexN === 0` is
+  // the builder's 0.000 fallback and renders as a neutral "0,0%",
+  // indistinguishable from a genuinely flat basket.
+  const placeMeasured =
+    !!placePrices && (placePrices.indexN == null || placePrices.indexN > 0);
   // Overall EU price level (BG vs EU=100), shared with /consumption/eu.
   const pli = usePricePli();
   // A0101 = "Храни и безалкохолни". A01 is overall consumption and is NOT what
@@ -249,14 +277,29 @@ export const PricesScreen: FC = () => {
       <ConsumptionBreadcrumb section={title} className="mt-4 mb-2" />
       <Title description={description}>{title}</Title>
 
+      {/* "Колко струва X" is the question most readers arrive with, and until
+          now the only route to a product was the four deals or the four €/kg
+          rows. The endpoint and the component both already existed — the hub at
+          /consumption has carried this box all along. Above the grid, not in
+          it: a search field is not a tile. */}
+      <div className="mt-4">
+        <ConsumptionSearchTile />
+      </div>
+
+      {/* Where the reader is. The anchor is URL-only (?area=), so this is also
+          how it gets set — and once it is, every other place surface on the
+          site follows it. */}
+      <ConsumptionAreaBanner />
+
       {/* Four columns from XL, not lg. Measured at the lg breakpoint itself,
           four columns give each tile 239px and truncate 9 elements — narrower
           and worse than the 359px/1 a 375px phone gets, because 1024px is where
           the sidebar-free container is still narrow but the column count has
           already jumped.
 
-          SEVEN tiles since the fuel tile merged into "Спрямо ЕС", so the last
-          row is short by one. T4's search tile takes it back to eight. */}
+          EIGHT tiles: the fuel tile merged into "Спрямо ЕС" and the place tile
+          replaced it. (The search box is not one of them — it sits above the
+          grid, since a search field is not a tile.) */}
       <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Hero — the basket index since the euro */}
         <Card className="col-span-full flex flex-wrap items-center justify-between gap-x-6 gap-y-3 p-5">
@@ -543,6 +586,66 @@ export const PricesScreen: FC = () => {
               "difference from the EU average · food is a price level (Eurostat), energy is retail prices",
             )}
           </div>
+        </DashTile>
+
+        {/* Prices where the reader is. `MyAreaPricesTile` is the full
+            treatment and far too heavy for a hub cell; this is the headline
+            figure plus a link into it. Falls back to the national map when no
+            area is anchored, so the tile is never dead. */}
+        <DashTile
+          to={placePrices ? `/consumption/${anchor!.id}` : "/prices/map"}
+          title={T("Цените при вас", "Prices near you")}
+          icon={MapPin}
+          // The QUERY's own state, not `!placePrices`: the hook is
+          // `enabled: !!ekatte`, so a município anchor never runs it, and the
+          // route returns null at 200 for any of the ~5,100 settlements outside
+          // the covered panel. Keying on the data left both showing a skeleton
+          // for ever, and made the CTA branch unreachable whenever an anchor
+          // resolved at all.
+          loading={placeQuery.isLoading}
+          skeletonRows={4}
+        >
+          {placePrices && placeMeasured ? (
+            <div className="text-xs">
+              <div className="font-medium">
+                {lang === "bg" ? placePrices.name : placePrices.nameEn}
+              </div>
+              <div
+                className={`text-xl font-bold tabular-nums ${priceChangeColor(placePrices.basketChangeSinceEuro)}`}
+              >
+                {fmtPct(placePrices.basketChangeSinceEuro)}
+              </div>
+              {/* This is ONE DAY, unlike the hero's gated seven-day mean: a
+                  place shard carries no headlineDate (build_index withholds it
+                  deliberately — it is a national judgement). So the caption
+                  names the day, rather than the tile implying the hero's basis. */}
+              <div className="text-[11px] text-muted-foreground">
+                {T("кошницата тук спрямо", "the basket here vs")}{" "}
+                {fmtPriceDate(placePrices.baselineDate, lang)}
+                {" · "}
+                {T("към", "as of")} {fmtPriceDate(placePrices.latestDate, lang)}
+              </div>
+            </div>
+          ) : placePrices ? (
+            <p className="text-xs text-muted-foreground">
+              {T(
+                `Няма достатъчно съвпадащи цени в ${placePrices.name}, за да се сметне промяна.`,
+                `Not enough matched prices in ${placePrices.nameEn} to compute a change.`,
+              )}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              {areaObshtina
+                ? T(
+                    "Това място не е в обхвата на КЗП — изберете друго или вижте картата.",
+                    "This place is outside the CPC panel — pick another, or see the map.",
+                  )
+                : T(
+                    "Изберете населено място, за да видите кошницата, промоциите и най-евтините магазини там.",
+                    "Pick a settlement to see its basket, its promotions and the cheapest shops there.",
+                  )}
+            </p>
+          )}
         </DashTile>
 
         {/* Price map CTA */}
