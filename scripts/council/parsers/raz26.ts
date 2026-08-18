@@ -213,6 +213,26 @@ const preprocessTally = (text: string): string => {
     new RegExp(`(\\d+)-ма(\\s+${QUOTES_OPEN_CLS}?\\s*ЗА)`, "giu"),
     "$1$2",
   );
+  // F: Разград's DOMINANT form, and the one this parser silently missed for
+  // its whole life — "С 28 гласа - „ЗА“, „против“- няма, „въздържали се“- няма".
+  // It is digit-first, but SUMMARY_RE_DIGIT_FIRST cannot reach it: its `GL`
+  // covers only the abbreviation „гл.", never the spelled-out „гласа", and its
+  // HGAP admits spaces and tabs where this form puts a dash. Nothing matched,
+  // so `findAllTallies` returned almost nothing and every decision fell to the
+  // no-tally branch below — 332 of 338 stored records carried 0/0/0, against
+  // ZERO such records in the other fifteen municipalities.
+  //
+  // Normalised HERE rather than by widening the shared regex, because that
+  // regex is read by sixteen parsers and „N гласа" is loose enough in prose to
+  // cost one of them a false tally. Measured across protokols 26/28/33/35:
+  // 3 tallies found before, 85 after.
+  out = out.replace(
+    new RegExp(
+      `(?:С|с)\\s+(\\d+)\\s+гласа?\\s*[-–—]?\\s*${QUOTES_OPEN_CLS}\\s*ЗА\\s*${QUOTES_CLOSE_CLS}`,
+      "gu",
+    ),
+    `${Q_OPEN}за${Q_CLOSE} – $1`,
+  );
   // B: "без „против" и „въздържали се"" → canonical SHORTHAND with – няма
   out = out.replace(
     new RegExp(
@@ -305,14 +325,115 @@ const titleFor = (
 
 type Marker = { offset: number; number: string };
 
+/**
+ * The chair's adoption announcement — "Общинският съвет взе следното
+ * Р Е Ш Е Н И Е № 361". Only a marker introduced by one of these is a decision
+ * OF THIS SITTING.
+ *
+ * Without it every `Р Е Ш Е Н И Е №` in the document was published as a
+ * Разград council decision, and the докладна bodies are full of citations:
+ * „приета с Решение № 223", „отменено с Решение № 294", and — measured on
+ * protokol 28 — „Решение № 4157-НС/13.03.2025 г. на ЦЕНТРАЛНАТА ИЗБИРАТЕЛНА
+ * КОМИСИЯ", which the corpus published as RAZ26-2025-prot28-r4157. Across
+ * protokols 26/28/33/35 that was 69 false records against 71 real ones.
+ *
+ * PER32 has the same guard on the same reasoning (its anchor is „прие", since
+ * Перник's chair announces differently). The two are deliberately separate:
+ * an anchor is a claim about ONE município's minute-taking house style, and
+ * the wrong one is worse than none — it drops real decisions silently.
+ */
+const ADOPTION_ANCHOR_RE = /вз(е|ех[аи]?|ел[аи]?)\s+следн|прие\s+следн/iu;
+
+/**
+ * How far the announcement reaches to the marker it introduces. MEASURED,
+ * not guessed: 80 and 120 agree
+ * exactly (71 decisions across the four sampled protokols) while 200 admits
+ * 16 more — and every one of those falls OUTSIDE the gapless consecutive
+ * number runs the anchored set forms (361-379, 393-406, 467-480, 497-520),
+ * i.e. the wider window is reaching back across a paragraph into the previous
+ * decision's announcement. That run-contiguity is an independent check on the
+ * filter: a real decision dropped by the anchor would leave a hole in it.
+ */
+const ANCHOR_LOOKBACK = 120;
+
 const findMarkers = (text: string): Marker[] => {
-  const out: Marker[] = [];
+  const all: Marker[] = [];
   const re = new RegExp(MARKER_RE.source, MARKER_RE.flags);
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
-    out.push({ offset: m.index, number: m[1] });
+    all.push({ offset: m.index, number: m[1] });
   }
-  return out;
+
+  // ONE announcement introduces exactly ONE decision — the first marker that
+  // follows it. Asking each marker "is there an announcement behind me?"
+  // instead lets a citation standing just after a real decision INHERIT its
+  // anchor:
+  //
+  //   "…взе следното Р Е Ш Е Н И Е № 407  На основание т.20 от Решение № 294
+  //    по Протокол № 21 от 08.05.2024 г. …"
+  //
+  // Both markers see „взе следното" within the window, and № 294 — a previous
+  // council's decision, cited as the legal basis — was published as a decision
+  // of this sitting. Binding FORWARD drops 7 such records across the 13
+  // protokols, and is what makes every session's kept numbers a GAPLESS
+  // consecutive run (295-309, 407-415, 467-480 …). That contiguity is the
+  // independent check on the whole filter: a real decision wrongly dropped
+  // would leave a hole in it.
+  const kept = new Set<number>();
+  const anchors = new RegExp(ADOPTION_ANCHOR_RE.source, "giu");
+  let a: RegExpExecArray | null;
+  while ((a = anchors.exec(text)) !== null) {
+    const from = a.index;
+    const next = all.find(
+      (x) => x.offset > from && x.offset - from <= ANCHOR_LOOKBACK,
+    );
+    if (next) kept.add(next.offset);
+  }
+  return all.filter((x) => kept.has(x.offset));
+};
+
+/**
+ * WHO CAST the vote a tally records. Разград's protokol prints three kinds of
+ * tally in one document and only one of them is the council deciding:
+ *
+ *   council    "…Общинският съвет Разград, „за” – 26, „против“ – няма"
+ *   committee  "ПК по управление на общинската собственост, подкрепи
+ *               докладната записка с гласували „ЗА“ – 6"
+ *   agenda     "Моля, режим на гласуване по дневния ред. „за” – 28"
+ *
+ * The pairing rule — latest tally between the previous marker and this one —
+ * cannot tell them apart, and its window is unbounded for the FIRST decision
+ * of a session, which reaches back to the agenda vote at the top of the
+ * document. Measured over protokols 26/28/33/35: 5 decisions were handed a
+ * standing committee's 1-9 vote, and a blacklist-only fix handed two of them
+ * the agenda's 28-0-0 instead — plausible, unanimous and wrong.
+ *
+ * So the rule is POSITIVE: a tally counts only if its own sentence names the
+ * council as the voter. Absence is the safe failure — a decision with no
+ * tally renders a dash, while a wrong number is a false claim about a public
+ * vote.
+ *
+ * Both patterns are Unicode-careful for reasons this repo has paid for twice:
+ * `общинск(?:и|ия|ият)` must include the definite form („Общинският"), which
+ * cost two real 26-0-0 council votes when it was missing; and the committee
+ * abbreviation uses explicit `\p{L}` boundaries because an ASCII `\b` does
+ * not fire against Cyrillic, so `\bПК\b` matched nothing at all.
+ *
+ * The committee rule deliberately does NOT match a bare "комиси". Разград's
+ * decisions cite „Централната избирателна комисия" — the ЦИК — and a bare
+ * match rejected a genuine „Общински съвет Разград, след поименно гласуване,
+ * „за” – 21, „против“ – 3" as a committee vote.
+ */
+const VOTER_LOOKBACK = 140;
+const COUNCIL_VOTER_RE =
+  /общинск(?:и|ия|ият)\s+съвет(?!ници\s+от\s+общо)|общински\s+съветници/iu;
+const COMMITTEE_VOTER_RE =
+  /(?<!\p{L})ПК(?!\p{L})|постоянна(?:та)?\s+комисия|комисия(?:та)?\s+(?:разгледа|подкрепи|не\s+взе|изрази)|бе\s+подкрепена|докладна\s+записка\s+с\s+вх/iu;
+
+/** True when the tally at `offset` is attributed to the council itself. */
+const isCouncilTally = (text: string, offset: number): boolean => {
+  const back = text.slice(Math.max(0, offset - VOTER_LOOKBACK), offset);
+  return COUNCIL_VOTER_RE.test(back) && !COMMITTEE_VOTER_RE.test(back);
 };
 
 const parseProtokolText = (
@@ -335,7 +456,12 @@ const parseProtokolText = (
     const prevMarkerOffset = i === 0 ? -1 : markers[i - 1].offset;
     const candidate = [...tallies]
       .reverse()
-      .find((t) => t.offset < marker.offset && t.offset > prevMarkerOffset);
+      .find(
+        (t) =>
+          t.offset < marker.offset &&
+          t.offset > prevMarkerOffset &&
+          isCouncilTally(text, t.offset),
+      );
     // Title = the agenda item's ОТНОСНО subject, anchored before the
     // tally (when present) else before the marker.
     const title = titleFor(
@@ -344,16 +470,25 @@ const parseProtokolText = (
       prevMarkerOffset,
     );
     if (!candidate) {
-      // Decision has no extractable tally — record an empty tally so
-      // the resolution still surfaces with metadata + adopted-by-
-      // presumption (the protokol context makes clear it was adopted).
+      // Decision has no extractable tally — surface it with metadata and NO
+      // tally at all, never a zero one. `CouncilResolutionScreen`'s TallyLine
+      // says it in its own comment: "Never a zero … '0 against' would assert a
+      // unanimity the source never recorded" — but it suppresses on
+      // `tally.for == null`, and 0 is not null, so a 0/0/0 tally walks straight
+      // past the guard and renders „за 0, против 0, въздържали се 0" on a
+      // decision the protokol records as 28-0-0. 873 resolutions corpus-wide
+      // already carry no tally field; this is that shape, not a new one.
+      //
+      // `result` stays "adopted" because the marker only survived
+      // ADOPTION_ANCHOR_RE — the chair announcing the council took this
+      // decision. Before the anchor that was a presumption; now it is what the
+      // filter tested for.
       out.push({
         id: `${OBSHTINA}-${yyyy}-prot${meta.session}-r${marker.number}`,
         date: meta.date,
         session: meta.session,
         number: marker.number,
         title,
-        tally: { for: 0, against: 0, abstain: 0, method: "open" },
         result: "adopted",
         sourceUrl: meta.docxUrl,
       });
@@ -372,6 +507,13 @@ const parseProtokolText = (
   }
   return out;
 };
+
+/**
+ * Exported for `raz26.test.ts` only. Both are pure string functions and both
+ * encode a claim about Разград's house style that is worth pinning to real
+ * sentences from the protokols rather than to a live scrape.
+ */
+export const __test = { findMarkers, preprocessTally, isCouncilTally };
 
 export const scrapeRAZ = async (
   _recipe: MuniRecipe,
