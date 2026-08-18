@@ -31,6 +31,34 @@ export interface SourceGroupDef {
   tags: string[];
 }
 
+/**
+ * Watcher sources that are deliberately NOT on the map, with the reason.
+ *
+ * The map's contract is "every node feeds something": `build_manifest` fails any
+ * node with no edge, and edges only run source→dataset→feature. A watcher that
+ * ingests NOTHING therefore has no honest place on it — putting it in a group
+ * would claim it feeds that group's datasets, and giving it its own group would
+ * require inventing a dataset node, on the one page whose entire purpose is to
+ * show what data we actually hold.
+ *
+ * So such a source is listed here instead, and `build_manifest` exempts it from
+ * the placement check — while still failing if it ALSO appears in a group, so
+ * the two can never disagree.
+ *
+ * This list is meant to stay tiny. An entry is a statement that the source has
+ * no downstream YET; the moment one exists, delete the entry and place the
+ * source properly (the "also in a group" check will force the issue).
+ */
+export const WATCH_ONLY_SOURCES: Record<string, string> = {
+  rnfl_insolvency:
+    "РНФЛ (личен фалит) went live 2026-08-03 EMPTY and has no list, search or " +
+    "export endpoint — every read route is a lookup keyed by file number or a " +
+    "personal identifier. Nothing is ingested, no table or loader exists, and " +
+    "the source maps to no skill: a flip means an operator reads " +
+    "docs/plans/rnfl-insolvency-v1.md §T2 and decides. Remove this entry when " +
+    "T2/T3 build the aggregate indicator the plan describes.",
+};
+
 export interface DatasetDef {
   id: string;
   label: Lang;

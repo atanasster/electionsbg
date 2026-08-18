@@ -31,6 +31,7 @@ import {
   FEATURES,
   SOURCE_GROUPS,
   TIERS,
+  WATCH_ONLY_SOURCES,
   TOURS,
   VIEWS,
   type Lang,
@@ -207,11 +208,30 @@ const validate = (edges: [string, string][]): void => {
       placed.set(m, g.id);
     }
   }
-  const missing = [...registryIds].filter((id) => !placed.has(id));
+  // A watch-only source may not ALSO be placed: the exemption and a group
+  // membership are two different claims about the same source, and the map
+  // should never carry both.
+  for (const id of Object.keys(WATCH_ONLY_SOURCES)) {
+    if (!registryIds.has(id))
+      fail(
+        `WATCH_ONLY_SOURCES lists "${id}", which is not a watcher source — check scripts/watch/sources`,
+      );
+    if (placed.has(id))
+      fail(
+        `watcher source "${id}" is in WATCH_ONLY_SOURCES but also placed in group ` +
+          `"${placed.get(id)}". It now feeds something, so delete the ` +
+          `WATCH_ONLY_SOURCES entry.`,
+      );
+  }
+  const missing = [...registryIds].filter(
+    (id) => !placed.has(id) && !(id in WATCH_ONLY_SOURCES),
+  );
   if (missing.length)
     fail(
       `watcher source(s) not placed on the data map: ${missing.join(", ")}.\n` +
-        `Add them to a source group in scripts/data_map/model.ts (or create a new group + edges).`,
+        `Add them to a source group in scripts/data_map/model.ts (or create a new group + edges).\n` +
+        `If the source ingests NOTHING and has no downstream, add it to ` +
+        `WATCH_ONLY_SOURCES in model.ts with the reason instead — do not invent a dataset for it.`,
     );
 
   const nodeIds = new Set<string>([
