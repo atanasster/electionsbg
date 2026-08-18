@@ -251,33 +251,62 @@ dimension, so their figures are annual and each tile **names its year in the cap
 
 ---
 
-### 3.1 ⚠️ Band-3 tiles will leak `?pscope` onto pages that cannot serve it
+### 3.1 ⚠️ Band-3 tiles and `?pscope` — the leak was real, and it was not where this said
 
-`InfographicTile` links through `usePreserveParams`, `pscope` is in that allowlist, and **there is
-no opt-out prop**. §3 counts that as a feature for the eight in-module tiles. For band 3 it is a
-defect:
+`InfographicTile` links through `usePreserveParams`, `pscope` is in that allowlist, and there is
+no opt-out prop. §3 counts that as a feature for the eight in-module tiles. For band 3 this
+section predicted a defect at four cross-module destinations. **Measured at step 6c, all four
+rows were wrong** — and the real exposure was inside this module:
 
-| destination         | its year coverage                             | what `?pscope=y:2016` does                           |
-| ------------------- | --------------------------------------------- | ---------------------------------------------------- |
-| `/budget/municipal` | `budget_muni_transfer` starts **2018**        | a page with no data for the year in its pill         |
-| `/culture`          | НФЦ register 2014–2025                        | CLAUDE.md documents this exact hazard for `/culture` |
-| `/sector/transport` | rail subsidy 9 years from `rail_subsidy.json` | partial                                              |
-| `/budget/simulator` | no scope dimension at all                     | ignored (harmless)                                   |
+| destination         | this section claimed                          | measured 2026-08-17                                                                                              |
+| ------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `/budget/municipal` | "a page with no data for the year in its pill" | **Does not read `pscope` at all.** Its year param is `?fy=`, already clamped to `stats.muniYears`; no `ScopeControl`. Inbound `pscope` is inert. |
+| `/culture`          | "CLAUDE.md documents this exact hazard"        | **Already resolved** — `useScope({ years: cultureYears, allowAll: false })`, handed to its `ScopeControl` as `value`/`onChange`. |
+| `/sector/transport` | "partial"                                      | The picker governs the **procurement** half, which spans 2011-2026 — the whole default year list. The rail-subsidy tile is deliberately annual (`not scope-windowed`, its own comment) and prints its own year. |
+| `/budget/simulator` | "ignored (harmless)"                           | Correct — zero scope references.                                                                                   |
 
-The CAP corpus holds 2015, 2016 and 2017 — years `budget_muni_transfer` does not have — so this is
-reachable by ordinary clicking, not by hand-editing a URL. **Decision needed**, one of:
+**Where it actually was: this module** — and one layer deeper than the pill. Three `ScopeControl` call sites offer a narrowed
+`years={AGRI_FINANCIAL_YEARS}` while reading `?pscope` unresolved — the hub, the browse, and
+`AgriScopeGate` (the shared picker behind all eight sub-pages). That is the exact shape §3.1
+warned about, and it is **correct here**: the CAP corpus skips 2014 and 2018-2020, so an off-list
+year is ordinary rather than exotic, and each of the three names the gap („Няма данни за субсидии
+за 2019“ + the list of years ДФЗ does publish) instead of snapping the reader to a year they did
+not ask for. CLAUDE.md's URL contract and `ScopeControl`'s own header both already record this as
+the second honest answer.
 
-1. Add a `preserveParams?: false` (or `params?: string[]`) escape to `InfographicTileProps` and set
-   it on band 3. Smallest change; a new shared-component prop.
-2. Require each of the four destinations to resolve the inbound scope with
-   `useScope({ years })` and hand `<ScopeControl>` the same value — the rule CLAUDE.md's URL
-   contract already states for „a page narrower than the corpus". Correct, wider, and fixes those
-   pages for every other inbound link too.
-3. Ship band 3 with the leak and a gate that documents it. **Not acceptable** — it is the „shows
-   one window and counts another" failure the same contract forbids.
+**But two of the seven sub-pages were not actually doing that.** `/subsidies/political` and
+`/subsidies/cross-programme` rendered a hand-rolled „Няма данни за субсидии за избрания период" —
+no year, no published-years list, no way back, and a FAILED fetch shown as an unpublished year
+(the four-state defect, one directory from where step 6b fixed it on `/farm/:eik`). So the
+module's claim to the second honest answer was only 5/7 true. Both now render
+`<AgriScopeFallback>`, and the gate checks that claim directly rather than trusting the
+exception's prose.
 
-Recommend **2**, with **1** as the fallback if the four pages turn out to need real work.
-Either way this is a gate: _no band-3 destination renders a scope pill it cannot serve_.
+So the decision §3.1 asked for is moot — neither option 1 (a `preserveParams` opt-out) nor option 2
+(resolve at the four destinations) has anything left to fix. What remains is the gate, and it is
+worth more than the fix would have been:
+
+**`src/screens/components/scopeContract.test.ts`** reads the SOURCE of every `<ScopeControl>` call
+site site-wide and fails when one offers a narrowed picker (`years=` / `allowAll={false}`) while
+reading the scope unresolved, unless it is declared in `NAMES_THE_GAP` with a reason **and** a
+`rawScopeIn` pointer to the file whose `useScope()` must stay bare. Both directions are held: a new
+narrowed-uncontrolled site fails, and an exception whose page starts clamping fails as stale.
+Mutation-checked six ways — un-control a narrowed picker; make an excepted reader clamp; list a
+file with no picker; and the three parser evasions a `[^>]*?` regex allows (an inline
+`onChange={(v) => …}`, whose `>` truncated the tag and made the site VANISH; a non-self-closing
+`<ScopeControl …></ScopeControl>`; a `<ScopeControl>` named in a comment, which
+`PersonContractsScreen` does twice). The parser is brace-aware and reconciles its own count
+against the raw occurrences, so a form it cannot read fails loudly instead of passing silently.
+
+Its reach is **every destination that renders a `<ScopeControl>`** — which is the mechanism band 3
+would leak through, but not literally every destination: `/budget/municipal` has a bespoke `?fy=`
+picker and stays outside it. That page is safe for an independent reason (it never reads `pscope`),
+not because this gate is watching it.
+
+The one hazard the gate cannot see, recorded rather than fixed: `/sector/transport` shows „2016" in
+its scope pill beside a rail-subsidy tile captioned „2026 г.". Both label their own year and the
+tile is annual by design, so nothing is mislabelled — but a reader scanning the pill first has to
+notice. Not introduced by band 3 and not this plan's to change.
 
 ---
 

@@ -46,7 +46,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AgriScopePicker } from "./AgriScopeGate";
+import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { useAgriHubStats } from "@/data/agri/useAgriHubStats";
 import { agriScopeToKey } from "@/data/agri/constants";
@@ -72,7 +72,14 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
   const L = i18n.language;
   const nloc = bg ? "bg-BG" : "en-US";
   const [params] = useSearchParams();
-  const { scope, data } = useAgriScope();
+  // The WHOLE gate, not just { scope, data } — `AgriScopeFallback` below needs
+  // it to tell a failed fetch from an unpublished year. Hand-rolling the empty
+  // card here (which this page did) says only „за избрания период": it never
+  // names the year, never lists the years ДФЗ does publish, and offers no way
+  // back to one that works — and it renders a FAILED load as an unpublished
+  // year, the four-state defect one file over.
+  const gate = useAgriScope();
+  const { scope, data } = gate;
   const scopeKey = agriScopeToKey(scope);
   const { data: hub } = useAgriHubStats(scopeKey);
   const [count, setCount] = useState<string>(ALL_PROGRAMMES);
@@ -149,6 +156,9 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
         ),
       },
     ],
+    // `money` is a pure formatter over L, which is already listed; naming it
+    // too would only restate that.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [bg, L],
   );
 
@@ -188,13 +198,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
 
         <AgriScopePicker className="mb-3" />
 
-        {scopeKey === null ? (
-          <div className="rounded-xl border bg-card p-6 text-sm text-muted-foreground shadow-sm">
-            {bg
-              ? "Няма данни за субсидии за избрания период."
-              : "No subsidy data for the selected period."}
-          </div>
-        ) : (
+        <AgriScopeFallback gate={gate}>
           <>
             <DashboardSection
               id="subsidies-cross-headline"
@@ -276,16 +280,25 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <DbDataTable<CrossRow>
-                resource="agri_cross_programme"
-                columns={columns}
-                scope={{ col: "scope_key", val: scopeKey }}
-                extraFilters={filters}
-                defaultSort={[{ id: "agri_eur", desc: true }]}
-                searchPlaceholder={
-                  bg ? "търси получател…" : "search recipient…"
-                }
-              />
+              {/* Guarded on the KEY, like the five sibling sub-pages.
+                  AgriScopeFallback only renders children when the gate is
+                  `ready`, but that is a runtime guarantee the type system
+                  cannot see — and this is not type ceremony: `agri_political`
+                  is a scope-keyed fan-out, so a request with no `scope_key`
+                  returns one row per scope and silently multiplies the money
+                  rather than erroring. */}
+              {scopeKey !== null && (
+                <DbDataTable<CrossRow>
+                  resource="agri_cross_programme"
+                  columns={columns}
+                  scope={{ col: "scope_key", val: scopeKey }}
+                  extraFilters={filters}
+                  defaultSort={[{ id: "agri_eur", desc: true }]}
+                  searchPlaceholder={
+                    bg ? "търси получател…" : "search recipient…"
+                  }
+                />
+              )}
               <p className="mt-3 max-w-3xl text-xs text-muted-foreground">
                 {bg ? (
                   <>
@@ -317,7 +330,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
               </p>
             </DashboardSection>
           </>
-        )}
+        </AgriScopeFallback>
       </section>
     </>
   );
