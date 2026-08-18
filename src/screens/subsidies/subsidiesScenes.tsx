@@ -134,6 +134,20 @@ const Schemes: FC = () => {
 
 // По област — a coarse map-ish lattice of regions at different intensities. Not a bar chart:
 // the destination is a choropleth, and the scene should read as territory.
+//
+// IT CLEARS THE METRIC VERTICALLY, NOT HORIZONTALLY, and the difference is the whole note.
+// This tile carries the longest overlay on the hub — a money figure plus „СОФИЯ (СТОЛИЦА) ·
+// ПО СЕДАЛИЩЕ" — and measured on the rendered card that text reaches viewBox x=203 (the
+// caption x=212). Sliding the lattice rightwards to escape it was the first fix and it did
+// not work: at x=178 the first column still sat under the caption, and pushing to x=216 costs
+// a column and leaves the sub-`sm` thumbnail (where the scrim and the metric are both hidden)
+// with its left 59% empty.
+//
+// The safe box is `x < 132 AND y > 72`, so the honest escape is UP. The lattice now occupies
+// y=8..66, entirely above the overlay band, and can therefore keep its full four columns at
+// x=140 where the thumbnail still reads. The ink legend ramp came back with it: without it
+// this was the only scene in the set with no `currentColor` at all, so it lost the theme-flip
+// every other scene has.
 const Places: FC = () => {
   const cells = [
     [0.9, 0.35, 0.5, 0.7],
@@ -146,27 +160,28 @@ const Places: FC = () => {
         row.map((v, c) => (
           <rect
             key={`${r}-${c}`}
-            x={150 + c * 34}
-            y={18 + r * 28}
-            width={30}
-            height={24}
+            x={140 + c * 40}
+            y={8 + r * 20}
+            width={36}
+            height={17}
             rx={3}
             fill="var(--sector)"
             opacity={v}
           />
         )),
       )}
-      {/* a legend ramp in ink, left of the lattice and above the scrim */}
+      {/* The legend ramp, in INK — under the scrim rather than fighting the number, and the
+          scene's only theme-flipping mark. */}
       {[0, 1, 2, 3].map((i) => (
         <rect
           key={i}
-          x={100}
-          y={22 + i * 12}
-          width={30}
-          height={7}
+          x={140 + i * 22}
+          y={78}
+          width={18}
+          height={6}
           rx={2}
           fill="currentColor"
-          opacity={0.15 + i * 0.14}
+          opacity={0.14 + i * 0.13}
         />
       ))}
     </SceneFrame>

@@ -441,8 +441,11 @@ export const SubsidiesDashboardScreen: FC = () => {
           // an element that can never appear — a hang, not a failure, with the stale card
           // depicting the deleted dashboard still on disk and no coverage gate firing.
           //
-          // Step 10 must repoint that entry at `subsidies-hub` and re-shoot with a sub-1280
-          // viewport (plan §8). The anchor lives here now so step 10 has something to aim at.
+          // Step 10 repointed that entry at `subsidies-hub` and re-shot. It kept the shared
+          // 1280 viewport AGAINST the plan's sub-1280 advice: the bands are sized 4/3/4/2 for
+          // the xl four-column grid, so three columns strand band 1's fourth tile and leave
+          // the card a third empty. `main{max-width:1216px}` makes the four columns fit the
+          // 1200 crop exactly instead — measured, the tile borders land on 0 and 1199.5.
           data-og="subsidies-hub"
         >
           {hubFailed && (

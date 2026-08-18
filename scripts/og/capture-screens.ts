@@ -959,16 +959,31 @@ const captures: Capture[] = [
   {
     slug: "subsidies",
     routePath: "subsidies",
-    // KPI row (paid / recipients / top-100 share / largest scheme) sitting above
-    // the concentration bar + scheme ranking. Top-aligned on the KPI grid so the
-    // clip leads with the headline numbers and carries the distribution tiles.
-    // The dashboard shell is full-bleed, so at the 1280px capture viewport the
-    // KPI grid is 1249px wide and the outer stat cards get sliced by the 1200px
-    // clip. Capping <main> at 1216px (grid + its 2x8px padding) makes the grid
-    // exactly 1200 so the clip frames it edge to edge. The viewport itself stays
-    // 1280, so the xl: two-column distribution grid below survives.
-    waitFor: '[data-og="subsidies-hero"]',
-    anchor: '[data-og="subsidies-hero"]',
+    // /subsidies is now a TILE HUB (plan step 7), so the card leads with the first band of
+    // tiles — the same shape as /governance and /governance/declarations below.
+    //
+    // The anchor MOVED: it was `[data-og="subsidies-hero"]`, the KPI strip step 7 removed
+    // because every figure it carried became a tile metric. That capture would have FAILED
+    // loudly — `waitForSelector` times out at 30s, throws, and the run exits 1 under the
+    // „⚠ N FAILED" banner — but a failed capture leaves the PREVIOUS png untouched, so the
+    // card on disk would have kept depicting a deleted dashboard until someone re-ran it.
+    //
+    // `waitFor` names a tile's link rather than the container. Note this buys less than it
+    // looks: `InfographicTile`'s root element IS the `<Link>`, so the anchor and the links
+    // appear in the same commit and the ` a` cannot catch a grid that has rendered without
+    // its metrics. What actually covers that is `networkidle` plus `settleMs`. The real
+    // hazard is documented at SubsidiesDashboardScreen.tsx's `hubFailed` — a card shot while
+    // /api/db/agri-hub-stats is down shows thirteen tiles with no numbers — and the only
+    // guard against it is reading the png, which §8 requires anyway.
+    //
+    // STAYS AT THE SHARED 1280 — deliberately, against the plan's own advice to drop below it.
+    // The bands are sized 4/3/4/2 precisely so none strands a tile on a second row of the xl
+    // FOUR-column grid; at three columns band 1's fourth tile wraps alone and the card is a
+    // third empty. Instead the fix is the one the previous entry used for the same clip: cap
+    // <main> at 1216px (the 1200 grid plus its 2x8px padding) so four columns fit the crop
+    // edge to edge rather than being sliced.
+    waitFor: '[data-og="subsidies-hub"] a',
+    anchor: '[data-og="subsidies-hub"]',
     settleMs: 2500,
     extraCss:
       "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
