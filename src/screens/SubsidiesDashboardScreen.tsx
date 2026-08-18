@@ -245,7 +245,14 @@ const tileMetric = (
         // elsewhere, because BOTH inputs moved inside 2026 (the rate on 30.04, the vote base at
         // the 19.04 election). An undated €9.31m is a run-rate that no calendar year equals.
         `${bg ? "годишно по ЗПП, от" : "a year under the ЗПП, since"} ${PARTY_SUBSIDY_SINCE}`,
-        `${int(PARTY_SUBSIDY_VOTES)} ${bg ? "гласа × 3,00 €" : "votes × €3.00"}`,
+        // The RATE from the constant, not spelled out. The metric above is
+        // votes x PARTY_SUBSIDY_RATE_EUR, so a literal „3,00 €" here is a second copy of a
+        // number that already moved once inside 2026 (€4.09 → €3.00 on 30.04) — the two
+        // halves of one tile would then disagree by construction at the next change.
+        `${int(PARTY_SUBSIDY_VOTES)} ${bg ? "гласа" : "votes"} × ${PARTY_SUBSIDY_RATE_EUR.toLocaleString(
+          nloc,
+          { style: "currency", currency: "EUR", minimumFractionDigits: 2 },
+        )}`,
       );
 
     // ── Band 4 ───────────────────────────────────────────────────────────────

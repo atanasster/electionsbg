@@ -429,7 +429,7 @@ This is the skill's §0 defect class exactly, and it was in a page this plan inv
 - **Headline: 39,8% от парите стоят на редове без ЕИК** — unattributable, correct as stated. No
   `/farm/` page, no ownership, no cross-programme join, no political link. That is the fact every
   entity-ranked figure on this hub depends on, and the reason to have the page.
-- **A named sub-finding: some of that is companies.** ДФЗ publishes at least €385.5m of payments
+- **A named sub-finding: some of that is companies.** ДФЗ publishes at least €345.9m of payments (measured 2026-08-18; an earlier pass said €385.5m)
   to identifiable legal entities **without recording their ЕИК** — a state-owned ЕАД and a
   municipality among them. That is a register-quality finding in its own right and belongs on a
   transparency site, stated as a floor.

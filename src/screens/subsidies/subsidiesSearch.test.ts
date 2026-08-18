@@ -79,10 +79,12 @@ describe("subsidies hub search", () => {
   });
 
   it("passes the abort signal through to the request", async () => {
-    const spy = vi.fn(async () => ({
-      ok: true,
-      json: async () => [],
-    }) as unknown as Response);
+    // Typed with fetch's own signature: `vi.fn(async () => …)` infers a ZERO-ARG mock, so
+    // `spy.mock.calls[0]` is `[]` and reading `[1]` is a type error — while the call really
+    // does carry both arguments at runtime. The test passed and `tsc -b` did not.
+    const spy = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(
+      async () => ({ ok: true, json: async () => [] }) as unknown as Response,
+    );
     vi.stubGlobal("fetch", spy);
     const ctl = new AbortController();
     await sources()[0]!.fetch("агро", ctl.signal);
@@ -90,10 +92,9 @@ describe("subsidies hub search", () => {
   });
 
   it("asks the ALL-TIME route, carrying no scope", async () => {
-    const spy = vi.fn(async () => ({
-      ok: true,
-      json: async () => [],
-    }) as unknown as Response);
+    const spy = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(
+      async () => ({ ok: true, json: async () => [] }) as unknown as Response,
+    );
     vi.stubGlobal("fetch", spy);
     await sources()[0]!.fetch("агро", new AbortController().signal);
     const url = String(spy.mock.calls[0]![0]);
@@ -108,7 +109,10 @@ describe("subsidies hub search", () => {
     // scope-keyed rollup the RANKINGS read, and pointing the finder at it is the same defect
     // as passing a scope on the query string, one layer down.
     const sql = readFileSync(
-      resolve(__dirname, "../../../scripts/db/schema/pg/046_agri_subsidies.sql"),
+      resolve(
+        __dirname,
+        "../../../scripts/db/schema/pg/046_agri_subsidies.sql",
+      ),
       "utf-8",
     );
     const fn = sql.slice(sql.indexOf("agri_beneficiary_search"));
@@ -120,17 +124,20 @@ describe("subsidies hub search", () => {
   it("maps a row to a farm page, keeping its all-time total", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn(async () => ({
-        ok: true,
-        json: async () => [
-          {
-            eik: "111560777",
-            name: "Златия Агро ЕООД",
-            oblast: "Монтана",
-            totalEur: 38_600_000,
-          },
-        ],
-      }) as unknown as Response),
+      vi.fn(
+        async () =>
+          ({
+            ok: true,
+            json: async () => [
+              {
+                eik: "111560777",
+                name: "Златия Агро ЕООД",
+                oblast: "Монтана",
+                totalEur: 38_600_000,
+              },
+            ],
+          }) as unknown as Response,
+      ),
     );
     const [item] = await sources()[0]!.fetch(
       "агро",
@@ -147,7 +154,13 @@ describe("subsidies hub search", () => {
   it("survives a route that answers with something other than an array", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn(async () => ({ ok: true, json: async () => ({ error: "x" }) }) as unknown as Response),
+      vi.fn(
+        async () =>
+          ({
+            ok: true,
+            json: async () => ({ error: "x" }),
+          }) as unknown as Response,
+      ),
     );
     await expect(
       sources()[0]!.fetch("агро", new AbortController().signal),
