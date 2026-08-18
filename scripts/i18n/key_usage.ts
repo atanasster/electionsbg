@@ -29,6 +29,7 @@
 // discriminating; the gate asserts it still does.
 import fs from "node:fs";
 import path from "node:path";
+import { stripComments as sharedStripComments } from "../lib/strip_comments";
 
 /** Scanned for both literals and built-key patterns.
  *
@@ -47,8 +48,13 @@ import path from "node:path";
  *  producer to grep. */
 export const SCAN_DIRS = ["src", "scripts", "ai", "functions"];
 
-/** Not call sites: this analysis and the prune script that drives it. */
+/** Not call sites: this analysis and the prune script that drives it. Matched
+ *  with POSIX separators on both sides — `path.join` yields `scripts\\i18n` on
+ *  Windows, where a raw endsWith would never fire and this directory's own
+ *  prefix examples would be read as call sites, keeping every family it
+ *  discusses alive. */
 const SKIP_DIRS = ["scripts/i18n"];
+const posix = (p: string) => p.split(path.sep).join("/");
 
 /** Shallow, because data/ holds ~hundreds of thousands of generated files and
  *  none of the deep ones carries an i18n key. */
@@ -72,7 +78,13 @@ const readCode = (
       const skip =
         e.name === "locales" ||
         e.name === "node_modules" ||
-        SKIP_DIRS.some((d) => p.endsWith(d));
+        // Dot-directories are somebody else's dependencies, not call sites.
+        // `ai/m0/.venv` is a Python virtualenv inside a scanned tree and put 33
+        // vendor JS files into the corpus: their string literals can widen
+        // PREFIX_LITERAL and keep a dead key alive, which makes the verdict a
+        // function of a developer's working tree rather than of tracked code.
+        e.name.startsWith(".") ||
+        SKIP_DIRS.some((d) => posix(p).endsWith(d));
       if (!skip) readCode(p, out);
     } else if (CODE.test(e.name)) {
       const text = fs.readFileSync(p, "utf8");
@@ -95,17 +107,13 @@ const readDataJson = (dir: string, out: string[]): string[] => {
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-/** Comments that OWN their line — a banner block or a `//` line — and nothing
- *  else. Both anchors are load-bearing, in the same direction: an unanchored
- *  `//` would take a string's `https://…` and every key literal after it on that
- *  line, and an unanchored block would start at any slash-star inside a string or
- *  a regex and swallow code up to the next star-slash. The second one is not theoretical:
- *  it ate PersonProfileScreen's `pp_reg_seat_${seat}` template and reported 15
- *  live keys as dead. */
-const stripComments = (code: string) =>
-  code
-    .replace(/^[ \t]*\/\*[\s\S]*?\*\//gm, " ")
-    .replace(/^[ \t]*\/\/.*$/gm, " ");
+/** Line-owning comments only — never the `trailing` form. A key literal
+ *  routinely shares a line with a string that contains `//`, and stripping from
+ *  there ate PersonProfileScreen's `pp_reg_seat_${seat}` template and reported
+ *  15 live keys as dead. `src/entryGraph.test.ts` opts in because an import
+ *  statement cannot share a line with a URL; this scan is the counter-example
+ *  that made the option a parameter. Rules and their arms: scripts/lib. */
+const stripComments = (code: string) => sharedStripComments(code);
 
 /** Two shapes, because the call site is often not the construction site:
  *  a template handed straight to t(), and ANY template whose static head is a
@@ -158,10 +166,12 @@ export interface KeyUsage {
   patternCount: number;
 }
 
-export const analyzeKeyUsage = (
-  keys: string[],
-  root = process.cwd(),
-): KeyUsage => {
+interface Scan {
+  patterns: RegExp[];
+  withData: string;
+}
+
+const buildScan = (root: string): Scan => {
   const chunks = { all: [] as string[], runtime: [] as string[] };
   for (const d of SCAN_DIRS) readCode(path.join(root, d), chunks);
   // Patterns come from RUNTIME code only — not from tests, and not from data.
@@ -175,12 +185,27 @@ export const analyzeKeyUsage = (
   // directory: prose that mentions a prefix is not a call site, and a file that
   // scans for prefixes would otherwise keep every family it discusses,
   // including its own examples.
-  const patterns = builtKeyPatterns(chunks.runtime.join("\n"));
-  const withData = [
-    ...chunks.all,
-    ...readDataJson(path.join(root, SCAN_DATA_JSON), []),
-  ].join("\n");
+  return {
+    patterns: builtKeyPatterns(chunks.runtime.join("\n")),
+    withData: [
+      ...chunks.all,
+      ...readDataJson(path.join(root, SCAN_DATA_JSON), []),
+    ].join("\n"),
+  };
+};
 
+/** The scan is deterministic per root and costs ~33.6 MB of reads; the four
+ *  discrimination tests call analyzeKeyUsage five times between them. Cached by
+ *  root rather than globally so a future test can point it at a fixture tree. */
+const scanCache = new Map<string, Scan>();
+
+export const analyzeKeyUsage = (
+  keys: string[],
+  root = process.cwd(),
+): KeyUsage => {
+  const scan = scanCache.get(root) ?? buildScan(root);
+  scanCache.set(root, scan);
+  const { patterns, withData } = scan;
   const literal = new Set<string>();
   const built = new Map<string, string>();
   const plural = new Set<string>();

@@ -482,12 +482,30 @@ recurring, and it runs off `dist/` with no browser. Add as a Vitest node test th
 ~~Final targets: entry ≤ 250 KB, `vendor` ≤ 100 KB, entry + preloads ≤ 520 KB.~~ **Landed
 2026-07-29 at the measured output +~5%,** which beat two of the three targets and missed one:
 
-| | target | measured | budget |
-|---|---|---|---|
-| entry + preloads + CSS | ≤ 520 KB | **359,267 B** | 377,000 |
-| entry chunk | ≤ 250 KB | **67,169 B** | 71,000 |
-| catch-all `vendor` | ≤ 100 KB | **124,814 B** ✗ | 131,000 |
-| locale bundle (bg / en) | — | **168,371 / 152,852 B** | 177,000 / 161,000 |
+| | target | measured 2026-07-29 | budget at landing | budget today |
+|---|---|---|---|---|
+| entry + preloads + CSS | ≤ 520 KB | **359,267 B** | 377,000 | **363,000** |
+| entry chunk | ≤ 250 KB | **67,169 B** | 71,000 | **56,000** |
+| catch-all `vendor` | ≤ 100 KB | **124,814 B** ✗ | 131,000 | 131,000 |
+| locale bundle (bg / en) | — | **168,371 / 152,852 B** | 177,000 / 161,000 | **144,000 / 125,500** |
+
+The measured column is the 2026-07-29 landing and is left as the record of it.
+Four of the five budgets have been ratcheted DOWN since, never up, so read
+headroom from the last column — or from `tests/perf.spec.ts`, which is the one
+that runs:
+
+- **2026-08-13, locales** — `json.namedExports: false` changed the emit form from
+  one `export const` per key to `JSON.parse("…")`: bg 189,485 → 137,192, en
+  172,586 → 119,571 for a byte-identical corpus. Budgets 186,000/169,000 →
+  144,000/125,500.
+- **2026-08-18, entry + critical** — `routes.tsx` took one constant from the
+  sector-pack registry, which put ~20 reference-data modules on every page.
+  Entry 71,587 → 53,407, critical 364,220 → 346,040; budgets → 56,000/363,000.
+  Gated structurally as well, by `src/entryGraph.test.ts`.
+- **2026-08-18, locales again** — 486 unreachable keys deleted
+  (`npm run i18n:prune`): bg 149,826 → 143,384, en 131,349 → 125,436. Budgets
+  unchanged, so EN now clears by **64 B** — see T5.3's successor lever, the
+  i18next namespace split, which is not yet scheduled.
 
 The `vendor` target was **not** met. T1.2 took that chunk from 246 KB to 125 KB by extracting
 CodeMirror, and what remains — lucide-react, tailwind-merge, react-ga4, `@babel/runtime` and the

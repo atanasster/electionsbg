@@ -2649,6 +2649,31 @@ Two things about the repair are easy to get backwards:
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).
 
+**Two of those Vitest files are static-analysis gates over the SOURCES rather than
+tests of a module, and both exist because the failure they catch is invisible in
+review and expensive to catch any other way.** Each is seconds; the alternative is
+a ~10-minute `vite build` that reports only that a number moved.
+
+- **`src/entryGraph.test.ts`** — walks the static import graph from `main.tsx` and
+  fails if it reaches a sector registry, or anything a registry names. The rule it
+  encodes: **take a constant from an import-free module, never from a registry.**
+  `routes.tsx` imported one path string from `sectorPacks` and thereby put ~20
+  reference-data modules (~265 KB of source) into the entry chunk that every page
+  downloads. The byte budget in `tests/perf.spec.ts` caught the 587 B that pushed it
+  over; it could not say which edge did it. The forbidden set is DERIVED from the
+  registries' own closure, so a new pack is covered the day it is added.
+- **`scripts/i18n/key_usage.test.ts`** + `npm run i18n:prune` — fails when the
+  corpora accumulate keys no call site can ask for. A key counts as reachable if it
+  appears as a literal, matches a built template (`` `pp_reg_seat_${seat}` ``),
+  matches a family prefix, or is a plural of a used base — and the scan covers
+  `scripts/` and `data/*.json`, because a key can reach the UI through a DATA
+  ARTIFACT rather than a call site. The prune deletes translated copy, so it is
+  dry-run by default and deliberately in no chain.
+
+Both share `scripts/lib/strip_comments.ts`: prose that MENTIONS a pattern is not an
+occurrence of it, and each gate has already been burned by a naive strip — in
+opposite directions. Read that file's header before touching either.
+
 ## Architecture
 
 ### Tech Stack
@@ -2679,7 +2704,11 @@ Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playw
 - `src/screens/components/` — Reusable components shared across screens
 - `src/components/ui/` — Low-level UI primitives (22 components)
 - `src/ux/` — UX utilities: data tables, tooltips, touch handling, media queries
-- `src/locales/` — i18n strings; `public/locales/` — runtime-loaded translations
+- `src/locales/{bg,en}/translation.json` — the ONLY i18n corpora, one chunk per
+  language via `import()` in `src/i18n.ts`. There is no `public/locales/`; this line
+  named one until 2026-08-18, which would send anyone auditing or pruning the
+  corpus to a tree that does not exist — or make them conclude a served copy had
+  been missed.
 
 ### URL contract (cross-page state)
 

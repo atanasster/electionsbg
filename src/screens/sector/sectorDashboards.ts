@@ -16,7 +16,11 @@
 // sectors render one chip; the awarder page behind it holds the full pack.
 
 import { lazy, type ComponentType } from "react";
-import { API_EIK } from "@/lib/roadAttributes";
+// From the import-free @/lib/roadsAwarder, not the 31 KB roadAttributes engine
+// that re-exports it — API_EIK is the only symbol this registry takes, and
+// naming the engine here pulls cpvSectors + awarderModel behind it. Same rule
+// as sectorPacks.tsx; gated by src/entryGraph.test.ts.
+import { API_EIK } from "@/lib/roadsAwarder";
 import { NZOK_EIK, HEALTH_ENTITIES } from "@/lib/healthReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { NAP_EIK } from "@/lib/napReferenceData";

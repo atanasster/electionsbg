@@ -14,62 +14,102 @@
 //   npx tsx scripts/i18n/prune_translations.ts            # report
 //   npx tsx scripts/i18n/prune_translations.ts --apply
 import fs from "node:fs";
+import { pathToFileURL } from "node:url";
 import { analyzeKeyUsage, loadCorpus, CORPUS_PATH } from "./key_usage";
 
-const LANGS = ["bg", "en"] as const;
-const apply = process.argv.includes("--apply");
+export type Corpus = Record<string, string>;
 
-const bg = loadCorpus("bg");
-const en = loadCorpus("en");
-
-// Parity first. The analysis runs over ONE key list, so a corpus that has
-// drifted would have its extra keys silently exempted from the prune.
-const onlyBg = Object.keys(bg).filter((k) => !(k in en));
-const onlyEn = Object.keys(en).filter((k) => !(k in bg));
-if (onlyBg.length || onlyEn.length) {
-  console.warn(
-    `corpora are not key-for-key parallel — bg-only ${onlyBg.length}, en-only ${onlyEn.length}. ` +
-      `Pruning the intersection only.`,
-  );
-  if (onlyBg.length) console.warn("  bg only: " + onlyBg.join(", "));
-  if (onlyEn.length) console.warn("  en only: " + onlyEn.join(", "));
+export interface PrunePlan {
+  /** Dead in BOTH corpora — the only keys either file may lose. */
+  dead: string[];
+  /** Rebuilt corpora, in each file's own order. */
+  kept: { bg: Corpus; en: Corpus };
+  /** Parity breaks, reported rather than pruned. */
+  onlyBg: string[];
+  onlyEn: string[];
 }
 
-const usage = analyzeKeyUsage(Object.keys(bg));
-const dead = new Set(usage.unused.filter((k) => k in bg && k in en));
+/** The whole decision, as a pure function — the writer below only does IO.
+ *
+ *  Two properties are load-bearing and neither is visible in a row count:
+ *
+ *  - The dead set is INTERSECTED with both corpora. The analysis runs over one
+ *    key list (bg's), so a key that has drifted out of en must not be deleted
+ *    from bg alone on the strength of a verdict the other file never got.
+ *  - Each corpus is rebuilt in ITS OWN order, never sorted. The corpus is
+ *    grouped by feature, and re-sorting turns a 486-line deletion into a
+ *    6,584-line rewrite that no reviewer can read. */
+export const planPrune = (
+  bg: Corpus,
+  en: Corpus,
+  unused: string[],
+): PrunePlan => {
+  const dead = new Set(unused.filter((k) => k in bg && k in en));
+  const rebuild = (corpus: Corpus): Corpus => {
+    const kept: Corpus = {};
+    for (const [k, v] of Object.entries(corpus)) if (!dead.has(k)) kept[k] = v;
+    return kept;
+  };
+  return {
+    dead: [...dead],
+    kept: { bg: rebuild(bg), en: rebuild(en) },
+    onlyBg: Object.keys(bg).filter((k) => !(k in en)),
+    onlyEn: Object.keys(en).filter((k) => !(k in bg)),
+  };
+};
 
-console.log(
-  `${Object.keys(bg).length} keys · ${usage.literal.size} named · ` +
-    `${usage.built.size} built · ${usage.plural.size} plural · ${dead.size} dead`,
-);
-for (const k of [...dead].sort()) {
-  console.log(`  - ${k}  ${JSON.stringify(bg[k]).slice(0, 70)}`);
-}
+const main = () => {
+  const apply = process.argv.includes("--apply");
+  const bg = loadCorpus("bg");
+  const en = loadCorpus("en");
+  const usage = analyzeKeyUsage(Object.keys(bg));
+  const plan = planPrune(bg, en, usage.unused);
 
-if (!dead.size) {
-  console.log("nothing to prune");
-  process.exit(0);
-}
-
-for (const lang of LANGS) {
-  const corpus = lang === "bg" ? bg : en;
-  const kept: Record<string, string> = {};
-  // Rebuild in the file's own order rather than sorting: the corpus is grouped
-  // by feature, and re-sorting it would turn a 460-line deletion into a
-  // 6,584-line rewrite that no reviewer can read.
-  for (const [k, v] of Object.entries(corpus)) if (!dead.has(k)) kept[k] = v;
-  const out = JSON.stringify(kept, null, 2) + "\n";
-  const path = CORPUS_PATH(lang);
-  if (apply) {
-    fs.writeFileSync(path, out);
-    console.log(
-      `${lang}: ${Object.keys(corpus).length} -> ${Object.keys(kept).length} keys written`,
+  // Parity first: a drifted corpus has its extra keys silently exempted from
+  // the prune, which is the right behaviour and the wrong thing to do quietly.
+  if (plan.onlyBg.length || plan.onlyEn.length) {
+    console.warn(
+      `corpora are not key-for-key parallel — bg-only ${plan.onlyBg.length}, en-only ${plan.onlyEn.length}. ` +
+        `Pruning the intersection only.`,
     );
-  } else {
-    console.log(
-      `${lang}: would write ${Object.keys(kept).length} keys (${Object.keys(corpus).length - Object.keys(kept).length} removed)`,
-    );
+    if (plan.onlyBg.length)
+      console.warn("  bg only: " + plan.onlyBg.join(", "));
+    if (plan.onlyEn.length)
+      console.warn("  en only: " + plan.onlyEn.join(", "));
   }
-}
 
-if (!apply) console.log("\ndry run — pass --apply to write");
+  console.log(
+    `${Object.keys(bg).length} keys · ${usage.literal.size} named · ` +
+      `${usage.built.size} built · ${usage.plural.size} plural · ${plan.dead.length} dead`,
+  );
+  for (const k of [...plan.dead].sort()) {
+    console.log(`  - ${k}  ${JSON.stringify(bg[k]).slice(0, 70)}`);
+  }
+
+  if (!plan.dead.length) {
+    console.log("nothing to prune");
+    return;
+  }
+
+  for (const lang of ["bg", "en"] as const) {
+    const before = lang === "bg" ? bg : en;
+    const kept = plan.kept[lang];
+    const out = JSON.stringify(kept, null, 2) + "\n";
+    if (apply) {
+      fs.writeFileSync(CORPUS_PATH(lang), out);
+      console.log(
+        `${lang}: ${Object.keys(before).length} -> ${Object.keys(kept).length} keys written`,
+      );
+    } else {
+      console.log(
+        `${lang}: would write ${Object.keys(kept).length} keys (${Object.keys(before).length - Object.keys(kept).length} removed)`,
+      );
+    }
+  }
+
+  if (!apply) console.log("\ndry run — pass --apply to write");
+};
+
+// Importable for its planner without running the CLI — the tests need the
+// former and must never trigger the latter.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) main();

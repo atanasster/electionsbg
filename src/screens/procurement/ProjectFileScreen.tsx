@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { formatEurCompact } from "@/lib/currency";
+import { API_EIK as ROADS_EIK } from "@/lib/roadsAwarder";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   useProjectFile,
@@ -108,7 +109,12 @@ interface Starter {
   accent: string;
   spec: ProjectFileSpec;
 }
-const API_EIK = ["000695089"]; // Агенция „Пътна инфраструктура"
+// A buyer FILTER (an array), not the buyer key — but built from the one
+// literal rather than a fourth copy of it. @/lib/roadsAwarder imports nothing,
+// so this costs the chunk nothing. МО's own constant lives in
+// @/lib/defenseReferenceData, a 7.7 KB module: not worth the import here, so
+// that one stays inline.
+const API_EIK = [ROADS_EIK]; // Агенция „Пътна инфраструктура"
 const MO_EIK = ["000695324"]; // Министерство на отбраната
 const ICGB_EIK = ["201383265"]; // „Ай Си Джи Би" АД — the IGB gas-interconnector company
 // Display names for the scoped buyers — carried on the thread (buyerName) so the
