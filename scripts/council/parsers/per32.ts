@@ -1,14 +1,20 @@
-// Перник (PER32) — full-session protokol .docx parser, tier A.
+// Перник (PER32) — full-session protokol Word parser, tier A.
 //
 // Source surface:
 //   - Index: https://www.obs-pernik.bg/category/заседания/протоколи-заседания/
 //     (WordPress category with /page/N/ pagination, 10 posts per page,
 //     ~50 posts back to the 2023-2027 mandate)
 //   - Posts live at  /протокол-№-{N}-{DD}-{MM}-{YYYY}г/  (Cyrillic slug)
-//     and each post page links a single .docx under
+//     and each post page links a single Word file under
 //     /wp-content/uploads/{YYYY}/{MM}/ПРОТОКОЛ-№{N}-{DD}.{MM}.{YYYY}г.docx
 //
-// The protokol is born-digital text-layer DOCX with three layers:
+// Mostly .docx, but NOT always: протокол №13/19-10-2025 is a Word 97-2003
+// .doc. `extractWordText` picks the reader from the file's own signature,
+// so neither this parser nor `findDocxUrl` has to care which one a post
+// links. Reading it off the extension is what fed an OLE2 file to the OOXML
+// reader and pinned this município's watermark at 2025-10-16 for a month.
+//
+// The protokol is born-digital text-layer Word with three layers:
 //
 //   1. Agenda preamble (chair lists the day's докладни записки, with
 //      many cross-references to past decisions: "Поправка на РЕШЕНИЕ
@@ -34,7 +40,7 @@
 // GAB05 (the latter 2025+ only).
 
 import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
-import { extractDocxText } from "../lib/docx";
+import { isMalformedArchiveError, extractWordText } from "../lib/docx";
 import {
   classifyResult,
   findAllTallies,
@@ -143,8 +149,13 @@ const collectIndexPages = async (
   return out;
 };
 
-/** Find the .docx URL on a post page. The post is a WordPress single
- *  with one attached file under /wp-content/uploads/. */
+/** Find the protokol URL on a post page. The post is a WordPress single
+ *  with one attached file under /wp-content/uploads/.
+ *
+ *  The `.docx?` in the pattern is load-bearing: Перник links BOTH, and
+ *  протокол №13/19-10-2025 is a `.doc`. Which reader that needs is decided
+ *  from the bytes by `extractWordText`, not from the extension here — the
+ *  href only has to be found. */
 const findDocxUrl = (postHtml: string): string | null => {
   const hrefs = Array.from(
     postHtml.matchAll(/href=["']([^"']+)["']/g),
@@ -428,9 +439,17 @@ export const scrapePER = async (
   const dir = await mkdtemp(join(tmpdir(), "council-per32-"));
   try {
     for (const p of all) {
+      // Hoisted so a failure AFTER the href is known is deferred against the
+      // DOCUMENT url — the one the resolutions carry as `sourceUrl` — and the
+      // ledger entry then clears itself when the protokol finally lands.
+      // Keyed on the POST url it never matches `ingestedUrls` and is immortal
+      // by construction: протокол №13 stayed on the ledger as "missing" after
+      // the .doc route ingested it, which is the ledger asserting something
+      // false rather than merely stale.
+      let docxUrl: string | undefined;
       try {
         const postHtml = await fetchHtml(p.postUrl);
-        const docxUrl = findDocxUrl(postHtml);
+        docxUrl = findDocxUrl(postHtml) ?? undefined;
         if (!docxUrl) {
           errors.push({
             url: p.postUrl,
@@ -443,7 +462,7 @@ export const scrapePER = async (
         const docxPath = join(dir, `pr_${p.session}.docx`);
         await fetchToFile(docxUrl, docxPath);
         const buf = await readFile(docxPath);
-        const text = await extractDocxText(buf);
+        const text = await extractWordText(buf);
         const { resolutions: recs, joinStats } = parseProtokolText(
           text,
           { ...p, docxUrl },
@@ -460,8 +479,13 @@ export const scrapePER = async (
         );
       } catch (err) {
         errors.push({
-          url: p.postUrl,
-          kind: "fetch",
+          url: docxUrl ?? p.postUrl,
+          // A body that is not a readable .docx cannot be fixed by
+          // re-fetching it — protokol №13/2025 is a Word 97-2003 .doc under
+          // a .doc href this parser feeds to the OOXML reader — so it is a
+          // `content` skip that the watermark may pass. As `fetch` it capped
+          // PER32 at 2025-10-16 and re-wrote 271 unchanged resolutions a run.
+          kind: isMalformedArchiveError(err) ? "content" : "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

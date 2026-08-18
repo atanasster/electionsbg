@@ -1,17 +1,6 @@
 {
   "skill": "council_PER32",
-  "lastSuccessfulIngest": "2026-08-17T16:16:20.423Z",
-  "summary": "22 prot(s) → 0+/582=/561 total",
-  "sinceDate": "2025-10-16",
-  "deferred": [
-    {
-      "url": "https://www.obs-pernik.bg/протокол-№-13-19-10-2025г/",
-      "kind": "fetch",
-      "date": "2025-10-19",
-      "message": "unzip -p /var/folders/3y/8lbqqtbn6r771zw8hnb7t3p00000gn/T/council-docx-1gcrTH/in.docx word/document.xml exited 11: warning [/var/folders/3y/8lbqqtbn6r771zw8hnb7t3p00000gn/T/council-docx-1gcrTH/in.docx]:  68164 extra bytes at beginning or within zipfile\n  (attempting to process anyway)\ncaution: filename not matched:  word/document.xml\n",
-      "firstSeen": "2026-08-17T15:27:42.835Z",
-      "attempts": 3,
-      "givenUp": false
-    }
-  ]
+  "lastSuccessfulIngest": "2026-08-18T15:29:13.101Z",
+  "summary": "0 prot(s) → 0+/0=/563 total",
+  "sinceDate": "2026-07-21"
 }

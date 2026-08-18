@@ -15,6 +15,16 @@
 //
 // So: a `fetch` site inside a per-protocol loop must supply a date, and
 // any that genuinely cannot must say so here, by name, with a reason.
+//
+// The same optionality bit a second time, one axis over. Five parsers wrap
+// download AND extraction in one try/catch and stamped the lot `fetch` —
+// but a body that is not a readable .docx/.odt is `content`: the bytes are
+// already in hand, so re-fetching yields the same failure. PER32 sat at
+// sinceDate 2025-10-16 for weeks re-writing 271 unchanged resolutions on
+// every run because protokol №13's href serves a Word 97-2003 .doc. So a
+// catch that covers an office-container extractor must ask
+// `isMalformedArchiveError(err)`, and the scanner below reads BOTH arms of
+// such a site rather than the first `kind:` literal it happens to see.
 
 import { describe, expect, it } from "vitest";
 import { readdirSync, readFileSync } from "node:fs";
@@ -47,6 +57,8 @@ type Site = {
   kind: string;
   url: string;
   hasDate: boolean;
+  /** The whole `errors.push({…})` call, for gates that read the expression. */
+  body: string;
 };
 
 const readSites = (): Site[] => {
@@ -66,15 +78,28 @@ const readSites = (): Site[] => {
         if (j > i && depth <= 0) break;
       }
       const body = lines.slice(i, j + 1).join(" ");
-      const kind = /kind: "(\w+)"/.exec(body)?.[1];
-      if (!kind) continue;
-      out.push({
-        file,
-        line: i + 1,
-        kind,
-        url: (/url: ([^,]+),/.exec(body)?.[1] ?? "?").trim(),
-        hasDate: /\bdate: /.test(body),
-      });
+      // BOTH arms of the kind expression, not just a bare literal. A
+      // conditional site — `kind: isMalformedArchiveError(err) ? "content"
+      // : "fetch"` — has to satisfy the rules for each arm it can produce.
+      //
+      // A `kind: "(\w+)"` scan does NOT merely read the first arm of such a
+      // site: it matches nothing at all, so the site drops out of the scan
+      // and its `fetch` arm silently stops being covered by the date rule.
+      // That is the same shape of hole this file exists to close, so the
+      // pattern deliberately spans the ternary rather than the literal.
+      const m = /kind:\s*[^,"]*?"(\w+)"(?:\s*:\s*"(\w+)")?/.exec(body);
+      if (!m) continue;
+      const kinds = [...new Set([m[1], m[2]].filter(Boolean) as string[])];
+      for (const kind of kinds) {
+        out.push({
+          file,
+          line: i + 1,
+          kind,
+          url: (/url: ([^,]+),/.exec(body)?.[1] ?? "?").trim(),
+          hasDate: /\bdate: /.test(body),
+          body,
+        });
+      }
     }
   }
   return out;
@@ -124,5 +149,74 @@ describe("MuniScrapeError call sites", () => {
       (k) => !undated.has(k),
     );
     expect(stale).toEqual([]);
+  });
+});
+
+// Every reader in lib/docx.ts that can raise MalformedArchiveError. A parser
+// calling one of these has, by construction, a call site that can fail on
+// unusable BYTES rather than on the download.
+//
+// `extractWordText` is the router parsers should use and the other three are
+// its parts, but all four are listed rather than just the router: a parser
+// reaching past it — which is what fed an OLE2 file to the OOXML reader for a
+// month — must still classify its failure, and dropping off this list is not
+// a way to be exempt from that.
+const CONTAINER_EXTRACTORS = [
+  "extractWordText",
+  "extractDocxText",
+  "extractOdtText",
+  "convertDocToText",
+];
+
+describe("office-container failures are content, not fetch", () => {
+  const files = readdirSync(PARSER_DIR).filter(
+    (f) => f.endsWith(".ts") && !f.endsWith(".test.ts"),
+  );
+  const sources = new Map(
+    files.map((f) => [f, readFileSync(join(PARSER_DIR, f), "utf8")] as const),
+  );
+  const users = files.filter((f) =>
+    CONTAINER_EXTRACTORS.some((fn) =>
+      new RegExp(`\\b${fn}\\(`).test(sources.get(f)!),
+    ),
+  );
+
+  it("finds the parsers that extract from an office container", () => {
+    // per32, rse, pvn, raz26, hkv09. A sixth arriving must be classified
+    // too, which is what makes the assertion below worth running.
+    expect(users.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it.each(users.map((f) => [f] as const))(
+    "%s classifies a malformed archive as content",
+    (file) => {
+      const sites = readSites().filter(
+        (s) => s.file === file && s.kind === "fetch",
+      );
+      // The per-protocol catch is the one that wraps the extractor. At
+      // least one `fetch` site in the file must route through the
+      // predicate — otherwise an unreadable document caps the watermark
+      // and the município re-writes its whole window every run.
+      const classified = sites.filter((s) =>
+        s.body.includes("isMalformedArchiveError"),
+      );
+      expect(classified.length).toBeGreaterThan(0);
+      // And that site's other arm must be `content`, not something else.
+      for (const s of classified) {
+        expect(s.body).toMatch(
+          /isMalformedArchiveError\(err\)\s*\?\s*"content"\s*:\s*"fetch"/,
+        );
+      }
+    },
+  );
+
+  it("never resolves the predicate to a kind the watermark treats differently", () => {
+    // `enrich` would drop the protocol off the ledger entirely, and
+    // `discovery` would freeze the whole município — both worse than the
+    // bug this replaced.
+    for (const s of readSites()) {
+      if (!s.body.includes("isMalformedArchiveError")) continue;
+      expect(["content", "fetch"]).toContain(s.kind);
+    }
   });
 });

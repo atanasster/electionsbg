@@ -167,9 +167,9 @@
       "name": "Община Перник",
       "tier": "A",
       "indexUrl": "https://www.obs-pernik.bg/category/заседания/протоколи-заседания/",
-      "indexNote": "Wired 2026-05-29. WordPress category with /page/N/ pagination, 10 posts per page. Each post slug: /protokol-N-DD-MM-YYYYg/ (Cyrillic in canonical form), one .docx attachment per session under /wp-content/uploads/{YYYY}/{MM}/. Tally form matches the shared SUMMARY_RE_LABEL_FIRST canonically. Per-councillor block sits BETWEEN the tally summary and the marker as UNGROUPED Name: vote lines (no leading position number) — parser ships its own PER_NAME_RE since the shared VOTE_LINE_RE requires a numbered prefix. Marker filter: real markers preceded by prie verb within 300 chars (agenda cross-references to past decisions get filtered out). Coverage tier A.",
+      "indexNote": "Wired 2026-05-29. WordPress category with /page/N/ pagination, 10 posts per page. Each post slug: /protokol-N-DD-MM-YYYYg/ (Cyrillic in canonical form), one Word attachment per session under /wp-content/uploads/{YYYY}/{MM}/ — MOSTLY .docx, but протокол №13/19-10-2025 is a legacy .doc, so the reader is chosen from the file's magic bytes (extractWordText), never from the href. Tally form matches the shared SUMMARY_RE_LABEL_FIRST canonically. Per-councillor block sits BETWEEN the tally summary and the marker as UNGROUPED Name: vote lines (no leading position number) — parser ships its own PER_NAME_RE since the shared VOTE_LINE_RE requires a numbered prefix. Marker filter: real markers preceded by prie verb within 300 chars (agenda cross-references to past decisions get filtered out). Coverage tier A.",
       "fetch": "static",
-      "format": "docx",
+      "format": "mixed",
       "tallyStrategy": "label-first",
       "perCouncillor": true
     },

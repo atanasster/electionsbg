@@ -26,7 +26,7 @@
 
 import * as cheerio from "cheerio";
 import { fetchHtml, resolveUrl, fetchToFile } from "../lib/fetch";
-import { extractDocxText } from "../lib/docx";
+import { isMalformedArchiveError, extractWordText } from "../lib/docx";
 import {
   classifyResult,
   findAllTallies,
@@ -194,7 +194,7 @@ export const scrapePVN = async (
       try {
         await fetchToFile(ref.url, localPath);
         const buf = await readFile(localPath);
-        const text = await extractDocxText(buf);
+        const text = await extractWordText(buf);
         sittingDate = extractSittingDate(text) ?? undefined;
         if (!sittingDate) {
           errors.push({
@@ -225,7 +225,8 @@ export const scrapePVN = async (
           url: ref.url,
           // undefined only when the document never parsed far enough.
           date: sittingDate,
-          kind: "fetch",
+          // An unreadable container is `content`: same bytes next run.
+          kind: isMalformedArchiveError(err) ? "content" : "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }

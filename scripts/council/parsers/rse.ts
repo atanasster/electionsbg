@@ -28,7 +28,7 @@
 
 import * as cheerio from "cheerio";
 import { fetchHtml, resolveUrl, fetchToFile } from "../lib/fetch";
-import { extractDocxText } from "../lib/docx";
+import { isMalformedArchiveError, extractWordText } from "../lib/docx";
 import {
   classifyResult,
   findAllTallies,
@@ -232,8 +232,10 @@ export const scrapeRSE = async (
           });
           continue;
         }
+        // `.docx?` — Ruse's archive holds both, and extractWordText picks
+        // the reader from the bytes rather than from this extension.
         if (!/\.docx?$/i.test(ref.filename)) continue;
-        const text = await extractDocxText(buf);
+        const text = await extractWordText(buf);
         sittingDate = extractSittingDate(text) ?? undefined;
         const dateFiltered =
           opts.sinceDate && sittingDate && sittingDate <= opts.sinceDate;
@@ -255,7 +257,8 @@ export const scrapeRSE = async (
           url: ref.url,
           // undefined only when the document never parsed far enough.
           date: sittingDate,
-          kind: "fetch",
+          // An unreadable container is `content`: same bytes next run.
+          kind: isMalformedArchiveError(err) ? "content" : "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }

@@ -33,7 +33,11 @@
 // rejected), equivalent to HKV09 / DOB28 / HKV34 / SZR / RSE / Pleven.
 
 import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
-import { extractDocxText, extractOdtText } from "../lib/docx";
+import {
+  extractOdtText,
+  isMalformedArchiveError,
+  extractWordText,
+} from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
@@ -465,7 +469,8 @@ export const scrapeRAZ = async (
         } else if (ext === "odt") {
           text = await extractOdtText(buf);
         } else {
-          text = await extractDocxText(buf);
+          // .doc and .docx alike — the router reads the signature.
+          text = await extractWordText(buf);
         }
         const recs = parseProtokolText(text, ref);
         resolutions.push(...recs);
@@ -478,7 +483,9 @@ export const scrapeRAZ = async (
           url: refUrl,
           // undefined only when we never got as far as the document href.
           date: refDate,
-          kind: "fetch",
+          // An unreadable container is `content`: same bytes next run. Covers
+          // the .odt branch too — both extractors raise the same error.
+          kind: isMalformedArchiveError(err) ? "content" : "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }

@@ -37027,61 +37027,61 @@
   "meta": {
     "SZR01": {
       "name": "Община Стара Загора",
-      "lastIngest": "2026-08-17T12:22:34.706Z",
+      "lastIngest": "2026-08-18T14:46:03.048Z",
       "protocolsIngested": 4,
       "resolutionCount": 116
     },
     "VTR01": {
       "name": "Община Велико Търново",
-      "lastIngest": "2026-08-17T13:01:19.915Z",
+      "lastIngest": "2026-08-18T14:46:59.326Z",
       "protocolsIngested": 22,
       "resolutionCount": 460
     },
     "RSE01": {
       "name": "Община Русе",
-      "lastIngest": "2026-08-17T12:22:50.017Z",
+      "lastIngest": "2026-08-18T14:46:43.505Z",
       "protocolsIngested": 5,
       "resolutionCount": 211
     },
     "PVN01": {
       "name": "Община Плевен",
-      "lastIngest": "2026-08-17T12:22:57.790Z",
+      "lastIngest": "2026-08-18T14:46:57.394Z",
       "protocolsIngested": 4,
       "resolutionCount": 137
     },
     "VAR01": {
       "name": "Община Варна",
-      "lastIngest": "2026-08-17T12:22:08.921Z",
+      "lastIngest": "2026-08-18T14:45:33.357Z",
       "protocolsIngested": 13,
       "resolutionCount": 81
     },
     "BGS01": {
       "name": "Община Бургас",
-      "lastIngest": "2026-08-17T13:03:04.904Z",
+      "lastIngest": "2026-08-18T14:46:01.347Z",
       "protocolsIngested": 23,
       "resolutionCount": 374
     },
     "PDV01": {
       "name": "Община Пловдив",
-      "lastIngest": "2026-08-17T12:22:07.010Z",
-      "protocolsIngested": 68,
+      "lastIngest": "2026-08-18T14:45:29.137Z",
+      "protocolsIngested": 69,
       "resolutionCount": 151
     },
     "SLV01": {
       "name": "Община Сливен",
-      "lastIngest": "2026-08-17T12:23:01.678Z",
+      "lastIngest": "2026-08-18T14:47:02.038Z",
       "protocolsIngested": 6,
       "resolutionCount": 238
     },
     "SOF": {
       "name": "Столична община",
-      "lastIngest": "2026-08-17T21:34:07.133Z",
+      "lastIngest": "2026-08-18T14:45:27.651Z",
       "protocolsIngested": 22,
       "resolutionCount": 413
     },
     "GAB05": {
       "name": "Община Габрово",
-      "lastIngest": "2026-08-17T12:25:48.857Z",
+      "lastIngest": "2026-08-18T14:51:48.996Z",
       "protocolsIngested": 12,
       "resolutionCount": 244
     },
@@ -37093,33 +37093,33 @@
     },
     "HKV34": {
       "name": "Община Хасково",
-      "lastIngest": "2026-08-17T12:23:39.787Z",
+      "lastIngest": "2026-08-18T14:48:05.169Z",
       "protocolsIngested": 16,
       "resolutionCount": 387
     },
     "DOB28": {
       "name": "Община град Добрич",
-      "lastIngest": "2026-08-17T12:23:03.048Z",
+      "lastIngest": "2026-08-18T14:47:02.758Z",
       "protocolsIngested": 3,
       "resolutionCount": 50
     },
     "HKV09": {
       "name": "Община Димитровград",
-      "lastIngest": "2026-08-17T12:23:04.175Z",
+      "lastIngest": "2026-08-18T14:47:04.004Z",
       "protocolsIngested": 68,
       "resolutionCount": 607
     },
     "RAZ26": {
       "name": "Община Разград",
-      "lastIngest": "2026-08-17T12:23:36.011Z",
+      "lastIngest": "2026-08-18T14:47:37.942Z",
       "protocolsIngested": 40,
       "resolutionCount": 338
     },
     "PER32": {
       "name": "Община Перник",
-      "lastIngest": "2026-08-17T16:16:20.342Z",
-      "protocolsIngested": 86,
-      "resolutionCount": 561
+      "lastIngest": "2026-08-18T15:29:13.090Z",
+      "protocolsIngested": 117,
+      "resolutionCount": 563
     }
   },
   "note": "Pending ingest. See scripts/council/README.md. Each entry: { id, date, title, summary_bg, summary_en, tags, sourceUrl }. The MyAreaCouncilMinutesTile auto-lights up once entries appear."

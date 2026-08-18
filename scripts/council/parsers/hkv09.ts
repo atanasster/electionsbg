@@ -44,7 +44,7 @@
 // RSE / Pleven / Добрич.
 
 import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
-import { extractDocxText } from "../lib/docx";
+import { isMalformedArchiveError, extractWordText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
@@ -52,7 +52,6 @@ import type {
   MuniRecipe,
   MuniScrapeResult,
 } from "../lib/types";
-import { spawn } from "node:child_process";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -179,48 +178,6 @@ const findDocUrl = (sessionHtml: string): string | null => {
   return chosen.startsWith("http")
     ? chosen
     : `${BASE}/${chosen.replace(/^\/+/, "")}`;
-};
-
-// Convert a .doc buffer → UTF-8 text via macOS `textutil`. Throws if the
-// binary isn't on PATH (the user runs the watcher on macOS).
-const convertDocToText = async (docBuffer: Buffer): Promise<string> => {
-  const dir = await mkdtemp(join(tmpdir(), "council-hkv09-"));
-  const docPath = join(dir, "in.doc");
-  const txtPath = join(dir, "in.txt");
-  try {
-    await (await import("node:fs/promises")).writeFile(docPath, docBuffer);
-    const { code, stderr } = await new Promise<{
-      code: number;
-      stderr: string;
-    }>((resolve, reject) => {
-      const child = spawn(
-        "textutil",
-        ["-convert", "txt", "-encoding", "UTF-8", "-output", txtPath, docPath],
-        { stdio: ["ignore", "ignore", "pipe"] },
-      );
-      let errBuf = "";
-      child.stderr.on("data", (b: Buffer) => (errBuf += b.toString("utf8")));
-      child.on("error", (err: Error) => {
-        if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-          reject(
-            new Error(
-              "textutil not found on PATH — Dimitrovgrad .doc conversion " +
-                "requires macOS textutil (run the watcher on macOS).",
-            ),
-          );
-        } else reject(err);
-      });
-      child.on("close", (c: number | null) =>
-        resolve({ code: c ?? 0, stderr: errBuf }),
-      );
-    });
-    if (code !== 0) {
-      throw new Error(`textutil exited ${code}: ${stderr.slice(0, 200)}`);
-    }
-    return await readFile(txtPath, "utf8");
-  } finally {
-    await rm(dir, { recursive: true, force: true });
-  }
 };
 
 // Dimitrovgrad's protokol uses LETTER-SPACED "Р  Е  Ш  Е  Н  И  Е" for
@@ -422,9 +379,7 @@ export const scrapeHKV09 = async (
         await fetchToFile(docUrl, docPath);
         const buf = await readFile(docPath);
         let text: string;
-        if (ext === "docx") {
-          text = await extractDocxText(buf);
-        } else if (ext === "pdf") {
+        if (ext === "pdf") {
           text = await extractPdfText(buf);
           if (looksLikeScannedPdf(text)) {
             errors.push({
@@ -436,7 +391,9 @@ export const scrapeHKV09 = async (
             continue;
           }
         } else {
-          text = await convertDocToText(buf);
+          // .doc up to session 32, .docx from 33 — and the extension has
+          // been wrong before, so the reader is chosen from the signature.
+          text = await extractWordText(buf);
         }
         const recs = parseProtokolText(text, {
           ...p,
@@ -450,7 +407,9 @@ export const scrapeHKV09 = async (
       } catch (err) {
         errors.push({
           url: p.pageUrl,
-          kind: "fetch",
+          // An unreadable .docx container is `content`: same bytes next run.
+          // The .doc and .pdf branches raise plain Errors and stay `fetch`.
+          kind: isMalformedArchiveError(err) ? "content" : "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
