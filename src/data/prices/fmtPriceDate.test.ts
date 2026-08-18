@@ -6,7 +6,7 @@
 // which captioned a headlineDate of 2026-08-08 as "7.08.2026".
 
 import { describe, it, expect } from "vitest";
-import { fmtPriceDate } from "./usePrices";
+import { fmtPriceDate, parseCalendarDay } from "./usePrices";
 
 describe("fmtPriceDate", () => {
   it("renders the calendar day it was given, whatever the local zone", () => {
@@ -43,5 +43,46 @@ describe("fmtPriceDate", () => {
 
   it("still handles a full ISO timestamp", () => {
     expect(fmtPriceDate("2026-08-08T12:00:00Z", "en")).toContain("2026");
+  });
+});
+
+describe("parseCalendarDay", () => {
+  it("is the ONE definition — every prices formatter must route through it", async () => {
+    // The regex was hand-copied into PriceIndexTrendChart's tick formatter, and
+    // src/ux/feed/calendarDay.test.ts cannot see it: that gate scopes to the
+    // `T00:00:00Z` + timeZone:"UTC" idiom, so deleting this copy left every
+    // test green. This asserts the copies are gone rather than correct.
+    const { readFileSync, readdirSync, statSync } = await import("node:fs");
+    const path = await import("node:path");
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((e) => {
+        const full = path.join(dir, e);
+        return statSync(full).isDirectory()
+          ? walk(full)
+          : /\.tsx?$/.test(e) && !/\.test\.tsx?$/.test(e)
+            ? [full]
+            : [];
+      });
+    const offenders = walk("src/screens/components/prices")
+      .concat(walk("src/data/prices"))
+      .filter((f) => {
+        const src = readFileSync(f, "utf8");
+        // the local-parse regex written out inline, anywhere but the helper
+        return (
+          src.includes("T00:00:00`") &&
+          !src.includes("export const parseCalendarDay")
+        );
+      });
+    expect(offenders).toEqual([]);
+  });
+
+  it("parses a bare day as local, and passes a full timestamp through", () => {
+    const day = parseCalendarDay("2026-08-08");
+    expect(day.getDate()).toBe(8);
+    expect(day.getHours()).toBe(0);
+    // a real instant is not a calendar day and must not be shifted
+    expect(parseCalendarDay("2026-08-08T15:30:00Z").toISOString()).toBe(
+      "2026-08-08T15:30:00.000Z",
+    );
   });
 });

@@ -27,6 +27,8 @@ import {
   fmtPct,
   fmtPriceDate,
   movingAverage,
+  parseCalendarDay,
+  PRICE_FLAT_BAND,
 } from "@/data/prices/usePrices";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 
@@ -34,6 +36,11 @@ interface Props {
   series: PricePoint[];
   height?: number;
   smoothWindow?: number;
+  /** The value the page's headline quotes, on the index's 100 base. The hue is
+   *  keyed off THIS when given, never off the series' own tail: the two differ
+   *  whenever the feed's newest days are withheld (see headlineIndex), and a
+   *  green line under a red +1.3% is the page contradicting itself. */
+  headlineValue?: number;
 }
 
 interface Datum {
@@ -48,11 +55,18 @@ interface Datum {
 const DOWN = "#059669"; // emerald — basket below 100 (cheaper)
 const UP = "#e11d48"; // rose — basket above 100 (dearer)
 const FLAT = "#64748b";
+// The SAME band priceChangeColor uses for the headline percentage, read from
+// it rather than restated: they were ±0.05% here against ±0.1% there, so a
+// basket between the two drew a coloured line under a grey number. Passing
+// headlineValue fixed WHICH number is compared; this fixes the rule. It is a
+// fraction there and this series is 100-based, hence the ×100.
+const FLAT_BAND = PRICE_FLAT_BAND * 100;
 
 export const PriceIndexTrendChart: FC<Props> = ({
   series,
   height = 220,
   smoothWindow = 7,
+  headlineValue,
 }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
@@ -65,8 +79,9 @@ export const PriceIndexTrendChart: FC<Props> = ({
       v: p.v,
       avg: avg[i].v,
     }));
-    const last = avg[avg.length - 1]?.v ?? 100;
-    const hue = last < 99.95 ? DOWN : last > 100.05 ? UP : FLAT;
+    const last = headlineValue ?? avg[avg.length - 1]?.v ?? 100;
+    const hue =
+      last < 100 - FLAT_BAND ? DOWN : last > 100 + FLAT_BAND ? UP : FLAT;
     // Keep 100 in view (the baseline is the whole point) with a small pad.
     let lo = 100;
     let hi = 100;
@@ -83,12 +98,18 @@ export const PriceIndexTrendChart: FC<Props> = ({
         Math.ceil((hi + pad) * 10) / 10,
       ] as [number, number],
     };
-  }, [series, smoothWindow]);
+  }, [series, smoothWindow, headlineValue]);
 
   if (series.length < 2) return null;
 
+  // `new Date("2026-08-08")` is a UTC-midnight parse rendered in local time, so
+  // every reader west of Greenwich gets the day before — the same defect
+  // fmtPriceDate carried. Append a time to parse as local.
+  // parseCalendarDay, not `new Date(d)`: the latter is a UTC-midnight parse
+  // rendered in local time, so every reader west of Greenwich gets the day
+  // before. Shared rather than re-derived — see its docblock.
   const fmtDateTick = (d: string) =>
-    new Date(d).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
+    parseCalendarDay(d).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
       day: "numeric",
       month: "short",
     });

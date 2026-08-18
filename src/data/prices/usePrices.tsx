@@ -534,29 +534,45 @@ export const euroPctSafe = (pct: number | null | undefined): number | null =>
   pct == null || Math.abs(pct) > EURO_PCT_ARTIFACT ? null : pct;
 
 /** Tailwind text class for a price change: red up, green down, muted flat. */
+/** Fractional change within ±this reads as "no change" — a monitoring basket
+ *  wobbles below it. Exported because a CHART tinting its line has to use the
+ *  same band as the NUMBER beside it: at ±0.05 against ±0.1 a basket between
+ *  the two drew a coloured line under a grey figure. */
+export const PRICE_FLAT_BAND = 0.001;
+
 export const priceChangeColor = (frac: number): string =>
-  frac > 0.001
+  frac > PRICE_FLAT_BAND
     ? "text-red-600 dark:text-red-400"
-    : frac < -0.001
+    : frac < -PRICE_FLAT_BAND
       ? "text-green-600 dark:text-green-400"
       : "text-muted-foreground";
 
 /** Format an ISO date (`YYYY-MM-DD`) as "2 яну 2026" / "2 Jan 2026". */
+/**
+ * Parse a bare `YYYY-MM-DD` from this corpus as a CALENDAR DAY.
+ *
+ * `new Date("2026-08-08")` is a UTC-midnight parse per spec, and every
+ * formatter here renders in the viewer's zone — so west of Greenwich the label
+ * came out a day early. Measured: the /prices caption read "7.08.2026" for a
+ * headlineDate of 2026-08-08, and the euro-day baseline rendered as 1.01.2026
+ * for a corpus that starts 2026-01-02. Appending a time makes it a LOCAL parse,
+ * which is what a bare day from this corpus means. (Same class as the
+ * funds_wire `checked_on` hazard CLAUDE.md documents on the server side; the
+ * repo's other idiom, `T00:00:00Z` + `timeZone: "UTC"`, is equivalent and is
+ * what src/ux/feed/calendarDay.test.ts polices.)
+ *
+ * ONE definition on purpose: hand-copying the regex into each formatter is how
+ * a fix like this survives in one place and is deleted in another.
+ */
+export const parseCalendarDay = (iso: string): Date =>
+  new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso);
+
 export const fmtPriceDate = (
   iso: string | undefined | null,
   lang: "bg" | "en",
 ): string => {
   if (!iso) return "";
-  // `new Date("2026-08-08")` is parsed as UTC midnight per spec, while
-  // toLocaleDateString renders in the LOCAL zone — so every reader west of
-  // Greenwich saw the day BEFORE the one in the data. Measured: the /prices
-  // caption read "7.08.2026" for a headlineDate of 2026-08-08. Appending a
-  // time makes it a LOCAL-time parse, which is what a bare calendar date from
-  // this corpus means. (Same class as the funds_wire `checked_on` hazard
-  // CLAUDE.md documents on the server side.)
-  const local = /^\d{4}-\d{2}-\d{2}$/.test(iso)
-    ? new Date(`${iso}T00:00:00`)
-    : new Date(iso);
+  const local = parseCalendarDay(iso);
   return local.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
     day: "numeric",
     month: "short",

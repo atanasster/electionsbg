@@ -32,7 +32,7 @@ import { Title } from "@/ux/Title";
 import { Link } from "@/ux/Link";
 import { Card } from "@/components/ui/card";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
-import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
+import { PriceIndexTrendChart } from "@/screens/components/prices/PriceIndexTrendChart";
 import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
 import { MoversInline } from "@/screens/components/prices/PriceMovers";
 import { EuroVerdictTile } from "@/screens/consumption/EuroVerdictTile";
@@ -126,7 +126,11 @@ export const PricesScreen: FC = () => {
   // would fall away while the figure held steady, and a reader trusts the
   // picture.
   const withheld = new Set(index?.coverage?.incompleteDates ?? []);
-  const plotted = series.filter((p) => !withheld.has(p.d));
+  // Same two exclusions headlineIndex applies, so the line cannot show a point
+  // the number refuses. `n === 0` is the builder's `?? 100` fallback — "not
+  // computable", not "unchanged" — and coverage.incompleteDates is a
+  // REPORTER-COUNT judgement, so a day can clear it and still match nothing.
+  const plotted = series.filter((p) => !withheld.has(p.d) && p.n !== 0);
   const withheldTail = withheldTailCount(
     series.map((p) => p.d),
     headline?.d,
@@ -180,7 +184,7 @@ export const PricesScreen: FC = () => {
           Three columns there leave one row of two, which is the cheaper cost. */}
       <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Hero — the basket index since the euro */}
-        <Card className="col-span-full flex flex-wrap items-center justify-between gap-4 p-5">
+        <Card className="col-span-full flex flex-wrap items-center justify-between gap-x-6 gap-y-3 p-5">
           <div className="min-w-0">
             <div className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground">
               <ShoppingBasket className="size-4" />
@@ -210,13 +214,20 @@ export const PricesScreen: FC = () => {
                 : ""}
             </div>
           </div>
+          {/* A real chart, not a sparkline: an axis-less squiggle carries shape
+              and no readable value, and this one was 280px pinned to the right
+              of an otherwise empty hero. The 100 reference line is what makes
+              "above/below" mean "dearer/cheaper than on euro day" at a glance.
+              Plotted over `plotted` — the withheld tail is excluded, so the
+              line stops where the headline does. */}
           {plotted.length >= 2 ? (
-            <PriceSparkline
-              points={plotted}
-              headlineValue={headline?.v}
-              width={280}
-              height={60}
-            />
+            <div className="min-w-0 flex-1 basis-[22rem]">
+              <PriceIndexTrendChart
+                series={plotted}
+                headlineValue={headline?.v}
+                height={132}
+              />
+            </div>
           ) : null}
         </Card>
 
