@@ -124,8 +124,11 @@ interface RankingFile {
 interface ChainRow {
   eik: string;
   chain: string;
+  /** SUM over the `nPriced` products this chain priced — comparable across
+   *  chains only when `comparable` is true. See build_index's `chains` note. */
   basket: number;
   nPriced: number;
+  comparable?: boolean;
 }
 interface ChainsFile {
   latestDate: string;
@@ -554,6 +557,16 @@ export const cheapestChains = async (
       coreSize = f.commonBasketSize;
     }
   }
+  // Rank only the chains that priced the WHOLE basket. `basket` is a sum over
+  // the subset each priced, so the raw order put a shop missing a third of the
+  // items on top — and this tool answers in prose, where the caveat a table can
+  // carry in a "8/12" column has nowhere to live. When no chain in scope
+  // qualifies (32 of 130 município payloads), say so rather than ranking the
+  // incomparable.
+  const rankable = chains.filter((c) => c.comparable ?? c.nPriced >= coreSize);
+  const partialOnly = rankable.length === 0 && chains.length > 0;
+  if (rankable.length) chains = rankable;
+
   if (!chains.length)
     return noData(
       "cheapestChains",
@@ -591,10 +604,13 @@ export const cheapestChains = async (
       lang === "bg"
         ? `Най-евтини вериги за кошницата (${scope})`
         : `Cheapest chains for the basket (${scope})`,
-    subtitle:
-      lang === "bg"
-        ? `Сравнено върху общата кошница, която всяка верига предлага (брой продукти). ${notCpi(lang)}`
-        : `Compared on the shared basket each chain prices (coverage). ${notCpi(lang)}`,
+    subtitle: partialOnly
+      ? lang === "bg"
+        ? `⚠ Никоя верига тук не предлага всичките ${coreSize} продукта, затова цените НЕ са съпоставими — по-малката кошница значи по-малко продукти, не по-евтин магазин. ${notCpi(lang)}`
+        : `⚠ No chain here prices all ${coreSize} items, so these baskets are NOT comparable — a smaller basket means fewer products, not a cheaper shop. ${notCpi(lang)}`
+      : lang === "bg"
+        ? `Сравнено върху пълната кошница от ${coreSize} продукта. ${notCpi(lang)}`
+        : `Compared on the full ${coreSize}-item basket. ${notCpi(lang)}`,
     columns,
     rows,
     viz: "none",
@@ -605,6 +621,15 @@ export const cheapestChains = async (
         ? `${top[0].chain}: ${eur(top[0].basket, lang)}`
         : "—",
       chains_compared: chains.length,
+      // The grounded-number gate reads `facts`; a "cheapest" claim made over
+      // incomparable baskets must carry its own disclaimer here too.
+      basis: partialOnly
+        ? lang === "bg"
+          ? "непълни кошници — не са съпоставими"
+          : "partial baskets — not comparable"
+        : lang === "bg"
+          ? `пълна кошница от ${coreSize} продукта`
+          : `full ${coreSize}-item basket`,
       note: notCpi(lang),
     },
     provenance: [prov, PROV],

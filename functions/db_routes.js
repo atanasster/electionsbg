@@ -1065,11 +1065,24 @@ const DB_ROUTES = {
                   (e->>'chain') AS chain,
                   (e->>'basket')::float8 AS basket,
                   (e->>'nPriced')::int AS n_priced,
-                  row_number() OVER (ORDER BY (e->>'basket')::float8 ASC) AS rank,
-                  count(*) OVER () AS total
+                  coalesce((e->>'comparable')::boolean, false) AS comparable,
+                  -- Rank and total over the COMPARABLE rows only. The basket
+                  -- figure is a sum over whatever subset a chain priced, so
+                  -- ranking all of them together placed a shop that skipped a
+                  -- third of the basket above one that priced every item. A
+                  -- NULL rank for a partial row is deliberate: it has no
+                  -- position in this order, and the page must not print one.
+                  CASE WHEN coalesce((e->>'comparable')::boolean, false)
+                       THEN row_number() OVER (
+                              PARTITION BY coalesce((e->>'comparable')::boolean, false)
+                              ORDER BY (e->>'basket')::float8 ASC)
+                  END AS rank,
+                  count(*) FILTER (WHERE coalesce((e->>'comparable')::boolean, false))
+                    OVER () AS total
              FROM arr, jsonb_array_elements(arr.n) e
          )
-         SELECT chain, basket, n_priced, rank::int, total::int FROM ranked WHERE eik = $1`,
+         SELECT chain, basket, n_priced, comparable, rank::int, total::int
+           FROM ranked WHERE eik = $1`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
       // Per-NGO public-interest signal set (migration 080). ngo_signal_row is

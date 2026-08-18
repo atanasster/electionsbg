@@ -1129,6 +1129,18 @@ function buildChains(
         chain: chainNames[eik] ?? eik,
         basket,
         nPriced,
+        // Whether this row may be RANKED against the others. `basket` is a sum
+        // over the subset the chain actually priced, so a chain missing items
+        // has a smaller number without being a cheaper shop — measured on the
+        // 2026-08 corpus, the four "cheapest chains" priced 8, 7, 10 and 8 of
+        // 12, and on the full basket the order is completely different (ЖИЗЕЛ
+        // 14.47, Лидл 14.50, BulMag 15.25, none of which appeared).
+        //
+        // It is a FIELD rather than a rule each consumer applies because the
+        // consumers are not all TypeScript: /api/db/company ranks these rows in
+        // SQL and the AI chat answers from them in prose. Seven surfaces read
+        // this payload; a helper could only ever reach five.
+        comparable: nPriced >= commonBasket.length,
         products: m.size,
       };
     })
@@ -1138,7 +1150,7 @@ function buildChains(
   emit("chains", "", {
     latestDate: latest.date,
     commonBasketSize: commonBasket.length,
-    note: "Chains scored on the common basket they price (nPriced of commonBasketSize). Compare like-with-like.",
+    note: "Chains scored on the common basket they price (nPriced of commonBasketSize). `basket` is a SUM over that subset, so rows are comparable only when `comparable` is true (nPriced = commonBasketSize) — a partial basket is a smaller number, not a cheaper shop. Rank on comparable rows; show the rest with their coverage.",
     national,
   });
 
@@ -1148,7 +1160,13 @@ function buildChains(
     const chains = [...muniChainPid.entries()]
       .map(([eik, m]) => {
         const { basket, nPriced } = chainBasket(m);
-        return { eik, chain: chainNames[eik] ?? eik, basket, nPriced };
+        return {
+          eik,
+          chain: chainNames[eik] ?? eik,
+          basket,
+          nPriced,
+          comparable: nPriced >= commonBasket.length,
+        };
       })
       // Fairness: only rank chains pricing ≥half the core basket, so a kiosk
       // pricing 3 staples can't masquerade as "cheapest". nPriced is shipped

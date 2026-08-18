@@ -15,6 +15,7 @@ import {
   usePriceIndex,
   headlineIndex,
   headlinePoint,
+  comparableChains,
   usePriceRanking,
   useNationalChains,
   fmtEur,
@@ -85,6 +86,11 @@ export const GovernancePricesTile: FC<Props> = ({
   const up = catMovers.slice(0, 3);
   const down = catMovers.slice(-3).reverse();
 
+  const comparable = comparableChains(
+    chains?.national,
+    chains?.commonBasketSize,
+  );
+
   // place leaderboard
   const places = (ranking?.places ?? []).filter((p) =>
     oblast
@@ -152,14 +158,16 @@ export const GovernancePricesTile: FC<Props> = ({
         />
 
         {/* cheapest chains nationally */}
-        {!oblast && chains?.national?.length ? (
+        {!oblast && comparable.rows.length ? (
           <div className="text-xs">
             <div className="font-medium mb-1">
               {T("Най-евтини вериги", "Cheapest chains")}
             </div>
+            {/* Full-basket chains only — a partial basket is a smaller number,
+                not a cheaper shop. See comparableChains. */}
             <ChainBasketList
-              chains={chains.national}
-              basketSize={chains.commonBasketSize}
+              chains={comparable.rows}
+              basketSize={chains!.commonBasketSize}
               lang={lang}
               limit={4}
             />

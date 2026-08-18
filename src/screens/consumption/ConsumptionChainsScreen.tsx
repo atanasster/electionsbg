@@ -13,7 +13,11 @@ import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrum
 import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
-import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
+import {
+  useNationalChains,
+  fmtEur,
+  type ChainRow,
+} from "@/data/prices/usePrices";
 
 export const ConsumptionChainsScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -23,10 +27,26 @@ export const ConsumptionChainsScreen: FC = () => {
   const { data } = useNationalChains();
 
   const rows = useMemo(
-    () => (data ? [...data.national].sort((a, b) => a.basket - b.basket) : []),
+    () =>
+      data
+        ? // Comparable rows first, each group cheapest-first. `basket` is a sum
+          // over whatever subset a chain priced, so ranking the two together
+          // puts a shop that skipped a third of the basket above one that
+          // priced all of it — which is what this page used to do, while
+          // subtitling itself "Кошница от съпоставими продукти".
+          [...data.national].sort(
+            (a, b) =>
+              Number(b.comparable ?? b.nPriced >= data.commonBasketSize) -
+                Number(a.comparable ?? a.nPriced >= data.commonBasketSize) ||
+              a.basket - b.basket,
+          )
+        : [],
     [data],
   );
   const numFmt = new Intl.NumberFormat(bg ? "bg-BG" : "en-US");
+  const isComparable = (c: ChainRow) =>
+    c.comparable ?? c.nPriced >= (data?.commonBasketSize ?? 0);
+  const nComparable = rows.filter(isComparable).length;
 
   return (
     <>
@@ -48,8 +68,8 @@ export const ConsumptionChainsScreen: FC = () => {
           id="chains"
           title={T("Най-евтини вериги", "Cheapest chains")}
           subtitle={T(
-            "Кошница от съпоставими продукти · мониторингов индекс, не официален ИПЦ",
-            "Comparable-basket cost · monitoring index, not official CPI",
+            `Класирани са само вериги с всичките ${data?.commonBasketSize ?? 12} продукта (${nComparable} от ${rows.length}) · мониторингов индекс, не официален ИПЦ`,
+            `Ranked over the full ${data?.commonBasketSize ?? 12}-item basket only (${nComparable} of ${rows.length}) · monitoring index, not official CPI`,
           )}
           icon={Store}
         >
@@ -58,8 +78,11 @@ export const ConsumptionChainsScreen: FC = () => {
               <ul className="divide-y">
                 {rows.map((c, i) => (
                   <li key={c.eik} className="flex items-center gap-3 py-2">
+                    {/* Only comparable rows carry a RANK. A partial basket has
+                        no position in this order — printing one would be the
+                        page asserting the very comparison it cannot make. */}
                     <span className="w-6 shrink-0 text-right text-sm tabular-nums text-muted-foreground">
-                      {i + 1}
+                      {isComparable(c) ? i + 1 : "—"}
                     </span>
                     <Link
                       to={`/consumption/chain/${c.eik}`}

@@ -34,6 +34,7 @@ import { UnitPriceTile } from "@/screens/components/prices/UnitPriceTile";
 import {
   usePriceIndex,
   headlineIndex,
+  comparableChains,
   usePriceRanking,
   useNationalChains,
   useDeals,
@@ -141,8 +142,12 @@ export const PricesScreen: FC = () => {
     .sort((a, b) => a.basketLevel! - b.basketLevel!)
     .slice(0, 4);
 
-  // national chain basket range (cheapest → priciest)
-  const chainRows = chains?.national ?? [];
+  // national chain basket range (cheapest → priciest), over the chains that
+  // can actually be compared — see comparableChains.
+  const { rows: chainRows, excluded: chainsExcluded } = comparableChains(
+    chains?.national,
+    chains?.commonBasketSize,
+  );
   const chainLo = chainRows[0]?.basket;
   const chainHi = chainRows[chainRows.length - 1]?.basket;
 
@@ -215,14 +220,22 @@ export const PricesScreen: FC = () => {
           title={T("Най-евтини вериги", "Cheapest chains")}
           icon={Store}
         >
-          {chains?.national?.length ? (
+          {chainRows.length ? (
             <div className="text-xs">
               <ChainBasketList
-                chains={chains.national}
-                basketSize={chains.commonBasketSize}
+                chains={chainRows}
+                basketSize={chains!.commonBasketSize}
                 lang={lang}
                 limit={4}
               />
+              {chainsExcluded > 0 ? (
+                <div className="mt-1 text-[11px] text-muted-foreground">
+                  {T(
+                    `Само вериги с всичките ${chains!.commonBasketSize} продукта · още ${chainsExcluded} с непълна кошница`,
+                    `Full ${chains!.commonBasketSize}-item basket only · ${chainsExcluded} more with partial coverage`,
+                  )}
+                </div>
+              ) : null}
             </div>
           ) : null}
         </DashTile>

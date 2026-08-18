@@ -255,8 +255,14 @@ export interface DealsFile {
 export interface ChainRow {
   eik: string;
   chain: string;
+  /** SUM over the `nPriced` products this chain actually priced — NOT a
+   *  like-for-like basket unless `comparable` is true. */
   basket: number;
   nPriced: number;
+  /** May this row be ranked against the others? Published by build_index (see
+   *  its `note`). Optional: payloads built before it carry none, and callers
+   *  fall back to comparing nPriced themselves. */
+  comparable?: boolean;
   products?: number;
 }
 export interface NationalChainsFile {
@@ -324,6 +330,42 @@ export const useMuniChains = (obshtina?: string | null) =>
     enabled: !!obshtina,
     staleTime: Infinity,
   });
+
+/**
+ * The chains whose baskets may be RANKED against each other — those pricing the
+ * whole common basket.
+ *
+ * `chains.json` scores each chain on the subset it happens to price and sorts by
+ * the raw sum, so a chain missing items floats to the top. Measured on the
+ * 2026-08 corpus, the four "cheapest chains" the hub showed priced 8, 7, 10 and
+ * 8 of 12 — and on the same 12 products the true order is completely different:
+ * ЖИЗЕЛ 14.47, Лидл 14.50, BulMag 15.25, none of which appeared. ДИМЕКС led at
+ * "10.99 €" only by skipping a third of the basket.
+ *
+ * The builder's own note says "Compare like-with-like"; this is that, enforced.
+ * 30 of 60 chains price all 12, so the leaderboard stays full.
+ *
+ * The partial-coverage chains are not wrong and are not hidden — they belong on
+ * /consumption/chains, where each row's coverage is the point. What they cannot
+ * do is sit in a top-4 captioned "cheapest" on a front page.
+ */
+export const comparableChains = (
+  chains: ChainRow[] | undefined,
+  basketSize: number | undefined,
+): { rows: ChainRow[]; excluded: number; fellBack: boolean } => {
+  const all = chains ?? [];
+  // Prefer the published flag; compute it only for a payload that predates it.
+  const isComparable = (c: ChainRow) =>
+    c.comparable ?? (basketSize ? c.nPriced >= basketSize : true);
+  const rows = all.filter(isComparable);
+  // A place where NO chain prices the full basket would otherwise render an
+  // empty tile. Measured: 32 of 130 município payloads are in that state, so
+  // this is an ordinary case rather than an edge one — which is exactly why it
+  // must be reported. `fellBack` is what lets a caller say "not comparable"
+  // instead of silently re-publishing the defect.
+  if (!rows.length) return { rows: all, excluded: 0, fellBack: all.length > 0 };
+  return { rows, excluded: all.length - rows.length, fellBack: false };
+};
 
 export const useDeals = () =>
   useQuery({

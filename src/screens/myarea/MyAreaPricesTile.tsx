@@ -21,6 +21,7 @@ import {
   usePriceDict,
   useSettlementPrices,
   useMuniChains,
+  comparableChains,
   fmtEur,
   fmtPct,
   fmtPriceDate,
@@ -119,8 +120,12 @@ export const MyAreaPricesTile: FC<Props> = ({
   const roseRank = rankRow?.rankChange?.national;
 
   // cheapest chains (works for settlement + muni via município file)
-  const chains = (muniChains?.chains ?? []).slice(0, 3);
   const coreSize = muniChains?.coreBasketSize ?? dict.commonBasketSize ?? 12;
+  // Filter BEFORE slicing: taking the top 3 first and then dropping the
+  // partial-coverage ones among them would leave the tile with fewer rows the
+  // more of the leaderboard was incomparable — or with none at all.
+  const comparable = comparableChains(muniChains?.chains, coreSize);
+  const chainRows = comparable.rows.slice(0, 3);
 
   // featured cheapest products (settlement only)
   const featured = hasSettlement
@@ -224,12 +229,32 @@ export const MyAreaPricesTile: FC<Props> = ({
       ) : null}
 
       {/* Cheapest chains here */}
-      {chains.length ? (
+      {chainRows.length ? (
         <div className="text-xs">
           <div className="font-medium mb-1">
-            {T("Най-евтини вериги (кошница)", "Cheapest chains (basket)")}
+            {comparable.fellBack
+              ? T("Вериги тук (кошница)", "Chains here (basket)")
+              : T("Най-евтини вериги (кошница)", "Cheapest chains (basket)")}
           </div>
-          <ChainBasketList chains={chains} basketSize={coreSize} lang={lang} />
+          {/* Full-basket chains only — see comparableChains. A shop that
+              prices 7 of 12 is not the cheapest, it is the least measured. */}
+          <ChainBasketList
+            chains={chainRows}
+            basketSize={coreSize}
+            lang={lang}
+          />
+          {/* 32 of 130 municipalities have NO chain pricing the whole basket,
+              so this is an ordinary state, not an edge case. Showing the rows
+              anyway is right — they are the only prices this place has — but
+              calling them a ranking would not be. */}
+          {comparable.fellBack ? (
+            <div className="mt-1 text-[11px] text-muted-foreground">
+              {T(
+                `Никоя верига тук не предлага всичките ${coreSize} продукта — кошниците не са пряко съпоставими`,
+                `No chain here prices all ${coreSize} items — these baskets are not directly comparable`,
+              )}
+            </div>
+          ) : null}
         </div>
       ) : null}
 
