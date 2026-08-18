@@ -968,6 +968,15 @@ export const useProjectFile = (spec: ProjectFileSpec | null) =>
         search: spec.search,
         includes: spec.includes,
         excludes: spec.excludes,
+        // Membership narrowing IS resolver input (it re-seeds + re-predicates), so
+        // it must invalidate the query — else changing a cpv/date/€/eu-funded filter
+        // would keep serving the previous member set.
+        cpvIn: spec.cpvIn,
+        dateFrom: spec.dateFrom,
+        dateTo: spec.dateTo,
+        minAmountEur: spec.minAmountEur,
+        maxAmountEur: spec.maxAmountEur,
+        euFunded: spec.euFunded,
       },
     ],
     queryFn: () => resolveProjectFile(spec as ProjectFileSpec),

@@ -41,9 +41,12 @@ import {
 } from "@/screens/components/procurement/CpvFilterCombobox";
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { useUrlProcurementFilters } from "@/data/procurement/useUrlProcurementFilters";
+import { ContractsDossierRoute } from "@/screens/procurement/DossierContractsView";
 import type { ProcurementContract } from "@/data/dataTypes";
 
-export const ContractsBrowserDbScreen: FC = () => {
+// The full-corpus contracts browse (server-paginated over the whole `contracts`
+// table). Rendered when NOT in dossier mode — see ContractsBrowserDbScreen.
+const CorpusContractsBrowse: FC = () => {
   const { t } = useTranslation();
   const { from, to, all, year } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
@@ -304,4 +307,16 @@ export const ContractsBrowserDbScreen: FC = () => {
       </section>
     </>
   );
+};
+
+// Route entry for /procurement/contracts. Dossier mode (?dossier=<slug> curated |
+// ?dspec=<ProcurementQuery> DIY) shows ONE dossier's contracts — the exact member
+// set for a bounded dossier, or the seed reproduction for a truncated/program one
+// (see DossierContractsView). Otherwise the full-corpus browse.
+export const ContractsBrowserDbScreen: FC = () => {
+  const [params] = useSearchParams();
+  const slug = params.get("dossier");
+  const dspec = params.get("dspec");
+  if (slug || dspec) return <ContractsDossierRoute slug={slug} dspec={dspec} />;
+  return <CorpusContractsBrowse />;
 };

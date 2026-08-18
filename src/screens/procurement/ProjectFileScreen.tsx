@@ -51,7 +51,7 @@ import {
   foldByPeriod,
   foldContractsByLot,
   matchInhouseContractors,
-  seeAllContractsHref,
+  dossierContractsHref,
   selectBroaderCandidates,
   siblingLotPolicy,
   withThreadTerms,
@@ -961,10 +961,15 @@ export const ProjectFileScreen = () => {
             // file. Falls back to the generic wording when the count is absent.
             const total = data.matchedTotal;
             const totalStr = total != null ? total.toLocaleString(loc) : null;
-            // "View all" escape hatch → the server-paginated contracts browser,
-            // scoped to match the ~M count (terms + full corpus + buyer). See
-            // seeAllContractsHref for the URL-contract rationale.
-            const seeAllHref = seeAllContractsHref(spec.search[0]);
+            // "View all" escape hatch → the contracts browser in DOSSIER MODE. A
+            // curated file passes its slug (tiny URL, the page loads the committed
+            // spec); a DIY file passes its spec. The page resolves it and shows the
+            // exact members (bounded) or the seed reproduction (truncated) — this
+            // truncation banner only shows when truncated, i.e. the seed-repro path.
+            const seeAllHref =
+              curatedMode && slug
+                ? dossierContractsHref({ slug })
+                : dossierContractsHref({ spec });
             // "Прецизирай думите" → the editable builder. A curated file forks
             // into a full DIY copy (ALL threads + buyer scopes intact, same as the
             // toolbar "Edit" button), so narrowing keeps e.g. the НКСИП thread
