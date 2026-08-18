@@ -6,6 +6,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { Link } from "@/ux/Link";
 import {
   useAttendance,
+  isSeatedNow,
   ATTENDANCE_MIN_ITEMS,
 } from "@/data/parliament/votes/useAttendance";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
@@ -51,18 +52,21 @@ export const ParliamentAttendanceScreen: FC = () => {
   const pageTitle = t("attendance_title") || "Parliamentary attendance";
 
   const ordered: AttendanceEntry[] = useMemo(() => {
-    const isSeated = (csvMpId: number): boolean => {
-      if (!isCurrentNs) return mpNames[String(csvMpId)] !== undefined;
-      const direct = findMpById(csvMpId);
-      if (direct && direct.nsFolders.includes(selectedNs ?? "")) {
-        return direct.isCurrent;
-      }
-      const byName = findMpByName(mpNames[String(csvMpId)]);
-      if (byName) return byName.isCurrent;
-      return false;
-    };
+    // `isSeatedNow` is the hook's own predicate, imported rather than re-declared: this
+    // screen carried a line-for-line copy of it. It decides WHO APPEARS in the table at
+    // all, so two copies can disagree about a departed member more consequentially than
+    // the floor constant beside it — which was extracted for exactly that reason.
     const eligible = entries.filter(
-      (e) => e.totalItems >= ATTENDANCE_MIN_ITEMS && isSeated(e.mpId),
+      (e) =>
+        e.totalItems >= ATTENDANCE_MIN_ITEMS &&
+        isSeatedNow(
+          e.mpId,
+          selectedNs,
+          isCurrentNs,
+          mpNames,
+          findMpById,
+          findMpByName,
+        ),
     );
     const sorted = [...eligible].sort((a, b) =>
       sort === "absent"

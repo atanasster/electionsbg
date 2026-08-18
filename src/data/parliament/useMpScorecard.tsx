@@ -92,6 +92,13 @@ const EMPTY: ScorecardMetric = {
 /** Rank value within a list sorted descending. 1-based. null when value is null. */
 const rankIn = (value: number | null, sortedDesc: number[]): number | null => {
   if (value == null || !Number.isFinite(value)) return null;
+  // An empty cohort is UNRANKABLE, not first place. This is the NORMAL state on the
+  // candidate page, not an edge case: the shard fast-path supplies a cohort median without
+  // a cohort sample, so both `loyaltyValues` and `attendancePcts` are `[]` there. Without
+  // this the metric object said "#1 of 268" for every member of the chamber — visible to
+  // nobody today only because the tile prefers the median for its context line, which is
+  // exactly the kind of masking that makes the next consumer inherit a wrong number.
+  if (sortedDesc.length === 0) return null;
   let rank = 1;
   for (const v of sortedDesc) {
     if (v > value) rank += 1;
@@ -141,13 +148,23 @@ export const useMpScorecard = (
     isLoading: loyaltyLoading,
   } = useMpLoyalty(mpId, name, servedInSelectedNs);
 
-  // Attendance's per-MP denominator, as a FALLBACK only. The shard already carries it, and
-  // useMpLoyalty holds the loyalty aggregate back until the shard has missed — so a
-  // non-empty `loyaltyEntries` is exactly the state "this MP has no shard", and the only
-  // one where the 43 KB attendance aggregate is worth downloading. Every ns 44-52 member
-  // with a roll-call record has a shard today, so on the live path this never fires.
+  // Attendance's per-MP denominator, as a FALLBACK only — TWO states want it, and they are
+  // not the same test:
+  //
+  //   1. no shard at all. useMpLoyalty holds its aggregate back until the shard has 404'd,
+  //      so a non-empty `loyaltyEntries` is exactly that state;
+  //   2. a shard that predates the `attendance` block, which `attendance.json` can still
+  //      answer for.
+  //
+  // The two must be OR'd. Written as `loyaltyEntries.length > 0 && !shard?.attendance` the
+  // second conjunct did no work at all — state 1 already implies `shard == null`, so it was
+  // trivially true — while state 2 (where `loyaltyEntries` is empty) evaluated to FALSE and
+  // dropped the metric off the scorecard entirely. All 2,330 committed shards carry the
+  // block today, which is why that was latent rather than live; one regenerated shard would
+  // have made a published metric vanish with nothing red.
   const attendanceAggregateEnabled =
-    loyaltyEntries.length > 0 && !loyaltyShard?.attendance;
+    loyaltyEntries.length > 0 ||
+    (loyaltyShard != null && !loyaltyShard.attendance);
   const {
     byMpId: attendanceByMp,
     entries: attendanceEntries,
@@ -242,10 +259,23 @@ export const useMpScorecard = (
       .filter((e) => e.totalItems > 0)
       .map((e) => e.presentPct)
       .sort((a, b) => b - a);
+    // The cohort is the WHOLE chamber — every seat with at least one item — deliberately NOT
+    // floored at ATTENDANCE_MIN_ITEMS. That floor governs whether a member may be JUDGED on
+    // their own rate; it is not a claim about who belongs in the comparison. Measured on the
+    // 52nd the two differ by 1.1 pp (0.76252 over all 270 seats, 0.77379 over the 240 at
+    // ≥30 items), which moves the tile's amber cut by 0.8 pp. Flooring here would also have
+    // to change `cohortPresent` in scripts/parliament/derived/per_mp_shards.ts in the same
+    // commit, or the shard and aggregate paths would answer differently by that margin.
     const attendanceMedian =
       medianOf(attendancePcts) ??
       loyaltyShard?.cohort?.presentPctMedian ??
       null;
+    // ⚠️ On the shard path this is the LOYALTY roster (268 on the 52nd), while `median` above
+    // is over the attendance entries (270) — two populations in one metric object, because
+    // the shard's `cohort` block carries no attendance-side size. Harmless while `rank` is
+    // null here (rankIn refuses an empty cohort), since the tile renders "#N of SIZE" only
+    // beside a rank; a consumer that renders `cohortSize` on its own would be quoting the
+    // wrong denominator. The fix is an `attendanceCohortSize` on the shard's cohort block.
     const attendanceCohortSize =
       attendancePcts.length > 0
         ? attendancePcts.length

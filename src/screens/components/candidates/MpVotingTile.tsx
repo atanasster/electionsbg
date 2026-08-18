@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpLoyalty } from "@/data/parliament/votes/useMpLoyalty";
+import { useAttendance } from "@/data/parliament/votes/useAttendance";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import { MpDissentsSection } from "./MpDissentsSection";
 
@@ -44,6 +45,13 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
     isLoading: loyaltyLoading,
   } = useMpLoyalty(mp?.id, name);
   const { sessions } = useRollcallIndex();
+  // Same fallback shape as the scorecard's, and gated on `entry` rather than on `shard`:
+  // `shard` is null while it is still LOADING as well as when it missed, and useMpLoyalty's
+  // isLoading does not cover the shard request — so `!shard` would fire this 43 KB fetch on
+  // the healthy path, every time. `entry` is populated from the shard when there is one, so
+  // this is false exactly when the shard answered.
+  const needsAttendanceAggregate = !!entry && !shard?.attendance;
+  const { byMpId: attendanceByMp } = useAttendance(needsAttendanceAggregate);
 
   if (loyaltyLoading || mpsLoading) {
     return (
@@ -58,9 +66,15 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
   if (!entry || entry.votesCast === 0) return null;
 
   const dissents = entry.votesCast - entry.withParty;
-  // Items this member was actually seated for — present or absent. Absent from older
-  // shards, and from the aggregate path entirely, in which case the caption stays as it was.
-  const seatedItems = shard?.attendance?.totalItems ?? null;
+  // Items this member was actually seated for — present or absent. Read from the shard when
+  // it carries the block and from attendance.json otherwise, because the shardless path is
+  // the one where the caption reverts to the juxtaposition this clause exists to remove:
+  // "1198 гласувания" beside "подадени гласове 17", inviting the reader to do the wrong
+  // division by hand. Null only when neither source knows the window.
+  const seatedItems =
+    shard?.attendance?.totalItems ??
+    attendanceByMp.get(entry.mpId)?.totalItems ??
+    null;
   const lang = i18n.language;
   const recent = [...sessions]
     .sort((a, b) => b.date.localeCompare(a.date))

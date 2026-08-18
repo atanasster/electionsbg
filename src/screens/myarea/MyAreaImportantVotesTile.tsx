@@ -138,7 +138,9 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   const { isExpanded, toggle } = useUrlExpandedSet("expandedVotes");
   // Attendance / dissent signals — same fetch the strip above already
   // made, so this is free from React Query's cache.
-  const signals = useMpSignals(mpIds);
+  // The badges here render inside a Tooltip's content, which is out of flow, so this
+  // consumer has no height to reserve and ignores the pending flag.
+  const { byMpId: signals } = useMpSignals(mpIds);
 
   const dateFmt = useMemo(
     () =>

@@ -44,9 +44,21 @@ export type MpSignals = {
   dissent: DissentSignal | null;
 };
 
+export type MpSignalsResult = {
+  byMpId: Map<number, MpSignals>;
+  /** True while either chamber-wide file is still in flight. The badges are the last
+   *  thing to arrive on a row that has already painted, so a consumer that renders
+   *  them conditionally must reserve their height against this rather than let the
+   *  card grow underneath the reader. */
+  isLoading: boolean;
+};
+
 const ATTENDANCE_SEVERE_THRESHOLD = 0.7;
 const LOYALTY_BADGE_THRESHOLD = 0.75;
 
+// Keyed ["rollcall_loyalty"] — the SAME key useMpLoyalty uses for the same URL. Under the
+// old ["parliament_loyalty"] key React Query held two cache entries for one file, so any
+// page mounting both hooks downloaded loyalty.json twice.
 const fetchLoyaltyFile = async (): Promise<LoyaltyFile | undefined> => {
   const r = await fetch(dataUrl("/parliament/votes/derived/loyalty.json"));
   if (r.status === 404) return undefined;
@@ -56,11 +68,11 @@ const fetchLoyaltyFile = async (): Promise<LoyaltyFile | undefined> => {
 
 const EMPTY: MpSignals = { attendance: null, dissent: null };
 
-export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
+export const useMpSignals = (mpIds: number[]): MpSignalsResult => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
-  const { data: file } = useQuery({
-    queryKey: ["parliament_loyalty"] as const,
+  const { data: file, isLoading: loyaltyLoading } = useQuery({
+    queryKey: ["rollcall_loyalty"] as const,
     queryFn: fetchLoyaltyFile,
     staleTime: Infinity,
   });
@@ -70,9 +82,10 @@ export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
   // their own window if they sat the full term. It is not a small error: a member who
   // left the 52nd's benches for a ministry after 32 items and cast 17 of them was badged
   // "присъствие 1%" instead of 53%, and the rose tint below fired on it.
-  const { byMpId: attendanceByMp } = useAttendance();
+  const { byMpId: attendanceByMp, isLoading: attendanceLoading } =
+    useAttendance();
 
-  return useMemo(() => {
+  const byMpId = useMemo(() => {
     const map = new Map<number, MpSignals>();
     const slice = ns ? file?.byNs?.[ns] : undefined;
     const loyaltyById = new Map((slice?.entries ?? []).map((e) => [e.mpId, e]));
@@ -111,4 +124,6 @@ export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
     }
     return map;
   }, [file, ns, mpIds, attendanceByMp]);
+
+  return { byMpId, isLoading: loyaltyLoading || attendanceLoading };
 };

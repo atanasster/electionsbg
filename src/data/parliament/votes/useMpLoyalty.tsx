@@ -7,6 +7,11 @@ import { useMpProfile } from "./useMpProfile";
 import { useMpShard } from "./useMpShard";
 import type { LoyaltyEntry, LoyaltyFile, LoyaltySlice } from "./types";
 
+// Stable identity for the empty case — see the twin in useAttendance.tsx. The MP
+// scorecard depends on BOTH arrays in one useMemo, so a fresh `[]` from either
+// recomputes it on every render.
+const NO_ENTRIES: LoyaltyEntry[] = [];
+
 const queryFn = async (): Promise<LoyaltyFile | undefined> => {
   const response = await fetch(
     dataUrl(`/parliament/votes/derived/loyalty.json`),
@@ -154,7 +159,7 @@ export const useMpLoyalty = (
     file: effectiveSlice,
     slice: effectiveSlice,
     ns,
-    entries: slice?.entries ?? [],
+    entries: slice?.entries ?? NO_ENTRIES,
     entry,
     byMpId,
     /** Per-MP shard when loaded — carries cohort stats so the scorecard

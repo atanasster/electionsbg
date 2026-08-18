@@ -143,7 +143,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
   // across all MPs in the strip. Empty map when the loyalty slice is
   // still loading or the selected NS has no roll-call data.
   const mpIds = useMemo(() => rows.map((r) => r.mp.id), [rows]);
-  const signals = useMpSignals(mpIds);
+  const { byMpId: signals, isLoading: signalsLoading } = useMpSignals(mpIds);
 
   // Don't render the section for local/EU/presidential cycles or when the
   // MIR mapping is missing — the strip would be empty otherwise and the
@@ -235,6 +235,17 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
                   >
                     {partyLabel}
                   </span>
+                  {/* Two chamber-wide files feed these badges, so a row paints, then
+                      grows when they land. Reserve one badge's height meanwhile — same box
+                      model, transparent border, a non-breaking space for content — rather
+                      than a spinner, which would be a second thing that moves. */}
+                  {!attendanceLabel && !dissentLabel && signalsLoading ? (
+                    <span className="mt-0.5 flex flex-wrap gap-1" aria-hidden>
+                      <span className="inline-block text-[9px] px-1.5 py-0.5 rounded border border-transparent leading-none">
+                        &nbsp;
+                      </span>
+                    </span>
+                  ) : null}
                   {attendanceLabel || dissentLabel ? (
                     <span className="mt-0.5 flex flex-wrap gap-1">
                       {attendanceLabel ? (

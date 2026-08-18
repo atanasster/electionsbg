@@ -39,11 +39,31 @@ const pickSlice = (
 // them. The 52nd holds 15 such seats at ≤9 items — the replacement MPs who
 // were seated for one day when a minister-designate gave up the bench.
 //
-// ONE definition, read by the ranking below, by the /parliament/attendance
-// table and by both badge surfaces (the scorecard's amber tint and My-Area's
-// rose one), because a floor that differs per surface means the same member is
-// "too new to rank" on one page and "a concern" on the next.
+// FOUR consumers, and the list is exhaustive rather than illustrative: the
+// ranking below, the /parliament/attendance table's eligibility filter, the MP
+// scorecard's amber tint and the My-Area strip's rose one. A floor that
+// differed between them would call the same member "too new to rank" on one
+// page and "a concern" on the next.
+//
+// It is the WINDOW floor only. Two things nearby are deliberately NOT covered:
+//
+//   - The THRESHOLD each surface applies once a window clears the floor stays
+//     per-surface, and the two disagree — My-Area asks "below 70%", the
+//     scorecard asks "well below this chamber's median" (median × 0.7, ≈53% on
+//     the 52nd). They answer different questions (an absolute bar vs a relative
+//     outlier test), so a member at 60% is badged on the strip and untinted on
+//     their profile. That is a live inconsistency worth settling, but settling
+//     it changes who gets flagged sitewide and is a product decision, not a
+//     refactor — do not quietly fold them together here.
+//   - The scorecard's COHORT (the median that relative test measures against)
+//     spans the whole chamber, unfloored. See the note at its call site.
 export const ATTENDANCE_MIN_ITEMS = 30;
+
+// Stable identity for the empty case, so a consumer's useMemo is not defeated by
+// a fresh `[]` on every render. The disabled-query state (the MP scorecard's
+// normal one, since it reads attendance out of the shard) has no data, and
+// `entries` is a dependency of that hook's memo.
+const NO_ENTRIES: AttendanceEntry[] = [];
 
 // One small file (~43 KB gzipped) following the same byNs envelope as
 // loyalty.json/cohesion.json. Both the most-absent and most-present tiles
@@ -76,7 +96,7 @@ export const useAttendance = (enabled = true) => {
     slice,
     computedAt: data?.computedAt,
     ns,
-    entries: slice?.entries ?? [],
+    entries: slice?.entries ?? NO_ENTRIES,
     byMpId,
     isLoading: enabled && isLoading,
   };
@@ -93,7 +113,7 @@ export const useAttendance = (enabled = true) => {
 // the latest mpNames map). For historical NSes the flag is meaningless —
 // no NS44 MP is "currently seated" — so we fall back to "appeared in the
 // latest ingested session of that NS".
-const isSeatedNow = (
+export const isSeatedNow = (
   csvMpId: number,
   selectedNs: string | null,
   isCurrentNs: boolean,

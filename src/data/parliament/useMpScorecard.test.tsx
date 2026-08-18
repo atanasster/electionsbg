@@ -168,6 +168,31 @@ describe("useMpScorecard — attendance denominator", () => {
     expect(attendanceHook).toHaveBeenCalledWith(false);
   });
 
+  it("reaches the aggregate for a shard that predates the attendance block", () => {
+    // The second of the two states that want the fallback, and the one the original guard
+    // could not express: `loyaltyEntries` is EMPTY here (the loyalty aggregate is held back
+    // whenever a shard exists), so an AND against it made this state resolve to `false` and
+    // dropped the metric off the scorecard entirely. All 2,330 committed shards carry the
+    // block today, which is precisely why nothing would have reported the regression.
+    setLoyalty({ shard: { ...shard, attendance: undefined } as MpShard });
+    setAttendance([attendanceEntry(3996, SEATED_ITEMS, CAST)]);
+    const sc = run();
+    expect(attendanceHook).toHaveBeenCalledWith(true);
+    expect(sc.attendance.value).toBeCloseTo(SEATED_PCT, 10);
+    expect(sc.attendanceItems).toBe(SEATED_ITEMS);
+  });
+
+  it("reports no rank when the cohort sample was never loaded", () => {
+    // The shard path supplies a cohort MEDIAN without a cohort SAMPLE, so the rank basis is
+    // `[]`. An empty cohort is unrankable — `rank: 1` beside `cohortSize: 268` reads as
+    // "#1 of 268" for every member of the chamber, and ScorecardMetric.rank promises null.
+    setLoyalty({ shard });
+    setAttendance([]);
+    const sc = run();
+    expect(sc.attendance.rank).toBeNull();
+    expect(sc.loyalty.rank).toBeNull();
+  });
+
   it("falls back to the attendance aggregate when the shard missed", () => {
     // useMpLoyalty only loads the aggregate once the shard has 404'd, so a non-empty
     // `entries` IS the shard-miss state — which is what enables the attendance fetch.
