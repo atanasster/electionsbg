@@ -25,6 +25,8 @@ import type {
 } from "./types";
 // Types only (erased at build) — the fuel tool reads data/fuel.json's shape.
 import type { FuelFile, FuelPoint } from "../../src/data/prices/useFuel";
+// The ONE headline rule, shared with the pages. A pure function, no React.
+import { headlineIndex } from "../../src/data/prices/usePrices";
 
 // ---- shared shapes ----------------------------------------------------------
 
@@ -36,7 +38,15 @@ interface DictFile {
   source: { name: string; nameEn: string; url: string };
   latestDate: string;
   baseline: string;
-  coverage: { settlements: number; chains: number; rows: number };
+  coverage: {
+    settlements: number;
+    chains: number;
+    rows: number;
+    // The publisher's headline gate — see headlineIndex. Optional because a
+    // payload built before it has neither.
+    headlineDate?: string;
+    incompleteDates?: string[];
+  };
   categories: Category[];
   products: Product[];
   commonBasketSize: number;
@@ -258,8 +268,18 @@ export const priceIndex = async (
       {},
       "price_payloads (PG)",
     );
-  const latest = series[series.length - 1].v;
-  const change = latest / 100 - 1;
+  // Same figure the page shows. This feeds the grounded-number gate, so a raw
+  // last point here would have the assistant quoting a number no surface
+  // displays — and on the 2026-08 corpus that is a sign flip.
+  const headline = headlineIndex(series, idx.coverage);
+  if (!headline)
+    return noData(
+      "priceIndex",
+      lang === "bg" ? "Няма ценови данни" : "No price data",
+      {},
+      "price_payloads (PG)",
+    );
+  const change = headline.v / 100 - 1;
   const baseLabel = fmtBaseline(idx.firstDate || idx.baseline, lang);
   const placeName = region
     ? (OBLASTS[region]?.[lang] ?? idx.regions[region].name)

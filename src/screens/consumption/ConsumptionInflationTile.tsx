@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { PriceIndexTrendChart } from "@/screens/components/prices/PriceIndexTrendChart";
 import {
   usePriceIndex,
+  headlineIndex,
   fmtPct,
   fmtPriceDate,
   priceChangeColor as changeColor,
@@ -33,7 +34,12 @@ export const ConsumptionInflationTile: FC = () => {
   const series = index.national.index;
   if (series.length < 2) return null;
 
-  const basketChange = series[series.length - 1].v / 100 - 1;
+  // The SAME measure /prices headlines, so it must be the same figure — a raw
+  // last point here against a smoothed, day-gated one there had the two pages
+  // disagreeing by 2.8 points (−1.5% vs +1.3%) one click apart.
+  const headline = headlineIndex(series, index.coverage);
+  if (!headline) return null;
+  const basketChange = headline.v / 100 - 1;
   const baselineLabel = fmtPriceDate(index.firstDate || index.baseline, lang);
 
   const overall = latest(macro.series.inflation);

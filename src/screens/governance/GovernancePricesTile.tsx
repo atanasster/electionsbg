@@ -13,6 +13,7 @@ import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
 import { MoversInline } from "@/screens/components/prices/PriceMovers";
 import {
   usePriceIndex,
+  headlineIndex,
   headlinePoint,
   usePriceRanking,
   useNationalChains,
@@ -59,20 +60,26 @@ export const GovernancePricesTile: FC<Props> = ({
     ? (index.regions[oblast]?.index ?? [])
     : index.national.index;
   if (series.length < 2) return null;
-  // The payload's own headline day, never the last point — see headlinePoint.
-  const latest = (
-    headlinePoint(series, index.coverage) ?? series[series.length - 1]
-  ).v;
-  const change = latest / 100 - 1;
+  // A trailing mean ending on the payload's own headline day, never the last
+  // point — see headlineIndex.
+  // Never return null here: all three call sites wrap this in
+  // <DashboardSection>, which self-hides on the ELEMENT being absent, not on
+  // what it renders — so a null would leave a titled, empty "Цени" section with
+  // a live #prices anchor. Degrade to the anchor point instead.
+  const headline =
+    headlineIndex(series, index.coverage) ??
+    headlinePoint(series, index.coverage);
+  const change = (headline?.v ?? 100) / 100 - 1;
   const baselineLabel = fmtPriceDate(index.firstDate || index.baseline, lang);
 
   // category movers (national only — oblast category series isn't shipped)
+  // Smoothed and day-gated like the headline above them — see headlineIndex.
   const catMovers = oblast
     ? []
     : Object.entries(index.national.byCategory)
         .map(([cid, s]) => ({
           id: +cid,
-          change: (s[s.length - 1]?.v ?? 100) / 100 - 1,
+          change: (headlineIndex(s, index.coverage)?.v ?? 100) / 100 - 1,
         }))
         .sort((a, b) => b.change - a.change);
   const up = catMovers.slice(0, 3);

@@ -66,17 +66,80 @@ export interface PriceIndexFile {
   regions: Record<string, { name: string; index: PricePoint[] }>;
 }
 
+/** Days averaged for a headline figure. */
+export const HEADLINE_WINDOW = 7;
+
 /**
- * The point a headline must be quoted from, for any series in this payload.
+ * The figure a headline must quote, for any series in this payload — a trailing
+ * mean of the usable days ending at the payload's own `headlineDate`.
  *
- * Falls back to the last point when the payload predates the coverage gate or
- * names a day this series does not carry — a stale number beats a blank one,
- * and every series in `index.json` shares one date axis so the miss should be
- * impossible.
+ * TWO corrections, and a headline needs both:
+ *
+ *  * the right DAY. `series[series.length - 1]` is whatever the КЗП feed
+ *    happened to report; when its reporter set collapsed in 2026-08 that was
+ *    98 chains against a normal 203, and the last point read −1.3% while the
+ *    last COMPLETE day read +1.4%. `coverage.headlineDate` names the day the
+ *    publisher will stand behind.
+ *  * the right VALUE. Even on complete days the daily series carries ~±0.5
+ *    points of sampling noise, so a single day is not a number worth printing
+ *    to one decimal — and the chart beside it was already drawn as a 7-day
+ *    moving average, so the headline and the line disagreed by construction.
+ *
+ * Incomplete days and days with nothing matched (`n === 0`, a builder fallback
+ * rather than a measurement) are dropped from the window rather than averaged
+ * in. Returns null only when no usable day exists at all.
+ */
+export const headlineIndex = (
+  series: PricePoint[] | undefined,
+  // Only the two fields it actually reads, so a caller holding a narrower
+  // payload type (the AI tool's own) can pass its coverage without widening.
+  coverage: { headlineDate?: string; incompleteDates?: string[] } | undefined,
+  window = HEADLINE_WINDOW,
+): {
+  /** The mean, on the index's 100 base. */
+  v: number;
+  /** The day the window ENDS on — what a caption must name. */
+  d: string;
+  /** How many points were averaged (≤ window). */
+  days: number;
+  /** The day the window STARTS on. Not `d` minus `window`: skipped days are
+   *  reached back past, so on the 2026-08 shape a "7-day mean" spans 13
+   *  calendar days. A caption that says "7 дни" without this is wrong. */
+  from: string;
+} | null => {
+  if (!series?.length) return null;
+  const withheld = new Set(coverage?.incompleteDates ?? []);
+  const end = coverage?.headlineDate
+    ? series.findIndex((p) => p.d === coverage.headlineDate)
+    : series.length - 1;
+  // A headlineDate the series does not carry should be impossible (one date
+  // axis), but a stale number beats a blank one.
+  const last = end >= 0 ? end : series.length - 1;
+
+  const usable: PricePoint[] = [];
+  for (let i = last; i >= 0 && usable.length < window; i--) {
+    const p = series[i];
+    if (withheld.has(p.d)) continue;
+    if (p.n === 0) continue;
+    usable.push(p);
+  }
+  if (!usable.length) return null;
+  return {
+    v: usable.reduce((a, p) => a + p.v, 0) / usable.length,
+    d: series[last].d,
+    days: usable.length,
+    // usable is filled newest-first, so its last element is the oldest.
+    from: usable[usable.length - 1].d,
+  };
+};
+
+/**
+ * The single point a headline is anchored to. Prefer `headlineIndex` for a
+ * value; this is for callers that need the day itself (a date caption).
  */
 export const headlinePoint = (
   series: PricePoint[] | undefined,
-  coverage: PriceIndexFile["coverage"] | undefined,
+  coverage: { headlineDate?: string } | undefined,
 ): PricePoint | null => {
   if (!series?.length) return null;
   const d = coverage?.headlineDate;
@@ -440,14 +503,24 @@ export const priceChangeColor = (frac: number): string =>
 export const fmtPriceDate = (
   iso: string | undefined | null,
   lang: "bg" | "en",
-): string =>
-  iso
-    ? new Date(iso).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
-    : "";
+): string => {
+  if (!iso) return "";
+  // `new Date("2026-08-08")` is parsed as UTC midnight per spec, while
+  // toLocaleDateString renders in the LOCAL zone — so every reader west of
+  // Greenwich saw the day BEFORE the one in the data. Measured: the /prices
+  // caption read "7.08.2026" for a headlineDate of 2026-08-08. Appending a
+  // time makes it a LOCAL-time parse, which is what a bare calendar date from
+  // this corpus means. (Same class as the funds_wire `checked_on` hazard
+  // CLAUDE.md documents on the server side.)
+  const local = /^\d{4}-\d{2}-\d{2}$/.test(iso)
+    ? new Date(`${iso}T00:00:00`)
+    : new Date(iso);
+  return local.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+};
 
 /**
  * Trailing moving average over a {d,v} series. The daily КЗП basket is

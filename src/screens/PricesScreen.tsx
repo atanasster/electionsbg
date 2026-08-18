@@ -33,7 +33,7 @@ import { EuroVerdictTile } from "@/screens/consumption/EuroVerdictTile";
 import { UnitPriceTile } from "@/screens/components/prices/UnitPriceTile";
 import {
   usePriceIndex,
-  headlinePoint,
+  headlineIndex,
   usePriceRanking,
   useNationalChains,
   useDeals,
@@ -103,22 +103,32 @@ export const PricesScreen: FC = () => {
     );
 
   const series = index?.national.index ?? [];
-  // NOT series[series.length - 1]: the last day is whatever the КЗП feed
-  // happened to report, and when its reporter set collapsed in 2026-08 the tail
-  // swung ±2 points a day. The payload names the day a figure may be quoted
-  // from; on that corpus it is the difference between +1.4% and −1.3%.
-  const headline = headlinePoint(series, index?.coverage);
+  // NOT series[series.length - 1], and not a single day either — see
+  // headlineIndex. The last point is whatever the КЗП feed happened to report
+  // (on the 2026-08 corpus that is the difference between +1.4% and −1.3%),
+  // and one day of a ±0.5-point series is not a figure worth printing to a
+  // decimal place.
+  const headline = headlineIndex(series, index?.coverage);
   const change = headline ? headline.v / 100 - 1 : null;
   const baselineLabel = index
     ? fmtPriceDate(index.firstDate || index.baseline, lang)
     : "";
+  // The chart stops where the headline does. Drawing the withheld tail beside a
+  // number that excludes it is the same contradiction one level down — the line
+  // would fall away while the figure held steady, and a reader trusts the
+  // picture.
+  const withheld = new Set(index?.coverage?.incompleteDates ?? []);
+  const plotted = series.filter((p) => !withheld.has(p.d));
 
   // category movers
+  // Each category series is smoothed and day-gated exactly like the headline —
+  // they sit in the same card, so a mover computed off the raw tail would
+  // disagree with the number above it.
   const catMovers = index
     ? Object.entries(index.national.byCategory)
         .map(([cid, s]) => ({
           id: +cid,
-          change: (s[s.length - 1]?.v ?? 100) / 100 - 1,
+          change: (headlineIndex(s, index.coverage)?.v ?? 100) / 100 - 1,
         }))
         .sort((a, b) => b.change - a.change)
     : [];
@@ -159,6 +169,13 @@ export const PricesScreen: FC = () => {
             ) : null}
             <div className="text-xs text-muted-foreground">
               {T("спрямо", "vs")} {baselineLabel}
+              {/* The window's END, not just its base. The figure is a mean of
+                  the last usable days, and when the feed's tail is withheld
+                  that window can close days before the corpus does — a caption
+                  naming only the baseline is silent about the half that moved. */}
+              {headline
+                ? ` · ${T("към", "to")} ${fmtPriceDate(headline.d, lang)}`
+                : ""}
               {index
                 ? ` · ${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
                 : ""}
@@ -167,8 +184,13 @@ export const PricesScreen: FC = () => {
                 : ""}
             </div>
           </div>
-          {series.length >= 2 ? (
-            <PriceSparkline points={series} width={280} height={60} />
+          {plotted.length >= 2 ? (
+            <PriceSparkline
+              points={plotted}
+              headlineValue={headline?.v}
+              width={280}
+              height={60}
+            />
           ) : null}
         </Card>
 

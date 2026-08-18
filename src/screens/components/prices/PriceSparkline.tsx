@@ -13,6 +13,12 @@ import { movingAverage, type PricePoint } from "@/data/prices/usePrices";
 
 interface Props {
   points: PricePoint[];
+  /** The value the headline quotes, on the index's 100 base. The hue is keyed
+   *  off THIS, never off the series' own last point: the two are different
+   *  numbers whenever the feed's tail is withheld (see headlineIndex), and a
+   *  green falling line beside a red +1.3% is the page contradicting itself.
+   *  Falls back to the last point when absent. */
+  headlineValue?: number;
   width?: number;
   height?: number;
   className?: string;
@@ -23,6 +29,7 @@ interface Props {
 
 export const PriceSparkline: FC<Props> = ({
   points,
+  headlineValue,
   width = 160,
   height = 40,
   className,
@@ -39,9 +46,8 @@ export const PriceSparkline: FC<Props> = ({
   const y = (v: number) => pad + (1 - (v - min) / span) * (height - 2 * pad);
   const linePts = smooth.map((p, i) => `${x(i)},${y(p.v)}`).join(" ");
   const y100 = y(100);
-  // Semantic hue keyed off the RAW latest so it matches the headline % stat
-  // (which is computed from the raw series, not the smoothed one).
-  const last = points[points.length - 1].v;
+  // Keyed off the headline the page prints, so the two cannot disagree.
+  const last = headlineValue ?? points[points.length - 1].v;
   // text-* sets `currentColor`, so both the stroke and the area fill track it
   // and follow dark mode without hardcoded hex.
   const colorClass =
