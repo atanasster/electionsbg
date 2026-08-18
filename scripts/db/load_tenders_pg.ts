@@ -73,6 +73,18 @@ const CPV_CATALOG_FILE = path.join(SCHEMA_DIR, "121_cpv_catalog.sql");
 // exist wherever the column it protects exists. Creating it EMPTY is correct — the
 // search arm then simply adds no hits, which is the pre-B3 behaviour.
 const SEARCH_TEXT_FILE = path.join(SCHEMA_DIR, "147_tender_search_text.sql");
+// Award-criterion lens (ЗОП чл. 70) over `tenders` — the serving fn behind
+// /api/db/procurement-award-criteria, plus its covering index. Applied here
+// because this loader owns `tenders`: the function reads no other table, and a
+// serving fn carries no data, so nothing else would ever ship it. Without an
+// applier the route degrades to null for ever on Cloud SQL (the tile simply
+// never appears) and `db:refresh` FAILS at its final test:data step rather than
+// skipping, since the gate's skip predicate covers an empty corpus, not a
+// missing function.
+const AWARD_CRITERIA_FILE = path.join(
+  SCHEMA_DIR,
+  "164_procurement_award_criteria.sql",
+);
 const TENDER_NORMALCY_BUILD_FILE = path.join(
   SCHEMA_DIR,
   "067b_tender_normalcy_build.sql",
@@ -197,6 +209,8 @@ export const loadTendersPg = async (): Promise<{
   await exec(readFileSync(KZK_FILE, "utf8"));
   // AI-chat serving fns (functions only; replaced each run).
   await exec(readFileSync(AI_FILE, "utf8"));
+  // Award-criterion lens (functions + covering index; idempotent, replaced each run).
+  await exec(readFileSync(AWARD_CRITERIA_FILE, "utf8"));
   // Browser covering indexes (contracts + tenders). Both base tables + the
   // *_list views (042 above) now exist. The count/sum + facet queries in
   // functions/db_table.js aggregate over the BASE tables and these serve them

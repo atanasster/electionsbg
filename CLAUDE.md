@@ -809,6 +809,41 @@ Two of those pairings are worth stating because they look wrong:
   so before this it was already leaving `/procurement/contractors`' MP-tied KPIs on the
   previous vintage, with nothing red anywhere.
 
+`procurement_award_criteria()` (migration 164) is the ЗОП чл. 70 award-criterion lens behind
+`/api/db/procurement-award-criteria` and the `AwardCriteriaTile` on `/procurement`. It rides the
+TENDERS loader — `db:load:tenders:pg[:cloud]` applies 164 — because it reads only `tenders` and,
+being a serving FUNCTION, carries no data that any other path would ship. Without an applier the
+route degrades to `null` for ever on the serving side (the tile simply never appears) while
+`db:refresh` FAILS at its final `test:data` step rather than skipping, since the gate's skip
+predicate covers an empty corpus, not a missing function.
+
+Four things about it are easy to get backwards:
+
+- **Its no-call predicate is NOT 037's, and the two must not be "consolidated".**
+  `procurement_benchmarks` (037) reads `contracts.procurement_method`; this reads
+  `tenders.procedure_type`. The vocabularies intersect on 17 values but diverge (contracts also
+  carries the OCDS codes `open`/`limited`/`selective` and 45% NULL), and 037's list **includes**
+  „Покана до определени лица", which is 0.0% blank across 2,229 tenders — excluding it would drop
+  criterion-bearing rows from the denominator — while **omitting** three types that genuinely carry
+  none. `award_criteria.data.test.ts` asserts the divergence in both directions so a future
+  refactor cannot quietly adopt the contracts-side list.
+- **`award_method` starts in 2020**, so `byYear` is floored at that year IN THE FUNCTION rather
+  than by each consumer: a 2018-2026 series renders a data-availability cliff as a policy change.
+  The rows dropped by the floor come back as `preCriterionTenders` so the omission stays visible.
+- **`unknown` (not stated) and `other` (an unrecognised non-null value) are separate buckets.**
+  Seven `award_method` values exist today; an eighth arriving in a future ingest must surface as
+  `other` rather than merging into "not stated". The bucket set has ONE home —
+  `AWARD_CRITERION_BUCKETS` in `src/data/procurement/useAwardCriteria.ts` — which the tile draws
+  from and the data test asserts the SQL emits, so a seventh bucket cannot be counted in `total`
+  and silently never drawn.
+- **It is deliberately NOT in the 124 precompute.** Measured: the first cut ran 188,591 buffers
+  with a temp spill (658 ms) because four scalar subqueries re-evaluated the CTE chain; referencing
+  each CTE once and adding `idx_tenders_award_criteria` (a covering index on `publication_date`
+  INCLUDE the three read columns) took it to **3,542 buffers / 233 ms** full-corpus and **845
+  buffers / 23 ms** on the default parliament window. That is inside the per-view budget, so the
+  precompute would be machinery for nothing — but re-measure before adding a column to the
+  function, since the index is what keeps the pass Index Only.
+
 `cpv_catalog` (migration 121) is the same shape but rides the TENDERS loader: `db:load:tenders:pg`
 applies it and calls `rebuild_cpv_catalog()` right after the corpus commits, so on the cloud side
 `npm run db:load:tenders:pg:cloud` keeps it in step with no extra command. The only ordering that

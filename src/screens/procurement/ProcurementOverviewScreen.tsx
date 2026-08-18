@@ -35,6 +35,7 @@ import {
 import { useAwarderRiskTop } from "@/data/procurement/useAwarderRiskTop";
 import { RecentAppealsTile } from "../components/procurement/RecentAppealsTile";
 import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
+import { AwardCriteriaTile } from "../components/procurement/AwardCriteriaTile";
 import { LatestContractsTile } from "../components/procurement/LatestContractsTile";
 import { LatestTendersTile } from "../components/procurement/LatestTendersTile";
 import { TopContractorsTile } from "../components/procurement/TopContractorsTile";
@@ -189,6 +190,9 @@ export const ProcurementOverviewScreen: FC = () => {
               ranked per CONTRACT rather than per institution. */}
           <RiskiestContractsTile />
           <ProcurementBenchmarksTile />
+          {/* Same class of indicator as the benchmarks beside it — how we buy,
+              not who won — so it sits in the same section. */}
+          <AwardCriteriaTile />
         </DashboardSection>
 
         <DashboardSection

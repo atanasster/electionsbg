@@ -2290,6 +2290,24 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // Award-criterion mix (ЗОП чл. 70) over the TENDER corpus — the "how do we buy"
+  // lens beside procurement-benchmarks' "how competitive is it". Window-scoped
+  // [from, to) or full corpus; NOT in the 124 precompute, so no scopedPayload.
+  //
+  // Degrades a missing 164 to null rather than 500ing the whole procurement
+  // dashboard: this is one tile on a shared page, and the tile self-suppresses on
+  // null. It is the non-logging variant deliberately — unlike the psp:/pp: routes,
+  // a null here is unambiguous (the function either exists or it does not), so
+  // there is no zero-shaped answer that could be mistaken for real data.
+  "procurement-award-criteria": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const rows = await dbRows(
+      "SELECT procurement_award_criteria($1, $2) AS r",
+      [from, to],
+    ).catch(missingMigration(null));
+    return { body: rows[0]?.r ?? null };
+  },
   // Full "see all" rankings (top contractors / awarders / MPs / officials),
   // window-scoped [from, to) or full corpus — the big-list sibling of
   // procurement-overview.

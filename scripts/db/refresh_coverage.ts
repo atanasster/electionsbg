@@ -101,7 +101,12 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
  */
 export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
   "db:load:agri:pg": ["raw_data/agri"],
-  "db:load:nzok-tariffs:pg": ["data/budget/nzok/pathway_tariffs.json"],
+  // db:load:nzok-tariffs:pg is deliberately ABSENT. pathway_tariffs.json used to
+  // sit here, but it is now COMMITTED (9 KB, and not regenerable by a routine
+  // fetch the way its former neighbours are — rebuilding it means re-parsing the
+  // НРД contract PDF off nhif.bg). A tracked path in this map fails the gate
+  // below, which is the correct signal: the loader no longer has a gitignored
+  // input to tolerate.
   "db:load:nzok-activities:pg": ["data/budget/nzok/activities.json"],
   "db:load:nzok-drug-prices:pg": ["data/budget/nzok/drug_unit_prices.json"],
   "db:load:nzok-financials:pg": ["data/budget/nzok/hospital_financials.json"],
