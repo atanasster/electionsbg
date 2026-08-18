@@ -279,7 +279,8 @@ Each of these was considered and rejected on evidence, not appetite.
 §0b is an article, not a pipeline: **"Защо в България не се плаща за резултат"** —
 the CPV-853x emptiness (238 contracts, €70M) plus the делегирани дейности
 explanation plus — the strongest leg, found in §6a — **CPV 85 having the lowest
-MEAT share of any major division at 9.9%**, and the ЗОП social-services regime
+MEAT share of any SERVICES division at 9.5%** (see §6a's correction — the
+„any division" form is false), and the ЗОП social-services regime
 running 140 lowest-price awards against 58 MEAT. Grounded entirely in figures
 already measured here. Route it through `naiasno-post` / `ArticleLayout` when W1 ships, so
 the article can link the award-criterion tile as its evidence.
@@ -353,6 +354,15 @@ A procedure with no call has no competitive evaluation, so it has no criterion.
 3. **The no-call family is reported as its own band** — "без критерий: няма
    конкурентна оценка" — which is a finding, not a footnote.
 
+⚠️ **These year figures predate the SHIPPED denominator.** They were measured
+excluding six procedure types; migration 164 excludes **four** (the „договаряне
+без …" family plus „Пряко договаряне"), because „Ограничена процедура по ДСП" and
+„…по КС" are call-bearing — a DPS or qualification system WAS competed for. The
+shipped tile therefore reads slightly lower: 27.7% (2020) → 29.6% (2021) → 24.0%
+(2026 partial). The SHAPE is unchanged (a 2021 peak, declining since) and no
+published claim rests on the older cells, but compare against the tile, not this
+table.
+
 **Restated headline figures (competitive denominator, 2020+) — use these:**
 
 | Year | competitive tenders | MEAT | LCC | blank |
@@ -381,8 +391,25 @@ CPV division on the competitive denominator:
 
 And in the ЗОП lighter regime for social services ("Социални и други специфични
 услуги", 267 notices): 140 lowest-price vs 58 MEAT. **The domain where outcomes
-matter most is the domain bought most purely on price.** This belongs in the tile
-and is the empirical spine of the §4a article.
+matter most is bought most purely on price.**
+
+⚠️ **CORRECTED 2026-08-17 — do NOT read that table as a ranking.** It is four
+hand-picked divisions, and an earlier draft of the §4a article turned it into
+"CPV 85 has the lowest MEAT share of any major division". That is **false**:
+across all divisions with a meaningful count, CPV **09** (fuels) runs 5.0% over
+5,097 procedures, **33** (medical devices and pharmaceuticals) 7.7% over 7,765,
+and **22** (printed matter) 9.2% over 1,227 — all lower than 85, and all with
+MORE procedures than its 931.
+
+The claim survives on the corpus's OWN classification rather than a hand-drawn
+CPV boundary: restricted to `contract_type = 'services'`, CPV 85 **is** last, at
+**9.5%**, against 16.6% for the next domain (77) — a seven-point gap, which is a
+stronger result than the false version. The supplies divisions that sit lower are
+standardised goods, where price competition is normal and arguably correct.
+
+Worth carrying rather than hiding: **CPV 33 is medical procurement**, so on both
+channels through which the health system buys, a quality criterion is the
+exception. The article states this explicitly.
 
 ### 6b. W2 case-mix grouping — RESOLVED: BLOCKED, and §2 is downgraded
 
@@ -440,7 +467,8 @@ tile on the hub linking to it. `/data` gets a pointer, not a copy.
 ### 6d. Revised sequencing (supersedes §5)
 
 1. **W1** — unblocked, and the §6a investigation has already specified it fully.
-2. **§4a article** — the §6a CPV-85 finding (9.9% MEAT) is now its spine.
+2. **§4a article** — the §6a CPV-85 finding is its spine, in the SERVICES-only
+   form (9.5%, last of the services divisions). See §6a's correction.
 3. **W3** — proceed with **two** shipped legs (courts €/case, roads €/km) plus the
    national €578 context figure. The methodology page is *more* useful with W2
    blocked, not less: it is where the tariff gap gets stated publicly.
@@ -1231,7 +1259,7 @@ although the artifact set above makes both locale files mandatory.
 | item | status |
 |---|---|
 | W1 award-criterion lens | ready; denominator per §10b, **not** §6a |
-| §4a article | ready; spine is §6a's CPV-85 9.9% |
+| §4a article | **SHIPPED** 2026-08-17; spine is CPV-85 at 9.5%, last among services |
 | W3 methodology page | ready; **seven artifacts** per §10c-1, genre per §10c-2 |
 | §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
 | §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |

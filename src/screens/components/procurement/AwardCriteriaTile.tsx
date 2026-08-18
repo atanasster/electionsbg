@@ -13,6 +13,14 @@
 // Residual "not stated" rows inside 2020+ stay visible as their own grey band;
 // they are never dropped or redistributed.
 //
+// The `data-og="award-criteria"` hook on the content wrapper is the capture
+// anchor for the share card of the „Защо в България не се плаща за резултат"
+// article (public/og/paying-for-outcomes.png). Article cards are not listed in
+// scripts/og/capture-screens.ts — that file is for PAGE cards referenced
+// literally from the prerender route sources, and ogAndSitemapCoverage.test.ts
+// fails an entry there that no route points at. To re-cut the card, run the dev
+// server and capture this element directly.
+//
 // Bars are CSS flex, not a charting library: the split is a part-to-whole of
 // five buckets, so it needs no axis, and it sidesteps the measured-width latch
 // that bites charts inside a grid item.
@@ -160,7 +168,7 @@ export const AwardCriteriaTile: FC = () => {
           {t("award_crit_title") || "Award criterion (ЗОП art. 70)"}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-3 md:p-4 pt-0">
+      <CardContent className="p-3 md:p-4 pt-0" data-og="award-criteria">
         <p className="text-[11px] text-muted-foreground">
           {t("award_crit_lede") ||
             "How bids are scored when the contract is awarded — not how delivery is paid for."}
