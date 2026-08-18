@@ -4883,16 +4883,26 @@ export const prerenderRoutes: PrerenderRoute[] = [
     ogImage: "/og/subsidies.png",
     bodyHtml: `
 <h1>Земеделски субсидии — кой получава парите</h1>
-<p>Държавен фонд „Земеделие" е разплащателната агенция на Общата селскостопанска политика (ОСП) на ЕС. Тази страница показва какво прави фондът с парите: колко изплаща всяка финансова година, по кои схеми, в кои области и на кои получатели — юридически лица и физически лица поотделно.</p>
-<h2>Какво ще намерите тук</h2>
+<p>Държавен фонд „Земеделие" е разплащателната агенция на Общата селскостопанска политика (ОСП) на ЕС. Тук започва разглеждането: коя страница отговаря на кой въпрос за изплатените суми по финансови години ${AGRI_YEAR_RANGES}.</p>
+<h2>Кой получава парите</h2>
 <ul>
-<li><strong>Накратко</strong> — изплатена сума, брой получатели (фирми и физически лица), делът на 100-те най-големи фирми и най-голямата схема за избраната финансова година.</li>
-<li><strong>Концентрация</strong> — как се разпределя сумата между топ 10, топ 11–100, топ 101–1000 и всички останали фирми. Малка група получатели взима непропорционален дял от парите за юридически лица.</li>
-<li><strong>По схема</strong> — от основното подпомагане на доходите до инвестиционните мерки, еко схемите и извънредната помощ, с директна връзка към получателите по всяка схема.</li>
-<li><strong>По област</strong> — карта на изплатеното по области.</li>
-<li><strong>По година</strong> — изплатено по финансова година (${AGRI_YEAR_RANGES}).</li>
-<li><strong>Най-големи получатели</strong> — класация на юридическите лица, всяко със своя <a href="${SITE_URL}/procurement">профил</a>, така че субсидиите се четат заедно с обществените поръчки и европейските средства на същата фирма.</li>
+<li><a href="${SITE_URL}/subsidies/recipients"><strong>Топ получатели</strong></a> — класация на фирмите по получена сума. Всяка води към своя профил, така че субсидиите се четат заедно с обществените поръчки и европейските средства на същото дружество.</li>
+<li><a href="${SITE_URL}/subsidies/schemes"><strong>По схема</strong></a> — от основното подпомагане на доходите до инвестиционните мерки, еко схемите и извънредната помощ.</li>
+<li><a href="${SITE_URL}/subsidies/places"><strong>По област</strong></a> — карта на изплатеното по области.</li>
+<li><a href="${SITE_URL}/subsidies/untraceable"><strong>Непроследими получатели</strong></a> — около 40% от парите стоят на редове без ЕИК. Това не значи „физически лица": сред тях има безспорни фирми и общини. Значи, че тези плащания не могат да бъдат приписани на конкретен получател.</li>
 </ul>
+<h2>Концентрация и връзки</h2>
+<ul>
+<li><a href="${SITE_URL}/subsidies/concentration"><strong>Концентрация</strong></a> — как се разпределя сумата между топ 10, топ 11–100, топ 101–1000 и всички останали. Малка група получатели взима непропорционален дял от парите за юридически лица.</li>
+<li><a href="${SITE_URL}/subsidies/political"><strong>Политически свързани</strong></a> — получатели, при които публична фигура е вписана в роля в търговския регистър или в регистъра на ЮЛНЦ. Вписана роля, не собственост и не нарушение.</li>
+<li><a href="${SITE_URL}/subsidies/cross-programme"><strong>И по други програми</strong></a> — същите фирми в обществените поръчки и в ИСУН. Трите вида пари се показват поотделно, защото са на различна основа и не се събират.</li>
+</ul>
+<h2>Данните</h2>
+<ul>
+<li><a href="${SITE_URL}/subsidies/browse"><strong>Всички плащания</strong></a> — пълната таблица по година, получател и схема.</li>
+<li><a href="${SITE_URL}/subsidies/coverage"><strong>Обхват и източници</strong></a> — кои финансови години ги има и кои липсват.</li>
+</ul>
+<p>Държавата субсидира и извън земеделието: <a href="${SITE_URL}/budget/municipal">трансферите към общините</a>, <a href="${SITE_URL}/sector/transport">субсидията за железниците</a>, <a href="${SITE_URL}/culture">филмовите субсидии на НФЦ</a> и <a href="${SITE_URL}/budget/simulator">партийните субсидии по ЗПП</a>. Тези потоци са годишни, всеки на своя база — не се събират в обща сума. Общата бюджетна перо „Субсидии" е на <a href="${SITE_URL}/budget/spending">разходите по бюджета</a>.</p>
 <p>Собствените обществени поръчки на фонда са на <a href="${SITE_URL}/awarder/121100421">страницата на ДФ „Земеделие"</a>. Виж и <a href="${SITE_URL}/funds">европейските средства</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>
 <p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (ДФ „Земеделие" — отворени данни за плащанията) и публичният регистър на <a href="https://seu.dfz.bg/" rel="nofollow noopener">Системата за електронни услуги на ДФЗ</a> за текущите години.</p>`.trim(),
     english: {
@@ -4902,16 +4912,26 @@ export const prerenderRoutes: PrerenderRoute[] = [
       breadcrumbName: "Farm subsidies",
       bodyHtml: `
 <h1>Farm subsidies — who receives the money</h1>
-<p>State Fund Agriculture is Bulgaria's paying agency for the EU Common Agricultural Policy (CAP). This page shows what the fund does with the money: how much it pays out in each financial year, under which schemes, in which provinces, and to which recipients — legal entities and individuals counted separately.</p>
-<h2>What you'll find</h2>
+<p>State Fund Agriculture is Bulgaria's paying agency for the EU Common Agricultural Policy (CAP). This is where the module starts: which page answers which question about the amounts paid across financial years ${AGRI_YEAR_RANGES}.</p>
+<h2>Who receives the money</h2>
 <ul>
-<li><strong>At a glance</strong> — total paid, number of recipients (companies and individuals), the share captured by the 100 largest firms, and the largest scheme for the selected financial year.</li>
-<li><strong>Concentration</strong> — how the money splits between the top 10, the top 11–100, the top 101–1000 and every other firm. A small group of recipients takes a disproportionate share of the legal-entity money.</li>
-<li><strong>By scheme</strong> — from basic income support to investment measures, eco-schemes and emergency aid, each linking through to the recipients under it.</li>
-<li><strong>By province</strong> — a map of payments by oblast.</li>
-<li><strong>By year</strong> — amounts paid per financial year (${AGRI_YEAR_RANGES}).</li>
-<li><strong>Largest recipients</strong> — a ranking of legal entities, each with its own <a href="${SITE_URL}/en/procurement">company profile</a>, so subsidies can be read alongside the same firm's public contracts and EU funds.</li>
+<li><a href="${SITE_URL}/en/subsidies/recipients"><strong>Largest recipients</strong></a> — companies ranked by the amount received, each with its own profile, so subsidies can be read alongside the same firm's public contracts and EU funds.</li>
+<li><a href="${SITE_URL}/en/subsidies/schemes"><strong>By scheme</strong></a> — from basic income support to investment measures, eco-schemes and emergency aid.</li>
+<li><a href="${SITE_URL}/en/subsidies/places"><strong>By province</strong></a> — a map of payments by oblast.</li>
+<li><a href="${SITE_URL}/en/subsidies/untraceable"><strong>Untraceable recipients</strong></a> — around 40% of the money sits on rows with no ЕИК. That does not mean „individuals": those rows include unmistakable companies and municipalities. It means the payments cannot be attributed to a specific recipient.</li>
 </ul>
+<h2>Concentration and links</h2>
+<ul>
+<li><a href="${SITE_URL}/en/subsidies/concentration"><strong>Concentration</strong></a> — how the money splits between the top 10, the top 11–100, the top 101–1000 and every other firm. A small group takes a disproportionate share of the legal-entity money.</li>
+<li><a href="${SITE_URL}/en/subsidies/political"><strong>Politically linked</strong></a> — recipients where a public figure holds a role recorded in the Commerce Registry or the non-profit register. A recorded role: not ownership, and not an irregularity.</li>
+<li><a href="${SITE_URL}/en/subsidies/cross-programme"><strong>Across other programmes</strong></a> — the same firms in public procurement and in ИСУН. The three kinds of money are shown separately because they are on different bases and are never summed.</li>
+</ul>
+<h2>The data</h2>
+<ul>
+<li><a href="${SITE_URL}/en/subsidies/browse"><strong>All payments</strong></a> — the full table by year, recipient and scheme.</li>
+<li><a href="${SITE_URL}/en/subsidies/coverage"><strong>Coverage and sources</strong></a> — which financial years exist and which are missing.</li>
+</ul>
+<p>The state subsidises beyond farming: <a href="${SITE_URL}/en/budget/municipal">transfers to municipalities</a>, <a href="${SITE_URL}/en/sector/transport">the railway subsidy</a>, <a href="${SITE_URL}/en/culture">film subsidies through the НФЦ</a> and <a href="${SITE_URL}/en/budget/simulator">party subsidies under the ЗПП</a>. Those streams are annual and each is on its own basis — they are not added together. The budget's own „Subsidies" line is on <a href="${SITE_URL}/en/budget/spending">budget spending</a>.</p>
 <p>The fund's own public procurement is on the <a href="${SITE_URL}/en/awarder/121100421">State Fund Agriculture page</a>. See also <a href="${SITE_URL}/en/funds">EU funds</a> and <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>
 <p>Sources: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (State Fund Agriculture payment open data) and the public register of the fund's <a href="https://seu.dfz.bg/" rel="nofollow noopener">electronic-services system</a> for the current years.</p>`.trim(),
     },
@@ -5606,6 +5626,75 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>The rise coincides with the change of source</h2>
 <p>The share climbs from 33% in 2015 to 49% in 2025, but the jump is between 2023 and 2024 — exactly where the series changes register. The composition changes too: plainly-corporate no-ЕИК payments are under €4k a year until 2023, then €149m and €196m in 2024 and 2025. At least part of the „new" untraceable money is companies the older source published with an ЕИК.</p>
 <p>See also <a href="${SITE_URL}/en/subsidies/coverage">coverage and sources</a>, the <a href="${SITE_URL}/en/subsidies/recipients">recipient ranking</a> and the <a href="${SITE_URL}/en/subsidies">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "governance/sectors/methodology",
+    title: "Цена за единица резултат — методология | electionsbg.com",
+    description:
+      "Как смятаме разхода за едно свършено дело, за един километър път и за един болничен случай — съвпадащ обхват, сложност на случаите, и защо това число не е присъда.",
+    breadcrumbName: "Цена за единица резултат",
+    breadcrumbParent: {
+      name: "Сектори",
+      nameEn: "Sectors",
+      path: "governance/sectors",
+    },
+    ogImage: "/og/unit-cost-methodology.png",
+    bodyHtml: `
+<h1>Цена за единица резултат — методология</h1>
+<p>На няколко места в сайта показваме едно и също по вид число: колко пари отиват за една единица извършена услуга. Разход за свършено дело, цена на километър, разход за болничен случай. Правилата зад тях са описани тук веднъж.</p>
+<h2>Какво измерва — и какво не</h2>
+<p>Числото е разход за единица <strong>извършена услуга</strong>: пари, разделени на брой доставени единици. <strong>Това не е резултат.</strong> „Свършено дело" не значи справедливо решено дело; „болничен случай" не значи излекуван пациент; километър път не значи безопасен път. Плащането за резултат обвързва парите с измерена промяна в живота на хората — цената за единица е много по-скромно нещо.</p>
+<h2>Три ограничения</h2>
+<ul>
+<li><strong>Приписване</strong> — числото не отделя приноса на институцията от законодателни промени, икономически цикъл и демография. Растящата цена на дело може да е неефективност, но може и да е по-сложни дела.</li>
+<li><strong>Качество</strong> — знаменателят брои единици, не стойността им за човека. Институция, която работи по-бързо и по-повърхностно, изглежда по-евтина.</li>
+<li><strong>Посока</strong> — спадащата цена не е автоматично добра. Инвестиция, която оскъпява единицата днес и я подобрява утре, изглежда като влошаване.</li>
+</ul>
+<h2>Първо правило: съвпадащ обхват</h2>
+<p>Числителят и знаменателят трябва да покриват едно и също. Бюджетът на съдилищата се дели на делата на съдилищата — не общият бюджет на съдебната власт, защото така десетки милиони евро за прокуратура се вливат в цената на едно съдебно дело. Тази грешка е невидима в резултата: числото изглежда правдоподобно, просто е грешно с постоянен множител.</p>
+<h2>Второ правило: сложност на случаите</h2>
+<p>Когато единиците не са еднакви, суровото средно не значи нищо. Един болничен случай може да е хемодиализа за 25 € или трансплантация за 20 000 €. Затова сравнение между заведения се прави спрямо <strong>очакван</strong> разход при техния собствен състав на случаите. Където такава корекция не е възможна, сравнение между заведения не се публикува.</p>
+<h2>Къде се използва</h2>
+<p>Всяко число се смята там, където живеят данните му, и носи собствения си обхват:</p>
+<ul>
+<li><a href="${SITE_URL}/judiciary">Разход за свършено дело</a> — бюджетът на съдилищата, разделен на свършените от тях дела; изключва прокуратура, ВКС и ВАС от двете страни.</li>
+<li><a href="${SITE_URL}/awarder/000695089">Цена на километър</a> — стойност на договора, разделена на дължината на отсечката, само където видът работа позволява защитимо число.</li>
+</ul>
+<p>Здравеопазването все още няма такава плочка. Национално числото се смята — около 586 € на случай за 2025 г. — но сравнение между болници изисква корекция по състав на случаите и затова не се публикува.</p>
+<h2>Не е индекс</h2>
+<p>Няма общ „индекс на ефективността" между секторите. Цената на дело, цената на километър и цената на болничен случай не са съизмерими; осредняването им би произвело число, което не отговаря на нищо. Семейството е споделен <strong>метод</strong>, не споделена скала.</p>
+<p>Виж и <a href="${SITE_URL}/judiciary">съдебната власт</a>, <a href="${SITE_URL}/governance/sectors">секторите</a> и <a href="${SITE_URL}/articles/2026-08-17-paying-for-outcomes">защо в България не се плаща за резултат</a>.</p>`.trim(),
+    english: {
+      title: "Cost per Unit of Service — Methodology | electionsbg.com",
+      description:
+        "How we compute the cost of one resolved court case, one kilometre of road and one hospital case — matching scope, case mix, and why the number is not a verdict.",
+      breadcrumbName: "Cost per unit of service",
+      bodyHtml: `
+<h1>Cost per unit of service — methodology</h1>
+<p>In several places on this site we show the same kind of number: how much money goes into one unit of service delivered. Cost per resolved case, cost per kilometre, cost per hospital case. The rules behind them are set out here once.</p>
+<h2>What it measures — and what it does not</h2>
+<p>The number is cost per unit of <strong>service delivered</strong>: money divided by units delivered. <strong>It is not an outcome.</strong> A "resolved case" does not mean a justly resolved case; a "hospital case" does not mean a cured patient; a kilometre of road does not mean a safe road. Paying for outcomes ties money to measured change in people's lives — cost per unit is a far more modest thing.</p>
+<h2>Three limits</h2>
+<ul>
+<li><strong>Attribution</strong> — the number does not separate the institution's contribution from legislative change, the economic cycle and demography. A rising cost per case may be inefficiency, or it may be harder cases.</li>
+<li><strong>Quality</strong> — the denominator counts units, not what they were worth to the person. An institution that works faster and more superficially looks cheaper.</li>
+<li><strong>Direction</strong> — a falling cost is not automatically good. An investment that raises the unit cost today and improves it tomorrow reads as deterioration.</li>
+</ul>
+<h2>First law: matching scope</h2>
+<p>Numerator and denominator must cover the same thing. The courts' budget is divided by the courts' cases — not the whole judiciary's budget, which quietly folds tens of millions of euro of prosecution money into the cost of one court case. The mistake is invisible in the result: the number looks plausible, it is simply wrong by a constant factor.</p>
+<h2>Second law: case mix</h2>
+<p>When the units are not alike, a raw average means nothing. A hospital case can be dialysis at €25 or a transplant at €20,000. Comparison between institutions is therefore made against the <strong>expected</strong> cost for their own case mix. Where no such adjustment is possible, no between-institution comparison is published.</p>
+<h2>Where it is used</h2>
+<p>Each number is computed where its data lives, and carries its own scope:</p>
+<ul>
+<li><a href="${SITE_URL}/en/judiciary">Cost per resolved case</a> — the courts' own appropriation divided by the cases they resolved; excludes the prosecution, the Supreme Court of Cassation and the Supreme Administrative Court on both sides.</li>
+<li><a href="${SITE_URL}/en/awarder/000695089">Cost per kilometre</a> — contract value divided by the length of the section, only where the type of work allows a defensible figure.</li>
+</ul>
+<p>Health has no such tile yet. Nationally the number is computable — about €586 per case for 2025 — but comparison between hospitals requires a case-mix adjustment and is therefore not published.</p>
+<h2>It is not an index</h2>
+<p>There is no cross-sector "efficiency index". Cost per case, cost per kilometre and cost per hospital case are not commensurable; averaging them would manufacture a number corresponding to nothing. The family is a shared <strong>method</strong>, not a shared scale.</p>
+<p>See also <a href="${SITE_URL}/en/judiciary">the judiciary</a>, <a href="${SITE_URL}/en/governance/sectors">the sectors</a> and <a href="${SITE_URL}/en/articles/2026-08-17-paying-for-outcomes">why Bulgaria does not pay for outcomes</a>.</p>`.trim(),
     },
   }),
   staticPage({

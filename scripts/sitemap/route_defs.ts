@@ -34,6 +34,7 @@ export const ENGLISH_STATIC_PAGES = [
   "subsidies/concentration",
   "subsidies/untraceable",
   "subsidies/coverage",
+  "governance/sectors/methodology",
   "subsidies/political",
   "subsidies/cross-programme",
   "about",
@@ -642,6 +643,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "subsidies/coverage",
     file: `src/screens/subsidies/SubsidiesCoverageScreen.tsx`,
+  },
+  {
+    path: "governance/sectors/methodology",
+    file: `src/screens/sector/UnitCostMethodologyScreen.tsx`,
   },
   {
     path: "subsidies/political",

@@ -9,6 +9,7 @@ import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
+import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
   corridors,
@@ -64,6 +65,7 @@ export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
             ? "Само договори с разчетен участък (км) и физически строителни работи. Останалата част от обема не се остойностява на километър."
             : "Only contracts with a parsed segment (km) and physical works. The rest of the volume is not unit-costed per kilometre."}
         </p>
+        <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>
     </Card>
   );

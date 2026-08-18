@@ -19,6 +19,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact, formatPct, formatCount } from "@/lib/currency";
 import { useNzokFinancialsByEik } from "@/data/budget/useBudget";
+import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 export const NzokFinancialHealthStrip: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
@@ -125,6 +126,7 @@ export const NzokFinancialHealthStrip: FC<{ eik: string }> = ({ eik }) => {
             ? `Източник: „Финансови показатели на лечебни заведения за болнична помощ" на Министерство на здравеопазването (Наредба № 5 от 2019 г.), тримесечно от 2019 г. Разходът на преминал болен е описателен и НЕ се класира: специализираните центрове поемат по-тежки случаи, така че сравнение без отчитане на структурата на случаите би класирало специалността, а не стопанисването. Данни за ${data.series.length} тримесечия.`
             : `Source: the Ministry of Health's quarterly "Financial indicators of inpatient-care providers" (Наредба № 5/2019), from 2019. Cost per patient is descriptive and is NOT ranked: specialised centres take heavier cases, so comparing without a case-mix denominator would rank the specialty, not the stewardship. ${data.series.length} quarters of data.`}
         </p>
+        <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>
     </Card>
   );

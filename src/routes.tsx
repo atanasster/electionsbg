@@ -251,6 +251,11 @@ const DefenseScreen = lazy(() =>
     default: m.DefenseScreen,
   })),
 );
+const UnitCostMethodologyScreen = lazy(() =>
+  import("./screens/sector/UnitCostMethodologyScreen").then((m) => ({
+    default: m.UnitCostMethodologyScreen,
+  })),
+);
 const SectorDashboardScreen = lazy(() =>
   import("./screens/sector/SectorDashboardScreen").then((m) => ({
     default: m.SectorDashboardScreen,
@@ -1758,6 +1763,17 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <GovernanceSectorsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The unit-cost family's shared methodology (plan §3 / §6c). Sits
+              under the sectors hub because the family spans judiciary, roads and
+              health — it is not a procurement methodology. */}
+          <Route
+            path="governance/sectors/methodology"
+            element={
+              <LayoutScreen>
+                <UnitCostMethodologyScreen />
               </LayoutScreen>
             }
           />

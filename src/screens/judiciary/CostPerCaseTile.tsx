@@ -27,6 +27,7 @@ import { formatEur, formatCount } from "@/lib/currency";
 import type { JudiciaryYear } from "@/data/judiciary/useCaseload";
 import type { JudiciaryBudgetFile } from "@/data/budget/types";
 import { costPerResolvedCase } from "@/data/judiciary/costPerCase";
+import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 export const CostPerCaseTile: FC<{
   years: JudiciaryYear[];
@@ -130,6 +131,7 @@ export const CostPerCaseTile: FC<{
             ? "Бюджетът на съдилищата (перо „Съдилища на Република България“ от ЗДБРБ) ÷ свършените от тях дела за годината. Двете страни са с еднакъв обхват — прокуратурата, ВКС и ВАС имат отделни бюджети и се броят отделно, затова не влизат в сметката."
             : "The courts' appropriation (the ЗДБРБ line “Courts of the Republic of Bulgaria”) ÷ the cases they resolved that year. Both sides share one scope — the prosecution, the Supreme Court of Cassation and the Supreme Administrative Court have their own budgets and are counted separately, so they are excluded from the ratio."}
         </p>
+        <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>
     </Card>
   );

@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
 import { ROAD_EUR_PER_KM } from "@/lib/roadBenchmarks";
+import { UnitCostMethodologyLink } from "@/screens/components/UnitCostMethodologyLink";
 
 // Reference levels (€/km) — shared with the key-factors prose in RoadsPack.
 const {
@@ -134,6 +135,7 @@ export const RoadCostBenchmarkTile: FC<{ corridors: CorridorAgg[] }> = ({
             ? "Лентата е p25–p75 на €/км за коридора, чертичката — медианата. Зелената зона е ориентир €3–6 млн/км (ново строителство на магистрала в BG). Ориентирите не са пряко сравними — ROCKS е двулентов път без съоръжения, а страните са магистрали."
             : "Bar is the corridor's p25–p75 €/km, the tick is the median. The green zone marks €3–6M/km (BG new motorway). References are not like-for-like — ROCKS is a two-lane road without structures, the country figures are motorways."}
         </p>
+        <UnitCostMethodologyLink className="mt-2 inline-block" />
       </CardContent>
     </Card>
   );

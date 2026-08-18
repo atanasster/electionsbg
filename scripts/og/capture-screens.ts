@@ -1342,6 +1342,27 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    // The unit-cost methodology page (plan §3). A prose page, so the clip is
+    // top-aligned on the H1 like the other document cards rather than centred on
+    // a chart — there is no visual here, the title and lede ARE the card.
+    slug: "unit-cost-methodology",
+    routePath: "governance/sectors/methodology",
+    // Wait on the H1 itself: the data-og wrapper is in the first render while
+    // the layout's heading arrives a tick later, so waiting on the wrapper let
+    // the capture run before the anchor existed.
+    waitFor: "h1",
+    anchor: "h1",
+    settleMs: 2000,
+    // ArticleLayout puts its title in an <article><header>, and HIDE_CHROME_CSS's
+    // `header, header *` — written for the SITE header — hides it too, which
+    // makes the h1 anchor resolve to a HIDDEN element and the shot time out.
+    // Re-show the article's own header only. extraCss is appended after
+    // HIDE_CHROME_CSS, so this wins.
+    extraCss:
+      "[data-community-banner]{display:none!important;}" +
+      "article header,article header *{display:revert!important;}",
+  },
+  {
     slug: "recount",
     routePath: "recount?elections=2026_04_19",
     waitFor: "table tbody tr",

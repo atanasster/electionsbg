@@ -245,6 +245,33 @@ each re-states its methodology caveat in its own words.
 3. **Backlink**: each of the three tiles footnotes to the methodology page instead
    of re-explaining itself.
 
+### 3a-1. RESOLVED 2026-08-17 — what shipped, and two deviations from §3a
+
+**Route** is `governance/sectors/methodology` per §6c, not §3a's
+`/data/methodology/unit-cost`. All seven §10c-1 artifacts shipped.
+
+**Deviation 1 — the cross-sector tile carries NO figures.** §3a asked for "each
+with its headline figure, its year, and its coverage"; what shipped is a
+navigational index. Reason: the three numbers are computed in three unrelated
+places (a TS helper over judiciary payloads, a gated per-contract parse for
+roads, and — for health — nothing at all), so a fourth copy on the hub would be
+the `hub_stats` drift CLAUDE.md documents, going stale with nothing to catch it.
+§3b's "shared method, not a shared scale" also argues against putting three
+incommensurable numbers side by side under one heading.
+
+⚠️ That reasoning covers the FIGURE. It does not cover **year and coverage**,
+which are static prose and were dropped silently — recorded here so the omission
+is a decision rather than an oversight. Revisit if the legs ever share a source.
+
+**Deviation 2 — TWO legs, not three, and §6d-3 already said so.** The page lists
+courts €/case and roads €/km. Health is a **context figure** in prose
+(€2,247m / 3,835,420 cases = ~€586 per case, 2025), NOT a leg: no surface renders
+a per-hospital €/case, and `NzokActivityTile` says so in its own caption — the
+activity corpus carries the procedure code without a price. A first draft listed
+it as a leg linking to `/awarder/121858220`, which would have pointed a reader at
+a page stating the opposite. The per-hospital version is W2, and it needs exactly
+the case-mix adjustment this page's second law describes.
+
 ### 3b. Explicitly NOT a score
 
 No composite "efficiency index" across sectors. €/case, €/km and €/case-in-health
@@ -1260,7 +1287,7 @@ although the artifact set above makes both locale files mandatory.
 |---|---|
 | W1 award-criterion lens | ready; denominator per §10b, **not** §6a |
 | §4a article | **SHIPPED** 2026-08-17; spine is CPV-85 at 9.5%, last among services |
-| W3 methodology page | ready; **seven artifacts** per §10c-1, genre per §10c-2 |
+| W3 methodology page | **SHIPPED** 2026-08-17 — 7 artifacts; 2 legs + a health context figure (§3a-1) |
 | §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
 | §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |
 | W2 per-hospital €/case | metric already EXISTS (059, live route, ratio 0.963 verified); blocked only on §8e + §6b guards |
