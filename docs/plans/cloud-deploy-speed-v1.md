@@ -2771,3 +2771,235 @@ Worth pairing with F36: while local Docker was down, **eleven of the thirteen
 remaining cloud steps ran to completion**, because they read on-disk JSON shards
 and write to the connected cloud database. A local outage is not a deploy-stopper
 in general — it is a deploy-stopper for exactly the `shipTable` steps.
+
+## Measured deploy profile (2026-08-18) — the publish that "failed" three times and shipped anyway
+
+Sixth profile in this series, and the first where **every failure was a client-side
+illusion**: three steps reported `Connection terminated unexpectedly`, and in each case
+the server had either already committed the work or went on to finish it after the
+client was gone. The operational cost of that gap was not the failures themselves — it
+was one orphaned lock that blocked production and would have deadlocked the deploy.
+
+Published: the ЦАИС ЕОП self-heal (+101 rows / 61 buyers), tenders re-index to 237,668,
+the annex fold at +€2,272.7 m net, the Interreg `--full` re-crawl, and the capital /
+macro / financing / administration artifacts. `prices` is absent (upstream feed missing
+Kaufland since 08-15, held), as are `tr`, `agri` and the ИСУН arm of funds (F5 WAF).
+
+Cloud baselines before the run: `contracts` 409,300 (max date 2026-08-14) · `tenders`
+237,601 · `procurement_annexes` 24,235 · `awarder_seats` **3,866** · `interreg_operations`
+1,958 · `interreg_partners` 12,015.
+
+The chain ran in two invocations: an initial attempt that halted at step 1, and a resume
+that skipped the already-landed contracts load. `procurement-scopes` is present here NOT
+as a routine step but as the **recovery** for step 1 (F42).
+
+| # | step | seconds | | vs 2026-08-14 |
+|--:|---|--:|---|---|
+| 1 | `contracts` | **3338** | 55.6 min | 4297 → **−22.3%** (rc=1, data landed — F40) |
+| 2 | `procurement-scopes` | **1105** | 18.4 min | 1264 → −12.6% (recovery, not routine) |
+| 3 | `annexes` | **517** | 8.6 min | 133 → **+289%** |
+| 4 | `tenders` | **2032** | 33.9 min | 1158 → **+75%** |
+| 5 | `awarder-seats` | 850 | 14.2 min | 855 → −0.6% |
+| 6 | `interreg` | 93 | | never timed |
+| 7 | `persons-browse` | **1179** | 19.7 min | 174 → **+578%** (rc=1 — F41) |
+| 8 | `graph` | 335 | | 224 → +50% |
+| 9 | `tr-company-place` | 75 | | 132 → −43% |
+| 10 | `refresh-risk` | 1 → **>600** | | rc=1 at 1 s, then transient-free but long (F40) |
+| 11 | `gcs` (8 paths) | 27 | | ~40 |
+| | **total** | **~9,552+** | **2 h 39 m+** | |
+
+Note the variance is **not uniform**, which argues against "the instance was slow today":
+`awarder-seats` reproduced within 0.6% and `tr-company-place` was the fastest ever
+recorded, while `annexes` and `tenders` blew past their baselines in the same run. Both
+outliers ran while the instance was concurrently doing dependent recompute; contention is
+the hypothesis, and this run cannot isolate it.
+
+### F40 — a failed cloud step does not mean nothing was published: the server outlives the client
+
+`db:load:pg:cloud` exited with `Connection terminated unexpectedly` at 3,338 s. The data
+was **already committed**: cloud `contracts` read 409,392 with max date 2026-08-17,
+byte-equal to local, the moment the step "failed".
+
+Cloud SQL logs for the window settle what happened, and it is not what the error suggests:
+
+```
+17:27:06  client sees "Connection terminated unexpectedly"
+17:28:31  [763602] db=electionsbg,user=postgres LOG: temporary file ... size 5791744
+          STATEMENT: SELECT rebuild_contract_risk_cache()
+17:28:33  [763602] temporary file ... size 22822912
+```
+
+PID 763602 is the loader's own backend, still executing `rebuild_contract_risk_cache()`
+and spilling temp files **a minute and a half after the client gave up**. It ran to
+completion: `contract_risk_cache` ended at 409,392, equal to local, without anyone
+re-running anything.
+
+The same behaviour was then observed independently when a `refresh-risk` retry was
+SIGTERM'd at the 10-minute mark: its backend (775377) stayed `active` on
+`rebuild_contract_risk_cache()` for a further ten minutes.
+
+Three consequences, and the third is the expensive one:
+
+- **"Step failed" is not "nothing shipped."** Inspect the target before retrying.
+- **Killing the client does not stop the work.** A retry issued immediately contends with
+  the original, which is still running.
+- **A naive retry of `contracts` would have re-shipped 406,722 rows for ~56 minutes to
+  redo a refresh that had already finished.** What was actually needed was the dependent
+  recompute alone.
+
+Ruled out as causes, each by direct measurement: local Docker (healthy, 3 h uptime, so
+not F29/F39), host disk (74 GiB free, not F31), the proxy (up 3 h 00 m, predating and
+surviving the run), a server restart (`pg_postmaster_start_time()` = 10 days), and OOM
+(no `out of memory` in the logs — this was the initial hypothesis and it is **wrong**).
+`statement_timeout` is 0 for the loader role. What remains is a severed client link with
+the server unaffected.
+
+### F41 — a dead client can leave an AccessExclusiveLock on a serving table forever
+
+This is the finding with production impact, and it is a property of three settings that
+are each individually defensible.
+
+`db:load:persons-browse:pg:cloud` failed at 1,179 s. Its **client process was gone**
+(`pgrep` empty) while its **server session survived**, sitting `idle in transaction`
+holding `AccessExclusiveLock` on `person_browse_table` and every one of its indexes —
+`idx_person_browse_{name_trgm,role_codes_trgm,facet,place,year,held}` plus the toast
+relation.
+
+Nothing would ever have released it:
+
+| setting | value on this instance | consequence |
+|---|--:|---|
+| `tcp_keepalives_idle` | 0 | server never learns the peer is dead |
+| `idle_in_transaction_session_timeout` | 0 | idle transaction is never reaped |
+| `statement_timeout` (loader role) | 0 | no upper bound on the step itself |
+
+Within ten minutes **four sessions were queued behind it**. `/persons` would have hung
+until a human noticed, and — because `db:load:graph:pg:cloud` reads
+`person_browse_table` — the deploy chain itself was among the blocked: `graph` had
+started and was waiting on a dead client's lock.
+
+Recovery is `pg_terminate_backend(<pid>)`. It is safe precisely because the transaction
+never committed: the DDL rolls back and the **previous** matview survives intact
+(verified: 136,863 rows before and after, and `/persons` served 200 in 0.86 s
+immediately afterwards). `graph` then completed in 335 s.
+
+**Add this to the post-deploy check, not just the failure path** — a step can succeed and
+still leave a session behind:
+
+```sql
+SELECT pid, state, now() - state_change AS idle_for,
+       left(regexp_replace(query, '\s+', ' ', 'g'), 80)
+  FROM pg_stat_activity
+ WHERE datname = 'electionsbg' AND state = 'idle in transaction';
+
+SELECT pid, pg_blocking_pids(pid), left(query, 80)
+  FROM pg_stat_activity WHERE cardinality(pg_blocking_pids(pid)) > 0;
+```
+
+The durable fix is a non-zero `idle_in_transaction_session_timeout` for the loader role
+(long enough to exceed any legitimate inter-statement gap, short enough to bound an
+outage), and TCP keepalives on the instance. Neither is set today.
+
+### F42 — `procurement-scopes` is the RECOVERY for a half-failed contracts load, so F20 must not be read as "delete it"
+
+F20 established that `db:load:procurement-scopes:pg:cloud` is droppable because
+`db:load:pg:cloud` refreshes the same six matviews itself. That holds **only when the
+contracts step completes**. When it dies after the COPY but before the recompute — F40's
+shape — the six matviews are exactly what is left stale, and `procurement-scopes` is the
+only cheap way to fix them without re-shipping the corpus.
+
+So the two findings compose rather than conflict: drop it from the routine chain, keep it
+in the runbook as the recovery.
+
+⚠️ **It is not free, and the cost is reader-facing.** The loader re-applies 119/122/123/124,
+which DROP and recreate their matviews `WITH NO DATA`. A matview that is not populated
+cannot be refreshed `CONCURRENTLY`, so the loader falls back:
+
+```
+contractor_scope_kpis: not populated — falling back to a PLAIN REFRESH (AccessExclusiveLock).
+procurement_settlement_payloads: not populated — falling back to a PLAIN REFRESH (AccessExclusiveLock).
+```
+
+All six were populated 20 minutes earlier, so the DDL re-apply is what unpopulated them.
+That is CLAUDE.md's documented 122 hazard ("applying it would blank that page until a
+multi-minute refresh finished") arriving through the recovery path rather than the routine
+one: for the duration, `/procurement/contractors` and the settlement pages are behind an
+AccessExclusiveLock. `db:load:pg:cloud`'s own refresh does **not** have this property —
+it refreshes already-populated matviews concurrently.
+
+### F43 — cardinality equality proves freshness for only ONE of the six scoped matviews
+
+F25 verified a dropped step by comparing cloud and local matview cardinality. This run
+shows that test is much weaker than it looks. After the contracts step failed mid-recompute:
+
+| matview | cloud (stale) | local (fresh) | does the count discriminate? |
+|---|--:|--:|---|
+| `contractor_rank` | 431,850 | 431,955 | **yes** |
+| `procurement_settlement_payloads` | 26,130 | 26,130 | no |
+| `procurement_settlement_rank` | 10,242 | 10,242 | no |
+| `procurement_payloads` | 180 | 180 | no |
+| `procurement_geo_payloads` | 30 | 30 | no |
+| `contractor_scope_kpis` | 29 | 29 | no |
+
+Five of the six are **fixed grids** — (scope × settlement), (scope × kind), (scope) — whose
+row count is invariant to contract content. They were provably stale and compared equal.
+
+The same trap appears twice more in this run: `person_browse_table` is 136,863 rows on
+both sides while its `public_money_eur` column tracks a corpus that moved, and the Interreg
+re-crawl changed 5 partner names with `interreg_operations` / `interreg_partners` identical
+at 1,958 / 12,015. **A count-based "is it fresh?" gate answers "yes" in all three cases.**
+
+Freshness needs a content-sensitive probe — a checksum over the money columns, or a spot
+value — not `count(*)`. This directly qualifies F6 ("count comparisons need a stated
+basis"): the basis has to be sensitive to the change being verified.
+
+### F44 — F25's droppability guard fired for the first time, on a one-row difference
+
+F25 closed by asking for "a guard that notices when `awarder_seats` itself has changed",
+since dropping the step is only safe while the table is byte-equal on both sides. This run
+is the first instance where that guard matters:
+
+```
+cloud awarder_seats = 3,866
+local awarder_seats = 3,867
+```
+
+One row. Dropping the step per F25's headline would have left one buyer's seat stale on
+prod, and — because `awarder_seats` feeds 119/123/124 — that buyer mis-attributed on the
+settlement pages and the `procurement_concentration` oblast rollup. The step was kept and
+cost 850 s.
+
+The guard is cheap and should be mechanical rather than remembered:
+
+```bash
+# drop awarder-seats only if this prints "equal"
+[ "$(psql "$LOCAL" -tAc 'select count(*) from awarder_seats')" \
+= "$(psql "$CLOUD" -tAc 'select count(*) from awarder_seats')" ] && echo equal || echo differs
+```
+
+(Subject to F43: a count is the right probe *here* only because `awarder_seats` is a plain
+table whose cardinality moves with its content.)
+
+### F45 — a deploy driver that appends its own exit code hides the failure from the harness
+
+F5 says deploy automation must not pipe. This is its sibling. The first invocation ran as
+
+```bash
+bash deploy.sh > deploy.log 2>&1; echo "DRIVER_EXIT=$?" >> deploy.log
+```
+
+The driver halted at step 1 with rc=1 — and the **background task reported "completed
+(exit code 0)"**, because the trailing `echo` succeeded and a `;`-sequence takes the exit
+status of its last command. The failure was visible only because a `Monitor` was watching
+`^=== STEP` lines; the completion notification asserted success for a deploy that had
+shipped one step of nine.
+
+Two rules follow:
+
+- Never let a status-recording command be the last in the sequence. Capture the code
+  (`rc=$?`) and re-exit with it, or run the driver bare.
+- A deploy driver should **continue past a failing step and record its rc**, not halt.
+  The second invocation did this, and it is why one dropped connection (`persons-browse`)
+  did not strand the four steps behind it — `graph`, `tr-company-place` and `refresh-risk`
+  all ran, and the chain surfaced two independent failures in one pass instead of one per
+  invocation.
