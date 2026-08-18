@@ -567,21 +567,21 @@ export const parseProjectSpec = (
 };
 
 /**
- * A curated /project/:slug file is read-only. "Edit" forks it into an editable
- * DIY copy at the ?q= builder route — the "start from this example" entry point.
- * It keeps the whole SEARCH (all threads incl. their per-buyer scopes — e.g.
- * Hemus's АПИ + НКСИП union), the sector tag (road €/km cross-check), the role
- * labels and the manual include/exclude curation, so the copy reproduces the
- * same member set as a starting point. It STRIPS every editorial field (thesis,
- * authority, claims, verifiedAt, subcontractor notes, …) so a DIY file never
- * carries a Наясно verdict (§11). `&edit=1` opens the copy straight into the
- * thread editor. Exported so a test can lock the no-editorial-leak invariant.
+ * A curated /project/:slug file is read-only. "Edit" opens it as an editable DIY
+ * dossier at the ?q= builder route — the inline-edit entry point (ask 4). It keeps
+ * the whole SEARCH (all threads incl. their per-buyer scopes — e.g. Hemus's АПИ +
+ * НКСИП union), the sector tag (road €/km cross-check), the role labels, the manual
+ * include/exclude curation AND the membership narrowing, so the editable version
+ * reproduces the same member set. It STRIPS every editorial field (thesis,
+ * authority, claims, verifiedAt, subcontractor notes, …) so a DIY file never carries
+ * a Наясно verdict (§11). The TITLE is kept as-is (no "Копие:" prefix): editing a
+ * dossier should feel like editing THAT dossier, not spawning a copy — the ?q= URL
+ * is simply its shareable, editable form. `&edit=1` opens the thread editor.
+ * Exported so a test can lock the no-editorial-leak invariant.
  */
 export const curatedForkHref = (spec: ProjectFileSpec): string => {
-  const bg = spec.title?.bg ? `Копие: ${spec.title.bg}` : undefined;
-  const en = spec.title?.en ? `Copy: ${spec.title.en}` : undefined;
   const copy: ProjectFileSpec = {
-    ...(bg || en ? { title: { bg, en } } : {}),
+    ...(spec.title ? { title: spec.title } : {}),
     search: spec.search,
     ...(spec.sector ? { sector: spec.sector } : {}),
     ...(spec.totalBasis ? { totalBasis: spec.totalBasis } : {}),

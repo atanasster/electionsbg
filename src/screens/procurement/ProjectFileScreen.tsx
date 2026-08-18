@@ -396,11 +396,17 @@ export const ProjectFileScreen = () => {
     [curatedMode, spec],
   );
   // A ?q= file opened via the curated "Edit" fork (…&edit=1) lands straight in the
-  // thread editor, so the "start from this example" flow is one click, not two.
+  // thread editor, so the inline-edit flow is one click, not two. Gate on
+  // !curatedMode: a curated /project/:slug is read-only, and a crafted
+  // ?slug?edit=1 must NOT seed edit chrome that has no toggle-off on that page.
   const [editModeState, setEditModeState] = useState(
-    () => params.get("edit") === "1",
+    () => !curatedMode && params.get("edit") === "1",
   );
-  const editMode = curatedMode ? false : editModeState; // no editing a committed file
+  // Editing a curated dossier navigates to its ?q= form (curatedForkHref), so the
+  // slug URL itself is never in editMode — nothing toggles editModeState there. The
+  // former `curatedMode ? false` guard is therefore redundant; edit state is just
+  // the toggle, seeded from ?edit=1 for the inline-edit landing.
+  const editMode = editModeState;
   // Consume the one-shot ?edit=1 (the curated "Edit" fork) even on a client-side
   // navigation, where the reused component's useState initializer above never
   // re-runs. Drop the flag afterwards so Save/Copy links stay clean and a later
@@ -1954,13 +1960,17 @@ const Toolbar = ({
         </button>
       )}
       {curated && editHref && (
+        // Inline edit (ask 4): open this dossier as its editable ?q= form in place.
+        // preventScrollReset keeps the reader where they were — the editor drops in
+        // above the same content rather than jumping to the top.
         <Link
           to={editHref}
+          preventScrollReset
           className={btn}
           title={
             bg
-              ? "Създава редактируемо копие (ваше досие) от това досие"
-              : "Creates an editable copy (your own file) from this dossier"
+              ? "Редактирай това досие (отваря се като ваше, споделимо ?q= досие)"
+              : "Edit this dossier (opens as your own shareable ?q= dossier)"
           }
         >
           {bg ? "Редактирай" : "Edit"}

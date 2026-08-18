@@ -454,12 +454,14 @@ describe("curatedForkHref — 'start from this example' fork (§4.4)", () => {
     expect(forked?.excludes?.tenderUnps).toEqual(["u1"]);
   });
 
-  it("prefixes the title as a copy and opens the editor (&edit=1)", () => {
+  it("keeps the title as-is (inline edit, no 'Копие:' prefix) and opens the editor (&edit=1)", () => {
     const href = curatedForkHref(curated);
     expect(href).toContain("&edit=1");
     const forked = forkedSpec(curated);
-    expect(forked?.title?.bg).toBe("Копие: Магистрала „Хемус“");
-    expect(forked?.title?.en).toBe("Copy: Hemus motorway");
+    // Editing a dossier feels like editing THAT dossier — the ?q= URL is its
+    // shareable editable form, so the title is preserved verbatim (ask 4).
+    expect(forked?.title?.bg).toBe("Магистрала „Хемус“");
+    expect(forked?.title?.en).toBe("Hemus motorway");
   });
 
   it("emits no empty title object when the source has no title", () => {
