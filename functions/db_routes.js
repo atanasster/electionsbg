@@ -691,6 +691,11 @@ const SHLYO_KEYBOARD = [
 
 const LAT2CYR_DIGRAPHS = [
   ["sht", "щ"],
+  // Before "ya", or that rule eats the "ya" and leaves a bare "i". "qica" is
+  // яйца: q→ya (keyboard) then "yai"→яй, so the й survives. Without it the
+  // needle is "яица" and misses all 228 egg products in the catalogue. Bulgarian
+  // has essentially no other "yai" sequence, so this is narrow by construction.
+  ["yai", "яй"],
   ["sh", "ш"],
   ["ch", "ч"],
   ["zh", "ж"],

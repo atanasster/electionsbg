@@ -37,6 +37,14 @@ test("the i-glide: 'mliako' — the spelling that returned nothing", () => {
   assert.ok(reaches("biuro", "бюро"));
 });
 
+test("'yai' survives the 'ya' rule — qica is яйца, not яица", () => {
+  // q→ya leaves "ica", and a bare "ya" rule then yields "яица", which misses
+  // all 228 egg products in the catalogue. The trigraph has to be tried first.
+  assert.ok(reaches("qica", "яйца"));
+  assert.ok(reaches("yaica", "яйца"));
+  assert.ok(!reaches("qica", "яица"), "the wrong reading is not what wins");
+});
+
 test("an ambiguous rule ADDS a reading, never replaces one", () => {
   // "ia" is я in мляко and и-а in италиа. Both must be offered, or fixing one
   // word breaks the other.
