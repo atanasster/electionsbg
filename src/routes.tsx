@@ -16,7 +16,10 @@ import {
 } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { HubBreadcrumb } from "@/screens/components/HubBreadcrumb";
-import { ROADS_AWARDER_PATH } from "./screens/components/procurement/sectorPacks";
+// From the import-free module, NEVER from sectorPacks: that registry names
+// every sector pack, so importing it here puts ~20 reference-data modules on
+// the entry chunk's critical path. Gated by src/entryGraph.test.ts.
+import { ROADS_AWARDER_PATH } from "./lib/roadsAwarder";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
 

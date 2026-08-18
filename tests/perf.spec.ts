@@ -486,9 +486,24 @@ test.describe("performance", () => {
     expect(
       critical,
       `entry + preloaded assets grew to ${critical} B brotli`,
-    ).toBeLessThanOrEqual(377_000);
+    ).toBeLessThanOrEqual(363_000);
 
-    expect(br(entry), "entry chunk").toBeLessThanOrEqual(71_000);
+    // Ratcheted DOWN 2026-08-18 from 71_000 / 377_000, which this had just
+    // tripped at 71,587 B. The overage was 587 B and the cause was 18 KB:
+    // routes.tsx imported ROADS_AWARDER_PATH from the sector-pack REGISTRY for
+    // the one-line /procurement/roads redirect, and that edge made the registry
+    // — plus the ~20 per-sector reference-data modules it names, the roads
+    // engine, cpvSectors and awarderModel, ~265 KB of source — a static import
+    // of the entry. Every pack stayed lazy throughout; only the module naming
+    // them leaked. The constant moved to the import-free @/lib/roadsAwarder and
+    // the entry went 71,587 → 53,369 B br (−25.4%), critical 364,220 → 346,002.
+    //
+    // Raising this number would have been the wrong move twice over: the budget
+    // was doing its job, and a byte ceiling cannot say WHICH edge grew it.
+    // src/entryGraph.test.ts is the structural half — it walks the static graph
+    // from main.tsx in milliseconds and fails by NAMING the import chain, so the
+    // next instance of this shape does not have to be found through a build.
+    expect(br(entry), "entry chunk").toBeLessThanOrEqual(56_000);
 
     // The catch-all vendor chunk. The plan's aspirational 100 KB target was NOT
     // met — CodeMirror leaving in T1.2 took it from 246 KB to 125 KB, and what
@@ -525,6 +540,16 @@ test.describe("performance", () => {
     // lever is an i18next namespace split so a screen pulls only the strings it
     // uses — bg is 790 KB raw and every page still loads all of it. Widening
     // needs a reason as concrete as the one above.
+    //
+    // It DID trip again, five days later (2026-08-18), both languages over: bg
+    // 149_826, en 131_349. What paid for it was not a widening and not the
+    // split — it was 486 keys nothing could ask for, deleted by
+    // `npm run i18n:prune`: bg → 143_384, en → 125_436, ~6.4 KB br per
+    // language. Read the margin, not the pass: EN cleared its ceiling by 64 B,
+    // i.e. under an hour of shipping at the rate above. The prune is a one-off
+    // by construction — its own gate (scripts/i18n/key_usage.test.ts) now keeps
+    // the dead set at zero, so there is no second 486 keys to find. The
+    // namespace split is still the lever, and it is now the ONLY one.
     //
     // Note the loop below throws on the FIRST language over budget, and the two
     // cross at different commits, so a run that names one language is not

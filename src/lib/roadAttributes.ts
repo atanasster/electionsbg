@@ -24,11 +24,11 @@ import {
   isSingleBid,
 } from "./awarderModel";
 
-/** АПИ — Агенция "Пътна инфраструктура". One legal entity; the 28 ОПУ regional
- *  directorates file under this EIK as buyer sub-units (see awarder_identity.ts).
- *  Lives here in the dependency-free engine so the FE hook, the AI tool and the
- *  ingest scripts can all share one literal. */
-export const API_EIK = "000695089";
+/** АПИ — Агенция "Пътна инфраструктура". Re-exported from @/lib/roadsAwarder,
+ *  which owns the literal so a nav surface can name the buyer without importing
+ *  this engine (and, through the pack registry, every sector's reference data)
+ *  into the entry chunk. Importers here are unaffected. */
+export { API_EIK } from "./roadsAwarder";
 
 // --- Road designation -------------------------------------------------------
 

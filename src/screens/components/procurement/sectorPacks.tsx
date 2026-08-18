@@ -13,10 +13,11 @@
 // own classifier + tiles and register its EIK below.
 
 import { lazy, type ComponentType } from "react";
-// API_EIK from the dependency-free engine (not useRoads, which pulls react-query)
-// so nav surfaces importing ROADS_AWARDER_PATH don't eager-load the roads corpus
-// hook — the RoadsPack itself stays a lazy() dynamic import.
-import { API_EIK } from "@/lib/roadAttributes";
+// API_EIK from the import-free @/lib/roadsAwarder rather than from the
+// roadAttributes engine that re-exports it — this file is imported by screens
+// only, but the EIK is also read by routes.tsx, and that edge used to drag
+// every import below into the ENTRY chunk. See src/entryGraph.test.ts.
+import { API_EIK } from "@/lib/roadsAwarder";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK, HEALTH_SECTOR_EIKS } from "@/lib/healthReferenceData";
 import { VSS_EIK, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
@@ -51,15 +52,20 @@ export interface SectorPackProps {
 }
 
 // Canonical paths to the packed awarder dashboards. Single source for the nav
-// surfaces (route redirect, procurement pill, report menu) so re-keying a pack —
-// or giving a pack a pill — can't drift the hardcoded EIK.
-export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
+// surfaces (procurement pill, report menu) so re-keying a pack — or giving a
+// pack a pill — can't drift the hardcoded EIK.
+//
+// ROADS_AWARDER_PATH is the exception and does NOT live here: routes.tsx needs
+// it for the /procurement/roads redirect, and routes.tsx is entry code, so the
+// import made this registry — and the ~20 reference-data modules below — a
+// static import of the entry chunk. It lives in @/lib/roadsAwarder, which
+// imports nothing. Don't re-export it here for symmetry; that only re-opens
+// the door. Gated by src/entryGraph.test.ts.
 export const MON_AWARDER_PATH = `/awarder/${MON_EIK}`;
-// NOTE: there is deliberately no VSS_AWARDER_PATH export. Its live siblings
-// (ROADS_AWARDER_PATH → routes.tsx, MON_AWARDER_PATH → EducationScreen.tsx) are
-// consumed by nav surfaces, but both ВСС surfaces point at the /judiciary
-// dashboard instead — the ВСС buyer page is reached from there. Don't "fix" the
-// omission.
+// NOTE: there is deliberately no VSS_AWARDER_PATH export. Its one live sibling
+// here (MON_AWARDER_PATH → EducationScreen.tsx) is consumed by a nav surface,
+// but both ВСС surfaces point at the /judiciary dashboard instead — the ВСС
+// buyer page is reached from there. Don't "fix" the omission.
 //
 // NOI_/NZOK_AWARDER_PATH used to sit here and were removed 2026-08-16: both had
 // zero consumers anywhere, and this note asserted they were read by
