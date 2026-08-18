@@ -65,6 +65,15 @@ interface Props<T> {
    *  what the user typed. Deep links that need a fresh seed must remount the
    *  page (every current "see all" entry point does). */
   initialSearch?: string;
+  /** Restrict the global free-text search to these logical columns (engine
+   *  `filters.globalCols`) — e.g. a dossier seed-repro searches contract TITLE
+   *  only, so a landmark term isn't also matched against awarder/contractor name.
+   *  An inline array is fine (the request/queryKey hash is structural, so identical
+   *  contents trigger no refetch); no memoization needed. */
+  globalCols?: string[];
+  /** Drop the trigram `%>` arm from the global search, leaving FTS-prefix only
+   *  (engine `filters.globalFtsOnly`) — pairs with a single-token dossier seed. */
+  globalFtsOnly?: boolean;
   /** Extra toolbar controls (facet selects), rendered next to the search box. */
   toolbar?: ReactNode;
   /** Render the aggregates footer from the server totals. */
@@ -96,6 +105,8 @@ export const DbDataTable = <T,>({
   pageSize = 25,
   searchPlaceholder,
   initialSearch,
+  globalCols,
+  globalFtsOnly,
   toolbar,
   renderAggregates,
   onData,
@@ -123,6 +134,8 @@ export const DbDataTable = <T,>({
       sort: sorting.map((s) => ({ id: s.id, desc: s.desc })),
       filters: {
         global: debounced || undefined,
+        globalCols,
+        globalFtsOnly,
         columns: [...(fixedFilters ?? []), ...(extraFilters ?? [])],
       },
     }),
@@ -135,6 +148,8 @@ export const DbDataTable = <T,>({
       debounced,
       fixedFilters,
       extraFilters,
+      globalCols,
+      globalFtsOnly,
     ],
   );
 

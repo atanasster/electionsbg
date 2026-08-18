@@ -518,6 +518,35 @@ export function seeAllContractsHref(
   return href;
 }
 
+/**
+ * The contracts-browser href for viewing a DOSSIER's contracts in the table (ask
+ * 3). It carries the dossier's IDENTITY, not its resolved rows — the contracts page
+ * (dossier mode) resolves it and picks the exact client table (a bounded dossier)
+ * or the server seed-repro (a truncated / program one):
+ *  - a CURATED dossier → `?dossier=<slug>` (tiny; the page loads the committed spec),
+ *  - a DIY dossier → `?dspec=<encoded ProcurementQuery>` — its own spec, NOT `?q=`,
+ *    which the contracts page already uses as its free-text search seed (so a JSON
+ *    spec must never land there).
+ * Always `pscope=all`: a dossier is all-time, so a default parliament window would
+ * under-count it.
+ *
+ * URL-size contract: a curated dossier ALWAYS uses `{ slug }` (a few bytes), which
+ * is why big curated files (hundreds of `includes`, e.g. Западна дъга) stay tiny in
+ * the link. A DIY `{ spec }` carries its `includes`/`excludes` id-sets, but those
+ * are capped at `MAX_IDS` (500 each) by `parseProjectSpec`, and the resulting
+ * `?dspec=` lives only in the CLIENT route (a shareable link / history entry) — the
+ * contracts page resolves it in-browser and never puts the raw spec on an
+ * `/api/db/table` request — so it is not bound by the ~8 KB server URL limit.
+ */
+export function dossierContractsHref(
+  ref: { slug: string } | { spec: ProcurementQuery },
+): string {
+  const base = "/procurement/contracts?pscope=all";
+  return "slug" in ref
+    ? `${base}&dossier=${encodeURIComponent(ref.slug)}`
+    : `${base}&dspec=${encodeURIComponent(JSON.stringify(ref.spec))}`;
+}
+
 /** One thread's contract-seed shape the truncation count reads. */
 export interface ContractSeedMeta {
   rowCount: number;

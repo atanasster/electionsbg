@@ -41,6 +41,7 @@ import {
   inferRoleFromTitle,
   inferNatureFromTitles,
   seeAllContractsHref,
+  dossierContractsHref,
   dedupContracts,
   dedupTenders,
   dedupFunds,
@@ -1694,5 +1695,32 @@ describe("seed ↔ predicate agreement (the module invariant)", () => {
         (c) => c.id === "cpv",
       ),
     ).toBeUndefined();
+  });
+});
+
+describe("dossierContractsHref", () => {
+  it("curated → ?dossier=<slug>&pscope=all (no dspec)", () => {
+    const href = dossierContractsHref({ slug: "hemus" });
+    expect(href).toContain("dossier=hemus");
+    expect(href).toContain("pscope=all");
+    expect(href).not.toContain("dspec=");
+    expect(href.startsWith("/procurement/contracts?")).toBe(true);
+  });
+
+  it("URL-encodes a slug (defensive, even though slugs are kebab-case)", () => {
+    const href = dossierContractsHref({ slug: "a b/c" });
+    expect(href).toContain("dossier=a%20b%2Fc");
+    // round-trips back to the original slug
+    expect(new URL(href, "http://x").searchParams.get("dossier")).toBe("a b/c");
+  });
+
+  it("DIY → ?dspec=<encoded spec>&pscope=all, round-trippable, never ?q=", () => {
+    const spec = { search: [{ terms: "рехабилитация" }], cpvIn: ["45"] };
+    const href = dossierContractsHref({ spec });
+    expect(href).toContain("pscope=all");
+    // the spec rides ?dspec=, NOT ?q= (which the contracts page uses for search)
+    expect(href).not.toMatch(/[?&]q=/);
+    const dspec = new URL(href, "http://x").searchParams.get("dspec");
+    expect(JSON.parse(dspec ?? "{}")).toEqual(spec);
   });
 });
