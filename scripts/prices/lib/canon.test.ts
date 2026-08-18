@@ -3,8 +3,16 @@
 //
 // The size is the whole basis of the €/kg and €/L "най-добра стойност" boards,
 // so a mis-parse does not degrade — it publishes a real product at a fraction of
-// its true unit price and puts it at the TOP of the board. Every case below is a
-// literal name from the КЗП corpus.
+// its true unit price and puts it at the TOP of the board.
+//
+// Runs under `npm run test:unit` (CI). The corpus-derived defect cases live in
+// scripts/db/tests/prices_canon.data.test.ts, which is the copy db:refresh's
+// final gate runs — see that file's header for the split.
+//
+// Cases marked ⟨corpus⟩ are literal names from the КЗП feed. The rest are
+// minimal synthetic probes for a rule's boundaries — the distinction matters,
+// because whether a behaviour is measured or inferred is exactly what a reader
+// needs in order to judge a change to it (see the rule-9 boundary block).
 
 import { describe, it, expect } from "vitest";
 import { canonicalize, mayMergeAcrossChains } from "./canon";
@@ -156,6 +164,91 @@ describe("parseSize — a spaced comma is a LIST separator, not a decimal", () =
   });
 });
 
+describe("parseSize — a spaced DOT is a list separator too", () => {
+  // The mirror of the block above. Rule 8's first cut guarded only the comma,
+  // on the evidence that all 6 dot-spaced corpus names were genuine decimals.
+  // Every name here parsed CORRECTLY before rule 8 and regressed with it, so
+  // these are the cases that prove the dot arm needs the same bounds.
+  it("does not fold a product number into the size", () => {
+    expect(size("ПАСТА BARILLA №9. 500 Г")).toEqual({ qty: 500, unit: "g" });
+    expect(size("СПАГЕТИ DE CECCO №11. 500 Г")).toEqual({
+      qty: 500,
+      unit: "g",
+    });
+    expect(size("ШОКОЛАД NOVI 1120. 100 Г")).toEqual({ qty: 100, unit: "g" });
+  });
+
+  it("does not fold an intensity/variant number into the size", () => {
+    expect(size("Мляно кафе Интензитет 10. 250 гр")).toEqual({
+      qty: 250,
+      unit: "g",
+    });
+    expect(size("ПАСТА ЗА ЗЪБИ ASTERA 3. 110 Г")).toEqual({
+      qty: 110,
+      unit: "g",
+    });
+    expect(size("Шампоан Nioxin System 4. 300 мл")).toEqual({
+      qty: 300,
+      unit: "ml",
+    });
+    expect(size("ШАМПОАН GARNIER 2 В 1. 250 МЛ")).toEqual({
+      qty: 250,
+      unit: "ml",
+    });
+  });
+
+  it("never INFLATES a size — the top-of-board direction", () => {
+    expect(size("Кафе на зърна Davidoff Espresso 57. 1 кг")).toEqual({
+      qty: 1000,
+      unit: "g",
+    });
+    expect(size("ВИНО РОЗЕ ПАРТИДА №11. 5 Л")).toEqual({
+      qty: 5000,
+      unit: "ml",
+    });
+  });
+
+  it("still reads the genuine spaced decimals, and the unspaced ones", () => {
+    expect(size("Минерална Вода Банкя 1. 5 Л.")).toEqual({
+      qty: 1500,
+      unit: "ml",
+    });
+    expect(size("Вино Enira Мерло 0. 75 Л.")).toEqual({ qty: 750, unit: "ml" });
+    expect(size("ПРАХ ЗА ПРАНЕ 2 . 5КГ")).toEqual({ qty: 2500, unit: "g" });
+    expect(size("ЗАХАР 12.5 КГ")).toEqual({ qty: 12500, unit: "g" });
+    expect(size("БРАШНО 1.500 Г")).toEqual({ qty: 1.5, unit: "g" });
+  });
+});
+
+describe("parseSize — the invariant every separator rule must hold", () => {
+  it("no rule may read a size LARGER than the biggest numeral in the name", () => {
+    // A separator rule can only ever move a decimal point LEFTWARD. If a parse
+    // comes out above every literal numeral in the name, an enumeration was
+    // folded into the size — which is the inflating direction that puts a
+    // product at the top of a "най-добра стойност" board. This catches the
+    // whole class without enumerating cases, so a future arm cannot reopen it.
+    const names = [
+      "Кафе на зърна Davidoff Espresso 57. 1 кг",
+      "ВИНО РОЗЕ ПАРТИДА №11. 5 Л",
+      "СПАГЕТИ DE CECCO №11. 500 Г",
+      "Мляно кафе Интензитет 10, 250 гр",
+      "ШАМПОАН GARNIER 2 В 1. 250 МЛ",
+      "ШОКОЛАД NOVI 1120. 100 Г",
+      "Минерална Вода Банкя 1. 5 Л.",
+      "Вино Contour Мерло&Сира Контур 0, 75 Л.",
+      "ВИНО A GOOD YEAR КЮВЕ 075Л",
+    ];
+    for (const n of names) {
+      const c = canonicalize(n, 0);
+      if (c.netQty == null) continue;
+      // x1000 because the numeral is in the display unit (Л/КГ) while netQty
+      // is in the base one (ml/g).
+      const biggest = Math.max(...(n.match(/\d+/g) ?? ["0"]).map(Number));
+      expect(c.netQty, n).toBeLessThanOrEqual(biggest * 1000);
+    }
+  });
+});
+
 describe("parseSize — multipacks (rule 7)", () => {
   it("multiplies the pack out", () => {
     expect(size("МИНЕРАЛНА ВОДА 6х1.5Л")).toEqual({ qty: 9000, unit: "ml" });
@@ -221,6 +314,27 @@ describe("parseSize — a decimal separator lost entirely (rule 9)", () => {
       qty: 400,
       unit: "g",
     });
+  });
+});
+
+describe("parseSize — rule 9's digit-count boundary", () => {
+  it("pins which digit-counts are measured and which are inferred", () => {
+    // ⟨corpus⟩ — the 18 measured instances are all THREE digits or more.
+    expect(size("ВИНО 075Л")).toEqual({ qty: 750, unit: "ml" });
+    expect(size("ВИНО 0375МЛ")).toEqual({ qty: 375, unit: "ml" });
+    expect(size("РАКИЯ 0700МЛ")).toEqual({ qty: 700, unit: "ml" });
+    // Synthetic. Two digits on a large unit is an EXTRAPOLATION beyond those 18
+    // — kept because it errs downward (see the ⚠️ in canon.ts). Pinned so that
+    // changing it is a decision, not a side effect of touching the regex.
+    expect(size("РАКИЯ 05Л")).toEqual({ qty: 500, unit: "ml" });
+    expect(size("БРАШНО 01КГ")).toEqual({ qty: 100, unit: "g" });
+    // Four digits on a large unit: also inferred, also downward.
+    expect(size("ВИНО 0075Л")).toEqual({ qty: 75, unit: "ml" });
+  });
+
+  it("never applies the rule to a small unit, at any digit count", () => {
+    expect(size("ПОДПРАВКА 010ГР")).toEqual({ qty: 10, unit: "g" });
+    expect(size("СИРОП 05МЛ")).toEqual({ qty: 5, unit: "ml" });
   });
 });
 

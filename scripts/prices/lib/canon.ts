@@ -64,27 +64,37 @@ const LEADING_NE = /^НЕ\s+/i;
 // rule 8: a decimal separator may carry stray whitespace. The feed contains
 // "Минерална Вода Банкя 1. 5 Л." and "Вино Enira Мерло 0. 75 Л." — without this
 // the leading "1" is dropped, the regex resumes at "5 Л" and a 1.5 L bottle is
-// published as 5 L, i.e. at a third of its true €/L. That put four bottled
-// waters at the top of the "най-добра стойност" €/L board.
+// published as 5 L, i.e. at a third of its true €/L.
 //
-// The two separators are NOT symmetric, and treating them alike is the trap:
+// A SPACED separator is a TYPO, and that is the whole basis of the rule: it may
+// only ever appear on the shapes a typo produces. The competing reading is an
+// enumeration sitting immediately before the size, which this feed writes 60
+// times — "СПАГЕТИ DE CECCO №11, 500 Г", "Мляно кафе … Интензитет 6, 250 гр",
+// "ШАМПОАН … 2 В 1, 250 МЛ" — and reading one of those as a decimal turns 500 g
+// into 9500 g, the same defect this rule exists to fix pointed the other way.
 //
-//   · DOT is unconditionally safe. All 6 dot-spaced names in the corpus
-//     ("1. 5 Л.", "0. 75 Л.") are genuine decimals — nothing writes an
-//     enumeration with a dot and a space.
-//   · COMMA is overwhelmingly a LIST separator: "СПАГЕТИ DE CECCO №11, 500 Г",
-//     "Мляно кафе L'OR Classique, Интензитет 6, 250 гр", "ШАМПОАН … 2 В 1,
-//     250 МЛ". 59 of the 60 comma-spaced names in the corpus are this shape,
-//     and reading them as decimals turns 500 g into 9500 g and 250 ml into
-//     1250 ml — the same defect this rule exists to fix, pointed the other way.
-//     The single genuine one is "Вино Contour … 0, 75 Л.", and a ZERO integer
-//     part is what makes it unambiguous: "0," is a fraction, nobody enumerates
-//     item 0. So the spaced-comma arm is restricted to it.
+// Two bounds separate the typo from the enumeration, and BOTH arms carry them.
+// An earlier cut guarded only the comma, on the evidence that all 6 dot-spaced
+// corpus names were genuine decimals while 59 of 60 comma-spaced ones were
+// lists. That was a fact about one snapshot, not about the grammar: which
+// punctuation a chain types is one listing away from changing, and the
+// unguarded dot arm mis-read all nine dot twins of the comma cases below
+// ("№11. 500 Г" as 11.5 g, "57. 1 кг" as 57,100 g).
 //
-// The `(?<![\d.,])` guard on that arm stops the alternation latching onto the
-// trailing zero of a larger numeral — without it "Интензитет 10, 250 гр" would
-// match "0, 250" and yield 0.25.
-const NUM = String.raw`(?:(?<![\d.,])0\s*,\s*\d+|\d+(?:\s*\.\s*\d+|,\d+)?)`;
+//   · integer part of ONE digit — the corpus typos are "1. 5", "0. 75", "2 . 5";
+//     the enumerations are "№11.", "57.", "1120.", "10.".
+//   · fraction of ONE OR TWO digits, with (?!\d) so it cannot stop short — the
+//     typos are ".5" and ".75"; the enumerations are ". 500", ". 250", ". 110".
+//   · a (?<![\d.,]) lookbehind on both arms, so neither can latch mid-numeral:
+//     without it "Интензитет 10, 250 гр" matches "0, 250" and yields 0.25.
+//
+// The comma arm keeps its extra restriction to a ZERO integer part. "0," is a
+// fraction and nobody enumerates item 0, whereas "1, 5" is genuinely ambiguous
+// against "2 В 1, 250" — so the one-digit bound alone is not enough there.
+//
+// The UNSPACED form stays on the third arm untouched, so "1.500 Г" and
+// "12.5 КГ" keep reading as they always have.
+const NUM = String.raw`(?:(?<![\d.,])0\s*,\s*\d+|(?<![\d.,])\d\s*\.\s*\d{1,2}(?!\d)|\d+(?:[.,]\d+)?)`;
 const UNITS = String.raw`КГ|ГР|Г|МЛ|Л|БР|KG|GR|MG|G|ML|L`;
 
 const UNIT_RE = new RegExp(String.raw`(${NUM})\s*(${UNITS})(?![\p{L}])`, "giu");
@@ -143,11 +153,18 @@ const r3 = (n: number): number => Math.round(n * 1000) / 1000;
 
 // ── rule 9: a decimal separator lost ENTIRELY, on a large unit ─────────────
 // Wine arrives as "ВИНО A GOOD YEAR КЮВЕ 075Л" — 0.75 L written with no point.
-// Read literally that is 75 L, so a €5.62 bottle posts €0.075/L and takes the
-// whole top of the "най-добра стойност" €/L board: measured 2026-08-18, nine of
-// its first ten entries were 075Л wines. The kg basis never showed this because
-// HOUSEHOLD_PACK_MAX_G already drops anything over 3 kg; the L basis has no
-// such ceiling, which is precisely why these surfaced there.
+// Read literally that is 75 L, so a €5.62 bottle posts €0.075/L. Measured
+// 2026-08-18 on a raw €/L ranking over price_products, nine of the first ten
+// rows were 075Л wines.
+//
+// That ranking is NOT the "най-добра стойност" board, and the distinction is
+// worth keeping straight: build_payloads.ts's unitLeaders excludes cats 12/13/14
+// (wine is cat 12) and clamps every leader to [0.25x, 20x] its category median,
+// which a 100x oversize misses by an order of magnitude. So this class could
+// not have reached that board — and the L basis is NOT unguarded, whatever the
+// absence of a client-side HOUSEHOLD_PACK_MAX_G suggests; the server-side clamp
+// bounds both bases. What rule 9 fixes is the size wherever it is published on
+// its own: /product/:slug, canon_key, and therefore the cross-chain merge.
 //
 // The leading zero is the signal and the UNIT decides what it means. There are
 // exactly 18 unspaced leading-zero numerals in the corpus, and they split
@@ -158,6 +175,14 @@ const r3 = (n: number): number => Math.round(n * 1000) / 1000;
 //   · "0375МЛ", "0700МЛ" ×2 — a SMALL unit. 375 ml and 700 ml are ordinary
 //     sizes, the zero is mere padding, and these are already correct.
 //
+// ⚠️ Every measured instance has THREE or more digits, so `^0\d+$` claiming the
+// two-digit form ("05Л" -> 0.5 L) is an EXTRAPOLATION, not a measurement. It is
+// kept deliberately, on direction: a zero-padded "01Л" meaning 1 L would be
+// published at 100 ml, an understatement, whereas narrowing the rule would read
+// "05Л" as 5 L — an INFLATION, which is the top-of-board direction every rule in
+// this file exists to avoid. canon.test.ts pins the boundary so a change to it
+// is a decision rather than a side effect.
+//
 // Deliberately NOT extended to the SPACED form ("Сайкъл Вионие 0 75л", 5 rows).
 // It looks like the same defect but is not separable from a preceding token:
 // "БРАШНО БИО ALCE NERO ПШЕНИЧНО ТИП 0 1 КГ" is flour of TYPE 0 in a 1 kg bag,
@@ -165,12 +190,28 @@ const r3 = (n: number): number => Math.round(n * 1000) / 1000;
 // fixes 5 rows and breaks 2 that are right today, so those 5 stay wrong.
 const LOST_SEPARATOR_RE = /^0\d+$/;
 
-/** Quantity in the unit's base measure, applying rule 9 for large units. */
+/**
+ * Rule 9 applies only to Л|L|КГ|KG — the units on which a bare "075" cannot be
+ * a literal quantity. Keyed on the multiplier because that is what UNIT_NORM
+ * carries; if a larger unit is ever added (a tonne at 1_000_000), decide
+ * explicitly whether it belongs here rather than letting it enrol itself.
+ */
+const isLargeUnit = (mult: number): boolean => mult >= 1000;
+
+/**
+ * Quantity in the unit's base measure, applying rule 9 for large units.
+ *
+ * @param rawNum - the numeral as matched, which may carry whitespace around its
+ *   decimal separator (rule 8)
+ * @param mult - the unit's multiplier from UNIT_NORM. Doubles as the rule-9
+ *   selector: only a large unit can have lost a separator.
+ * @returns the quantity in g | ml | pc, rounded to 3 decimals
+ */
 const qtyOf = (rawNum: string, mult: number): number => {
   const compact = rawNum.replace(/\s+/g, "");
-  if (mult >= 1000 && LOST_SEPARATOR_RE.test(compact))
+  if (isLargeUnit(mult) && LOST_SEPARATOR_RE.test(compact))
     return r3(parseFloat(`0.${compact.slice(1)}`) * mult);
-  return r3(num(rawNum) * mult);
+  return r3(parseFloat(compact.replace(",", ".")) * mult);
 };
 
 interface Size {
@@ -186,6 +227,8 @@ const parseSize = (folded: string): Size | null => {
     if (spec?.[0]) {
       const [unit, mult] = spec;
       return {
+        // qtyOf rounds once already; the pack multiplier is an integer, so
+        // this second r3 only trims float noise (6 * 1.5 -> 9.000000000000002).
         qty: r3(Number(mp[1]) * qtyOf(mp[2], mult)),
         unit: unit as NonNullable<Canon["netUnit"]>,
         count: Number(mp[1]),

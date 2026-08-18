@@ -1041,6 +1041,20 @@ npm run deploy:functions
 npm run db:dump:cloud
 ```
 
+**A change to `canonicalize()` reaches readers only through `prices:catalog`, and it churns
+slugs.** The parser runs nowhere else — not in the ingest, not in the payload build — so until
+`prices:catalog` runs against a given database, `price_products.net_qty` keeps the value the
+previous parser produced. There is no `prices:catalog:cloud` wrapper; the cloud form is the
+explicit `DATABASE_URL=…:5434/electionsbg` line above, and skipping it is this repo's recurring
+"green locally, stale on prod" shape.
+
+The churn is expected rather than a defect, and it is worth knowing before it is discovered:
+`netQty` is part of `canonKey`, so every product whose size changes moves to a NEW `canon_key`.
+`rebuild_catalog.ts` never deletes the orphan — it zeroes `chain_count`/`sku_count` and keeps the
+row so old URLs still resolve — while the slug pool is seeded from ALL existing slugs, retired
+ones included. The corrected group therefore mints `<slug>-2`, and the clean `/product/<slug>`
+URL keeps pointing at the zeroed row. Measured on the 2026-08-18 rules-8/9 fix: 23 products moved.
+
 Daily thereafter (watcher → `update-prices` skill): `prices:ingest:cloud` → `prices:catalog` →
 `prices:payloads`. Roughly 30k fact rows and ~2MB of payload jsonb per day. No `db:dump`, no
 `bucket:sync`, no multi-GB upload.

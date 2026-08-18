@@ -431,7 +431,9 @@ export interface UnitPricesFile {
  * exclude the normal case rather than the bulk one. Measured 2026-08-18, of the
  * 27 live L products above 3,000 ml, 20 are legitimate 6×1.5 L multipacks and
  * only 7 are mis-sized — so a 3 L ceiling here suppresses correct rows almost
- * three to one, which is the opposite of what it does on the kg basis.
+ * three to one, which is the opposite of what it does on the kg basis. Those 7
+ * are exactly the three residual shapes named below (4 + 2 + 1); they are one
+ * set counted two ways, not two findings.
  *
  * The ingest defect this used to cite is FIXED (rules 8 and 9 in
  * scripts/prices/lib/canon.ts): "1. 5 Л." no longer parses as 5,000 ml and the
@@ -449,8 +451,9 @@ export interface UnitPricesFile {
  * (olives at 5kg, onions and potatoes at 10kg) and the first item a household
  * would actually buy — 1kg flour at 0.92 €/kg — sat seventh.
  *
- * 3kg/3L is the line: it admits the largest ordinary grocery pack (a 3kg
- * washing powder, a 2L oil) and excludes the catering tier.
+ * 3kg is the line for the KG basis: it admits the largest ordinary grocery pack
+ * (a 3kg washing powder) and excludes the catering tier. The L basis has no
+ * equivalent, deliberately — see the ⚠️ above.
  */
 export const HOUSEHOLD_PACK_MAX_G = 3000;
 

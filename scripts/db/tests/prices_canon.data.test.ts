@@ -1,8 +1,24 @@
 // Unit + property tests for canonicalize(). Pure — no database.
 //
 // Lives in scripts/db/tests/ because that is the ONLY directory globbed by
-// `npm run test:data` and `npm run db:verify` (package.json). A test under
-// scripts/prices/tests/ would exist and never execute.
+// `npm run test:data` and `npm run db:verify` (package.json), so this is the
+// copy that runs as db:refresh's final gate.
+//
+// ⚠️ It is NOT the only place canonicalize() is tested, and a test outside this
+// directory is not dead. vitest.config.ts's `node` project globs scripts/**, so
+// scripts/prices/lib/canon.test.ts executes under `npm run test:unit` — which
+// is what CI runs — but NOT under test:data / db:verify. The two files are a
+// deliberate split by GATE, not an accident:
+//
+//   · here            → db:refresh's gate; the corpus-derived defect cases.
+//   · canon.test.ts   → test:unit/CI; the separator rules (8, 9) and their
+//                       boundaries, including the list-separator guards.
+//
+// A handful of behaviours (Cyrillic/Latin units, the multipack count, the
+// unit-priced collapse, the merge rule) are asserted in both, in different
+// idioms — node:assert here, vitest expect there. That overlap is cheap and the
+// gate membership is the reason; do not "consolidate" by deleting either file
+// without first checking which gates the survivor would still be in.
 //
 // Every case below traces to a defect found by running the algorithm against
 // the real 2026-07-08 corpus. See consumption-pg-v1-implementation.md §3.0.
