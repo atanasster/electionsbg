@@ -943,3 +943,61 @@ test.skipIf(skip)(
     );
   },
 );
+
+// --- Membership narrowing (Step 2 wiring) -------------------------------------
+// The seed → lineage → guard pipeline runs the SAME shared applyNarrowing the
+// dossier page + members.json use; this pins the wiring end-to-end against the
+// loaded corpus. NOTE membership narrowing has REDEFINE semantics, not subset: it
+// is mirrored into the seed, so a narrowed spec is re-resolved and can SURFACE
+// small matching members the unnarrowed top-N seed hid — so `narrowed ⊆ full` does
+// NOT hold (that is a VIEW-filter property, tested at the contracts page). The
+// invariant here is that EVERY member satisfies the predicate (no includes bypass).
+test.skipIf(skip)(
+  "cpv narrowing: every resolved member is in the requested division",
+  async () => {
+    const base: Spec = {
+      search: [{ terms: "рехабилитация", distinctive: ["рехабилитация"] }],
+    };
+    const full = await resolveMembers(base);
+    assert.ok(
+      full.keys.length > 0,
+      "base 'рехабилитация' dossier resolves members",
+    );
+    // Variety in the corpus so the narrowing is a meaningful filter, not a no-op.
+    assert.ok(
+      full.contracts.some((c) => !(c.cpv ?? "").startsWith("45")),
+      "base set should carry some non-45 members (else the test proves nothing)",
+    );
+
+    const narrowed = await resolveMembers({ ...base, cpvIn: ["45"] });
+    assert.ok(narrowed.keys.length > 0, "narrowed set is non-empty");
+    for (const c of narrowed.contracts)
+      assert.ok(
+        (c.cpv ?? "").startsWith("45"),
+        `narrowed member ${c.key} has cpv ${c.cpv}, expected division 45`,
+      );
+  },
+);
+
+test.skipIf(skip)(
+  "an amount floor keeps only members at/above it (via the carrier for €0 members)",
+  async () => {
+    const base: Spec = {
+      search: [{ terms: "рехабилитация", distinctive: ["рехабилитация"] }],
+    };
+    const full = await resolveMembers(base);
+    assert.ok(full.keys.length > 0, "base dossier resolves members");
+    const FLOOR = 1_000_000;
+    const narrowed = await resolveMembers({ ...base, minAmountEur: FLOOR });
+    for (const c of narrowed.contracts) {
+      const amt =
+        c.consortiumRole === "member"
+          ? (c.consortiumFullEur ?? c.amountEur ?? 0)
+          : (c.amountEur ?? 0);
+      assert.ok(
+        amt >= FLOOR,
+        `member ${c.key} effective amount ${amt} below the €${FLOOR} floor`,
+      );
+    }
+  },
+);

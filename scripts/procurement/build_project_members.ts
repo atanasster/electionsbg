@@ -27,8 +27,10 @@ import {
   seedCapOf,
   seedScore,
   pageWalk,
+  applyNarrowing,
   LINEAGE_PAGE,
   type SearchThread,
+  type MembershipNarrowing,
 } from "@/data/procurement/projectFile";
 import type { DbTableResult, DbRows } from "../../functions/db_table";
 
@@ -51,7 +53,7 @@ const DIR = path.join(ROOT, "data", "procurement", "projects");
 // The dbRows shim runDbTable expects: (sql, params) => rows.
 const q = (sql: string, params: unknown[]) => allRows(sql, params);
 
-export type Spec = {
+export type Spec = MembershipNarrowing & {
   search: SearchThread[];
   includes?: { contractKeys?: string[]; tenderUnps?: string[] };
   excludes?: { contractKeys?: string[]; tenderUnps?: string[] };
@@ -73,6 +75,10 @@ export type CRow = {
   contractorName?: string | null;
   cpv?: string | null;
   consortiumRole?: string | null;
+  // Read by applyNarrowing (present in the camelCased projection runDbTable returns
+  // — consortium_full_eur / eu_funded are in the contracts registry select).
+  consortiumFullEur?: number | null;
+  euFunded?: number | boolean | null;
 };
 type TRow = { unp: string; subject?: string | null; lotsCount?: number };
 
@@ -160,14 +166,14 @@ export async function resolveMembers(spec: Spec): Promise<{
       walkResource<CRow>(
         "contracts",
         [{ id: "amount_eur", desc: true }],
-        seedContractFilter(t),
+        seedContractFilter(t, spec),
         cap,
       ),
       threadSeedsTenders(t)
         ? walkResource<TRow>(
             "tenders",
             [{ id: "estimated_value_eur", desc: true }],
-            seedTenderFilter(t),
+            seedTenderFilter(t, spec),
             cap,
           )
         : Promise.resolve({
@@ -278,7 +284,7 @@ export async function resolveMembers(spec: Spec): Promise<{
   );
 
   // 5. Assemble: seeded + guarded lineage + explicit includes − excludes, deduped.
-  const allContracts = dedupContracts([
+  const assembled = dedupContracts([
     ...seedRows,
     ...guardedLineage,
     ...includeContracts,
@@ -286,17 +292,29 @@ export async function resolveMembers(spec: Spec): Promise<{
     (c) => !excludeKeys.has(c.key) && !(c.unp && excludeUnps.has(c.unp)),
   );
 
-  // Every member contract's procedure is a node on the page → also a tender
-  // member (FINDING-004: keeps the contract and tender up-links consistent).
+  // 6. Membership narrowing — the AUTHORITATIVE final predicate (post-lineage), so
+  // a lineage-pulled sibling that violates cpv/date/€/eu-funded cannot leak back
+  // in. Manual includes bypass it. MIRRORS the client resolver (useProjectFile).
+  const allContracts = applyNarrowing(
+    assembled,
+    spec,
+    new Set(spec.includes?.contractKeys ?? []),
+  );
+
+  // A procedure stays a member iff a surviving (narrowed-in) contract carries its
+  // УНП, or it was directly seeded as a tender — so narrowing out a procedure's
+  // contracts drops the procedure too.
   const memberUnps = new Set<string>(seedTenderUnps);
   for (const c of allContracts) if (c.unp) memberUnps.add(c.unp);
   // procedureCount for the honesty summary must match the page's displayed
   // procedure nodes = dedupTenders(lineageTenders) (useProjectFile.tsx), NOT the
   // wider memberUnps set (which also holds contract УНПs with no tenders row,
-  // e.g. pre-2020 contracts). Otherwise the AI facts.procedures would overcount
-  // vs what /procurement/project/:slug renders.
+  // e.g. pre-2020 contracts). Restrict to surviving member УНПs so the count
+  // reflects the narrowing.
   const tenderCount = dedupTenders(
-    lineageTenders.filter((t) => !excludeUnps.has(t.unp)),
+    lineageTenders.filter(
+      (t) => memberUnps.has(t.unp) && !excludeUnps.has(t.unp),
+    ),
   ).length;
   return {
     keys: allContracts.map((c) => c.key),

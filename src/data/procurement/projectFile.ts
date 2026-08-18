@@ -370,6 +370,16 @@ const narrowingTenderColumns = (
   return cols;
 };
 
+// Recall edge of mirroring narrowing into the seed (accepted, and identical in
+// both resolvers so they never drift): the seed WHERE now AND-s the narrowing, so
+// a procedure whose ONLY title-matching contract fails the narrowing no longer
+// seeds its УНП — a narrowing-SATISFYING sibling reachable only through that
+// procedure's lineage is then missed. The alternative (a title-only seed, narrowing
+// applied only as the final predicate) trades this for the opposite hole: the
+// amount-sorted seed cap can drop a small narrowing-satisfying member below the
+// window. Neither is a strict superset; the mirror is kept for seed focus, and
+// `applyNarrowing` remains the authoritative predicate over whatever the seed +
+// lineage recovered.
 export const seedContractFilter = (
   thread: SearchThread,
   narrowing?: MembershipNarrowing,

@@ -44,12 +44,13 @@ import {
   seedCapOf,
   seedScore,
   pageWalk,
+  applyNarrowing,
   SEED_PAGE,
   LINEAGE_PAGE,
-  type SearchThread,
   type MemberIds,
   type ProjectFold,
   type FoldInput,
+  type ProcurementQuery,
 } from "./projectFile";
 
 /** The tender-row subset the timeline needs (a slice of the tenders resource). */
@@ -111,14 +112,15 @@ export interface Advance {
 
 /** The stored/URL-encoded project-file artifact (the resolution-relevant subset
  *  plus the optional curated honesty fields — §2). */
-export interface ProjectFileSpec {
+export interface ProjectFileSpec extends ProcurementQuery {
+  // search / includes / excludes / totalBasis + the membership narrowing
+  // (cpvIn / dateFrom / dateTo / min|maxAmountEur / euFunded) are inherited from
+  // ProcurementQuery — the resolvable core the contracts page also consumes. The
+  // fields below are the editorial/presentational layer, curated-only.
   title?: LocalizedText;
   thesis?: LocalizedText;
   authority?: string;
   status?: string;
-  search: SearchThread[];
-  includes?: MemberIds;
-  excludes?: MemberIds;
   /** OPTIONAL sector tag. `"roads"` unlocks the corpus-derived €/km cross-check
    *  (§10 P3) — the guarded unit cost computed from the file's own road member
    *  contracts, shown next to any curated `benchmark` range. Closed union so a
@@ -255,6 +257,11 @@ export interface ProjectFileModel {
   /** A seed thread hit the recall cap → the search is over-broad, results are a
    *  top-N slice, not the whole set. The screen should prompt to narrow (§4.1). */
   truncated: boolean;
+  /** CONTRACT-side truncation only (a tender-only cap leaves this false). The
+   *  discriminator the contracts "browse in table" mode branches on: false ⇒ the
+   *  contract member set is complete ⇒ the exact client table; true ⇒ the server
+   *  seed-repro. See matchedTotal for the same contract-only rule. */
+  contractsTruncated: boolean;
   /** Approximate total contracts matching the search term(s) — the engine's count
    *  aggregate, summed across (possibly-overlapping) threads. Lets the truncation
    *  notice state "N examined of ~M". Null when unavailable. */
@@ -627,7 +634,7 @@ async function resolveProjectFile(
       walkResource<ProcurementContract>(
         "contracts",
         [{ id: "amount_eur", desc: true }],
-        seedContractFilter(t),
+        seedContractFilter(t, spec),
         cap,
       ),
       // A contractor-anchored thread does NOT seed tenders (no contractor column;
@@ -636,7 +643,7 @@ async function resolveProjectFile(
         ? walkResource<ProjectTenderRow>(
             "tenders",
             [{ id: "estimated_value_eur", desc: true }],
-            seedTenderFilter(t),
+            seedTenderFilter(t, spec),
             cap,
           )
         : Promise.resolve<TablePageResult<ProjectTenderRow>>({
@@ -676,6 +683,14 @@ async function resolveProjectFile(
     ([c, t], i) =>
       c.rows.length >= seedCapOf(threads[i]) ||
       t.rows.length >= seedCapOf(threads[i]),
+  );
+  // Contract-side truncation ONLY — the discriminator the contracts "browse in
+  // table" mode branches on. A tender-only truncation (`truncated` true, this
+  // false) still has a COMPLETE contract member set, so it must NOT be pushed off
+  // the exact client table onto the server seed-repro. Mirrors matchedTotal's
+  // contract-only rule.
+  const contractsTruncated = seedResults.some(
+    ([c], i) => c.rows.length >= seedCapOf(threads[i]),
   );
   // The approximate total contracts matching the search term(s), from the
   // engine's exact count aggregate — so the banner can say "~M договора" (§4.1).
@@ -788,15 +803,29 @@ async function resolveProjectFile(
   //    Excluding a procedure (unp) drops BOTH its tender node AND its contracts —
   //    "remove procedure" removes the whole procedure and its money, not just the
   //    marker. Individual contract excludes still apply by key.
-  const allContracts = dedupContracts([
+  const assembled = dedupContracts([
     ...seedContractRows,
     ...guardedLineage,
     ...includeContracts,
   ]).filter(
     (c) => !excludeKeys.has(c.key) && !(c.unp && excludeUnps.has(c.unp)),
   );
+  // Membership narrowing — the AUTHORITATIVE final predicate (post-lineage/guard),
+  // so a lineage-pulled sibling violating cpv/date/€/eu-funded cannot leak back in.
+  // Manual includes bypass it. Kept in lockstep with the offline builder
+  // (build_project_members.resolveMembers) via the shared applyNarrowing.
+  const allContracts = applyNarrowing(
+    assembled,
+    spec,
+    new Set(spec.includes?.contractKeys ?? []),
+  );
+  // A procedure stays a member iff a surviving contract carries its УНП or it was
+  // directly seeded as a tender — so narrowing out a procedure's contracts drops
+  // its tender node too.
+  const memberUnps = new Set<string>(seedTenderUnps);
+  for (const c of allContracts) if (c.unp) memberUnps.add(c.unp);
   const allTenders = dedupTenders(lineageTenders).filter(
-    (t) => !excludeUnps.has(t.unp),
+    (t) => memberUnps.has(t.unp) && !excludeUnps.has(t.unp),
   );
 
   const fold = foldMembers(allContracts.map(toFoldInput));
@@ -826,7 +855,7 @@ async function resolveProjectFile(
       ? seedResults.reduce((s, [c]) => s + (c.sumEur ?? 0), 0)
       : null;
   const corpusContractCount =
-    corpusOn && seedResults.every(([c]) => c.totalExact)
+    corpusOn && seedResults.every(([c]) => c.totalExact && c.total != null)
       ? seedResults.reduce((s, [c]) => s + (c.total ?? 0), 0)
       : null;
   return {
@@ -835,6 +864,7 @@ async function resolveProjectFile(
     funds,
     fold,
     truncated,
+    contractsTruncated,
     matchedTotal,
     collision,
     corpusContractedEur,
