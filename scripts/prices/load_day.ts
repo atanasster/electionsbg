@@ -46,7 +46,7 @@ export interface DayStats {
  *  loaded day — a guard against a parse regression quietly wiping price_current
  *  (fully replaced by each day's observations) with a fraction of the day.
  *  Overridable via --no-floor. */
-const SANITY_DROP = 0.2;
+export const SANITY_DROP = 0.2;
 
 interface StageRow extends PriceRow {
   settlement: string;

@@ -1,5 +1,8 @@
-// Unit tests for `matchedCell` — the chain-matching that makes the price index
-// robust to a reporter set that changes size.
+// Unit tests for the two pieces that make the price index robust to a КЗП
+// reporter set that changes size, plus the wiring that publishes the second:
+//   * `matchedCell`        — chain-matching (T0.1)
+//   * `trailingChainMedian`/`COVERAGE_FLOOR` + the emitted `coverage` block
+//                          — completeness (T0.5)
 //
 // This is the whole of the fix for the defect measured on 2026-08-09 (the КЗП
 // feed went 203 → 98 chains in six days and the national index moved 4.19
@@ -10,7 +13,15 @@
 // on both sides identically.
 
 import { describe, it, expect } from "vitest";
-import { matchedCell } from "./build_index";
+import {
+  matchedCell,
+  trailingChainMedian,
+  COVERAGE_FLOOR,
+  COVERAGE_WINDOW_DAYS,
+} from "./build_index";
+import { SANITY_DROP } from "./load_day";
+import { buildPriceIndex } from "./build_index";
+import type { DailyGrid } from "./types";
 
 /** A day's `chainCells[ekatte]`: eik -> pid -> that chain's min price. */
 const day = (o: Record<string, Record<string, number>>) => o;
@@ -156,5 +167,164 @@ describe("matchedCell", () => {
     );
     // pooled: moves, purely because a chain joined. 11 → 10.
     expect(pooled(joined, base).now).not.toBe(pooled(base, base).now);
+  });
+});
+
+describe("trailingChainMedian / COVERAGE_FLOOR", () => {
+  const flat = (n: number, len: number) => new Array(len).fill(n);
+
+  it("excludes the day itself — a day cannot be its own reference", () => {
+    // The window must be NON-FLAT for this to discriminate: a median over six
+    // flat values shrugs off one outlier, so [200×5, 10] passes whether or not
+    // the day itself is included. Here the self value moves it.
+    const days = [100, 150, 200, 1];
+    expect(trailingChainMedian(days, 3)).toBe(150); // self-inclusive → 125
+  });
+
+  it("returns null until there is enough history to judge against", () => {
+    const days = flat(200, 10);
+    expect(trailingChainMedian(days, 0)).toBeNull();
+    expect(trailingChainMedian(days, 2)).toBeNull();
+    expect(trailingChainMedian(days, 3)).toBe(200);
+  });
+
+  it("looks back at exactly COVERAGE_WINDOW_DAYS, not 13 or 15", () => {
+    // A half-and-half window, so one element either way flips the answer:
+    // 17 days at 500 then 7 at 100. A 14-entry window holds 7 of each and
+    // medians at 300; 13 entries drops a 500 and collapses to 100; 15 adds one
+    // and gives 500. The earlier [500×20, 100×14] fixture passed for ANY
+    // window from 13 to 28.
+    const days = [...flat(500, 17), ...flat(100, 7)];
+    expect(trailingChainMedian(days, 24)).toBe(300);
+  });
+
+  it("catches the monotone slide the per-day floor lets through", () => {
+    // The real 2026-08 sequence. Each step is under the ingest's own 20%
+    // per-day floor after the first, yet the run compounds to -52%.
+    const real = [
+      206, 204, 203, 205, 207, 208, 209, 203, 140, 132, 115, 107, 101, 98,
+    ];
+    const flagged: number[] = [];
+    for (let i = 0; i < real.length; i++) {
+      const med = trailingChainMedian(real, i);
+      if (med != null && real[i] < med * COVERAGE_FLOOR) flagged.push(real[i]);
+    }
+    // Every day of the collapse is flagged, not just the first step.
+    expect(flagged).toEqual([140, 132, 115, 107, 101, 98]);
+
+    // The control: the per-day comparison — the shape scripts/prices/load_day.ts
+    // uses, with its SANITY_DROP imported rather than restated, so the two
+    // cannot drift — clears all but one of them. That is precisely how the
+    // slide shipped.
+    const perDayFloor = 1 - SANITY_DROP;
+    const perDay = real.filter(
+      (n, i) => i > 0 && n < real[i - 1] * perDayFloor,
+    );
+    expect(perDay).toEqual([140]);
+  });
+
+  it("cannot call the opening days incomplete — there is nothing to judge them against", () => {
+    // trailingChainMedian returns null before 3 readings, and the caller treats
+    // null as complete. The alternative marks the corpus's first days unusable.
+    const days = [10, 500, 500, 500];
+    expect(trailingChainMedian(days, 0)).toBeNull();
+    expect(trailingChainMedian(days, 1)).toBeNull();
+    expect(trailingChainMedian(days, 2)).toBeNull();
+    // …and once there IS history, a thin day is caught immediately.
+    const med = trailingChainMedian([500, 500, 500, 10], 3);
+    expect(med).toBe(500);
+    expect(10 < med! * COVERAGE_FLOOR).toBe(true);
+  });
+
+  it("window and floor are the values the payload's note claims", () => {
+    // Both are exported and read by consumers + the note text; a silent change
+    // to either changes what `chainsComplete` means.
+    expect(COVERAGE_WINDOW_DAYS).toBe(14);
+    expect(COVERAGE_FLOOR).toBe(0.8);
+  });
+
+  it("ignores zero-count days rather than treating them as a low reading", () => {
+    // The zeros must OUTNUMBER the readings, or the median absorbs them and
+    // the test passes with no filter at all.
+    const days = [200, 200, 200, 0, 0, 0, 0, 200];
+    expect(trailingChainMedian(days, 7)).toBe(200); // unfiltered → 0
+  });
+});
+
+// ── the wiring, not just the helpers ────────────────────────────────────────
+// The pure functions above can be perfect while the `coverage` block still
+// reports the wrong day, reads the wrong counter, or loses `lastCompleteDate`.
+// This drives the real buildPriceIndex over a synthetic corpus.
+
+/** A day with one settlement, one chain, one product — enough for the index to
+ *  build — and an explicit reporter count, which is the only field that
+ *  matters here. `stats.chains` is what the coverage block reads. */
+const gridDay = (date: string, chains: number): DailyGrid => ({
+  date,
+  cells: {
+    "68134": {
+      "1": {
+        min: 1,
+        avg: 1,
+        max: 1,
+        median: 1,
+        cheapestEik: "X",
+        cheapestStore: "s",
+        stores: 1,
+        chains: 1,
+        promoMin: null,
+      },
+    },
+  },
+  chainCells: { "68134": { X: { "1": 1 } } },
+  chainNames: { X: "X" },
+  stats: { chains, rows: 1, settlements: 1 },
+});
+
+const coverageOf = (chainsPerDay: number[]) => {
+  const grids = chainsPerDay.map((c, i) =>
+    gridDay(`2026-01-${String(i + 1).padStart(2, "0")}`, c),
+  );
+  let coverage: Record<string, unknown> | undefined;
+  buildPriceIndex({
+    grids,
+    emit: (kind, _key, obj) => {
+      if (kind === "index")
+        coverage = (obj as { coverage: Record<string, unknown> }).coverage;
+    },
+  });
+  return coverage!;
+};
+
+describe("the emitted coverage block", () => {
+  it("marks a collapsed latest day incomplete and names the last good one", () => {
+    // Nine normal days then a halving — the 2026-08 shape in miniature.
+    const c = coverageOf([200, 200, 200, 200, 200, 200, 200, 200, 200, 98]);
+    expect(c.chains).toBe(98);
+    expect(c.chainsTrailingMedian).toBe(200);
+    expect(c.chainsComplete).toBe(false);
+    // The last day clearing the floor — NOT the latest day.
+    expect(c.lastCompleteDate).toBe("2026-01-09");
+  });
+
+  it("marks a healthy latest day complete, with lastCompleteDate on it", () => {
+    const c = coverageOf([200, 200, 200, 200, 205]);
+    expect(c.chainsComplete).toBe(true);
+    expect(c.lastCompleteDate).toBe("2026-01-05");
+  });
+
+  it("does not call the opening days incomplete for lack of history", () => {
+    // Day 0 is thin, but nothing precedes it to judge it against.
+    const c = coverageOf([10, 500, 500]);
+    expect(c.chainsComplete).toBe(true);
+    expect(c.lastCompleteDate).toBe("2026-01-03");
+  });
+
+  it("reports the reporter count, not the settlement or row count", () => {
+    // A mutant reading stats.rows or stats.settlements would see 1 here.
+    const c = coverageOf([200, 200, 200, 160]);
+    expect(c.chainsTrailingMedian).toBe(200);
+    expect(c.chainsComplete).toBe(true); // 160 = exactly 0.8 × 200
+    expect(coverageOf([200, 200, 200, 159]).chainsComplete).toBe(false);
   });
 });
