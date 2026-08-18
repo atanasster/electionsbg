@@ -638,3 +638,103 @@ test.skipIf(skip)(
     );
   },
 );
+
+// A tally that is present but WRONG is the failure mode this corpus has
+// actually shipped, and neither the shard↔PG reconciliation above nor the
+// parser's own contiguity check can see it: a record with a bad tally is still
+// a record, still reconciles, still sits in a gapless number run.
+//
+// Разград carried a 0/0/0 tally on 332 of 338 resolutions for months. Every
+// count agreed with every other count; what it published on 332 pages was
+// „за 0, против 0, въздържали се 0" on decisions the protokol records as
+// 28-0-0, because `TallyLine` suppresses a NULL tally and 0 is not NULL.
+test.skipIf(skip)("no resolution publishes a zero tally", async () => {
+  const rows = await allRows<{ code: string; id: string; n: string }>(
+    `SELECT obshtina_code AS code, id, count(*) OVER (PARTITION BY obshtina_code)::text AS n
+       FROM council_resolution
+      WHERE tally_for = 0 AND tally_against = 0 AND tally_abstain = 0
+      ORDER BY obshtina_code, id`,
+  );
+  assert.deepEqual(
+    rows.slice(0, 5).map((r) => `${r.code}:${r.id}`),
+    [],
+    `${rows.length} resolution(s) carry a 0/0/0 tally, which asserts a unanimity ` +
+      `the source never recorded. A decision whose tally cannot be attributed ` +
+      `must carry NO tally — the parser writes the field only when it has one, ` +
+      `and the loader maps a missing tally to NULL columns.`,
+  );
+});
+
+// The converse: a município that HAD tallies losing them wholesale. That is
+// what an attribution rule tightened one notch too far looks like, and it is
+// silent — the resolutions still publish, just with a dash where the vote was.
+//
+// „Coverage" here is the AGGREGATE tally (`tally_for`), which is what the
+// council itself announced. A resolution carrying only a per-councillor roll
+// counts as uncovered and is not a defect — 75 of SOF's do, which is why its
+// floor sits where it does.
+//
+// The floor is per-município and deliberately NOT a single corpus-wide number.
+// Three councils publish no aggregate tally at all (their protokols print only
+// a per-councillor roll or nothing), so a blanket floor would fail on correct
+// data; and a "every session's opening decision has a tally" rule — the shape
+// first proposed for this gate — is false on SIX councils, because an opening
+// item is routinely decided анблок or by roll call with no aggregate printed.
+const TALLY_COVERAGE_FLOOR: Record<string, number> = {
+  // Councils that publish an aggregate tally, floored well under today's
+  // measured coverage so ordinary source variation does not trip them.
+  BGS01: 0.2, // 32% — most protokols carry a named roll, not an aggregate
+  DOB28: 0.9, // 100%
+  GAB05: 0.9, // 100%
+  HKV09: 0.9, // 100%
+  HKV34: 0.9, // 100%
+  PER32: 0.9, // 100%
+  PVN01: 0.9, // 99%
+  RAZ26: 0.8, // 94% — its openers are анблок/roll-call votes with none printed
+  RSE01: 0.9, // 100%
+  SOF: 0.45, // 59% — 75 resolutions carry ONLY a per-councillor roll
+  SZR01: 0.9, // 100%
+  SZR12: 0.9, // 100%
+  VTR01: 0.7, // 88%
+  // Councils whose protokols print no aggregate tally at all. Declared, so
+  // that one of them STARTING to publish is a change somebody has to look at.
+  PDV01: 0,
+  SLV01: 0,
+  VAR01: 0,
+};
+
+test.skipIf(skip)("no council loses its tallies wholesale", async () => {
+  const rows = await allRows<{
+    code: string;
+    total: string;
+    with_tally: string;
+  }>(
+    `SELECT obshtina_code AS code, count(*)::text AS total,
+            count(tally_for)::text AS with_tally
+       FROM council_resolution GROUP BY 1 ORDER BY 1`,
+  );
+  const undeclared = rows
+    .map((r) => r.code)
+    .filter((c) => !(c in TALLY_COVERAGE_FLOOR));
+  assert.deepEqual(
+    undeclared,
+    [],
+    `${undeclared.join(", ")} has no TALLY_COVERAGE_FLOOR entry — declare one ` +
+      `(0 is a valid answer, and says the council publishes no aggregate tally)`,
+  );
+
+  const below = rows
+    .map((r) => ({
+      code: r.code,
+      cov: Number(r.with_tally) / Number(r.total),
+      floor: TALLY_COVERAGE_FLOOR[r.code],
+    }))
+    .filter((r) => r.cov < r.floor)
+    .map((r) => `${r.code} ${(r.cov * 100).toFixed(0)}% < ${r.floor * 100}%`);
+  assert.deepEqual(
+    below,
+    [],
+    `tally coverage collapsed: ${below.join("; ")}. Either the attribution rule ` +
+      `was tightened past its evidence, or the source changed shape.`,
+  );
+});

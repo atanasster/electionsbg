@@ -13,7 +13,14 @@ import { describe, expect, it } from "vitest";
 import { __test } from "./raz26";
 import { findAllTallies } from "../lib/tally";
 
-const { findMarkers, preprocessTally, isCouncilTally } = __test;
+const {
+  findMarkers,
+  preprocessTally,
+  isCouncilTally,
+  COUNCIL_VOTER_RE,
+  COMMITTEE_VOTER_RE,
+  ANCHOR_LOOKBACK,
+} = __test;
 
 describe("adoption anchor", () => {
   it("keeps a decision the chair announces", () => {
@@ -60,15 +67,34 @@ describe("adoption anchor", () => {
     expect(findMarkers(text).map((m) => m.number)).toEqual(["407"]);
   });
 
-  it("does not reach forward across a paragraph to a citation", () => {
-    // Why the window is 120 and not 300: at 300 this matches, and every
-    // number the wider window adds falls outside the gapless run the anchored
-    // set forms — it is the PREVIOUS decision's announcement being reused.
-    const far =
+  it("binds an announcement only to a marker within ANCHOR_LOOKBACK", () => {
+    // This fixture is SENSITIVE to the constant, and the one it replaced was
+    // not: under forward binding an anchor takes the FIRST marker after it, so
+    // a fixture with one anchor keeps the same marker at 80, 120, 300 and
+    // 100_000 alike — it would have passed at any value, including the widened
+    // ones the doc comment says were measured and rejected.
+    //
+    // Here a SECOND anchor sits ~200 chars ahead of a citation marker. At 120
+    // it reaches nothing; at 200+ it binds № 102, which is a previous
+    // council's decision cited as a legal basis. So the assertion below fails
+    // if ANCHOR_LOOKBACK is widened past the measured plateau.
+    const filler = "На основание чл. 21, ал. 1, т. 8 от ЗМСМА и чл. 8 от ЗОС, ";
+    const text =
       "Общинският съвет взе следното Р Е Ш Е Н И Е № 467 " +
-      "На основание чл. 21, ал. 1, т. 8 от ЗМСМА, ".repeat(4) +
+      "Постоянната комисия прие следното становище: " +
+      filler.repeat(3) +
       "приета с Решение № 102 на Общински съвет";
-    expect(findMarkers(far).map((m) => m.number)).toEqual(["467"]);
+
+    expect(ANCHOR_LOOKBACK).toBe(120);
+    expect(findMarkers(text).map((m) => m.number)).toEqual(["467"]);
+
+    // …and prove the fixture discriminates, rather than passing for the same
+    // reason the old one did: the citation IS reachable from that second
+    // anchor once the window is wide enough.
+    const secondAnchor = text.search(/прие\s+следн/iu);
+    const citation = text.indexOf("Решение № 102");
+    expect(citation - secondAnchor).toBeGreaterThan(ANCHOR_LOOKBACK);
+    expect(citation - secondAnchor).toBeLessThan(300);
   });
 });
 
@@ -177,5 +203,62 @@ describe("who cast the vote", () => {
           "на гласуване по дневния ред. ",
       ),
     ).toBe(false);
+  });
+});
+
+describe("isCouncilTally's two arms, independently", () => {
+  // Every fixture in the block above exercises `COUNCIL && !COMMITTEE` as a
+  // unit, which is why a dead lookahead on the council arm went unnoticed:
+  // the committee arm fired on the same sentences and the assertions held.
+  // These pin each arm alone.
+
+  it("COUNCIL arm alone rejects the committee-composition phrase", () => {
+    // Regression guard for the bypassable lookahead. Written as two
+    // alternatives, „общинск(?:и)\s+съвет(?!ници…)|общински\s+съветници"
+    // fails the lookahead on the first arm and then matches the SAME text
+    // through the second, so the guard never rejected anything.
+    expect(COUNCIL_VOTER_RE.test("6-ма общински съветници от общо 9")).toBe(
+      false,
+    );
+    // The whole predicate must agree, with no committee keyword present to
+    // rescue it — this is the sentence a committee block puts in the window.
+    const composition =
+      "в състав от присъствали 6-ма общински съветници от общо 9, " +
+      "подкрепи докладната записка и проекта за решение: ";
+    expect(COMMITTEE_VOTER_RE.test(composition)).toBe(false);
+    expect(isCouncilTally(composition, composition.length)).toBe(false);
+  });
+
+  it("COUNCIL arm still accepts every real council spelling", () => {
+    for (const s of [
+      "Общински съвет Разград, след поименно гласуване, ",
+      "Общинският съвет Разград, ",
+      "Общинския съвет Разград, ",
+      "Гласували общо 17 общински съветници, ",
+    ])
+      expect(COUNCIL_VOTER_RE.test(s)).toBe(true);
+  });
+
+  it("COMMITTEE arm alone does not fire on a council sentence", () => {
+    // „докладна записка с вх" was an arm here and rejected genuine council
+    // votes: a decision names its own докладна in the same breath as its vote,
+    // and since attribution is COUNCIL && !COMMITTEE the committee arm wins
+    // every tie.
+    expect(
+      COMMITTEE_VOTER_RE.test(
+        "Общински съвет Разград, по докладна записка с вх.№ 145 от кмета, " +
+          "след поименно гласуване, ",
+      ),
+    ).toBe(false);
+  });
+
+  it("COMMITTEE arm alone still catches the committee's own report", () => {
+    for (const s of [
+      "ПК по управление на общинската собственост, подкрепи ",
+      "постоянната комисия не взе решение по докладната записка ",
+      "комисията разгледа и подкрепи докладната записка ",
+      "Бе разгледана настоящата докладна записка и бе подкрепена ",
+    ])
+      expect(COMMITTEE_VOTER_RE.test(s)).toBe(true);
   });
 });

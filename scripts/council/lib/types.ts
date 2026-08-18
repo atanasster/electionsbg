@@ -51,7 +51,16 @@ export type CouncilResolution = {
   number: string;
   /** Decision title (ОТНОСНО: text), trimmed. */
   title: string;
-  /** Aggregate tally. Always present, but `method: "none"` when unparseable. */
+  /**
+   * Aggregate tally — ABSENT when none could be attributed to the council.
+   *
+   * Never a zero one: `0 against` asserts a unanimity the source never
+   * recorded, and both consumers already implement that invariant —
+   * `TallyLine` suppresses on `tally.for == null`, and the PG loader writes
+   * `tally_for: r.tally?.for ?? null`. A `method: "none"` escape hatch was
+   * once described here and is not the mechanism: no record in the corpus
+   * carries it, while 873 carry no tally field at all.
+   */
   tally?: CouncilTally;
   /** Adopted / rejected / returned (чл.45 ЗМСМА governor veto) / unknown. */
   result: CouncilTallyResult;

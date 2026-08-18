@@ -182,9 +182,12 @@ const findDocxRef = (
 
 /**
  * Reduce Razgrad's five chair-narrated tally forms to V. Tarnovo / SZR
- * canonical SHORTHAND that lib/tally.ts already matches. Applied to a
- * narrow window around the tally line so we don't touch the rest of
- * the protokol body. The five reductions, in order:
+ * canonical SHORTHAND that lib/tally.ts already matches. Applied to the WHOLE
+ * document (`preprocessTally(rawText)`), not to a window around each tally —
+ * so rule F below rewrites any „С N гласа „ЗА“" anywhere in the protokol,
+ * including one quoted inside a докладна body. What keeps those out of a
+ * published tally is `isCouncilTally` attribution, never locality, which is
+ * why that rule carries the weight it does. The reductions, in order:
  *
  *   B. без → "X и Y – няма" — "без „против" и „въздържали се"" →
  *      "„против и въздържали се" – няма".
@@ -226,10 +229,15 @@ const preprocessTally = (text: string): string => {
   // regex is read by sixteen parsers and „N гласа" is loose enough in prose to
   // cost one of them a false tally. Measured across protokols 26/28/33/35:
   // 3 tallies found before, 85 after.
+  // Case-INSENSITIVE, like A-E. Built with "gu" and a hand-written `(?:С|с)`
+  // it normalised only an upper-case „ЗА", so „с 28 гласа - „за“" and
+  // „С 28 гласа „За“" fell through to the no-tally branch in silence — the
+  // exact failure this rule was added to end. The quote characters around the
+  // label are what keep the pattern out of ordinary prose, not its case.
   out = out.replace(
     new RegExp(
-      `(?:С|с)\\s+(\\d+)\\s+гласа?\\s*[-–—]?\\s*${QUOTES_OPEN_CLS}\\s*ЗА\\s*${QUOTES_CLOSE_CLS}`,
-      "gu",
+      `с\\s+(\\d+)\\s+гласа?\\s*[-–—]?\\s*${QUOTES_OPEN_CLS}\\s*за\\s*${QUOTES_CLOSE_CLS}`,
+      "giu",
     ),
     `${Q_OPEN}за${Q_CLOSE} – $1`,
   );
@@ -423,12 +431,32 @@ const findMarkers = (text: string): Marker[] => {
  * decisions cite „Централната избирателна комисия" — the ЦИК — and a bare
  * match rejected a genuine „Общински съвет Разград, след поименно гласуване,
  * „за” – 21, „против“ – 3" as a committee vote.
+ *
+ * ⚠️ The council rule is ONE alternation under ONE lookahead, and must stay
+ * that way. Written as two arms —
+ * `общинск(?:и|ия|ият)\s+съвет(?!ници\s+от\s+общо)|общински\s+съветници` —
+ * the guard is DEAD: „общински съветници от общо 9" fails the lookahead on the
+ * first arm, and the engine then matches the same substring through the
+ * second. That sentence is the committee's own composition line, so a
+ * committee block whose „ПК"/„комисията" keyword sits further back than
+ * VOTER_LOOKBACK was published as a council vote — the exact defect this rule
+ * exists to close, with the suite green over it because every fixture carried
+ * a committee keyword that fired the other arm.
+ *
+ * ⚠️ „докладна записка с вх" is NOT a committee signal, and was removed from
+ * the committee rule. A council decision names its own докладна by incoming
+ * number in the same sentence as its vote — „Общински съвет Разград, по
+ * докладна записка с вх.№ 145 от кмета, след поименно гласуване, „за” – 26"
+ * — and since attribution is COUNCIL && !COMMITTEE the committee arm wins
+ * every tie, so that arm was pure loss. What distinguishes the two is the
+ * committee's own report verb („разгледа" / „подкрепи" / „изрази"), which the
+ * remaining arms already carry.
  */
 const VOTER_LOOKBACK = 140;
 const COUNCIL_VOTER_RE =
-  /общинск(?:и|ия|ият)\s+съвет(?!ници\s+от\s+общо)|общински\s+съветници/iu;
+  /общинск(?:и|ия|ият)\s+съвет(?:ници)?(?!\s*(?:ници)?\s*от\s+общо)/iu;
 const COMMITTEE_VOTER_RE =
-  /(?<!\p{L})ПК(?!\p{L})|постоянна(?:та)?\s+комисия|комисия(?:та)?\s+(?:разгледа|подкрепи|не\s+взе|изрази)|бе\s+подкрепена|докладна\s+записка\s+с\s+вх/iu;
+  /(?<!\p{L})ПК(?!\p{L})|постоянна(?:та)?\s+комисия|комисия(?:та)?\s+(?:разгледа|подкрепи|не\s+взе|изрази)|бе\s+подкрепена/iu;
 
 /** True when the tally at `offset` is attributed to the council itself. */
 const isCouncilTally = (text: string, offset: number): boolean => {
@@ -483,6 +511,18 @@ const parseProtokolText = (
       // ADOPTION_ANCHOR_RE — the chair announcing the council took this
       // decision. Before the anchor that was a presumption; now it is what the
       // filter tested for.
+      //
+      // 12 of 13 sessions land here on exactly one decision — their OPENING
+      // one — which looks like a code-path artefact and is not. Measured on
+      // the протоколи: the opening item is regularly decided анблок or by a
+      // per-councillor roll („33. Хубан Соколов Не участва Общинският съвет
+      // взе следното…"), and the protokol prints no aggregate for it. The only
+      // tally candidate anywhere before that first marker is the agenda-
+      // adoption vote, which `isCouncilTally` correctly refuses — so bounding
+      // the i === 0 window would change nothing, because that vote is the only
+      // thing in it. Six other councils show the same opener shape, and three
+      // publish no aggregate tally at all; `council_corpus.data.test.ts` gates
+      // the coverage rather than asserting every opener has one.
       out.push({
         id: `${OBSHTINA}-${yyyy}-prot${meta.session}-r${marker.number}`,
         date: meta.date,
@@ -509,11 +549,22 @@ const parseProtokolText = (
 };
 
 /**
- * Exported for `raz26.test.ts` only. Both are pure string functions and both
- * encode a claim about Разград's house style that is worth pinning to real
- * sentences from the protokols rather than to a live scrape.
+ * Exported for `raz26.test.ts` only. All three are pure functions of the
+ * protokol text, and each encodes a claim about Разград's house style that is
+ * worth pinning to real sentences rather than to a live scrape.
  */
-export const __test = { findMarkers, preprocessTally, isCouncilTally };
+export const __test = {
+  findMarkers,
+  preprocessTally,
+  isCouncilTally,
+  // The two arms, exposed separately so each can be tested ALONE. As a unit
+  // they hide each other's defects: every „who cast the vote" fixture asserts
+  // `COUNCIL && !COMMITTEE`, so a dead council-side lookahead passed for a
+  // year because the committee arm happened to fire on the same sentence.
+  COUNCIL_VOTER_RE,
+  COMMITTEE_VOTER_RE,
+  ANCHOR_LOOKBACK,
+};
 
 export const scrapeRAZ = async (
   _recipe: MuniRecipe,
