@@ -139,13 +139,19 @@ export const GovernancePricesTile: FC<Props> = ({
             {fmtPct(change)}
           </div>
           <div className="text-xs text-muted-foreground">
-            {T("кошница спрямо", "basket vs")} {baselineLabel}
+            {T("промяна на кошницата спрямо", "basket change vs")}{" "}
+            {baselineLabel}
             {oblast
               ? ""
               : ` · ${index.coverage.settlements} ${T("населени места", "settlements")}`}
           </div>
         </div>
-        <PriceSparkline points={series} width={260} height={56} />
+        <PriceSparkline
+          points={series}
+          headlineValue={headline?.v}
+          width={260}
+          height={56}
+        />
       </div>
 
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
@@ -162,6 +168,9 @@ export const GovernancePricesTile: FC<Props> = ({
           <div className="text-xs">
             <div className="font-medium mb-1">
               {T("Най-евтини вериги", "Cheapest chains")}
+            </div>
+            <div className="mb-1 text-[11px] text-muted-foreground">
+              {T("кошница на верига", "basket per chain")}
             </div>
             {/* Full-basket chains only — a partial basket is a smaller number,
                 not a cheaper shop. See comparableChains. */}
@@ -181,6 +190,19 @@ export const GovernancePricesTile: FC<Props> = ({
               {oblast
                 ? T("Най-евтини места", "Cheapest places")
                 : T("Най-евтини области", "Cheapest oblasts")}
+            </div>
+            {/* A different basis from the chain list above, and it differs BY
+                TIER too. For a settlement it is the sum of each product's
+                cheapest price there; for an oblast it is the median across its
+                settlements of those minima — a typical place's floor, not the
+                region's. One label for both would be wrong for one of them. */}
+            <div className="mb-1 text-[11px] text-muted-foreground">
+              {oblast
+                ? T("най-ниски цени в мястото", "lowest prices in the place")
+                : T(
+                    "най-ниски цени в типично населено място",
+                    "lowest prices in a typical settlement",
+                  )}
             </div>
             <ul className="space-y-0.5">
               {cheapest.map((p) => placeRow(p, true))}

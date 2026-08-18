@@ -233,8 +233,14 @@ export const MyAreaPricesTile: FC<Props> = ({
         <div className="text-xs">
           <div className="font-medium mb-1">
             {comparable.fellBack
-              ? T("Вериги тук (кошница)", "Chains here (basket)")
-              : T("Най-евтини вериги (кошница)", "Cheapest chains (basket)")}
+              ? T(
+                  "Вериги тук (кошница на верига)",
+                  "Chains here (basket per chain)",
+                )
+              : T(
+                  "Най-евтини вериги (кошница на верига)",
+                  "Cheapest chains (basket per chain)",
+                )}
           </div>
           {/* Full-basket chains only — see comparableChains. A shop that
               prices 7 of 12 is not the cheapest, it is the least measured. */}

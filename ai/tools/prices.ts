@@ -581,7 +581,11 @@ export const cheapestChains = async (
     { key: "chain", label: lang === "bg" ? "Верига" : "Chain" },
     {
       key: "basket",
-      label: lang === "bg" ? "Кошница" : "Basket",
+      // Named for its basis. The PLACE table below has a column with the same
+      // heading and a different meaning — the assistant answers in prose, so
+      // two identical labels become two identical sentences about different
+      // quantities.
+      label: lang === "bg" ? "Кошница на верига" : "Basket per chain",
       numeric: true,
     },
     {
@@ -1069,7 +1073,11 @@ export const basketAffordability = async (
     { key: "place", label: lang === "bg" ? "Област" : "Oblast" },
     {
       key: "basket",
-      label: lang === "bg" ? "Кошница" : "Basket",
+      // NOT the same quantity as the chain table's column — this is built per
+      // product from the median across the oblast's settlements of each
+      // settlement's cheapest price.
+      label:
+        lang === "bg" ? "Кошница (най-ниски цени)" : "Basket (lowest prices)",
       numeric: true,
     },
     {

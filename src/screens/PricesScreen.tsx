@@ -149,10 +149,14 @@ export const PricesScreen: FC = () => {
 
   // national chain basket range (cheapest → priciest), over the chains that
   // can actually be compared — see comparableChains.
-  const { rows: chainRows, excluded: chainsExcluded } = comparableChains(
-    chains?.national,
-    chains?.commonBasketSize,
-  );
+  const {
+    rows: chainRows,
+    excluded: chainsExcluded,
+    // When no chain prices the whole basket the helper returns them all, so a
+    // "per chain" range would span baskets of different sizes — a smaller
+    // number, not a cheaper chain. The range is withheld rather than relabelled.
+    fellBack: chainsFellBack,
+  } = comparableChains(chains?.national, chains?.commonBasketSize);
   const chainLo = chainRows[0]?.basket;
   const chainHi = chainRows[chainRows.length - 1]?.basket;
 
@@ -189,8 +193,8 @@ export const PricesScreen: FC = () => {
               {index
                 ? ` · ${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
                 : ""}
-              {chainLo != null && chainHi != null
-                ? ` · ${T("кошница", "basket")} ${fmtEur(chainLo, lang)}–${fmtEur(chainHi, lang)}`
+              {chainLo != null && chainHi != null && !chainsFellBack
+                ? ` · ${T("кошница на верига", "basket per chain")} ${fmtEur(chainLo, lang)}–${fmtEur(chainHi, lang)}`
                 : ""}
             </div>
           </div>
@@ -251,6 +255,19 @@ export const PricesScreen: FC = () => {
           title={T("Най-евтини области", "Cheapest oblasts")}
           icon={MapPin}
         >
+          {/* A DIFFERENT basis from the hero's per-chain range, 40px away and
+              previously sharing its word. Both sum the same 12 products, but a
+              chain figure is what ONE chain charges, and this is built per
+              product from the MEDIAN across the oblast's settlements of each
+              settlement's cheapest price (build_index's addAggregateRow) — a
+              typical settlement's floor, not the region's. "Най-евтини
+              магазини" would read as the latter and overstate it. */}
+          <div className="mb-1 text-[11px] text-muted-foreground">
+            {T(
+              "най-ниски цени в типично населено място",
+              "lowest prices in a typical settlement",
+            )}
+          </div>
           <ul className="space-y-0.5 text-xs">
             {cheapestOblasts.map((p) => (
               <li key={p.code} className="flex justify-between gap-2">
