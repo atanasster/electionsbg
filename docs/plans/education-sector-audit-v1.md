@@ -71,8 +71,8 @@ so none needs `noAwarderPage`.
 On the default scope today the МОН-only window is 9 contracts with **Псит България
 ООД at 72.3%** and a five-member consortium at 19.4% — a "leaderboard" that is one
 row. With the audited set the same scope has 855 contracts and the top all-corpus
-beneficiary is Исубус ООД at **2.73%**. Intra-group circulation is €17.59M of
-€2.07bn (**0.85%**), dominated by МОН → Ученически отдих и спорт ЕАД — worth naming
+beneficiary is Топлофикация София at **2.70%** (Исубус ООД is second at 2.67%). Intra-group circulation is €17.59M of
+€2.11bn (**0.85%**), dominated by МОН → Ученически отдих и спорт ЕАД — worth naming
 in the reference data, not worth excluding.
 
 ### F3 (Failure mode N, corpus-wide artifact — reported, not fixed here)

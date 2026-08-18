@@ -331,12 +331,15 @@ export const educationFootnote = (bg: boolean): string => {
   const uni = EDU_ENTITIES.filter(
     (e) => e.universe === "higher_education" && !e.retiredEikOf,
   ).length;
-  const others = EDUCATION_EXTERNAL_HIGHER_SCHOOLS.map((e) => e.name).join(
-    ", ",
-  );
+  // Count AND names from ONE array. Hard-coding „Четири"/„Four" beside a derived
+  // list is exactly the RegionalPack drift this function exists to avoid: a fifth
+  // external school would ship a footnote saying four and listing five, with every
+  // gate green.
+  const ext = EDUCATION_EXTERNAL_HIGHER_SCHOOLS;
+  const others = ext.map((e) => e.name).join(", ");
   return bg
-    ? `${n} възложителя под три бюджетни принципала: МОН и неговите структури, ${uni} държавни висши училища (самостоятелни ПРБ), БАН и Селскостопанската академия (второстепенен разпоредител към МЗХ). Числото на плочката „Образование“ в /governance/sectors е бюджетът на САМО МОН — то не включва нито субсидиите на висшите училища, нито делегираните бюджети на общинските училища, така че то и сумата на поръчките тук не се събират. Четири държавни висши училища са в друг сектор, защото бюджетният им принципал е друг: ${others}.`
-    : `${n} awarders under three budget principals: МОН and its own bodies, ${uni} state higher-education institutions (each its own first-level spending unit), БАН, and the Agricultural Academy (a second-level unit under the agriculture ministry). The „Образование“ figure on /governance/sectors is МОН's budget ALONE — it covers neither the universities' subsidies nor the delegated municipal school budgets, so it and the procurement total here are different bases and must not be added. Four state higher schools sit in another sector because their budget principal is another ministry: ${others}.`;
+    ? `${n} възложителя под три бюджетни принципала: МОН и неговите структури, ${uni} държавни висши училища (самостоятелни ПРБ), БАН и Селскостопанската академия (второстепенен разпоредител към МЗХ). Числото на плочката „Образование“ в /governance/sectors е бюджетът на САМО МОН — то не включва нито субсидиите на висшите училища, нито делегираните бюджети на общинските училища, така че то и сумата на поръчките тук не се събират. ${ext.length} държавни висши училища са в друг сектор, защото бюджетният им принципал е друг: ${others}.`
+    : `${n} awarders under three budget principals: МОН and its own bodies, ${uni} state higher-education institutions (each its own first-level spending unit), БАН, and the Agricultural Academy (a second-level unit under the agriculture ministry). The „Образование“ figure on /governance/sectors is МОН's budget ALONE — it covers neither the universities' subsidies nor the delegated municipal school budgets, so it and the procurement total here are different bases and must not be added. ${ext.length} state higher schools sit in another sector because their budget principal is another ministry: ${others}.`;
 };
 
 const ENTITY_BY_EIK: Record<string, EducationEntity> = Object.fromEntries(
