@@ -33,7 +33,7 @@ import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useScope, scopeYear } from "@/data/scope/useScope";
 import { ScopeControl } from "./components/ScopeControl";
-import { SectorBreadcrumb } from "./components/procurement/SectorBreadcrumb";
+import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
 import { SubsidiesSearchBox } from "./SubsidiesSearchBox";
 import { agriScopedHref } from "@/data/agri/useAgriScope";
 
@@ -579,7 +579,29 @@ export const SubsidiesDashboardScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
-      <SectorBreadcrumb currentKey="agri_subsidies_nav" />
+      {/* GovernanceBreadcrumb, not SectorBreadcrumb — see plan §7a.
+          SectorBreadcrumb's trail is a FIXED „Управление › Обществени поръчки ›
+          Държавни сектори › X", and all three levels were wrong here:
+
+            • /subsidies is NOT in the sector registry (verified: zero matches for
+              `/subsidies` in src/screens/governance/sectorRegistry.ts), so
+              „Държавни сектори" named a parent that does not contain this page.
+              Following it landed the reader on a hub whose agriculture tile goes to
+              /sector/agri — a different page, about ДФЗ as a procurement BUYER
+              rather than as the agency paying the subsidies out.
+            • „Обществени поръчки" asserted that CAP subsidies are procurement. They
+              are the opposite leg of the money map: no tender, no contract.
+            • it has no section slot at all, so every sub-page below would have
+              rendered „… › Държавни сектори › По област" and lost the one crumb a
+              sub-page actually needs — the link back to this hub.
+
+          The governance hub's money band, the header menu and governanceRegistry's
+          own comment all already call this „a whole money vertical"; only the crumb
+          disagreed. /budget and /funds use exactly this component. */}
+      <GovernanceBreadcrumb
+        sectionKey="agri_subsidies_nav"
+        sectionTo="/subsidies"
+      />
 
       {/* The finder, above the tiles. */}
       <SubsidiesSearchBox />

@@ -110,14 +110,11 @@ vi.mock("@/data/agri/useAgriOverview", () => ({
   },
 }));
 
-// The choropleth wants the regions GeoJSON + a measured container; neither is
-// under test here.
-vi.mock("./components/subsidies/AgriOblastMap", () => ({
-  AgriOblastMap: () => null,
-}));
-vi.mock("./components/procurement/SectorBreadcrumb", () => ({
-  SectorBreadcrumb: () => null,
-}));
+// The breadcrumb is deliberately NOT mocked. It renders under the MemoryRouter
+// below, and the test at the foot of this file asserts its trail — which crumb
+// links where is the whole substance of this change, and a stub would have made
+// that unassertable. (The mock this replaces stubbed SectorBreadcrumb, which the
+// screen imported until this same change; both went together.)
 vi.mock("@/ux/Title", () => ({
   Title: ({ children }: { children: ReactNode }) => <h1>{children}</h1>,
 }));
@@ -214,5 +211,24 @@ describe("SubsidiesDashboardScreen", () => {
       screen.queryByRole("button", { name: /Show the latest year/ }),
     ).not.toBeInTheDocument();
     expect(skeletons()).toBe(0);
+  });
+
+  // The breadcrumb: /subsidies is a governance money vertical, not a procurement
+  // sector. Asserted on HREFS rather than labels — i18next resolves nothing under
+  // vitest, so every label here is its own key, while the links are the real
+  // regression surface: SectorBreadcrumb pointed the third crumb at
+  // /governance/sectors, a hub that does not list this page.
+  it("hangs off the governance hub, not the procurement sectors hub", () => {
+    at("/subsidies");
+    const nav = screen.getByRole("navigation", { name: /breadcrumb/i });
+    const hrefs = Array.from(nav.querySelectorAll("a")).map((a) =>
+      a.getAttribute("href"),
+    );
+    expect(hrefs).toContain("/governance");
+    expect(hrefs).not.toContain("/governance/sectors");
+    expect(hrefs).not.toContain("/procurement");
+    // The section is the CURRENT crumb on its own landing, so it is text, not a
+    // link back to itself.
+    expect(hrefs).not.toContain("/subsidies");
   });
 });

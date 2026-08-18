@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Sprout, X, CalendarRange } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { formatEur } from "@/lib/currency";
@@ -167,6 +168,14 @@ export const SubsidiesBrowserDbScreen: FC = () => {
       <Title description="Every paid agricultural subsidy from the State Fund Agriculture (ДФЗ) — CAP direct payments, market measures and rural development, by year, recipient and scheme">
         {bg ? "Земеделски субсидии — данни" : "Farm subsidies — data"}
       </Title>
+      {/* The browse is the hub's table view, so it hangs off /subsidies rather
+          than standing alone — plan §7a. It had no crumb at all before, which left
+          the site's deepest agri page with no way back up except the browser. */}
+      <GovernanceBreadcrumb
+        sectionKey="agri_subsidies_nav"
+        sectionTo="/subsidies"
+        currentKey="subsidies_browse_nav"
+      />
       <section aria-label="subsidies" className="my-4">
         <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Sprout className="h-4 w-4 shrink-0 text-emerald-600" />

@@ -5,10 +5,11 @@
 // money map.
 
 import { FC, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Sprout, Coins, CalendarRange, ArrowLeftRight } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -30,7 +31,11 @@ export const FarmDetailScreen: FC = () => {
   const bg = i18n.language === "bg";
   const L = i18n.language;
   const nloc = bg ? "bg-BG" : "en-US";
-  const { data, isLoading } = useAgriRecipient(eik);
+  // `isLoading` is deliberately absent: the skeleton branch is the FINAL `!data`
+  // arm, reached once failed and noData have both been ruled out, so an explicit
+  // loading flag would only re-state it. Same shape as the hub.
+  const { data, isError, isSuccess, fetchStatus, refetch } =
+    useAgriRecipient(eik);
 
   const columns = useMemo<DataTableColumnDef<SubsidyRow, unknown>[]>(
     () => [
@@ -70,6 +75,19 @@ export const FarmDetailScreen: FC = () => {
     [bg, L],
   );
 
+  // FOUR states, not two — the rule SubsidiesDashboardScreen.tsx spells out at
+  // length and 52b242609f fixed on the hub, never transplanted down to this leaf.
+  // `fetchAgriPayload` maps ONLY a 404 and a 200-carrying-null to null; a 500, a
+  // DNS failure or a dropped connection THROWS, so `!data` alone told a reader,
+  // as a fact about a named company, that it received no farm money when in
+  // truth nothing was ever loaded. React Query's PAUSED state (offline, or a
+  // backgrounded tab whose fetch failed) does the same with no error at all.
+  //
+  // Absence is claimed only where it is KNOWN: the fetch came back and carried
+  // nothing. Everything else empty is a load that did not complete.
+  const noData = isSuccess && !data;
+  const paused = fetchStatus === "paused";
+  const failed = !noData && !data && (isError || paused);
   const title = data?.name || eik || "";
   const yearMax = data ? Math.max(...data.byYear.map((y) => y.totalEur), 1) : 1;
 
@@ -80,15 +98,51 @@ export const FarmDetailScreen: FC = () => {
       >
         {title}
       </Title>
+      {/* `current` (the resolved recipient name), not `currentKey` — this leaf is
+          one named farm, so there is no i18n key for it. `title` falls back to the
+          ЕИК while the payload loads and when the ЕИК has no rows at all, so the
+          crumb always has a leaf and never collapses to the section landing shape
+          mid-load. */}
+      <GovernanceBreadcrumb
+        sectionKey="agri_subsidies_nav"
+        sectionTo="/subsidies"
+        current={title}
+      />
 
-      {isLoading ? (
-        <div className="my-6 h-40 animate-pulse rounded-xl border bg-card" />
-      ) : !data ? (
+      {failed ? (
+        <section aria-label={title} className="my-4">
+          <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
+            <p className="mb-3">
+              {paused
+                ? bg
+                  ? "Данните още не са заредени — изчакваме връзката. Ще опита пак автоматично."
+                  : "The data hasn't loaded yet — waiting for the connection. It will retry automatically."
+                : bg
+                  ? "Данните за този получател не се заредиха. Обикновено е временно."
+                  : "This recipient's data failed to load. This is usually temporary."}
+            </p>
+            {/* No retry while the query is paused — React Query refuses to run one
+                in that state and resumes by itself, so the button would do nothing
+                but look like it might. Same rule as the hub. */}
+            {!paused && (
+              <button
+                type="button"
+                onClick={() => refetch()}
+                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
+              >
+                {bg ? "Опитай отново" : "Try again"}
+              </button>
+            )}
+          </div>
+        </section>
+      ) : noData ? (
         <p className="my-8 text-center text-muted-foreground">
           {bg
             ? "Няма намерени земеделски субсидии за този ЕИК."
             : "No farm subsidies found for this EIK."}
         </p>
+      ) : !data ? (
+        <div className="my-6 h-40 animate-pulse rounded-xl border bg-card" />
       ) : (
         <section aria-label={title} className="my-4">
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -210,12 +264,6 @@ export const FarmDetailScreen: FC = () => {
               pageSize={25}
             />
           </DashboardSection>
-
-          <p className="mt-6 text-center text-sm">
-            <Link to="/subsidies" className="text-primary hover:underline">
-              ← {bg ? "Земеделски субсидии" : "Farm subsidies"}
-            </Link>
-          </p>
         </section>
       )}
     </>
