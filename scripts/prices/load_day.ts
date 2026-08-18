@@ -27,6 +27,12 @@ import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 import { parseChainCsv, ChainParseError } from "./lib/normalize";
 import { resolvePlace } from "./lib/locations";
+import {
+  COVERAGE_WINDOW_DAYS,
+  COVERAGE_FLOOR,
+  trailingChainMedian,
+  clearsCoverageFloor,
+} from "./lib/coverage";
 import type { PriceRow } from "./types";
 
 export interface DayStats {
@@ -40,12 +46,26 @@ export interface DayStats {
   unresolved: number;
   legacyCodes: number;
   parseErrors: number;
+  /** Set when the day's reporter count fell below COVERAGE_FLOOR of its
+   *  trailing median. The day is still loaded — see the guard's note — so this
+   *  is how the run's summary can report a slide the per-day floor cannot see. */
+  coverageShortfall: { chains: number; trailingMedian: number } | null;
 }
 
 /** A day is rejected if its rows OR chains fall this far below the previous
  *  loaded day — a guard against a parse regression quietly wiping price_current
  *  (fully replaced by each day's observations) with a fraction of the day.
- *  Overridable via --no-floor. */
+ *
+ *  ⚠️ This compares against YESTERDAY, which a monotone slide passes every
+ *  single day. Measured on the real 2026-08 collapse (203 → 140 → 132 → 115 →
+ *  107 → 101 → 98 chains, −52%), it fires exactly ONCE. The trailing-median
+ *  check in the guard below is the arm that catches the ratchet; this one
+ *  catches a cliff, and only this one can refuse a day.
+ *
+ *  --backfill, --force and --no-floor downgrade it to a printed warning. They
+ *  no longer skip it in silence, which is the part that mattered: the day the
+ *  cliff check would have caught in 2026-08 was loaded through a bypass that
+ *  said nothing at all. */
 export const SANITY_DROP = 0.2;
 
 interface StageRow extends PriceRow {
@@ -187,6 +207,7 @@ export const loadDay = async (
     throw new Error(`${day}: ZIP produced zero usable rows`);
 
   const chainsToday = new Set(rows.map((r) => r.eik)).size;
+  let coverageShortfall: DayStats["coverageShortfall"] = null;
 
   // Out-of-order loading corrupts the step function irrecoverably, and
   // price_current always reflects the LAST day loaded. Backfill replays
@@ -204,9 +225,35 @@ export const loadDay = async (
   // Sanity floor (FINDING-001): price_current is fully replaced by each day's
   // observations (upsert-all + delete-absent), so a day that parsed far fewer
   // rows/chains than the last loaded day would silently replace "today's truth"
-  // with a fraction. Refuse it. `--force`/backfill can override
-  // via skipFloor. Compare against the previous loaded day (price_chain_days).
-  if (!opts.skipFloor) {
+  // with a fraction. Refuse it.
+  //
+  // TWO reference points, because they fail differently, and they are NOT both
+  // hard floors:
+  //
+  //   the per-day CLIFF (below) throws. A day that parses to a fraction of
+  //   yesterday is most likely a parse regression, and price_current — which
+  //   the product ladder, search and deals all read — is fully replaced by
+  //   each day's observations.
+  //
+  //   the trailing-median RATCHET (after it) only WARNS. It must not throw,
+  //   and the reason is structural: `price_chain_days` receives a row only for
+  //   a day that was LOADED, so a refused day never joins the baseline the
+  //   next day is judged against. Measured on the current corpus — trailing
+  //   median 203, floor 162.4, feed at 98 — a throwing ratchet refuses every
+  //   subsequent day until the feed recovers by +66%, and since ingest.ts has
+  //   no per-day catch it exits before rebuilding the payloads too. The site
+  //   would go stale on a corpus that is fine.
+  //
+  // The publisher already owns the decision this guard must not make: T0.4's
+  // `headlineDate` withholds a thin day from the headline while still shipping
+  // it in the series. So the ingest's job here is to RECORD and to be LOUD,
+  // never to lose data the source genuinely published.
+  //
+  // What no path may do is pass silently. --backfill and --force used to skip
+  // the cliff check with no output at all, which is how the 2026-08-09 day (a
+  // −31% drop the check would have caught) entered the corpus unremarked; they
+  // now downgrade it to a printed warning instead.
+  {
     const prev = await allRows<{ rows: string; chains: string }>(
       `SELECT sum(rows)::bigint AS rows, count(*)::int AS chains
          FROM price_chain_days
@@ -215,18 +262,61 @@ export const loadDay = async (
     );
     const prevRows = Number(prev[0]?.rows ?? 0);
     const prevChains = Number(prev[0]?.chains ?? 0);
-    if (prevRows > 0 && rows.length < prevRows * (1 - SANITY_DROP)) {
-      throw new Error(
-        `${day}: only ${rows.length.toLocaleString()} rows vs ${prevRows.toLocaleString()} the previous day ` +
-          `(>${SANITY_DROP * 100}% drop, ${parseErrors} parse errors). Refusing to overwrite price_current. ` +
-          `Investigate the feed, or re-run with --force if the drop is real.`,
+    const cliff: string[] = [];
+    if (prevRows > 0 && rows.length < prevRows * (1 - SANITY_DROP))
+      cliff.push(
+        `${rows.length.toLocaleString()} rows vs ${prevRows.toLocaleString()} the previous day`,
       );
+    if (prevChains > 0 && chainsToday < prevChains * (1 - SANITY_DROP))
+      cliff.push(`${chainsToday} chains vs ${prevChains} the previous day`);
+    if (cliff.length) {
+      const detail =
+        `${day}: ${cliff.join("; ")} ` +
+        `(>${SANITY_DROP * 100}% drop, ${parseErrors} parse errors).`;
+      if (opts.skipFloor)
+        // Never silent. The bypass exists so a backfill is not stopped by a
+        // real historical dip, and so a deliberate re-load can proceed — but
+        // it says so, every time.
+        console.warn(
+          `[prices] ⚠ ${detail} Loading anyway (floor bypassed). If this is a ` +
+            `parse regression it has now replaced price_current.`,
+        );
+      else
+        throw new Error(
+          `${detail} Refusing to overwrite price_current. Investigate the ` +
+            `feed, or re-run with --no-floor if the drop is real.`,
+        );
     }
-    if (prevChains > 0 && chainsToday < prevChains * (1 - SANITY_DROP)) {
-      throw new Error(
-        `${day}: only ${chainsToday} chains vs ${prevChains} the previous day ` +
-          `(>${SANITY_DROP * 100}% drop, ${parseErrors} parse errors). Refusing to overwrite price_current.`,
+
+    // …and against the trailing median, which a slide cannot drag with it.
+    const trail = await allRows<{ chains: string }>(
+      `SELECT count(*)::text AS chains
+         FROM price_chain_days
+        WHERE day < $1::date
+        GROUP BY day
+        ORDER BY day DESC
+        LIMIT $2`,
+      [day, COVERAGE_WINDOW_DAYS],
+    );
+    // Query returns newest-first; trailingChainMedian expects chronological
+    // order with the judged day at index `i`.
+    const chainsPerDay = trail.map((r) => Number(r.chains)).reverse();
+    const median = trailingChainMedian(chainsPerDay, chainsPerDay.length);
+    if (!clearsCoverageFloor(chainsToday, median)) {
+      // WARN, never throw — see the note above. This is the arm that makes a
+      // ratchet visible: a slide clears the per-day check at every step while
+      // compounding without limit (measured, 203 → 98 over six days trips the
+      // per-day floor exactly once).
+      console.warn(
+        `[prices] ⚠ ${day}: ${chainsToday} chains against a trailing median of ` +
+          `${median} over the last ${chainsPerDay.length} loaded days ` +
+          `(<${COVERAGE_FLOOR * 100}% of normal). The previous day alone does not ` +
+          `catch this. Loading it — the day is real and the publisher withholds ` +
+          `it from the headline (index.json coverage.headlineDate) — but the ` +
+          `feed is materially smaller than it was. Investigate.`,
       );
+      // clearsCoverageFloor is false only when median is non-null.
+      coverageShortfall = { chains: chainsToday, trailingMedian: median! };
     }
   }
 
@@ -437,6 +527,7 @@ export const loadDay = async (
         unresolved,
         legacyCodes,
         parseErrors,
+        coverageShortfall,
       };
     } catch (e) {
       await c.query("ROLLBACK");

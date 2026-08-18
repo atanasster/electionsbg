@@ -105,9 +105,18 @@ const main = async (): Promise<void> => {
         console.log(`[prices] ${date}: not published yet (404), skipping`);
         continue;
       }
-      // Backfill replays known-good history; --force is a deliberate re-load.
-      // Both bypass the drop floor (a real historical dip must not block them).
-      const skipFloor = has("--backfill") || has("--force");
+      // The per-day CLIFF floor is bypassed by --backfill (replaying known
+      // history must not stop at a real historical dip) and by --force (a
+      // deliberate re-load), as before — but it is no longer SILENT: load_day
+      // prints a warning on every bypass. That silence is how the 2026-08-09
+      // day, a −31% drop the floor would have refused, entered the corpus with
+      // nothing said. --no-floor is the daily path's own escape hatch.
+      //
+      // The trailing-median RATCHET check is never bypassed by any of them,
+      // because it only warns — it cannot refuse a day, so there is nothing to
+      // bypass. See the note in load_day.ts for why it must not throw.
+      const skipFloor =
+        has("--backfill") || has("--force") || has("--no-floor");
       const s = await loadDay(zip, date, { skipFloor });
       loaded.push(s);
       console.log(
@@ -117,6 +126,9 @@ const main = async (): Promise<void> => {
           (s.unresolved ? ` · ${s.unresolved} unresolved` : "") +
           (s.legacyCodes
             ? ` · ${s.legacyCodes} legacy-code rows skipped`
+            : "") +
+          (s.coverageShortfall
+            ? ` · ⚠ coverage ${s.coverageShortfall.chains} vs median ${s.coverageShortfall.trailingMedian}`
             : "") +
           (s.parseErrors ? ` · ⚠ ${s.parseErrors} chain parse errors` : ""),
       );

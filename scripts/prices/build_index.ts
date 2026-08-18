@@ -41,6 +41,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { resolvePlace } from "./lib/locations";
+import { trailingChainMedian, clearsCoverageFloor } from "./lib/coverage";
 import type { DailyGrid, ProductDict, PopBand, PlaceLoc } from "./types";
 
 const ROOT = path.resolve(
@@ -121,60 +122,20 @@ const jevons = (
   return n ? { v: 100 * Math.exp(sum / n), n } : null;
 };
 
-/** LOADED DAYS of history the coverage baseline is taken over — array
- *  positions, not calendar days. The two agree only while the series has no
- *  gaps (measured: zero gaps in both the 225-day Postgres corpus and the
- *  189-day cache), and the ingest tolerates a missing day by design, so a gap
- *  silently widens the real window. Acceptable because the window is a
- *  reference for "is this day like its neighbours" rather than a period.
- *
- *  14 rather than the 7 the plan sketched: at 7 the median flips after 4 days
- *  at a new level, which is inside the length of the 2026-08 collapse itself —
- *  the guard would have started calling the collapse normal while it was still
- *  under way. */
-export const COVERAGE_WINDOW_DAYS = 14;
-/** A day whose reporter count is below this share of its trailing median is
- *  INCOMPLETE: not wrong, but not comparable with the days around it either.
- *
- *  0.8 is the same tolerance the ingest's own per-day floor uses
- *  (SANITY_DROP = 0.2 in load_day.ts). The difference is the reference: that
- *  one compares to YESTERDAY, which a monotone slide passes every single day —
- *  measured, 203 → 140 → 132 → 115 → 107 → 101 → 98 crossed it exactly once
- *  while compounding to −52%. This compares to the trailing median, which a
- *  slide cannot outrun.
- *
- *  Note what a TRAILING reference does and does not buy. It answers "is this
- *  day comparable with the days around it", so a sustained collapse stops being
- *  flagged once it occupies more than half the window — measured by continuing
- *  the real 2026-08 series at 98 chains, five days after the last step and
- *  eleven after the break began; nine days on a clean step, NOT a fortnight.
- *  The new size becomes the new baseline, which is correct for comparability
- *  and useless as a record of the break. Nothing here is meant to catch the LEVEL shift; that is what the
- *  chain matching in matchedCell handles, permanently and by construction. */
-export const COVERAGE_FLOOR = 0.8;
-
-/** The trailing median reporter count for day `i`, over the preceding
- *  COVERAGE_WINDOW_DAYS (excluding `i` itself — a day cannot be its own
- *  reference). Returns null before there is enough history to judge against. */
-export const trailingChainMedian = (
-  chainsPerDay: number[],
-  i: number,
-): number | null => {
-  const from = Math.max(0, i - COVERAGE_WINDOW_DAYS);
-  // A zero-reporter day is an ingest gap, not a low reading — folding it in
-  // would drag the reference toward zero and make the days after it look fine.
-  const window = chainsPerDay.slice(from, i).filter((n) => n > 0);
-  if (window.length < 3) return null;
-  // `median` already copies before sorting, so `window` (itself a fresh slice)
-  // is not mutated.
-  return median(window);
-};
-
 /** Products below which a settlement's index is kept on its own page but taken
  *  off the cross-place since-euro board — the index twin of the existing
  *  `basketLevel != null` gate. Measured on the 2026-08 corpus, 6 settlements
  *  publish an index over fewer than 10 of 101 products and two over 4. */
 const MIN_INDEX_PRODUCTS = 10;
+
+// Re-exported so a reader of this file finds the coverage vocabulary where it
+// is used. The definitions live in ./lib/coverage.ts because the INGEST guard
+// reads them too, and the two must not drift.
+export {
+  COVERAGE_WINDOW_DAYS,
+  COVERAGE_FLOOR,
+  trailingChainMedian,
+} from "./lib/coverage";
 
 interface LoadedDay {
   date: string;
@@ -513,12 +474,11 @@ export const buildPriceIndex = (
 
   // Coverage completeness per day, from the reporter counts the grids carry.
   const chainsPerDay = days.map((d) => d.grid.stats.chains);
-  const dayComplete = days.map((_, i) => {
-    const med = trailingChainMedian(chainsPerDay, i);
-    // No history to judge against ⇒ not judged incomplete. The alternative
-    // would mark the first fortnight of the corpus unusable.
-    return med == null || chainsPerDay[i] >= med * COVERAGE_FLOOR;
-  });
+  // No history to judge against ⇒ not judged incomplete. The alternative would
+  // mark the first fortnight of the corpus unusable.
+  const dayComplete = days.map((_, i) =>
+    clearsCoverageFloor(chainsPerDay[i], trailingChainMedian(chainsPerDay, i)),
+  );
   const latestTrailingMedian = trailingChainMedian(
     chainsPerDay,
     days.length - 1,

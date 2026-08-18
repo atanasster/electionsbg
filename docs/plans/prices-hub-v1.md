@@ -167,10 +167,37 @@ departure would be a step, not a ramp. **Verify first**: re-run the ingest for
   `series[series.length-1].v` raw while the sparkline beside it plots a **7-day
   moving average** — the big number and the line next to it are computed
   differently today. Use the same smoothing for both.
-- **T0.3 — make the guard cumulative and un-bypassable.** Keep the per-day floor,
-  add a floor against a **trailing median** (e.g. refuse below 80% of the 7-day
-  median chain count) so a ratchet trips, and make `--backfill` skip only the
-  *out-of-order* check, not the coverage floor.
+- **T0.3 — make the guard cumulative and impossible to pass in silence.
+  ✅ SHIPPED 2026-08-17**, and the prescription below was WRONG in a way worth
+  recording, because it is the same class of error the tier is about.
+
+  What it said: refuse a day below 80% of the trailing median, and stop
+  `--backfill` bypassing the floor. What that actually does: `price_chain_days`
+  receives a row only for a day that was **loaded**, so a refused day never
+  joins the baseline the next day is judged against, and the refusal is
+  self-perpetuating. Measured on the current corpus — trailing median 203,
+  floor 162.4, feed at 98 — the ingest refuses every subsequent day until the
+  feed recovers by **+66%**, and since `ingest.ts` has no per-day catch it exits
+  before `rebuildCatalog` / `buildPayloads`, so the served payloads stop being
+  rebuilt too. The site goes stale on a corpus that is fine. It also breaks both
+  documented `--backfill` flows, including fresh-clone recovery.
+
+  What shipped instead, split by what each check can actually know:
+  - the per-day **cliff** (`SANITY_DROP`) still throws on the daily path — a day
+    that parses to a fraction of yesterday is most likely a parse regression, and
+    `price_current` is fully replaced by each day's observations;
+  - the trailing-median **ratchet** only ever **warns**. It exists to make a
+    slide visible, and the decision it must not make — may this day be quoted —
+    already belongs to T0.4's `headlineDate`;
+  - `--backfill` / `--force` / `--no-floor` still bypass the cliff, but each
+    bypass now **prints**. That silence was the real defect: the 2026-08-09 day
+    was a −31% drop the cliff check would have refused, and it entered the corpus
+    through a bypass that said nothing at all.
+
+  The general rule: **an ingest guard must not be able to refuse data the source
+  genuinely published**, because its own refusal removes the evidence that would
+  clear it. Guards that gate publication can refuse; guards that gate recording
+  can only shout.
 - **T0.4 — publish-side coverage gate.** `build_index.ts` should refuse to headline
   a latest day whose chain count is materially below the trailing median, and fall
   back to the last complete day, saying so in the payload.
