@@ -37,7 +37,7 @@ Scope: what each competitor actually offers now, their cross-dataset **linkage m
 
 | Platform | Country | Data held | Linkage model | Unique move worth stealing | Freshness/status |
 |---|---|---|---|---|---|
-| **electionsbg.com** | BG | elections since 2005, roll-call votes, 118k persons/17 roles, procurement, EU funds, farm subsidies, budget, party finance, retail prices, indicators, outcomes | resolved person identity → money/place/outcomes on one spine | — | Very fresh, 2026 |
+| **electionsbg.com** | BG | elections since 2005, roll-call votes (44th–52nd NA), 134k persons across 16 role sources, procurement, EU funds, farm subsidies, budget, party finance, retail prices, indicators, outcomes | resolved person identity → money/place/outcomes on one spine | — | Very fresh, 2026 |
 | SIGMA (sigma.midt.bg) | BG | 193k contracts, €51bn, 6 yrs | none yet (Phase 2: registry/ownership links planned) | open-source + state-backed real-time register | New Jun 2026 |
 | Диагноза България | BG | НЗОК/health spending | anomaly signals, no person layer | curated public signals + institutional API demand | New 2025 |
 | Odis (INSAIT+BNAO) | BG | EOP procurement docs | LLM extraction for auditors | 4-day→1-day audit AI on public data | New 2025 |
@@ -61,7 +61,7 @@ Scope: what each competitor actually offers now, their cross-dataset **linkage m
 
 ## 4. Positioning conclusion
 
-**What is genuinely unique.** No researched platform holds elections + roll-call votes + public money + a **resolved 118k-person identity spanning 17 role sources** + place indicators + retail prices + outcome measures on one joinable spine. The splits in the field: SIGMA (state, money-only, identity planned but unshipped), YouControl (identity graph, no public money or votes), OpenTender (money, no persons), ИПИ (indicators, no entities), bgparliament.io/TheyWorkForYou (votes, no money), Диагноза (health signals, no person layer). electionsbg is the only one researched whose answer to "who is this person, what did they vote, and where did the money go around them" is one query. That cross-domain person key is the distinguishing asset; SIGMA Phase 2 and OpenSanctions/OpenOwnership each approach the same problem from a single side, which is useful precedent for how to build it well.
+**What is genuinely unique.** No researched platform holds elections + roll-call votes + public money + a **resolved 134k-person identity spanning 16 role sources** + place indicators + retail prices + outcome measures on one joinable spine. The splits in the field: SIGMA (state, money-only, identity planned but unshipped), YouControl (identity graph, no public money or votes), OpenTender (money, no persons), ИПИ (indicators, no entities), bgparliament.io/TheyWorkForYou (votes, no money), Диагноза (health signals, no person layer). electionsbg is the only one researched whose answer to "who is this person, what did they vote, and where did the money go around them" is one query. That cross-domain person key is the distinguishing asset; SIGMA Phase 2 and OpenSanctions/OpenOwnership each approach the same problem from a single side, which is useful precedent for how to build it well.
 
 **Four highest-value moves to adopt:**
 
