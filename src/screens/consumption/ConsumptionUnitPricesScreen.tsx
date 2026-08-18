@@ -18,6 +18,7 @@ import {
   usePriceIndex,
   fmtEur,
   type UnitPriceBasis,
+  HOUSEHOLD_PACK_MAX_G,
 } from "@/data/prices/usePrices";
 
 export const ConsumptionUnitPricesScreen: FC = () => {
@@ -29,8 +30,8 @@ export const ConsumptionUnitPricesScreen: FC = () => {
 
   const title = T("€ на килограм", "€ per kilo");
   const description = T(
-    "Нормализирана цена на 1 кг и 1 л по категории — за да сравниш опаковки с различен грамаж коя дава най-много за парите.",
-    "Price normalized to 1 kg and 1 L per category — so packs of different sizes are comparable and you can see which gives the most for your money.",
+    "Нормализирана цена на 1 кг и 1 л по категории — за да сравниш опаковки с различен грамаж коя дава най-много за парите. Едрите опаковки са отбелязани: те са по-евтини на килограм по дефиниция.",
+    "Price normalized to 1 kg and 1 L per category — so packs of different sizes are comparable and you can see which gives the most for your money. Catering packs are marked: they are cheaper per kilo by definition.",
   );
 
   // Only categories with at least one usable basis.
@@ -57,10 +58,22 @@ export const ConsumptionUnitPricesScreen: FC = () => {
           <li key={p.slug} className="flex justify-between gap-2">
             <Link
               to={`/product/${p.slug}`}
-              className="min-w-0 truncate hover:underline"
+              className="min-w-0 flex-1 truncate hover:underline"
             >
               {p.title}
             </Link>
+            {/* A CATERING pack is marked rather than hidden — this page is the
+                explorer, and its promise is "which gives the most for your
+                money". Bulk is cheaper per kilo by definition, so an unmarked
+                10kg sack at the top of a "best value" list answers a question
+                nobody asked. (The /prices tile filters these out instead; it
+                has four slots and no room for a caveat.) The kg ceiling does
+                NOT apply to the L basis — see HOUSEHOLD_PACK_MAX_G. */}
+            {unit === "kg" && p.netQty > HOUSEHOLD_PACK_MAX_G ? (
+              <span className="shrink-0 rounded bg-muted px-1 text-[10px] text-muted-foreground">
+                {T("едро", "bulk")}
+              </span>
+            ) : null}
             <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
               {fmtEur(p.eurPerUnit, lang)}
             </span>

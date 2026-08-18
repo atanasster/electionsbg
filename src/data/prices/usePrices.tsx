@@ -415,6 +415,49 @@ export interface UnitPricesFile {
   latestDate: string;
   categories: UnitPriceCategory[];
 }
+/**
+ * Household pack ceiling for the KG basis, in grams. Above it a pack is
+ * catering/wholesale.
+ *
+ * ⚠️ KG ONLY. Do not reuse it for the L basis: the ordinary household liquid
+ * pack is a 6×1.5 L water стек (9,000 ml) or a 5 L detergent, so 3,000 would
+ * exclude the normal case rather than the bulk one. (The L tier also has an
+ * open ingest defect — "1. 5 Л." parses as 5,000 ml, publishing 1.5 L bottles
+ * at a third of their true €/L — so it needs its own ceiling AND its own fix.)
+ *
+ * €/kg is the right way to compare a 400g jar with a 700g one. It is NOT a way
+ * to compare either with a 10kg sack: bulk is cheaper per kilo by definition,
+ * so an unfiltered "най-много храна за парите" board ranks pack size, not
+ * value. Measured on the 2026-08 corpus, the top six were 5–10kg catering packs
+ * (olives at 5kg, onions and potatoes at 10kg) and the first item a household
+ * would actually buy — 1kg flour at 0.92 €/kg — sat seventh.
+ *
+ * 3kg/3L is the line: it admits the largest ordinary grocery pack (a 3kg
+ * washing powder, a 2L oil) and excludes the catering tier.
+ */
+export const HOUSEHOLD_PACK_MAX_G = 3000;
+
+/** Items at a size a household actually buys — see HOUSEHOLD_PACK_MAX_G.
+ *
+ *  Call it PER CATEGORY, not over a flattened corpus: `bulkOnly` is a statement
+ *  about one category ("sold here only in catering sizes"), and evaluated over
+ *  everything at once it can only ever say "the whole corpus is bulk", which is
+ *  never true and hides the categories that individually are. Measured:
+ *  Зеленчуци loses 8 of 8 items to the ceiling. */
+export const householdPacks = <T extends { netQty: number }>(
+  items: T[],
+): { rows: T[]; bulkOnly: boolean } => {
+  const rows = items.filter(
+    (p) => p.netQty > 0 && p.netQty <= HOUSEHOLD_PACK_MAX_G,
+  );
+  if (rows.length) return { rows, bulkOnly: false };
+  // An EMPTY input suppressed nothing, so it is not "bulk only" — that flag is
+  // a sentence the caller renders, and it must not be asserted about no data.
+  // The fallback copies rather than handing back the caller's array, since
+  // callers sort the result.
+  return { rows: [...items], bulkOnly: items.length > 0 };
+};
+
 export const useUnitPrices = () =>
   useQuery({
     queryKey: ["prices", "unit-prices"],
