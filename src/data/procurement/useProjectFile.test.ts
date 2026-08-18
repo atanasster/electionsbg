@@ -468,3 +468,137 @@ describe("curatedForkHref — 'start from this example' fork (§4.4)", () => {
     expect(JSON.parse(q ?? "{}").title).toBeUndefined();
   });
 });
+
+describe("parseProjectSpec — membership narrowing clamps (security)", () => {
+  const parse = (extra: Record<string, unknown>) =>
+    parseProjectSpec(JSON.stringify({ search: [{ terms: "x" }], ...extra }));
+
+  it("keeps a valid query-level narrowing", () => {
+    const s = parse({
+      cpvIn: ["45", "71200000"],
+      dateFrom: "2021-01-01",
+      dateTo: "2022-12-31",
+      minAmountEur: 1000,
+      maxAmountEur: 9_000_000,
+      euFunded: true,
+    });
+    expect(s?.cpvIn).toEqual(["45", "71200000"]);
+    expect(s?.dateFrom).toBe("2021-01-01");
+    expect(s?.dateTo).toBe("2022-12-31");
+    expect(s?.minAmountEur).toBe(1000);
+    expect(s?.maxAmountEur).toBe(9_000_000);
+    expect(s?.euFunded).toBe(true);
+  });
+
+  it("drops a hostile cpvIn (non-array, or junk / non-numeric entries)", () => {
+    expect(parse({ cpvIn: "45" })?.cpvIn).toBeUndefined();
+    expect(parse({ cpvIn: [{}, "4x", "", 45] })?.cpvIn).toBeUndefined();
+    // a mix keeps only the well-shaped codes
+    expect(parse({ cpvIn: ["45", "DROP TABLE", "71"] })?.cpvIn).toEqual([
+      "45",
+      "71",
+    ]);
+  });
+
+  it("bounds cpvIn length", () => {
+    const many = Array.from({ length: 200 }, () => "45");
+    expect(parse({ cpvIn: many })?.cpvIn?.length).toBeLessThanOrEqual(50);
+  });
+
+  it("rejects a non-ISO date", () => {
+    expect(parse({ dateFrom: "2021" })?.dateFrom).toBeUndefined();
+    expect(parse({ dateFrom: "01/01/2021" })?.dateFrom).toBeUndefined();
+    expect(parse({ dateTo: 20210101 })?.dateTo).toBeUndefined();
+  });
+
+  it("rejects a well-shaped but calendar-invalid date (would break the SQL filter)", () => {
+    expect(parse({ dateFrom: "2021-13-45" })?.dateFrom).toBeUndefined();
+    expect(parse({ dateFrom: "2021-02-30" })?.dateFrom).toBeUndefined();
+    expect(parse({ dateTo: "0000-00-00" })?.dateTo).toBeUndefined();
+    // a real leap day is kept
+    expect(parse({ dateFrom: "2020-02-29" })?.dateFrom).toBe("2020-02-29");
+  });
+
+  it("rejects a non-number / negative amount", () => {
+    expect(parse({ minAmountEur: "1000" })?.minAmountEur).toBeUndefined();
+    expect(parse({ minAmountEur: -5 })?.minAmountEur).toBeUndefined();
+    expect(parse({ maxAmountEur: Infinity })?.maxAmountEur).toBeUndefined();
+  });
+
+  it("rejects a non-boolean euFunded (tri-state stays undefined)", () => {
+    expect(parse({ euFunded: 1 })?.euFunded).toBeUndefined();
+    expect(parse({ euFunded: "true" })?.euFunded).toBeUndefined();
+    expect(parse({ euFunded: false })?.euFunded).toBe(false);
+  });
+
+  it("clamps per-thread narrowing too (a hostile thread field can't survive)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [
+          {
+            terms: "x",
+            cpvIn: "not-an-array",
+            minAmountEur: "abc",
+            dateFrom: "2021-06-01",
+          },
+        ],
+      }),
+    );
+    expect(s?.search[0].cpvIn).toBeUndefined();
+    expect(s?.search[0].minAmountEur).toBeUndefined();
+    expect(s?.search[0].dateFrom).toBe("2021-06-01");
+    // recall fields untouched
+    expect(s?.search[0].terms).toBe("x");
+  });
+});
+
+describe("curatedForkHref — carries membership narrowing", () => {
+  const fork = (spec: ProjectFileSpec) =>
+    parseProjectSpec(
+      new URL(curatedForkHref(spec), "http://x").searchParams.get("q"),
+    );
+
+  it("keeps the query-level narrowing on the fork", () => {
+    const forked = fork({
+      search: [{ terms: "рехабилитация" }],
+      cpvIn: ["45"],
+      minAmountEur: 1_000_000,
+      euFunded: true,
+    });
+    expect(forked?.cpvIn).toEqual(["45"]);
+    expect(forked?.minAmountEur).toBe(1_000_000);
+    expect(forked?.euFunded).toBe(true);
+  });
+
+  it("carries the boundary values — euFunded:false and minAmountEur:0 (tri-state + falsy)", () => {
+    const forked = fork({
+      search: [{ terms: "x" }],
+      euFunded: false,
+      minAmountEur: 0,
+    });
+    // false / 0 are falsy — a `spec.field ? …` guard would drop them, so this locks
+    // the `!= null` guards in curatedForkHref.
+    expect(forked?.euFunded).toBe(false);
+    expect(forked?.minAmountEur).toBe(0);
+  });
+
+  it("carries the date window and the amount ceiling", () => {
+    const forked = fork({
+      search: [{ terms: "x" }],
+      dateFrom: "2021-01-01",
+      dateTo: "2022-12-31",
+      maxAmountEur: 9_000_000,
+    });
+    expect(forked?.dateFrom).toBe("2021-01-01");
+    expect(forked?.dateTo).toBe("2022-12-31");
+    expect(forked?.maxAmountEur).toBe(9_000_000);
+  });
+
+  it("carries per-thread narrowing (rides `search`)", () => {
+    const forked = fork({
+      search: [{ terms: "x", cpvIn: ["45"], minAmountEur: 500 }],
+    });
+    expect(forked?.search[0].cpvIn).toEqual(["45"]);
+    expect(forked?.search[0].minAmountEur).toBe(500);
+  });
+});

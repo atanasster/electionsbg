@@ -47,10 +47,12 @@ import {
   applyNarrowing,
   SEED_PAGE,
   LINEAGE_PAGE,
+  type SearchThread,
   type MemberIds,
   type ProjectFold,
   type FoldInput,
   type ProcurementQuery,
+  type MembershipNarrowing,
 } from "./projectFile";
 
 /** The tender-row subset the timeline needs (a slice of the tenders resource). */
@@ -300,6 +302,67 @@ const clampMembers = (m: MemberIds | undefined): MemberIds | undefined =>
 const VERDICTS = new Set(["confirms", "refutes", "partial"]);
 const str = (x: unknown): string | undefined =>
   typeof x === "string" && x.length > 0 ? x : undefined;
+const bool = (x: unknown): boolean | undefined =>
+  typeof x === "boolean" ? x : undefined;
+// ISO YYYY-MM-DD — the value flows into a `date` range DbColumnFilter, so reject
+// anything else rather than let a hostile ?q= reach a SQL comparison. Shape alone
+// is not enough: a well-shaped but calendar-INVALID date (`2021-13-45`,
+// `2021-02-30`) would still reach Postgres, which raises "date/time field value out
+// of range" and — the seed fetches are unguarded — blanks the dossier for whoever
+// opens the crafted link. The round-trip through Date catches every rollover.
+const isoDate = (x: unknown): string | undefined => {
+  if (typeof x !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(x)) return undefined;
+  const d = new Date(`${x}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === x
+    ? x
+    : undefined;
+};
+const nonNegNum = (x: unknown): number | undefined =>
+  typeof x === "number" && Number.isFinite(x) && x >= 0 ? x : undefined;
+const MAX_CPV = 50;
+// CPV prefixes are 2–8 digit codes → a `cpv` prefix filter. Keep only well-shaped
+// numeric strings, cap the array.
+const clampCpvIn = (a: unknown): string[] | undefined => {
+  if (!Array.isArray(a)) return undefined;
+  const out = a
+    .filter((x): x is string => typeof x === "string" && /^\d{2,8}$/.test(x))
+    .slice(0, MAX_CPV);
+  return out.length ? out : undefined;
+};
+/** Clamp the untrusted membership-narrowing fields of a ?q= object (query-level or
+ *  per-thread). Each maps to a filterable `contracts` column, so a hostile value
+ *  must be shape-checked here — the one place ?q= becomes trusted (parseProjectSpec
+ *  is a passthrough base, so an un-clamped field would reach a DbColumnFilter raw).
+ *  Returns ONLY the clamped fields; absent/invalid ones are dropped. */
+const clampNarrowing = (n: MembershipNarrowing): MembershipNarrowing => {
+  const out: MembershipNarrowing = {};
+  const cpvIn = clampCpvIn(n.cpvIn);
+  if (cpvIn) out.cpvIn = cpvIn;
+  const dateFrom = isoDate(n.dateFrom);
+  if (dateFrom) out.dateFrom = dateFrom;
+  const dateTo = isoDate(n.dateTo);
+  if (dateTo) out.dateTo = dateTo;
+  const minAmountEur = nonNegNum(n.minAmountEur);
+  if (minAmountEur != null) out.minAmountEur = minAmountEur;
+  const maxAmountEur = nonNegNum(n.maxAmountEur);
+  if (maxAmountEur != null) out.maxAmountEur = maxAmountEur;
+  const euFunded = bool(n.euFunded);
+  if (euFunded != null) out.euFunded = euFunded;
+  return out;
+};
+/** Re-clamp a thread's narrowing: strip the raw narrowing fields, then re-add only
+ *  the clamped ones (a bare spread would leave a hostile raw field in place). The
+ *  recall fields (terms/buyerEik/contractorEik/distinctive/threshold) are untouched. */
+const clampThreadNarrowing = (t: SearchThread): SearchThread => {
+  const recall = { ...t };
+  delete recall.cpvIn;
+  delete recall.dateFrom;
+  delete recall.dateTo;
+  delete recall.minAmountEur;
+  delete recall.maxAmountEur;
+  delete recall.euFunded;
+  return { ...recall, ...clampNarrowing(t) };
+};
 // Like str() but tolerates a numeric id (a curator writing eik: 831646048 as a
 // JSON number keeps its /company/:eik link instead of silently losing it).
 const strOrNum = (x: unknown): string | undefined =>
@@ -478,7 +541,18 @@ export const parseProjectSpec = (
   }
   return {
     ...spec,
-    search: search.slice(0, 20),
+    // Membership narrowing is spread from `...spec` raw, so OVERWRITE each field
+    // with its clamped value (undefined = dropped) — both the query level and every
+    // thread (a hostile cpvIn / non-ISO date / non-number amount would otherwise
+    // reach a DbColumnFilter). Explicit per-field, like includes/geo below, so a
+    // raw invalid value can never survive.
+    cpvIn: clampCpvIn(spec.cpvIn),
+    dateFrom: isoDate(spec.dateFrom),
+    dateTo: isoDate(spec.dateTo),
+    minAmountEur: nonNegNum(spec.minAmountEur),
+    maxAmountEur: nonNegNum(spec.maxAmountEur),
+    euFunded: bool(spec.euFunded),
+    search: search.slice(0, 20).map(clampThreadNarrowing),
     // Clamp the untrusted ?q= value to the known union (never an arbitrary string).
     totalBasis: spec.totalBasis === "corpus" ? "corpus" : undefined,
     includes: clampMembers(spec.includes),
@@ -514,6 +588,14 @@ export const curatedForkHref = (spec: ProjectFileSpec): string => {
     ...(spec.nature ? { nature: spec.nature } : {}),
     ...(spec.includes ? { includes: spec.includes } : {}),
     ...(spec.excludes ? { excludes: spec.excludes } : {}),
+    // Membership narrowing defines what the dossier contains, so the fork must
+    // carry it (the query-level fields; per-thread narrowing rides `search`).
+    ...(spec.cpvIn ? { cpvIn: spec.cpvIn } : {}),
+    ...(spec.dateFrom ? { dateFrom: spec.dateFrom } : {}),
+    ...(spec.dateTo ? { dateTo: spec.dateTo } : {}),
+    ...(spec.minAmountEur != null ? { minAmountEur: spec.minAmountEur } : {}),
+    ...(spec.maxAmountEur != null ? { maxAmountEur: spec.maxAmountEur } : {}),
+    ...(spec.euFunded != null ? { euFunded: spec.euFunded } : {}),
   };
   return `/procurement/project?q=${encodeURIComponent(JSON.stringify(copy))}&edit=1`;
 };
