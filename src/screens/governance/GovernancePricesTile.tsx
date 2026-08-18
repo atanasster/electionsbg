@@ -13,6 +13,7 @@ import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
 import { MoversInline } from "@/screens/components/prices/PriceMovers";
 import {
   usePriceIndex,
+  headlinePoint,
   usePriceRanking,
   useNationalChains,
   fmtEur,
@@ -58,7 +59,10 @@ export const GovernancePricesTile: FC<Props> = ({
     ? (index.regions[oblast]?.index ?? [])
     : index.national.index;
   if (series.length < 2) return null;
-  const latest = series[series.length - 1].v;
+  // The payload's own headline day, never the last point — see headlinePoint.
+  const latest = (
+    headlinePoint(series, index.coverage) ?? series[series.length - 1]
+  ).v;
   const change = latest / 100 - 1;
   const baselineLabel = fmtPriceDate(index.firstDate || index.baseline, lang);
 

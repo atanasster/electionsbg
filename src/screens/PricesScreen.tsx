@@ -33,6 +33,7 @@ import { EuroVerdictTile } from "@/screens/consumption/EuroVerdictTile";
 import { UnitPriceTile } from "@/screens/components/prices/UnitPriceTile";
 import {
   usePriceIndex,
+  headlinePoint,
   usePriceRanking,
   useNationalChains,
   useDeals,
@@ -102,7 +103,12 @@ export const PricesScreen: FC = () => {
     );
 
   const series = index?.national.index ?? [];
-  const change = series.length ? series[series.length - 1].v / 100 - 1 : null;
+  // NOT series[series.length - 1]: the last day is whatever the КЗП feed
+  // happened to report, and when its reporter set collapsed in 2026-08 the tail
+  // swung ±2 points a day. The payload names the day a figure may be quoted
+  // from; on that corpus it is the difference between +1.4% and −1.3%.
+  const headline = headlinePoint(series, index?.coverage);
+  const change = headline ? headline.v / 100 - 1 : null;
   const baselineLabel = index
     ? fmtPriceDate(index.firstDate || index.baseline, lang)
     : "";

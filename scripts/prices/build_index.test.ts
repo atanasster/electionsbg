@@ -253,7 +253,7 @@ describe("trailingChainMedian / COVERAGE_FLOOR", () => {
 
 // ── the wiring, not just the helpers ────────────────────────────────────────
 // The pure functions above can be perfect while the `coverage` block still
-// reports the wrong day, reads the wrong counter, or loses `lastCompleteDate`.
+// reports the wrong day, reads the wrong counter, or loses `headlineDate`.
 // This drives the real buildPriceIndex over a synthetic corpus.
 
 /** A day with one settlement, one chain, one product — enough for the index to
@@ -281,20 +281,34 @@ const gridDay = (date: string, chains: number): DailyGrid => ({
   stats: { chains, rows: 1, settlements: 1 },
 });
 
-const coverageOf = (chainsPerDay: number[]) => {
-  const grids = chainsPerDay.map((c, i) =>
-    gridDay(`2026-01-${String(i + 1).padStart(2, "0")}`, c),
-  );
-  let coverage: Record<string, unknown> | undefined;
+interface BuiltIndex {
+  coverage: {
+    chains: number;
+    chainsTrailingMedian: number | null;
+    chainsComplete: boolean;
+    headlineDate: string;
+    incompleteDates: string[];
+  };
+  national: { index: { d: string; v: number; n: number }[] };
+}
+
+/** Build over a synthetic corpus of N days and return index.json. */
+const indexOf = (chainsPerDay: number[]): BuiltIndex => {
+  const grids = chainsPerDay.map((c, i) => {
+    const d = new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10);
+    return gridDay(d, c);
+  });
+  let out: BuiltIndex | undefined;
   buildPriceIndex({
     grids,
     emit: (kind, _key, obj) => {
-      if (kind === "index")
-        coverage = (obj as { coverage: Record<string, unknown> }).coverage;
+      if (kind === "index") out = obj as BuiltIndex;
     },
   });
-  return coverage!;
+  return out!;
 };
+
+const coverageOf = (chainsPerDay: number[]) => indexOf(chainsPerDay).coverage;
 
 describe("the emitted coverage block", () => {
   it("marks a collapsed latest day incomplete and names the last good one", () => {
@@ -304,20 +318,20 @@ describe("the emitted coverage block", () => {
     expect(c.chainsTrailingMedian).toBe(200);
     expect(c.chainsComplete).toBe(false);
     // The last day clearing the floor — NOT the latest day.
-    expect(c.lastCompleteDate).toBe("2026-01-09");
+    expect(c.headlineDate).toBe("2026-01-09");
   });
 
-  it("marks a healthy latest day complete, with lastCompleteDate on it", () => {
+  it("marks a healthy latest day complete and headlines it", () => {
     const c = coverageOf([200, 200, 200, 200, 205]);
     expect(c.chainsComplete).toBe(true);
-    expect(c.lastCompleteDate).toBe("2026-01-05");
+    expect(c.headlineDate).toBe("2026-01-05");
   });
 
   it("does not call the opening days incomplete for lack of history", () => {
     // Day 0 is thin, but nothing precedes it to judge it against.
     const c = coverageOf([10, 500, 500]);
     expect(c.chainsComplete).toBe(true);
-    expect(c.lastCompleteDate).toBe("2026-01-03");
+    expect(c.headlineDate).toBe("2026-01-03");
   });
 
   it("reports the reporter count, not the settlement or row count", () => {
@@ -326,5 +340,116 @@ describe("the emitted coverage block", () => {
     expect(c.chainsTrailingMedian).toBe(200);
     expect(c.chainsComplete).toBe(true); // 160 = exactly 0.8 × 200
     expect(coverageOf([200, 200, 200, 159]).chainsComplete).toBe(false);
+  });
+});
+
+describe("the publish-side headline gate (T0.4)", () => {
+  it("holds the headline back to the last complete day", () => {
+    const c = coverageOf([200, 200, 200, 200, 200, 200, 200, 200, 200, 98]);
+    expect(c.chainsComplete).toBe(false);
+    expect(c.headlineDate).toBe("2026-01-09"); // NOT 2026-01-10
+    expect(c.incompleteDates).toEqual(["2026-01-10"]);
+  });
+
+  it("headlines the latest day when it is complete", () => {
+    const c = coverageOf([200, 200, 200, 200, 205]);
+    expect(c.headlineDate).toBe("2026-01-05");
+    expect(c.incompleteDates).toEqual([]);
+  });
+
+  it("holds back across a RUN of incomplete days, not just the last one", () => {
+    // The 2026-08 shape: the slide keeps going, so the last complete day
+    // recedes further with each day rather than being yesterday.
+    const c = coverageOf([
+      ...new Array(9).fill(200),
+      140,
+      132,
+      115,
+      107,
+      101,
+      98,
+    ]);
+    expect(c.headlineDate).toBe("2026-01-09");
+    expect(c.incompleteDates).toHaveLength(6);
+  });
+
+  it("a collapse from the start pins the headline to the last good day", () => {
+    // There is always AT LEAST one complete day: the opening days have no
+    // history to be judged against, and the null median is treated as
+    // complete. So headlineDate is never null, and the gate degrades to a
+    // STALE headline rather than to no headline — which is the failure mode to
+    // watch for, and why the build log prints how far back it reached.
+    const c = coverageOf([200, 200, 200, 10, 9, 8]);
+    expect(c.headlineDate).toBe("2026-01-03");
+    expect(c.incompleteDates).toEqual([
+      "2026-01-04",
+      "2026-01-05",
+      "2026-01-06",
+    ]);
+  });
+
+  it("catches up on its own once a resized feed becomes the new normal", () => {
+    // The trailing median adapts, so a PERMANENT resize stops being withheld
+    // rather than pinning the headline for ever. Nine days at the new level is
+    // enough for the median to follow.
+    const c = coverageOf([
+      ...new Array(14).fill(200),
+      ...new Array(9).fill(98),
+    ]);
+    expect(c.chainsComplete).toBe(true);
+    expect(c.headlineDate).toBe("2026-01-23");
+  });
+
+  it("still ships every day in the series — the gate moves the HEADLINE only", () => {
+    const idx = indexOf([200, 200, 200, 200, 98]);
+    expect(idx.national.index).toHaveLength(5);
+    // …and the withheld day is present, not truncated away.
+    expect(idx.national.index.at(-1)!.d).toBe("2026-01-05");
+    expect(idx.coverage.headlineDate).toBe("2026-01-04");
+  });
+
+  it("headlineDate is always a day the series actually carries", () => {
+    for (const shape of [
+      [200],
+      [200, 98],
+      [200, 200, 200, 98, 98],
+      [...new Array(20).fill(200), 98, 98, 98],
+      [10, 200, 200, 200],
+    ]) {
+      const idx = indexOf(shape);
+      const dates = idx.national.index.map((p) => p.d);
+      expect(dates).toContain(idx.coverage.headlineDate);
+    }
+  });
+
+  it("the three coverage keys can never contradict each other", () => {
+    for (const shape of [
+      [200, 200, 200, 200, 98],
+      [200, 200, 200, 200, 200],
+      [...new Array(16).fill(200), 98, 98, 98, 98, 98, 98, 98, 98, 98],
+      [10, 500, 500, 500],
+    ]) {
+      const c = indexOf(shape).coverage;
+      // the headline day is never one of the withheld days…
+      expect(c.incompleteDates).not.toContain(c.headlineDate);
+      // …and chainsComplete is exactly "the latest day is not withheld".
+      const latest = indexOf(shape).national.index.at(-1)!.d;
+      expect(c.chainsComplete).toBe(!c.incompleteDates.includes(latest));
+    }
+  });
+
+  it("a one-day corpus headlines its only day", () => {
+    const c = indexOf([200]).coverage;
+    expect(c.headlineDate).toBe("2026-01-01");
+    expect(c.incompleteDates).toEqual([]);
+    expect(c.chainsComplete).toBe(true);
+  });
+
+  it("prefers a JUDGED day over one complete only for want of history", () => {
+    // Day 0 is thin but unjudgeable, so it counts as complete. Once later days
+    // ARE judged and clear the floor, the headline must be one of those — a
+    // normative field must not name a day nothing actually vouched for.
+    const c = indexOf([10, 500, 500, 500, 500]).coverage;
+    expect(c.headlineDate).toBe("2026-01-05");
   });
 });

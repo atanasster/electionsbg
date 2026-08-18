@@ -524,8 +524,27 @@ export const buildPriceIndex = (
     days.length - 1,
   );
   const latestComplete = dayComplete[days.length - 1];
-  const lastCompleteIdx = dayComplete.lastIndexOf(true);
-  const lastCompleteDate = lastCompleteIdx >= 0 ? dates[lastCompleteIdx] : null;
+  // The publish-side gate. `dayComplete[0]` is unconditionally true — the
+  // opening day has no history to be judged against and a null median counts as
+  // complete — and `days.length === 0` already threw above, so this always
+  // finds one. No `?? latestDate` fallback: it would be dead code that silently
+  // resurrects the defect if the "opening days are complete" rule ever changed.
+  // The degradation to watch for is therefore a STALE headline, not a missing
+  // one, which is why the build log prints how far back the gate reached.
+  // Prefer a day that was actually JUDGED complete over one that merely had no
+  // history to be judged against. A descriptive field could afford that loose
+  // rule; `headlineDate` is normative, and on a short or
+  // zero-prefixed span the loose rule would headline an arbitrarily thin day.
+  // Falls back to the loose set when nothing was ever judged, which is the
+  // corpus's own first fortnight.
+  const judged = days.map(
+    (_, i) => trailingChainMedian(chainsPerDay, i) != null && dayComplete[i],
+  );
+  const lastCompleteIdx = judged.includes(true)
+    ? judged.lastIndexOf(true)
+    : dayComplete.lastIndexOf(true);
+  const headlineDate = dates[lastCompleteIdx];
+  const incompleteDates = dates.filter((_, i) => !dayComplete[i]);
 
   const indexJson = {
     source: {
@@ -542,7 +561,7 @@ export const buildPriceIndex = (
     firstDate: baselineDate,
     latestDate,
     baseline: baselineDate,
-    note: "Monitoring basket index: unweighted Jevons over products of the median across panel settlements of each settlement's median across CHAIN-MATCHED per-chain minimum prices (only chains reporting on both the compared day and the baseline contribute). Each point is the RATIO OF THE TWO MEDIANS over the matched set, not the median of per-chain ratios. `n` on each point is how many of the products matched. promoShare is panel-restricted but is a LEVEL with no baseline to cancel composition against. coverage.chainsComplete is the day's reporter count against its own trailing median (COVERAGE_FLOOR of COVERAGE_WINDOW_DAYS loaded days) — it qualifies comparability with neighbouring days only, and says nothing about products, settlements or rows. NOT official CPI/HICP.",
+    note: "Monitoring basket index: unweighted Jevons over products of the median across panel settlements of each settlement's median across CHAIN-MATCHED per-chain minimum prices (only chains reporting on both the compared day and the baseline contribute). Each point is the RATIO OF THE TWO MEDIANS over the matched set, not the median of per-chain ratios. `n` on each point is how many of the products matched. promoShare is panel-restricted but is a LEVEL with no baseline to cancel composition against. coverage.chainsComplete is the day's reporter count against its own trailing median (COVERAGE_FLOOR of COVERAGE_WINDOW_DAYS loaded days) — it qualifies comparability with neighbouring days only, and says nothing about products, settlements or rows. headlineDate is the day a single quoted figure MUST be taken from — the latest day when it is complete, else the last complete one; the series still carries every day, and incompleteDates lists those below the floor. Like chainsComplete it is a REPORTER-COUNT judgement only: a day it clears can still be thin on products or settlements, and the opening days of the corpus clear it for want of anything to be judged against. NOT official CPI/HICP.",
     coverage: {
       settlements: latest.settMin.size,
       chains: latest.grid.stats.chains,
@@ -558,11 +577,28 @@ export const buildPriceIndex = (
       // against its own trailing median, and says nothing about products,
       // settlements or rows.
       chainsComplete: latestComplete,
-      // The most recent day whose reporter count clears the floor. NOT where
-      // the headline is taken from — T0.4 is what will move it. Publishing it
-      // now lets a consumer back off on its own, and makes T0.4 a small change
-      // rather than a new field. On 2026-08-14's corpus this reads 2026-08-08.
-      lastCompleteDate: lastCompleteDate,
+      // THE DAY A HEADLINE MUST BE TAKEN FROM: the most recent day whose
+      // reporter count clears the floor. On 2026-08-14's corpus, 2026-08-08.
+      //
+      // The series still ships every day — a chart should show the incomplete
+      // tail (dimmed, via incompleteDates) rather than pretend it is not
+      // there. What must not happen is a single headline number quoted off a
+      // day the feed under-reported: that is exactly how production said +0.8%
+      // while localhost said −1.5%, one day apart on the same corpus. Measured
+      // on that corpus the two days are 101.4 and 98.7 — the gate flips the
+      // SIGN of the sentence the page prints.
+      //
+      // Deliberately ONE key, not a `headlineDate` beside a
+      // `lastCompleteDate`: when the latest day is complete it IS the last
+      // complete day, so the two could never differ, and two keys for one
+      // value invite a consumer to pick the wrong one.
+      headlineDate,
+      // Every day below the floor, so a consumer can mark them without
+      // re-deriving the rule. Sparse by construction (6 of 225 today) — this
+      // is deliberately ONE list rather than a flag per point, since
+      // completeness is a property of the DAY and would otherwise be repeated
+      // across all ~43 series.
+      incompleteDates,
     },
     categories: products.categories,
     products: PUBLIC_PRODUCTS,
@@ -1034,13 +1070,23 @@ export const buildPriceIndex = (
 
   // dict.json — the small product/category dictionary + meta (no series), so a
   // place page resolves product names without the heavy index.json.
+  // dict.json deliberately carries the ORIGINAL three coverage fields only.
+  // The gate's fields describe a SERIES this payload does not ship, and its
+  // consumers (place pages) headline their own per-settlement figures rather
+  // than the national one — publishing headlineDate here would invite them to
+  // gate a number it says nothing about. incompleteDates also grows without
+  // bound, and dict is fetched by every place page.
   emit("dict", "", {
     source: indexJson.source,
     fetchedAt: indexJson.fetchedAt,
     firstDate: baselineDate,
     latestDate,
     baseline: baselineDate,
-    coverage: indexJson.coverage,
+    coverage: {
+      settlements: indexJson.coverage.settlements,
+      chains: indexJson.coverage.chains,
+      rows: indexJson.coverage.rows,
+    },
     categories: products.categories,
     products: PUBLIC_PRODUCTS,
     commonBasket,
@@ -1076,7 +1122,11 @@ export const buildPriceIndex = (
   );
   console.log(
     `[prices] coverage: ${latest.grid.stats.chains} chains vs trailing median ` +
-      `${latestTrailingMedian ?? "n/a"} — ${latestComplete ? "complete" : "INCOMPLETE"}`,
+      `${latestTrailingMedian ?? "n/a"} — ${latestComplete ? "complete" : "INCOMPLETE"}` +
+      (latestComplete
+        ? ""
+        : ` · headline held back ${days.length - 1 - lastCompleteIdx} day(s) to ${headlineDate}` +
+          ` (${incompleteDates.length} incomplete of ${days.length} in the corpus)`),
   );
 };
 

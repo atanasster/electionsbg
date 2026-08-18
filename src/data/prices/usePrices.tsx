@@ -11,6 +11,10 @@ import { fetchPricePayload } from "./fetchPricePayload";
 export interface PricePoint {
   d: string;
   v: number;
+  /** Products matched on this day. `n === 0` means NOT COMPUTABLE — `v` is
+   *  then a 100 the builder fell back to, not a measurement. Absent on
+   *  payloads built before the chain-matched basis. */
+  n?: number;
 }
 export interface ProductMeta {
   id: number;
@@ -31,7 +35,27 @@ export interface PriceIndexFile {
   latestDate: string;
   baseline: string;
   note: string;
-  coverage: { settlements: number; chains: number; rows: number };
+  coverage: {
+    settlements: number;
+    chains: number;
+    rows: number;
+    /** Reporter count of the trailing COVERAGE_WINDOW_DAYS, for scale. */
+    chainsTrailingMedian: number | null;
+    /** Is the LATEST day's reporter count within COVERAGE_FLOOR of that? */
+    chainsComplete: boolean;
+    /**
+     * The day a single quoted figure must be taken from — the latest day when
+     * its reporter count clears the floor, else the last day that did.
+     *
+     * Never read `index[index.length - 1]` for a headline. The КЗП feed's
+     * reporter set fell 203 → 98 chains over six days in 2026-08, and on that
+     * corpus the last point reads −1.3% while this day reads +1.4%: the tail
+     * flips the sign of the sentence. Use `headlinePoint()` below.
+     */
+    headlineDate: string;
+    /** Every day below the floor — for dimming a chart's tail. */
+    incompleteDates: string[];
+  };
   categories: CategoryMeta[];
   products: ProductMeta[];
   national: {
@@ -41,6 +65,24 @@ export interface PriceIndexFile {
   };
   regions: Record<string, { name: string; index: PricePoint[] }>;
 }
+
+/**
+ * The point a headline must be quoted from, for any series in this payload.
+ *
+ * Falls back to the last point when the payload predates the coverage gate or
+ * names a day this series does not carry — a stale number beats a blank one,
+ * and every series in `index.json` shares one date axis so the miss should be
+ * impossible.
+ */
+export const headlinePoint = (
+  series: PricePoint[] | undefined,
+  coverage: PriceIndexFile["coverage"] | undefined,
+): PricePoint | null => {
+  if (!series?.length) return null;
+  const d = coverage?.headlineDate;
+  if (!d) return series[series.length - 1];
+  return series.find((p) => p.d === d) ?? series[series.length - 1];
+};
 
 /** Small product/category dictionary + meta (no series) for place pages. */
 export interface PriceDictFile {
