@@ -88,6 +88,10 @@ import {
   WATER_SECTOR_EIKS,
   VIK_HOLDING_SUB_EIKS,
 } from "@/lib/vikReferenceData";
+import {
+  EDU_INSTITUTION_COUNT,
+  EDUCATION_EXTERNAL_HIGHER_SCHOOLS,
+} from "@/lib/educationReferenceData";
 import { readIndexableProcedures } from "../funds/procedures_index";
 import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
@@ -822,30 +826,40 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
   },
   // ⚠ The copy below deliberately names the GROUP, not МОН. The 2026-08-18 audit
-  // widened this page from the ministry alone to the 126-body education roster
+  // widened this page from the ministry alone to the education roster
   // (МОН + agencies + state universities + БАН + ССА), so „поръчките на МОН" became
   // a specific false claim about a page that folds €1.27bn of university
   // procurement — and this is the copy crawlers and social-preview bots read.
+  //
+  // Both counts are DERIVED from educationReferenceData, never re-typed. The same
+  // hand-written-count defect is why the /water copy below reads its operator
+  // totals from vikReferenceData: this page's prose is a fourth copy of a number
+  // the roster already owns, and the roster moves. `EDU_INSTITUTION_COUNT` is
+  // institutions rather than EIKs (they differ by the retired-EIK rows), because
+  // this sentence is a claim about how many bodies the page folds.
+  //
+  // The exclusion sentence is the prerender half of `educationFootnote()`. Without
+  // it „държавните висши училища" reads as the whole ЗВО roster, which is exactly
+  // what the reference data refuses to imply: four state higher schools are
+  // curated into МО's and МВР's sectors instead, and a reader who counts the
+  // universities here and compares them against the ЗВО list must be told why
+  // four are missing rather than left to read it as a gap in the corpus.
   {
     id: "edu",
     eik: "000695114",
     bg: {
       title: "Образование и наука — обществените поръчки | electionsbg.com",
-      description:
-        "Обществените поръчки в образованието и науката: МОН, държавните висши училища, БАН и Селскостопанската академия — общо възложени, изпълнители и разбивка по договори.",
+      description: `Обществените поръчки в образованието и науката: ${EDU_INSTITUTION_COUNT} институции — МОН и неговите агенции и дружества, държавните висши училища с принципал МОН, БАН и Селскостопанската академия — общо възложени, изпълнители и разбивка по договори.`,
       breadcrumb: "Образование",
       h1: "Образование и наука — обществените поръчки",
-      intro:
-        "Тази страница обобщава обществените поръчки на МОН, неговите агенции и дружества, държавните висши училища, БАН и Селскостопанската академия — по избрания парламент или за цялата история.",
+      intro: `Тази страница обобщава обществените поръчки на ${EDU_INSTITUTION_COUNT} институции в образованието и науката: МОН, неговите агенции и дружества, държавните висши училища с бюджетен принципал МОН, БАН и Селскостопанската академия — по избрания парламент или за цялата история. Извън нея остават ${EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length} държавни висши училища, чийто бюджетен принципал е МО, съответно МВР — те се отчитат в „Отбрана“ и „Сигурност“.`,
     },
     en: {
       title: "Education & science — public procurement | electionsbg.com",
-      description:
-        "Public procurement across Bulgarian education and science: the ministry (МОН), the state universities, БАН and the Agricultural Academy — total awarded, contractors and the breakdown by contracts.",
+      description: `Public procurement across Bulgarian education and science: ${EDU_INSTITUTION_COUNT} institutions — the ministry (МОН) with its agencies and state companies, the state universities under МОН, БАН and the Agricultural Academy — total awarded, contractors and the breakdown by contracts.`,
       breadcrumb: "Education",
       h1: "Education & science — public procurement",
-      intro:
-        "This page summarises the public procurement of МОН, its agencies and state companies, the state universities, БАН and the Agricultural Academy — for the selected parliament or the full history.",
+      intro: `This page summarises the public procurement of ${EDU_INSTITUTION_COUNT} institutions across education and science: МОН, its agencies and state companies, the state universities whose budget principal is МОН, БАН and the Agricultural Academy — for the selected parliament or the full history. Another ${EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length} state higher schools sit outside it: their budget principal is the Ministry of Defence or the Ministry of Interior, so they are counted under Defense and Security.`,
     },
   },
   {
