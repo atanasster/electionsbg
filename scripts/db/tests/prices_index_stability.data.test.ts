@@ -361,3 +361,50 @@ test.skipIf(!RUN)(
     );
   },
 );
+
+test.skipIf(!RUN)(
+  "the hub-stats blob quotes the same headline the page does",
+  async () => {
+    // These are the SAME measure with the SAME caption, one click apart — the
+    // /consumption hub tile and the /prices hero. While build_payloads
+    // hand-copied the rule they read −1.3% and +1.3%, disagreeing about the
+    // sign. It imports headlineIndex now; this is what stops the copy coming
+    // back. `prices_payload_parity` cannot cover it — its own header says
+    // hub-stats has no cache twin to compare against.
+    const idx = await readIndex();
+    const hubRows = await allRows<{
+      payload: { basketChangePct: number | null };
+    }>(
+      "SELECT payload FROM price_payloads WHERE kind = 'hub-stats' AND key = ''",
+    );
+    const hub = hubRows[0]?.payload;
+    if (!idx || !hub) return;
+
+    const series = idx.national.index;
+    const withheld = new Set(idx.coverage.incompleteDates ?? []);
+    const end = idx.coverage.headlineDate
+      ? series.findIndex((p) => p.d === idx.coverage.headlineDate)
+      : series.length - 1;
+    const last = end >= 0 ? end : series.length - 1;
+    const usable: number[] = [];
+    for (let i = last; i >= 0 && usable.length < 7; i--) {
+      const p = series[i];
+      if (withheld.has(p.d) || p.n === 0) continue;
+      usable.push(p.v);
+    }
+    if (!usable.length) return;
+    const expected =
+      Math.round(
+        (usable.reduce((a, v) => a + v, 0) / usable.length - 100) * 10,
+      ) / 10;
+
+    assert.equal(
+      hub.basketChangePct,
+      expected,
+      `hub-stats says ${hub.basketChangePct}% while the index yields ` +
+        `${expected}% — the /consumption tile and the /prices hero would show ` +
+        `different numbers for the same measure. Re-run ` +
+        "`npm run prices:payloads`, or the headline rule has been forked again.",
+    );
+  },
+);

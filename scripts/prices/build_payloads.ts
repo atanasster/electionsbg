@@ -33,6 +33,8 @@ const PAYLOADS_MERGE: StageMergeSpec = {
   cols: ["kind", "key", "payload"],
 };
 import { buildPriceIndex, type Emit } from "./build_index";
+import { headlineIndex } from "../../src/data/prices/headline";
+import type { PricePoint } from "../../src/data/prices/usePrices";
 import { loadGridsFromPg } from "./lib/grids_pg";
 
 // --- Deals quality gate (national + per-município) -------------------------
@@ -281,13 +283,23 @@ export const buildPayloads = async (): Promise<void> => {
   const idxPayload = rows.find((r) => r[0] === "index");
   const idx = idxPayload
     ? (JSON.parse(idxPayload[2]) as {
-        coverage?: { settlements?: number; chains?: number };
+        coverage?: {
+          settlements?: number;
+          chains?: number;
+          headlineDate?: string;
+          incompleteDates?: string[];
+        };
         categories?: unknown[];
-        national?: { index?: { v: number }[] };
+        national?: { index?: { d?: string; v: number; n?: number }[] };
       })
     : null;
   const natIndex = idx?.national?.index ?? [];
-  const basketLast = natIndex.length ? natIndex[natIndex.length - 1].v : null;
+  // The SAME figure /prices headlines, imported rather than restated — this
+  // blob drives the /consumption hub tile one click away, and while the rule
+  // was hand-copied the two read −1.3% and +1.3%: the same measure with the
+  // same caption, disagreeing about its sign.
+  const basketLast =
+    headlineIndex(natIndex as PricePoint[], idx?.coverage)?.v ?? null;
   const num = (v: unknown): number | null => {
     const n = typeof v === "number" ? v : parseFloat(String(v));
     return Number.isFinite(n) ? n : null;

@@ -213,6 +213,47 @@ export const PricesScreen: FC = () => {
                 ? ` · ${T("кошница на верига", "basket per chain")} ${fmtEur(chainLo, lang)}–${fmtEur(chainHi, lang)}`
                 : ""}
             </div>
+            {/* Stats the page already fetched and never showed. The official
+                food rate is the one that earns its place: every disclaimer here
+                says "мониторингов индекс, не официален ИПЦ" without ever
+                showing the official number.
+
+                It sits BELOW the caption, not between the caption and the
+                headline — the caption is what qualifies the big number and has
+                to stay next to it.
+
+                `hub.products` is deliberately NOT here. It is the whole КЗП
+                catalogue (50,447), and under a headline computed over 101
+                products "следени продукти" reads as the basket's own size. The
+                euro-verdict band below states its own denominator, which is
+                where a catalogue count belongs. */}
+            {hub ? (
+              <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                {hub.foodInflationPct != null ? (
+                  <div className="flex items-baseline gap-1">
+                    <dt className="text-muted-foreground">
+                      {T(
+                        "официална инфлация храни, год.",
+                        "official food inflation, y/y",
+                      )}
+                    </dt>
+                    <dd className="font-medium tabular-nums">
+                      {fmtPct(hub.foodInflationPct / 100)}
+                    </dd>
+                  </div>
+                ) : null}
+                {hub.biggestDealPct != null ? (
+                  <div className="flex items-baseline gap-1">
+                    <dt className="text-muted-foreground">
+                      {T("най-голяма промоция", "biggest deal")}
+                    </dt>
+                    <dd className="font-medium tabular-nums text-green-700 dark:text-green-400">
+                      −{hub.biggestDealPct}%
+                    </dd>
+                  </div>
+                ) : null}
+              </dl>
+            ) : null}
           </div>
           {/* A real chart, not a sparkline: an axis-less squiggle carries shape
               and no readable value, and this one was 280px pinned to the right
