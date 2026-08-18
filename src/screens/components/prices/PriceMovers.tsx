@@ -42,20 +42,55 @@ const Row: FC<{
   nameFor: (id: number) => string;
   color: string;
   hrefFor?: (id: number) => string;
-}> = ({ m, nameFor, color, hrefFor }) => {
+  /** Largest |change| in the group, for the bar's scale. Omit for no bar. */
+  scale?: number;
+}> = ({ m, nameFor, color, hrefFor, scale }) => {
   const href = hrefFor?.(m.id);
+  // A diverging bar under the row. Coloured text alone gives the SIGN and
+  // nothing else — +6.5% and −5.0% are the same size on the page — so the one
+  // thing a movers list is for, relative magnitude, has to be read digit by
+  // digit. Widths are shares of the group's largest move, so the bars compare
+  // within the tile and never imply a cross-tile scale.
+  //
+  // ×100, not ×50: the percentage resolves against the `w-1/2` half it sits in,
+  // which is already the halving. At ×50 the largest mover reached a quarter of
+  // the row and the bars read as uniformly tiny.
+  const width =
+    scale && scale > 0 ? Math.max(4, (Math.abs(m.change) / scale) * 100) : 0;
   return (
-    <li className="flex justify-between gap-2">
-      {href ? (
-        <Link to={href} className="truncate min-w-0 hover:underline">
-          {nameFor(m.id)}
-        </Link>
-      ) : (
-        <span className="truncate min-w-0">{nameFor(m.id)}</span>
-      )}
-      <span className={`tabular-nums shrink-0 ${color}`}>
-        {fmtPct(m.change)}
-      </span>
+    <li>
+      <div className="flex justify-between gap-2">
+        {href ? (
+          <Link to={href} className="truncate min-w-0 hover:underline">
+            {nameFor(m.id)}
+          </Link>
+        ) : (
+          <span className="truncate min-w-0">{nameFor(m.id)}</span>
+        )}
+        <span className={`tabular-nums shrink-0 ${color}`}>
+          {fmtPct(m.change)}
+        </span>
+      </div>
+      {width > 0 ? (
+        <div className="mt-0.5 flex h-1 w-full" aria-hidden="true">
+          <div className="flex w-1/2 justify-end">
+            {m.change < 0 ? (
+              <div
+                className="rounded-l-sm bg-green-500/60 dark:bg-green-500/50"
+                style={{ width: `${width}%` }}
+              />
+            ) : null}
+          </div>
+          <div className="flex w-1/2">
+            {m.change > 0 ? (
+              <div
+                className="rounded-r-sm bg-red-500/60 dark:bg-red-500/50"
+                style={{ width: `${width}%` }}
+              />
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </li>
   );
 };
@@ -112,10 +147,11 @@ export const MoversInline: FC<Common & { title: string }> = ({
 }) => {
   const rows = [...up.slice(0, limit), ...down.slice(0, limit)];
   if (!rows.length) return null;
+  const scale = Math.max(...rows.map((r) => Math.abs(r.change)), 0);
   return (
     <div className="text-xs">
       {title ? <div className="font-medium mb-1">{title}</div> : null}
-      <ul className="space-y-0.5">
+      <ul className="space-y-1">
         {rows.map((m) => (
           <Row
             key={m.id}
@@ -123,6 +159,7 @@ export const MoversInline: FC<Common & { title: string }> = ({
             nameFor={nameFor}
             color={priceChangeColor(m.change)}
             hrefFor={hrefFor}
+            scale={scale}
           />
         ))}
       </ul>

@@ -17,7 +17,16 @@ export const UnitPriceTile: FC<{ limit?: number }> = ({ limit = 4 }) => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { data } = useUnitPrices();
-  if (!data) return null;
+  // A skeleton, not null: this tile owns its own query, so the parent cannot
+  // reserve the space for it and the grid reflowed when it landed.
+  if (!data)
+    return (
+      <div className="space-y-1.5" aria-hidden="true">
+        {Array.from({ length: limit + 1 }, (_, i) => (
+          <div key={i} className="h-3 w-full animate-pulse rounded bg-muted" />
+        ))}
+      </div>
+    );
 
   // Lowest €/kg across every kg-basis category, at HOUSEHOLD pack sizes, ONE
   // per category.
