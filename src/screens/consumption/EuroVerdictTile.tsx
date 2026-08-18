@@ -17,7 +17,11 @@ import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
 const fmtN = (n: number, lang: string) =>
   n.toLocaleString(lang === "bg" ? "bg-BG" : "en-US");
 
-export const EuroVerdictTile: FC = () => {
+/** `compact` drops the "not official CPI" clause, for a host that already
+ *  states it (the /prices footer does). The ECB estimate is NOT dropped — it is
+ *  the one number here that qualifies the verdict itself, and it appears
+ *  nowhere else on either page. */
+export const EuroVerdictTile: FC<{ compact?: boolean }> = ({ compact }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
@@ -105,8 +109,8 @@ export const EuroVerdictTile: FC = () => {
 
       <p className="text-xs text-muted-foreground max-w-2xl">
         {T(
-          `Още ${fmtN(noBase, lang)} продукта се появиха на рафтовете след ${EURO_ADOPTION.bg} и нямат база за сравнение. Мониторингов индекс на КЗП, не официален ИПЦ — ЕЦБ оценява ефекта от еврото на 0,3–0,4 процентни пункта.`,
-          `Another ${fmtN(noBase, lang)} products appeared after ${EURO_ADOPTION.en} and have no baseline to compare against. CPC monitoring data, not official CPI — the ECB estimates the euro's one-off effect at 0.3–0.4pp.`,
+          `Още ${fmtN(noBase, lang)} продукта се появиха на рафтовете след ${EURO_ADOPTION.bg} и нямат база за сравнение.${compact ? "" : " Мониторингов индекс на КЗП, не официален ИПЦ —"} ЕЦБ оценява ефекта от еврото на 0,3–0,4 процентни пункта.`,
+          `Another ${fmtN(noBase, lang)} products appeared after ${EURO_ADOPTION.en} and have no baseline to compare against.${compact ? " The" : " CPC monitoring data, not official CPI — the"} ECB estimates the euro's one-off effect at 0.3–0.4pp.`,
         )}
       </p>
 

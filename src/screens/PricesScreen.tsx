@@ -45,6 +45,7 @@ import {
   priceChangeColor,
 } from "@/data/prices/usePrices";
 import { usePricePli } from "@/data/macro/useMacroPeers";
+import { freshnessSentence, withheldTailCount } from "@/data/prices/freshness";
 
 // A dashboard tile: a card whose header links to its sub-page (internal links
 // inside the body — e.g. chain rows — keep working, so the whole card is NOT a
@@ -120,6 +121,10 @@ export const PricesScreen: FC = () => {
   // picture.
   const withheld = new Set(index?.coverage?.incompleteDates ?? []);
   const plotted = series.filter((p) => !withheld.has(p.d));
+  const withheldTail = withheldTailCount(
+    series.map((p) => p.d),
+    headline?.d,
+  );
 
   // category movers
   // Each category series is smoothed and day-gated exactly like the headline —
@@ -179,7 +184,7 @@ export const PricesScreen: FC = () => {
                   that window can close days before the corpus does — a caption
                   naming only the baseline is silent about the half that moved. */}
               {headline
-                ? ` · ${T("към", "to")} ${fmtPriceDate(headline.d, lang)}`
+                ? ` · ${T("числото е към", "figure as of")} ${fmtPriceDate(headline.d, lang)}`
                 : ""}
               {index
                 ? ` · ${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
@@ -266,9 +271,19 @@ export const PricesScreen: FC = () => {
         {/* Deals today */}
         <DashTile
           to="/consumption/deals"
-          title={T("Промоции днес", "Deals today")}
+          title={T("Промоции", "Deals")}
           icon={Percent}
         >
+          {/* The heading used to say "днес" / "today" and prove nothing. The
+              payload carries the day it was built from; a promo board is the
+              one figure on this page where a silently stale date costs the
+              reader a wasted trip. */}
+          {deals?.latestDate ? (
+            <div className="-mt-1 mb-1 text-[11px] text-muted-foreground">
+              {T("цени от", "prices from")}{" "}
+              {fmtPriceDate(deals.latestDate, lang)}
+            </div>
+          ) : null}
           <ul className="space-y-0.5 text-xs">
             {(deals?.deals ?? []).slice(0, 4).map((d) => (
               <li key={d.slug} className="flex justify-between gap-2">
@@ -292,7 +307,8 @@ export const PricesScreen: FC = () => {
           title={T("Виновно ли е еврото?", "Is the euro to blame?")}
           icon={Coins}
         >
-          <EuroVerdictTile />
+          {/* compact: the page footer already carries the not-CPI clause. */}
+          <EuroVerdictTile compact />
         </DashTile>
 
         {/* € per kilo */}
@@ -364,6 +380,24 @@ export const PricesScreen: FC = () => {
           <Tag className="size-3" />
           {t("prices_not_cpi")}
         </span>
+        {/* One sentence tying the page's three dates together. Without it the
+            hero's two ("спрямо …", "към …") read as the whole story while six
+            of the newest days are being withheld — the state the page was in
+            when production and localhost disagreed by 2.3 points. It also gives
+            the hero's second date an antecedent: "към 8.08" is otherwise a bare
+            number on a page carrying five of them. */}
+        {index?.latestDate ? (
+          <span>
+            {freshnessSentence(
+              {
+                latestLabel: fmtPriceDate(index.latestDate, lang),
+                headlineLabel: headline ? fmtPriceDate(headline.d, lang) : "",
+                tail: withheldTail,
+              },
+              lang,
+            )}
+          </span>
+        ) : null}
         {index?.source?.url ? (
           <a
             href={index.source.url}
