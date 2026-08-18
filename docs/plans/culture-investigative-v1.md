@@ -184,22 +184,54 @@ either. Film subsidy is **13% of the money on this page's subject** and 100% of 
 
 ## 1.2 Tier 0 — the EIK register (blocks everything else)
 
-`src/lib/kulturaReferenceData.ts` freezes an allowlist of **23** EIKs — 3 funders
-(`CULTURE_FUNDER_EIKS`) + 20 `STATE_CULTURE_INSTITUTES`, exported as `CULTURE_GROUP_EIKS`.
-Measured coverage:
+**ⓒ DONE 2026-08-18 (T0.6 → T0.1/T0.3/T0.4/T0.5 + the gate).** The register now carries
+**FOUR** declared lists and 78 classified EIKs, and `scripts/db/tests/culture_register.data.test.ts`
+enumerates candidates from the corpus and fails on any unclassified buyer over €200k.
 
-| Tier                                    | Buyers        | Contracts       | Money        | Single-bid          | Status                                                                                      |
-| --------------------------------------- | ------------- | --------------- | ------------ | ------------------- | ------------------------------------------------------------------------------------------- |
-| **ⓐ** A — funders + verified institutes | **23** ~~21~~ | **677** ~~674~~ | **€146.46m** | **40.0%** (179/447) | **in the roll-up**                                                                          |
-| B — national art schools incl. **НУКК** | 10            | 196             | €9.48m       | **53.0% (71/134)**  | **absent from the file entirely**                                                           |
-| C — verify-principal (theatres/museums) | 9             | 75              | €14.22m      | 37.1%               | listed in `VERIFY_PRINCIPAL_EIKS`, excluded from the roll-up                                |
-| **ⓐ** D — Шипка-Бузлуджа, НХА, НАИМ     | 3             | 94              | €31.96m      | 27.1%               | ~~absent~~ **two of the three are in `EXCLUDED_EIKS` with a declared principal** — see T0.6 |
-| E — народни читалища                    | 86            | 134             | €18.05m      | 20.0%               | out of scope by design                                                                      |
-| **Universe**                            | **129**       | **1,173**       | **€219.68m** |                     | **~67% of the money in scope**                                                              |
+**T0.6, decided:** the ROLL-UP stays _principal = МК_ — this file's founding rule, and what keeps
+НАТФИЗ and НХА treated alike — and the bodies that rule turns away get a declared `ADJACENT_EIKS`
+list rather than the anti-allowlist. The old `EXCLUDED_EIKS` was carrying two different claims
+under one name: „this is not a culture body" (Община Куклен, a regex false match) and „this is a
+culture body that answers to somebody else" (Националният военноисторически музей). Reading the
+second as the first is what made Tier D look „absent" in this plan when it had been documented all
+along, and why €28.6m of art-academy procurement had no home. Adjacent bodies are declared,
+gate-accepted, surfaceable as a labelled band, and in no roll-up, headline or €-total.
+
+What the sweep then found — the reason a gate beats a re-read: **20 more unclassified buyers over
+€200k**, in none of the plan's Tier B/C/D lists. Three were plainly state (Държавна опера — Стара
+Загора, a Държавен куклен театър, НИНКН → roll-up), one БАН (→ adjacent), three municipal or NGO
+(→ excluded), and thirteen were the regional museum/library/theatre class Tier C exists for
+(→ verify-principal: listed, not resolved).
+
+Measured coverage, re-derived after the change:
+
+| Tier                                         | Buyers                | Contracts | Money            | Single-bid          | Status                                                                                         |
+| -------------------------------------------- | --------------------- | --------- | ---------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
+| **ⓒ A — funders + institutes + art schools** | **42** of 45 declared | **881**   | **€157,944,723** | **42.0%** (260/619) | **the roll-up**                                                                                |
+| — of which **B art schools** (was absent)    | **17**                | 186       | €10.19m          | **46.5% (72/155)**  | **+5.6 pts over the 40.9% baseline**                                                           |
+| **ⓒ C — verify-principal**                   | **31** of 38          | 152       | €19.60m          | 40.6%               | listed, unresolved; T3.1 settles them                                                          |
+| **ⓒ D — adjacent (non-МК principal)**        | **13**                | 434       | €49.80m          | 28.6%               | **NEW declared list** — higher-ed arts, БАН, МО, МЗХ                                           |
+| **ⓒ E — народни читалища**                   | **86**                | 134       | €18.05m          | 20.0%               | labelled sub-group, by NAME rule (T0.5)                                                        |
+| — excluded (not culture bodies)              | 16 of 17              | —         | _n/a_            | —                   | two are whole MUNICIPALITIES, so a €-total here is their entire procurement, not culture money |
+| **ⓒ Universe (the gate's sweep)**            | **220**               | **1,887** | **€275,747,377** | 40.5%               | **57% of the money is in the roll-up**                                                         |
+
+All rows are `tag = 'contract'` — amendments excluded, as everywhere else in this plan. Buyer
+counts read „declared EIKs that actually procure": the roll-up declares 45 and 42 have contracts
+(НФЦ never procures; two state puppet theatres have published procedures but no award).
+
+⚠️ **The plan's own tier table was wrong in five places and every one was a hand-count.** Tier B
+is 17 schools, not 10 (€10.19m at 46.5%, not €9.48m at 53.0% — and that 53.0% was ALSO published
+in `kulturaReferenceData.ts`, where the corpus never reproduced it); Tier C is 38 declared, not
+9; Tier D is a 13-member class, not 3; the universe is 220 buyers / €275.7m, not 129 / €219.7m;
+and the sweep found buyers in `tenders` a contracts-only count can never see, including two state
+theatres that belong in the roll-up. Nothing here is hand-counted now — the gate derives the
+candidate set from BOTH corpora.
+the register is hand-counted now — the gate derives the candidate set from `contracts`.
 
 - **ⓐ T0.0 — ✅ DONE (2026-08-18) — `src/lib/cultureMatch.ts` + `scripts/db/tests/culture_match.data.test.ts`.**
-  It found that the ИСУН headline was ~73% false positives and INVERTED the plan's
-  central money claim (see the ⚠️ in §0). Original statement of the task: Four of the plan's headline
+  It found the ИСУН headline was ~70% false positives AND that the first correction carried a
+  false negative of its own; the plan's central money claim went €474m → €129m → €147m before
+  settling at „the same size as procurement“ (see the ⚠️ in §0). Original statement: Four of the plan's headline
   figures are stated without a reproducible basis, which is §0's own rule failing on itself.
   Land these as **one exported module** (`scripts/culture/cultureMatch.ts` or similar) plus a
   test that pins each number, and re-derive §0 from it:
@@ -214,16 +246,28 @@ Measured coverage:
      restate everything on `CULTURE_GROUP_EIKS`.
      Nothing downstream — no tile, no blob, no gate — can be written against a set nobody can
      reconstruct. This is now step 1's first item.
-- **T0.1 — Add Tier B (10 EIKs).** МК-principal national art schools, in none of the file's
+- **ⓒ T0.1 — ✅ DONE. Fifteen, not ten.** МК-principal national art schools, in none of the file's
   three lists. **НУКК `831154303`** is the largest buyer in the ACF story (€3.20m) and appears
   in no roll-up, roster, map or search box. Highest single-bid tier in the universe.
-- **T0.2 — Resolve Tier C (9 EIKs, €14.22m).** Pending since v1 §15; now the difference
+- **ⓒ T0.2 — still open, and now 22 EIKs / €18.47m rather than 9 / €14.22m.** Pending since v1 §15; now the difference
   between a €146m and a €160m sector. Resolve from the МК ДКИ register (T3.1).
-- **T0.3 — Settle МГТ „Зад канала" `000677194`.** ACF says principal = МК; our
-  `EXCLUDED_EIKS` says Столична община. Record the **evidence**, not just the verdict.
-- **T0.4 — `awarder_seats` row for `000677194`.** It has none, so the theatre is invisible to
-  `/procurement/by-settlement`, the settlement payloads and every place surface.
-- **T0.5 — Decide Tier E (читалища).** €18.05m of procurement, **€22.1m of EU grants across
+- **ⓒ T0.3 — ✅ EVIDENCE RECORDED; the verdict deliberately did NOT move.** ACF says principal
+  = МК; the theatre is an ОКИ of Столична община and appears in no МК ДКИ listing. The two
+  claims are not reconciled from a primary source, so `EXCLUDED_EIKS` now carries both and
+  names T3.1 as what settles it — municipal being the reading that does not put a municipal
+  theatre into a state roll-up.
+- **ⓒ T0.4 — ✅ DONE, and it was NINE buyers, not one.** The theatre had no seat; nor did eight
+  more roll-up members, led by Държавен куклен театър — Варна at €3.16m — all invisible to
+  `/procurement/by-settlement`, the settlement payloads and every place surface, while their
+  money still counted in every national total. Fixed generically rather than per body:
+  `CURATED_AWARDER_SEATS` in `scripts/procurement/enrich_awarder_seats.ts` sits between the geo
+  block (evidence) and the name parse (a heuristic), takes a settlement NAME rather than an
+  EKATTE code so it stays reviewable, and resolves through the same resolver — so a curated
+  entry cannot invent a place. Eight seeded; `000804072` („Държавен куклен театър“) is
+  deliberately left unresolved because the corpus names no city and a guess would invent one.
+- **ⓒ T0.5 — ✅ DECIDED as recommended: a labelled sub-group**, defined by the NAME rule
+  `chitalishteNameSql()` rather than an allowlist — there are ~3,000 читалища, they turn over,
+  and the register gate treats a name match as classified. Original note: €18.05m of procurement, **€22.1m of EU grants across
   1,196 beneficiaries**, and the largest culture stream (€88.3m/yr). Recommend: a labelled
   sub-group, excluded from the headline, reachable from it. ⓐ Note the ceiling: the
   `awarder-group-model` route **caps at 300 EIKs and silently `slice(0,300)`s the excess**

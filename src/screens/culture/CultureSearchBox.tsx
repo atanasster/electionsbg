@@ -21,6 +21,7 @@ import { buildMembersIndex } from "@/screens/sector/membersIndex";
 import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
+  ART_SCHOOLS,
   NFC_EIK,
 } from "@/lib/kulturaReferenceData";
 
@@ -38,14 +39,14 @@ export const CultureSearchBox: FC = () => {
           eik: b.eik,
           name: { bg: b.bg, en: b.en },
         })),
-        ...STATE_CULTURE_INSTITUTES.filter((i) => !seen.has(i.eik)).map(
-          (i) => ({
+        ...[...STATE_CULTURE_INSTITUTES, ...ART_SCHOOLS]
+          .filter((i) => !seen.has(i.eik))
+          .map((i) => ({
             eik: i.eik,
             // The institute list is Bulgarian-only (proper nouns); the BG label
             // doubles as the en one, as the awarders tile already does.
             name: { bg: i.bg, en: i.bg },
-          }),
-        ),
+          })),
       ],
       bg,
     );

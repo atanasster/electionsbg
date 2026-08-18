@@ -87,7 +87,7 @@ const seatCandidates = (eik: string, rollupName: string): string[] => {
 
 const seatFromEntry = (
   entry: EkatteEntry,
-  source: "geo" | "name",
+  source: AwarderSeat["source"],
   geo?: AwarderRollup["geo"],
 ): AwarderSeat => ({
   ekatte: entry.ekatte,
@@ -110,9 +110,51 @@ const sameSeat = (a: AwarderSeat | undefined, b: AwarderSeat): boolean =>
   a.isVillage === b.isVillage &&
   a.source === b.source;
 
-// Resolve one awarder's seat: prefer its already-resolved buyer-HQ EKATTE, else
-// a UNIQUE settlement name parsed from the buyer's name variants (ambiguous →
-// none). Shared by the JSON enrichment and the PG loader.
+/** Buyers whose seat NEITHER source can find: no cached geo block, and a name
+ *  carrying no settlement to parse („Държавен куклен театър", „Национален фонд
+ *  Култура"). Both fallbacks are silent, so such a buyer is simply absent from
+ *  `/procurement/by-settlement`, from every settlement payload and from every
+ *  place surface — with its money still counted in every national total, so
+ *  nothing fails to reconcile.
+ *
+ *  Measured 2026-08-18 on the culture register alone: NINE of its 41 roll-up
+ *  members had no seat, led by Държавен куклен театър — Варна at €3.16m. The
+ *  culture plan (T0.4) had spotted one of them.
+ *
+ *  The value is a SETTLEMENT NAME, not an EKATTE code, and deliberately: it is
+ *  reviewable by someone who does not have the registry open, and it is resolved
+ *  through the same `getResolver()` every other seat goes through — so a curated
+ *  entry cannot invent a settlement that does not exist, and an ambiguous one is
+ *  refused exactly as a parsed name would be.
+ *
+ *  ⚠️ Add an entry only when the seat is a documented fact about the body, never
+ *  to make a number move: a wrong seat is a claim about a place. Note the map
+ *  does NOT bypass the „unique settlement name only" guard — the value goes
+ *  through `resolver.resolve()` like any parsed name, so an ambiguous or
+ *  non-existent settlement yields nothing. What it bypasses is the requirement
+ *  that the name be found IN THE BUYER'S OWN NAME, which is why each entry
+ *  needs a source. */
+export const CURATED_AWARDER_SEATS: Record<string, string> = {
+  // Culture (kulturaReferenceData.ts) — seats from each body's own statute/site.
+  "000083665": "Варна", // Държавен куклен театър — Варна
+  "000670984": "София", // Национален музей на българското изобразително изкуство
+  "000670890": "София", // Държавен фолклорен ансамбъл „Филип Кутев“
+  "121710606": "София", // Национален институт за недвижимо културно наследство
+  "130418031": "София", // Национален фонд „Култура“
+  "108505799": "Кърджали", // Театрално-музикален център — Кърджали
+  "123089870": "Стара Загора", // Държавна опера — Стара Загора
+  "000677194": "София", // Малък градски театър „Зад канала“ — the plan's T0.4
+  // The corpus DOES name this one — „Държавен куклен театър - Пловдив" appears
+  // in both contracts and tenders — but the name parser misses it because the
+  // city follows a bare dash rather than a settlement marker (гр./с.). That is
+  // the general shape this map is for: the fact is in the data, the heuristic
+  // cannot reach it.
+  "000804072": "Пловдив",
+};
+
+// Resolve one awarder's seat: prefer its already-resolved buyer-HQ EKATTE, then
+// a curated seat, else a UNIQUE settlement name parsed from the buyer's name
+// variants (ambiguous → none). Shared by the JSON enrichment and the PG loader.
 const resolveSeat = (
   aw: AwarderRollup,
   resolver: ReturnType<typeof getResolver>,
@@ -121,6 +163,16 @@ const resolveSeat = (
   const geoEkatte = aw.geo?.ekatte;
   if (geoEkatte && byEkatte.has(geoEkatte)) {
     return seatFromEntry(byEkatte.get(geoEkatte)!, "geo", aw.geo);
+  }
+  // After geo (which is evidence from the buyer's own filings) and before the
+  // name parse (a heuristic) — a curated seat is a stated fact, so it outranks
+  // a guess but never overrides the buyer's own address.
+  const curated = CURATED_AWARDER_SEATS[aw.eik];
+  if (curated) {
+    const r = resolver.resolve({ locality: curated });
+    // Stamped "curated", never "name": the seat did not come from the buyer's
+    // name and an audit must not be told it did.
+    if (r.ekatte && r.matched) return seatFromEntry(r.matched, "curated");
   }
   const resolved = new Map<string, EkatteEntry>();
   for (const c of seatCandidates(aw.eik, aw.name)) {
@@ -156,6 +208,7 @@ export interface EnrichSeatsResult {
   total: number;
   fromGeo: number;
   fromName: number;
+  fromCurated: number;
   unresolved: number;
   conflicts: number;
   written: number;
@@ -173,6 +226,7 @@ export const enrichAwarderSeats = (
     total: 0,
     fromGeo: 0,
     fromName: 0,
+    fromCurated: 0,
     unresolved: 0,
     conflicts: 0,
     written: 0,
@@ -193,6 +247,7 @@ export const enrichAwarderSeats = (
       continue;
     }
     if (seat.source === "geo") res.fromGeo += 1;
+    else if (seat.source === "curated") res.fromCurated += 1;
     else res.fromName += 1;
 
     if (sameSeat(aw.seat, seat)) {

@@ -269,8 +269,13 @@ export interface AwarderSeat {
   oblast: string;
   isVillage: boolean;
   /** Provenance: "geo" = from the resolved buyer-HQ EKATTE; "name" = parsed
-   *  from a unique settlement name in the awarder's contract-name variants. */
-  source: "geo" | "name";
+   *  from a unique settlement name in the awarder's contract-name variants;
+   *  "curated" = a hand-entered seat from CURATED_AWARDER_SEATS, for a buyer
+   *  neither source can reach. The three are NOT interchangeable — "geo" is the
+   *  buyer's own filed address, "name" is a heuristic over its name, "curated"
+   *  is a human's claim — so anything auditing where a place came from must be
+   *  able to tell them apart. */
+  source: "geo" | "name" | "curated";
   /** Buyer tier + local-HQ flag (from the geo block; only "geo"-source seats
    *  carry them). Lets the DB by-settlement rollup replicate the offline
    *  builder's local-vs-national split without re-running classifyAwarder. */

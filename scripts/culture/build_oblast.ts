@@ -5,9 +5,17 @@
 //
 //   npx tsx scripts/culture/build_oblast.ts
 //
-// Needs Postgres (awarder_seats + contracts_list). Stable output — the institute
-// allowlist rarely changes — so it's a one-off enrichment, separate from the
-// offline film ingest.
+// Needs Postgres (awarder_seats + contracts_list).
+//
+// RE-RUN IT WHEN, and none of these is automatic — `data/culture/oblast.json` is
+// COMMITTED, so it goes stale in the repo while every input moves underneath it:
+//   - kulturaReferenceData.ts gains or reclassifies an EIK (the register gate
+//     will tell you; it sweeps the corpus, this does not);
+//   - db:load:awarder-seats:pg runs, or CURATED_AWARDER_SEATS changes — that is
+//     what puts a body on the map at all, and 9 roll-up members had no seat
+//     until 2026-08-18;
+//   - the contracts corpus reloads (the € per oblast is summed from it).
+// There is no watcher and no db:refresh step for it.
 
 import fs from "fs";
 import path from "path";
@@ -15,6 +23,7 @@ import { fileURLToPath } from "url";
 import { allRows, getPool } from "../db/lib/pg";
 import {
   STATE_CULTURE_INSTITUTE_EIKS,
+  ART_SCHOOL_EIKS,
   VERIFY_PRINCIPAL_EIKS,
 } from "../../src/lib/kulturaReferenceData";
 
@@ -28,18 +37,24 @@ interface Row {
   settlement: string | null;
   name: string | null;
   eur: string | null;
-  n: string | null;
 }
 
 const main = async () => {
-  const eiks = [...STATE_CULTURE_INSTITUTE_EIKS, ...VERIFY_PRINCIPAL_EIKS];
+  // Tier B (the МК art schools) is in the map because T0.1's whole point is
+  // that those fifteen buyers were invisible to "no roll-up, roster, map or
+  // search box" at once — the map is one of the four, so leaving it reading a
+  // narrower list than the roll-up would fix three of them and keep this one.
+  const eiks = [
+    ...STATE_CULTURE_INSTITUTE_EIKS,
+    ...ART_SCHOOL_EIKS,
+    ...VERIFY_PRINCIPAL_EIKS,
+  ];
   const rows = await allRows<Row>(
     `select s.eik,
             s.oblast,
             s.settlement,
             min(cl.awarder_name) as name,
-            round(sum(cl.amount_eur)) as eur,
-            count(cl.*) as n
+            round(sum(cl.amount_eur)) as eur
        from awarder_seats s
        left join contracts_list cl
          on cl.awarder_eik = s.eik and cl.tag = 'contract'
@@ -101,12 +116,21 @@ const main = async () => {
     generatedAt: new Date().toISOString(),
     source: {
       publisher:
-        "Търговски регистър (седалище) + регистър на обществените поръчки (АОП/ЦАИС ЕОП)",
+        "Регистър на обществените поръчки (АОП/ЦАИС ЕОП) — седалища и поръчки",
       description:
-        "Държавни културни институти (театри, опери, музеи, библиотеки) по област, локализирани по седалище от ТР; обществените им поръчки — от АОП/ЦАИС ЕОП. Субсидиите се плащат извън ЗОП.",
+        "Културни институции по област: държавни институти (театри, опери, музеи, библиотеки), националните училища по изкуствата на МК и институциите с неизяснен принципал. Седалището идва от адреса на възложителя в ЦАИС ЕОП (или, за малка част, от името му), а не от Търговския регистър — повечето от тях изобщо не са в ТР. Поръчките са от АОП/ЦАИС ЕОП; субсидиите се плащат извън ЗОП.",
     },
     resolvedInstitutes: resolved,
     totalInstitutes: eiks.length,
+    // What `instituteCount` counts, stated rather than implied: this file mixes
+    // three tiers that the register keeps apart, because a MAP wants everything
+    // with a place on it. A consumer that needs the roll-up alone must filter by
+    // EIK against CULTURE_GROUP_EIKS rather than trusting these counts.
+    tiers: {
+      institutes: STATE_CULTURE_INSTITUTE_EIKS.length,
+      artSchools: ART_SCHOOL_EIKS.length,
+      verifyPrincipal: VERIFY_PRINCIPAL_EIKS.length,
+    },
     oblasts,
   };
 

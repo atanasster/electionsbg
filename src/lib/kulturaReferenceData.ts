@@ -9,9 +9,17 @@
 // "culture" awarders, including МО military museums and БАН institutes. So every
 // EIK below is hand-classified by PRINCIPAL (принципал).
 //
-// CORPUS AUDIT: 2026-07-10, against `contracts_list` ∪ `tenders` in local
-// Postgres. Nothing re-checks this map, so it WILL drift as new culture awarders
-// appear. Re-run the resolution query in the plan (§2) before relying on it.
+// CORPUS AUDIT: continuous since 2026-08-18. `scripts/db/tests/culture_register.data.test.ts`
+// sweeps BOTH corpora (contracts by awarded €, tenders by estimated €, floor
+// €200k each), subtracts the four declared lists and the читалища name rule, and
+// FAILS on anything left over — so a new culture awarder now breaks a test
+// instead of silently going missing. The sentence this replaces („nothing
+// re-checks this map, so it WILL drift") was true for thirteen months and cost
+// fifteen art schools, three state theatres and a national institute.
+//
+// What the gate does NOT check: whether a classification is RIGHT. It only
+// requires that one exists. Principal is still a human judgement, and T3.1 (МК's
+// ДКИ register) is what will make it verifiable.
 //
 // COMPLETENESS: МК administers ~103 second-level spending units (74 are ДКИ, per
 // Дирекция СИХО). This is a VERIFIED SUBSET — the corpus only surfaces units that
@@ -20,6 +28,17 @@
 // the НФЦ film register is keyed by producer NAME, not institute EIK, so Phase-1
 // film tiles need only Tier A; this allowlist gates Phase 2 (group roll-up) and
 // the awarder roster (tile 6).
+//
+// THE FOUR LISTS, and why there are four rather than three (T0.6, 2026-08-18):
+//   CULTURE_GROUP_EIKS   — the roll-up. Principal = МК. Funders + institutes +
+//                          the art schools. This is what every € total means.
+//   VERIFY_PRINCIPAL_EIKS — държавен-or-общински genuinely unsettled. Listed so
+//                          they cannot drift; excluded from the roll-up.
+//   ADJACENT_EIKS        — a REAL cultural body whose principal is not МК
+//                          (higher-ed arts, БАН, МО, other ministries).
+//   EXCLUDED_EIKS        — not a cultural body at all: municipal, an NGO, or a
+//                          plain regex false match.
+// A body belongs to exactly one, and the gate asserts it.
 
 /** Who a culture entity answers to — its budget principal. Only `mk` entities
  *  belong in the culture group roll-up; the rest are documented so they can't be
@@ -37,13 +56,13 @@ export type CulturePrincipal =
  *  that carries the culture sector pack. 268 contracts, ~€57.2M (thin & lumpy). */
 export const KULTURA_EIK = "000695160";
 
-/** ИА „Национален филмов център" (НФЦ) — RESOLVED 2026-07-10 (finansi.bg; an
+/** ИА „Национален филмов център“ (НФЦ) — RESOLVED 2026-07-10 (finansi.bg; an
  *  administration under the Minister of Culture, founded 1991). It has ZERO
  *  procurement footprint (0 awarder / tender / contractor): it is the FILM
  *  SUBSIDY PAYER, a labelled roster entity, never a roll-up contributor. */
 export const NFC_EIK = "000695833";
 
-/** Национален фонд „Култура" (НФК) — grant payer; tiny procurement (~€0.49M). */
+/** Национален фонд „Култура“ (НФК) — grant payer; tiny procurement (~€0.49M). */
 export const NCF_EIK = "130418031";
 
 /** Tier A — the three funders/agencies. Bulstat entities (регистър БУЛСТАТ), NOT
@@ -81,11 +100,105 @@ export const STATE_CULTURE_INSTITUTES: readonly { eik: string; bg: string }[] =
     { eik: "124609886", bg: "ДКИ Културен център „Двореца“ (Балчик)" },
     { eik: "175932425", bg: "Театрално-музикален продуцентски център — Варна" },
     { eik: "108505799", bg: "Театрално-музикален център — Кърджали" },
+    // Added 2026-08-18 by the register gate's corpus sweep — „Държавен/Държавна"
+    // or a national institute by statute (ЗКН чл. 15), i.e. the same class as the
+    // entries above. All three were undeclared.
+    { eik: "123089870", bg: "Държавна опера — Стара Загора" },
+    { eik: "000804072", bg: "Държавен куклен театър" },
+    {
+      eik: "121710606",
+      bg: "Национален институт за недвижимо културно наследство (НИНКН)",
+    },
+    // Added 2026-08-18 by the register gate's TENDERS arm — both „Държавен",
+    // both invisible to a contracts-only sweep because neither has ever been
+    // AWARDED a contract in the corpus, only published procedures.
+    { eik: "000044566", bg: "Държавен куклен театър — Бургас" },
+    { eik: "000154660", bg: "Държавен куклен театър" },
   ];
 
 /** Just the EIKs — derived, so the group roll-up / oblast build keep working. */
 export const STATE_CULTURE_INSTITUTE_EIKS: readonly string[] =
   STATE_CULTURE_INSTITUTES.map((i) => i.eik);
+
+// ------------------------------------------- Tier B · national art schools ---
+
+/** МК's national schools of the arts — второстепенни разпоредители с бюджет под
+ *  Министерството на културата, and the tier this file was missing entirely
+ *  until 2026-08-18. Seventeen of them procure; NONE was in any of the three
+ *  lists, so every one was invisible to the roll-up, the roster, the oblast map
+ *  and the search box at once.
+ *
+ *  ⚠️ THE WORST-COMPETING TIER IN THE SECTOR — 46.5% single-bid (72 of 155
+ *  bid-known) against a 40.9% national baseline. (The plan carried 53.0%
+ *  (71/134) for this tier; no basis in the corpus reproduces it.) That is the reason the omission mattered:
+ *  the sector's most competition-poor tier was the one absent from its own
+ *  dashboard. НУКК `831154303` is the largest of them and the buyer the ACF
+ *  „Милиони зад кулисите“ story turns on.
+ *
+ *  BASIS: the naming convention is decisive for principal here — „Национално
+ *  училище по изкуствата / за музикално, танцово, фолклорно, изящно изкуство"
+ *  and „Национална гимназия за приложни изкуства“ are МК units, while a
+ *  „Национална гимназия“ for humanities or ancient languages is МОН. The three
+ *  МОН look-alikes this rule rejects are documented in EXCLUDED_EIKS so a later
+ *  sweep cannot re-admit them. T3.1 (МК's ДКИ register) is what turns this from
+ *  a convention into a verified list. */
+export const ART_SCHOOLS: readonly { eik: string; bg: string }[] = [
+  { eik: "831154303", bg: "Национален учебен комплекс по култура (НУКК)" },
+  {
+    eik: "000212722",
+    bg: "Национална гимназия за приложни изкуства „Тревненска школа“",
+  },
+  {
+    eik: "000403460",
+    bg: "Национално училище по изкуствата „Панайот Пипков“ — Плевен",
+  },
+  {
+    eik: "000610128",
+    bg: "Национално училище за фолклорни изкуства „Широка лъка“",
+  },
+  { eik: "000044210", bg: "НУМСИ „Проф. Панчо Владигеров“ — Бургас" },
+  {
+    eik: "000522379",
+    bg: "Национално училище по изкуствата „Проф. Веселин Стоянов“ — Русе",
+  },
+  {
+    eik: "000083302",
+    bg: "Национално училище по изкуствата „Добри Христов“ — Варна",
+  },
+  { eik: "000669799", bg: "Национално училище за танцово изкуство — София" },
+  {
+    eik: "000669678",
+    bg: "Национална гимназия за приложни изкуства „Свети Лука“ — София",
+  },
+  {
+    eik: "000669781",
+    bg: "Национално училище за изящни изкуства „Илия Петров“ — София",
+  },
+  {
+    eik: "000458930",
+    bg: "Национална гимназия за сценични и екранни изкуства — Пловдив",
+  },
+  {
+    eik: "000582700",
+    bg: "Национално училище за фолклорни изкуства „Филип Кутев“ — Котел",
+  },
+  { eik: "000455029", bg: "НУМТИ „Добрин Петков“ — Пловдив" },
+  { eik: "000803725", bg: "НУПИД „Акад. Дечко Узунов“ — Казанлък" },
+  { eik: "000807453", bg: "НУМСИ „Христина Морфова“ — Стара Загора" },
+  // „Национална художествена гимназия" — the naming variant the first sweep
+  // missed (it looked for „училище по изкуствата" and „гимназия за приложни
+  // изкуства"). Both МК; found by the gate's TENDERS arm.
+  {
+    eik: "000585002",
+    bg: "Национална художествена гимназия „Димитър Добрович“ — Сливен",
+  },
+  {
+    eik: "000458948",
+    bg: "Национална художествена гимназия „Цанко Лавренов“ — Пловдив",
+  },
+];
+
+export const ART_SCHOOL_EIKS: readonly string[] = ART_SCHOOLS.map((s) => s.eik);
 
 /** The culture group roll-up set — Tier A funders + verified Tier B institutes.
  *  This is the `awarder_eik IN (...)` list for the group roll-up and the sector
@@ -93,6 +206,7 @@ export const STATE_CULTURE_INSTITUTE_EIKS: readonly string[] =
 export const CULTURE_GROUP_EIKS: readonly string[] = [
   ...CULTURE_FUNDER_EIKS,
   ...STATE_CULTURE_INSTITUTE_EIKS,
+  ...ART_SCHOOL_EIKS,
 ];
 
 // --------------------------------------------- verify-principal (pending) ----
@@ -103,92 +217,302 @@ export const CULTURE_GROUP_EIKS: readonly string[] = [
 export const VERIFY_PRINCIPAL_EIKS: readonly string[] = [
   "000282756", // Драматичен театър — Ловеч
   "000867998", // Драматичен театър — Търговище
-  "000124037", // Музикално-драматичен театър „К. Кисимов" — В. Търново
-  "000403802", // Драматично-куклен театър „Иван Радоев" — Плевен
-  "000014352", // Драматичен театър „Н. Й. Вапцаров" — Благоевград
+  "000124037", // Музикално-драматичен театър „К. Кисимов“ — В. Търново
+  "000403802", // Драматично-куклен театър „Иван Радоев“ — Плевен
+  "000014352", // Драматичен театър „Н. Й. Вапцаров“ — Благоевград
   "176362469", // Регионален исторически музей — София
   "000083697", // Регионален исторически музей — Варна
   "126128563", // Регионален исторически музей — Хасково
-  "000210397", // Архитектурно-етнографски комплекс „Етър" — Габрово
+  "000210397", // Архитектурно-етнографски комплекс „Етър“ — Габрово
+  // Added 2026-08-18 by the register gate's corpus sweep. Same class as the
+  // nine above — regional museums, libraries and theatres where държавен vs
+  // общински is genuinely ambiguous from the name alone — and all were
+  // undeclared. Listed, not silently dropped; T3.1's ДКИ register resolves them.
+  "000014384", // Регионален исторически музей — Благоевград (€1.23m)
+  "000523666", // Регионална библиотека „Любен Каравелов“ — Русе
+  "000455489", // Драматичен театър „Н. О. Масалитинов“ — Пловдив
+  "000343052", // Регионален исторически музей — Пазарджик
+  "000252994", // Регионален исторически музей „Акад. Й. Иванов“ — Кюстендил
+  "102826129", // Исторически музей — Малко Търново
+  "000085463", // Регионална библиотека „П. Р. Славейков“ — Велико Търново
+  "126004416", // Драматично-куклен театър „Иван Димов“ — Хасково
+  "000212487", // Музей „Дом на хумора и сатирата“ — Габрово
+  "000455585", // Регионален етнографски музей — Пловдив
+  "000868018", // Регионален исторически музей — Търговище
+  "175685416", // Регионален център на ЮНЕСКО за нематериално културно наследство
+  // From the TENDERS arm of the same sweep — procedures only, no awarded
+  // contract, so a contracts-only gate could never have seen them.
+  "112582278", // Драматично-куклен театър „Константин Величков“ — Пазарджик
+  "000124051", // Регионален исторически музей
+  "000609948", // Регионална библиотека „Николай Вранчев“
+  "000014391", // Археологически музей — Сандански
+  "821103584", // Исторически музей
+  "000923087", // Регионален исторически музей — Шумен
+  "176218487", // Исторически музей — Севлиево
+  "124700599", // Исторически музей — Каварна (€2.74m of procedures)
+  "175953608", // Исторически музей — Павликени
+  "114008855", // Регионален исторически музей (no city anywhere in the corpus)
+  "000804108", // Регионален исторически музей (no city anywhere in the corpus)
+  "000455592", // Регионален природонаучен музей — Пловдив
+  "176349482", // Регионален исторически музей — Габрово
+  "000455578", // Регионален археологически музей — Пловдив
+  "000522703", // Драматичен театър „Сава Огнянов“ — Русе
+  "831602703", // Профилирана гимназия по изобразителни изкуства „Проф. Н. Райнов“
+  //              — „Профилирана", not „Национална": likely МОН/общинска rather
+  //              than an МК art school, but the name alone does not settle it.
+  "000665644", // „Централна библиотека“ — almost certainly БАН's (its EIK sits
+  //              beside 000665612, the БАН natural-history museum), which would
+  //              make it ADJACENT rather than verify — but „almost certainly“
+  //              is not a classification, so it waits for T3.1 like the rest.
 ];
 
-// ------------------------------------------------- the anti-allowlist --------
+// ------------------------------------------------ adjacent (T0.6, decided) ---
 
-/** EXCLUDED — principal ≠ МК, or not an institute. Kept as documentation so a
- *  future name-match can't quietly re-admit them. `reason` names the principal. */
-export const EXCLUDED_EIKS: Record<
+/** CULTURE-ADJACENT — a real cultural body whose budget principal is NOT МК.
+ *
+ *  T0.6, decided 2026-08-18. The question was whether „the culture universe“ is
+ *  *principal = МК* or *everything a reader would call culture*, and the answer
+ *  is: the ROLL-UP stays principal = МК (this file's founding rule, and what
+ *  keeps НАТФИЗ and НХА treated alike), and the bodies the rule turns away get
+ *  their own DECLARED list instead of disappearing into the anti-allowlist.
+ *
+ *  Why it needed deciding at all: `EXCLUDED_EIKS` was carrying two different
+ *  claims under one name — „this is not a culture body“ (Община Куклен, a regex
+ *  false match) and „this is a culture body that answers to somebody else“
+ *  (Националният военноисторически музей). Reading the second as the first is
+ *  what made Tier D look „absent“ in the plan when it was documented all along,
+ *  and it is why €28.6m of art-academy procurement had no home.
+ *
+ *  What this list is FOR: the register gate accepts these as classified, so they
+ *  never show up as unclassified drift; the hub may surface them as a labelled
+ *  band („културни институции с друг принципал“); and no roll-up, headline or
+ *  €-total includes them. A reader is never told they do not exist — only that
+ *  somebody else pays for them.
+ *
+ *  What it is NOT: a waiting room. A body moves out of here only when its
+ *  principal actually changes, or when T3.1's ДКИ register proves the
+ *  classification wrong. */
+export type CultureAdjacentKind =
+  | "higher_ed_arts" // state arts university/academy — принципал МОН
+  | "ban_museum" // БАН institute that runs a museum
+  | "mo_museum" // Министерство на отбраната
+  | "other_ministry"; // a national museum under some other ministry
+
+export const ADJACENT_EIKS: Record<
   string,
-  { bg: string; principal: CulturePrincipal; reason: string }
+  { bg: string; kind: CultureAdjacentKind; reason: string }
 > = {
-  "129009048": {
-    bg: "Национален военноисторически музей",
-    principal: "mo",
-    reason: "МО",
+  "000670716": {
+    bg: "Национална художествена академия (НХА)",
+    kind: "higher_ed_arts",
+    reason:
+      "държавно висше училище, принципал МОН — €22.7m, the largest single " +
+      "non-МК culture buyer in the corpus",
   },
-  "114102692": {
-    bg: "Регионален военноисторически музей — Плевен",
-    principal: "mo",
-    reason: "МО",
+  "000670723": {
+    bg: "НАТФИЗ „Кръстьо Сарафов“",
+    kind: "higher_ed_arts",
+    reason: "държавно висше училище, принципал МОН",
   },
-  "129009016": {
-    bg: 'Театър „Българска армия"',
-    principal: "mo",
-    reason: "МО",
+  "000670552": {
+    bg: "Университет по библиотекознание и информационни технологии (УниБИТ)",
+    kind: "higher_ed_arts",
+    reason: "държавно висше училище, принципал МОН",
   },
-  "000804161": {
-    bg: 'Национален парк-музей „Шипка-Бузлуджа"',
-    principal: "mo",
-    reason: "МО",
+  "115013887": {
+    bg: "Академия за музикално, танцово и изобразително изкуство (АМТИИ) — Пловдив",
+    kind: "higher_ed_arts",
+    reason: "държавно висше училище, принципал МОН",
   },
   "000670919": {
-    bg: "Национален археологически институт с музей",
-    principal: "ban_mon",
+    bg: "Национален археологически институт с музей (НАИМ)",
+    kind: "ban_museum",
     reason: "БАН",
   },
   "000665612": {
     bg: "Национален природонаучен музей",
-    principal: "ban_mon",
+    kind: "ban_museum",
     reason: "БАН",
   },
   "175905773": {
     bg: "Институт за етнология и фолклористика с Етнографски музей",
-    principal: "ban_mon",
+    kind: "ban_museum",
     reason: "БАН",
   },
-  "000670723": {
-    bg: 'НАТФИЗ „Кръстьо Сарафов"',
-    principal: "ban_mon",
-    reason: "higher-ed / МОН",
+  "175905638": {
+    bg: "Институт по експериментална морфология, патология и антропология с музей",
+    kind: "ban_museum",
+    reason: "БАН — found undeclared by the register gate's sweep, €0.49m",
   },
+  "129009048": {
+    bg: "Национален военноисторически музей",
+    kind: "mo_museum",
+    reason: "МО",
+  },
+  "114102692": {
+    bg: "Регионален военноисторически музей — Плевен",
+    kind: "mo_museum",
+    reason: "МО",
+  },
+  "129009016": {
+    bg: "Театър „Българска армия“",
+    kind: "mo_museum",
+    reason: "МО",
+  },
+  "000804161": {
+    bg: "Национален парк-музей „Шипка-Бузлуджа“",
+    kind: "mo_museum",
+    reason: "МО",
+  },
+  "121022030": {
+    bg: "Национален земеделски музей",
+    kind: "other_ministry",
+    reason:
+      "Министерство на земеделието — a national museum, but not an МК one. " +
+      "Found by the gate's tenders arm; the fourth kind exists because the " +
+      "first three (higher-ed, БАН, МО) turned out not to exhaust the class.",
+  },
+};
+
+export const ADJACENT_EIK_LIST: readonly string[] = Object.keys(ADJACENT_EIKS);
+
+// ------------------------------------------------- the anti-allowlist --------
+
+/** EXCLUDED — NOT a state cultural institute at all: a municipal body, a
+ *  differently-principaled school, or a plain regex false match. Kept as
+ *  documentation so a future name-match can't quietly re-admit them.
+ *
+ *  ⚠️ Distinct from ADJACENT_EIKS above, and the distinction is the whole point
+ *  of T0.6: this list says „not one of these“, that one says „one of these, paid
+ *  for by somebody else". Putting a national museum here reads as a denial. */
+export const EXCLUDED_EIKS: Record<
+  string,
+  { bg: string; principal: CulturePrincipal; reason: string }
+> = {
   "103156991": {
     bg: "Дворец на културата и спорта ЕАД (Варна)",
     principal: "obshtina",
     reason: "municipal company (confirmed in ТР)",
   },
   "180849511": {
-    bg: 'ОКИ „Музейко"',
+    bg: "ОКИ „Музейко“",
     principal: "obshtina",
     reason: "municipal (ОКИ)",
   },
   "000677194": {
-    bg: 'Малък градски театър „Зад канала"',
+    bg: "Малък градски театър „Зад канала“",
     principal: "obshtina",
-    reason: "Столична община",
+    reason:
+      "Столична община. T0.3 — the EVIDENCE, not just the verdict: ACF's " +
+      "„Милиони зад кулисите“ calls the principal МК; the theatre is a " +
+      "второстепенен разпоредител of Столична община (it is an ОКИ, like " +
+      "Музейко above) and appears in no МК ДКИ listing. The two claims are " +
+      "not reconciled from a primary source yet — T3.1's ДКИ register " +
+      "settles it. Until then it stays municipal, which is the reading that " +
+      "does NOT put a municipal theatre into a state roll-up.",
   },
   "000455560": {
     bg: "Градска художествена галерия — Пловдив",
     principal: "obshtina",
     reason: "municipal (градска)",
   },
+  "176182033": {
+    bg: "Общинска фондация „Пловдив 2019“",
+    principal: "obshtina",
+    reason:
+      "общинска фондация — municipal, €0.73m, found undeclared by the " +
+      "register gate's sweep",
+  },
+  "121003584": {
+    bg: "ОКИ „Столична библиотека“",
+    principal: "obshtina",
+    reason: "общински културен институт — municipal, like Музейко above",
+  },
+  "000673477": {
+    bg: "Театър „София“",
+    principal: "obshtina",
+    reason: "Столична община — a municipal theatre, like Зад канала",
+  },
+  "831381016": {
+    bg: "Театрална работилница „Сфумато“",
+    principal: "obshtina",
+    reason: "Столична община",
+  },
+  "000133965": {
+    bg: "Община Свищов",
+    principal: "obshtina",
+    reason:
+      "a MUNICIPALITY — matched through its name variant Отдел „Образование и " +
+      "култура“. A municipal department is not a cultural institute.",
+  },
+  "000056764": {
+    bg: "Община Айтос",
+    principal: "obshtina",
+    reason:
+      "a MUNICIPALITY — matched through its name variant Дирекция „Образование, " +
+      "култура, вероизповедание, спорт и туризъм“. Same shape as Свищов above.",
+  },
+  "123559551": {
+    bg: "Сдружение „Нашенци“ — фолклорен ансамбъл",
+    principal: "obshtina",
+    reason: "сдружение (NGO), not a state or municipal cultural institute",
+  },
+  "177130790": {
+    bg: "Асоциация за култура, технологии, образование и развитие",
+    principal: "obshtina",
+    reason:
+      "сдружение (NGO), not a state or municipal cultural institute — an " +
+      "awarder only because it runs EU-funded projects",
+  },
   "115631816": {
     bg: "Община Куклен",
     principal: "obshtina",
-    reason: 'FALSE regex match on „куклен" — a municipality',
+    reason: "FALSE regex match on „куклен“ — a municipality",
   },
-  // Народни читалища (all „Народно читалище …") are principal `chitalishte`:
-  // independent legal entities, municipal-delegated — the читалища category
-  // (Phase 3, reconstructed from ДВ standards), NOT per-EIK state institutes.
+  "121330447": {
+    bg: "Българска федерация по художествена гимнастика",
+    principal: "obshtina",
+    reason:
+      "FALSE match on „художествена“ — rhythmic GYMNASTICS, €3.2m. The " +
+      "buyer-side twin of `изкуствен интелект`: the culture name matcher is " +
+      "calibrated on beneficiary names and this is what it does to " +
+      "awarder_name.",
+  },
+  "000087699": {
+    bg: "Национална гимназия за хуманитарни науки и изкуства „Константин Преславски“ — Варна",
+    principal: "ban_mon",
+    reason:
+      "МОН — a general-education gymnasium. One of the three look-alikes the " +
+      "Tier B naming rule rejects: „изкуства“ in the name, not an МК art school.",
+  },
+  "000674508": {
+    bg: "НГДЕК „Константин Кирил Философ“ — София",
+    principal: "ban_mon",
+    reason: "МОН — ancient languages and cultures, not an МК art school",
+  },
+  "000610929": {
+    bg: "Професионална гимназия за приложни изкуства — Смолян",
+    principal: "obshtina",
+    reason: "„Професионална“, not „Национална“ — МОН/municipal, not МК",
+  },
+  // Народни читалища (all „Народно читалище …“) are principal `chitalishte`:
+  // independent legal entities, municipal-delegated — see CHITALISHTE_NOTE.
 };
+
+/** T0.5, decided: народните читалища are a LABELLED SUB-GROUP, not members of
+ *  the roll-up and not excluded either. They are ~86 buyers / €18.05m of
+ *  procurement, €22.1m of ИСУН grants across 1,196 beneficiaries and €18.3m of
+ *  ДФЗ subsidy — the largest culture stream by beneficiary count and the only
+ *  culture presence in the farm-subsidy corpus at all.
+ *
+ *  They are not enumerated by EIK here, and deliberately so: there are ~3,000 of
+ *  them, they turn over, and every one carries „читалище“ in its name. The set
+ *  is defined by `chitalishteNameSql()` in `cultureMatch.ts` — a NAME rule for a
+ *  population no allowlist can track — and the register gate treats a name match
+ *  there as classified. */
+export const CHITALISHTE_NOTE =
+  "Народните читалища са самостоятелни юридически лица с общинско делегиране; " +
+  "броят им се мени, затова групата се определя по име, а не по списък с ЕИК.";
 
 // ------------------------------------------------------- roster (tile 6) -----
 
@@ -215,14 +539,14 @@ export const CULTURE_BODIES: {
   },
   {
     eik: NFC_EIK,
-    bg: 'ИА „Национален филмов център"',
+    bg: "ИА „Национален филмов център“",
     en: "National Film Center (executive agency)",
     noteBg: "субсидира филмовата продукция · извън ЗОП",
     noteEn: "subsidises film production · outside procurement",
   },
   {
     eik: NCF_EIK,
-    bg: 'Национален фонд „Култура"',
+    bg: "Национален фонд „Култура“",
     en: "National Culture Fund",
     noteBg: "грантове по конкурс · извън ЗОП",
     noteEn: "competitive grants · outside procurement",

@@ -13,6 +13,7 @@ import {
 import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
+  ART_SCHOOLS,
 } from "@/lib/kulturaReferenceData";
 
 export const CultureAwardersTile: FC = () => {
@@ -26,11 +27,21 @@ export const CultureAwardersTile: FC = () => {
     badge: b.hasPack ? (bg ? "с бюджетен разрез" : "with budget") : undefined,
     note: bg ? b.noteBg : b.noteEn,
   }));
-  // The state institutes beyond the headline bodies (proper-noun names, shown as
-  // published; no separate EN form).
-  const instituteRows: AwarderRow[] = STATE_CULTURE_INSTITUTES.filter(
-    (i) => !CULTURE_BODIES.some((b) => b.eik === i.eik),
-  ).map((i) => ({ eik: i.eik, name: i.bg }));
+  // The state institutes and the МК art schools beyond the headline bodies
+  // (proper-noun names, shown as published; no separate EN form).
+  //
+  // ART_SCHOOLS is here because being in the roll-up is not the same as being
+  // REACHABLE: the fifteen schools were added to CULTURE_GROUP_EIKS and to the
+  // oblast map first, which fixed the totals and left them absent from the two
+  // surfaces a reader actually clicks — this roster and the search box. They are
+  // also the sector's worst-competing tier (48.6% single-bid against a 40.9%
+  // national baseline), so omitting them hides exactly what a reader came for.
+  const instituteRows: AwarderRow[] = [
+    ...STATE_CULTURE_INSTITUTES,
+    ...ART_SCHOOLS,
+  ]
+    .filter((i) => !CULTURE_BODIES.some((b) => b.eik === i.eik))
+    .map((i) => ({ eik: i.eik, name: i.bg }));
 
   return (
     <AwarderListSection
