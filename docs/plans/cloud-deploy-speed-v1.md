@@ -3003,3 +3003,59 @@ Two rules follow:
   did not strand the four steps behind it — `graph`, `tr-company-place` and `refresh-risk`
   all ran, and the chain surfaced two independent failures in one pass instead of one per
   invocation.
+
+### F46 — the stage-merge `contracts` load still degrades readers, by a different mechanism than F9
+
+F9 measured the reader cost of the `tenders` load and found **rejection**: `55P03`,
+`canceling statement due to lock timeout`, behind a single 651-second
+`COPY tenders` AccessExclusive window. `contracts` is deliberately not built that way —
+it is stage-merged precisely so that "readers stay on the MVCC snapshot, never blocked"
+(CLAUDE.md). That property held here, and readers were degraded anyway.
+
+Cloud SQL logs from inside the contracts step, three seconds wide:
+
+```
+17:26:59.860 [767542] FATAL:  terminating background worker "parallel worker" due to administrator command
+             STATEMENT: SELECT left(cpv,2) AS value, count(*)::int AS count FROM contracts
+                        WHERE (tag IN ($1)) ... GROUP BY left(cpv,2) ORDER BY count DESC LIMIT 100
+17:27:00.084 [767535] db=electionsbg,user=app_readonly LOG:    could not send data to client: Broken pipe
+17:27:00.085 [767535] db=electionsbg,user=app_readonly FATAL:  connection to client lost
+17:27:01.577 [767509] db=electionsbg,user=app_readonly ERROR:  canceling statement due to statement timeout
+             STATEMENT: SELECT key, unp, ocid, tag, ... FROM contracts_list
+                        WHERE (tag IN ($1)) AND (cpv LIKE $2)
+                        ORDER BY amount_eur DESC NULLS LAST, key ASC LIMIT 25 OFFSET 0
+```
+
+Those two statements are the `/procurement/contracts` browser's page query and its CPV
+facet count — ordinary user traffic, on the site's most-visited procurement surface.
+
+The distinction from F9 is the whole point, because it changes what a fix has to target:
+
+| | F9 (`tenders`) | F46 (`contracts`) |
+|---|---|---|
+| load shape | TRUNCATE + COPY | stage merge |
+| lock on the served table | AccessExclusive, ~11 min | RowExclusive only |
+| what the reader gets | `55P03` lock timeout — **rejected** | `57014` statement timeout — **starved** |
+| cause | the lock | CPU/IO contention from `rebuild_contract_risk_cache()` |
+| does Phase 4 / RC4 fix it? | yes | **no** |
+
+So the stage-merge rewrite did what it was designed to do — no AccessExclusive window on
+`contracts` — and readers still failed, because the *dependent recompute* the same step
+runs afterwards saturates a 0.5-vCPU instance. `rebuild_contract_risk_cache()` was
+observed spilling temp files of 5.8 MB and 22.8 MB in this window.
+
+Two consequences:
+
+- **RC4's success criterion is incomplete.** "No exclusive lock on a served table" does not
+  imply "readers unaffected". The remaining exposure is contention, and it is invisible to
+  any lock-based probe — F9's sampler, which watches `pg_locks`, would report this window
+  as clean.
+- **The exposure is proportional to the recompute, not the corpus.** This run shipped 92
+  new contracts and still starved readers, which is F2 ("cost is decoupled from data
+  volume") reappearing on the availability axis rather than the time axis.
+
+The mitigation is not a lock change: it is to stop running the heavy dependent recompute
+inside the same step that just finished a COPY, or to run it off-peak. Note the routes
+hit here **do** degrade correctly on `55P03` per CLAUDE.md's contract, but `57014` is
+deliberately excluded from those degrade sets (a pool timeout is not something to retry
+into), so a starved reader gets a 500 rather than a narrower answer.
