@@ -2804,9 +2804,10 @@ as a routine step but as the **recovery** for step 1 (F42).
 | 7 | `persons-browse` | **1179** | 19.7 min | 174 → **+578%** (rc=1 — F41) |
 | 8 | `graph` | 335 | | 224 → +50% |
 | 9 | `tr-company-place` | 75 | | 132 → −43% |
-| 10 | `refresh-risk` | 1 → **>600** | | rc=1 at 1 s, then transient-free but long (F40) |
+| 10 | `refresh-risk` | 1 → **912** | 15.2 min | rc=1 at 1 s (transient), then clean on retry — F47 |
 | 11 | `gcs` (8 paths) | 27 | | ~40 |
-| | **total** | **~9,552+** | **2 h 39 m+** | |
+| 12 | `persons-browse` (retry) | **931** | 15.5 min | rc=0 — F47 |
+| | **total** | **11,394** | **3 h 10 m** | incl. both retries |
 
 Note the variance is **not uniform**, which argues against "the instance was slow today":
 `awarder-seats` reproduced within 0.6% and `tr-company-place` was the fastest ever
@@ -3059,3 +3060,55 @@ inside the same step that just finished a COPY, or to run it off-peak. Note the 
 hit here **do** degrade correctly on `55P03` per CLAUDE.md's contract, but `57014` is
 deliberately excluded from those degrade sets (a pool timeout is not something to retry
 into), so a starved reader gets a 500 rather than a narrower answer.
+
+### F47 — the recovery toolkit does not cover everything `db:load:pg` does, so a half-failed contracts load cannot be fully repaired
+
+F42 established `procurement-scopes` as the recovery for the six scoped matviews, and
+`db:refresh:risk:cloud` covers the two risk caches. Both were run here and both succeeded:
+
+```
+refresh-risk    rc=0  912 s   procurement_risk_indexes_cache 1,308,571 B (33 s)
+                              contract_risk_cache 409,392 rows (871 s)
+                              grades  A:256088  B:124716  C:24834  D:3244  E:429  F:81
+persons-browse  rc=0  931 s   136,863 persons (74,300 with ЗОП money)
+```
+
+After them, cloud matched local on 8 of 10 checked relations — `contracts` (409,392,
+max 2026-08-17), `tenders` (237,668), `procurement_annexes` (24,258), `awarder_seats`
+(3,867), `contractor_rank` (431,955), `contract_risk_cache` (409,392),
+`person_browse_table` (136,863), `interreg_partners` (12,015).
+
+**Two did not, and no cheap command exists for them:**
+
+| relation | local | cloud | kind | writers |
+|---|--:|--:|---|---|
+| `awarder_risk_grade_scoped` | 12,361 | 12,358 | table | **`load_pg.ts` only** (via `lib/riskGradeScoped.ts`) |
+| `budget_admin_procurement` | 616 | 615 | table | `load_pg.ts`, `load_budget_pg.ts`, `load_budget_muni_pg.ts`, `load_tr_pg.ts` |
+
+Neither is a matview, so neither can be `REFRESH`ed; each needs its writer re-run. For
+`awarder_risk_grade_scoped` that writer is the 56-minute contracts step and nothing else.
+
+So the recovery story from F40/F42 is **incomplete**: when `db:load:pg:cloud` dies after
+the COPY, its post-COPY phase splits into work that IS separately invokable (the six
+scoped matviews, the two risk caches) and work that is NOT (`awarder_risk_grade_scoped`,
+and `budget_admin_procurement` unless an unrelated budget/TR load happens to run). The
+residue can only be closed by re-shipping 406,722 rows — which also re-incurs F46's
+reader degradation. For a 4-row difference out of ~13,000 that is not worth it, and the
+deploy was deliberately left with the residue recorded rather than closed.
+
+**This is an argument for making `load_pg`'s post-COPY phase independently runnable** —
+a `--post-only` flag, or extracting it the way `procurement-scopes` and `refresh_risk`
+already are. Today the cost of a dropped connection in the last 10% of that step is
+either a 4-row inconsistency or a full 56-minute re-ship, with nothing in between.
+
+Until that exists, the honest post-deploy check is to compare the two tables explicitly;
+they are not covered by any recovery command:
+
+```sql
+select count(*) from awarder_risk_grade_scoped;   -- vs local
+select count(*) from budget_admin_procurement;    -- vs local
+```
+
+Note also that this residue is invisible to the usual verification: both differ by
+single-digit row counts against five-figure totals, and neither appears in the "cloud vs
+local" list earlier profiles in this document check.
