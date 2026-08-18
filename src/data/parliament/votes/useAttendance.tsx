@@ -29,15 +29,37 @@ const pickSlice = (
   return file?.byNs?.[ns];
 };
 
-// One small file (~50 KB gzipped) following the same byNs envelope as
+// The fewest items a seated window must hold before a presentPct is worth
+// JUDGING — ranking a member on it, or tinting it as a concern. It is not a
+// display floor: the rate itself is true at any window size, and suppressing
+// it would hide exactly the members this metric is most asked about.
+//
+// A member sworn in for the chamber's last sitting day appears in 1 item; miss
+// it and they read 0%, which is arithmetically right and says nothing about
+// them. The 52nd holds 15 such seats at ≤9 items — the replacement MPs who
+// were seated for one day when a minister-designate gave up the bench.
+//
+// ONE definition, read by the ranking below, by the /parliament/attendance
+// table and by both badge surfaces (the scorecard's amber tint and My-Area's
+// rose one), because a floor that differs per surface means the same member is
+// "too new to rank" on one page and "a concern" on the next.
+export const ATTENDANCE_MIN_ITEMS = 30;
+
+// One small file (~43 KB gzipped) following the same byNs envelope as
 // loyalty.json/cohesion.json. Both the most-absent and most-present tiles
 // consume this hook; React Query dedupes the request.
-export const useAttendance = () => {
+//
+// `enabled` exists for the callers that only need it as a FALLBACK — the MP
+// scorecard reads its attendance out of the per-MP shard it already has, and
+// reaches for this aggregate only when that shard missed. Defaults true so the
+// chamber-wide screens are unchanged.
+export const useAttendance = (enabled = true) => {
   const { selected } = useElectionContext();
   const { data, isLoading } = useQuery({
     queryKey: ["rollcall_attendance"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled,
   });
 
   const ns = electionToNsFolder(selected);
@@ -56,7 +78,7 @@ export const useAttendance = () => {
     ns,
     entries: slice?.entries ?? [],
     byMpId,
-    isLoading,
+    isLoading: enabled && isLoading,
   };
 };
 
@@ -93,7 +115,11 @@ const isSeatedNow = (
 // A small static floor (default 30 items) keeps an MP sworn in on the
 // last day out of the ranking; the roster check above is what catches
 // departed MPs.
-export const useAttendanceRanking = (topN = 5, bottomN = 5, minItems = 30) => {
+export const useAttendanceRanking = (
+  topN = 5,
+  bottomN = 5,
+  minItems = ATTENDANCE_MIN_ITEMS,
+) => {
   const { entries, ns: selectedNs, isLoading } = useAttendance();
   const { mpNames } = useMpProfile();
   const { findMpById, findMpByName, currentNs } = useMps();

@@ -9,6 +9,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "./nsFolders";
 import { useMpEntryForName } from "@/data/candidates/CandidateMpContext";
 import { useMpLoyalty } from "./votes/useMpLoyalty";
+import { useAttendance } from "./votes/useAttendance";
 import { useMpAssets } from "./useMpAssets";
 
 // Connected-contracts scorecard metric, served by /api/db/mp-scorecard
@@ -65,8 +66,14 @@ export type ScorecardMetric = {
 export type MpScorecard = {
   /** Share of votes cast in line with party majority. value ∈ [0,1]. */
   loyalty: ScorecardMetric;
-  /** Votes cast / total vote items in the slice. value ∈ [0,1]. */
+  /** Share of the items the MP was SEATED for that they cast a vote on.
+   *  value ∈ [0,1]. The denominator is the member's own window, never the
+   *  chamber's item count — see the block that computes it. */
   attendance: ScorecardMetric;
+  /** How many items that window holds. Exposed so a consumer can decide
+   *  whether the rate is large enough to judge (ATTENDANCE_MIN_ITEMS) rather
+   *  than re-deriving it from a percentage. null when unknown. */
+  attendanceItems: number | null;
   /** Declared net worth in euros. Rank within the same NS's assets-rankings slice. */
   netWorth: ScorecardMetric;
   /** Procurement contracts (€) won by companies the MP is connected to. */
@@ -130,10 +137,22 @@ export const useMpScorecard = (
   const {
     entry: loyaltyEntry,
     entries: loyaltyEntries,
-    file: loyaltySlice,
     shard: loyaltyShard,
     isLoading: loyaltyLoading,
   } = useMpLoyalty(mpId, name, servedInSelectedNs);
+
+  // Attendance's per-MP denominator, as a FALLBACK only. The shard already carries it, and
+  // useMpLoyalty holds the loyalty aggregate back until the shard has missed — so a
+  // non-empty `loyaltyEntries` is exactly the state "this MP has no shard", and the only
+  // one where the 43 KB attendance aggregate is worth downloading. Every ns 44-52 member
+  // with a roll-call record has a shard today, so on the live path this never fires.
+  const attendanceAggregateEnabled =
+    loyaltyEntries.length > 0 && !loyaltyShard?.attendance;
+  const {
+    byMpId: attendanceByMp,
+    entries: attendanceEntries,
+    isLoading: attendanceLoading,
+  } = useAttendance(attendanceAggregateEnabled);
 
   const { rollup: assetsRollup, isLoading: assetsLoading } = useMpAssets(name);
   // The net-worth metric ranks the MP within the selected NS's assets slice — one small PG
@@ -189,36 +208,51 @@ export const useMpScorecard = (
     };
 
     // --- Attendance -------------------------------------------------------
-    // Total vote items in the slice is the same denominator for every MP, so
-    // the rank by attendance is identical to the rank by votesCast. Compute on
-    // raw votesCast (cheaper) and present the fraction in the UI.
-    const totalItems = loyaltySlice?.totalVoteItems ?? 0;
-    const attendanceCounts = loyaltyEntries
-      .map((e) => e.votesCast)
-      .sort((a, b) => b - a);
+    // THE DENOMINATOR IS THE MEMBER'S OWN SEATED WINDOW — the items they appear in the
+    // roll-call for, present or absent — and never the chamber's item count. The two are
+    // the same number only for a member who sat the whole term, and the gap is not a
+    // rounding difference:
+    //
+    //   Иван Демерджиев (52nd) gave up the bench for a ministry after 32 items and cast
+    //   17 of them. Seated window: 53.1%. Divided by the chamber's 1,198: 1.4%.
+    //   Румен Радев, same window, 8 of 32 — 25.0% published as 0.7%.
+    //
+    // This used to compute `loyalty.votesCast / slice.totalVoteItems`, which cannot
+    // express it: the loyalty artifact carries no per-MP denominator at all, so the only
+    // divisor in reach was the wrong one. The seated count is `attendance.totalItems` —
+    // computed once in scripts/parliament/derived/attendance.ts, mirrored into each shard's
+    // `attendance` block and into PG's `mp_attendance`, all three agreeing.
+    //
+    // Source order is shard-then-aggregate for cost, not for preference: the shard is
+    // already in hand on this page, and useAttendance is enabled only on the path where it
+    // missed. Both carry the same field.
+    const shardAttendance = loyaltyShard?.attendance;
+    // Both the shard and the aggregate are keyed by parliament.bg's per-NS CSV id, which is
+    // not always the roster id. `loyaltyEntry.mpId` is that id already resolved (useMpLoyalty
+    // does the name fallback), so read it back rather than resolving it a second time.
+    const attendanceEntry =
+      loyaltyEntry != null ? attendanceByMp.get(loyaltyEntry.mpId) : undefined;
     const attendanceValue =
-      loyaltyEntry && totalItems > 0
-        ? loyaltyEntry.votesCast / totalItems
-        : null;
-    const attendanceMedianCount = medianOf(attendanceCounts);
-    let attendanceMedian: number | null = null;
-    if (attendanceMedianCount != null && totalItems > 0) {
-      attendanceMedian = attendanceMedianCount / totalItems;
-    } else if (
-      loyaltyShard?.cohort?.votesCastMedian != null &&
-      totalItems > 0
-    ) {
-      // Shard-only mode: cohort sample isn't loaded, but the shard carries
-      // a pre-computed cohort median we can divide by the same denominator.
-      attendanceMedian = loyaltyShard.cohort.votesCastMedian / totalItems;
-    }
+      shardAttendance?.presentPct ?? attendanceEntry?.presentPct ?? null;
+    const attendanceItems =
+      shardAttendance?.totalItems ?? attendanceEntry?.totalItems ?? null;
+    // Ranked on the RATE now, not on raw votesCast. Those two orderings coincided only
+    // because every MP shared the chamber denominator; on a seated window they do not.
+    const attendancePcts = attendanceEntries
+      .filter((e) => e.totalItems > 0)
+      .map((e) => e.presentPct)
+      .sort((a, b) => b - a);
+    const attendanceMedian =
+      medianOf(attendancePcts) ??
+      loyaltyShard?.cohort?.presentPctMedian ??
+      null;
     const attendanceCohortSize =
-      attendanceCounts.length > 0
-        ? attendanceCounts.length
+      attendancePcts.length > 0
+        ? attendancePcts.length
         : (loyaltyShard?.cohort?.size ?? 0);
     const attendance: ScorecardMetric = {
       value: attendanceValue,
-      rank: rankIn(loyaltyEntry?.votesCast ?? null, attendanceCounts),
+      rank: rankIn(attendanceValue, attendancePcts),
       cohortSize: attendanceCohortSize,
       median: attendanceMedian,
     };
@@ -269,6 +303,7 @@ export const useMpScorecard = (
     return {
       loyalty,
       attendance,
+      attendanceItems,
       netWorth,
       connectedContracts,
       hasAny,
@@ -276,8 +311,9 @@ export const useMpScorecard = (
   }, [
     loyaltyEntry,
     loyaltyEntries,
-    loyaltySlice,
     loyaltyShard,
+    attendanceByMp,
+    attendanceEntries,
     assetsRollup,
     netWorthRankQuery.data,
     scorecardQuery.data,
@@ -286,6 +322,7 @@ export const useMpScorecard = (
   const isLoading =
     mpsLoading ||
     loyaltyLoading ||
+    attendanceLoading ||
     assetsLoading ||
     netWorthRankQuery.isLoading ||
     (mpId != null && scorecardQuery.isLoading);
@@ -309,6 +346,7 @@ export const useMpScorecard = (
       scorecard: {
         loyalty: EMPTY,
         attendance: EMPTY,
+        attendanceItems: null,
         netWorth: EMPTY,
         connectedContracts: EMPTY,
         hasAny: false,

@@ -1,8 +1,9 @@
 // Per-MP signal badges for the My-Area representatives strip. Every MP with
 // roll-call data gets an attendance badge (so the strip never has a "missing
 // %" gap); a separate dissent badge surfaces only when loyalty falls below
-// the alarm threshold. One chamber-wide loyalty fetch (~50 KB gz per NS
-// slice) feeds every MP in the strip.
+// the alarm threshold. Two chamber-wide fetches (~47 KB gz of loyalty for the
+// dissent badge, ~43 KB of attendance for the presence one) feed every MP in
+// the strip.
 //
 // Net-worth and connected-contracts badges (e.g. "4 имота, 2 коли") are
 // deferred to a later phase — they would each require a per-MP shard
@@ -15,12 +16,17 @@ import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
+import {
+  useAttendance,
+  ATTENDANCE_MIN_ITEMS,
+} from "@/data/parliament/votes/useAttendance";
 import type { LoyaltyFile } from "@/data/parliament/votes/types";
 
 export type AttendanceSignal = {
-  /** 0..1 — share of vote items the MP cast a vote on. */
+  /** 0..1 — share of the items the MP was SEATED for that they cast a vote on. */
   attendance: number;
-  /** True when attendance is below the alarm threshold (rose tint). */
+  /** True when attendance is below the alarm threshold (rose tint). Never set
+   *  on a window too short to judge — see ATTENDANCE_MIN_ITEMS. */
   severe: boolean;
   label_bg: string;
   label_en: string;
@@ -58,32 +64,37 @@ export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
     queryFn: fetchLoyaltyFile,
     staleTime: Infinity,
   });
+  // The presence rate comes from attendance.json, NOT from loyalty's
+  // `votesCast / totalVoteItems`. Loyalty carries no per-MP denominator, so that
+  // division measures every MP against the whole chamber's item count — which is only
+  // their own window if they sat the full term. It is not a small error: a member who
+  // left the 52nd's benches for a ministry after 32 items and cast 17 of them was badged
+  // "присъствие 1%" instead of 53%, and the rose tint below fired on it.
+  const { byMpId: attendanceByMp } = useAttendance();
 
   return useMemo(() => {
     const map = new Map<number, MpSignals>();
     const slice = ns ? file?.byNs?.[ns] : undefined;
-    if (!slice) {
-      for (const id of mpIds) map.set(id, EMPTY);
-      return map;
-    }
-    const totalItems = slice.totalVoteItems ?? 0;
-    const byId = new Map(slice.entries.map((e) => [e.mpId, e]));
+    const loyaltyById = new Map((slice?.entries ?? []).map((e) => [e.mpId, e]));
     for (const id of mpIds) {
-      const e = byId.get(id);
-      if (!e || totalItems <= 0) {
-        map.set(id, EMPTY);
-        continue;
+      const e = loyaltyById.get(id);
+      const a = attendanceByMp.get(id);
+      let attendanceSignal: AttendanceSignal | null = null;
+      if (a && a.totalItems > 0) {
+        const attendancePct = Math.round(a.presentPct * 100);
+        attendanceSignal = {
+          attendance: a.presentPct,
+          // A one-item window that the member missed reads 0% — true, and no
+          // evidence of anything. Tint only what the window can support.
+          severe:
+            a.totalItems >= ATTENDANCE_MIN_ITEMS &&
+            a.presentPct < ATTENDANCE_SEVERE_THRESHOLD,
+          label_bg: `присъствие ${attendancePct}%`,
+          label_en: `attendance ${attendancePct}%`,
+        };
       }
-      const attendance = e.votesCast / totalItems;
-      const attendancePct = Math.round(attendance * 100);
-      const attendanceSignal: AttendanceSignal = {
-        attendance,
-        severe: attendance < ATTENDANCE_SEVERE_THRESHOLD,
-        label_bg: `присъствие ${attendancePct}%`,
-        label_en: `attendance ${attendancePct}%`,
-      };
       let dissentSignal: DissentSignal | null = null;
-      if (e.votesCast > 0 && e.loyaltyPct < LOYALTY_BADGE_THRESHOLD) {
+      if (e && e.votesCast > 0 && e.loyaltyPct < LOYALTY_BADGE_THRESHOLD) {
         const dissentPct = Math.round((1 - e.loyaltyPct) * 100);
         dissentSignal = {
           pctValue: 1 - e.loyaltyPct,
@@ -91,8 +102,13 @@ export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
           label_en: `dissent ${dissentPct}%`,
         };
       }
-      map.set(id, { attendance: attendanceSignal, dissent: dissentSignal });
+      map.set(
+        id,
+        attendanceSignal || dissentSignal
+          ? { attendance: attendanceSignal, dissent: dissentSignal }
+          : EMPTY,
+      );
     }
     return map;
-  }, [file, ns, mpIds]);
+  }, [file, ns, mpIds, attendanceByMp]);
 };

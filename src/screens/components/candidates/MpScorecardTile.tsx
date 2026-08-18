@@ -15,6 +15,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { useMpScorecard } from "@/data/parliament/useMpScorecard";
+import { ATTENDANCE_MIN_ITEMS } from "@/data/parliament/votes/useAttendance";
 import { gridCols } from "./scorecardGrid";
 
 // Anchors on the person/candidate dashboard each scorecard metric drills into
@@ -186,9 +187,16 @@ export const MpScorecardTile: FC<Props> = ({ name, links }) => {
 
   // The "low attendance" warn threshold matches the cohesion screen's
   // intuition: below the median, the MP shows up less than half their peers.
+  //
+  // Gated on the size of the seated window, because the rate is now measured over that
+  // window rather than over the chamber's. A replacement MP sworn in for the term's last
+  // sitting day appears in a single item; miss it and they read 0%, which is true and
+  // means nothing — an amber tint on it is an accusation the number cannot support. The
+  // 52nd holds 15 such seats at ≤9 items. Same floor the attendance table ranks on.
   const attendanceWarn =
     scorecard.attendance.value != null &&
     scorecard.attendance.median != null &&
+    (scorecard.attendanceItems ?? 0) >= ATTENDANCE_MIN_ITEMS &&
     scorecard.attendance.value < scorecard.attendance.median * 0.7;
 
   // Highlight contracts-to-connected-firms only when this MP is in the top

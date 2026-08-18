@@ -37,7 +37,12 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
   const { t, i18n } = useTranslation();
   const { findMpByName, isLoading: mpsLoading } = useMps();
   const mp = findMpByName(name);
-  const { entry, file, isLoading: loyaltyLoading } = useMpLoyalty(mp?.id, name);
+  const {
+    entry,
+    file,
+    shard,
+    isLoading: loyaltyLoading,
+  } = useMpLoyalty(mp?.id, name);
   const { sessions } = useRollcallIndex();
 
   if (loyaltyLoading || mpsLoading) {
@@ -53,6 +58,9 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
   if (!entry || entry.votesCast === 0) return null;
 
   const dissents = entry.votesCast - entry.withParty;
+  // Items this member was actually seated for — present or absent. Absent from older
+  // shards, and from the aggregate path entirely, in which case the caption stays as it was.
+  const seatedItems = shard?.attendance?.totalItems ?? null;
   const lang = i18n.language;
   const recent = [...sessions]
     .sort((a, b) => b.date.localeCompare(a.date))
@@ -123,6 +131,19 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
             · {formatInt(file.totalVoteItems, lang)}{" "}
             {t("mp_voting_total_items", { count: file.totalVoteItems }) ||
               "vote items"}
+            {/* The chamber's item count sits directly beside "подадени гласове 17", and a
+                reader who divides one by the other gets 1.4% for a member who was on the
+                bench for 32 of those items and voted on 17 — the same wrong arithmetic the
+                scorecard used to publish. Name the seated window whenever it is shorter, so
+                the two numbers on this card are on the same denominator. */}
+            {seatedItems != null && seatedItems < file.totalVoteItems ? (
+              <>
+                ,{" "}
+                {t("mp_voting_seated_window", {
+                  seated: formatInt(seatedItems, lang),
+                })}
+              </>
+            ) : null}
           </div>
         )}
 

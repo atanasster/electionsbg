@@ -4,7 +4,10 @@ import { UserCheck, UserX } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Link } from "@/ux/Link";
-import { useAttendance } from "@/data/parliament/votes/useAttendance";
+import {
+  useAttendance,
+  ATTENDANCE_MIN_ITEMS,
+} from "@/data/parliament/votes/useAttendance";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
@@ -13,8 +16,6 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { AttendanceByGroup } from "@/screens/components/votes/AttendanceByGroup";
 import { titleCaseName } from "@/lib/utils";
 import type { AttendanceEntry } from "@/data/parliament/votes/types";
-
-const MIN_ITEMS = 30;
 
 const formatPct = (frac: number, lang: string): string =>
   new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
@@ -61,7 +62,7 @@ export const ParliamentAttendanceScreen: FC = () => {
       return false;
     };
     const eligible = entries.filter(
-      (e) => e.totalItems >= MIN_ITEMS && isSeated(e.mpId),
+      (e) => e.totalItems >= ATTENDANCE_MIN_ITEMS && isSeated(e.mpId),
     );
     const sorted = [...eligible].sort((a, b) =>
       sort === "absent"

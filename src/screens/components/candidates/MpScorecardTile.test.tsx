@@ -56,6 +56,10 @@ const show = (
   scorecardHook.mockReturnValue({
     scorecard: {
       ...sc,
+      // A full-term seated window unless a test says otherwise — the amber tint is gated on
+      // it, and every case here except the short-window one is about a member who sat.
+      attendanceItems: 1198,
+      ...v,
       hasAny: Object.values(sc).some(
         (m) => (m as ScorecardMetric)?.value != null,
       ),
@@ -190,6 +194,28 @@ describe("MpScorecardTile", () => {
       attendance: metric(0.9, { rank: 120, cohortSize: 240, median: 0.9 }),
     });
     expect(screen.getByText("90%")).not.toHaveClass("text-amber-600");
+  });
+
+  it("leaves attendance untinted on a window too short to judge", () => {
+    // The rate is measured over the items the member was SEATED for, so a replacement MP
+    // sworn in for the term's last sitting day appears in one item; miss it and they read
+    // 0%. True, and no evidence of anything — the amber tint is a claim the number cannot
+    // carry. The 52nd holds 15 such seats at ≤9 items.
+    show({
+      attendance: metric(0, { rank: 268, cohortSize: 268, median: 0.76 }),
+      attendanceItems: 1,
+    });
+    expect(screen.getByText("0%")).not.toHaveClass("text-amber-600");
+  });
+
+  it("still tints a genuinely low rate once the window is long enough", () => {
+    // Same 0% as above at the floor: the gate must be the WINDOW, not the value, or the
+    // test above would also be satisfied by a tile that had stopped tinting altogether.
+    show({
+      attendance: metric(0, { rank: 268, cohortSize: 268, median: 0.76 }),
+      attendanceItems: 30,
+    });
+    expect(screen.getByText("0%")).toHaveClass("text-amber-600");
   });
 
   it("emits no anchor for a metric that was filtered out", () => {
