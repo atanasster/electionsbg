@@ -600,11 +600,35 @@ These power the per-município / per-settlement "Моят район" dashboard 
 
 - [Anti-Corruption Fund (ACF)](https://acf.bg/) — risk-section analysis. Together with Bulgarian media reporting (Sega, Svobodna Evropa) and the [OSCE/ODIHR election-observation reports](https://www.osce.org/odihr/elections/bulgaria), it informs the curated list of risk neighborhoods (Roma-majority areas with the highest reported incidence of controlled / corporate voting) tracked by the risk-screening reports. The per-section risk score, the cross-election swing signal, and the risk-cluster map are all _derived_ — computed from the CIK results above, not fetched from an external source.
 
+## License
+
+**[LICENSE](LICENSE) is the authoritative statement** — read it there rather than here. It
+splits the repository into four categories by path, and the paths are deliberately kept in one
+file so the two copies cannot drift. In summary:
+
+- **Code, specifications, build config and this project's own generated output are MIT** — and
+  MIT is the *default*, so anything the file does not place in another category is covered.
+  Reuse it without asking; the procurement risk methodology in particular is published so it can
+  be checked and reused.
+- **Republished public data keeps its own terms** (`data/`, `raw_data/`, the bucket corpora) —
+  public-sector information we did not create and cannot relicense. Per-source terms are
+  documented under [Data sources](#data-sources) above.
+- **Third-party material keeps its own licence** — the self-hosted Inter/Fraunces fonts (SIL
+  OFL 1.1) and the vendored npm tarball.
+- **Brand, logos and photographs of identifiable people are reserved** — forking the code does
+  not carry the right to present the fork as this project.
+
+`package.json` stays `"private": true` deliberately — that flag only prevents an accidental
+`npm publish`, and this repo is an application, not a package. It says nothing about reuse
+rights, which the MIT grant covers. Its `license` field reads `SEE LICENSE IN LICENSE`, because
+a bare `MIT` there would describe a tree that is only partly MIT.
+
+The risk flags are **documentation and pattern signals, not findings of wrongdoing**, and are
+not fit for use as the basis of a legal conclusion. See [METHODOLOGY.md](METHODOLOGY.md) and
+[LICENSE](LICENSE) §5.
+
 ## Contributing
 
-Issues and PRs welcome.
-
-- For SPA changes: `npm run lint && npm run build` then `npm test` (Playwright). The lint check is part of `predeploy`.
-- For data-pipeline changes: run `npm run prod` locally and diff the resulting JSON against `git`. The roll-call ingest has a canary regression fixture at `tests/fixtures/parliament/votes/canary.json` — `npm run rollcall:scrape` validates against it and fails loud if the parser drifts.
-- For new upstream sources: add a module under `scripts/watch/sources/` following the existing pattern, then a sibling `/update-<source>` skill under `.claude/skills/` for the ingest. See `.claude/skills/process-watch-report/SKILL.md` for the orchestrator's full source→skill mapping and per-skill data-integrity contracts.
-- Open PRDs and roadmap items live under `docs/plans/`.
+Issues and PRs welcome — see **[CONTRIBUTING.md](CONTRIBUTING.md)** for the checks to run before
+opening one, the inbound-licence terms (inbound = outbound, no CLA), and the extra rules that
+apply to changes touching the published risk methodology.

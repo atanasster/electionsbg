@@ -1,0 +1,154 @@
+MIT License
+
+Copyright (c) 2026 Atanas Stoyanov / electionsbg.com (Наясно)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+WHAT THE MIT GRANT ABOVE COVERS — AND WHAT IT DOES NOT
+================================================================================
+
+This repository holds four different kinds of material, and one licence cannot
+honestly cover all of them. The boundary is stated by PATH rather than by
+adjective, so that somebody deciding whether they may reuse a file does not
+have to guess.
+
+**Section 1 is the default.** Anything tracked in this repository that is not
+named in sections 2, 3 or 4 is under the MIT grant above. That rule, rather
+than the list, is what makes the boundary complete — a list alone goes stale
+the next time a file is added, and anything a list forgets falls back to all
+rights reserved, which is the condition this file exists to end.
+
+--------------------------------------------------------------------------------
+1. CODE, SPECIFICATIONS AND FIRST-PARTY OUTPUT — MIT (the grant above)
+--------------------------------------------------------------------------------
+
+Everything not listed in sections 2, 3 or 4, including:
+
+    src/**            the application, the scorers, the reference implementations
+    scripts/**        the data pipeline, generators, loaders and gates
+    functions/**      the Cloud Functions serving layer
+    ai/**             the assistant's tools and orchestration
+    vite/**           first-party build plugins
+    tests/**          the end-to-end and SEO suites
+    docs/**           plans, specifications and the methodology handbook
+    .claude/**        ingest skills and operator runbooks
+    .github/**        CI workflows
+    state/**          pipeline and watcher state
+    data-reports/**   generated daily reports
+
+    index.html, vite.config.ts, vite.config.ai.ts, vitest.config.ts,
+    vitest.setup.ts, tsconfig*.json, tailwind.config.js, postcss.config.js,
+    eslint.config.js, playwright.config.ts, components.json, package.json,
+    package-lock.json, docker-compose.yml, firebase.json, firestore.rules
+                      build, test, lint and deployment configuration
+
+    METHODOLOGY.md, README.md, CLAUDE.md and the other root documents
+
+    public/**         EXCEPT public/fonts/** and public/images/IMG_*.png —
+                      the tracked tree here is this project's own output: the
+                      generated sitemaps, llms.txt, the article pages, the
+                      og-image cards and the app icons. (The election corpus
+                      that once lived here is gitignored and bucket-served; it
+                      is data, and section 2 governs it wherever it appears.)
+
+The build configuration is listed explicitly because leaving it out was not a
+cosmetic gap: `src/**` is a strict-mode Vite application and cannot be built,
+typechecked, linted or tested without those files. A grant that offers the
+application while withholding the means to build it grants nothing.
+
+Use it, fork it, ship it, sell it. No permission needed and none should be
+asked for. That is deliberate: the procurement risk methodology in particular
+is published so that other people — journalists, researchers, auditors, other
+platforms — can check it, argue with it, and reuse it without a conversation.
+
+Note on `docs/**`: the MIT grant covers this project's authorship. Where a
+document quotes an external source (a study, a directive, a ministry report),
+the quoted material remains its own author's and is reproduced here under
+ordinary quotation; MIT cannot and does not relicense it.
+
+--------------------------------------------------------------------------------
+2. REPUBLISHED PUBLIC DATA — each source's own terms, NOT MIT
+--------------------------------------------------------------------------------
+
+    data/**
+    raw_data/**
+    any data corpus served from the storage bucket
+
+These trees are overwhelmingly Bulgarian and EU public-sector information
+republished from its original holders — the Central Election Commission, the
+Agency for Public Procurement / ЦАИС ЕОП, the Commerce Registry, the National
+Audit Office, ИСУН, ДФ „Земеделие", НЗОК, НСИ, Eurostat, КЗП and others. We
+did not create it and cannot relicense it. Each source's terms, and any
+peculiarities of its reuse conditions, are documented per source in the "Data
+sources" section of README.md.
+
+Derived artifacts computed from that data (aggregates, rollups, payloads) are
+distributed on the same footing as their inputs.
+
+--------------------------------------------------------------------------------
+3. THIRD-PARTY LICENSED MATERIAL — its own licence, NOT MIT
+--------------------------------------------------------------------------------
+
+    public/fonts/**   Inter and Fraunces, self-hosted from Google Fonts under
+    video/public/fonts/**
+                      the SIL Open Font License 1.1. The .css files beside them
+                      are generated by scripts/fonts/fetch-fonts.mjs and are
+                      MIT; the .woff2 files are not ours to relicense.
+
+    vendor/*.tgz      a repacked upstream npm package (kdtree-ts), redistributed
+                      under its own upstream licence. See vendor/README.md for
+                      why it is vendored.
+
+--------------------------------------------------------------------------------
+4. BRAND, LIKENESS AND PHOTOGRAPHS — all rights reserved
+--------------------------------------------------------------------------------
+
+    brand/**          the Наясно logo, wordmark, ad creative and channel art
+    assets/**         photographs of identifiable people
+    public/images/IMG_*.png
+                      the same, as shipped
+    video/** (except video/public/fonts/**)
+                      video assets built from the above
+
+Forking the code does not carry the right to use the project's name, logo or
+visual identity to present the fork as this project, and photographs of
+identifiable people carry personality rights no software licence can transfer.
+Replace them with your own.
+
+--------------------------------------------------------------------------------
+5. NOT A FINDING — the disclaimer that travels with the risk methodology
+--------------------------------------------------------------------------------
+
+The procurement risk flags, the contract risk index (CRI), the per-contract
+grade and the entity exposure grades are DOCUMENTATION AND PATTERN SIGNALS.
+They are computed by a public publisher, not by an institution with a legal
+mandate to investigate, and a flag that fires means only that a contract or an
+entity matches a pattern worth a second look.
+
+The Open Contracting Partnership's framing is adopted verbatim: behaviour that
+trips a flag may be "a) not at all illicit or suboptimal; b) not illicit, but
+suboptimal in terms of value for money…; or c) illicit." That ordering names
+the two innocent explanations before the guilty one; it is not a claim about
+which is more frequent, and the published research is explicit that validated
+red flags correlate weakly with corruption at the level of a single contract.
+
+Nothing in this repository is a finding of wrongdoing about any named person or
+company, and none of it is fit for use as the basis of a legal conclusion.
+Reuse it accordingly.
