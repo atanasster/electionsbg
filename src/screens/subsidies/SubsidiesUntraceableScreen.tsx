@@ -77,7 +77,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
     <>
       <Title description={description}>{title}</Title>
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         currentKey="subsidies_untraceable_nav"
         className="mt-5"

@@ -176,7 +176,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
     <>
       <Title description={description}>{title}</Title>
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         currentKey="subsidies_cross_programme_nav"
         className="mt-5"

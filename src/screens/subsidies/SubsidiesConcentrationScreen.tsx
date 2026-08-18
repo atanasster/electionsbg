@@ -242,7 +242,7 @@ export const SubsidiesConcentrationScreen: FC = () => {
     <>
       <Title description={description}>{title}</Title>
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         currentKey="subsidies_concentration_nav"
         className="mt-5"

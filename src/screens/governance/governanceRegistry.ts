@@ -49,7 +49,7 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         // entry — reachable only from a /farm or /company record page, i.e.
         // only once you had already found a recipient.
         id: "subsidies",
-        titleKey: "agri_subsidies_nav",
+        titleKey: "subsidies_nav",
         descKey: "gov_hub_subsidies_desc",
         to: "/subsidies",
         accent: TILE_ACCENTS.moss,

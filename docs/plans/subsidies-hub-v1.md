@@ -603,7 +603,7 @@ contain it.**
 | surface                                  | what it says today                                                                                                                                            | verdict                                                                                                                           |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `/governance` hub, „Пари и разходи" band | a tile beside Държавен бюджет · Обществени поръчки · Европейски средства · Общински финанси · Държавни сектори                                                | ✓ correct — `governanceRegistry.ts`'s own comment calls it „a whole money vertical (/subsidies + /subsidies/browse + /farm/:eik)" |
-| governance dropdown (`reportMenus.ts`)   | `agri_subsidies_nav → /subsidies`, listed between `/funds` and `/governance/sectors`                                                                          | ✓ correct — a peer, not a leaf                                                                                                    |
+| governance dropdown (`reportMenus.ts`)   | `subsidies_nav → /subsidies`, listed between `/funds` and `/governance/sectors`                                                                          | ✓ correct — a peer, not a leaf                                                                                                    |
 | `/governance/sectors` hub                | **does not list `/subsidies` at all** — verified, zero matches for `"/subsidies"` in `sectorRegistry.ts`; the agriculture tile there points at `/sector/agri` | ✓ correct, and it is _why_ the breadcrumb is wrong                                                                                |
 | **breadcrumb on `/subsidies`**           | `Управление › Обществени поръчки › Държавни сектори › Земеделски субсидии`                                                                                    | ✗ **wrong in three ways**                                                                                                         |
 
@@ -636,11 +636,11 @@ so:
 
 ```tsx
 // the hub
-<GovernanceBreadcrumb sectionKey="agri_subsidies_nav" sectionTo="/subsidies" className="mt-5" />
+<GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies" className="mt-5" />
 //   → Управление › Земеделски субсидии
 
 // every sub-page
-<GovernanceBreadcrumb sectionKey="agri_subsidies_nav" sectionTo="/subsidies"
+<GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies"
                       currentKey="subsidies_places_nav" className="mt-5" />
 //   → Управление › Земеделски субсидии › По област
 ```
@@ -733,6 +733,32 @@ screen (step 7), not in the artifacts step.**
 - **`/subsidies/political` reports a REGISTRY ROLE**, not ownership and not wrongdoing. 568 of
   16 701 is 3.4%; the honest sentence is „публична фигура заема вписана роля", the wording
   `/funds/political` and `place_mp_companies` already use.
+
+---
+
+## 9b. The module outgrew its name (2026-08-18)
+
+The hub shipped headed „Земеделски субсидии", which was true of the page this plan started
+from and stopped being true at step 7: band 3 fronts the municipal transfers, the railway
+subsidy, НФЦ film money and the ЗПП party envelope. A page that names a quarter of its own
+tiles out of existence is the same class of defect as a caption naming the wrong basis.
+
+So the module is now **„Субсидии" / „Subsidies"** — nav label, breadcrumb, H1 and the i18n key
+itself (`agri_subsidies_nav` → `subsidies_nav`, 15 files; a key called `agri_*` holding
+„Субсидии" is the drift that misleads the next reader).
+
+Three things deliberately did NOT widen, and each for its own reason:
+
+- **The prerendered `<title>` keeps „земеделски субсидии" at the front.** It is the phrase
+  people type, and 9 of the 13 tiles are still that corpus. The head names the specific thing
+  first and the wider scope second („Субсидии в България — земеделски, общински, транспортни и
+  филмови"), while the page's own chrome says „Субсидии".
+- **The finder still says „Намери земеделски стопанин".** It searches `agri_beneficiary` and
+  nothing else; widening its label would promise a search across five streams that it does not
+  perform.
+- **Band 1's description still scopes to ДФЗ** („Земеделските субсидии на ДФ „Земеделие" — по
+  получател, схема и област…"). That is where the agricultural scoping belongs: on the band
+  that is agricultural, not on the page that is not.
 
 ---
 

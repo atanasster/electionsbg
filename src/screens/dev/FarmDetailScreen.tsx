@@ -105,7 +105,7 @@ export const FarmDetailScreen: FC = () => {
           crumb always has a leaf and never collapses to the section landing shape
           mid-load. */}
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         current={title}
       />

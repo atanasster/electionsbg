@@ -390,9 +390,19 @@ export const SubsidiesDashboardScreen: FC = () => {
   // working link and band 3 still has its figures — so blanking the page would be the larger
   // loss. It gets a line above the grid instead, and the tiles degrade to no-metric on their own.
   const hubFailed = hub === null && payloadKey !== null;
-  const title = bg ? "Земеделски субсидии" : "Farm subsidies";
+  // „Субсидии", not „Земеделски субсидии". The module widened at step 7: band 3 fronts the
+  // municipal transfers, the railway subsidy, НФЦ film money and the ЗПП party envelope, so a
+  // page headed „Земеделски" would be naming a quarter of its own tiles out of existence.
+  // The farm corpus is still the bulk — 9 of 13 tiles — and band 1's own description says so
+  // („Земеделските субсидии на ДФ „Земеделие" — по получател, схема и област…"), which is
+  // where that scoping belongs: on the band, not on the page.
+  //
+  // The PRERENDERED title keeps „земеделски субсидии" at the front regardless — see the note
+  // on the staticPage entry. That is the one surface where the specific term is worth more
+  // than the accurate one, because it is the phrase people type.
+  const title = bg ? "Субсидии" : "Subsidies";
   const description =
-    "Bulgarian CAP subsidies from the State Fund Agriculture (ДФЗ): who gets farm money, how concentrated it is, by scheme, region and year.";
+    "Bulgarian public subsidies: CAP farm money from the State Fund Agriculture by scheme, region, year and recipient — plus municipal transfers, the railway subsidy, film funding and the party envelope.";
 
   return (
     <>
@@ -416,10 +426,7 @@ export const SubsidiesDashboardScreen: FC = () => {
           The governance hub's money band, the header menu and governanceRegistry's
           own comment all already call this „a whole money vertical"; only the crumb
           disagreed. /budget and /funds use exactly this component. */}
-      <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
-        sectionTo="/subsidies"
-      />
+      <GovernanceBreadcrumb sectionKey="subsidies_nav" sectionTo="/subsidies" />
 
       {/* The finder, above the tiles. */}
       <SubsidiesSearchBox />

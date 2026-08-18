@@ -123,7 +123,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
     <>
       <Title description={description}>{title}</Title>
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         currentKey="subsidies_recipients_nav"
         className="mt-5"

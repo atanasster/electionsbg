@@ -173,7 +173,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
           than standing alone — plan §7a. It had no crumb at all before, which left
           the site's deepest agri page with no way back up except the browser. */}
       <GovernanceBreadcrumb
-        sectionKey="agri_subsidies_nav"
+        sectionKey="subsidies_nav"
         sectionTo="/subsidies"
         currentKey="subsidies_browse_nav"
       />

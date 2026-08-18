@@ -4876,14 +4876,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "subsidies",
+    // ⚠️ THE TITLE KEEPS „ЗЕМЕДЕЛСКИ СУБСИДИИ" AT THE FRONT, and that is deliberate rather
+    // than leftover. The module widened — band 3 covers municipal transfers, the railway
+    // subsidy, НФЦ film money and the ЗПП party envelope — so the NAV label, the breadcrumb
+    // and the H1 are now plain „Субсидии". The indexed title is the one surface where that
+    // would cost something: „земеделски субсидии" is the phrase people type, and 9 of the 13
+    // tiles are still that corpus. So the head names the specific thing first and the wider
+    // scope second, while the page's own chrome says „Субсидии".
     title:
-      "Земеделски субсидии в България — кой получава парите на ОСП | electionsbg.com",
-    description: `Кой получава земеделските субсидии на ДФ „Земеделие" — по схема, по област, по година и по получател. Изплатени суми за финансови години ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR}, концентрация на плащанията и класация на най-големите получатели.`,
-    breadcrumbName: "Земеделски субсидии",
+      "Субсидии в България — земеделски, общински, транспортни и филмови | electionsbg.com",
+    description: `Кой получава публичните субсидии в България. Земеделските на ДФ „Земеделие" — по схема, област, година и получател, за финансови години ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR} — плюс трансферите към общините, субсидията за железниците, филмовите на НФЦ и партийните по ЗПП.`,
+    breadcrumbName: "Субсидии",
     ogImage: "/og/subsidies.png",
     bodyHtml: `
-<h1>Земеделски субсидии — кой получава парите</h1>
-<p>Държавен фонд „Земеделие" е разплащателната агенция на Общата селскостопанска политика (ОСП) на ЕС. Оттук започва разглеждането: коя страница отговаря на кой въпрос за изплатените суми по финансови години ${AGRI_YEAR_RANGES}.</p>
+<h1>Субсидии — кой получава парите</h1>
+<p>Държавата раздава субсидии по няколко направления. Най-голямото е земеделието: Държавен фонд „Земеделие" е разплащателната агенция на Общата селскостопанска политика (ОСП) на ЕС, и за него тук има най-подробните данни — по финансови години ${AGRI_YEAR_RANGES}. Отдолу са и другите потоци: към общините, за железниците, за киното и за партиите.</p>
 <h2>Кой получава парите</h2>
 <ul>
 <li><a href="${SITE_URL}/subsidies/recipients"><strong>Топ получатели</strong></a> — класация на фирмите по получена сума. Всяка води към своя профил, така че субсидиите се четат заедно с обществените поръчки и европейските средства на същото дружество.</li>
@@ -4907,12 +4914,12 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (ДФ „Земеделие" — отворени данни за плащанията) и публичният регистър на <a href="https://seu.dfz.bg/" rel="nofollow noopener">Системата за електронни услуги на ДФЗ</a> за текущите години.</p>`.trim(),
     english: {
       title:
-        "Farm Subsidies in Bulgaria — Who Receives the CAP Money | electionsbg.com",
-      description: `Who receives State Fund Agriculture's farm subsidies — by scheme, by province, by year and by recipient. Payments for financial years ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR}, payment concentration and a ranking of the largest recipients.`,
-      breadcrumbName: "Farm subsidies",
+        "Subsidies in Bulgaria — Farm, Municipal, Rail, Film | electionsbg.com",
+      description: `Who receives Bulgaria's public subsidies. The farm ones from the State Fund Agriculture — by scheme, province, year and recipient, for financial years ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR} — plus transfers to municipalities, the railway subsidy, НФЦ film money and the party envelope under the ЗПП.`,
+      breadcrumbName: "Subsidies",
       bodyHtml: `
-<h1>Farm subsidies — who receives the money</h1>
-<p>State Fund Agriculture is Bulgaria's paying agency for the EU Common Agricultural Policy (CAP). This is where the module starts: which page answers which question about the amounts paid across financial years ${AGRI_YEAR_RANGES}.</p>
+<h1>Subsidies — who receives the money</h1>
+<p>The state pays subsidies along several lines. The largest is farming: the State Fund Agriculture is Bulgaria's paying agency for the EU Common Agricultural Policy (CAP), and it is the one with the most detail here — across financial years ${AGRI_YEAR_RANGES}. Below it are the other streams: to municipalities, for the railways, for cinema and for the parties.</p>
 <h2>Who receives the money</h2>
 <ul>
 <li><a href="${SITE_URL}/en/subsidies/recipients"><strong>Largest recipients</strong></a> — companies ranked by the amount received, each with its own profile, so subsidies can be read alongside the same firm's public contracts and EU funds.</li>
