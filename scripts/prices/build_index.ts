@@ -1,5 +1,14 @@
-// Aggregate the per-day grids (data/prices/_cache/daily/*.json) into the
-// shipped artifacts under data/prices/:
+// Aggregate the per-day grids into the shipped artifacts.
+//
+// The LIVE input is `price_grid_days` + `price_chain_grid_days` in Postgres,
+// read by scripts/prices/lib/grids_pg.ts and passed in by build_payloads.ts,
+// which emits to the `price_payloads` table rather than to disk. The
+// data/prices/_cache/daily/*.json tree this file still falls back to is FROZEN
+// (its only writer, parse.ts, was retired by the Postgres migration; it ends
+// 2026-07-09) and is kept solely so prices_payload_parity.data.test.ts can
+// compare the two sources over the day span they share.
+//
+// Artifacts:
 //   index.json                  national + per-oblast + per-category Jevons
 //                               price index since the euro, + dictionary
 //   settlement/<ekatte>.json    per-place snapshot (min/avg/max + cheapest chain)
@@ -7,8 +16,27 @@
 //                               national / size-class / oblast peer groups
 //   chains.json + chains/<muni> chain comparison (intersection-basket fairness)
 //
-// See docs/plans/prices_kolkostruva_design.md. NOT official CPI — a monitoring
-// basket index (unweighted Jevons of median-of-per-settlement-minimum prices).
+// See docs/plans/prices_kolkostruva_design.md and docs/plans/prices-hub-v1.md.
+// NOT official CPI — a monitoring basket index.
+//
+// TWO BASES LIVE IN THESE ARTIFACTS AND THEY ARE NOT THE SAME. Do not read a
+// property of one onto the other:
+//
+//   INDEX figures — index.json, and indexSinceEuro / change30d /
+//   basketSeriesWeekly / byCategory / topMovers on every shard — are an
+//   unweighted Jevons over products, of the median across panel settlements of
+//   each settlement's median across the chains that priced the product on BOTH
+//   days being compared. That last clause is load-bearing (see matchedCell):
+//   the КЗП reporter set is not stable, so an index built on whoever filed
+//   today measures the sample.
+//
+//   LEVEL figures — basketLevel, every rank derived from it (the "Най-евтини
+//   области" board), and all of chains.json / chains/<muni>.json — are a
+//   single raw day over whichever stores filed, and remain exposed to exactly
+//   the reporter-set drift the index was fixed for. Measured on a CALM
+//   transition (206 → 208 chains): 6 places entered the basket board, 4
+//   dropped out, max |rank change| 33. Fixing that is plan T0 follow-up work,
+//   not done here.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -66,12 +94,20 @@ const median = (xs: number[]): number => {
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 };
 
-/** Matched-model Jevons index (100-based) of `now` vs `base` over `pids`. */
+/** Matched-model Jevons index (100-based) of `now` vs `base` over `pids`.
+ *
+ *  Returns the matched product count `n` WITH the value, and null when nothing
+ *  matched. Both halves are load-bearing. `n` is the figure's denominator — the
+ *  chain matching below is strictly narrower than the pooled basis it replaced,
+ *  so two settlements' indices can rest on 101 products and on 4, and nothing
+ *  else in the payload distinguishes them. And null must stay distinguishable
+ *  from 100: on a 100-based index 100 asserts "exactly where it was on euro
+ *  day", which is the most plausible-looking number this series can fabricate. */
 const jevons = (
   now: Map<number, number>,
   base: Map<number, number>,
   pids: number[],
-): number | null => {
+): { v: number; n: number } | null => {
   let sum = 0;
   let n = 0;
   for (const g of pids) {
@@ -82,19 +118,120 @@ const jevons = (
       n++;
     }
   }
-  return n ? 100 * Math.exp(sum / n) : null;
+  return n ? { v: 100 * Math.exp(sum / n), n } : null;
 };
+
+/** Products below which a settlement's index is kept on its own page but taken
+ *  off the cross-place since-euro board — the index twin of the existing
+ *  `basketLevel != null` gate. Measured on the 2026-08 corpus, 6 settlements
+ *  publish an index over fewer than 10 of 101 products and two over 4. */
+const MIN_INDEX_PRODUCTS = 10;
 
 interface LoadedDay {
   date: string;
   // ekatte -> pid -> settlement MIN price (cheapest store) — for "cheapest" level
   settMin: Map<string, Map<number, number>>;
-  // ekatte -> pid -> settlement MEDIAN price (typical store) — for the index.
-  // The index uses median, not min: a single cheap/expensive store swings the
-  // min and makes per-settlement trends noisy (e.g. one wine outlier → +137%).
-  settMed: Map<string, Map<number, number>>;
   grid: DailyGrid;
 }
+
+const pushVal = (m: Map<number, number[]>, pid: number, v: number) => {
+  let a = m.get(pid);
+  if (!a) m.set(pid, (a = []));
+  a.push(v);
+};
+const medianOf = (m: Map<number, number[]>): Map<number, number> =>
+  new Map([...m].map(([pid, xs]) => [pid, median(xs)]));
+
+/** One settlement's chain-MATCHED prices on two days.
+ *
+ *  Per product, the median across the chains that priced it on BOTH days —
+ *  returned as two vectors over the same matched chain set, so a chain joining
+ *  or leaving the feed cancels between them instead of moving the ratio.
+ *
+ *  This is the fix for the defect measured on 2026-08-09: the КЗП reporter set
+ *  fell 203 → 98 chains in six days, and because the index basis was a median
+ *  over whatever shops filed that day, the national index dropped 4.19 points
+ *  in 24 hours with no price moving. Holding the panel matched over the same
+ *  transition moves it +0.11, and cuts day-to-day σ from 2.1 to 0.57.
+ *
+ *  Note the basis is the per-chain MINIMUM (the only price `chainCells` carries)
+ *  rather than the median over raw store rows the old basis used. That estimator
+ *  change is deliberate: raw rows carry no chain attribution, so they cannot be
+ *  matched at all. It shifts the LEVEL (~100.8 → ~97.7 on 2026-08-14) as well as
+ *  removing the drift, which is why `note` on the payload states the basis.
+ *
+ *  CONTRACT
+ *  - `now` and `base` always have IDENTICAL key sets, so `base.get(pid)!` is
+ *    safe for any pid in `now`. A product enters both or neither.
+ *  - Either side missing (a settlement absent on one of the days) yields two
+ *    EMPTY maps, never a partial result.
+ *  - The value per product is the ratio of two medians over the matched set,
+ *    NOT the median of the per-chain ratios. With an even number of matched
+ *    chains the two medians may interpolate between different chains. Both
+ *    forms are defensible; this is the one the plan's isolation experiment
+ *    used, and the payload `note` says so.
+ *  - `chains` counts the chains that matched at least one product — the second
+ *    denominator (a settlement resting on ONE chain is not the same claim as
+ *    one resting on twenty).
+ *  - Exported for `build_index.test.ts`; not part of the artifact contract. */
+export const matchedCell = (
+  nowByEik: Record<string, Record<string, number>> | undefined,
+  baseByEik: Record<string, Record<string, number>> | undefined,
+): { now: Map<number, number>; base: Map<number, number>; chains: number } => {
+  const nowAcc = new Map<number, number[]>();
+  const baseAcc = new Map<number, number[]>();
+  if (!nowByEik || !baseByEik)
+    return { now: new Map(), base: new Map(), chains: 0 };
+  let chains = 0;
+  // Matching on the CHAIN first is what keeps this allocation-cheap: the day's
+  // grid is already keyed eik -> pid, so an unmatched chain is skipped whole
+  // rather than transposed. (A transposed ekatte -> pid -> eik copy of all 225
+  // days OOMs an 8 GB heap.)
+  for (const eik of Object.keys(nowByEik)) {
+    const basePrices = baseByEik[eik];
+    if (!basePrices) continue;
+    const nowPrices = nowByEik[eik];
+    let matchedHere = false;
+    for (const pid of Object.keys(nowPrices)) {
+      const nv: number | undefined = nowPrices[pid];
+      // Typed explicitly: the Record's index signature says `number`, but this
+      // is `undefined` for every product the chain did not price on the base
+      // day — the common case, and the entire point of the guard. Without the
+      // annotation a later `bv >= 0` or `bv != null` edit type-checks and
+      // silently stops matching.
+      const bv: number | undefined = basePrices[pid];
+      if (nv != null && bv != null && nv > 0 && bv > 0) {
+        pushVal(nowAcc, +pid, nv);
+        pushVal(baseAcc, +pid, bv);
+        matchedHere = true;
+      }
+    }
+    if (matchedHere) chains++;
+  }
+  return { now: medianOf(nowAcc), base: medianOf(baseAcc), chains };
+};
+
+/** eik -> pid -> every per-chain minimum observed across `eks`, on one day.
+ *  The accumulation `buildChains` needs for both its national and its
+ *  per-município pass — one spelling, and it reuses the module's own `pushVal`
+ *  rather than the older `get() ?? []; push; set()` idiom that re-set the map
+ *  on every push. */
+const chainPidValues = (
+  chainCells: DailyGrid["chainCells"],
+  eks: Iterable<string>,
+): Map<string, Map<number, number[]>> => {
+  const out = new Map<string, Map<number, number[]>>();
+  for (const ek of eks) {
+    const byEik = chainCells[ek];
+    if (!byEik) continue;
+    for (const [eik, byPid] of Object.entries(byEik)) {
+      let m = out.get(eik);
+      if (!m) out.set(eik, (m = new Map<number, number[]>()));
+      for (const [pid, v] of Object.entries(byPid)) pushVal(m, +pid, v);
+    }
+  }
+  return out;
+};
 
 /**
  * Where an artifact goes. The maths below is unchanged from the file-writing
@@ -118,18 +255,15 @@ const fileEmit: Emit = (kind, key, obj) => {
 
 const toLoadedDay = (grid: DailyGrid): LoadedDay => {
   const settMin = new Map<string, Map<number, number>>();
-  const settMed = new Map<string, Map<number, number>>();
   for (const [ek, byProd] of Object.entries(grid.cells)) {
     const mn = new Map<number, number>();
-    const md = new Map<number, number>();
-    for (const [pid, agg] of Object.entries(byProd)) {
-      mn.set(+pid, agg.min);
-      md.set(+pid, agg.median);
-    }
+    for (const [pid, agg] of Object.entries(byProd)) mn.set(+pid, agg.min);
     settMin.set(ek, mn);
-    settMed.set(ek, md);
   }
-  return { date: grid.date, settMin, settMed, grid };
+  // A per-settlement MEDIAN map used to live here too. It was the old index
+  // basis; matchedCell replaced it, and holding it cost a measured ~180 MB of
+  // heap (1284 → 1104 MB over 189 days) for a key set identical to settMin's.
+  return { date: grid.date, settMin, grid };
 };
 
 const loadDaysFromCache = (): LoadedDay[] => {
@@ -140,27 +274,6 @@ const loadDaysFromCache = (): LoadedDay[] => {
   return files.map((f) =>
     toLoadedDay(JSON.parse(fs.readFileSync(path.join(CACHE_DIR, f), "utf8"))),
   );
-};
-
-// Representative price (median of per-settlement minimums) over a set of
-// settlements, per product, for one day.
-const repPrices = (
-  settMin: Map<string, Map<number, number>>,
-  ekattes: string[],
-): Map<number, number> => {
-  const byPid = new Map<number, number[]>();
-  for (const ek of ekattes) {
-    const m = settMin.get(ek);
-    if (!m) continue;
-    for (const [pid, v] of m) {
-      const arr = byPid.get(pid) ?? [];
-      arr.push(v);
-      byPid.set(pid, arr);
-    }
-  }
-  const out = new Map<number, number>();
-  for (const [pid, arr] of byPid) out.set(pid, median(arr));
-  return out;
 };
 
 /**
@@ -186,7 +299,12 @@ export const buildPriceIndex = (
   // index + since-euro leaderboards use only panel settlements, so the series
   // tracks the same markets over time rather than drifting as the feed's
   // settlement coverage changes. Non-panel places still get their own page.
-  const panel = new Set(baseline.settMed.keys());
+  // Membership is fixed at the baseline day. Keyed off chainCells rather than
+  // cells because chainCells IS what gets matched — the two key sets are equal
+  // by construction (both grouped from the same stage rows; verified 0 either
+  // way on the euro-day grid), so this is the same panel named against the
+  // structure that decides it.
+  const panel = new Set(Object.keys(baseline.grid.chainCells));
   const inPanel = (eks: string[]) => eks.filter((ek) => panel.has(ek));
   // index of the day ~30 days before latest (for change30d)
   const latestMs = Date.parse(latestDate);
@@ -216,39 +334,118 @@ export const buildPriceIndex = (
   }
 
   const allEk = [...allEkattes];
-  // Precompute national + per-oblast representative prices per day (from the
-  // MEDIAN price — see settMed note above).
-  const repNat: Map<number, number>[] = days.map((d) =>
-    repPrices(d.settMed, inPanel(allEk)),
-  );
-  const repObl = new Map<string, Map<number, number>[]>();
-  for (const [obl, eks] of oblastSetts)
-    repObl.set(
-      obl,
-      days.map((d) => repPrices(d.settMed, inPanel(eks))),
-    );
+  const panelEk = inPanel(allEk); // fixed for the whole build — never per day
+  const oblastOf = new Map([...place].map(([ek, p]) => [ek, p.oblast]));
+
+  // Chain-matched representative prices per day, nationally and per oblast.
+  //
+  // Each day yields a PAIR of vectors — that day's prices and the baseline's —
+  // over the SAME matched chain set, so the baseline half legitimately differs
+  // from day to day. That is what makes the series robust to a reporter set
+  // that changes size: a chain absent on either side contributes to neither.
+  // National and oblast reps are accumulated in ONE pass over settlements,
+  // since each settlement belongs to exactly one oblast.
+  interface RepPair {
+    now: Map<number, number>;
+    base: Map<number, number>;
+  }
+  const repNat: RepPair[] = [];
+  const repObl = new Map<string, RepPair[]>();
+  for (const obl of oblastSetts.keys()) repObl.set(obl, []);
+  // ek -> per-day index vs the BASELINE day. Filled by the pass below, which
+  // already computes every matchedCell it needs; basketSeriesWeekly then reads
+  // instead of recomputing ~7k identical calls. Non-panel settlements
+  // (baseIdx > 0) are absent here and still recompute, correctly — their base
+  // day is their own first-seen, not the baseline.
+  const settIdxVsBase = new Map<string, (number | null)[]>();
+  // Settlements CONTRIBUTING per day, as opposed to panel membership. The gap
+  // is the residual this change does not close: it matches chains within a
+  // settlement, not settlements across the compared days. Measured over 188
+  // consecutive day pairs, the drift attributable to that cross-section is at
+  // most 0.330 index points (p95 0.235, median 0.052) — an order of magnitude
+  // below the 4.19-point defect matchedCell fixes, and on the largest genuine
+  // move in the series (+2.37) it accounts for 0.04. Recorded, not fixed.
+  const contributing: number[] = [];
+
+  for (let dayIdx = 0; dayIdx < days.length; dayIdx++) {
+    const day = days[dayIdx];
+    const natNow = new Map<number, number[]>();
+    const natBase = new Map<number, number[]>();
+    const oblNow = new Map<string, Map<number, number[]>>();
+    const oblBase = new Map<string, Map<number, number[]>>();
+    let contributed = 0;
+    for (const ek of panelEk) {
+      const { now, base } = matchedCell(
+        day.grid.chainCells[ek],
+        baseline.grid.chainCells[ek],
+      );
+      let series = settIdxVsBase.get(ek);
+      if (!series)
+        settIdxVsBase.set(ek, (series = new Array(days.length).fill(null)));
+      const own = jevons(now, base, ALL_PIDS);
+      series[dayIdx] = own == null ? null : own.v;
+      if (!now.size) continue;
+      contributed++;
+      const obl = oblastOf.get(ek);
+      let on: Map<number, number[]> | undefined;
+      let ob: Map<number, number[]> | undefined;
+      if (obl) {
+        on = oblNow.get(obl);
+        if (!on) oblNow.set(obl, (on = new Map()));
+        ob = oblBase.get(obl);
+        if (!ob) oblBase.set(obl, (ob = new Map()));
+      }
+      for (const [pid, v] of now) {
+        const bv = base.get(pid)!;
+        pushVal(natNow, pid, v);
+        pushVal(natBase, pid, bv);
+        if (on && ob) {
+          pushVal(on, pid, v);
+          pushVal(ob, pid, bv);
+        }
+      }
+    }
+    contributing.push(contributed);
+    repNat.push({ now: medianOf(natNow), base: medianOf(natBase) });
+    for (const [obl, series] of repObl)
+      series.push({
+        now: medianOf(oblNow.get(obl) ?? new Map()),
+        base: medianOf(oblBase.get(obl) ?? new Map()),
+      });
+  }
 
   // ── index.json ──
-  const natSeries = days.map((_, i) => ({
-    d: dates[i],
-    v: r1(jevons(repNat[i], repNat[0], ALL_PIDS) ?? 100),
-  }));
+  // `n` rides every point: without it `v: 100` is ambiguous between "exactly
+  // where it was on euro day" and "nothing matched" (n = 0). Consumers that
+  // only read `v` are unaffected — the field is additive.
+  const natSeries = days.map((_, i) => {
+    const j = jevons(repNat[i].now, repNat[i].base, ALL_PIDS);
+    return { d: dates[i], v: r1(j?.v ?? 100), n: j?.n ?? 0 };
+  });
   const byCategory: Record<number, { d: string; v: number }[]> = {};
   for (const cat of products.categories) {
     const pids = PIDS_BY_CAT.get(cat.id) ?? [];
-    byCategory[cat.id] = days.map((_, i) => ({
-      d: dates[i],
-      v: r1(jevons(repNat[i], repNat[0], pids) ?? 100),
-    }));
+    byCategory[cat.id] = days.map((_, i) => {
+      const j = jevons(repNat[i].now, repNat[i].base, pids);
+      return { d: dates[i], v: r1(j?.v ?? 100), n: j?.n ?? 0 };
+    });
   }
+  // Restricted to the panel, so it drifts on the same axis the index does.
+  // Unlike the index this is a LEVEL with no baseline to cancel against, so
+  // composition passes straight through: the largest 2026-08 dropouts were
+  // pharmacies (СОФАРМАСИ, РЕМЕДИУМ), which promote on a completely different
+  // cadence from hypermarkets, and their exit moves this with no promotion
+  // changing. The panel bounds that; it does not eliminate it.
   const promoShare = days.map((d, i) => {
     let cells = 0;
     let promo = 0;
-    for (const byProd of Object.values(d.grid.cells))
+    for (const [ek, byProd] of Object.entries(d.grid.cells)) {
+      if (!panel.has(ek)) continue;
       for (const agg of Object.values(byProd)) {
         cells++;
         if (agg.promoMin != null) promo++;
       }
+    }
     return { d: dates[i], v: cells ? r3(promo / cells) : 0 };
   });
   const regionsOut: Record<
@@ -258,10 +455,10 @@ export const buildPriceIndex = (
   for (const [obl, series] of repObl) {
     regionsOut[obl] = {
       name: oblastName.get(obl) ?? obl,
-      index: days.map((_, i) => ({
-        d: dates[i],
-        v: r1(jevons(series[i], series[0], ALL_PIDS) ?? 100),
-      })),
+      index: days.map((_, i) => {
+        const j = jevons(series[i].now, series[i].base, ALL_PIDS);
+        return { d: dates[i], v: r1(j?.v ?? 100), n: j?.n ?? 0 };
+      }),
     };
   }
 
@@ -271,11 +468,16 @@ export const buildPriceIndex = (
       nameEn: "CPC — How Much Does It Cost",
       url: "https://kolkostruva.bg/opendata",
     },
+    // The DATA date (midnight UTC of latestDate), not a wall-clock fetch time —
+    // deliberately, since the parity harness needs a deterministic artifact.
+    // `dataAsOf` is the name to read; `fetchedAt` is kept for consumers that
+    // still reference it and holds the identical value.
+    dataAsOf: latestDate,
     fetchedAt: new Date(latestMs).toISOString(),
     firstDate: baselineDate,
     latestDate,
     baseline: baselineDate,
-    note: "Monitoring basket index (unweighted Jevons of median-of-per-settlement-minimum prices). NOT official CPI/HICP.",
+    note: "Monitoring basket index: unweighted Jevons over products of the median across panel settlements of each settlement's median across CHAIN-MATCHED per-chain minimum prices (only chains reporting on both the compared day and the baseline contribute). Each point is the RATIO OF THE TWO MEDIANS over the matched set, not the median of per-chain ratios. `n` on each point is how many of the products matched. promoShare is panel-restricted but is a LEVEL with no baseline to cancel composition against. NOT official CPI/HICP.",
     coverage: {
       settlements: latest.settMin.size,
       chains: latest.grid.stats.chains,
@@ -355,6 +557,13 @@ export const buildPriceIndex = (
     basketLevel: number | null;
     nPriced: number;
     indexSinceEuro: number;
+    // Denominators for indexSinceEuro. The matched basis is strictly narrower
+    // than the pooled one it replaced and varies enormously by place, so a
+    // number resting on 4 products / 1 chain and one resting on 101 / 20 must
+    // not be indistinguishable. This is the index twin of `nPriced` beside
+    // `basketLevel`.
+    indexN: number;
+    indexChains: number;
     change30d: number;
     popBand: PopBand | null;
     sinceEuro: boolean; // present on euro day → eligible for since-euro board
@@ -376,11 +585,24 @@ export const buildPriceIndex = (
     const baseIdx = firstSeen.get(ek) ?? 0;
     const nowMin = latest.settMin.get(ek)!; // cheapest-store prices (for basket level)
     // index/movers use median (typical) prices to avoid single-store noise
-    const baseMed = days[baseIdx].settMed.get(ek) ?? new Map();
-    const nowMed = latest.settMed.get(ek) ?? new Map();
-    const med30 = day30.settMed.get(ek) ?? baseMed;
-    const idxNow = jevons(nowMed, baseMed, ALL_PIDS) ?? 100;
-    const idx30 = jevons(nowMed, med30, ALL_PIDS) ?? 100;
+    // Chain-matched, exactly as the national index is — a village whose only
+    // discounter stopped reporting must not read as a price rise.
+    const vsBase = matchedCell(
+      latest.grid.chainCells[ek],
+      days[baseIdx].grid.chainCells[ek],
+    );
+    // A settlement absent 30 days ago falls back to its own baseline day, as it
+    // did before the chain-matching change.
+    const vs30 = matchedCell(
+      latest.grid.chainCells[ek],
+      day30.grid.chainCells[ek] ?? days[baseIdx].grid.chainCells[ek],
+    );
+    const jNow = jevons(vsBase.now, vsBase.base, ALL_PIDS);
+    const j30 = jevons(vs30.now, vs30.base, ALL_PIDS);
+    const idxNow = jNow?.v ?? 100;
+    const idx30 = j30?.v ?? 100;
+    const indexN = jNow?.n ?? 0; // matched products behind idxNow (of ALL_PIDS)
+    const indexChains = vsBase.chains; // …and matched chains behind those
 
     const productsOut = Object.entries(cell)
       .map(([pid, agg]) => ({
@@ -401,36 +623,45 @@ export const buildPriceIndex = (
     const byCat = products.categories
       .map((c) => {
         const pids = PIDS_BY_CAT.get(c.id) ?? [];
-        const v = jevons(nowMed, baseMed, pids);
-        const v30 = jevons(nowMed, med30, pids);
+        const v = jevons(vsBase.now, vsBase.base, pids);
+        const v30 = jevons(vs30.now, vs30.base, pids);
         return v == null
           ? null
           : {
               id: c.id,
-              changeSinceEuro: r3(v / 100 - 1),
-              change30d: v30 == null ? 0 : r3(v30 / 100 - 1),
+              changeSinceEuro: r3(v.v / 100 - 1),
+              change30d: v30 == null ? 0 : r3(v30.v / 100 - 1),
             };
       })
       .filter(Boolean);
 
     // per-product movers since euro (median price)
     const movers = ALL_PIDS.map((g) => {
-      const pn = nowMed.get(g);
-      const pb = baseMed.get(g);
+      const pn = vsBase.now.get(g);
+      const pb = vsBase.base.get(g);
       if (!pn || !pb) return null;
       return { id: g, change: r3(pn / pb - 1) };
     })
       .filter((x): x is { id: number; change: number } => !!x)
       .sort((a, b) => b.change - a.change);
 
+    // Panel settlements were already measured against the baseline by the
+    // national pass; only a non-panel place (its own later first-seen day as
+    // base) has to recompute.
+    const stashed = baseIdx === 0 ? settIdxVsBase.get(ek) : undefined;
+    const weeklyPoint = (i: number): number => {
+      if (stashed) return stashed[i] ?? 100;
+      const m = matchedCell(
+        days[i].grid.chainCells[ek],
+        days[baseIdx].grid.chainCells[ek],
+      );
+      return jevons(m.now, m.base, ALL_PIDS)?.v ?? 100;
+    };
     const basketSeriesWeekly = weeklyIdx
       .filter((i) => i >= baseIdx)
       .map((i) => ({
         d: dates[i],
-        v: r1(
-          jevons(days[i].settMed.get(ek) ?? new Map(), baseMed, ALL_PIDS) ??
-            100,
-        ),
+        v: r1(weeklyPoint(i)),
       }));
 
     const settJson = {
@@ -442,7 +673,20 @@ export const buildPriceIndex = (
       latestDate,
       baselineDate: dates[baseIdx],
       basketChangeSinceEuro: r3(idxNow / 100 - 1),
+      // The headline's own denominators, so it is never read bare. indexN = 0
+      // means NOT COMPUTABLE, not "unchanged": no chain priced any product in
+      // this settlement on both days, and `basketChangeSinceEuro` is then the
+      // 0.000 the `?? 100` fallback produces rather than a measurement. This is
+      // not hypothetical — on 2026-08-14, after the reporter set halved, 63 of
+      // 217 panel settlements were in that state.
+      indexN,
+      indexChains,
       basketChange30d: r3(idx30 / 100 - 1),
+      // The window's real start. A settlement absent 30 days ago falls back to
+      // its own first-seen day (1 of 242 on the 2026-08 corpus), so the value
+      // can span far more than 30 days and a consumer must be able to say so
+      // rather than captioning it "за 30 дни".
+      change30dFrom: day30.grid.chainCells[ek] ? day30.date : dates[baseIdx],
       basketSeriesWeekly,
       byCategory: byCat,
       topMovers: { up: movers.slice(0, 5), down: movers.slice(-5).reverse() },
@@ -470,6 +714,8 @@ export const buildPriceIndex = (
       basketLevel: basketLevel == null ? null : r2(basketLevel),
       nPriced,
       indexSinceEuro: r1(idxNow),
+      indexN,
+      indexChains,
       change30d: r3(idx30 / 100 - 1),
       popBand: p.popBand,
       sinceEuro: panel.has(ek),
@@ -485,18 +731,34 @@ export const buildPriceIndex = (
     allEks: string[],
   ) => {
     const eks = inPanel(allEks); // fixed panel for since-euro comparability
-    const idxNow =
-      jevons(
-        repPrices(latest.settMed, eks),
-        repPrices(baseline.settMed, eks),
-        ALL_PIDS,
-      ) ?? 100;
-    const idx30 =
-      jevons(
-        repPrices(latest.settMed, eks),
-        repPrices(day30.settMed, eks),
-        ALL_PIDS,
-      ) ?? 100;
+    // Chain-matched over the same settlement panel, as the national and
+    // per-settlement indices are — a leaderboard that ranked places on a
+    // drifting reporter set would rank the feed, not the market.
+    const aggRep = (base: LoadedDay) => {
+      const now = new Map<number, number[]>();
+      const was = new Map<number, number[]>();
+      let chains = 0;
+      for (const ek of eks) {
+        const m = matchedCell(
+          latest.grid.chainCells[ek],
+          base.grid.chainCells[ek],
+        );
+        chains = Math.max(chains, m.chains);
+        for (const [pid, v] of m.now) {
+          pushVal(now, pid, v);
+          pushVal(was, pid, m.base.get(pid)!);
+        }
+      }
+      return { now: medianOf(now), base: medianOf(was), chains };
+    };
+    const vsBase = aggRep(baseline);
+    const vs30 = aggRep(day30);
+    const jNow = jevons(vsBase.now, vsBase.base, ALL_PIDS);
+    const j30 = jevons(vs30.now, vs30.base, ALL_PIDS);
+    const idxNow = jNow?.v ?? 100;
+    const idx30 = j30?.v ?? 100;
+    const indexN = jNow?.n ?? 0; // matched products behind idxNow (of ALL_PIDS)
+    const indexChains = vsBase.chains; // …and matched chains behind those
     // representative cheapest level: median over panel settlements of each
     // settlement's minimum, excluding per-kg pack outliers (see note above) so a
     // cluster of single-store villages can't pin the regional median to one
@@ -523,6 +785,8 @@ export const buildPriceIndex = (
       basketLevel: basketLevel == null ? null : r2(basketLevel),
       nPriced,
       indexSinceEuro: r1(idxNow),
+      indexN,
+      indexChains,
       change30d: r3(idx30 / 100 - 1),
       popBand: null,
       sinceEuro: true,
@@ -575,8 +839,12 @@ export const buildPriceIndex = (
       );
       cheapest.forEach((r, i) => rank.set(r.code, i + 1));
       // since-euro board: only places present on euro day (genuine comparison)
+      // AND measured over enough matched products to be comparable with the
+      // rest of the board. A place below the floor keeps its own page and its
+      // own number; it just stops being ranked against places measured 25×
+      // more thoroughly.
       const chg = lvl
-        .filter((r) => r.sinceEuro)
+        .filter((r) => r.sinceEuro && r.indexN >= MIN_INDEX_PRODUCTS)
         .sort((a, b) => b.indexSinceEuro - a.indexSinceEuro || byCode(a, b));
       chg.forEach((r, i) => rankChange.set(r.code, i + 1));
       for (const r of lvl) peers.set(r.code, lvl.length);
@@ -615,6 +883,8 @@ export const buildPriceIndex = (
         basketLevel: r.basketLevel,
         nPriced: r.nPriced,
         indexSinceEuro: r.indexSinceEuro,
+        indexN: r.indexN,
+        indexChains: r.indexChains,
         change30d: r.change30d,
       };
       if (r.muni) out.muni = r.muni;
@@ -665,6 +935,8 @@ export const buildPriceIndex = (
       basketLevel: p.basketLevel,
       nPriced: p.nPriced,
       indexSinceEuro: p.indexSinceEuro,
+      indexN: p.indexN,
+      indexChains: p.indexChains,
       change30d: p.change30d,
       popBand: p.popBand ?? null,
       rank: p.rank,
@@ -710,6 +982,17 @@ export const buildPriceIndex = (
       `${settRows.length} settlement files, ranking.json (${places.length} places), ` +
       `commonBasket=${commonBasket.length} products`,
   );
+  // The two numbers that make the matching's health visible from a build log —
+  // it is now the property most likely to degrade silently between runs.
+  const lastIdx = days.length - 1;
+  const thinSetts = [...settIdxVsBase.values()].filter(
+    (a) => a[lastIdx] != null,
+  ).length;
+  console.log(
+    `[prices] matched panel: ${contributing[lastIdx]}/${panelEk.length} settlements on ${latestDate} ` +
+      `· ${panelEk.length - thinSetts} with no computable index ` +
+      `· national n=${natSeries[lastIdx]?.n ?? 0}/${ALL_PIDS.length} products`,
+  );
 };
 
 // Chain comparison: score each chain on the intersection of the common basket
@@ -724,18 +1007,10 @@ function buildChains(
 ): void {
   const chainNames = latest.grid.chainNames;
   // national: eik -> pid -> median over settlements of that chain's min
-  const natChainPid = new Map<string, Map<number, number[]>>();
-  for (const byEik of Object.values(latest.grid.chainCells)) {
-    for (const [eik, byPid] of Object.entries(byEik)) {
-      const m = natChainPid.get(eik) ?? new Map<number, number[]>();
-      for (const [pid, v] of Object.entries(byPid)) {
-        const arr = m.get(+pid) ?? [];
-        arr.push(v);
-        m.set(+pid, arr);
-      }
-      natChainPid.set(eik, m);
-    }
-  }
+  const natChainPid = chainPidValues(
+    latest.grid.chainCells,
+    Object.keys(latest.grid.chainCells),
+  );
   // median + r2 reuse the module-level helpers (no local shadows)
   const chainBasket = (m: Map<number, number[]>) => {
     let total = 0;
@@ -774,20 +1049,7 @@ function buildChains(
 
   // per-muni
   for (const [obsht, eks] of muniSetts) {
-    const muniChainPid = new Map<string, Map<number, number[]>>();
-    for (const ek of eks) {
-      const byEik = latest.grid.chainCells[ek];
-      if (!byEik) continue;
-      for (const [eik, byPid] of Object.entries(byEik)) {
-        const m = muniChainPid.get(eik) ?? new Map<number, number[]>();
-        for (const [pid, v] of Object.entries(byPid)) {
-          const arr = m.get(+pid) ?? [];
-          arr.push(v);
-          m.set(+pid, arr);
-        }
-        muniChainPid.set(eik, m);
-      }
-    }
+    const muniChainPid = chainPidValues(latest.grid.chainCells, eks);
     const chains = [...muniChainPid.entries()]
       .map(([eik, m]) => {
         const { basket, nPriced } = chainBasket(m);
