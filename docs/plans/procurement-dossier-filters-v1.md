@@ -30,6 +30,41 @@ Five gaps motivate this work:
    dossier can only be narrowed by term + buyer/contractor EIK — no CPV, date or
    amount narrowing (forcing per-slug `excludes` hacks).
 
+## Codebase reconciliation (re-grounded 2026-08-17)
+
+The contracts page (`src/screens/dev/ContractsBrowserDbScreen.tsx`, route
+`/procurement/contracts`) is **already** built on shared, URL-backed, extracted
+filter infrastructure — it is NOT the local-`useState` screen an earlier pass
+assumed. What exists today:
+
+- **`useUrlProcurementFilters({toggleParam, withRisk})`** — the shared URL-filter
+  hook for the three procurement browsers; owns `?proc` (bucketed procedure),
+  `?cpv`, `?single`, and `?grade` (validated A–F risk set), with setters + a
+  `clearFilters`. Extend this hook rather than adding params ad hoc.
+- **`useContractColumns({show, ngoByEik, showAppealChip, titleClamp})`**
+  (`src/screens/components/procurement/contractColumns.tsx`) — the shared column
+  factory. `CompanyContractsDbScreen` + `ContractsBrowserSection` already reuse it.
+  **This is the client-table reuse point** — the dossier client table calls the
+  same factory for a pixel-identical table.
+- Extracted toolbar controls: `CpvFilterCombobox`, `ProcedureBucketSelect`,
+  `RiskGradeFilter`, `SingleBidderToggle`; `ContractsAnalysisStrip` (facet-driven
+  KPI cards + clickable procedure-mix bar via `useContractsAnalytics`);
+  `ContractsAggregatesFooter` + a reactive `onData` server aggregate.
+- **A server-side `risk_grade` filter** (migration 112, `contract_risk_cache`;
+  registry cols `risk_cri`/`risk_grade`/`risk_fired`/masks, all `viewOnly:true`).
+  The registry `select` already returns these, and `useProjectFile` fetches via the
+  same `fetchTablePage` mapper — so `model.contracts` rows carry `riskCri`/
+  `riskGrade`, and the client table's risk chips render. *(Impl check: confirm the
+  snake→camel map covers the risk fields end-to-end.)*
+
+Consequences woven into the phases below: **do not "replace the bespoke controls"**
+(there are none — reuse the shared pieces); the "shared filter" goal is *already
+met* on the contracts side, so the genuine extraction is the **thread editor**
+(dossier-only); the client-table Mode-M path **loses** the server infra
+(`useContractsAnalytics` facet KPIs, `onData` aggregates, server `risk_grade`
+filter) and must recompute those from the member array, reusing
+`ContractsAnalysisStrip`/`ContractsAggregatesFooter` as presentational pieces.
+
 ## Locked decisions
 
 - Unify the model: a dossier *is* a saved, resolved **`ProcurementQuery`**; one
@@ -86,15 +121,23 @@ export interface ProcurementQuery extends MembershipNarrowing {
   totalBasis?: "members" | "corpus";
 }
 
-/** Analysis lenses — NEVER persisted in the spec, applied AFTER the fold. */
+/** Analysis lenses — NEVER persisted in the spec, applied AFTER the fold. Each
+ *  reuses an EXISTING shared control (ProcedureBucketSelect / SingleBidderToggle /
+ *  RiskGradeFilter) and, in Mode S, an EXISTING useUrlProcurementFilters param. */
 export interface ViewFilters {
-  methodIn?: string[]; singleBidder?: boolean; appealed?: boolean; annexed?: boolean;
+  procBucket?: ProcedureBucket | null;   // ProcedureBucketSelect / ?proc
+  singleBidder?: boolean;                // SingleBidderToggle / ?single
+  riskGrade?: RiskGradeLetter[];         // RiskGradeFilter / ?grade (migration 112)
+  appealed?: boolean; annexed?: boolean;
 }
 // ProjectFileSpec extends ProcurementQuery + editorial fields.
 ```
 
 **Column allowlist.** Membership: `cpv`, `date`, `amount_eur`, `eu_funded`. View:
-`procurement_method`, `number_of_tenderers`(single-bidder), appealed, annexed.
+`procurement_method`(bucketed), `number_of_tenderers`(single-bidder), **`risk_grade`
+(A–F, migration 112 — already a shared filter)**, appealed, annexed. Risk grade is a
+*view* lens: "the D–F contracts of this project" is a filtered look, not a redefinition
+of what the project contains.
 **Deliberately refused: `awarder_name` / `contractor_name` (`filter:"text"`)** —
 exposing name-substring matching as a dossier filter reintroduces exactly the
 false-positive vector the `globalCols:["title"]` fix eliminated (firms *named*
@@ -166,19 +209,21 @@ seeded construction lot's lineage). Rules:
   interface AND to the `curatedForkHref` `copy` object (L499-511 cherry-picks —
   new fields drop on fork/edit unless added).
 - **New `src/screens/components/procurement/ProcurementQueryFilter.tsx`**: extract
-  `BuildForm` + `ThreadRow` + `ThreadAdder` into one **controlled** component
+  the genuinely-unshared **thread editor** — `BuildForm` + `ThreadRow` +
+  `ThreadAdder` from `ProjectFileScreen.tsx` — into one **controlled** component
   (`value: ProcurementQuery` + `onChange`). Reuse the shared `AwarderSearch` (buyer
-  + `group="companies"` contractor), `CpvFilterCombobox`, and date/amount inputs.
-  **Progressive disclosure:** threads are primary; membership narrowing lives in a
-  collapsible "Стесни" section; view filters render on the *table toolbar*, never in
-  the dossier-defining form.
-- **Two component modes.** The corpus contracts browse has **no `search[]` threads**
-  — just one free-text box — so mounting a thread editor there is wrong. Ship
-  `mode="query"` (threads + narrowing → hub build form, dossier inline editor) and
-  `mode="narrowing"` (narrowing + view controls only → the corpus contracts
-  toolbar). Same component, same `ProcurementQuery` value.
-- Mount it in the hub build form + the dossier inline editor (`mode="query"`) and
-  the contracts toolbar (`mode="narrowing"`, replacing its bespoke controls).
+  + `group="companies"` contractor) for recall scope, and reuse the **existing**
+  narrowing controls (`CpvFilterCombobox`, plus date/amount inputs) — do NOT
+  reimplement them. **Progressive disclosure:** threads are primary; membership
+  narrowing lives in a collapsible "Стесни" section; view filters render on the
+  *table toolbar* (the existing `RiskGradeFilter`/`SingleBidderToggle`/
+  `ProcedureBucketSelect`), never in the dossier-defining form.
+- **Scope: the contracts toolbar is already shared** (`useUrlProcurementFilters` +
+  the extracted controls), so this component is mounted only where a **thread
+  editor** is needed: the hub build form and the dossier inline editor. It is NOT
+  mounted on the corpus contracts browse (which has one free-text box, no threads) —
+  that page keeps its current toolbar; the dossier just reuses the same underlying
+  controls for consistency.
 
 ## Phase 2 — Methodology-exact footer (asks 1, 2)
 
@@ -208,15 +253,27 @@ namespaced params (`?vmethod=`, `?vsingle=`) so they never collide with the spec
 Resolve with `useProjectFile`, then branch on the resolved model:
 
 - **Bounded dossier** — **the DIY-exact path.** Render the **client `DataTable`**
-  over `model.contracts` (exact resolved members) with the *same* column defs +
-  `RiskBadges`/`AppealChip` as the server browser. *(Verified: `ProjectFileModel.
-  contracts` is typed `ProcurementContract[]` — the exact type the server browser's
-  `DataTableColumnDef`s consume, so the reuse is sound.)* **View filters** from the
-  toolbar filter the in-memory array; facets are computed from the member array.
+  over `model.contracts` (exact resolved members) with columns from the **shared
+  `useContractColumns({show:[…], showAppealChip:true})`** factory — the *same* one
+  the server browser uses, so the table is pixel-identical. *(Verified:
+  `model.contracts` is `ProcurementContract[]` carrying `riskCri`/`riskGrade` from
+  the registry `select`, so risk chips render.)* **View filters** (the shared
+  `RiskGradeFilter`/`SingleBidderToggle`/`ProcedureBucketSelect`) filter the
+  in-memory array; the headline + a `ContractsAnalysisStrip`/`ContractsAggregatesFooter`
+  are computed from the member array.
+  - **Divergence to own (Mode M only):** this path forgoes the server infra the
+    corpus browse leans on — `useContractsAnalytics` (facet KPIs + mix bar),
+    `onData` server aggregates, and server-side `risk_grade` filtering. Reimplement
+    each over the bounded member array (reusing the presentational strip/footer
+    components); risk-grade becomes a client array filter on `riskGrade`. This is
+    the maintenance cost of exact DIY membership — contained to data plumbing, not
+    the UI.
 - **Truncated / program dossier** — no exact full member set exists, so "see all
-  the ~N" uses the **server `DbDataTable`** with a **seed reproduction**:
+  the ~N" uses the **server `DbDataTable`** (Mode S) with a **seed reproduction**:
   `globalCols:["title"]` + `globalFtsOnly` + buyer/contractor scope + membership
-  narrowing + `pscope=all`.
+  narrowing + `pscope=all`. Mode S keeps ALL the existing server infra (analysis
+  strip, facets, `risk_grade`) unchanged — it *is* the corpus browser with extra
+  scope.
 
 **Discriminator — use contract-side truncation, not `model.truncated`.** The
 existing `truncated` (`useProjectFile.tsx:675`) fires when **either** the contract
@@ -245,14 +302,17 @@ being crossed).
 Supporting changes:
 - **`DbDataTable`**: forward `globalCols` + `globalFtsOnly` (the engine already
   accepts them — no `db_table.js` change).
-- **Contracts page**: add a `?contractor=<eik,eik>` scope (none today —
-  `contractor_eik` is whitelisted but unused); reconcile scope precedence (today
-  sector > awarder; dossier is most specific); **in dossier mode force
+- **Contracts page**: add a `?contractor=<eik,eik>` scope as a **sibling to the
+  existing `awarderScope`** (`ContractsBrowserDbScreen.tsx:97-107`) — `contractor_eik`
+  is whitelisted but unused; used by the Mode-S seed-repro. Reconcile scope precedence
+  (today sector > awarder; dossier is most specific). **In dossier mode force
   `pscope=all`** — the dossier's own `dateFrom/dateTo` is membership, the parliament
-  window is a view scope, and double-bounding is confusing; in the server branch
-  push the dossier scope into the **facet `fixedFilters`** (L86-87, facets are
-  corpus-wide today); move `method`/`cpvDiv`/`singleBidder` onto the shared
-  query/view state with URL write-back so filter state is shareable.
+  window is a view scope, double-bounding is confusing. The page already folds
+  `awarderScope` into `scopeBase` and every facet request, so the analysis strip
+  matches the rows — **extend that same fold to `contractorScope`** (don't
+  reintroduce the corpus-wide-facet bug). Route the dossier/view params through
+  `useUrlProcurementFilters` (which already owns `?grade`/`?single`/`?cpv`), not a
+  parallel param system.
 - **`seeAllContractsHref`**: emit `?dossier=<slug>` (curated) or `?dspec=<spec>`
   (DIY); the page picks client-vs-server by `contractsTruncated`. Update callers +
   the existing test.
