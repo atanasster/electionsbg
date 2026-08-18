@@ -67,6 +67,10 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
     table: "nzok_activity_facility_periods",
     loader: "db:load:nzok-activities:pg",
   },
+  {
+    table: "nzok_activity_proc_periods",
+    loader: "db:load:nzok-activities:pg",
+  },
   { table: "nzok_activity_monthly", loader: "db:load:nzok-activities:pg" },
   // The state-budget corpus. Only `budget_personnel` is DELETE + COPY — the
   // shape that actually loses the map; the rest are stage-merged and keep it.

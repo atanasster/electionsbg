@@ -905,6 +905,57 @@ psql "$DATABASE_URL" -c "SELECT count(DISTINCT period), min(period), max(period)
 
 The first must stay at **one complete annual period** until hazard 2 is resolved.
 
+### 8f. SHIPPED 2026-08-17 — what the named step turned into
+
+All four §8e hazards are closed, and the work turned up a fifth nobody had named.
+
+- **Hazard 1 (a run REPLACES the corpus)** — the loader's `TRUNCATE` is now a
+  `DELETE … WHERE EXTRACT(YEAR FROM period) = $1` across all four tables, and the
+  writer emits a per-year `activities-<year>.json` beside the latest-year
+  `activities.json`. `--year 2024` on the loader targets that file. Verified: both
+  years now coexist — 2024 (17,515 annual rows / 4,104,210 cases) and 2025
+  (18,211 / 4,427,038).
+- **Hazard 2 (`max(period)` means the latest ANNUAL matrix)** — `nzok_activities`
+  keeps its annual grain untouched. The monthly panel is a SEPARATE relation,
+  `nzok_activity_proc_periods` (period × entity × procedure). Regression-checked
+  after the 2024 load: `max(period)` is still `2025-01-01` and
+  `nzok_casemix_expected_vs_actual('115576405')` returns the identical
+  `ratio 0.963 / coverage 0.937`.
+- **Hazard 3 (the 12-month completeness guard)** — untouched; 2026's six files
+  are still refused, so no half-year can reach the annual table.
+- **§10c-4 (the changelog key) — SUPERSEDED by measurement.** The panel records
+  **no changelog of its own**. It is the same corpus change `nzok_activities`
+  already reports (same loader, same transaction, same source file, just unfolded
+  across months), so a second batch reports one event twice — and it cost:
+  recording it put **291,414 rows into `ingest_first_seen`** on a two-year load,
+  94% of everything the one-day window holds, and
+  `recent_updates_plan.data.test.ts` failed at **308,980 rows scanned for a
+  one-day window**. Summary mode does not fix that — it stops the day being
+  ITEMISED, but the branch still scans. §10c-4's concern (a year key collapsing
+  twelve months) only applies if the panel records at all.
+
+**A sixth, from the review: the loader could silently wipe a year's panel.** An
+`activities.json` written before `facilityProcPeriods` existed yields an empty
+array, and the year-scoped DELETE covered the panel unconditionally — so it would
+have deleted ~144k rows and inserted none, with BOTH guards self-disabling (the
+count check compares 0 === 0; the sum check was gated on a non-empty panel). The
+delete now skips the panel when the artifact carries none, and warns.
+
+**The fifth hazard, found by doing it: a BACKFILL run silently downgraded the
+committed artifact.** `activities_overview.json` is committed and the writer
+rewrote it on every run, so building 2024 replaced the 2025 overview with 2024 —
+row counts all consistent, nothing red, and it would have shipped. The writer now
+only writes `activities.json` and the overview when the year being built is the
+newest on disk, and says so when it skips them.
+
+**Reconciliation the panel is held to**: it must sum to the annual matrix
+exactly, per year — they are the same rows either side of the fold across months.
+It does (4,104,210 and 4,427,038), and the entity universes match (371 / 404).
+`nzok_activity_proc_periods.data.test.ts` holds all four properties.
+
+**Still open**: 2026's six months are fetched by nobody, and the panel is not yet
+read by any surface — W2 is what will consume it.
+
 **Corpus floor to state publicly:** activity data begins Jan 2024. Any "trend"
 claim beyond that has no source.
 
@@ -1289,7 +1340,7 @@ although the artifact set above makes both locale files mandatory.
 | §4a article | **SHIPPED** 2026-08-17; spine is CPV-85 at 9.5%, last among services |
 | W3 methodology page | **SHIPPED** 2026-08-17 — 7 artifacts; 2 legs + a health context figure (§3a-1) |
 | §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
-| §8 activity panel | rename bug fixed; **monthly ingest still open** (§8e) |
+| §8 activity panel | **SHIPPED** 2026-08-17 (§8f) — monthly panel + per-year merge, 2024 backfilled |
 | W2 per-hospital €/case | metric already EXISTS (059, live route, ratio 0.963 verified); blocked only on §8e + §6b guards |
 | §9 Kaizen | closed — negative result, publish don't build |
 

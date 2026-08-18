@@ -122,6 +122,39 @@ CREATE TABLE IF NOT EXISTS nzok_activity_monthly (
 -- the ~11% of national cases that never reach an EIK are stated rather than
 -- silently dropped.
 -- --------------------------------------------------------------------------
+-- The MONTHLY panel: (period × entity × procedure), i.e. the annual matrix
+-- unfolded across the months it was summed from.
+--
+-- It is a SEPARATE relation from nzok_activities on purpose. Ten call sites
+-- across five migrations (053 ×5, 059 ×2, 054, 065, 075) read
+-- `max(period) FROM nzok_activities` meaning "the latest ANNUAL matrix";
+-- re-graining that table to months would silently redefine every one of them as
+-- a single month — the case-mix ratio would compare one month of cases against a
+-- full year of payments, wrong by ~12x, served at 200 with every row count
+-- reconciling. See docs/plans/procurement-outcomes-v1.md §8e hazard 2.
+--
+-- What it is FOR: joining the activity corpus to nzok_hospital_payments
+-- period-exactly. The annual matrix cannot do that — a facility with four months
+-- of payment rows against a full year of cases reads as absurdly cheap, which is
+-- the artifact §6b flagged.
+CREATE TABLE IF NOT EXISTS nzok_activity_proc_periods (
+  period        date   NOT NULL,
+  facility_fold text   NOT NULL,
+  facility      text   NOT NULL,
+  rzok          text   NOT NULL,
+  eik           text,
+  entity_key    text   NOT NULL,
+  procedure     text   NOT NULL,
+  proc_type     text   NOT NULL,
+  cases         bigint NOT NULL,
+  zol           bigint NOT NULL,
+  PRIMARY KEY (period, entity_key, procedure)
+);
+CREATE INDEX IF NOT EXISTS idx_nzok_act_proc_periods_entity
+  ON nzok_activity_proc_periods (entity_key, period);
+CREATE INDEX IF NOT EXISTS idx_nzok_act_proc_periods_proc
+  ON nzok_activity_proc_periods (procedure, period);
+
 CREATE TABLE IF NOT EXISTS nzok_activity_facility_periods (
   period        date NOT NULL,               -- first of the month
   facility_fold text NOT NULL,               -- fold of the name billed THAT period

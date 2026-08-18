@@ -111,12 +111,26 @@ test.skipIf(skip)("entity churn stays under the ceiling", async () => {
   // the only legitimate excess is genuine openings and closures. A jump means
   // НЗОК renamed a batch and the crosswalk did not re-unite them.
   const [c] = await allRows<{ annual: number; max_period: number }>(
-    `SELECT
-       (SELECT count(DISTINCT entity_key)::int
-          FROM nzok_activity_facility_periods) AS annual,
-       (SELECT max(n)::int FROM (
-          SELECT count(DISTINCT entity_key) AS n
-            FROM nzok_activity_facility_periods GROUP BY period) p) AS max_period`,
+    // PER YEAR. The corpus holds more than one year since the §8e per-year merge,
+    // and a table-wide DISTINCT counts the UNION of every year's entities against
+    // a single month's — which reads as churn (413 vs 372 = 1.110) while each
+    // year is individually fine. The invariant is about renames WITHIN a year,
+    // so the comparison has to stay inside one; the worst year is the one that
+    // matters, hence the ORDER BY.
+    `WITH by_period AS (
+       SELECT EXTRACT(YEAR FROM period)::int AS yr, period,
+              count(DISTINCT entity_key) AS n
+         FROM nzok_activity_facility_periods GROUP BY 1, 2),
+     by_year AS (
+       SELECT EXTRACT(YEAR FROM period)::int AS yr,
+              count(DISTINCT entity_key)::int AS annual
+         FROM nzok_activity_facility_periods GROUP BY 1)
+     SELECT y.annual,
+            (SELECT max(p.n)::int FROM by_period p WHERE p.yr = y.yr) AS max_period
+       FROM by_year y
+      ORDER BY y.annual::numeric
+               / NULLIF((SELECT max(p.n) FROM by_period p WHERE p.yr = y.yr), 0) DESC
+      LIMIT 1`,
   );
   const churn = c.annual / c.max_period;
   assert.ok(

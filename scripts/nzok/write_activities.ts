@@ -49,6 +49,9 @@ const OUT_FILE = path.resolve(
   __dirname,
   "../../data/budget/nzok/activities.json",
 );
+/** Per-year artifact, so multiple years can coexist on disk (see the write). */
+const YEAR_FILE = (year: number) =>
+  path.resolve(__dirname, `../../data/budget/nzok/activities-${year}.json`);
 // Compact companion (~10 KB, committed) for the AI tool + any static reader — the
 // national headline + monthly trend + top procedures, WITHOUT the 20k-row
 // facility matrix (that lives in Postgres via the loader). The cases-per-bed
@@ -190,6 +193,26 @@ const main = async (): Promise<void> => {
   const facProc = new Map<string, FacilityProc>();
   // facilityFold → its per-period presence (see FacilityPeriod).
   const facPeriods = new Map<string, FacilityPeriod>();
+  // (period \x00 facilityFold \x00 procedure) → that month's cases/ЗОЛ. This is
+  // the MONTHLY panel: same grain as facilityProcedures but not folded across the
+  // year, so it can be joined to the monthly payments feed period-exactly. It is
+  // a SEPARATE series from the annual matrix on purpose — ten call sites read
+  // `max(period) FROM nzok_activities` meaning "the latest ANNUAL matrix", and
+  // re-graining that table would silently turn each of them into a one-month
+  // figure (plan §8e hazard 2).
+  const facProcPeriods = new Map<
+    string,
+    {
+      period: string;
+      facilityFold: string;
+      facility: string;
+      rzok: string;
+      procedure: string;
+      procType: string;
+      cases: number;
+      zol: number;
+    }
+  >();
   const monthlyNational: { period: string; cases: number; zol: number }[] = [];
   const periods: string[] = [];
   let sourceRows = 0;
@@ -237,6 +260,25 @@ const main = async (): Promise<void> => {
       }
       g.cases += r.cases;
       g.zol += r.zol;
+
+      const fpKey = `${period}\x00${fold}\x00${r.procedure}`;
+      let fpp = facProcPeriods.get(fpKey);
+      if (!fpp)
+        facProcPeriods.set(
+          fpKey,
+          (fpp = {
+            period,
+            facilityFold: fold,
+            facility: r.facility,
+            rzok: r.rzok,
+            procedure: r.procedure,
+            procType: procType(r.procedure),
+            cases: 0,
+            zol: 0,
+          }),
+        );
+      fpp.cases += r.cases;
+      fpp.zol += r.zol;
 
       // Per-period presence. The source can spell one facility slightly
       // differently across its rows in a single file; the fold absorbs that, and
@@ -364,25 +406,70 @@ const main = async (): Promise<void> => {
     },
   };
 
-  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-  fs.writeFileSync(OUT_FILE, JSON.stringify(out));
-
-  // Compact committed companion for the AI tool / static readers.
-  fs.writeFileSync(
-    OVERVIEW_FILE,
-    JSON.stringify(
-      {
-        generatedAt: out.generatedAt,
-        source: out.source,
-        year,
-        totals: out.totals,
-        monthlyNational,
-        topProcedures: procedures.slice(0, 40),
-      },
-      null,
-      2,
-    ),
+  const facilityProcPeriods = [...facProcPeriods.values()].sort(
+    (a, b) =>
+      a.period.localeCompare(b.period) ||
+      a.facilityFold.localeCompare(b.facilityFold) ||
+      a.procedure.localeCompare(b.procedure),
   );
+  (out as Record<string, unknown>).facilityProcPeriods = facilityProcPeriods;
+
+  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
+  // `activities.json` and the committed `activities_overview.json` are the
+  // LATEST-YEAR artifacts, so a BACKFILL run must not touch them: writing 2024
+  // over them silently replaces the current vintage with an older one, and the
+  // overview is COMMITTED, so that ships. Measured — it happened on the first
+  // 2024 run. The per-year file below is always written.
+  //
+  // The signal is the committed overview's own `year`, NOT a glob of
+  // `activities-*.json`: those are gitignored, so on a fresh clone the glob finds
+  // nothing, concludes "this is the latest year" and does exactly what it exists
+  // to prevent. The overview travels with the repo, so it is always there.
+  const overviewYear = (() => {
+    try {
+      const prev = JSON.parse(fs.readFileSync(OVERVIEW_FILE, "utf8")) as {
+        year?: number;
+      };
+      return typeof prev.year === "number" ? prev.year : null;
+    } catch {
+      return null; // no overview yet — this run establishes it
+    }
+  })();
+  const isLatest = overviewYear == null || year >= overviewYear;
+  if (isLatest) {
+    fs.writeFileSync(OUT_FILE, JSON.stringify(out));
+  } else {
+    console.log(
+      `\n  NOTE: ${year} is not the newest year on disk — leaving activities.json ` +
+        `and activities_overview.json on the later vintage. Only ` +
+        `activities-${year}.json was written.`,
+    );
+  }
+  // Per-year copy. The loader globs these so a second year can be ingested
+  // WITHOUT replacing the first: activities.json is single-year by construction,
+  // so a plain re-run for 2024 would swap 2025 out rather than add to it
+  // (plan §8e hazard 1). activities.json stays as the latest-year copy for the
+  // consumers that already read it.
+  fs.writeFileSync(YEAR_FILE(year), JSON.stringify(out));
+
+  // Compact committed companion for the AI tool / static readers. Latest year
+  // only, for the same reason as above — this one is COMMITTED.
+  if (isLatest)
+    fs.writeFileSync(
+      OVERVIEW_FILE,
+      JSON.stringify(
+        {
+          generatedAt: out.generatedAt,
+          source: out.source,
+          year,
+          totals: out.totals,
+          monthlyNational,
+          topProcedures: procedures.slice(0, 40),
+        },
+        null,
+        2,
+      ),
+    );
 
   const bytes = fs.statSync(OUT_FILE).size;
   console.log(

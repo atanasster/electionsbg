@@ -809,6 +809,47 @@ Two of those pairings are worth stating because they look wrong:
   so before this it was already leaving `/procurement/contractors`' MP-tied KPIs on the
   previous vintage, with nothing red anywhere.
 
+`nzok_activity_proc_periods` (migration 053, `db:load:nzok-activities:pg`) is the MONTHLY
+activity panel — (period × entity × procedure), i.e. the annual matrix before it is folded
+across months. It exists so the activity corpus can be joined to `nzok_hospital_payments`
+period-exactly; the annual matrix cannot, and a facility with four months of payment rows
+against a full year of cases reads as absurdly cheap.
+
+Four things about this family are easy to get backwards:
+
+- **`nzok_activities` is ANNUAL and must stay that way.** Ten call sites across five
+  migrations (053 ×5, 059 ×2, 054, 065, 075) read `max(period) FROM nzok_activities`
+  meaning "the latest ANNUAL matrix". Re-graining that table to months silently redefines
+  every one of them as a single month — the case-mix ratio would compare one month of cases
+  against a full year of payments, wrong by ~12x, at a 200, with every row count
+  reconciling. That is why the monthly panel is a separate relation.
+- **The loader is a PER-YEAR MERGE, not a TRUNCATE.** `activities.json` is single-year by
+  construction, so a TRUNCATE made every run REPLACE the corpus: loading 2024 swapped 2025
+  out. The write is now `DELETE … WHERE EXTRACT(YEAR FROM period) = $1` + insert, and the
+  writer emits a per-year `activities-<year>.json` (gitignored) beside the latest-year
+  `activities.json`. Backfill with `npx tsx scripts/db/load_nzok_activities_pg.ts --year 2024`.
+- **A backfill run must not touch the LATEST-year artifacts.** `activities_overview.json` is
+  COMMITTED, and the writer used to rewrite it on every run — so building 2024 replaced the
+  2025 overview with 2024 and would have shipped it, with nothing red. The writer now only
+  writes `activities.json` + the overview when the year being built is the newest on disk.
+- **The panel records NO changelog of its own, on purpose.** It is the same corpus change
+  the `nzok_activities` batch already reports — same loader, same transaction, same source
+  file — so a second batch reports one event twice. Measured: recording it put 291,414 rows
+  into `ingest_first_seen` on a two-year load (94% of everything the one-day window holds)
+  and failed `recent_updates_plan.data.test.ts` at 308,980 rows scanned for a one-day
+  window. Summary mode does not help — it stops the day being itemised, but the branch
+  still scans.
+- **Backfilling on the CLOUD needs an env var, not a flag.** `db:load:nzok-activities:pg:cloud`
+  is a nested npm script and the inner `npm run` swallows `--year 2024` (argv arrives as
+  `["2024"]`), so the loader would silently reload the LATEST year instead. Use
+  `NZOK_ACTIVITY_YEAR=2024 npm run db:load:nzok-activities:pg:cloud`.
+
+The panel must sum to the annual matrix EXACTLY, per year — they are the same rows either
+side of the fold, so drift means one aggregation lost or double-counted a period. The
+loader asserts it in-transaction and `nzok_activity_proc_periods.data.test.ts` holds it
+plus the annual-grain and entity-key invariants. Corpus floor: activity data begins
+**Jan 2024**; nhif.bg serves nothing earlier.
+
 `procurement_award_criteria()` (migration 164) is the ЗОП чл. 70 award-criterion lens behind
 `/api/db/procurement-award-criteria` and the `AwardCriteriaTile` on `/procurement`. It rides the
 TENDERS loader — `db:load:tenders:pg[:cloud]` applies 164 — because it reads only `tenders` and,
@@ -2548,7 +2589,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

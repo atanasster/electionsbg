@@ -59,7 +59,31 @@ const PATHWAY_SPEND_SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/059_nzok_pathway_tariffs.sql",
 );
-const JSON_FILE = path.join(REPO, "data/budget/nzok/activities.json");
+// Default: the latest-year artifact. `--year 2024` targets that year's own file
+// instead, which is how a BACKFILL is run: the write below is scoped to the
+// loaded year, so the two calls compose rather than replacing each other.
+//
+//   npm run db:load:nzok-activities:pg                 # latest
+//   npx tsx scripts/db/load_nzok_activities_pg.ts --year 2024
+const YEAR_ARG = (() => {
+  // NZOK_ACTIVITY_YEAR exists because `db:load:nzok-activities:pg:cloud` is a
+  // NESTED npm script and the inner `npm run` swallows `--year 2024` — argv
+  // arrives as ["2024"], the flag is gone, and this would fall back to the
+  // LATEST year, deleting and reloading the wrong year on Cloud SQL while
+  // reporting success. Verified. For a cloud backfill use:
+  //   NZOK_ACTIVITY_YEAR=2024 npm run db:load:nzok-activities:pg:cloud
+  const env = Number(process.env.NZOK_ACTIVITY_YEAR);
+  if (Number.isInteger(env)) return env;
+  const i = process.argv.indexOf("--year");
+  const v = i >= 0 ? Number(process.argv[i + 1]) : NaN;
+  return Number.isInteger(v) ? v : null;
+})();
+const JSON_FILE = path.join(
+  REPO,
+  YEAR_ARG
+    ? `data/budget/nzok/activities-${YEAR_ARG}.json`
+    : "data/budget/nzok/activities.json",
+);
 const PAYMENTS_FILE = path.join(
   REPO,
   "data/budget/nzok/hospital_payments.json",
@@ -92,6 +116,19 @@ interface ActivitiesFile {
   monthlyNational: { period: string; cases: number; zol: number }[];
   facilityProcedures: FacilityProc[];
   facilityPeriods?: FacilityPeriod[];
+  /** The MONTHLY panel (period × facility × procedure). Optional so an
+   *  activities.json written before this field existed still loads the other
+   *  three tables instead of failing. */
+  facilityProcPeriods?: {
+    period: string;
+    facilityFold: string;
+    facility: string;
+    rzok: string;
+    procedure: string;
+    procType: string;
+    cases: number;
+    zol: number;
+  }[];
   totals: { totalCases: number };
 }
 
@@ -155,6 +192,18 @@ const ACT_COLS = [
   "beds",
 ] as const;
 const MONTHLY_COLS = ["period", "cases", "zol"] as const;
+const PROC_PERIOD_COLS = [
+  "period",
+  "facility_fold",
+  "facility",
+  "rzok",
+  "eik",
+  "entity_key",
+  "procedure",
+  "proc_type",
+  "cases",
+  "zol",
+] as const;
 const FAC_PERIOD_COLS = [
   "period",
   "facility_fold",
@@ -417,6 +466,65 @@ const main = async (): Promise<void> => {
     Math.round(m.zol),
   ]);
 
+  // The monthly panel, re-keyed onto the SAME entity the annual matrix uses — so
+  // a facility НЗОК renamed mid-year is one entity here too, not two.
+  // …and re-aggregated onto (period, entity_key, procedure), exactly as the
+  // annual matrix is. The re-key EXISTS to merge folds — a facility НЗОК renamed
+  // mid-year resolves to one entity — so two folds can land on the same entity
+  // within a period and must be summed, not inserted twice (which is a PK
+  // violation, and would double-count if the PK were dropped).
+  const procPeriodAgg = new Map<
+    string,
+    {
+      period: string;
+      fold: string;
+      facility: string;
+      rzok: string;
+      eik: string | null;
+      entityKey: string;
+      procedure: string;
+      procType: string;
+      cases: number;
+      zol: number;
+    }
+  >();
+  for (const r of data.facilityProcPeriods ?? []) {
+    const res = resolvedByFold.get(r.facilityFold);
+    const entityKey = res?.entityKey ?? `f:${r.facilityFold}`;
+    const key = `${r.period}\x00${entityKey}\x00${r.procedure}`;
+    let g = procPeriodAgg.get(key);
+    if (!g)
+      procPeriodAgg.set(
+        key,
+        (g = {
+          period: r.period,
+          fold: r.facilityFold,
+          facility: r.facility,
+          rzok: r.rzok,
+          eik: res?.eik ?? null,
+          entityKey,
+          procedure: r.procedure,
+          procType: r.procType,
+          cases: 0,
+          zol: 0,
+        }),
+      );
+    g.cases += r.cases;
+    g.zol += r.zol;
+  }
+  const procPeriodRows: unknown[][] = [...procPeriodAgg.values()].map((g) => [
+    monthToDate(g.period),
+    g.fold,
+    g.facility,
+    g.rzok,
+    g.eik,
+    g.entityKey,
+    g.procedure,
+    g.procType,
+    Math.round(g.cases),
+    Math.round(g.zol),
+  ]);
+
   const facPeriodRows: unknown[][] = facPeriods.flatMap((fp) => {
     const r = resolvedByFold.get(fp.facilityFold)!;
     return fp.periods.map((p) => [
@@ -596,9 +704,34 @@ const main = async (): Promise<void> => {
 
   await withClient(async (c) => {
     await c.query("BEGIN");
-    await c.query("TRUNCATE nzok_activities");
-    await c.query("TRUNCATE nzok_activity_monthly");
-    await c.query("TRUNCATE nzok_activity_facility_periods");
+    // PER-YEAR MERGE, not TRUNCATE. activities.json is single-year by
+    // construction, so a TRUNCATE made every run REPLACE the corpus: loading 2024
+    // would have swapped 2025 out rather than added to it, and there was no way
+    // to hold two years at once (plan §8e hazard 1). Scoping the delete to the
+    // year being loaded makes the loader additive across years while staying
+    // idempotent within one.
+    const yr = data.year;
+    // The panel is deleted ONLY when this artifact actually carries panel rows.
+    // An activities.json written before facilityProcPeriods existed yields an
+    // empty array, and an unconditional delete would then wipe that year's panel
+    // and insert nothing — with BOTH guards self-disabling (the count check
+    // compares 0 === 0, the sum check is gated on a non-empty panel), so the
+    // loader would report success having silently dropped ~144k rows.
+    if (procPeriodRows.length === 0)
+      console.warn(
+        `  WARNING: ${JSON_FILE} carries no facilityProcPeriods — leaving the ` +
+          `monthly panel for ${yr} untouched. Re-run write_activities.ts to build it.`,
+      );
+    const tables = [
+      "nzok_activities",
+      "nzok_activity_monthly",
+      "nzok_activity_facility_periods",
+      ...(procPeriodRows.length > 0 ? ["nzok_activity_proc_periods"] : []),
+    ];
+    for (const tbl of tables)
+      await c.query(`DELETE FROM ${tbl} WHERE EXTRACT(YEAR FROM period) = $1`, [
+        yr,
+      ]);
 
     await batchInsert(c, "nzok_activities", ACT_COLS, actRows);
     await batchInsert(c, "nzok_activity_monthly", MONTHLY_COLS, monthlyRows);
@@ -608,6 +741,12 @@ const main = async (): Promise<void> => {
       FAC_PERIOD_COLS,
       facPeriodRows,
     );
+    await batchInsert(
+      c,
+      "nzok_activity_proc_periods",
+      PROC_PERIOD_COLS,
+      procPeriodRows,
+    );
 
     // Post-load reconciliation — row count AND summed cases must agree.
     const { rows: chk } = await c.query<{
@@ -615,27 +754,48 @@ const main = async (): Promise<void> => {
       s: string;
       m: number;
       f: number;
+      pp: number;
+      pps: string;
       dup: number;
     }>(
       `SELECT
-         (SELECT count(*)::int          FROM nzok_activities)        AS n,
-         (SELECT sum(cases)::bigint      FROM nzok_activities)        AS s,
-         (SELECT count(*)::int          FROM nzok_activity_monthly)  AS m,
-         (SELECT count(*)::int   FROM nzok_activity_facility_periods) AS f,
+         (SELECT count(*)::int      FROM nzok_activities
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS n,
+         (SELECT sum(cases)::bigint FROM nzok_activities
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS s,
+         (SELECT count(*)::int      FROM nzok_activity_monthly
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS m,
+         (SELECT count(*)::int   FROM nzok_activity_facility_periods
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS f,
+         (SELECT count(*)::int   FROM nzok_activity_proc_periods
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS pp,
+         -- The monthly panel must sum to the annual matrix EXACTLY: it is the
+         -- same rows before the fold across months, so any drift means one of
+         -- the two aggregations lost or double-counted a month.
+         (SELECT COALESCE(sum(cases),0)::bigint FROM nzok_activity_proc_periods
+            WHERE EXTRACT(YEAR FROM period) = $1)                       AS pps,
          -- The invariant the whole re-key exists to hold: one row per
          -- (entity, procedure). A second row means an entity was split again.
          (SELECT count(*)::int FROM (
             SELECT 1 FROM nzok_activities
             GROUP BY period, entity_key, procedure HAVING count(*) > 1) d) AS dup`,
+      [yr],
     );
     if (
       chk[0].n !== actRows.length ||
       Number(chk[0].s) !== casesSum ||
       chk[0].m !== monthlyRows.length ||
-      chk[0].f !== facPeriodRows.length
+      chk[0].f !== facPeriodRows.length ||
+      (procPeriodRows.length > 0 && chk[0].pp !== procPeriodRows.length)
     )
       throw new Error(
-        `post-load mismatch: activities ${chk[0].n}/${chk[0].s} vs ${actRows.length}/${casesSum}; monthly ${chk[0].m} vs ${monthlyRows.length}; facility-periods ${chk[0].f} vs ${facPeriodRows.length}`,
+        `post-load mismatch: activities ${chk[0].n}/${chk[0].s} vs ${actRows.length}/${casesSum}; monthly ${chk[0].m} vs ${monthlyRows.length}; facility-periods ${chk[0].f} vs ${facPeriodRows.length}; proc-periods ${chk[0].pp} vs ${procPeriodRows.length}`,
+      );
+    if (procPeriodRows.length > 0 && Number(chk[0].pps) !== casesSum)
+      throw new Error(
+        `the monthly panel does not sum to the annual matrix: ${chk[0].pps} vs ${casesSum}. ` +
+          `They are the same rows either side of the fold across months, so a difference means ` +
+          `one aggregation lost or double-counted a period.`,
       );
     if (chk[0].dup > 0)
       throw new Error(
@@ -654,6 +814,23 @@ const main = async (): Promise<void> => {
       rowsTotal: actRows.length,
     });
 
+    // NO second changelog for the monthly panel — deliberately, and this
+    // supersedes the plan's §10c-4 suggestion that it needed its own call.
+    //
+    // The panel is the SAME corpus change the `nzok_activities` batch above
+    // already reports: same loader, same transaction, same source file, just
+    // unfolded across months. A second batch reports one event twice.
+    //
+    // It also costs. Measured: recording it put 291,414 rows into
+    // `ingest_first_seen` on a two-year load — 94% of everything the one-day
+    // window holds — and `recent_updates_plan.data.test.ts` failed at 308,980
+    // rows scanned for a one-day window. Summary mode does NOT fix that: it
+    // stops the day being ITEMISED, but the branch still scans the rows. The
+    // inflation is permanent and grows with every year backfilled.
+    //
+    // §10c-4's real concern was that a period-grained table keyed on
+    // EXTRACT(YEAR FROM period) would collapse twelve months into one key. That
+    // only applies if the panel records at all.
     await c.query("COMMIT");
   });
 
@@ -671,6 +848,10 @@ const main = async (): Promise<void> => {
     "nzok_activities",
     "nzok_activity_monthly",
     "nzok_activity_facility_periods",
+    // Biggest of the four, ~147k rows per year, and its write is a scoped
+    // DELETE + INSERT which leaves dead tuples that neither autovacuum
+    // threshold reaches — the interreg_partners shape.
+    "nzok_activity_proc_periods",
   );
 
   const unmappedCases = actRows
