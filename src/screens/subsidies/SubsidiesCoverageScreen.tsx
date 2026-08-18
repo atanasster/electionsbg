@@ -24,6 +24,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useAgriOverview } from "@/data/agri/useAgriOverview";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
+import { agriLabel } from "@/data/agri/labels";
 import { formatEur } from "@/lib/currency";
 
 /** Every financial year the CAP corpus could in principle cover, 2014 onward. */
@@ -113,7 +114,7 @@ export const SubsidiesCoverageScreen: FC = () => {
                 onClick={() => void refetch()}
                 className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
               >
-                {bg ? "Опитай отново" : "Try again"}
+                {agriLabel.tryAgain(bg)}
               </button>
             )}
           </div>
@@ -134,13 +135,13 @@ export const SubsidiesCoverageScreen: FC = () => {
                   <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
                     <tr>
                       <th scope="col" className="px-3 py-2 text-left">
-                        {bg ? "Финансова година" : "Financial year"}
+                        {agriLabel.financialYear(bg)}
                       </th>
                       <th scope="col" className="px-3 py-2 text-left">
                         {bg ? "Източник" : "Source"}
                       </th>
                       <th scope="col" className="px-3 py-2 text-right">
-                        {bg ? "Изплатено" : "Paid"}
+                        {agriLabel.paid(bg)}
                       </th>
                     </tr>
                   </thead>
@@ -244,11 +245,11 @@ export const SubsidiesCoverageScreen: FC = () => {
                   <strong>
                     {bg
                       ? "„Всички години“ тук не значи същото като на други страници."
-                      : "„All years“ here does not mean what it means elsewhere."}
+                      : "“All years” here does not mean what it means elsewhere."}
                   </strong>{" "}
                   {bg
                     ? "В този раздел „всички години“ е целият корпус (осемте покрити финансови години). На хъба „Държавни сектори“ същата дума показва изплатеното през ПОСЛЕДНАТА година, защото там показателят е годишен. И двете са верни; не са едно и също число."
-                    : "In this section „all years“ is the whole corpus (the eight covered financial years). On the „State sectors“ hub the same word shows the LATEST year's payout, because that headline is an annual figure. Both are correct; they are not the same number."}
+                    : "In this section “all years” is the whole corpus (the eight covered financial years). On the “State sectors” hub the same word shows the LATEST year's payout, because that headline is an annual figure. Both are correct; they are not the same number."}
                 </li>
               </ul>
             </DashboardSection>

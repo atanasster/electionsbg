@@ -11,6 +11,7 @@ import { ScopeControl } from "@/screens/components/ScopeControl";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { scopeYear } from "@/data/scope/useScope";
 import type { AgriScopeState } from "@/data/agri/useAgriScope";
+import { agriLabel } from "@/data/agri/labels";
 
 /** The „Обхват" pill row. */
 export const AgriScopePicker: FC<{ className?: string }> = ({ className }) => {
@@ -20,11 +21,11 @@ export const AgriScopePicker: FC<{ className?: string }> = ({ className }) => {
     <div className={`flex flex-wrap items-center gap-2 ${className ?? ""}`}>
       <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
         <CalendarRange className="h-3.5 w-3.5" />
-        {bg ? "Обхват" : "Scope"}
+        {agriLabel.scope(bg)}
       </span>
       <ScopeControl
         years={AGRI_FINANCIAL_YEARS}
-        nsLabelOverride={bg ? "Последна година" : "Latest year"}
+        nsLabelOverride={agriLabel.latestYear(bg)}
       />
     </div>
   );
@@ -74,7 +75,7 @@ export const AgriScopeFallback: FC<{
             onClick={refetch}
             className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
           >
-            {bg ? "Опитай отново" : "Try again"}
+            {agriLabel.tryAgain(bg)}
           </button>
         )}
       </div>

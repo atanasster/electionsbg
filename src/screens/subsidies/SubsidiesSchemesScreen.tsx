@@ -45,6 +45,7 @@ import { useAgriScope } from "@/data/agri/useAgriScope";
 import { agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useAgriPillars } from "@/data/agri/useAgriPillars";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 
 // CAMELCASE row keys, snake_case column `id`s — see the note in
 // SubsidiesRecipientsScreen. The two count columns arrive as STRINGS (bigint).
@@ -68,7 +69,7 @@ export const SubsidiesSchemesScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const gate = useAgriScope();
   const { scope, data } = gate;
   const scopeKey = agriScopeToKey(scope);
@@ -92,7 +93,7 @@ export const SubsidiesSchemesScreen: FC = () => {
       {
         id: "scheme_desc",
         accessorFn: (r) => r.schemeDesc ?? r.scheme,
-        header: bg ? "Схема" : "Scheme",
+        header: agriLabel.scheme(bg),
         enableSorting: false,
         cell: ({ row }) => (
           <div className="min-w-0">
@@ -136,7 +137,7 @@ export const SubsidiesSchemesScreen: FC = () => {
       {
         id: "total_eur",
         accessorFn: (r) => r.totalEur,
-        header: bg ? "Изплатено" : "Paid",
+        header: agriLabel.paid(bg),
         meta: { align: "right" },
         cell: ({ row }) => (
           <span className="whitespace-nowrap font-medium tabular-nums">
@@ -163,11 +164,7 @@ export const SubsidiesSchemesScreen: FC = () => {
       maximumFractionDigits: 2,
     }).format(n);
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   // The three CAP funds, read as ONE aggregate off the same resource the table
   // ranks — so the split and the rows beneath it describe the same scope by
@@ -227,7 +224,7 @@ export const SubsidiesSchemesScreen: FC = () => {
         <div className="mb-4 max-w-3xl rounded-lg border border-amber-300/60 bg-amber-50/60 p-3 text-sm dark:border-amber-800/50 dark:bg-amber-950/20">
           {bg
             ? "Имената на схемите не са сравними между двата програмни периода. „СЕПП“ (2014-2022) и „I.А.1-1 основно подпомагане на доходите за устойчивост“ (2023-2027) са едно и също — основно подпомагане на доходите, преименувано. Затова тук периодът е отделна колона и филтър, а не се смесва в обща класация."
-            : "Scheme names are not comparable between the two programme periods. „СЕПП“ (2014-2022) and „I.А.1-1 basic income support for sustainability“ (2023-2027) are the same instrument, renamed. That is why the period is its own column and filter here rather than being merged into one ranking."}
+            : "Scheme names are not comparable between the two programme periods. “СЕПП” (2014-2022) and “I.А.1-1 basic income support for sustainability” (2023-2027) are the same instrument, renamed. That is why the period is its own column and filter here rather than being merged into one ranking."}
         </div>
 
         <AgriScopePicker className="mb-3" />
@@ -327,7 +324,7 @@ export const SubsidiesSchemesScreen: FC = () => {
                 <p className="mt-3 text-xs text-muted-foreground">
                   {bg
                     ? "„Фирми“ брои само получателите с ЕИК — физическите лица нямат стабилен идентификатор и не могат да бъдат преброени без риск от съименници."
-                    : "„Companies“ counts recipients with an ЕИК only — natural persons have no stable identifier and cannot be counted without conflating namesakes."}
+                    : "“Companies” counts recipients with an ЕИК only — natural persons have no stable identifier and cannot be counted without conflating namesakes."}
                 </p>
               </DashboardSection>
             </>

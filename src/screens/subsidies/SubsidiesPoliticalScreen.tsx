@@ -51,6 +51,7 @@ import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { useAgriHubStats } from "@/data/agri/useAgriHubStats";
 import { agriScopeToKey } from "@/data/agri/constants";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
 interface PoliticalRow {
@@ -69,7 +70,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const [params] = useSearchParams();
   // The WHOLE gate, not just { scope, data } — `AgriScopeFallback` below needs
   // it to tell a failed fetch from an unpublished year. Hand-rolling the empty
@@ -109,7 +110,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
       {
         id: "name",
         accessorFn: (r) => r.name,
-        header: bg ? "Получател" : "Recipient",
+        header: agriLabel.recipient(bg),
         cell: ({ row }) => (
           <Link
             to={`/farm/${row.original.eik}`}
@@ -151,7 +152,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
       {
         id: "oblast",
         accessorFn: (r) => r.oblast,
-        header: bg ? "Област" : "Province",
+        header: agriLabel.oblast(bg),
         cell: ({ row }) => (
           <span className="text-muted-foreground">
             {row.original.oblast || "—"}
@@ -183,11 +184,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
     ? "Земеделски получатели, при които публична фигура заема вписана роля в търговския регистър или в регистъра на ЮЛНЦ. Вписана роля — не собственост и не нарушение."
     : "Farm recipients where a public figure holds a role recorded in the Commerce Registry or the non-profit register. A recorded role — not ownership, and not wrongdoing.";
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   const sharePct =
     hub && hub.entityEurExPayer > 0 && hub.politicalEur != null
@@ -207,7 +204,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
         <p className="mb-2 max-w-3xl text-sm text-muted-foreground">
           {bg
             ? "Тук са земеделските получатели, при които публична фигура е вписана в роля в търговския регистър или в регистъра на ЮЛНЦ. „Публична фигура“ е по-широко от изборна длъжност: освен депутати, министри, кметове, общински съветници и магистрати, обхваща и кандидати на избори, и ръководители на публични институции — училища, детски градини, лечебни заведения, културни институти."
-            : "These are the farm recipients where a public figure is recorded in a role in the Commerce Registry or the non-profit register. „Public figure“ is broader than elected office: besides MPs, ministers, mayors, councillors and magistrates it covers election candidates and the heads of public institutions — schools, kindergartens, medical centres, cultural institutes."}
+            : "These are the farm recipients where a public figure is recorded in a role in the Commerce Registry or the non-profit register. “Public figure” is broader than elected office: besides MPs, ministers, mayors, councillors and magistrates it covers election candidates and the heads of public institutions — schools, kindergartens, medical centres, cultural institutes."}
         </p>
         {/* The limit of the claim, before any number. */}
         <div className="mb-4 max-w-3xl rounded-lg border border-amber-300/60 bg-amber-50/60 p-3 text-sm dark:border-amber-800/50 dark:bg-amber-950/20">
@@ -222,7 +219,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
           <>
             <DashboardSection
               id="subsidies-political-headline"
-              title={bg ? "Накратко" : "At a glance"}
+              title={agriLabel.atAGlance(bg)}
               icon={Users}
               subtitle={scopeLabel}
             >
@@ -336,9 +333,7 @@ export const SubsidiesPoliticalScreen: FC = () => {
                   scope={{ col: "scope_key", val: scopeKey }}
                   extraFilters={filters}
                   defaultSort={[{ id: "total_eur", desc: true }]}
-                  searchPlaceholder={
-                    bg ? "търси получател…" : "search recipient…"
-                  }
+                  searchPlaceholder={agriLabel.searchRecipient(bg)}
                 />
               )}
               <p className="mt-3 max-w-3xl text-xs text-muted-foreground">

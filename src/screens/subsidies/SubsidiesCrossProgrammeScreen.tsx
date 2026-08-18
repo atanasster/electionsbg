@@ -50,6 +50,7 @@ import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { useAgriHubStats } from "@/data/agri/useAgriHubStats";
 import { agriScopeToKey } from "@/data/agri/constants";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { formatEur } from "@/lib/currency";
 
 interface CrossRow {
@@ -70,7 +71,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const [params] = useSearchParams();
   // The WHOLE gate, not just { scope, data } — `AgriScopeFallback` below needs
   // it to tell a failed fetch from an unpublished year. Hand-rolling the empty
@@ -110,7 +111,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
       {
         id: "name",
         accessorFn: (r) => r.name,
-        header: bg ? "Получател" : "Recipient",
+        header: agriLabel.recipient(bg),
         cell: ({ row }) => (
           <div className="min-w-0">
             <Link
@@ -169,11 +170,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
     ? "Земеделски получатели, които държат и обществени поръчки или европейски грантове — трите вида пари, показани поотделно, защото са на различна основа."
     : "Farm recipients that also hold public contracts or EU grants — the three kinds of money shown separately, because they are on different bases.";
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   return (
     <>
@@ -192,7 +189,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
         </p>
         <div className="mb-4 max-w-3xl rounded-lg border border-amber-300/60 bg-amber-50/60 p-3 text-sm dark:border-amber-800/50 dark:bg-amber-950/20">
           {bg
-            ? "Трите колони НЕ се събират. Субсидиите са изплатени пари за избрания период; поръчките са договорена стойност за цялото време; еврофондовете са договорен грант, също за цялото време. Сборът им би бил едно платено и две обещани числа през три различни прозореца — затова тук няма обща сума. Присъствието в няколко програми е обичайно и само по себе си не значи нередност."
+            ? "Трите колони не се събират. Субсидиите са изплатени пари за избрания период; поръчките са договорена стойност за цялото време; еврофондовете са договорен грант, също за цялото време. Сборът им би бил едно платено и две обещани числа през три различни прозореца — затова тук няма обща сума. Присъствието в няколко програми е обичайно и само по себе си не значи нередност."
             : "The three columns are NOT summed. Subsidy is money paid in the selected period; contracts are awarded value all-time; EU funds are a contracted grant, also all-time. Adding them would combine one paid figure with two promised ones across three different windows — so there is no total here. Appearing in several programmes is ordinary and is not in itself an irregularity."}
         </div>
 
@@ -202,7 +199,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
           <>
             <DashboardSection
               id="subsidies-cross-headline"
-              title={bg ? "Накратко" : "At a glance"}
+              title={agriLabel.atAGlance(bg)}
               icon={ArrowLeftRight}
               subtitle={scopeLabel}
             >
@@ -294,9 +291,7 @@ export const SubsidiesCrossProgrammeScreen: FC = () => {
                   scope={{ col: "scope_key", val: scopeKey }}
                   extraFilters={filters}
                   defaultSort={[{ id: "agri_eur", desc: true }]}
-                  searchPlaceholder={
-                    bg ? "търси получател…" : "search recipient…"
-                  }
+                  searchPlaceholder={agriLabel.searchRecipient(bg)}
                 />
               )}
               <p className="mt-3 max-w-3xl text-xs text-muted-foreground">

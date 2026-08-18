@@ -31,6 +31,7 @@ import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
 import { agriScopeToKey } from "@/data/agri/constants";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { formatEur } from "@/lib/currency";
 
 // CAMELCASE, and `paymentCount` is a STRING. The table route serialises row keys
@@ -65,7 +66,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
       {
         id: "name",
         accessorFn: (r) => r.name,
-        header: bg ? "Получател" : "Recipient",
+        header: agriLabel.recipient(bg),
         cell: ({ row }) => (
           <Link
             to={`/farm/${row.original.eik}`}
@@ -78,7 +79,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
       {
         id: "oblast",
         accessorFn: (r) => r.oblast,
-        header: bg ? "Област" : "Province",
+        header: agriLabel.oblast(bg),
         cell: ({ row }) => (
           <span className="text-muted-foreground">
             {row.original.oblast || "—"}
@@ -88,20 +89,18 @@ export const SubsidiesRecipientsScreen: FC = () => {
       {
         id: "payment_count",
         accessorFn: (r) => Number(r.paymentCount),
-        header: bg ? "Плащания" : "Payments",
+        header: agriLabel.payments(bg),
         meta: { align: "right" },
         cell: ({ row }) => (
           <span className="tabular-nums">
-            {Number(row.original.paymentCount).toLocaleString(
-              bg ? "bg-BG" : "en-US",
-            )}
+            {Number(row.original.paymentCount).toLocaleString(numberLocale(bg))}
           </span>
         ),
       },
       {
         id: "total_eur",
         accessorFn: (r) => r.totalEur,
-        header: bg ? "Изплатено" : "Paid",
+        header: agriLabel.paid(bg),
         meta: { align: "right" },
         cell: ({ row }) => (
           <span className="whitespace-nowrap font-medium tabular-nums">
@@ -118,11 +117,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
     ? "Класация на фирмите, получили земеделски субсидии от ДФ „Земеделие“ — за избрана финансова година или за целия период."
     : "A ranking of the companies that received State Fund Agriculture farm subsidies — for one financial year or the whole period.";
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   return (
     <>
@@ -188,9 +183,7 @@ export const SubsidiesRecipientsScreen: FC = () => {
                 // table renders „Няма резултати" for every year but 'all'.
                 scope={{ col: "scope_key", val: scopeKey }}
                 defaultSort={[{ id: "total_eur", desc: true }]}
-                searchPlaceholder={
-                  bg ? "търси получател…" : "search recipient…"
-                }
+                searchPlaceholder={agriLabel.searchRecipient(bg)}
               />
             </div>
           )}

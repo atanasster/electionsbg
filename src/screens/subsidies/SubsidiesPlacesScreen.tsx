@@ -32,13 +32,14 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { AgriOblastMap } from "@/screens/components/subsidies/AgriOblastMap";
 import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
 export const SubsidiesPlacesScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
@@ -58,11 +59,7 @@ export const SubsidiesPlacesScreen: FC = () => {
 
   const rows = data?.byOblast ?? [];
   const top = rows[0];
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   return (
     <>
@@ -87,7 +84,7 @@ export const SubsidiesPlacesScreen: FC = () => {
             <>
               <DashboardSection
                 id="subsidies-places-headline"
-                title={bg ? "Накратко" : "At a glance"}
+                title={agriLabel.atAGlance(bg)}
                 icon={MapPin}
                 subtitle={scopeLabel}
               >
@@ -189,10 +186,10 @@ export const SubsidiesPlacesScreen: FC = () => {
                             #
                           </th>
                           <th scope="col" className="px-3 py-2 text-left">
-                            {bg ? "Област" : "Province"}
+                            {agriLabel.oblast(bg)}
                           </th>
                           <th scope="col" className="px-3 py-2 text-right">
-                            {bg ? "Изплатено" : "Paid"}
+                            {agriLabel.paid(bg)}
                           </th>
                           <th scope="col" className="px-3 py-2 text-right">
                             {/* The denominator, named in the header rather than left

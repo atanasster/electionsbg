@@ -16,6 +16,7 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { DbDataTable } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { useAgriRecipient } from "@/data/agri/useAgriRecipient";
+import { agriLabel, numberLocale } from "@/data/agri/labels";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
 interface SubsidyRow {
@@ -30,7 +31,7 @@ export const FarmDetailScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   // `isLoading` is deliberately absent: the skeleton branch is the FINAL `!data`
   // arm, reached once failed and noData have both been ruled out, so an explicit
   // loading flag would only re-state it. Same shape as the hub.
@@ -50,7 +51,7 @@ export const FarmDetailScreen: FC = () => {
       {
         id: "scheme_desc",
         accessorFn: (r) => r.schemeDesc,
-        header: bg ? "Схема" : "Scheme",
+        header: agriLabel.scheme(bg),
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-sm">
@@ -130,7 +131,7 @@ export const FarmDetailScreen: FC = () => {
                 onClick={() => refetch()}
                 className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
               >
-                {bg ? "Опитай отново" : "Try again"}
+                {agriLabel.tryAgain(bg)}
               </button>
             )}
           </div>
@@ -154,7 +155,7 @@ export const FarmDetailScreen: FC = () => {
                 </span>
               </div>
             </StatCard>
-            <StatCard label={bg ? "Плащания" : "Payments"}>
+            <StatCard label={agriLabel.payments(bg)}>
               <span className="text-2xl font-bold tabular-nums">
                 {data.paymentCount.toLocaleString(nloc)}
               </span>
@@ -168,7 +169,7 @@ export const FarmDetailScreen: FC = () => {
               </div>
             </StatCard>
             <StatCard
-              label={bg ? "Област" : "Region"}
+              label={agriLabel.oblast(bg)}
               to={`/company/${eik}`}
               hint={
                 bg

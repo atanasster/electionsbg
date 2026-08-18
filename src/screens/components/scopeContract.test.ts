@@ -49,7 +49,10 @@ const NAMES_THE_GAP: Record<string, { reason: string; rawScopeIn: string }> = {
       "than exotic. The hub renders a named `noData` card — „Няма данни за субсидии за " +
       "2019“ plus the list of years ДФЗ does publish — which tells the reader more than " +
       "silently snapping them back to the latest year would.",
-    rawScopeIn: "src/screens/SubsidiesDashboardScreen.tsx",
+    // The hub folded onto the SHARED gate in step 8, so its raw read moved next door with
+    // everything else — same pointer as the AgriScopeGate entry below. Caught by this very
+    // check, which is what a rawScopeIn pointer is for.
+    rawScopeIn: "src/data/agri/useAgriScope.ts",
   },
   "src/screens/dev/SubsidiesBrowserDbScreen.tsx": {
     reason:

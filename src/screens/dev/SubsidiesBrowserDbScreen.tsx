@@ -16,6 +16,7 @@ import { formatEur } from "@/lib/currency";
 import { useScope } from "@/data/scope/useScope";
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { AGRI_FINANCIAL_YEARS, agriScopeToYear } from "@/data/agri/constants";
+import { agriLabel, numberLocale } from "@/data/agri/labels";
 import {
   Select,
   SelectContent,
@@ -43,7 +44,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
   const { i18n } = useTranslation();
   const [params, setParams] = useSearchParams();
   const bg = i18n.language === "bg";
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
 
   // Time scope: same `?pscope` param the procurement pages use (ns | all |
   // y:YYYY), carried in from the dashboard's By-scheme/oblast links. Subsidies
@@ -108,7 +109,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
       {
         id: "name",
         accessorFn: (r) => r.name,
-        header: bg ? "Получател" : "Recipient",
+        header: agriLabel.recipient(bg),
         enableSorting: false,
         cell: ({ row }) =>
           row.original.eik ? (
@@ -125,7 +126,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
       {
         id: "oblast",
         accessorFn: (r) => r.oblast,
-        header: bg ? "Област" : "Region",
+        header: agriLabel.oblast(bg),
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground">
             {row.original.oblast || "—"}
@@ -135,7 +136,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
       {
         id: "scheme_desc",
         accessorFn: (r) => r.schemeDesc,
-        header: bg ? "Схема" : "Scheme",
+        header: agriLabel.scheme(bg),
         enableSorting: false,
         cell: ({ row }) => (
           // block (not inline-block) so line-clamp-2 actually clamps — otherwise
@@ -187,11 +188,11 @@ export const SubsidiesBrowserDbScreen: FC = () => {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
             <CalendarRange className="h-3.5 w-3.5" />
-            {bg ? "Обхват" : "Scope"}
+            {agriLabel.scope(bg)}
           </span>
           <ScopeControl
             years={AGRI_FINANCIAL_YEARS}
-            nsLabelOverride={bg ? "Последна година" : "Latest year"}
+            nsLabelOverride={agriLabel.latestYear(bg)}
           />
         </div>
 

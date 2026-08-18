@@ -32,6 +32,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope, agriScopedHref } from "@/data/agri/useAgriScope";
+import { formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { formatEurCompact } from "@/lib/currency";
 
 /** The tier bar: each segment is a tier's MARGINAL share of the money. */
@@ -176,7 +177,7 @@ export const SubsidiesConcentrationScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const [params] = useSearchParams();
   const gate = useAgriScope();
   const { data } = gate;
@@ -235,11 +236,7 @@ export const SubsidiesConcentrationScreen: FC = () => {
     ? "Колко от земеделските субсидии отиват при най-големите получатели — по групи и с крива на Лоренц, върху парите за юридически лица."
     : "How much of the farm subsidy goes to the largest recipients — by tier and as a Lorenz curve, over the legal-entity money.";
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   return (
     <>

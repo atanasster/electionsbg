@@ -38,6 +38,7 @@ import { AgriScopePicker, AgriScopeFallback } from "./AgriScopeGate";
 import { useAgriScope } from "@/data/agri/useAgriScope";
 import { useAgriHubStats } from "@/data/agri/useAgriHubStats";
 import { agriScopeToKey } from "@/data/agri/constants";
+import { agriLabel, formatScopeLabel, numberLocale } from "@/data/agri/labels";
 import { useScope } from "@/data/scope/useScope";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
@@ -45,7 +46,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const L = i18n.language;
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const gate = useAgriScope();
   const { data } = gate;
   const { scope } = useScope();
@@ -59,11 +60,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
     ? "Около 40% от земеделските субсидии стоят на редове без ЕИК — без стабилен идентификатор, така че не могат да бъдат приписани на получател."
     : "Around 40% of Bulgaria's farm subsidy sits on rows with no ЕИК — no stable identifier, so it cannot be attributed to a recipient.";
 
-  const scopeLabel = data?.scopeYear
-    ? (bg ? "Финансова година " : "Financial year ") + data.scopeYear
-    : bg
-      ? "Всички години"
-      : "All years";
+  const scopeLabel = formatScopeLabel(data?.scopeYear, bg);
 
   // The by-year series comes from the payload the page already fetches — no second
   // request. `individualEur` is the payload's name for the no-ЕИК money; it is
@@ -94,7 +91,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
         <p className="mb-4 max-w-3xl text-sm text-muted-foreground">
           {bg
             ? "Не приемайте „без ЕИК“ за „физическо лице“. Сред тези редове има безспорни фирми и общини — виж по-долу колко."
-            : "„No ЕИК“ does not mean „natural person“. These rows include unmistakable companies and municipalities — see how much below."}
+            : "“No ЕИК” does not mean “natural person”. These rows include unmistakable companies and municipalities — see how much below."}
         </p>
 
         <AgriScopePicker className="mb-3" />
@@ -104,7 +101,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
             <>
               <DashboardSection
                 id="subsidies-untraceable-headline"
-                title={bg ? "Накратко" : "At a glance"}
+                title={agriLabel.atAGlance(bg)}
                 icon={HelpCircle}
                 subtitle={scopeLabel}
               >
@@ -150,7 +147,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
                     </span>
                   </StatCard>
                   <StatCard
-                    label={bg ? "Плащания" : "Payments"}
+                    label={agriLabel.payments(bg)}
                     hint={
                       bg
                         ? "Брой редове без ЕИК — не получатели."
@@ -230,7 +227,7 @@ export const SubsidiesUntraceableScreen: FC = () => {
                   <div className="mt-4 rounded-lg border border-amber-300/60 bg-amber-50/60 p-3 text-sm dark:border-amber-800/50 dark:bg-amber-950/20">
                     {bg
                       ? "Скокът между 2023 и 2024 съвпада точно със смяната на източника: 2015-2023 идват от портала за отворени данни, 2024-2025 — от системата за електронни услуги на ДФЗ. Променя се и съставът: до 2023 явните фирми без ЕИК са под 4 хил. евро годишно, а през 2024 и 2025 са €149 млн. и €196 млн. Тоест поне част от „новите“ непроследими пари са фирми, които по-старият източник е публикувал с ЕИК. Каква част от останалото е реална промяна в получателите не е установено."
-                      : "The jump between 2023 and 2024 sits exactly on the source change: 2015-2023 come from the open-data portal, 2024-2025 from the Fund's e-services register. The composition changes too: until 2023 the plainly-corporate no-ЕИК money is under €4k a year, while in 2024 and 2025 it is €149m and €196m. So at least part of the „new“ untraceable money is companies the older source published with an ЕИК. How much of the remainder is a real change in recipients is not established."}
+                      : "The jump between 2023 and 2024 sits exactly on the source change: 2015-2023 come from the open-data portal, 2024-2025 from the Fund's e-services register. The composition changes too: until 2023 the plainly-corporate no-ЕИК money is under €4k a year, while in 2024 and 2025 it is €149m and €196m. So at least part of the “new” untraceable money is companies the older source published with an ЕИК. How much of the remainder is a real change in recipients is not established."}
                   </div>
                 </div>
               </DashboardSection>

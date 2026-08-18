@@ -48,17 +48,19 @@ import { useTranslation } from "react-i18next";
 import { CalendarRange } from "lucide-react";
 import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { Title } from "@/ux/Title";
-import { useAgriOverview } from "@/data/agri/useAgriOverview";
 import {
   useAgriHubStats,
   type AgriHubStats,
 } from "@/data/agri/useAgriHubStats";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
+import { agriLabel, numberLocale } from "@/data/agri/labels";
 import { formatEurCompact, formatInt } from "@/lib/currency";
-import { useScope, scopeYear } from "@/data/scope/useScope";
+import { scopeYear } from "@/data/scope/useScope";
 import { ScopeControl } from "./components/ScopeControl";
 import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
 import { SubsidiesSearchBox } from "./SubsidiesSearchBox";
+import { useAgriScope } from "@/data/agri/useAgriScope";
+import { AgriScopeFallback } from "./subsidies/AgriScopeGate";
 import { SUBSIDIES_BANDS } from "./subsidies/subsidiesRegistry";
 import { SUBSIDIES_SCENES } from "./subsidies/subsidiesScenes";
 import { useRailSubsidy } from "@/data/procurement/useRailSubsidy";
@@ -69,13 +71,6 @@ import {
   PARTY_SUBSIDY_RATE_EUR,
   PARTY_SUBSIDY_SINCE,
 } from "@/lib/bgTaxPolicy";
-
-const SkeletonCard: FC = () => (
-  <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[130px]">
-    <div className="h-3 w-24 bg-muted rounded mb-3" />
-    <div className="h-7 w-32 bg-muted rounded" />
-  </div>
-);
 
 /** The three band-3 figures that are not in the hub blob. Each is `null` until its own source
  *  arrives, and a null renders a tile with no metric rather than a zero. */
@@ -103,7 +98,7 @@ const tileMetric = (
   bg: boolean,
   t: (k: string, o?: Record<string, unknown>) => string,
 ): Metric | undefined => {
-  const nloc = bg ? "bg-BG" : "en-US";
+  const nloc = numberLocale(bg);
   const int = (n: number | null | undefined) =>
     n == null ? null : formatInt(n, lang);
   const eur = (n: number | null | undefined) =>
@@ -305,16 +300,15 @@ export const SubsidiesDashboardScreen: FC = () => {
   // in ScopeControl's header: this page answers a year it cannot serve with an
   // explicit "no data for this year", so the reader keeps seeing the year they
   // asked for in the pill instead of being silently moved to another one.
-  const { scope, setScope } = useScope();
-  // `?pscope` is shared with the procurement pages, whose picker runs
-  // SCOPE_FIRST_YEAR..this year, and it rides along on ordinary in-app links —
-  // so a year outside the CAP corpus (2019, say) arrives here routinely, not
-  // just by hand-editing the URL. `null` = no such payload: don't build a key
-  // agri_payloads cannot answer, so the query is disabled rather than left
-  // hanging on a reply that will never carry data.
+  // THE SHARED GATE, exactly as the seven sub-pages use it. This screen carried its own copy
+  // of the four-state machine — ~55 lines including the empty-state copy — and the two had
+  // already drifted: this one said „ДФЗ публикува следните финансови години" while
+  // AgriScopeGate says „…публикува ДАННИ ЗА следните…" beside a comment explaining why the
+  // second is the correct sentence (the Fund publishes payments FOR a financial year; it does
+  // not publish the year). Two copies of a state machine is how one of them ends up wrong.
+  const gate = useAgriScope();
+  const { scope, data } = gate;
   const payloadKey = agriScopeToKey(scope);
-  const { data, isError, isSuccess, fetchStatus, refetch } =
-    useAgriOverview(payloadKey);
   const { data: hub } = useAgriHubStats(payloadKey);
 
   // Band 3's two fetched sources. Both are small and both are ANNUAL — they do not take the
@@ -379,35 +373,15 @@ export const SubsidiesDashboardScreen: FC = () => {
     [t, hub, band3, L, bg],
   );
 
-  // FOUR states, not two: loading, failed, loaded-with-nothing, loaded. Folding
-  // everything that is not loading-with-data into the skeleton (`isLoading ||
-  // !data`) is what left the page spinning forever on something that was never
-  // going to arrive — no data, no empty state, no error.
+  // ⚠️ THE GATE WATCHES THE OVERVIEW PAYLOAD, NOT THE FIGURES. Every band-1/2/4 metric comes
+  // from `useAgriHubStats`, which `AgriScopeFallback` never sees — so if /api/db/agri-hub-stats
+  // 500s, or migration 162 has not reached the target and its matview raises 55000, the hook
+  // returns `null` and the page renders the COMPLETE tile grid with no number on any of the
+  // nine in-corpus tiles, indefinitely, with no message and nothing in the console.
   //
-  // "No data for this year" is claimed only where absence is KNOWN: the scope is
-  // outside the corpus (no key, so no query), or the fetch came back and carried
-  // nothing (a 404 the helper maps to null — a SUCCESS, not an error). Anything
-  // else empty is a load that did not complete, and says so instead.
-  //
-  // Deriving it the other way round — "empty and not isError" — reads as
-  // equivalent and is not: React Query PAUSES a query it cannot run, with no
-  // data, no error and isLoading false, so the page told a reader 2016 was
-  // unpublished and then listed 2016 among the published years. Seen live, not
-  // hypothesised — the pause is why `fetchStatus` is read here at all. It has
-  // two causes, an offline browser and a HIDDEN document (a backgrounded tab
-  // whose fetch failed), which is why the copy names neither.
-  const noData = payloadKey === null || (isSuccess && !data);
-  const paused = fetchStatus === "paused";
-  const failed = !noData && !data && (isError || paused);
-  // ⚠️ THE GATE ABOVE WATCHES THE WRONG QUERY ON ITS OWN. Every band-1/2/4 figure comes from
-  // `useAgriHubStats`, which the four states never inspect — so if /api/db/agri-hub-stats 500s,
-  // or migration 162 has not reached the target and its matview raises 55000, the hook returns
-  // `null` and the page renders the COMPLETE tile grid with no number on any of the nine
-  // in-corpus tiles, indefinitely, with no message and nothing in the console.
-  //
-  // Not folded into `failed`: the grid is still worth showing — every tile is a working link
-  // and band 3 still has its figures — so blanking the page would be the larger loss. It gets
-  // a line above the grid instead, and the tiles degrade to no-metric on their own.
+  // Deliberately NOT folded into the gate: the grid is still worth showing — every tile is a
+  // working link and band 3 still has its figures — so blanking the page would be the larger
+  // loss. It gets a line above the grid instead, and the tiles degrade to no-metric on their own.
   const hubFailed = hub === null && payloadKey !== null;
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
@@ -445,80 +419,19 @@ export const SubsidiesDashboardScreen: FC = () => {
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
           <CalendarRange className="h-3.5 w-3.5" />
-          {bg ? "Обхват" : "Scope"}
+          {agriLabel.scope(bg)}
         </span>
         <ScopeControl
           years={AGRI_FINANCIAL_YEARS}
-          nsLabelOverride={bg ? "Последна година" : "Latest year"}
+          nsLabelOverride={agriLabel.latestYear(bg)}
         />
       </div>
-      {failed ? (
-        <section aria-label={title} className="my-4">
-          <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
-            <p className={paused ? "" : "mb-3"}>
-              {paused
-                ? bg
-                  ? "Данните за субсидиите още не са заредени — изчакваме връзката. Ще опитаме отново автоматично."
-                  : "The subsidy data hasn't loaded yet — waiting for the connection. It will retry automatically."
-                : bg
-                  ? "Данните за субсидиите не се заредиха. Обикновено е временно."
-                  : "The subsidy data failed to load. This is usually temporary."}
-            </p>
-            {/* No retry offered while the query is paused: React Query refuses to
-                run one in that state and resumes by itself on reconnect or when
-                the tab comes back to the foreground, so the button would do
-                nothing but look like it might. */}
-            {!paused && (
-              <button
-                type="button"
-                onClick={() => refetch()}
-                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
-              >
-                {bg ? "Опитай отново" : "Try again"}
-              </button>
-            )}
-          </div>
-        </section>
-      ) : noData ? (
-        <section aria-label={title} className="my-4">
-          <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
-            <p className="mb-1">
-              {bg
-                ? `Няма данни за субсидии за ${scopeYear(scope) ?? "избрания период"}.`
-                : `No subsidy data for ${scopeYear(scope) ?? "the selected period"}.`}
-            </p>
-            <p className="mb-3">
-              {bg
-                ? `ДФ „Земеделие“ публикува следните финансови години: ${AGRI_FINANCIAL_YEARS.join(", ")}.`
-                : `The State Fund Agriculture publishes these financial years: ${AGRI_FINANCIAL_YEARS.join(", ")}.`}
-            </p>
-            {/* Only when it would actually go somewhere. On a database where the
-                loader never ran, the default scope 404s too and this card renders
-                for "ns" itself — an offer to switch to the scope already active
-                is a dead control. */}
-            {scope !== "ns" && (
-              <button
-                type="button"
-                onClick={() => setScope("ns")}
-                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
-              >
-                {bg
-                  ? `Покажи последната година (${AGRI_FINANCIAL_YEARS[0]})`
-                  : `Show the latest year (${AGRI_FINANCIAL_YEARS[0]})`}
-              </button>
-            )}
-          </div>
-        </section>
-      ) : !data ? (
-        <section aria-label={title} className="my-4">
-          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        </section>
-      ) : (
+      {/* The skeleton is one block rather than four cards: the grid it stands in for is
+          thirteen tiles, so four card-shaped pulses would misdescribe what is coming. */}
+      <AgriScopeFallback
+        gate={gate}
+        loadingClassName="my-4 h-[560px] animate-pulse rounded-xl border bg-card shadow-sm"
+      >
         <section
           aria-label={title}
           className="my-4"
@@ -544,18 +457,22 @@ export const SubsidiesDashboardScreen: FC = () => {
               is the page a reader lands on, and „where is this from" is answered here or not
               at all. `generatedFrom` is the payload's own provenance string, so it moves with
               the corpus rather than being restated. */}
-          <p className="mt-6 text-xs text-muted-foreground">
-            {t("data_source")}: {data.generatedFrom}
-            {data.scopeYear
-              ? ` · ${bg ? "финансова година" : "financial year"} ${data.scopeYear}`
-              : ""}{" "}
-            ·{" "}
-            {bg
-              ? `общо изплатено ${formatEurCompact(data.headline.totalEur, L)}`
-              : `total paid ${formatEurCompact(data.headline.totalEur, L)}`}
-          </p>
+          {/* `data` is non-null inside AgriScopeFallback — it renders children only in the
+              `ready` state — but that is a runtime guarantee the type system cannot see. */}
+          {data && (
+            <p className="mt-6 text-xs text-muted-foreground">
+              {t("data_source")}: {data.generatedFrom}
+              {data.scopeYear
+                ? ` · ${bg ? "финансова година" : "financial year"} ${data.scopeYear}`
+                : ""}{" "}
+              ·{" "}
+              {bg
+                ? `общо изплатено ${formatEurCompact(data.headline.totalEur, L)}`
+                : `total paid ${formatEurCompact(data.headline.totalEur, L)}`}
+            </p>
+          )}
         </section>
-      )}
+      </AgriScopeFallback>
     </>
   );
 };
