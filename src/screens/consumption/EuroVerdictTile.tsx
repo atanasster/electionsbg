@@ -26,7 +26,24 @@ export const EuroVerdictTile: FC<{ compact?: boolean }> = ({ compact }) => {
   const lang = i18n.language === "bg" ? "bg" : "en";
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { data } = useEuroVerdict();
-  if (!data) return null;
+  // A skeleton, not null. This renders as a full-width BAND on /prices, so
+  // returning nothing collapsed it and pushed all eight tiles below it up —
+  // then down again when the query landed. Layout.tsx documents CLS as a
+  // standing concern on this project; reserving the height is the fix, and it
+  // helps the /consumption/overview host too.
+  if (!data)
+    return (
+      <div
+        className="space-y-3"
+        aria-busy="true"
+        aria-label={T("Зарежда се", "Loading")}
+      >
+        <div className="h-5 w-64 max-w-full animate-pulse rounded bg-muted" />
+        <div className="h-6 w-full animate-pulse rounded bg-muted" />
+        <div className="h-4 w-80 max-w-full animate-pulse rounded bg-muted" />
+        <div className="h-8 w-full max-w-2xl animate-pulse rounded bg-muted" />
+      </div>
+    );
 
   const cheaper = Number(data.cheaper);
   const dearer = Number(data.dearer);

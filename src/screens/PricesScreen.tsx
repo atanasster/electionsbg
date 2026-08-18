@@ -1,9 +1,15 @@
-// /prices — the КЗП "Колко струва" BASKET DASHBOARD. A data-forward grid of
-// linked tiles (no section separators): the basket index since the euro up top,
-// then category movers, cheapest chains, cheapest places, today's deals, the
-// euro verdict, €/kg value, EU comparison, the price map and fuel — each tile
-// fronting its sub-page. The maps live on their own page (/prices/map). A
-// monitoring basket index, NOT official CPI.
+// /prices — the КЗП "Колко струва" BASKET DASHBOARD.
+//
+// The basket index since the euro up top, then the euro verdict as a full-width
+// BAND (it is the page's headline question, and as a 1/3-width cell it set its
+// row's height and left ~200px of dead space either side), then eight linked
+// tiles: category movers, cheapest chains, cheapest places, deals, €/kg value,
+// EU comparison, the price map and fuel — each fronting its sub-page. The maps
+// live on their own page (/prices/map).
+//
+// A monitoring basket index, NOT official CPI. Every figure here goes through
+// headlineIndex / comparableChains so the page cannot quote a day the feed
+// under-reported or rank baskets of different sizes; see docs/plans/prices-hub-v1.md.
 
 import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -166,7 +172,13 @@ export const PricesScreen: FC = () => {
       <ConsumptionBreadcrumb section={title} className="mt-4 mb-2" />
       <Title description={description}>{title}</Title>
 
-      <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Four columns from XL, not lg: eight tiles then make two rows with no
+          orphan. Measured at the lg breakpoint itself, four columns give each
+          tile 239px and truncate 9 elements — narrower and worse than the
+          359px/1 a 375px phone gets, because 1024px is where the sidebar-free
+          container is still narrow but the column count has already jumped.
+          Three columns there leave one row of two, which is the cheaper cost. */}
+      <div className="my-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Hero — the basket index since the euro */}
         <Card className="col-span-full flex flex-wrap items-center justify-between gap-4 p-5">
           <div className="min-w-0">
@@ -207,6 +219,27 @@ export const PricesScreen: FC = () => {
             />
           ) : null}
         </Card>
+
+        {/* The page's headline QUESTION, and the reason most readers arrive.
+            It was a 1/3-width cell holding a bar, a three-item legend, a
+            three-line disclaimer and a link, so it set the middle row's height
+            and left ~200px of white space in the tiles either side. As a band
+            it gets the width its content needs and the remaining eight tiles
+            fall into two clean rows. */}
+        <DashTile
+          // NOT /consumption/overview#euro: that page renders this very
+          // component, differing only by the clause `compact` drops, so the
+          // arrow led nowhere new. The band's own body already links to the
+          // product browser, which is the genuine drill-down — one destination,
+          // not two competing ones.
+          to="/consumption/products"
+          title={T("Виновно ли е еврото?", "Is the euro to blame?")}
+          icon={Coins}
+          className="col-span-full"
+        >
+          {/* compact: the page footer already carries the not-CPI clause. */}
+          <EuroVerdictTile compact />
+        </DashTile>
 
         {/* By category */}
         <DashTile
@@ -316,16 +349,6 @@ export const PricesScreen: FC = () => {
               </li>
             ))}
           </ul>
-        </DashTile>
-
-        {/* Euro verdict */}
-        <DashTile
-          to="/consumption/overview#euro"
-          title={T("Виновно ли е еврото?", "Is the euro to blame?")}
-          icon={Coins}
-        >
-          {/* compact: the page footer already carries the not-CPI clause. */}
-          <EuroVerdictTile compact />
         </DashTile>
 
         {/* € per kilo */}
