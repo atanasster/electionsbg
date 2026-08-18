@@ -116,6 +116,33 @@ $$;
 -- correct pairing as written below; no restriction or widening needed. Re-check
 -- if the НРД ever moves АПр/КПр reimbursement out of БМП.
 -- --------------------------------------------------------------------------
+-- Case-mix expected-vs-actual for one hospital: what the НРД list price says its
+-- OWN case mix should have cost, against what НЗОК actually paid it.
+--
+-- TWO SUPPRESSION GUARDS, both of which null the RATIO while keeping the parts
+-- visible, so a consumer can say WHY rather than silently showing nothing
+-- (docs/plans/procurement-outcomes-v1.md §6b):
+--
+--   * partial-payment-year — the actual is summed over the payment months the
+--     corpus holds for that year. A hospital with four of them against a full
+--     year of cases reads as absurdly cheap: measured on the 2025 corpus, one
+--     facility showed €1.1 per case on 4 months of payments and 1,646 cases.
+--
+--     The floor is DERIVED from the year, never a constant. "A full year" is not
+--     twelve months here — the payment corpus holds 9 months for 2023, 12 for
+--     2024, 11 for 2025 and 6 so far for 2026. A hard 11 is right for exactly
+--     one vintage and would suppress EVERY hospital in 2023 or 2026; and since
+--     the activity corpus went multi-year (plan §8e), which year this reads is
+--     no longer fixed. So the floor is the year's OWN full complement — the most
+--     months any hospital has in it — and a hospital is partial when it has
+--     fewer. Measured: 255 of 259 clear it in 2025, and the four that do not are
+--     exactly the artifacts.
+--   * low-tariff-coverage — `expected` only counts cases whose procedure has a
+--     tariff. Below 0.80 the comparison rests on too little of the hospital's
+--     work to mean anything. 245 of 248 priced hospitals clear it.
+--
+-- The ratio is a SIGNPOST, never a verdict: case mix legitimately drives cost,
+-- and the list price is not what НЗОК contracted to pay.
 CREATE OR REPLACE FUNCTION nzok_casemix_expected_vs_actual(p_eik text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH y AS (SELECT max(period) AS p FROM nzok_activities),
@@ -134,26 +161,65 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   ),
   actual AS (
     -- The hospital's ACTUAL БМП paid in the activity year, from the eik-keyed
-    -- monthly payment corpus (stream 'bmp'). Robust — no name matching.
-    SELECT SUM(month_eur) AS bmp_eur
+    -- monthly payment corpus (stream 'bmp'). Robust — no name matching. The
+    -- month COUNT rides along: it is what tells a partial year from a cheap one.
+    SELECT SUM(month_eur) AS bmp_eur, count(DISTINCT period) AS months
     FROM nzok_hospital_payments
     WHERE eik = p_eik AND stream = 'bmp'
       AND EXTRACT(YEAR FROM period) = EXTRACT(YEAR FROM (SELECT p FROM y))
+  ),
+  -- The year's own full complement of payment months, from the corpus itself.
+  full_year AS (
+    SELECT max(n)::int AS months FROM (
+      SELECT count(DISTINCT period) AS n
+        FROM nzok_hospital_payments
+       WHERE stream = 'bmp'
+         AND EXTRACT(YEAR FROM period) = EXTRACT(YEAR FROM (SELECT p FROM y))
+       GROUP BY eik) x
+  ),
+  calc AS (
+    SELECT
+      (SELECT expected_eur FROM agg)                            AS expected_eur,
+      (SELECT bmp_eur FROM actual)                              AS bmp_eur,
+      COALESCE((SELECT months FROM actual), 0)::int             AS months,
+      COALESCE((SELECT months FROM full_year), 0)::int          AS full_months,
+      ROUND(((SELECT priced_cases FROM agg)::numeric
+             / NULLIF((SELECT total_cases FROM agg), 0)), 3)    AS coverage
+  ),
+  gated AS (
+    SELECT c.*,
+           CASE
+             WHEN c.bmp_eur IS NULL          THEN 'no-payments'
+             WHEN c.months < 11              THEN 'partial-payment-year'
+             WHEN c.coverage IS NULL
+               OR c.coverage < 0.80          THEN 'low-tariff-coverage'
+             ELSE NULL
+           END AS suppressed
+    FROM calc c
   )
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM acts)
               OR (SELECT expected_eur FROM agg) IS NULL
               OR (SELECT expected_eur FROM agg) = 0
          THEN NULL ELSE jsonb_build_object(
-    'eik',          p_eik,
-    'year',         EXTRACT(YEAR FROM (SELECT p FROM y))::int,
-    'expectedEur',  ROUND((SELECT expected_eur FROM agg)),
-    'actualEur',    (SELECT ROUND(bmp_eur) FROM actual),
-    'ratio',        (SELECT CASE WHEN (SELECT bmp_eur FROM actual) IS NULL THEN NULL
-                            ELSE ROUND(((SELECT bmp_eur FROM actual)
-                                        / (SELECT expected_eur FROM agg))::numeric, 3) END),
-    -- Share of the hospital's cases that had a tariff — a low value means the
-    -- expected figure rests on partial coverage and must be read cautiously.
-    'coverage',     (SELECT ROUND((priced_cases::numeric
-                                   / NULLIF(total_cases, 0)), 3) FROM agg)
+    'eik',            p_eik,
+    'year',           EXTRACT(YEAR FROM (SELECT p FROM y))::int,
+    'expectedEur',    ROUND((SELECT expected_eur FROM gated)),
+    'actualEur',      (SELECT ROUND(bmp_eur) FROM gated),
+    -- Payment months behind `actualEur`. 11 is a full year in this corpus.
+    'paymentMonths',  (SELECT months FROM gated),
+    -- The year's own full complement, so a consumer can say "4 of 11" rather
+    -- than implying twelve.
+    'fullYearMonths', (SELECT full_months FROM gated),
+    -- Share of the hospital's cases that had a tariff.
+    'coverage',       (SELECT coverage FROM gated),
+    -- Why the ratio is withheld, or null when it is not. A consumer should say
+    -- this rather than render nothing.
+    'suppressed',     (SELECT suppressed FROM gated),
+    -- NULL whenever `suppressed` is set: a ratio computed over a partial payment
+    -- year or a thinly-priced case mix is not wrong so much as meaningless, and
+    -- it is the headline number on the card.
+    'ratio',          (SELECT CASE WHEN suppressed IS NOT NULL THEN NULL
+                              ELSE ROUND((bmp_eur / expected_eur)::numeric, 3)
+                            END FROM gated)
   ) END;
 $$;

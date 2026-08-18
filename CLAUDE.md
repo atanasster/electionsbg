@@ -1856,6 +1856,37 @@ Re-run writer + loader when the `nzok_nrd_tariffs` watcher flags a new НРД/am
 JSON is missing), so it sits in `db:refresh` — but only this manual flow ever *fills* the
 table.
 
+`nzok_casemix_expected_vs_actual()` (migration 059) is the per-hospital case-mix signal behind
+`/api/db/nzok-casemix-by-eik` and the case-mix line on `NzokReportCardTile`. It divides what
+НЗОК actually paid a hospital by what the НРД list price says its OWN case mix should have
+cost.
+
+**It is a FUNCTION, so no `db:load:*` ships a body change** — the tariff loader applies 059,
+but a guard fix must not wait for a tariff reload. Ship it with the usual hatch, then
+`deploy:db` (the route) and `deploy` (the tile copy):
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 059_nzok_pathway_tariffs.sql
+```
+
+Two guards suppress the RATIO (never the whole payload) and name the reason, so a surface can
+say WHY instead of dropping the row. Both conditions LOOK like a cheap hospital:
+
+- **`partial-payment-year`** — the numerator is summed over the payment months the corpus
+  holds. The floor is the YEAR'S OWN full complement, **never a constant**: the payment
+  corpus holds 9 months for 2023, 12 for 2024, 11 for 2025 and 6 so far for 2026, and since
+  the activity corpus went multi-year the year this reads is not fixed. A hard 11 would
+  suppress every hospital in 2023 or 2026. `fullYearMonths` rides in the payload so copy says
+  „4 of 11" rather than implying twelve.
+- **`low-tariff-coverage`** — `expected` only counts cases whose procedure has a tariff, so
+  below 80% it compares against too little of the hospital's work.
+
+Measured on 2025: 236 published, 6 `no-payments`, 3 partial-year (including the
+€1.1-per-case facility — 4 months of payments against 1,646 cases), 3 low-coverage.
+`nzok_casemix_guards.data.test.ts` holds the invariant (`ratio` NULL iff `suppressed`), the
+derived floor, non-vacuity, and a ceiling on how much the guards may swallow. **No ranking is
+published** — the ratio appears on one hospital's own card, never as a league table.
+
 `agri_subsidies` + `agri_payloads` (migration 046, `db:load:agri:pg`) are the ДФ „Земеделие"
 farm-subsidy corpus behind `/subsidies` and `/farm/:eik`. The loader is the pure-LOAD half of
 the fetch/load split: it reads only the **gitignored** `raw_data/agri/` cache (egov year sheets

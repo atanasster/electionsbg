@@ -216,6 +216,57 @@ is already loaded.
 - **Tests**: PG gate asserting the join coverage counters, the December-period
   guard, and that no hospital appears with cases = 0.
 
+### 2c-1. SHIPPED 2026-08-17 — the guards, not the metric
+
+W2 was never a metric-building task: `nzok_casemix_expected_vs_actual` (059) has
+existed and been wired to `/api/db/nzok-casemix-by-eik` and
+`NzokReportCardTile` all along. What §6b actually asked for was the guards, and
+those are what shipped.
+
+**Both suppress the RATIO and name the reason, server-side**, so every consumer
+inherits them and the tile can say WHY rather than dropping a row:
+
+| reason | rule | hospitals (2025) |
+|---|---|---|
+| `partial-payment-year` | fewer than 11 payment months | 3 |
+| `low-tariff-coverage` | under 80% of cases priced | 3 |
+| `no-payments` | no БМП rows that year | 6 |
+| — published | | **236** |
+
+The month floor is **derived from the year, never a constant** — the review
+caught a hard `11` and it would have been right for exactly one vintage. The
+payment corpus holds **9 months for 2023, 12 for 2024, 11 for 2025 and 6 so far
+for 2026**, and since §8e made the activity corpus multi-year the year this reads
+is no longer fixed: a hard 11 would have suppressed EVERY hospital in 2023 or
+2026. The floor is now the year's own full complement (the most months any
+hospital has in it), and the payload carries `fullYearMonths` so a surface says
+„4 of 11" rather than implying twelve. Counts are identical either way on 2025 —
+255 of 259 clear it, and the four that do not are precisely the artifacts,
+including the €1.1-per-case facility §6b flagged (4 months against 1,646 cases),
+now suppressed by name. The 80% coverage floor clears 245 of 248 priced hospitals.
+
+⚠️ **PUBLISH STEP — this is a function-body change, so nothing ships it.** No
+`db:load:*` carries 059's body, so on the serving side the pre-guard function
+stays and **keeps publishing the €1.1-per-case ratio** while local is green. The
+same class as §7e. Ship it with the escape hatch:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 059_nzok_pathway_tariffs.sql
+```
+
+then `npm run deploy:db` for the route and `npm run deploy` for the tile copy.
+`db:load:nzok-tariffs:pg[:cloud]` also applies 059, so a tariff reload carries it
+— but a guard fix must not wait for one.
+
+`ratio` is NULL whenever `suppressed` is set, and `expectedEur`, `coverage` and
+the new `paymentMonths` stay visible so the tile explains the gap instead of
+vanishing. `nzok_casemix_guards.data.test.ts` holds all of it, including a
+non-vacuity check (the corpus must still contain a suppressed hospital) and a
+floor on how much the guards may swallow (>80% of hospitals must still publish).
+
+**No ranking is published**, per §6b — the ratio appears on one hospital's own
+card, never as a league table.
+
 ### 2d. Effort
 
 Medium. No ingest — but the case-mix grouping is a real design decision and should
@@ -1341,7 +1392,7 @@ although the artifact set above makes both locale files mandatory.
 | W3 methodology page | **SHIPPED** 2026-08-17 — 7 artifacts; 2 legs + a health context figure (§3a-1) |
 | §7 tariffs | **DONE** — 95.9% coverage, JSON committed, publish step named (§7e) |
 | §8 activity panel | **SHIPPED** 2026-08-17 (§8f) — monthly panel + per-year merge, 2024 backfilled |
-| W2 per-hospital €/case | metric already EXISTS (059, live route, ratio 0.963 verified); blocked only on §8e + §6b guards |
+| W2 per-hospital €/case | **SHIPPED** 2026-08-17 (§2c-1) — the §6b guards; the metric already existed |
 | §9 Kaizen | closed — negative result, publish don't build |
 
 The one change of sequencing this implies: **W2 moved up.** With tariffs at

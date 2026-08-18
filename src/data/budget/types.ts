@@ -3287,8 +3287,23 @@ export interface NzokCasemixFile {
   year: number;
   expectedEur: number;
   actualEur: number | null;
+  /** NULL whenever `suppressed` is set — a ratio over a partial payment year or
+   *  a thinly-priced case mix is meaningless, and it is the headline number. */
   ratio: number | null;
   coverage: number; // share of the hospital's cases that had a tariff
+  /** Payment months behind `actualEur`. */
+  paymentMonths: number;
+  /** The YEAR'S OWN full complement of payment months — 9 for 2023, 12 for 2024,
+   *  11 for 2025. Never assume twelve: say "4 of 11". */
+  fullYearMonths: number;
+  /** Why the ratio is withheld, or null when it is not. A consumer should SAY
+   *  this rather than render nothing — the reasons are data-coverage facts about
+   *  the hospital, not an absence of signal. */
+  suppressed:
+    | "no-payments"
+    | "partial-payment-year"
+    | "low-tariff-coverage"
+    | null;
 }
 
 /** /api/db/nzok-financials-coverage-by-eik (migration 058) — which ЕЕОФ quarters

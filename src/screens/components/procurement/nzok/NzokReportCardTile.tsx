@@ -102,6 +102,31 @@ export const NzokReportCardTile: FC<{ eik: string }> = ({ eik }) => {
         {/* Case-mix expected-vs-actual (migration 059) — appears only once the НРД
             pathway tariffs are loaded. "Paid X× what its case-mix predicts at list
             price." A signpost for надлимитна/coding differences, not a verdict. */}
+        {/* The ratio is withheld when it would be meaningless — a partial
+            payment year, or a case mix too thinly priced to compare. Say which,
+            rather than vanishing: both are facts about coverage, and a hospital
+            whose card silently loses a row reads as having nothing to show. */}
+        {casemix.data &&
+          casemix.data.ratio == null &&
+          casemix.data.suppressed && (
+            <div className="rounded-lg border bg-muted/30 p-3 text-xs text-muted-foreground">
+              <span className="font-medium text-foreground">
+                {bg ? "Плащане спрямо case-mix: " : "Payment vs case-mix: "}
+              </span>
+              {casemix.data.suppressed === "partial-payment-year"
+                ? bg
+                  ? `не се показва — корпусът съдържа само ${casemix.data.paymentMonths} месеца плащания за ${casemix.data.year} г., а случаите са за цялата година, така че съотношението би било изкуствено ниско.`
+                  : `withheld — the corpus holds only ${casemix.data.paymentMonths} months of payments for ${casemix.data.year} against a full year of cases, so the ratio would be artificially low.`
+                : casemix.data.suppressed === "low-tariff-coverage"
+                  ? bg
+                    ? `не се показва — само ${Math.round((casemix.data.coverage ?? 0) * 100)}% от случаите на това заведение имат цена по НРД, което е твърде малко за сравнение.`
+                    : `withheld — only ${Math.round((casemix.data.coverage ?? 0) * 100)}% of this facility's cases carry an НРД price, too little to compare.`
+                  : bg
+                    ? "не се показва — няма отчетени плащания по БМП за тази година."
+                    : "withheld — no БМП payments recorded for this year."}
+            </div>
+          )}
+
         {casemix.data && casemix.data.ratio != null && (
           <div className="rounded-lg border bg-muted/30 p-3 text-xs">
             <span className="font-medium">
