@@ -59,6 +59,10 @@ import {
   withThreadBuyer,
   withThreadContractor,
   withoutThread,
+  withCpvIn,
+  withDateRange,
+  withAmountRange,
+  withEuFunded,
   type PeriodAgg,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
@@ -78,10 +82,11 @@ import {
 } from "@/ux/infographic";
 import { SECTOR_SCENES } from "@/screens/governance/sectorScenes";
 import { PROJECT_SCENES } from "./projectScenes";
+import { type AwarderChoice } from "@/screens/components/procurement/AwarderSearch";
 import {
-  AwarderSearch,
-  type AwarderChoice,
-} from "@/screens/components/procurement/AwarderSearch";
+  BuildForm,
+  ProcurementQueryFilter,
+} from "@/screens/components/procurement/ProcurementQueryFilter";
 
 // Only render a curated link when it is an http(s) URL — an untrusted ?q= could
 // otherwise carry a javascript:/data: scheme.
@@ -504,6 +509,17 @@ export const ProjectFileScreen = () => {
       search: withThreadContractor(cur.search, i, contractor),
     }));
 
+  // Membership narrowing (cpv / date / €-window / eu-funded) — the with* transforms
+  // clear a field on an empty value, so the ?q= URL stays lean.
+  const setCpvIn = (cpvIn: string[]) =>
+    mutateSpec((cur) => withCpvIn(cur, cpvIn));
+  const setDateRange = (from: string | undefined, to: string | undefined) =>
+    mutateSpec((cur) => withDateRange(cur, from, to));
+  const setAmountRange = (min: number | undefined, max: number | undefined) =>
+    mutateSpec((cur) => withAmountRange(cur, min, max));
+  const setEuFunded = (v: boolean | undefined) =>
+    mutateSpec((cur) => withEuFunded(cur, v));
+
   const excludeMember = (kind: "contract" | "tender", id: string) =>
     mutateSpec((cur) => {
       const ex = cur.excludes ?? {};
@@ -885,46 +901,19 @@ export const ProjectFileScreen = () => {
         />
         {editMode && (
           <div className="no-print rounded-md border border-dashed p-3 mb-3">
-            <div className="text-xs font-medium text-muted-foreground mb-2">
-              {bg ? "Думи за търсене (обединени)" : "Search terms (unioned)"}
-            </div>
-            <div className="flex flex-col gap-2">
-              {spec.search.map((th, i) => (
-                <ThreadRow
-                  key={i}
-                  initial={th.terms ?? ""}
-                  index={i}
-                  removable={spec.search.length > 1}
-                  buyer={
-                    th.buyerEik?.[0]
-                      ? {
-                          eik: th.buyerEik[0],
-                          name: th.buyerName ?? th.buyerEik[0],
-                        }
-                      : null
-                  }
-                  contractor={
-                    th.contractorEik?.[0]
-                      ? {
-                          eik: th.contractorEik[0],
-                          name: th.contractorName ?? th.contractorEik[0],
-                        }
-                      : null
-                  }
-                  onCommit={setThreadTerms}
-                  onBuyer={setThreadBuyer}
-                  onContractor={setThreadContractor}
-                  onRemove={removeThread}
-                  bg={bg}
-                />
-              ))}
-              <ThreadAdder onAdd={addThread} bg={bg} />
-            </div>
-            <div className="text-xs text-muted-foreground mt-2">
-              {bg
-                ? "Всеки ред е отделно търсене — резултатите се обединяват. Махни ред с ×."
-                : "Each row is a separate search — results are unioned. Remove a row with ×."}
-            </div>
+            <ProcurementQueryFilter
+              value={spec}
+              bg={bg}
+              onThreadTerms={setThreadTerms}
+              onAddThread={addThread}
+              onRemoveThread={removeThread}
+              onThreadBuyer={setThreadBuyer}
+              onThreadContractor={setThreadContractor}
+              onCpvIn={setCpvIn}
+              onDateRange={setDateRange}
+              onAmountRange={setAmountRange}
+              onEuFunded={setEuFunded}
+            />
             {candidates.length > 0 && (
               <div className="mt-3 border-t pt-3">
                 <div className="text-xs font-medium text-muted-foreground mb-2">
@@ -2719,184 +2708,5 @@ const ProvenanceFooter = ({
         )}
       </div>
     </footer>
-  );
-};
-
-const BuildForm = ({
-  onSubmit,
-  bg,
-  cta,
-  initial = "",
-  initialAwarder = null,
-}: {
-  onSubmit: (terms: string, awarder: AwarderChoice | null) => void;
-  bg: boolean;
-  cta: string;
-  /** Pre-populate the input — e.g. a "Прецизирай думите" refine deep-link. */
-  initial?: string;
-  /** Pre-select the buyer — the refine link carries the dossier's scope. */
-  initialAwarder?: AwarderChoice | null;
-}) => {
-  const [terms, setTerms] = useState(initial);
-  const [awarder, setAwarder] = useState<AwarderChoice | null>(initialAwarder);
-  return (
-    <form
-      className="no-print my-3"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit(terms, awarder);
-      }}
-    >
-      {/* terms + buyer + submit fill one row on desktop (subject ~2× the buyer,
-          both flexible), stacking on mobile */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-        <input
-          className="rounded-md border px-3 py-1.5 text-sm bg-background sm:min-w-0 sm:flex-[2]"
-          value={terms}
-          onChange={(e) => setTerms(e.target.value)}
-          placeholder={
-            bg
-              ? "напр. западна дъга, ремонт улици Пловдив…"
-              : "e.g. western arc, street repair Plovdiv…"
-          }
-        />
-        <AwarderSearch
-          value={awarder}
-          onChange={setAwarder}
-          bg={bg}
-          className="sm:min-w-0 sm:flex-1"
-        />
-        <button
-          className="shrink-0 rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
-          type="submit"
-        >
-          {cta}
-        </button>
-      </div>
-    </form>
-  );
-};
-
-// One editable search thread (§0f.2). Commits on Enter or blur; the × removes it
-// (hidden for the last remaining thread — a file needs at least one search).
-const ThreadRow = ({
-  initial,
-  index,
-  removable,
-  buyer,
-  contractor,
-  onCommit,
-  onBuyer,
-  onContractor,
-  onRemove,
-  bg,
-}: {
-  initial: string;
-  index: number;
-  removable: boolean;
-  buyer: AwarderChoice | null;
-  contractor: AwarderChoice | null;
-  onCommit: (i: number, terms: string) => void;
-  onBuyer: (i: number, buyer: AwarderChoice | null) => void;
-  onContractor: (i: number, contractor: AwarderChoice | null) => void;
-  onRemove: (i: number) => void;
-  bg: boolean;
-}) => {
-  const [terms, setTerms] = useState(initial);
-  // Re-sync when the committed value changes externally (e.g. a sibling row was
-  // removed and indices shifted). Keying by index keeps focus on Enter-commit.
-  useEffect(() => setTerms(initial), [initial]);
-  // Blank is not a valid commit (setThreadTerms ignores it) — revert the box to
-  // the committed term instead of leaving it misleadingly empty.
-  const commit = () => {
-    if (!terms.trim()) setTerms(initial);
-    else onCommit(index, terms);
-  };
-  return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-      <input
-        className="rounded-md border px-3 py-1.5 text-sm bg-background sm:flex-1"
-        aria-label={
-          bg ? `Дума за търсене ${index + 1}` : `Search term ${index + 1}`
-        }
-        value={terms}
-        onChange={(e) => setTerms(e.target.value)}
-        onBlur={commit}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            commit();
-          }
-        }}
-      />
-      {/* per-thread buyer scope — same typeahead as the build form */}
-      <AwarderSearch
-        value={buyer}
-        onChange={(a) => onBuyer(index, a)}
-        bg={bg}
-        className="sm:w-64"
-      />
-      {/* per-thread contractor (supplier) scope — the award's-other-side mirror.
-          A contractor + no terms anchors the dossier on that supplier's slice. */}
-      <AwarderSearch
-        value={contractor}
-        onChange={(a) => onContractor(index, a)}
-        bg={bg}
-        group="companies"
-        className="sm:w-64"
-      />
-      {removable && (
-        <button
-          type="button"
-          onClick={() => onRemove(index)}
-          aria-label={bg ? "Махни реда" : "Remove row"}
-          className="shrink-0 self-start rounded-md border px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted sm:self-auto"
-        >
-          ×
-        </button>
-      )}
-    </div>
-  );
-};
-
-// The "add another search thread" row — clears itself after each add.
-const ThreadAdder = ({
-  onAdd,
-  bg,
-}: {
-  onAdd: (terms: string) => void;
-  bg: boolean;
-}) => {
-  const [terms, setTerms] = useState("");
-  const submit = () => {
-    onAdd(terms);
-    setTerms("");
-  };
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        className="flex-1 rounded-md border border-dashed px-3 py-1.5 text-sm bg-background"
-        aria-label={bg ? "Добави дума за търсене" : "Add a search term"}
-        value={terms}
-        onChange={(e) => setTerms(e.target.value)}
-        placeholder={
-          bg ? "+ добави дума за търсене…" : "+ add another search term…"
-        }
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            submit();
-          }
-        }}
-      />
-      <button
-        type="button"
-        onClick={submit}
-        disabled={!terms.trim()}
-        className="shrink-0 rounded-md border px-3 py-1.5 text-sm hover:bg-muted disabled:opacity-40"
-      >
-        {bg ? "Добави" : "Add"}
-      </button>
-    </div>
   );
 };
