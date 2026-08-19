@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import { Title } from "@/ux/Title";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { formatInt } from "@/lib/currency";
+import { CultureDirectorsSection } from "./CultureDirectorsSection";
 import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
@@ -188,9 +189,19 @@ export const CultureInstitutionsScreen: FC = () => {
           </h2>
           <p className="max-w-3xl text-sm text-muted-foreground">
             {bg
-              ? "224 души имат ръководна роля в държавен културен институт и всички са подали декларация. Свързването на конкретен директор с конкретната институция минава през декларираното от него работно място — вече записано, но самата връзка още не се публикува тук."
-              : "224 people hold a directing role at a state cultural institute, and every one has filed a declaration. Tying a named director to a named institution runs through the employer they declared — now recorded, though the link itself is not published here yet."}
+              ? "Всеки от тях е декларирал сам, под собственото си име, къде работи — това е връзката по-долу. Тя НЕ твърди, че някой е подписал конкретен договор, нито че още заема поста: декларацията носи година, длъжността не."
+              : "Each of these people stated, under their own name, where they work — that is the link below. It does NOT claim anyone signed a particular contract, nor that they still hold the post: the filing carries a year, the post does not."}
           </p>
+          <ul className="space-y-3">
+            {[...STATE_CULTURE_INSTITUTES, ...ART_SCHOOLS].map((i) => (
+              <CultureDirectorsSection
+                key={i.eik}
+                eik={i.eik}
+                name={i.bg}
+                bg={bg}
+              />
+            ))}
+          </ul>
           <p className="text-sm">
             <Link
               to="/persons?role=cultural_institute"

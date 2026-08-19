@@ -392,6 +392,21 @@ const LISTING_LABEL_EXCEPTIONS: Record<string, string> = {
   // controlled vocabulary; the filed value is free text and takes the column to 12,626
   // distinct values, which stops it being a picker. See 120's header.
   person_browse_table: "institution is an exact-match facet key (120 header)",
+  // 168: this one is the INVERSE of the usual case, which is why it is an
+  // exception rather than a call site. `declared_label()` prefers the filed value
+  // and FALLS BACK to the listing label — and here the fallback is the defect,
+  // not the safety net.
+  //
+  // The function renders one named person's own statement of where they work and
+  // what they do. `filed_institution` is its JOIN KEY, so the employer fallback
+  // could never fire; and falling back on the position would put a GROUP label
+  // („Служебен министър-председател и министър", which covers two people and
+  // describes neither) under an individual's name — exactly the false claim about
+  // a named person that 089's column comments forbid and that reached a card on
+  // 2026-08-16. A NULL filed_position renders as no position at all, which is
+  // true. See 168's header.
+  awarder_declared_officers:
+    "renders the declarant's OWN words; the listing fallback would attribute a group label to a named person (168 header)",
 };
 
 test.skipIf(skip)(

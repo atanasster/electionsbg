@@ -49,6 +49,16 @@ const SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/165_declaration_employer.sql",
 );
+// 168 SELECTs declaration_employer_link, so the two must never be on a database
+// separately: the function is the only reader of this table, and the table is
+// the only thing the function is about. It carries no data of its own, so no
+// other loader would ever ship it — and `/api/db/awarder-officers` has no
+// missingMigration degrade, which would make an unapplied 168 a 500 on every
+// request /culture/institutions fires.
+const OFFICERS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/168_awarder_officers.sql",
+);
 
 /** The fold, written ONCE and used by both sides. Conservative on purpose: every
  *  widening (transliteration, punctuation stripping) widens the ambiguity the
@@ -97,6 +107,7 @@ const ambiguousSql = (
 const main = async () => {
   const t0 = Date.now();
   await exec(fs.readFileSync(SCHEMA, "utf8"));
+  await exec(fs.readFileSync(OFFICERS_SCHEMA, "utf8"));
 
   const present: typeof AMBIGUITY_REGISTERS = [];
   for (const r of AMBIGUITY_REGISTERS) {

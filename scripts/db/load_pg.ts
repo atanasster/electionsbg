@@ -88,6 +88,15 @@ const PROC_OVERVIEW_FILE = path.join(
   SCHEMA_DIR,
   "025_procurement_overview.sql",
 );
+// 167 is a FUNCTION over `contracts` and carries no data, so no db:load:* would
+// ever ship it on its own — and `/api/db/national-competition` has NO
+// missingMigration degrade, so an unapplied 167 is a 500 on every sector page
+// that puts a baseline beside its own rate. It rides here because this loader
+// owns the table it reads.
+const NATIONAL_COMPETITION_FILE = path.join(
+  SCHEMA_DIR,
+  "167_national_competition.sql",
+);
 const PROC_CONCENTRATION_FILE = path.join(
   SCHEMA_DIR,
   "026_procurement_concentration.sql",
@@ -234,6 +243,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(AWARDER_SEATS_FILE, "utf8"));
   await exec(readFileSync(AWARDER_API_FILE, "utf8"));
   await exec(readFileSync(PROC_OVERVIEW_FILE, "utf8"));
+  await exec(readFileSync(NATIONAL_COMPETITION_FILE, "utf8"));
   await exec(readFileSync(PROC_CONCENTRATION_FILE, "utf8"));
   await exec(readFileSync(PROC_FLOW_FILE, "utf8"));
   await exec(readFileSync(PROC_SCANNER_FILE, "utf8"));

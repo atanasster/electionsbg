@@ -59,6 +59,23 @@ CREATE TABLE IF NOT EXISTS declaration_employer_link (
 CREATE INDEX IF NOT EXISTS idx_declaration_employer_link_eik
   ON declaration_employer_link (eik);
 
+-- The join side, on `declaration`. Every consumer joins the FOLD of
+-- filed_institution, which is an expression — so without this index each lookup
+-- is a full scan of 61,743 filings, and /culture/institutions fires ~40 of them
+-- on one page. Measured: 9,145 buffers / 104 ms per call, against 286 / 1.2 ms
+-- with it.
+--
+-- Legal because the expression is IMMUTABLE: btrim, replace, lower and
+-- regexp_replace with a constant pattern all are. It must stay byte-identical to
+-- the fold in load_employer_links_pg.ts and in the two gates, or it silently
+-- stops being used and the page goes back to 104 ms a call with nothing failing.
+CREATE INDEX IF NOT EXISTS idx_declaration_filed_institution_fold
+  ON declaration (
+    (lower(regexp_replace(btrim(replace(filed_institution, U&'\00A0', ' ')),
+                          '\s+', ' ', 'g')))
+  )
+  WHERE filed_institution IS NOT NULL;
+
 COMMENT ON TABLE declaration_employer_link IS
   'Declarant employer (declaration.filed_institution) → procurement buyer EIK. A NAME match, never an identity: an ambiguous fold is refused rather than graded, and an unresolved employer means "not matched to a buyer", not "no employer".';
 

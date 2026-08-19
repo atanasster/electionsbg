@@ -2405,6 +2405,17 @@ const DB_ROUTES = {
   // baseline, which on the culture corpus inverted the sign on 2023+ — the
   // sector reads WORSE than the country while actually being better. Generic on
   // purpose: every sector dashboard needs the same denominator.
+  // The people who told the Сметна палата they work at this buyer. See migration
+  // 168 for exactly what that claims — and what it does not.
+  "awarder-officers": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!/^\d{9,13}$/.test(eik))
+      return { status: 400, body: { error: "missing or malformed eik" } };
+    const rows = await dbRows("SELECT awarder_declared_officers($1) AS r", [
+      eik,
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   "national-competition": async (dbRows, q) => {
     const rows = await dbRows("SELECT national_competition($1, $2) AS r", [
       orNull(q, "from"),
