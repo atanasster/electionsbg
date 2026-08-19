@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-11T07:03:01.262Z",
+  "generatedAt": "2026-08-19T12:03:03.793Z",
   "source": {
     "publisher": "Агенция „Митници“",
     "register": "Регистър на лицензираните складодържатели и данъчните складове",
     "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing"
   },
-  "totalOperators": 564,
-  "activeOperators": 294,
+  "totalOperators": 565,
+  "activeOperators": 295,
   "operators": [
     {
       "eik": "121699202",
@@ -17,8 +17,8 @@
       ],
       "warehouses": 9,
       "active": true,
-      "procurementEur": 834021116.2399998,
-      "contractCount": 700
+      "procurementEur": 834021116.24,
+      "contractCount": 697
     },
     {
       "eik": "831496285",
@@ -28,8 +28,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 516268770.7499993,
-      "contractCount": 2198
+      "procurementEur": 512950100.36,
+      "contractCount": 2176
     },
     {
       "eik": "131245283",
@@ -40,7 +40,7 @@
       ],
       "warehouses": 2,
       "active": true,
-      "procurementEur": 284004432.0600002,
+      "procurementEur": 284004432.06,
       "contractCount": 487
     },
     {
@@ -63,8 +63,8 @@
       ],
       "warehouses": 3,
       "active": true,
-      "procurementEur": 124833182.62999997,
-      "contractCount": 48
+      "procurementEur": 124833182.63,
+      "contractCount": 49
     },
     {
       "eik": "121516626",
@@ -74,7 +74,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 36289143.719999984,
+      "procurementEur": 36289143.72,
       "contractCount": 266
     },
     {
@@ -85,8 +85,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 32640944.70000004,
-      "contractCount": 281
+      "procurementEur": 32688944.7,
+      "contractCount": 279
     },
     {
       "eik": "824033568",
@@ -107,7 +107,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 19598299.830000002,
+      "procurementEur": 19598299.83,
       "contractCount": 57
     },
     {
@@ -118,8 +118,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 18320996.18,
-      "contractCount": 130
+      "procurementEur": 18491675.83,
+      "contractCount": 119
     },
     {
       "eik": "147188777",
@@ -144,17 +144,6 @@
       "contractCount": 3
     },
     {
-      "eik": "200901840",
-      "name": "ДМВ ПЕТРОЛ ЕООД",
-      "categories": [
-        "energy"
-      ],
-      "warehouses": 2,
-      "active": true,
-      "procurementEur": 8028331.050000001,
-      "contractCount": 5
-    },
-    {
       "eik": "831924394",
       "name": "ТОПЛИВО АД",
       "categories": [
@@ -162,8 +151,8 @@
       ],
       "warehouses": 2,
       "active": true,
-      "procurementEur": 6896785.209999998,
-      "contractCount": 235
+      "procurementEur": 6853336.9,
+      "contractCount": 228
     },
     {
       "eik": "130948282",
@@ -173,8 +162,19 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 5378770.739999999,
-      "contractCount": 30
+      "procurementEur": 5378770.74,
+      "contractCount": 28
+    },
+    {
+      "eik": "200901840",
+      "name": "ДМВ ПЕТРОЛ ЕООД",
+      "categories": [
+        "energy"
+      ],
+      "warehouses": 2,
+      "active": true,
+      "procurementEur": 5318062.26,
+      "contractCount": 4
     },
     {
       "eik": "108009269",
@@ -184,7 +184,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 4951005.439999998,
+      "procurementEur": 4956676.01,
       "contractCount": 191
     },
     {
@@ -206,7 +206,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 3485954.0799999996,
+      "procurementEur": 3485954.08,
       "contractCount": 59
     },
     {
@@ -251,7 +251,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 2242107.3600000003,
+      "procurementEur": 2242107.36,
       "contractCount": 39
     },
     {
@@ -274,8 +274,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 1375918.3699999999,
-      "contractCount": 4
+      "procurementEur": 1078011.14,
+      "contractCount": 2
     },
     {
       "eik": "126611050",
@@ -329,7 +329,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 681935.4600000001,
+      "procurementEur": 681935.46,
       "contractCount": 10
     },
     {
@@ -419,7 +419,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 169268.30000000002,
+      "procurementEur": 169268.3,
       "contractCount": 3
     },
     {
@@ -430,19 +430,8 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 151373.08000000002,
+      "procurementEur": 151373.08,
       "contractCount": 2
-    },
-    {
-      "eik": "831233875",
-      "name": "ПОЛИХИМ-СС ЕООД",
-      "categories": [
-        "energy"
-      ],
-      "warehouses": 1,
-      "active": true,
-      "procurementEur": 148056.84000000003,
-      "contractCount": 8
     },
     {
       "eik": "117015709",
@@ -463,8 +452,19 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 96762.85999999999,
+      "procurementEur": 96762.86,
       "contractCount": 3
+    },
+    {
+      "eik": "831233875",
+      "name": "ПОЛИХИМ-СС ЕООД",
+      "categories": [
+        "energy"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 91150.05,
+      "contractCount": 7
     },
     {
       "eik": "117572900",
@@ -474,7 +474,7 @@
       ],
       "warehouses": 1,
       "active": true,
-      "procurementEur": 56863.299999999996,
+      "procurementEur": 56863.3,
       "contractCount": 9
     },
     {
@@ -2235,7 +2235,7 @@
     },
     {
       "eik": "832099347",
-      "name": "КУМИНЯНО ФРУТ ООД",
+      "name": "КУМИНЯНО ФРУТ ЕООД",
       "categories": [
         "alcohol",
         "other"
@@ -2271,7 +2271,7 @@
     },
     {
       "eik": "131068107",
-      "name": "ЛОВИКО ЛОЗАРИ ЕАД",
+      "name": "ЛОВИКО ЛОЗАРИ АД",
       "categories": [
         "alcohol",
         "other"
@@ -2870,7 +2870,7 @@
     },
     {
       "eik": "030268004",
-      "name": "СИНХРОН ИНВЕСТ ООД",
+      "name": "СИНХРОН ИНВЕСТ ЕООД",
       "categories": [
         "alcohol",
         "other"
@@ -3174,6 +3174,18 @@
       "contractCount": 0
     },
     {
+      "eik": "208645026",
+      "name": "УНИ ЕНЕРДЖИ ТРЕЙД ЕООД",
+      "categories": [
+        "energy",
+        "alcohol"
+      ],
+      "warehouses": 1,
+      "active": true,
+      "procurementEur": 0,
+      "contractCount": 0
+    },
+    {
       "eik": "104616097",
       "name": "УНИВЕРСАЛ ПЕНЕВ ЕООД",
       "categories": [
@@ -3318,8 +3330,8 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 33233236.760000005,
-      "contractCount": 63
+      "procurementEur": 33394989.23,
+      "contractCount": 57
     },
     {
       "eik": "117693631",
@@ -3329,7 +3341,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 27891253.620000012,
+      "procurementEur": 27891253.62,
       "contractCount": 115
     },
     {
@@ -3338,8 +3350,8 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 19147064.290000003,
-      "contractCount": 125
+      "procurementEur": 19337000.29,
+      "contractCount": 126
     },
     {
       "eik": "117679603",
@@ -3360,7 +3372,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 12743538.390000004,
+      "procurementEur": 12743538.39,
       "contractCount": 176
     },
     {
@@ -3372,7 +3384,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 7096720.010000003,
+      "procurementEur": 7096720.01,
       "contractCount": 75
     },
     {
@@ -3381,7 +3393,7 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 6094208.969999997,
+      "procurementEur": 6094208.97,
       "contractCount": 71
     },
     {
@@ -3392,7 +3404,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 6078177.880000001,
+      "procurementEur": 6078177.88,
       "contractCount": 23
     },
     {
@@ -3414,7 +3426,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 3472023.040000001,
+      "procurementEur": 3472023.04,
       "contractCount": 29
     },
     {
@@ -3423,7 +3435,7 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 3117325.1700000004,
+      "procurementEur": 3117325.17,
       "contractCount": 5
     },
     {
@@ -3432,7 +3444,7 @@
       "categories": [],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 755587.1499999999,
+      "procurementEur": 755587.15,
       "contractCount": 6
     },
     {
@@ -3466,7 +3478,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 524074.18000000005,
+      "procurementEur": 524074.18,
       "contractCount": 4
     },
     {
@@ -3520,7 +3532,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 94588.20999999999,
+      "procurementEur": 94588.21,
       "contractCount": 2
     },
     {
@@ -3551,7 +3563,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 84358.51000000001,
+      "procurementEur": 84358.51,
       "contractCount": 2
     },
     {
@@ -3607,7 +3619,7 @@
       ],
       "warehouses": 0,
       "active": false,
-      "procurementEur": 11243.310000000001,
+      "procurementEur": 11243.31,
       "contractCount": 2
     },
     {
