@@ -25,6 +25,7 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 interface PeerRow {
   eik: string;
@@ -212,12 +213,12 @@ export const ProcurementSectorsScreen: FC = () => {
                                   <span className="w-8 shrink-0 tabular-nums text-muted-foreground">
                                     №{p.rank}
                                   </span>
-                                  <Link
-                                    to={`/company/${p.eik}`}
+                                  <CompanyLink
+                                    eik={p.eik}
                                     className="truncate text-accent hover:underline"
                                   >
                                     {decodeEntities(p.name || "") || p.eik}
-                                  </Link>
+                                  </CompanyLink>
                                   <span className="ml-auto shrink-0 tabular-nums text-muted-foreground">
                                     {formatEurCompact(p.totalEur, lang)}
                                   </span>

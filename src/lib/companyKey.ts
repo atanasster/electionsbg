@@ -4,9 +4,13 @@
 // token live in that column, and NONE of them resolves to a company page —
 // measured 2026-08-19 over every distinct contractor key in the corpus:
 //
-//   plain 9/13-digit EIK    27,531 keys   ← the only kind with a page
+//   plain 9/13-digit EIK    27,553 keys   ← the only kind with a page
 //   synthetic `<prefix>-…`   1,803 keys   0 resolve
-//   foreign / odd length       281 keys   0 resolve
+//   neither                    282 keys   0 resolve  (137 with letters, 145
+//                                                     numeric odd-length)
+//
+// Those are over EVERY distinct contractor key. Scoped to `tag = 'contract'` the
+// first and last are 27,531 / 281; the synthetic count is identical either way.
 //
 // The synthetic namespaces are minted deliberately, each because the source id
 // could not become a key (see scripts/procurement/supplier_identity.ts):
@@ -14,7 +18,7 @@
 //   · `ph-`   (91)    — the supplier's registration number was FILLER
 //   · `np-`   (86)    — a natural person, keyed by name so no ЕГН is stored
 //
-// `institution_identity()` returns NULL for all 2,084 of them, so the page renders
+// `institution_identity()` returns NULL for all 2,085 of them, so the page renders
 // „Няма фирма с ЕИК … в базата." — a link that goes nowhere. Before this existed,
 // every one of those was rendered as a live link at ~20 call sites.
 //

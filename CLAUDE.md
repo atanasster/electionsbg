@@ -331,6 +331,120 @@ disjoint on it and only one is a defect (plan:
   That sweep is **open work, not done**; `dedup_contract_keys.ts` cannot find them because it
   groups by the STORED key, so a stale-keyed row is a singleton group and is skipped.
 
+### Sector EIK rosters — `edu` is the widest, and the trap it documents
+
+A sector's awarder allowlist is declared in up to four places (reference data →
+`SECTOR_EIKS` in `gen_procurement/sector_stats.ts` → `SECTOR_DASHBOARDS[id].members` →
+`SECTOR_BROWSE_PACKS[id].eiks`), and the reference data is **meant** to be the single source
+of truth. ⚠ It is not universally so: `SECTOR_DASHBOARDS.energy.members` restates nine EIK
+literals instead of mapping `ENERGY_MEMBER_EIKS`, so a roster edit there does not propagate.
+Check before assuming a copy is derived.
+
+`src/lib/educationReferenceData.ts` is the largest: **126 EIKs across five universes** (МОН,
+its agencies and state companies, 33 state higher schools, БАН, Селскостопанска академия),
+~€2.11bn. Before the 2026-08-18 audit the sector rolled up ONE EIK, so `/sector/edu` showed
+€506M against that, and **€3.17M over 9 contracts on its default scope**.
+
+Three things it records that generalise to any sector roster:
+
+- **A sibling's `EXCLUDED_EIKS` is an ANTI-allowlist, and grepping an EIK finds it either
+  way.** Six institutions were excluded "to culture" while `kulturaReferenceData.ts` was
+  DISCLAIMING them (`principal: "ban_mon"`) — stranding НХА, НМА, НАТФИЗ and three БАН
+  museum-institutes in NO sector, the very defect the roster exists to fix. Verify ownership
+  against `SECTOR_DASHBOARDS` members / `SECTOR_BROWSE_PACKS` eiks, never against a string's
+  presence in a sibling file. Both halves are gated in `educationReferenceData.test.ts`.
+- **Institutions ≠ EIKs.** Стопанска академия „Д. А. Ценов" changed EIK in 2016 and both
+  halves of its history are kept (`retiredEikOf`), so 126 EIKs are 125 institutions — and the
+  awarders footnote said „34 държавни висши училища" for 33 until that field existed.
+  Reader-facing prose quotes the INSTITUTION count.
+- **`packIsThematic` — a registered sector pack normally IS the page and disables the group
+  model** (`useAwarderGroupModel(..., enabled: !Pack)`). MonPack is a cross-buyer analysis of
+  the textbook market and does not bind its `eik` prop, so widening the roster moved every
+  headline number and NONE of it reached the page while every other gate stayed green.
+
+The hub headline stays `basis: 'budget'` on МОН's own node and deliberately does not sum the
+group's procurement onto it — the roster spans three budget principals (МОН, БАН, ССА→МЗХ)
+while the node spans one. The awarders footnote states that, derived from the roster so its
+counts cannot drift.
+
+### Supplier identity — the three synthetic key namespaces, and why a re-ingest cannot fix one
+
+`contracts.contractor_eik` is **not always a Bulgarian EIK**. Over every distinct
+contractor key (all tags): **27,553** plain 9/13-digit EIKs, **1,803** synthetic carriers and
+**282** neither — of which only 137 carry letters; the other 145 are numeric odd-length ids
+that `supplier_identity.ts`'s header says are unclassifiable offline. Scoped to
+`tag = 'contract'` the plain count is 27,531 and the last bucket 281; the synthetic three are
+identical under both, which is exactly why a scope slip here hides. `scripts/procurement/supplier_identity.ts` mints the synthetic ones,
+each because the source token could not become a key:
+
+| prefix  | n     | why                                             | keyed by            |
+| ------- | ----- | ----------------------------------------------- | ------------------- |
+| `obed-` | 1,626 | a consortium carrier, not one legal entity      | the member set      |
+| `ph-`   | 91    | the registration number was **filler**          | the supplier's NAME |
+| `np-`   | 86    | a natural person — the ЕГН must never be stored | the person's NAME   |
+
+**None of the 2,084 has a `/company/:eik` page** — neither `tr_companies` nor
+`institution_identity()` resolves any of them — so a link to one renders „Няма фирма с ЕИК …
+в базата.". `isLinkableCompanyKey` (`src/lib/companyKey.ts`) is the one predicate for
+"is this key servable", and `CompanyLink` is how a CONTRACTOR key should become a link.
+⚠ It is NOT centrally enforced — `companyKey.test.ts` is a best-effort net over known
+surfaces and field names, and it has already missed two (`p.eik` on
+ProcurementSectorsScreen, `a.topEik` on the watchlist) that were rendering live dead links,
+one of them `obed-f58039ac056a` at €337.7M. `contractor_rank` alone holds 11,813 synthetic
+rows, so treat any new surface reading it as a candidate and check by hand.
+⚠ It is contractor-only on purpose: awarder ids are validated by `isValidEik` (9–13 digits)
+and two live awarders sit outside 9/13 — ЕСО `1752013040`, АДФИ `175076479999` — both of
+which resolve, so routing an awarder through it de-links a working page.
+
+**Filler** is what a buyer types when ЦАИС demands a registration number the supplier has
+none of. `isValidEik` used to reject only the all-zero form, so `000000001` passed as a
+perfectly good EIK and became a company key **pooling nine unrelated suppliers** — Elsevier's
+€32.8M and Clarivate's €11.2M rendered as ONE contractor on every leaderboard — while
+`1234567899` pooled **22 distinct natural persons**. `isPlaceholderId`
+(`scripts/procurement/eik.ts`) recognises it now.
+
+⚠ **The rules are all-same-digit, an ascending run, and a three-entry DENYLIST — and the
+obvious fifth rule is wrong.** "Small numbers are filler" would re-key real bodies:
+`000000210` is ДГС Гърмен, a live awarder, and 29 Commerce-Registry cooperatives sit below
+10000 starting at `000000491`. This corpus has already defeated four discriminators (listed
+in `supplier_identity.ts`'s header); do not add a fifth without measuring it against
+`tr_companies` AND every `awarder_eik`.
+
+⚠⚠ **NEITHER RE-INGEST MODE CAN APPLY THIS FIX TO ROWS ALREADY ON DISK, and one of them
+silently doubles the corpus's exposure.** Measured over the full 2020→2026 ЦАИС history:
+
+- `ingest_eop --backfill` (gap-fill) keeps only buyers ENTIRELY ABSENT from the corpus. All
+  4,416 are present, so it kept **0 rows** and dropped 207,029.
+- `ingest_eop --backfill --self-heal` dedups on `contentKeys()`, and **all four of its nets
+  embed `contractorEik`**. A re-parsed filler row therefore shares NO key with its own
+  on-disk twin — verified on the live Кларивейт row, 4 keys before, 4 after, 0 in common —
+  so it is kept as NEW while the old row stays. Applying it **double-counts** the rows
+  instead of correcting them.
+
+The only path is the one-off `scripts/procurement/rekey_placeholder_suppliers.ts` (dry-run by
+default, `--apply` to write, idempotent), then the usual chain — `proc:backfill-unp:apply` →
+`proc:reconcile:apply` → `proc:rebuild-derived` → `db:load:pg` → `db:load:annexes:pg`. The
+annexes step is **mandatory**: a re-keyed contract changes `key`, which orphans its
+`procurement_annexes` rows until that loader re-resolves them.
+
+⚠ **A re-key MOVES `/contract/:key` URLs, and that is inherent, not a choice** — the key is
+`hash(releaseId::contractId::contractorEik::tag)` for the release-shaped feeds and
+`hash(legacy::datasetUuid::documentId::contractorEik)` for the annual CSV, so the supplier IS
+part of contract identity and a fresh parse moves them identically. On the legacy feed
+`releaseId` embeds the supplier too, so that moves with it. All three builders live once, in
+`contract_key.ts` (`releaseContractKey` / `legacyContractKey` / `legacyReleaseId`), so the
+one-off and the ingest cannot drift; they were three private copies until 2026-08-19.
+
+Cloud side, and nothing runs it automatically: `db:load:pg:cloud` then
+`db:load:annexes:pg:cloud`, then **`db:load:graph:pg:cloud`** — `company_public_money` (127)
+keys on `contractor_eik` and so holds rows for the filler ids themselves, and `load_pg` does
+NOT refresh it; skipping it leaves `000000001` sitting on €45.7M on prod. Then
+`db:load:tr-company-place:pg:cloud`, which denormalizes `money_eur` from it. `persons-browse`
+/ `person-search` are NOT needed — `person_role` and `tr_companies` both hold zero filler
+rows, so no person's money can include a re-keyed contract.
+
+`scripts/db/tests/supplier_filler_ids.data.test.ts` is the gate.
+
 ### The two committed artifacts `db:refresh` regenerates
 
 `data/procurement/derived/hub_stats.json` (the nine `/procurement` hub stat-tile numbers) and

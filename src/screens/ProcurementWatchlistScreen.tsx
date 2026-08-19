@@ -50,6 +50,7 @@ import {
   useWatchlistActivity,
   type WatchActivity,
 } from "@/data/procurement/useWatchlistActivity";
+import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
 
 // A hook, not a plain function, because two of the five destinations read ?pscope and
 // must be built through their scope-carrying helpers — /awarder/:eik (useAwarderHref)
@@ -327,16 +328,25 @@ const WatchCard: FC<{ a: WatchActivity }> = ({ a }) => {
             {a.topName && a.topEik ? (
               <div className="truncate">
                 {t("watchlist_top_counterparty") || "Top counterparty"}:{" "}
-                <Link
-                  to={
-                    a.topKind === "awarder"
-                      ? awarderHref(a.topEik)
-                      : `/company/${a.topEik}`
-                  }
-                  className="hover:underline text-foreground/80"
-                >
-                  {a.topName}
-                </Link>
+                {/* The counterparty is an AWARDER or a CONTRACTOR, and only the
+                    contractor arm can be a synthetic carrier — 50 awarders here
+                    have one. Awarders keep the plain link: their keys run 9-13
+                    digits, outside the contractor predicate. */}
+                {a.topKind === "awarder" ? (
+                  <Link
+                    to={awarderHref(a.topEik)}
+                    className="hover:underline text-foreground/80"
+                  >
+                    {a.topName}
+                  </Link>
+                ) : (
+                  <CompanyLink
+                    eik={a.topEik}
+                    className="hover:underline text-foreground/80"
+                  >
+                    {a.topName}
+                  </CompanyLink>
+                )}
               </div>
             ) : null}
           </div>

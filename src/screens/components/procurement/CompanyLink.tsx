@@ -4,9 +4,10 @@
 // It exists for the same reason AwarderLink does — one invariant kept being
 // forgotten at many call sites — but the invariant here is simpler and the failure
 // louder: **not every supplier key HAS a company page.** `contracts.contractor_eik`
-// carries 1,803 synthetic carriers (`obed-` / `ph-` / `np-`) and 281 foreign
-// registry ids, and `institution_identity()` returns NULL for all 2,084, so the
-// page renders „Няма фирма с ЕИК … в базата.". Every one was a live link before.
+// carries 1,803 synthetic carriers (`obed-` / `ph-` / `np-`) and 282 ids that are
+// neither those nor a plain EIK, and `institution_identity()` returns NULL for all
+// 2,085, so the page renders „Няма фирма с ЕИК … в базата.". Every one was a live
+// link before.
 //
 // When the key is not servable this renders the name as plain text. It deliberately
 // does NOT hide the row: the supplier is real and its money is real — Elsevier B.V.

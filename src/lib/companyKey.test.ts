@@ -104,11 +104,18 @@ describe("contractor surfaces route through CompanyLink", () => {
     "screens/components/procurement/roads/RoadRepeatWinnersTile.tsx",
     "screens/components/candidates/MpConnectedContractsTile.tsx",
     "screens/components/candidates/procurement/ConnectedContractorCard.tsx",
+    // Found by review AFTER the token net passed: both name their key `p.eik` /
+    // `a.topEik`, so no token matched while both rendered live dead links —
+    // ProcurementSectors' CPV-45 rank 8 is `obed-f58039ac056a` at €337.7M, and 50
+    // awarders have a synthetic top counterparty. `contractor_rank` holds 11,813
+    // synthetic rows, so any surface reading it is a candidate.
+    "screens/ProcurementSectorsScreen.tsx",
+    "screens/ProcurementWatchlistScreen.tsx",
   ];
 
   /** Field names a contractor key travels under. */
   const CONTRACTOR_TOKEN =
-    /to=\{`\/company\/\$\{[^}]*\b(contractorEik|consortiumEik|leaderEik|topSupplier)\b/;
+    /to=\{`\/company\/\$\{[^}]*\b(contractorEik|consortiumEik|leaderEik|topSupplier|topEik)\b/;
 
   it.each(CONTRACTOR_SURFACES)(
     "%s routes contractors through CompanyLink",
