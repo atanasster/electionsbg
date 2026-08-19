@@ -2,7 +2,7 @@
 //
 // This URL used to render the НФЦ film-subsidy dashboard, which moved verbatim to
 // /culture/subsidies. The reason is the whole point of the rework: film subsidy is
-// €94.9m of a subject whose PROCUREMENT alone is €165.4m and whose ИСУН grants are
+// €94.9m of a subject whose PROCUREMENT alone is €166.7m and whose ИСУН grants are
 // €147.1m, so the page carried 13% of its own subject's money and 100% of its
 // content.
 //

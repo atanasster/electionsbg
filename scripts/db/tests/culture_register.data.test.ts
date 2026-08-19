@@ -44,7 +44,7 @@ import {
   ADJACENT_EIK_LIST,
   EXCLUDED_EIKS,
   VERIFY_PRINCIPAL_EIKS,
-  DKI_CONFIRMED_THEATRES,
+  DKI_CONFIRMED_INSTITUTES,
 } from "@/lib/kulturaReferenceData";
 
 const haveDb = await dbReachable();
@@ -259,7 +259,7 @@ test("every roll-up member is reachable from the roster and the search box", () 
   // roll-up — with НФЦ the one exception, deliberately not a search
   // destination (zero procurement footprint, so /awarder/:eik cannot render it).
   //
-  // The union gained a FOURTH member on 2026-08-19 (DKI_CONFIRMED_THEATRES, the
+  // The union gained a FOURTH member on 2026-08-19 (DKI_CONFIRMED_INSTITUTES, the
   // T0.2 ruling), and it caught the same mistake a second time: the nine went
   // into the roll-up as a bare EIK array first, which moved €7.5m and left all
   // nine findable only by someone who already knew the number.
@@ -267,7 +267,7 @@ test("every roll-up member is reachable from the roster and the search box", () 
     ...CULTURE_BODIES.map((b) => b.eik),
     ...STATE_CULTURE_INSTITUTES.map((i) => i.eik),
     ...ART_SCHOOLS.map((a) => a.eik),
-    ...DKI_CONFIRMED_THEATRES.map((t) => t.eik),
+    ...DKI_CONFIRMED_INSTITUTES.map((t) => t.eik),
   ]);
   const missing = CULTURE_GROUP_EIKS.filter(
     (e) => !rendered.has(e) && e !== NFC_EIK,

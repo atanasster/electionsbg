@@ -40,7 +40,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
-  DKI_CONFIRMED_THEATRES,
+  DKI_CONFIRMED_INSTITUTES,
   NFC_EIK,
 } from "@/lib/kulturaReferenceData";
 
@@ -87,7 +87,7 @@ export const cultureRosterIndex = (): EntityIndex => {
       ...[
         ...STATE_CULTURE_INSTITUTES,
         ...ART_SCHOOLS,
-        ...DKI_CONFIRMED_THEATRES,
+        ...DKI_CONFIRMED_INSTITUTES,
       ]
         .filter((i) => !seen.has(i.eik))
         .map((i) => ({ eik: i.eik, name: i.bg })),

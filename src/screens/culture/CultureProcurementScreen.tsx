@@ -37,7 +37,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
-  DKI_CONFIRMED_THEATRES,
+  DKI_CONFIRMED_INSTITUTES,
 } from "@/lib/kulturaReferenceData";
 
 /** Headline money and competition, not a CPV taxonomy — one bucket. */
@@ -50,7 +50,7 @@ const NAMES: Record<string, string> = Object.fromEntries([
   ...CULTURE_BODIES.map((b) => [b.eik, b.bg]),
   ...STATE_CULTURE_INSTITUTES.map((i) => [i.eik, i.bg]),
   ...ART_SCHOOLS.map((a) => [a.eik, a.bg]),
-  ...DKI_CONFIRMED_THEATRES.map((t) => [t.eik, t.bg]),
+  ...DKI_CONFIRMED_INSTITUTES.map((t) => [t.eik, t.bg]),
 ]);
 
 export const CultureProcurementScreen: FC = () => {

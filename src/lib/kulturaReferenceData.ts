@@ -229,29 +229,72 @@ export const ART_SCHOOL_EIKS: readonly string[] = ART_SCHOOLS.map((s) => s.eik);
  *
  *  The evidence lives in `data/culture/dki_register.json` and the reconciliation
  *  that produced it is `scripts/culture/dki/reconcile.ts`. */
-export const DKI_CONFIRMED_THEATRES: readonly { eik: string; bg: string }[] = [
-  {
-    eik: "000124037",
-    bg: "Музикално-драматичен театър „Константин Кисимов“ — Велико Търново",
-  },
-  { eik: "000282756", bg: "Драматичен театър — Ловеч" },
-  { eik: "000403802", bg: "Драматично-куклен театър „Иван Радоев“ — Плевен" },
-  { eik: "000014352", bg: "Драматичен театър „Н. Й. Вапцаров“ — Благоевград" },
-  { eik: "000867998", bg: "Драматичен театър — Търговище" },
-  { eik: "000455489", bg: "Драматичен театър „Н. О. Масалитинов“ — Пловдив" },
-  { eik: "126004416", bg: "Драматично-куклен театър „Иван Димов“ — Хасково" },
-  { eik: "000522703", bg: "Драматичен театър „Сава Огнянов“ — Русе" },
-  // Reached the register through the TENDERS arm of the corpus sweep: published
-  // procedures, no awarded contract. It contributes nothing to the money and
-  // everything to the roster.
-  {
-    eik: "112582278",
-    bg: "Драматично-куклен театър „Константин Величков“ — Пазарджик",
-  },
-];
+export const DKI_CONFIRMED_INSTITUTES: readonly { eik: string; bg: string }[] =
+  [
+    {
+      eik: "000124037",
+      bg: "Музикално-драматичен театър „Константин Кисимов“ — Велико Търново",
+    },
+    { eik: "000282756", bg: "Драматичен театър — Ловеч" },
+    { eik: "000403802", bg: "Драматично-куклен театър „Иван Радоев“ — Плевен" },
+    {
+      eik: "000014352",
+      bg: "Драматичен театър „Н. Й. Вапцаров“ — Благоевград",
+    },
+    { eik: "000867998", bg: "Драматичен театър — Търговище" },
+    { eik: "000455489", bg: "Драматичен театър „Н. О. Масалитинов“ — Пловдив" },
+    { eik: "126004416", bg: "Драматично-куклен театър „Иван Димов“ — Хасково" },
+    { eik: "000522703", bg: "Драматичен театър „Сава Огнянов“ — Русе" },
+    // Reached the register through the TENDERS arm of the corpus sweep: published
+    // procedures, no awarded contract. It contributes nothing to the money and
+    // everything to the roster.
+    {
+      eik: "112582278",
+      bg: "Драматично-куклен театър „Константин Величков“ — Пазарджик",
+    },
 
-export const DKI_CONFIRMED_THEATRE_EIKS: readonly string[] =
-  DKI_CONFIRMED_THEATRES.map((t) => t.eik);
+    // ---- SECOND RULING, same day, on the rest of the register's evidence ----
+    // These six were in NO list at all — the register's own blind-spot finding: a
+    // ДКИ with little or no ЗОП procurement is invisible to a corpus sweep. МК
+    // lists each on its own ДКИ pages, and NOTHING in this repo's reference data
+    // makes a competing claim about any of them (checked against every
+    // *ReferenceData.ts, the sector generator, the dashboards and the browse
+    // packs). Same evidence class as the nine above.
+    { eik: "000210326", bg: "Драматичен театър „Рачо Стоянов“ — Габрово" },
+    { eik: "127508351", bg: "Драматично-куклен театър „Васил Друмев“ — Шумен" },
+    {
+      eik: "000608604",
+      bg: "Родопски драматичен театър „Николай Хайтов“ — Смолян",
+    },
+    { eik: "000153836", bg: "Симфониета — Видин" },
+    { eik: "000185307", bg: "Симфониета — Враца" },
+    // Was EXCLUDED as `obshtina` / „Столична община". МК lists it on its own
+    // „Държавни драматични и драматично-куклени театри" page — МК calling it
+    // ДЪРЖАВЕН — and the exclusion's recorded justification („appears in no МК
+    // ДКИ listing") is contradicted by the primary source: it is the SECOND entry
+    // on that page. The municipal claim is unsourced anywhere in this repo. T0.3.
+    { eik: "831381016", bg: "Театрална работилница „Сфумато“" },
+
+    // The three art schools. Two were in no list; НГДЕК was EXCLUDED as `ban_mon`
+    // with the reason „ancient languages and cultures, not an МК art school".
+    // That misreads МК's own category, which is „училища по изкуствата И ПО
+    // КУЛТУРАТА" — and a classics gymnasium is precisely the culture half of it.
+    // МК lists all three on that page. Note the МОН schools register does NOT
+    // discriminate here: every one of the 17 existing ART_SCHOOLS appears in it
+    // too, so membership there is no evidence of principal either way.
+    {
+      eik: "000669774",
+      bg: "Национално музикално училище „Любомир Пипков“ — София",
+    },
+    {
+      eik: "000669802",
+      bg: "Национална професионална гимназия по полиграфия и фотография",
+    },
+    { eik: "000674508", bg: "НГДЕК „Константин Кирил Философ“ — София" },
+  ];
+
+export const DKI_CONFIRMED_INSTITUTE_EIKS: readonly string[] =
+  DKI_CONFIRMED_INSTITUTES.map((t) => t.eik);
 
 /** The culture group roll-up set — Tier A funders + verified Tier B institutes.
  *  This is the `awarder_eik IN (...)` list for the group roll-up and the sector
@@ -260,7 +303,7 @@ export const CULTURE_GROUP_EIKS: readonly string[] = [
   ...CULTURE_FUNDER_EIKS,
   ...STATE_CULTURE_INSTITUTE_EIKS,
   ...ART_SCHOOL_EIKS,
-  ...DKI_CONFIRMED_THEATRE_EIKS,
+  ...DKI_CONFIRMED_INSTITUTE_EIKS,
 ];
 
 // --------------------------------------------- verify-principal (pending) ----
@@ -478,11 +521,6 @@ export const EXCLUDED_EIKS: Record<
     principal: "obshtina",
     reason: "Столична община — a municipal theatre, like Зад канала",
   },
-  "831381016": {
-    bg: "Театрална работилница „Сфумато“",
-    principal: "obshtina",
-    reason: "Столична община",
-  },
   "000133965": {
     bg: "Община Свищов",
     principal: "obshtina",
@@ -529,11 +567,6 @@ export const EXCLUDED_EIKS: Record<
     reason:
       "МОН — a general-education gymnasium. One of the three look-alikes the " +
       "Tier B naming rule rejects: „изкуства“ in the name, not an МК art school.",
-  },
-  "000674508": {
-    bg: "НГДЕК „Константин Кирил Философ“ — София",
-    principal: "ban_mon",
-    reason: "МОН — ancient languages and cultures, not an МК art school",
   },
   "000610929": {
     bg: "Професионална гимназия за приложни изкуства — Смолян",

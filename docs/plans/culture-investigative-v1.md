@@ -205,15 +205,15 @@ What the sweep then found — the reason a gate beats a re-read: **20 more uncla
 
 Measured coverage, re-derived after the change:
 
-| Tier                                                                 | Buyers                | Contracts | Money            | Single-bid          | Status                                                                                         |
-| -------------------------------------------------------------------- | --------------------- | --------- | ---------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
-| **ⓒ A — funders + institutes + art schools + the nine ДКИ theatres** | **50** of 54 declared | **927**   | **€165,430,429** | **41.6%** (276/663) | **the roll-up** (was 42 / 881 / €157,944,723 / 42.0% before the T0.2 ruling of 2026-08-19)     |
-| — of which **B art schools** (was absent)                            | **17**                | 186       | €10.19m          | **46.5% (72/155)**  | **+5.6 pts over the 40.9% baseline**                                                           |
-| **ⓒ C — verify-principal**                                           | **31** of 38          | 152       | €19.60m          | 40.6%               | listed, unresolved; T3.1 settles them                                                          |
-| **ⓒ D — adjacent (non-МК principal)**                                | **13**                | 434       | €49.80m          | 28.6%               | **NEW declared list** — higher-ed arts, БАН, МО, МЗХ                                           |
-| **ⓒ E — народни читалища**                                           | **86**                | 134       | €18.05m          | 20.0%               | labelled sub-group, by NAME rule (T0.5)                                                        |
-| — excluded (not culture bodies)                                      | 16 of 17              | —         | _n/a_            | —                   | two are whole MUNICIPALITIES, so a €-total here is their entire procurement, not culture money |
-| **ⓒ Universe (the gate's sweep)**                                    | **220**               | **1,887** | **€275,747,377** | 40.5%               | **57% of the money is in the roll-up**                                                         |
+| Tier                                                            | Buyers                | Contracts | Money            | Single-bid          | Status                                                                                         |
+| --------------------------------------------------------------- | --------------------- | --------- | ---------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
+| **ⓒ A — funders + institutes + art schools + the 18 ruled ДКИ** | **59** of 63 declared | **971**   | **€166,667,550** | **40.5%** (281/694) | **the roll-up** (was 42 / 881 / €157,944,723 / 42.0% before the ДКИ rulings of 2026-08-19)     |
+| — of which **B art schools** (was absent)                       | **17**                | 186       | €10.19m          | **46.5% (72/155)**  | **+5.6 pts over the 40.9% baseline**                                                           |
+| **ⓒ C — verify-principal**                                      | **31** of 38          | 152       | €19.60m          | 40.6%               | listed, unresolved; T3.1 settles them                                                          |
+| **ⓒ D — adjacent (non-МК principal)**                           | **13**                | 434       | €49.80m          | 28.6%               | **NEW declared list** — higher-ed arts, БАН, МО, МЗХ                                           |
+| **ⓒ E — народни читалища**                                      | **86**                | 134       | €18.05m          | 20.0%               | labelled sub-group, by NAME rule (T0.5)                                                        |
+| — excluded (not culture bodies)                                 | 16 of 17              | —         | _n/a_            | —                   | two are whole MUNICIPALITIES, so a €-total here is their entire procurement, not culture money |
+| **ⓒ Universe (the gate's sweep)**                               | **220**               | **1,887** | **€275,747,377** | 40.5%               | **57% of the money is in the roll-up**                                                         |
 
 All rows are `tag = 'contract'` — amendments excluded, as everywhere else in this plan. Buyer
 counts read „declared EIKs that actually procure": the roll-up declares 45 and 42 have contracts
@@ -902,10 +902,39 @@ floor.
   its own comment records that the art schools shipped exactly that way once
   before. The nine now carry names and that union has a fourth member.
 
-  **Ten disagreements remain, worth +1.3%**: the two T0.3 contradictions
-  (€386,770), the `adjacent` Театър „Българска армия" (€903,834), and seven in no
-  list (€850,351, largest НМУ „Любомир Пипков" — София at €507k). They stay
-  pinned in `DKI_DISAGREEMENTS` until somebody rules.
+  **✅ THE REMAINING TEN WERE RULED THE SAME DAY, in a second pass.** Nine more
+  moved in; ONE stayed out. Cumulative effect of both passes:
+
+  |               | before       | after pass 1 | after pass 2              |
+  | ------------- | ------------ | ------------ | ------------------------- |
+  | contracts     | 881          | 927          | **971**                   |
+  | procurement € | €157,944,723 | €165,430,429 | **€166,667,550** (+5.5%)  |
+  | institutions  | 42           | 50           | **59**                    |
+  | single-bid    | 42.0%        | 41.6%        | 40.5% (vs 40.9% national) |
+
+  The second pass moved: three regional theatres (Габрово, Шумен, Смолян), two
+  симфониети (Видин, Враца), Театрална работилница „Сфумато", and three art
+  schools (НМУ „Любомир Пипков", НПГ по полиграфия и фотография, НГДЕК). The two
+  T0.3 exclusions went with them — **both recorded reasons turned out to be
+  wrong on the evidence**: Сфумато's said it „appears in no МК ДКИ listing" when
+  it is the second entry on МК's театър page, and НГДЕК's said „not an МК art
+  school" when МК's category is „училища по изкуствата **и по културата**" and a
+  classics gymnasium is precisely the culture half of it. (The МОН schools
+  register does not discriminate: all 17 existing ART_SCHOOLS appear in it too.)
+
+  ⚠️ **ONE REFUSED — Театър „Българска армия" (129009016) stays `adjacent`**, and
+  it is the only one of the nineteen with independent counter-evidence. МК lists
+  it, but it also sits in `MO_ENTITIES` (`src/lib/defenseReferenceData.ts`) under
+  an EIK in the `1290…` block every other Ministry of Defence body occupies. Two
+  ministries claim it and this repo cannot settle which is right, so it stays
+  where a real cultural body with another principal belongs — shown, never
+  denied. **The asymmetry is the rule worth carrying: „МК lists it" is decisive
+  against silence and merely suggestive against evidence.**
+
+  A gate had to be fixed in passing: `culture_hub_figures.data.test.ts` capped
+  procuring institutions at a hard-coded `< 60`, written when the register held
+  45 EIKs. 59 is one short of failing a gate on a correct addition, so the band
+  is now derived from `CULTURE_GROUP_EIKS.length`.
 
   **Follow-up, sized 2026-08-19: the museums register closes the `notListed`
   gap.** МК's „РЕГИСТЪР НА МУЗЕИТЕ" (`/документи/регистри-1/`, an .xlsx of 688
@@ -1035,23 +1064,23 @@ family without a cloud loader goes stale on prod with every row count reconcilin
 **step 2 shrank** (the filter exists — §1.3), and **step 2b is new** (the contractors
 destination has to be decided before Band 2 can be drawn).
 
-| Step     | Contents                                                                                                                                                                                                                                 | Depends on  |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| **ⓐ 0**  | **T0.0** — publish the four matching definitions, re-derive §0, pin each number in a test                                                                                                                                                | —           |
-| **ⓐ 1**  | **T0.6** (what the universe IS) → T0.1–T0.5 (register, seat, gate)                                                                                                                                                                       | 0           |
-| **ⓐ 2**  | A `culture` entry in `SECTOR_BROWSE_PACKS` + the `role` split + the data/component split of that module + `?sector` on the funds/subsidies browsers. **Not** a new registry, **not** a new URL param.                                    | 1           |
-| **ⓐ 2b** | Decide `/procurement/contractors?sector=` (§1.3-B) — recommended: re-point to `/culture/procurement#contractors`                                                                                                                         | 1           |
-| **3**    | T2.1–T2.2 (`declaration.employer` + resolution) — parallel, no external source                                                                                                                                                           | —           |
-| **4**    | T1.6a–c (grant→contract lineage + coverage route)                                                                                                                                                                                        | —           |
-| **ⓐ 5**  | The hub: routes, registry, scenes, finder (§1.7–1.8) + the **prerender/sitemap/llms five-file move** + the per-sub-page `ScopeSupport` + the `CultureSearchBox` fork decision                                                            | 1, 2, 2b, 4 |
-| **ⓐ 5b** | The hub blob as a `db:gen-*` generator: `REFRESH_GENERATORS` + a chain slot **after `db:load:interreg:pg`**                                                                                                                              | 5           |
-| **6**    | `/culture/procurement` + `/culture/funds` + `/culture/institutions` bodies                                                                                                                                                               | 5           |
-| **7**    | T2.3–T2.4 (directors, procurement officers)                                                                                                                                                                                              | 3, 6        |
-| **8**    | P1 (full dossier crawl) — operator decision                                                                                                                                                                                              | —           |
-| **9**    | ✅ T3.1 ДКИ register — SHIPPED 2026-08-19. 70 institutes, 49 EIK-resolved. T0.2 answered AND RULED: nine theatres into the roll-up, headline €157.9m → €165.4m (+4.7%). T0.3's stated reason contradicted; 10 disagreements still pinned | —           |
-| **10**   | P2, P3 — the two that change what procurement can assert                                                                                                                                                                                 | —           |
-| **11**   | P4–P10, each with its watcher + cloud loader                                                                                                                                                                                             | —           |
-| **12**   | **Write the `sector-dashboard` skill** (Part 3)                                                                                                                                                                                          | 0–7 shipped |
+| Step     | Contents                                                                                                                                                                                                                                                   | Depends on  |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| **ⓐ 0**  | **T0.0** — publish the four matching definitions, re-derive §0, pin each number in a test                                                                                                                                                                  | —           |
+| **ⓐ 1**  | **T0.6** (what the universe IS) → T0.1–T0.5 (register, seat, gate)                                                                                                                                                                                         | 0           |
+| **ⓐ 2**  | A `culture` entry in `SECTOR_BROWSE_PACKS` + the `role` split + the data/component split of that module + `?sector` on the funds/subsidies browsers. **Not** a new registry, **not** a new URL param.                                                      | 1           |
+| **ⓐ 2b** | Decide `/procurement/contractors?sector=` (§1.3-B) — recommended: re-point to `/culture/procurement#contractors`                                                                                                                                           | 1           |
+| **3**    | T2.1–T2.2 (`declaration.employer` + resolution) — parallel, no external source                                                                                                                                                                             | —           |
+| **4**    | T1.6a–c (grant→contract lineage + coverage route)                                                                                                                                                                                                          | —           |
+| **ⓐ 5**  | The hub: routes, registry, scenes, finder (§1.7–1.8) + the **prerender/sitemap/llms five-file move** + the per-sub-page `ScopeSupport` + the `CultureSearchBox` fork decision                                                                              | 1, 2, 2b, 4 |
+| **ⓐ 5b** | The hub blob as a `db:gen-*` generator: `REFRESH_GENERATORS` + a chain slot **after `db:load:interreg:pg`**                                                                                                                                                | 5           |
+| **6**    | `/culture/procurement` + `/culture/funds` + `/culture/institutions` bodies                                                                                                                                                                                 | 5           |
+| **7**    | T2.3–T2.4 (directors, procurement officers)                                                                                                                                                                                                                | 3, 6        |
+| **8**    | P1 (full dossier crawl) — operator decision                                                                                                                                                                                                                | —           |
+| **9**    | ✅ T3.1 ДКИ register — SHIPPED 2026-08-19. 70 institutes, 49 EIK-resolved; ALL 19 disagreements ruled. 18 into the roll-up (headline €157.9m → €166.7m, +5.5%), 1 refused on counter-evidence (Театър „Българска армия“, МО). Both T0.3 reasons were wrong | —           |
+| **10**   | P2, P3 — the two that change what procurement can assert                                                                                                                                                                                                   | —           |
+| **11**   | P4–P10, each with its watcher + cloud loader                                                                                                                                                                                                               | —           |
+| **12**   | **Write the `sector-dashboard` skill** (Part 3)                                                                                                                                                                                                            | 0–7 shipped |
 
 Steps 0–7 need **no new external source**. Everything is already on disk or in Postgres.
 

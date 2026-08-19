@@ -14,7 +14,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
-  DKI_CONFIRMED_THEATRES,
+  DKI_CONFIRMED_INSTITUTES,
 } from "@/lib/kulturaReferenceData";
 
 export const CultureAwardersTile: FC = () => {
@@ -40,7 +40,7 @@ export const CultureAwardersTile: FC = () => {
   const instituteRows: AwarderRow[] = [
     ...STATE_CULTURE_INSTITUTES,
     ...ART_SCHOOLS,
-    ...DKI_CONFIRMED_THEATRES,
+    ...DKI_CONFIRMED_INSTITUTES,
   ]
     .filter((i) => !CULTURE_BODIES.some((b) => b.eik === i.eik))
     .map((i) => ({ eik: i.eik, name: i.bg }));

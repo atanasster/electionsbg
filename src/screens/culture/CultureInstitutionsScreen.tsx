@@ -33,7 +33,7 @@ import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
   ART_SCHOOLS,
-  DKI_CONFIRMED_THEATRES,
+  DKI_CONFIRMED_INSTITUTES,
   ADJACENT_EIKS,
   VERIFY_PRINCIPAL_EIKS,
   NFC_EIK,
@@ -197,7 +197,7 @@ export const CultureInstitutionsScreen: FC = () => {
             {[
               ...STATE_CULTURE_INSTITUTES,
               ...ART_SCHOOLS,
-              ...DKI_CONFIRMED_THEATRES,
+              ...DKI_CONFIRMED_INSTITUTES,
             ].map((i) => (
               <CultureDirectorsSection
                 key={i.eik}

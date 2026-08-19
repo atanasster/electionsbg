@@ -87,13 +87,22 @@ test.skipIf(skip)("the procurement figures match the corpus", async () => {
   // „42 държавни институции" was written into the hub's META DESCRIPTION as a
   // literal and survived the move to the blob — the one frozen figure left on
   // the page, in the same sentence as the interpolated НФЦ ones. The copy no
-  // longer names it; this keeps the stored value in range anyway, since the
+  // longer names it; this keeps the stored value sane anyway, since the
   // procurement tile's secondary line renders it.
+  //
+  // ⚠️ DERIVED FROM THE REGISTER, never a hard-coded band. The band was
+  // `> 30 && < 60`, written when the register declared 45 EIKs and ~42
+  // procured. The 2026-08-19 ДКИ rulings took it to 63 declared / 59 procuring —
+  // one short of failing a gate that had no business failing on a correct
+  // addition. A ceiling that has to be edited every time the roster legitimately
+  // grows is a gate people learn to widen without reading.
+  const declared = CULTURE_GROUP_EIKS.length;
   assert.ok(
-    b.procurement.buyers > 30 && b.procurement.buyers < 60,
-    `the procuring-institution count is ${b.procurement.buyers}; the register ` +
-      `declares 45 EIKs and ~42 procure. Far outside that means the roll-up ` +
-      `changed shape — check culture_register.data.test.ts first.`,
+    b.procurement.buyers > declared * 0.5 && b.procurement.buyers <= declared,
+    `the procuring-institution count is ${b.procurement.buyers} against ` +
+      `${declared} declared in CULTURE_GROUP_EIKS. Above the roll-up size is ` +
+      `impossible; far below it means most of the register stopped procuring — ` +
+      `either way check culture_register.data.test.ts first.`,
   );
   near(Number(r.suppliers), b.procurement.suppliers, "distinct suppliers");
   near(Number(r.sb), b.procurement.singleBid, "single-bid contracts");

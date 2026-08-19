@@ -66,134 +66,44 @@ export type Disagreement = {
   note: string;
 };
 
-/** WHAT RULING ON THESE COSTS, measured 2026-08-19 against `contracts`
- *  (`tag='contract'`). The roll-up was 881 contracts / €157,944,723 before the
- *  T0.2 ruling and €165,430,428 after it.
+/** ONE entry. It was nineteen.
  *
- *  | bucket     | EIKs | €          | share of the roll-up |
- *  |------------|------|------------|----------------------|
- *  | ~~verify~~ |    9 | €7,485,705 | RULED IN 2026-08-19  |
- *  | `none`     |    7 |   €850,351 |                 0.5% |
- *  | `adjacent` |    1 |   €903,834 |                 0.5% |
- *  | `excluded` |    2 |   €386,770 |                 0.2% |
- *  | remaining  |   10 | €2,140,955 |                +1.3% |
+ *  All nineteen were ruled on 2026-08-19, in two passes on the same evidence:
+ *  МК publishing a body on its own ДКИ pages is МК asserting principal, which is
+ *  what this register was built to obtain. Eighteen moved into the roll-up as
+ *  `DKI_CONFIRMED_INSTITUTES`; the sector headline went
+ *  **€157,944,723 → €166,667,550 (+5.5%)** across the two passes.
  *
- *  So the expensive question is answered and the rest is a +1.3% tail. The two
- *  T0.3 contradictions are 0.2% of it, which means that one can be settled on
- *  the evidence rather than on its consequence — and of the seven unlisted,
- *  НМУ „Любомир Пипков" — София (000669774, €507k) is the single largest and
- *  looks most like an oversight, being an art school of the kind already in
- *  ART_SCHOOLS.
+ *  | pass | what                                   | n  | €          |
+ *  |------|----------------------------------------|----|------------|
+ *  | 1    | the T0.2 regional theatres             |  9 | €7,485,705 |
+ *  | 2    | in no list + the two T0.3 exclusions    |  9 | €1,237,121 |
+ *  | —    | refused: Театър „Българска армия“       |  1 |   €903,834 |
  *
- *  Measured 2026-08-19 against the register as МК publishes it today.
+ *  They had to LEAVE this table rather than be marked `accepted`, because the
+ *  gate's „no stale entry" arm is what stops it describing decisions already
+ *  taken. The single survivor is `accepted` precisely because it is a standing
+ *  decision rather than an open question.
  *
- *  TEN entries. It was nineteen: the nine `verify` rows were T0.2, the register
- *  ANSWERED it, and on 2026-08-19 they were RULED into the roll-up — see
- *  `DKI_CONFIRMED_THEATRE_EIKS` in src/lib/kulturaReferenceData.ts. They had to
- *  LEAVE this table rather than be marked `accepted`, because the gate's „no
- *  stale entry" arm is what stops it describing decisions already taken.
- *
- *  What remains is the harder half, and the two groups are not the same problem:
- *
- *  - the two `excluded` rows are T0.3 and are a genuine CONTRADICTION: the
- *    allowlist's recorded reasoning for Сфумато says it „appears in no МК ДКИ
- *    listing", and it is the second entry on МК's театър page.
- *  - the seven `none` rows are bodies no list has ever carried. The corpus sweep
- *    could not find some of them (a body with no ЗОП procurement is invisible to
- *    it), which is exactly the blind spot this register exists to cover. */
+ *  ⚠️ The asymmetry is the point: eighteen moved because МК's claim was the ONLY
+ *  claim, and one did not because a second claim exists in our own data. „МК
+ *  lists it" is decisive against silence and merely suggestive against evidence. */
 export const DKI_DISAGREEMENTS: readonly Disagreement[] = [
-  // ---- T0.2 — RULED 2026-08-19, and these nine are GONE from this table ----
-  // МК lists all nine on its own ДКИ pages, so they moved into the roll-up as
-  // `DKI_CONFIRMED_THEATRE_EIKS` (src/lib/kulturaReferenceData.ts). That is what
-  // this register was built to settle, and it moved the sector headline +4.7%.
-  // The „no stale entry" arm of the gate is why they had to leave this list
-  // rather than being marked `accepted`: a table that keeps describing decisions
-  // already taken stops describing the code.
-
-  // ---- T0.3: МК lists it; we excluded it ----------------------------------
-  {
-    eik: "831381016",
-    list: "excluded",
-    name: "Театрална работилница „Сфумато“",
-    status: "open",
-    note:
-      "CONTRADICTS the recorded reason for excluding it („appears in no МК ДКИ " +
-      "listing“). It is the SECOND entry on МК's own театър page. T0.3 was " +
-      "decided on the reading that put a municipal theatre out of a state " +
-      "roll-up; that reading now has evidence against it.",
-  },
-  {
-    eik: "000674508",
-    list: "excluded",
-    name: "Национална гимназия за древни езици и култури „Константин-Кирил Философ“",
-    status: "open",
-    note:
-      "МК lists it among the училища по изкуствата. Widely understood to be a " +
-      "МОН school, so this is the case where the register may be the stale side. " +
-      "Needs a primary check before either list moves.",
-  },
-
-  // ---- МК lists it; we have it as another ministry's ----------------------
   {
     eik: "129009016",
     list: "adjacent",
     name: "Театър „Българска армия“",
-    status: "open",
+    status: "accepted",
     note:
-      "Classified `mo` (Министерство на отбраната) and listed by МК as a ДКИ. " +
-      "One of the two is out of date. `adjacent` is the safe place to sit while " +
-      "that is checked — it is shown, not denied.",
-  },
-
-  // ---- in NO list of ours ------------------------------------------------
-  {
-    eik: "000669802",
-    list: "none",
-    name: "Национална професионална гимназия по полиграфия и фотография",
-    status: "open",
-    note: "In no list. An art school the corpus sweep never surfaced.",
-  },
-  {
-    eik: "000669774",
-    list: "none",
-    name: "Национално музикално училище „Любомир Пипков“ — София",
-    status: "open",
-    note: "In no list. NOT the same body as НУИ „Панайот Пипков“ — Плевен (000403460), which IS in ART_SCHOOLS — two schools, two Пипкови, one easy conflation.",
-  },
-  {
-    eik: "000153836",
-    list: "none",
-    name: "Симфониета — Видин",
-    status: "open",
-    note: "In no list. МК-listed ДКИ with procurement in the corpus.",
-  },
-  {
-    eik: "000185307",
-    list: "none",
-    name: "Симфониета — Враца",
-    status: "open",
-    note: "In no list. МК-listed ДКИ with procurement in the corpus.",
-  },
-  {
-    eik: "000210326",
-    list: "none",
-    name: "Драматичен театър „Рачо Стоянов“ — Габрово",
-    status: "open",
-    note: "In no list. МК-listed ДКИ with procurement in the corpus.",
-  },
-  {
-    eik: "127508351",
-    list: "none",
-    name: "Драматично-куклен театър „Васил Друмев“ — Шумен",
-    status: "open",
-    note: "In no list. МК-listed ДКИ with procurement in the corpus.",
-  },
-  {
-    eik: "000608604",
-    list: "none",
-    name: "Родопски драматичен театър „Николай Хайтов“ — Смолян",
-    status: "open",
-    note: "In no list. МК-listed ДКИ with procurement in the corpus.",
+      "THE ONE THAT STAYS OUT, and the only one of the original nineteen with " +
+      "independent counter-evidence. МК lists it as a ДКИ — but it also sits in " +
+      "`MO_ENTITIES` (src/lib/defenseReferenceData.ts) under EIK 129009016, in " +
+      "the 1290… block every other Ministry of Defence body occupies, and МО's " +
+      "own roster carries it. Two ministries claim it and this repo cannot " +
+      "settle which is right. `adjacent` is exactly the list for that: a real " +
+      "cultural body whose principal is another ministry — shown, never denied. " +
+      "Do not read the ДКИ listing alone as settling it; the EIK block is the " +
+      "structural evidence on the other side.",
   },
 ] as const;
 
