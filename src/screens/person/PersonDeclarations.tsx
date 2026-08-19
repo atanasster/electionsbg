@@ -102,15 +102,23 @@ export const PersonDeclarations: FC<{
   }, [rows]);
 
   // The property summary needs the ROWS, and only declaration_detail carries them — the
-  // filing list has assetCount and no breakdown. So unlike the crypto block, which gates on
-  // `cryptoCount` off the list and costs ~56.8k people nothing, this is one extra
-  // declaration_detail() call for everyone with an asset-bearing filing. It is a
-  // single-declaration join and the page already makes several calls, but if it ever needs
-  // to be free the fix is a property count + breakdown on the LIST payload (090), not a
-  // cache here — useDeclarationDetail is a plain useState/useEffect fetch.
+  // filing list has assetCount and no breakdown. Unlike the crypto block, which gates on
+  // `cryptoCount` off the list and so costs ~56.8k people nothing, this asks for the detail
+  // on every non-bare render. Two things make that acceptable rather than merely admitted:
+  // `useDeclarationDetail` now shares one promise per filing id, so this is the SAME request
+  // the expander and the crypto block make rather than a third; and it is a
+  // single-declaration join.
   //
-  // Skipped in bare mode: that branch renders no stat cards, so there is nothing to hang
-  // the summary on and no reason to pay for the request.
+  // What it still costs is a request for the ~50% of people whose latest filing declares no
+  // property at all (measured: 9,622 of 19,188), for whom the card never renders. Making
+  // that free needs a property count on the LIST payload (090) — a migration, not a client
+  // change.
+  //
+  // NOT rendered in bare mode, and that is a decision rather than a property of the branch:
+  // the MP path's KPI row belongs to MpAssetsSummary, which already carries a per-category
+  // count, so a fifth card there is a change to THAT component. The consequence is real and
+  // unfixed — MP pages are the highest-traffic person pages and the 25,167 prerendered ones
+  // — so do not read this gate as "MPs don't need it".
   const headlineDetail = useDeclarationDetail(
     !bare && summary ? summary.latest.id : null,
   );
@@ -156,7 +164,14 @@ export const PersonDeclarations: FC<{
         </a>
       }
     >
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div
+        className={cn(
+          "grid grid-cols-2 gap-3 sm:grid-cols-3",
+          // A conditional 4th card gives 3+1 at sm/md — a lone card under a full
+          // row. At grid-cols-2 it is 2+2 and fine either way.
+          propertySummary && "lg:grid-cols-4",
+        )}
+      >
         <StatCard label={t("officials_net_worth") || "Net worth"}>
           <div className="text-2xl font-bold text-foreground">
             {formatEurCompact(summary.net, locale)}
@@ -201,15 +216,28 @@ export const PersonDeclarations: FC<{
             ⚠️ Rows, not buildings. A house filed as dwelling + terrace + basement + garage
             is four, and the register carries nothing that folds them back — hence
             „декларирани имота", which must not be shortened to „имота". Rented (чуждо)
-            property is excluded: it is not the declarant's to hold. */}
+            property is excluded: it is not the declarant's to hold.
+
+            ⚠️ And rows, not only properties: 1,520 owned real-estate rows corpus-wide are
+            RIGHTS rather than things — „право на строеж" (667), „право на ползване" (471)
+            — which propertyKind.ts's own header calls out as not properties at all. They
+            are counted here, deliberately: the register files them under real estate, they
+            surface honestly as „N други имота" in the breakdown, and dropping them would
+            make the headline disagree with the rows a reader can expand and count. */}
         {propertySummary && (
-          <StatCard label={t("pp_decl_prop_card") || "Имоти"}>
+          <StatCard label={t("pp_decl_prop_card")}>
             <div className="text-2xl font-bold text-foreground">
               {propertySummary.total}
             </div>
             <div className="mt-0.5 text-xs leading-snug text-muted-foreground">
+              {/* Through `t`, keyed on the KIND — never `part.label`. PROPERTY_KIND_LABEL
+                  is Bulgarian by design (it was written for the BG-only social card), so
+                  reading it here printed „9 земеделски имота" under an English „Declared
+                  properties", one line above sibling rows that translate correctly via
+                  `asset_category_*`. The kind is the translation seam; the label stays the
+                  script side's constant. */}
               {propertySummary.parts
-                .map((p) => `${p.n} ${p.label}`)
+                .map((p) => t(`pp_prop_kind_${p.kind}`, { count: p.n }))
                 .join(" · ")}
             </div>
           </StatCard>
@@ -465,6 +493,9 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           ))}
         </div>
       )}
+      {/* Sibling of the „ползва" block below: both take rows OUT of the plain asset list
+          and say something specific about them. Self-suppressing when the filing declares
+          nothing abroad — which is 95% of them. */}
       {usedAssets.length > 0 && (
         <div className="border-t border-border pt-1">
           <div className="mb-0.5 font-medium">
@@ -523,7 +554,13 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           <div className="mb-0.5 font-medium">{t("pp_decl_stakes")}</div>
           {detail.stakes.map((s, i) => (
             <div key={i} className="flex justify-between gap-2 py-0.5">
-              <span className="truncate">
+              {/* NOT `truncate`. `overflow:hidden` clips from the END, and the holder
+                  chip is both the last child and the longest thing on the line (a
+                  three-part Bulgarian name is ~25-30 chars against ~19 for „Дийонима
+                  ЕООД · 1/1"). On a 375px viewport that clips exactly the marker saying
+                  „this is not his company" — the feature failing in the case it exists
+                  for, on the devices most readers arrive on. Wrapping costs a line. */}
+              <span className="min-w-0 flex-1">
                 {s.companyName} {s.shareSize ? `· ${s.shareSize}` : ""}
                 {/* The heading above says "Дялове в дружества". Since the интереси
                     forms are parsed, a row here can also be a DIRECTORSHIP or a
@@ -535,19 +572,19 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
                     {t(`pp_stake_kind_${s.stakeKind}`)}
                   </span>
                 )}
-                {/* WHOSE company it is. The form names a holder per row and it is
-                    often not the declarant — 5,386 declared stakes corpus-wide are
-                    held by somebody else, against 4,620 by the declarant. Unmarked,
-                    the row reads as this person's company under their own profile:
-                    Николай Копринков's page showed „Дийонима ЕООД · 1/1" for a
-                    company the filing puts in his wife's name. The asset rows above
-                    have carried this marker all along; the stake rows did not,
-                    because `declaration_stake` has no is_spouse column and nobody
-                    derived it. Name it where we can — the register's own column is
-                    „Собственик или титуляр на правото". */}
+                {/* WHOSE company it is. Unmarked, the row reads as this person's
+                    company under their own profile: Николай Копринков's page showed
+                    „Дийонима ЕООД · 1/1" for a company the filing puts in his wife's
+                    name, directly above a companies block naming a different firm. The
+                    asset rows have carried this marker all along; the stake rows did
+                    not, because `declaration_stake` has no is_spouse column and nobody
+                    derived one. We name the holder rather than assert a relationship —
+                    the register's own column is „Собственик или титуляр на правото".
+                    For how often this fires, and the directorship rows it cannot reach,
+                    see the measured split on `isSpouseHolder`. */}
                 {isSpouseHolder(s.holderName, detail.declarantName) && (
                   <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
-                    {s.holderName || t("pp_decl_spouse") || "съпруг/а"}
+                    {s.holderName}
                   </span>
                 )}
               </span>

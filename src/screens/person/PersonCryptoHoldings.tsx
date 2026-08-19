@@ -13,10 +13,11 @@
 // extra request — that field exists on the list payload for this reason. The 10 who do
 // hold crypto pay one declaration_detail() call.
 //
-// That call is NOT shared with the expander: useDeclarationDetail is a plain
-// useState/useEffect fetch, not React Query, so expanding the same filing fetches it a
-// second time. Cheap (a single-declaration join) and confined to ten people, but do not
-// assume caching here — if this block ever needs to be free, the hook is what to change.
+// That call IS shared with the expander and with the property card: useDeclarationDetail
+// keeps one promise per filing id (see `detailCache` in usePersonDeclarations.ts), so the
+// three components that ask for the same id issue one request between them. It was not
+// always so — this comment used to warn that expanding the same filing fetched it a second
+// time, which was true and is the reason the cache exists.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

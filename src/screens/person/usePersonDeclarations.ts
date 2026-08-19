@@ -168,8 +168,36 @@ export type DeclarationDetail = {
   }[];
 } | null;
 
-// Fetched lazily only when a filing row is expanded — the detail join is heavier than
-// the list, so it stays off the initial render.
+// One in-flight-or-settled entry per filing id. THREE components ask for the same id in
+// the common case — the property card and the crypto block on page load, and FilingDetail
+// when the reader expands that same top filing — and without this each pays its own round
+// trip for a byte-identical payload. Module scope and never evicted: a published filing is
+// immutable, and one session touches a handful of ids.
+//
+// Deliberately caches the PROMISE, not the resolved value, so two components mounting in
+// the same tick share one request rather than racing two.
+const detailCache = new Map<number, Promise<DeclarationDetail>>();
+
+/** Drop every cached filing. Exists for TESTS: the map is module-scoped, so it outlives
+ *  `vi.unstubAllGlobals()` and a second case asking for the same id would silently receive
+ *  the first case's payload. Nothing in the app calls this — a published filing does not
+ *  change, which is the whole reason the cache is safe in the first place. */
+export const clearDeclarationDetailCache = (): void => detailCache.clear();
+
+const fetchDetail = (id: number): Promise<DeclarationDetail> => {
+  let p = detailCache.get(id);
+  if (!p) {
+    p = fetch(`/api/db/declaration-detail?id=${id}`)
+      .then((r) => r.json())
+      .then((j: DeclarationDetail) => j ?? null)
+      .catch(() => null);
+    detailCache.set(id, p);
+  }
+  return p;
+};
+
+// Fetched lazily only when some consumer asks for a specific filing — the detail join is
+// heavier than the list, so it stays off the initial render for anyone who needs none.
 export const useDeclarationDetail = (
   id: number | null,
 ): DeclarationDetail | undefined => {
@@ -180,10 +208,7 @@ export const useDeclarationDetail = (
     let live = true;
     setDetail(undefined);
     if (id == null) return;
-    fetch(`/api/db/declaration-detail?id=${id}`)
-      .then((r) => r.json())
-      .then((j: DeclarationDetail) => live && setDetail(j ?? null))
-      .catch(() => live && setDetail(null));
+    fetchDetail(id).then((j) => live && setDetail(j));
     return () => {
       live = false;
     };

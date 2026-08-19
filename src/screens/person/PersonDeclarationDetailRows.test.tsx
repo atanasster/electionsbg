@@ -1,12 +1,11 @@
 // Component guards for two things the expanded filing must say and did not.
 //
-// 1. WHOSE company a declared stake is. The form names a holder per row and it is often
-//    NOT the declarant — 5,386 declared stakes corpus-wide are held by somebody else,
-//    against 4,620 by the declarant. Unmarked, the row reads as this person's company on
-//    their own profile: Николай Копринков's page showed „Дийонима ЕООД · 1/1" for a
+// 1. WHOSE company a declared stake is. Unmarked, the row reads as this person's company
+//    on their own profile: Николай Копринков's page showed „Дийонима ЕООД · 1/1" for a
 //    company his filing puts in his wife's name, directly under a companies block listing
 //    a different firm. The asset rows have carried the marker all along; the stake rows
-//    had no is_spouse column and nobody derived it.
+//    had no is_spouse column and nobody derived one. For how often it fires, see the
+//    measured split on `isSpouseHolder` — do not restate it here.
 //
 // 2. WHAT the property holding is. The € stat cards answer „how much", and for property
 //    they frequently answer €0 — 38.6% of declared properties carry no stated price — so
@@ -19,7 +18,10 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { DeclarationListItem } from "./usePersonDeclarations";
+import {
+  clearDeclarationDetailCache,
+  type DeclarationListItem,
+} from "./usePersonDeclarations";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -126,7 +128,12 @@ const expand = async () => {
   await user.click(await screen.findByRole("button", { name: /Началник/ }));
 };
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  // useDeclarationDetail caches per filing id at MODULE scope, so without this every
+  // case after the first would read the first case's payload for id 1.
+  clearDeclarationDetailCache();
+});
 
 describe("expanded filing — whose stake it is", () => {
   it("names the holder when the stake is not the declarant's", async () => {
@@ -180,8 +187,10 @@ describe("expanded filing — property summary", () => {
     expect(await screen.findByText("pp_decl_prop_card")).toBeInTheDocument();
     expect(await screen.findByText("10")).toBeInTheDocument();
     // 10 rows, folded: 9 farmland + 1 house. Bulgarian counting form, not the plural.
+    // Through `t`, not PROPERTY_KIND_LABEL: the mock echoes keys, so a Bulgarian literal
+    // here would mean the /en render is Bulgarian too (it was).
     expect(
-      await screen.findByText("9 земеделски имота · 1 къща"),
+      await screen.findByText("pp_prop_kind_farmland:9 · pp_prop_kind_house:1"),
     ).toBeInTheDocument();
   });
 
@@ -190,7 +199,9 @@ describe("expanded filing — property summary", () => {
     // per-filing line this replaced, where it merely restated the row underneath.
     stubWith(baseDetail({ assets: [prop("апартамент")] }));
     render(<PersonDeclarations slug="x" />);
-    expect(await screen.findByText("1 апартамент")).toBeInTheDocument();
+    expect(
+      await screen.findByText("pp_prop_kind_apartment:1"),
+    ).toBeInTheDocument();
   });
 
   it("renders no card at all when nothing is declared", async () => {
@@ -216,7 +227,40 @@ describe("expanded filing — property summary", () => {
     );
     render(<PersonDeclarations slug="x" />);
     expect(
-      await screen.findByText("1 апартамент · 1 къща"),
+      await screen.findByText(
+        "pp_prop_kind_apartment:1 · pp_prop_kind_house:1",
+      ),
     ).toBeInTheDocument();
+  });
+});
+
+describe("structure, not just presence", () => {
+  it("keeps the holder outside the truncating run", async () => {
+    // `findByText` passes on content clipped by overflow:hidden, so the visual property
+    // has to be pinned structurally. The holder chip is the LAST child and the longest
+    // thing on the line; inside a `truncate` span it is the first thing to disappear —
+    // the marker saying „this is not his company" gone, on mobile.
+    stubWith(
+      baseDetail({
+        stakes: [stake("Многосрично дружество за строителство ЕООД", SPOUSE)],
+      }),
+    );
+    render(<PersonDeclarations slug="x" />);
+    await expand();
+    const chip = await screen.findByText(SPOUSE);
+    expect(chip.closest(".truncate")).toBeNull();
+  });
+
+  it("bare mode renders no property card and issues no detail fetch", async () => {
+    // Both halves matter: the MP path has its own KPI row (MpAssetsSummary), and the gate
+    // must also not pay for a request whose result nothing renders.
+    stubWith(baseDetail({ assets: [prop("апартамент")] }));
+    render(<PersonDeclarations slug="x" bare />);
+    await screen.findByRole("button", { name: /Началник/ });
+    expect(screen.queryByText("pp_decl_prop_card")).not.toBeInTheDocument();
+    const calls = (
+      globalThis.fetch as unknown as { mock: { calls: [string][] } }
+    ).mock.calls;
+    expect(calls.filter(([u]) => u.includes("declaration-detail"))).toEqual([]);
   });
 });

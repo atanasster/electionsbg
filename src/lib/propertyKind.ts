@@ -60,7 +60,14 @@ export type PropertyKind =
   | "other";
 
 /** Singular and Bulgarian counting form (бройна форма), which is not the plural:
- *  „2 апартамента", never „2 апартаменти". */
+ *  „2 апартамента", never „2 апартаменти".
+ *
+ *  ⚠️ BULGARIAN ONLY, and this module now sits on a bilingual render path. The social
+ *  card (`scripts/posts/cardKit.ts`) is BG-only by design and reads these directly; any
+ *  UI consumer must key off `PropertyKind` through `t` instead — see
+ *  `pp_prop_kind_*` in the locale corpora. Reading `label` in a component publishes
+ *  Bulgarian on /en, which is exactly what happened when this file moved out of
+ *  scripts/person. */
 export const PROPERTY_KIND_LABEL: Record<
   PropertyKind,
   { one: string; many: string }
