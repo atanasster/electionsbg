@@ -981,7 +981,10 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     origin: "state",
     members: ["cprs_register"],
     skills: ["update-procurement"],
-    tags: ["procurement"],
+    // "fiscal", like every other procurement source (aop / eop / kzk / egov). `tags` name
+    // a VIEW of the map, not the subject area — there is no "procurement" view, and the
+    // one that shows the money flows is "fiscal".
+    tags: ["fiscal"],
   },
   {
     id: "culture",
@@ -2037,6 +2040,13 @@ export const EDGES: [string, string][] = [
   ["src:eop", "ds:procurement"],
   ["src:aop", "ds:procurement"],
   ["src:kzk", "ds:procurement"],
+  // ЦПРС is a QUALIFICATION register rather than another contract feed: it says which
+  // construction classes a firm holds and since when, which is what makes „did this
+  // contractor hold the required class on the award date?" — the ЗОП eligibility test —
+  // answerable. It joins the corpus on contracts.contractor_eik, is ingested under
+  // scripts/procurement/ and snapshotted to data/procurement/cprs.json — which is the
+  // dataset node's own `path`. Its `skills: ["update-procurement"]` already says as much.
+  ["src:cprs", "ds:procurement"],
   ["src:isun", "ds:funds"],
   ["src:opencalls", "ds:opencalls"],
   // Renders on /funds (the band-1 tile) and /funds/calls, both of which live under the `funds`
