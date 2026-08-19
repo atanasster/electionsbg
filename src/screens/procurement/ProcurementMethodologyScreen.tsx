@@ -218,9 +218,13 @@ const TenderFlagTable: FC = () => {
                   {thresholdText(f)}
                 </td>
                 <td className="py-2 text-muted-foreground">
-                  {f.baseRate ? (
+                  {/* The NUMBER, not `baseRate` — that field is English prose
+                      for the handbook ("14.3% (126,413 tenders, 2020–2026) —
+                      stable by year") and rendering it put English onto the
+                      Bulgarian page. */}
+                  {f.baseRatePct !== undefined ? (
                     <div>
-                      {t("proc_meth_base_rate")}: {f.baseRate}
+                      {t("proc_meth_base_rate")} {f.baseRatePct}%
                     </div>
                   ) : null}
                   {caveatKey ? (

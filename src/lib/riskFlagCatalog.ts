@@ -176,6 +176,13 @@ export type ContractFlagDef = {
    *  always evaluated and simply passes. Publishing that as "when it is not
    *  applicable" told readers a check is skipped when it never is. */
   readonly serverAlwaysAvailable: boolean;
+  /** The base rate as a NUMBER (percent of the relevant population).
+   *
+   *  `baseRate` above is English prose written for the handbook; a UI that
+   *  rendered it put "14.3% (126,413 tenders, 2020–2026) — stable by year" onto a
+   *  Bulgarian page. A percentage is language-neutral, so surfaces read this and
+   *  format it themselves. */
+  readonly baseRatePct?: number;
   /** ⚠️ What is WRONG, unsettled or currently inert about this check.
    *
    *  Published verbatim in the handbook and in risk-flags.json. This field exists
@@ -384,6 +391,7 @@ export const CONTRACT_FLAGS = [
       note: "VERIFIED UNMAPPED. Threshold manipulation is not among the eleven indicators; the nearest is the non-open-procedure one, which counts procedure types rather than detecting a split.",
     },
     serverAlwaysAvailable: true,
+    baseRatePct: 0.09,
   },
   {
     id: "appealUpheld",
@@ -458,6 +466,7 @@ export const CONTRACT_FLAGS = [
       note: "Same concept. iMonitor bands it 100/50/0 with a per-country view of which procedure types count as red; ours is boolean on the Bulgarian procedure vocabulary.",
     },
     serverAlwaysAvailable: false,
+    baseRatePct: 14.3,
   },
   {
     id: "shortTenderPeriod",
@@ -596,6 +605,13 @@ export type TenderFlagDef = {
   readonly threshold?: Threshold;
   readonly citation?: string;
   readonly availability: string;
+  /** The base rate as a NUMBER (percent of the relevant population).
+   *
+   *  `baseRate` above is English prose written for the handbook; a UI that
+   *  rendered it put "14.3% (126,413 tenders, 2020–2026) — stable by year" onto a
+   *  Bulgarian page. A percentage is language-neutral, so surfaces read this and
+   *  format it themselves. */
+  readonly baseRatePct?: number;
   /** ⚠️ What is WRONG, unsettled or currently inert about this check.
    *
    *  Published verbatim in the handbook and in risk-flags.json. This field exists
@@ -655,6 +671,7 @@ export const TENDER_FLAGS = [
       name: "Length of advertisement period",
       note: "Same measurement, banded there.",
     },
+    baseRatePct: 1,
   },
   {
     id: "shortDecisionPeriod",
@@ -679,6 +696,7 @@ export const TENDER_FLAGS = [
       name: "Length of decision period",
       note: "iMonitor treats it as a banded interval rather than one-sided, corroborating this flag's caveat.",
     },
+    baseRatePct: 3.2,
   },
   {
     id: "awardOverEstimate",
@@ -702,6 +720,7 @@ export const TENDER_FLAGS = [
       id: null,
       note: "VERIFIED UNMAPPED. No estimate-versus-award comparison among the eleven; the closest is Benford's law, which tests price digit distributions rather than a forecast.",
     },
+    baseRatePct: 4.1,
   },
 ] as const satisfies readonly TenderFlagDef[];
 
@@ -819,25 +838,33 @@ export const NEUTRAL_DISCLOSURES = [
 /** Adopted from OCP, *Red Flags for Integrity* (2024) p. 13. The ordering names
  *  the two innocent explanations before the guilty one; it is a presentation
  *  order, NOT a claim about relative frequency. */
-/** How many checks fire per contract, over the whole corpus. Measured
- *  2026-07-27 across 407,560 contracts and recorded in 112's header; it is what
- *  the per-contract grade is banded on, and it is the number that makes "F" mean
- *  something. Published because a reader who does not know that 63.5% of
- *  contracts fire NOTHING cannot calibrate a contract that fires two. */
+/** How many checks fire per contract, over the whole corpus.
+ *
+ *  Re-measured 2026-08-19 over 409,392 contracts. It is what the per-contract
+ *  grade is banded on, and it is the number that makes "F" mean something —
+ *  published because a reader who does not know that 62.6% of contracts fire
+ *  NOTHING cannot calibrate a contract that fires two.
+ *
+ *  ⚠️ ONE MEASUREMENT, ONE PLACE. The handbook, the /procurement/methodology
+ *  page, the article share-card and the article itself all read this constant.
+ *  They previously did not: the article was written off a live query (62.6%)
+ *  while its own share card was generated from the then-committed figure
+ *  (63.5%, measured 2026-07-27), so one publication stated two numbers for one
+ *  fact. Re-measure HERE and regenerate; never quote a fresh query into prose. */
 export const FIRED_COUNT_DISTRIBUTION = [
-  { fired: 0, contracts: 258_706, share: "63.5%" },
-  { fired: 1, contracts: 122_334, share: "30.0%" },
-  { fired: 2, contracts: 23_098, share: "5.7%" },
-  { fired: 3, contracts: 2_938, share: "0.72%" },
-  { fired: 4, contracts: 403, share: "0.10%" },
-  { fired: 5, contracts: 70, share: "0.02%" },
+  { fired: 0, contracts: 256_088, share: "62.6%" },
+  { fired: 1, contracts: 124_716, share: "30.5%" },
+  { fired: 2, contracts: 24_834, share: "6.1%" },
+  { fired: 3, contracts: 3_244, share: "0.79%" },
+  { fired: 4, contracts: 429, share: "0.10%" },
+  { fired: 5, contracts: 70, share: "0.017%" },
   { fired: 6, contracts: 11, share: "0.003%" },
 ] as const;
 
 /** Corpus the distribution above was measured over. */
 export const FIRED_COUNT_CORPUS = {
-  contracts: 407_560,
-  measuredOn: "2026-07-27",
+  contracts: 409_392,
+  measuredOn: "2026-08-19",
 } as const;
 
 /** The per-contract A–F bands. Banded on the FIRED COUNT, not the CRI — see the

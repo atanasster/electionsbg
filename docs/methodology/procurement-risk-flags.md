@@ -225,19 +225,19 @@ Banding on the fired count gives every letter a real population and a one-senten
 
 ### What the corpus actually looks like
 
-Measured 2026-07-27 over 407,560 contracts:
+Measured 2026-08-19 over 409,392 contracts:
 
 | checks fired | contracts | share |
 |---:|---:|---:|
-| 0 | 258,706 | 63.5% |
-| 1 | 122,334 | 30.0% |
-| 2 | 23,098 | 5.7% |
-| 3 | 2,938 | 0.72% |
-| 4 | 403 | 0.10% |
-| 5 | 70 | 0.02% |
+| 0 | 256,088 | 62.6% |
+| 1 | 124,716 | 30.5% |
+| 2 | 24,834 | 6.1% |
+| 3 | 3,244 | 0.79% |
+| 4 | 429 | 0.10% |
+| 5 | 70 | 0.017% |
 | 6 | 11 | 0.003% |
 
-A reader who does not know that **63.5% of contracts fire nothing
+A reader who does not know that **62.6% of contracts fire nothing
 at all** cannot calibrate a contract that fires two.
 
 ### Why a contract letter is weaker evidence than an entity letter
