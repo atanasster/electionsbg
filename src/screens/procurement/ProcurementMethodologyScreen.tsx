@@ -47,6 +47,9 @@ import {
 const HANDBOOK_URL =
   "https://github.com/atanasster/electionsbg/blob/main/docs/methodology/procurement-risk-flags.md";
 
+const RISK_FLAGS_JSON_URL =
+  "https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json";
+
 const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
   label,
   children,
@@ -317,7 +320,12 @@ export const ProcurementMethodologyScreen = () => {
       <ArticleP>{t("proc_meth_p_reuse")}</ArticleP>
       <ArticleUL>
         <ArticleLI>
-          <a className="underline" href="/risk-flags.json">
+          <a
+            className="underline"
+            href={RISK_FLAGS_JSON_URL}
+            rel="noreferrer"
+            target="_blank"
+          >
             risk-flags.json
           </a>{" "}
           — {t("proc_meth_dl_json")}

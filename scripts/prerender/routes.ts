@@ -4238,7 +4238,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li>Съответствието с OCP „Red Flags for Integrity“ (2024) и iMonitor 2.0, включително проверките без съответствие там.</li>
 <li>Известните ограничения, включително изследванията, които намират слаба връзка между сигналите и корупцията.</li>
 </ul>
-<p><strong>Сигналът не е присъда.</strong> Задействана проверка значи, че поведението заслужава втори поглед — може да е напълно законно, може да е законно но неизгодно, може и да е нарушение. Машинно четимият каталог е на <a href="${SITE_URL}/risk-flags.json">risk-flags.json</a>; виж и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
+<p><strong>Сигналът не е присъда.</strong> Задействана проверка значи, че поведението заслужава втори поглед — може да е напълно законно, може да е законно но неизгодно, може и да е нарушение. Машинно четимият каталог е на <a href="https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json">risk-flags.json</a>; виж и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
     english: {
       title: "Public procurement — red-flag methodology | electionsbg.com",
       description:
@@ -4255,7 +4255,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li>Alignment with OCP's Red Flags for Integrity (2024) and iMonitor 2.0, including the checks that map to nothing there.</li>
 <li>Known limits, including the research finding red flags weakly related to corruption.</li>
 </ul>
-<p><strong>A flag is not a verdict.</strong> A fired check means the behaviour is worth a second look — it may be entirely lawful, lawful but poor value, or illicit. The machine-readable catalogue is at <a href="${SITE_URL}/risk-flags.json">risk-flags.json</a>; see also <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>`.trim(),
+<p><strong>A flag is not a verdict.</strong> A fired check means the behaviour is worth a second look — it may be entirely lawful, lawful but poor value, or illicit. The machine-readable catalogue is at <a href="https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json">risk-flags.json</a>; see also <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>`.trim(),
     },
   }),
   staticPage({

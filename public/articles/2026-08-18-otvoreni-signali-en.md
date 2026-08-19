@@ -15,7 +15,7 @@ updatedAt: 2026-08-18
 
 # We are opening up the procurement risk flags
 
-Every rule by which we mark a public contract as risky is now published: [the threshold, the legal basis, when the check applies at all, and what the number does not say](/en/procurement/methodology). The catalogue is [machine-readable](/risk-flags.json) and MIT-licensed — take it, check it, reuse it, no need to ask.
+Every rule by which we mark a public contract as risky is now published: [the threshold, the legal basis, when the check applies at all, and what the number does not say](/en/procurement/methodology). The catalogue is [machine-readable](https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json) and MIT-licensed — take it, check it, reuse it, no need to ask.
 
 The reason is not transparency for its own sake. **When a contract page says "connected to an MP" or "the value grew to the legal cap", that is a claim about a named company.** Until now those definitions lived only in code. Anyone who wanted to dispute such a claim had to take our word for it — which is the opposite of what we are trying to do with public data.
 
@@ -62,5 +62,5 @@ The catalogue is versioned. The page shows not the version in the code but the v
 If you use any of this, cite the version rather than the date. And if you find an error in a definition, a threshold or a mapping, there is now something concrete to point at.
 
 - [The flag methodology](/en/procurement/methodology) — thresholds, legal bases and limits.
-- [risk-flags.json](/risk-flags.json) — the machine-readable catalogue.
+- [risk-flags.json](https://github.com/atanasster/electionsbg/blob/main/public/risk-flags.json) — the machine-readable catalogue.
 - [Public procurement](/en/procurement) — the data itself.
