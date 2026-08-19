@@ -32,6 +32,11 @@ that one for anything you can see; read this one for anything you can count.
 (405,904 rows at `tag='contract'`). Four had drifted within a day of being
 written, so re-derive before quoting one.
 
+Sections 1, 2, 5 and 12 gained material the same day from four further ingests
+(ЦПРС licences, the ЦАИС dossier, TED, АДФИ) — the branch-ЕИК fold, the
+one-fold rule, the three coverage rules and the three unfailable-gate shapes.
+Each is here because it shipped or nearly shipped, per §14.
+
 Everything below is a rule **plus the measurement that produced it**. That pairing
 is the point: a rule without its number gets argued with, and every number here
 came from a defect that shipped or was caught one review before shipping.
@@ -113,6 +118,32 @@ left above a money floor. Membership checks cannot find what nobody listed.
   museum in the country.
 - `NULL` ids must fail loudly, not group away silently.
 
+**MEMBERSHIP IS NOT REACHABILITY, and this file has now watched it happen
+twice.** The roll-up set is `awarder_eik IN (…)`, but the roster tile, the
+institution finder, the awarders list and the procurement screen build their rows
+from a NAMED union. Add EIKs to the first and not the second and every total
+moves while the bodies stay findable only by someone who already knows the
+number.
+
+- 15 art schools went in first as a bare EIK list — every figure correct, all
+  fifteen absent from the two surfaces a reader actually clicks.
+- Nine ДКИ theatres repeated it eight months later: **+€7,485,705, +4.7%**, and
+  nine bodies reachable by no link on the site. The gate written after the first
+  incident is what caught the second.
+
+Give every roll-up entry a NAME at the moment you add it, and make the gate's
+`rendered` union the same union the surfaces build from.
+
+**A REGISTER'S AUTHORITY IS ASYMMETRIC — decisive against silence, merely
+suggestive against evidence.** When the ministry publishes a body on its own
+roster and nothing in the repo contradicts it, that settles principal: 18 of 19
+disagreements moved on exactly that basis. When a SECOND source makes its own
+claim, the roster stops being decisive — Театър „Българска армия" is listed by
+МК _and_ sits in `MO_ENTITIES` under an EIK in the `1290…` block every Ministry
+of Defence body occupies, so it stays `adjacent`. Do not let a single primary
+source overturn a competing one just because it is the source you happen to have
+ingested.
+
 **The universe rule must be decided before the register is written**, because it
 decides the headline: _principal = X_ and _everything a reader would call X_ are
 different pages with different numbers, and both are defensible. Decide, write it
@@ -160,6 +191,39 @@ is worth 95%**. Ship the memorable guard, skip the other, and you have fixed
 almost nothing while believing the case is closed — which is exactly why an
 exclusion list is tested by its EFFECT (rule 4 below) and never by looking
 complete.
+
+### The ID looks canonical and is not — a 13-digit ЕИК is a BRANCH
+
+A Bulgarian ЕИК is 9 digits; a 13-digit one is that parent plus a 4-digit branch
+suffix. Registers disagree about which they publish, and the mismatch produces a
+finding rather than a blank.
+
+Measured on the TED cross-check: TED files ЕСО's regional districts under branch
+numbers (`1752013040134` = `175201304` + `0134`) while the contracts corpus
+awards them all under the parent. Reconciling raw reported **318 buyers "missing
+from the national corpus" for 2024, of which 252 were branches whose parent
+awards 920 contracts that year** — 252 false claims that a named public body's
+procurement is absent from the register. With the fold: 66.
+
+`left(eik, 9)` when `eik ~ '^[0-9]{13}$'`, and put it in ONE function both the
+loader and the gate call. Note the direction of the damage: this defect does not
+suppress a figure, it _manufactures_ the exact finding the dataset exists to
+surface, which is the shape nobody looks for.
+
+### One fold, one definition — a second copy diverges immediately
+
+Write the name fold once and import it. Not "document it in two places" — one
+exported function.
+
+Measured: the АДФИ loader folded names in TypeScript and its gate reimplemented
+the same fold as a `regexp_replace` chain in SQL. They disagreed on their first
+run — the SQL copy stripped neither the `, гр. Варна` tail nor the dash in
+`Топлофикация - София`, so the gate flagged **nine correct matches as false
+accusations** against named public bodies. A gate that cannot reproduce the
+decision it is checking is not checking that decision; it is checking a second
+implementation nobody uses. This is `councilNameKey()` in CLAUDE.md, one dataset
+over, and it will keep recurring because the SQL copy always looks like the
+cheaper option.
 
 ### Too NARROW — a fugitive vowel, and NOTHING catches it
 
@@ -272,6 +336,48 @@ BOTH directions: a declared corpus matching nothing is the empty-page defect; an
 undeclared corpus matching plenty is a filter withholding an answer it could give.
 
 ---
+
+### „Never asked" is a THIRD answer, and it must not be a NULL column
+
+A form field the source does not carry is not a `false`. Model it as the
+**absence of a row**, not a nullable column, or every consumer reading that
+column renders the missing question as an answer.
+
+Measured on the ЗОП subcontractor declarations: 53,854 of 212,961 notices carry
+the question at all. Storing the other 159,107 as `has_subcontractors = NULL`
+would have let any surface state, about a named contract, that the winner
+performed it alone when nobody said so.
+
+⚠️ The model leaks at the SERVING boundary, and that is the half that gets
+missed: an **ungrouped aggregate returns one row over an empty set**, so
+`tender_subcontracting_for('unknown-unp')` came back with `has_subcontractors =
+NULL` — reintroducing the exact confusion the table avoids. `GROUP BY` so an
+unknown key returns _no rows_, and assert that in a gate.
+
+### A coverage FLOOR travels with the rows, not in a header comment
+
+When a source starts partway through history, „no record found" and „never
+happened" are different claims and only the data can tell them apart. Return the
+floor from the same function that returns the rows.
+
+Measured: АДФИ publishes inspection subjects only from 2024-02-09 (earlier ones
+are bare PDFs with no subject column), so `adfi_for_buyer()` returns
+`covered_from` beside every row — otherwise an empty result reads as „never
+inspected" rather than „none since February 2024", about a named public body.
+
+### An external index's RAMP is not a trend
+
+An API's coverage deepening looks exactly like the underlying activity growing.
+Measured on TED: 0 Bulgarian notices for 2015, 4,687 for 2016, ~17,000 for 2019.
+Plotted raw that is procurement quadrupling; it is the index backfilling.
+
+Two rules follow. **Drop the empty years rather than storing zeros** — a stored
+`2015: 0` plots as „this country published nothing above the EU threshold that
+year", which is the precise false finding a completeness dataset exists to
+prevent. And **store the per-year counts** so the ramp stays visible, then make
+any cross-corpus comparison take an explicit window: an all-time reconciliation
+silently mixes years the API barely indexed with years it fully did, and the
+resulting „missing" figure is dominated by the API's own history.
 
 ## 6. Two questions that look like one
 
@@ -411,6 +517,27 @@ row and a Data Map entry (`reference_migrated_family_watch_reload`).
   passed against a defect they were written to catch: one checked shape where
   width was the issue, one asserted a tautology.
 
+**Three shapes that CANNOT FAIL, all found in committed gates, all of which read
+as thorough:**
+
+1. **`LIMIT n` with a length assertion above `n`.** `SELECT … LIMIT 5` then
+   `assert(rows.length < 100)` is true at every corpus size. Count without a
+   limit and assert a SHARE.
+2. **A denominator that is the thing under test.** A coverage gate divided stored
+   rows by the loader's own `WHERE` predicate, so numerator and denominator moved
+   together and the ratio stayed ~1.0 whatever happened — a label change in the
+   upstream form would have left it green while every new record went unseen,
+   which is verbatim what its failure message claimed to detect. Pick a
+   denominator the change cannot touch (there, the word ROOT: 77,914 mentions
+   against 53,858 carrying the labelled field).
+3. **`if (!example) return` when the corpus has no example.** A fold gate sampled
+   one mixed case and returned silently if none existed — so „the case never
+   occurs" and „the fold is correct" were indistinguishable. Assert the example
+   EXISTS, then assert the behaviour.
+
+Say it as a rule: **a gate must be able to fail on today's data if you break the
+code, and you must have watched it do so.**
+
 ---
 
 ## 13. Retrofit checklist
@@ -445,3 +572,11 @@ measurement. A rule without its number is advice, and this file is not for advic
 
 **Open:** whether the 14 generic `/sector/<key>` dashboards should converge on the
 hub pattern or stay a lighter shape. Decide from the retrofits, not in advance.
+
+**Update it in the same session that taught you something.** This file went one
+full working session without an update while four ingests were producing exactly
+the defect classes it exists to hold — the branch-ЕИК fold that manufactured 252
+false „missing from the corpus" claims, and a name fold written twice that
+flagged nine correct matches as false accusations. Neither would have been here
+if the question had not been asked. The cost of the delay is not the writing; it
+is that the next reader hits the same defect with the file looking complete.
