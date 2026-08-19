@@ -19,7 +19,7 @@ never asserts a finding the tree beside it has not acted on.
 | T2 · `stateBodyEiks` + `ADMIN_STATE_BODY_CONTRACTORS` | ⏳ open |
 | T2 · money band scoped to the year | ✅ shipped |
 | T2 · `parseStructureCounts` label strip | ✅ shipped (inert until the ingest re-runs) |
-| T4 · `sector_stats_administration.data.test.ts` | ⏳ open |
+| T4 · `sector_stats_administration.data.test.ts` | ✅ shipped |
 | T4 · `administrationReferenceData.test.ts` | ✅ shipped |
 
 ## What reconciled (no change)
