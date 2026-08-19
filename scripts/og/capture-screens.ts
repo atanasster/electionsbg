@@ -859,10 +859,24 @@ const captures: Capture[] = [
     settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",
   },
-  // /declarations/abroad is NOT here: it uses a RENDERED card from scripts/og/generate.ts
-  // ("abroad.png"). This script shoots the dev server, whose /api/db is proxied to the
-  // SERVING database, so a screenshot taken before migration 169 is published there would
-  // be an empty table.
+  {
+    slug: "abroad",
+    routePath: "declarations/abroad",
+    // The held-abroad register, largest holding first. No ?elections= for the same reason
+    // as crypto above: the rows are declarants across every tier, keyed on the filing year.
+    //
+    // ⚠️ RE-SHOOTING THIS NEEDS THE RESOURCE SERVED, NOT JUST THE DATA. It shoots the dev
+    // server, whose /api/db proxies to the deployed `db` function — so migration 169 being
+    // on Cloud SQL is necessary and NOT sufficient: until `deploy:db` ships the
+    // abroad_holdings resource, prod answers „unknown resource" and the shot is an empty
+    // table. Point VITE_DB_API_PROXY at a local functions emulator (local code, Cloud SQL
+    // data) to capture before that deploy.
+    waitFor: '[data-og="abroad-registry-og"] tbody tr',
+    anchor: '[data-og="abroad-registry-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
   {
     slug: "mp-companies",
     routePath: "mp/companies?elections=2026_04_19",

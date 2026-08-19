@@ -4739,8 +4739,6 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Колко от парите, които българската власт декларира по банкови сметки и инвестиции, стоят извън страната — и в кои държави, когато декларацията ги посочва.",
     breadcrumbName: "Пари в чужбина",
-    // A RENDERED card (scripts/og/generate.ts), not a screenshot — see the note there for
-    // why this page does not follow its /declarations/crypto sibling.
     ogImage: "/og/abroad.png",
     // No totals in the body, for the same reason /declarations/crypto and /mp-cars give
     // none: the figure moves with every filing season, and a number baked into static HTML

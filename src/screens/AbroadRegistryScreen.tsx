@@ -270,9 +270,13 @@ export const AbroadRegistryScreen: FC = () => {
           its own figure, unlabelled. Hidden rather than qualified: a headline that has to
           explain which of two totals it is has already lost the argument. Do NOT "fix" this
           by summing the `all` bucket into it; that bucket re-declares one holding once per
-          filing. */}
+          filing.
+
+          `max-w-4xl` is not decoration either: unconstrained, the sentence sets to the full
+          page width — poor measure on a wide screen, and it runs past the right edge of the
+          1200px og crop, which shot as „…се държат средс" mid-word. */}
       {scope === "latest" && overview && (
-        <div className="mt-4 rounded-lg border border-border bg-card p-4">
+        <div className="mt-4 max-w-4xl rounded-lg border border-border bg-card p-4">
           <div className="text-2xl font-semibold tabular-nums">
             {formatEur(overview.eurAbroad, locale)}
           </div>

@@ -281,27 +281,10 @@ const main = async () => {
   // queued here (they would overwrite the screenshots in dist/og/ during
   // postbuild).
 
-  // /declarations/abroad gets a RENDERED card rather than a Playwright screenshot of the
-  // live table, unlike its /declarations/crypto sibling. The capture script shoots the dev
-  // server, whose /api/db is proxied to the SERVING database — so a screenshot taken before
-  // person_abroad_table (169) is published there would be an empty table, and the card
-  // would then need re-shooting to stop being wrong. A text card states the same thing and
-  // cannot go stale against the corpus.
-  //
-  // The tiles carry no totals on purpose: the figure moves every filing season, and the
-  // basis („of bank + investment money", not of declared wealth) does not fit a tile label
-  // — the page's live headline carries both.
-  renderStaticPageCard(
-    "Пари в чужбина",
-    "Декларирани банкови сметки и вложения, държани извън България",
-    [
-      { label: "източник", value: "Сметна палата" },
-      { label: "обхват", value: "всички власти" },
-      { label: "таблици", value: "влогове и фондове" },
-      { label: "език", value: "BG / EN" },
-    ],
-    "abroad.png",
-  );
+  // /declarations/abroad uses a Playwright screenshot of the live register
+  // (public/og/abroad.png via scripts/og/capture-screens.ts), like its
+  // /declarations/crypto sibling — so no job is queued here; one would overwrite the
+  // screenshot in dist/og/ during postbuild.
 
   renderStaticPageCard(
     "За проекта",
