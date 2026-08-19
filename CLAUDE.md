@@ -3157,7 +3157,7 @@ contracts, ~20 for tenders. Repair it directly instead (safe any time, and the t
 ~2.5 s per 42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, cprs_firm, cprs_licence, nzok_activities, nzok_activity_facility_periods, nzok_activity_proc_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded, budget_admin_procurement, interreg_operations, interreg_partners, interreg_programmes, budget_peer_band, tr_name_fold_people, graph_edge, graph_company_node, graph_person_node, graph_payloads, agri_subsidies, agri_payloads, agri_beneficiary, agri_beneficiary_year, agri_scheme_year, agri_hub_stats_cache, agri_political_link, agri_cross_programme;"
 ```
 
 `budget_admin_procurement` (157) is the odd one in that list: it is written by THREE

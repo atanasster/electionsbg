@@ -67,6 +67,11 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "tender_normalcy_cache", loader: "db:load:tenders:pg" },
   { table: "procurement_normalcy_cache", loader: "db:load:pg" },
   { table: "procurement_annexes", loader: "db:load:annexes:pg" },
+  // The ЦПРС builders register (170) — both TRUNCATE + COPY inside one
+  // transaction, the canonical map-losing shape, and both read on the eligibility
+  // check every works contract runs through.
+  { table: "cprs_firm", loader: "db:load:cprs:pg" },
+  { table: "cprs_licence", loader: "db:load:cprs:pg" },
   { table: "nzok_activities", loader: "db:load:nzok-activities:pg" },
   {
     table: "nzok_activity_facility_periods",
