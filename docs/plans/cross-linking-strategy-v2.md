@@ -4,7 +4,22 @@ Status: **brainstorm / strategy**, not an implementation plan. Drafted 2026-08-1
 same day after a verification pass against local Postgres.** That pass re-measured §1 (whose first
 draft was v1's table copied verbatim under a new date — seven rows had moved, and "17 role
 sources" is 16), corrected the corpus-depth claim in §3, re-rated four ideas whose inputs do not
-exist as assumed, and added §4.0's three cross-cutting constraints.
+exist as assumed, and added §4.0's first three cross-cutting constraints.
+
+**A second pass, the same day, audited the result** — against local Postgres, the committed
+`data/**` artifacts, `src/routes.tsx`, `scripts/prerender/dynamicRoutes.ts` and
+`scripts/sitemap/route_defs.ts`. §3 and §4.0-1 survived it unchanged. Four things did not, and
+each is recorded in place rather than silently fixed:
+
+- **§1's central new claim was false for six of the nine series it named.** The "outcome half"
+  is overwhelmingly *national annual scalars*, not a place panel, and one member is not a series
+  at all. §1 now carries the grain table; §4(a) is re-rated on it.
+- **The first pass rated ideas' inputs for EXISTENCE and never for `n`.** Shortlist #4 was ranked
+  "instantly newsworthy" on a sample of **17**. §4.0-5 makes power a stated requirement.
+- **§4.0-2 costed a page family without checking what is already shipped.** `/governance/:id` is
+  prerendered and sitemapped today; the constraint was applied as if it were not.
+- **Two constraints were missing entirely** — causal attribution (§4.0-4) and the per-surface
+  operational tax (§4.0-6), the latter being the dominant recurring cost of every **B** here.
 
 Follows [cross-linking-strategy-v1.md](cross-linking-strategy-v1.md) (2026-08-02), whose
 structural finding still holds — this plan re-verifies it against the grown corpus, refreshes
@@ -56,12 +71,42 @@ quoted elsewhere as arguments:
   parliament.
 
 **New since v1 (the reason for a v2):** the corpus stopped being "money only" and gained an
-**outcome half**. Sector packs now pair spend with a measured result — air (PM10/PM2.5), road
-deaths, poverty-reduction, matura value-added, court workload, НЗОК hospital payments, recycling
-rates, rail subsidy per passenger, e-government uptake. That is the one asset class the v1
-linkage list barely touched, and it is the cheapest high-impact linking surface left: **the
-money↔outcome join requires no new ingest anywhere — both sides are already keyed by place and
-date.**
+**outcome half**. Sector packs now pair spend with a measured result. That is the one asset class
+the v1 linkage list barely touched, and it remains the cheapest high-impact linking surface left
+— but only for the part of it that is keyed the way the money is.
+
+⚠️ **This paragraph's first draft claimed "the money↔outcome join requires no new ingest anywhere
+— both sides are already keyed by place and date", and named nine series. Measured, that is
+false for six of them.** The money side is per-EIK / per-settlement / per-day; most of the
+outcome side is **one national number per year**, and the one the draft led with is not a series
+at all. Six ideas were rated on the wrong half.
+
+| Series named in the first draft | Actual grain | Joinable to money at place? |
+|---|---|---|
+| air PM10 / PM2.5 | `data/air/index.json` — **37 stations, snapshot only** (`snapshotAsOf: 2026-03-31`, `latestReadings` + `maxObserved`; **no time dimension**), município attribution by station-name parsing | **No** |
+| road deaths | `data/security/road_safety.json` — **national annual**, 14 points `{year, deaths}` | **No** |
+| recycling rate | `data/environment/waste.json` — `byGeo`, **country level** (BG + EU peers) | **No** |
+| poverty reduction | `data/social/poverty_impact.json` — Eurostat SILC, **country level** | **No** |
+| rail subsidy per passenger | `data/transport/rail_subsidy.json` — **national annual**, 9 fiscal years | **No** |
+| e-government uptake | Eurostat, **country level** | **No** |
+| matura value-added | `schools` — **994 schools, 990 with `eik`**; `data/indicators.json` — **obshtina × year** | **Yes** |
+| court workload | `court_load` — **1,432 rows, 208 courts, 2018–2025** | **Yes** |
+| НЗОК hospital payments | `nzok_hospital_payments` — **hospital × period** | **Yes** |
+
+**And the draft omitted the two panels that actually do the job.** Neither appears anywhere in
+the first version of this plan, and between them they are the outcome half worth building on:
+
+- **`data/indicators.json` — 265 municipalities × year.** Registered unemployment (АЗ, 2016–2025),
+  ДЗИ average (МОН, 2022–2026), population change. Obshtina-keyed, i.e. grain-matched to
+  `budget_muni_transfer`, `municipal_fiscal`, `awarder_seats`, `fund_projects` and
+  `agri_subsidies`.
+- **`data/regional.json` — 28 oblasts × year × 10 indicators.** GDP/capita, population, net
+  migration, **theft rate**, enterprise density, crude death rate, FDI/capita, hospital beds,
+  long-term unemployment, museum visits — back to 2005 on the Eurostat arms.
+
+So the honest form of the claim: **the money↔outcome join needs no new ingest at obshtina,
+oblast, school, court and hospital grain — and needs a new ingest for everything else on the
+first draft's list.**
 
 ## 2. The structural finding (unchanged, now partially addressed)
 
@@ -177,8 +222,22 @@ a *measured outcome*.
    2025-26 wave is *signals, not tables* — Диагноза's BGN 605M claims and institutional API
    demand, SIGMA's planned "early warning", iMonitor's red-flag training. We already compute the
    risk masks (incl. НКИД→CPV mismatch, single-bidder, MP-tied firms) — ship them as
-   per-company/per-person/per-sector "what changed this week" alerts, with an API others can
-   subscribe to. This converts the data asset into the institutional-uptake asset.
+   per-company/per-person/per-sector "what changed this week" signals. This converts the data
+   asset into the institutional-uptake asset.
+
+   ⚠️ **Split this move in two, because "subscribable" assumes infrastructure that does not
+   exist.** Measured: `/following` (`src/screens/person/FollowingScreen.tsx`) is
+   **browser-local** — the watchlist lives in localStorage, the page keeps **no server-side
+   record of who follows whom by explicit design**, it is `noindex` and never prerendered, and
+   it covers **declaration filings only** (one fetch of the site-wide `useNewFilings` feed,
+   filtered client-side). There is no auth, no account, no mail sender wired to the app, and the
+   architecture is a static SPA plus one Cloud Function. So:
+   **(a) the per-entity change FEED is B** — `/api/db/feed?entity=company:<eik>|person:<slug>|place:<code>`
+   plus an RSS mirror, built from `ingest_first_seen` and the risk masks: no accounts, edge-
+   cacheable, crawlable, and directly consumable by the journalists this section names as the
+   target. **(b) email/webhook subscriptions are C** — an identity store, a delivery channel and
+   a consent/bounce regime, i.e. a different kind of product from everything else on this list.
+   Build (a); scope (b) separately or not at all.
 2. **TheyWorkForYou-style explain-the-vote layer.** Their 2025 Votes/summaries show the consumer
    product on raw roll-calls is *explanation*, not listing. We hold 16,741 items / 4M casts —
    add per-MP voting summaries and "what this motion did" (joined to topic, lobby contacts, and
@@ -205,7 +264,7 @@ Feasibility: **A** = already computable, aggregation only · **B** = needs a der
 list (place / person / company / time / product) is not repeated; these are net-new, and they
 lean on the outcome half and the graph engine that v1 did not have.
 
-### 4.0 Three constraints every idea below inherits
+### 4.0 Six constraints every idea below inherits
 
 None of these is a reason not to build; each is a reason a rating or a headline has to change.
 They are here rather than repeated per idea because they cut across the whole list.
@@ -228,13 +287,37 @@ company) attributions the retired shard trees had been publishing. So:
 Getting this wrong does not produce a bug — it produces a confident, wrong sentence about a real
 person, which is the failure mode the person layer was rebuilt to end.
 
-**2. A new page is three artifacts, not one.** Shortlist #1–#3 are public pages. Each needs a
-prerendered static page, a sitemap `<loc>` in **both** `route_defs` lists, and **its own
-`og:image`** — the site's own finding is that broader-data pages without that set draw ~0 search
-impressions, and a share card that falls back to the site default defeats the point of anything
-built to be posted. Any idea rated **A** on the strength of "the aggregation already exists" is
-being rated on its query, not its delivery. The mayor's report card is the clearest case: the
-numbers are close to A, ~265 pages plus share cards are not.
+**2. A new page is three artifacts, not one — but CHECK WHICH THREE ARE ALREADY THERE.** Every
+public page needs a prerendered static page, a sitemap `<loc>` in **both** `route_defs` lists,
+and **its own `og:image`** — the site's own finding is that broader-data pages without that set
+draw ~0 search impressions, and a share card that falls back to the site default defeats the
+point of anything built to be posted. Any idea rated **A** on the strength of "the aggregation
+already exists" is being rated on its query, not its delivery.
+
+⚠️ **The first draft then applied that constraint to the mayor's report card without checking,
+and inflated it by roughly an order of magnitude.** It read "~265 pages plus share cards", i.e.
+budget it as B. Measured: `/governance/:id` (formerly `/my-area/:id`) is a **25-tile municipal
+dashboard that already exists** — municipal budget, municipal fiscal, local taxes, tax receipt,
+procurement, tenders, EU projects map, Interreg, council, representatives, upcoming ballot,
+prices, basket, deals, property stock, transparency, education, capital projects, alerts — it is
+**already prerendered** (`buildGovernanceMuniRoutes` + `buildGovernancePlaceRoutes` in
+`scripts/prerender/dynamicRoutes.ts`) and **already in the sitemap at both município and
+settlement grain** (`route_defs.ts` → `governance-municipalities`, `settlements`). Two of the
+three artifacts are shipped. The missing one is the **`og:image`**, and the missing *product* is
+the term-in-review framing, not the page.
+
+The same check moves a second entry: **§4(a)'s €-per-matura-point join is shipped per school** —
+`src/screens/education/SchoolProcurementTile.tsx` renders a school's own procurement on
+`/school/:id`, and `SchoolIdentityTile` puts the matura score on the matching `/company/:eik`.
+What is missing there is the league table and its methodology page.
+
+So the constraint has a second half: **before costing delivery, enumerate the artifacts that
+exist.** Two of the five shortlist entries were mis-costed for want of one `grep` over
+`dynamicRoutes.ts` and `route_defs.ts`.
+
+Worth knowing for the og half specifically: `scripts/og/generate.ts` already renders **per-oblast**
+cards (`renderOblastCard` → `region/<oblast>.png`) through an incremental CardSpec cache, so a
+per-município card is an extension of a working generator rather than a new pipeline.
 
 **3. The TR half of the identity graph is UNDATED.** Measured: `person_role` carries
 `date_basis` on 0 of 192,374 `tr` rows, 0 of 7,162 `ngo` rows and 0 of 67,065 `candidate` rows;
@@ -244,13 +327,71 @@ numbers are close to A, ~265 pages plus share cards are not.
 dating source we do not hold — and the graph engine, which several entries lean on, adds money
 and edges but **no dates**.
 
+**4. A ratio is not a value-for-money claim unless the denominator funds the numerator.** This is
+the causal twin of constraint 1, and its absence is what let three ideas through with arithmetic
+that is correct and a sentence that is false. "Lev per microgram removed", "€ per matura point",
+"the month minister X took over, this series jumped", "did subsidy-per-capita predict the
+incumbent mayor's retention" — each divides one series by another and names a responsible
+official. But a municipality's total procurement is not its air-quality programme, and a school's
+own procurement (fuel, food, repairs) is not its teaching budget — this plan already records that
+there is **no school-grain per-pupil budget** in PG (`school_context` is obshtina grain, 266 rows)
+and then rates the ratio anyway. So:
+
+- a ratio may name **only the spend plausibly causal to the outcome**, or it is labelled a
+  co-occurrence and never a value-for-money verdict;
+- the page states its confounders — cohort intake for schools, industrial base and topography for
+  air, catchment and case mix for courts;
+- the denominator's name carries its own scope (*own-procurement € per matura point*, never
+  *€ per matura point*).
+
+The failure mode is already on the record here: `risk_score` mixes procedural and
+vote-distribution signals and is unusable for party claims for exactly this reason. A
+value-for-money ranking that names mayors is the same defect with a bigger blast radius.
+
+**5. An idea whose output is a correlation, ranking or scatter must state its `n` before it gets
+a rating.** The first pass measured whether inputs EXIST and never how many rows survive the
+join, which is how a shortlist entry reached #4 on a sample of seventeen. Measured for the
+loyalty-to-contract scatter, through the gated `person_role` set constraint 1 mandates
+(`source IN ('tr','ngo') AND confidence IN ('exact_id','high','manual')`):
+
+| Population | MPs | with a gated company role | whose company ever won a contract |
+|---|---|---|---|
+| **52nd NA (sitting)** | 254 | 96 | **17** |
+| all parliaments (44th–52nd) | 2,118 | 753 | **102** |
+
+Pooling to 102 does not rescue it: nine parliaments with different governments and party systems
+make the loyalty axis non-comparable across them. Note also that this join crosses `mp_dissent`
+(keyed `(ns, mp_id)`) with `person_role` (keyed `ref = '<mpId>:<ns>'`, with **956 legacy bare-`mpId`
+rows**), and the standing finding here is that `mp_id` is not a person key — an unguarded join is
+~17% wrong people. Fold on `(ns, mp_id)` and say so.
+
+**6. A derived table is a permanent publishing obligation, not a one-off query.** The rating scale
+above reads **B = "needs a derived table/matview"** as if the cost ended at the SQL. In this repo
+it does not. A new matview or loader acquires: an entry in `SCOPED_MATVIEWS` with a correct
+`inputs` array (whose omission is invisible to every row count), membership in `db:refresh` or in
+`REFRESH_EXCLUSIONS` enforced by `refresh_coverage.test.ts`, an `ORDER_PAIRS` entry when it
+follows a rebuild of its input, a `:cloud` publish command that **nothing runs automatically**, a
+`vacuumAfterReload()` call, a `*.data.test.ts` gate, and a documented deploy ordering. The
+marginal cost of a **B** is therefore not the query — it is one more permanent way for prod to
+serve last month's numbers at a 200 while every count reconciles.
+
+Consequence for design, not just for budgeting: **prefer a plain serving FUNCTION over existing
+tables to a new matview wherever the query allows it.** A function carries no refresh obligation
+(it carries the apply-on-cloud obligation instead, which is cheaper and already documented), and
+several entries below — the value-for-money panels especially — are aggregate-over-existing-tables
+shaped rather than precompute shaped.
+
 ### (a) Outcome × money — value-for-money lenses
 
 - **€-per-matura-point league** — education value-added (`school_scores`) × the school's own
   awarder procurement. Ranks schools on "euros spent per matura point gained". Parents see
-  whether the money buys results; auditors see the money-sinks. **B — and the best-evidenced
-  entry in this section.** Measured 2026-08-18: **990 of 994 schools carry an `eik`, 917 of them
-  appear as `awarder_eik`, over 14,809 contracts worth €487.7M.** The МОН crosswalk problem that
+  whether the money buys results; auditors see the money-sinks. **A/B — the best-evidenced entry
+  in this section, and the join is ALREADY SHIPPED per school**
+  (`src/screens/education/SchoolProcurementTile.tsx` on `/school/:id`, mirrored by
+  `SchoolIdentityTile` on `/company/:eik`), so what is left is the league table plus its
+  methodology page, not the join. Re-measured 2026-08-18: **990 of 994 schools carry an `eik`,
+  917 of them appear as `awarder_eik`, over 14,901 contracts worth €496.8M** (the 14,809 /
+  €487.7M in the first draft went stale across a reload). The МОН crosswalk problem that
   blocks education joins elsewhere is already solved for this set. Two caveats to carry into the
   copy: 994 schools is a subset of the national total, so this ranks the schools we hold rather
   than the country; and there is **no school-grain per-pupil budget** in PG (`school_context` is
@@ -258,16 +399,39 @@ and edges but **no dates**.
   way rather than implying a full per-pupil cost.
 - **Micrograms per million** — environment pack (heating/renovation CPV) × PM2.5 station series ×
   place × mayor. "Lev per microgram removed" per municipality — a cost-effectiveness frontier
-  that names mayors who paid 2× the neighbour and the air did not move. **B**
+  that names mayors who paid 2× the neighbour and the air did not move. **C, and NOT buildable
+  today — the first draft rated it B on an input that does not exist.** `data/air/index.json`
+  holds a **37-station snapshot** (`latestReadings` + `maxObserved`, `snapshotAsOf 2026-03-31`)
+  with **no time dimension at all**, covering ~30 of 265 municipalities by station-name parsing.
+  The headline needs two measurements over time on one side and a causal denominator on the other
+  (§4.0-4), and we hold neither. It becomes B only after a dated ИАОС series is ingested — the
+  station-level daily/annual datasets exist on data.egov.bg, and `data/air/index.json`'s own note
+  records that NO2 and CO were left behind for want of the per-resource UUID.
 - **Trauma-ward ledger** — НЗОК hospital payments (per DRG) × МВР road deaths/theft per oblast.
   Cross-checks two independent ledgers: districts where road deaths fell but trauma billing rose
-  (and vice versa) expose coding-up and unreported crashes. **B**
+  (and vice versa) expose coding-up and unreported crashes. **Split. The НЗОК side is per-hospital
+  and fine; the ROAD-DEATH side is national-only** (`data/security/road_safety.json`, 14 annual
+  points), so "districts where road deaths fell" has no district. The **theft** arm survives at
+  oblast grain — `data/regional.json` carries `theftRate` per oblast per year — which is a
+  different and weaker sentence, and should be written as one. **B on theft@oblast, C on road
+  deaths.**
 - **Justice clock** — court workload/duration × court expenditure × `magistrate_current` bench.
   "Days per resolved case" beside "levs per resolved case" per court — slow *and* expensive
   courts, with the bench sitting on the money. **B**
 - **One-year lag engine** — any money corpus × any outcome series × place × year. A generic
   lagged-correlation tool ("spend year N → outcome year N+1") that turns every sector pack into
-  a hypothesis-testing machine. **B/C**
+  a hypothesis-testing machine. **B, on four panels rather than nine** (§1): obshtina×year
+  (`indicators.json`), oblast×year (`regional.json`), school×year and court×year. Every output it
+  emits inherits §4.0-4 — a lagged correlation between a place's total spend and a place's
+  outcome is a co-occurrence, and the tool must label it as one rather than let each consumer
+  decide.
+- **Municipal value-for-money panel** *(new — the replacement for what §1 removed)* —
+  `data/indicators.json` (265 municipalities × year: registered unemployment 2016–2025, ДЗИ
+  2022–2026, population change) × `data/regional.json` (28 oblasts × year × 10 indicators) ×
+  the municipal money already in PG (`budget_muni_transfer`, `municipal_fiscal`, `awarder_seats`,
+  `fund_projects`, `agri_subsidies`). This is the same lens the air and road entries were reaching
+  for, restricted to the grain that actually exists, and it lands on `/governance/:id`, a page
+  that is already prerendered and sitemapped (§4.0-2). **B**
 - **Subsidy-to-shelf trace** — farm subsidies (2.5M EIK-keyed rows) × КЗП milk/bread/oil prices ×
   GRAO income. "€11bn in subsidies, here's the subsidy per litre vs the price per litre, per
   municipality" — the full farm-to-shelf money line. **C** (fuzzy product↔farm link; start
@@ -353,27 +517,45 @@ and edges but **no dates**.
 
 ### (f) Investigative red-flag generators
 
-- **Lead engine** — every flag already computed (`contract_risk_cache` bits, single_bid, donor
-  links, revolving door, declaration anomalies, Benford) × severity scoring × ranked, *explained*
-  output. An auto-generated investigative queue where each lead is a composed rationale with
-  linked evidence. **B**, with three constraints that decide whether it is publishable:
+- **The review queue** *(was: "lead engine" — renamed, because "lead" invites the reading the
+  third constraint below forbids)* — every flag already computed (`contract_risk_cache` bits,
+  single_bid, donor links, revolving door, declaration anomalies, Benford) × severity scoring ×
+  ranked, *explained* output. An auto-generated investigative queue where each entry is a composed
+  rationale with linked evidence. **Sized 2026-08-18: `contract_risk_cache` grades D 3,244 · E 429
+  · F 81 — 3,754 contracts above C.** That is the fact that makes it a product rather than a
+  firehose: it is a queue a small team can actually walk, so the design target is ranking and
+  explanation quality, not recall. **B**, with three constraints that decide whether it is
+  publishable:
   every person↔company edge in a rationale comes from the gated `person_role` set or is omitted
   (§4.0-1); the framing is the risk methodology's own — a fired flag means the behaviour is *not
   illicit*, *suboptimal*, or *illicit*, in that order, and leads are **for review**, never a
   finding; and any comparative clause ("N% above market") needs a stated comparator, which the
   per-contract corpus does not currently have — the published index is a count of checks fired,
   and a per-contract score is noisy at n=1 by the corpus's own literature.
-- **Loyalty-to-contract test** — `vote_cast` loyalty/similarity per MP × person_id × their
-  companies' contracts × party. Named scatter: government-loyalty % vs contracts to the MP's own
-  firms — the first public test of whether loyalty correlates with public money to one's own
-  companies. **B**
+- **MPs whose firms hold public contracts** *(was: "loyalty-to-contract test")* — `vote_cast`
+  loyalty/similarity per MP × person_id × their companies' contracts × party. **B as a named
+  table; NOT a test, and the first draft's framing does not survive §4.0-5.** It was written as a
+  "named scatter … the first public test of whether loyalty correlates with public money", and
+  measured, the sitting parliament yields **17 MPs** (254 members → 96 with a gated company role
+  → 17 whose company ever won a contract); all nine parliaments pooled yield **102**, across
+  governments and party systems that make the loyalty axis non-comparable. A correlation claim at
+  n=17 is an anecdote with error bars. The publishable product is the **list of the 17**, with
+  each MP's loyalty and each contract shown beside it, and no line fitted through them — which is
+  a good page, and a much smaller claim than the one that got it ranked.
 - **Subsidy vote-buy test** — farm subsidies (EIK→place) × local election results across cycles ×
   turnout. A village-level distributive-politics panel: does subsidy-per-capita predict the
   incumbent mayor's retention? The natural experiment only this platform holds. **B**
 - **Benford across the money corpora** — procurement values × subsidy payments × budget lines ×
-  EU project values × donations. Digit-distribution heatmap per agency/year; anomalies flag
-  which wallets are statistically off. Extends an existing election feature to money with zero
-  new data. **A**
+  EU project values × donations. Digit-distribution heatmap per agency/year. Extends an existing
+  election feature to money with zero new data. **B, not A — the data is free and the methodology
+  is not**, and the first draft's phrasing ("anomalies flag which wallets are statistically off")
+  is precisely what the existing feature refuses. `/benford` ships a persistent caveat banner,
+  sorts by party number rather than by deviation, states "NOT fraud", and **re-calibrates the MAD
+  buckets away from Nigrini** because electoral counts are range-bounded. Money needs the
+  *opposite* recalibration (Nigrini's accounting thresholds do apply) and carries a confound votes
+  do not: **ЗОП procedure thresholds and round-number contracting produce large, legitimate
+  first-digit deviation**, so an uncalibrated heatmap will name compliant agencies. Budget the
+  calibration + framing, not the query.
 
 ### (g) AI assistant
 
@@ -381,7 +563,9 @@ and edges but **no dates**.
   companies → contracts → subsidies → declarations → votes → donations → EU funds. One query
   ("who is X, really?") returns a written, cited multi-corpus profile. Follow-ons: a
   "timeline constructor" (life-of-a-contract / life-of-an-MP) and a "value-for-money query" skill
-  ("which municipality got the least PM2.5 reduction per lev?"). **C** (heavy, reuses everything).
+  (ask it against the panels §1 confirms exist — obshtina×year unemployment/ДЗИ, oblast×year,
+  school, court — **not** the PM2.5 example the first draft used, which has no series behind it).
+  **C** (heavy, reuses everything).
   A composed multi-corpus profile about a named person is the single most exposed output on this
   list: it must run through the existing **grounded-number gate** (which already rejects figures
   the tools did not return) *and* through §4.0-1's identity rule, since a dossier is precisely
@@ -391,15 +575,27 @@ and edges but **no dates**.
 
 ## 5. Ranked shortlist (second wave)
 
-Ranked on (uniqueness in the field) × (impact) ÷ (effort), given everything is already in PG.
+Ranked on (evidence the input exists) × (impact) ÷ (**remaining** effort). Every entry was
+measured 2026-08-18; the ordering is the audit pass's, and it differs from the first draft's
+because two entries turned out to be largely built and two were rated on inputs that do not
+support them.
 
 | # | Idea | Angle | Why it wins |
 |---|---|---|---|
-| 1 | **Lead engine** (#21) | red-flag | Flagship: auto-generates the site's most original content from flags it already computes; journalists get a feed, we get continuous content. |
-| 2 | **Mayor's report card** (#19) | retention | Mass-market, shareable, timed to local elections; the traffic + returning-user hook. Rated near-A on the *query*; the delivery is ~265 pages each needing prerender + a sitemap `<loc>` in both lists + its own `og:image` (§4.0-2), so budget it as B. |
-| 3 | **Euro shock, store by store** (#8) | temporal | Once-in-a-generation event with store-level data nobody else holds; huge media pull while the transition is fresh. Depth is the asset: 11.35M SCD-2 facts, not the 1.4M current snapshot an earlier draft quoted. |
-| 4 | **Loyalty-to-contract test** (#22) | red-flag | The most uniquely cross-corpus question (parliament × companies × procurement via person_id); instantly newsworthy, zero new ingest. |
-| 5 | **Benford across the money corpora** (#24) | red-flag | Cheapest (pure A), extends a brand the site already owns, and gives the lead engine its statistical backbone. |
+| 1 | **Per-place share card + „мандатът в цифри" strip on `/governance/:id`** (was #19, "mayor's report card") | retention | Mass-market, shareable, timed to local elections. Reordered to the top **because the page, the prerender and the sitemap entries all already exist** (§4.0-2) — the missing artifacts are the `og:image` and the term-in-review framing, and `renderOblastCard` in `scripts/og/generate.ts` already does per-place cards through an incremental cache. Turns ~6,000 already-indexed pages into postable objects. |
+| 2 | **School value-for-money league** (§4(a)) | outcome×money | The one money↔outcome join that is grain-matched *and* half-built: 917 schools, 14,901 contracts, €496.8M, per-school tile shipped. Ships as a ranking + a methodology page that names the denominator honestly (*own-procurement € per matura point*) and states intake confounding (§4.0-4). |
+| 3 | **Euro shock, store by store** (#8) | temporal | Unchanged from the first draft, and it survives the audit intact. Once-in-a-generation event with store-level data nobody else holds; huge media pull while the transition is fresh. Depth is the asset: 11.35M SCD-2 facts, not the 1.4M current snapshot an earlier draft quoted. |
+| 4 | **The review queue** (was #21, "lead engine") | red-flag | Same idea, correctly sized and correctly framed: `contract_risk_cache` grades **D 3,244 · E 429 · F 81 — 3,754 contracts**, a human-reviewable queue rather than an infinite feed. Every person↔company edge from the gated set or omitted (§4.0-1); *for review*, never a finding; no comparative clause without a stated comparator. |
+| 5 | **Per-entity change feed (JSON + RSS)** (§3 move 1a) | institutional | The buildable half of the alerts move — `company:<eik>` / `person:<slug>` / `place:<code>` → "what changed here", from `ingest_first_seen` + the risk masks. No accounts, edge-cacheable, crawlable, and it is the piece that makes the corpus institutionally consumable. |
+
+**Dropped out of the top five by the audit, with the reason:** *loyalty-to-contract* (n=17 in the
+sitting parliament — publishable as a named list, not as a test, §4.0-5) and *Benford across the
+money corpora* (B not A — the methodology, not the data, is the work, §4(f)). Both stay on the
+board; neither is a flagship.
+
+**Held back pending an ingest:** *micrograms per million* and the road-death arm of the
+*trauma-ward ledger*, both of which the first draft rated B on inputs that are a 37-station
+snapshot and a national annual scalar respectively (§1).
 
 **Still the two big v1 prizes to keep on the board** (they outrank several of the above on raw
 impact but need more methodology care): *political geography of public money* (1.1) and
@@ -408,6 +604,30 @@ and `company_public_money` (81,389 rows) both exist. 2.1 is **not**: its blocker
 graph, it is that the TR half of `person_role` is undated (§4.0-3), and a shipped graph adds
 edges and money but no dates.
 
-**Cheapest structural first move (unchanged from v1):** ship the `/data/map` lateral edges
-(`data-hub-lateral-edges-v1.md` T1). Half a day, and the map itself becomes the argument that the
+**Cheapest structural first move (unchanged from v1, and re-confirmed open):** ship the
+`/data/map` lateral edges (`data-hub-lateral-edges-v1.md` T1). Verified 2026-08-18 —
+`data/data_map.json` carries `version, generatedAt, nodes, edges, views, tiers, tours` and **no
+`links` key**, 101 nodes / 167 edges. Half a day, and the map itself becomes the argument that the
 corpus is one linked product — which is the claim every idea above depends on.
+
+---
+
+## 6. Three things this plan still does not decide
+
+Named rather than answered, because each is a decision for whoever picks up an entry above, and
+because a plan that is silent on them reads as if they do not apply.
+
+- **Language.** The site prerenders `/en` mirrors and maintains both `route_defs` lists, yet no
+  idea here states a language. Some existing place families are deliberately BG-only
+  (`/governance/:id`, `/settlement/:id`, `/municipality/:id`); the sector and indicator families
+  are bilingual. "A sitemap `<loc>` in **both** lists" (§4.0-2) presumes an answer, so each new
+  page must give one — and a BG-only choice is legitimate and should be written down as a choice.
+- **What each idea is trying to move.** §3 cites "~0 search impressions" as the failure mode this
+  whole plan designs against, and then defines no target for anything. Each shortlist entry should
+  carry one number — indexed pages, impressions, returning readers, citations by others — so that
+  "it shipped" and "it worked" are distinguishable a quarter later.
+- **What happens when a correctly-linked named person disputes a published flag.** §4.0-1 settles
+  *whether the link is real*; it says nothing about the aftermath. The review queue, the
+  auto-dossier and the MP-contracts list all publish claims about named individuals at scale. A
+  stated correction path and a per-page "dispute this" affordance is cheap to build and is the
+  kind of omission that ends a project rather than degrading it.
