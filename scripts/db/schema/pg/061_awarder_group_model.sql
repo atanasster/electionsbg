@@ -48,7 +48,39 @@ sup AS (
            ROUND(SUM(amount_eur))::double precision AS "totalEur",
            (COUNT(*))::int AS "contractCount",
            (COUNT(*) FILTER (WHERE number_of_tenderers IS NOT NULL))::int AS "bidKnownN",
-           (COUNT(*) FILTER (WHERE number_of_tenderers = 1))::int AS "singleBidN"
+           (COUNT(*) FILTER (WHERE number_of_tenderers = 1))::int AS "singleBidN",
+           -- € this supplier won as a consortium CARRIER (migration 087) — the
+           -- whole joint contract's value, which is what the carrier row holds.
+           --
+           -- ⚠ A SHARE, NEVER A FLAG, and the measurement is what forces it: 162
+           -- suppliers hold BOTH carrier and solo rows (€1.52bn vs €0.99bn
+           -- corpus-wide), and every one is a real EIK — the synthetic `obed-`
+           -- namespace is carrier-only by construction. So „is this supplier a
+           -- consortium?" has no answer for them: bool_or labels ДЗЗД
+           -- ХЕМУС-16320's own €61.2M of solo work as consortium work, bool_and
+           -- strips the label off its €448.2M of joint work. A € beside
+           -- "totalEur" is the only projection that stays true for a mixed one.
+           --
+           -- Member rows are excluded by the WHERE below, exactly as they are
+           -- from every other column here — they are €0 and would contribute
+           -- nothing anyway, but keeping the predicate uniform is what lets the
+           -- client fold reproduce this aggregate row-for-row.
+           --
+           -- ⚠ COALESCE IS LOAD-BEARING: 0 vs NULL is the column's whole
+           -- contract. A filtered SUM over no matching rows returns NULL, and
+           -- solo-only is the overwhelming majority (27,247 of 29,615 suppliers)
+           -- — so without this, „won nothing jointly" would be indistinguishable
+           -- from „this database predates the column", which is the ONLY thing
+           -- NULL may mean. Consumers fall back to guessing from the key prefix
+           -- on NULL, so the bare form makes the whole projection a silent no-op
+           -- with every figure still reconciling.
+           --
+           -- ⚠ Σ over suppliers is ROUNDed PER SUPPLIER, so it differs from a
+           -- ROUND of the group total by a few euros (measured €1 across
+           -- €95.3M) — same tolerance as "totalEur". Band any assertion on it.
+           COALESCE(
+             ROUND(SUM(amount_eur) FILTER (WHERE consortium_role = 'carrier')), 0
+           )::double precision AS "consortiumEur"
     FROM base
     WHERE contractor_eik IS NOT NULL AND contractor_eik <> ''
       -- Exclude €0 consortium member rows (migration 087) so the per-category
