@@ -57,7 +57,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -76,7 +77,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

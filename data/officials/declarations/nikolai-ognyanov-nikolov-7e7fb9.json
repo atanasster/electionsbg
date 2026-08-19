@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -164,7 +170,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -178,12 +185,13 @@
         "share": null,
         "currency": "USD",
         "amount": 998,
-        "valueEur": null,
+        "valueEur": 862.128288,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []
@@ -234,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -253,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -267,12 +277,13 @@
         "share": null,
         "currency": "USD",
         "amount": 920,
-        "valueEur": null,
+        "valueEur": 832.57884,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "investment",
@@ -291,7 +302,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -310,7 +322,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -324,12 +337,13 @@
         "share": null,
         "currency": "USD",
         "amount": 1159,
-        "valueEur": null,
+        "valueEur": 1048.868343,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []
@@ -380,7 +394,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -394,12 +409,13 @@
         "share": null,
         "currency": "USD",
         "amount": 903,
-        "valueEur": null,
+        "valueEur": 846.615777,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "debt",
@@ -418,7 +434,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -437,7 +454,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -456,7 +474,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -470,12 +489,13 @@
         "share": null,
         "currency": "USD",
         "amount": 921,
-        "valueEur": null,
+        "valueEur": 863.491839,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []
@@ -526,7 +546,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -540,12 +561,13 @@
         "share": null,
         "currency": "USD",
         "amount": 1011,
-        "valueEur": null,
+        "valueEur": 892.636164,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "investment",
@@ -564,7 +586,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -583,7 +606,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -597,12 +621,13 @@
         "share": null,
         "currency": "USD",
         "amount": 1138,
-        "valueEur": null,
+        "valueEur": 1004.767512,
         "holderName": "Николай Огнянов Николов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []

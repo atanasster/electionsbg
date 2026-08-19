@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -146,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -165,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "bank",
@@ -184,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -203,7 +211,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -222,7 +231,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -241,7 +251,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -260,7 +271,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -279,7 +291,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -298,7 +311,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -317,7 +331,8 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -374,7 +389,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -393,7 +409,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -412,7 +429,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявяния",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -431,7 +449,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -450,7 +469,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -469,7 +489,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -488,7 +509,8 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит, 3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -507,7 +529,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит, 5,7 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -526,7 +549,8 @@
         "isSpouse": false,
         "legalBasis": "кредитни карти, 17.90 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -545,7 +569,8 @@
         "isSpouse": false,
         "legalBasis": "финансов лизинг, 5.20 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

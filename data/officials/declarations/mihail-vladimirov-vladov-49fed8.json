@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -58,7 +59,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -77,7 +79,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -96,7 +99,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -115,7 +119,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -153,7 +159,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -172,7 +179,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -191,7 +199,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -210,7 +219,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -261,7 +271,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -280,7 +291,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -299,7 +311,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "bank",
@@ -318,7 +331,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания, доходи от наем и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -337,7 +351,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -356,7 +371,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -375,7 +391,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -394,7 +411,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания,наследство,продажба имот и трудово възнаграждение",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -458,7 +476,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследство",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -477,7 +496,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -496,7 +516,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -515,7 +536,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -534,7 +556,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -553,7 +576,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -610,7 +634,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Наследство и продажба на имот",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -629,7 +654,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 и продажба имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -648,7 +674,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -667,7 +694,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": [
@@ -731,7 +759,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -750,7 +779,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -769,7 +799,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -788,7 +819,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -807,7 +839,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване и спестявания от предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -826,7 +859,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -845,7 +879,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -864,7 +899,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -883,7 +919,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -940,7 +977,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -959,7 +997,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -978,7 +1017,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -997,7 +1037,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -1060,7 +1101,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1079,7 +1121,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1098,7 +1141,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1117,7 +1161,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1136,7 +1181,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1206,7 +1252,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 4,6 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 0 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 6,47 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -147,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -166,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ФИНАНСОВ ЛИЗИНГ",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -185,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -204,7 +211,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -223,7 +231,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

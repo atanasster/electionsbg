@@ -56,7 +56,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания мин.години, дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -75,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "запата, наем, дивиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -94,7 +96,8 @@
         "isSpouse": false,
         "legalBasis": "пред.аванс на ИМВЕСТИА ООД",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -113,7 +116,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит 4.55%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -132,7 +136,8 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит 2.19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "isSpouse": false,
         "legalBasis": "стоков кредит 0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

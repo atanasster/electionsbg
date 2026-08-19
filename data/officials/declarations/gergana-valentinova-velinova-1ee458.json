@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -89,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -108,7 +111,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит, 2.51%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "isSpouse": true,
         "legalBasis": "Кредитна карта, 18.9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -146,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -165,7 +171,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -216,7 +223,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -235,7 +243,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -254,7 +263,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -273,7 +283,8 @@
         "isSpouse": true,
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -292,7 +303,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -311,7 +323,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -362,7 +375,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -381,7 +395,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -400,7 +415,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -419,7 +435,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за ипотечен кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -438,7 +455,8 @@
         "isSpouse": true,
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -457,7 +475,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -476,7 +495,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

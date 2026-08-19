@@ -38,7 +38,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР-5.3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

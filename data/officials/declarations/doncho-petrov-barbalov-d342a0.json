@@ -149,7 +149,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -168,7 +169,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -187,7 +189,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -206,7 +209,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Чужди средства в качество на депозитар",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -225,7 +229,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Наем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -244,7 +249,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -263,7 +269,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -282,7 +289,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -301,7 +309,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -320,7 +329,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -339,7 +349,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -358,7 +369,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -377,7 +389,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -508,7 +521,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -527,7 +541,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -546,7 +561,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -565,7 +581,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Чужди средства в качество на депозитар",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -584,7 +601,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Доходи от наем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -603,7 +621,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -622,7 +641,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -641,7 +661,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -660,7 +681,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -679,7 +701,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -698,7 +721,8 @@
         "isSpouse": false,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -717,7 +741,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

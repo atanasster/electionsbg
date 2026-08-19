@@ -75,7 +75,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -94,7 +95,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -113,7 +115,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -132,7 +135,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -151,7 +155,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -170,7 +175,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -189,7 +195,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -208,7 +215,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -227,7 +235,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -246,7 +255,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -265,7 +275,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -284,7 +295,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, ренти, пенсия, хонорари",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -303,7 +315,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата съпруг",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -322,7 +335,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, рента, граждански договори",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -341,7 +355,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, рента, граждански договори",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -360,7 +375,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба земеделска земя, заплата съпруг",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -379,7 +395,8 @@
         "isSpouse": false,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -398,7 +415,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

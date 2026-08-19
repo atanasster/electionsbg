@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "усвояване кредити, спестявания, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "усвояване кредити, спестявания, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -119,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "налични средства от минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -138,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания в рамките на годината извън банки и инвестиции",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "преводи от пощенска банка",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -176,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кре.карта",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -195,7 +202,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -214,7 +222,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -233,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "междинна сметка за обслужване на кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -252,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати , спестявания, дарения от родител, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -271,7 +282,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати , спестявания, дарения от родител, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -290,7 +302,8 @@
         "isSpouse": false,
         "legalBasis": "2,69",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -309,7 +322,8 @@
         "isSpouse": false,
         "legalBasis": "4,2",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -328,7 +342,8 @@
         "isSpouse": false,
         "legalBasis": "5,6",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -347,7 +362,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -366,7 +382,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -385,7 +402,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -404,7 +422,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "усвояване кредити, спестявания, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -423,7 +442,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "усвояване кредити, спестявания, прод. На движ.и недв.имущество  и остатък от минали години",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [

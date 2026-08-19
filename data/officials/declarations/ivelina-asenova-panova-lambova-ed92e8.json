@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": "закупуване на лизинг",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -76,7 +77,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -114,7 +117,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -152,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -171,7 +177,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -190,7 +197,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг  4.4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -266,7 +274,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -285,7 +294,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -304,7 +314,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -323,7 +334,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -342,7 +354,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг автомобил",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -399,7 +412,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -418,7 +432,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -437,7 +452,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -456,7 +472,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -475,7 +492,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -494,7 +512,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг автомобил",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

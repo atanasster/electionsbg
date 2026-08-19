@@ -74,7 +74,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивиденти, ренти и пенсии",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -93,7 +94,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии и ренти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -112,7 +114,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, ренти и пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -131,7 +134,8 @@
         "isSpouse": true,
         "legalBasis": "Договори за паричен заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [

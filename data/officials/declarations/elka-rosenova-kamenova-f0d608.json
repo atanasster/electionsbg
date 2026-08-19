@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "договор с л. % 7.99 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -58,7 +59,8 @@
         "isSpouse": true,
         "legalBasis": "договор с л. % 4.99 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -116,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -135,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": "6405236083",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -186,7 +190,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредити",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -205,7 +210,8 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредити",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

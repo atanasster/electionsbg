@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на дял в съсобственост 2016 г.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -77,7 +79,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания преди брака",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": [
@@ -141,7 +144,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -160,7 +164,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -179,7 +184,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на дял от имот през 2016г",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -198,7 +204,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": [

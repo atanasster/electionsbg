@@ -62,7 +62,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "receivable",
@@ -81,7 +82,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []

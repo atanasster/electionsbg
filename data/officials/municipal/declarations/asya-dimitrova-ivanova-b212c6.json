@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -57,7 +58,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +78,8 @@
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит, лихва 2.35",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

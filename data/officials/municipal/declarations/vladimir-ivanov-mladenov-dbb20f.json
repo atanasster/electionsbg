@@ -56,7 +56,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -75,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": "кредит ОББ АД/лихвен процент 3,40%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -94,7 +96,8 @@
         "isSpouse": false,
         "legalBasis": "кредит Алианц Банк Б-я АД/лихвен процент 4,55%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

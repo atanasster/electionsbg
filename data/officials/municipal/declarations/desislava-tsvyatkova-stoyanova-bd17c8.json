@@ -68,7 +68,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата/наем/рента/продажби земи/остатък от минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -87,7 +88,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати/рента/продажби земи",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -106,7 +108,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата/наем/рента/продажба земи/остатък от минали години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -125,7 +128,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати/рента/проджба земи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "обезщетения при пенсиониране",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -140,7 +143,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -159,7 +163,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит, 5.6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -103,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

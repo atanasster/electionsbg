@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -147,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -166,7 +170,8 @@
         "isSpouse": false,
         "legalBasis": "Предварителен договор за Покупко продажба",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -272,7 +277,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -291,7 +297,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -372,7 +379,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -391,7 +399,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -410,7 +419,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -39,7 +39,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": "Потребителски заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []

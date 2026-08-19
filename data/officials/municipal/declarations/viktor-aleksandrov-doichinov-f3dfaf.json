@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит - 4,5722%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания и инвестиции от 2017г. Насам",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

@@ -68,7 +68,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване, заплати, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -87,7 +88,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -106,7 +108,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

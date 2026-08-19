@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи тр.доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -76,7 +77,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи тр.доходи и обещетения ш семейни спестявания и такива декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи тр.доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -114,7 +117,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и семейни спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "тр.доходи декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -152,7 +157,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и Решение на Съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -171,7 +177,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и Решение на Съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -190,7 +197,8 @@
         "isSpouse": false,
         "legalBasis": "2.77%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -209,7 +217,8 @@
         "isSpouse": true,
         "legalBasis": "2.77%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -228,7 +237,8 @@
         "isSpouse": false,
         "legalBasis": "15.31%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -247,7 +257,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -266,7 +277,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -285,7 +297,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -304,7 +317,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -323,7 +337,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -342,7 +357,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -361,7 +377,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -380,7 +397,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -437,7 +455,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "тещущи тр.доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -456,7 +475,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи тр.доходи и обещетения и семейни спестявания и такива декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -475,7 +495,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи тр.доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -494,7 +515,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и семейни спестявания декларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -513,7 +535,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "тр.доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -532,7 +555,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и РЕШЕНИЕ НА СЪДА",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -551,7 +575,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и РЕШЕНИЕ НА СЪДА",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -570,7 +595,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 2.71%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -589,7 +615,8 @@
         "isSpouse": true,
         "legalBasis": "договор - 2.71%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -608,7 +635,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 15.31%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -627,7 +655,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -646,7 +675,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -665,7 +695,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -684,7 +715,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -703,7 +735,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -722,7 +755,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -741,7 +775,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -760,7 +795,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -811,7 +847,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "текущи трудови доходи и декларирани с предходни декларации",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -830,7 +867,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни дикларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -849,7 +887,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и обещетения и семейни спестявания и доходи декларирани с предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -868,7 +907,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -887,7 +927,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, обещетения и семейни спестявания декларирани в предходи декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -906,7 +947,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -925,7 +967,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -944,7 +987,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -963,7 +1007,8 @@
         "isSpouse": false,
         "legalBasis": "договор- лихвен %-2.57%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -982,7 +1027,8 @@
         "isSpouse": true,
         "legalBasis": "договор-лихвен%-2.57%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1001,7 +1047,8 @@
         "isSpouse": false,
         "legalBasis": "договор-лихвен %-15.31%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1020,7 +1067,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1039,7 +1087,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1058,7 +1107,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1077,7 +1127,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1096,7 +1147,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1115,7 +1167,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1134,7 +1187,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1153,7 +1207,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -1216,7 +1271,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1235,7 +1291,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи, обещетения и семейни спестявания и такива декларирани в предподни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1254,7 +1311,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1273,7 +1331,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1292,7 +1351,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1311,7 +1371,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1330,7 +1391,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1349,7 +1411,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1368,7 +1431,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1387,7 +1451,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1406,7 +1471,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1425,7 +1491,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1444,7 +1511,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1463,7 +1531,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1482,7 +1551,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1501,7 +1571,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1520,7 +1591,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1539,7 +1611,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1558,7 +1631,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -1615,7 +1689,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1634,7 +1709,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1653,7 +1729,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "текущи трудови доходи, обещетения и семейни спестявания, както и такива декларирани в предходни декларации,наследство и банков кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1672,7 +1749,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1691,7 +1769,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1710,7 +1789,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1729,7 +1809,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1748,7 +1829,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи, обещетения и семейни спестявания и такива декларирани в предходни декларации и наследство",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1767,7 +1849,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1786,7 +1869,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и обещетения и такива декларирани в предходни декларации и наследство",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1805,7 +1889,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1824,7 +1909,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1843,7 +1929,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1862,7 +1949,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1881,7 +1969,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1900,7 +1989,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1919,7 +2009,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1938,7 +2029,8 @@
         "isSpouse": false,
         "legalBasis": "даговор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1957,7 +2049,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1976,7 +2069,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -1995,7 +2089,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2014,7 +2109,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2033,7 +2129,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2052,7 +2149,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2071,7 +2169,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2090,7 +2189,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -2135,7 +2235,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2154,7 +2255,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2173,7 +2275,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2192,7 +2295,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2211,7 +2315,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "текущи трудови доходи и доходи декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2230,7 +2335,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2249,7 +2355,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2268,7 +2375,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2287,7 +2395,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -2306,7 +2415,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2325,7 +2435,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2344,7 +2455,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2363,7 +2475,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2382,7 +2495,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2401,7 +2515,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2420,7 +2535,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2439,7 +2555,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -2502,7 +2619,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи текущи и такава декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2521,7 +2639,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, обещетения по табл.12 и семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2540,7 +2659,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи текущи и такава декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2559,7 +2679,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, обещетения по табл.12 и семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2578,7 +2699,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи текущи и такава декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2597,7 +2719,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2616,7 +2739,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2635,7 +2759,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2654,7 +2779,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2673,7 +2799,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата ДЗПО",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2692,7 +2819,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата ДЗПО",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -2711,7 +2839,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2730,7 +2859,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2749,7 +2879,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2768,7 +2899,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2787,7 +2919,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2806,7 +2939,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2825,7 +2959,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -2844,7 +2979,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -2901,7 +3037,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и такава, декларирана в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2920,7 +3057,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, обещетения по табл. 12 и семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2939,7 +3077,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и такава, декларирана в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2958,7 +3097,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, обещетения по табл. 12 и семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2977,7 +3117,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -2996,7 +3137,8 @@
         "isSpouse": true,
         "legalBasis": "КТ и решение на съда",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -3015,7 +3157,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -3034,7 +3177,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -3053,7 +3197,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата ДЗПО",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -3072,7 +3217,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата ДЗПО",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -3091,7 +3237,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3110,7 +3257,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3129,7 +3277,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3148,7 +3297,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3167,7 +3317,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3186,7 +3337,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3205,7 +3357,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       },
       {
         "category": "security",
@@ -3224,7 +3377,8 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": null
       }
     ],
     "events": []

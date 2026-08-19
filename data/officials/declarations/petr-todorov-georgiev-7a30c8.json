@@ -32,7 +32,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -51,7 +52,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -70,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -89,7 +92,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -152,7 +156,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, рента",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -171,7 +176,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -190,7 +196,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -209,7 +216,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, рента",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -228,7 +236,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, рента",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -297,7 +306,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, рента, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -316,7 +326,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -335,7 +346,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -354,7 +366,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -373,7 +386,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -392,7 +406,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -430,7 +445,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -449,7 +465,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -468,7 +485,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -487,7 +505,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -506,7 +525,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -525,7 +545,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -594,7 +615,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, заплата, застраховка",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -613,7 +635,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -632,7 +655,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -651,7 +675,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -670,7 +695,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -689,7 +715,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -746,7 +773,8 @@
         "isSpouse": false,
         "legalBasis": "договор за гледане",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -765,7 +793,8 @@
         "isSpouse": true,
         "legalBasis": "договор за гледане",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -784,7 +813,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -803,7 +833,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -822,7 +853,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -841,7 +873,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -860,7 +893,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -879,7 +913,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -898,7 +933,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -917,7 +953,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -936,7 +973,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -955,7 +993,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -974,7 +1013,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -993,7 +1033,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1012,7 +1053,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1031,7 +1073,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1050,7 +1093,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1069,7 +1113,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1088,7 +1133,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1107,7 +1153,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1126,7 +1173,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1145,7 +1193,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1164,7 +1213,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1183,7 +1233,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1202,7 +1253,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1221,7 +1273,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1240,7 +1293,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1259,7 +1313,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1278,7 +1333,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1297,7 +1353,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1316,7 +1373,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот, рента, заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1335,7 +1393,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1354,7 +1413,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1373,7 +1433,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1392,7 +1453,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1517,7 +1579,8 @@
         "isSpouse": false,
         "legalBasis": "договор за гледане",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1536,7 +1599,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1555,7 +1619,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1574,7 +1639,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1593,7 +1659,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1612,7 +1679,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1631,7 +1699,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1650,7 +1719,8 @@
         "isSpouse": true,
         "legalBasis": "договор за гледане",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1669,7 +1739,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1688,7 +1759,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1707,7 +1779,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1726,7 +1799,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1745,7 +1819,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1764,7 +1839,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1783,7 +1859,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1802,7 +1879,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1821,7 +1899,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1840,7 +1919,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1859,7 +1939,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1878,7 +1959,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1897,7 +1979,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1916,7 +1999,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1935,7 +2019,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1954,7 +2039,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1973,7 +2059,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1992,7 +2079,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2011,7 +2099,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2030,7 +2119,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2049,7 +2139,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2068,7 +2159,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2087,7 +2179,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2106,7 +2199,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -2169,7 +2263,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2188,7 +2283,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2207,7 +2303,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2226,7 +2323,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2245,7 +2343,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2264,7 +2363,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2283,7 +2383,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2302,7 +2403,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2321,7 +2423,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2340,7 +2443,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2359,7 +2463,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2378,7 +2483,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2397,7 +2503,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2416,7 +2523,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2435,7 +2543,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2454,7 +2563,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2473,7 +2583,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2492,7 +2603,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2511,7 +2623,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2530,7 +2643,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2549,7 +2663,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2568,7 +2683,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2587,7 +2703,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2606,7 +2723,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2625,7 +2743,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2644,7 +2763,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2663,7 +2783,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2682,7 +2803,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2701,7 +2823,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2720,7 +2843,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2739,7 +2863,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -2758,7 +2883,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

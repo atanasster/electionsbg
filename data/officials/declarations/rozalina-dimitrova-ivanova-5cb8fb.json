@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО,ДАРЕНИЕ, И ПОКУПКА",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -90,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -109,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА НА ИМОТ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -128,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ПЕНСИИ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": [

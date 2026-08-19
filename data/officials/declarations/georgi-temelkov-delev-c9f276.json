@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -89,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -146,7 +151,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -165,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": "4.9302",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -184,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": "4.8559",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -203,7 +211,8 @@
         "isSpouse": false,
         "legalBasis": "18.9",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -273,7 +282,8 @@
         "isSpouse": false,
         "legalBasis": "5.47",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

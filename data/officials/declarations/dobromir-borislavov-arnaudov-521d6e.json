@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати,девиденти,вземания и продажба на имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -204,7 +210,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -223,7 +230,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване от заплати и девиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -242,7 +250,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -261,7 +270,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -280,7 +290,8 @@
         "isSpouse": false,
         "legalBasis": "Заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []

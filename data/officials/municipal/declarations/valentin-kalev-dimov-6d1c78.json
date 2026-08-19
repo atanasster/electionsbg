@@ -68,7 +68,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за покупко - продажба",
         "fundsOrigin": "От продажба на имот",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -87,7 +88,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за покупко - продажба",
         "fundsOrigin": "Работна заплата, дейност като ЗП и потребителски кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -106,7 +108,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за наем",
         "fundsOrigin": "Доходи от дейност като ЗП",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -125,7 +128,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за наем",
         "fundsOrigin": "Доходи от дейност като ЗП",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -144,7 +148,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "От РЗ и дейност като ЗП",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -163,7 +168,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "От дивиденти, и РЗ от предходни години и пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -182,7 +188,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "От дивиденти, и РЗ от предходни години и пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -201,7 +208,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -220,7 +228,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -239,7 +248,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Работна заплата, дийност като ЗП и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -258,7 +268,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "От наеми и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -277,7 +288,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "От дивиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -296,7 +308,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит №79701КР-АА-0063/10.01.2025г. На обща стойност 60000лв. при договорен лихвен процент 4,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -315,7 +328,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за финансов лизинг на автомобил №3569915/А/17.06.2022г. при годишна лихва в размер на 2,19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -334,7 +348,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за финансов лизинг на автомобил №3569915/А/17.06.2022г. при годишна лихва в размер на 2,19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

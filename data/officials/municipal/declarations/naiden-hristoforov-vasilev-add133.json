@@ -105,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": "собственик",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -124,7 +125,8 @@
         "isSpouse": true,
         "legalBasis": "собственик",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, договор, проект",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "договор, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "18% договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": "18,96% договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -184,7 +189,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -203,7 +209,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -222,7 +229,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "договор",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -241,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договор",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -260,7 +269,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -279,7 +289,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -298,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": "договор-18%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -317,7 +329,8 @@
         "isSpouse": false,
         "legalBasis": "договор-18,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -374,7 +387,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -393,7 +407,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -412,7 +427,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -431,7 +447,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -450,7 +467,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -469,7 +487,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -526,7 +545,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -545,7 +565,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -564,7 +585,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -583,7 +605,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -640,7 +663,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата/наем/договори",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -659,7 +683,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -678,7 +703,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -697,7 +723,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -754,7 +781,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата/наем/договор",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -773,7 +801,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -792,7 +821,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -811,7 +841,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -862,7 +893,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -881,7 +913,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -900,7 +933,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -919,7 +953,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -975,7 +1010,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -994,7 +1030,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -1013,7 +1050,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -1032,7 +1070,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -1051,7 +1090,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -1070,7 +1110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -1089,7 +1130,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "bank",
@@ -1108,7 +1150,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1127,7 +1170,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1146,7 +1190,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1165,7 +1210,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -1184,7 +1230,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1203,7 +1250,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1222,7 +1270,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

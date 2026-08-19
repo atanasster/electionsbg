@@ -113,7 +113,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3.3"
+        "tableNum": "3.3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -132,7 +133,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -151,7 +153,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -170,7 +173,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -189,7 +193,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и други по Табл.12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -208,7 +213,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, обезщетения и други по Табл.12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -227,7 +233,8 @@
         "isSpouse": false,
         "legalBasis": "Договорна ипотека-л.п.2,28%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -246,7 +253,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за лизинг-л.п.4,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -265,7 +273,8 @@
         "isSpouse": false,
         "legalBasis": "Договор-л.п.18,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -284,7 +293,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -303,7 +313,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -322,7 +333,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -341,7 +353,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       },
       {
         "category": "security",
@@ -360,7 +373,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -379,7 +393,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -398,7 +413,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -417,7 +433,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -436,7 +453,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -455,7 +473,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата, спестявания, наследяване и по Табл.12",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -525,7 +544,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Ипотечен кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -544,7 +564,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Ипотечен кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -563,7 +584,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "Наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -582,7 +604,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "Наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -601,7 +624,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "Наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -620,7 +644,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -639,7 +664,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -658,7 +684,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания и наследявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -677,7 +704,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания и наследявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -696,7 +724,8 @@
         "isSpouse": false,
         "legalBasis": "Договорна ипотека, л.п. 2,28%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -715,7 +744,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване, спестявания, дивиденти",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -734,7 +764,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, обезщетения",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -753,7 +784,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, наследяване, спестявания, дивиденти",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -772,7 +804,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -791,7 +824,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -810,7 +844,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -829,7 +864,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -848,7 +884,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -912,7 +949,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -931,7 +969,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -950,7 +989,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и наследство",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -969,7 +1009,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -988,7 +1029,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "запллата, дивиденти, наследство",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1007,7 +1049,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и обезщетения",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1026,7 +1069,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1045,7 +1089,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1064,7 +1109,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1083,7 +1129,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

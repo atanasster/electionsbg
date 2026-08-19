@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -140,7 +143,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -159,7 +163,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -178,7 +183,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -242,7 +248,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

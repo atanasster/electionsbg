@@ -39,7 +39,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -77,7 +79,8 @@
         "isSpouse": true,
         "legalBasis": "Финансов лизинг при лихвен процент в размер от 7,06",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -96,7 +99,8 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит с лихвен процент в размер от 4,00",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -160,7 +164,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": "заплата + финансов лизинг",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -179,7 +184,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -198,7 +204,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно през 2023",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -217,7 +224,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -236,7 +244,8 @@
         "isSpouse": false,
         "legalBasis": "договор за фининсов лизинг с лихва 7,06 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -293,7 +302,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -312,7 +322,8 @@
         "isSpouse": true,
         "legalBasis": "делба",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -331,7 +342,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -350,7 +362,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -369,7 +382,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -388,7 +402,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -407,7 +422,8 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": "заплата + финансов лизинг",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -426,7 +442,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -445,7 +462,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -464,7 +482,8 @@
         "isSpouse": false,
         "legalBasis": "Финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -558,7 +577,8 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": "заплата и финансов лизинг",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -577,7 +597,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -596,7 +617,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -615,7 +637,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за ипотека",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -634,7 +657,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -692,7 +716,8 @@
         "isSpouse": true,
         "legalBasis": "завършено право строеж в изпълнение на нотариален акт от 2017 г., въведено в експлоатация през 2021 г. с Акт 16",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -711,7 +736,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -730,7 +756,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за ипотека",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -775,7 +802,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -794,7 +822,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -813,7 +842,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -950,7 +980,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -969,7 +1000,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

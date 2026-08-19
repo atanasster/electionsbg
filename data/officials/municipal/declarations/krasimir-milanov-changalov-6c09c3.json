@@ -56,7 +56,8 @@
         "isSpouse": false,
         "legalBasis": "НАЕМ",
         "fundsOrigin": "ОТ ДЕЙНОСТТА",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -75,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": "АРЕНДА",
         "fundsOrigin": "ОТ ДЕЙНОСТТА",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -94,7 +96,8 @@
         "isSpouse": true,
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": "БАНКОВ КРЕДИТ",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -113,7 +116,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ОТ ДЕЙНОСТТА КАТО ЗП",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -132,7 +136,8 @@
         "isSpouse": false,
         "legalBasis": "АВАНС ЗА ПРОДУКЦИЯ 2026Г.",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ НА ЗЕМЕДЕЛСКА ТЕХНИКА-4,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -170,7 +176,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ-4,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -189,7 +196,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ - 5,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

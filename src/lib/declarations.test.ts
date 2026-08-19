@@ -19,7 +19,6 @@ import {
 const asset = (
   category: MpAsset["category"],
   valueEur: number | null,
-  valueBasis: null,
 ): MpAsset => ({
   category,
   tableNum: null,
@@ -34,6 +33,7 @@ const asset = (
   currency: null,
   amount: null,
   valueEur,
+  valueBasis: null,
   holderName: null,
   isSpouse: false,
   legalBasis: null,
@@ -292,7 +292,6 @@ describe("latestDeclarationWith — per-section filings", () => {
     companyName,
     registeredOffice: null,
     valueEur: null,
-    valueBasis: null,
     holderName: null,
     legalBasis: null,
     fundsOrigin: null,

@@ -63,7 +63,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, интеграционни добавки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -82,7 +83,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наличност от минали години и дивиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -145,7 +147,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, интеграционни добавки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -164,7 +167,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наличност от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

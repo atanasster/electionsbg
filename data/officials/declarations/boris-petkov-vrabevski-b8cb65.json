@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "за ремонт преведени от Дамян Йорданов",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -76,7 +77,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -114,7 +117,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -184,7 +188,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -203,7 +208,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -222,7 +228,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -241,7 +248,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -260,7 +268,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -317,7 +326,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -336,7 +346,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -355,7 +366,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -374,7 +386,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -393,7 +406,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -412,7 +426,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -469,7 +484,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -488,7 +504,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -507,7 +524,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -526,7 +544,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -545,7 +564,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -564,7 +584,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "кредит",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -621,7 +642,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -640,7 +662,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Задължителен-УПФ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -659,7 +682,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -678,7 +702,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -697,7 +722,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "кредит",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -748,7 +774,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -767,7 +794,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "работодател-УПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -824,7 +852,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -843,7 +872,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -862,7 +892,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "собствено строителство",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -881,7 +912,8 @@
         "isSpouse": true,
         "legalBasis": "дреги",
         "fundsOrigin": "собствено строителство",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -900,7 +932,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -919,7 +952,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -938,7 +972,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -957,7 +992,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -976,7 +1012,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -995,7 +1032,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1014,7 +1052,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1033,7 +1072,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1052,7 +1092,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1071,7 +1112,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1090,7 +1132,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1109,7 +1152,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1128,7 +1172,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1147,7 +1192,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1166,7 +1212,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "работодател УПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1185,7 +1232,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "работодател ДПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1242,7 +1290,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "работодател-УПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -1261,7 +1310,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредит - ДПФ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГ. ИПОТЕКА В/У АП. С ПЛОЩ 97.35 КВ.М. - лихва 2,87%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -83,7 +85,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ - лихва 4,6 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -134,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -153,7 +157,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГ. ИПОТЕКА В/У АП. С ПЛОЩ 97.35 КВ.М. - лихва 2,87%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -172,7 +177,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ - лихва 4,2 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -191,7 +197,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -242,7 +249,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГ. ИПОТЕКА В/У АП. С ПЛОЩ 97.35 КВ.М. - лихва 2,87%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -261,7 +269,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ - лихва 4,2 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -280,7 +289,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ ОВЪРДРАФТ - лихва 9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -299,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -350,7 +361,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГ. ИПОТЕКА В/У АП. С ПЛОЩ 97.35 КВ.М.",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -369,7 +381,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -388,7 +401,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ ОВЪРДРАФТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -439,7 +453,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -32,7 +32,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -51,7 +52,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -70,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": "17,9",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -89,7 +92,8 @@
         "isSpouse": false,
         "legalBasis": "3,95",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -108,7 +112,8 @@
         "isSpouse": false,
         "legalBasis": "4,89",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

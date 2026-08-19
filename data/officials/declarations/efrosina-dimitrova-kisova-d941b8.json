@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "замяна",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": "замяна",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -102,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на част от къща, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "isSpouse": false,
         "legalBasis": "2,6",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -140,7 +145,8 @@
         "isSpouse": true,
         "legalBasis": "4,1",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -185,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": "договор за закупуване на жилище през 2021 г.лихвен процент 2.61",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -204,7 +211,8 @@
         "isSpouse": true,
         "legalBasis": "договор, лихва 4.99",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

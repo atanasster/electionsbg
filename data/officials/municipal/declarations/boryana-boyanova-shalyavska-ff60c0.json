@@ -38,7 +38,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "от заплата на родителя",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "ипотека с лихвен прозент 4.14%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +78,8 @@
         "isSpouse": true,
         "legalBasis": "кредит с лихвен процент 5.1%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +98,8 @@
         "isSpouse": true,
         "legalBasis": "кредитна карта с лихвен процент 14.65%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -114,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [

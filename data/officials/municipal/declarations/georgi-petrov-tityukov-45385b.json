@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на апартамент",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на апартамент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +98,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит 2,51%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -114,7 +118,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит 4,95%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит 3,1%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит 4,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -171,7 +178,8 @@
         "isSpouse": false,
         "legalBasis": "договор 18,96%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -81,7 +81,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на недвижим имот",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -100,7 +101,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на недвижим имот",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -119,7 +121,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижими имоти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -138,7 +141,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижими имоти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

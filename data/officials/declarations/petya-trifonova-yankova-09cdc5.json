@@ -81,7 +81,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -100,7 +101,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -138,7 +140,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -157,7 +160,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -195,7 +199,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -214,7 +219,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []

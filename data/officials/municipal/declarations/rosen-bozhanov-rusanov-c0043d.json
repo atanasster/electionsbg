@@ -44,7 +44,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за дарение",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -82,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": "Договор-2.6% лихвен %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -101,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": "Договор-4.6% лихвен %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

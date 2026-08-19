@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средста",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "isSpouse": true,
         "legalBasis": "Банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -146,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -203,7 +209,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -222,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -241,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -260,7 +269,8 @@
         "isSpouse": true,
         "legalBasis": "Банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -279,7 +289,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "и к омандировъчни средства",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -336,7 +347,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "банков кредит и заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -355,7 +367,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -374,7 +387,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -393,7 +407,8 @@
         "isSpouse": true,
         "legalBasis": "Банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -412,7 +427,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и командировъчни средства",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -457,7 +473,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -476,7 +493,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "investment",
@@ -495,7 +513,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -540,7 +559,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -559,7 +579,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -578,7 +599,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -597,7 +619,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -616,7 +639,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "investment",
@@ -635,7 +659,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": [

@@ -51,7 +51,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,пе нсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -208,7 +212,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -227,7 +232,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -278,7 +284,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -297,7 +304,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "хонорари",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -360,7 +368,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение и хонорари",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -379,7 +388,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -430,7 +440,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -449,7 +460,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -468,7 +480,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -487,7 +500,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -582,7 +596,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "хонорари и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -601,7 +616,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "хонорари и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

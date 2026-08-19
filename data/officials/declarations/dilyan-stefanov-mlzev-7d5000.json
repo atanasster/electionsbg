@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови възнаграждения;\nостатък от потребителски кредит",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Трудови възнаграждения;\nостатък от потребителски кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -77,7 +79,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -96,7 +99,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -147,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "От възнаграждения и остатък от потребителски кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -166,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -185,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -236,7 +243,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "От трудови възнаграждения и остатък от потребителски кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -255,7 +263,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -274,7 +283,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -356,7 +366,8 @@
         "isSpouse": false,
         "legalBasis": "Покупко-продажба",
         "fundsOrigin": "от продажба на други недвижими имоти",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -375,7 +386,8 @@
         "isSpouse": false,
         "legalBasis": "Покупко-продажба",
         "fundsOrigin": "от продажба на други недвижими имоти",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -394,7 +406,8 @@
         "isSpouse": false,
         "legalBasis": "Покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       }
     ],
     "events": []

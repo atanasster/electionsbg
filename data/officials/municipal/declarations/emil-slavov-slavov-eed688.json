@@ -62,7 +62,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -119,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -138,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и дивиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и дивиденти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -176,7 +182,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -195,7 +202,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -214,7 +222,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -233,7 +242,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -252,7 +262,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -271,7 +282,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -290,7 +302,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стипендии и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -309,7 +322,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стипендии и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -328,7 +342,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стипендии и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -347,7 +362,8 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -366,7 +382,8 @@
         "isSpouse": false,
         "legalBasis": "лихва по кредит 2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -385,7 +402,8 @@
         "isSpouse": false,
         "legalBasis": "кредит по кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -404,7 +422,8 @@
         "isSpouse": false,
         "legalBasis": "лихва по кредитна карта 17,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -423,7 +442,8 @@
         "isSpouse": true,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -442,7 +462,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -461,7 +482,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -480,7 +502,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -499,7 +522,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -518,7 +542,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -537,7 +562,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -556,7 +582,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -575,7 +602,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -594,7 +622,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -613,7 +642,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -632,7 +662,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [

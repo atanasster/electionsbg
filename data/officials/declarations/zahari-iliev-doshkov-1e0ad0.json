@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот, наследяване, спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -102,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "разпределение на печалба, спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -147,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот, наследяване, спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -166,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -185,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -204,7 +211,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -298,7 +306,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване, дивидент на съпругата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -317,7 +326,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване, дивидент на съпругата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -336,7 +346,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот, наследяване, спестяване, дивиден на съпругата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -355,7 +366,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -374,7 +386,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -462,7 +475,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот, спестяване, наследяване, дивидент на съпруга",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -481,7 +495,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -500,7 +515,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -589,7 +605,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -608,7 +625,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -627,7 +645,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -646,7 +665,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -665,7 +685,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот, спестяване, наследяване, дивидент на съпруга",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -684,7 +705,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот, спестяване, наследяване, дивидент на съпруга",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -703,7 +725,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от друго физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -722,7 +745,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от друго физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -779,7 +803,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имоти, дивиденти на съпруга, наследяване, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -798,7 +823,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -817,7 +843,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лици",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -836,7 +863,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лици",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -893,7 +921,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за гледане и издръжка",
         "fundsOrigin": "договор за гледане",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -912,7 +941,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за гледане и издръжка",
         "fundsOrigin": "договор за гледане",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -931,7 +961,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -950,7 +981,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -969,7 +1001,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент на съприга, продажба на МПС, спестявания",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -988,7 +1021,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивидент, продажба на МПС, спестявания",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1007,7 +1041,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажби, дивидент на съпруга, наследяване, спестяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1026,7 +1061,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1045,7 +1081,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1064,7 +1101,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1225,7 +1263,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1244,7 +1283,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1263,7 +1303,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване и спестяване",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1282,7 +1323,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване, спестяване и девидент",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1301,7 +1343,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1320,7 +1363,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1339,7 +1383,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

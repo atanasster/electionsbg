@@ -70,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -89,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -108,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период, заплата и заем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "Договор HL195379  с ГПР 3,12",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -191,7 +195,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -210,7 +215,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -229,7 +235,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -248,7 +255,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период и работна заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -299,7 +307,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заем",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -318,7 +327,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "Заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -337,7 +347,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходен период, работна заплата, прехвърляне на средства от родител от изплатена застраховка имущество по изплащане на щета от пожар в семейно жилище",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -413,7 +424,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -432,7 +444,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -451,7 +464,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестени средства от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -496,7 +510,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -515,7 +530,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -534,7 +550,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестени средства от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -76,7 +77,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -114,7 +117,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ДПФ и пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -152,7 +157,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -203,7 +209,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -222,7 +229,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПАРИЧНО ОБЕЗЩЕТЕНИЕ ЗА БЕЗРАБОТИЦА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -241,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА И ОБЕЗЩЕТЕНИЕ ПРИ ОСТАВАНЕ БЕЗ РАБОТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -260,7 +269,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -279,7 +289,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПАРИЧНО ОБЕЗЩЕТЕНИЕ ЗА БЕЗРАБОТИЦА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -324,7 +335,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -343,7 +355,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -362,7 +375,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -381,7 +395,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -400,7 +415,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

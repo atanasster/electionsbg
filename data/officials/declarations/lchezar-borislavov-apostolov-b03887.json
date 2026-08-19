@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "investment",
@@ -165,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -184,7 +191,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -203,7 +211,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -222,7 +231,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -241,7 +251,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -260,7 +271,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -279,7 +291,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -298,7 +311,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -355,7 +369,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -374,7 +389,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -393,7 +409,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -412,7 +429,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -431,7 +449,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -450,7 +469,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "investment",
@@ -469,7 +489,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -488,7 +509,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -507,7 +529,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -526,7 +549,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -545,7 +569,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -564,7 +589,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -583,7 +609,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -602,7 +629,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -665,7 +693,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -679,12 +708,13 @@
         "share": null,
         "currency": "USD",
         "amount": 15000,
-        "valueEur": null,
+        "valueEur": 13574.655,
         "holderName": "Лъчезар Бориславов Апостолов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -698,12 +728,13 @@
         "share": null,
         "currency": "GBP",
         "amount": 5000,
-        "valueEur": null,
+        "valueEur": 5753.41,
         "holderName": "Лъчезар Бориславов Апостолов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -722,7 +753,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доход от мисии в чужбина и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -64,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -145,7 +146,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -164,7 +166,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -183,7 +186,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       }
     ],
     "events": []

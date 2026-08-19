@@ -62,7 +62,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "банков кредит,заплата,наем,дивидент",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "банков кредит,заплата,наем",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -100,7 +102,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата,наем,дивидент",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -119,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, друга стопанска дейност, вкл. и от предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -138,7 +142,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, дивидент, вкл. и от предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, друга стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -176,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, друга стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -195,7 +202,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, друга стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -214,7 +222,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -233,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": "Договор ГЛП 15.60%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -252,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": "Договор ГЛП 19.90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -271,7 +282,8 @@
         "isSpouse": true,
         "legalBasis": "Договор ГЛП 12.00%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -290,7 +302,8 @@
         "isSpouse": true,
         "legalBasis": "Договорна ипотека ГЛП 2.19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -309,7 +322,8 @@
         "isSpouse": true,
         "legalBasis": "Договорна ипотека ГЛП 2.19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -328,7 +342,8 @@
         "isSpouse": true,
         "legalBasis": "Договор ГЛП 2.49%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

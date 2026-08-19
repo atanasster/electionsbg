@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 4.44%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -159,7 +163,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -178,7 +183,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -197,7 +203,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -216,7 +223,8 @@
         "isSpouse": false,
         "legalBasis": "договор - ГЛП 4.440%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -267,7 +275,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, наем, пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -286,7 +295,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, наем, пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -305,7 +315,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, наем, пенсии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

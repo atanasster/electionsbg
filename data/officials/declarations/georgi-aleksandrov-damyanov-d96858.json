@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплати и разпореждане с фин. инструменти, вкл. декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дарение от родител, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -146,7 +151,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение за неимуществени вреди, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -165,7 +171,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -184,7 +191,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -203,7 +211,8 @@
         "isSpouse": false,
         "legalBasis": "Договор с лихвен процент 15,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -222,7 +231,8 @@
         "isSpouse": true,
         "legalBasis": "Договор с лихвен процент 15,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -241,7 +251,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг с лихвен процент 2,69%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -298,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -317,7 +329,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплати и от разпореждане с фин. инструменти, декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -336,7 +349,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -355,7 +369,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -374,7 +389,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дарение от родител, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -393,7 +409,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение за неимуществени вреди, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -412,7 +429,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, декларирана в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -431,7 +449,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -450,7 +469,8 @@
         "isSpouse": false,
         "legalBasis": "Договор с лихвен процент 15,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -469,7 +489,8 @@
         "isSpouse": true,
         "legalBasis": "Договор с лихвен процент 15,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -488,7 +509,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг с лихвен процент 2,69%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -557,7 +579,8 @@
         "isSpouse": false,
         "legalBasis": "Нотариален акт за дарение на недвижим имот",
         "fundsOrigin": "дарение от родители",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -576,7 +599,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, вкл. декларирана в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -595,7 +619,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплата, декларирани в предходни периоди и по табл. 12, т. ІІ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -614,7 +639,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -633,7 +659,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, вкл. декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -652,7 +679,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, декларирана в предходни периоди и дарение от родители",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -671,7 +699,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплати, декларирани в предходни периоди, и по табл.12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -690,7 +719,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -709,7 +739,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение за неимуществени вреди, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -728,7 +759,8 @@
         "isSpouse": false,
         "legalBasis": "Договор с лихвен процент 15,6",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -747,7 +779,8 @@
         "isSpouse": true,
         "legalBasis": "Договор с лихвен процент 15,6",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -766,7 +799,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг с лихвен процент 2,69%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -842,7 +876,8 @@
         "isSpouse": false,
         "legalBasis": "Прекратяване на договор за лизинг на МПС №126955 от 2017 г.",
         "fundsOrigin": "Договор за лизинг от 2017 г. и средства по таблица 12, ІІ, т.4",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -861,7 +896,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, вкл. декларирана в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -880,7 +916,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплата и по табл. 12, т. ІІ, вкл. декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -899,7 +936,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -918,7 +956,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, вкл. декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -937,7 +976,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, декларирана в предходни периоди и дарение от родители",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -956,7 +996,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -975,7 +1016,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение за неимуществени вреди, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -994,7 +1036,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1013,7 +1056,8 @@
         "isSpouse": false,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1032,7 +1076,8 @@
         "isSpouse": true,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1051,7 +1096,8 @@
         "isSpouse": false,
         "legalBasis": "Прекратен договор за лизинг на МПС",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1070,7 +1116,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, декларирана в предходни периоди",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1089,7 +1136,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, декларирана в предходни периоди",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1108,7 +1156,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, декларирана в предходни периоди",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1127,7 +1176,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, декларирана в предходни периоди",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1197,7 +1247,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, вкл. декларирана в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1216,7 +1267,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства от депозит, заплата и средства по табл. 12, т. II, вкл. декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1235,7 +1287,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1254,7 +1307,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1273,7 +1327,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1292,7 +1347,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1311,7 +1367,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, декларирана в предходни периоди и дарение от родители",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1330,7 +1387,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1349,7 +1407,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1368,7 +1427,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщение за неимуществени вреди, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1387,7 +1447,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1406,7 +1467,8 @@
         "isSpouse": false,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1425,7 +1487,8 @@
         "isSpouse": true,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1444,7 +1507,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1463,7 +1527,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1482,7 +1547,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1501,7 +1567,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1558,7 +1625,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, вкл. декларирана от предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1577,7 +1645,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и средства по таблица 12, т. ІІ, вкл. декларирани в предходни периоди",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1596,7 +1665,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1615,7 +1685,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител, декларирано в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1634,7 +1705,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1653,7 +1725,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1672,7 +1745,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение за неимуществени вреди, вкл. декларирани в предходни периоди",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1691,7 +1765,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1710,7 +1785,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1729,7 +1805,8 @@
         "isSpouse": false,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1748,7 +1825,8 @@
         "isSpouse": true,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1805,7 +1883,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и средства по табл. 12, т. II, вкл. от предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1824,7 +1903,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1843,7 +1923,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1862,7 +1943,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение от родител от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1881,7 +1963,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати вкл. от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1900,7 +1983,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1919,7 +2003,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати вкл. от предходни години и обезщетение за неимуществени вреди от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1938,7 +2023,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1957,7 +2043,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1976,7 +2063,8 @@
         "isSpouse": true,
         "legalBasis": "усвоен лимит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -2040,7 +2128,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2059,7 +2148,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2078,7 +2168,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -2097,7 +2188,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -2116,7 +2208,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -2135,7 +2228,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -2154,7 +2248,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2173,7 +2268,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2192,7 +2288,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -2211,7 +2308,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -2230,7 +2328,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2249,7 +2348,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2268,7 +2368,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2287,7 +2388,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2306,7 +2408,8 @@
         "isSpouse": true,
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2325,7 +2428,8 @@
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

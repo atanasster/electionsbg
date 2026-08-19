@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "НОТАРИАЛЕН АКТ",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЯ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -147,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -166,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ОБЕЗЩЕТЕНИЕ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

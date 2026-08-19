@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на автомобил",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 17,90-18,90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -102,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": "договор, 17,90-18,90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 4,43%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -197,7 +202,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -216,7 +222,8 @@
         "isSpouse": false,
         "legalBasis": "съкредитоискател, 0,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -235,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 4,15%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -254,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 17,90-18,90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -273,7 +282,8 @@
         "isSpouse": true,
         "legalBasis": "договор, 17,90-18,90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -292,7 +302,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 0,00%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -349,7 +360,8 @@
         "isSpouse": false,
         "legalBasis": "съкредитоискател",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

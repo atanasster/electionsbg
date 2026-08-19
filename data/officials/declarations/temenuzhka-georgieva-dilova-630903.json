@@ -82,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -101,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": "4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -120,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": "9,3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

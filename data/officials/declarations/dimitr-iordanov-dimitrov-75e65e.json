@@ -100,7 +100,8 @@
         "isSpouse": true,
         "legalBasis": "покупка в режим на СИО",
         "fundsOrigin": "адвокатска дейност, наеми, продажба на НИ, член на СД",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -119,7 +120,8 @@
         "isSpouse": true,
         "legalBasis": "покупка в режим на СИО",
         "fundsOrigin": "доходи от адвокатска дейност, наем и продажба на недвижим имот",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -138,7 +140,8 @@
         "isSpouse": true,
         "legalBasis": "управител на Адв.Дружество \"Димитров и Димитрова\"",
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -157,7 +160,8 @@
         "isSpouse": true,
         "legalBasis": "управител на Адв.Дружество\"Димитров и Димитрова\"",
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -176,7 +180,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -195,7 +200,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -214,7 +220,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, член на СД, наеми, продажба на недвижими имоти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -233,7 +240,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адв. дейност, член на СД, наеми, продажба на недвижими имоти",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -252,7 +260,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -271,7 +280,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -290,7 +300,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -309,7 +320,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -328,7 +340,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "влог от подаръци за празници",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -347,7 +360,8 @@
         "isSpouse": false,
         "legalBasis": "допълнителна парична вноска от съдружник",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -366,7 +380,8 @@
         "isSpouse": true,
         "legalBasis": "допълнителна парична вноска от съдружник",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -385,7 +400,8 @@
         "isSpouse": false,
         "legalBasis": "погасено задължение на родител за покупка на МПС",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -570,7 +586,8 @@
         "isSpouse": true,
         "legalBasis": "управители и съдружници на Адв.Д-во Димитров и Димитрова",
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -589,7 +606,8 @@
         "isSpouse": true,
         "legalBasis": "управители и съдружници на Адв.Д-во Димитров и Димитрова",
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -608,7 +626,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -627,7 +646,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -646,7 +666,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, продажба на недвижим имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -665,7 +686,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, договор за управление и контрол, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -684,7 +706,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -703,7 +726,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -722,7 +746,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейаност, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -741,7 +766,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -760,7 +786,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от подаръци за празници",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -779,7 +806,8 @@
         "isSpouse": false,
         "legalBasis": "погасено задължение на близък роднина",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -798,7 +826,8 @@
         "isSpouse": false,
         "legalBasis": "допълнителни парични вноски от съдружник",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -817,7 +846,8 @@
         "isSpouse": true,
         "legalBasis": "парична вноска от съдружник",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -971,7 +1001,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, изтеглени от сметка",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -990,7 +1021,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1009,7 +1041,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, договор за управление и контрол",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1028,7 +1061,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -1047,7 +1081,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, капаро за продажба на недвижим имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1066,7 +1101,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност, спестявания от адвокатска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1085,7 +1121,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от подаръци за празници",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1104,7 +1141,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1123,7 +1161,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "адвокатска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1142,7 +1181,8 @@
         "isSpouse": false,
         "legalBasis": "ДОПЪЛН.ПАР.ВНОСКА СЪДР.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1161,7 +1201,8 @@
         "isSpouse": true,
         "legalBasis": "ДОПЪЛН.ПАР.ВНОСКА СЪДР.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1180,7 +1221,8 @@
         "isSpouse": false,
         "legalBasis": "погасено задължение на близък роднина",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [

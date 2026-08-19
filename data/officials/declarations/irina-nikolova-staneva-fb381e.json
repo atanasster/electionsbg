@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -72,12 +74,13 @@
         "share": null,
         "currency": "USD",
         "amount": 1000,
-        "valueEur": null,
+        "valueEur": 851.0640000000001,
         "holderName": "Ирина Николова Станева",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "семейни спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []

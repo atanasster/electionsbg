@@ -100,7 +100,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -119,7 +120,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -138,7 +140,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -152,12 +155,13 @@
         "share": null,
         "currency": "USD",
         "amount": 890,
-        "valueEur": null,
+        "valueEur": 834.42751,
         "holderName": "Диана Илиева Стоянчова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "cash",
@@ -171,12 +175,13 @@
         "share": null,
         "currency": "CHF",
         "amount": 300,
-        "valueEur": null,
+        "valueEur": 304.6614,
         "holderName": "Диана Илиева Стоянчова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -195,7 +200,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -214,7 +220,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

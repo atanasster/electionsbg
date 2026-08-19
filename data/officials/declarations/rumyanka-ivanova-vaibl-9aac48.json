@@ -57,7 +57,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -76,7 +77,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -140,7 +142,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "покурко-продажба",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

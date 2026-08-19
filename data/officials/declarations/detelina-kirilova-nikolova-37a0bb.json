@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на имот, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -116,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -135,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот, рента, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

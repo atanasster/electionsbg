@@ -51,7 +51,8 @@
         "isSpouse": true,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
         "fundsOrigin": "заплата, спестявания от предходни години и приходи от продажба на апартамент",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -89,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години, покупко продажба на апартамент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -127,7 +131,8 @@
         "isSpouse": true,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -146,7 +151,8 @@
         "isSpouse": true,
         "legalBasis": "нотариален акт за покупко -продажба на недвижим имот от м.12.2025 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -216,7 +222,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -235,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, спестявания от предходни години и обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -254,7 +262,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетения, пенсия,",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -329,7 +338,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни годони",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -348,7 +358,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни годони",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -367,7 +378,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетение, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -424,7 +436,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -443,7 +456,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -494,7 +508,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -513,7 +528,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -564,7 +580,8 @@
         "isSpouse": false,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
         "fundsOrigin": "заплата, спестявания от предходни години и получени средства от родители",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -583,7 +600,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -602,7 +620,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -621,7 +640,8 @@
         "isSpouse": false,
         "legalBasis": "предварителен договор за изпълнение на строителство и покупко-продажба на недвижим имот",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -666,7 +686,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -685,7 +706,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -736,7 +758,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -755,7 +778,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

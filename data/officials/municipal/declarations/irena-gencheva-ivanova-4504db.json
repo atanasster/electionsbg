@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "Договорна ипотека 2014г , РЛП +  надбавка в размер1,8%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за потребителски кредит 29.05.2023г., променливРЛП+надбавка 4,7%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +98,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за срочен банков кредит 01.08.2023г., КЛП + годишна надбавка 4,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

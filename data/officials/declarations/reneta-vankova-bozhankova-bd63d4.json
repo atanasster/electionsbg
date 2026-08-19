@@ -81,7 +81,8 @@
         "isSpouse": false,
         "legalBasis": "дарение от родител (майка)",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "bank",
@@ -100,7 +101,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -119,7 +121,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -138,7 +141,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, лични спестявания - предходни години, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -157,7 +161,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -176,7 +181,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -195,7 +201,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и лични спестявания  от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -214,7 +221,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -233,7 +241,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -252,7 +261,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -271,7 +281,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -290,7 +301,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания -предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -309,7 +321,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -328,7 +341,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -347,7 +361,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "лични спестявания - предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -366,7 +381,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплата, пенсия, обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -385,7 +401,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

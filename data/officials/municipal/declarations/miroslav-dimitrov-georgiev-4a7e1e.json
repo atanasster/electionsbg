@@ -44,7 +44,8 @@
         "isSpouse": true,
         "legalBasis": "договор за гледане",
         "fundsOrigin": "договор за гледане",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -82,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -101,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -120,7 +124,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -139,7 +144,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -158,7 +164,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -177,7 +184,8 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -196,7 +204,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -215,7 +224,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплага",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -234,7 +244,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

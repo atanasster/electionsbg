@@ -44,7 +44,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи декларирани от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доходи декларирани от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -82,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи декларирани от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -101,7 +104,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи декларирани от предходен период",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -120,7 +124,8 @@
         "isSpouse": true,
         "legalBasis": "2.26%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -139,7 +144,8 @@
         "isSpouse": true,
         "legalBasis": "17.9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -158,7 +164,8 @@
         "isSpouse": false,
         "legalBasis": "18.14%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

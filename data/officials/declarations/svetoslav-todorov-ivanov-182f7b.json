@@ -101,7 +101,8 @@
         "isSpouse": false,
         "legalBasis": "договор от 14.04.2025 от ДСК; лихвен % 5.50",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -120,7 +121,8 @@
         "isSpouse": false,
         "legalBasis": "договор от 14.04.2025 от ДСК, 0.053% на ден от усвоената сума",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -139,7 +141,8 @@
         "isSpouse": true,
         "legalBasis": "договор 959LRAM250240001 ot 20.01.2025 - ГЛП - 2,2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -184,7 +187,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ОВЪРДРАФТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -203,7 +207,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "неусвоени средства от потребителски кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -222,7 +227,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -241,7 +247,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ОВЪРДРАФТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -260,7 +267,8 @@
         "isSpouse": false,
         "legalBasis": "договор от 15.10.2024г с лихвен процент 5,56",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -279,7 +287,8 @@
         "isSpouse": true,
         "legalBasis": "договор 3766070 с лихвен процент 6,12",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -298,7 +307,8 @@
         "isSpouse": true,
         "legalBasis": "овърдрафт",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

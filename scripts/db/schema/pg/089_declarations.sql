@@ -268,7 +268,29 @@ CREATE TABLE IF NOT EXISTS declaration_asset (
   share          text,                -- ideal part, raw ("1/2", "100%")
   currency       text,
   amount         numeric,             -- as declared, in `currency`
-  value_eur      numeric,             -- converted at the locked peg
+  value_eur      numeric,             -- see value_basis for HOW
+  -- HOW value_eur was arrived at — 'equiv' | 'peg' | 'fx_ecb' | NULL.
+  --
+  -- 'equiv'  the declarant's own „Равностойност в лв./в евро." cell (Cell Num=4)
+  -- 'peg'    BGN/EUR at the locked 1.95583, or EUR identity
+  -- 'fx_ecb' OURS — the ECB reference rate at the end of the period the filing covers,
+  --          applied only because the declarant left that cell blank
+  -- NULL     no euro figure at all; person_wealth_year.excluded_asset_rows counts the row
+  --
+  -- ⚠️ THE POINT IS THAT 'fx_ecb' IS DISTINGUISHABLE. Before this column, a USD row with no
+  -- declarant equivalent was stored with amount + currency and a NULL value_eur, and dropped
+  -- out of every wealth aggregate silently — 462 rows over 155 published people, including a
+  -- 4,481,442 USD bank balance, and one person published at −€121,331 net whose true position
+  -- was positive. Converting them fixes that; converting them WITHOUT saying so would replace
+  -- a silent omission with a silent invention. See docs/plans/declaration-fx-conversion-v1.md.
+  --
+  -- NO CHECK CONSTRAINT, for the same reason table_num has none: a basis a future parser adds
+  -- must land as data rather than abort the whole COPY. The vocabulary is gated in the data
+  -- test instead.
+  --
+  -- NULL also means "parsed before the column existed", which is why nothing may read a NULL
+  -- basis as evidence about the value beside it — only `value_eur IS NULL` says that.
+  value_basis    text,
   holder_name    text,
   is_spouse      boolean NOT NULL DEFAULT false,
   legal_basis    text,
@@ -401,6 +423,12 @@ CREATE INDEX IF NOT EXISTS idx_declaration_event_kind
 -- warm rows stay NULL until scripts/declarations/rebuild_all_from_cache.ts re-parses the
 -- corpus and the loader re-COPYs it. See docs/plans/declaration-foreign-assets-v1.md.
 ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS table_num text;
+
+-- Same reconcile, same reason, for value_basis — and with the same caveat: no SQL can
+-- backfill it, because whether a figure came from the declarant's Равностойност cell or from
+-- the peg is only recoverable by re-parsing the source XML. Warm rows stay NULL until
+-- scripts/declarations/backfill_asset_fx.ts has run and the loader has re-COPYed.
+ALTER TABLE declaration_asset ADD COLUMN IF NOT EXISTS value_basis text;
 
 -- Reconcile the category CHECK on a warm database: CREATE TABLE IF NOT EXISTS above is a
 -- no-op once the table exists, so a running database would keep the pre-credit_limit

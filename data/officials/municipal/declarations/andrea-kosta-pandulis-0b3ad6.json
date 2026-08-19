@@ -31,7 +31,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -50,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -69,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -88,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -107,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -126,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Доверителен фонд",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [

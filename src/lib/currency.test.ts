@@ -5,10 +5,14 @@
 
 import { describe, it, expect } from "vitest";
 import {
+  BGN_PER_EUR,
   formatEur,
   formatEurSigned,
   formatEurCompact,
   formatEurCompactSigned,
+  formatNative,
+  isEurConvertible,
+  toEur,
 } from "./currency";
 
 /** `formatEur` groups with NBSP (U+00A0), so a literal typed with ordinary
@@ -72,5 +76,52 @@ describe("formatEurCompactSigned", () => {
   it("returns empty for null and non-finite", () => {
     expect(formatEurCompactSigned(null)).toBe("");
     expect(formatEurCompactSigned(Number.NaN)).toBe("");
+  });
+});
+
+// The register spells its currencies by hand, in Cyrillic, with homoglyph typos. Before these
+// folds, 30 asset rows carrying „евро"/„Евро"/„ЕВРО" were treated as an unknown currency and
+// stored with a NULL value_eur — silently dropping €914,455 out of the wealth aggregates.
+// See docs/plans/declaration-fx-conversion-v1.md.
+describe("the register's own currency spellings", () => {
+  it("folds every euro spelling to the identity rate", () => {
+    for (const spelling of ["евро", "Евро", "ЕВРО", "евра", "ЕUR", "EUR"]) {
+      expect(toEur(1000, spelling), spelling).toBe(1000);
+      expect(isEurConvertible(spelling), spelling).toBe(true);
+    }
+  });
+
+  it("folds every lev spelling — punctuation included — to the locked peg", () => {
+    for (const spelling of [
+      "BGN",
+      "лв",
+      "лв.",
+      "ЛВ.",
+      "лева",
+      "лев",
+      "ВGN",
+      "ФЖХ",
+    ]) {
+      expect(toEur(BGN_PER_EUR, spelling), spelling).toBeCloseTo(1, 10);
+    }
+  });
+
+  // The bug this ordering prevents: with the rates keyed on the SPELLINGS rather than on a
+  // canonical code, formatNative asks "is it in the rate table and not the string 'EUR'?" and
+  // renders every euro spelling as лв.
+  it("renders a euro spelling as €, never as лв", () => {
+    for (const spelling of ["евро", "ЕВРО", "ЕUR"]) {
+      expect(formatNative(1234, spelling, "en"), spelling).toBe("€1,234");
+    }
+    expect(formatNative(1234, "лв.", "en")).toBe("1,234 лв");
+  });
+
+  // A currency we convert at a DATED rate must never fold at a fixed one — that is the whole
+  // separation between this module and scripts/declarations/fx.ts.
+  it("keeps the floating currencies out of the fixed-rate table", () => {
+    for (const spelling of ["USD", "GBP", "CHF", "УСД", "шв. фр."]) {
+      expect(toEur(1000, spelling), spelling).toBeNull();
+      expect(isEurConvertible(spelling), spelling).toBe(false);
+    }
   });
 });

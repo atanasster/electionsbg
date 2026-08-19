@@ -44,7 +44,8 @@
         "isSpouse": false,
         "legalBasis": "Лизинг",
         "fundsOrigin": "Заплата, спестявания, пенсия и наеми",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -63,7 +64,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Спестявания и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -82,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, спестявания, пенсия и наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

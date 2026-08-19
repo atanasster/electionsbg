@@ -58,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "член кооператор в ЖСК Венера 2 МВР Варна",
         "fundsOrigin": "заеми, спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -77,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудово обезщетение",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -96,7 +98,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -115,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетение при пенсиониране",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "превод от дъщеря ми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -153,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -255,7 +261,8 @@
         "isSpouse": false,
         "legalBasis": "член кооператор в ЖСК Венера 2-МВР Варна",
         "fundsOrigin": "заеми, спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -274,7 +281,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудово обезщетение",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -293,7 +301,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -312,7 +321,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетение при пенсиониране",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -331,7 +341,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "превод от дъщеря ми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

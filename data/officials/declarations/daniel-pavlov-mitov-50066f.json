@@ -39,7 +39,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -53,12 +54,13 @@
         "share": null,
         "currency": "USD",
         "amount": 8341,
-        "valueEur": null,
+        "valueEur": 7098.724824000001,
         "holderName": "Даниел Петров Митов",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -77,7 +79,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -96,7 +99,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -110,12 +114,13 @@
         "share": null,
         "currency": "GBP",
         "amount": 1913,
-        "valueEur": null,
+        "valueEur": 2192.298,
         "holderName": "Мелани Митова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "debt",
@@ -134,7 +139,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта - 15%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -153,7 +159,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта - 15%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -172,7 +179,8 @@
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит - 3.54%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -217,7 +225,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -236,7 +245,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -255,7 +265,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -274,7 +285,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -293,7 +305,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -312,7 +325,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -331,7 +345,8 @@
         "isSpouse": true,
         "legalBasis": "договор, 3.54%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -350,7 +365,8 @@
         "isSpouse": false,
         "legalBasis": "договор, 15.00%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -369,7 +385,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -415,12 +432,13 @@
         "share": null,
         "currency": "USD",
         "amount": 9112,
-        "valueEur": null,
+        "valueEur": 8246.150424,
         "holderName": "Даниел Павлов Митов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -439,7 +457,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -458,7 +477,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -477,7 +497,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -491,12 +512,13 @@
         "share": null,
         "currency": "GBP",
         "amount": 9433,
-        "valueEur": null,
+        "valueEur": 10854.383306,
         "holderName": "Мелани Чембърлин Митова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -515,7 +537,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -534,7 +557,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -553,7 +577,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -572,7 +597,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Продажба на имот от предходни години",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -623,7 +649,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -642,7 +669,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -656,12 +684,13 @@
         "share": null,
         "currency": "USD",
         "amount": 9710,
-        "valueEur": null,
+        "valueEur": 9103.69789,
         "holderName": "Даниел Павлов Митов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -680,7 +709,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -699,7 +729,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -713,12 +744,13 @@
         "share": null,
         "currency": "GBP",
         "amount": 12000,
-        "valueEur": null,
+        "valueEur": 13529.820000000002,
         "holderName": "Мелани Чембърлин Митова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "debt",
@@ -737,7 +769,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -756,7 +789,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот от предходни години",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -807,7 +841,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -826,7 +861,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -845,7 +881,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -864,7 +901,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -883,7 +921,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -902,7 +941,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -921,7 +961,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от пражба на имот",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

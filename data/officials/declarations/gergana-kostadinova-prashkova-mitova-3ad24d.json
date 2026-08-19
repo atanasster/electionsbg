@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Необлагаем доход от денвни възнаграждения за дългосрочна командировка в чужбина, съгласно Решение на Върховния Представител на Съюза по Външната Дейност относно правилата, приложими за националните екперти, командировани в ЕСВД",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []

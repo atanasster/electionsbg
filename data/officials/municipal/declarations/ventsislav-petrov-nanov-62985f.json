@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +77,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит, лихвен процент - 6,4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

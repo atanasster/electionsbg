@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "кредит 4,8 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "заем 4.95 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -114,7 +118,8 @@
         "isSpouse": true,
         "legalBasis": "кредит 3.99 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": "кредит 4.59 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": "стока на изплащане 21.57 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

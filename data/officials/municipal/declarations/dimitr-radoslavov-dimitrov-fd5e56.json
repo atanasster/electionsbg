@@ -44,7 +44,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -82,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -96,12 +99,13 @@
         "share": null,
         "currency": "USD",
         "amount": 6099,
-        "valueEur": null,
+        "valueEur": 5190.639336,
         "holderName": "МАРГАРИТА ДИМИТРОВА ДИМИТРОВА",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "debt",
@@ -120,7 +124,8 @@
         "isSpouse": false,
         "legalBasis": "ЖИК ЛИХВЕН ПРОЦЕНТ 3,47",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

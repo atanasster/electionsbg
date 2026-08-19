@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДИВИДЕНТИ ОТ СТОП.ДЕЙНОСТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

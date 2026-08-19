@@ -69,7 +69,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -88,7 +89,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -107,7 +109,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -126,7 +129,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -145,7 +149,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -164,7 +169,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -183,7 +189,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -202,7 +209,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -290,7 +298,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -309,7 +318,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, продажба на недвижими имоти, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -328,7 +338,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, дивиденти, продажба на недвижим имот, спестявания и др.",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -347,7 +358,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, продажба на недвижими имоти и МПС, наеми и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -366,7 +378,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, продажба на недвижими имоти и МПС, наеми и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -385,7 +398,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, дивиденти, продажба на недвижими имоти, наеми и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -404,7 +418,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, дивиденти, продажба на недвижими имоти, наеми и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

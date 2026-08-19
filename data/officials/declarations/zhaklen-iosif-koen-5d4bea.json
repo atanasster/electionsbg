@@ -58,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -77,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -96,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -115,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -134,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -153,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": "учредяване право на ползване с нот.акт",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -172,7 +178,8 @@
         "isSpouse": false,
         "legalBasis": "нот.акт покупко продажба недв.имот",
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -191,7 +198,8 @@
         "isSpouse": true,
         "legalBasis": "нот.акт покупко продажба недв.имот",
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -210,7 +218,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -229,7 +238,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -248,7 +258,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -267,7 +278,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -286,7 +298,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -305,7 +318,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -324,7 +338,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -343,7 +358,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -362,7 +378,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -381,7 +398,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата,продажба трансортно средство, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -400,7 +418,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата,продажба трансортно средство, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -477,7 +496,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -496,7 +516,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -515,7 +536,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -534,7 +556,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -553,7 +576,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -572,7 +596,8 @@
         "isSpouse": true,
         "legalBasis": "учредяване право на ползване с нот.акт",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -591,7 +616,8 @@
         "isSpouse": false,
         "legalBasis": "нот.акт покупко-прод.недв.имот",
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -610,7 +636,8 @@
         "isSpouse": true,
         "legalBasis": "нот.акт покупко-прод.недв.имот",
         "fundsOrigin": "продажба имот, дивидент, трудово възнаграждение",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -629,7 +656,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -648,7 +676,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -667,7 +696,8 @@
         "isSpouse": true,
         "legalBasis": "нот.акт покупко-прод.МПС",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -686,7 +716,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -705,7 +736,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -724,7 +756,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -743,7 +776,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -762,7 +796,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -781,7 +816,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -800,7 +836,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договор за управление, пенсия,ДПФ,продажба нива",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -819,7 +856,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, рента,продажба трансп.средства и нива",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -838,7 +876,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -963,7 +1002,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -982,7 +1022,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1001,7 +1042,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1020,7 +1062,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1039,7 +1082,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1058,7 +1102,8 @@
         "isSpouse": true,
         "legalBasis": "учредяване право на ползване с но.акт",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1077,7 +1122,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1096,7 +1142,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1115,7 +1162,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1134,7 +1182,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1153,7 +1202,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1172,7 +1222,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1191,7 +1242,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3.3"
+        "tableNum": "3.3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1210,7 +1262,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1229,7 +1282,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1248,7 +1302,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1267,7 +1322,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -1286,7 +1342,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -1305,7 +1362,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба имот, дивидент,трудово възнаграждение",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1324,7 +1382,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1343,7 +1402,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение, рента",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1362,7 +1422,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1413,7 +1474,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1432,7 +1494,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1451,7 +1514,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1470,7 +1534,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1489,7 +1554,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1508,7 +1574,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управлевие, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1527,7 +1594,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление, пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1546,7 +1614,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договири за управление, пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1604,7 +1673,8 @@
         "isSpouse": false,
         "legalBasis": "замяна имот придобит по наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1623,7 +1693,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1642,7 +1713,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1661,7 +1733,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1680,7 +1753,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1699,7 +1773,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1718,7 +1793,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1737,7 +1813,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1756,7 +1833,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договори за управление",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1801,7 +1879,8 @@
         "isSpouse": false,
         "legalBasis": "замяна имот придобит по наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1820,7 +1899,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1839,7 +1919,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1858,7 +1939,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1877,7 +1959,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1896,7 +1979,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1915,7 +1999,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по договор за управление",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1934,7 +2019,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по договор за управление",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -1979,7 +2065,8 @@
         "isSpouse": false,
         "legalBasis": "замяна имот придобит по наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -1998,7 +2085,8 @@
         "isSpouse": false,
         "legalBasis": "покупка от община Самоков",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2017,7 +2105,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2036,7 +2125,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -2055,7 +2145,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -2074,7 +2165,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по договор за управление",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2093,7 +2185,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по договор за управление",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -2174,7 +2267,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2193,7 +2287,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2212,7 +2307,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -2231,7 +2327,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -2250,7 +2347,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -2269,7 +2367,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2288,7 +2387,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

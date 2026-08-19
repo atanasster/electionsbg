@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, дейност като ЕТ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -100,7 +102,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия, излязла застраховка живот",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -119,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия, дейност като ЕТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -138,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -157,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "излязла застраховка живот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -176,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "монетизиран канал в You Tube",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -195,7 +202,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия, заплата, застраховка живот, обезщетение при пенсиониране",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [

@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 7.99%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -114,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 8%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -133,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 8%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -152,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -171,7 +178,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -190,7 +198,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит - 3,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -209,7 +218,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит - 3,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

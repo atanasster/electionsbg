@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": "обезщетение срещу учредено право на строеж",
         "fundsOrigin": "няма",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "остатък средства от дарения",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, доходи от др. стопанска дейност, продажба на недвижим имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -107,7 +110,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "труд.доходи, дивиденти, и др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -145,7 +150,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -164,7 +170,8 @@
         "isSpouse": true,
         "legalBasis": "договор заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -183,7 +190,8 @@
         "isSpouse": false,
         "legalBasis": "договор кредит-4,61%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -202,7 +210,8 @@
         "isSpouse": false,
         "legalBasis": "договор заем- 0,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -221,7 +230,8 @@
         "isSpouse": true,
         "legalBasis": "договор кредит-5,35%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

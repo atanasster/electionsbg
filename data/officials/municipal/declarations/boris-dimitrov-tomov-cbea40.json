@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": "ипотека",
         "fundsOrigin": "ипотечен кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "ипотечен кредит",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотека, 2,74%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотека, 3,06%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта, 18.90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "договор да овърдрафт, 15.70%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

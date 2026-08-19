@@ -56,7 +56,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "пенсия и доходи от ЗП",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -75,7 +76,8 @@
         "isSpouse": true,
         "legalBasis": "покупка чрез лизинг",
         "fundsOrigin": "пенсия и доходи от ЗП",
-        "tableNum": "3.1"
+        "tableNum": "3.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -94,7 +96,8 @@
         "isSpouse": true,
         "legalBasis": "Договор, лихва-18%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -113,7 +116,8 @@
         "isSpouse": false,
         "legalBasis": "Договр, лихва-6.66%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -51,7 +51,8 @@
         "isSpouse": true,
         "legalBasis": "финансов лизинг",
         "fundsOrigin": "заем/лизинг",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": "договор за финансов лизинг, 3,95 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -127,7 +129,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на апартамент",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -146,7 +149,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на апартамент",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -165,7 +169,8 @@
         "isSpouse": true,
         "legalBasis": "финансов лизинг ОТП лизинг ЕАД",
         "fundsOrigin": "заем/лизинг",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -184,7 +189,8 @@
         "isSpouse": true,
         "legalBasis": "договор за финансов лизинг; 3,95 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

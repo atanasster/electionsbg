@@ -63,7 +63,8 @@
         "isSpouse": false,
         "legalBasis": "лихвен процент 5.98%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -144,7 +145,8 @@
         "isSpouse": false,
         "legalBasis": "лихвен процент 5.98%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -207,7 +209,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": "няма",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -226,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -245,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -264,7 +269,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -283,7 +289,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -302,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -321,7 +329,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "няма",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

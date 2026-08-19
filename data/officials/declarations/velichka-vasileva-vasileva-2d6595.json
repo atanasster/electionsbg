@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -153,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -172,7 +177,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -191,7 +197,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -210,26 +217,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
-      },
-      {
-        "category": "real_estate",
-        "description": "нива",
-        "detail": null,
-        "location": "Козарско",
-        "municipality": "Брацигово",
-        "areaSqm": 2,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": "1/4",
-        "currency": "BGN",
-        "amount": 0,
-        "valueEur": 0,
-        "holderName": "Величка Василева Василева",
-        "isSpouse": false,
-        "legalBasis": "завещание",
-        "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -248,7 +237,28 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Козарско",
+        "municipality": "Брацигово",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Величка Василева Василева",
+        "isSpouse": false,
+        "legalBasis": "завещание",
+        "fundsOrigin": "безвъзмездно",
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -267,7 +277,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -286,7 +297,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -305,7 +317,8 @@
         "isSpouse": false,
         "legalBasis": "завещание",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -324,7 +337,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -343,7 +357,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -400,7 +415,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

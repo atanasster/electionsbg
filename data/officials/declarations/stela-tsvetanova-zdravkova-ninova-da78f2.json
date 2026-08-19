@@ -57,7 +57,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -76,7 +77,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -114,7 +117,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, извънтрудови възнагр., спестявания, рента, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -133,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "възнаграждения СД на НКБ, СБПЛРВБ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -152,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "възнаграждения СД на НКБ, СБПЛРВБ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -171,7 +177,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наем, спестявания, рента, застраховки, продажби, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -190,7 +197,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наем, спестявания, рента, застраховки, продажби, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -209,7 +217,8 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит, лихва 4.59",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -228,7 +237,8 @@
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит, лихва 5.36",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -297,7 +307,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "кредит, продажба на лек автомобил, спестявания, рента, извънтрудови възнаграждения, заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -316,7 +327,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -335,7 +347,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -354,7 +367,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -373,7 +387,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплата, извънтрудови възнаграждения, рента, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -392,7 +407,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -411,7 +427,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "възнаграждение СД на МБАЛ \"НКБ\" ЕАД",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -430,7 +447,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "възнаграждение СД на МБАЛ \"НКБ\" ЕАД",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -449,7 +467,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания, рента, наем, заплата, застраховки, продажби, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -468,7 +487,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания, рента, наем, заплата, застраховки, продажби, др.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -487,7 +507,8 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит, лихва 4.59",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -506,7 +527,8 @@
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит, лихва 5.36",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

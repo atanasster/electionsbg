@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": "заеми",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит с 4.15% л.п.",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": "Лизинг с 3.9% лих.пр.",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

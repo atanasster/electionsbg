@@ -45,7 +45,8 @@
         "isSpouse": true,
         "legalBasis": "строителство по стопански начин и приращение върху придобита през 2008 г. земеделска земя",
         "fundsOrigin": "от продажба на апартамент , трудови доходи и дивиденти",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност, вкл. от предходни години, декларирани",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "45962 лв. от продажба на обзавеждане съгласно договор, от стопанска дейност, вкл. от предходни години, декларирани",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, вкл. от предходни години, декларирани",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "доходи от стопанска дейност, вкл. от предходни години, декларирани",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -140,7 +145,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -159,7 +165,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -178,7 +185,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -197,7 +205,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -352,7 +361,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -371,7 +381,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -390,7 +401,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от трудови доходи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -409,7 +421,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -428,7 +441,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -447,7 +461,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем \"Анзак Инвест\" ООД",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -466,7 +481,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -485,7 +501,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -688,7 +705,8 @@
         "isSpouse": true,
         "legalBasis": "21514 за двор, цена по дог. за строеж 174118 лв. и приращение",
         "fundsOrigin": "семейни спестявания от трудови доходи и стопанска дейност, декларирани в предходни декларации",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -707,7 +725,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стопанска дейност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -726,7 +745,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -745,7 +765,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -764,7 +785,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -783,7 +805,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от стопанска дейност",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -802,7 +825,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от трудови доходи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -821,7 +845,8 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -840,7 +865,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -859,7 +885,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -878,7 +905,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "допълнително задължително пенсионно осигуряване",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -897,7 +925,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "допълнително задължително пенсионно осигуряване",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [

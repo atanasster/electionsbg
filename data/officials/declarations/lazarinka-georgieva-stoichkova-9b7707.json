@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -53,12 +54,13 @@
         "share": null,
         "currency": "USD",
         "amount": 4000,
-        "valueEur": null,
+        "valueEur": 3404.2560000000003,
         "holderName": "Лазаринка Георгиева Стоичкова",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []

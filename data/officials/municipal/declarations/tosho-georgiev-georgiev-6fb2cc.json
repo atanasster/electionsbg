@@ -50,7 +50,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДИВИДЕНТИ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМИ, ДИВИДЕНТИ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "КРЕДИТНА КАРТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ - 5.4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ - 0 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА -0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

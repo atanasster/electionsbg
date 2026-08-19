@@ -50,7 +50,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -69,7 +70,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -88,7 +90,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -126,7 +130,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -145,7 +150,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -164,7 +170,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -183,7 +190,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -202,7 +210,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -221,7 +230,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -240,7 +250,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -259,7 +270,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -278,7 +290,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -297,7 +310,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -316,7 +330,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -335,7 +350,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения и стипендия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -354,7 +370,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за лизинг, 4,20 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -373,7 +390,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за лизинг,  3,9 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -392,7 +410,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта 21,95 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

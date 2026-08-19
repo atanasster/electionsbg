@@ -44,7 +44,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "Договор 4.10% лихва",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -82,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": "Договор 5.65% лихва",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

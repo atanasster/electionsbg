@@ -112,7 +112,8 @@
         "isSpouse": false,
         "legalBasis": "заем 6,09%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -194,7 +195,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит с договорен лихвен процент 4, 150",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -213,7 +215,8 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит с договорен лихвен процент 4, 150",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

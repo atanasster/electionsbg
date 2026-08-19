@@ -167,7 +167,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -186,7 +187,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -205,7 +207,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -287,7 +290,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплати,пенсии,премии,награди",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -306,7 +310,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплати,пенсии,премии,награди",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -325,7 +330,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплати,пенсии,премии,награди",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -344,7 +350,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплати,пенсии,премии,награди",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -363,7 +370,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, награди, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -377,12 +385,13 @@
         "share": null,
         "currency": "CHF",
         "amount": 10244,
-        "valueEur": null,
+        "valueEur": 10883.973412,
         "holderName": "Йордан Йовчев Йовчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, награди, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -401,7 +410,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, награди, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -477,7 +487,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -491,12 +502,13 @@
         "share": null,
         "currency": "CHF",
         "amount": 10000,
-        "valueEur": null,
+        "valueEur": 10799.140000000001,
         "holderName": "Йордан Йовчев Йовчев",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -515,7 +527,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсии, наградни, премии",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

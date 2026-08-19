@@ -57,7 +57,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ, 0%",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +77,8 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит, 9,32%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": "ЗАЕМ, 0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -114,7 +117,8 @@
         "isSpouse": true,
         "legalBasis": "Потребителски кредит, 8,32%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

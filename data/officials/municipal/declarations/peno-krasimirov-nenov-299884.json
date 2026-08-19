@@ -52,7 +52,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -71,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на МПС, ПРОДАЖБА НА НАСЛЕДСТВЕНИ ДЯЛОВЕ и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -90,7 +92,8 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит, договорен  лихвен процент в размер на 2.69%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "isSpouse": true,
         "legalBasis": "ипотечен кредит, договорен  лихвен процент в размер на 2.69%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

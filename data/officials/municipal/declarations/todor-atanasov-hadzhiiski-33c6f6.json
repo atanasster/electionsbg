@@ -68,7 +68,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Пенсия и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -87,7 +88,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия и свободна професия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -106,7 +108,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -125,7 +128,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

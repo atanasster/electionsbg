@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ, ЛИХВЕН ПРОЦЕНТ - 4.2 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ИПОТЕЧЕН КРЕДИТ, ЛИХВЕН ПРОЦЕНТ - 2.29%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -127,7 +129,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "ИПОТЕЧЕН КРЕДИТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -146,7 +149,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "ИПОТЕЧЕН КРЕДИТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       }
     ],
     "events": []

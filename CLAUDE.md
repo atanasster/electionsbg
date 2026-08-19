@@ -593,6 +593,92 @@ it and the unit is unrecoverable per row. That matters because `perSqmAnchor` dr
 "correct" a contract price as if it were a purchase price, but nothing else is fixed. See
 `docs/plans/declaration-foreign-assets-v1.md` §6.
 
+### `value_basis` — whether a declared euro figure is the declarant's or OURS
+
+**A foreign-currency asset row used to vanish from every wealth total, silently.** Each money
+table (4 налични, 5 банкови сметки, 8 вложения) carries a „Равностойност в лв./в евро." cell
+that the DECLARANT fills in, and `pickEurValue` prefers it. Where it was left blank, a
+USD/GBP/CHF row was stored with `amount` + `currency` and a NULL `value_eur` — and dropped out
+of `person_wealth_year`, `/persons`, `/officials/assets`, `/mp-assets` and the officials
+rankings with nothing flagging it. Measured 2026-08-18: **462 rows over 163 people**, 356 of
+them on filings `person_wealth_year` publishes (155 people, 280 person-years).
+
+It was never a rounding caveat. Лъчезар Богомилов Иванов's 2021 was published at €254,294
+against a true €3,652,248 — **7% of the truth**; Пеевски's 2017 at €2,503,406 against
+€5,064,422 (a single 4,481,442 USD balance); and Владимир Славев Табутов's 2023 at
+**−€121,331**, i.e. declared net liabilities, against a true **+€504,142** — the *sign* was
+wrong. Twelve of the rows are `debt`, which OVERSTATES net worth, the one direction 090's
+header says this must never fail in.
+
+The rule is `scripts/declarations/fx.ts` and the column is `declaration_asset.value_basis`:
+
+```
+'equiv'   the declarant's own Равностойност cell        'fx_ecb'  OURS — see below
+'peg'     BGN/EUR at the locked 1.95583, or EUR         'legacy'  valued by an older parser
+NULL      no euro figure — COUNTED in excluded_asset_rows
+```
+
+`fx_ecb` is the ECB reference rate at the last quoted day of the period the filing covers
+(`COALESCE(fiscal_year, declaration_year)`), from the **committed** `data/declarations/
+fx_year_end.json`. Plan: `docs/plans/declaration-fx-conversion-v1.md`.
+
+Six things about it are easy to get backwards:
+
+- **`pickEurValue` RUNS FIRST AND WINS.** We fill a blank, never override a filing — that is
+  what makes `fx_ecb` mean „the declarant stated no equivalent". A row they valued keeps their
+  number even when it implies an absurd rate (the corpus holds 10× and 0.1× errors).
+- **YEAR-END, not an annual average**, because tables 4/5/8 declare a STOCK — a balance as of
+  31 December — and an average is the wrong statistic for a point-in-time quantity. And **not
+  a reverse-engineered „declarant convention" either**: the 4,347 declarant-valued rows imply
+  a median that matches the ECB year-end to four decimals for 2018/2019/2021/2025 and matches
+  nothing in particular for 2016/2020/2022. There is no convention to reproduce.
+- **THREE currency lists, and merging any two is the defect.** `EUR_RATE`
+  (`src/lib/currency.ts`) = folds at a FIXED rate; `FX_CURRENCIES` (`fx.ts`) = converts at a
+  DATED one; `is_crypto_asset`'s fiat list (090) = „is this money at all". „ДОЛАРА" is fiat and
+  not fixed-rate; „ЕВРО" is fiat and IS fixed-rate. Putting USD in `EUR_RATE` is a fixed rate
+  for a floating currency — wrong in every year but one.
+- **Keying the rates on SPELLINGS rather than a canonical code renders „евро" as „лв".**
+  `formatNative` asks „is this in EUR_RATE and not the string 'EUR'?" to choose between € and
+  лв, so a euro spelling sitting in the rate table is a lev to every formatter. Spellings fold
+  through `canonicalCurrency()` first, and `normCurrency` is deliberately identical to 090's
+  `asset_unit_norm` so the two sides cannot sort the same cell differently.
+- **`excluded_asset_rows` HAS TWO ARMS, and the second must NOT carry the first's
+  `category NOT IN ('debt','credit_limit')` filter.** The ceiling arm excludes debts because
+  dropping a debt from the ASSET side is not a hole; an unvalued debt is one. Copying the
+  filter is the trap. `person_wealth_year` also exposes `imputed_asset_rows` / `imputed_eur`,
+  so any surface can say how much of a total we computed — converting silently would only
+  replace a silent omission with a silent invention.
+- **An inverted rate is invisible to a tolerance band near parity.** Inverting USD 2016 moves
+  it from +10.4% off the declarant median to +22.7%; both fit any band loose enough to admit
+  the real corpus. `declaration_fx_conversion.data.test.ts` therefore holds hand-verified ECB
+  ANCHORS, and its calibration arm filters `value_basis = 'equiv'` — comparing against our own
+  converted rows would calibrate the table against itself and pass by construction.
+
+**Re-parse, then reload — the same order as `is_declared_holding`, and for the same reason:**
+no SQL can backfill this, because whether a figure came from the declarant's cell or the peg is
+only recoverable from the source XML.
+
+```bash
+npx tsx scripts/declarations/backfill_asset_fx.ts --apply   # offline, reads raw_data/
+npm run db:load:declarations:pg                             # phase 1 — --resolve does NOT rewrite asset rows
+npx tsx scripts/declarations/rebuild_post.ts                # mp-assets/*, car-makes, rankings
+```
+
+Cloud side, and nothing runs it automatically — `db:load:declarations:pg:cloud` (phase 1) then
+`-- --resolve`. Applying 089/090 to Cloud SQL **without shipping the re-parsed shards changes
+nothing there while local is correct**, with every row count reconciling.
+
+**The rate table is operator-run and moves once a year**, when a year closes:
+`npx tsx scripts/declarations/fetch_fx_rates.ts --apply`. It REFUSES when a settled historical
+rate has moved (the ECB revises nothing, so that means the parse changed) and exempts only the
+still-open current year, whose entry is the last day quoted so far and legitimately moves until
+the year closes.
+
+⚠️ **The residue is the design, not a gap.** 8 rows stay unvalued — filings whose committed
+shard row set disagrees with a fresh parse, so the backfill refuses to touch them (an older
+parser had missed their `amount` column entirely). They are COUNTED rather than guessed, and
+the gate asserts both that they are counted and that the residue has not grown.
+
 ### `declared_label()` — the ONE definition of which office label a reader sees
 
 **Nine serving surfaces now read these columns, and all of them go through

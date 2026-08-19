@@ -45,7 +45,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -90,7 +91,8 @@
         "isSpouse": false,
         "legalBasis": "кредит 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -109,7 +111,8 @@
         "isSpouse": false,
         "legalBasis": "овърдрафт 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -128,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта 9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -147,7 +151,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

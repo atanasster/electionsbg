@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Дивидент,ренти,спестявания,наследство",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания,продажба на недв. Имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

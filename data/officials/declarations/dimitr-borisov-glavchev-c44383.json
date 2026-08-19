@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи декларирани в предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -77,7 +79,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи декларирани в предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -96,7 +99,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -153,7 +159,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -172,7 +179,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни годи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -191,7 +199,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни годи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -210,7 +219,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни годи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -229,7 +239,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, включително деекларирани предходни годи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -248,7 +259,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 16,9",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -293,7 +305,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -312,7 +325,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -331,7 +345,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -350,7 +365,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -369,7 +385,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -383,12 +400,13 @@
         "share": null,
         "currency": "USD",
         "amount": 54776,
-        "valueEur": null,
+        "valueEur": 52725.022232,
         "holderName": "Павлина Кирилова Андреева - Главчева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -407,7 +425,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -426,7 +445,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -445,7 +465,8 @@
         "isSpouse": false,
         "legalBasis": "договор с лихвен процент от 16.9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -464,7 +485,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -578,7 +600,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -597,7 +620,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -616,7 +640,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -635,7 +660,8 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -654,7 +680,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -673,7 +700,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -692,7 +720,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови доходи",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -711,7 +740,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни декларации",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -730,7 +760,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -749,7 +780,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -768,7 +800,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -787,7 +820,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -801,12 +835,13 @@
         "share": null,
         "currency": "USD",
         "amount": 54776,
-        "valueEur": null,
+        "valueEur": 49571.020152000005,
         "holderName": "Павлина Кирилова Андреева - Главчева",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително и от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "debt",
@@ -825,7 +860,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -844,7 +880,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови възнаграждения",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

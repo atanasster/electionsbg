@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": "покупко продажба на парцел след ОПС",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба на парцел след ОПС",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
         "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -164,7 +170,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -183,7 +190,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -202,7 +210,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит, лихвен процент-5.09%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -221,7 +230,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг, лихвен процент - 4.5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

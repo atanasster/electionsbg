@@ -98,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Наем, рента, по табл.12",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -117,7 +118,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати, по табл.12",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -136,7 +138,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплати, пенсии, спестявания, по табл.12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -155,7 +158,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -174,7 +178,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -193,7 +198,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати, спестявания, по табл.12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -212,7 +218,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -231,7 +238,8 @@
         "isSpouse": false,
         "legalBasis": "Предварителен договор - 2023г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -250,7 +258,8 @@
         "isSpouse": false,
         "legalBasis": "Предварителен договор - 2023г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -269,7 +278,8 @@
         "isSpouse": true,
         "legalBasis": "Предварителен договор - 2023г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -288,7 +298,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем;  5,0 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -307,7 +318,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем;  4,8 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -326,7 +338,8 @@
         "isSpouse": true,
         "legalBasis": "Договор; 0 % / 18,9 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -345,7 +358,8 @@
         "isSpouse": true,
         "legalBasis": "Договор; 0 % / 18,9 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

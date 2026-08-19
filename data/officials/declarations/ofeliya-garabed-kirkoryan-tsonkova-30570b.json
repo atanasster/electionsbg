@@ -45,7 +45,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ДАРЕНИЕ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": "договорна ипотека",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -115,7 +117,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарение",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -134,7 +137,8 @@
         "isSpouse": true,
         "legalBasis": "договорна ипотека",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -204,7 +208,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -223,7 +228,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОРНА ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -242,7 +248,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВР ЗА КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -261,7 +268,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОР ЗА ОВЪРДРАФТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -280,7 +288,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОР ЗА КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

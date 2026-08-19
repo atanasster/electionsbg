@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -88,7 +90,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -107,7 +110,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 2,5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 16,2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "isSpouse": true,
         "legalBasis": "договори - 17,9% и 18,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -183,7 +190,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -202,7 +210,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -221,7 +230,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -240,7 +250,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -259,7 +270,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -278,7 +290,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       },
       {
         "category": "security",
@@ -297,7 +310,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата / дивидент",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -316,7 +330,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -335,7 +350,8 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

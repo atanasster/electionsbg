@@ -64,7 +64,8 @@
         "isSpouse": true,
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": "ЛИЗИНГ, ЗАПЛАТА, СПЕСТЯВАНИЯ",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -83,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР  ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -102,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТНИ КАРТИ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -121,7 +124,8 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

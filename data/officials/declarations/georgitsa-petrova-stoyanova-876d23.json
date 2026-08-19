@@ -64,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дарение и възнаграждения, включително от предходни години и приходи от наеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -83,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "възнаграждения от трудови правоотношения, включително и от предходни години",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -102,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -121,7 +124,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи, включително и декларирани в предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -140,7 +144,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -159,7 +164,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнагграждения, включително декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -178,7 +184,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наеми и трудови възнаграждения, включително декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -197,7 +204,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "трудови възнаграждения, включително декларирани в предходни декларации",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -216,7 +224,8 @@
         "isSpouse": true,
         "legalBasis": "договор с лихвен процент от 15.6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

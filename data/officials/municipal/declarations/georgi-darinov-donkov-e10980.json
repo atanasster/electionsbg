@@ -44,7 +44,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -82,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Продажба на имоти и доходи по Раздел 1, ред 1 и 3, колона 3 на Таблица 12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -101,7 +104,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заеми и доходи по Раздел 1, ред 1, колона 4 от Таблица 12",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -120,7 +124,8 @@
         "isSpouse": true,
         "legalBasis": "БАНКОВ КРЕДИТ, ЛИХВЕН ПРОЦЕНТ 2.4019",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

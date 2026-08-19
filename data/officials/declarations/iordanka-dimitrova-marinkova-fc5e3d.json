@@ -82,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -101,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,наеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -120,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,наеми,спестявяния,прод.насл.имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -139,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -158,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг-4,19%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -177,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": "потр.кредит-4,42%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -196,7 +202,8 @@
         "isSpouse": false,
         "legalBasis": "заем - 0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -215,7 +222,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,спестявания,продажба насл.имот-СИП",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -234,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,спестявания,продажба насл.имот -СИП",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -253,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата-СИП",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -272,7 +282,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата-СИП",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -367,7 +378,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми, кредит Банка",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -386,7 +398,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата,спестяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -405,7 +418,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -424,7 +438,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване, продажба на наследствен имот,земи",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -443,7 +458,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -462,7 +478,8 @@
         "isSpouse": false,
         "legalBasis": "4,44 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -481,7 +498,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -500,7 +518,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване,продажба на наследствен имот, ниви",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -519,7 +538,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия родител,спестяване",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -595,7 +615,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми-кредит от Банка ОББ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -614,7 +635,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -633,7 +655,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата-продажба на дял от насл.апартамент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -652,7 +675,8 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

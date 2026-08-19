@@ -44,7 +44,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати,спестявания,кредит и дарения от родители и роднини",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -63,7 +64,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати,спестявания и кредит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -82,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": "4.62",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -101,7 +104,8 @@
         "isSpouse": true,
         "legalBasis": "4.52",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

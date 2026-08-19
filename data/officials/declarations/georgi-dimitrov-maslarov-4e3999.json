@@ -87,7 +87,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата ,пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -106,7 +107,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -125,7 +127,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -144,7 +147,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от нал.с-ма по с-ма и прехвърлена сума от с-ката на дъщеря ми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -231,7 +235,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -250,7 +255,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия и сума прехвърлена от ПОД \"Алианц\" България АД",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -269,7 +275,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -288,7 +295,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от нал.с-ва по с-ка и прехвърлена сума от с-ката на дъщеря ми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -351,7 +359,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата,пенсия",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -370,7 +379,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -389,7 +399,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -408,7 +419,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -427,7 +439,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от нал.с-ва по с-ка и прехв.от с-ка на дъщеря ми",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

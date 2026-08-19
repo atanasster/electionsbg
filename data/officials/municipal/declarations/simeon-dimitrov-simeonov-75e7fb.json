@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "рента",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит 2,39% лихвен процент",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

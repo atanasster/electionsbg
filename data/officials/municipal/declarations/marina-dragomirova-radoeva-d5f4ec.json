@@ -70,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "Учредено право на строеж срещу задължение за построяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -89,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       }
     ],
     "events": []

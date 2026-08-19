@@ -63,7 +63,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване, заплати, наеми и пенсии",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -138,7 +139,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заеми, спестявания, застрахователно обезщетение",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -157,7 +159,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване , заплати, наеми",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -176,7 +179,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

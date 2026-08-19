@@ -38,7 +38,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -56,7 +57,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -92,7 +94,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "valueBasis": "legacy"
       },
       {
         "category": "investment",
@@ -110,7 +113,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "удръжки от заплата"
+        "fundsOrigin": "удръжки от заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "investment",
@@ -128,7 +132,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "удръжки от заплата"
+        "fundsOrigin": "удръжки от заплата",
+        "valueBasis": "legacy"
       }
     ],
     "events": [
@@ -185,7 +190,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -203,7 +209,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания"
+        "fundsOrigin": "заплата и спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -221,7 +228,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -257,7 +265,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "трудови доходи"
+        "fundsOrigin": "трудови доходи",
+        "valueBasis": "legacy"
       },
       {
         "category": "investment",
@@ -275,7 +284,8 @@
         "holderName": "Бисер Николов Михайлов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "удръжки от заплата"
+        "fundsOrigin": "удръжки от заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "investment",
@@ -293,7 +303,8 @@
         "holderName": "Диана Георгиева Башлиева",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "удръжки от заплата"
+        "fundsOrigin": "удръжки от заплата",
+        "valueBasis": "legacy"
       }
     ],
     "events": []
@@ -344,7 +355,8 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -363,7 +375,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -382,7 +395,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -401,7 +415,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -420,7 +435,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания и оборотни сметки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -439,7 +455,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -458,7 +475,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "самоосигуряване",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

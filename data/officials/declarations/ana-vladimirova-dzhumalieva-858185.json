@@ -76,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от таблица 13",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -95,7 +96,8 @@
         "isSpouse": false,
         "legalBasis": "договор - не е използван кредитния лимит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -96,7 +97,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -140,7 +142,8 @@
         "holderName": "Калоян Костадинов Калоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -194,7 +197,8 @@
         "holderName": "Калоян Костадинов Калоянов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": [
@@ -251,7 +255,8 @@
         "holderName": "Калоян Калоянов и Недялка Калоянова",
         "isSpouse": true,
         "legalBasis": "покупко - продажба",
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -269,7 +274,8 @@
         "holderName": "Калоян Калоянов и Недялка Калоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба и наследство",
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -287,7 +293,8 @@
         "holderName": "Калоян Калоянов и Недялка Калоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба и наследство",
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -305,7 +312,8 @@
         "holderName": "Калоян Калоянов и Недялка Калоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба и наследство",
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -323,7 +331,8 @@
         "holderName": "Калоян Калоянов и Недялка Калоянова",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата и заеми"
+        "fundsOrigin": "заплата и заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -377,7 +386,8 @@
         "holderName": "Калоян Костадинов Калоянов",
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заеми"
+        "fundsOrigin": "заеми",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -431,7 +441,8 @@
         "holderName": "Калоян Костадинов Калоянов",
         "isSpouse": false,
         "legalBasis": "съдебно решение",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "debt",
@@ -449,7 +460,8 @@
         "holderName": "Калоян Костадинов Калоянов",
         "isSpouse": false,
         "legalBasis": "договор за заем",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": []

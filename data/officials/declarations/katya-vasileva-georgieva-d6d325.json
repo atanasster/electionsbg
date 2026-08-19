@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "кредит, 4,3 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": "лизинг, 2,5 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -128,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "лично ползване",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -44,7 +44,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -63,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": "дог. За потр. Кредит с лихвен пр.-5,75%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -82,7 +84,8 @@
         "isSpouse": false,
         "legalBasis": "дог. За  Кредит по кр. Карта с лихв. процент-15,00%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -101,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизингс л. пр КЛП плюс 3,89%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

@@ -75,7 +75,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата от МнВР",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -156,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата от МвНР",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -201,7 +203,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -220,7 +223,8 @@
         "isSpouse": false,
         "legalBasis": "Дог.за медиц.услуги",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -258,7 +262,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -277,7 +282,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за мед.услуги",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -322,7 +328,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -341,7 +348,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -392,7 +400,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -411,7 +420,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "КОМАНДИРОВЪЧНИ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -430,7 +440,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЛИХВА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -449,7 +460,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЛИХВА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -487,7 +499,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -506,7 +519,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "командировъчни",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -525,7 +539,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихва по депозит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -544,7 +559,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихва по депозит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -582,7 +598,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -601,7 +618,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихви по депозит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -620,7 +638,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "командировки, заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -639,7 +658,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихви по депозит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -56,7 +56,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, кредит за текущо потребление, кредит-овърдрафг, обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -75,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия за осигурителен стаж и възраст",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -94,7 +96,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредит овърдрафт и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -113,7 +116,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -132,7 +136,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия за осигурителен стаж и възраст",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -151,7 +156,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит-6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -170,7 +176,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит-12,5 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -189,7 +196,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит-13 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

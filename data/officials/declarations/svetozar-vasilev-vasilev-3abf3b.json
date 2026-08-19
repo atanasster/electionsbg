@@ -64,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -102,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта Мастъркарт, с овърдрафт лимит 5800 лв. и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -121,7 +124,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Виза, с лимит 4500 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -140,7 +144,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Виза, с лимит 10000 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -159,7 +164,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 5000 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -178,7 +184,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -197,7 +204,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стипендия, остатък",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -216,7 +224,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 3800 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -235,7 +244,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "бонус карта препейт към Мастъркарт",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -293,7 +303,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на имот/склад/, спестявания родител",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -312,7 +323,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -331,7 +343,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -350,7 +363,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта Мастъркарт овърдрафт лимит 5800 и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -369,7 +383,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Виза, с лимит 4500",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -388,7 +403,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 5000",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -407,7 +423,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -426,7 +443,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "стипендия, остатък",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -445,7 +463,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 5000",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -464,7 +483,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "бонус карта препейт към Мастъркарт на Пощенска банка",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -483,7 +503,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -566,7 +587,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -585,7 +607,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -604,7 +627,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -623,7 +647,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта Мастъркарт, с овърдрафт лимит 5800 лв и заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -642,7 +667,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Виза, с лимит 4500 лв",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -661,7 +687,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 5000 лв",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -680,7 +707,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -699,7 +727,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно, продажба имот, дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -718,7 +747,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -737,7 +767,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 1760 евро, закрита от 01.01.2020 г.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -756,7 +787,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 3800 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -775,7 +807,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "бонусна карта препейт към Мастъркарт на Пощенска банка",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -794,7 +827,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -813,7 +847,8 @@
         "isSpouse": true,
         "legalBasis": "Предварителен договор за покупко-продажда",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -832,7 +867,8 @@
         "isSpouse": false,
         "legalBasis": "Предварителен договор за покупко-продажда",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -851,7 +887,8 @@
         "isSpouse": true,
         "legalBasis": "Предварителен договор за покупко-продажда",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -870,7 +907,8 @@
         "isSpouse": false,
         "legalBasis": "Предварителен договор за покупко-продажда",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -977,7 +1015,8 @@
         "isSpouse": false,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -996,7 +1035,8 @@
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -1015,7 +1055,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "лични и заемни средства",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1034,7 +1075,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1053,7 +1095,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1072,7 +1115,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта Маестро, с овърдрафт лимит 5800 и заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1091,7 +1135,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Виза, с лимит 4500 лв",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1110,7 +1155,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 5000 лв",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1129,7 +1175,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1148,7 +1195,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно, продажба имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1167,7 +1215,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно, продажба имот",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1186,7 +1235,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 1760 евро",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1205,7 +1255,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта Мастъркарт, с лимит 3800 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1224,7 +1275,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "бонусна карта препейт към Мастъркарт на Пощенска карта",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1243,7 +1295,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1338,7 +1391,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1357,7 +1411,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1376,7 +1431,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1395,7 +1451,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1414,7 +1471,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта с посочения лимит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1433,7 +1491,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта с посочения лимит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1452,7 +1511,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта с посочения лимит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1471,7 +1531,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта с овърдрафт лимит 5800 лв.",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1490,7 +1551,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта с посочения лимит, в евро",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1509,7 +1571,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "кредитна карта с посочения лимит",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1528,7 +1591,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "бонусна карта към Мастъркарт на Пощенска банка",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

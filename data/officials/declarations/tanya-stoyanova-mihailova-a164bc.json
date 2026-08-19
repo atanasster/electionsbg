@@ -94,7 +94,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивиденти",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -113,7 +114,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -132,7 +134,8 @@
         "isSpouse": true,
         "legalBasis": "нотариален акт",
         "fundsOrigin": "собствени",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -151,7 +154,8 @@
         "isSpouse": true,
         "legalBasis": "нотариален акт",
         "fundsOrigin": "собствени",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -170,7 +174,8 @@
         "isSpouse": true,
         "legalBasis": "нотариален акт",
         "fundsOrigin": "собствени",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -189,7 +194,8 @@
         "isSpouse": false,
         "legalBasis": "Пълномощно",
         "fundsOrigin": "собствени",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -208,7 +214,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -227,7 +234,8 @@
         "isSpouse": true,
         "legalBasis": "кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -246,7 +254,8 @@
         "isSpouse": true,
         "legalBasis": "лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -324,7 +333,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивиденти",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -343,7 +353,8 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -362,7 +373,8 @@
         "isSpouse": true,
         "legalBasis": "съжителство",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -381,7 +393,8 @@
         "isSpouse": true,
         "legalBasis": "пълномощно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -400,7 +413,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []

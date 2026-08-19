@@ -123,7 +123,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания, от преди датата на встъпване в длъжност",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -142,7 +143,8 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит, 4,59% - лихвен процент",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -161,7 +163,8 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит (кредитна карта), 9,90% -лихвен процент",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -180,7 +183,8 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "обезщетение от работодател при прекратяване на трудовото правоотношение",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

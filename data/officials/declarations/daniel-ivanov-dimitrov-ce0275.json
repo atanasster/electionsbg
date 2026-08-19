@@ -32,7 +32,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -51,7 +52,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -70,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -89,7 +92,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем, 4.3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -108,7 +112,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем, 4.3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +132,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем, 15.64%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -146,7 +152,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем, 15.64%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -265,7 +272,8 @@
         "isSpouse": false,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -284,7 +292,8 @@
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "дарения",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -303,7 +312,8 @@
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "vehicle",
@@ -322,7 +332,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -341,7 +352,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -360,7 +372,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -405,7 +418,8 @@
         "isSpouse": false,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -424,7 +438,8 @@
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -443,7 +458,8 @@
         "isSpouse": true,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "debt",
@@ -462,7 +478,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -481,7 +498,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

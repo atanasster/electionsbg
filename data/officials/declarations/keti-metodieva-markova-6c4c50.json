@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Стари влогове с натрупване,лихви, заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Стари влогове с натрупване,лихви, заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -77,7 +79,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Стари влогове с натрупване,лихви, заплати",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "debt",
@@ -96,7 +99,8 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -115,7 +119,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "стари инвестиции, заплати",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -134,7 +139,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "стари инвестиции, заплати",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       },
       {
         "category": "security",
@@ -153,7 +159,8 @@
         "isSpouse": false,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "Няма вложени средства",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -172,7 +179,8 @@
         "isSpouse": false,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "Няма вложени средства",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -191,7 +199,8 @@
         "isSpouse": false,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "Няма вложени средства",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [

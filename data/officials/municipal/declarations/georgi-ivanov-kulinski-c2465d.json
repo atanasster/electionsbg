@@ -129,7 +129,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ТРУДОВИ ДОХОДИ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -148,7 +149,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -167,7 +169,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -186,7 +189,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "СТИПЕНДИИ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -205,7 +209,8 @@
         "isSpouse": true,
         "legalBasis": "пар. заем - 1.81% лихва",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -224,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": "банков кредит - 3.817%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -243,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": "банков кредит - 18.90%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -262,7 +269,8 @@
         "isSpouse": false,
         "legalBasis": "пар. заем от 2016г. - 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -281,7 +289,8 @@
         "isSpouse": false,
         "legalBasis": "пар. заем от 2019г. - 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -300,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": "пар. заем от 2022г. - 5%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -319,7 +329,8 @@
         "isSpouse": true,
         "legalBasis": "приват. чрез инвест. бонове",
         "fundsOrigin": "тр. правоотношения и спестявания",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [

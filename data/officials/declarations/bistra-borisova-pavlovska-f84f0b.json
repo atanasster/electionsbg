@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "договор за покупко-продажба",
         "fundsOrigin": "спестявания",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и рента от земеделска земя",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "депозити от предходни години в УникредитБулбанк, Общинска банка, Пощенска банка и ЦКБ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -134,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, рента от земеделска земя",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -153,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "депозити от предходни години в ЦКБ, Общинска и Пощенска банки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -204,7 +209,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата, пенсия и остътък по дебетна карта от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -223,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от предходни години в ЦКБ, Общинска и Пощенска банки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -274,7 +281,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата по дебитна карта",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -293,7 +301,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "депозити от предходни години в ЦКБ, Общинска и Пощенска банки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -380,7 +389,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -399,7 +409,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -450,7 +461,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дебитна карта заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -469,7 +481,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "депозити от предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -520,7 +533,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -571,7 +585,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -590,7 +605,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -609,7 +625,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -647,7 +664,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "депозит, работна заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -666,7 +684,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "лихви по банкови депозити, командировки в чужбина, работа за Евр. комисия - TAIEX,рента от зем земя",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -704,7 +723,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "обезщетения по чл.61  от ЗДСл, чл.107а, ал.1, заплата, рента, командировки в чужбина",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -723,7 +743,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихви по депозити",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -761,7 +782,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -780,7 +802,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихви по депозити, командировки",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -106,7 +106,8 @@
         "isSpouse": false,
         "legalBasis": "заем с ипотека",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -125,7 +126,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от трудови възнаграждения",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

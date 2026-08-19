@@ -52,7 +52,8 @@
         "isSpouse": false,
         "legalBasis": "ПОКУПКА",
         "fundsOrigin": "КРЕДИТ",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -71,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -90,7 +92,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -109,7 +112,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ, ЛИХВА 4,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -167,7 +171,8 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

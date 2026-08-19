@@ -50,7 +50,8 @@
         "isSpouse": false,
         "legalBasis": "Ипотека - лих процент 3,399%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -69,7 +70,8 @@
         "isSpouse": true,
         "legalBasis": "Ипотекарен съдлъжник",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": "Ипотека - лих процент 3,122%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -107,7 +110,8 @@
         "isSpouse": true,
         "legalBasis": "Ипотекарен съдлъжник",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за овърдрафт - лихвен процент 9.28%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "към предоставен заем - лихвен процент 21,74%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

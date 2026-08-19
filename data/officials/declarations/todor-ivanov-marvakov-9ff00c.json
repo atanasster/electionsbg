@@ -57,7 +57,8 @@
         "isSpouse": true,
         "legalBasis": "брак",
         "fundsOrigin": "спестявания",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -76,7 +77,8 @@
         "isSpouse": true,
         "legalBasis": "3,90",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

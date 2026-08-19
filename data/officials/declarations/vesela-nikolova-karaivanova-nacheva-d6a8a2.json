@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "дарение и наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -58,7 +59,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -77,7 +79,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -96,7 +99,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -115,7 +119,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -134,7 +139,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -153,7 +159,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -172,7 +179,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -191,7 +199,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -210,7 +219,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -229,7 +239,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -287,7 +298,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -306,7 +318,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания и дарение от родител",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -325,7 +338,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания и дарение от родител",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -344,7 +358,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -363,7 +378,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -382,7 +398,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -401,7 +418,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -420,7 +438,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -439,7 +458,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -490,7 +510,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -509,7 +530,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -528,7 +550,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания, декларирани в предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -547,7 +570,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -566,7 +590,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -585,7 +610,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -604,7 +630,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -623,7 +650,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -642,7 +670,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -686,7 +715,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -704,7 +734,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -722,7 +753,8 @@
         "holderName": "Вилислав Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -740,7 +772,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -758,7 +791,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -830,7 +864,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": [
@@ -887,7 +922,8 @@
         "holderName": "Вилислав Христов Начев",
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
-        "fundsOrigin": "спестявания"
+        "fundsOrigin": "спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -905,7 +941,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -923,7 +960,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -941,7 +979,8 @@
         "holderName": "Вилислв Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "спестявания и заплата"
+        "fundsOrigin": "спестявания и заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -959,7 +998,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -977,7 +1017,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -995,7 +1036,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "спестявания от предходни години"
+        "fundsOrigin": "спестявания от предходни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1158,7 +1200,8 @@
         "holderName": "Весела Николова Караиванова - Начева и Вилислав Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -1320,7 +1363,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "vehicle",
@@ -1338,7 +1382,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -1356,7 +1401,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -1374,7 +1420,8 @@
         "holderName": "Вилислв Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1392,7 +1439,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1410,7 +1458,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1428,7 +1477,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1500,7 +1550,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": []
@@ -1627,7 +1678,8 @@
         "holderName": "Весела Николова Караиванова - Начева и Вилислав Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "real_estate",
@@ -1789,7 +1841,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "vehicle",
@@ -1807,7 +1860,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -1825,7 +1879,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -1843,7 +1898,8 @@
         "holderName": "Вилислв Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1861,7 +1917,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1879,7 +1936,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1897,7 +1955,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -1969,7 +2028,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": []
@@ -2013,7 +2073,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -2031,7 +2092,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -2049,7 +2111,8 @@
         "holderName": "Вилислв Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2067,7 +2130,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на жилище и спестявания"
+        "fundsOrigin": "заплата и продажба на жилище и спестявания",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2085,7 +2149,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2103,7 +2168,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2175,7 +2241,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": [
@@ -2232,7 +2299,8 @@
         "holderName": "Весела и Вилислав Начеви",
         "isSpouse": true,
         "legalBasis": "договор за наем",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -2250,7 +2318,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -2268,7 +2337,8 @@
         "holderName": "Вилислв Христов Начев",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2286,7 +2356,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и продажба на жилище"
+        "fundsOrigin": "заплата и продажба на жилище",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2304,7 +2375,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2322,7 +2394,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "наследяване"
+        "fundsOrigin": "наследяване",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2340,7 +2413,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата и заем"
+        "fundsOrigin": "заплата и заем",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -2394,7 +2468,8 @@
         "holderName": "Весела Николова Караиванова - Начева",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       }
     ],
     "events": []
@@ -2439,7 +2514,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за наем",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -2458,7 +2534,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2477,7 +2554,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба жилище",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2496,7 +2574,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -2515,7 +2594,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -2534,7 +2614,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и заем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -2553,7 +2634,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -74,7 +74,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -93,7 +94,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -112,7 +114,8 @@
         "isSpouse": false,
         "legalBasis": "замяна",
         "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "real_estate",
@@ -131,7 +134,8 @@
         "isSpouse": true,
         "legalBasis": "замяна",
         "fundsOrigin": "ЗАПЛАТА, ДИВИДЕНТ",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": null
       },
       {
         "category": "bank",
@@ -150,7 +154,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -169,7 +174,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -188,7 +194,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР, 4,2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -207,7 +214,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР, 12%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

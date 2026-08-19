@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "НАСЛЕДСТВО И ДОГОВОР ЗА ПОКУПКО-ПРОДАЖБА",
         "fundsOrigin": "ЗАПЛАТА И ЗАЕМИ, НАСЛЕДЯВАНЕ",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, РЕНТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -102,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, РЕНТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -121,7 +125,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -140,7 +145,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, НАСЛЕДЯВАНЕ, РЕНТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -159,7 +165,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМ, ЗАПЛАТА, ПРОДАЖБА НА ИМОТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -178,7 +185,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ С ИПОТЕКА, ОЛП+4,3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -229,7 +237,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -248,7 +257,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -267,7 +277,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -286,7 +297,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -305,7 +317,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, РЕНТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -324,7 +337,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "РЕНТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -343,7 +357,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -362,7 +377,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ, РЕНТА, НАСЛЕДЯВАНЕ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -381,7 +397,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "НАСЛЕДЯВАНЕ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -400,7 +417,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА, ОЛП+4,3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -451,7 +469,8 @@
         "isSpouse": true,
         "legalBasis": "договор за покупко-продажба на МПС",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -470,7 +489,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -489,7 +509,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия, рента",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -508,7 +529,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -527,7 +549,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -546,7 +569,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия, рента, наследяване",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -565,7 +589,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "НАСЛЕДЯВАНЕ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -584,7 +609,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -642,7 +668,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -661,7 +688,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМ, ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -680,7 +708,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -725,7 +754,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -744,7 +774,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМИ, ЗАПЛАТА",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -789,7 +820,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -808,7 +840,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАЕМИ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -827,7 +860,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -872,7 +906,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -891,7 +926,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -910,7 +946,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -948,7 +985,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -967,7 +1005,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -986,7 +1025,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1005,7 +1045,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -1024,7 +1065,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1043,7 +1085,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []

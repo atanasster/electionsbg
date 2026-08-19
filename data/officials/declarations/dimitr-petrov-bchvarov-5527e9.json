@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "собственост на дъщеря ми",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и наследство от тази и минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и наследство от тази и минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -102,7 +105,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и наследство от тази и минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -121,7 +125,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследство от минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -172,7 +177,8 @@
         "isSpouse": false,
         "legalBasis": "собственост на дъщеря ми безвъзмездно",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": null
       },
       {
         "category": "cash",
@@ -191,7 +197,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство от тази и минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -210,7 +217,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство от тази и минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -229,7 +237,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от заплата, наследство от тази и предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -248,7 +257,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследство от минали години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -299,7 +309,8 @@
         "isSpouse": true,
         "legalBasis": "собственост на дъщеря ми",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -318,7 +329,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати и продажба на имот от тази и предхоадни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -337,7 +349,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати и продажба на имот от тази и предхоадни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -356,7 +369,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплати и продажба на имот от тази и предхоадни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "cash",
@@ -375,7 +389,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Продажба на наследствен имот от предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -426,7 +441,8 @@
         "isSpouse": true,
         "legalBasis": "собственост на дъщеря ни",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -445,7 +461,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми, наследство от тази и предходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -464,7 +481,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми, наследство от тази и презходни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -483,7 +501,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       }
     ],
     "events": []
@@ -534,7 +553,8 @@
         "isSpouse": false,
         "legalBasis": "пълномощно от дъщеря ни, която е собственик",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -553,7 +573,8 @@
         "isSpouse": false,
         "legalBasis": "Собственост на дъщеря ми",
         "fundsOrigin": "безвъзмездно",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -572,7 +593,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []

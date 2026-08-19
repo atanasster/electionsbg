@@ -93,7 +93,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дивидент",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -112,7 +113,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и дивидент",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -131,7 +133,8 @@
         "isSpouse": false,
         "legalBasis": "оборотни средства за бизнеса 2.5% лихва",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -150,7 +153,8 @@
         "isSpouse": true,
         "legalBasis": "оборотни средства за бизнеса 2.5% лихва",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

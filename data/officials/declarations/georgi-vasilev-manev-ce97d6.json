@@ -58,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "Дог паричен заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -77,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "Дог паричен заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -96,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "Лизингов договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -159,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДИВИДЕНТ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -178,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -197,7 +202,8 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -216,7 +222,8 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -235,7 +242,8 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -305,7 +313,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -324,7 +333,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -343,7 +353,8 @@
         "isSpouse": false,
         "legalBasis": "банков заем",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

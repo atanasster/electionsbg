@@ -32,7 +32,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -46,12 +47,13 @@
         "share": null,
         "currency": "евро",
         "amount": 8000,
-        "valueEur": null,
+        "valueEur": 8000,
         "holderName": "Здравко Христов Здравков",
         "isSpouse": true,
         "legalBasis": "4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

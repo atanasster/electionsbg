@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудова дейност, рента , дивиденти и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудова дейност, рента , дивиденти и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудова дейност, рента , дивиденти и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       },
       {
         "category": "bank",
@@ -119,7 +122,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания трудова дейност и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -138,7 +142,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания трудова дейност и пенсия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

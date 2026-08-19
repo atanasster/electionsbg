@@ -50,7 +50,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -107,7 +110,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на МПС",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": "договор-15,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -145,7 +150,8 @@
         "isSpouse": false,
         "legalBasis": "договор-9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -164,7 +170,8 @@
         "isSpouse": true,
         "legalBasis": "договор-18%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -183,7 +190,8 @@
         "isSpouse": true,
         "legalBasis": "договор-10.68%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -202,7 +210,8 @@
         "isSpouse": true,
         "legalBasis": "договор-солидарен длъжник Ирена Методиева Димова -2,47%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -216,12 +225,13 @@
         "share": null,
         "currency": "USD",
         "amount": 1545,
-        "valueEur": null,
+        "valueEur": 1314.89388,
         "holderName": "Ирена Мтодиева Димова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "от минали години заплати и спестявания",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "investment",
@@ -240,7 +250,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дивиденти и спестявания от минали години",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [

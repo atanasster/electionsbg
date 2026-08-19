@@ -32,7 +32,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -51,7 +52,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -70,7 +72,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -89,7 +92,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -108,7 +112,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -127,7 +132,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -146,7 +152,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -165,7 +172,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -184,7 +192,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -203,7 +212,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -222,7 +232,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -241,7 +252,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -260,7 +272,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -279,7 +292,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -348,7 +362,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "продажба на автомобил и дивиденти",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -367,7 +382,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "дивиденти",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -386,7 +402,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, авторски и сродни права, дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -405,7 +422,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, авторски и сродни права, продажба автомобил, лихви, консултантски услуги",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -424,7 +442,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -443,7 +462,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -462,7 +482,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -481,7 +502,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата, апорт на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -500,7 +522,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата, апорт на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -519,7 +542,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -589,7 +613,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "дивиденти",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -608,7 +633,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "продажба на автомобил и дивиденти",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -627,7 +653,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, авторски и сродни права, дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -646,7 +673,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, авторски и сродни права, приходи от продажба на автомобил",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -665,7 +693,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -684,7 +713,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -703,7 +733,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата, апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -722,7 +753,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата, апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -741,7 +773,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване",
         "fundsOrigin": "заплата, апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -811,7 +844,8 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "продажба на автомобили",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -830,7 +864,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, възнаграждения за авторски и сродни права, дивидетни",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -849,7 +884,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "довиденти, заплати, възнаграждения за авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -868,7 +904,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, възнаграждения за авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -887,7 +924,8 @@
         "isSpouse": false,
         "legalBasis": "допълнителна парична вноска",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -906,7 +944,8 @@
         "isSpouse": false,
         "legalBasis": "заеми",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -925,7 +964,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване,апортна вноска",
         "fundsOrigin": "заплата,апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -944,7 +984,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване,апортна вноска",
         "fundsOrigin": "заплата,апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -963,7 +1004,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -1045,7 +1087,8 @@
         "isSpouse": false,
         "legalBasis": "други-ликвидационен дял",
         "fundsOrigin": "ликвидационен дял",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -1064,7 +1107,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, възнаграждения за авторски и сродни права и дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1083,7 +1127,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, възнаграждения за авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -1102,7 +1147,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплати, възнаграждения за авторски и сродни права",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1121,7 +1167,8 @@
         "isSpouse": false,
         "legalBasis": "допълнителна парична вноска",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -1140,7 +1187,8 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1159,7 +1207,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата; апортна вноска на нематериални активи",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1178,7 +1227,8 @@
         "isSpouse": false,
         "legalBasis": "учредяване, апортна вноска",
         "fundsOrigin": "заплата; апортна вноска нематериален актив",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       },
       {
         "category": "security",
@@ -1197,7 +1247,8 @@
         "isSpouse": false,
         "legalBasis": "учредител",
         "fundsOrigin": "заплата",
-        "tableNum": "9"
+        "tableNum": "9",
+        "valueBasis": "peg"
       }
     ],
     "events": [

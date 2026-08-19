@@ -50,7 +50,8 @@
         "isSpouse": true,
         "legalBasis": "ПОКУПКО-ПРОДАЖББА",
         "fundsOrigin": "КРЕДИТ, СПЕСТЯВАНИЯ ОТ ЗАПЛАТА, ОБЕЗЩЕТЕНИЕ ОТЧУЖДАВАНЕ ЗЕМЯ",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -69,7 +70,8 @@
         "isSpouse": false,
         "legalBasis": "ПОКУПКО-ПРОДАЖББА",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -88,7 +90,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -107,7 +110,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от трудови и приравнени правоотношения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -126,7 +130,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от трудови и приравнени правоотношения",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -145,7 +150,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит, 4,5% ГПР",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -164,7 +170,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит, 0 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

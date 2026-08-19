@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, хонорари и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -70,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -84,12 +86,13 @@
         "share": null,
         "currency": "USD",
         "amount": 12580,
-        "valueEur": null,
+        "valueEur": 10706.38512,
         "holderName": "Пламен Стоянов Димитров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -108,7 +111,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -127,7 +131,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта 18,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -146,7 +151,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта 18,9%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -203,7 +209,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, хонорари и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -222,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -236,12 +244,13 @@
         "share": null,
         "currency": "USD",
         "amount": 11960,
-        "valueEur": null,
+        "valueEur": 11512.18172,
         "holderName": "Пламен Стоянов Димитров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -260,7 +269,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -279,7 +289,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -298,7 +309,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -355,7 +367,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, хонорари и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -374,7 +387,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -388,12 +402,13 @@
         "share": null,
         "currency": "USD",
         "amount": 11977,
-        "valueEur": null,
+        "valueEur": 10838.909529,
         "holderName": "Пламен Стоянов Димитров",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -412,7 +427,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания декларирани в предходни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -431,7 +447,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -450,7 +467,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

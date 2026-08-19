@@ -71,7 +71,8 @@
         "isSpouse": false,
         "legalBasis": "Наследство",
         "fundsOrigin": "дарения",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -90,7 +91,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит с лихвен процент 3.6 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -109,7 +111,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит с лихвен процент 4.2 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

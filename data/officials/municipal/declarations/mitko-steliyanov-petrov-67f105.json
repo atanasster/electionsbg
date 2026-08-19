@@ -62,7 +62,8 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -81,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -100,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -119,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": "ИП.ДЛЪЖНИК-2.2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -138,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГ-2.3%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -157,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": "РЕВ.КРЕДИТ-17.13%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -176,7 +182,8 @@
         "isSpouse": false,
         "legalBasis": "РЕВ.КРЕДИТ-16.2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

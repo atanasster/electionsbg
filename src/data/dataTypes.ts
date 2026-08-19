@@ -1029,6 +1029,12 @@ export type MpAsset = {
    *   'peg'     BGN/EUR at the locked 1.95583 (or EUR identity)
    *   'fx_ecb'  OURS — the ECB reference rate at the end of the period the filing
    *             covers, applied because the declarant left that cell blank
+   *   'legacy'  valued by an earlier parser, on a shard whose row set no longer
+   *             matches a fresh parse — so WHICH of the three it was is not
+   *             recoverable. Never emitted by the parser; only
+   *             backfill_asset_fx.ts writes it. The figure is the declarant's
+   *             either way, which is why it is not 'fx_ecb' and never counts
+   *             toward `imputed_eur`.
    *   null      no euro figure; `person_wealth_year.excluded_asset_rows` counts it
    *
    * ⚠️ 'fx_ecb' never appears on a row the declarant valued. `pickEurValue` runs
@@ -1041,7 +1047,7 @@ export type MpAsset = {
    * docs/plans/declaration-fx-conversion-v1.md.
    *
    * null also on rows parsed before the field existed. */
-  valueBasis: "equiv" | "peg" | "fx_ecb" | null;
+  valueBasis: "equiv" | "peg" | "fx_ecb" | "legacy" | null;
   /** Holder name as it appears in the declaration. */
   holderName: string | null;
   /** True when the holder is not the declarant (i.e. the declarant's spouse,

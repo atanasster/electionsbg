@@ -87,7 +87,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДИВИДЕНТ ОТ 2023 Г. СТ-СТ КЪМ 2025 Г.",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -106,7 +107,8 @@
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -125,7 +127,8 @@
         "isSpouse": false,
         "legalBasis": "ЗАЕМ съгл. д-ор/ 29.12.2025 г.-3,6%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, спестявания от предходни години, върнати суми по предоставяни заеми",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, върнати суми по предоставяни заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем от 2023 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -95,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем от 2023 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -114,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем от 2024 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -133,7 +138,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем от 2024 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -152,7 +158,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем от 2024 г.",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -171,7 +178,8 @@
         "isSpouse": false,
         "legalBasis": "договор за банков ипотечен кредит за покупка и довършителни работи на недвижим имот; лихвен %: 2.48%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -190,7 +198,8 @@
         "isSpouse": false,
         "legalBasis": "договор за банков ипотечен кредит с пълна отговорност на физическо лице, лихвен %: 2.20%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "credit_limit",
@@ -209,7 +218,8 @@
         "isSpouse": false,
         "legalBasis": "договорена с обслужващата банка; лихвен %: 15.60%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

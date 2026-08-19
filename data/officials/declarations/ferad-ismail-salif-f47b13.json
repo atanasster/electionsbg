@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 6.53 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -84,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": "замяна",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "real_estate",
@@ -103,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": "замяна",
         "fundsOrigin": "няма",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -122,7 +125,8 @@
         "isSpouse": false,
         "legalBasis": "договор - 6.47 %",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -192,7 +196,8 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания и продажба на имот",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       }
     ],
     "events": []

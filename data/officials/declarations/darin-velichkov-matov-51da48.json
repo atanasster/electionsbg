@@ -76,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -90,12 +91,13 @@
         "share": null,
         "currency": "евро",
         "amount": 2000,
-        "valueEur": null,
+        "valueEur": 2000,
         "holderName": "Дарин Величков Матов",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null,
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

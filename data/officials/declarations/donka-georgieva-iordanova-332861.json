@@ -51,7 +51,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати в едно с предходен период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -70,7 +71,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсии",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -146,7 +148,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати в едно с предходен период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -165,7 +168,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсии",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -228,7 +232,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати в едно с предходен период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -247,7 +252,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетение за пенсиониране от предходен период и пенсии",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -304,7 +310,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати в едно с предходен период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -323,7 +330,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране в едно със заплати за минал период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -374,7 +382,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -393,7 +402,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати в едно с предходен период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -412,7 +422,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране в едно със заплати за минал период",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -470,7 +481,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -489,7 +501,8 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -534,7 +547,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -553,7 +567,8 @@
         "isSpouse": true,
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -598,7 +613,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -617,7 +633,8 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -636,7 +653,8 @@
         "isSpouse": true,
         "legalBasis": "ВСК",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

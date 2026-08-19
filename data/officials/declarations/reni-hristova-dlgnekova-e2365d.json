@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ ПЕНСИЯ,  ДЕЙНОСТ И НАЕМ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -83,7 +85,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ   ДЕЙНОСТ И НАЕМ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -134,7 +137,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия, доходи и наем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -153,7 +157,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доходи и наем",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -172,7 +177,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ ЗАЕМ -4,29%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -223,7 +229,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ ДЕЙНОСТ",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -242,7 +249,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -261,7 +269,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ , НАЕМИ , ДЕЙНОСТ",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -280,7 +289,8 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

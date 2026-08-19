@@ -82,7 +82,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Продажба на друг имот и спестявания",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -101,7 +102,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплати, спестявания и продажби",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -120,7 +122,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, спестявания и продажби",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -139,7 +142,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, спестявания и продажби",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -158,7 +162,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Налична сметка без средства по нея",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -177,7 +182,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -196,7 +202,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "equiv"
       }
     ],
     "events": [

@@ -80,7 +80,8 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -99,7 +100,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, рента, наеми, дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -118,7 +120,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати, рента, наеми, дивидент",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -137,7 +140,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, наеми, наследство",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -156,7 +160,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследство, стипендия",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -175,7 +180,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       }
     ],
     "events": [

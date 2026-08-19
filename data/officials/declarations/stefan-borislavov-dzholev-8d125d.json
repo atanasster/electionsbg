@@ -39,7 +39,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА МПС И ЗАПЛАТА",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -97,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
         "fundsOrigin": "заплата",
-        "tableNum": "1.2"
+        "tableNum": "1.2",
+        "valueBasis": "peg"
       }
     ],
     "events": []

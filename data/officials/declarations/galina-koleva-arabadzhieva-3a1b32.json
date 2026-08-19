@@ -76,7 +76,8 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване",
-        "tableNum": "1.1"
+        "tableNum": "1.1",
+        "valueBasis": null
       }
     ],
     "events": []
@@ -121,7 +122,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от пенсия и обезщетение изплатено от работодателя при пенсиониране",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       }
     ],
     "events": []

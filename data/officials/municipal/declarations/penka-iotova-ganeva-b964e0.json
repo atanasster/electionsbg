@@ -38,7 +38,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -57,7 +58,8 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -76,7 +78,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "СП ЕСТЯВАНЕЯ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -95,7 +98,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -114,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -56,7 +56,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата наеми дивиденти",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -75,7 +76,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "equiv"
       },
       {
         "category": "receivable",
@@ -94,7 +96,8 @@
         "isSpouse": false,
         "legalBasis": "д-р за заем",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -113,7 +116,8 @@
         "isSpouse": false,
         "legalBasis": "Протокол ОС чл134 ал1 от ТЗ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -132,7 +136,8 @@
         "isSpouse": false,
         "legalBasis": "Протокол ОС чл134 ал1 от ТЗ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -151,7 +156,8 @@
         "isSpouse": false,
         "legalBasis": "Протокол ОС чл134 ал1 от ТЗ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -170,7 +176,8 @@
         "isSpouse": false,
         "legalBasis": "Протокол ОС чл134 ал1 от ТЗ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -189,7 +196,8 @@
         "isSpouse": false,
         "legalBasis": "Протокол ОС чл134 ал1 от ТЗ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -208,7 +216,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит лихва 4.1",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -227,7 +236,8 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта лихва 4",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -246,7 +256,8 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит лихва 4.1",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -265,7 +276,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит лихва 2.78",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -284,7 +296,8 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит лихва 3.15",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

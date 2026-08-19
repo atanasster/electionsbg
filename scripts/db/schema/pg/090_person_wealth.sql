@@ -402,9 +402,42 @@ SELECT
     - COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
   -- Not a silent cap: how many rows this filing had excluded, so a consumer can caveat a
   -- total it knows is incomplete instead of presenting it as the whole picture.
-  count(*) FILTER (
-    WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur > asset_row_ceiling_eur())::int
+  --
+  -- TWO ARMS, and the second was missing until 2026-08-18. A row the ceiling drops is one
+  -- kind of hole; a row we hold no euro figure for at all is the same hole from the reader's
+  -- side, and it reported ZERO for all 280 published person-years that had one. That is worse
+  -- than a wrong total, because the field exists precisely so a consumer can tell an
+  -- incomplete total from a whole one — a 0 here is an assertion that nothing is missing.
+  --
+  -- ⚠️ THE SECOND ARM DELIBERATELY DOES *NOT* CARRY THE `category NOT IN ('debt',
+  -- 'credit_limit')` FILTER, and copying it from the first arm is the trap. The ceiling arm
+  -- excludes debts because dropping a debt from the ASSET side is not a hole. An unvalued
+  -- debt is: it vanishes from `debts_eur` and OVERSTATES net worth, the one direction the
+  -- ceiling note above says this must never fail in. Twelve rows are in that shape today.
+  --
+  -- `amount IS NOT NULL` is what separates "we could not value it" from "the declarant
+  -- declared no value", which is not a hole and is most of the corpus.
+  (count(*) FILTER (
+     WHERE a.category NOT IN ('debt', 'credit_limit') AND a.value_eur > asset_row_ceiling_eur())
+   + count(*) FILTER (
+     WHERE a.value_eur IS NULL AND a.amount IS NOT NULL))::int
     AS excluded_asset_rows,
+  -- How much of the total above is OURS rather than the declarant's — the ECB conversion
+  -- applied where they left the „Равностойност" cell blank (see declaration_asset.value_basis
+  -- in 089). Exposed beside excluded_asset_rows because converting silently would only
+  -- replace a silent omission with a silent invention: any surface quoting a net worth can
+  -- now say how much of it we computed.
+  count(*) FILTER (WHERE a.value_basis = 'fx_ecb')::int AS imputed_asset_rows,
+  -- Signed to NET-worth semantics and carrying the SAME ceiling and multiplier as the totals
+  -- above, so `imputed_eur` describes what is actually IN net_eur rather than a parallel
+  -- figure that happens to be near it. A row the ceiling drops contributes nothing here for
+  -- the same reason it contributes nothing there.
+  round(COALESCE(SUM(
+    CASE WHEN a.category = 'credit_limit' THEN 0
+         WHEN a.category = 'debt' THEN -a.value_eur
+         WHEN a.value_eur > asset_row_ceiling_eur() THEN 0
+         ELSE a.value_eur * asset_share_multiplier(a.share, a.category) END
+  ) FILTER (WHERE a.value_basis = 'fx_ecb'), 0)) AS imputed_eur,
   COALESCE((
     SELECT SUM(COALESCE(i.eur_declarant, 0))
       FROM declaration_income i WHERE i.declaration_id = rep.declaration_id
@@ -709,6 +742,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         -- has one home (089) and a UI that re-implemented it would be the sixth copy.
         'tableNum', a.table_num,
         'isHolding', is_declared_holding(a.table_num),
+        -- HOW the euro figure beside this row was arrived at — see declaration_asset
+        -- .value_basis in 089. 'fx_ecb' means WE converted it, at the ECB rate for the
+        -- period, because the declarant left the „Равностойност" cell blank. Carried per row
+        -- rather than only as a filing-level count because this is the one surface that shows
+        -- the reader an individual figure, and „€3,9m" attributed to a declarant who never
+        -- wrote a euro amount is a claim we would be making on their behalf.
+        'valueBasis', a.value_basis,
         -- „Правно основание" — for an OWNED row how it was acquired („покупко-продажба",
         -- „дарение"), and for a чуждо one how it is USED („договор за наем", „лизинг").
         -- Carried for the second: the „ползва" block is not self-explanatory without it,

@@ -45,7 +45,8 @@
         "isSpouse": false,
         "legalBasis": "0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -64,7 +65,8 @@
         "isSpouse": true,
         "legalBasis": "0%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -83,7 +85,8 @@
         "isSpouse": true,
         "legalBasis": "2.4%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -165,7 +168,8 @@
         "isSpouse": false,
         "legalBasis": "ПОКУПКА",
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "3"
+        "tableNum": "3",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -184,7 +188,8 @@
         "isSpouse": false,
         "legalBasis": "ПОКУПКА",
         "fundsOrigin": "ЗАПЛАТА",
-        "tableNum": "3.3"
+        "tableNum": "3.3",
+        "valueBasis": "peg"
       }
     ],
     "events": []

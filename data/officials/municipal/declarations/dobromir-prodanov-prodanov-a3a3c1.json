@@ -64,7 +64,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -83,7 +84,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -102,7 +104,8 @@
         "isSpouse": false,
         "legalBasis": "банков кредит с лихвен процент от 3,19",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

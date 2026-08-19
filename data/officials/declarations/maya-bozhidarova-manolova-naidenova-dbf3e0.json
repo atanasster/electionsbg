@@ -58,7 +58,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "vehicle",
@@ -77,7 +78,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -96,7 +98,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -115,7 +118,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -134,7 +138,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предишни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -153,7 +158,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания от предишни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -172,7 +178,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -191,7 +198,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -210,7 +218,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -229,7 +238,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "investment",
@@ -248,7 +258,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "8"
+        "tableNum": "8",
+        "valueBasis": "peg"
       }
     ],
     "events": [
@@ -336,7 +347,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": "договор",
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "cash",
@@ -354,7 +366,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -372,7 +385,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": "заплата"
+        "fundsOrigin": "заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -390,7 +404,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплата и спестявания от предишни години"
+        "fundsOrigin": "заплата и спестявания от предишни години",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -408,7 +423,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "дебитна карта - заплата"
+        "fundsOrigin": "дебитна карта - заплата",
+        "valueBasis": "legacy"
       },
       {
         "category": "bank",
@@ -444,7 +460,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "debt",
@@ -462,7 +479,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "debt",
@@ -480,7 +498,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "debt",
@@ -498,7 +517,8 @@
         "holderName": "Мая Божидарова Манолова-Найденова",
         "isSpouse": false,
         "legalBasis": "договор",
-        "fundsOrigin": null
+        "fundsOrigin": null,
+        "valueBasis": "legacy"
       },
       {
         "category": "investment",
@@ -516,7 +536,8 @@
         "holderName": "Ангел Петров Найденов",
         "isSpouse": true,
         "legalBasis": null,
-        "fundsOrigin": "заплати"
+        "fundsOrigin": "заплати",
+        "valueBasis": "legacy"
       }
     ],
     "events": [
@@ -567,7 +588,8 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба на терен и договор за строителство на сграда",
         "fundsOrigin": "собствени средства, личен кредит и кредит, изтеглен от съпругата",
-        "tableNum": "1"
+        "tableNum": "1",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -586,7 +608,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -605,7 +628,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "cash",
@@ -624,7 +648,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания от предишни години",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -643,7 +668,8 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания от предишни години",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -662,7 +688,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -681,7 +708,8 @@
         "isSpouse": true,
         "legalBasis": "договр",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -700,7 +728,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -719,7 +748,8 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -764,7 +794,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -783,7 +814,8 @@
         "isSpouse": false,
         "legalBasis": "договр",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -802,7 +834,8 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": [

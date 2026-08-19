@@ -7,31 +7,73 @@
 // JSON, keeping the native amount alongside so the UI can footnote the
 // original ("originally 5 000 лв").
 //
-// USD/GBP/CHF turn up in a handful of procurement contracts and MP asset
-// declarations. We do NOT fold them into euro totals — the rates would be
-// approximate and the volume is negligible — so toEur() returns null for
-// them and the UI shows those amounts in their native currency.
+// USD/GBP/CHF turn up in a handful of procurement contracts and in MP asset
+// declarations. This module does NOT fold them into euro totals — a FIXED rate
+// for a floating currency is wrong in every year but one — so toEur() returns
+// null and the UI shows those amounts in their native currency.
+//
+// ⚠️ THAT IS NOT THE SAME AS "unvaluable". Declaration asset rows ARE converted,
+// at the dated ECB reference rate for the period the filing covers, by
+// scripts/declarations/fx.ts — server-side only, so the rate table never reaches
+// the bundle. Read that file's header before adding a currency anywhere: it sets
+// out the three lists (fixed-rate, dated-rate, "is it money at all") and why
+// merging any two of them republishes somebody's bank balance as something else.
 
 /** Legally locked BGN/EUR parity used for the eurozone changeover. */
 export const BGN_PER_EUR = 1.95583;
 
-// Currencies we fold into the euro total. EUR is identity; BGN uses the
-// locked peg. The Cyrillic spellings show up in MP declaration source XML.
+/** Fold a currency cell to a lookup key.
+ *
+ *  Strips non-alphanumerics as well as upper-casing, so „лв." and „ЛВ" are one key and
+ *  „шв. фр." reaches scripts/declarations/fx.ts as „ШВФР". Deliberately IDENTICAL to
+ *  `asset_unit_norm(text)` in 090_person_wealth.sql — the SQL side classifies the same cells
+ *  for `is_crypto_asset`, and two normalisations that disagree on punctuation would sort the
+ *  same row into different buckets on either side of the wire. On ISO codes it is a no-op,
+ *  so the procurement callers of `splitBag` are unaffected. */
+export const normCurrency = (currency: string | null | undefined): string =>
+  (currency ?? "").replace(/[^\p{L}\p{N}]/gu, "").toUpperCase();
+
+// Every spelling folds to its ISO code FIRST, and the rate is then keyed on the code alone.
+// Keying rates directly on the spellings is what made an earlier cut of this render „евро"
+// as „лв": `formatNative` asks "is this in EUR_RATE and not the string 'EUR'?" to choose
+// between € and лв, so a euro spelling sitting in the rate table is a lev to every formatter.
+//
+// The Cyrillic spellings and homoglyph typos (ЕUR with a Cyrillic Е, ВGN with a Cyrillic В)
+// come from the declaration register, which is full of them. „ФЖХ" is a BGN mistype and is
+// provable as one — its €/unit across the corpus is exactly the 1.95583 peg.
+const CURRENCY_ALIASES: Record<string, "EUR" | "BGN"> = {
+  EUR: "EUR",
+  ЕВРО: "EUR", // 30 rows carried „евро"/„Евро"/„ЕВРО" and went unvalued
+  ЕВРА: "EUR",
+  ЕUR: "EUR",
+  BGN: "BGN",
+  ВGN: "BGN",
+  ЛВ: "BGN",
+  ЛЕВ: "BGN",
+  ЛЕВА: "BGN",
+  ФЖХ: "BGN",
+};
+
+/** Currencies folded into a euro total at a FIXED rate — and ONLY those. */
 const EUR_RATE: Record<string, number> = {
   EUR: 1,
   BGN: 1 / BGN_PER_EUR,
-  ЛВ: 1 / BGN_PER_EUR,
-  "ЛВ.": 1 / BGN_PER_EUR,
-  ЛЕВА: 1 / BGN_PER_EUR,
 };
 
-const normCurrency = (currency: string | null | undefined): string =>
-  (currency ?? "").trim().toUpperCase();
+/** The ISO code for a currency cell, or the folded cell itself when we do not recognise it
+ *  (USD, a coin name, a mis-keyed number). Exported so the declaration parser and the crypto
+ *  classifier's gate ask the same question of the same string. */
+export const canonicalCurrency = (
+  currency: string | null | undefined,
+): string => {
+  const folded = normCurrency(currency);
+  return CURRENCY_ALIASES[folded] ?? folded;
+};
 
 /** True when the currency is one we fold into euro totals (EUR or BGN). */
 export const isEurConvertible = (
   currency: string | null | undefined,
-): boolean => EUR_RATE[normCurrency(currency)] !== undefined;
+): boolean => EUR_RATE[canonicalCurrency(currency)] !== undefined;
 
 /** Convert a native amount to euros. Returns null when the amount is missing
  * or the currency is one we keep native (USD/GBP/CHF, unrecognized) — callers
@@ -41,7 +83,7 @@ export const toEur = (
   currency: string | null | undefined,
 ): number | null => {
   if (amount == null || !Number.isFinite(amount)) return null;
-  const rate = EUR_RATE[normCurrency(currency)];
+  const rate = EUR_RATE[canonicalCurrency(currency)];
   if (rate === undefined) return null;
   return amount * rate;
 };
@@ -58,7 +100,7 @@ export const splitBag = (
     if (!amount || !Number.isFinite(amount)) continue;
     const eur = toEur(amount, currency);
     if (eur === null) {
-      const code = normCurrency(currency);
+      const code = canonicalCurrency(currency);
       totalOther[code] = (totalOther[code] ?? 0) + amount;
     } else {
       totalEur += eur;
@@ -176,7 +218,7 @@ export const formatNative = (
 ): string => {
   if (amount == null || !Number.isFinite(amount)) return "";
   const formatted = numberFormatter(locale, opts.decimals ?? 0).format(amount);
-  const code = normCurrency(currency);
+  const code = canonicalCurrency(currency);
   if (code === "EUR") return `€${formatted}`;
   if (EUR_RATE[code] !== undefined) return `${formatted} лв`; // BGN + spellings
   return `${formatted} ${code}`;
@@ -192,7 +234,7 @@ export const formatAmountEur = (
   currency: string | null | undefined,
   locale: string = "bg-BG",
 ): { primary: string; original: string } => {
-  const code = normCurrency(currency);
+  const code = canonicalCurrency(currency);
   if (amountEur != null && Number.isFinite(amountEur)) {
     return {
       primary: formatEur(amountEur, locale),
@@ -225,7 +267,7 @@ export const formatEurWithOther = (
   const parts: string[] = [];
   if (totalEur > 0) parts.push(formatEur(totalEur, locale));
   for (const [code, amount] of Object.entries(totalOther ?? {})) {
-    if (amount > 0 && EUR_RATE[normCurrency(code)] === undefined)
+    if (amount > 0 && EUR_RATE[canonicalCurrency(code)] === undefined)
       parts.push(formatNative(amount, code, locale));
   }
   return parts.join(" · ");

@@ -45,7 +45,8 @@
         "isSpouse": true,
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -64,7 +65,8 @@
         "isSpouse": false,
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ СЪДЛЪЖНИК",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -83,7 +85,8 @@
         "isSpouse": false,
         "legalBasis": "ИЗПЪЛНИТЕЛЕН ЛИСТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -102,7 +105,8 @@
         "isSpouse": true,
         "legalBasis": "ИЗИСКУЕМОСТ ПО ПОТРЕБИТЕЛСКИ КРЕДИТ ОТ 30.10.2012",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -121,7 +125,8 @@
         "isSpouse": false,
         "legalBasis": "ИЗИСКУЕМОСТ ПО ПОТРЕБИТЕЛСКИ КРЕДИТ ОТ 30.10.2012",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
@@ -202,7 +207,8 @@
         "isSpouse": true,
         "legalBasis": "ЦЕСИЯ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "receivable",
@@ -221,7 +227,8 @@
         "isSpouse": false,
         "legalBasis": "ЦЕСИЯ",
         "fundsOrigin": null,
-        "tableNum": "6"
+        "tableNum": "6",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -240,7 +247,8 @@
         "isSpouse": true,
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -259,7 +267,8 @@
         "isSpouse": false,
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ СЪДЛЪЖНИК",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -278,7 +287,8 @@
         "isSpouse": true,
         "legalBasis": "ИЗИСКУЕМОСТ ПО ПОТР.КРЕДИТ ОТ 30,10,2012",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -297,7 +307,8 @@
         "isSpouse": false,
         "legalBasis": "ИЗИСКУЕМОСТ ПО ПОТР.КРЕДИТ ОТ 30,10,2012 СЪДЛЪЖНИК",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -316,7 +327,8 @@
         "isSpouse": true,
         "legalBasis": "ИЗИСКУМОСТ ПО ПОТРЕБИТЕЛСКИ КРЕДИТ ОТ 23,10,2012",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -335,7 +347,8 @@
         "isSpouse": false,
         "legalBasis": "ИЗПЪЛНИТЕЛЕН ЛИСТ",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

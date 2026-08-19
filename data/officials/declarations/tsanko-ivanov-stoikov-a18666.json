@@ -34,12 +34,13 @@
         "share": null,
         "currency": "USD",
         "amount": 50000,
-        "valueEur": null,
+        "valueEur": 45248.85,
         "holderName": "Цанко Иванов Стойков",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "4"
+        "tableNum": "4",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -58,7 +59,8 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "peg"
       },
       {
         "category": "bank",
@@ -72,12 +74,13 @@
         "share": null,
         "currency": "USD",
         "amount": 15750,
-        "valueEur": null,
+        "valueEur": 14253.38775,
         "holderName": "Емилия Маринова Стойкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       },
       {
         "category": "bank",
@@ -91,12 +94,13 @@
         "share": null,
         "currency": "USD",
         "amount": 9995,
-        "valueEur": null,
+        "valueEur": 9045.245115,
         "holderName": "Емилия Маринова Стойкова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата",
-        "tableNum": "5"
+        "tableNum": "5",
+        "valueBasis": "fx_ecb"
       }
     ],
     "events": []

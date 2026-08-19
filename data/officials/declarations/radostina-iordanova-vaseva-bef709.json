@@ -88,7 +88,8 @@
         "isSpouse": false,
         "legalBasis": "пълномощно",
         "fundsOrigin": "заплата",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -107,7 +108,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []

@@ -80,7 +80,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": "заеми",
-        "tableNum": "3.4"
+        "tableNum": "3.4",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -99,7 +100,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг, 3,89%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -118,7 +120,8 @@
         "isSpouse": true,
         "legalBasis": "Договор за Потребителски кредит,8,2%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       },
       {
         "category": "debt",
@@ -137,7 +140,8 @@
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит,4,85%",
         "fundsOrigin": null,
-        "tableNum": "7"
+        "tableNum": "7",
+        "valueBasis": "peg"
       }
     ],
     "events": []
