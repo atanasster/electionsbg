@@ -2753,7 +2753,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "culture",
     title:
       "Култура — публичните пари за култура и кой ги получава | electionsbg.com",
-    description: `Всички публични пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на 42 държавни институции, филмовите субсидии на НФЦ (${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта) и еврофондовете — кой получава, от кого и с каква конкуренция.`,
+    description: `Всички публични пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на НФЦ (${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта) и еврофондовете — кой получава, от кого и с каква конкуренция.`,
     breadcrumbName: "Култура",
     ogImage: "/og/culture.png",
     bodyHtml: `
@@ -2771,7 +2771,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     english: {
       title:
         "Culture — Bulgaria's public culture money and who gets it | electionsbg.com",
-      description: `Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of 42 state institutions, the National Film Center's subsidies (${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects) and EU funds — who receives, from whom, and with how much competition.`,
+      description: `Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of the state cultural institutes, the National Film Center's subsidies (${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects) and EU funds — who receives, from whom, and with how much competition.`,
       breadcrumbName: "Culture",
       bodyHtml: `
 <h1>Culture — Bulgaria's public culture money and who gets it</h1>
@@ -4087,6 +4087,44 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li>Polling expectation gap — pre-election poll averages against the final result.</li>
 </ul>
 <p>This is a <strong>screening</strong> tool, not a verdict. Each signal has innocent explanations and must be read in context. See the <a href="${SITE_URL}/en/risk-analysis/methodology">full methodology</a> for details.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/methodology",
+    title: "Обществени поръчки — методология на сигналите | electionsbg.com",
+    description:
+      "Спецификацията зад всеки сигнал за риск при обществените поръчки: прагове, правно основание, кога проверката изобщо е приложима, и какво числото НЕ казва.",
+    breadcrumbName: "Методология на сигналите",
+    ogImage: "/og/procurement-methodology.png",
+    bodyHtml: `
+<h1>Обществени поръчки — методология на сигналите</h1>
+<p>Тази страница е спецификацията зад всеки сигнал, индекс и оценка на страниците за обществени поръчки. Публикувана е, за да може да бъде проверена и оспорена: досега определенията съществуваха само в кода, което правеше твърдение за конкретна фирма непроверяемо отвън.</p>
+<h2>Какво обхваща</h2>
+<ul>
+<li>13 проверки при договор и 4 при процедура — праг, кратко обяснение и кога всяка се проверява.</li>
+<li>Защо знаменателят са проверките, които са могли да бъдат направени, а не всички проверки.</li>
+<li>Двата РАЗЛИЧНИ набора тегла зад оценките A–F на възложител и на изпълнител.</li>
+<li>Съответствието с OCP „Red Flags for Integrity“ (2024) и iMonitor 2.0, включително проверките без съответствие там.</li>
+<li>Известните ограничения, включително изследванията, които намират слаба връзка между сигналите и корупцията.</li>
+</ul>
+<p><strong>Сигналът не е присъда.</strong> Задействана проверка значи, че поведението заслужава втори поглед — може да е напълно законно, може да е законно но неизгодно, може и да е нарушение. Машинно четимият каталог е на <a href="${SITE_URL}/risk-flags.json">risk-flags.json</a>; виж и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
+    english: {
+      title: "Public procurement — red-flag methodology | electionsbg.com",
+      description:
+        "The specification behind every procurement risk flag: thresholds, legal basis, when each check is evaluable at all, and what the number does not say.",
+      breadcrumbName: "Red-flag methodology",
+      bodyHtml: `
+<h1>Public procurement — red-flag methodology</h1>
+<p>This page is the specification behind every flag, index and grade on the procurement pages. It is published so the flags can be checked and argued with: the definitions used to live only in code, which made a claim about a named company unfalsifiable from outside.</p>
+<h2>What it covers</h2>
+<ul>
+<li>13 contract-level checks and 4 procedure-level ones — threshold, what each means, and when it is evaluated.</li>
+<li>Why the denominator is the checks that could be evaluated rather than all of them.</li>
+<li>The two DIFFERENT weight sets behind the A–F buyer and supplier grades.</li>
+<li>Alignment with OCP's Red Flags for Integrity (2024) and iMonitor 2.0, including the checks that map to nothing there.</li>
+<li>Known limits, including the research finding red flags weakly related to corruption.</li>
+</ul>
+<p><strong>A flag is not a verdict.</strong> A fired check means the behaviour is worth a second look — it may be entirely lawful, lawful but poor value, or illicit. The machine-readable catalogue is at <a href="${SITE_URL}/risk-flags.json">risk-flags.json</a>; see also <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>`.trim(),
     },
   }),
   staticPage({

@@ -36,12 +36,105 @@ import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { HubSearch } from "@/ux/search/HubSearch";
 import { CULTURE_BANDS, CULTURE_HUB_COPY } from "./cultureRegistry";
+import {
+  useCultureHubStats,
+  type CultureHubStats,
+} from "@/data/culture/hubStats";
+import { formatEurCompact, formatInt } from "@/lib/currency";
 import { CULTURE_SCENES } from "./cultureScenes";
 import { cultureSearchSources } from "./cultureSearch";
 
+/** One tile's metric, or nothing.
+ *
+ * `undefined` when the figure is absent — a checkout that never ran
+ * `db:gen-culture-hub-stats`, or a cold database. The tile then renders with no
+ * number, which is the honest state; a `0` would be a claim.
+ *
+ * EVERY FIGURE IS THE DESTINATION'S OWN, per the dashboard-hub rule. The funds
+ * tile is the one that can go wrong quietly: `/culture/funds` will rank the
+ * NAME-matched population, so this quotes `byNameEur` (€147.1m) and carries the
+ * EIK-exact figure as the secondary rather than the other way round — the two
+ * are 56% apart and both true.
+ */
+const tileMetric = (
+  id: string,
+  s: CultureHubStats | null | undefined,
+  lang: string,
+  bg: boolean,
+):
+  | { metric: string; metricCaption: string; metricSecondary?: string }
+  | undefined => {
+  if (!s) return undefined;
+  const eur = (n: number) => formatEurCompact(n, lang);
+  const int = (n: number) => formatInt(n, lang);
+  const pct = (num: number, den: number) =>
+    den
+      ? new Intl.NumberFormat(bg ? "bg-BG" : "en-GB", {
+          maximumFractionDigits: 1,
+        }).format((num / den) * 100) + "%"
+      : null;
+  const p = s.procurement;
+
+  switch (id) {
+    case "procurement":
+      return {
+        metric: eur(p.eur),
+        metricCaption: bg ? "поръчки" : "contracts",
+        metricSecondary: bg
+          ? `${int(p.contracts)} договора · ${int(p.buyers)} институции`
+          : `${int(p.contracts)} contracts · ${int(p.buyers)} institutions`,
+      };
+    case "competition": {
+      const sector = pct(p.singleBid, p.bidKnown);
+      const national = pct(p.nationalSingleBid, p.nationalBidKnown);
+      if (!sector) return undefined;
+      return {
+        metric: sector,
+        metricCaption: bg ? "с една оферта" : "single-bidder",
+        // The baseline rides WITH the figure, never in a footnote: alone, this
+        // number reads as an indictment of something entirely ordinary.
+        metricSecondary: national
+          ? bg
+            ? `при ${national} за страната`
+            : `against ${national} nationally`
+          : undefined,
+      };
+    }
+    case "risk": {
+      const flagged = (s.risk.grades.C ?? 0) + (s.risk.grades.D ?? 0);
+      if (!flagged) return undefined;
+      return {
+        metric: int(flagged),
+        metricCaption: bg ? "с оценка C или D" : "graded C or D",
+      };
+    }
+    case "contractors":
+      // NO METRIC, deliberately. The 408 suppliers below ARE culture's, but this
+      // tile links to /procurement/contractors — the NATIONAL leaderboard of
+      // 29,550, which refuses ?sector by design because contractor_rank has no
+      // buyer dimension (§1.3-B / step 2b). Quoting 408 over a destination that
+      // shows 29,550 breaks the dashboard-hub rule that a tile's figure is its
+      // destination's own, and it is the more damaging direction: the reader
+      // trusts the number, clicks, and finds a different world.
+      //
+      // The figure returns when /culture/procurement#contractors lands (step 6),
+      // which renders exactly these 408 from awarder_group_model.
+      return undefined;
+    case "directors":
+      return {
+        metric: int(s.people.culturalInstituteRoles),
+        metricCaption: bg ? "директори" : "directors",
+      };
+    default:
+      return undefined;
+  }
+};
+
 export const CultureHubScreen: FC = () => {
   const { i18n } = useTranslation();
-  const bg = i18n.language === "bg";
+  const lang = i18n.language;
+  const bg = lang === "bg";
+  const { data: stats } = useCultureHubStats();
   // COPY is a Record<string, …>, so TypeScript cannot see a missing key: a typo
   // in the registry would make `COPY[k]` undefined and `.bg` throw, taking the
   // whole hub down rather than one tile's label. `cultureRegistry.test.ts`
@@ -68,13 +161,14 @@ export const CultureHubScreen: FC = () => {
       desc: t(tile.descKey),
       accent: tile.accent,
       scene: CULTURE_SCENES[tile.id],
+      ...tileMetric(tile.id, stats, lang, bg),
     })),
   }));
 
   const title = bg ? "Култура" : "Culture";
   const description = bg
-    ? "Публичните пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на 42 държавни институции, филмовите субсидии на НФЦ и еврофондовете — кой получава, от кого и с каква конкуренция."
-    : "Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of 42 state institutions, the National Film Center's film subsidies and EU funds — who receives, from whom, and with how much competition.";
+    ? "Публичните пари за култура на едно място: бюджетът на Министерството на културата, обществените поръчки на държавните културни институти, филмовите субсидии на НФЦ и еврофондовете — кой получава, от кого и с каква конкуренция."
+    : "Bulgaria's public culture money in one place: the Ministry of Culture's budget, the public contracts of the state cultural institutes, the National Film Center's film subsidies and EU funds — who receives, from whom, and with how much competition.";
 
   return (
     <>

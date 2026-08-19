@@ -21,6 +21,13 @@
 //
 // NO SEEDED `:param` DESTINATIONS. Every path below is static.
 //
+// ⚠️ NO FIGURE IS WRITTEN IN THE COPY BELOW. The tiles' numbers come from
+// `data/culture/derived/hub_stats.json` via `tileMetric()`, which
+// `npm run db:gen-culture-hub-stats` derives from Postgres. The first cut quoted
+// eight of them as literals — beside film figures the PRERENDER interpolates —
+// so half this page self-updated and half did not, with nothing to tell them
+// apart. Prose here says what a tile IS; the blob says how big it is.
+//
 // ⚠️ EVERY PROCUREMENT TILE CARRIES `?pscope=all`, and it is not decoration. The
 // browsers default to the SELECTED PARLIAMENT's window, while these tiles quote
 // whole-corpus figures — 881 contracts / €157.9m „since 2011". Without the param
@@ -74,21 +81,21 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
 
   culture_tile_budget: { bg: "Бюджет на МК", en: "Ministry budget" },
   culture_tile_budget_desc: {
-    bg: "€269.1 млн. за 2026 г. по закон — годишен поток, не натрупана сума като останалите тук.",
-    en: "€269.1m for 2026 by law — an annual flow, not a cumulative total like the others here.",
+    bg: "Годишният бюджет на министерството по закон — поток за една година, не натрупана сума като останалите тук.",
+    en: "The ministry's annual budget by law — one year's flow, not a cumulative total like the others here.",
   },
   culture_tile_procurement: {
     bg: "Обществени поръчки",
     en: "Public contracts",
   },
   culture_tile_procurement_desc: {
-    bg: "€157.9 млн. по 881 договора на 42 институции — от 2011 г. насам.",
-    en: "€157.9m across 881 contracts from 42 institutions, since 2011.",
+    bg: "Договорите на министерството, държавните институти и националните училища по изкуствата — от 2011 г. насам.",
+    en: "What the ministry, the state institutes and the national art schools buy — since 2011.",
   },
   culture_tile_subsidies: { bg: "Филмови субсидии", en: "Film subsidies" },
   culture_tile_subsidies_desc: {
-    bg: "€94.9 млн. на НФЦ за 944 проекта, 2014–2025 — кой ги получава и как се концентрират.",
-    en: "€94.9m from the National Film Center across 944 projects, 2014–2025.",
+    bg: "Субсидията на НФЦ за игрално, документално и анимационно кино — кой я получава и как се концентрира.",
+    en: "The National Film Center's subsidy for feature, documentary and animation film — who receives it and how it concentrates.",
   },
   culture_tile_films: { bg: "Продуценти и филми", en: "Producers and films" },
   culture_tile_films_desc: {
@@ -98,13 +105,13 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
 
   culture_tile_competition: { bg: "Конкуренция", en: "Competition" },
   culture_tile_competition_desc: {
-    bg: "42.0% от договорите с известен брой оферти са с един кандидат — при 40.9% за цялата страна. Типично, не изключение.",
-    en: "42.0% of bid-known contracts had a single bidder, against 40.9% nationally — typical, not exceptional.",
+    bg: "Делът на договорите с една оферта, до националната база. Типично, не изключение — затова двете числа стоят заедно.",
+    en: "The single-bidder share, beside the national baseline. Typical rather than exceptional — which is why the two numbers travel together.",
   },
   culture_tile_risk: { bg: "Рисков профил", en: "Risk profile" },
   culture_tile_risk_desc: {
-    bg: "Договорите с оценка C и D. В културата няма нито един с E или F.",
-    en: "Contracts graded C and D. Culture has no E or F at all.",
+    bg: "Договорите с оценка C и D. В културата няма нито един с E или F — затова връзката не ги обещава.",
+    en: "Contracts graded C and D. Culture has no E or F at all, so the link does not promise them.",
   },
   culture_tile_tenders: { bg: "Процедури", en: "Procedures" },
   culture_tile_tenders_desc: {
@@ -124,8 +131,8 @@ export const CULTURE_HUB_COPY: Record<string, { bg: string; en: string }> = {
   },
   culture_tile_directors: { bg: "Директори", en: "Directors" },
   culture_tile_directors_desc: {
-    bg: "224 души с ръководна роля в държавен културен институт — всички с декларация.",
-    en: "224 people holding a directing role at a state cultural institute — all with a filed declaration.",
+    bg: "Хората с ръководна роля в държавен културен институт — всички с подадена декларация.",
+    en: "The people holding a directing role at a state cultural institute — every one with a filed declaration.",
   },
   culture_tile_contractors: { bg: "Изпълнители", en: "Contractors" },
   culture_tile_contractors_desc: {

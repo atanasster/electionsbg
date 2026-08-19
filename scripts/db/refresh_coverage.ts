@@ -159,6 +159,11 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
     reason:
       "the /governance/sectors hub headline per sector; its agri payout reads agri_payloads (db:load:agri:pg), so it must follow that loader",
   },
+  "db:gen-culture-hub-stats": {
+    artifact: "data/culture/derived/hub_stats.json",
+    reason:
+      "the /culture hub's headline figures, which shipped as FROZEN STRINGS in the tile copy beside film figures the prerender interpolates — half the page self-updating and half not. It reads contracts, tenders, fund_projects, agri_subsidies, person_role AND interreg_partners, so its slot is after db:load:interreg:pg, the LAST loader in the chain: placed beside its two siblings (~40 steps earlier, after db:load:ngo-funding:pg) it would regenerate the ИСУН and Interreg arms from the previous vintage and commit them",
+  },
   "db:gen-declarations-hub-stats": {
     artifact: "data/governance/declarations_hub_stats.json",
     reason:

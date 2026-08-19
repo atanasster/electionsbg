@@ -14,28 +14,56 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CultureHubScreen } from "./CultureHubScreen";
 import { CULTURE_HUB_COPY } from "./cultureRegistry";
 import { CULTURE_TILES } from "./cultureRegistry";
 
+// The hub reads data/culture/derived/hub_stats.json for its tile metrics. There
+// is no fetch stub here on purpose: the query fails in jsdom, `stats` stays
+// undefined and `tileMetric` returns nothing — which is the state a checkout
+// that never ran the generator is in, and the one the tiles must render cleanly.
+// The FIGURES are gated separately, against Postgres, in
+// scripts/db/tests/culture_hub_figures.data.test.ts.
 const mount = () =>
   render(
-    <MemoryRouter initialEntries={["/culture"]}>
-      <CultureHubScreen />
-    </MemoryRouter>,
+    <QueryClientProvider
+      client={
+        new QueryClient({
+          defaultOptions: { queries: { retry: false } },
+        })
+      }
+    >
+      <MemoryRouter initialEntries={["/culture"]}>
+        <CultureHubScreen />
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
 
 describe("CultureHubScreen", () => {
   it("renders every tile as a link to its destination", () => {
     mount();
+    // Looked up by HREF, not by name. A tile's title can appear inside another
+    // tile's description („The ministry" is also a word in the procurement
+    // tile's copy), so a name regex matches two links and the assertion becomes
+    // about the copy rather than about the wiring.
+    //
+    // React Router percent-encodes reserved characters in the query, so
+    // `grade=C,D` renders as `grade=C%2CD`. URLSearchParams decodes it back on
+    // read, so the destination sees the same value — compare decoded.
+    const hrefs = screen
+      .getAllByRole("link")
+      .map((el) => decodeURIComponent(el.getAttribute("href") ?? ""));
     for (const tile of CULTURE_TILES) {
-      const title = CULTURE_HUB_COPY[tile.titleKey].en;
-      const link = screen.getByRole("link", { name: new RegExp(title) });
-      // React Router percent-encodes reserved characters in the query, so
-      // `grade=C,D` renders as `grade=C%2CD`. URLSearchParams decodes it back on
-      // read, so the destination sees the same value — compare decoded rather
-      // than pinning one spelling.
-      expect(decodeURIComponent(link.getAttribute("href") ?? "")).toBe(tile.to);
+      expect(hrefs, `no link renders tile "${tile.id}" (${tile.to})`).toContain(
+        tile.to,
+      );
+      const link = screen
+        .getAllByRole("link")
+        .find(
+          (el) => decodeURIComponent(el.getAttribute("href") ?? "") === tile.to,
+        );
+      expect(link?.textContent).toContain(CULTURE_HUB_COPY[tile.titleKey].en);
     }
   });
 
