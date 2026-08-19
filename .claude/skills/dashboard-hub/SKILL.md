@@ -17,6 +17,12 @@ band, then bands of `InfographicTile`s that front the module's sub-pages. `/parl
 is the worked example; `/procurement`, `/governance/sectors` and the analysis hub are the
 same shape.
 
+**For a SECTOR surface, read `sector-dashboard` alongside this.** That skill owns
+the data layer underneath — the EIK register that decides who the sector is, the
+multi-corpus money union, coverage declarations, competition baselines, the people
+bridge and the grant→contract spine. This one owns everything you can see; that
+one owns everything you can count.
+
 This skill is mostly about **what goes wrong**. The layout is easy. Every hub built on this
 pattern has shipped the same defects, and they share one signature: **a figure that is
 arithmetically correct and, read as a sentence, false.** Those survive code review, survive
@@ -46,18 +52,18 @@ A figure whose basis you cannot state in one clause is not ready to ship.
 
 ### The specific traps, all of which have shipped
 
-| Trap | What it looks like | The rule |
-|---|---|---|
-| **Corpus total on a scoped hub** | `613 заседания` on a page scoped to one parliament (real answer: 39) | Scope every figure to the page's selector |
-| **Destination counts a different set** | Tile says `240` and lands on a page listing 2,120 | Lead with the DESTINATION's basis, or show no figure |
-| **Sums of votes read as headcounts** | `за 15 961` in a chamber of 240 — votes summed over 219 items | Express as SHARES, from the same function that draws the pixels |
-| **A mean labelled as a minimum** | `0,94 средна кохезия` where 0.94 was the min and the mean was 0.970 | Two numbers, two labels; never one number wearing both |
-| **A projection quoted as the roll** | Map tile says 270 members; the map plots 255 | Quote what the destination DRAWS |
-| **Structural zero** | `Общини 0` under an MP filter | Hide a figure that cannot vary; do not print 0 |
-| **Undeclared "not derivable"** | `0% присъствие` on a day with no roll call | NULL means "cannot derive"; render it as absent, never as 0 |
-| **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped |
-| **The destination's DEFAULT SCOPE** | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
-| **The right subject, the wrong corpus** | Tile counts `company_politicians` (346) over `/mp/companies`, which renders `companies-index.json` (2,781) | When the destination fetches a FILE, count that file — not a table about the same subject |
+| Trap                                     | What it looks like                                                                                                                                                               | The rule                                                                                                |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Corpus total on a scoped hub**         | `613 заседания` on a page scoped to one parliament (real answer: 39)                                                                                                             | Scope every figure to the page's selector                                                               |
+| **Destination counts a different set**   | Tile says `240` and lands on a page listing 2,120                                                                                                                                | Lead with the DESTINATION's basis, or show no figure                                                    |
+| **Sums of votes read as headcounts**     | `за 15 961` in a chamber of 240 — votes summed over 219 items                                                                                                                    | Express as SHARES, from the same function that draws the pixels                                         |
+| **A mean labelled as a minimum**         | `0,94 средна кохезия` where 0.94 was the min and the mean was 0.970                                                                                                              | Two numbers, two labels; never one number wearing both                                                  |
+| **A projection quoted as the roll**      | Map tile says 270 members; the map plots 255                                                                                                                                     | Quote what the destination DRAWS                                                                        |
+| **Structural zero**                      | `Общини 0` under an MP filter                                                                                                                                                    | Hide a figure that cannot vary; do not print 0                                                          |
+| **Undeclared "not derivable"**           | `0% присъствие` on a day with no roll call                                                                                                                                       | NULL means "cannot derive"; render it as absent, never as 0                                             |
+| **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped            |
+| **The destination's DEFAULT SCOPE**      | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament           | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
+| **The right subject, the wrong corpus**  | Tile counts `company_politicians` (346) over `/mp/companies`, which renders `companies-index.json` (2,781)                                                                       | When the destination fetches a FILE, count that file — not a table about the same subject               |
 
 **Corollary that has bitten twice:** if a number is computed in two places, it will drift.
 Compute it ONCE and have both consumers read that. Where two implementations are
@@ -95,8 +101,8 @@ Rules that have each been learned the hard way:
   — green on both sides.
 - **`undefined` for an uncovered key is an ANSWER, not a loading state.** Selectors commonly
   map to keys with no data; render the named empty state, not a grid of zeroes.
-- **Wire it into the pipeline's `--upload` branch** and gate that generically: *every file
-  the generator writes appears in its upload list*. An artifact missing from it is
+- **Wire it into the pipeline's `--upload` branch** and gate that generically: _every file
+  the generator writes appears in its upload list_. An artifact missing from it is
   regenerated locally, committed, and never uploaded — green everywhere, stale on prod.
 - **A shared type gets ONE declaration.** Two hand-copied halves drifted on a nullability
   within a single review cycle. Put it on the `src/` side and import it from `scripts/`.
@@ -261,11 +267,11 @@ point is the SHAPE — each recurs the next time a module ships.
 `scripts/prerender/ogAndSitemapCoverage.test.ts` now gates all of it; **read that file before
 writing a new gate here**, and add to it rather than beside it.
 
-| Artifact | Declared in | What its absence costs |
-|---|---|---|
-| **Static page** | `staticPage({…})` in `scripts/prerender/routes.ts` | The SPA shell is served — to a crawler the page is a duplicate of the homepage |
+| Artifact            | Declared in                                                                                | What its absence costs                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| **Static page**     | `staticPage({…})` in `scripts/prerender/routes.ts`                                         | The SPA shell is served — to a crawler the page is a duplicate of the homepage          |
 | **Sitemap `<loc>`** | BOTH lists in `scripts/sitemap/route_defs.ts`, then `npm run sitemap`, then COMMIT the XML | The page is never enumerated; discovery depends on a crawler following an internal link |
-| **og:image** | `ogImage:` on the route **and** a captured file in `public/og/` | The share card is the site-wide default, so every page in the module shares one picture |
+| **og:image**        | `ogImage:` on the route **and** a captured file in `public/og/`                            | The share card is the site-wide default, so every page in the module shares one picture |
 
 Do all three in the **same commit as the screen**. Each lives in a different file from the
 route, none is derived from the others, and the clustering below is the tell: nobody forgets
@@ -333,11 +339,11 @@ allowlist, which goes stale.
 
 Three producers. Pick by what the page actually has:
 
-| The page has | Producer | Output |
-|---|---|---|
-| a chart, map or hero worth looking at | add a `Capture` to the table in `scripts/og/capture-screens.ts` | `public/og/<slug>.png` |
-| a FAMILY of pages needing identical framing | a `scripts/og/screenshot_<family>.ts` (sectors, funds, procurement, regional, transport…) | `public/og/<family>-<id>.png` |
-| prose only — a methodology or definitions page | `renderStaticPageCard(…)` in `scripts/og/generate.ts` | a rendered 4-tile card, emitted by `postbuild` |
+| The page has                                   | Producer                                                                                  | Output                                         |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| a chart, map or hero worth looking at          | add a `Capture` to the table in `scripts/og/capture-screens.ts`                           | `public/og/<slug>.png`                         |
+| a FAMILY of pages needing identical framing    | a `scripts/og/screenshot_<family>.ts` (sectors, funds, procurement, regional, transport…) | `public/og/<family>-<id>.png`                  |
+| prose only — a methodology or definitions page | `renderStaticPageCard(…)` in `scripts/og/generate.ts`                                     | a rendered 4-tile card, emitted by `postbuild` |
 
 **Prefer the screenshot.** A hub or a dashboard always has something better to show than four
 text tiles. Frame the element that IS the page's argument — the chart, the map, the
@@ -355,10 +361,11 @@ Mechanics that are easy to get wrong:
   Always pass the slug. Re-shooting the whole table re-frames cards you did not change, and a
   page that has moved since comes back worse. `OG_BASE_URL=http://localhost:5174` when the
   dev server took another port.
+
 - **Reference it as `.png`** in `routes.ts` even though the shipped file is `.webp` —
   `scripts/images/optimize.ts` converts `dist/og/**` and rewrites every reference.
 - **`waitFor` must name something that exists only after DATA loads** — `[data-og="x"]
-  .recharts-surface`, a Leaflet tile pane. A container mounts empty, and the card becomes a
+.recharts-surface`, a Leaflet tile pane. A container mounts empty, and the card becomes a
   screenshot of a skeleton. Put a `data-og="…"` attribute on the element rather than keying
   on class names, which a refactor renames silently.
 - **Prefer a static-data anchor over an `/api/db` one.** The `water` capture anchors on the
@@ -453,7 +460,7 @@ ramp, draw it in neutral ink, and keep it — it is worth reading, it is just no
 quantity.
 
 **No backtick inside SQL held in a template literal.** Quoting an identifier the way SQL
-comments usually do — `` -- the `person` table `` — terminates the literal. This has now
+comments usually do — ``-- the `person` table`` — terminates the literal. This has now
 recurred four times, in `.js` routes and in a `.ts` generator, so it is not a
 route-file quirk: it is any SQL written inside backticks anywhere. Write the identifier bare.
 
@@ -491,27 +498,27 @@ If a tile's destination or the hub itself reads `/api/db/*`:
 
 Not optional, and each exists because its absence shipped something:
 
-| Gate | Catches |
-|---|---|
-| Every tile id has a scene | White screen |
-| Every `to` is absolute AND in the routed list | Dead links |
-| Every sub-page is a hub destination | Orphans |
-| No accent twice on the page | "These are the same kind of thing" |
-| Blob under its byte budget | Regrowth to the full artifact |
-| Blob's keys == the shard files present | A hub with tiles and no detail |
-| Every figure recomputed from its declared basis | The six-of-six class |
-| Every written file appears in `--upload` | Green locally, stale on prod |
-| Calendar days formatted in UTC | Off-by-one dates |
-| A scoped source returns out-of-scope rows for a query that has them | Scope silently filtering — invisible, because the page still shows results |
-| Each search group's cap is independent | An in-scope group eating the out-of-scope budget |
-| Every see-all param is read by its destination | A link advertising a filtered page and delivering an unfiltered one |
-| Every routed sub-page of the module has a `staticPage` entry | The shell served to crawlers as a homepage duplicate |
+| Gate                                                                                                               | Catches                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Every tile id has a scene                                                                                          | White screen                                                                   |
+| Every `to` is absolute AND in the routed list                                                                      | Dead links                                                                     |
+| Every sub-page is a hub destination                                                                                | Orphans                                                                        |
+| No accent twice on the page                                                                                        | "These are the same kind of thing"                                             |
+| Blob under its byte budget                                                                                         | Regrowth to the full artifact                                                  |
+| Blob's keys == the shard files present                                                                             | A hub with tiles and no detail                                                 |
+| Every figure recomputed from its declared basis                                                                    | The six-of-six class                                                           |
+| Every written file appears in `--upload`                                                                           | Green locally, stale on prod                                                   |
+| Calendar days formatted in UTC                                                                                     | Off-by-one dates                                                               |
+| A scoped source returns out-of-scope rows for a query that has them                                                | Scope silently filtering — invisible, because the page still shows results     |
+| Each search group's cap is independent                                                                             | An in-scope group eating the out-of-scope budget                               |
+| Every see-all param is read by its destination                                                                     | A link advertising a filtered page and delivering an unfiltered one            |
+| Every routed sub-page of the module has a `staticPage` entry                                                       | The shell served to crawlers as a homepage duplicate                           |
 | Every routed sub-page has a BG `routeDefs` entry, and an `ENGLISH_STATIC_PAGES` one iff it has an `english:` block | The `/sofia/*` + `/consumption/*` class — the mirror indexed, the original not |
-| Every `routeDefs` `file:` exists on disk | The silent skip that costs a page its `<loc>` |
-| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap | Both entries present, `npm run sitemap` never re-run |
-| Every sub-page carries its own `ogImage` (or is on a reasoned exemption list) | A whole module sharing the site-wide default card |
-| Every `ogImage` path resolves to a file under `public/og/` | An `og:image` that 404s — the absolute-URL check passes |
-| Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route | A card shot and wired to nothing |
+| Every `routeDefs` `file:` exists on disk                                                                           | The silent skip that costs a page its `<loc>`                                  |
+| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap                                        | Both entries present, `npm run sitemap` never re-run                           |
+| Every sub-page carries its own `ogImage` (or is on a reasoned exemption list)                                      | A whole module sharing the site-wide default card                              |
+| Every `ogImage` path resolves to a file under `public/og/`                                                         | An `og:image` that 404s — the absolute-URL check passes                        |
+| Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route                         | A card shot and wired to nothing                                               |
 
 The last seven live in `scripts/prerender/ogAndSitemapCoverage.test.ts` — extend that file
 rather than writing a second one. They read as ceremony and are not: `tests/seo.spec.ts`
@@ -527,7 +534,7 @@ the fix, so deleting the option left it green. Both read as real tests.
 version of this failure is a gate that re-runs the generator's own SQL and compares it to
 the generator's own output: it proves only that the file was freshly written, and it
 inherits every misunderstanding it was meant to catch. The declarations hub's first gate did
-exactly that and then *pinned the bug* — asserting `mpAssetYears == count(*)` on a
+exactly that and then _pinned the bug_ — asserting `mpAssetYears == count(*)` on a
 partitioned table, and `cars > carOwners`, which is true whether cars is the real 621 or the
 1,994 that counts each vehicle once per parliament. Assert against the destination screen's
 own filter, the partition structure, or the file the destination fetches — and write the
