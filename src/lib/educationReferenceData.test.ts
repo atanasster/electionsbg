@@ -181,7 +181,7 @@ describe("the surfaces that read the roster", () => {
     // listing five — in both languages, with all 13 tests green.
     const n = EDUCATION_EXTERNAL_HIGHER_SCHOOLS.length;
     expect(/(\d+) държавни висши училища са в друг/.exec(educationFootnote(true))?.[1]).toBe(String(n)); // prettier-ignore
-    expect(/(\d+) state higher schools/.exec(educationFootnote(false))?.[1]).toBe(String(n)); // prettier-ignore
+    expect(/(\d+) state higher schools sit in another/.exec(educationFootnote(false))?.[1]).toBe(String(n)); // prettier-ignore
   });
 
   it("counts universities, not university EIKs, in the footnote", () => {

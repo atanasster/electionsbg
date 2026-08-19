@@ -323,7 +323,10 @@ export const EDU_INSTITUTION_COUNT = EDU_ENTITIES.filter(
  *  its en line 27 for the same set). Three claims, each of which the reference data
  *  above establishes: the group spans three budget principals; the hub tile's € is
  *  МОН's own budget and covers neither the universities' separate ПРБ budgets nor the
- *  delegated municipal school budgets; and four state higher schools sit elsewhere. */
+ *  delegated municipal school budgets; and some state higher schools sit elsewhere.
+ *
+ *  ⚠ No count is written in this docstring either — EDUCATION_EXTERNAL_HIGHER_SCHOOLS
+ *  owns that number, and a comment saying "four" is the same drift one layer up. */
 export const educationFootnote = (bg: boolean): string => {
   const n = EDU_INSTITUTION_COUNT;
   // INSTITUTIONS, not EIKs — the two differ by the retired-EIK rows, and this
@@ -336,10 +339,17 @@ export const educationFootnote = (bg: boolean): string => {
   // external school would ship a footnote saying four and listing five, with every
   // gate green.
   const ext = EDUCATION_EXTERNAL_HIGHER_SCHOOLS;
-  const others = ext.map((e) => e.name).join(", ");
+  // A trailing „и"/"and" rather than a bare comma join: this is a sentence a
+  // reader finishes, not a CSV.
+  const names = ext.map((e) => e.name);
+  const last = names.length > 1 ? names[names.length - 1] : "";
+  const others =
+    names.length > 1
+      ? `${names.slice(0, -1).join(", ")} ${bg ? "и" : "and"} ${last}`
+      : (names[0] ?? "");
   return bg
-    ? `${n} възложителя под три бюджетни принципала: МОН и неговите структури, ${uni} държавни висши училища (самостоятелни ПРБ), БАН и Селскостопанската академия (второстепенен разпоредител към МЗХ). Числото на плочката „Образование“ в /governance/sectors е бюджетът на САМО МОН — то не включва нито субсидиите на висшите училища, нито делегираните бюджети на общинските училища, така че то и сумата на поръчките тук не се събират. ${ext.length} държавни висши училища са в друг сектор, защото бюджетният им принципал е друг: ${others}.`
-    : `${n} awarders under three budget principals: МОН and its own bodies, ${uni} state higher-education institutions (each its own first-level spending unit), БАН, and the Agricultural Academy (a second-level unit under the agriculture ministry). The „Образование“ figure on /governance/sectors is МОН's budget ALONE — it covers neither the universities' subsidies nor the delegated municipal school budgets, so it and the procurement total here are different bases and must not be added. ${ext.length} state higher schools sit in another sector because their budget principal is another ministry: ${others}.`;
+    ? `${n} възложителя под три бюджетни принципала: МОН и неговите структури, ${uni} държавни висши училища (самостоятелни ПРБ), БАН и Селскостопанската академия (второстепенен разпоредител към МЗХ). Числото на плочката „Образование“ в /governance/sectors е бюджетът на САМО МОН — то не включва нито субсидиите на висшите училища, нито делегираните бюджети на общинските училища, така че то и сумата на поръчките тук не се събират. Други ${ext.length} държавни висши училища са в друг сектор, защото бюджетният им принципал е друг: ${others}.`
+    : `${n} awarders under three budget principals: МОН and its own bodies, ${uni} state higher-education institutions (each its own first-level spending unit), БАН, and the Agricultural Academy (a second-level unit under the agriculture ministry). The „Образование“ figure on /governance/sectors is МОН's budget ALONE — it covers neither the universities' subsidies nor the delegated municipal school budgets, so it and the procurement total here are different bases and must not be added. A further ${ext.length} state higher schools sit in another sector because their budget principal is another ministry: ${others}.`;
 };
 
 const ENTITY_BY_EIK: Record<string, EducationEntity> = Object.fromEntries(
