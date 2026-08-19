@@ -22,6 +22,24 @@
 // buys oncology drugs / nursing care. Any tile that folds the whole group must be
 // segmentable by universe (see DEFENSE_UNIVERSES) or "what the МО group buys"
 // reads as medicines. See plan §2.
+//
+// ⚠⚠ A BODY CAN GO MISSING BECAUSE A SIBLING SECTOR DISCLAIMED IT, and grepping
+// its EIK finds it either way. `kulturaReferenceData.ts`'s ADJACENT_EIKS is an
+// anti-allowlist — culture lists a body there precisely to say "somebody else is
+// the principal", excluding it from every culture roll-up — so its four
+// `kind: "mo_museum"` entries are culture asserting these are МО's. Two of them
+// (РВИМ Плевен 114102692, НПМ „Шипка-Бузлуджа" 000804161, €7.43m over 16
+// contracts) were in NO sector at all until the 2026-08-19 audit: disclaimed by
+// culture, unclaimed here, so they appeared in neither roster while every EIK
+// grep returned a hit and every count reconciled. Exactly the shape the
+// 2026-08-18 education audit found (НХА/НМА/НАТФИЗ stranded between edu and
+// culture). `sector_stats.data.test.ts`'s defense block derives the check from
+// culture's own ADJACENT_EIKS, so a FIFTH mo_museum entry fails until somebody
+// decides where it belongs — a hand-listed pair would only ever cover the two
+// already found. Verify ownership against SECTOR_BROWSE_PACKS.defense.eiks and
+// this file (defense is a bespoke screen, so it has no SECTOR_DASHBOARDS entry —
+// its roster surfaces are DefenseAwardersTile and DefenseSearchBox), never
+// against whether a string appears in a sibling file.
 
 export const MOD_EIK = "000695324"; // Министерство на отбраната (the ministry)
 export const VMA_EIK = "129000273"; // Военномедицинска академия (~47% of group €)
@@ -44,7 +62,13 @@ export interface DefenseEntity {
   universe: DefenseUniverse;
 }
 
-// One row per distinct EIK. 25 curated МО budget units (plan §2).
+// One row per distinct EIK. 27 curated МО budget units (plan §2; 25 at first
+// cut, +2 from the 2026-08-19 audit — see the ADJACENT_EIKS note above).
+//
+// Nothing may hardcode this count. It is derived wherever it is shown
+// (DefenseSearchBox's title, DefenseAwardersTile's heading) because the literal
+// has already gone stale once: DefenseSearchBox's own header said "24 МО bodies"
+// against a 25-row roster.
 export const MO_ENTITIES: DefenseEntity[] = [
   { eik: MOD_EIK, name: "Министерство на отбраната", universe: "mo" },
 
@@ -83,6 +107,13 @@ export const MO_ENTITIES: DefenseEntity[] = [
   { eik: "129009016", name: "Театър „Българска армия“", universe: "culture" },
   { eik: "129010545", name: "Информационен център на МО", universe: "culture" },
   { eik: "129010142", name: "Комендантство — МО", universe: "culture" },
+  // Added 2026-08-19. Both are културни институти whose principal is МО, which
+  // is culture's own determination (ADJACENT_EIKS, kind: "mo_museum"); before
+  // this they sat in no sector. НПМ „Шипка-Бузлуджа" carries the larger money by
+  // far — €6.9m of it one Feb-2026 contract to restore the Шипка monument —
+  // while РВИМ Плевен's contracts are the guarding of its own sites.
+  { eik: "114102692", name: "Регионален военноисторически музей — Плевен", universe: "culture" }, // prettier-ignore
+  { eik: "000804161", name: "Национален парк-музей „Шипка-Бузлуджа“", universe: "culture" }, // prettier-ignore
 ];
 
 const ENTITY_BY_EIK: Record<string, DefenseEntity> = Object.fromEntries(

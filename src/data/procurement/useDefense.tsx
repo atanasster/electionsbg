@@ -1,13 +1,15 @@
 // Data hook for the Отбрана (defense / МО) sector pack. The model comes from ONE
 // /api/db/awarder-group-model call over the МО budget units — the server returns
 // compact aggregates that buildDefenseModelFromAggregates folds into the identical
-// DefenseModel (see useAwarderGroupModel). This replaced a 25-request per-EIK
+// DefenseModel (see useAwarderGroupModel). This replaced a per-EIK request
 // fan-out that downloaded ~6 MB of raw contract rows to build the model client-side.
 //
-// CONSOLIDATED GROUP — Министерство на отбраната (000695324) is one of 25 МО
-// budget units that award ЗОП contracts (the army commands, ВМА, the academies,
+// CONSOLIDATED GROUP — Министерство на отбраната (000695324) is one of the МО
+// budget units in MO_ENTITIES that award ЗОП contracts (the army commands, ВМА, the academies,
 // the military clubs …). A pack mounted on the ministry that reported only the
-// central EIK would understate the group's procurement (€852M vs €2.33bn). So on
+// central EIK would understate the group's procurement by more than half
+// (€1.15bn against €2.71bn all-time, measured 2026-08-19 — an illustration of
+// the SHAPE, not a figure any surface reads; the corpus reloads fortnightly). So on
 // the ministry's page we aggregate the parent + every subordinate. Mounted on any
 // other EIK it stands alone.
 //
@@ -131,7 +133,7 @@ export const useDefense = (
 
 /** Lightweight per-unit rollup for a SET of EIKs via ONE grouped aggregate
  *  (/api/db/awarder-group-rollup) — for the sector browse strip, which needs only
- *  the per-unit €/count/single-bid, not the full corpus. Avoids the 25-request
+ *  the per-unit €/count/single-bid, not the full corpus. Avoids the per-EIK
  *  fan-out `useDefense` does for the pack's model. Mirrors `useVikGroupRollup`. */
 export const useDefenseGroupRollup = (
   eiks: readonly string[],

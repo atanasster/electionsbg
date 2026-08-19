@@ -1833,8 +1833,8 @@ export const FEATURES: FeatureDef[] = [
       en: "the road to 5%, programs, exports",
     },
     desc: {
-      bg: "Разходите за отбрана като дял от БВП спрямо целите на НАТО, техника срещу заплати, големите програми (F-16, Stryker), износът на оръжие и готовността — плюс поръчките на 25-те структури на МО.",
-      en: "Defence spending as a share of GDP against the NATO targets, equipment vs personnel, the flagship programs (F-16, Stryker), arms exports and readiness — plus the procurement of the 25 МО units.",
+      bg: "Разходите за отбрана като дял от БВП спрямо целите на НАТО, техника срещу заплати, големите програми (F-16, Stryker), износът на оръжие и готовността — плюс поръчките на структурите на МО.",
+      en: "Defence spending as a share of GDP against the NATO targets, equipment vs personnel, the flagship programs (F-16, Stryker), arms exports and readiness — plus the procurement of the МО units.",
     },
     route: "/defense",
     tags: ["fiscal", "indicators"],

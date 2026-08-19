@@ -1,4 +1,4 @@
-// "Парите: 25-те структури на МО" — the bridge to the money half of the story.
+// "Парите: N-те структури на МО" — the bridge to the money half of the story.
 // Every МО budget unit, grouped by universe, each deep-linking to its own awarder
 // page; and a lead link to the consolidated МО group pack. Rendered by the shared
 // AwarderListSection.
@@ -32,8 +32,15 @@ export const DefenseAwardersTile: FC = () => {
   return (
     <AwarderListSection
       id="defense-awarders"
+      // Derived, never a literal. The count moved 24 → 25 → 27 and the literal
+      // did not follow it: DefenseSearchBox's header comment still said "24 МО
+      // bodies" against a 25-row roster, and this heading said 25 while the
+      // roster it lists had grown. A heading that miscounts the list directly
+      // beneath it is the cheapest kind of wrong to avoid.
       title={
-        bg ? "Парите: 25-те структури на МО" : "The money: the 25 МО units"
+        bg
+          ? `Парите: ${MO_ENTITIES.length}-те структури на МО`
+          : `The money: the ${MO_ENTITIES.length} МО units`
       }
       rows={rows}
       lead={{

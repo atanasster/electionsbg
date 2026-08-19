@@ -82,6 +82,9 @@ import {
 import { getLatestElection } from "./dynamicRoutes";
 import { electionYearSuffix } from "./electionYear";
 import { oblastLabel } from "@/lib/oblastName";
+// Derived, not a literal — same reason as scripts/prerender/institutions.ts:
+// these strings are prerendered, indexed page bodies.
+import { MO_ENTITIES } from "@/lib/defenseReferenceData";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import {
@@ -2772,7 +2775,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>Износ на оръжие</strong> — рекордният ръст след 2022 г.: ${defenseFacts.exportBnBg} млрд. € за ${defenseFacts.exportYear} г., ${defenseFacts.cumulativeBnBg} млрд. € от началото на войната.</li>
 <li><strong>Хора и готовност</strong> — незаетите щатни бройки и запълването на резерва.</li>
 </ul>
-<p>Обществените поръчки на 25-те структури на Министерството на отбраната са на <a href="${SITE_URL}/awarder/000695324">страницата на МО</a>. Виж и <a href="${SITE_URL}/indicators">показателите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Обществените поръчки на ${MO_ENTITIES.length}-те структури на Министерството на отбраната са на <a href="${SITE_URL}/awarder/000695324">страницата на МО</a>. Виж и <a href="${SITE_URL}/indicators">показателите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
 <p>Източници: НАТО, Министерство на икономиката, Министерство на отбраната.</p>`.trim(),
     english: {
       title:
@@ -2790,7 +2793,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>Arms exports</strong> — the record post-2022 surge: €${defenseFacts.exportBnEn}bn in ${defenseFacts.exportYear}, €${defenseFacts.cumulativeBnEn}bn since the war began.</li>
 <li><strong>People and readiness</strong> — unfilled established posts and reserve fill.</li>
 </ul>
-<p>The public procurement of the 25 Ministry of Defence units is on the <a href="${SITE_URL}/en/awarder/000695324">МО page</a>. See also the <a href="${SITE_URL}/en/indicators">indicators</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>The public procurement of the ${MO_ENTITIES.length} Ministry of Defence units is on the <a href="${SITE_URL}/en/awarder/000695324">МО page</a>. See also the <a href="${SITE_URL}/en/indicators">indicators</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
 <p>Sources: NATO, Ministry of Economy, Ministry of Defence.</p>`.trim(),
     },
   }),

@@ -152,6 +152,20 @@ import {
   type TransportUniverse,
 } from "@/lib/transportReferenceData";
 import {
+  MO_ENTITIES,
+  DEFENSE_SECTOR_EIKS,
+  MOD_EIK,
+  VMA_EIK,
+  MO_BUDGET_NODE,
+} from "@/lib/defenseReferenceData";
+// Culture's ANTI-allowlist + its roll-up, read as the defense roster's
+// completeness oracle. See the defense block's `mo_museum` test for why these
+// imports are the point of the gate rather than an incidental dependency.
+import { ADJACENT_EIKS, CULTURE_GROUP_EIKS } from "@/lib/kulturaReferenceData";
+// Prose that MENTIONS a count is not an occurrence of it — see the file's own
+// header for the two gates this primitive exists for.
+import { stripComments } from "@/../scripts/lib/strip_comments";
+import {
   ENERGY_SECTOR_EIKS,
   ENERGY_MEMBER_EIKS,
   ENERGY_ALIAS_EIKS,
@@ -2173,4 +2187,300 @@ describe("energy sector (procurement / БЕХ)", () => {
       );
     },
   );
+});
+
+describe("defense sector (budget / МО)", () => {
+  // The audit that produced this block (2026-08-19) found the BUYER side clean:
+  // the headline reconciles at every scope, all 25 EIKs were real МО bodies, the
+  // anti-allowlist held (ДА „Държавен резерв" at €1.365bn and both МВР
+  // directorates correctly out), and every bespoke tile summed to its own header.
+  // What it found instead was a completeness hole no per-sector gate could see —
+  // two МО bodies in NO roster at all — and a heading that miscounted the list
+  // beneath it. Both shapes are pinned below.
+  //
+  // ⚠ Defense is a BUDGET-basis sector, so unlike water/transport/energy above,
+  // the EIK-set does NOT feed the headline. That decouples the two halves of this
+  // block: an EIK error here is invisible to every € assertion, which is exactly
+  // why the roster needs its own gates rather than riding on a reconcile.
+
+  test.skipIf(skip)(
+    "hub headline is budget and reconciles to the МО node's enacted expenditure",
+    async () => {
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      const node = readJson<{
+        nodeId: string;
+        years: Array<{
+          fiscalYear: number;
+          expenditure?: { amountEur?: number | null };
+        }>;
+      }>(`data/budget/ministries/${MO_BUDGET_NODE}.json`);
+      assert.equal(node.nodeId, MO_BUDGET_NODE);
+
+      const byYear = new Map(
+        node.years
+          .filter((y) => y.expenditure?.amountEur)
+          .map((y) => [y.fiscalYear, y.expenditure!.amountEur!]),
+      );
+
+      const d = stats["all"]?.defense;
+      assert.ok(d, "sector_stats.json['all'].defense must exist");
+      assert.equal(d.kind, "eur");
+      assert.equal(
+        d.basis,
+        "budget",
+        "МО's own ЗОП flow (~€2.7bn all-time) is a fraction of what it is " +
+          "appropriated, and a defense headline must never be a budget FUNCTION " +
+          "either — „Отбрана и сигурност“ bundles police, courts and prisons. " +
+          "The administrative ПРБ node is the honest figure",
+      );
+
+      // Band, not equality: the node gains a year every autumn. The floor sits
+      // below FY2024 (€1.089bn, the last pre-rearmament year) so a zeroed or
+      // renamed source field fails; the ceiling is well above FY2026's €2.569bn.
+      assert.ok(
+        d.value > 900_000_000 && d.value < 6_000_000_000,
+        `defense budget €${d.value} out of expected band 0.9–6.0bn`,
+      );
+
+      // EVERY scope, not just `all` — the same argument the energy block makes.
+      // A budget-basis sector resolves its year through annual(), so an
+      // off-by-one there leaves `all` right and moves the windows underneath it.
+      const bad: string[] = [];
+      for (const [scope, sectors] of Object.entries(stats)) {
+        const st = sectors.defense;
+        if (!st) {
+          bad.push(`${scope}: no defense stat emitted`);
+          continue;
+        }
+        if (st.basis !== "budget") {
+          bad.push(`${scope}: basis ${st.basis} (expected budget)`);
+          continue;
+        }
+        if (st.year == null || byYear.get(st.year) !== st.value)
+          bad.push(
+            `${scope}: €${st.value} captioned ${st.year} is not that year's ` +
+              `enacted expenditure in ${MO_BUDGET_NODE}.json`,
+          );
+      }
+      assert.deepEqual(
+        bad,
+        [],
+        "a defense scope disagrees with the МО budget node — regenerate " +
+          "sector_stats.json (npm run db:gen-sector-stats)",
+      );
+    },
+  );
+
+  test.skipIf(skip)("the EIK-set copies are ONE set", () => {
+    // Defense has three copies, not the usual four: it is a bespoke screen, so
+    // there is no SECTOR_DASHBOARDS entry, and it is budget-basis, so the
+    // generator's SECTOR_EIKS has no defense key either. The browse pack imports
+    // the constant, which makes THIS assertion weaker than water's sum-based one
+    // — it cannot catch a wrong EIK, only a second hand-maintained list. The
+    // wrong-EIK question is the anti-allowlist test below.
+    const roster = [...MO_ENTITIES].map((e) => e.eik).sort();
+    assert.deepEqual(
+      [...DEFENSE_SECTOR_EIKS].sort(),
+      roster,
+      "DEFENSE_SECTOR_EIKS must be derived from MO_ENTITIES, not restated",
+    );
+    assert.deepEqual(
+      [...SECTOR_BROWSE_PACKS.defense.eiks].sort(),
+      roster,
+      "SECTOR_BROWSE_PACKS.defense.eiks has drifted from MO_ENTITIES — repoint " +
+        "it at DEFENSE_SECTOR_EIKS rather than re-listing digits",
+    );
+    // One row per EIK. A duplicate would double-count the body in every
+    // per-universe rollup while every €-total stayed right.
+    assert.equal(
+      new Set(roster).size,
+      roster.length,
+      "duplicate EIK in MO_ENTITIES",
+    );
+  });
+
+  test.skipIf(skip)(
+    "every mo_museum body culture disclaims is claimed HERE",
+    () => {
+      // THE completeness gate, and the reason it reads a sibling's file.
+      //
+      // `kulturaReferenceData.ts`'s ADJACENT_EIKS is an ANTI-allowlist: culture
+      // lists a body there precisely to say "somebody else is the principal",
+      // which excludes it from every culture roll-up and headline. So a
+      // `kind: "mo_museum"` entry is culture ASSERTING the body is МО's. If this
+      // roster does not then claim it, the body is in no sector at all — and
+      // grepping its EIK finds it either way, in a file that looks authoritative.
+      //
+      // That is exactly what happened: РВИМ Плевен (114102692) and НПМ
+      // „Шипка-Бузлуджа" (000804161), €7.43m over 16 contracts, were disclaimed
+      // by culture and unclaimed here, with every row count reconciling. Same
+      // shape as the 2026-08-18 education audit (НХА/НМА/НАТФИЗ stranded between
+      // edu and culture).
+      //
+      // DERIVED from culture's own map rather than pinning the two known EIKs: a
+      // hand-listed pair covers only the bodies somebody already found, while
+      // this fails on a FIFTH mo_museum entry until someone decides where it
+      // belongs. That is the whole difference between a regression test and a
+      // gate.
+      const disclaimed = Object.entries(ADJACENT_EIKS)
+        .filter(([, v]) => v.kind === "mo_museum")
+        .map(([eik]) => eik);
+
+      // Non-vacuity: if the `kind` is ever renamed, the filter silently empties
+      // and this test passes over nothing.
+      assert.ok(
+        disclaimed.length >= 4,
+        `expected ≥4 mo_museum entries in culture's ADJACENT_EIKS, found ${disclaimed.length}`,
+      );
+
+      const roster = new Set(MO_ENTITIES.map((e) => e.eik));
+      const stranded = disclaimed.filter((eik) => !roster.has(eik));
+      assert.deepEqual(
+        stranded,
+        [],
+        "culture disclaims these as МО's and MO_ENTITIES does not claim them, " +
+          "so they are in NO sector: " +
+          stranded.join(", "),
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "no МО body is ALSO claimed by a culture roll-up",
+    async () => {
+      // The converse of the test above, and the reason the stranding fix is not
+      // a double-count: an ADJACENT entry is excluded from culture's own totals,
+      // so a body may sit in exactly one of the two. Both directions have to
+      // hold or „the sector procured €X" is wrong somewhere.
+      const adjacent = new Set(Object.keys(ADJACENT_EIKS));
+      const alsoInCulture = MO_ENTITIES.map((e) => e.eik).filter(
+        (eik) =>
+          (CULTURE_GROUP_EIKS as readonly string[]).includes(eik) &&
+          !adjacent.has(eik),
+      );
+      assert.deepEqual(
+        alsoInCulture,
+        [],
+        "EIK is in both MO_ENTITIES and a culture roll-up: " +
+          alsoInCulture.join(", "),
+      );
+    },
+  );
+
+  test.skipIf(skip)("the anti-allowlist stays out", async () => {
+    // The wrong-EIK half. Curating by NAME instead of EIK false-positives hard
+    // here — „7-МО Основно училище" matches „МО", the town of Раковски matches
+    // the Раковски military academy, and the EIK prefix 1290* is the whole
+    // security-services range — so the near-miss that motivated this roster was
+    // two МВР directorates worth €370M.
+    //
+    // Each entry carries its own €, so the assertion also proves the test is not
+    // passing because the body is absent from the corpus.
+    const FORBIDDEN: Record<string, string> = {
+      "129010157": "МВР ДУССД (€301M) — the €370M near-miss",
+      "129010698": "МВР ДКИС (€70M) — the other half of it",
+      "129009710": "ДАНС — a separate CoM agency",
+      "129010090": "ДАТО — a separate CoM agency",
+      "831913661":
+        "ДА „Държавен резерв и военновременни запаси“ (€1.365bn) — the " +
+        "single largest wrong answer available, and the most plausible one",
+      "121817309":
+        "Военно-апелативна прокуратура — reads as military, belongs to the " +
+        "judiciary. The one a name sweep is most likely to admit",
+    };
+    const roster = new Set(MO_ENTITIES.map((e) => e.eik));
+    const admitted = Object.entries(FORBIDDEN)
+      .filter(([eik]) => roster.has(eik))
+      .map(([eik, why]) => `${eik}: ${why}`);
+    assert.deepEqual(admitted, [], admitted.join("\n"));
+
+    // ДА „Държавен резерв" is the one worth measuring rather than merely
+    // listing: it is a real, huge, military-sounding awarder, so a future
+    // „the roster looks short" edit would land on it first. If it ever stops
+    // being large this test has quietly lost its subject.
+    const reserve = await sectorSum(["831913661"]);
+    assert.ok(
+      reserve > 500_000_000,
+      `ДА „Държавен резерв“ is only €${reserve} — this gate assumed it was ` +
+        "large enough to be a tempting wrong answer; re-check the exclusion",
+    );
+  });
+
+  test.skipIf(skip)(
+    "signature members are real, present awarders",
+    async () => {
+      // A wrong-but-real EIK passes every structural gate in this block, because
+      // the test and the app read the same constant. Money is the independent
+      // check: a typo'd digit lands on a body with a different spend, or none.
+      const mod = await sectorSum([MOD_EIK]);
+      const vma = await sectorSum([VMA_EIK]);
+      assert.ok(mod > 500_000_000, `МО central EIK spend €${mod} below floor`);
+      assert.ok(vma > 500_000_000, `ВМА spend €${vma} below floor`);
+
+      // ВМА is the segmentation's whole justification — it buys oncology drugs and
+      // nursing care, so a whole-group tile that cannot exclude it reads as
+      // "the МО buys medicines". Pinned as a SHARE, which is what makes the claim
+      // true, rather than as a €, which moves every reload.
+      const group = await sectorSum(DEFENSE_SECTOR_EIKS);
+      const share = vma / group;
+      assert.ok(
+        share > 0.25 && share < 0.6,
+        `ВМА is ${(share * 100).toFixed(1)}% of the МО group — outside the band ` +
+          "the universe filter was designed around (DEFENSE_UNIVERSES)",
+      );
+
+      // Both bodies the 2026-08-19 audit added are present and non-trivial. A
+      // silent re-trim would look exactly like the state it fixed.
+      for (const [eik, floor, name] of [
+        ["114102692", 100_000, "РВИМ — Плевен"],
+        ["000804161", 1_000_000, "НПМ „Шипка-Бузлуджа“"],
+      ] as const) {
+        assert.ok(
+          MO_ENTITIES.some((e) => e.eik === eik),
+          `${name} (${eik}) dropped from MO_ENTITIES — it was stranded in NO sector before the audit`,
+        );
+        const eur = await sectorSum([eik]);
+        assert.ok(eur > floor, `${name} spend €${eur} below floor ${floor}`);
+      }
+    },
+  );
+
+  test.skipIf(skip)("the roster count is never a literal", () => {
+    // The heading „Парите: N-те структури на МО" sits directly above the list it
+    // counts, and the same number is in the prerendered <meta description> for
+    // /awarder/000695324 — an INDEXED page. The literal had already gone stale
+    // once (DefenseSearchBox's header said 24 against a 25-row roster) and went
+    // stale again at 27, so every surface now derives it.
+    const files = [
+      "src/screens/defense/DefenseAwardersTile.tsx",
+      "src/screens/defense/DefenseSearchBox.tsx",
+      "scripts/prerender/institutions.ts",
+      "scripts/prerender/routes.ts",
+      "scripts/data_map/model.ts",
+    ];
+    const offenders: string[] = [];
+    for (const rel of files) {
+      const body = stripComments(
+        fs.readFileSync(path.join(ROOT, rel), "utf-8"),
+      );
+      // Anchored on МО, not on „структури" alone. A bare number matches CPV
+      // codes, percentages and years; „N структури" matches the OTHER sectors'
+      // roster counts, which are hardcoded too (МВР's „74 структури" in
+      // prerender/routes.ts, „75 структури" in data_map/model.ts) but are those
+      // sectors' business — a defense gate that fails on them would be failing
+      // for the wrong reason and would be deleted by the next person to see it.
+      const m = body.match(
+        /\d+(?:-те)?\s+(?:структури(?:те)?\s+(?:на\s+)?(?:МО|Министерств)|Ministry of Defence units|МО units)/g,
+      );
+      if (m) offenders.push(`${rel}: ${m.join(", ")}`);
+    }
+    assert.deepEqual(
+      offenders,
+      [],
+      "hardcoded МО roster count — derive it from MO_ENTITIES.length:\n" +
+        offenders.join("\n"),
+    );
+  });
 });

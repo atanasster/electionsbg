@@ -1,4 +1,4 @@
-// The structure finder on /defense — the 24 МО bodies.
+// The structure finder on /defense — every body in MO_ENTITIES.
 //
 // Same job as SectorMembersSearch does for the config-driven group sectors, but
 // /defense is a bespoke screen with its own curated roster (MO_ENTITIES), so it
