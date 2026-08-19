@@ -17,6 +17,7 @@
 // exactly one place".
 
 import { exec, getPool, withClient } from "../db/lib/pg";
+import { execRebuildRiskCache } from "../db/lib/rebuildRiskCache";
 
 /**
  * Run a statement, skipping ONLY when its object's migration is absent on this
@@ -84,7 +85,16 @@ export const refreshAppealDependents = async (): Promise<void> => {
   // rejoin the TS side fired appealUpheld on a contract the cache still called
   // clean. The crawler never needed this because it only ever ADDED intake rows;
   // a rejoin moves outcomes, which is what reaches this cache.
-  await tryExec("SELECT rebuild_contract_risk_cache()");
+  // Through the helper, NOT tryExec(sql): the stamped overload does not exist on
+  // a database whose 112 predates it, and tryExec swallows exactly that 42883 —
+  // which would skip the rebuild entirely and produce the "clean" masks the
+  // paragraph above warns about. The helper falls back to the bare form; only a
+  // database with NO 112 at all reaches the swallow below.
+  await execRebuildRiskCache(exec).catch((e: unknown) => {
+    const code = (e as { code?: string } | null)?.code;
+    if (code === "42P01" || code === "42883") return undefined;
+    throw e;
+  });
 
   // ⚠️ THE TWO STEPS A PARTIAL COPY DROPS. Both read buyer_appeal_stats, so
   // rebuilding it without them leaves the SERVED leaderboard disagreeing with the

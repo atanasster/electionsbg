@@ -101,15 +101,24 @@ const between = (s: string, from: string, to: string): string => {
   return s.slice(a + from.length, b);
 };
 
-/** The body of one SQL function: its CREATE header to the `$$;` that closes it.
+/** The body of one SQL function: its CREATE header to the dollar-quote that
+ *  closes it.
+ *
  *  Slicing to end-of-file instead is how the first cut passed a "supplier" body
- *  that actually contained three later functions. */
+ *  that actually contained three later functions. The closing tag is READ from
+ *  the opening one rather than assumed to be `$$` — 112's plpgsql functions use
+ *  `$fn$`, and hard-coding `$$` made every assertion against them throw rather
+ *  than fail informatively. */
 const fnBody = (source: string, name: string): string => {
   const at = source.indexOf(`FUNCTION ${name}`);
   expect(at, `${name} not found`).toBeGreaterThan(-1);
   const rest = source.slice(at);
-  const close = rest.indexOf("$$;");
-  expect(close, `${name} has no closing $$;`).toBeGreaterThan(-1);
+  const open = rest.match(/\$([A-Za-z_]*)\$/);
+  expect(open, `${name} has no dollar-quoted body`).toBeTruthy();
+  const tag = open![0];
+  const bodyStart = open!.index! + tag.length;
+  const close = rest.indexOf(tag, bodyStart);
+  expect(close, `${name} has no closing ${tag}`).toBeGreaterThan(-1);
   return rest.slice(0, close);
 };
 
@@ -382,6 +391,44 @@ describe("033 — the concentration rule", () => {
         `'minAwarderTotalEur',\\s*${CONCENTRATION_MIN_AWARDER_TOTAL_EUR}(?![\\d])`,
       ).test(CODE_033),
     ).toBe(true);
+  });
+});
+
+describe("112 — the version stamp is wired", () => {
+  // Static half of contract_risk_meta.data.test.ts. That gate proves the stamp
+  // BEHAVES; this one proves both rebuild overloads still call it, which is
+  // cheap to check and expensive to notice missing — a rebuild that stopped
+  // stamping would leave the methodology page citing a version the served masks
+  // were not computed under, with nothing failing.
+  test("both rebuild overloads stamp", () => {
+    const zeroArg = fnBody(CODE_112, "rebuild_contract_risk_cache()");
+    const oneArg = fnBody(
+      CODE_112,
+      "rebuild_contract_risk_cache(p_catalog_version",
+    );
+    expect(zeroArg, "the no-arg rebuild must clear the version").toMatch(
+      /contract_risk_stamp\(\s*NULL/,
+    );
+    expect(oneArg, "the stamped rebuild must record its argument").toMatch(
+      /contract_risk_stamp\(\s*p_catalog_version/,
+    );
+  });
+
+  test("contract_risk_stamp normalises a blank version to NULL", () => {
+    // '' would render as a version-shaped nothing on the page rather than taking
+    // the "not stamped" branch.
+    expect(fnBody(CODE_112, "contract_risk_stamp")).toMatch(
+      /nullif\(btrim\(p_version\), ''\)/,
+    );
+  });
+
+  test("the stamp is the ONLY writer of contract_risk_meta", () => {
+    // Two writers is how the "absence is honest, a stale stamp is a false claim"
+    // rule gets half-applied.
+    const writes = [
+      ...CODE_112.matchAll(/(INSERT INTO|UPDATE)\s+contract_risk_meta/g),
+    ];
+    expect(writes.length, "writers of contract_risk_meta in 112").toBe(1);
   });
 });
 

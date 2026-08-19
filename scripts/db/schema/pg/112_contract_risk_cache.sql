@@ -160,6 +160,54 @@ DO $$ BEGIN
   END IF;
 END $$;
 
+-- PROVENANCE OF THE SERVED MASKS. One row, describing the last rebuild.
+--
+-- WHY IT EXISTS: the flag definitions are a published, versioned artifact
+-- (src/lib/riskFlagCatalog.ts, docs/plans/procurement-risk-open-source-v1.md), and
+-- the methodology page invites a journalist to cite "flag set vX.Y.Z". The version
+-- in the BUNDLE says what the code declares; every flag a reader actually sees came
+-- out of contract_risk_cache, built by the last rebuild. Those two diverge for the
+-- entire window between a deploy and a cache rebuild — which on the cloud side is
+-- an explicit, easily-skipped operator step (a ~90-minute contracts reload, or
+-- apply_functions.ts followed by SELECT rebuild_contract_risk_cache()). Citing the
+-- bundle's version over masks computed under an older one is the one claim we would
+-- have no way to walk back, so the page reads THIS.
+--
+-- ⚠️ A NULL catalog_version means "not stamped", and that is deliberately the
+-- result of a rebuild run WITHOUT a version (the no-arg overload below, i.e. a hand
+-- run via psql). Leaving the previous stamp in place would be worse than having
+-- none: it would assert that masks were computed under a version they were not.
+-- Absence is honest; a stale stamp is a false claim.
+CREATE TABLE IF NOT EXISTS contract_risk_meta (
+  only_row        boolean PRIMARY KEY DEFAULT true CHECK (only_row),
+  catalog_version text,
+  rebuilt_at      timestamptz NOT NULL DEFAULT now(),
+  row_count       bigint
+);
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON contract_risk_meta TO app_readonly;
+  END IF;
+END $$;
+
+-- The ONE writer of contract_risk_meta. Both rebuild overloads call it.
+--
+-- Extracted rather than inlined twice for two reasons. It keeps the "a blank or
+-- absent version stores NULL, never ''" rule in one place — an empty string would
+-- render as a version-shaped nothing on the methodology page instead of taking
+-- its "not stamped" branch. And it makes the stamping TESTABLE on its own: a
+-- rebuild of the 409k-row cache is ~36 s locally, so a gate that exercised the
+-- stamp through six rebuilds would cost four minutes to assert an upsert.
+CREATE OR REPLACE FUNCTION contract_risk_stamp(p_version text, p_rows bigint)
+RETURNS void LANGUAGE sql AS $$
+  INSERT INTO contract_risk_meta (only_row, catalog_version, rebuilt_at, row_count)
+  VALUES (true, nullif(btrim(p_version), ''), clock_timestamp(), p_rows)
+  ON CONFLICT (only_row) DO UPDATE
+    SET catalog_version = EXCLUDED.catalog_version,
+        rebuilt_at      = EXCLUDED.rebuilt_at,
+        row_count       = EXCLUDED.row_count;
+$$;
+
 -- Rebuild via DELETE+INSERT inside one transaction rather than TRUNCATE+COPY or
 -- a rename-swap. TRUNCATE would take an AccessExclusive lock on a table the
 -- serving view reads (a contracts reload already causes 500s that way,
@@ -370,6 +418,52 @@ BEGIN
   FROM agg a;
 
   GET DIAGNOSTICS n = ROW_COUNT;
+
+  -- Stamp the rebuild, CLEARING any catalogue version. This overload does not
+  -- know which flag set it just applied, so it must not leave the previous claim
+  -- standing (see contract_risk_meta's header). The one-argument overload below
+  -- is what records a version.
+  PERFORM contract_risk_stamp(NULL, n);
+
+  RETURN n;
+END;
+$fn$ LANGUAGE plpgsql;
+
+-- Stamped rebuild. Callers that know the catalogue version they are building
+-- under pass it; scripts/db/lib/rebuildRiskCache.ts is the single TS entry point
+-- so the version comes from one place (CATALOG_VERSION) rather than three.
+--
+-- An OVERLOAD rather than a DEFAULT parameter: adding a defaulted argument to the
+-- existing function would leave both a 0-arg and a 1-arg-with-default candidate,
+-- and `SELECT rebuild_contract_risk_cache()` would then fail as ambiguous — on a
+-- call site inside load_pg.ts, i.e. mid-contracts-reload. Two arities can never be
+-- ambiguous.
+CREATE OR REPLACE FUNCTION rebuild_contract_risk_cache(p_catalog_version text)
+RETURNS bigint AS $fn$
+DECLARE n bigint; before timestamptz;
+BEGIN
+  SELECT rebuilt_at INTO before FROM contract_risk_meta WHERE only_row;
+  n := rebuild_contract_risk_cache();
+
+  -- Only claim a version when the rebuild ACTUALLY RAN.
+  --
+  -- The no-arg overload bails out (RETURN 0) on a database with no `contracts`
+  -- corpus or no is_direct_award(), WITHOUT touching the cache or the stamp.
+  -- Stamping a version after that would assert that the masks currently in
+  -- contract_risk_cache were produced by this catalogue version, when this call
+  -- rebuilt nothing at all — precisely the false provenance claim the whole table
+  -- exists to prevent, and the worst possible one because it looks healthiest.
+  --
+  -- "Did it run" is read off the stamp the inner call leaves: clock_timestamp()
+  -- advances even within one transaction, so an unchanged rebuilt_at means the
+  -- bail-out branch was taken.
+  IF EXISTS (
+    SELECT 1 FROM contract_risk_meta
+     WHERE only_row AND (before IS NULL OR rebuilt_at > before)
+  ) THEN
+    PERFORM contract_risk_stamp(p_catalog_version, n);
+  END IF;
+
   RETURN n;
 END;
 $fn$ LANGUAGE plpgsql;

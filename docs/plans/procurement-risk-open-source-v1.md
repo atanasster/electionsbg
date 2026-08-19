@@ -357,11 +357,23 @@ a catalog deploy and a cache rebuild (§7.5) — so the naïve implementation le
 "v1.4.0" over masks computed under v1.3.0, which is exactly the citation a journalist would rely
 on and the one claim we would have no way to walk back.
 
-Fix: `rebuild_contract_risk_cache()` stamps the catalog version into a one-row
-`contract_risk_meta` table (version + rebuilt_at), `/api/db` returns it, and the methodology page
-plus `risk-flags.json` render **that** value with its rebuild timestamp — falling back to "not
-stamped" rather than to the bundle constant. A version the page cannot prove is worse than no
+Fix (**shipped, T1.5**): a one-row `contract_risk_meta` table holds `catalog_version`,
+`rebuilt_at` and `row_count`; `contract_risk_stamp()` is its only writer;
+`rebuild_contract_risk_cache(text)` records the version its caller supplies and the bare
+`rebuild_contract_risk_cache()` **clears** it. `/api/db/risk-catalog-version` serves it, and the
+methodology page plus `risk-flags.json` render **that** value with its timestamp — falling back to
+"not stamped" rather than to the bundle constant. A version the page cannot prove is worse than no
 version.
+
+Two properties are load-bearing and both are gated:
+
+- **Clearing, not preserving.** A hand-run `SELECT rebuild_contract_risk_cache();` in psql leaves
+  no version rather than the previous one. A stale stamp asserts the served masks were computed
+  under a flag set they were not — strictly worse than absence, and the likelier failure since
+  that bare call is what every existing runbook says to type.
+- **One TS entry point.** `scripts/db/lib/rebuildRiskCache.ts` is where `CATALOG_VERSION` reaches
+  SQL; the three call sites (`load_pg.ts`, `refresh_risk.ts`, `kzk_dependents.ts`) go through it,
+  because a missed one would not fail — it would just silently stop stamping.
 
 ## 4. The spec — what the handbook contains
 
@@ -535,7 +547,7 @@ a plausible-looking wrong id is not.
 |---|---|---|---|
 | **T0** | `LICENSE` (MIT, path-scoped) + `package.json` `license` field + `METHODOLOGY.md` pointer + confirm repo public | — | Half a day; the legal prerequisite for everything else |
 | **T1** ✅ | `src/lib/riskFlagCatalog.ts` (relocated + widened `CHECK_CATALOG`) + direct imports + the two vitest drift gates (§8) | T0 | Touched `RiskBadges.tsx`, `contractRiskMask.ts`, both scorers **and** `derived.ts`/`by_ns.ts` (two further copies found during the work) — not a UI-free refactor. Threshold resolution picked (§3b) |
-| **T1.5** | Version stamping: `contract_risk_meta` + `rebuild_contract_risk_cache()` writes it + `/api/db` returns it | T1 | Small, but T4 cannot print an honest version without it (§3c) |
+| **T1.5** ✅ | Version stamping: `contract_risk_meta` + `contract_risk_stamp()` + a `rebuild_contract_risk_cache(text)` overload + `/api/db/risk-catalog-version` | T1 | T4 cannot print an honest version without it (§3c). An OVERLOAD, not a defaulted argument — the latter would make the existing no-arg call ambiguous, inside `load_pg.ts` mid-reload |
 | **T2** | `genRiskI18n`/`genRiskDocs` + the handbook (§4a–§4g) + `risk-flags.json` | T1, T1.5 | Docs generated, not hand-copied. **Resolve §3a's supplier-weight question before the handbook ships** |
 | **T3** | OCP/iMonitor alignment table (§5) | T2 | Every R-id verified against the source PDF or marked `unmapped` — that verification *is* the tier |
 | **T4** | `/procurement/methodology` page (prerender + both sitemap lists + own og:image) + per-chip citation links + download | T2, T3 | See §6.1's three artifacts |
@@ -571,14 +583,23 @@ weights):**
 # 112 is applied by db:load:pg — a ~90-minute cloud contracts reload. For a
 # function/threshold-only change, apply surgically instead:
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 112_contract_risk_cache.sql
-# …then REBUILD, or the served masks stay on the old definition indefinitely:
-psql "$DATABASE_URL" -c "SELECT rebuild_contract_risk_cache();"
+# …then REBUILD, or the served masks stay on the old definition indefinitely.
+# Pass the catalog version — the BARE form deliberately clears the stamp (§3c),
+# so a hand-run without it leaves the methodology page unable to attribute the
+# masks it is serving. `CATALOG_VERSION` is in src/lib/riskFlagCatalog.ts.
+psql "$DATABASE_URL" -c "SELECT rebuild_contract_risk_cache('1.0.0');"
 ```
 
-The rebuild is what moves `cri`, `fired`, `grade` and both masks on 407k rows. Skipping it is
-invisible to every row count — the table is full, the API answers, the chips render, and they are
-computed under the previous catalog version. **This is the exact failure §3c's version stamp
-exists to make visible**, which is why T1.5 precedes T4.
+The rebuild is what moves `cri`, `fired`, `grade` and both masks on 407k rows (~36 s locally).
+Skipping it is invisible to every row count — the table is full, the API answers, the chips
+render, and they are computed under the previous catalog version. **This is the exact failure
+§3c's version stamp exists to make visible**, which is why T1.5 precedes T4.
+
+⚠️ Earlier drafts of this runbook told the operator to type the BARE
+`SELECT rebuild_contract_risk_cache();` — while §3c named that same call as the likeliest way to
+lose the stamp. Both cannot be right. The stamped form is the one to type; the bare form exists
+so that a rebuild which cannot name its version clears the claim instead of inheriting a stale
+one.
 
 **A bit RENUMBER is not deployable at all**, and the spec should say so as a property of the
 format rather than a warning: historic masks re-map silently, so `bit` is append-only (§3b) and a

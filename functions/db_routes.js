@@ -1849,6 +1849,37 @@ const DB_ROUTES = {
   // the crawl advances and as the tenders corpus grows. Degrades to nulls rather
   // than 500ing on a database where 147 has not been applied: a page that cannot
   // state its coverage should omit the claim, not fail.
+  // Provenance of the served risk masks: which flag-catalogue version the last
+  // rebuild_contract_risk_cache() ran under, and when.
+  //
+  // ⚠️ The methodology page MUST render this rather than the version compiled
+  // into the bundle. The bundle says what the code declares; every flag a reader
+  // sees came out of contract_risk_cache, and the two diverge for the whole
+  // window between a deploy and a cache rebuild (on the cloud side an explicit,
+  // easily-skipped operator step). A page citing the bundle's version over older
+  // masks makes a claim we could not walk back.
+  //
+  // `version: null` means NOT STAMPED — either the database predates
+  // contract_risk_meta, or the last rebuild used the unstamped overload. It is
+  // NOT a failure and must not be rendered as one; it means the served flags
+  // cannot be attributed to a catalogue version at all, and the page says so.
+  "risk-catalog-version": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT catalog_version, rebuilt_at, row_count
+         FROM contract_risk_meta
+        WHERE only_row`,
+      [],
+    ).catch(missingMigrationRows);
+    const r = rows[0];
+    return {
+      body: {
+        version: r?.catalog_version ?? null,
+        rebuiltAt: r?.rebuilt_at ?? null,
+        rowCount: r?.row_count == null ? null : Number(r.row_count),
+      },
+    };
+  },
+
   "tender-search-coverage": async (dbRows) => {
     const rows = await dbRows(
       "SELECT covered, corpus FROM tender_search_coverage()",

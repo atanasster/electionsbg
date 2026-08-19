@@ -35,6 +35,7 @@ import {
 } from "./lib/ingest_changelog";
 import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 import type { Contract } from "../procurement/types";
+import { execRebuildRiskCache } from "./lib/rebuildRiskCache";
 
 const SCHEMA_DIR = path.join(
   PROC_DIR,
@@ -535,7 +536,7 @@ export const loadPg = async (): Promise<{
   // Per-contract risk index (112). Must run AFTER the risk-indexes refresh:
   // both read the same 033 views, and the browser column would otherwise serve
   // a CRI derived from a different snapshot than the contract page's chips.
-  await exec("SELECT rebuild_contract_risk_cache()");
+  await execRebuildRiskCache(exec);
   // Full-corpus (all-years) cache for the by-settlement payload (030) — too slow to compute
   // per request; the route serves it when from/to are both absent.
   //

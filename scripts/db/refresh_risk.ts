@@ -17,6 +17,7 @@
 // alone is what makes the contract page and the browser column disagree.
 
 import { allRows, exec, end } from "./lib/pg";
+import { queryRebuildRiskCache } from "./lib/rebuildRiskCache";
 
 const main = async () => {
   const target = /:5434\b/.test(process.env.DATABASE_URL ?? "")
@@ -35,12 +36,19 @@ const main = async () => {
   );
 
   t = Date.now();
-  const [built] = await allRows<{ n: string }>(
-    `SELECT rebuild_contract_risk_cache()::text AS n`,
+  const built = await queryRebuildRiskCache((sql) =>
+    allRows<{ n: string }>(sql),
   );
   console.log(
-    `  contract_risk_cache: ${built?.n ?? 0} row(s) ` +
-      `(${Math.round((Date.now() - t) / 1000)}s)`,
+    `  contract_risk_cache: ${built.rows ?? 0} row(s) ` +
+      `(${Math.round((Date.now() - t) / 1000)}s)` +
+      // Says which form ran. "not stamped" is not a failure — it means this
+      // database's 112 predates the version stamp — but it IS the state in which
+      // /procurement/methodology cannot attribute the served masks to a
+      // catalogue version, so it should never be a silent one.
+      (built.stamped
+        ? ""
+        : "  ⚠ not stamped (112 predates contract_risk_meta)"),
   );
 
   const [dist] = await allRows<{ summary: string }>(
