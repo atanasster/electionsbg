@@ -137,6 +137,24 @@ export type DeclarationDetail = {
      *  („договор за наем", „лизинг"). The „ползва" block is not self-explanatory
      *  without it. */
     legalBasis: string | null;
+    /** WHERE the declarant says this money sits, from the register's „В страната" /
+     *  „В чужбина" cell pair. Classified at parse time and stored (089 `held_scope`), so
+     *  the UI reads it rather than becoming a second definition — see
+     *  scripts/declarations/held_abroad.ts.
+     *
+     *  ⚠️ NULL IS NOT `"domestic"`. It means the row's table has no such question: the
+     *  pair exists ONLY on tables 5 („Банкови влогове") and 8 („Вложения в … фондове"),
+     *  so every property, vehicle and CASH row is null here. `"unknown"` is different
+     *  again — the filing answered, unintelligibly (both cells blank, both ticked, or one
+     *  amount split across the two). Neither may be rendered as „в страната". */
+    heldScope: "domestic" | "abroad" | "unknown" | null;
+    /** The country, when a cell named one.
+     *
+     *  ⚠️ NULL IS NOT EVIDENCE OF BEING DOMESTIC. „да" in the „В чужбина" column says
+     *  abroad and names nowhere: corpus-wide a country is named on 521 of 3,288 abroad
+     *  rows, 11.6% of the money. Key any „held abroad" UI on `heldScope`; this is the
+     *  extra detail, never the test. */
+    heldCountry: string | null;
   }[];
   income: {
     category: string | null;

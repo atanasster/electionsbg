@@ -22,6 +22,7 @@ import { summariseProperties } from "@/lib/propertyKind";
 import { cn } from "@/lib/utils";
 import { assetRowParts } from "./assetRowText";
 import { PersonCryptoHoldings } from "./PersonCryptoHoldings";
+import { PersonHeldAbroad } from "./PersonHeldAbroad";
 import {
   usePersonDeclarations,
   useDeclarationDetail,
@@ -114,11 +115,11 @@ export const PersonDeclarations: FC<{
   // that free needs a property count on the LIST payload (090) — a migration, not a client
   // change.
   //
-  // NOT rendered in bare mode, and that is a decision rather than a property of the branch:
-  // the MP path's KPI row belongs to MpAssetsSummary, which already carries a per-category
-  // count, so a fifth card there is a change to THAT component. The consequence is real and
-  // unfixed — MP pages are the highest-traffic person pages and the 25,167 prerendered ones
-  // — so do not read this gate as "MPs don't need it".
+  // NOT rendered in bare mode, because the MP path already has it: MpAssetsSummary sits
+  // directly above and now prints the same breakdown inside its real-estate tile, off rows
+  // it had already fetched. Rendering here too would say it twice. Both use
+  // `summariseProperties`, so they cannot disagree — that shared fold is the only reason
+  // two surfaces answering the same question is acceptable.
   const headlineDetail = useDeclarationDetail(
     !bare && summary ? summary.latest.id : null,
   );
@@ -496,6 +497,7 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
       {/* Sibling of the „ползва" block below: both take rows OUT of the plain asset list
           and say something specific about them. Self-suppressing when the filing declares
           nothing abroad — which is 95% of them. */}
+      <PersonHeldAbroad assets={detail.assets} />
       {usedAssets.length > 0 && (
         <div className="border-t border-border pt-1">
           <div className="mb-0.5 font-medium">

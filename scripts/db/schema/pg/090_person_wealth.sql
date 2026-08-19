@@ -754,7 +754,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         -- Carried for the second: the „ползва" block is not self-explanatory without it,
         -- and a LEASE is the case where the site's own arithmetic needs explaining — the
         -- car leaves the assets while the lease liability stays in table 7.
-        'legalBasis', a.legal_basis
+        'legalBasis', a.legal_basis,
+        -- WHERE the declarant says this money sits — 'domestic' | 'abroad' | 'unknown', or
+        -- NULL. Classified at PARSE time and stored (089's held_scope), so this payload
+        -- reads a column rather than re-deriving a rule over free text.
+        --
+        -- ⚠️ NULL IS NOT 'domestic'. It means the row's table has no such question: the
+        -- „В страната" / „В чужбина" pair exists ONLY on tables 5 and 8, so every property,
+        -- vehicle and CASH row is NULL here. A renderer that reads NULL as „in Bulgaria"
+        -- would put a domestic label on every flat in the corpus.
+        'heldScope', a.held_scope,
+        -- ⚠️ AND A NULL COUNTRY IS NOT EVIDENCE OF BEING DOMESTIC. „да" in the „В чужбина"
+        -- column says abroad and names nowhere: corpus-wide a country is named on 521 of
+        -- 3,288 abroad rows, 11.6% of the money. So the client must key its block on
+        -- `heldScope`, never on `heldCountry IS NOT NULL`, and print the country only as
+        -- the extra it is.
+        'heldCountry', a.held_country
       ) ORDER BY a.seq) FROM declaration_asset a WHERE a.declaration_id = d.declaration_id
     ), '[]'::jsonb),
     'income', COALESCE((
