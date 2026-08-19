@@ -697,3 +697,232 @@ test.skipIf(skip)(
   },
   300_000,
 );
+
+// ── The UNION layer's two invariants (docs/plans/company-political-links-third-arm-v1.md) ──────
+//
+// `/api/db/company-political` merges this function with `company_politicians` (008) and the ИСУН
+// `political-by-eik` shard. Everything above gates 158 in isolation; these two gate the JOIN,
+// because both of its load-bearing properties are properties of the CORPUS rather than of the JS —
+// a route unit test can only assert them against fixtures it wrote itself.
+
+/**
+ * The union's dedup key, as SQL — the same three-way resolution `db_routes.js` performs, written
+ * ONCE here so the gate and the route cannot drift into two different keys.
+ *
+ * ⚠️ THE `mp` BRANCH'S `COALESCE` FALLBACK IS NON-NULL BY CONSTRUCTION, so "is this key NULL"
+ * gates NOTHING there — `company_politicians.ref` has no NULLs, and 68 of its 522 rows are `mp`.
+ * That is why the assertions below test whether the key names a SERVABLE PERSON rather than
+ * whether it is non-null: 158 emits `person.slug`, so a key that is not one cannot ever match it,
+ * and the same human renders once per arm.
+ */
+const DEDUP_KEY_SQL = `
+  CASE WHEN kind = 'mp'
+       THEN COALESCE(person_slug_redirect(replace(ref, '/candidate/', '')),
+                     replace(ref, '/candidate/', ''))
+       ELSE officials_person_slug(replace(ref, '/officials/', ''))
+  END`;
+
+test.skipIf(skip)(
+  "every arm's ref resolves to a person the site would actually serve",
+  async () => {
+    // ⚠️ WHAT THIS DOES *NOT* GATE, because an earlier draft of this comment claimed it did and
+    // the corpus refutes it: the retirement map. `officials_person_slug()` is a COALESCE whose
+    // FIRST branch is a `person_role.ref` join, and measured 2026-08-19 that branch answers
+    // 445/445 PG officials refs and 919/919 funds officials slugs — **0** reach the
+    // `person_slug_redirect` fallthrough. Deleting that arm from 106 would leave this green. (37
+    // refs do have a redirect row, which is where the wrong claim came from; they resolve through
+    // `person_role` anyway.)
+    //
+    // What it DOES gate is cross-loader drift, which is the real hazard here:
+    // `company_politicians` is rebuilt by `db:load:tr:pg` and `person_role` by
+    // `db:resolve:persons`, so a roster re-slug reaching one and not the other strands refs with
+    // no live role — the dedup key degrades to the raw ref, and every affected human is rendered
+    // once per arm on a page whose whole subject is naming people correctly.
+    const pg = await one<{
+      total: string;
+      discriminating: string;
+      unresolved: string;
+      unservable: string;
+      sample: string;
+    }>(
+      `SELECT count(*)                                            AS total,
+              -- The mp branch cannot fail the NULL check, so the floor below must be measured
+              -- against the rows that can.
+              count(*) FILTER (WHERE kind <> 'mp')                AS discriminating,
+              count(*) FILTER (WHERE pslug IS NULL)               AS unresolved,
+              count(*) FILTER (
+                WHERE pslug IS NOT NULL
+                  AND NOT EXISTS (SELECT 1 FROM person p
+                                   WHERE p.slug = q.pslug
+                                     AND p.status = 'active'
+                                     AND p.is_public_figure)
+              )                                                   AS unservable,
+              COALESCE(min(ref) FILTER (
+                WHERE pslug IS NULL
+                   OR NOT EXISTS (SELECT 1 FROM person p
+                                   WHERE p.slug = q.pslug
+                                     AND p.status = 'active'
+                                     AND p.is_public_figure)), '') AS sample
+         FROM (SELECT ref, kind, ${DEDUP_KEY_SQL} AS pslug FROM company_politicians) q`,
+    );
+    assert.ok(
+      Number(pg.discriminating) > 100,
+      `only ${pg.discriminating} officials-kind rows of ${pg.total} — the mp branch's COALESCE ` +
+        `fallback cannot produce NULL, so it contributes nothing to the unresolved check`,
+    );
+    assert.equal(
+      Number(pg.unresolved),
+      0,
+      `${pg.unresolved}/${pg.total} company_politicians refs do not resolve (e.g. ${pg.sample})`,
+    );
+    assert.equal(
+      Number(pg.unservable),
+      0,
+      `${pg.unservable}/${pg.total} company_politicians refs resolve to a key that is NOT a ` +
+        `servable person (e.g. ${pg.sample}). 158 emits person.slug, so such a key can never ` +
+        `match it — that human renders TWICE, once per arm, and escapes the bridged subtraction.`,
+    );
+
+    // Same key, same requirement, for the funds shard's two arrays.
+    const funds = await one<{
+      total: string;
+      discriminating: string;
+      unservable: string;
+      sample: string;
+    }>(
+      `WITH src AS (
+         SELECT o.slug AS ref, 'official' AS kind, officials_person_slug(o.slug) AS pslug
+           FROM fund_payloads p
+           CROSS JOIN LATERAL jsonb_to_recordset(
+             COALESCE(p.payload -> 'officials', '[]'::jsonb)) AS o(slug text)
+          WHERE p.kind = 'political-by-eik' AND o.slug IS NOT NULL
+         UNION ALL
+         SELECT 'mp-' || m."mpId", 'mp',
+                COALESCE(person_slug_redirect('mp-' || m."mpId"), 'mp-' || m."mpId")
+           FROM fund_payloads p
+           CROSS JOIN LATERAL jsonb_to_recordset(
+             COALESCE(p.payload -> 'mps', '[]'::jsonb)) AS m("mpId" text)
+          WHERE p.kind = 'political-by-eik' AND m."mpId" IS NOT NULL
+       )
+       SELECT count(*)                               AS total,
+              count(*) FILTER (WHERE kind <> 'mp')   AS discriminating,
+              count(*) FILTER (
+                WHERE pslug IS NULL
+                   OR NOT EXISTS (SELECT 1 FROM person p
+                                   WHERE p.slug = src.pslug
+                                     AND p.status = 'active'
+                                     AND p.is_public_figure)
+              )                                      AS unservable,
+              COALESCE(min(ref) FILTER (
+                WHERE pslug IS NULL
+                   OR NOT EXISTS (SELECT 1 FROM person p
+                                   WHERE p.slug = src.pslug
+                                     AND p.status = 'active'
+                                     AND p.is_public_figure)), '') AS sample
+         FROM src`,
+    );
+    // A clone that never ran db:load:funds:pg has no shard rows. Gate on the DISCRIMINATING half:
+    // a corpus whose `officials` arrays emptied while `mps` remained would clear a `total > 0`
+    // guard and then assert nothing at all.
+    if (Number(funds.discriminating) === 0) {
+      console.warn(
+        "[company_political_links] fund_payloads carries no political-by-eik officials rows — " +
+          "the funds half of this gate is inert",
+      );
+      return;
+    }
+    assert.equal(
+      Number(funds.unservable),
+      0,
+      `${funds.unservable}/${funds.total} funds political-by-eik refs do not name a servable ` +
+        `person (e.g. ${funds.sample}) — same double-render as above.`,
+    );
+  },
+  300_000,
+);
+
+test.skipIf(skip)(
+  "no person is both a direct link and a bridged lead once the arms are unioned",
+  async () => {
+    // 158 already guarantees this WITHIN its own payload (see the bridge-cap test above). The
+    // union can break it from OUTSIDE: a PG- or funds-arm person with no `person_role` at this
+    // EIK is absent from 158's `direct_role`, so 158 may legitimately place them in `bridged`
+    // while the other arm puts them in the direct block — and the reader is told about the same
+    // human twice, once as an officer here and once as a distant lead. `db_routes.js` subtracts
+    // the resolved direct-slug set from `bridged` for exactly this reason.
+    //
+    // ⚠️ SCOPED TO BOTH ARMS, AND COUNTED IN PEOPLE. An earlier draft enumerated only
+    // `company_politicians` EIKs and counted JOIN ROWS: it printed 7 where there are 5 people
+    // (one EIK carries three refs folding to one slug) and missed the funds arm's 4 entirely.
+    // The union-wide figure is 9.
+    const r = await one<{
+      eiks: string;
+      collisions: string;
+      in_158_direct: string;
+      sample: string;
+    }>(
+      `WITH eiks AS (
+         SELECT DISTINCT eik FROM company_politicians
+         UNION SELECT key FROM fund_payloads WHERE kind = 'political-by-eik'
+       ),
+       l AS (SELECT e.eik, company_political_links(e.eik, 200) AS j FROM eiks e),
+       b AS (SELECT eik, jsonb_array_elements(j -> 'bridged') ->> 'slug' AS slug FROM l),
+       d AS (SELECT eik, jsonb_array_elements(j -> 'direct')  ->> 'slug' AS slug FROM l),
+       arm AS (
+         SELECT eik, ${DEDUP_KEY_SQL} AS pslug FROM company_politicians
+         UNION
+         SELECT p.key, officials_person_slug(o.slug)
+           FROM fund_payloads p
+           CROSS JOIN LATERAL jsonb_to_recordset(
+             COALESCE(p.payload -> 'officials', '[]'::jsonb)) AS o(slug text)
+          WHERE p.kind = 'political-by-eik' AND o.slug IS NOT NULL
+         UNION
+         SELECT p.key, COALESCE(person_slug_redirect('mp-' || m."mpId"), 'mp-' || m."mpId")
+           FROM fund_payloads p
+           CROSS JOIN LATERAL jsonb_to_recordset(
+             COALESCE(p.payload -> 'mps', '[]'::jsonb)) AS m("mpId" text)
+          WHERE p.kind = 'political-by-eik' AND m."mpId" IS NOT NULL
+       ),
+       hit AS (
+         SELECT a.eik, a.pslug FROM arm a JOIN b ON b.eik = a.eik AND b.slug = a.pslug
+       )
+       SELECT (SELECT count(*) FROM eiks)                       AS eiks,
+              count(*)                                          AS collisions,
+              count(*) FILTER (WHERE EXISTS (
+                SELECT 1 FROM d WHERE d.eik = hit.eik AND d.slug = hit.pslug)) AS in_158_direct,
+              COALESCE(min(hit.eik || ' / ' || hit.pslug), '')   AS sample
+         FROM hit`,
+    );
+    assert.ok(
+      Number(r.eiks) > 50,
+      `only ${r.eiks} EIKs carry a link row — sample too small to discriminate`,
+    );
+
+    // ⚠️ THE ASSERTION WITH TEETH, and it is not the collision count. A colliding person must be
+    // in 158's `bridged` and NOT in its `direct` — that is 158's own guarantee, and if it ever
+    // failed the route's subtraction would be silently masking a defect one layer down rather
+    // than de-duplicating two honest answers. Non-vacuous: the collisions below exercise it, and
+    // none of their EIKs appears in the 400-uic sample the bridge-cap test above draws.
+    assert.equal(
+      Number(r.in_158_direct),
+      0,
+      `${r.in_158_direct} colliding person(s) are in 158's OWN direct array as well as its ` +
+        `bridged one (e.g. ${r.sample}) — 158 excludes its direct_role set from bridged, so ` +
+        `this cannot happen unless that exclusion has broken.`,
+    );
+
+    // The magnitude is REPORTED, never asserted to be zero: the collisions are real corpus facts
+    // that the route filters, so pinning a number here would go red on the next TR reload.
+    if (Number(r.collisions) === 0)
+      console.warn(
+        "[company_political_links] no direct/bridged collisions in the corpus — the route's " +
+          "subtraction is currently exercised only by db_routes.company_political.test.js",
+      );
+    else
+      console.info(
+        `[company_political_links] ${r.collisions} person(s) appear in both arms before the ` +
+          `route subtracts them (e.g. ${r.sample}) — each would be described to the reader twice.`,
+      );
+  },
+  300_000,
+);

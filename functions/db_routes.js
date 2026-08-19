@@ -3087,11 +3087,14 @@ const DB_ROUTES = {
   // 2. THE DEDUP KEY IS ONLY RESOLVABLE SERVER-SIDE. The three arms name one human three ways
   //    (`/candidate/mp-2829`, `/officials/<officials-slug>`, and 158's person slug). The key is
   //    the person slug resolved FORWARD through `officials_person_slug()` (106), which is
-  //    TOTAL — 522/522 and 1,249/1,249 — because it falls through `person_slug_retired`. 408 of
-  //    445 distinct officials refs are person slugs outright; the other 37 are RETIRED, and
-  //    only that function knows their target. The reverse direction is not total
-  //    (`person_role.ref` at official_exec/muni covers 417 of 445), so "have 158 return its
-  //    aliases" would silently miss 28. A browser cannot call the function at all.
+  //    TOTAL — 522/522 and 1,249/1,249. ⚠️ NOT because of the retirement fallthrough, which an
+  //    earlier note here credited: 106 is a COALESCE whose FIRST branch is a `person_role.ref`
+  //    join, and that branch answers 445/445 officials refs on its own (37 also have a
+  //    `person_slug_retired` row and do not need it). What totality actually rests on is every
+  //    ref having a LIVE `person_role` — i.e. `company_politicians` (db:load:tr:pg) not having
+  //    gone stale against `person_role` (db:resolve:persons). The REVERSE direction is not total
+  //    (`person_role.ref` at official_exec/muni covers 417 of 445 as an alias source), so "have
+  //    158 return its aliases" would silently miss 28. A browser cannot call the function at all.
   //
   // 3. THE FUNDS ARM CANNOT BE RESOLVED WHERE IT IS SERVED. `/api/db/fund-payload` is a generic
   //    passthrough over ~18 payload kinds; special-casing one kind's identity join there rots.
@@ -3104,8 +3107,9 @@ const DB_ROUTES = {
   //    as an officer here, once as a distant lead. The union breaks that FROM OUTSIDE: a PG-arm
   //    person with no `person_role` at source tr/ngo for this EIK is not in 158's `direct_role`,
   //    so 158 may legitimately place them in `bridged` while the PG arm puts them in ours.
-  //    Measured: 7 people. `bridged` is therefore filtered against the resolved direct-slug set
-  //    below — deleting that filter is the defect, and the data test gates it.
+  //    Measured: 9 people union-wide (5 from the PG arm, 4 from the funds arm). `bridged` is
+  //    therefore filtered against the resolved direct-slug set below — deleting that filter is
+  //    the defect, and the data test gates it.
   //
   // NOT folded into `/api/db/company` despite that route's own note about avoiding a second
   // round-trip: it is a `Promise.all` of ~18 queries, so its latency is its slowest member, and
