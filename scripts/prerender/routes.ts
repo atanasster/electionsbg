@@ -4687,21 +4687,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "mp-cars",
     title: "Коли, декларирани от народните представители | electionsbg.com",
     description:
-      "Всеки лек автомобил или джип, деклариран от действащ депутат (или съпруг), от последната подадена декларация — подреден по декларирана стойност в лева.",
+      "Всеки лек автомобил или джип, деклариран от действащ депутат (или от друг титуляр в неговата декларация), от последната подадена декларация — подреден по декларирана стойност.",
     breadcrumbName: "Коли на депутати",
     ogImage: "/og/mp-cars.png",
     bodyHtml: `
 <h1>Коли, декларирани от народните представители</h1>
-<p>Всеки лек автомобил или джип, деклариран от действащ народен представител (или съпруг) в последната подадена пред Сметната палата декларация — подреден по декларирана стойност в лева. Колите на съпругата/съпруга се показват с притежател „съпруг“.</p>
+<p>Всеки лек автомобил или джип, деклариран от действащ народен представител — или от друг титуляр, посочен в неговата декларация — в последната подадена пред Сметната палата декларация, подреден по декларирана стойност. Декларацията посочва титуляря, но не и роднинската връзка.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
       title: "Cars Declared by MPs — Bulgarian Parliament | electionsbg.com",
       description:
-        "Every passenger car or jeep declared by a sitting Bulgarian MP (or spouse) in their most recent declaration, sorted by declared BGN value.",
+        "Every passenger car or jeep declared by a sitting Bulgarian MP (or by another holder named in their declaration), sorted by declared value.",
       breadcrumbName: "MP cars",
       bodyHtml: `
 <h1>Cars declared by MPs</h1>
-<p>Every passenger car or jeep declared by a sitting MP (or spouse) in their most recent declaration filed with the Court of Audit — sorted by declared BGN value. Spouse-held cars are listed with holder = spouse.</p>
+<p>Every passenger car or jeep declared by a sitting MP — or by another holder named in their declaration — in their most recent filing with the Court of Audit, sorted by declared value. The declaration names the holder but not the relationship.</p>
 <p>Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
     },
   }),

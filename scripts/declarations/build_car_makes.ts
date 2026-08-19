@@ -2,7 +2,8 @@
  * Build the per-NS "Top car makes" rollup consumed by the dashboard
  * `MpConnectionsTile`. Reads the most-recent declaration of every MP and
  * counts distinct MPs declaring at least one passenger car of each make.
- * Spouse-held cars count toward the MP's set.
+ * Cars held by another titular named in the MP's declaration count toward the MP's
+ * set — the flag is `isSpouse`, but it proves only „not the declarant".
  *
  * Output: /data/parliament/car-makes.json
  *

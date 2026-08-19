@@ -1101,7 +1101,10 @@ export type MpAssetCategoryRollup = {
   count: number;
   /** Items with a non-null euro value. */
   valuedCount: number;
-  /** Sum of valueEur across declared + spouse holdings. */
+  /** Sum of valueEur across every holder's rows on the filing — the declarant's and
+   *  any other holder named on it. Same scope as `count` above; the two described the
+   *  same rows differently for a while, with the corrected rule on the count and the
+   *  retired one on the money. */
   totalEur: number;
 };
 
@@ -1268,8 +1271,10 @@ export type CarMakesFile = {
 };
 
 /** Single declared car row, flattened from the most-recent declaration of
- * every MP. Drives the /mp-cars page. Spouse-held cars are included with
- * `isSpouse: true`. Cars with no declared `valueEur` get a `null` and sort
+ * every MP. Drives the /mp-cars page. Cars held by someone other than the MP
+ * are included with `isSpouse: true` — the flag proves only „not the declarant";
+ * the declaration names the holder, never the relationship (see isSpouseHolder
+ * in src/lib/declarations.ts). Cars with no declared `valueEur` get a `null` and sort
  * to the bottom of the value-descending table.
  *
  * One row = one physical vehicle. The build pipeline collapses multiple
