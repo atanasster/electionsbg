@@ -442,20 +442,50 @@ export const declarationTotals = (
 /**
  * Compare a holder name to the declarant's. The declaration form names, per row,
  * who holds the thing — „Собственик или титуляр на правото" — and that person is
- * often NOT the declarant: 5,386 of the corpus's declared company stakes are held
- * by someone else, against 4,620 held by the declarant themselves.
+ * frequently NOT the declarant.
+ *
+ * THE MEASURED SPLIT LIVES HERE AND NOWHERE ELSE. Measured 2026-08-19 over 18,569
+ * `declaration_stake` rows, under THIS fold:
+ *
+ *     4,822  held by someone other than the declarant   (48.2% of named holders)
+ *     5,184  held by the declarant                      (51.8%)
+ *     8,563  no holder named at all
+ *
+ * ⚠️ Do not quote a raw `holder_name <> declarant_name` count. That reports
+ * 5,386 / 4,620 and INVERTS the conclusion — it makes „somebody else" look like the
+ * majority when the fold puts the declarant there. The 564-row gap between the two
+ * is this normalisation doing its job. Three source files carried the raw pair as
+ * the feature's rationale before anyone re-measured it; that is why the numbers now
+ * sit on the rule itself and the call sites point here instead of restating them.
+ *
+ * ⚠️ COVERAGE LIMIT. Only `stake_kind = 'share'` / table-10 rows carry a holder at
+ * all — every `role`, `sole_trader` and table-11 row in the corpus has a blank one
+ * (they are the 8,563 above), so this short-circuits on them. A spouse's
+ * DIRECTORSHIP is therefore not markable by this rule, and „Дялове в дружества"
+ * gives a reader no hint of the asymmetry.
  *
  * ONE definition, shared by the parser (which stores it on `declaration_asset`
  * as `is_spouse`) and by the renderer (which has no such column on
  * `declaration_stake` and must derive it from `holderName` + `declarantName`).
  * Copying the fold is how the two sides come to disagree about whose company a
  * row describes — and on a stake row that disagreement publishes a named
- * individual's spouse's company as their own.
+ * individual's spouse's company as their own. Changing it desyncs the renderer from
+ * the stored column until a re-stamp + reload, so it is never a drive-by edit.
+ *
+ * The re-stamp is `scripts/declarations/backfill_asset_is_spouse.ts`, then
+ * `db:load:declarations:pg` phase 1 and phase 2 — and note the shape that makes THIS
+ * rule cheaper to change than its neighbours in 089. `table_num`, `value_basis` and
+ * `held_scope` are recoverable only from the source XML, so each needs a re-parse
+ * that matches rows positionally and can refuse a shard. This is a pure function of
+ * two fields the shard already carries, so the backfill reads only the shards and has
+ * no mismatch class. Proof it stayed in step: the stored column was reproducible from
+ * `holder_name` + `declarant_name` for 335,676 of 335,676 rows under the OLD rule, and
+ * for 335,676 of 335,676 under this one after the reload. On the asset side the second
+ * pass moved 563 rows, leaving 110,272 marked.
  *
  * ⚠️ Named `spouse` for the form's dominant case, but all it proves is „not the
  * declarant": a minor child's holdings are reported on the same form. That is why
- * the chip reads „съпруг/а" rather than asserting a relationship, and why any
- * surface with room should prefer showing `holderName` itself.
+ * no surface asserts a relationship, and why one with room shows `holderName`.
  */
 export const normHolderName = (s: string | null): string =>
   (s ?? "")
@@ -464,11 +494,38 @@ export const normHolderName = (s: string | null): string =>
     .replace(/\s+/g, " ")
     .trim();
 
+/** The same name with every separator removed — the second pass `isSpouseHolder`
+ *  falls back to. Deliberately NOT folded into `normHolderName`, which stays the
+ *  display-shaped normalisation: this form is unreadable and is only ever compared. */
+const lettersOnly = (s: string): string => s.replace(/[^\p{L}]/gu, "");
+
 export const isSpouseHolder = (
   holderName: string | null,
   declarantName: string | null,
 ): boolean => {
   const h = normHolderName(holderName);
-  if (!h) return false;
-  return h !== normHolderName(declarantName);
+  const d = normHolderName(declarantName);
+  // Both guards, and the second is the one that matters. With no declarant to compare
+  // against, every non-blank holder compares unequal and EVERY row on the filing fires —
+  // attributing the declarant's whole holding to unnamed third parties. Unreachable today
+  // (`declaration.declarant_name` is NOT NULL and `DeclarationDetail.declarantName` is
+  // `string`), but the parameter is nullable and the failure direction is „publish a claim
+  // about who owns what", which is not a direction to fail open in.
+  if (!h || !d) return false;
+  if (h === d) return false;
+  // SEPARATOR-ONLY SECOND PASS. The register is hand-typed, so a declarant naming
+  // THEMSELVES loses a space („ПЕТКОАНГЕЛОВ КУЩИРЕВ", „Николай МихайловКолибаров") or
+  // gains a hyphen where the register carries none („Димитриева - Николова" against
+  // „Димитриева Николова"). `normHolderName` cannot reach either: it tidies the space
+  // AROUND a hyphen, not a hyphen standing in for one, and it cannot invent a space that
+  // was never typed. Comparing on letters alone does, and it is the safe direction —
+  // it can only ever move a row OUT of „somebody else", i.e. stop the declarant's own
+  // name being chipped as a third party on the declarant's own page.
+  //
+  // ⚠️ It folds SEPARATORS, never TOKENS. Two names sharing a surname („Копринкова"
+  // beside „Копринков") stay distinct, and so do reordered tokens — 195 corpus rows
+  // share ≥2 tokens with the declarant and 2 are the same tokens in another order. Those
+  // are overwhelmingly a spouse, which is exactly what this rule exists to mark, so any
+  // token-set or reordering fold would delete real findings rather than typos.
+  return lettersOnly(h) !== lettersOnly(d);
 };

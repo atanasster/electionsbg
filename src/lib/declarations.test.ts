@@ -11,6 +11,7 @@ import {
   hasDeclaredIncome,
   hasDeclaredStakes,
   isDeclaredHolding,
+  isSpouseHolder,
   latestAssetDeclaration,
   latestDeclarationWith,
   priorAssetDeclaration,
@@ -401,5 +402,122 @@ describe("declarationTotals and чуждо rows", () => {
       { ...asset("real_estate", null), tableNum: "1" },
     ]);
     expect(t.realEstateUnvalued).toBe(1);
+  });
+});
+
+// The rule is shared with the parser (which stores it as `declaration_asset.is_spouse`),
+// so it earns direct coverage rather than only being exercised through a component.
+describe("isSpouseHolder", () => {
+  it("is false when no holder is named", () => {
+    // 8,563 of 18,569 stake rows name nobody — every role / sole_trader / table-11 row.
+    expect(isSpouseHolder(null, "ИВАН ПЕТРОВ")).toBe(false);
+    expect(isSpouseHolder("   ", "ИВАН ПЕТРОВ")).toBe(false);
+  });
+
+  it("is false when no declarant is known", () => {
+    // Fails OPEN without the guard: with a blank declarant every holder compares unequal
+    // and the whole filing reads as somebody else's.
+    expect(isSpouseHolder("МАРИЯ ПЕТРОВА", null)).toBe(false);
+    expect(isSpouseHolder("МАРИЯ ПЕТРОВА", "")).toBe(false);
+  });
+
+  it("folds case, whitespace and spacing around a hyphenated surname", () => {
+    // „Димитриева - Николова" and „димитриева-николова" are the same person; a naive
+    // `!==` would mark the declarant's own stake as somebody else's.
+    expect(
+      isSpouseHolder(
+        "Тияна Димитриева - Николова",
+        "тияна  димитриева-николова",
+      ),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "  николай  иванов копринков ",
+        "Николай Иванов Копринков",
+      ),
+    ).toBe(false);
+  });
+
+  it("is true only for a genuinely different name", () => {
+    expect(
+      isSpouseHolder("Теодора Стоянова Копринкова", "Николай Иванов Копринков"),
+    ).toBe(true);
+  });
+
+  // The register is hand-typed and `normHolderName` cannot reach either of these: it tidies
+  // the space AROUND a hyphen, not a hyphen standing in for one, and it cannot invent a
+  // space that was never typed. Every case here is verbatim from the corpus — the eight
+  // stake rows that chipped a declarant's own name as somebody else's on their own page.
+  it("folds a missing space between name tokens", () => {
+    expect(
+      isSpouseHolder("ПЕТКОАНГЕЛОВ КУЩИРЕВ", "ПЕТКО АНГЕЛОВ КУЩИРЕВ"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("Николай МихайловКолибаров", "Николай Михайлов Колибаров"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("РобертиноТодоров Маринов", "РОБЕРТИНО ТОДОРОВ МАРИНОВ"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("СтоянНиколаев Люцканов", "Стоян Николаев Люцканов"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Владимир БориславовЛафазански",
+        "Владимир Бориславов Лафазански",
+      ),
+    ).toBe(false);
+  });
+
+  it("folds a hyphen the declarant typed and the register did not", () => {
+    expect(
+      isSpouseHolder(
+        "Тияна Лазарова Димитриева - Николова",
+        "Тияна Лазарова Димитриева Николова",
+      ),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Веселина Василева Карамилева-Тодорова",
+        "Веселина Василева Карамилева Тодорова",
+      ),
+    ).toBe(false);
+  });
+
+  it("folds stray punctuation and digits the register carries", () => {
+    // Asset-side rows, where the same fold is STORED as declaration_asset.is_spouse.
+    expect(isSpouseHolder("Иван Генов Иванов,", "Иван Генов Иванов")).toBe(
+      false,
+    );
+    expect(
+      isSpouseHolder("Йордан Кирилов Кожухаров/", "Йордан Кирилов Кожухаров"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder("Илонка Лазарова Стоянова 0", "Илонка Лазарова Стоянова"),
+    ).toBe(false);
+    expect(
+      isSpouseHolder(
+        "Иванка Ангелова Багдатова _ Мизова",
+        "Иванка Ангелова Багдатова - Мизова",
+      ),
+    ).toBe(false);
+  });
+
+  it("folds SEPARATORS, never TOKENS", () => {
+    // The whole point of the rule is to mark a spouse, and a spouse usually shares the
+    // surname — so a shared-token or reordering fold would delete real findings rather
+    // than typos. 195 corpus rows share >= 2 tokens with the declarant; all stay marked.
+    expect(
+      isSpouseHolder("Теодора Иванова Копринкова", "Николай Иванов Копринков"),
+    ).toBe(true);
+    // Same tokens, different order — 2 corpus rows. Deliberately NOT folded: nothing
+    // proves a reordering is a typo rather than a different member of the family.
+    expect(
+      isSpouseHolder("Копринков Николай Иванов", "Николай Иванов Копринков"),
+    ).toBe(true);
+    // A dropped separator must not merge two names that differ by a letter.
+    expect(
+      isSpouseHolder("ПЕТКОАНГЕЛОВ КУЩИРЕВА", "ПЕТКО АНГЕЛОВ КУЩИРЕВ"),
+    ).toBe(true);
   });
 });

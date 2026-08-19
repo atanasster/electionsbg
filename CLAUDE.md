@@ -874,6 +874,46 @@ the stored RAW cells, which is what those two columns are for — and skips with
 reason when `held_scope` is entirely NULL, so „the corpus has no provenance yet" cannot read
 as „the rule is enforced".
 
+### `is_spouse` — the ONE backfill in this family that needs no re-parse
+
+`declaration_asset.is_spouse` answers „is this row somebody else's" — the form names a holder
+per row („Собственик или титуляр на правото") and it is frequently not the declarant. The rule
+is `isSpouseHolder` (`src/lib/declarations.ts`), read from TWO sides that cannot share a query:
+the PARSER stores it on the asset row, while the `/person` stake renderer derives it live,
+because `declaration_stake` has no such column.
+
+⚠️ **It is a pure function of two STORED fields, and that changes the whole procedure.**
+`table_num`, `value_basis` and `held_scope` above each exist only in the source XML, so each
+needs a re-parse that indexes `raw_data/`, matches rows positionally and can refuse a shard.
+This one needs none of that: `holderName` is on the row and `declarantName` is on the
+declaration, both already in the committed shards. So the restamp reads only the shards, has no
+mismatch class, and no operator should ever point a 5-hour crawl at it:
+
+```bash
+npx tsx scripts/declarations/backfill_asset_is_spouse.ts --apply   # shards only, no network
+npm run db:load:declarations:pg                                    # phase 1
+npm run db:load:declarations:pg -- --resolve                       # phase 2 — refills person_id
+```
+
+Cloud side is the `:cloud` twin of both and nothing runs it automatically. The stake side needs
+neither — it is computed at render time, so a rule change reaches it with the next build, which
+is exactly why the two desync in between.
+
+**The fold is separator-only, and the distinction is load-bearing.** It removes case, hyphen
+spacing and — since 2026-08-19 — every remaining separator, so a declarant who typed their own
+name with a lost space („Николай МихайловКолибаров"), a hyphen for a space („Багдатова \_
+Мизова") or a stray comma, slash or digit („Попдимитро3в") is no longer chipped as a third party
+on their own page. It never folds TOKENS: a shared surname is the SPOUSE case this exists to
+mark, so a token-set or reordering fold would delete real findings rather than typos. Measured
+2026-08-19: 563 of 110,835 asset rows cleared (→ 110,272), 8 of 4,830 stake rows.
+
+**The gate is `scripts/db/tests/declaration_is_spouse.data.test.ts`** (3 tests). Unlike its
+neighbours it is a FULL-CORPUS recompute rather than a sample — the rows that move are hand-typing
+accidents, rare and unevenly spread, so a sample misses all of them — and it carries a mutation
+check: with the second pass deleted, two of the three fail and the first names the restamp
+command. The measured split lives in `isSpouseHolder`'s header and nowhere else; do not quote a
+raw `holder_name <> declarant_name` count, which INVERTS the majority.
+
 ### `declared_label()` — the ONE definition of which office label a reader sees
 
 **Nine serving surfaces now read these columns, and all of them go through
