@@ -84,6 +84,23 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:employer-links:pg",
+    before: "db:load:declarations:pg",
+    why:
+      "the bridge folds declaration.filed_institution, which is written by " +
+      "declarations PHASE 1 (the plain db:load:declarations:pg — `--resolve` only " +
+      "fills person_id). Run it first and every employer reads NULL, so the table " +
+      "comes out empty and every surface says „no employer matched“ for the whole " +
+      "corpus: loaded, green, and wrong",
+  },
+  {
+    after: "db:load:employer-links:pg",
+    before: "db:load:pg",
+    why:
+      "the other half of the fold is contracts.awarder_name — with no contracts " +
+      "there is nothing to resolve an employer TO, and the loader skips",
+  },
+  {
     after: "db:load:agri:pg",
     before: "db:load:pg",
     why:
