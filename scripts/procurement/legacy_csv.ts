@@ -54,8 +54,9 @@ import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
 import {
   disambiguateContractKeys,
-  hashKey,
   legacyKeyDiscriminator,
+  legacyContractKey,
+  legacyReleaseId,
 } from "./contract_key";
 
 export interface LegacyDataset {
@@ -329,11 +330,7 @@ const CATEGORY_MAP: Record<string, string> = {
 // share this key — disambiguateContractKeys (called at the end of
 // parseLegacyCsv) re-keys those collisions by contractId so each lot gets its
 // own /contract/:key. A document-id with a single lot keeps this bare key.
-const contractKey = (
-  datasetUuid: string,
-  documentId: string,
-  contractorEik: string,
-): string => hashKey(`legacy::${datasetUuid}::${documentId}::${contractorEik}`);
+const contractKey = legacyContractKey;
 
 export interface LegacyNormalizeStats {
   rowsSeen: number;
@@ -498,7 +495,7 @@ export const parseLegacyCsv = (
     rows.push({
       key: contractKey(ds.datasetUuid, documentId, contractorEik),
       ocid: `aop-legacy-${ds.year}-${documentId || "x"}`,
-      releaseId: `aop-legacy-${ds.year}-${documentId || "x"}-${contractorEik}`,
+      releaseId: legacyReleaseId(ds.year, documentId, contractorEik),
       contractId: contractIdRaw || undefined,
       unp,
       tag: "contract",

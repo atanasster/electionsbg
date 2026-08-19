@@ -30,6 +30,39 @@ import { createHash } from "crypto";
 export const hashKey = (input: string): string =>
   createHash("sha256").update(input).digest("hex").slice(0, 12);
 
+/**
+ * The contract `key` base for the two RELEASE-shaped feeds — OCDS (normalize.ts)
+ * and ЦАИС ЕОП (normalize_eop.ts). Both minted this identically from a private
+ * copy of the same expression; it lives here now so the ingest and any offline
+ * re-derive share ONE definition and cannot drift.
+ *
+ * ⚠ The supplier EIK is part of the key, so anything that re-keys a supplier also
+ * moves that contract's /contract/:key URL. That is a property of the scheme, not
+ * a bug — but it means a re-key is never a metadata-only edit.
+ */
+export const releaseContractKey = (
+  releaseId: string,
+  contractId: string | undefined,
+  contractorEik: string,
+  tag: string,
+): string =>
+  hashKey(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`);
+
+/** The contract `key` base for the annual-CSV (legacy) feed — see legacy_csv.ts. */
+export const legacyContractKey = (
+  datasetUuid: string,
+  documentId: string,
+  contractorEik: string,
+): string => hashKey(`legacy::${datasetUuid}::${documentId}::${contractorEik}`);
+
+/** The legacy feed's `releaseId`, which ALSO embeds the supplier EIK — so a
+ *  re-key has to move both, or the row stops matching what a fresh parse emits. */
+export const legacyReleaseId = (
+  year: string,
+  documentId: string,
+  contractorEik: string,
+): string => `aop-legacy-${year}-${documentId || "x"}-${contractorEik}`;
+
 // Re-key colliding rows in place. `rows[i].key` must hold the BASE key (the bare
 // hash of the per-source base string) on entry. `discAt(i)` returns rows[i]'s
 // stable, re-run-reproducible discriminator (a contract / award id, falling back

@@ -23,7 +23,7 @@ import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
-import { disambiguateContractKeys, hashKey } from "./contract_key";
+import { disambiguateContractKeys, releaseContractKey } from "./contract_key";
 
 // Stable per-row BASE slug. Mirrors normalize.ts::contractKey exactly so a row's
 // URL is stable across re-runs and namespaced away from OCDS rows by the
@@ -31,13 +31,7 @@ import { disambiguateContractKeys, hashKey } from "./contract_key";
 // both the releaseId and contractId, so collisions are practically impossible —
 // the disambiguation pass below is kept only to stay symmetric with the other
 // two generators.
-const contractKey = (
-  releaseId: string,
-  contractId: string | undefined,
-  contractorEik: string,
-  tag: ContractTag,
-): string =>
-  hashKey(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`);
+const contractKey = releaseContractKey;
 
 // The flat договори record. Loose on purpose — the feed carries ~55 fields;
 // we read the subset that maps onto Contract. Keys are English camelCase.

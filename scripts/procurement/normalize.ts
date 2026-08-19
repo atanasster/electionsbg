@@ -33,20 +33,14 @@ import { classifySupplierId } from "./supplier_identity";
 import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
-import { disambiguateContractKeys, hashKey } from "./contract_key";
+import { disambiguateContractKeys, releaseContractKey } from "./contract_key";
 
 // Stable per-row BASE slug. When a release yields more than one distinct row to
 // the same supplier with no distinguishing id in this tuple (e.g. several awards
 // to one supplier — contractId is undefined on the award path), the tuple
 // repeats; disambiguateContractKeys (called at the end of normalizeBundle)
 // re-keys those collisions by award/contract id so each row gets its own URL.
-const contractKey = (
-  releaseId: string,
-  contractId: string | undefined,
-  contractorEik: string,
-  tag: ContractTag,
-): string =>
-  hashKey(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`);
+const contractKey = releaseContractKey;
 
 interface OcdsParty {
   id: string;
