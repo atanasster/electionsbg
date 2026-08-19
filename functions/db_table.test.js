@@ -299,6 +299,228 @@ test("the floor refuses BEFORE any SQL is issued, so page and count agree", asyn
   assert.equal(issued, 0, "refused before issuing any query");
 });
 
+// ---- query-shape routing (searchWhen / searchEq) -----------------------------
+// A column with `searchWhen` is a SPECIALIST — it claims a term of its shape or stays
+// silent; columns without one are the fallback set. The point is that an identifier arm
+// and a name arm are never OR'd: measured on contractor_rank under a generic plan,
+// `(name_fold ILIKE … OR eik LIKE …)` makes the planner abandon the trigram index for the
+// WHOLE predicate — `софарма` 2.7 ms / 255 buffers → 114 ms / 704.
+
+// A throwaway resource, so these tests pin the ENGINE rule rather than whichever registry
+// entry happens to use it today.
+const routedResource = {
+  base: "t",
+  columns: {
+    eik: {
+      type: "text",
+      search: true,
+      searchEq: true,
+      searchWhen: "^[0-9]{8,14}$",
+    },
+    name: { type: "text", search: true, searchCol: "name_fold", searchFold: true },
+  },
+  select: ["eik"],
+  defaultSort: [["eik", "asc"]],
+};
+
+test("an identifier-shaped term routes to the equality arm ALONE", () => {
+  const { whereSql, params } = buildWhere(routedResource, {
+    filters: { global: "103267194" },
+  });
+  assert.ok(whereSql.includes("eik = $"), "the equality arm is emitted");
+  assert.ok(
+    !whereSql.includes("name_fold"),
+    "and the name arm is NOT — OR-ing them is the 42x regression",
+  );
+  assert.ok(!whereSql.includes("ILIKE"), "no LIKE pattern at all");
+  // Bound RAW: no %-wrapping, no escaping, no transliteration. Folding would corrupt a
+  // synthetic key like obed-3c76d4088cb9.
+  assert.deepEqual(params, ["103267194"]);
+});
+
+test("a name-shaped term routes to the fallback arms ALONE", () => {
+  const { whereSql } = buildWhere(routedResource, {
+    filters: { global: "софарма" },
+  });
+  assert.ok(whereSql.includes("name_fold ILIKE"), "the name arm is emitted");
+  assert.ok(!whereSql.includes("eik = $"), "and the specialist stays silent");
+});
+
+test("a term no arm claims matches NOTHING, explicitly", () => {
+  // Reachable when every surviving column is a specialist and none of their shapes fit.
+  // Dropping the arm instead would make the search match the ENTIRE corpus — the same
+  // failure the globalCols validation guards against.
+  const { whereSql, filtered } = buildWhere(routedResource, {
+    filters: { global: "софарма", globalCols: ["eik"] },
+  });
+  assert.match(whereSql, /\bFALSE\b/, "an explicit no-match predicate");
+  assert.ok(!whereSql.includes("name_fold"), "the excluded arm is not resurrected");
+  assert.equal(filtered, true, "and the request still counts as filtered");
+});
+
+test("routing runs BEFORE the length floor, so an identifier is not floored", () => {
+  // `searchEq` has floor 1: equality is an index cond at any length (4 buffers measured).
+  // Evaluating the floor first would refuse an 8-digit id on the trigram floor.
+  const { whereSql } = buildWhere(routedResource, {
+    filters: { global: "12345678" },
+  });
+  assert.ok(whereSql.includes("eik = $"), "an 8-character identifier is served");
+});
+
+test("a specialist does not rescue a sub-floor term of the WRONG shape", () => {
+  // "ст" is not identifier-shaped, so it falls to the name arm and is floored. The
+  // specialist's floor of 1 must not leak across to a term it never claimed.
+  assert.throws(
+    () => buildWhere(routedResource, { filters: { global: "ст" } }),
+    (e) => e.name === "DbRequestError" && /at least 3/.test(e.message),
+  );
+});
+
+test("the engine ANCHORS searchWhen, so a name carrying an EIK is not misrouted", () => {
+  // The registry pattern below is deliberately unanchored. Unanchored matching claims
+  // „Хемус 103267194 ЕООД" for the identifier arm, which then binds the WHOLE name as an
+  // EIK: zero rows at a 200, the wrong-answer shape the length floor refuses to ship.
+  // The engine wraps every pattern in ^(?:…)$ so this is unrepresentable rather than
+  // merely discouraged.
+  const R = {
+    base: "t",
+    columns: {
+      eik: {
+        type: "text",
+        search: true,
+        searchEq: true,
+        searchWhen: "[0-9]{8,14}",
+      },
+      name: {
+        type: "text",
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+      },
+    },
+    select: ["eik"],
+    defaultSort: [["eik", "asc"]],
+  };
+  const { whereSql, params } = buildWhere(R, {
+    filters: { global: "Хемус 103267194 ЕООД" },
+  });
+  assert.ok(
+    whereSql.includes("name_fold"),
+    "a name containing digits stays on the name arm",
+  );
+  assert.ok(!whereSql.includes("eik = $"), "the identifier arm does not claim it");
+  assert.deepEqual(params, ["Хемус 103267194 ЕООД"]);
+  // …and the bare identifier still routes, so the anchoring did not break the feature.
+  assert.ok(
+    buildWhere(R, { filters: { global: "103267194" } }).whereSql.includes(
+      "eik = $",
+    ),
+    "the whole-term identifier still routes",
+  );
+});
+
+test("searchEq honours searchCol redirection", () => {
+  // Every other arm's `searchCol` redirection is exercised; this one was not. A refactor
+  // that used the logical id here would emit a valid query against the WRONG column and
+  // pass every other test in this file.
+  const R = {
+    base: "t",
+    columns: {
+      key: {
+        type: "text",
+        search: true,
+        searchEq: true,
+        searchCol: "phys_col",
+        searchWhen: "^[0-9]+$",
+      },
+    },
+    select: ["key"],
+    defaultSort: [["key", "asc"]],
+  };
+  const { whereSql } = buildWhere(R, { filters: { global: "12345678" } });
+  assert.ok(whereSql.includes("phys_col = $"), "the PHYSICAL column is named");
+  assert.ok(!/\bkey = \$/.test(whereSql), "not the logical id");
+});
+
+test("the FALSE predicate is AND-ed onto the scope, never a replacement", () => {
+  // A FALSE that REPLACED the scope would turn a scoped no-match into a corpus-wide one
+  // on the count query — the row count and the (empty) rows would then describe different
+  // populations. The bare-resource test above cannot see this: it has no scope to lose.
+  const { whereSql, params } = buildWhere(REGISTRY.contractor_rankings, {
+    scope: { col: "scope_key", val: "ns:2026_04_19" },
+    filters: { global: "софарма", globalCols: ["eik"] },
+  });
+  assert.match(whereSql, /^WHERE scope_key = \$1 AND .*AND FALSE$/);
+  assert.deepEqual(
+    params,
+    ["ns:2026_04_19", "ALL"],
+    "the scope and the division default survive; no orphan search param is bound",
+  );
+});
+
+test("every searchWhen compiles, and searchEq is exclusive of the pattern arms", () => {
+  // A bad pattern would otherwise surface as a 500 on a live route, and a descriptor
+  // carrying both searchEq and a pattern flag would emit whichever arm the if/else
+  // happens to reach first — silently ignoring the other.
+  //
+  // ⚠️ NON-VACUITY FIRST. With no subscriber this sweep executes zero assertions and
+  // still reports green, which reads as "the rule is enforced" when it means "nobody
+  // uses the feature" — the shape this repo's data gates call out by name. Counted
+  // rather than asserted per-resource so removing the last subscriber fails HERE, with
+  // a message saying why, instead of quietly turning the whole sweep into a no-op.
+  let routedCols = 0;
+  for (const r of Object.values(REGISTRY))
+    for (const d of Object.values(r.columns ?? {}))
+      if (d.searchWhen != null || d.searchEq) routedCols++;
+  assert.ok(
+    routedCols > 0,
+    "no column carries searchWhen/searchEq — this sweep would assert nothing",
+  );
+
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const [id, d] of Object.entries(r.columns ?? {})) {
+      if (d.searchWhen != null) {
+        assert.equal(
+          typeof d.searchWhen,
+          "string",
+          `${name}.${id}.searchWhen must be a regex SOURCE string`,
+        );
+        assert.doesNotThrow(
+          () => new RegExp(d.searchWhen),
+          `${name}.${id}.searchWhen is not a valid regex`,
+        );
+        assert.ok(
+          d.search,
+          `${name}.${id}: searchWhen needs search:true to ever be used`,
+        );
+        // ⚠️ A ROUTED ARM MUST BE `searchEq`, and this is the constraint that keeps the
+        // 42x regression unrepresentable. Two specialists claiming one term are OR'd
+        // together, and OR-ing an equality arm with a trigram arm is precisely the plan
+        // the routing exists to avoid: measured, `(eik = $1 OR alias_fold ILIKE …)` is
+        // 716 buffers against 4. Two `searchEq` specialists are safe (BitmapOr, 7
+        // buffers), which is why the rule is on the arm KIND rather than on the count.
+        //
+        // Relaxing this needs a measurement, not an argument: EXPLAIN the mixed-arm OR
+        // on the target relation under `plan_cache_mode = force_generic_plan` first.
+        assert.ok(
+          d.searchEq,
+          `${name}.${id}: searchWhen requires searchEq — a routed non-equality arm can ` +
+            `be OR'd with an equality one, which drops the whole predicate off its index`,
+        );
+      }
+      if (!d.searchEq) continue;
+      assert.ok(
+        d.search,
+        `${name}.${id}: searchEq needs search:true to ever be used`,
+      );
+      for (const k of ["searchFold", "searchText", "searchPrefix", "searchInSet"])
+        assert.ok(
+          !d[k],
+          `${name}.${id}: searchEq is mutually exclusive with ${k}`,
+        );
+    }
+});
+
 // ---- registry shape invariants ----------------------------------------------
 // The engine assumes these and never checks them, so a mistake fails at RUNTIME with a
 // 500 on the live route rather than at commit time. Table-driven over every resource so

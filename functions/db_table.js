@@ -808,7 +808,14 @@ const REGISTRY = {
       payment_count: { type: "number", sort: true, filter: "range" },
       total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
     },
-    select: ["scope_key", "eik", "name", "oblast", "payment_count", "total_eur"],
+    select: [
+      "scope_key",
+      "eik",
+      "name",
+      "oblast",
+      "payment_count",
+      "total_eur",
+    ],
     // (scope_key, total_eur DESC NULLS LAST, eik) is the covering index; the
     // NULLS LAST must match it or the walk falls back to a sort of the partition.
     defaultSort: [["total_eur", "desc"]],
@@ -930,9 +937,19 @@ const REGISTRY = {
       oblast: { type: "text", sort: true, filter: "in" },
       programme_count: { type: "number", sort: true, filter: "in" },
       agri_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
-      contracts_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contracts_eur: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
       contract_count: { type: "number", sort: true, filter: "range" },
-      funds_grant_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      funds_grant_eur: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
       fund_project_count: { type: "number", sort: true, filter: "range" },
     },
     select: [
@@ -1757,7 +1774,28 @@ const REGISTRY = {
       // ekatte plays for procurement_settlements. sort:true so the ["eik","asc"] tail of
       // defaultSort is genuinely honored (index-served by the UNIQUE key) rather than
       // relying implicitly on eik staying select[0].
-      eik: { type: "text", sort: true, filter: "eq" },
+      //
+      // SEARCHABLE, because the page PRINTS this identifier beside every contractor's
+      // name and could not find it: pasting `103267194` — copied off the row above —
+      // matched nothing at a 200. Routed by shape rather than OR'd into the name search:
+      // an EIK never matches a name, and OR-ing the two costs the name search its
+      // trigram index (measured, `софарма` 2.7 ms → 114 ms). See `searchWhen` above.
+      //
+      // 8..14 rather than the canonical 9|13. The corpus holds 27,531 nine-digit EIKs,
+      // 1,803 synthetic carriers (`obed-` consortium / `ph-` filler / `np-` natural
+      // person, all 12 hex chars — minted by scripts/procurement/supplier_identity.ts
+      // and printed in the table exactly like an EIK) and 144 numeric ids of other
+      // lengths that supplier_identity's header calls unclassifiable offline. No
+      // contractor NAME is an 8+ digit run, while „Невен 2000" and „Метро Люлин 2024"
+      // are — so the lower bound is what keeps a 4-digit year on the name arm.
+      eik: {
+        type: "text",
+        sort: true,
+        filter: "eq",
+        search: true,
+        searchEq: true,
+        searchWhen: "[0-9]{8,14}|(obed|ph|np)-[0-9a-f]{6,32}",
+      },
       // The CPV-division rollup filter. Always sent by the screen ('ALL' by default,
       // a 2-digit division when the CPV picker is set). filter:"eq" is single-valued
       // by design — a multi-value set would return N rows per contractor and
@@ -1873,12 +1911,13 @@ const SEARCH_MIN_CHARS = 3;
 // decomposed „é" is one character here exactly as it is to pg_trgm.
 const termLength = (s) => [...s.normalize("NFC")].length;
 
-// Which arms the floor applies to. `searchPrefix` is an anchored `LIKE 'q%'` over a
-// btree, where a short term *widens* the match rather than un-indexing the scan
-// (measured: the tenders `unp` prefix arm at two characters is an Index Only Scan over
-// idx_tenders_unp_pattern, 4 buffers). Returning 1 rather than 0 keeps this a length,
-// not a flag — which is what lets a resource NARROW to its surviving arms instead of
-// refusing outright.
+// Which arms the floor applies to. `searchEq` is an index cond and `searchPrefix` an
+// anchored `LIKE 'q%'` over a btree — in both a short term *narrows* or *widens* the
+// match rather than un-indexing the scan (measured: `eik = $n` on contractor_rank is 4
+// buffers at any length; the tenders `unp` prefix arm at two characters is an Index Only
+// Scan over idx_tenders_unp_pattern, also 4). Returning 1 rather than 0 keeps this a
+// length, not a flag — which is what lets a resource NARROW to its surviving arms
+// instead of refusing outright.
 //
 // The FTS arms (`searchText`, `searchInSet`) are floored too, on a related but SEPARATE
 // ground that is REASONED rather than measured: `fold_prefix_tsquery('ст')` expands to
@@ -1886,7 +1925,33 @@ const termLength = (s) => [...s.normalize("NFC")].length;
 // it is simply not the pg_trgm failure measured above. `globalFtsOnly` does not lower
 // the floor for the same reason: dropping the `%>` arm removes the trigram exposure, not
 // the prefix-expansion one. Measure the tsquery arm on its own before exempting it.
-const armFloor = (d) => (d.searchPrefix ? 1 : SEARCH_MIN_CHARS);
+const armFloor = (d) => (d.searchEq || d.searchPrefix ? 1 : SEARCH_MIN_CHARS);
+
+// `searchWhen` patterns, compiled once per source string. The sources are REGISTRY
+// literals, never user input, so this cache is bounded by the registry — and an invalid
+// one is a registry bug that `db_table.test.js` compiles every pattern to catch, rather
+// than something to discover on a live route.
+//
+// ⚠️ ANCHORED HERE, NOT LEFT TO THE REGISTRY AUTHOR. A routing pattern must match the
+// WHOLE term or it misroutes silently: unanchored `[0-9]{8,14}` claims
+// „Хемус 103267194 ЕООД" for the identifier arm, which then binds the entire name as an
+// EIK and returns zero rows at a 200 — the wrong-answer-at-200 shape the length floor's
+// own comment refuses to ship. Anchoring in the engine makes that unrepresentable
+// instead of merely discouraged; `^` and `$` are zero-width, so a pattern that is
+// already anchored (the readable way to write one) is unaffected.
+const SEARCH_WHEN_RE = new Map();
+const searchWhenRe = (src) => {
+  let re = SEARCH_WHEN_RE.get(src);
+  if (!re) SEARCH_WHEN_RE.set(src, (re = new RegExp(`^(?:${src})$`)));
+  return re;
+};
+
+// Cap on the free-text term. Registry patterns are linear identifier shapes today, but
+// the term is unbounded user input and now reaches a RegExp — measured, a 200,000-char
+// term routes in 2 ms and binds as a 200 KB equality parameter. Harmless now; a future
+// pattern with nested quantifiers would turn it into CPU burn inside the 10 s
+// statement_timeout budget. No legitimate search term is anywhere near this long.
+const MAX_SEARCH_TERM = 200;
 const clampInt = (v, def, lo, hi) => {
   const n = Number(v);
   return Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), lo), hi) : def;
@@ -2095,7 +2160,7 @@ const buildWhere = (r, req, opts = {}) => {
     restrictedDefs = searchAll.filter(([id]) => allow.has(id));
   }
 
-  const g = (req.filters?.global ?? "").trim();
+  const g = (req.filters?.global ?? "").trim().slice(0, MAX_SEARCH_TERM);
   if (g) {
     // Each searchable column ORs one ILIKE. A column may redirect the match to a
     // physical `searchCol` and/or fold it: `searchFold` searches the transliter-
@@ -2114,6 +2179,37 @@ const buildWhere = (r, req, opts = {}) => {
     // and inflates the exact count banner). Default keeps FTS+trigram.
     const ftsOnly = req.filters?.globalFtsOnly === true;
 
+    // ── Query-shape routing (`searchWhen`) ──────────────────────────────────────
+    // A column carrying `searchWhen` is a SPECIALIST: it claims a term matching its
+    // shape, or stays silent. Columns without one are the FALLBACK set, used only when
+    // no specialist claimed the term. So an identifier query reaches the identifier
+    // column alone and a name query reaches the name arms alone.
+    //
+    // ⚠️ ROUTING, NOT OR-ING — and this is the measurement the whole design rests on.
+    // An EIK never matches a name and a name never matches an EIK, so the two arms
+    // never needed to be OR'd; putting them in one OR is a 42x REGRESSION on the common
+    // case. Measured on contractor_rank under a generic plan: with
+    // `(name_fold ILIKE … OR eik LIKE …)` the planner abandons idx_contractor_rank_fold
+    // for the ENTIRE predicate and scans the whole 29,615-row scope partition applying
+    // both as row filters — `софарма` 2.7 ms / 255 buffers → 114 ms / 704 buffers. As a
+    // routed single arm, `eik = $n` is an index cond on all three key columns: 0.35 ms,
+    // 4 buffers.
+    //
+    // Note this is NOT a general "OR is slow" rule. The shliokavitsa arm below ORs two
+    // gin scans on the SAME column and plans as a BitmapOr inside the existing
+    // BitmapAnd, costing 55 extra buffers. What breaks the plan is OR-ing predicates
+    // over DIFFERENT indexes, which is exactly what a shape mismatch produces.
+    //
+    // Runs AFTER `globalCols` narrowing (so a restricted caller is never handed an arm
+    // it excluded) and BEFORE the length floor (so an identifier is measured against
+    // its own floor, not the trigram one).
+    const routed = searchDefs.filter(
+      ([, d]) => d.searchWhen && searchWhenRe(d.searchWhen).test(g),
+    );
+    const active = routed.length
+      ? routed
+      : searchDefs.filter(([, d]) => !d.searchWhen);
+
     // ── The length floor (SEARCH_MIN_CHARS) ─────────────────────────────────────
     // Drop the arms this term is too short for, and REFUSE if that leaves none.
     //
@@ -2130,10 +2226,11 @@ const buildWhere = (r, req, opts = {}) => {
     // serves the term. That asymmetry is deliberate: the second is a narrower answer,
     // the first would be a false one.
     //
-    // The floor is applied to `searchDefs` — i.e. AFTER `globalCols` narrowing — so a
-    // request naming only a floored column refuses even when the resource has an
-    // unfloored arm it did not ask for. Filtering `searchAll` here instead would serve
-    // that other arm: the allowlist ignored AND the refusal skipped, both at a 200.
+    // The floor is applied to the ROUTED set — i.e. after `globalCols` narrowing and
+    // after shape routing — so a request naming only a floored column refuses even when
+    // the resource has an unfloored arm it did not ask for. Filtering `searchAll` here
+    // instead would serve that other arm: the allowlist ignored AND the refusal skipped,
+    // both at a 200.
     //
     // A resource with NO searchable column is a different failure and gets its own
     // message: "too short" would be false there, and unactionable, since no length of
@@ -2142,120 +2239,152 @@ const buildWhere = (r, req, opts = {}) => {
       throw new DbRequestError(
         `resource has no searchable columns: ${req.resource ?? "?"}`,
       );
-    const eligible = searchDefs.filter(([, d]) => termLength(g) >= armFloor(d));
-    if (!eligible.length)
-      throw new DbRequestError(
-        `search term too short: need at least ${SEARCH_MIN_CHARS} characters`,
-      );
-    // Both consumers of this predicate — the page query AND the count/sum aggregate
-    // in runDbTable — are built from this ONE buildWhere() call, so the floor reaches
-    // both by construction and they cannot disagree about which rows the term matches.
-    // Do not "also" apply it at a call site; a second copy is a second thing to get
-    // wrong. (runDbFacets never reaches this branch at all: it calls buildWhere with
-    // `filters: { columns }` and no `global`, so a facet vocabulary is never
-    // free-text-scoped in the first place.)
-    const ors = [];
-    let rawIdx = null; // "%g%" for the plain contiguous-substring arms
-    let gIdx = null; // raw g, shared by the fold + FTS arms
-    // ⚠️ `%` and `_` are LIKE WILDCARDS and must be escaped, or a query containing
-    // one silently becomes a scan of everything. Measured before this: the query
-    // "50%_x" on tenders took 11,672 ms end to end — past the 10 s
-    // statement_timeout, i.e. a 500 — of which 8,256 ms was `buyer_fold ILIKE
-    // '%50%_x%'` matching all 237,321 rows. Any user can type it.
-    const likeEscape = (v) => v.replace(/([\\%_])/g, "\\$1");
-    const rawParam = () => {
-      if (rawIdx == null) {
-        params.push(`%${likeEscape(g)}%`);
-        rawIdx = params.length;
-      }
-      return rawIdx;
-    };
-    const gParam = () => {
-      if (gIdx == null) {
-        params.push(g);
-        gIdx = params.length;
-      }
-      return gIdx;
-    };
-    for (const [id, d] of eligible) {
-      const target = d.searchCol || id;
-      if (d.searchText) {
-        // Long free-text field (contract title / tender subject). Match it the
-        // way the combined-search dropdown does: prefix-AND FTS over the
-        // Cyrillic→Latin fold, OR a trigram word-similarity fallback for
-        // mid-word / near-spelling hits (e.g. the article's "Югозападна" vs the
-        // corpus's "Западна дъга"). Keeps the "see all" table consistent with
-        // the dropdown instead of a raw contiguous substring, which returned
-        // nothing for any multi-word or punctuated query. Both passes ride the
-        // fold's gin indexes (to_tsvector FTS + gin_trgm); `%>` uses the default
-        // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
-        const i = gParam();
-        ors.push(
-          ftsOnly
-            ? `to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})`
-            : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
-                ` OR ${target} %> translit_bg_latin($${i}))`,
+
+    // ⚠️ NO ARM CLAIMS THIS TERM → match NOTHING, explicitly. Reachable when every
+    // surviving column is a specialist and none of their shapes fit — e.g. a caller
+    // restricting `globalCols` to an identifier column and sending a name.
+    //
+    // `FALSE` rather than dropping the arm: an omitted predicate makes the search match
+    // the ENTIRE corpus, which is the failure the `globalCols` validation above already
+    // guards against ("a typo would silently drop the whole search arm").
+    //
+    // And `FALSE` rather than a 400, unlike the floor below: the two are different
+    // claims. "No row has that identifier" is a true answer to what was asked; "too
+    // short" means we declined to run a query that WOULD have matched rows.
+    if (!active.length) {
+      where.push("FALSE");
+    } else {
+      const eligible = active.filter(([, d]) => termLength(g) >= armFloor(d));
+      if (!eligible.length)
+        throw new DbRequestError(
+          `search term too short: need at least ${SEARCH_MIN_CHARS} characters`,
         );
-      } else if (d.searchInSet) {
-        // Side-table text search, folded back into the OR as an INDEXED EQUALITY
-        // on the base relation's key.
-        //
-        // ⚠️ THE `= ANY(ARRAY(...))` SHAPE IS THE WHOLE POINT — do not "simplify"
-        // it to a correlated EXISTS or an IN (SELECT …). A correlated subquery
-        // cannot participate in a BitmapOr, so it drags the ENTIRE search off its
-        // indexes: measured on the tenders corpus for "кафе", the other arms plan
-        // as a BitmapOr in 37 ms, and adding an EXISTS arm made the whole thing a
-        // Seq Scan at 6,617 ms — a 178x regression on every tender search, not
-        // just on searches this arm can answer. As an InitPlan array the side
-        // lookup runs ONCE and the key equality joins the BitmapOr as one more
-        // index scan: 21.5 ms, faster than the baseline.
-        //
-        // FTS only, no `%>` trigram fallback: word_similarity recomputes trigram
-        // sets over the whole body per row and these bodies are documents —
-        // measured 0.073 ms vs 13,490 ms on 1,861 rows. See 147's header.
-        const { table, key, on, col, limit } = d.searchInSet;
-        const i = gParam();
-        // Bounded so a stop-word query cannot mint a giant array (one btree probe
-        // per element). Truncation is SAFE HERE AND ONLY HERE because this arm is
-        // purely additive — a dropped key can fail to add a hit, never suppress
-        // one another arm found. It would not be safe on a filter.
-        //
-        // ORDER BY is not cosmetic: the page query and the count query are built
-        // separately from this same descriptor, so an unordered LIMIT can truncate
-        // to a DIFFERENT subset in each. That yields a total the rows do not add up
-        // to — a wrong answer rather than an incomplete one. Ordering on the key
-        // makes the truncated set identical across both.
-        const n = Number.isInteger(limit) && limit > 0 ? limit : 5000;
-        ors.push(
-          `${on} = ANY(ARRAY(SELECT ${key} FROM ${table}` +
-            ` WHERE to_tsvector('simple', ${col}) @@ fold_prefix_tsquery($${i})` +
-            ` ORDER BY ${key} LIMIT ${n}))`,
-        );
-      } else if (d.searchPrefix) {
-        // Anchored prefix on an indexed identifier column. `LIKE 'q%'` is a btree
-        // range scan; '%q%' would seq-scan. Escapes the LIKE metacharacters so a
-        // query containing % or _ matches literally instead of turning into a
-        // wildcard that scans everything.
-        params.push(`${likeEscape(g)}%`);
-        ors.push(`${target} LIKE $${params.length}`);
-      } else if (d.searchFold) {
-        // Transliterated contiguous substring — entity-name columns whose fold
-        // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
-        // for names.
-        // The fold is produced server-side by translit_bg_latin, so the escape has
-        // to happen there too — escaping the JS-side param would be undone by the
-        // transliteration. Backslash first, or it re-escapes its own output.
-        ors.push(
-          `${target} ILIKE '%' || replace(replace(replace(` +
-            `translit_bg_latin($${gParam()}),` +
-            ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
-        );
-      } else {
-        // Plain raw-column contiguous substring (trigram-indexed raw columns).
-        ors.push(`${target} ILIKE $${rawParam()}`);
+      // Both consumers of this predicate — the page query AND the count/sum aggregate
+      // in runDbTable — are built from this ONE buildWhere() call, so the floor reaches
+      // both by construction and they cannot disagree about which rows the term matches.
+      // Do not "also" apply it at a call site; a second copy is a second thing to get
+      // wrong. (runDbFacets never reaches this branch at all: it calls buildWhere with
+      // `filters: { columns }` and no `global`, so a facet vocabulary is never
+      // free-text-scoped in the first place.)
+      const ors = [];
+      let rawIdx = null; // "%g%" for the plain contiguous-substring arms
+      let gIdx = null; // raw g, shared by the fold + FTS arms
+      // ⚠️ `%` and `_` are LIKE WILDCARDS and must be escaped, or a query containing
+      // one silently becomes a scan of everything. Measured before this: the query
+      // "50%_x" on tenders took 11,672 ms end to end — past the 10 s
+      // statement_timeout, i.e. a 500 — of which 8,256 ms was `buyer_fold ILIKE
+      // '%50%_x%'` matching all 237,321 rows. Any user can type it.
+      const likeEscape = (v) => v.replace(/([\\%_])/g, "\\$1");
+      const rawParam = () => {
+        if (rawIdx == null) {
+          params.push(`%${likeEscape(g)}%`);
+          rawIdx = params.length;
+        }
+        return rawIdx;
+      };
+      const gParam = () => {
+        if (gIdx == null) {
+          params.push(g);
+          gIdx = params.length;
+        }
+        return gIdx;
+      };
+      for (const [id, d] of eligible) {
+        const target = d.searchCol || id;
+        if (d.searchText) {
+          // Long free-text field (contract title / tender subject). Match it the
+          // way the combined-search dropdown does: prefix-AND FTS over the
+          // Cyrillic→Latin fold, OR a trigram word-similarity fallback for
+          // mid-word / near-spelling hits (e.g. the article's "Югозападна" vs the
+          // corpus's "Западна дъга"). Keeps the "see all" table consistent with
+          // the dropdown instead of a raw contiguous substring, which returned
+          // nothing for any multi-word or punctuated query. Both passes ride the
+          // fold's gin indexes (to_tsvector FTS + gin_trgm); `%>` uses the default
+          // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
+          const i = gParam();
+          ors.push(
+            ftsOnly
+              ? `to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})`
+              : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
+                  ` OR ${target} %> translit_bg_latin($${i}))`,
+          );
+        } else if (d.searchInSet) {
+          // Side-table text search, folded back into the OR as an INDEXED EQUALITY
+          // on the base relation's key.
+          //
+          // ⚠️ THE `= ANY(ARRAY(...))` SHAPE IS THE WHOLE POINT — do not "simplify"
+          // it to a correlated EXISTS or an IN (SELECT …). A correlated subquery
+          // cannot participate in a BitmapOr, so it drags the ENTIRE search off its
+          // indexes: measured on the tenders corpus for "кафе", the other arms plan
+          // as a BitmapOr in 37 ms, and adding an EXISTS arm made the whole thing a
+          // Seq Scan at 6,617 ms — a 178x regression on every tender search, not
+          // just on searches this arm can answer. As an InitPlan array the side
+          // lookup runs ONCE and the key equality joins the BitmapOr as one more
+          // index scan: 21.5 ms, faster than the baseline.
+          //
+          // FTS only, no `%>` trigram fallback: word_similarity recomputes trigram
+          // sets over the whole body per row and these bodies are documents —
+          // measured 0.073 ms vs 13,490 ms on 1,861 rows. See 147's header.
+          const { table, key, on, col, limit } = d.searchInSet;
+          const i = gParam();
+          // Bounded so a stop-word query cannot mint a giant array (one btree probe
+          // per element). Truncation is SAFE HERE AND ONLY HERE because this arm is
+          // purely additive — a dropped key can fail to add a hit, never suppress
+          // one another arm found. It would not be safe on a filter.
+          //
+          // ORDER BY is not cosmetic: the page query and the count query are built
+          // separately from this same descriptor, so an unordered LIMIT can truncate
+          // to a DIFFERENT subset in each. That yields a total the rows do not add up
+          // to — a wrong answer rather than an incomplete one. Ordering on the key
+          // makes the truncated set identical across both.
+          const n = Number.isInteger(limit) && limit > 0 ? limit : 5000;
+          ors.push(
+            `${on} = ANY(ARRAY(SELECT ${key} FROM ${table}` +
+              ` WHERE to_tsvector('simple', ${col}) @@ fold_prefix_tsquery($${i})` +
+              ` ORDER BY ${key} LIMIT ${n}))`,
+          );
+        } else if (d.searchEq) {
+          // EQUALITY on an identifier column — the arm a `searchWhen` route hands a
+          // pasted EIK, УНП or synthetic supplier key.
+          //
+          // ⚠️ EQUALITY, NOT A PREFIX, and the difference is 176x. The planner's
+          // pattern→range transform (`prefix_quals`) needs a Const pattern, and a bound
+          // parameter is not one under a generic plan — so `eik LIKE $n || '%'` cannot
+          // become an index cond and degrades to a full scan of the (scope, division)
+          // partition: 704 buffers, against 4 for `eik = $n`, which IS an index cond on
+          // all three columns of idx_contractor_rank_key. Measured. A prefix search over
+          // identifiers is not worth that, since an identifier is pasted whole.
+          //
+          // The term is bound RAW: no likeEscape (there is no pattern to escape) and no
+          // translit_bg_latin (folding `obed-3c76d4088cb9` would corrupt the key).
+          params.push(g);
+          ors.push(`${target} = $${params.length}`);
+        } else if (d.searchPrefix) {
+          // Anchored prefix on an indexed identifier column. `LIKE 'q%'` is a btree
+          // range scan; '%q%' would seq-scan. Escapes the LIKE metacharacters so a
+          // query containing % or _ matches literally instead of turning into a
+          // wildcard that scans everything.
+          params.push(`${likeEscape(g)}%`);
+          ors.push(`${target} LIKE $${params.length}`);
+        } else if (d.searchFold) {
+          // Transliterated contiguous substring — entity-name columns whose fold
+          // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
+          // for names.
+          // The fold is produced server-side by translit_bg_latin, so the escape has
+          // to happen there too — escaping the JS-side param would be undone by the
+          // transliteration. Backslash first, or it re-escapes its own output.
+          ors.push(
+            `${target} ILIKE '%' || replace(replace(replace(` +
+              `translit_bg_latin($${gParam()}),` +
+              ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
+          );
+        } else {
+          // Plain raw-column contiguous substring (trigram-indexed raw columns).
+          ors.push(`${target} ILIKE $${rawParam()}`);
+        }
       }
+      where.push(`(${ors.join(" OR ")})`);
     }
-    where.push(`(${ors.join(" OR ")})`);
   }
 
   return {
