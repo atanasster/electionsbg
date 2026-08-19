@@ -3054,6 +3054,351 @@ const DB_ROUTES = {
     ]).catch(missingMigration(null));
     return { body: rows[0]?.r ?? null };
   },
+  // ── The /company/:eik political-links tile, unioned server-side ──────────────────────────
+  //
+  // THE DEFECT THIS EXISTS TO END. The tile used to read TWO arms, both MONEY-GATED:
+  // `company_politicians` (008, procurement-derived — 347 EIKs) and the ИСУН
+  // `political-by-eik` shard (971 EIKs). `tr_companies` holds 1,020,707 companies and only
+  // 29,616 have ever signed a contract, so a company that neither contracts nor draws EU
+  // funds was invisible to both BY CONSTRUCTION — and the tile does not self-suppress, it
+  // prints «Няма установени връзки с политици.» So /company/175155542 asserted that an NGO
+  // chaired by a former Deputy PM and Minister of Defence has no political links, at a 200.
+  // A false claim about a named public figure is worse than an absent section.
+  //
+  // 158 (`company_political_links`) already answered it — 26,047 EIKs — and was wired only to
+  // the AI chat's `companyConnections` tool, so the chat and the page disagreed about the same
+  // company. This route is the third arm.
+  //
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // WHY THE UNION IS HERE AND NOT IN THE BROWSER. Four measurements, not a preference.
+  //
+  // 1. DEDUP IS THE MAJORITY CASE. Of 522 `company_politicians` rows, 436 (83.5%) are also in
+  //    158's direct arm; of 1,249 funds rows, 852 (68.2%). Rendering the arms unmerged would
+  //    double-print 1,288 rows.
+  //
+  // 2. THE DEDUP KEY IS ONLY RESOLVABLE SERVER-SIDE. The three arms name one human three ways
+  //    (`/candidate/mp-2829`, `/officials/<officials-slug>`, and 158's person slug). The key is
+  //    the person slug resolved FORWARD through `officials_person_slug()` (106), which is
+  //    TOTAL — 522/522 and 1,249/1,249 — because it falls through `person_slug_retired`. 408 of
+  //    445 distinct officials refs are person slugs outright; the other 37 are RETIRED, and
+  //    only that function knows their target. The reverse direction is not total
+  //    (`person_role.ref` at official_exec/muni covers 417 of 445), so "have 158 return its
+  //    aliases" would silently miss 28. A browser cannot call the function at all.
+  //
+  // 3. THE FUNDS ARM CANNOT BE RESOLVED WHERE IT IS SERVED. `/api/db/fund-payload` is a generic
+  //    passthrough over ~18 payload kinds; special-casing one kind's identity join there rots.
+  //    Baking the slug into the stored shard at load time is worse — a re-resolve MOVES slugs
+  //    (the whole reason `person_slug_retired` exists), so the artifact would go quietly stale.
+  //
+  // 4. ⚠️ THE UNION REINTRODUCES A COLLISION 158 FORBIDS INTERNALLY. 158's own data test
+  //    asserts a person is never in both `direct` and `bridged`, because the two are rendered
+  //    with different wording and the same human would be described to the reader twice — once
+  //    as an officer here, once as a distant lead. The union breaks that FROM OUTSIDE: a PG-arm
+  //    person with no `person_role` at source tr/ngo for this EIK is not in 158's `direct_role`,
+  //    so 158 may legitimately place them in `bridged` while the PG arm puts them in ours.
+  //    Measured: 7 people. `bridged` is therefore filtered against the resolved direct-slug set
+  //    below — deleting that filter is the defect, and the data test gates it.
+  //
+  // NOT folded into `/api/db/company` despite that route's own note about avoiding a second
+  // round-trip: it is a `Promise.all` of ~18 queries, so its latency is its slowest member, and
+  // 158 costs 14 ms typical / 56 ms cold at the worst post-cap fan-out (12,303 buffers, EIK
+  // 204332614, measured). Adding that to the critical path of EVERY company page — including the
+  // 96.6% that are not contractors — delays the whole page rather than one tile.
+  //
+  // ⚠️ THE THREE ARMS DEGRADE INDEPENDENTLY, and `arms` REPORTS WHICH ANSWERED. A missing
+  // migration must never blank the other two, and — this is the point — "no links found" must
+  // never be printed when an arm could not run. `unavailable` is what lets the tile say "the
+  // check could not run" instead of repeating the denial this route exists to delete.
+  //
+  // DEPLOY ORDER. 158 is "applied, never loaded", and 148 must PRECEDE it — 158's `LANGUAGE sql`
+  // body SELECTs `person_company_bridge_a` and is validated at CREATE, so 158 alone fails the
+  // whole file with 42P01. Verify on the serving database BEFORE the `deploy:db` that ships this
+  // route, then ship the function before the bundle that calls it:
+  //   psql "$CLOUD_URL" -c "SELECT to_regprocedure('company_political_links(text,int)')::text;"
+  //   npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 158_company_political_links.sql
+  //   npm run deploy:db   # this route
+  //   npm run deploy      # the tile
+  //
+  // `?limit` bounds the 158 ARM'S ARRAYS ONLY. The PG arm is fixed at 200 and the funds arm is
+  // whatever the shard holds; see the measured-headroom note on each.
+  //
+  // ORDERING CONTRACT. `direct` is ordered PG (money, `total_eur DESC`) → funds → 158 (office
+  // prominence), and every row carries `arm`. A consumer may sort WITHIN an arm; sorting ACROSS
+  // them destroys the property the tile depends on, because only the PG arm has money to sort by
+  // and a `?? -1` fallback scatters the other two into the tail.
+  "company-political": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!/^\d{9}(\d{4})?$/.test(eik)) return { body: null };
+    const lim = clampInt(q.limit, 50, 1, 200);
+
+    // A sentinel distinct from every legitimate result, so "the arm could not run" is not
+    // confusable with "the arm ran and found nothing".
+    //
+    // ⚠️ DELIBERATELY NOT `missingMigration`'s SHAPE. That helper wraps as `[{ r }]` because its
+    // callers read `rows[0].r`; the three arms below read `res.r` off a BARE object. An earlier
+    // draft carried an unused `[{ r }]`-shaped copy beside three inline catches, which is the
+    // trap worth naming rather than deleting silently: "tidying" the catches into it would make
+    // `res.r` undefined, `pgRows` undefined, and the first `for…of` throw — a 500 on the whole
+    // route, from a refactor that looks like pure cleanup. One helper, one shape, all three arms.
+    //
+    // It also LOGS, once per process per arm. That is this file's settled convention for a
+    // missing migration (`rc:`/`psp:`/`pp:`/`ff:`/`oc:`… `:not-built`), and CLAUDE.md's reason is
+    // exactly this route's hazard: "that log, not latency, is the signal that the cloud loader
+    // never ran". `arms` tells the reader's TILE; this tells the OPERATOR. Without it a
+    // `deploy:db` that shipped before 158 reached Cloud SQL reads as "no political links" for
+    // ever, with nothing red anywhere — the same silence the route exists to end.
+    const UNAVAILABLE = Symbol("unavailable");
+    const armMiss = (label, run) => (e) => {
+      if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+      logMissOnce(
+        `cp:unavailable:${label}:${e.code}`,
+        `company-political/${label}: read failed (${e.code}) — arm reported unavailable. Run ${run}.`,
+      );
+      return { r: UNAVAILABLE };
+    };
+    const APPLY_158 =
+      "npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 158_company_political_links.sql";
+
+    // ⚠️ THE ROWS AND THE IDENTITY RESOLUTION ARE SEPARATE QUERIES, ON PURPOSE. Resolving the
+    // slug INSIDE the row query couples two independent migrations: a database missing the
+    // person layer (106) would take the whole PG arm to `unavailable` and discard 454 official
+    // rows it could still serve — rows the pre-existing `company-politicians` route returns
+    // unconditionally, so the new tile would show strictly LESS than the one it replaces during
+    // a deploy window. Split, a missing 106 costs only dedup QUALITY: the rows survive with a
+    // null slug, fall back to their own ref as a key, and render once each.
+    //
+    // Caps: `LIMIT 200` on the PG arm is headroom, not an undeclared truncation — the measured
+    // maximum is 9 `company_politicians` rows per EIK (and 12 `mps + officials` per funds shard,
+    // which is why that arm needs none). If either ever approaches its cap, report it the way
+    // 158 reports `directTruncated` rather than letting it truncate silently.
+    const [pgRes, pgSlugRes, fundsRes, fundsSlugRes, linkRes] =
+      await Promise.all([
+        dbRows(
+          `SELECT politician, ref, kind, role, relations, total_eur
+           FROM company_politicians
+          WHERE eik = $1
+          ORDER BY total_eur DESC NULLS LAST
+          LIMIT 200`,
+          [eik],
+        )
+          .then((rows) => ({ r: rows }))
+          .catch(
+            armMiss("pg", "db:load:tr:pg (company_politicians, migration 008)"),
+          ),
+        // The dedup key, resolved FORWARD — see note 2 in the header.
+        //
+        // ⚠️ BOTH BRANCHES MUST GO THROUGH A REDIRECT-AWARE RESOLVER, and the `mp` one is the easy
+        // miss. `officials_person_slug` already falls through `person_slug_redirect`, which is what
+        // makes the officials side "total"; an `mp-N` ref taken verbatim does not. MP slugs are
+        // retired by the SAME mechanism and two already are (`mp-4769 → mp-4594`,
+        // `mp-3252 → mp-2454`). A retired one here keys the OLD slug while 158 emits the NEW one,
+        // so the same human renders TWICE in the direct block AND escapes the `directSlugs`
+        // subtraction below — both defects this route exists to delete, arriving through the one
+        // branch that skipped the redirect. Latent today (0 rows on either), and
+        // `person_slug_retired` only ever grows.
+        //
+        // `officials_person_slug('mp-2829')` returns NULL (it requires `person_officials_sources`),
+        // so the two branches cannot be collapsed into one call.
+        dbRows(
+          `SELECT cp.ref,
+                CASE WHEN cp.kind = 'mp'
+                     THEN COALESCE(person_slug_redirect(replace(cp.ref, '/candidate/', '')),
+                                   replace(cp.ref, '/candidate/', ''))
+                     ELSE officials_person_slug(replace(cp.ref, '/officials/', ''))
+                END AS person_slug
+           FROM (SELECT DISTINCT ref, kind FROM company_politicians WHERE eik = $1) cp`,
+          [eik],
+        )
+          .then((rows) => ({ r: rows }))
+          .catch(armMiss("pg-slug", APPLY_158)),
+        dbRows(
+          `SELECT payload FROM fund_payloads
+          WHERE kind = 'political-by-eik' AND key = $1`,
+          [eik],
+        )
+          .then((rows) => ({ r: rows }))
+          .catch(armMiss("funds", "db:load:funds:pg (fund_payloads)")),
+        // The funds shard's own identity resolution, same split and same reason. BOTH its arrays
+        // need it: `officials[].slug` is an officials slug, and `mps[].mpId` mints `mp-N`, which
+        // carries the identical retirement gap the PG arm's `mp` branch does.
+        // `jsonb_object_agg` rejects a NULL key but accepts a NULL value, so an unresolvable slug
+        // rides through as null rather than aborting the arm.
+        dbRows(
+          `SELECT COALESCE(
+                  (SELECT jsonb_object_agg(k, v) FROM (
+                     SELECT o.slug AS k, officials_person_slug(o.slug) AS v
+                       FROM fund_payloads p,
+                            jsonb_to_recordset(COALESCE(p.payload -> 'officials', '[]'::jsonb))
+                              AS o(slug text)
+                      WHERE p.kind = 'political-by-eik' AND p.key = $1 AND o.slug IS NOT NULL
+                     UNION ALL
+                     -- The record column is CASE-SENSITIVE: declared as "mpId", it must be
+                     -- referenced as m."mpId" — bare m.mpId folds to mpid and 42703s.
+                     SELECT 'mp-' || m."mpId",
+                            COALESCE(person_slug_redirect('mp-' || m."mpId"),
+                                     'mp-' || m."mpId")
+                       FROM fund_payloads p,
+                            jsonb_to_recordset(COALESCE(p.payload -> 'mps', '[]'::jsonb))
+                              AS m("mpId" text)
+                      WHERE p.kind = 'political-by-eik' AND p.key = $1
+                        AND m."mpId" IS NOT NULL
+                   ) q),
+                  '{}'::jsonb) AS slug_map`,
+          [eik],
+        )
+          .then((rows) => ({ r: rows }))
+          .catch(armMiss("funds-slug", APPLY_158)),
+        dbRows("SELECT company_political_links($1, $2) AS r", [eik, lim])
+          .then((rows) => ({ r: rows[0]?.r ?? null }))
+          .catch(armMiss("person-layer", APPLY_158)),
+      ]);
+
+    const pgRows = pgRes.r === UNAVAILABLE ? [] : pgRes.r;
+    const fundsRow = fundsRes.r === UNAVAILABLE ? [] : fundsRes.r;
+    const links = linkRes.r === UNAVAILABLE ? null : linkRes.r;
+
+    const fundsEntry = fundsRow[0]?.payload ?? null;
+    // Both slug maps degrade to {} rather than to UNAVAILABLE: a missing resolver costs dedup
+    // quality, never rows (see the split note above).
+    const pgSlugByRef = new Map(
+      (pgSlugRes.r === UNAVAILABLE ? [] : pgSlugRes.r).map((r) => [
+        r.ref,
+        r.person_slug,
+      ]),
+    );
+    const fundsSlugMap =
+      (fundsSlugRes.r === UNAVAILABLE ? null : fundsSlugRes.r[0]?.slug_map) ??
+      {};
+
+    // Dedup key. The person slug when we have one; otherwise the arm's own ref, so two rows
+    // we could NOT identify stay two rows rather than collapsing into one by accident.
+    const byKey = new Map();
+    const take = (key, row) => {
+      if (!byKey.has(key)) byKey.set(key, row);
+    };
+
+    // Precedence PG > funds > person layer: the first two carry `total_eur` and the richer
+    // relation labels 158 does not have, so where they overlap they are the better row. 158
+    // contributes the people neither of them knows, which is the entire point of the change.
+    for (const p of pgRows) {
+      const slug = pgSlugByRef.get(p.ref) || null;
+      take(slug || `pg:${p.ref}`, {
+        arm: "pg",
+        slug,
+        href: p.ref,
+        name: p.politician,
+        kind: p.kind === "mp" ? "mp" : "official",
+        role: p.role ?? null,
+        relations: p.relations ?? null,
+        totalEur: p.total_eur ?? null,
+      });
+    }
+
+    if (fundsEntry) {
+      for (const m of fundsEntry.mps ?? []) {
+        const minted = m.mpId != null ? `mp-${m.mpId}` : null;
+        // The resolved value when the map has one, so a retired `mp-N` keys the slug 158 emits.
+        const slug = (minted && fundsSlugMap[minted]) || minted;
+        take(slug || `funds-mp:${m.mpName}`, {
+          arm: "funds",
+          slug,
+          href: `/candidate/mp-${m.mpId}`,
+          name: m.mpName,
+          kind: "mp",
+          mpId: m.mpId,
+          relations: m.relations ?? null,
+        });
+      }
+      for (const o of fundsEntry.officials ?? []) {
+        const slug = fundsSlugMap[o.slug] ?? null;
+        take(slug || `funds-official:${o.slug}`, {
+          arm: "funds",
+          slug,
+          href: `/officials/${o.slug}`,
+          name: o.name,
+          kind: "official",
+          category: o.category ?? null,
+          institution: o.institution ?? null,
+          municipality: o.municipality ?? null,
+          latestDeclarationYear: o.latestDeclarationYear ?? null,
+          officialRoles: o.roles ?? null,
+        });
+      }
+    }
+
+    for (const d of links?.direct ?? []) {
+      // 158 selects `slug` from `person`, so it should never be null — but the other two arms
+      // both guard, and an unguarded null here would collapse EVERY slug-less row into one map
+      // entry and render the survivor at `/person/null`.
+      take(d.slug || `pl:${d.name}`, {
+        arm: "person_layer",
+        slug: d.slug ?? null,
+        href: d.slug ? `/person/${d.slug}` : null,
+        name: d.name,
+        // 158 answers "who is in public office", not "MP or official" — `officeSource` and
+        // `officeRole` carry the real answer and the tile labels them. `kind` here only picks
+        // the avatar, and an `mp-N` slug is the one case where an MP photo exists.
+        kind: /^mp-\d+$/.test(d.slug || "") ? "mp" : "official",
+        officeSource: d.officeSource ?? null,
+        officeRole: d.officeRole ?? null,
+        trRoles: Array.isArray(d.roles) ? d.roles : [],
+        linkBasis: d.linkBasis ?? null,
+      });
+    }
+
+    const direct = [...byKey.values()];
+    // See note 4: a person in the direct block must never reappear as a distant lead.
+    const directSlugs = new Set(direct.map((d) => d.slug).filter(Boolean));
+    const bridgedAll = links?.bridged ?? [];
+    const bridged = bridgedAll.filter((b) => !directSlugs.has(b.slug));
+
+    const state = (res, hasRows) =>
+      res.r === UNAVAILABLE ? "unavailable" : hasRows ? "ok" : "absent";
+
+    return {
+      body: {
+        eik,
+        name: links?.name ?? null,
+        direct,
+        bridged,
+        // 158's true totals ride through so the tile can say how much of the answer it is
+        // showing. `directCount` is 158's own count and NOT `direct.length` — the union is
+        // wider than 158 — so the tile reports the union's length beside it.
+        directCount: links?.directCount ?? null,
+        bridgedCount: links?.bridgedCount ?? null,
+        directTruncated: links?.directTruncated ?? false,
+        // 158's flag is about ITS array; a row we dropped as a duplicate is not truncation.
+        bridgedTruncated: links?.bridgedTruncated ?? false,
+        // ⚠️ WITHIN THE RETURNED WINDOW ONLY. `bridgedCount` is 158's total over the whole
+        // answer while this counts duplicates inside the `lim`-row array, so when
+        // `bridgedTruncated` is true the two are not on the same base — a tile computing
+        // "showing N of M" from them would overstate the remainder. Do not present a subtraction
+        // of these two as exact.
+        bridgedSuppressedAsDirect: bridgedAll.length - bridged.length,
+        bridgeMaxCompanies: links?.bridgeMaxCompanies ?? null,
+        bridgeFoldsSuppressed: links?.bridgeFoldsSuppressed ?? null,
+        // ⚠️ `absent` means THIS ARM CONTRIBUTED NOTHING for this EIK — never "this company is
+        // clean". Only `unavailable` licenses the tile to say the check could not run.
+        // ⚠️ ALL THREE TEST CONTRIBUTION, NOT MERE EXISTENCE, or the tri-state does not mean what
+        // the line above says. `company_political_links` builds its result with
+        // `jsonb_build_object` over CTEs and no outer FROM, so it returns a NON-NULL object for
+        // every input — `!!links` is true for an EIK that is not in the corpus at all, which
+        // would make `personLayer: "absent"` unreachable dead state. Likewise a funds shard row
+        // can exist with both arrays empty. One vocabulary, three arms.
+        arms: {
+          pg: state(pgRes, pgRows.length > 0),
+          funds: state(
+            fundsRes,
+            !!(fundsEntry?.mps?.length || fundsEntry?.officials?.length),
+          ),
+          personLayer: state(
+            linkRes,
+            (links?.direct?.length ?? 0) + (links?.bridged?.length ?? 0) > 0,
+          ),
+        },
+      },
+    };
+  },
   // Contractor name search for the procurement dashboard tile — any firm that
   // signed a public contract, deduped to one row per eik (best-matching name).
   "company-search": async (dbRows, q) => {
