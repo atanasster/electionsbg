@@ -39,7 +39,7 @@
 // would re-key genuine BG firms as foreign. See docs/plans/
 // procurement-foreign-consortium-members-v1.md, defect D-3.
 
-import { canonicalEik, isValidEik } from "./eik";
+import { canonicalEik, isValidEik, isPlaceholderId } from "./eik";
 import { hashKey } from "./contract_key";
 import { normaliseOrgName } from "../lib/normalize_name";
 
@@ -52,7 +52,10 @@ export type SupplierIdKind =
   // A non-BG registry id (letters and/or punctuation, e.g. `RO6640696`).
   | "foreign"
   // The source withheld the identity ("не се публикува") or the token is empty.
-  | "anonymous";
+  | "anonymous"
+  // The token is FILLER, not an identity — `000000001`, `999999999`, `1234567899`.
+  // Keyed by name, like `person`; the filler is discarded and never stored.
+  | "placeholder";
 
 export interface ResolvedSupplier {
   /** The key to store. Empty string means "no contractor identity". */
@@ -162,6 +165,34 @@ export const personSupplierKey = (name: string | undefined): string => {
 };
 
 /**
+ * The stable key for a supplier whose id was FILLER: `ph-` + 12 hex of sha256 over
+ * the normalised name. Returns "" when there is no usable name, which leaves the
+ * row with no contractor identity (same as `anonymous`).
+ *
+ * WHY A NAME KEY RATHER THAN NOTHING. Dropping the id would be simpler and is the
+ * wrong trade: Elsevier's €32.8M is real, attributable money and the vendor is
+ * named on every row. The argument is the one `personSupplierKey` already makes —
+ * the name is published in `contractor_name` anyway, so a name-derived key
+ * discloses nothing new, and it is lossy in both directions in the SAFE direction:
+ * two identically-named suppliers collide (strictly better than the status quo,
+ * where nine unrelated ones pooled under `000000001`), and one supplier spelled two
+ * ways fragments (understates a total; never merges strangers).
+ *
+ * A SEPARATE PREFIX FROM `np-` ON PURPOSE. `np-` asserts "this is a natural person,
+ * established from a valid ЕГН". Here nothing was established at all — the id was
+ * junk. Many of these ARE people (`1234567899` alone carried 22 individuals), but
+ * inferring that from the name is the heuristic this module's header records as
+ * having already misfired once.
+ */
+export const placeholderSupplierKey = (name: string | undefined): string => {
+  const norm = normaliseOrgName(name ?? "")
+    .toLocaleLowerCase("bg")
+    .replace(/\s+/g, " ")
+    .trim();
+  return norm ? `ph-${hashKey(norm)}` : "";
+};
+
+/**
  * Classify one `supplierRegisterNumber` token, given the aligned `supplierName`.
  *
  * ORDER MATTERS. The personal-id test runs BEFORE the BG-EIK test, because an ЕГН
@@ -175,7 +206,29 @@ export const classifySupplierId = (
   if (!s || UNPUBLISHED_SUPPLIER.test(s)) {
     return { eik: "", kind: "anonymous", foreign: true };
   }
-  // (1) Personal identity numbers — never stored, keyed by name instead.
+  // (1) Filler ids — never stored, keyed by name instead.
+  //
+  // BEFORE the personal test. The two rule sets are DISJOINT today — no filler
+  // value passes the ЕГН checksum, asserted in the test — so the order changes
+  // nothing right now and is defensive rather than load-bearing. It is written this
+  // way because roughly one in eleven arbitrary 10-digit numbers passes mod-11, so a
+  // future denylist entry could land in ЕГН space; if it did, `np-` would assert an
+  // ЕГН was found where the id is simply junk, putting a false provenance on a key
+  // that both branches would otherwise derive identically from the name.
+  // Tested against the digits-only form as well, for the reason step (2) below
+  // already documents: the feed publishes separator-grouped numbers ("827 184 123"),
+  // so "000 000 001" would otherwise skip every branch and land in the foreign
+  // fallback — which stores it verbatim and pools Elsevier, Vier Gas and Clarivate
+  // back under one key, i.e. the exact defect this branch exists to end. Latent
+  // today (no such token in the current feed) but the shape is published.
+  if (isPlaceholderId(s) || isPlaceholderId(s.replace(/[\s-]/g, ""))) {
+    return {
+      eik: placeholderSupplierKey(name),
+      kind: "placeholder",
+      foreign: true,
+    };
+  }
+  // (2) Personal identity numbers — never stored, keyed by name instead.
   //
   // Tested against BOTH the raw token and its digits-only form. The raw-only test leaked:
   // a 10-digit run carrying any separator or prefix ("620 731 6703", "ЕГН 6207316703",
@@ -190,10 +243,10 @@ export const classifySupplierId = (
   if (isPersonalSupplier(s, name)) {
     return { eik: personSupplierKey(name), kind: "person", foreign: true };
   }
-  // (2) A clean BG EIK.
+  // (3) A clean BG EIK.
   const canon = canonicalEik(s);
   if (isValidEik(canon)) return { eik: canon, kind: "bg", foreign: false };
-  // (3) A BG EIK embedded in a messy id ("BG104529087", "ЕИК 205994492",
+  // (4) A BG EIK embedded in a messy id ("BG104529087", "ЕИК 205994492",
   // space-grouped "827 184 123"). Requiring an exact 9/13-digit run avoids
   // mis-reading a foreign id that only looks numeric once separators are stripped.
   const stripped = s.replace(/\s+/g, "").replace(/^(ЕИК|BG|EIK)/i, "");
@@ -201,7 +254,7 @@ export const classifySupplierId = (
     const c = canonicalEik(stripped);
     if (isValidEik(c)) return { eik: c, kind: "bg", foreign: false };
   }
-  // (4) A genuine foreign vendor — keyed by a normalized registration id.
+  // (5) A genuine foreign vendor — keyed by a normalized registration id.
   const norm = s
     .replace(/[^A-Za-z0-9]/g, "")
     .toUpperCase()

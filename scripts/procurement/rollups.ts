@@ -589,6 +589,14 @@ export const writeRollups = (
 
   const contractorEiks = new Set<string>();
   for (const c of rollups.contractors) {
+    // An unidentified supplier is not a contractor. Without this the empty key
+    // wrote `contractors/.json` — one rollup pooling every row whose supplier
+    // could not be resolved, measured at 623 contracts and €210,035,842 across
+    // 184 buyers, presented under whichever name happened to sort first
+    // („Румяна Атанасова", a natural person). The SQL generator already skips it
+    // — gen_procurement/rollups.ts: "blank EIK gets no rollup file by design" —
+    // so this writer was the only one producing the file, and the two now agree.
+    if (!c.eik) continue;
     fs.writeFileSync(
       path.join(contractorDir, `${c.eik}.json`),
       canonicalJson(c),
@@ -597,6 +605,11 @@ export const writeRollups = (
   }
   const awarderEiks = new Set<string>();
   for (const a of rollups.awarders) {
+    // Same rule on the buyer side. No `awarders/.json` exists today — normalize_eop
+    // SKIPS a record whose buyer id fails `isValidEik`, so a blank never reaches
+    // here — but that is a property of the caller, not of this writer, and the
+    // contractor half proves what happens when the writer trusts it.
+    if (!a.eik) continue;
     fs.writeFileSync(path.join(awarderDir, `${a.eik}.json`), canonicalJson(a));
     awarderEiks.add(a.eik);
   }

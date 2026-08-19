@@ -14,7 +14,9 @@ import {
   isEgn,
   isPersonalSupplier,
   personSupplierKey,
+  placeholderSupplierKey,
 } from "./supplier_identity";
+import { isPlaceholderId, isValidEik } from "./eik";
 
 describe("isEgn", () => {
   // Real ЕГН found in contractor_eik (00258-2022-0003, 00299-2020-0011, 00339-2022-0070).
@@ -208,5 +210,161 @@ describe("personSupplierKey", () => {
   test("no usable name means no identity", () => {
     expect(personSupplierKey("")).toBe("");
     expect(personSupplierKey(undefined)).toBe("");
+  });
+});
+
+describe("placeholder supplier ids", () => {
+  // ⚠ THE TEST DIRECTLY ABOVE ALREADY NAMED THIS BUG AND DID NOT GATE IT. Its comment
+  // says "20 different people shared `1234567899`", but it exercises
+  // `personSupplierKey` directly — and `1234567899` is not an ЕГН (month 34), so
+  // `classifySupplierId` never reached the personal branch. It fell through to
+  // `isValidEik`, which accepted ten digits, and the id became a company key.
+  // Measured on the live corpus before this fix: 22 distinct people under that one
+  // key, and nine unrelated suppliers under `000000001` — Elsevier's €32.8M and
+  // Clarivate's €11.2M rendered as ONE contractor on every leaderboard.
+  //
+  // Every id below is a real token from the `contracts` table.
+
+  test.each([
+    ["000000001", "9 unrelated suppliers, Elsevier B.V. the largest"],
+    ["000000002", "2 natural persons"],
+    ["000000003", "same family as its two siblings"],
+    ["999999999", "7 names"],
+    ["9999999999", "€13.6M under one filler"],
+    ["1234567899", "22 natural persons"],
+    ["123456789", "2 names"],
+    ["0000", "13 rows"],
+    ["1111111111", "4 names"],
+    ["00", "single row, still not an identity"],
+  ])("%s is filler, not an identity", (id) => {
+    expect(isPlaceholderId(id)).toBe(true);
+    expect(isValidEik(id)).toBe(false);
+    expect(classifySupplierId(id, "Някаква фирма ООД").kind).toBe(
+      "placeholder",
+    );
+  });
+
+  // The rule that is NOT "the number is small" — these are real, and a value
+  // threshold (the obvious implementation) would re-key every one of them.
+  test.each([
+    ["000000210", "ДГС Гърмен — a live AWARDER"],
+    ["000000281", "ДЛС Дикчан — a live awarder"],
+    ["000000491", "ТПК Нов свят — lowest uic in tr_companies"],
+    ["000000726", "ТПК Георги Андрия"],
+    ["000003270", "Автотехника Пирин ЕООД"],
+    ["131468980", "А1 България ЕАД"],
+    ["000695114", "МОН"],
+  ])("%s is a REAL id and must survive", (id) => {
+    expect(isPlaceholderId(id)).toBe(false);
+    expect(isValidEik(id)).toBe(true);
+    expect(classifySupplierId(id, "Каквото и да е ООД")).toMatchObject({
+      kind: "bg",
+      eik: id,
+    });
+  });
+
+  test("pooled suppliers come apart into distinct keys", () => {
+    // The whole point. Same filler id, different companies → different keys.
+    const keys = [
+      "Elsevier B. V.",
+      "„Кларивейт Аналитикс” ЕООД",
+      "Vier Gas Transport GmbH",
+      "Plagiat-Sistem Antiplagiat prin Internet SRL",
+    ].map((n) => classifySupplierId("000000001", n).eik);
+    expect(new Set(keys).size).toBe(4);
+    for (const k of keys) expect(k).toMatch(/^ph-[0-9a-f]{12}$/);
+  });
+
+  test("the key is stable and whitespace-insensitive", () => {
+    expect(placeholderSupplierKey("Elsevier B. V.")).toBe(
+      placeholderSupplierKey("  elsevier   b. v. "),
+    );
+  });
+
+  test("no usable name means no identity", () => {
+    expect(placeholderSupplierKey("")).toBe("");
+    expect(classifySupplierId("000000001", "").eik).toBe("");
+  });
+
+  test("the two rule sets are disjoint, so the branch order is defensive", () => {
+    // An earlier version of this test asserted `1111111111` passes the ЕГН checksum
+    // and therefore that the branch order was load-bearing. Both halves were wrong:
+    // it fails the checksum, and NO filler value passes it. Pin the real property
+    // instead — if a future denylist entry ever overlapped the ЕГН space, the two
+    // branches would disagree about what the key means and this fails first.
+    // DERIVED, not hand-listed: the previous list carried `1234567890`, which is
+    // not a placeholder at all (9→0 breaks the run, so `isValidEik` accepts it),
+    // and omitted genuine members — so it tested a set that was neither.
+    const fillers = Array.from({ length: 10_000 }, (_, n) =>
+      String(n).padStart(10, "0"),
+    )
+      .concat(Array.from({ length: 10 }, (_, d) => String(d).repeat(10)))
+      .filter(isPlaceholderId);
+    expect(fillers.length).toBeGreaterThan(10); // else the filter is vacuous
+    expect(fillers.filter(isEgn)).toEqual([]);
+
+    // Order still checked, because the disjointness above is a property of today's
+    // rules rather than of the design.
+    const r = classifySupplierId("1111111111", "Иван Петров Иванов");
+    expect(r.kind).toBe("placeholder");
+    expect(r.eik).toMatch(/^ph-/);
+  });
+
+  test("a real ЕГН still classifies as a person", () => {
+    // Guards the branch order in the other direction: adding the filler check
+    // first must not swallow the personal case this module exists for.
+    const r = classifySupplierId("6207316703", "Венцеслав Георгиев Делов");
+    expect(r.kind).toBe("person");
+    expect(r.eik).toMatch(/^np-/);
+  });
+});
+
+describe("isPlaceholderId — the boundaries that survived mutation", () => {
+  // Review found the `>= 8` floor in isAscendingRun survived mutation in BOTH
+  // directions: nothing in the suite moved when it became 7 or 9. These pin it.
+
+  test("a run shorter than 8 is NOT filler", () => {
+    // `1234567` is 7 digits. canonicalEik zero-pads 5-8 digit ids to nine, so a
+    // short ascending run is a plausible recovered EIK and must survive.
+    expect(isPlaceholderId("1234567")).toBe(false);
+    expect(isPlaceholderId("123456")).toBe(false);
+  });
+
+  test("a run of exactly 8 IS filler", () => {
+    expect(isPlaceholderId("12345678")).toBe(true);
+  });
+
+  test("the trailing-repeat strip only shortens, never widens", () => {
+    // `1234567899` is the live case: strip the trailing `9` run to `123456789`.
+    expect(isPlaceholderId("1234567899")).toBe(true);
+    // …but stripping must not manufacture a run out of an unrelated id. A real
+    // EIK ending in repeated digits stays real.
+    expect(isPlaceholderId("131468980")).toBe(false);
+    expect(isPlaceholderId("175905700")).toBe(false);
+  });
+
+  test("a single digit is filler — the `\\1+` vs `\\1*` gap", () => {
+    // `/^(\d)\1+$/` needs two characters, so a bare "0" escaped every rule while
+    // the docstring claimed it was covered. Live corpus: `contractor_eik = '0'`
+    // pooled 5 unrelated suppliers and €693,796. All 48 tests passed either way.
+    for (const d of "0123456789") expect(isPlaceholderId(d)).toBe(true);
+  });
+
+  test("separator-grouped filler is still filler", () => {
+    // The feed publishes space-grouped numbers, so the classifier tests the
+    // digits-only form too. Without it these reach the foreign fallback, which
+    // stores the token verbatim and re-pools the suppliers.
+    for (const raw of ["000 000 001", "000-000-001", "999 999 999"]) {
+      const r = classifySupplierId(raw, "Elsevier B. V.");
+      expect(r.kind, raw).toBe("placeholder");
+      expect(r.eik, raw).toMatch(/^ph-/);
+    }
+  });
+
+  test("non-numeric ids are untouched", () => {
+    // Foreign registry ids keep the `foreign` path — the filler rules are
+    // digits-only by construction.
+    expect(isPlaceholderId("ATU14715405")).toBe(false);
+    expect(classifySupplierId("RO6640696", "Ceva SRL").kind).toBe("foreign");
   });
 });

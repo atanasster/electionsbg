@@ -29,9 +29,16 @@ export const PROC_DIR = path.join(DATA_DIR, "procurement");
  *  (scripts/procurement/supplier_identity.ts). It is hyphenated, so an
  *  alphanumeric-only pattern excluded it — which both broke the
  *  files-vs-distinct-EIKs invariant and made those rollups invisible to the
- *  stale-file prune in gen_procurement/rollups.ts, leaving them to accumulate. */
+ *  stale-file prune in gen_procurement/rollups.ts, leaving them to accumulate.
+ *
+ *  ⚠ THE PATTERN IS NOW PREFIX-AGNOSTIC, and that is the fix rather than laziness.
+ *  Naming `np-` explicitly meant the NEXT synthetic namespace repeated the same
+ *  breakage — `ph-<12 hex>` (a supplier whose registration number was filler, see
+ *  supplier_identity.ts) would have been invisible to the prune in exactly the way
+ *  described above. Any `a-b-c` key now matches. That is safe here because, as noted,
+ *  neither directory holds anything but rollups. */
 export const isEikRollupFile = (f: string): boolean =>
-  /^(np-)?[A-Za-z0-9]+\.json$/.test(f);
+  /^[A-Za-z0-9]+(-[A-Za-z0-9]+)*\.json$/.test(f);
 
 /** Postgres pg_dump snapshot artifact (custom format). Lives under raw_data/ —
  *  gitignored, a regenerable cache distributed via GCS with a committed lockfile
