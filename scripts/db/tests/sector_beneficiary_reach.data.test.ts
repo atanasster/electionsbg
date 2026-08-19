@@ -95,14 +95,43 @@ test.skipIf(skip)(
               `there — a filter using it renders an empty page that reads as ` +
               `„this sector received no money"`,
           );
-        else
-          assert.equal(
-            rows,
-            0,
-            `sector „${pack.id}" does NOT declare ${table}, yet its EIK set matches ` +
-              `${rows} row(s) there. Either add it to beneficiaryCorpora, or say ` +
-              `in the pack why an answerable corpus is being withheld`,
+        else {
+          const withheld = pack.beneficiaryWithheld?.find(
+            (w) => w.corpus === table,
           );
+          if (!withheld)
+            assert.equal(
+              rows,
+              0,
+              `sector „${pack.id}" does NOT declare ${table}, yet its EIK set matches ` +
+                `${rows} row(s) there. Either add it to beneficiaryCorpora, or say ` +
+                `in the pack why an answerable corpus is being withheld`,
+            );
+          else {
+            // A withholding must carry an actual argument. A one-word reason is the
+            // shape this escape hatch would decay into.
+            assert.ok(
+              withheld.reason.trim().length >= 40,
+              `sector „${pack.id}" withholds ${table} with no real reason given`,
+            );
+            // …and it must EXPIRE. The judgement was made about a match of a stated
+            // size; growth past that is new evidence, so the decision gets re-made
+            // rather than inherited — which is the rule the culture case established.
+            assert.ok(
+              rows <= withheld.rowsAtDecision,
+              `sector „${pack.id}" withholds ${table} on a judgement made about ` +
+                `${withheld.rowsAtDecision} row(s), but it now matches ${rows}. ` +
+                `Re-make the decision and update rowsAtDecision — do not inherit it`,
+            );
+            // A withholding is for an UNREPRESENTATIVE match, never a dead one: if it
+            // matches nothing, plain omission says so and the reason is misleading.
+            assert.ok(
+              rows > 0,
+              `sector „${pack.id}" withholds ${table} but matches nothing there — ` +
+                `drop the withholding, omission already means „not answerable this way"`,
+            );
+          }
+        }
       }
   },
 );
@@ -124,13 +153,38 @@ test.skipIf(skip)(
       `SELECT count(*) n FROM agri_subsidies WHERE eik = ANY($1)`,
       [eiks],
     );
+    // NOT „zero rows" any more, and the change is the finding rather than a
+    // loosening. The roster widening (a269711a0b, dae2a1eb95) pulled in one
+    // national music school that draws „Училищни схеми" — the EU School Scheme
+    // ДФЗ administers — so the match is 2 rows / €5,416 of school-food aid, and
+    // is NOT a cultural institution receiving farm subsidies. Open question 6
+    // therefore stays answered the same way, on re-made grounds: the arm remains
+    // читалища-by-name, because €18.3m of it reaches a name population these
+    // EIKs do not carry.
+    //
+    // What is asserted instead is the BEHAVIOUR the row count was standing in
+    // for — culture is still refused on ДФЗ — plus the withholding being declared
+    // and still within the match it was decided against.
     assert.equal(
-      Number(agri.n),
-      0,
-      `${agri.n} ДФЗ rows now match the culture roll-up. That inverts open ` +
-        `question 6: if a state cultural institution has started receiving farm ` +
-        `subsidies, the ДФЗ arm can become EIK-keyed instead of читалища-by-name — ` +
-        `but the decision has to be re-made, not inherited`,
+      sectorBeneficiaryEiks(SECTOR_BROWSE_PACKS.culture, "agri_subsidies"),
+      null,
+      "culture must stay refused on ДФЗ: an EIK-keyed arm shows €5,416 of school-" +
+        "scheme money against the €18.3m the sector actually receives",
+    );
+    const withheld = SECTOR_BROWSE_PACKS.culture.beneficiaryWithheld?.find(
+      (w) => w.corpus === "agri_subsidies",
+    );
+    assert.ok(
+      withheld,
+      `${agri.n} ДФЗ rows match the culture roll-up and nothing in the pack says ` +
+        `why the corpus is withheld — the decision has to be recorded, not implied`,
+    );
+    assert.ok(
+      Number(agri.n) <= withheld.rowsAtDecision,
+      `${agri.n} ДФЗ rows now match the culture roll-up, against the ` +
+        `${withheld.rowsAtDecision} the withholding was decided about. Re-make it: ` +
+        `if a state cultural institution has genuinely started receiving farm ` +
+        `subsidies, the ДФЗ arm can become EIK-keyed instead of читалища-by-name`,
     );
   },
 );

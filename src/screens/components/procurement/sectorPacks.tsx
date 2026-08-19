@@ -235,6 +235,23 @@ export interface SectorBrowsePack {
    *
    *  Omit for a pure buyer set: every pack predates the funds arm and is one. */
   beneficiaryCorpora?: readonly BeneficiaryCorpus[];
+  /** Recipient corpora this EIK set DOES match, and is deliberately not filtered
+   *  on anyway. Distinct from simply omitting the corpus above, which means „it
+   *  matches nothing there".
+   *
+   *  Needed because „matches nothing" and „matches something unrepresentative"
+   *  are different states that a row count alone cannot tell apart, and only the
+   *  first is self-evidently safe to leave undeclared. A withholding says the
+   *  match was looked at and judged worse than silence.
+   *
+   *  `rowsAtDecision` is what makes it expire rather than be inherited: the gate
+   *  fails once the match grows past it, so a judgement made about 2 rows cannot
+   *  quietly go on standing for 200. */
+  beneficiaryWithheld?: readonly {
+    corpus: BeneficiaryCorpus;
+    reason: string;
+    rowsAtDecision: number;
+  }[];
   /** Optional enrichment strip rendered above the table. Only water ships one
    *  in v1; the other sectors are filter-only until their Section is built. */
   Section?: ComponentType<SectorBrowseSectionProps>;
@@ -381,6 +398,33 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     // ИСУН only — see beneficiaryCorpora. ДФЗ and Interreg culture money is real
     // but is not reachable through these EIKs.
     beneficiaryCorpora: ["fund_projects"],
+    beneficiaryWithheld: [
+      {
+        corpus: "agri_subsidies",
+        rowsAtDecision: 2,
+        // Decided 2026-08-19, re-made rather than inherited after the roster
+        // widening (a269711a0b, dae2a1eb95) took this from 0 rows to 2.
+        //
+        // Both rows are ONE EIK — 000669774, Национално музикално училище
+        // „Любомир Пипков" — on „Училищни схеми": €3,205.25 (2016) and €2,210.84
+        // (2017). That is the EU School Fruit/Vegetables/Milk Scheme, which ДФЗ
+        // merely ADMINISTERS, reaching a body that is in this roster because it
+        // is a national art school. It is school-food aid, not a farm subsidy to
+        // a cultural institution.
+        //
+        // So declaring the corpus would render a ДФЗ page for culture showing
+        // €5,416 — against the €18.3m the sector actually receives, as народни
+        // читалища, a NAME population these EIKs do not carry. Wrong by ~3,400x
+        // and populated enough to be believed, which is strictly worse than the
+        // empty page this gate was built to prevent.
+        reason:
+          'The only match is one national music school on „Училищни схеми" (the EU ' +
+          "School Scheme ДФЗ administers), €5,416 over 2016-2017. The sector's real " +
+          "ДФЗ money is €18.3m to народни читалища, a name population these EIKs do " +
+          "not carry — so an EIK-keyed ДФЗ arm would understate it by ~3,400x while " +
+          "looking answered.",
+      },
+    ],
   },
 };
 
