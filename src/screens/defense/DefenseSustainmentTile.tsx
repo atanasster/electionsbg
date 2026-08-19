@@ -4,7 +4,18 @@
 // and legacy fleet flying — aviation fuel, helicopter and MiG-29/L-39/C-27J
 // overhauls — €376M across the МО group, all years. Framed as spend, not a
 // verdict (the flood-tile pattern from the water view).
-
+//
+// ⚠ ROSTER VINTAGE. data/defense/aviation_sustainment.json was aggregated over
+// the МО roster AS IT STOOD on 2026-07-09 — 25 EIKs — and MO_ENTITIES has since
+// grown to 27 (РВИМ Плевен, НПМ „Шипка-Бузлуджа", added by the 2026-08-19
+// audit). Neither has an aviation contract, so no figure in the file moves; but
+// a future addition that DOES would make these numbers a silent subset of what
+// the tile claims, since the artifact is hand-refreshed rather than derived at
+// build time. Re-run the aggregation (update-defense) after widening the roster.
+//
+// This caveat lives HERE and not in the artifact's `note` field: every other
+// defense tile renders `source`/`note` as a reader-facing footnote, so
+// engineering prose in either slot is one edit away from being published.
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Plane } from "lucide-react";
