@@ -60,7 +60,13 @@ export const CompanyLink: FC<{
   children?: ReactNode;
   className?: string;
   title?: string;
-}> = ({ eik, children, className, title }) => {
+  /** Associates the name with a footnote explaining what kind of key it is —
+   *  e.g. the consortium note on SectorTopContractorsTile. Forwarded on BOTH
+   *  branches: the keys most likely to need explaining (`obed-`, `ph-`, `np-`)
+   *  are exactly the ones that render as plain text, so dropping it on the
+   *  non-link branch would silence it precisely where it is needed. */
+  "aria-describedby"?: string;
+}> = ({ eik, children, className, title, "aria-describedby": describedBy }) => {
   // Carry the time scope, exactly as AwarderLink does: /company/:eik reads
   // useScope(), so a bare pathname silently resets a ?pscope=all view to the
   // default parliament window.
@@ -69,7 +75,11 @@ export const CompanyLink: FC<{
 
   if (!isLinkableCompanyKey(eik))
     return (
-      <span className={withoutAffordance(className)} title={title}>
+      <span
+        className={withoutAffordance(className)}
+        title={title}
+        aria-describedby={describedBy}
+      >
         {label}
       </span>
     );
@@ -79,6 +89,7 @@ export const CompanyLink: FC<{
       to={scopedHref(`/company/${encodeURIComponent(eik!)}`)}
       className={className}
       title={title}
+      aria-describedby={describedBy}
     >
       {label}
     </Link>

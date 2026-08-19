@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { AwarderModel } from "@/lib/awarderModel";
 import { CompanyLink } from "@/screens/components/procurement/CompanyLink";
+import { isConsortiumCarrierKey } from "@/lib/companyKey";
 
 export const SectorSpendByYearTile: FC<{ model: AwarderModel<"all"> }> = ({
   model,
@@ -101,6 +102,11 @@ export const SectorTopContractorsTile: FC<{
   // and be wrong on exactly that case.
   const hasInGroup = rows.some((s) => members.has(s.eik));
   const hasStateBody = rows.some((s) => stateBodies.has(s.eik));
+  // Same visible-rows gate, and needed for the same reason — but note this one
+  // takes NO prop. A consortium carrier is recognisable from the key alone, so
+  // there is nothing for a caller to curate and nothing to keep in step; every
+  // sector gets the note the moment a carrier reaches its top-8.
+  const hasConsortium = rows.some((s) => isConsortiumCarrierKey(s.eik));
   if (rows.length < 2) return null;
   const max = rows[0].totalEur || 1;
 
@@ -123,12 +129,18 @@ export const SectorTopContractorsTile: FC<{
         {rows.map((s) => {
           const inGroup = members.has(s.eik);
           const isStateBody = stateBodies.has(s.eik);
+          const isConsortium = isConsortiumCarrierKey(s.eik);
           return (
             <div key={s.eik} className="flex items-center gap-2 text-sm">
               <CompanyLink
                 eik={s.eik}
                 className="min-w-0 max-w-[42%] shrink truncate text-primary hover:underline"
                 title={s.name}
+                aria-describedby={
+                  isConsortium
+                    ? "sector-topcontractors-consortium-note"
+                    : undefined
+                }
               >
                 {s.name}
               </CompanyLink>
@@ -190,6 +202,21 @@ export const SectorTopContractorsTile: FC<{
             {bg
               ? "„Държавно“ = изпълнителят е държавна или общинска структура извън сектора. Договорът е реална обществена поръчка и се брои тук, но парите остават вътре в държавата, а не отиват на външен пазар."
               : "“State body” = the contractor is a state or municipal organisation outside this sector. The contract is a real public procurement and is counted here, but the money stays inside government rather than reaching an external market."}
+          </p>
+        )}
+        {/* „Обединение" is quoted verbatim in BOTH languages on purpose: the row
+            label is `contractor_name` straight from the corpus and is never
+            translated, so an English reader sees that Cyrillic token on screen.
+            Naming it „Consortium" here would point at a string the page does not
+            contain. Not an untranslated leftover — do not "fix" it. */}
+        {hasConsortium && (
+          <p
+            id="sector-topcontractors-consortium-note"
+            className="pt-1.5 text-xs text-muted-foreground"
+          >
+            {bg
+              ? "Редовете „Обединение“ са консорциуми — няколко фирми, спечелили заедно. Сумата е на целия договор и се брои веднъж, но участник в обединение може да има и собствен ред тук, така че класирането подценява фирмите, които печелят предимно в консорциум."
+              : "“Обединение” rows are consortia — several firms that won together. The figure is the whole contract and is counted once, but a member firm may also hold its own row here, so the ranking understates firms that win mainly through consortia."}
           </p>
         )}
       </CardContent>

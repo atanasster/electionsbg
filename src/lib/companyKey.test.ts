@@ -11,7 +11,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
-import { isLinkableCompanyKey } from "./companyKey";
+import { isLinkableCompanyKey, isConsortiumCarrierKey } from "./companyKey";
 
 describe("isLinkableCompanyKey", () => {
   it("accepts the two Bulgarian EIK shapes", () => {
@@ -55,6 +55,44 @@ describe("isLinkableCompanyKey", () => {
     // INTENT so a future tightening has to argue with it.
     expect(isLinkableCompanyKey("000000210")).toBe(true); // ДГС Гърмен
     expect(isLinkableCompanyKey("000000491")).toBe(true); // ТПК, lowest real uic
+  });
+});
+
+describe("isConsortiumCarrierKey", () => {
+  it("accepts the obed- carrier namespace", () => {
+    expect(isConsortiumCarrierKey("obed-369bc7450c81")).toBe(true);
+    expect(isConsortiumCarrierKey("obed-f58039ac056a")).toBe(true);
+  });
+
+  // ⚠ THE MUTATION-RELEVANT HALF. The tempting simplification is
+  // `!isLinkableCompanyKey(eik)`, which passes the arm above and every component
+  // test — and is wrong here: `ph-` is a supplier whose registration number was
+  // filler and `np-` is a NATURAL PERSON. Labelling either „this row is several
+  // firms" is a false statement, and about an individual in the np- case.
+  it("rejects the other synthetic namespaces", () => {
+    expect(isConsortiumCarrierKey("ph-1a2b3c4d5e6f")).toBe(false);
+    expect(isConsortiumCarrierKey("np-9f8e7d6c5b4a")).toBe(false);
+  });
+
+  it("rejects plain EIKs, foreign ids and empties", () => {
+    for (const k of [
+      "131468980",
+      "0006951140000",
+      "HRB 12345", // a foreign registry id
+      "obed", // the prefix without its separator is not the namespace
+      "",
+      undefined,
+    ])
+      expect(isConsortiumCarrierKey(k), String(k)).toBe(false);
+  });
+
+  // The two predicates answer different questions and only OVERLAP — a carrier is
+  // both unlinkable and a consortium, but „unlinkable" is the wider set. Pinning
+  // the direction stops one being refactored into the negation of the other.
+  it("is a strict subset of the unlinkable keys", () => {
+    for (const k of ["obed-369bc7450c81", "ph-1a2b3c4d5e6f", "np-9f8e7d6c5b4a"])
+      expect(isLinkableCompanyKey(k)).toBe(false);
+    expect(isConsortiumCarrierKey("ph-1a2b3c4d5e6f")).toBe(false);
   });
 });
 

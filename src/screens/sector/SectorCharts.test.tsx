@@ -49,6 +49,7 @@ const supplier = (eik: string, name: string, totalEur: number) => ({
 const MEMBER = "180680495";
 const STATE_BODY = "831641791";
 const PRIVATE = "131468980";
+const CARRIER = "obed-369bc7450c81"; // a real e-gov consortium carrier key
 
 const model: AwarderModel<"all"> = {
   supplierCount: 3,
@@ -83,6 +84,22 @@ const renderTile = (opts?: {
       />
     </MemoryRouter>,
   );
+
+/** The tile slices `suppliers` to 8, so „is the carrier visible" is a property of
+ *  WHERE it sits, not of whether it exists. `at` places the one carrier row at a
+ *  given index in an otherwise carrier-free list. */
+const renderWithCarrierAt = (at: number, total = 9) => {
+  const suppliers = Array.from({ length: total }, (_, i) =>
+    i === at
+      ? supplier(CARRIER, "Обединение: А1 България ЕАД, Контракс АД", 1000 - i)
+      : supplier(`10000000${i}`, `Фирма ${i}`, 1000 - i),
+  );
+  return render(
+    <MemoryRouter>
+      <SectorTopContractorsTile model={{ ...model, suppliers }} />
+    </MemoryRouter>,
+  );
+};
 
 describe("SectorTopContractorsTile — labelling non-market contractors", () => {
   it("labels a public-body contractor and explains why in the note", () => {
@@ -137,5 +154,55 @@ describe("SectorTopContractorsTile — labelling non-market contractors", () => 
     renderTile({ stateBodyEiks: [STATE_BODY] });
     expect(screen.getByText("state body")).toBeInTheDocument();
     expect(screen.getByText(/stays inside government/)).toBeInTheDocument();
+  });
+});
+
+describe("SectorTopContractorsTile — consortium carriers", () => {
+  // The euros are right and are NOT double-counted (one carrier per consortium).
+  // What the note fixes is the SENTENCE: a member firm can also hold its own row,
+  // so the ranking understates whoever competes mainly through consortia.
+  it("explains a consortium row that is on screen", () => {
+    renderWithCarrierAt(0);
+    expect(screen.getByText(/подценява фирмите/)).toBeInTheDocument();
+  });
+
+  // Same visible-rows gate as the other two notes, and the one a `suppliers.some`
+  // over the WHOLE list would fail: the tile renders 8 rows, so a carrier at
+  // index 8 is real, counted, and invisible — explaining it describes nothing.
+  it("does not explain a consortium row below the top-8", () => {
+    renderWithCarrierAt(8);
+    expect(screen.queryByText(/подценява фирмите/)).not.toBeInTheDocument();
+  });
+
+  it("says nothing when no row is a consortium", () => {
+    renderTile({ stateBodyEiks: [STATE_BODY] });
+    expect(screen.queryByText(/подценява фирмите/)).not.toBeInTheDocument();
+  });
+
+  // The row must stay listed and keep its full value — filtering a legitimate
+  // consortium award to make the chart look more like a market is the one
+  // response that turns an honest page into a false one.
+  it("still lists the consortium row — the note is not a filter", () => {
+    renderWithCarrierAt(0);
+    expect(
+      screen.getByText("Обединение: А1 България ЕАД, Контракс АД"),
+    ).toBeInTheDocument();
+  });
+
+  it("associates the consortium row with the note that explains it", () => {
+    renderWithCarrierAt(0);
+    const row = screen.getByTitle("Обединение: А1 България ЕАД, Контракс АД");
+    expect(row.getAttribute("aria-describedby")).toBe(
+      "sector-topcontractors-consortium-note",
+    );
+    expect(
+      document.getElementById("sector-topcontractors-consortium-note"),
+    ).toBeInTheDocument();
+  });
+
+  it("carries the note in English too", () => {
+    lang = "en";
+    renderWithCarrierAt(0);
+    expect(screen.getByText(/understates firms/)).toBeInTheDocument();
   });
 });

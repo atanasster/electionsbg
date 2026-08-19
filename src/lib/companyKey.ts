@@ -39,3 +39,23 @@
  *  synthetic carrier or a foreign registry id, neither of which has a page. */
 export const isLinkableCompanyKey = (eik: string | undefined): boolean =>
   !!eik && /^(\d{9}|\d{13})$/.test(eik);
+
+/** A CONSORTIUM carrier key — the `obed-` namespace `supplier_identity.ts` mints
+ *  when an award names an обединение rather than one legal entity, keyed by the
+ *  member set.
+ *
+ *  ⚠ DELIBERATELY NOT `!isLinkableCompanyKey(eik)`. That predicate answers „can
+ *  /company serve this", which is also false for `ph-` (filler registration
+ *  number) and `np-` (natural person) keys, and for foreign registry ids. Those
+ *  are three different statements about a supplier and only this one means „this
+ *  row is several firms". Inverting the linkability check would put a note about
+ *  consortia under a row that is one named individual.
+ *
+ *  The reason a surface needs to say so: the carrier is counted ONCE, which is
+ *  right (crediting each member the full contract value is the double-count), but
+ *  a member firm can ALSO hold its own row — so a leaderboard understates a firm
+ *  that competes mainly through consortia. Measured on the e-gov group
+ *  (2026-08-19): А1 България shows €17.6M standalone, 5.2% and rank 6, against a
+ *  real €59.0M / 17.5% / rank 2 once its three carrier positions are included. */
+export const isConsortiumCarrierKey = (eik: string | undefined): boolean =>
+  !!eik && eik.startsWith("obed-");

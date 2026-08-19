@@ -22,7 +22,7 @@ never asserts a finding the tree beside it has not acted on.
 | T4 · `sector_stats_administration.data.test.ts` | ✅ shipped |
 | T4 · `administrationReferenceData.test.ts` | ✅ shipped |
 | T5 · add МДААР (re-audit, F1) | ✅ shipped |
-| T6 · consortium note on the shared tile (re-audit, F3) | ⏳ open |
+| T6 · consortium note on the shared tile (re-audit, F3) | ✅ shipped |
 
 ## What reconciled (no change)
 
