@@ -4592,6 +4592,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/mp-assets">Класиране на депутатите</a> по декларирани активи.</li>
 <li><a href="${SITE_URL}/mp-cars">Декларирани коли</a> на народните представители.</li>
 <li><a href="${SITE_URL}/declarations/crypto">Декларирани криптоактиви</a> — монета, количество и стойност, за всички власти.</li>
+<li><a href="${SITE_URL}/declarations/abroad">Пари в чужбина</a> — декларирани банкови сметки и вложения, държани извън България.</li>
 </ul>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата) и <a href="https://www.registryagency.bg" rel="nofollow noopener">Търговски регистър</a>.</p>`.trim(),
     english: {
@@ -4610,6 +4611,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/mp-assets">MPs ranked</a> by declared assets.</li>
 <li><a href="${SITE_URL}/en/mp-cars">Cars declared</a> by MPs.</li>
 <li><a href="${SITE_URL}/en/declarations/crypto">Declared crypto assets</a> — coin, quantity and value, across every tier.</li>
+<li><a href="${SITE_URL}/en/declarations/abroad">Money held abroad</a> — declared bank accounts and investments held outside Bulgaria.</li>
 </ul>
 <p>Sources: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Court of Audit) and the <a href="https://www.registryagency.bg" rel="nofollow noopener">Bulgarian Commerce Registry</a>.</p>`.trim(),
     },
@@ -4729,6 +4731,37 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Every crypto asset recorded in the property and interest declarations filed with the Bulgarian Court of Audit — which coin, how much of it, and the value put on it. The declarations cover MPs, cabinet members, mayors, councillors and agency heads, so this register is not tied to a single institution.</p>
 <p>The value is the one the declarant stated at the time of filing, not a current market price. The same asset is re-declared on every filing that covers it, so the default view shows one year per person; „all years" gives the full history.</p>
 <p>See also <a href="${SITE_URL}/en/mp-assets">MPs by declared assets</a>, the <a href="${SITE_URL}/en/officials/assets">officials ranking</a> and the <a href="${SITE_URL}/en/persons">public-figure directory</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "declarations/abroad",
+    title: "Пари в чужбина — декларирани от властта | electionsbg.com",
+    description:
+      "Колко от парите, които българската власт декларира по банкови сметки и инвестиции, стоят извън страната — и в кои държави, когато декларацията ги посочва.",
+    breadcrumbName: "Пари в чужбина",
+    // A RENDERED card (scripts/og/generate.ts), not a screenshot — see the note there for
+    // why this page does not follow its /declarations/crypto sibling.
+    ogImage: "/og/abroad.png",
+    // No totals in the body, for the same reason /declarations/crypto and /mp-cars give
+    // none: the figure moves with every filing season, and a number baked into static HTML
+    // is one nobody re-checks. The live headline on the page carries its own denominator.
+    bodyHtml: `
+<h1>Пари в чужбина</h1>
+<p>Имуществените декларации пред Сметната палата питат за всяка банкова сметка и всяко вложение поотделно дали се държи „в страната“ или „в чужбина“. Тук са събрани редовете, при които деклараторът е посочил чужбина — от народни представители, министри, кметове, общински съветници и ръководители на агенции.</p>
+<p>Въпросът се задава само в две таблици от декларацията — банкови влогове и вложения във фондове. Наличните пари в брой не се питат къде се държат, затова тази страница не описва цялото декларирано имущество, а само тази част от него. Магистратите не са включени: техните декларации се подават пред ВСС и нямат такова поле.</p>
+<p>Държава е посочена само при малка част от записите — регистърът често приема отметка „в чужбина“ без име на държава — затова разбивката по държави описва по-малко пари, отколкото общата сума.</p>
+<p>Виж и <a href="${SITE_URL}/declarations/crypto">декларираните криптоактиви</a>, <a href="${SITE_URL}/officials/assets">класацията на длъжностните лица</a> и <a href="${SITE_URL}/persons">указателя на публичните лица</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
+    english: {
+      title: "Money Held Abroad — Bulgarian Officials | electionsbg.com",
+      description:
+        "How much of the money Bulgarian officials declare in bank accounts and investments is held outside the country — and where, when the filing names a country.",
+      breadcrumbName: "Money held abroad",
+      bodyHtml: `
+<h1>Money held abroad</h1>
+<p>The property and interest declarations filed with the Bulgarian Court of Audit ask, for every bank account and every investment separately, whether it is held „at home“ or „abroad“. This page collects the entries where the declarant said abroad — from MPs, ministers, mayors, councillors and agency heads.</p>
+<p>The question is asked in only two of the declaration's tables — bank deposits and investment funds. Cash on hand is never asked about, so this page does not describe all declared wealth, only that part of it. Magistrates are not included: their declarations go to the Supreme Judicial Council, whose form has no such field.</p>
+<p>A country is named on only a small share of the entries — the register often accepts an „abroad“ tick with no country — so any breakdown by country covers less money than the headline total.</p>
+<p>See also <a href="${SITE_URL}/en/declarations/crypto">declared crypto assets</a>, the <a href="${SITE_URL}/en/officials/assets">officials ranking</a> and the <a href="${SITE_URL}/en/persons">public-figure directory</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
     },
   }),
   staticPage({

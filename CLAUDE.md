@@ -2652,6 +2652,38 @@ Three things about it are easy to get backwards:
 
 Plan: `docs/plans/declared-crypto-v1.md`.
 
+`person_abroad_table` + `person_abroad_overview()` (migration 169) are the „Пари в чужбина"
+register behind `/declarations/abroad` and the `abroad_holdings` DbDataTable resource — the
+corpus answer to „how much of the money declared by officials is held abroad". Like 159 it
+has **no loader of its own**: it is the **SIXTH** victim of 090's `DROP MATERIALIZED VIEW
+person_wealth_year CASCADE`, so `load_declarations_pg.ts` applies it in phase 2 after 159, and
+its `CREATE … AS` populates it. Cloud side it therefore rides
+`npm run db:load:declarations:pg:cloud -- --resolve`.
+
+**First deploy is ORDERED, and getting it wrong is a 500 rather than a narrower answer** —
+the registry engine reads the base relation unconditionally, exactly as for `crypto_holdings`.
+Loader first, then `deploy:db`, then `deploy`.
+
+Three things about it are easy to get backwards:
+
+- **It joins `person_wealth_year`, and that is a CORRECTNESS property.** A holding is
+  re-declared on every filing that covers it: raw rows are 3,196 / €168.5m against a deduped
+  2,788 / €143.1m, a 17.8% overstatement. Same trap `person_crypto_table` documents.
+- **Its `'latest'` anchor is NOT 159's.** 159 anchors on each person's most recent
+  CRYPTO-bearing period so it agrees with the block on that person's profile; 169 anchors on
+  the most recent FILING, because a corpus aggregate must drop holdings people have stopped
+  declaring. `person_abroad_overview()` shares that anchor — if the two ever diverge the
+  page's headline stops equalling the rows beneath it.
+- **Coverage is narrower than „money", and every consumer must say so.** `held_scope` exists
+  only on tables 5 and 8, so the register spans €2.26bn of €5.67bn in declared assets and
+  magistrates are absent entirely. The same numerator is **5.9%** of bank+investment money,
+  **2.3%** of declared holdings and **0.8%** of the corpus — which is why
+  `person_abroad_overview()` returns `eurInScope` beside `eurAbroad` and nothing publishes a
+  bare percentage.
+
+The gate is `scripts/db/tests/person_abroad.data.test.ts` (6 tests), plus
+`AbroadRegistryScreen.test.tsx` and a degrade-contract test in `db_routes.person.test.js`.
+
 Last of the person-layer standalone loaders — the connections graph (migrations 127 + 128 + 129,
 `db:load:graph:pg`), the three `graph_*` tables (`graph_edge` / `graph_company_node` /
 `graph_person_node`) + the down-sampled `graph_payloads` blob behind `/connections` and the re-pointed

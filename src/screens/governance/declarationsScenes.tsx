@@ -115,4 +115,7 @@ export const DECLARATION_SCENES: Record<string, FC> = {
   companies: Companies,
   officials: Officials,
   crypto: Crypto,
+  // Reuses the crypto vignette: both are declaration REGISTERS keyed on a holding, and
+  // inventing a second picture for the same shape is noise. Swap if a bespoke one lands.
+  abroad: Crypto,
 };

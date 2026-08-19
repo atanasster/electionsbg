@@ -349,7 +349,12 @@ test("every fan-out resource declares a defaultScope", () => {
     "agri_schemes",
     "agri_political",
     "agri_cross_programme",
-  ];
+    // Both declaration registers fan out on `scope`, and their matview headers say the entry
+  // MUST carry a defaultScope. Neither was listed, so deleting it failed nothing — measured
+  // on abroad_holdings, an unscoped query returns 3.73x the rows and 4.06x the money.
+  "crypto_holdings",
+  "abroad_holdings",
+];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);
     assert.ok(

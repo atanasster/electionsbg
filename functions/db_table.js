@@ -1520,6 +1520,89 @@ const REGISTRY = {
     maxPageSize: 200,
   },
 
+  // Declared money held OUTSIDE Bulgaria (matview person_abroad_table, migration 169).
+  //
+  // ⚠️ FIRST DEPLOY IS ORDERED: loader, then deploy:db, then deploy. This resource reads
+  // person_abroad_table UNCONDITIONALLY and badRequest() rethrows anything that is not a
+  // DbRequestError, so on a serving database without 169 a 42P01 — or a 55000 from a matview
+  // created WITH NO DATA — is a 500 on EVERY request to /declarations/abroad, not a narrower
+  // answer. Same class as cpv_catalog, contractor_rank and person_crypto_table. The
+  // /api/db/person-abroad-overview route degrades to null and imposes no ordering of its own;
+  // this one does.
+  //
+  // ONE ROW PER HOLDING, not per person, exactly like crypto_holdings above: a declarant
+  // with three foreign accounts contributes three rows.
+  //
+  // ⚠️ defaultScope IS LOAD-BEARING, not boilerplate. Rows on a person's latest filing are
+  // emitted in BOTH the 'latest' and 'all' buckets, so an unscoped query is their UNION:
+  // 3,810 rows and EUR 189.9m against a true 1,022 / EUR 46.8m, with `count` and `sum`
+  // inflated to match and nothing erroring. db_table.test.js fails an ns-style resource
+  // that omits it.
+  abroad_holdings: {
+    base: "person_abroad_table",
+    scopeCols: ["scope"],
+    defaultScope: { col: "scope", val: "latest" },
+    columns: {
+      scope: { type: "text" },
+      holding_key: { type: "text" },
+      person_slug: { type: "text", filter: "in" },
+      person_name: { type: "text", sort: true, filter: "text", search: true },
+      tier: { type: "text", sort: true, filter: "in" },
+      institution: { type: "text", filter: "text", search: true },
+      position_title: { type: "text", filter: "text" },
+      declaration_type: { type: "text", filter: "in" },
+      period_year: { type: "int", sort: true, filter: "range" },
+      declaration_id: { type: "int" },
+      category: { type: "text", filter: "in" },
+      description: { type: "text", filter: "text", search: true },
+      // The country, when a cell named one — a FACET, unlike crypto's `description`,
+      // because these values are a curated canonical set (classifyHeldPlace folds the
+      // register's spellings and typos onto one name per country) rather than free text.
+      //
+      // ⚠️ FILTERING ON IT SELECTS A SMALL MINORITY, NOT A BREAKDOWN OF THE WHOLE. „да" in
+      // the „В чужбина" column says abroad and names nowhere: a country is named on 144 of
+      // 1,022 latest-scope rows, 9% of the money. `country_named` is exposed so a surface
+      // can say which subset it is showing; a country facet presented as a full breakdown
+      // is the misreading this register is most likely to acquire.
+      held_country: { type: "text", sort: true, filter: "in" },
+      // Filterable but NOT selected: no surface reads it per row (the country column
+      // renders held_country directly, and the subset SIZE comes from the overview). It
+      // exists so „named country only" is one filter rather than a NULL predicate the
+      // engine cannot express.
+      country_named: { type: "bool", filter: "eq" },
+      is_spouse: { type: "bool", filter: "eq" },
+      value_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      source_url: { type: "text" },
+    },
+    select: [
+      "holding_key",
+      "person_slug",
+      "person_name",
+      "tier",
+      "institution",
+      "position_title",
+      "declaration_type",
+      "period_year",
+      "declaration_id",
+      "category",
+      "description",
+      "held_country",
+      "is_spouse",
+      "value_eur",
+      "source_url",
+    ],
+    defaultSort: [["value_eur", "desc"]],
+    // count(*) = holdings; count(value_eur) = holdings carrying a declared value — the two
+    // differ because an unvalued abroad row is COUNTED rather than read as EUR 0;
+    // sum(value_eur) = the declared total for the current scope + filters.
+    aggregates: [
+      { fn: "count" },
+      { fn: "count", col: "value_eur" },
+      { fn: "sum", col: "value_eur" },
+    ],
+    maxPageSize: 200,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //

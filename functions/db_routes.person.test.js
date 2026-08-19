@@ -278,6 +278,41 @@ test("mp-* routes degrade to their own empty shape on a missing migration", asyn
   }
 });
 
+// person-abroad-overview is the same class and shipped WITHOUT the guard: the payload is an
+// object, `missingMigrationEmpty` degrades to `[{ r: [] }]`, and `[] ?? null` is `[]` — so a
+// database without 169 handed the client a truthy empty array. The card renders on presence,
+// and /declarations/abroad published „— % от " with no number and no denominator, which is
+// the exact failure 169's header, the route comment and the screen comment all exist to
+// prevent. One line, and it reads like a redundant safety check.
+test("person-abroad-overview degrades to null, not the array sentinel", async () => {
+  for (const code of MIGRATION_CODES) {
+    const res = await DB_ROUTES["person-abroad-overview"](
+      mockDb(migrationMissing(code)),
+      {},
+    );
+    assert.equal(
+      res.body,
+      null,
+      `person-abroad-overview (${code}) must degrade to null, got ${JSON.stringify(res.body)}`,
+    );
+    assert.ok(
+      !Array.isArray(res.body),
+      `person-abroad-overview (${code}) must never serve an array — the client reads an object`,
+    );
+  }
+});
+
+// …and it passes a real payload through untouched, so the guard above cannot be satisfied by
+// a route that simply always returns null.
+test("person-abroad-overview passes a real payload through", async () => {
+  const payload = { eurAbroad: 46815104, eurInScope: 799027521, pctOfInScope: 5.9 };
+  const res = await DB_ROUTES["person-abroad-overview"](
+    mockDb([{ r: payload }]),
+    {},
+  );
+  assert.deepEqual(res.body, payload);
+});
+
 // Without a key there is nothing to look up, and the route must not reach the database at
 // all — a bare `SELECT mp_entry(NULL, NULL)` would be a pointless round trip on every
 // malformed request.

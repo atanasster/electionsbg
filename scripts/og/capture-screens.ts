@@ -859,6 +859,10 @@ const captures: Capture[] = [
     settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",
   },
+  // /declarations/abroad is NOT here: it uses a RENDERED card from scripts/og/generate.ts
+  // ("abroad.png"). This script shoots the dev server, whose /api/db is proxied to the
+  // SERVING database, so a screenshot taken before migration 169 is published there would
+  // be an empty table.
   {
     slug: "mp-companies",
     routePath: "mp/companies?elections=2026_04_19",

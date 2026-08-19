@@ -141,6 +141,7 @@ export const ENGLISH_STATIC_PAGES = [
   "mp-assets",
   "mp-cars",
   "declarations/crypto",
+  "declarations/abroad",
   "officials/assets",
   "persons",
   "procurement",
@@ -554,6 +555,13 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "declarations/crypto",
     file: `src/screens/CryptoRegistryScreen.tsx`,
+  },
+  // Sibling of the crypto register and cross-tier for the same reason: 494 executive
+  // officials, 49 MPs and 85 municipal ones on the served basis.
+  // Plan: docs/plans/declaration-held-abroad-v1.md §7
+  {
+    path: "declarations/abroad",
+    file: `src/screens/AbroadRegistryScreen.tsx`,
   },
 
   // Non-MP officials (cabinet, state-agency heads, regional governors).

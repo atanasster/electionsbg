@@ -1006,6 +1006,11 @@ const CryptoRegistryScreen = lazy(() =>
     default: m.CryptoRegistryScreen,
   })),
 );
+const AbroadRegistryScreen = lazy(() =>
+  import("./screens/AbroadRegistryScreen").then((m) => ({
+    default: m.AbroadRegistryScreen,
+  })),
+);
 const SimulatorScreen = lazy(() =>
   import("./screens/SimulatorScreen").then((m) => ({
     default: m.SimulatorScreen,
@@ -3571,6 +3576,18 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CryptoRegistryScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Sibling of the crypto register, and cross-tier for the same reason: the
+              holders are 659 executive officials, 89 MPs and 86 municipal ones, so an
+              `mp-` or `officials/` prefix would name the wrong population.
+              Plan: docs/plans/declaration-held-abroad-v1.md §7 */}
+          <Route
+            path="declarations/abroad"
+            element={
+              <LayoutScreen>
+                <AbroadRegistryScreen />
               </LayoutScreen>
             }
           />

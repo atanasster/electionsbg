@@ -5248,6 +5248,30 @@ const DB_ROUTES = {
   // Every declaration this person filed, newest first, with per-filing totals →
   // the unified declaration block (audit T3.3). One payload replaces the three
   // divergent per-tier JSON trees.
+  // The „Пари в чужбина" headline (migration 169). A separate route from the
+  // abroad_holdings registry resource because the register can only aggregate what it
+  // CONTAINS — and the number this page turns on is a RATIO whose denominator is the
+  // domestic money the register deliberately excludes.
+  //
+  // ⚠️ Never render eurAbroad as a share of anything this payload does not carry. The same
+  // numerator is 5.9% of bank+investment money (eurInScope, what this returns) and 2.3% of
+  // all declared holdings; a consumer picking a denominator by accident is the failure the
+  // shape prevents. See 169's header.
+  //
+  // Degrades to null on a database without 169 so a first deploy in either order renders
+  // the page without the headline rather than 500ing it.
+  "person-abroad-overview": async (dbRows) => {
+    const rows = await dbRows("SELECT person_abroad_overview() AS r").catch(
+      missingMigrationEmpty,
+    );
+    // ⚠️ missingMigrationEmpty degrades to `[{ r: [] }]` — the ARRAY sentinel. This payload
+    // is an object, and `[] ?? null` is `[]`, not null: without this guard a database
+    // without 169 hands the client a truthy empty array, the card renders on its presence,
+    // and the page publishes „— % от " with no number and no denominator. Four sibling
+    // object-shaped routes carry the same line; db_routes.person.test.js documents the rule.
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   "person-declarations": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: [] };

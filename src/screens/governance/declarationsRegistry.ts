@@ -30,7 +30,7 @@ export const DECLARATION_BANDS: DeclarationBand[] = [
   {
     labelKey: "decl_band_who",
     descKey: "decl_band_who_desc",
-    tileIds: ["persons", "officials", "assets", "cars", "crypto"],
+    tileIds: ["persons", "officials", "assets", "cars", "crypto", "abroad"],
   },
   {
     labelKey: "decl_band_business",
@@ -86,6 +86,13 @@ export const DECLARATION_TILES: DeclarationTile[] = [
     descKey: "decl_crypto_desc",
     to: "/declarations/crypto",
     accent: TILE_ACCENTS.gold,
+  },
+  {
+    id: "abroad",
+    titleKey: "abroad_link_label",
+    descKey: "decl_abroad_desc",
+    to: "/declarations/abroad",
+    accent: TILE_ACCENTS.teal,
   },
   {
     id: "officials",
