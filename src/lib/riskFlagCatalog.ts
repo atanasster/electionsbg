@@ -66,6 +66,7 @@ export const CATALOG_VERSION = "1.0.0";
 export type Threshold =
   | { kind: "gteRatio"; value: number; unit: "share"; basis: string }
   | { kind: "ltDays"; value: number; basis: string }
+  | { kind: "lteDays"; value: number; basis: string }
   | { kind: "ltMonths"; value: number; basis: string }
   | { kind: "gteMultiple"; value: number; basis: string }
   | { kind: "gteEur"; value: number; basis: string }
@@ -112,6 +113,20 @@ export type ContractFlagDef = {
   readonly naReasonKey: string;
   /** One line: when is this check evaluable at all? The denominator rule. */
   readonly availability: string;
+  /** ⚠️ What is WRONG, unsettled or currently inert about this check.
+   *
+   *  Published verbatim in the handbook and in risk-flags.json. This field exists
+   *  because a spec that lists only what each flag does is a sales document: a
+   *  check evaluable on ZERO contracts, or one whose threshold the project's own
+   *  methodology calls uncalibrated, has to say so where a reader will see it —
+   *  not in a plan they will never open. */
+  readonly caveat?: string;
+  /** Measured base rate on the Bulgarian corpus, where one has been measured.
+   *  Published beside the threshold because a threshold with no base rate next to
+   *  it is a number the reader cannot sanity-check — and because a flag that
+   *  fires on 30% of everything is a different object from one that fires on
+   *  0.09%. Absent means "not measured", never "zero". */
+  readonly baseRate?: string;
 };
 
 /** Every contract check, IN BIT ORDER. Display order is separate — see
@@ -159,12 +174,14 @@ export const CONTRACT_FLAGS = [
       basis:
         "Pair share of the buyer's LIFETIME spend, and only for buyers above the minimum total below (033).",
     },
-    citation: "Fazekas / Government Transparency Institute",
+    citation:
+      "House threshold. 30% of a buyer's spend going to one supplier is the conventional red-flag bar in CEE procurement oversight (Transparency International methodology); the €100,000 floor beneath it is ours.",
     ref: "Fazekas / GTI",
     labelKey: "risk_flag_concentration_long",
     whyKey: "risk_flag_concentration_hint",
     naReasonKey: "risk_na_generic",
-    availability: "Always — computed corpus-wide per (buyer, supplier) pair.",
+    availability:
+      "Computed corpus-wide per (buyer, supplier) pair — but ONLY for buyers whose lifetime spend clears €100,000. Below that a 100% share is arithmetic rather than concentration, so those pairs are excluded from the flag entirely.",
   },
   {
     id: "amendment",
@@ -206,8 +223,9 @@ export const CONTRACT_FLAGS = [
       basis:
         "Months between the company's founding date and the award. Availability is decided per CONTRACTOR, so a bound on the founding-date source moves the DENOMINATOR, not just the numerator — that asymmetry is what made 30.2% of the corpus disagree across the TS/SQL sides before the parity harness existed.",
     },
-    citation: "K-Index P4",
-    ref: "K-Index P4",
+    citation:
+      "House threshold. A company barely older than the contract it won is a structural signal, not a rule from a named index — an earlier draft of this catalogue cited a 'K-Index P4' that does not exist.",
+    ref: "K-Index",
     labelKey: "risk_flag_new_firm_long",
     whyKey: "risk_flag_new_firm_hint",
     naReasonKey: "risk_na_new_firm",
@@ -218,13 +236,15 @@ export const CONTRACT_FLAGS = [
     id: "splitPurchase",
     bit: 7,
     legacyWeight: 25,
-    citation: "ЗОП чл.20 ал.4 / чл.21",
+    citation:
+      "ЗОП чл.20 ал.4 / чл.21. Reference implementations: OCP R049, ProZorro RISK-2-5/2-6, K-Index P3.",
     ref: "ЗОП чл.20 ал.4",
     labelKey: "risk_flag_split_long",
     whyKey: "risk_flag_split_hint",
     naReasonKey: "risk_na_generic",
     availability:
       "Always — but it is a QUESTION, not a verdict: чл.21 permits separate recurring needs, and the data cannot distinguish that from splitting.",
+    baseRate: "0.09% of contracts (risk-v2 §6b-results)",
   },
   {
     id: "appealUpheld",
@@ -276,15 +296,18 @@ export const CONTRACT_FLAGS = [
       kind: "ltDays",
       value: 14,
       basis:
-        "EU Directive 2014/24 Art. 27 — the open-procedure minimum. ⚠️ This is the CONTRACT-grain check and it does sit on the legal minimum; the TENDER-grain rushedDeadline below deliberately does NOT (12 days, competitive tiers only), because on low-value tiers a short window is statutory rather than anomalous.",
+        "Lifted from EU Directive 2014/24 Art. 27 as a round reference figure. ⚠️ That makes it a LEGAL MINIMUM rather than a calibrated risk threshold — Art. 27's own minima are longer and tiered (35 days, 30 with electronic submission, 15 under an accelerated procedure), so 14 is our simplification of it and not a rule the Directive states. The project's own methodology (risk-v2 §6a) records the cut as uncalibrated and due to be re-cut into bands. The TENDER-grain rushedDeadline deliberately differs (12 days, competitive tiers only), because on low-value tiers a short window is statutory rather than anomalous.",
     },
-    citation: "EU Dir 2014/24 Art. 27",
+    citation:
+      "EU Dir 2014/24 Art. 27 (a reference figure, not a rule it states)",
     ref: "ЕС 2014/24 чл.27",
     labelKey: "risk_flag_short_period_long",
     whyKey: "risk_flag_short_period_hint",
     naReasonKey: "risk_na_short_period",
     availability:
       "Only where both tender-window dates are present and ordered.",
+    caveat:
+      "CURRENTLY INERT. The tender-window columns are unpopulated across the contracts corpus, so this check is evaluable on effectively no contracts — measured 0 of 20,000 sampled. It is neither firing nor passing: it is excluded from every contract's CRI denominator. Listed here because it is implemented and would begin scoring the moment those dates arrive, not because it contributes today.",
   },
   {
     id: "nkidMismatch",
@@ -380,6 +403,14 @@ export type TenderFlagDef = {
   readonly threshold?: Threshold;
   readonly citation?: string;
   readonly availability: string;
+  /** ⚠️ What is WRONG, unsettled or currently inert about this check.
+   *
+   *  Published verbatim in the handbook and in risk-flags.json. This field exists
+   *  because a spec that lists only what each flag does is a sales document: a
+   *  check evaluable on ZERO contracts, or one whose threshold the project's own
+   *  methodology calls uncalibrated, has to say so where a reader will see it —
+   *  not in a plan they will never open. */
+  readonly caveat?: string;
   /** Measured base rate on the Bulgarian corpus, where one exists. The single
    *  strongest trust signal in the published spec — a threshold with no base
    *  rate beside it is a number a reader cannot sanity-check. */
@@ -411,13 +442,16 @@ export const TENDER_FLAGS = [
   {
     id: "shortDecisionPeriod",
     threshold: {
-      kind: "ltDays",
+      kind: "lteDays",
       value: 4,
-      basis: "Award decided within this many days of the submission deadline.",
+      basis:
+        "Award decided within this many days of the submission deadline, INCLUSIVE — the implementation compares `<= 4`, so a 4-day decision fires. (An earlier draft of this catalogue published it as `< 4`, which is off by one day.)",
     },
     citation: "World Bank PRWP 10444 short band",
     availability: "Only once the procedure is awarded.",
     baseRate: "3.2%",
+    caveat:
+      "DIRECTION UNSETTLED. The flag scores SHORT decision periods, but PRWP 10444's own prose justifies risk via the opposite mechanism — that a lengthy decision period gives room for repeated legal challenges until the award reaches a chosen company. The calibration penalises short while the source narrative worries about long: an inconsistency in the source, documented rather than resolved. Treat this as the weakest of the four tender checks.",
   },
   {
     id: "awardOverEstimate",
@@ -427,7 +461,8 @@ export const TENDER_FLAGS = [
       basis:
         "Awards summing above this multiple of the procedure estimate. ONE-SIDED by design: awards UNDER the estimate are usually competition savings, and OCP R016's under-valuation is a different comparison (estimate vs the peer-CPV norm), which the normalcy panel already carries. The 10% buffer absorbs rounding and minor scope changes — median awarded/estimated is 99%, p95 is 105%.",
     },
-    citation: "PwC/Ecorys flag 18 (+34.1%)",
+    citation:
+      "PwC/Ecorys (2013), the only source with measured per-flag weights. ⚠️ Those weights are conditional on a 50/50 case-control sample, so they order flags rather than estimate precision — and an earlier draft of this catalogue cited a specific flag number from it that could not be verified in-repo.",
     availability:
       "Only where a procedure estimate and at least one award exist.",
     baseRate: "4.1%",
@@ -548,6 +583,39 @@ export const NEUTRAL_DISCLOSURES = [
 /** Adopted from OCP, *Red Flags for Integrity* (2024) p. 13. The ordering names
  *  the two innocent explanations before the guilty one; it is a presentation
  *  order, NOT a claim about relative frequency. */
+/** How many checks fire per contract, over the whole corpus. Measured
+ *  2026-07-27 across 407,560 contracts and recorded in 112's header; it is what
+ *  the per-contract grade is banded on, and it is the number that makes "F" mean
+ *  something. Published because a reader who does not know that 63.5% of
+ *  contracts fire NOTHING cannot calibrate a contract that fires two. */
+export const FIRED_COUNT_DISTRIBUTION = [
+  { fired: 0, contracts: 258_706, share: "63.5%" },
+  { fired: 1, contracts: 122_334, share: "30.0%" },
+  { fired: 2, contracts: 23_098, share: "5.7%" },
+  { fired: 3, contracts: 2_938, share: "0.72%" },
+  { fired: 4, contracts: 403, share: "0.10%" },
+  { fired: 5, contracts: 70, share: "0.02%" },
+  { fired: 6, contracts: 11, share: "0.003%" },
+] as const;
+
+/** Corpus the distribution above was measured over. */
+export const FIRED_COUNT_CORPUS = {
+  contracts: 407_560,
+  measuredOn: "2026-07-27",
+} as const;
+
+/** The per-contract A–F bands. Banded on the FIRED COUNT, not the CRI — see the
+ *  handbook's "three grades" section for why the CRI cannot carry them (its
+ *  corpus maximum is 60, which makes F unreachable on 041's cutoffs). */
+export const CONTRACT_GRADE_BANDS = [
+  { grade: "A", fired: "0" },
+  { grade: "B", fired: "1" },
+  { grade: "C", fired: "2" },
+  { grade: "D", fired: "3" },
+  { grade: "E", fired: "4" },
+  { grade: "F", fired: "5 or more" },
+] as const;
+
 export const FLAG_FRAMING = {
   ocp:
     "A fired flag means the behaviour may be a) not at all illicit or suboptimal; " +

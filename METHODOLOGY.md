@@ -22,17 +22,9 @@ contract risk index (CRI), the per-contract grade and the buyer/supplier exposur
 | Why it is published at all | [docs/plans/procurement-risk-open-source-v1.md](docs/plans/procurement-risk-open-source-v1.md) |
 | The methodology it implements | [docs/plans/procurement-risk-v2.md](docs/plans/procurement-risk-v2.md) |
 
-> **Status — read this before following the links above.** The licence and this index shipped
-> first, deliberately: an unlicensed spec is not reusable however well written. Everything in
-> the table except the last three rows is **forthcoming** — `riskFlagCatalog.ts`, the handbook,
-> `risk-flags.json`, the `npm run gen:risk` generator, its drift gate and the
-> `/procurement/methodology` page all land together. Until they do, the authoritative
-> definitions are the implementation files in the "The implementation" row, and the plan
-> describes what is being extracted from them.
-
-Once shipped, the handbook and `risk-flags.json` will be **generated** — `npm run gen:risk` —
-so the published spec cannot drift from the code that computes the flags, with a vitest gate
-failing the build if it does. Neither the script nor the gate exists yet.
+Both the handbook and `risk-flags.json` are **generated** — `npm run gen:risk` — from
+`src/lib/riskFlagCatalog.ts`, so the published spec cannot drift from the code that computes the
+flags. `scripts/risk/gen_risk.test.ts` fails when either is stale.
 
 ### Citing it
 

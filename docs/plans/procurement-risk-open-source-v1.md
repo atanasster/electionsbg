@@ -211,8 +211,17 @@ Three differences the catalog must carry and the spec must state:
 
 **Open question this surfaces, and the plan should not close it silently:** is the supplier arm's
 un-rebalanced weight set a deliberate exception (the Scoreboard argument is about buyers' choice
-of procedure, which a supplier does not make) or drift that survived §8? The spec cannot publish
-either reading as fact until someone decides. Answer it in T2, before the handbook ships.
+of procedure, which a supplier does not make) or drift that survived §8?
+
+**Resolved for T2 by NOT resolving it, which is the honest option.** The handbook publishes both
+weight sets as facts, states the three differences, and says in as many words that the rationale
+for the supplier set is undecided and under review. Inventing a rationale would put a claim we
+cannot support into the one document written to be quoted; suppressing the difference would let a
+reader assume the Scoreboard evidence covers a grade it never touched. `risk-flags.json` carries
+the same statement in `exposureGrades.supplierOpenQuestion`, and `gen_risk.test.ts` fails if
+either loses it. The underlying question is still a decision for whoever owns the exposure
+grades — it is simply not a blocker on publishing, because "we have not decided" is publishable
+and a fabricated reason is not.
 
 **Neutral disclosure (never scored):** `ngoForeignFunded` (direct/connected, `080`).
 
@@ -548,7 +557,7 @@ a plausible-looking wrong id is not.
 | **T0** | `LICENSE` (MIT, path-scoped) + `package.json` `license` field + `METHODOLOGY.md` pointer + confirm repo public | — | Half a day; the legal prerequisite for everything else |
 | **T1** ✅ | `src/lib/riskFlagCatalog.ts` (relocated + widened `CHECK_CATALOG`) + direct imports + the two vitest drift gates (§8) | T0 | Touched `RiskBadges.tsx`, `contractRiskMask.ts`, both scorers **and** `derived.ts`/`by_ns.ts` (two further copies found during the work) — not a UI-free refactor. Threshold resolution picked (§3b) |
 | **T1.5** ✅ | Version stamping: `contract_risk_meta` + `contract_risk_stamp()` + a `rebuild_contract_risk_cache(text)` overload + `/api/db/risk-catalog-version` | T1 | T4 cannot print an honest version without it (§3c). An OVERLOAD, not a defaulted argument — the latter would make the existing no-arg call ambiguous, inside `load_pg.ts` mid-reload |
-| **T2** | `genRiskI18n`/`genRiskDocs` + the handbook (§4a–§4g) + `risk-flags.json` | T1, T1.5 | Docs generated, not hand-copied. **Resolve §3a's supplier-weight question before the handbook ships** |
+| **T2** ✅ | `npm run gen:risk` → `docs/methodology/procurement-risk-flags.md` + `public/risk-flags.json` | T1, T1.5 | Docs generated, not hand-copied, with a `--check` staleness gate. The i18n audit lives in `riskFlagCatalog.test.ts` rather than a `genRiskI18n` — the keys are declared, so what is needed is a check that they RESOLVE in both corpora, not a generator |
 | **T3** | OCP/iMonitor alignment table (§5) | T2 | Every R-id verified against the source PDF or marked `unmapped` — that verification *is* the tier |
 | **T4** | `/procurement/methodology` page (prerender + both sitemap lists + own og:image) + per-chip citation links + download | T2, T3 | See §6.1's three artifacts |
 | **T5** | (optional) publish the two scorers as a standalone subpackage with README | T1 | Only if SIGMA/others express interest; the catalog JSON already covers most use |
